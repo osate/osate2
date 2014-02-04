@@ -43,15 +43,20 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IFragmentProvider;
+import org.eclipse.xtext.util.OnChangeEvictingCache;
 import org.osate.aadl2.NamedElement;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
 public class Aadl2QualifiedNameFragmentProvider implements IFragmentProvider {
 
 	private IQualifiedNameProvider qualifiedNameProvider;
+	
+	@Inject
+	private OnChangeEvictingCache cache;
 
 	@Inject
 	public Aadl2QualifiedNameFragmentProvider( final IQualifiedNameProvider qualifiedNameProvider ) {
@@ -77,10 +82,19 @@ public class Aadl2QualifiedNameFragmentProvider implements IFragmentProvider {
 	}
 
 	@Override
-	public EObject getEObject(	Resource resource, 
-								String fragment, 
-								Fallback fallback) {
-		if (fragment != null) {
+	public EObject getEObject(	final Resource resource, 
+								final String fragment, 
+								final Fallback fallback) {
+	    return cache.get(fragment, resource, new Provider<EObject>() {
+            @Override
+            public EObject get() {
+                return doGetEObject(resource, fragment, fallback);
+            }
+        });
+	}
+
+    private EObject doGetEObject(Resource resource, String fragment, Fallback fallback) {
+        if (fragment != null) {
 			Iterator<EObject> i = EcoreUtil.getAllContents(resource, false);
 			
 			while(i.hasNext()) {
@@ -94,5 +108,5 @@ public class Aadl2QualifiedNameFragmentProvider implements IFragmentProvider {
 		}
 
 		return fallback.getEObject(fragment);
-	}
+    }
 }

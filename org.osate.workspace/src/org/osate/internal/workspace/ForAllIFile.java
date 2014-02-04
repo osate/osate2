@@ -65,7 +65,7 @@ public class ForAllIFile {
 	/**
 	 * placeholder to be overwritten by real action in each list element
 	 * 
-	 * @param obj AObject
+	 * @param obj IFile
 	 * @return true always
 	 */
 	protected boolean suchThat(IFile obj) {
@@ -77,7 +77,7 @@ public class ForAllIFile {
 	 * default implementation creates a list of elements satisfying the
 	 * condition
 	 * 
-	 * @param obj AObject
+	 * @param obj IFile
 	 */
 	protected void action(IFile obj) {
 		resultList.add(obj);

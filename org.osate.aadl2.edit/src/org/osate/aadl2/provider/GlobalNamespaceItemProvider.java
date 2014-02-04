@@ -56,9 +56,8 @@ import org.osate.aadl2.GlobalNamespace;
  * <!-- end-user-doc -->
  * @generated
  */
-public class GlobalNamespaceItemProvider extends NamespaceItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class GlobalNamespaceItemProvider extends NamespaceItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -94,15 +93,12 @@ public class GlobalNamespaceItemProvider extends NamespaceItemProvider
 	 */
 	protected void addPackagePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_GlobalNamespace_package_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_GlobalNamespace_package_feature",
-						"_UI_GlobalNamespace_type"), Aadl2Package.eINSTANCE
-						.getGlobalNamespace_Package(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_GlobalNamespace_package_feature",
+						"_UI_GlobalNamespace_type"), Aadl2Package.eINSTANCE.getGlobalNamespace_Package(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -113,15 +109,12 @@ public class GlobalNamespaceItemProvider extends NamespaceItemProvider
 	 */
 	protected void addPropertySetPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_GlobalNamespace_propertySet_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_GlobalNamespace_propertySet_feature",
-						"_UI_GlobalNamespace_type"), Aadl2Package.eINSTANCE
-						.getGlobalNamespace_PropertySet(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_GlobalNamespace_propertySet_feature",
+						"_UI_GlobalNamespace_type"), Aadl2Package.eINSTANCE.getGlobalNamespace_PropertySet(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -132,8 +125,7 @@ public class GlobalNamespaceItemProvider extends NamespaceItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/GlobalNamespace"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GlobalNamespace"));
 	}
 
 	/**
@@ -170,8 +162,7 @@ public class GlobalNamespaceItemProvider extends NamespaceItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

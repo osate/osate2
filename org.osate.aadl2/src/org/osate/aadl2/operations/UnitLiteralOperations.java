@@ -67,16 +67,14 @@ public class UnitLiteralOperations extends NamedElementOperations {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public static double getAbsoluteFactor(UnitLiteral unitLiteral,
-			UnitLiteral target) {
+	public static double getAbsoluteFactor(UnitLiteral unitLiteral, UnitLiteral target) {
 		double factor = 1.0;
 		if (unitLiteral == target)
 			return factor;
 		UnitLiteral current = unitLiteral;
 		while (current.getBaseUnit() != null) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current
-					.getFactor()).getValue());
+					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
 			factor *= val;
 			current = current.getBaseUnit();
 			if (current == target)
@@ -87,8 +85,7 @@ public class UnitLiteralOperations extends NamedElementOperations {
 		current = target;
 		while (current.getBaseUnit() != null) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current
-					.getFactor()).getValue());
+					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
 			factor /= val;
 			current = current.getBaseUnit();
 			if (current == unitLiteral)

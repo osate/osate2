@@ -134,7 +134,8 @@ public class ResourceLoadedListener extends DemultiplexingListener {
 
 						if (page != null) {
 							IEditorReference[] editors = page.findEditors(new FileEditorInput(file),
-									"org.osate.aadl2.instance.presentation.InstanceEditorID", //$NON-NLS-1$
+									"org.osate.aadl2.presentation.Aadl2ModelEditorID",
+//									"org.osate.aadl2.instance.presentation.InstanceEditorID", //$NON-NLS-1$
 									IWorkbenchPage.MATCH_ID | IWorkbenchPage.MATCH_INPUT);
 
 							page.closeEditors(editors, false);

@@ -80,12 +80,10 @@ public class NumberValueOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public static double getScaledValue(NumberValue numberValue,
-			UnitLiteral target) {
+	public static double getScaledValue(NumberValue numberValue, UnitLiteral target) {
 		final double value = getValue(numberValue);
 		final UnitLiteral unit = numberValue.getUnit();
-		final double factor = (unit == null) ? 1.0 : unit
-				.getAbsoluteFactor(target);
+		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor(target);
 
 		return value * factor;
 	}
@@ -115,8 +113,7 @@ public class NumberValueOperations extends ElementOperations {
 		if (currentUnit == null) {
 			targetUnit = null;
 		} else {
-			targetUnit = ((UnitsType) currentUnit.eContainer())
-					.findLiteral(target);
+			targetUnit = ((UnitsType) currentUnit.eContainer()).findLiteral(target);
 		}
 
 		return getScaledValue(numberValue, targetUnit);

@@ -48,13 +48,15 @@ public final class SEI {
 	public static final String MIPS_LITERAL = "MIPS";
 	public static final String GIPS_LITERAL = "GIPS";
 	
-	public static final String POWER_UNITS = "Power_Units";
-	public static final String MW_LITERAL = "mW";
-	public static final String W_LITERAL = "W";
-	public static final String KW_LITERAL = "KW";
+	public static final String POWER_UNITS 		= "Power_Units";
+	public static final String MW_LITERAL 		= "mW";
+	public static final String W_LITERAL 		= "W";
+	public static final String KW_LITERAL 		= "KW";
 	
-	public static final String DATA_RATE = "Data_Rate";
+	public static final String DATA_RATE 		= "Data_Rate";
 
-	public static final String NSLOC = "nsloc";
-	public static final String VDID_INSPECT = "vdid_inspect";
+	public static final String NSLOC 			= "nsloc";
+	public static final String VDID_INSPECT 	= "vdid_inspect";
+	
+	public static final String MODEL_REFERENCES = "model_references";
 }

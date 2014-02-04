@@ -825,7 +825,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L2gT0XMdEd-Dn6vSwaGWGg"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_CAFm8J5lEeCP66JzwOyEVA" name="A_&lt;deviceImplementation>_&lt;virtualBusSubcomponent>" memberEnd="_CAFm8Z5lEeCP66JzwOyEVA _B_SVsJ5lEeCP66JzwOyEVA">
+        <packagedElement xmi:type="uml:Association" xmi:id="_CAFm8J5lEeCP66JzwOyEVA" name="A_deviceImplementation_ownedVirtualBusSubcomponent" memberEnd="_CAFm8Z5lEeCP66JzwOyEVA _B_SVsJ5lEeCP66JzwOyEVA">
           <ownedEnd xmi:id="_CAFm8Z5lEeCP66JzwOyEVA" name="owner" type="Components-Device-DeviceImplementation" association="_CAFm8J5lEeCP66JzwOyEVA">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CAFm8p5lEeCP66JzwOyEVA" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CAFm855lEeCP66JzwOyEVA"/>
@@ -2316,7 +2316,7 @@
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_TgY98KfGEeCYEIHXYlP5sg" name="VitualBusSubcomponentType" isAbstract="true">
+        <packagedElement xmi:type="uml:Class" xmi:id="_TgY98KfGEeCYEIHXYlP5sg" name="VirtualBusSubcomponentType" isAbstract="true">
           <generalization xmi:id="_x3thsKfGEeCYEIHXYlP5sg" general="Components-VirtualBus-VirtualBus"/>
           <generalization xmi:id="_ovkQoKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
@@ -2787,12 +2787,6 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_featureGroupType_ownedBusAccess-owner-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_featureGroupType_ownedDataAccess" name="A_featureGroupType_ownedDataAccess" memberEnd="Features-A_featureGroupType_ownedDataAccess-owner">
-        <ownedEnd xmi:id="Features-A_featureGroupType_ownedDataAccess-owner" name="owner" type="Features-FeatureGroupType" association="Features-A_featureGroupType_ownedDataAccess">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_featureGroupType_ownedDataAccess-owner-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_featureGroupType_ownedDataAccess-owner-_lowerValue"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Features-A_featureGroupType_ownedDataPort" name="A_featureGroupType_ownedDataPort" memberEnd="Features-A_featureGroupType_ownedDataPort-owner Features-FeatureGroupType-ownedDataPort">
         <ownedEnd xmi:id="Features-A_featureGroupType_ownedDataPort-owner" name="owner" type="Features-FeatureGroupType" association="Features-A_featureGroupType_ownedDataPort">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_featureGroupType_ownedDataPort-owner-_upperValue" value="1"/>
@@ -2844,9 +2838,9 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-FeatureGroupType-ownedBusAccess-_lowerValue"/>
           <subsettedProperty href="AADLConstructs.uml#Features-FeatureGroupType-ownedFeature"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Features-FeatureGroupType-ownedDataAccess" name="ownedDataAccess" type="Features-DataAccess" aggregation="composite">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-FeatureGroupType-ownedDataAccess-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-FeatureGroupType-ownedDataAccess-_lowerValue"/>
+        <ownedAttribute xmi:id="_I4pQkH36EeOQi6TySwOMww" name="ownedDataAccess" type="Features-DataAccess" aggregation="composite" association="_I5ch0H36EeOQi6TySwOMww">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_I4pQkX36EeOQi6TySwOMww" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_I4pQkn36EeOQi6TySwOMww"/>
           <subsettedProperty href="AADLConstructs.uml#Features-FeatureGroupType-ownedFeature"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Features-FeatureGroupType-ownedDataPort" name="ownedDataPort" type="Features-DataPort" aggregation="composite" association="Features-A_featureGroupType_ownedDataPort">
@@ -2896,6 +2890,12 @@
         <ownedEnd xmi:id="Features-A_featureGroupType_ownedAbstractFeature-owner" name="owner" type="Features-FeatureGroupType" association="Features-A_featureGroupType_ownedAbstractFeature">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_featureGroupType_ownedAbstractFeature-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_featureGroupType_ownedAbstractFeature-owner-_lowerValue"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_I5ch0H36EeOQi6TySwOMww" name="A_featureGroupType_ownedDataAccess" memberEnd="_I5ch0X36EeOQi6TySwOMww _I4pQkH36EeOQi6TySwOMww">
+        <ownedEnd xmi:id="_I5ch0X36EeOQi6TySwOMww" name="owner" type="Features-FeatureGroupType" association="_I5ch0H36EeOQi6TySwOMww">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_I5ch0n36EeOQi6TySwOMww" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_I5ch0336EeOQi6TySwOMww"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

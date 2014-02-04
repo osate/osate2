@@ -68,6 +68,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -402,19 +403,19 @@ public final class AadlUtil {
 	// TODO: [PROPERTIES] In OSATE 1, ComponentCategory was in the property
 	// package. The rewrite may have to wait until the properties are done.
 	// /**
-	// * Get all component classifiers that are visible from the given aobject.
+	// * Get all component classifiers that are visible from the given Element.
 	// * This includes all globally visible component classifiers;
 	// * if aobj is null, then only the global component classifiers are
 	// returned.
-	// * if the AObject aobj is in an AadlSpec that is not a global package,
+	// * if the Element aobj is in an AadlSpec that is not a global package,
 	// also includes those
 	// * in the anon name space or in packages local to the aadl spec
-	// * Finally, if the aobject is in the proviate part of a package, also
+	// * Finally, if the Element is in the proviate part of a package, also
 	// includes the classifiers defined in the private part
-	// * @param aobj AObject
+	// * @param aobj Element
 	// * @return EList of component classifiers
 	// */
-	// public static EList getAllVisibleComponentClassifiers(AObject aobj,
+	// public static EList getAllVisibleComponentClassifiers(Element aobj,
 	// ComponentCategory compCat){
 	// EList result = new BasicEList();
 	// EList<Resource> resources =
@@ -441,7 +442,7 @@ public final class AadlUtil {
 	// if (as.isSpecification() ){
 	// result.addAll(as.getAllComponentClassifiers(compCat));
 	// }
-	// AObject nameSpace = aobj.getContainingClassifierNameSpace();
+	// Element nameSpace = aobj.getContainingClassifierNameSpace();
 	// if (nameSpace instanceof AadlPrivate){
 	// result.addAll(((AadlPrivate)nameSpace).getComponentClassifier(compCat));
 	// }
@@ -451,18 +452,18 @@ public final class AadlUtil {
 	// TODO: [PROPERTIES] Uncomment after the class ComponentCategory is added
 	// to the model.
 	// /**
-	// * Get all component types that are visible from the given aobject.
+	// * Get all component types that are visible from the given Element.
 	// * This includes all globally visible component types;
 	// * if aobj is null, then only the global component types are returned.
-	// * if the AObject aobj is in an AadlSpec that is not a global package,
+	// * if the Element aobj is in an AadlSpec that is not a global package,
 	// also includes those
 	// * in the anon name space or in packages local to the aadl spec
-	// * Finally, if the aobject is in the proviate part of a package, also
+	// * Finally, if the Element is in the proviate part of a package, also
 	// includes the types defined in the private part
-	// * @param aobj AObject
+	// * @param aobj Element
 	// * @return EList of component types
 	// */
-	// public static EList<ComponentType> getAllVisibleComponentTypes(AObject
+	// public static EList<ComponentType> getAllVisibleComponentTypes(Element
 	// aobj, ComponentCategory compCat){
 	// EList<ComponentType> result = new BasicEList<ComponentType>();
 	// EList classifiers = getAllVisibleComponentClassifiers(aobj,compCat);
@@ -479,20 +480,20 @@ public final class AadlUtil {
 	// to the model.
 	// /**
 	// * Get all component implementations that are visible from the given
-	// aobject.
+	// Element.
 	// * This includes all globally visible component implementations;
 	// * if aobj is null, then only the global component implementations are
 	// returned.
-	// * if the AObject aobj is in an AadlSpec that is not a global package,
+	// * if the Element aobj is in an AadlSpec that is not a global package,
 	// also includes those
 	// * in the anon name space or in packages local to the aadl spec
-	// * Finally, if the aobject is in the proviate part of a package, also
+	// * Finally, if the Element is in the proviate part of a package, also
 	// includes the types defined in the private part
-	// * @param aobj AObject
+	// * @param aobj Element
 	// * @return EList of component implementations
 	// */
 	// public static EList<ComponentImplementation>
-	// getAllVisibleComponentImpls(AObject aobj, ComponentCategory compCat){
+	// getAllVisibleComponentImpls(Element aobj, ComponentCategory compCat){
 	// EList<ComponentImplementation> result = new
 	// BasicEList<ComponentImplementation>();
 	// EList classifiers = getAllVisibleComponentClassifiers(aobj,compCat);
@@ -507,19 +508,19 @@ public final class AadlUtil {
 
 	// TODO: [SPECIFICATION] Rewrite this because there are no more AadlSpecs.
 	// /**
-	// * Get all Port Group Types that are visible from the given aobject.
+	// * Get all Port Group Types that are visible from the given Element.
 	// * This includes all globally visible component classifiers;
 	// * if aobj is null, then only the global component classifiers are
 	// returned.
-	// * if the AObject aobj is in an AadlSpec that is not a global package,
+	// * if the Element aobj is in an AadlSpec that is not a global package,
 	// also includes those
 	// * in the anon name space or in packages local to the aadl spec
-	// * Finally, if the aobject is in the proviate part of a package, also
+	// * Finally, if the Element is in the proviate part of a package, also
 	// includes the classifiers defined in the private part
-	// * @param aobj AObject
+	// * @param aobj Element
 	// * @return EList of port group type
 	// */
-	// public static EList getAllVisiblePortGroupTypes(AObject aobj){
+	// public static EList getAllVisiblePortGroupTypes(Element aobj){
 	// EList result = new BasicEList();
 	// EList<Resource> resources =
 	// ResourceUtil.getResourceSet().getResources();
@@ -545,7 +546,7 @@ public final class AadlUtil {
 	// if (as.isSpecification() ){
 	// result.addAll(as.getAllPortGroupTypes());
 	// }
-	// AObject nameSpace = aobj.getContainingClassifierNameSpace();
+	// Element nameSpace = aobj.getContainingClassifierNameSpace();
 	// if (nameSpace instanceof AadlPrivate){
 	// result.addAll(((AadlPrivate)nameSpace).getPortGroupType());
 	// }
@@ -585,10 +586,10 @@ public final class AadlUtil {
 	// * @param context
 	// * The model object on whose behalf the lookup is being
 	// * performed. See
-	// * {@link ResourceUtil#findPropertySet(String, AObject)}.
+	// * {@link ResourceUtil#findPropertySet(String, Element)}.
 	// */
 	// public static EList<PropertyDefinition> getAllPropertyDefinition(final
-	// AObject context) {
+	// Element context) {
 	// final Set<PropertySet> propSets =
 	// ResourceUtil.getAllPropertySets(context);
 	// return getPropertyDefinitions(propSets);
@@ -607,7 +608,7 @@ public final class AadlUtil {
 	// EList<PropertyDefinition> result = new UniqueEList<PropertyDefinition>();
 	//
 	// EList allUsedClassifiers = new
-	// ForAllAObject().processTopDownComponentClassifier(si);
+	// ForAllElement().processTopDownComponentClassifier(si);
 	// // collect topdown component impl. do it and its type to find PA
 	// for (Iterator it = allUsedClassifiers.iterator(); it.hasNext();){
 	// ComponentClassifier cc = (ComponentClassifier) it.next();
@@ -620,17 +621,17 @@ public final class AadlUtil {
 	// /**
 	// * find all property associations and add its property definition to the
 	// reesults
-	// * @param root AObject whose subtree is being searched
+	// * @param root Element whose subtree is being searched
 	// * @param result EList holding the used property definitions
 	// * @return List holding the used property definitions
 	// */
 	// private static List<PropertyDefinition>
-	// addUsedPropertyDefinitions(AObject root, List<PropertyDefinition>
+	// addUsedPropertyDefinitions(Element root, List<PropertyDefinition>
 	// result){
-	// TreeIterator<AObject> it =
+	// TreeIterator<Element> it =
 	// EcoreUtil.getAllContents(Collections.singleton(root));
 	// while(it.hasNext()){
-	// AObject ao = it.next();
+	// Element ao = it.next();
 	// if (ao instanceof PropertyAssociation){
 	// PropertyDefinition pd =
 	// ((PropertyAssociation)ao).getPropertyDefinition();
@@ -697,8 +698,8 @@ public final class AadlUtil {
 	// * @param str
 	// * @return String without package name
 	// */
-	// public static String ownPackage(AObject o, String str){
-	// AObject ns = o.getContainingClassifierNameSpace();
+	// public static String ownPackage(Element o, String str){
+	// Element ns = o.getContainingClassifierNameSpace();
 	//
 	// if (ns instanceof PackageSection){
 	// AadlPackage ap = (AadlPackage)ns.eContainer();
@@ -726,7 +727,7 @@ public final class AadlUtil {
 	// * Identification of the classifier to find.
 	// * @return Reference to the classifier, null if not found.
 	// */
-	// public static Classifier findClassifierInNameSpace(AObject fromNS,
+	// public static Classifier findClassifierInNameSpace(Element fromNS,
 	// NamedElementReference ner) {
 	// String packName;
 	// String name;
@@ -771,9 +772,9 @@ public final class AadlUtil {
 	// * in package pkgName, the second element contains visible private
 	// * elements
 	// */
-	// private static EObject[] getNamespace(AObject fromNS, String pkgName) {
+	// private static EObject[] getNamespace(Element fromNS, String pkgName) {
 	// EObject[] ns = new EObject[2];
-	// AObject thepack = fromNS;
+	// Element thepack = fromNS;
 	// AadlPackage pack = null;
 	// AadlPackage pack2 = null;
 	//
@@ -818,7 +819,7 @@ public final class AadlUtil {
 	// return ns;
 	// }
 
-	// TODO: [FORALLAOBJECT] Uncomment when ForAllAObject is fixed.
+	// TODO: [FORALLElement] Uncomment when ForAllElement is fixed.
 	// /**
 	// * get a sorted list of component classifier declaratations
 	// * It is sorted such that subcomponents in component implementations refer
@@ -828,16 +829,16 @@ public final class AadlUtil {
 	// * @return list of component classifiers
 	// */
 	// public static EList<ComponentClassifier>
-	// getDeclarationOrderedComponentClassifiers(AObject aobj){
+	// getDeclarationOrderedComponentClassifiers(Element aobj){
 	// final EList<ComponentClassifier> uniqueClassifiers = new
 	// UniqueEList<ComponentClassifier>();
 	// final EList topDownList;
 	// if (aobj instanceof ComponentImplementation) {
 	// topDownList = new
-	// ForAllAObject().processTopDownComponentImpl((ComponentImplementation)
+	// ForAllElement().processTopDownComponentImpl((ComponentImplementation)
 	// aobj);
 	// } else {
-	// topDownList = new ForAllAObject().processTopDownComponentImpl();
+	// topDownList = new ForAllElement().processTopDownComponentImpl();
 	// }
 	// for (int i = topDownList.size(); i>0; i--){
 	// ComponentImplementation ci = (ComponentImplementation)
@@ -1023,6 +1024,23 @@ public final class AadlUtil {
 	 * @return boolean true if repl is an extension of origin
 	 */
 	public static boolean isSameOrExtends(Classifier origin, Classifier extension){
+		
+		/**
+		 * If we have a feature group that is inverse, we have no clue to find
+		 * if this is an extension because we cannot "extends" another
+		 * type. So, we try to find the extension by using the inverse type.
+		 */
+		if ( (origin instanceof FeatureGroupType) && (((FeatureGroupType)origin).getInverse() != null))
+		{
+			origin = ((FeatureGroupType)origin).getInverse();
+		}
+		
+		if ( (extension instanceof FeatureGroupType) && (((FeatureGroupType)extension).getInverse() != null))
+		{
+			extension = ((FeatureGroupType)origin).getInverse();
+		}
+		
+		
 		while (origin != extension) {
 			extension = extension.getExtended();
 			if (extension == null) return false;
@@ -1108,7 +1126,7 @@ public final class AadlUtil {
 	// * @param aobjlist
 	// * @return list of packages
 	// */
-	// public static EList<AadlPackage> getUsedPackages(List<? extends AObject>
+	// public static EList<AadlPackage> getUsedPackages(List<? extends Element>
 	// aobjlist){
 	// return doGetUsedPackages(aobjlist, false);
 	// }
@@ -1123,7 +1141,7 @@ public final class AadlUtil {
 	// * @return list of packages
 	// */
 	// public static EList<AadlPackage> getAllUsedPackages(List<? extends
-	// AObject> aobjlist){
+	// Element> aobjlist){
 	// return doGetUsedPackages(aobjlist, true);
 	// }
 
@@ -1138,9 +1156,9 @@ public final class AadlUtil {
 	// * @return list of packages
 	// */
 	// private static EList<AadlPackage> doGetUsedPackages(List<? extends
-	// AObject> aobjlist, boolean recurse){
+	// Element> aobjlist, boolean recurse){
 	// EList<AadlPackage> packagerefFound = new UniqueEList<AadlPackage>();
-	// for (AObject ao : aobjlist){
+	// for (Element ao : aobjlist){
 	// if (ao instanceof ComponentType){
 	// usedPackages(packagerefFound, (ComponentType)ao, recurse);
 	// } else if (ao instanceof ComponentImplementation){
@@ -1221,7 +1239,7 @@ public final class AadlUtil {
 	// Feature f = (Feature) it.next();
 	// Classifier dc = f.getXAllClassifier();
 	// if (dc != null){
-	// AObject root = dc.getAObjectRoot();
+	// Element root = dc.getElementRoot();
 	// if (root instanceof AadlPackage){
 	// packrefFound.add((AadlPackage)root);
 	// }
@@ -1251,7 +1269,7 @@ public final class AadlUtil {
 	// Feature f = (Feature) it.next();
 	// Classifier dc = f.getXAllClassifier();
 	// if (dc != null){
-	// AObject root = dc.getAObjectRoot();
+	// Element root = dc.getElementRoot();
 	// if (root instanceof AadlPackage){
 	// packrefFound.add((AadlPackage)root);
 	// }
@@ -1281,7 +1299,7 @@ public final class AadlUtil {
 	// Subcomponent f = (Subcomponent) it.next();
 	// Classifier cc = f.getXAllClassifier();
 	// if (cc != null){
-	// AObject root = cc.getAObjectRoot();
+	// Element root = cc.getElementRoot();
 	// if (root instanceof AadlPackage){
 	// packrefFound.add((AadlPackage)root);
 	// }
@@ -1294,7 +1312,7 @@ public final class AadlUtil {
 	// Subcomponent sc = (Subcomponent) it.next();
 	// ComponentClassifier cc = sc.getXAllClassifier();
 	// if (cc != null){
-	// AObject root = cc.getAObjectRoot();
+	// Element root = cc.getElementRoot();
 	// if (root instanceof AadlPackage){
 	// packrefFound.add((AadlPackage)root);
 	// }
@@ -1478,64 +1496,64 @@ public final class AadlUtil {
 
 	}
 
-	/**
-	 * Find the Element whose location reference is close to the line number.
-	 * 
-	 * @param modelelement The model element used as root of the search
-	 * @param location line number
-	 * @return Element
-	 */
-	public static Element findElement(Element modelelement, int location) {
-		return doFindElement(modelelement, location, modelelement);
-	}
-
-	/**
-	 * Find an Element whose reference location is the largest less or equal to
-	 * the location we are looking for. This find method cannot assume that the
-	 * elements of the object model are visited in unparse order. Therefore we
-	 * search the whole containment tree for the closest element whose location
-	 * reference is less or equal to the desired location.
-	 * 
-	 * @param modelelement The model element and its sub elements to be visited
-	 * @param location The location as line whose Element equivalent we are
-	 *            trying to find
-	 * @param closestLocation the last Element whose location reference is less
-	 *            or equal than the location
-	 * @return Element the last visited Element whose location reference matches
-	 *         the condition
-	 */
-	private static Element doFindElement(Element modelelement, int location, Element closestLocation) {
-		LocationReference loc = modelelement.getLocationReference();
-		if (loc != null) {
-			int thisline = loc.getLine();
-			if (thisline > location) {
-				return closestLocation;
-			} else if (thisline == location) {
-				return modelelement;
-			} else {
-				// out location is less than the desired location. Check if it
-				// closer than the previously remembered location
-				LocationReference closeloc = closestLocation.getLocationReference();
-				if (closeloc == null) {
-					closestLocation = modelelement;
-				} else if (thisline > closeloc.getLine()) {
-					closestLocation = modelelement;
-				}
-			}
-		}
-		EList<EObject> list = modelelement.eContents();//getOwnedElements();		for (Iterator<Element> it = list.iterator(); it.hasNext();) {
-		for (Iterator<EObject> it = list.iterator(); it.hasNext();) {
-			Element child = (Element) it.next();
-			Element result = doFindElement(child, location, closestLocation);
-			if (result != closestLocation) {
-				closestLocation = result;
-			}
-		}
-		return closestLocation;
-	}
-
-	private static final String PropertySetLabel = "propertySet[@name=";
-	private static final String PackageLabel = "aadlPackage[@name=";
+//	/**
+//	 * Find the Element whose location reference is close to the line number.
+//	 * 
+//	 * @param modelelement The model element used as root of the search
+//	 * @param location line number
+//	 * @return Element
+//	 */
+//	public static Element findElement(Element modelelement, int location) {
+//		return doFindElement(modelelement, location, modelelement);
+//	}
+//
+//	/**
+//	 * Find an Element whose reference location is the largest less or equal to
+//	 * the location we are looking for. This find method cannot assume that the
+//	 * elements of the object model are visited in unparse order. Therefore we
+//	 * search the whole containment tree for the closest element whose location
+//	 * reference is less or equal to the desired location.
+//	 * 
+//	 * @param modelelement The model element and its sub elements to be visited
+//	 * @param location The location as line whose Element equivalent we are
+//	 *            trying to find
+//	 * @param closestLocation the last Element whose location reference is less
+//	 *            or equal than the location
+//	 * @return Element the last visited Element whose location reference matches
+//	 *         the condition
+//	 */
+//	private static Element doFindElement(Element modelelement, int location, Element closestLocation) {
+//		LocationReference loc = modelelement.getLocationReference();
+//		if (loc != null) {
+//			int thisline = loc.getLine();
+//			if (thisline > location) {
+//				return closestLocation;
+//			} else if (thisline == location) {
+//				return modelelement;
+//			} else {
+//				// out location is less than the desired location. Check if it
+//				// closer than the previously remembered location
+//				LocationReference closeloc = closestLocation.getLocationReference();
+//				if (closeloc == null) {
+//					closestLocation = modelelement;
+//				} else if (thisline > closeloc.getLine()) {
+//					closestLocation = modelelement;
+//				}
+//			}
+//		}
+//		EList<EObject> list = modelelement.eContents();//getOwnedElements();		for (Iterator<Element> it = list.iterator(); it.hasNext();) {
+//		for (Iterator<EObject> it = list.iterator(); it.hasNext();) {
+//			Element child = (Element) it.next();
+//			Element result = doFindElement(child, location, closestLocation);
+//			if (result != closestLocation) {
+//				closestLocation = result;
+//			}
+//		}
+//		return closestLocation;
+//	}
+//
+//	private static final String PropertySetLabel = "propertySet[@name=";
+//	private static final String PackageLabel = "aadlPackage[@name=";
 
 
 	public static Element getInstanceOrigin(InstanceObject io) {
@@ -1636,6 +1654,7 @@ public final class AadlUtil {
 			}
 		}
 	}
+	
 
 	/**
 	 * determine whether a component instance has subcomponents that can have
@@ -2229,6 +2248,14 @@ public final class AadlUtil {
 			element = (InstanceObject) element.getOwner();
 		}
 		return false;
+	}
+	
+	public static IPath getResourcePath (NamedElement component)
+	{
+		Resource res = component.eResource();
+		URI uri = res.getURI();
+		IPath path = OsateResourceUtil.getOsatePath(uri);
+		return path.removeLastSegments(1);
 	}
 
 }

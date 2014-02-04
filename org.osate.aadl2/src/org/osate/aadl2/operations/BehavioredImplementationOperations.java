@@ -55,8 +55,7 @@ import org.osate.aadl2.SubprogramCallSequence;
  *
  * @generated
  */
-public class BehavioredImplementationOperations extends
-		ComponentImplementationOperations {
+public class BehavioredImplementationOperations extends ComponentImplementationOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -75,14 +74,11 @@ public class BehavioredImplementationOperations extends
 	 * <!-- end-model-doc -->
 	 * @generated NOT
 	 */
-	public static EList<CallSpecification> callSpecifications(
-			BehavioredImplementation behavioredImplementation) {
+	public static EList<CallSpecification> callSpecifications(BehavioredImplementation behavioredImplementation) {
 		EList<CallSpecification> allCallSpecifications = new BasicInternalEList<CallSpecification>(
 				CallSpecification.class);
-		for (SubprogramCallSequence callSequence : behavioredImplementation
-				.getOwnedSubprogramCallSequences())
-			allCallSpecifications.addAll(callSequence
-					.getOwnedCallSpecifications());
+		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences())
+			allCallSpecifications.addAll(callSequence.getOwnedCallSpecifications());
 		return allCallSpecifications;
 	}
 

@@ -47,12 +47,34 @@ import org.osate.aadl2.NamedElement;
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Object</b></em>'. <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.instance.InstanceObject#getAnnexInstances <em>Annex Instance</em>}</li>
+ * </ul>
+ * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getInstanceObject()
  * @model abstract="true"
  * @generated
  */
 public interface InstanceObject extends EObject, NamedElement {
+	/**
+	 * Returns the value of the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.AnnexInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Annex Instance</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Annex Instance</em>' containment reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getInstanceObject_AnnexInstance()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<AnnexInstance> getAnnexInstances();
+
 	/**
 	 * Returns the closest ancestor component (in the containment hierarchy)
 	 * that is a <code>ComponentInstance</code>.

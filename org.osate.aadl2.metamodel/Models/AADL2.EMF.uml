@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/4" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/4 pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w">
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/4" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/4 pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA">
   <uml:Model xmi:id="_0" name="AADL2">
     <packageMerge xmi:id="_packageMerge.0">
       <mergedPackage xmi:type="uml:Model" href="AADL2.uml#_0"/>
@@ -72,6 +72,9 @@
       <ownedAttribute xmi:id="FeatureGroupType-extended" name="extended" isDerived="true"/>
       <ownedAttribute xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ComponentClassifier" name="ComponentClassifier" isAbstract="true">
+      <ownedAttribute xmi:id="ComponentClassifier-derivedModes" name="derivedModes"/>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentType" name="ComponentType" isAbstract="true">
       <ownedAttribute xmi:id="ComponentType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
       <ownedAttribute xmi:id="ComponentType-extended" name="extended" isDerived="true"/>
@@ -105,15 +108,15 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="ModalPath-getInModeTransitions" name="getInModeTransitions">
-        <ownedParameter xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0" name="" type="Mode.1" direction="return">
+        <ownedParameter xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_lowerValue"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="_jDszMNckEeGChpddaBFCtg" name="getAllInModeTransitions">
-        <ownedParameter xmi:id="_jDszMdckEeGChpddaBFCtg" name="" type="Mode.1" direction="return">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jDszMtckEeGChpddaBFCtg" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jDszM9ckEeGChpddaBFCtg"/>
+      <ownedOperation xmi:id="ModalPath-getAllInModeTransitions" name="getAllInModeTransitions">
+        <ownedParameter xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0-_lowerValue"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -125,8 +128,10 @@
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Mode" name="Mode"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="Mode.1" name="ModeTransition"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="Mode" name="Mode">
+      <ownedAttribute xmi:id="Mode-derived" name="derived" isReadOnly="true" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ModeTransition" name="ModeTransition"/>
     <packagedElement xmi:type="uml:Class" xmi:id="AbstractImplementation" name="AbstractImplementation">
       <ownedAttribute xmi:id="AbstractImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
@@ -193,10 +198,10 @@
       <ownedAttribute xmi:id="Property-appliesToClassifier" name="appliesToClassifier" isDerived="true"/>
       <ownedAttribute xmi:id="Property-appliesToMetaclass" name="appliesToMetaclass" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_6-RT4GWYEeKn5rvcPbyT8w" name="SubprogramType">
-      <generalization xmi:id="_Rj2BUGWTEeKn5rvcPbyT8w" general="_w5Xn0GWVEeKn5rvcPbyT8w"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="SubprogramType" name="SubprogramType">
+      <generalization xmi:id="SubprogramType-_generalization.0" general="CallContext"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_w5Xn0GWVEeKn5rvcPbyT8w" name="CallContext"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="CallContext" name="CallContext"/>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA"/>
@@ -319,7 +324,10 @@
   <Standard:Metaclass xmi:id="_vijSkf51EeCNbuO0Qm4fmQ" base_Class="Port"/>
   <Ecore:EAttribute xmi:id="_9K2UQP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true"/>
   <Standard:Metaclass xmi:id="_EAU-UP52EeCNbuO0Qm4fmQ"/>
-  <Standard:Metaclass xmi:id="_6S69wNciEeGChpddaBFCtg" base_Class="Mode.1"/>
-  <Standard:Metaclass xmi:id="_4FrdgGWVEeKn5rvcPbyT8w" base_Class="_w5Xn0GWVEeKn5rvcPbyT8w"/>
-  <Standard:Metaclass xmi:id="_BcO10GWZEeKn5rvcPbyT8w" base_Class="_6-RT4GWYEeKn5rvcPbyT8w"/>
+  <Standard:Metaclass xmi:id="_6S69wNciEeGChpddaBFCtg" base_Class="ModeTransition"/>
+  <Standard:Metaclass xmi:id="_4FrdgGWVEeKn5rvcPbyT8w" base_Class="CallContext"/>
+  <Standard:Metaclass xmi:id="_BcO10GWZEeKn5rvcPbyT8w" base_Class="SubprogramType"/>
+  <Ecore:EAttribute xmi:id="_YW234E4fEeOhgd3TaVpFAQ" isTransient="true" isVolatile="true" base_Property="Mode-derived"/>
+  <Standard:Metaclass xmi:id="_62gtgE4gEeOhgd3TaVpFAQ" base_Class="ComponentClassifier"/>
+  <Ecore:EAttribute xmi:id="_210X4E4jEeOhgd3TaVpFAQ" base_Property="ComponentClassifier-derivedModes"/>
 </xmi:XMI>

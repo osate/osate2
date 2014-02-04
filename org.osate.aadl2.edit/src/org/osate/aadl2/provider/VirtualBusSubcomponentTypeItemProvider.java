@@ -32,40 +32,93 @@
  * </copyright>
  * 
  */
-package org.osate.aadl2.impl;
+package org.osate.aadl2.provider;
 
-import org.eclipse.emf.ecore.EClass;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.VitualBusSubcomponentType;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+
+import org.osate.aadl2.VirtualBusSubcomponentType;
 
 /**
+ * This is the item provider adapter for a {@link org.osate.aadl2.VirtualBusSubcomponentType} object.
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Vitual Bus Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
- *
  * @generated
  */
-public abstract class VitualBusSubcomponentTypeImpl extends
-		SubcomponentTypeImpl implements VitualBusSubcomponentType {
+public class VirtualBusSubcomponentTypeItemProvider extends SubcomponentTypeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
+	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected VitualBusSubcomponentTypeImpl() {
-		super();
+	public VirtualBusSubcomponentTypeItemProvider(AdapterFactory adapterFactory) {
+		super(adapterFactory);
 	}
 
 	/**
+	 * This returns the property descriptors for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getVitualBusSubcomponentType();
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
+		if (itemPropertyDescriptors == null) {
+			super.getPropertyDescriptors(object);
+
+		}
+		return itemPropertyDescriptors;
 	}
 
-} // VitualBusSubcomponentTypeImpl
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getText(Object object) {
+		String label = ((VirtualBusSubcomponentType) object).getName();
+		return label == null || label.length() == 0 ? getString("_UI_VirtualBusSubcomponentType_type")
+				: getString("_UI_VirtualBusSubcomponentType_type") + " " + label;
+	}
+
+	/**
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void notifyChanged(Notification notification) {
+		updateChildren(notification);
+		super.notifyChanged(notification);
+	}
+
+	/**
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+}

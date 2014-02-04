@@ -97,4 +97,14 @@ property set SEI is
   vdid_inspect : aadlboolean applies to (system, process, abstract, thread, subprogram);
   
   Broadcast_Protocol : aadlboolean applies to (bus, virtual bus, system);
+
+  Reference_Kind_Type      : type enumeration (any,exist,component,connection,behavior,unknown);
+  Model_Source_Type        : type enumeration (simulink,scade,geometry_stp,sysml);
+  
+  Model_Reference : type record (
+	Model_Type : SEI::Model_Source_Type;
+	Kind       : SEI::Reference_Kind_Type;
+	Filename   : aadlstring;
+	Artifact   : aadlstring;);
+  Model_References : list of SEI::Model_Reference applies to (all);
 end SEI;

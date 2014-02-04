@@ -48,8 +48,7 @@ import org.osate.aadl2.VirtualBus;
  *
  * @generated
  */
-public abstract class VirtualBusImpl extends NamedElementImpl implements
-		VirtualBus {
+public abstract class VirtualBusImpl extends NamedElementImpl implements VirtualBus {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

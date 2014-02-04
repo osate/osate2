@@ -39,7 +39,7 @@ import org.osate.aadl2.Element;
 
 /**
  * Base implementation that makes sure messages counts are updated. Also makes
- * sure that that AObjects used for reporting all come from the same Resource.
+ * sure that that Elements used for reporting all come from the same Resource.
  * Delegates the actual reporting functionality to the abstract methods
  * {@link #errorImpl(Element, String, String[], Object[])},
  * {@link #warningImpl(Element, String, String[], Object[])},

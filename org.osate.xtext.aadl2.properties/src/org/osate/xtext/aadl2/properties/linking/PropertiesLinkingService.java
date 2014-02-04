@@ -256,19 +256,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
    return null;
    }
 	
-	private NamedElement getContainedNamedElement(NamedElement r, String segment) {
-		for(EObject e:r.getOwnedElements())
-		{
-			if(e instanceof NamedElement)
-			{
-				NamedElement ne = (NamedElement) e;
-				if(ne.getName().equalsIgnoreCase(segment))
-					return ne;
-			}
-		}
-		return null;
-	}
-	
 
 
 	@Override
@@ -963,8 +950,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					.findNamedElement(portName);
 			if (searchResult instanceof Port
 					|| searchResult instanceof DataSubcomponent
-					|| (searchResult instanceof DataAccess && ((DataAccess) searchResult)
-							.getKind() == AccessType.REQUIRES))
+					|| searchResult instanceof DataAccess )
 				return ((PortConnectionEnd) searchResult);
 		} else if (cxt instanceof Subcomponent) {
 			Subcomponent subcomponent = (Subcomponent) cxt;
@@ -978,8 +964,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (searchResult instanceof Port
 						|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent)
 						|| // data subcomponent . data subcomponent
-						(searchResult instanceof DataAccess && ((DataAccess) searchResult)
-								.getKind() == AccessType.PROVIDES))
+						(searchResult instanceof DataAccess ))
 					return ((PortConnectionEnd) searchResult);
 			} else if (sct instanceof ComponentPrototype) {
 				ComponentClassifier classifier = 
@@ -992,8 +977,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					if (searchResult instanceof Port
 							|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent)
 							|| // data subcomponent . data subcomponent
-							(searchResult instanceof DataAccess && ((DataAccess) searchResult)
-									.getKind() == AccessType.PROVIDES))
+							(searchResult instanceof DataAccess ))
 						return ((PortConnectionEnd) searchResult);
 				}
 			}

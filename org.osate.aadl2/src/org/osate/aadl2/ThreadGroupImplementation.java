@@ -57,8 +57,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ThreadGroupImplementation extends ComponentImplementation,
-		ThreadGroupClassifier {
+public interface ThreadGroupImplementation extends ComponentImplementation, ThreadGroupClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.DataSubcomponent}.

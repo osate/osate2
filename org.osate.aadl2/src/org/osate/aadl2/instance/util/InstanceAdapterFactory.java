@@ -100,6 +100,11 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseAnnexInstance(AnnexInstance object) {
+			return createAnnexInstanceAdapter();
+		}
+
+		@Override
 		public Adapter caseConnectionInstanceEnd(ConnectionInstanceEnd object) {
 			return createConnectionInstanceEndAdapter();
 		}
@@ -239,6 +244,20 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInstanceObjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.instance.AnnexInstance <em>Annex Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.instance.AnnexInstance
+	 * @generated
+	 */
+	public Adapter createAnnexInstanceAdapter() {
 		return null;
 	}
 

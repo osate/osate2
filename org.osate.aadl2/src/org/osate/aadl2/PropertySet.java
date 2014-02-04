@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedProperties <em>Owned Property</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedPropertyConstants <em>Owned Property Constant</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getImportedUnits <em>Imported Unit</em>}</li>
+ *   <li>{@link org.osate.aadl2.PropertySet#getOwnedAnnexSubclauses <em>Owned Annex Subclause</em>}</li>
  * </ul>
  * </p>
  *
@@ -170,5 +171,42 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * @generated
 	 */
 	EList<ModelUnit> getImportedUnits();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.AnnexSubclause}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Annex Subclause</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Annex Subclause</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedAnnexSubclause()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<AnnexSubclause> getOwnedAnnexSubclauses();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.AnnexSubclause} and appends it to the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.AnnexSubclause} to create.
+	 * @return The new {@link org.osate.aadl2.AnnexSubclause}.
+	 * @see #getOwnedAnnexSubclauses()
+	 * @generated
+	 */
+	AnnexSubclause createOwnedAnnexSubclause(EClass eClass);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.DefaultAnnexSubclause} and appends it to the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.DefaultAnnexSubclause}.
+	 * @see #getOwnedAnnexSubclauses()
+	 * @generated
+	 */
+	AnnexSubclause createOwnedAnnexSubclause();
 
 } // PropertySet

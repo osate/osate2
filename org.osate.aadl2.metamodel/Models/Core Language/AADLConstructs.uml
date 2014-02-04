@@ -101,6 +101,9 @@
           <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_vneUIE4eEeOhgd3TaVpFAQ" name="derivedModes">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Components-ComponentType" name="ComponentType" isAbstract="true">
         <ownedComment xmi:id="Components-ComponentType-_ownedComment.0">
@@ -681,9 +684,7 @@
         <ownedComment xmi:id="Templates-FeaturePrototypeActual-_ownedComment.0">
           <body>An element to which a feature prototype may be bound.</body>
         </ownedComment>
-        <generalization xmi:id="Templates-FeaturePrototypeActual-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
-        </generalization>
+        <generalization xmi:id="Templates-FeaturePrototypeActual-_generalization.0" general="Arrays-ArrayableElement"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Templates-AccessSpecification" name="AccessSpecification">
         <ownedComment xmi:id="Templates-AccessSpecification-_ownedComment.0">
@@ -707,6 +708,10 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-AccessSpecification-classifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-AccessSpecification-classifier-_lowerValue"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_j8-FLyrqEd-XztODHk7A9w" name="componentPrototype" type="Templates-ComponentPrototype" association="_j8-FKyrqEd-XztODHk7A9w">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_j8-FMCrqEd-XztODHk7A9w" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j8-FMSrqEd-XztODHk7A9w"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Templates-PortSpecification" name="PortSpecification">
         <ownedComment xmi:id="Templates-PortSpecification-_ownedComment.0">
@@ -729,6 +734,10 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-PortSpecification-classifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-PortSpecification-classifier-_lowerValue"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_kspOnirqEd-XztODHk7A9w" name="componentPrototype" type="Templates-ComponentPrototype" association="_kspOmirqEd-XztODHk7A9w">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kspOnyrqEd-XztODHk7A9w" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kspOoCrqEd-XztODHk7A9w"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeaturePrototypeReference" name="FeaturePrototypeReference">
@@ -771,9 +780,7 @@
         <ownedComment xmi:id="Templates-ComponentPrototypeActual-_ownedComment.0">
           <body>An element to which a component prototype may be bound.</body>
         </ownedComment>
-        <generalization xmi:id="Templates-ComponentPrototypeActual-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
-        </generalization>
+        <generalization xmi:id="Templates-ComponentPrototypeActual-_generalization.0" general="Arrays-ArrayableElement"/>
         <ownedAttribute xmi:id="Templates-ComponentPrototypeActual-category" name="category" type="Components-ComponentCategory">
           <ownedComment xmi:id="Templates-ComponentPrototypeActual-category-_ownedComment.0">
             <body>Specifies the component category of this actual.</body>
@@ -841,24 +848,16 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Templates-A_prototype_refined-prototype-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_j8-FKyrqEd-XztODHk7A9w" name="A_&lt;accessSpecification>_&lt;componentPrototype>" memberEnd="_j8-FLCrqEd-XztODHk7A9w _j8-FLyrqEd-XztODHk7A9w" navigableOwnedEnd="_j8-FLyrqEd-XztODHk7A9w">
+      <packagedElement xmi:type="uml:Association" xmi:id="_j8-FKyrqEd-XztODHk7A9w" name="A_accessSpecification_componentPrototype" memberEnd="_j8-FLCrqEd-XztODHk7A9w _j8-FLyrqEd-XztODHk7A9w">
         <ownedEnd xmi:id="_j8-FLCrqEd-XztODHk7A9w" name="accessSpecification" type="Templates-AccessSpecification" association="_j8-FKyrqEd-XztODHk7A9w">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_j8-FLSrqEd-XztODHk7A9w" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j8-FLirqEd-XztODHk7A9w"/>
         </ownedEnd>
-        <ownedEnd xmi:id="_j8-FLyrqEd-XztODHk7A9w" name="componentPrototype" type="Templates-ComponentPrototype" association="_j8-FKyrqEd-XztODHk7A9w">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_j8-FMCrqEd-XztODHk7A9w" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j8-FMSrqEd-XztODHk7A9w"/>
-        </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_kspOmirqEd-XztODHk7A9w" name="A_&lt;portSpecification>_&lt;componentPrototype>" memberEnd="_kspOmyrqEd-XztODHk7A9w _kspOnirqEd-XztODHk7A9w" navigableOwnedEnd="_kspOnirqEd-XztODHk7A9w">
+      <packagedElement xmi:type="uml:Association" xmi:id="_kspOmirqEd-XztODHk7A9w" name="A_portSpecification_componentPrototype" memberEnd="_kspOmyrqEd-XztODHk7A9w _kspOnirqEd-XztODHk7A9w">
         <ownedEnd xmi:id="_kspOmyrqEd-XztODHk7A9w" name="portSpecification" type="Templates-PortSpecification" association="_kspOmirqEd-XztODHk7A9w">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kspOnCrqEd-XztODHk7A9w" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kspOnSrqEd-XztODHk7A9w"/>
-        </ownedEnd>
-        <ownedEnd xmi:id="_kspOnirqEd-XztODHk7A9w" name="componentPrototype" type="Templates-ComponentPrototype" association="_kspOmirqEd-XztODHk7A9w">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kspOnyrqEd-XztODHk7A9w" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kspOoCrqEd-XztODHk7A9w"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_RljAsKyOEeC0h7jzzZfZ7Q" name="A_componentPrototypeActual_subcomponentType" memberEnd="_RljAsayOEeC0h7jzzZfZ7Q _RljAtKyOEeC0h7jzzZfZ7Q">
@@ -867,7 +866,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RljAs6yOEeC0h7jzzZfZ7Q"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_ft4vALFdEeCdCowcwygdUw" name="A_&lt;featureGroupPrototypeActual>_&lt;featureType>" memberEnd="_ft4vAbFdEeCdCowcwygdUw _ftE2sLFdEeCdCowcwygdUw">
+      <packagedElement xmi:type="uml:Association" xmi:id="_ft4vALFdEeCdCowcwygdUw" name="A_featureGroupPrototypeActual_featureType" memberEnd="_ft4vAbFdEeCdCowcwygdUw _ftE2sLFdEeCdCowcwygdUw">
         <ownedEnd xmi:id="_ft4vAbFdEeCdCowcwygdUw" name="featureGroupPrototypeActual" type="Templates-FeatureGroupPrototypeActual" association="_ft4vALFdEeCdCowcwygdUw">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ft4vArFdEeCdCowcwygdUw" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ft4vA7FdEeCdCowcwygdUw"/>
@@ -2065,7 +2064,7 @@ The context owns the connection end instance.</body>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_QvW4cOvFEeGRG-ZDxoY3dg" value="false"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Modes-Mode-derived" name="derived">
+        <ownedAttribute xmi:id="Modes-Mode-derived" name="derived" visibility="public" isReadOnly="true" isDerived="true">
           <ownedComment xmi:id="Modes-Mode-derived-_ownedComment.0">
             <body>Specifies that this mode is derived from the mode of the parent component.</body>
           </ownedComment>

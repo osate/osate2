@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,8 +55,7 @@ import org.osate.aadl2.BooleanLiteral;
  *
  * @generated
  */
-public class BooleanLiteralImpl extends PropertyValueImpl implements
-		BooleanLiteral {
+public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLiteral {
 	/**
 	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -117,8 +117,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements
 		boolean oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -206,6 +205,10 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements
 
 	@Override
 	public boolean equals(Object obj) {
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
+		}
+
 		if (this == obj)
 			return true;
 		if (obj == null)

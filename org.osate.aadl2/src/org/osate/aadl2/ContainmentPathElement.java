@@ -48,6 +48,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getNamedElement <em>Named Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.ContainmentPathElement#getAnnexName <em>Annex Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,4 +108,30 @@ public interface ContainmentPathElement extends Element {
 	 * @generated
 	 */
 	void setNamedElement(NamedElement value);
+
+	/**
+	 * Returns the value of the '<em><b>Annex Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Annex Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Annex Name</em>' attribute.
+	 * @see #setAnnexName(String)
+	 * @see org.osate.aadl2.Aadl2Package#getContainmentPathElement_AnnexName()
+	 * @model dataType="org.osate.aadl2.String" ordered="false"
+	 * @generated
+	 */
+	String getAnnexName();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ContainmentPathElement#getAnnexName <em>Annex Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Annex Name</em>' attribute.
+	 * @see #getAnnexName()
+	 * @generated
+	 */
+	void setAnnexName(String value);
 } // ContainmentPathElement

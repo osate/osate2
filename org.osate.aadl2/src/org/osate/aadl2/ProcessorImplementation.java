@@ -56,8 +56,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ProcessorImplementation extends ComponentImplementation,
-		ProcessorClassifier {
+public interface ProcessorImplementation extends ComponentImplementation, ProcessorClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BusSubcomponent}.

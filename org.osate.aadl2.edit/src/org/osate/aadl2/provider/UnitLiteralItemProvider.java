@@ -59,9 +59,8 @@ import org.osate.aadl2.UnitLiteral;
  * <!-- end-user-doc -->
  * @generated
  */
-public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,15 +95,12 @@ public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider
 	 */
 	protected void addBaseUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_UnitLiteral_baseUnit_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_UnitLiteral_baseUnit_feature",
-						"_UI_UnitLiteral_type"), Aadl2Package.eINSTANCE
-						.getUnitLiteral_BaseUnit(), true, false, true, null,
-				null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_UnitLiteral_baseUnit_feature",
+						"_UI_UnitLiteral_type"), Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit(), true, false, true,
+				null, null, null));
 	}
 
 	/**
@@ -116,12 +112,10 @@ public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures
-					.add(Aadl2Package.eINSTANCE.getUnitLiteral_Factor());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getUnitLiteral_Factor());
 		}
 		return childrenFeatures;
 	}
@@ -147,8 +141,7 @@ public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/UnitLiteral"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/UnitLiteral"));
 	}
 
 	/**
@@ -177,8 +170,7 @@ public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider
 
 		switch (notification.getFeatureID(UnitLiteral.class)) {
 		case Aadl2Package.UNIT_LITERAL__FACTOR:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -192,16 +184,13 @@ public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getUnitLiteral_Factor(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getUnitLiteral_Factor(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getUnitLiteral_Factor(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getUnitLiteral_Factor(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 	}
 

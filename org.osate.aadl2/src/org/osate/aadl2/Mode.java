@@ -90,21 +90,10 @@ public interface Mode extends ModeFeature {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Derived</em>' attribute.
-	 * @see #setDerived(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getMode_Derived()
-	 * @model default="false" dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @model default="false" dataType="org.osate.aadl2.Boolean" required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	boolean isDerived();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Mode#isDerived <em>Derived</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Derived</em>' attribute.
-	 * @see #isDerived()
-	 * @generated
-	 */
-	void setDerived(boolean value);
 
 } // Mode

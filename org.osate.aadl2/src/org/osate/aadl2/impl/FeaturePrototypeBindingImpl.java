@@ -47,6 +47,7 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -62,8 +63,7 @@ import org.osate.aadl2.Prototype;
  *
  * @generated
  */
-public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
-		FeaturePrototypeBinding {
+public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements FeaturePrototypeBinding {
 	/**
 	 * The cached value of the '{@link #getActual() <em>Actual</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -107,15 +107,12 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetActual(FeaturePrototypeActual newActual,
-			NotificationChain msgs) {
+	public NotificationChain basicSetActual(FeaturePrototypeActual newActual, NotificationChain msgs) {
 		FeaturePrototypeActual oldActual = actual;
 		actual = newActual;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, oldActual,
-					newActual);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, oldActual, newActual);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -133,26 +130,17 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 		if (newActual != actual) {
 			NotificationChain msgs = null;
 			if (actual != null)
-				msgs = ((InternalEObject) actual)
-						.eInverseRemove(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL,
-								null, msgs);
+				msgs = ((InternalEObject) actual).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			if (newActual != null)
-				msgs = ((InternalEObject) newActual)
-						.eInverseAdd(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL,
-								null, msgs);
+				msgs = ((InternalEObject) newActual).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			msgs = basicSetActual(newActual, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, newActual,
-					newActual));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL,
+					newActual, newActual));
 	}
 
 	/**
@@ -179,8 +167,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 			if (formal != oldFormal) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL,
-							oldFormal, formal));
+							Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL, oldFormal, formal));
 			}
 		}
 		return formal;
@@ -203,16 +190,11 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !(newFormal instanceof FeaturePrototype)) {
-			throw new IllegalArgumentException(
-					"newFormal must be an instance of FeaturePrototype");
-		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL, oldFormal,
-					formal));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL,
+					oldFormal, formal));
 	}
 
 	/**
@@ -230,8 +212,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
 			return basicSetActual(null, msgs);
@@ -293,8 +274,6 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
 			return actual != null;
-		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL:
-			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

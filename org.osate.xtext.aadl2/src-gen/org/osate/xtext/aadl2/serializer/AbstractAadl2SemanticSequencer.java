@@ -1546,7 +1546,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             )+
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         ((derivedModes?='requires' ownedMode+=RequiresMode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -1560,7 +1560,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (
-	 *             (name=ID? accessCategory=AccessCategory source=AccessConnectionEnd bidirectional?='<->'? destination=AccessConnectionEnd) | 
+	 *             (name=ID accessCategory=AccessCategory source=AccessConnectionEnd bidirectional?='<->'? destination=AccessConnectionEnd) | 
 	 *             (refined=[AccessConnection|REFINEDNAME] accessCategory=AccessCategory)
 	 *         ) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
@@ -2152,7 +2152,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         ((name=ID? source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | refined=[FeatureConnection|REFINEDNAME]) 
+	 *         ((name=ID source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | refined=[FeatureConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
@@ -2165,7 +2165,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         ((name=ID? source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | refined=[FeatureGroupConnection|REFINEDNAME]) 
+	 *         ((name=ID source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | refined=[FeatureGroupConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
@@ -2619,7 +2619,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         ((name=ID? source=ConnectedElement destination=ConnectedElement) | refined=[ParameterConnection|REFINEDNAME]) 
+	 *         ((name=ID source=ConnectedElement destination=ConnectedElement) | refined=[ParameterConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
@@ -2647,7 +2647,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         ((name=ID? source=AbstractConnectionEnd bidirectional?='<->'? destination=ProcessorConnectionEnd) | refined=[PortConnection|REFINEDNAME]) 
+	 *         ((name=ID source=AbstractConnectionEnd bidirectional?='<->'? destination=ProcessorConnectionEnd) | refined=[PortConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
@@ -2953,7 +2953,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (
 	 *         name=ID 
 	 *         (importedUnit+=[PropertySet|ID] importedUnit+=[PropertySet|ID]*)* 
-	 *         (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
+	 *         (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_PropertySet(EObject context, PropertySet semanticObject) {
@@ -3181,7 +3182,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID initial?='initial'? derived?='mode' ownedPropertyAssociation+=PropertyAssociation*)
+	 *     (name=ID initial?='initial'? ownedPropertyAssociation+=PropertyAssociation*)
 	 */
 	protected void sequence_RequiresMode(EObject context, Mode semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

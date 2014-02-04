@@ -120,8 +120,7 @@ public class ElementOperations {
 	 * <!-- end-model-doc -->
 	 * @generated
 	 */
-	public static boolean not_own_self(Element element,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public static boolean not_own_self(Element element, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getElement());
@@ -129,28 +128,20 @@ public class ElementOperations {
 				NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV)
-				.check(element)) {
+		if (!EOCL_ENV.createQuery(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(element)) {
 			if (diagnostics != null) {
 				diagnostics
-						.add(new BasicDiagnostic(
-								Diagnostic.ERROR,
-								Aadl2Validator.DIAGNOSTIC_SOURCE,
-								Aadl2Validator.ELEMENT__NOT_OWN_SELF,
-								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.ELEMENT__NOT_OWN_SELF, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
 										.getString(
 												"_UI_GenericInvariant_diagnostic",
 												new Object[] {
 														"not_own_self",
-														org.eclipse.emf.ecore.util.EObjectValidator
-																.getObjectLabel(
-																		element,
-																		context) }),
-								new Object[] { element }));
+														org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(
+																element, context) }), new Object[] { element }));
 			}
 			return false;
 		}
@@ -188,8 +179,7 @@ public class ElementOperations {
 	 * <!-- end-model-doc -->
 	 * @generated
 	 */
-	public static boolean has_owner(Element element,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public static boolean has_owner(Element element, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getElement());
@@ -197,28 +187,20 @@ public class ElementOperations {
 				HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV)
-				.check(element)) {
+		if (!EOCL_ENV.createQuery(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(element)) {
 			if (diagnostics != null) {
 				diagnostics
-						.add(new BasicDiagnostic(
-								Diagnostic.ERROR,
-								Aadl2Validator.DIAGNOSTIC_SOURCE,
-								Aadl2Validator.ELEMENT__HAS_OWNER,
-								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.ELEMENT__HAS_OWNER, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
 										.getString(
 												"_UI_GenericInvariant_diagnostic",
 												new Object[] {
 														"has_owner",
-														org.eclipse.emf.ecore.util.EObjectValidator
-																.getObjectLabel(
-																		element,
-																		context) }),
-								new Object[] { element }));
+														org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(
+																element, context) }), new Object[] { element }));
 			}
 			return false;
 		}
@@ -266,23 +248,18 @@ public class ElementOperations {
 	public static EList<Element> allOwnedElements(Element element) {
 		if (ALL_OWNED_ELEMENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(),
-					Aadl2Package.eINSTANCE.getElement().getEAllOperations()
-							.get(3));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
+					.getEAllOperations().get(3));
 			try {
-				ALL_OWNED_ELEMENTS__EOCL_QRY = helper
-						.createQuery(ALL_OWNED_ELEMENTS__EOCL_EXP);
+				ALL_OWNED_ELEMENTS__EOCL_QRY = helper.createQuery(ALL_OWNED_ELEMENTS__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(ALL_OWNED_ELEMENTS__EOCL_QRY);
 		@SuppressWarnings("unchecked")
-		Collection<Element> result = (Collection<Element>) query
-				.evaluate(element);
-		return new BasicEList.UnmodifiableEList<Element>(result.size(),
-				result.toArray());
+		Collection<Element> result = (Collection<Element>) query.evaluate(element);
+		return new BasicEList.UnmodifiableEList<Element>(result.size(), result.toArray());
 	}
 
 	/**
@@ -317,15 +294,12 @@ public class ElementOperations {
 	public static boolean mustBeOwned(Element element) {
 		if (MUST_BE_OWNED__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(),
-					Aadl2Package.eINSTANCE.getElement().getEAllOperations()
-							.get(4));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
+					.getEAllOperations().get(4));
 			try {
-				MUST_BE_OWNED__EOCL_QRY = helper
-						.createQuery(MUST_BE_OWNED__EOCL_EXP);
+				MUST_BE_OWNED__EOCL_QRY = helper.createQuery(MUST_BE_OWNED__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(
-						pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(MUST_BE_OWNED__EOCL_QRY);

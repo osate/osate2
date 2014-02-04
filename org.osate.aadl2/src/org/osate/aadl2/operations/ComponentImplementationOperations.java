@@ -68,21 +68,15 @@ public class ComponentImplementationOperations extends ClassifierOperations {
 		super();
 	}
 
-	public static EList<Subcomponent> getAllSubcomponents(
-			ComponentImplementation componentImplementation) {
-		final EList<Classifier> ancestors = componentImplementation
-				.getSelfPlusAllExtended();
+	public static EList<Subcomponent> getAllSubcomponents(ComponentImplementation componentImplementation) {
+		final EList<Classifier> ancestors = componentImplementation.getSelfPlusAllExtended();
 		final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		// Process from farthest ancestor to self
-		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
-				.size()); li.hasPrevious();) {
-			final ComponentImplementation current = (ComponentImplementation) li
-					.previous();
-			final EList<Subcomponent> currentItems = current
-					.getOwnedSubcomponents();
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li.previous();
+			final EList<Subcomponent> currentItems = current.getOwnedSubcomponents();
 			if (currentItems != null) {
-				for (Iterator<Subcomponent> i = currentItems.iterator(); i
-						.hasNext();) {
+				for (Iterator<Subcomponent> i = currentItems.iterator(); i.hasNext();) {
 					final Subcomponent fe = i.next();
 					final Subcomponent rfe = fe.getRefined();
 					if (rfe != null)

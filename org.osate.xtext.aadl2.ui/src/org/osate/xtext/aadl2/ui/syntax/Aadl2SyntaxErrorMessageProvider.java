@@ -68,7 +68,7 @@ public class Aadl2SyntaxErrorMessageProvider extends SyntaxErrorMessageProvider{
 		 }
 		 if (ex instanceof NoViableAltException){
 			 // no viable alternative at input 'xxx'
-			 msg = msg.replaceFirst("no viable alternative at input", "Not allowed: ")+". Earlier keyword may be out of place.";
+			 msg = msg.replaceFirst("no viable alternative at input", "Not allowed: ")+". Missing defining identifier or earlier keyword may be out of place.";
 		 }
 		if (contextobj == null){
 			msg = "Incomplete package or property set declaration";

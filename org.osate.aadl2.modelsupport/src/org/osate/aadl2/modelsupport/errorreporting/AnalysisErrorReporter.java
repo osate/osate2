@@ -6,7 +6,7 @@ import org.osate.aadl2.Element;
 
 public interface AnalysisErrorReporter extends ErrorReporter {
 	/**
-	 * Report an error on an AObject (AADL object model object). The error may
+	 * Report an error on an Element (AADL object model object). The error may
 	 * have additional attributes to be used by the reporter.
 	 * 
 	 * @param obj
@@ -25,7 +25,7 @@ public interface AnalysisErrorReporter extends ErrorReporter {
 			String[] attrs, Object[] values);
 
 	/**
-	 * Report a warning on an AObject (AADL object model object). The warning
+	 * Report a warning on an Element (AADL object model object). The warning
 	 * may have additional attributes to be used by the reporter.
 	 * 
 	 * @param obj
@@ -44,7 +44,7 @@ public interface AnalysisErrorReporter extends ErrorReporter {
 			String[] attrs, Object[] values);
 
 	/**
-	 * Report an information message on an AObject (AADL object model object).
+	 * Report an information message on an Element (AADL object model object).
 	 * The information may have additional attributes to be used by the reporter.
 	 * 
 	 * @param obj

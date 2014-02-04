@@ -43,6 +43,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.parsesupport.ParseUtil;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -115,8 +116,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		double oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -255,13 +255,17 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
+		}
+
 		if (this == obj)
 			return true;
+
 		if (obj == null || getClass() != obj.getClass() || !super.equals(obj))
 			return false;
 		RealLiteralImpl other = (RealLiteralImpl) obj;
-		return Double.doubleToLongBits(value) == Double
-				.doubleToLongBits(other.value);
+		return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
 	}
 
 } // RealLiteralImpl

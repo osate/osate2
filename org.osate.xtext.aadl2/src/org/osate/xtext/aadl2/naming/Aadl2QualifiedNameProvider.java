@@ -74,9 +74,9 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 
 	// Enable to limit indexing to global items
-	// Duplicates checking only applies to global items
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
+		if (!(obj instanceof NamedElement)) return null;
 		NamedElement annex = AadlUtil.getContainingAnnex(obj);
 		if (annex != null){
 			String annexName = annex.getName();
@@ -90,77 +90,23 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 				}
 			}
 		}
-
-		
 		  if (obj instanceof AadlPackage || 
 			  obj instanceof Classifier || 
 			  obj instanceof PropertyConstant || 
 			  obj instanceof Property || 
 			  obj instanceof PropertySet || 
-			  obj instanceof PropertyType)
-		  {
-			return super.getFullyQualifiedName(obj);
+			  obj instanceof PropertyType ||
+			  // DB: We also want a qualified name for package sections
+			  obj instanceof PackageSection ) {
+				if (((NamedElement)obj).getName() == null) return null;
+				return getConverter().toQualifiedName(getTheName((NamedElement)obj));
 		  }
 	   return null;
 	}
 	
-	public QualifiedName qualifiedName(final Classifier obj) {
-
-		if (obj.getOwner() instanceof PrivatePackageSection) return null;
-		 
-		
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final Element obj) {
-		return null;
-		//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final NamedElement obj) {
-		//		return getConverter().toQualifiedName(obj.getName());
-		return getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final BasicProperty obj) {
-		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final UnitLiteral obj) {
-		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final EnumerationLiteral obj) {
-		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final AadlPackage obj) {
-		return getConverter().toQualifiedName(obj.getName());
-	}
-	
-	public QualifiedName qualifiedName(final PackageSection obj) {
-		return null;
-		//return getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final PropertyType obj) {
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final PropertyConstant obj) {
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final Property obj) {
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final PropertySet obj) {
-		return getConverter().toQualifiedName(obj.getName());
-	}
 	
 	protected String getTheName(NamedElement namedElement){
-			if (namedElement.hasName()) {
+			if (namedElement.getName()!=null) {
 				Namespace namespace = namedElement.getNamespace();
 				if (namespace != null ) {
 					if (namespace instanceof PropertySet && namespace.hasName())
@@ -172,7 +118,7 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 				} else
 					return namedElement.getName();
 			} else
-				return null;
+				return "<noname>";
 	}
 
 
