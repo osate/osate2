@@ -106,7 +106,7 @@ public class ReferenceAssistant extends AbstractAssistant
 					return null;
 			}
 		});
-		referenceViewer.setLabelProvider(UiUtil.getAObjectLabelProvider());
+		referenceViewer.setLabelProvider(UiUtil.getModelElementLabelProvider());
 		referenceViewer.setSorter(new ViewerSorter());
 		referenceViewer.setInput(holder);
 		referenceViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));

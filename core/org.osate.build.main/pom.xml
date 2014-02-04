@@ -52,7 +52,11 @@
     <module>../../plugins/org.osate.analysis.resource.management</module>
     <module>../../plugins/org.osate.analysis.security</module>
     <module>../../plugins/org.osate.analysis.arinc653</module>
+    
+    <module>../../plugins/org.osate.importer</module>
+    <module>../../plugins/org.osate.importer.simulink</module>
     <module>../../plugins/org.osate.importer.lattix</module>
+    
     <module>../../plugins/org.osate.analysis.lute</module>
     <module>../../plugins/org.osate.imv.osate</module>
     <module>../../plugins/org.osate.imv.propertydecorations</module>
@@ -61,8 +65,6 @@
     <module>../../plugins/org.osate.analysis.binpacking</module>
     <module>../../plugins/org.osate.plugins.feature</module>
     <module>../../plugins/org.osate.plugins.source.feature</module>
-    
-    
     
     <module>../../error-model2/org.osate.aadl2.errormodel.analysis</module>
     <module>../../error-model2/org.osate.xtext.aadl2.errormodel.feature</module>
@@ -76,6 +78,13 @@
     <module>../../error-model1/edu.laas.aadl.aadl2gspn</module>
     <module>../../error-model1/edu.laas.aadl.dependency</module>
     <module>../../error-model1/edu.laas.aadl.gspn.model</module>
+    
+    <module>../../aadlba/org.osate.utils</module>
+    <module>../../aadlba/org.osate.utils.feature</module>
+    <module>../../aadlba/org.osate.ba</module>
+    <module>../../aadlba/org.osate.ba.feature</module>
+    <module>../../aadlba/org.osate.ba.edit</module>
+    
   </modules>
 
   <build>

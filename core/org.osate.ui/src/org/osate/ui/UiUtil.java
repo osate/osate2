@@ -383,7 +383,7 @@ public final class UiUtil {
 	 * 
 	 * @return A label provider that returns standard labels and icons for AObjects.
 	 */
-	public static final AdapterFactoryLabelProvider getAObjectLabelProvider()
+	public static final AdapterFactoryLabelProvider getModelElementLabelProvider()
 	{
 		if (labelProvider == null)
 			labelProvider = new AdapterFactoryLabelProvider(getAdapterFactory());
@@ -397,7 +397,7 @@ public final class UiUtil {
 	 * 
 	 * @return A content provider that is used for displaying the standard hierarchical contents of an AObject.
 	 */
-	public static final AdapterFactoryContentProvider getAObjectContentProvider()
+	public static final AdapterFactoryContentProvider getModelElementContentProvider()
 	{
 		if (contentProvider == null)
 			contentProvider = new AdapterFactoryContentProvider(getAdapterFactory());

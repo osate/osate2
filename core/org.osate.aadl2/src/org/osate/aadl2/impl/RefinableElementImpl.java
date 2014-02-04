@@ -57,8 +57,7 @@ import org.osate.aadl2.util.Aadl2Util;
  *
  * @generated
  */
-public abstract class RefinableElementImpl extends NamedElementImpl implements
-		RefinableElement {
+public abstract class RefinableElementImpl extends NamedElementImpl implements RefinableElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -85,8 +84,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements
 	 */
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
-		return refinementContext != null
-				&& ((EObject) refinementContext).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) refinementContext)
+		return refinementContext != null && ((EObject) refinementContext).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) refinementContext)
 				: refinementContext;
 	}
 
@@ -168,8 +166,8 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements
 
 	@Override
 	public String getName() {
-		if (name == null) {
-			if (!Aadl2Util.isNull(getRefinedElement()))
+		if (name == null) { // DB Avoids stack trace overflow when a component refines itself (seems to be supported by OSATE)
+			if (!Aadl2Util.isNull(getRefinedElement()) && getRefinedElement() != this)
 				return getRefinedElement().getName();
 			else
 				return "";
@@ -177,4 +175,12 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements
 		return name;
 	}
 
+	@Override
+	public void setName(final String newName) {
+		// DB: Avoid setting a non null name to refined elements (causes a validation error during serialization 
+		// when both the name and refined element are set).
+		final String actualName = Aadl2Util.isNull(getRefinedElement()) ? newName : null;
+
+		super.setName(actualName);
+	}
 } // RefinableElementImpl

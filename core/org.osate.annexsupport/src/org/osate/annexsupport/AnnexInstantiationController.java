@@ -61,7 +61,6 @@ public class AnnexInstantiationController extends ForAllElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.cmu.sei.aadl.model.util.ForAllAObject#action(edu.cmu.sei.aadl.model.core.AObject)
 	 * 
 	 * Efficiency: Recalculates list for each instance, even if same
 	 * implementation.
@@ -106,7 +105,6 @@ public class AnnexInstantiationController extends ForAllElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.cmu.sei.aadl.model.util.ForAllAObject#suchThat(edu.cmu.sei.aadl.model.core.AObject)
 	 */
 	protected boolean suchThat(Element obj) {
 		return true;

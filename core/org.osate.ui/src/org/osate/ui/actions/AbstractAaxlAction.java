@@ -675,7 +675,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	
 	/**
 	 * Report error message on object as result of action as marker and in csv log.
-	 * @param obj Aobject that has been processed by the action
+	 * @param obj Element that has been processed by the action
 	 * @param msg The error message
 	 */
 	public final void error(final Element obj, final String msg){
@@ -723,7 +723,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 
 	/**
 	 * Record warning message on object as result of action as marker and in csv log
-	 * @param obj Aobject that has been processed by the action
+	 * @param obj Element that has been processed by the action
 	 * @param msg The warning message
 	 */
 	public final void warning(final Element obj, final String msg){

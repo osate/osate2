@@ -47,6 +47,7 @@ import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -62,8 +63,7 @@ import org.osate.aadl2.Prototype;
  *
  * @generated
  */
-public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
-		implements FeatureGroupPrototypeBinding {
+public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl implements FeatureGroupPrototypeBinding {
 	/**
 	 * The cached value of the '{@link #getActual() <em>Actual</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -107,15 +107,12 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetActual(
-			FeatureGroupPrototypeActual newActual, NotificationChain msgs) {
+	public NotificationChain basicSetActual(FeatureGroupPrototypeActual newActual, NotificationChain msgs) {
 		FeatureGroupPrototypeActual oldActual = actual;
 		actual = newActual;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL,
-					oldActual, newActual);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL, oldActual, newActual);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -133,25 +130,16 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 		if (newActual != actual) {
 			NotificationChain msgs = null;
 			if (actual != null)
-				msgs = ((InternalEObject) actual)
-						.eInverseRemove(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL,
-								null, msgs);
+				msgs = ((InternalEObject) actual).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			if (newActual != null)
-				msgs = ((InternalEObject) newActual)
-						.eInverseAdd(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL,
-								null, msgs);
+				msgs = ((InternalEObject) newActual).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			msgs = basicSetActual(newActual, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL,
 					newActual, newActual));
 	}
 
@@ -179,11 +167,8 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 			formal = (Prototype) eResolveProxy(oldFormal);
 			if (formal != oldFormal) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL,
-							oldFormal, formal));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL, oldFormal, formal));
 			}
 		}
 		return formal;
@@ -206,15 +191,10 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !(newFormal instanceof FeatureGroupPrototype)) {
-			throw new IllegalArgumentException(
-					"newFormal must be an instance of FeatureGroupPrototype");
-		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL,
 					oldFormal, formal));
 	}
 
@@ -233,8 +213,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
 			return basicSetActual(null, msgs);
@@ -296,8 +275,6 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
 			return actual != null;
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL:
-			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -121,7 +121,7 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 	
 	/**
 	 * Record of a reported error message/warning. Contains the
-	 * {@link #where AObject} on which the message is located, the
+	 * {@link #where Element} on which the message is located, the
 	 * {@link #kind category} of the message, and the
 	 * {@link #message message itself}. The category is a string, and the set
 	 * of current values is given by

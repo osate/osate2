@@ -53,10 +53,9 @@ import org.osate.aadl2.VirtualProcessorPrototype;
  * <!-- end-user-doc -->
  * @generated
  */
-public class VirtualProcessorPrototypeItemProvider extends
-		ComponentPrototypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider,
-		IItemLabelProvider, IItemPropertySource {
+public class VirtualProcessorPrototypeItemProvider extends ComponentPrototypeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -90,10 +89,7 @@ public class VirtualProcessorPrototypeItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/VirtualProcessorPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorPrototype"));
 	}
 
 	/**
@@ -130,8 +126,7 @@ public class VirtualProcessorPrototypeItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -147,13 +147,22 @@ public interface InstancePackage extends EPackage {
 	int INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_OBJECT__ANNEX_INSTANCE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INSTANCE_OBJECT_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int INSTANCE_OBJECT_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl <em>Feature Instance</em>}' class.
@@ -173,7 +182,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getConnectionInstanceEnd()
 	 * @generated
 	 */
-	int CONNECTION_INSTANCE_END = 2;
+	int CONNECTION_INSTANCE_END = 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -219,6 +228,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION_INSTANCE_END__OWNED_PROPERTY_ASSOCIATION = INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_INSTANCE_END__ANNEX_INSTANCE = INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Src Connection Instance</b></em>' reference list.
@@ -291,6 +309,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_INSTANCE__OWNED_PROPERTY_ASSOCIATION = CONNECTION_INSTANCE_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INSTANCE__ANNEX_INSTANCE = CONNECTION_INSTANCE_END__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Src Connection Instance</b></em>' reference list.
@@ -383,6 +410,79 @@ public interface InstancePackage extends EPackage {
 	int FEATURE_INSTANCE_FEATURE_COUNT = CONNECTION_INSTANCE_END_FEATURE_COUNT + 7;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.AnnexInstanceImpl <em>Annex Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.instance.impl.AnnexInstanceImpl
+	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getAnnexInstance()
+	 * @generated
+	 */
+	int ANNEX_INSTANCE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Subclause</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__ANNEX_SUBCLAUSE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Annex Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.FlowElementInstanceImpl <em>Flow Element Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -390,7 +490,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getFlowElementInstance()
 	 * @generated
 	 */
-	int FLOW_ELEMENT_INSTANCE = 4;
+	int FLOW_ELEMENT_INSTANCE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -438,6 +538,15 @@ public interface InstancePackage extends EPackage {
 	int FLOW_ELEMENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION = INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_ELEMENT_INSTANCE__ANNEX_INSTANCE = INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
 	 * The number of structural features of the '<em>Flow Element Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -454,7 +563,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getConnectionInstance()
 	 * @generated
 	 */
-	int CONNECTION_INSTANCE = 3;
+	int CONNECTION_INSTANCE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -500,6 +609,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = FLOW_ELEMENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_INSTANCE__ANNEX_INSTANCE = FLOW_ELEMENT_INSTANCE__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>In System Operation Mode</b></em>' reference list.
@@ -590,7 +708,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getSystemOperationMode()
 	 * @generated
 	 */
-	int SYSTEM_OPERATION_MODE = 5;
+	int SYSTEM_OPERATION_MODE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -690,7 +808,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getModeInstance()
 	 * @generated
 	 */
-	int MODE_INSTANCE = 6;
+	int MODE_INSTANCE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -736,6 +854,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int MODE_INSTANCE__OWNED_PROPERTY_ASSOCIATION = INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_INSTANCE__ANNEX_INSTANCE = INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Src Mode Transition</b></em>' reference list.
@@ -808,7 +935,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getModeTransitionInstance()
 	 * @generated
 	 */
-	int MODE_TRANSITION_INSTANCE = 7;
+	int MODE_TRANSITION_INSTANCE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -854,6 +981,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int MODE_TRANSITION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = CONNECTION_INSTANCE_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_INSTANCE__ANNEX_INSTANCE = CONNECTION_INSTANCE_END__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Src Connection Instance</b></em>' reference list.
@@ -917,7 +1053,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getConnectionReference()
 	 * @generated
 	 */
-	int CONNECTION_REFERENCE = 8;
+	int CONNECTION_REFERENCE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -963,6 +1099,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION_REFERENCE__OWNED_PROPERTY_ASSOCIATION = INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_REFERENCE__ANNEX_INSTANCE = INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Context</b></em>' reference.
@@ -1017,7 +1162,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getComponentInstance()
 	 * @generated
 	 */
-	int COMPONENT_INSTANCE = 9;
+	int COMPONENT_INSTANCE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1063,6 +1208,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION = CONNECTION_INSTANCE_END__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_INSTANCE__ANNEX_INSTANCE = CONNECTION_INSTANCE_END__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Src Connection Instance</b></em>' reference list.
@@ -1198,7 +1352,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getFlowSpecificationInstance()
 	 * @generated
 	 */
-	int FLOW_SPECIFICATION_INSTANCE = 10;
+	int FLOW_SPECIFICATION_INSTANCE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1244,6 +1398,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FLOW_SPECIFICATION_INSTANCE__OWNED_PROPERTY_ASSOCIATION = FLOW_ELEMENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION_INSTANCE__ANNEX_INSTANCE = FLOW_ELEMENT_INSTANCE__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -1307,7 +1470,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getEndToEndFlowInstance()
 	 * @generated
 	 */
-	int END_TO_END_FLOW_INSTANCE = 11;
+	int END_TO_END_FLOW_INSTANCE = 12;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1353,6 +1516,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int END_TO_END_FLOW_INSTANCE__OWNED_PROPERTY_ASSOCIATION = FLOW_ELEMENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_TO_END_FLOW_INSTANCE__ANNEX_INSTANCE = FLOW_ELEMENT_INSTANCE__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Flow Element</b></em>' reference list.
@@ -1407,7 +1579,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getSystemInstance()
 	 * @generated
 	 */
-	int SYSTEM_INSTANCE = 12;
+	int SYSTEM_INSTANCE = 13;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1453,6 +1625,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_INSTANCE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_INSTANCE__ANNEX_INSTANCE = COMPONENT_INSTANCE__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Src Connection Instance</b></em>' reference list.
@@ -1606,7 +1787,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getInstanceReferenceValue()
 	 * @generated
 	 */
-	int INSTANCE_REFERENCE_VALUE = 13;
+	int INSTANCE_REFERENCE_VALUE = 14;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1652,7 +1833,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getConnectionKind()
 	 * @generated
 	 */
-	int CONNECTION_KIND = 14;
+	int CONNECTION_KIND = 15;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.FeatureCategory <em>Feature Category</em>}' enum.
@@ -1662,7 +1843,7 @@ public interface InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getFeatureCategory()
 	 * @generated
 	 */
-	int FEATURE_CATEGORY = 15;
+	int FEATURE_CATEGORY = 16;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.FeatureInstance <em>Feature Instance</em>}'.
@@ -1760,6 +1941,38 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getInstanceObject();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.instance.InstanceObject#getAnnexInstances <em>Annex Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annex Instance</em>'.
+	 * @see org.osate.aadl2.instance.InstanceObject#getAnnexInstances()
+	 * @see #getInstanceObject()
+	 * @generated
+	 */
+	EReference getInstanceObject_AnnexInstance();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.instance.AnnexInstance <em>Annex Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annex Instance</em>'.
+	 * @see org.osate.aadl2.instance.AnnexInstance
+	 * @generated
+	 */
+	EClass getAnnexInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.AnnexInstance#getAnnexSubclause <em>Annex Subclause</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Annex Subclause</em>'.
+	 * @see org.osate.aadl2.instance.AnnexInstance#getAnnexSubclause()
+	 * @see #getAnnexInstance()
+	 * @generated
+	 */
+	EReference getAnnexInstance_AnnexSubclause();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.ConnectionInstanceEnd <em>Connection Instance End</em>}'.
@@ -2522,6 +2735,34 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EClass INSTANCE_OBJECT = eINSTANCE.getInstanceObject();
+
+		/**
+		 * The meta object literal for the '<em><b>Annex Instance</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INSTANCE_OBJECT__ANNEX_INSTANCE = eINSTANCE
+				.getInstanceObject_AnnexInstance();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.AnnexInstanceImpl <em>Annex Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.instance.impl.AnnexInstanceImpl
+		 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getAnnexInstance()
+		 * @generated
+		 */
+		EClass ANNEX_INSTANCE = eINSTANCE.getAnnexInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Annex Subclause</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNEX_INSTANCE__ANNEX_SUBCLAUSE = eINSTANCE
+				.getAnnexInstance_AnnexSubclause();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl <em>Connection Instance End</em>}' class.

@@ -6,10 +6,14 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -240,6 +244,7 @@ public class Aadl2InstanceUtil {
 		}
 		FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)up.getOwner()).getFeature()).getFeatureGroupType();
 		FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance)down.getOwner()).getFeature()).getFeatureGroupType();
+		if (upfgt == null || downfgt == null) return false;
 		if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
 			return (getFeatureIndex(up)==getFeatureIndex(down));
 		}
@@ -268,5 +273,17 @@ public class Aadl2InstanceUtil {
 		return (last.getDestination().getComponentInstance() == last.getContext());
 
 	}
+	
+
+	public static boolean isOpposite(ConnectionInstance conni) {
+		ConnectionReference topref = getTopConnectionReference(conni);
+		Connection conn = topref.getConnection();
+		ConnectionInstanceEnd srcend = topref.getSource();
+		ComponentInstance srcCI = srcend.getContainingComponentInstance();
+		Subcomponent srcSub = srcCI.getSubcomponent();
+		Context srcelem = conn.getAllSourceContext();
+		return srcSub != srcelem;
+	}
+
 
 }

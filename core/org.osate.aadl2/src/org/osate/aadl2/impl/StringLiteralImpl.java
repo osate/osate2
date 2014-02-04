@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,8 +55,7 @@ import org.osate.aadl2.StringLiteral;
  *
  * @generated
  */
-public class StringLiteralImpl extends PropertyValueImpl implements
-		StringLiteral {
+public class StringLiteralImpl extends PropertyValueImpl implements StringLiteral {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -113,8 +113,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements
 		String oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.STRING_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.STRING_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -170,8 +169,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.STRING_LITERAL__VALUE:
-			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT
-					.equals(value);
+			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -203,6 +201,9 @@ public class StringLiteralImpl extends PropertyValueImpl implements
 
 	@Override
 	public boolean equals(Object obj) {
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
+		}
 		if (this == obj)
 			return true;
 		if (obj == null)

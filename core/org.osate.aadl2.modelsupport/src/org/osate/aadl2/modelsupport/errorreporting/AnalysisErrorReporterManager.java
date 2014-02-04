@@ -55,7 +55,7 @@ import org.osate.aadl2.Element;
  * interpret and resolve an already parsed model. So the errors are going to be
  * found when using {@link Element} instances, but
  * the errors reported on the AADL text file. This class solves the problem of
- * mapping from the AObject to the text file.
+ * mapping from the Element to the text file.
  * 
  * <p>
  * It's probably redundant to have the methods take the filename as a parameter
@@ -252,7 +252,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 	}
 	
 	/**
-	 * Report an error on an AObject (AADL object model object) using the error
+	 * Report an error on an Element (AADL object model object) using the error
 	 * reporter associated with that object's {@link Resource}.
 	 * 
 	 * @param obj
@@ -272,7 +272,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 	}
 	
 	/**
-	 * Report a warning on an AObject (AADL object model object) using the error
+	 * Report a warning on an Element (AADL object model object) using the error
 	 * reporter associated with that object's {@link Resource}.
 	 * 
 	 * @param obj
@@ -292,7 +292,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 	}
 
 	/**
-	 * Report an information message on an AObject (AADL object model object)
+	 * Report an information message on an Element (AADL object model object)
 	 * using the error reporter associated with that object's {@link Resource}.
 	 * 
 	 * @param obj

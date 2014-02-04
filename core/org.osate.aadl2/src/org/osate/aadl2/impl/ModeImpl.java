@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Property;
@@ -92,16 +93,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	protected static final boolean DERIVED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isDerived()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean derived = DERIVED_EDEFAULT;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -138,30 +129,17 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		boolean oldInitial = initial;
 		initial = newInitial;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.MODE__INITIAL, oldInitial, initial));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE__INITIAL, oldInitial, initial));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean isDerived() {
-		return derived;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDerived(boolean newDerived) {
-		boolean oldDerived = derived;
-		derived = newDerived;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.MODE__DERIVED, oldDerived, derived));
+		// DONE: implement this method to return the 'Derived' attribute
+		return ((ComponentClassifier) getOwner()).isDerivedModes();
 	}
 
 	/**
@@ -191,9 +169,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		case Aadl2Package.MODE__INITIAL:
 			setInitial((Boolean) newValue);
 			return;
-		case Aadl2Package.MODE__DERIVED:
-			setDerived((Boolean) newValue);
-			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -208,9 +183,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		switch (featureID) {
 		case Aadl2Package.MODE__INITIAL:
 			setInitial(INITIAL_EDEFAULT);
-			return;
-		case Aadl2Package.MODE__DERIVED:
-			setDerived(DERIVED_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -227,7 +199,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		case Aadl2Package.MODE__INITIAL:
 			return initial != INITIAL_EDEFAULT;
 		case Aadl2Package.MODE__DERIVED:
-			return derived != DERIVED_EDEFAULT;
+			return isDerived() != DERIVED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -245,15 +217,12 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (initial: ");
 		result.append(initial);
-		result.append(", derived: ");
-		result.append(derived);
 		result.append(')');
 		return result.toString();
 	}
 
 	// Cannot make this final because I need to override in SystemOperationMode
-	public void getPropertyValueInternal(final Property prop,
-			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();
 		final boolean inType = (owner instanceof ComponentType);
@@ -277,8 +246,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 			if (owner != null) {
 				owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
 			} else {
-				throw new InvalidModelException(this,
-						"Mode is not contained in a component type or implementation");
+				throw new InvalidModelException(this, "Mode is not contained in a component type or implementation");
 			}
 		}
 	}

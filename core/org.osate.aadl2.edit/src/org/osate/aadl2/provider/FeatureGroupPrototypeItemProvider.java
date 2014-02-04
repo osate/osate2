@@ -57,9 +57,8 @@ import org.osate.aadl2.FeatureGroupPrototype;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureGroupPrototypeItemProvider extends PrototypeItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FeatureGroupPrototypeItemProvider extends PrototypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,21 +91,15 @@ public class FeatureGroupPrototypeItemProvider extends PrototypeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addConstrainingFeatureGroupTypePropertyDescriptor(
-			Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureGroupPrototype_constrainingFeatureGroupType_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
-								"_UI_FeatureGroupPrototype_constrainingFeatureGroupType_feature",
-								"_UI_FeatureGroupPrototype_type"),
-						Aadl2Package.eINSTANCE
-								.getFeatureGroupPrototype_ConstrainingFeatureGroupType(),
-						true, false, true, null, null, null));
+	protected void addConstrainingFeatureGroupTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeatureGroupPrototype_constrainingFeatureGroupType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FeatureGroupPrototype_constrainingFeatureGroupType_feature",
+						"_UI_FeatureGroupPrototype_type"), Aadl2Package.eINSTANCE
+						.getFeatureGroupPrototype_ConstrainingFeatureGroupType(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -117,10 +110,7 @@ public class FeatureGroupPrototypeItemProvider extends PrototypeItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/FeatureGroupPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupPrototype"));
 	}
 
 	/**
@@ -157,8 +147,7 @@ public class FeatureGroupPrototypeItemProvider extends PrototypeItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

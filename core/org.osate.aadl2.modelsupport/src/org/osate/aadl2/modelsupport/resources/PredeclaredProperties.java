@@ -3,6 +3,9 @@ package org.osate.aadl2.modelsupport.resources;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -17,7 +20,6 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.pluginsupport.PluginSupportUtil;
-import org.osate.workspace.WorkspacePlugin;
 
 public class PredeclaredProperties {
 
@@ -89,13 +91,15 @@ public class PredeclaredProperties {
 								}
 							}
 						}
-						IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
-						.getDescription();
-				pluginResourcesProjectDescription
-						.setNatureIds(new String[] { //"edu.cmu.sei.osate.core.aadlnature" , 
-								XtextProjectHelper.NATURE_ID});
-				pluginResourcesProject.setDescription(
-						pluginResourcesProjectDescription, null);
+						
+						// DB Avoid removing the project's current natures.
+						final IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject.getDescription();
+						final Set<String> newNatures = new HashSet<String>( Arrays.asList( pluginResourcesProjectDescription.getNatureIds() ) );
+						newNatures.add( XtextProjectHelper.NATURE_ID );
+						pluginResourcesProjectDescription.setNatureIds( newNatures.toArray( new String[ newNatures.size() ] ) );
+//						pluginResourcesProjectDescription.setNatureIds(new String[] { //"edu.cmu.sei.osate.core.aadlnature" , 
+//								XtextProjectHelper.NATURE_ID});
+						pluginResourcesProject.setDescription( pluginResourcesProjectDescription, null );
 						
 					} catch (IOException e) {
 						throw new InvocationTargetException(e);

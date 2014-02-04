@@ -289,6 +289,21 @@ public class GetProperties {
 		return components;
 	}
 
+	public static List<ComponentInstance> getActualFunctionBinding(final InstanceObject io) {
+		Property actualFunctionBinding = lookupPropertyDefinition(io,DeploymentProperties._NAME,
+				DeploymentProperties.ACTUAL_FUNCTION_BINDING);
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		List<? extends PropertyExpression> propertyValues ;
+		try {
+			propertyValues = io.getPropertyValueList(actualFunctionBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues)
+			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		return components;
+	}
+
 	public static List<? extends PropertyExpression> getActualConnectionBinding(final NamedElement ne) {
 			Property actualConnectionBinding = lookupPropertyDefinition(ne,DeploymentProperties._NAME,
 					DeploymentProperties.ACTUAL_CONNECTION_BINDING);
@@ -641,6 +656,9 @@ public class GetProperties {
 		return mipd;
 	}
 
+	
+
+	
 	/**
 	 * get specified instructions per dispatch as IPD
 	 * @param ne thread component instance
@@ -721,6 +739,12 @@ public class GetProperties {
 		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
 	}
+	
+	public static double getComputeDeadlineinMilliSec(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_DEADLINE);
+		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
+	}
 
 	public static double getDeadlineinMicroSec(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
@@ -763,6 +787,16 @@ public class GetProperties {
 		try {
 			Property dispatchProtocol = lookupPropertyDefinition(ne,ThreadProperties._NAME, ThreadProperties.DISPATCH_PROTOCOL);
 			return PropertyUtils.getEnumLiteral(ne, dispatchProtocol);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
+	}
+	
+	
+	public static EnumerationLiteral getOverflowHandlingProtocol(final NamedElement ne) {
+		try {
+			Property overflowHandlingProtocol = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.OVERFLOW_HANDLING_PROTOCOL);
+			return PropertyUtils.getEnumLiteral(ne, overflowHandlingProtocol);
 		} catch (final PropertyLookupException e) {
 			return null;
 		}
@@ -1068,5 +1102,15 @@ public class GetProperties {
 		return null;
 	}
 
+	public static List<? extends PropertyExpression> getModelReferences(final NamedElement ne) {
+		try {
+			Property modelReferences = lookupPropertyDefinition(ne,SEI._NAME, SEI.MODEL_REFERENCES);
+			List<? extends PropertyExpression> values = ne.getPropertyValueList(modelReferences);
+
+			return values;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
 
 }

@@ -48,8 +48,7 @@ import org.osate.aadl2.EnumerationLiteral;
  *
  * @generated
  */
-public class EnumerationLiteralImpl extends NamedElementImpl implements
-		EnumerationLiteral {
+public class EnumerationLiteralImpl extends NamedElementImpl implements EnumerationLiteral {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

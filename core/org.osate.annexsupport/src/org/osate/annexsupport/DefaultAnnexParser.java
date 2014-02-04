@@ -63,7 +63,6 @@ public class DefaultAnnexParser implements AnnexParser {
 		DefaultAnnexLibrary al = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
 		al.setName(annexName);
 		al.setSourceText(source);
-		al.setLocationReference(filename, line);
 		return al;
 	}
 
@@ -78,7 +77,6 @@ public class DefaultAnnexParser implements AnnexParser {
 		DefaultAnnexSubclause as = Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause();
 		as.setName(annexName);
 		as.setSourceText(source);
-		as.setLocationReference(filename, line);
 		return as;
 	}
 }

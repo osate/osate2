@@ -61,13 +61,13 @@ import org.osate.aadl2.NamedElement;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getNamedElement <em>Named Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getAnnexName <em>Annex Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ContainmentPathElementImpl extends ElementImpl implements
-		ContainmentPathElement {
+public class ContainmentPathElementImpl extends ElementImpl implements ContainmentPathElement {
 	/**
 	 * The cached value of the '{@link #getArrayRanges() <em>Array Range</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -87,6 +87,26 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 * @ordered
 	 */
 	protected NamedElement namedElement;
+
+	/**
+	 * The default value of the '{@link #getAnnexName() <em>Annex Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnexName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ANNEX_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getAnnexName() <em>Annex Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnexName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String annexName = ANNEX_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -114,8 +134,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 */
 	public EList<ArrayRange> getArrayRanges() {
 		if (arrayRanges == null) {
-			arrayRanges = new EObjectContainmentEList<ArrayRange>(
-					ArrayRange.class, this,
+			arrayRanges = new EObjectContainmentEList<ArrayRange>(ArrayRange.class, this,
 					Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE);
 		}
 		return arrayRanges;
@@ -127,8 +146,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 * @generated
 	 */
 	public ArrayRange createArrayRange() {
-		ArrayRange newArrayRange = (ArrayRange) create(Aadl2Package.eINSTANCE
-				.getArrayRange());
+		ArrayRange newArrayRange = (ArrayRange) create(Aadl2Package.eINSTANCE.getArrayRange());
 		getArrayRanges().add(newArrayRange);
 		return newArrayRange;
 	}
@@ -144,11 +162,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 			namedElement = (NamedElement) eResolveProxy(oldNamedElement);
 			if (namedElement != oldNamedElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
-							oldNamedElement, namedElement));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT, oldNamedElement, namedElement));
 			}
 		}
 		return namedElement;
@@ -172,8 +187,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		NamedElement oldNamedElement = namedElement;
 		namedElement = newNamedElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
 					oldNamedElement, namedElement));
 	}
 
@@ -182,13 +196,33 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getAnnexName() {
+		return annexName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAnnexName(String newAnnexName) {
+		String oldAnnexName = annexName;
+		annexName = newAnnexName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME,
+					oldAnnexName, annexName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
-			return ((InternalEList<?>) getArrayRanges()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getArrayRanges()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -207,6 +241,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 			if (resolve)
 				return getNamedElement();
 			return basicGetNamedElement();
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
+			return getAnnexName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -222,11 +258,13 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		switch (featureID) {
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
 			getArrayRanges().clear();
-			getArrayRanges()
-					.addAll((Collection<? extends ArrayRange>) newValue);
+			getArrayRanges().addAll((Collection<? extends ArrayRange>) newValue);
 			return;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
 			setNamedElement((NamedElement) newValue);
+			return;
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
+			setAnnexName((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -246,6 +284,9 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
 			setNamedElement((NamedElement) null);
 			return;
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
+			setAnnexName(ANNEX_NAME_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -262,8 +303,27 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 			return arrayRanges != null && !arrayRanges.isEmpty();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
 			return namedElement != null;
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
+			return ANNEX_NAME_EDEFAULT == null ? annexName != null : !ANNEX_NAME_EDEFAULT.equals(annexName);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (annexName: ");
+		result.append(annexName);
+		result.append(')');
+		return result.toString();
 	}
 
 } // ContainmentPathElementImpl

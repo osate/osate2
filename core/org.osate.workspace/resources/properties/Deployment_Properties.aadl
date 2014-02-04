@@ -32,6 +32,9 @@ property set Deployment_Properties is
 	
 	Actual_Connection_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system)
 		applies to (feature, connection, thread, thread group, process, system, virtual bus);
+
+	Actual_Function_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system)
+		applies to (subprogram, thread, thread group, process, system);
 	
 	Allowed_Subprogram_Call: list of reference (subprogram)
 		applies to (subprogram access);

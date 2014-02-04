@@ -48,8 +48,7 @@ import org.osate.aadl2.DataClassifier;
  *
  * @generated
  */
-public abstract class DataClassifierImpl extends ComponentClassifierImpl
-		implements DataClassifier {
+public abstract class DataClassifierImpl extends ComponentClassifierImpl implements DataClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

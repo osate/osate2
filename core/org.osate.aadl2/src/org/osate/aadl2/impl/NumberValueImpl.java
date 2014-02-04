@@ -44,6 +44,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.operations.NumberValueOperations;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.UnitsType;
 
 /**
@@ -59,8 +60,7 @@ import org.osate.aadl2.UnitsType;
  *
  * @generated
  */
-public abstract class NumberValueImpl extends PropertyValueImpl implements
-		NumberValue {
+public abstract class NumberValueImpl extends PropertyValueImpl implements NumberValue {
 	/**
 	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -101,8 +101,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements
 			unit = (UnitLiteral) eResolveProxy(oldUnit);
 			if (unit != oldUnit) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit,
+							unit));
 			}
 		}
 		return unit;
@@ -126,8 +126,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
 	}
 
 	/**
@@ -210,8 +209,14 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements
 
 	@Override
 	public boolean equals(Object obj) {
+
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
+		}
+
 		if (this == obj)
 			return true;
+
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
@@ -237,8 +242,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements
 		if (currentUnit == null) {
 			targetUnit = null;
 		} else {
-			targetUnit = ((UnitsType) currentUnit.eContainer())
-					.findLiteral(target);
+			targetUnit = ((UnitsType) currentUnit.eContainer()).findLiteral(target);
 		}
 
 		return getScaledValue(targetUnit);

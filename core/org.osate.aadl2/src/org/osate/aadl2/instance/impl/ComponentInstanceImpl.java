@@ -1033,8 +1033,10 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements
 			return getContainingComponentInstance().isActive(som);
 		}
 		for (ModeInstance m : getInModes()) {
+
 			if (som.getCurrentModes().contains(m)) {
-				return getContainingComponentInstance().isActive(som);
+				return true;
+				//return getContainingComponentInstance().isActive(som);
 			}
 		}
 		return false;

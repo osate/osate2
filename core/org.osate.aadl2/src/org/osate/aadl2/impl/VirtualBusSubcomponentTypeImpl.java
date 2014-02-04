@@ -32,17 +32,40 @@
  * </copyright>
  * 
  */
-package org.osate.aadl2;
+package org.osate.aadl2.impl;
+
+import org.eclipse.emf.ecore.EClass;
+
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.VirtualBusSubcomponentType;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Vitual Bus Subcomponent Type</b></em>'.
+ * An implementation of the model object '<em><b>Virtual Bus Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * </p>
  *
- *
- * @see org.osate.aadl2.Aadl2Package#getVitualBusSubcomponentType()
- * @model abstract="true"
  * @generated
  */
-public interface VitualBusSubcomponentType extends SubcomponentType, VirtualBus {
-} // VitualBusSubcomponentType
+public abstract class VirtualBusSubcomponentTypeImpl extends SubcomponentTypeImpl implements VirtualBusSubcomponentType {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VirtualBusSubcomponentTypeImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return Aadl2Package.eINSTANCE.getVirtualBusSubcomponentType();
+	}
+
+} //VirtualBusSubcomponentTypeImpl

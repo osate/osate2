@@ -68,12 +68,12 @@ public interface VirtualBusSubcomponent extends Subcomponent, VirtualBus {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Virtual Bus Subcomponent Type</em>' reference.
-	 * @see #setVirtualBusSubcomponentType(VitualBusSubcomponentType)
+	 * @see #setVirtualBusSubcomponentType(VirtualBusSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusSubcomponent_VirtualBusSubcomponentType()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	VitualBusSubcomponentType getVirtualBusSubcomponentType();
+	VirtualBusSubcomponentType getVirtualBusSubcomponentType();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.VirtualBusSubcomponent#getVirtualBusSubcomponentType <em>Virtual Bus Subcomponent Type</em>}' reference.
@@ -83,6 +83,6 @@ public interface VirtualBusSubcomponent extends Subcomponent, VirtualBus {
 	 * @see #getVirtualBusSubcomponentType()
 	 * @generated
 	 */
-	void setVirtualBusSubcomponentType(VitualBusSubcomponentType value);
+	void setVirtualBusSubcomponentType(VirtualBusSubcomponentType value);
 
 } // VirtualBusSubcomponent

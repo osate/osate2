@@ -545,8 +545,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	}
 
 	@Override
-	public boolean matchesIndex(List<ArrayRange> ranges) 
-	{
+	public boolean matchesIndex(List<ArrayRange> ranges) {
 		/**
 		 * FIX JD
 		 * Hack to return the appropriate value in InstanceObject.findInstanceObjectsHelper

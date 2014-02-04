@@ -91,9 +91,6 @@ import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
  * 
  * <p>A long-running analysis should also periodically check if the user
  * has cancelled the operation by polling
- * {@link org.eclipse.core.runtime.IProgressMonitor#isCanceled()}. Note that,
- * the OSATE traversal class {@link edu.cmu.sei.aadl.model.util.ForAllAObject}
- * supports cancellation via the protected <code>cancelTraversal</code>
  * method. This is best used via the
  * {@link edu.cmu.sei.aadl.model.util.AadlProcessingSwitchWithProgress} subclass
  * that takes a reference to the progress monitor when it is constructed.

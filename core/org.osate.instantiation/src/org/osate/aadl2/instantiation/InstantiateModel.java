@@ -53,7 +53,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.debug.internal.ui.contextlaunching.ContextRunner;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -96,7 +95,6 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeTransition;
@@ -105,7 +103,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
@@ -114,9 +111,8 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.ThreadGroupSubcomponent;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.impl.AadlIntegerImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -141,7 +137,6 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -707,12 +702,12 @@ public class InstantiateModel {
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
 		} else {
-			if (cc instanceof ComponentType) {
-				if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
-						|| sub instanceof ThreadGroupSubcomponent) {
-					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
-				}
-			}
+//			if (cc instanceof ComponentType) {
+//				if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
+//						|| sub instanceof ThreadGroupSubcomponent) {
+//					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
+//				}
+//			}
 			newInstance.setCategory(cc.getCategory());
 		}
 
@@ -1025,9 +1020,13 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	private void processConnections(SystemInstance root) {
+		EList<ComponentInstance> replicateConns = new UniqueEList<ComponentInstance>();
 		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
 		EList<ConnectionInstance> connilist = root.getAllConnectionInstances();
 		for (ConnectionInstance conni : connilist) {
+			// track all component instances that contain connection instances
+			replicateConns.add(conni.getComponentInstance());
+			
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
 
@@ -1066,7 +1065,7 @@ public class InstantiateModel {
 					}
 				}
 			} else if (patternPA != null) {
-				boolean isOpposite = isOpposite(conni, "Connection_Pattern");
+				boolean isOpposite = Aadl2InstanceUtil.isOpposite(conni);
 				EcoreUtil.remove(patternPA);
 				List<PropertyExpression> patterns = ((ListValue) patternPA.getOwnedValues().get(0).getOwnedValue())
 						.getOwnedListElements();
@@ -1088,6 +1087,7 @@ public class InstantiateModel {
 					}
 				}
 			} 
+			// no else as we want both the pattern and the connection set evaluated
 			if (setPA != null) {
 				EcoreUtil.remove(setPA);
 				// TODO-LW: modal conn set allowed?
@@ -1099,7 +1099,12 @@ public class InstantiateModel {
 
 					srcIndices = getIndices(rv, "src");
 					dstIndices = getIndices(rv, "dst");
-					createNewConnection(conni, srcIndices, dstIndices);
+					if (Aadl2InstanceUtil.isOpposite(conni)){
+						// flip indices since we are going in the opposite direction
+						createNewConnection(conni, dstIndices,srcIndices);
+					} else {
+						createNewConnection(conni, srcIndices, dstIndices);
+					}
 				}
 				toRemove.add(conni);
 			}
@@ -1107,190 +1112,247 @@ public class InstantiateModel {
 		for (ConnectionInstance conni : toRemove) {
 			EcoreUtil.delete(conni);
 		}
+		replicateConnections(replicateConns);
 	}
+	
+	private void replicateConnections(EList<ComponentInstance> replicateConns){
+		for (ComponentInstance ci : replicateConns){
+			if (isInArray(ci)){
+				doReplicateConnections(ci);
+			}
+		}
+	}
+	
+	private boolean isInArray(ComponentInstance ci){
+		while (!(ci instanceof SystemInstance)){
+			if (!ci.getIndices().isEmpty())
+				return true;
+			ci = ci.getContainingComponentInstance();
+		}
+		return false;
+	}
+	
+	private ComponentInstance outermostArray(ComponentInstance ci){
+		ComponentInstance res = null;
+		while (!(ci instanceof SystemInstance)){
+			if (!ci.getIndices().isEmpty())
+				res = ci;
+			ci = ci.getContainingComponentInstance();
+		}
+		return res;
+	}
+	
+	
+	private void doReplicateConnections(ComponentInstance ci){
+		String origPath = getComponentInstanceNamePath(ci);
+		ComponentInstance outermostParent = outermostArray(ci).getContainingComponentInstance();
+		doReplicateConnections(ci, origPath, outermostParent);
+	}
+	
+	private void doReplicateConnections(ComponentInstance ci, String origPath, ComponentInstance targetParent){
+		for (ComponentInstance targetci : targetParent.getComponentInstances()){
+			// do it only for sibling components. Misses out on enclosing arrays
+			if (targetci.getConnectionInstances().isEmpty()){
+				// only if it does not yet have connection instances
+				String targetpath = getComponentInstanceNamePath(targetci);
+				// compare paths without indices
+				if (origPath.equalsIgnoreCase(targetpath)){
+					for (ConnectionInstance conni : ci.getConnectionInstances()){
+						createNewConnection(conni, targetci);
+					}
+				} else if (origPath.startsWith(targetpath)){
+					doReplicateConnections(ci, origPath,targetci);
+				}
+			}
+		}
+	}
+	
+	private String getComponentInstanceNamePath(ComponentInstance ci) {
+		if (ci instanceof SystemInstance) {
+			return ci.getName();
+		}
+		final String path = getComponentInstanceNamePath(ci.getContainingComponentInstance());
+		final String localname = ci.getName();
+
+		return path + "." + localname;
+	}
+
+	
 
 	private boolean interpretConnectionPatterns(ConnectionInstance conni, boolean isOpposite, List<PropertyExpression> patterns,
 			int offset, List<Integer> srcSizes, int srcOffset, List<Integer> dstSizes, int dstOffset,
 			List<Long> srcIndices, List<Long> dstIndices) {
 		boolean result = true;
-
 		if (patterns != null ? offset >= patterns.size() : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
-		} else if (patterns == null) {
+			return result;
+		}
+		String patternName = "One_to_One";
+		if (patterns == null) {
 			// default one-to-one pattern
-			if (srcOffset >= srcSizes.size()) {
-				errManager.error(conni, "Too few indices in for connection source");
-				return false;
-			}
-			if (dstOffset >= dstSizes.size()) {
-				errManager.error(conni, "Too few indices for connection destination");
-				return false;
-			}
-			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
-				errManager.error(conni, "Array size mismatch (One_To_One): " + srcSizes.get(srcOffset)
-						+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
-				return false;
-			} else {
-				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-					srcIndices.add(i);
-					dstIndices.add(i);
-					result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes, srcOffset + 1,
-							dstSizes, dstOffset + 1, srcIndices, dstIndices);
-					srcIndices.remove(srcOffset);
-					dstIndices.remove(dstOffset);
+			if (!conni.isComplete()){
+				// outgoing or incoming only
+				InstanceObject io = conni.getSource();
+				if (io instanceof FeatureInstance &&
+						io.getContainingComponentInstance() instanceof SystemInstance){
+					if (srcSizes.isEmpty())
+						patternName = isOpposite?"All_to_One":"One_To_All";
+				} else {
+					if (dstSizes.isEmpty())
+						patternName = isOpposite?"One_To_All":"All_to_One";
 				}
-			}
+			}	
 		} else {
 			NamedValue nv = (NamedValue) patterns.get(offset);
 			EnumerationLiteral pattern = (EnumerationLiteral) nv.getNamedValue();
-			String patternName = pattern.getName();
+			patternName = pattern.getName();
+		}
 
-			if (!isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
-				errManager.error(conni, "Too few indices for connection source");
-				return false;
+		if (!isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
+			errManager.error(conni, "Too few indices for connection source");
+			return false;
+		}
+		if (!isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
+			errManager.error(conni, "Too few indices for connection destination");
+			return false;
+		}
+		if (isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
+			errManager.error(conni, "Too few indices for connection source");
+			return false;
+		}
+		if (isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
+			errManager.error(conni, "Too few indices for connection destination");
+			return false;
+		}
+		if (patternName.equalsIgnoreCase("All_To_All")) {
+			for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+				srcIndices.add(i);
+				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
+					dstIndices.add(j);
+					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+							dstSizes, dstOffset + 1, srcIndices, dstIndices);
+					dstIndices.remove(dstOffset);
+				}
+				srcIndices.remove(srcOffset);
 			}
-			if (!isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
-				errManager.error(conni, "Too few indices for connection destination");
-				return false;
+		} else if ((!isOpposite&&patternName.equalsIgnoreCase("One_To_All"))||(isOpposite&&patternName.equalsIgnoreCase("All_To_One"))) {
+			for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
+				dstIndices.add(j);
+				result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset, dstSizes,
+						dstOffset + 1, srcIndices, dstIndices);
+				dstIndices.remove(dstOffset);
 			}
-			if (isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
-				errManager.error(conni, "Too few indices for connection source");
-				return false;
+		} else if ((!isOpposite&&patternName.equalsIgnoreCase("All_To_One"))||(isOpposite&&patternName.equalsIgnoreCase("One_To_All"))) {
+			for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+				srcIndices.add(i);
+				result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+						dstSizes, dstOffset, srcIndices, dstIndices);
+				srcIndices.remove(srcOffset);
 			}
-			if (isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
-				errManager.error(conni, "Too few indices for connection destination");
+		} else {
+			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
+				errManager.error(conni, "Array size mismatch (" + patternName + "): " + srcSizes.get(srcOffset)
+						+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
 				return false;
-			}
-			if (patternName.equalsIgnoreCase("All_To_All")) {
-				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-					srcIndices.add(i);
-					for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
-						dstIndices.add(j);
+			} else {
+				if (patternName.equalsIgnoreCase("One_To_One")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						srcIndices.remove(srcOffset);
+						dstIndices.remove(dstOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
+						srcIndices.add(i);
+						dstIndices.add(i + 1);
 						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 								dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
 					}
-					srcIndices.remove(srcOffset);
-				}
-			} else if ((!isOpposite&&patternName.equalsIgnoreCase("One_To_All"))||(isOpposite&&patternName.equalsIgnoreCase("All_To_One"))) {
-				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
-					dstIndices.add(j);
-					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset, dstSizes,
-							dstOffset + 1, srcIndices, dstIndices);
-					dstIndices.remove(dstOffset);
-				}
-			} else if ((!isOpposite&&patternName.equalsIgnoreCase("All_To_One"))||(isOpposite&&patternName.equalsIgnoreCase("One_To_All"))) {
-				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-					srcIndices.add(i);
-					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-							dstSizes, dstOffset, srcIndices, dstIndices);
-					srcIndices.remove(srcOffset);
-				}
-			} else {
-				if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
-					errManager.error(conni, "Array size mismatch (" + patternName + "): " + srcSizes.get(srcOffset)
-							+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
-					return false;
-				} else {
-					if (patternName.equalsIgnoreCase("One_To_One")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							srcIndices.remove(srcOffset);
-							dstIndices.remove(dstOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
-							srcIndices.add(i);
-							dstIndices.add(i + 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Previous")) {
-						for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i - 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Previous")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Next_Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
-							srcIndices.add(i);
-							dstIndices.add(i + 2);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Previous_Previous")) {
-						for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i - 2);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == srcSizes.get(srcOffset) ? 2 :(i == srcSizes.get(srcOffset)-1 ? 1 : i + 1));
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == 2 ? srcSizes.get(srcOffset) :(i==1?srcSizes.get(srcOffset)-1: i - 1));
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Even_To_Even")) {
-						for (long i = 2; i <= srcSizes.get(srcOffset); i=i+2) {
-							srcIndices.add(i);
-							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Odd_To_Odd")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i=i+2) {
-							srcIndices.add(i);
-							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
+				} else if (patternName.equalsIgnoreCase("Previous")) {
+					for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i - 1);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Previous")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Next_Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
+						srcIndices.add(i);
+						dstIndices.add(i + 2);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Previous_Previous")) {
+					for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i - 2);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == srcSizes.get(srcOffset) ? 2 :(i == srcSizes.get(srcOffset)-1 ? 1 : i + 1));
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == 2 ? srcSizes.get(srcOffset) :(i==1?srcSizes.get(srcOffset)-1: i - 1));
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Even_To_Even")) {
+					for (long i = 2; i <= srcSizes.get(srcOffset); i=i+2) {
+						srcIndices.add(i);
+						dstIndices.add(i);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Odd_To_Odd")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i=i+2) {
+						srcIndices.add(i);
+						dstIndices.add(i);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
 					}
 				}
 			}
@@ -1325,31 +1387,6 @@ public class InstantiateModel {
 		return null;
 	}
 
-	private boolean isOpposite(ConnectionInstance conni, String name) {
-		for (ConnectionReference connref : conni.getConnectionReferences()) {
-			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
-				if (pa.getProperty().getName().equalsIgnoreCase(name)
-						&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
-								"Communication_Properties")) {
-					ConnectionInstanceEnd dstfi = connref.getDestination();
-					ConnectionEnd srce = connref.getConnection().getAllSource();
-					if (dstfi instanceof FeatureInstance){
-						Feature dstf = ((FeatureInstance)dstfi).getFeature();
-						if (dstf == srce){
-							return true;
-						}
-					} else if (dstfi instanceof ComponentInstance){
-						Subcomponent dstsub = ((ComponentInstance)dstfi).getSubcomponent();
-						if (dstsub == srce){
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	private Collection<PropertyExpression> getOffsetList(ConnectionInstance conni) {
 		for (ConnectionReference connref : conni.getConnectionReferences()) {
 			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
@@ -1365,7 +1402,7 @@ public class InstantiateModel {
 	}
 
 	private long getArraySizeValue(ComponentInstance ci, Property pd) {
-		PropertyExpression res = ci.getSimplePropertyValue(pd);
+//		PropertyExpression res = ci.getSimplePropertyValue(pd);
 		Subcomponent sub = ci.getSubcomponent();
 		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
 			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
@@ -1386,6 +1423,53 @@ public class InstantiateModel {
 
 			if (names != null) {
 				names.add(current.getName());
+			}
+			
+			if (current instanceof ComponentInstance) {
+				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
+			} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+				d = 1;
+			}
+			if (dims != null) {
+				dims.add(d);
+			}
+			if (sizes != null && d != 0) {
+				if (current instanceof ComponentInstance) {
+					Subcomponent s = ((ComponentInstance) current).getSubcomponent();
+
+					for (ArrayDimension ad : s.getArrayDimensions()) {
+						ArraySize as = ad.getSize();
+
+						sizes.add((int) getElementCount(as,(ComponentInstance)current.getContainingComponentInstance()));
+					}
+
+				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+					Feature f = ((FeatureInstance) current).getFeature();
+					ArraySize as = f.getArrayDimensions().get(0).getSize();
+
+					sizes.add((int) getElementCount(as,current.getContainingComponentInstance()));
+				}
+			}
+			current = (InstanceObject) current.getOwner();
+		}
+	}
+
+	
+	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
+			LinkedList<Integer> dims, LinkedList<Integer> sizes, LinkedList<Long> indices) {
+		InstanceObject current = end;
+		while (current != container) {
+			int d = 0;
+
+			if (names != null) {
+				names.add(current.getName());
+			}
+			if (current instanceof ComponentInstance){
+				EList<Long> idx = ((ComponentInstance) current).getIndices();
+				if (!idx.isEmpty()) indices.addAll(((ComponentInstance) current).getIndices());
+			} else if (current instanceof FeatureInstance){
+				long idx = ((FeatureInstance) current).getIndex();	
+				if (idx != 0) indices.add(idx);
 			}
 			if (current instanceof ComponentInstance) {
 				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
@@ -1430,15 +1514,24 @@ public class InstantiateModel {
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
+		if (srcIndices.size()!= sizes.size()&& 
+				// filter out one side being an element without index (array of 1) (many to one mapping)
+				!(sizes.size() == 0 && dstIndices.size() == 1 )){
+			errManager.error(newConn, "Source indices "+srcIndices+" do not match source dimension "+sizes.size());
+		} 
 		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
 				srcIndices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
-		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+		if (dstIndices.size()!= sizes.size() &&
+				// filter out one side being an element without index (array of 1) (many to one mapping)
+				!(sizes.size() == 0 && dstIndices.size() == 1 )){
+			errManager.error(newConn, "Destination indices "+dstIndices+" do not match destination dimension "+sizes.size());
+		} 
+		InstanceObject	dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
 				dstIndices,false);
-
 		if (src == null) {
 			errManager.error(newConn, "Connection source not found");
 		}
@@ -1467,6 +1560,55 @@ public class InstantiateModel {
 		newConn.setName(sb.toString());
 
 	}
+	/**
+	 * create a copy of the connection instance with the specified indices for the source and the destination
+	 * @param conni
+	 * @param srcIndices
+	 * @param dstIndices
+	 * @return 
+	 */
+	private void createNewConnection(ConnectionInstance conni, ComponentInstance targetComponent) {
+		LinkedList<Long> indices = new LinkedList<Long>();
+		LinkedList<String> names = new LinkedList<String>();
+		LinkedList<Integer> dims = new LinkedList<Integer>();
+		LinkedList<Integer> sizes = new LinkedList<Integer>();
+		ConnectionInstance newConn = EcoreUtil.copy(conni);
+		targetComponent.getConnectionInstances().add(newConn);
+		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
+		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes, indices);
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+				indices, true);
+		names.clear();
+		dims.clear();
+		sizes.clear();
+		indices.clear();
+		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes, indices);
+		InstanceObject	dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+				indices,false);
+		if (src == null) {
+			errManager.error(newConn, "Connection source not found");
+		}
+		if (dst == null) {
+			errManager.error(newConn, "Connection destination not found");
+		}
+
+		String containerPath = targetComponent.getInstanceObjectPath();
+		int len = containerPath.length() + 1;
+		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
+		StringBuffer sb = new StringBuffer();
+		int i = (srcPath.startsWith(containerPath)) ? len : 0;
+		sb.append(srcPath.substring(i));
+		sb.append(" --> ");
+		String dstPath = (dst != null) ? dst.getInstanceObjectPath() : "Destination end not found";
+		i = (dstPath.startsWith(containerPath)) ? len : 0;
+		sb.append(dstPath.substring(i));
+
+		newConn.setSource((ConnectionInstanceEnd) src);
+		newConn.setDestination((ConnectionInstanceEnd) dst);
+		newConn.setName(sb.toString());
+
+	}
+
 	
 	/**
 	 * resolve downgoing source or destination of the connection reference.
@@ -1477,7 +1619,8 @@ public class InstantiateModel {
 	 * @param name
 	 * @param doSource
 	 */
-	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef, ConnectionReference outerConnRef, ComponentInstance target,  boolean doSource, long idx){
+	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef, ConnectionReference outerConnRef, ComponentInstance target,  boolean doSource, 
+			long idx, long fgidx ){
 		ConnectionInstanceEnd src = targetConnRef.getSource();
 		ConnectionInstanceEnd dst = targetConnRef.getDestination();
 		if (doSource){
@@ -1487,8 +1630,16 @@ public class InstantiateModel {
 			} else if (src instanceof FeatureInstance){
 				// re-resolve the source feature 
 				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), src.getName(),idx); 
-				if (found != null) 
+				if (found == null) {
+					 Element parent = src.getOwner();
+					 if (parent instanceof FeatureInstance){
+							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+					 }
+				}
+				if (found != null) {
 					targetConnRef.setSource(found);
+				}
+
 			} 
 			// now we need to resolve the upper end (destination)
 			if (targetConnRef != outerConnRef){
@@ -1501,6 +1652,12 @@ public class InstantiateModel {
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
 					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerSrc).getFeatureInstances(), dst.getName(),idx); 
+					if (found == null) {
+						 Element parent = dst.getOwner();
+						 if (parent instanceof FeatureInstance){
+								found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+						 }
+					}
 					if (found != null) 
 						targetConnRef.setDestination(found);
 				}
@@ -1513,6 +1670,12 @@ public class InstantiateModel {
 			} else if (dst instanceof FeatureInstance){
 				// re-resolve the source feature 
 				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), dst.getName(),idx); 
+				if (found == null) {
+					 Element parent = dst.getOwner();
+					 if (parent instanceof FeatureInstance){
+							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+					 }
+				}
 				if (found != null) 
 					targetConnRef.setDestination(found);
 			}
@@ -1527,6 +1690,12 @@ public class InstantiateModel {
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
 					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerDst).getFeatureInstances(), src.getName(),idx); 
+					if (found == null) {
+						 Element parent = src.getOwner();
+						 if (parent instanceof FeatureInstance){
+								found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+						 }
+					}
 					if (found != null) 
 						targetConnRef.setSource(found);
 				}
@@ -1611,15 +1780,24 @@ public class InstantiateModel {
 			// resolve the connref
 			if (targetConnRef != null&& resolutionContext instanceof ComponentInstance){			
 				int dimfeature = dims.get(0);
-				result = resolveConnectionReference(targetConnRef, outerConnRef,(ComponentInstance)resolutionContext, doSource,dimfeature==0?0:indices.get(0)) ;
+				int dimfg = 0;
+				if (dims.size() > 1) dimfg = dims.get(1);
+				result = resolveConnectionReference(targetConnRef, outerConnRef,(ComponentInstance)resolutionContext, doSource,dimfeature==0?0:indices.get(0),
+						dimfg == 0?0:(dimfeature==0?indices.get(0):indices.get(1))) ;
 			} else {
 				// the resolved feature has been found
 				result = resolutionContext;
 			}
 			if (doSource){
+				if (targetConnRef != null&&result instanceof FeatureInstance){
+					targetConnRef.setSource(result);
+				}
 				outerConnRef = targetConnRef;
 				targetConnRef = Aadl2InstanceUtil.getPreviousConnectionReference(newconn, outerConnRef);
 			} else {
+				if (targetConnRef != null&&result instanceof FeatureInstance){
+					targetConnRef.setDestination(result);
+				}
 				outerConnRef = targetConnRef;
 				targetConnRef = Aadl2InstanceUtil.getNextConnectionReference(newconn, outerConnRef);
 			}

@@ -55,9 +55,8 @@ import org.osate.aadl2.InternalEvent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InternalEventItemProvider extends NamedElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class InternalEventItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,8 +90,7 @@ public class InternalEventItemProvider extends NamedElementItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/InternalEvent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/InternalEvent"));
 	}
 
 	/**
@@ -129,8 +127,7 @@ public class InternalEventItemProvider extends NamedElementItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -51,8 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface DataAccess extends Access, Data, FlowElement,
-		ParameterConnectionEnd, PortConnectionEnd {
+public interface DataAccess extends Access, Data, FlowElement, ParameterConnectionEnd, PortConnectionEnd {
 	/**
 	 * Returns the value of the '<em><b>Data Feature Classifier</b></em>' reference.
 	 * <p>
