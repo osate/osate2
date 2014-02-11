@@ -101,6 +101,7 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.Property;
@@ -599,12 +600,13 @@ public class InstantiateModel {
 			List<ModeTransitionTrigger> triggers = m.getOwnedTriggers();
 			String eventName = "";
 			if (!triggers.isEmpty()) {
-				if (triggers.get(0) instanceof TriggerPort) {
-					Context o = ((TriggerPort) triggers.get(0)).getContext();
+				TriggerPort tp = triggers.get(0).getTriggerPort();
+				if (tp instanceof Port) {
+					Context o = triggers.get(0).getContext();
 					if (o instanceof Subcomponent) {
 						eventName = ((Subcomponent) o).getName() + ".";
 					}
-					eventName = eventName + ((TriggerPort) triggers.get(0)).getPort().getName();
+					eventName = eventName + tp.getName();
 				} else {
 					eventName = ((NamedElement) triggers.get(0)).getName();
 				}

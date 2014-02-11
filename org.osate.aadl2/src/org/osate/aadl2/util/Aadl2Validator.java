@@ -50,7 +50,6 @@ import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.Abstract;
 import org.osate.aadl2.AbstractClassifier;
-import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractNamedValue;
@@ -532,6 +531,10 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateModeTransition((ModeTransition) value, diagnostics, context);
 		case Aadl2Package.MODE_TRANSITION_TRIGGER:
 			return validateModeTransitionTrigger((ModeTransitionTrigger) value, diagnostics, context);
+		case Aadl2Package.CONTEXT:
+			return validateContext((Context) value, diagnostics, context);
+		case Aadl2Package.TRIGGER_PORT:
+			return validateTriggerPort((TriggerPort) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_TYPE:
 			return validateComponentType((ComponentType) value, diagnostics, context);
 		case Aadl2Package.FEATURE:
@@ -556,8 +559,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateEndToEndFlowElement((EndToEndFlowElement) value, diagnostics, context);
 		case Aadl2Package.FLOW_END:
 			return validateFlowEnd((FlowEnd) value, diagnostics, context);
-		case Aadl2Package.CONTEXT:
-			return validateContext((Context) value, diagnostics, context);
 		case Aadl2Package.TYPE_EXTENSION:
 			return validateTypeExtension((TypeExtension) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP:
@@ -633,8 +634,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFlowSegment((FlowSegment) value, diagnostics, context);
 		case Aadl2Package.CONNECTION:
 			return validateConnection((Connection) value, diagnostics, context);
-		case Aadl2Package.ABSTRACT_CONNECTION_END:
-			return validateAbstractConnectionEnd((AbstractConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return validateImplementationExtension((ImplementationExtension) value, diagnostics, context);
 		case Aadl2Package.REALIZATION:
@@ -671,16 +672,12 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePortProxy((PortProxy) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_PROXY:
 			return validateSubprogramProxy((SubprogramProxy) value, diagnostics, context);
-		case Aadl2Package.CONNECTED_ELEMENT:
-			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
 		case Aadl2Package.ANNEX_LIBRARY:
 			return validateAnnexLibrary((AnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return validateDefaultAnnexLibrary((DefaultAnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
 			return validateDefaultAnnexSubclause((DefaultAnnexSubclause) value, diagnostics, context);
-		case Aadl2Package.TRIGGER_PORT:
-			return validateTriggerPort((TriggerPort) value, diagnostics, context);
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
 			return validatePublicPackageSection((PublicPackageSection) value, diagnostics, context);
 		case Aadl2Package.PACKAGE_SECTION:
@@ -1907,6 +1904,10 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateElement_not_own_self(triggerPort, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateElement_has_owner(triggerPort, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(triggerPort, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(triggerPort, diagnostics, context);
 		return result;
 	}
 
@@ -2960,16 +2961,6 @@ public class Aadl2Validator extends EObjectValidator {
 		if (result || diagnostics != null)
 			result &= validateNamedElement_has_qualified_name(connection, diagnostics, context);
 		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateAbstractConnectionEnd(AbstractConnectionEnd abstractConnectionEnd,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractConnectionEnd, diagnostics, context);
 	}
 
 	/**

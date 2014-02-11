@@ -1030,11 +1030,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			for (ModeTransitionInstance mti : ci.getContainingComponentInstance().getModeTransitionInstances()) {
 				for (ModeTransitionTrigger trigger : mti.getModeTransition().getOwnedTriggers()) {
-					if (trigger instanceof TriggerPort) {
-						Port o = ((TriggerPort) trigger).getPort();
-						Context co = ((TriggerPort) trigger).getContext();
+					TriggerPort tp = trigger.getTriggerPort();
+					if (tp instanceof Port) {
+						Port p = (Port) tp;
+						Context c = trigger.getContext();
 
-						if (f == o && co == sub) {
+						if (f == p && c == sub) {
 							addConnectionInstance(ci.getSystemInstance(), ConnectionInfo.newModeTransition(fi), mti);
 							didTransition = true;
 						}
@@ -1089,9 +1090,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			ModeTransition mt = mti.getModeTransition();
 			Context co = null;
 			for (ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
-				if (trigger instanceof TriggerPort) {
-					Port o = ((TriggerPort) trigger).getPort();
-					co = ((TriggerPort) trigger).getContext();
+				TriggerPort tp = trigger.getTriggerPort();
+				if (tp instanceof Port) {
+					Port o = (Port) tp;
+					co = trigger.getContext();
 					NamedElement context = co;
 					if (context instanceof FeatureGroup)
 						context = parent.getSubcomponent().getAllClassifier();

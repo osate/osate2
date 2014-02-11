@@ -47,7 +47,6 @@ import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.Abstract;
 import org.osate.aadl2.AbstractClassifier;
-import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractNamedValue;
@@ -574,6 +573,16 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseContext(Context object) {
+			return createContextAdapter();
+		}
+
+		@Override
+		public Adapter caseTriggerPort(TriggerPort object) {
+			return createTriggerPortAdapter();
+		}
+
+		@Override
 		public Adapter caseComponentType(ComponentType object) {
 			return createComponentTypeAdapter();
 		}
@@ -631,11 +640,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseFlowEnd(FlowEnd object) {
 			return createFlowEndAdapter();
-		}
-
-		@Override
-		public Adapter caseContext(Context object) {
-			return createContextAdapter();
 		}
 
 		@Override
@@ -824,8 +828,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseAbstractConnectionEnd(AbstractConnectionEnd object) {
-			return createAbstractConnectionEndAdapter();
+		public Adapter caseConnectedElement(ConnectedElement object) {
+			return createConnectedElementAdapter();
 		}
 
 		@Override
@@ -919,11 +923,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseConnectedElement(ConnectedElement object) {
-			return createConnectedElementAdapter();
-		}
-
-		@Override
 		public Adapter caseAnnexLibrary(AnnexLibrary object) {
 			return createAnnexLibraryAdapter();
 		}
@@ -936,11 +935,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseDefaultAnnexSubclause(DefaultAnnexSubclause object) {
 			return createDefaultAnnexSubclauseAdapter();
-		}
-
-		@Override
-		public Adapter caseTriggerPort(TriggerPort object) {
-			return createTriggerPortAdapter();
 		}
 
 		@Override
@@ -2467,20 +2461,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConnectionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.AbstractConnectionEnd <em>Abstract Connection End</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.aadl2.AbstractConnectionEnd
-	 * @generated
-	 */
-	public Adapter createAbstractConnectionEndAdapter() {
 		return null;
 	}
 

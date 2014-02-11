@@ -50,13 +50,11 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
-import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
@@ -84,6 +82,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
@@ -106,7 +105,6 @@ import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 
@@ -230,6 +228,9 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			return Collections.<EObject> emptyList();
 
+		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
+			EObject e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
+			return (e instanceof TriggerPort) ? Collections.singletonList((EObject) e) : Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getPort().isSuperTypeOf(requiredType)) {
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
@@ -240,18 +241,18 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				} else {
 					return Collections.emptyList();
 				}
-			} else if (context instanceof TriggerPort){
-				// we are a trigger port
-				Context TPContext = ((TriggerPort)context).getContext();
-				if (TPContext instanceof Subcomponent){
+			} else if (context instanceof ModeTransitionTrigger){
+				// we are a mode transition trigger
+				Context triggerContext = ((ModeTransitionTrigger)context).getContext();
+				if (triggerContext instanceof Subcomponent){
 					// look up the feature in the ComponentType
-					ComponentType ct = ((Subcomponent)TPContext).getComponentType();
+					ComponentType ct = ((Subcomponent)triggerContext).getComponentType();
 					if (ct != null)
 						ns = ct;
 				}
-				if (TPContext instanceof FeatureGroup){
+				if (triggerContext instanceof FeatureGroup){
 					// look up the feature in the FeaturegroupType
-					 FeatureGroupType ct = ((FeatureGroup)TPContext).getFeatureGroupType();
+					 FeatureGroupType ct = ((FeatureGroup)triggerContext).getFeatureGroupType();
 					if (ct != null)
 						ns = ct;
 				}

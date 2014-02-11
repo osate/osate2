@@ -189,13 +189,13 @@ public interface Aadl2Factory extends EFactory {
 	ModeTransition createModeTransition();
 
 	/**
-	 * Returns a new object of class '<em>Trigger Port</em>'.
+	 * Returns a new object of class '<em>Mode Transition Trigger</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Trigger Port</em>'.
+	 * @return a new object of class '<em>Mode Transition Trigger</em>'.
 	 * @generated
 	 */
-	TriggerPort createTriggerPort();
+	ModeTransitionTrigger createModeTransitionTrigger();
 
 	/**
 	 * Returns a new object of class '<em>Flow Specification</em>'.
