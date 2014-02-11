@@ -80,7 +80,6 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -1870,18 +1869,14 @@ public final class AadlUtil {
 		return pt;
 	}
 
-	public static String getConnectionEndName(AbstractConnectionEnd end) {
-		if (end instanceof ConnectedElement) {
-			ConnectedElement ce = (ConnectedElement) end;
-			Context cxt = ce.getContext();
-			ConnectionEnd cend = ce.getConnectionEnd();
-			if (cxt != null) {
-				return cxt.getName() + '.' + cend.getName();
-			} else {
-				return cend.getName();
-			}
+	public static String getConnectionEndName(ConnectedElement ce) {
+		Context cxt = ce.getContext();
+		ConnectionEnd cend = ce.getConnectionEnd();
+		if (cxt != null) {
+			return cxt.getName() + '.' + cend.getName();
+		} else {
+			return cend.getName();
 		}
-		return "<?>";
 	}
 
 	public static String getFlowEndName(FlowEnd end) {
@@ -1915,17 +1910,13 @@ public final class AadlUtil {
 	}
 
 	public static String getModeTransitionTriggerName(ModeTransitionTrigger end) {
-		if (end instanceof TriggerPort) {
-			TriggerPort ce = (TriggerPort) end;
-			Context cxt = ce.getContext();
-			Port cend = ce.getPort();
-			if (cxt != null) {
-				return cxt.getName() + '.' + cend.getName();
-			} else {
-				return cend.getName();
-			}
+		Context cxt = end.getContext();
+		TriggerPort ce = end.getTriggerPort();
+		if (cxt != null) {
+			return cxt.getName() + '.' + ce.getName();
+		} else {
+			return ce.getName();
 		}
-		return "<?>";
 	}
 
 	public static NamedElement getContainingAnnex(EObject obj) {

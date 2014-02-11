@@ -40,12 +40,14 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.osate.aadl2.Aadl2Package;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.ModeTransitionTrigger} object.
@@ -76,8 +78,42 @@ public class ModeTransitionTriggerItemProvider extends ElementItemProvider imple
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addContextPropertyDescriptor(object);
+			addTriggerPortPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ModeTransitionTrigger_context_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionTrigger_context_feature",
+						"_UI_ModeTransitionTrigger_type"), Aadl2Package.eINSTANCE.getModeTransitionTrigger_Context(),
+				true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Trigger Port feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTriggerPortPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ModeTransitionTrigger_triggerPort_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionTrigger_triggerPort_feature",
+						"_UI_ModeTransitionTrigger_type"), Aadl2Package.eINSTANCE
+						.getModeTransitionTrigger_TriggerPort(), true, false, true, null, null, null));
 	}
 
 	/**

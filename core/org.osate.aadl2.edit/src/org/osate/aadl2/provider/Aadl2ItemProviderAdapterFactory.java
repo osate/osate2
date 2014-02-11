@@ -448,26 +448,26 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.TriggerPort} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModeTransitionTrigger} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TriggerPortItemProvider triggerPortItemProvider;
+	protected ModeTransitionTriggerItemProvider modeTransitionTriggerItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.TriggerPort}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ModeTransitionTrigger}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createTriggerPortAdapter() {
-		if (triggerPortItemProvider == null) {
-			triggerPortItemProvider = new TriggerPortItemProvider(this);
+	public Adapter createModeTransitionTriggerAdapter() {
+		if (modeTransitionTriggerItemProvider == null) {
+			modeTransitionTriggerItemProvider = new ModeTransitionTriggerItemProvider(this);
 		}
 
-		return triggerPortItemProvider;
+		return modeTransitionTriggerItemProvider;
 	}
 
 	/**
@@ -3796,6 +3796,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			componentImplementationReferenceItemProvider.dispose();
 		if (modeTransitionItemProvider != null)
 			modeTransitionItemProvider.dispose();
+		if (modeTransitionTriggerItemProvider != null)
+			modeTransitionTriggerItemProvider.dispose();
 		if (flowSpecificationItemProvider != null)
 			flowSpecificationItemProvider.dispose();
 		if (flowEndItemProvider != null)
@@ -3836,6 +3838,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			flowImplementationItemProvider.dispose();
 		if (flowSegmentItemProvider != null)
 			flowSegmentItemProvider.dispose();
+		if (connectedElementItemProvider != null)
+			connectedElementItemProvider.dispose();
 		if (implementationExtensionItemProvider != null)
 			implementationExtensionItemProvider.dispose();
 		if (realizationItemProvider != null)
@@ -3864,14 +3868,10 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			portProxyItemProvider.dispose();
 		if (subprogramProxyItemProvider != null)
 			subprogramProxyItemProvider.dispose();
-		if (connectedElementItemProvider != null)
-			connectedElementItemProvider.dispose();
 		if (defaultAnnexLibraryItemProvider != null)
 			defaultAnnexLibraryItemProvider.dispose();
 		if (defaultAnnexSubclauseItemProvider != null)
 			defaultAnnexSubclauseItemProvider.dispose();
-		if (triggerPortItemProvider != null)
-			triggerPortItemProvider.dispose();
 		if (publicPackageSectionItemProvider != null)
 			publicPackageSectionItemProvider.dispose();
 		if (packageRenameItemProvider != null)

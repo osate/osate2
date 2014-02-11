@@ -60,7 +60,9 @@ import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
+import org.osate.aadl2.EventSource;
 import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
@@ -79,7 +81,6 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalEvent;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MemoryImplementation;
@@ -91,6 +92,7 @@ import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.Operation;
@@ -98,18 +100,16 @@ import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessPrototype;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.ProcessorCall;
 import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorPort;
 import org.osate.aadl2.ProcessorPrototype;
 import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubprogram;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
@@ -135,6 +135,7 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemImplementation;
@@ -149,7 +150,6 @@ import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadPrototype;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
@@ -412,11 +412,32 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.CONNECTED_ELEMENT:
-				if(context == grammarAccess.getAbstractConnectionEndRule() ||
-				   context == grammarAccess.getAccessConnectionEndRule() ||
-				   context == grammarAccess.getConnectedElementRule() ||
-				   context == grammarAccess.getProcessorConnectionEndRule()) {
+				if(context == grammarAccess.getAbstractConnectionEndRule()) {
+					sequence_AbstractConnectionEnd_ConnectedElement_InternalEvent_ProcessorPort(context, (ConnectedElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAccessConnectionEndRule()) {
+					sequence_AccessConnectionEnd_ConnectedElement_ProcessorSubprogram(context, (ConnectedElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getConnectedElementRule()) {
 					sequence_ConnectedElement(context, (ConnectedElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcessorConnectionEndRule()) {
+					sequence_ConnectedElement_ProcessorConnectionEnd_ProcessorPort(context, (ConnectedElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getInternalEventRule()) {
+					sequence_InternalEvent(context, (ConnectedElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcessorPortRule()) {
+					sequence_ProcessorPort(context, (ConnectedElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcessorSubprogramRule()) {
+					sequence_ProcessorSubprogram(context, (ConnectedElement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -566,9 +587,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					return; 
 				}
 				else break;
+			case Aadl2Package.EVENT_DATA_SOURCE:
+				if(context == grammarAccess.getEventDataSourceRule() ||
+				   context == grammarAccess.getInternalFeatureRule()) {
+					sequence_EventDataSource(context, (EventDataSource) semanticObject); 
+					return; 
+				}
+				else break;
 			case Aadl2Package.EVENT_PORT:
 				if(context == grammarAccess.getEventPortRule()) {
 					sequence_EventPort(context, (EventPort) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.EVENT_SOURCE:
+				if(context == grammarAccess.getEventSourceRule() ||
+				   context == grammarAccess.getInternalFeatureRule()) {
+					sequence_EventSource(context, (EventSource) semanticObject); 
 					return; 
 				}
 				else break;
@@ -731,14 +766,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					return; 
 				}
 				else break;
-			case Aadl2Package.INTERNAL_EVENT:
-				if(context == grammarAccess.getAbstractConnectionEndRule() ||
-				   context == grammarAccess.getInternalEventPortRule() ||
-				   context == grammarAccess.getTriggerRule()) {
-					sequence_InternalEventPort(context, (InternalEvent) semanticObject); 
-					return; 
-				}
-				else break;
 			case Aadl2Package.LIST_TYPE:
 				if(context == grammarAccess.getListTypeRule() ||
 				   context == grammarAccess.getUnnamedPropertyTypeRule()) {
@@ -833,6 +860,12 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					return; 
 				}
 				else break;
+			case Aadl2Package.MODE_TRANSITION_TRIGGER:
+				if(context == grammarAccess.getTriggerRule()) {
+					sequence_Trigger(context, (ModeTransitionTrigger) semanticObject); 
+					return; 
+				}
+				else break;
 			case Aadl2Package.NAMED_VALUE:
 				if(context == grammarAccess.getConstantValueRule() ||
 				   context == grammarAccess.getNumAltRule()) {
@@ -891,6 +924,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					return; 
 				}
 				else break;
+			case Aadl2Package.PORT_PROXY:
+				if(context == grammarAccess.getPortProxyRule() ||
+				   context == grammarAccess.getProcessorFeatureRule()) {
+					sequence_PortProxy(context, (PortProxy) semanticObject); 
+					return; 
+				}
+				else break;
 			case Aadl2Package.PORT_SPECIFICATION:
 				if(context == grammarAccess.getPortSpecificationRule()) {
 					sequence_PortSpecification(context, (PortSpecification) semanticObject); 
@@ -935,26 +975,11 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					return; 
 				}
 				else break;
-			case Aadl2Package.PROCESSOR_CALL:
-				if(context == grammarAccess.getCallSpecificationRule()) {
-					sequence_CallSpecification(context, (ProcessorCall) semanticObject); 
-					return; 
-				}
-				else break;
 			case Aadl2Package.PROCESSOR_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
 				   context == grammarAccess.getComponentImplementationRule() ||
 				   context == grammarAccess.getProcessorImplementationRule()) {
 					sequence_ProcessorImplementation(context, (ProcessorImplementation) semanticObject); 
-					return; 
-				}
-				else break;
-			case Aadl2Package.PROCESSOR_PORT:
-				if(context == grammarAccess.getAbstractConnectionEndRule() ||
-				   context == grammarAccess.getProcessorConnectionEndRule() ||
-				   context == grammarAccess.getProcessorPortRule() ||
-				   context == grammarAccess.getTriggerRule()) {
-					sequence_ProcessorPort(context, (ProcessorPort) semanticObject); 
 					return; 
 				}
 				else break;
@@ -971,13 +996,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 			case Aadl2Package.PROCESSOR_SUBCOMPONENT:
 				if(context == grammarAccess.getProcessorSubcomponentRule()) {
 					sequence_ProcessorSubcomponent(context, (ProcessorSubcomponent) semanticObject); 
-					return; 
-				}
-				else break;
-			case Aadl2Package.PROCESSOR_SUBPROGRAM:
-				if(context == grammarAccess.getAccessConnectionEndRule() ||
-				   context == grammarAccess.getProcessorSubprogramRule()) {
-					sequence_ProcessorSubprogram(context, (ProcessorSubprogram) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1127,8 +1145,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.SUBPROGRAM_CALL:
-				if(context == grammarAccess.getCallSpecificationRule()) {
-					sequence_CallSpecification(context, (SubprogramCall) semanticObject); 
+				if(context == grammarAccess.getSubprogramCallRule()) {
+					sequence_SubprogramCall(context, (SubprogramCall) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1191,6 +1209,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else if(context == grammarAccess.getSubprogramPrototypeRule()) {
 					sequence_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_PROXY:
+				if(context == grammarAccess.getProcessorFeatureRule() ||
+				   context == grammarAccess.getSubprogramProxyRule()) {
+					sequence_SubprogramProxy(context, (SubprogramProxy) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1301,13 +1326,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				   context == grammarAccess.getComponentTypeRule() ||
 				   context == grammarAccess.getThreadTypeRule()) {
 					sequence_ThreadType(context, (ThreadType) semanticObject); 
-					return; 
-				}
-				else break;
-			case Aadl2Package.TRIGGER_PORT:
-				if(context == grammarAccess.getTriggerRule() ||
-				   context == grammarAccess.getTriggerPortRule()) {
-					sequence_TriggerPort(context, (TriggerPort) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1422,6 +1440,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
+	 *     ((context=[Context|ID]? connectionEnd=[ConnectionEnd|ID]) | connectionEnd=[PortProxy|ID] | connectionEnd=[InternalFeature|ID])
+	 */
+	protected void sequence_AbstractConnectionEnd_ConnectedElement_InternalEvent_ProcessorPort(EObject context, ConnectedElement semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[AbstractFeature|REFINEDNAME]) 
 	 *         direction=InOutDirection? 
@@ -1475,6 +1502,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -1552,6 +1581,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     )
 	 */
 	protected void sequence_AbstractType(EObject context, AbstractType semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((context=[Context|ID]? connectionEnd=[ConnectionEnd|ID]) | connectionEnd=[SubprogramProxy|ID])
+	 */
+	protected void sequence_AccessConnectionEnd_ConnectedElement_ProcessorSubprogram(EObject context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -1642,6 +1680,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -1730,28 +1769,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID subprogramAccessName=ID ownedPropertyAssociation+=PropertyAssociation*)
-	 */
-	protected void sequence_CallSpecification(EObject context, ProcessorCall semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         ((context=[CallContext|PNAME] calledSubprogram=[CalledSubprogram|ID]) | calledSubprogram=[CalledSubprogram|PNAME]) 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_CallSpecification(EObject context, SubprogramCall semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID (classifierReference+=QMReference classifierReference+=QMReference*)?)
 	 */
 	protected void sequence_ClassifierType(EObject context, ClassifierType semanticObject) {
@@ -1791,6 +1808,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (context=[Context|ID]? connectionEnd=[ConnectionEnd|ID])
 	 */
 	protected void sequence_ConnectedElement(EObject context, ConnectedElement semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((context=[Context|ID]? connectionEnd=[ConnectionEnd|ID]) | connectionEnd=[PortProxy|ID])
+	 */
+	protected void sequence_ConnectedElement_ProcessorConnectionEnd_ProcessorPort(EObject context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -1975,6 +2001,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -2128,6 +2156,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_EventDataSource(EObject context, EventDataSource semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[EventPort|REFINEDNAME]) 
 	 *         direction=PortDirection 
@@ -2136,6 +2173,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     )
 	 */
 	protected void sequence_EventPort(EObject context, EventPort semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_EventSource(EObject context, EventSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2463,9 +2509,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     connectionEnd=[InternalFeature|ID]
 	 */
-	protected void sequence_InternalEventPort(EObject context, InternalEvent semanticObject) {
+	protected void sequence_InternalEvent(EObject context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2496,6 +2542,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             noConnections?='none'
 	 *         )? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -2659,6 +2706,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_PortProxy(EObject context, PortProxy semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (direction=PortDirection category=PortCategory classifier=[ComponentClassifier|QCREF]?)
 	 */
 	protected void sequence_PortSpecification(EObject context, PortSpecification semanticObject) {
@@ -2714,6 +2770,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -2823,6 +2881,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -2834,9 +2893,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     connectionEnd=[PortProxy|ID]
 	 */
-	protected void sequence_ProcessorPort(EObject context, ProcessorPort semanticObject) {
+	protected void sequence_ProcessorPort(EObject context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2887,9 +2946,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     connectionEnd=[SubprogramProxy|ID]
 	 */
-	protected void sequence_ProcessorSubprogram(EObject context, ProcessorSubprogram semanticObject) {
+	protected void sequence_ProcessorSubprogram(EObject context, ConnectedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3224,9 +3283,26 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID ownedCallSpecification+=CallSpecification+ ownedPropertyAssociation+=PropertyAssociation* (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 *     (name=ID ownedSubprogramCall+=SubprogramCall+ ownedPropertyAssociation+=PropertyAssociation* (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
 	 */
 	protected void sequence_SubprogramCallSequence(EObject context, SubprogramCallSequence semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (
+	 *             (context=[CallContext|PNAME] calledSubprogram=[CalledSubprogram|ID]) | 
+	 *             calledSubprogram=[SubprogramProxy|ID] | 
+	 *             calledSubprogram=[CalledSubprogram|PNAME]
+	 *         ) 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_SubprogramCall(EObject context, SubprogramCall semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3268,6 +3344,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             noConnections?='none'
 	 *         )? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -3357,6 +3435,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -3371,6 +3451,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
 	 */
 	protected void sequence_SubprogramPrototype(EObject context, SubprogramPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_SubprogramProxy(EObject context, SubprogramProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3462,6 +3551,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -3559,6 +3650,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -3658,6 +3751,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -3726,9 +3821,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (context=[Context|ID]? port=[Port|ID])
+	 *     ((context=[Context|ID]? triggerPort=[Port|ID]) | triggerPort=[InternalFeature|ID] | triggerPort=[PortProxy|ID])
 	 */
-	protected void sequence_TriggerPort(EObject context, TriggerPort semanticObject) {
+	protected void sequence_Trigger(EObject context, ModeTransitionTrigger semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3869,6 +3964,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -3958,6 +4054,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )

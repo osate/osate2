@@ -2980,9 +2980,10 @@
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
         </generalization>
         <generalization xmi:id="_Rh8qoIOKEeOWItHzPgezWw">
-          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModeTransitionTrigger"/>
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-TriggerPort"/>
         </generalization>
         <generalization xmi:id="_4ZDeIIOKEeOWItHzPgezWw" general="Connections-PortConnectionEnd"/>
+        <generalization xmi:id="_NpoGoJMfEeOjKPnjRLtKFw" general="Connections-FeatureConnectionEnd"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_3_pPsIN2EeOWItHzPgezWw" name="A_componentImplementation_ownedProcessorFeature" memberEnd="_3_pPsYN2EeOWItHzPgezWw _3_HrQIN2EeOWItHzPgezWw">
         <ownedEnd xmi:id="_3_pPsYN2EeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_3_pPsIN2EeOWItHzPgezWw">
@@ -3010,9 +3011,10 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_nQXtoIOEEeOWItHzPgezWw" name="PortProxy">
         <generalization xmi:id="_MuvMkIOFEeOWItHzPgezWw" general="_ylhJUIN2EeOWItHzPgezWw"/>
         <generalization xmi:id="_R1KhkIOKEeOWItHzPgezWw">
-          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModeTransitionTrigger"/>
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-TriggerPort"/>
         </generalization>
         <generalization xmi:id="_SmJSkIOKEeOWItHzPgezWw" general="Connections-PortConnectionEnd"/>
+        <generalization xmi:id="_Ojvlg5MfEeOjKPnjRLtKFw" general="Connections-FeatureConnectionEnd"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_9DkewIOFEeOWItHzPgezWw" name="A_componentImplementation_ownedEventSource" memberEnd="_9DkewYOFEeOWItHzPgezWw _9C3UIIOFEeOWItHzPgezWw">
         <ownedEnd xmi:id="_9DkewYOFEeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_9DkewIOFEeOWItHzPgezWw">

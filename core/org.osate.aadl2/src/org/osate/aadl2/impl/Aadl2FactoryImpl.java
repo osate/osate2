@@ -132,6 +132,7 @@ import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.Operation;
@@ -280,6 +281,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComponentImplementationReference();
 		case Aadl2Package.MODE_TRANSITION:
 			return (EObject) createModeTransition();
+		case Aadl2Package.MODE_TRANSITION_TRIGGER:
+			return (EObject) createModeTransitionTrigger();
 		case Aadl2Package.FLOW_SPECIFICATION:
 			return (EObject) createFlowSpecification();
 		case Aadl2Package.FLOW_END:
@@ -320,6 +323,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFlowImplementation();
 		case Aadl2Package.FLOW_SEGMENT:
 			return (EObject) createFlowSegment();
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return (EObject) createConnectedElement();
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return (EObject) createImplementationExtension();
 		case Aadl2Package.REALIZATION:
@@ -348,14 +353,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createPortProxy();
 		case Aadl2Package.SUBPROGRAM_PROXY:
 			return (EObject) createSubprogramProxy();
-		case Aadl2Package.CONNECTED_ELEMENT:
-			return (EObject) createConnectedElement();
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return (EObject) createDefaultAnnexLibrary();
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
 			return (EObject) createDefaultAnnexSubclause();
-		case Aadl2Package.TRIGGER_PORT:
-			return (EObject) createTriggerPort();
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
 			return (EObject) createPublicPackageSection();
 		case Aadl2Package.PACKAGE_RENAME:
@@ -792,9 +793,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TriggerPort createTriggerPort() {
-		TriggerPortImpl triggerPort = new TriggerPortImpl();
-		return triggerPort;
+	public ModeTransitionTrigger createModeTransitionTrigger() {
+		ModeTransitionTriggerImpl modeTransitionTrigger = new ModeTransitionTriggerImpl();
+		return modeTransitionTrigger;
 	}
 
 	/**

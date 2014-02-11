@@ -1378,7 +1378,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (csl != null) {
 			usedNames.addAll(csl);
 			for (SubprogramCallSequence subprogramCallSequence : csl) {
-				usedNames.addAll(subprogramCallSequence.getOwnedCallSpecifications());
+				usedNames.addAll(subprogramCallSequence.getOwnedSubprogramCalls());
 			}
 		}
 
@@ -3371,8 +3371,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		ConnectionEnd source = (ConnectionEnd) connection.getAllSource();
 		AccessCategory sourceCategory = null;
-		if (Aadl2Util.isNull(source) && connection.getSource() instanceof ProcessorSubprogram)
-			sourceCategory = AccessCategory.SUBPROGRAM;
+// FIXME-lw: assign correct category
+//		if (Aadl2Util.isNull(source) && connection.getSource() instanceof ProcessorSubprogram)
+//			sourceCategory = AccessCategory.SUBPROGRAM;
 		if (source instanceof Access)
 			sourceCategory = ((Access) source).getCategory();
 		else if (source instanceof BusSubcomponent)
@@ -3386,8 +3387,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		ConnectionEnd destination = (ConnectionEnd) connection.getAllDestination();
 		AccessCategory destinationCategory = null;
-		if (Aadl2Util.isNull(destination) && connection.getDestination() instanceof ProcessorSubprogram)
-			destinationCategory = AccessCategory.SUBPROGRAM;
+// FIXME-lw: assign correct category
+//		if (Aadl2Util.isNull(destination) && connection.getDestination() instanceof ProcessorSubprogram)
+//			destinationCategory = AccessCategory.SUBPROGRAM;
 		if (destination instanceof Access)
 			destinationCategory = ((Access) destination).getCategory();
 		else if (destination instanceof BusSubcomponent)

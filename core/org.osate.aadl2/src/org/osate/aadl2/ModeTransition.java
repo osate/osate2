@@ -129,11 +129,10 @@ public interface ModeTransition extends ModeFeature {
 	 * Creates a new {@link org.osate.aadl2.ModeTransitionTrigger} and appends it to the '<em><b>Owned Trigger</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the {@link org.osate.aadl2.ModeTransitionTrigger} to create.
 	 * @return The new {@link org.osate.aadl2.ModeTransitionTrigger}.
 	 * @see #getOwnedTriggers()
 	 * @generated
 	 */
-	ModeTransitionTrigger createOwnedTrigger(EClass eClass);
+	ModeTransitionTrigger createOwnedTrigger();
 
 } // ModeTransition

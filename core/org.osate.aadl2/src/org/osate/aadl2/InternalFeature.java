@@ -44,5 +44,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface InternalFeature extends StructuralFeature, PortConnectionEnd, ModeTransitionTrigger {
+public interface InternalFeature extends StructuralFeature, FeatureConnectionEnd, PortConnectionEnd, TriggerPort {
 } // InternalFeature

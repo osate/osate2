@@ -44,5 +44,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface PortProxy extends ProcessorFeature, PortConnectionEnd, ModeTransitionTrigger {
+public interface PortProxy extends ProcessorFeature, FeatureConnectionEnd, PortConnectionEnd, TriggerPort {
 } // PortProxy

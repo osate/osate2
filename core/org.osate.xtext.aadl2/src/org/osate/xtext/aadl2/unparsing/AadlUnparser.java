@@ -1121,25 +1121,25 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			/**
 			 * call sequence processing.
 			 */
-			public String caseSubprogramCallSequence(SubprogramCallSequence object) {
-				processComments(object);
-				
-				String n = object.getName();
-				aadlText.addOutput(n + ": ");
-				EList<CallSpecification> list = object.getOwnedCallSpecifications();
-				if (list != null && !list.isEmpty()) {
-					aadlText.addOutputNewline(" {");
-					aadlText.incrementIndent();
-					processEList(list);
-					aadlText.addOutput("}");
-					aadlText.decrementIndent();
-				}
-				aadlText.addOutput(" ");
-				processCurlyList(object.getOwnedPropertyAssociations());
-				processModalElement(object);
-				aadlText.addOutputNewline(";");
-				return DONE;
-			}
+//			public String caseSubprogramCallSequence(SubprogramCallSequence object) {
+//				processComments(object);
+//				
+//				String n = object.getName();
+//				aadlText.addOutput(n + ": ");
+//				EList<CallSpecification> list = object.getOwnedCallSpecifications();
+//				if (list != null && !list.isEmpty()) {
+//					aadlText.addOutputNewline(" {");
+//					aadlText.incrementIndent();
+//					processEList(list);
+//					aadlText.addOutput("}");
+//					aadlText.decrementIndent();
+//				}
+//				aadlText.addOutput(" ");
+//				processCurlyList(object.getOwnedPropertyAssociations());
+//				processModalElement(object);
+//				aadlText.addOutputNewline(";");
+//				return DONE;
+//			}
 
 			/**
 			 * subprogram call processing.
@@ -1161,15 +1161,15 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				return DONE;
 			}
 			
-			public String caseProcessorCall(
-					ProcessorCall object) {
-				processComments(object);
-				aadlText.addOutput(object.getName() + ": "
-						+ "subprogram processor."+object.getSubprogramAccessName());
-				processCurlyList(object.getOwnedPropertyAssociations());
-				aadlText.addOutputNewline(";");
-				return DONE;
-			}
+//			public String caseProcessorCall(
+//					ProcessorCall object) {
+//				processComments(object);
+//				aadlText.addOutput(object.getName() + ": "
+//						+ "subprogram processor."+object.getSubprogramAccessName());
+//				processCurlyList(object.getOwnedPropertyAssociations());
+//				aadlText.addOutputNewline(";");
+//				return DONE;
+//			}
 
 			public String casePortConnection(PortConnection object) {
 				processComments(object);

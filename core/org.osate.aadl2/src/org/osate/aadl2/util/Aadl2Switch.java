@@ -46,7 +46,6 @@ import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.Abstract;
 import org.osate.aadl2.AbstractClassifier;
-import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractNamedValue;
@@ -858,6 +857,28 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.CONTEXT: {
+			Context context = (Context) theEObject;
+			T result = caseContext(context);
+			if (result == null)
+				result = caseNamedElement(context);
+			if (result == null)
+				result = caseElement(context);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.TRIGGER_PORT: {
+			TriggerPort triggerPort = (TriggerPort) theEObject;
+			T result = caseTriggerPort(triggerPort);
+			if (result == null)
+				result = caseNamedElement(triggerPort);
+			if (result == null)
+				result = caseElement(triggerPort);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.COMPONENT_TYPE: {
 			ComponentType componentType = (ComponentType) theEObject;
 			T result = caseComponentType(componentType);
@@ -1056,17 +1077,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			T result = caseFlowEnd(flowEnd);
 			if (result == null)
 				result = caseElement(flowEnd);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.CONTEXT: {
-			Context context = (Context) theEObject;
-			T result = caseContext(context);
-			if (result == null)
-				result = caseNamedElement(context);
-			if (result == null)
-				result = caseElement(context);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1417,6 +1427,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = casePortConnectionEnd(dataPort);
 			if (result == null)
+				result = caseTriggerPort(dataPort);
+			if (result == null)
 				result = caseFeature(dataPort);
 			if (result == null)
 				result = caseStructuralFeature(dataPort);
@@ -1445,6 +1457,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseDirectedFeature(port);
 			if (result == null)
 				result = casePortConnectionEnd(port);
+			if (result == null)
+				result = caseTriggerPort(port);
 			if (result == null)
 				result = caseFeature(port);
 			if (result == null)
@@ -1483,6 +1497,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = casePortConnectionEnd(eventDataPort);
 			if (result == null)
+				result = caseTriggerPort(eventDataPort);
+			if (result == null)
 				result = caseFeature(eventDataPort);
 			if (result == null)
 				result = caseStructuralFeature(eventDataPort);
@@ -1513,6 +1529,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseDirectedFeature(eventPort);
 			if (result == null)
 				result = casePortConnectionEnd(eventPort);
+			if (result == null)
+				result = caseTriggerPort(eventPort);
 			if (result == null)
 				result = caseFeature(eventPort);
 			if (result == null)
@@ -1856,9 +1874,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.ABSTRACT_CONNECTION_END: {
-			AbstractConnectionEnd abstractConnectionEnd = (AbstractConnectionEnd) theEObject;
-			T result = caseAbstractConnectionEnd(abstractConnectionEnd);
+		case Aadl2Package.CONNECTED_ELEMENT: {
+			ConnectedElement connectedElement = (ConnectedElement) theEObject;
+			T result = caseConnectedElement(connectedElement);
+			if (result == null)
+				result = caseElement(connectedElement);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2146,9 +2166,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseStructuralFeature(internalFeature);
 			if (result == null)
+				result = caseFeatureConnectionEnd(internalFeature);
+			if (result == null)
 				result = casePortConnectionEnd(internalFeature);
 			if (result == null)
-				result = caseModeTransitionTrigger(internalFeature);
+				result = caseTriggerPort(internalFeature);
 			if (result == null)
 				result = caseRefinableElement(internalFeature);
 			if (result == null)
@@ -2171,9 +2193,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseStructuralFeature(eventSource);
 			if (result == null)
+				result = caseFeatureConnectionEnd(eventSource);
+			if (result == null)
 				result = casePortConnectionEnd(eventSource);
 			if (result == null)
-				result = caseModeTransitionTrigger(eventSource);
+				result = caseTriggerPort(eventSource);
 			if (result == null)
 				result = caseRefinableElement(eventSource);
 			if (result == null)
@@ -2196,9 +2220,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseStructuralFeature(eventDataSource);
 			if (result == null)
+				result = caseFeatureConnectionEnd(eventDataSource);
+			if (result == null)
 				result = casePortConnectionEnd(eventDataSource);
 			if (result == null)
-				result = caseModeTransitionTrigger(eventDataSource);
+				result = caseTriggerPort(eventDataSource);
 			if (result == null)
 				result = caseRefinableElement(eventDataSource);
 			if (result == null)
@@ -2219,9 +2245,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseProcessorFeature(portProxy);
 			if (result == null)
+				result = caseFeatureConnectionEnd(portProxy);
+			if (result == null)
 				result = casePortConnectionEnd(portProxy);
 			if (result == null)
-				result = caseModeTransitionTrigger(portProxy);
+				result = caseTriggerPort(portProxy);
 			if (result == null)
 				result = caseStructuralFeature(portProxy);
 			if (result == null)
@@ -2263,17 +2291,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.CONNECTED_ELEMENT: {
-			ConnectedElement connectedElement = (ConnectedElement) theEObject;
-			T result = caseConnectedElement(connectedElement);
-			if (result == null)
-				result = caseElement(connectedElement);
-			if (result == null)
-				result = caseAbstractConnectionEnd(connectedElement);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.ANNEX_LIBRARY: {
 			AnnexLibrary annexLibrary = (AnnexLibrary) theEObject;
 			T result = caseAnnexLibrary(annexLibrary);
@@ -2309,17 +2326,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseNamedElement(defaultAnnexSubclause);
 			if (result == null)
 				result = caseElement(defaultAnnexSubclause);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.TRIGGER_PORT: {
-			TriggerPort triggerPort = (TriggerPort) theEObject;
-			T result = caseTriggerPort(triggerPort);
-			if (result == null)
-				result = caseModeTransitionTrigger(triggerPort);
-			if (result == null)
-				result = caseElement(triggerPort);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -6587,21 +6593,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConnection(Connection object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Connection End</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Connection End</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAbstractConnectionEnd(AbstractConnectionEnd object) {
 		return null;
 	}
 
