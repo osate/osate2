@@ -427,7 +427,7 @@ ErrorStateToModeMapping returns ErrorStateToModeMapping:
 ;
 
 
-InternalPort returns aadl2::InternalEvent:
+InternalPort returns aadl2::InternalFeature:
 	 'self' '.' name=ID
 ;
 

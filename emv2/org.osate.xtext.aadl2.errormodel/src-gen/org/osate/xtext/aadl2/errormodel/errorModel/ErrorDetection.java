@@ -4,7 +4,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
 
@@ -145,12 +145,12 @@ public interface ErrorDetection extends EObject, NamedElement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Internal Detection Port</em>' containment reference.
-   * @see #setInternalDetectionPort(InternalEvent)
+   * @see #setInternalDetectionPort(InternalFeature)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection_InternalDetectionPort()
    * @model containment="true"
    * @generated
    */
-  InternalEvent getInternalDetectionPort();
+  InternalFeature getInternalDetectionPort();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getInternalDetectionPort <em>Internal Detection Port</em>}' containment reference.
@@ -160,7 +160,7 @@ public interface ErrorDetection extends EObject, NamedElement
    * @see #getInternalDetectionPort()
    * @generated
    */
-  void setInternalDetectionPort(InternalEvent value);
+  void setInternalDetectionPort(InternalFeature value);
 
   /**
    * Returns the value of the '<em><b>Detection Reporting Port</b></em>' reference.

@@ -20,7 +20,7 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
-import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
@@ -242,7 +242,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent) {
 		EList<NamedElement> cl = recoverEvent.getCondition();
 		for (NamedElement namedElement : cl) {
-			if (!(namedElement instanceof ModeTransition || namedElement instanceof Port || namedElement instanceof InternalEvent)) {
+			if (!(namedElement instanceof ModeTransition || namedElement instanceof Port || namedElement instanceof InternalFeature)) {
 				error(recoverEvent, "Recover event trigger reference '"
 						+ namedElement.getName()
 						+ "' is not a port, component internal self event, or mode transition.");

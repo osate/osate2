@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Port;
 
 import org.osate.aadl2.impl.NamedElementImpl;
@@ -102,7 +102,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * @generated
    * @ordered
    */
-  protected InternalEvent internalDetectionPort;
+  protected InternalFeature internalDetectionPort;
 
   /**
    * The cached value of the '{@link #getDetectionReportingPort() <em>Detection Reporting Port</em>}' reference.
@@ -312,7 +312,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public InternalEvent getInternalDetectionPort()
+  public InternalFeature getInternalDetectionPort()
   {
     return internalDetectionPort;
   }
@@ -322,9 +322,9 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetInternalDetectionPort(InternalEvent newInternalDetectionPort, NotificationChain msgs)
+  public NotificationChain basicSetInternalDetectionPort(InternalFeature newInternalDetectionPort, NotificationChain msgs)
   {
-    InternalEvent oldInternalDetectionPort = internalDetectionPort;
+    InternalFeature oldInternalDetectionPort = internalDetectionPort;
     internalDetectionPort = newInternalDetectionPort;
     if (eNotificationRequired())
     {
@@ -339,7 +339,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setInternalDetectionPort(InternalEvent newInternalDetectionPort)
+  public void setInternalDetectionPort(InternalFeature newInternalDetectionPort)
   {
     if (newInternalDetectionPort != internalDetectionPort)
     {
@@ -521,7 +521,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         setCondition((ConditionExpression)newValue);
         return;
       case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
-        setInternalDetectionPort((InternalEvent)newValue);
+        setInternalDetectionPort((InternalFeature)newValue);
         return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
         setDetectionReportingPort((Port)newValue);
@@ -556,7 +556,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         setCondition((ConditionExpression)null);
         return;
       case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
-        setInternalDetectionPort((InternalEvent)null);
+        setInternalDetectionPort((InternalFeature)null);
         return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
         setDetectionReportingPort((Port)null);

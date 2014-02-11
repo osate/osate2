@@ -18,7 +18,7 @@ import org.osate.aadl2.ComputedValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedValue;
@@ -138,9 +138,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case Aadl2Package.INTERNAL_EVENT:
+			case Aadl2Package.INTERNAL_FEATURE:
 				if(context == grammarAccess.getInternalPortRule()) {
-					sequence_InternalPort(context, (InternalEvent) semanticObject); 
+					sequence_InternalPort(context, (InternalFeature) semanticObject); 
 					return; 
 				}
 				else break;
@@ -909,7 +909,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_InternalPort(EObject context, InternalEvent semanticObject) {
+	protected void sequence_InternalPort(EObject context, InternalFeature semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	

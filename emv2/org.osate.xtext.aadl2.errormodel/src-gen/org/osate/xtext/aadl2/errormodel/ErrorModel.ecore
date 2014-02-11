@@ -264,7 +264,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="internalDetectionPort"
-        eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//InternalEvent"
+        eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//InternalFeature"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="detectionReportingPort"
         eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Port"/>
