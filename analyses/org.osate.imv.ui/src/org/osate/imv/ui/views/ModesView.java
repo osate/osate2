@@ -282,7 +282,9 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 					ModeTransitionTrigger trigger = modeTransition.getTrigger();
 					// Add trigger name to label.
 					if(trigger instanceof TriggerPort)
-						label = ((TriggerPort)trigger).getPort().getQualifiedName() + ":   ";
+					{
+						label = ((TriggerPort)trigger).getQualifiedName() + ":   ";
+					}
 					// Add source mode to label.
 					label += modeTransition.getSource().getName();
 					// Add transition symbol to label.

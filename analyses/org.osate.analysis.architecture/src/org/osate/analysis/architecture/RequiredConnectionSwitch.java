@@ -238,7 +238,8 @@ public final class RequiredConnectionSwitch extends AadlProcessingSwitchWithProg
 												for (Iterator<ModeTransition> it = mtl.iterator(); it.hasNext() && !foundModeTransition;) {
 													ModeTransition mt = it.next();
 													for (ModeTransitionTrigger mtt : mt.getOwnedTriggers()) {
-														if (mtt instanceof TriggerPort && ((TriggerPort)mtt).getPort().equals(dp)) {
+														TriggerPort tp = mtt.getTriggerPort();
+														if (tp instanceof Port && ((Port)tp).equals(dp)) {
 															foundModeTransition = true;
 														}
 													}

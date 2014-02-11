@@ -41,10 +41,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.osate.aadl2.CallSpecification;
+
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.ThreadImplementation;
@@ -108,7 +109,8 @@ public class LdmExporter {
 					if (c.getComponentClassifier() instanceof ThreadImplementation)
 					{
 						ThreadImplementation ti = (ThreadImplementation) c.getComponentClassifier();
-						for (CallSpecification cs : ti.getCallSpecifications())
+						
+						for (SubprogramCall cs : ti.getSubprogramCalls())
 						{
 							if (! (cs instanceof SubprogramCallImpl))
 							{

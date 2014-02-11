@@ -46,9 +46,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramType;
@@ -84,13 +84,13 @@ public class ExcelGenerator {
 	private static WritableCellFormat timesBoldUnderline;
 	private static WritableCellFormat times;
 
-	private static void getSubprogramsWithThreads (HashMap<CallSpecification,ComponentInstance> spgs, ComponentInstance ci)
+	private static void getSubprogramsWithThreads (HashMap<SubprogramCall,ComponentInstance> spgs, ComponentInstance ci)
 	{
 		if ((ci.getCategory() == ComponentCategory.THREAD) &&
 			(ci.getComponentClassifier() instanceof ThreadImplementation))
 		{
 			ThreadImplementation ti = (ThreadImplementation) ci.getComponentClassifier();
-			for (CallSpecification cs : ti.getCallSpecifications())
+			for (SubprogramCall cs : ti.getSubprogramCalls())
 			{
 				if (! (cs instanceof SubprogramCallImpl))
 				{
@@ -119,14 +119,14 @@ public class ExcelGenerator {
 		}
 	}
 	
-	private static void getSubprogramsWithCPU (HashMap<CallSpecification,ComponentInstance> spgs, ComponentInstance ci)
+	private static void getSubprogramsWithCPU (HashMap<SubprogramCall,ComponentInstance> spgs, ComponentInstance ci)
 	{
 		if ((ci.getCategory() == ComponentCategory.THREAD) &&
 			(ci.getComponentClassifier() instanceof ThreadImplementation))
 		{
 			ComponentInstance cpu = GetProperties.getActualProcessorBinding (ci.getContainingComponentInstance()).get(0);
 			ThreadImplementation ti = (ThreadImplementation) ci.getComponentClassifier();
-			for (CallSpecification cs : ti.getCallSpecifications())
+			for (SubprogramCall cs : ti.getSubprogramCalls())
 			{
 				if (! (cs instanceof SubprogramCallImpl))
 				{
@@ -181,26 +181,26 @@ public class ExcelGenerator {
 		Colour colour;
 		String label;
 		int row;
-		HashMap<CallSpecification,ComponentInstance> subprogramsCPU;
-		HashMap<CallSpecification,ComponentInstance> subprogramsThreads;
+		HashMap<SubprogramCall,ComponentInstance> subprogramsCPU;
+		HashMap<SubprogramCall,ComponentInstance> subprogramsThreads;
 
 		addCaption (sheet, 0, 0, "Criticality Matrix");
 		row = 1;
 		
-		subprogramsCPU = new HashMap<CallSpecification,ComponentInstance>();
-		subprogramsThreads = new HashMap<CallSpecification,ComponentInstance>();
+		subprogramsCPU = new HashMap<SubprogramCall,ComponentInstance>();
+		subprogramsThreads = new HashMap<SubprogramCall,ComponentInstance>();
 
 		getSubprogramsWithCPU (subprogramsCPU, systemInstance);
 		getSubprogramsWithThreads (subprogramsThreads, systemInstance);
 
-		for (CallSpecification cs : subprogramsCPU.keySet())
+		for (SubprogramCall cs : subprogramsCPU.keySet())
 		{
 			SubprogramCallImpl sci = (SubprogramCallImpl)cs;
 			addLabel (sheet, row, 1, ((SubprogramType)sci.getCalledSubprogram()).getName());
 			addLabel (sheet, 0, row + 1, ((SubprogramType)sci.getCalledSubprogram()).getName());
 			
 			int col = 1;
-			for (CallSpecification cs2 : subprogramsCPU.keySet())
+			for (SubprogramCall cs2 : subprogramsCPU.keySet())
 			{
 				ComponentInstance cpu1 = subprogramsCPU.get(cs);
 				ComponentInstance cpu2 = subprogramsCPU.get(cs2);
@@ -235,7 +235,7 @@ public class ExcelGenerator {
 
 	}
 	
-	private static String getLocationProximity (CallSpecification cs1, ComponentInstance t1, CallSpecification cs2, ComponentInstance t2)
+	private static String getLocationProximity (SubprogramCall cs1, ComponentInstance t1, SubprogramCall cs2, ComponentInstance t2)
 	{
 		if (t1 == t2)
 		{
@@ -245,18 +245,18 @@ public class ExcelGenerator {
 		{
 			return "M";
 		}
-		return "H";
+		return "H"; 
 	}
 	
 	private static void createLocationMatrix(WritableSheet sheet, ComponentInstance systemInstance) throws WriteException {
 		addLabel (sheet, 0, 0, "Location Matrix");
-		HashMap<CallSpecification,ComponentInstance> subprograms;
+		HashMap<SubprogramCall,ComponentInstance> subprograms;
 		
-		subprograms = new HashMap<CallSpecification,ComponentInstance>();
+		subprograms = new HashMap<SubprogramCall,ComponentInstance>();
 		
 		getSubprogramsWithThreads (subprograms, systemInstance);
 		int row = 2;
-		for (CallSpecification cs : subprograms.keySet())
+		for (SubprogramCall cs : subprograms.keySet())
 		{
 			SubprogramCallImpl sci = (SubprogramCallImpl)cs;
 			ComponentInstance cpu = subprograms.get(cs);
@@ -264,7 +264,7 @@ public class ExcelGenerator {
 			addLabel (sheet, 0, row, ((SubprogramType)sci.getCalledSubprogram()).getName());
 			
 			int col = 1;
-			for (CallSpecification cs2 : subprograms.keySet())
+			for (SubprogramCall cs2 : subprograms.keySet())
 			{
 				addLabel (sheet, col , row, getLocationProximity (cs, subprograms.get(cs), cs2, subprograms.get(cs2)));
 				col++;
@@ -474,13 +474,13 @@ public class ExcelGenerator {
 		 */
 		line = 20;
 		addCaption(sheet, 0, line - 1, "Criticality of Functions");
-		HashMap<CallSpecification,ComponentInstance> subprograms;
+		HashMap<SubprogramCall,ComponentInstance> subprograms;
 		
-		subprograms = new HashMap<CallSpecification,ComponentInstance>();
+		subprograms = new HashMap<SubprogramCall,ComponentInstance>();
 		
 		getSubprogramsWithCPU (subprograms, mainSystem);
 		
-		for (CallSpecification cs : subprograms.keySet())
+		for (SubprogramCall cs : subprograms.keySet())
 		{
 			SubprogramCallImpl sci = (SubprogramCallImpl)cs;
 			ComponentInstance cpu = subprograms.get(cs);
