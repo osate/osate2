@@ -196,21 +196,32 @@ public class FileUtils
   /**
    * Create a File object with the given path. It checks if the corresponding
    * file or directory exists and throws an FileNotFoundException otherwise.
+   * Throw FileNotFoundException if the given String object is {@code null}.
    * 
    * @param path the given path to a file or a directory
    * @return the File object
-   * @throws FileNotFoundException if the file or the directory doesn't exist
+   * @throws FileNotFoundException if the file or the directory doesn't exist or
+   * if the given String object is {@code null}
    */
   public static File stringToFile(String path) throws FileNotFoundException
   {
-    File result = new File(path) ;
-    
-    if(! result.exists())
+    if(path != null)
     {
-      throw new FileNotFoundException () ;
+      File result = new File(path) ;
+      
+      if(! result.exists())
+      {
+        throw new FileNotFoundException (path) ;
+      }
+      else
+      {
+        return result ;
+      }
     }
-    
-    return result ;
+    else
+    {
+      throw new FileNotFoundException("null") ;
+    }
   }
   
   /**
