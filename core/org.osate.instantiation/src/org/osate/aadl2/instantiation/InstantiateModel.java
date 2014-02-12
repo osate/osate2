@@ -1420,7 +1420,7 @@ public class InstantiateModel {
 	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
 		InstanceObject current = end;
-		while (current != container) {
+		while ((current != container) && (current != null)) {
 			int d = 0;
 
 			if (names != null) {
@@ -1682,7 +1682,8 @@ public class InstantiateModel {
 					targetConnRef.setDestination(found);
 			}
 			// now we need to resolve the upper end (source)
-			if (targetConnRef != outerConnRef){
+			if ((outerConnRef != null) && (targetConnRef != outerConnRef))
+			{
 				// we need to fix the context of the connection reference 
 				ConnectionInstanceEnd outerDst = outerConnRef.getDestination();
 				targetConnRef.setContext(outerDst.getComponentInstance());

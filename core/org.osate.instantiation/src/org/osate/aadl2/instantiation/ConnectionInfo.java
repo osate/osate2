@@ -179,7 +179,7 @@ class ConnectionInfo {
 		Iterator<ConnectionInstanceEnd> dstIter = destinations.iterator();
 		ConnectionInstanceEnd dosrc = src;
 		ConnectionInstanceEnd dodst = null;
-		while (connIter.hasNext()) 
+		while (connIter.hasNext() && dstIter.hasNext()) 
 		{
 			ConnectionReference connRef = conni.createConnectionReference();
 
