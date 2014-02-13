@@ -1859,8 +1859,15 @@ public class AadlBaUtils {
    */
   public static String getName(ModeTransitionTrigger mtt)
   {
-      return mtt.getTriggerPort().getName() ;
-    
+    if(mtt instanceof NamedElement)
+
+    {
+      return ((NamedElement) mtt).getName() ;
+    }
+    else
+    {
+      return ((TriggerPort) mtt).getPort().getName() ;
+    }
   }
   
   /**
