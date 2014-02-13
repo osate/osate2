@@ -662,10 +662,14 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FeatureConnection"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FeatureGroupConnection"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ProcessorFeature"/>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//InternalFeature"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//InternalFeature">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//InternalFeature/direction"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventSource"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventDataSource"/>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PortProxy"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PortProxy">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PortProxy/direction"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//SubprogramProxy"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AnnexLibrary"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//DefaultAnnexLibrary">

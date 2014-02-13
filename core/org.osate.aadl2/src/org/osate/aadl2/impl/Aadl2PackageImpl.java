@@ -5050,6 +5050,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getInternalFeature_Direction() {
+		return (EAttribute) getInternalFeature().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEventSource() {
 		if (eventSourceEClass == null) {
 			eventSourceEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
@@ -5082,6 +5091,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 					.get(121);
 		}
 		return portProxyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPortProxy_Direction() {
+		return (EAttribute) getPortProxy().getEStructuralFeatures().get(0);
 	}
 
 	/**

@@ -39,10 +39,45 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Port Proxy</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.PortProxy#getDirection <em>Direction</em>}</li>
+ * </ul>
+ * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getPortProxy()
  * @model
  * @generated
  */
 public interface PortProxy extends ProcessorFeature, FeatureConnectionEnd, PortConnectionEnd, TriggerPort {
+
+	/**
+	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.osate.aadl2.DirectionType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Direction</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Direction</em>' attribute.
+	 * @see org.osate.aadl2.DirectionType
+	 * @see #setDirection(DirectionType)
+	 * @see org.osate.aadl2.Aadl2Package#getPortProxy_Direction()
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	DirectionType getDirection();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortProxy#getDirection <em>Direction</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Direction</em>' attribute.
+	 * @see org.osate.aadl2.DirectionType
+	 * @see #getDirection()
+	 * @generated
+	 */
+	void setDirection(DirectionType value);
 } // PortProxy

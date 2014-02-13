@@ -2149,6 +2149,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseStructuralFeature(processorFeature);
 			if (result == null)
+				result = caseModalElement(processorFeature);
+			if (result == null)
 				result = caseRefinableElement(processorFeature);
 			if (result == null)
 				result = caseClassifierFeature(processorFeature);
@@ -2165,6 +2167,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			T result = caseInternalFeature(internalFeature);
 			if (result == null)
 				result = caseStructuralFeature(internalFeature);
+			if (result == null)
+				result = caseModalElement(internalFeature);
 			if (result == null)
 				result = caseFeatureConnectionEnd(internalFeature);
 			if (result == null)
@@ -2193,6 +2197,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseStructuralFeature(eventSource);
 			if (result == null)
+				result = caseModalElement(eventSource);
+			if (result == null)
 				result = caseFeatureConnectionEnd(eventSource);
 			if (result == null)
 				result = casePortConnectionEnd(eventSource);
@@ -2219,6 +2225,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseInternalFeature(eventDataSource);
 			if (result == null)
 				result = caseStructuralFeature(eventDataSource);
+			if (result == null)
+				result = caseModalElement(eventDataSource);
 			if (result == null)
 				result = caseFeatureConnectionEnd(eventDataSource);
 			if (result == null)
@@ -2253,6 +2261,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseStructuralFeature(portProxy);
 			if (result == null)
+				result = caseModalElement(portProxy);
+			if (result == null)
 				result = caseConnectionEnd(portProxy);
 			if (result == null)
 				result = caseRefinableElement(portProxy);
@@ -2277,6 +2287,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseCalledSubprogram(subprogramProxy);
 			if (result == null)
 				result = caseStructuralFeature(subprogramProxy);
+			if (result == null)
+				result = caseModalElement(subprogramProxy);
 			if (result == null)
 				result = caseConnectionEnd(subprogramProxy);
 			if (result == null)

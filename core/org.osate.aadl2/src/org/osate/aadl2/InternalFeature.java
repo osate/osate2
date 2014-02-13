@@ -39,10 +39,46 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Internal Feature</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.InternalFeature#getDirection <em>Direction</em>}</li>
+ * </ul>
+ * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getInternalFeature()
  * @model abstract="true"
  * @generated
  */
-public interface InternalFeature extends StructuralFeature, FeatureConnectionEnd, PortConnectionEnd, TriggerPort {
+public interface InternalFeature extends StructuralFeature, ModalElement, FeatureConnectionEnd, PortConnectionEnd,
+		TriggerPort {
+
+	/**
+	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.osate.aadl2.DirectionType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Direction</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Direction</em>' attribute.
+	 * @see org.osate.aadl2.DirectionType
+	 * @see #setDirection(DirectionType)
+	 * @see org.osate.aadl2.Aadl2Package#getInternalFeature_Direction()
+	 * @model required="true" ordered="false"
+	 * @generated
+	 */
+	DirectionType getDirection();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.InternalFeature#getDirection <em>Direction</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Direction</em>' attribute.
+	 * @see org.osate.aadl2.DirectionType
+	 * @see #getDirection()
+	 * @generated
+	 */
+	void setDirection(DirectionType value);
 } // InternalFeature
