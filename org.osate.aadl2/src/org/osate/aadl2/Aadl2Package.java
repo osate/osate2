@@ -11709,13 +11709,22 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_FEATURE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_FEATURE__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Processor Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESSOR_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+	int PROCESSOR_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -11790,13 +11799,31 @@ public interface Aadl2Package extends EPackage {
 	int INTERNAL_FEATURE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_FEATURE__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_FEATURE__DIRECTION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Internal Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTERNAL_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+	int INTERNAL_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -11869,6 +11896,24 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int EVENT_SOURCE__FEATURING_CLASSIFIER = INTERNAL_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE__IN_MODE = INTERNAL_FEATURE__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE__DIRECTION = INTERNAL_FEATURE__DIRECTION;
 
 	/**
 	 * The number of structural features of the '<em>Event Source</em>' class.
@@ -11952,6 +11997,24 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_DATA_SOURCE__FEATURING_CLASSIFIER = INTERNAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE__IN_MODE = INTERNAL_FEATURE__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE__DIRECTION = INTERNAL_FEATURE__DIRECTION;
+
+	/**
 	 * The number of structural features of the '<em>Event Data Source</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12033,13 +12096,31 @@ public interface Aadl2Package extends EPackage {
 	int PORT_PROXY__FEATURING_CLASSIFIER = PROCESSOR_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_PROXY__IN_MODE = PROCESSOR_FEATURE__IN_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_PROXY__DIRECTION = PROCESSOR_FEATURE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Port Proxy</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 0;
+	int PORT_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -12112,6 +12193,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_PROXY__FEATURING_CLASSIFIER = PROCESSOR_FEATURE__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_PROXY__IN_MODE = PROCESSOR_FEATURE__IN_MODE;
 
 	/**
 	 * The number of structural features of the '<em>Subprogram Proxy</em>' class.
@@ -38240,6 +38330,17 @@ public interface Aadl2Package extends EPackage {
 	EClass getInternalFeature();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.InternalFeature#getDirection <em>Direction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Direction</em>'.
+	 * @see org.osate.aadl2.InternalFeature#getDirection()
+	 * @see #getInternalFeature()
+	 * @generated
+	 */
+	EAttribute getInternalFeature_Direction();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.EventSource <em>Event Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38268,6 +38369,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getPortProxy();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PortProxy#getDirection <em>Direction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Direction</em>'.
+	 * @see org.osate.aadl2.PortProxy#getDirection()
+	 * @see #getPortProxy()
+	 * @generated
+	 */
+	EAttribute getPortProxy_Direction();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.SubprogramProxy <em>Subprogram Proxy</em>}'.

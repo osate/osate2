@@ -965,11 +965,17 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupConnection" eSuperTypes="#//Connection"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="#//DirectionType"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventSource" eSuperTypes="#//InternalFeature"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventDataSource" eSuperTypes="#//InternalFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PortProxy" eSuperTypes="#//ProcessorFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PortProxy" eSuperTypes="#//ProcessorFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="#//DirectionType"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramProxy" eSuperTypes="#//ProcessorFeature #//AccessConnectionEnd #//CalledSubprogram"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ComponentCategory">
     <eLiterals name="abstract"/>
