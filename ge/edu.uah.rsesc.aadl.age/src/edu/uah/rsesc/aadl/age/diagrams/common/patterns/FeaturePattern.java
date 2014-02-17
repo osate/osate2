@@ -66,8 +66,8 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Port;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
@@ -83,6 +83,7 @@ import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.HighlightingService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
@@ -124,6 +125,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final ShapeCreationService shapeCreationService;
+	private final HighlightingService highlightingService;
 	private final EClass featureType;
 	
 	/**
@@ -154,7 +156,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
-			final @Named("Feature Type") EClass featureType) {
+			final HighlightingService highlightingService, final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -171,6 +173,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.diagramModService = diagramModService;
 		this.bor = bor;
 		this.shapeCreationService = shapeCreationService;
+		this.highlightingService = highlightingService;
 		this.featureType = featureType;
 	}
 
@@ -417,7 +420,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final GraphicsAlgorithm fgGa = graphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, featureGroupSymbolWidth, childY + 25);
 			graphicsAlgorithmUtil.shrink(fgGa);
 			final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
-
+	     	
 			// CLEAN-UP: Consider changing how symbol is created to assume left like the other symbols...
 			graphicsAlgorithmUtil.mirror(fgGa);					
 
@@ -461,10 +464,13 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Position the feature shape
 		gaService.setLocation(featureShape.getGraphicsAlgorithm(), 0, labelSize.getHeight());  
 		
+		 // Set color based on currently selected flow and mode
+     	highlightingService.highlight(feature, null, featureShape.getGraphicsAlgorithm());		
+     	
         // Set size as appropriate
         gaService.setSize(ga, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
-
+     		
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
 	}
 	
@@ -787,12 +793,12 @@ public class FeaturePattern extends AgeLeafShapePattern {
 							connectedElement.setConnectionEnd(null);
 							connectedElement.setConnectionEnd(feature);							
 						} 
-					} else if(obj instanceof TriggerPort) {
-						final TriggerPort tp = (TriggerPort)obj;
-						if(tp.getPort() == feature) {
+					} else if(obj instanceof ModeTransitionTrigger) {
+						final ModeTransitionTrigger mtt = (ModeTransitionTrigger)obj;
+						if(mtt.getTriggerPort() == feature) {
 							// Reset the port. This will trigger and update by xtext
-							tp.setPort(null);
-							tp.setPort((Port)feature);							
+							mtt.setTriggerPort(null);
+							mtt.setTriggerPort((TriggerPort)feature);							
 						} 
 					} else if(obj instanceof FlowEnd) {
 						final FlowEnd fe = (FlowEnd)obj;

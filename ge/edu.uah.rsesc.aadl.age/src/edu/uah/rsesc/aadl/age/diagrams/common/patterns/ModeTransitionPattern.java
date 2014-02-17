@@ -41,14 +41,10 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.TriggerPort;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.dialogs.ModeTransitionTriggerSelectionDialog;
 import edu.uah.rsesc.aadl.age.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
@@ -391,23 +387,17 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	 * @return
 	 */
 	public Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
-		if(trigger instanceof TriggerPort) {
-			final TriggerPort tp = (TriggerPort)trigger;
-			
-			// Get the shapes for the trigger port. 
-			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, tp.getContext());
-			final Shape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : shapeService.getDescendantShapeByElementName(portShapeOwner, tp.getPort());
+		
+		// Get the shapes for the trigger port. 
+		final ContainerShape portShapeOwner = trigger.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, trigger.getContext());
+		final Shape portShape = (portShapeOwner == null || trigger.getTriggerPort() == null) ? null : shapeService.getDescendantShapeByElementName(portShapeOwner, trigger.getTriggerPort());
 
-			if(portShape == null) {
-				return null;
-			}
-			
-			// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
-			return anchorService.getAnchorByName(portShape, shapeService.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
-		} else {
-			// Unhandled case
+		if(portShape == null) {
 			return null;
 		}
+		
+		// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
+		return anchorService.getAnchorByName(portShape, shapeService.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 	}
 	
 	@Override
@@ -485,11 +475,10 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		 			newModeTransition.setSource(getMode(context.getSourcePictogramElement()));
 		 			newModeTransition.setDestination(getMode(context.getTargetPictogramElement()));
 		 			
-		 			final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		 			for(ModeTransitionTriggerInfo selectedPort : selectedTriggers) {
-		 				final TriggerPort newTrigger = (TriggerPort)newModeTransition.createOwnedTrigger(p.getTriggerPort());
-		 				newTrigger.setPort(selectedPort.port);
-		 				newTrigger.setContext(selectedPort.context);
+		 				final ModeTransitionTrigger mtt = newModeTransition.createOwnedTrigger();
+		 				mtt.setTriggerPort(selectedPort.port);
+		 				mtt.setContext(selectedPort.context);
 		 			}
 	
 					return newModeTransition;

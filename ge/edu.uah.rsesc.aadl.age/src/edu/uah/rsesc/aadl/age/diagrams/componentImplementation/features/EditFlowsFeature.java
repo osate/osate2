@@ -10,6 +10,7 @@ package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -18,21 +19,28 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.Flow;
+import org.osate.aadl2.FlowImplementation;
 
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.dialogs.EditFlowsDialog;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 
 public class EditFlowsFeature extends AbstractCustomFeature {
 	private final PrototypeService prototypeService;
+	private final NamingService namingService;
 	private final AadlModificationService aadlModService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public EditFlowsFeature(final PrototypeService prototypeService, final AadlModificationService aadlModService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public EditFlowsFeature(final PrototypeService prototypeService, final NamingService namingService, final AadlModificationService aadlModService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		super(fp);
 		this.prototypeService = prototypeService;
+		this.namingService = namingService;
 		this.aadlModService = aadlModService;
 		this.bor = bor;
 	}
@@ -49,6 +57,7 @@ public class EditFlowsFeature extends AbstractCustomFeature {
 	
     @Override
 	public boolean isAvailable(final IContext context) {
+    	/*
 		final ICustomContext customCtx = (ICustomContext)context;
 		final PictogramElement[] pes = customCtx.getPictogramElements();		
 		if(customCtx.getPictogramElements().length < 1) {
@@ -59,6 +68,9 @@ public class EditFlowsFeature extends AbstractCustomFeature {
 		final PictogramElement pe = pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		return bo instanceof ComponentImplementation;
+		*/
+    	// Disabled until issue with serialization of flow sink implementations is resolved
+    	return false;
 	}
     
     @Override
@@ -71,78 +83,30 @@ public class EditFlowsFeature extends AbstractCustomFeature {
 		final PictogramElement pe = context.getPictogramElements()[0];
 		final ComponentImplementation ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(pe);
 		
-		//ci.getAllEndToEndFlows()
-		//ci.getAllFlowImplementations()
-
 		// Show the edit flows dialog
-		final EditFlowsDialog dlg = new EditFlowsDialog(Display.getCurrent().getActiveShell(), prototypeService, ci);
+		final EditFlowsDialog dlg = new EditFlowsDialog(Display.getCurrent().getActiveShell(), prototypeService, namingService, ci);
 		if(dlg.open() == Dialog.CANCEL) {
 			return;
 		}
-				
-		/*
-		// Prompt the user for the classifier
-		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier.", getPotentialSubcomponentTypes(sc));
-		if(dlg.open() == Dialog.CANCEL) {
-			return;
-		}
-
-		// Set the classifier
-		aadlModService.modify(sc, new AbstractModifier<Subcomponent, Object>() {
+		
+		// Update the flows
+		aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
 			@Override
-			public Object modify(final Resource resource, final Subcomponent sc) {
+			public Object modify(final Resource resource, final ComponentImplementation ci) {
+				// Clear existing flows
+				ci.getOwnedEndToEndFlows().clear();
+				ci.getOwnedFlowImplementations().clear();
 				
-				// Import the package if necessary
-				SubcomponentType selectedSubcomponentType = (SubcomponentType)dlg.getFirstSelectedElement();
-				if(selectedSubcomponentType != null) {
-					// Resolve the reference
-					selectedSubcomponentType = (SubcomponentType)EcoreUtil.resolve(selectedSubcomponentType, resource);
-					
-					// Import its package if necessary
-					final AadlPackage pkg = (AadlPackage)sc.getElementRoot();
-					if(selectedSubcomponentType instanceof ComponentClassifier && selectedSubcomponentType.getNamespace() != null && pkg != null) {
-						final PackageSection section = pkg.getPublicSection();
-						final AadlPackage selectedClassifierPkg = (AadlPackage)selectedSubcomponentType.getNamespace().getOwner();
-						if(pkg != selectedClassifierPkg && !section.getImportedUnits().contains(selectedClassifierPkg)) {
-							section.getImportedUnits().add(selectedClassifierPkg);
-						}
+				for(final Flow flow : dlg.getFlows()) {
+					if(flow instanceof EndToEndFlow) {
+						ci.getOwnedEndToEndFlows().add((EndToEndFlow)flow);
+					} else if(flow instanceof FlowImplementation) {
+						ci.getOwnedFlowImplementations().add((FlowImplementation)flow);
 					}
-				}				
-				
-				// Set the classifier
-				if(sc instanceof SystemSubcomponent) {
-					((SystemSubcomponent)sc).setSystemSubcomponentType((SystemSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof AbstractSubcomponent) {
-					((AbstractSubcomponent)sc).setAbstractSubcomponentType((AbstractSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof ThreadGroupSubcomponent) {
-					((ThreadGroupSubcomponent)sc).setThreadGroupSubcomponentType((ThreadGroupSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof ThreadSubcomponent) {
-					((ThreadSubcomponent)sc).setThreadSubcomponentType((ThreadSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof SubprogramSubcomponent) {
-					((SubprogramSubcomponent)sc).setSubprogramSubcomponentType((SubprogramSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof SubprogramGroupSubcomponent) {
-					((SubprogramGroupSubcomponent)sc).setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof DataSubcomponent) {
-					((DataSubcomponent)sc).setDataSubcomponentType((DataSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof AbstractSubcomponent) {
-					((AbstractSubcomponent)sc).setAbstractSubcomponentType((AbstractSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof VirtualBusSubcomponent) {
-					((VirtualBusSubcomponent)sc).setVirtualBusSubcomponentType((VirtualBusSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof BusSubcomponent) {
-					((BusSubcomponent)sc).setBusSubcomponentType((BusSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof ProcessorSubcomponent) {
-					((ProcessorSubcomponent)sc).setProcessorSubcomponentType((ProcessorSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof DeviceSubcomponent) {
-					((DeviceSubcomponent)sc).setDeviceSubcomponentType((DeviceSubcomponentType)selectedSubcomponentType);
-				} else if(sc instanceof MemorySubcomponent) {
-					((MemorySubcomponent)sc).setMemorySubcomponentType((MemorySubcomponentType)selectedSubcomponentType);
-				} else {
-					throw new RuntimeException("Unexpected type: " + sc.getClass().getName());
 				}
-				
+
 				return null;
-			}			
+			}
 		});
-		*/
 	}	
 }

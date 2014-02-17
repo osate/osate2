@@ -10,8 +10,14 @@ package edu.uah.rsesc.aadl.age.dialogs;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -34,9 +40,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
@@ -49,11 +58,13 @@ import org.osate.aadl2.Flow;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
+import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
@@ -66,6 +77,9 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	private final ComponentImplementation ci;
 	private final List<FlowSegmentInfo> potentialFlowSegments = new ArrayList<FlowSegmentInfo>();
 	private final PrototypeService prototypeService;
+	private final NamingService namingService;
+	private final int deleteWidth = 50;
+	private final int segmentWidth = 200;
 	private final LabelProvider flowSegmentInfoLabelProvider = new LabelProvider() {
     	@Override
     	public String getText(final Object element) {
@@ -77,11 +91,18 @@ public class EditFlowsDialog extends TitleAreaDialog {
     		return getSegmentName(fsi.context, fsi.flowElement);
     	}
     };
-	    
-	public EditFlowsDialog(final Shell parentShell, final PrototypeService prototypeService, final ComponentImplementation ci) {
+    private Flow currentFlow = null;
+    private org.eclipse.swt.widgets.List flowList;
+    private Button addImplFlowBtn;
+    private Button addETEFlowBtn;
+    private Composite flowDetailsPane;
+    private final List<Flow> flows = new ArrayList<Flow>();
+    		
+	public EditFlowsDialog(final Shell parentShell, final PrototypeService prototypeService, final NamingService namingService, final ComponentImplementation ci) {
 		super(parentShell);
 		this.ci = ci;
 		this.prototypeService = prototypeService;
+		this.namingService = namingService;
 		
 		populatePotentialFlowSegmentList();
 	    
@@ -126,7 +147,6 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		setTitle("Flows");
-	    // TODO: setMessage("", IMessageProvider.INFORMATION);	
 	}	
 
 	@Override
@@ -142,17 +162,17 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    flowListPane.setLayout(new RowLayout(SWT.VERTICAL));
 	    
 	    // Flow List
-	    final org.eclipse.swt.widgets.List flowList = new org.eclipse.swt.widgets.List(flowListPane, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
+	    flowList = new org.eclipse.swt.widgets.List(flowListPane, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
 	    final RowData flowListRowData = new RowData();
 	    flowListRowData.height = 300;
+	    flowListRowData.width = 200;
 	    flowList.setLayoutData(flowListRowData);
-	    
+
 	    final ListViewer flowListViewer = new ListViewer(flowList);
 	    flowListViewer.setContentProvider(new ArrayContentProvider());
 	    flowListViewer.setLabelProvider(new LabelProvider() {
 	    	@Override
 	    	public String getText(final Object element) {
-	    		// TODO: Get name of flow implementations too... Lookup from flow spec
 	    		final String txt;
 	    		if(element instanceof EndToEndFlow) {
 	    			txt = ((EndToEndFlow)element).getName() + "(End-To-End)";
@@ -167,26 +187,23 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    
 	    flowListPane.pack();
 
-	    // TODO: Decide whether flow impls and ETE will be edited together
 	    // Buttons
 	    final Composite listBtns = new Composite(flowListPane, SWT.NONE);
 	    listBtns.setLayout(new RowLayout(SWT.HORIZONTAL));
-	    	    
-	    // Add - Flow Impl/ETE
-	    final Button addImplFlowBtn = new Button(listBtns, SWT.PUSH);
-	    addImplFlowBtn.setText("Add Impl");
 	    
-	    final Button addETEFlowBtn = new Button(listBtns, SWT.PUSH);
-	    addETEFlowBtn.setText("Add ETE");
+	    // Add - Flow Impl/ETE
+	    addImplFlowBtn = new Button(listBtns, SWT.PUSH);
+	    addImplFlowBtn.setText("Create Impl...");
+	    addImplFlowBtn.setToolTipText("Create a new flow implementation");
+	    
+	    addETEFlowBtn = new Button(listBtns, SWT.PUSH);
+	    addETEFlowBtn.setText("Create ETE...");
+	    addETEFlowBtn.setToolTipText("Create a new End-To-End flow");
 	    
 	    // Delete
 	    final Button deleteFlowBtn = new Button(listBtns, SWT.PUSH);
-	    deleteFlowBtn.setText("Delete");
-	    
-	    // Refine
-	    final Button refineFlowBtn = new Button(listBtns, SWT.PUSH);
-	    refineFlowBtn.setText("Refine");
-	    
+	    deleteFlowBtn.setText("Delete");	    
+    
 	    // Flow Details Pane
 	    final ScrolledComposite detailsScrolled = new ScrolledComposite(container, SWT.V_SCROLL | SWT.BORDER);
 	    final GridData detailsScrolledGridData = new GridData(GridData.FILL_BOTH);
@@ -195,46 +212,245 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    detailsScrolled.setLayoutData(detailsScrolledGridData);
 	    detailsScrolled.setLayout(new GridLayout(1, false));	
 		
-	    final Composite flowDetailsPane = new Composite(detailsScrolled, SWT.NONE);
+	    flowDetailsPane = new Composite(detailsScrolled, SWT.NONE);
 	    final GridData flowDetailsGridData = new GridData(GridData.FILL_BOTH);
 	    flowDetailsGridData.grabExcessHorizontalSpace = true;
 	    flowDetailsGridData.minimumWidth = 250;
 	    flowDetailsPane.setLayoutData(flowDetailsGridData);
 	    flowDetailsPane.setLayout(new GridLayout(3, false));
-	    
-	    detailsScrolled.setContent(flowDetailsPane); 
-	    
-	    //container.pack();
+	    detailsScrolled.setContent(flowDetailsPane);
 	    
 	    flowListViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(final SelectionChangedEvent event) {
 				final StructuredSelection selection = (StructuredSelection)event.getSelection();
 				final Flow flow = (Flow)selection.getFirstElement();
-				updateFlowDetails(flowDetailsPane, flow);
-				
-				//System.out.println();
-				
-				// TODO: Update buttons
-				
-				// TODO: Update details pane
-			}
-	    	
+				updateFlowDetails(flow);
+			}	    	
 	    });
 	    
 	    // Make a copy of the flows and use it as the input to the flow list viewer.
 	    // The copies share flow specifications but have a different set of owned flow segments
-	    List<Flow> flows = new ArrayList<Flow>(EcoreUtil.copyAll(ci.getAllFlowImplementations()));
-	    flows.addAll(EcoreUtil.copyAll(ci.getAllEndToEndFlows()));
+	    flows.clear();
+	    flows.addAll(EcoreUtil.copyAll(ci.getOwnedFlowImplementations()));
+	    
+	    // Add all end to end flows that are not refinements
+	    for(final EndToEndFlow eteFlow : ci.getOwnedEndToEndFlows()) {
+	    	if(eteFlow.getRefined() == null) {
+	    		flows.add(EcoreUtil.copy(eteFlow));		
+	    	}
+	    }
 	    flowListViewer.setInput(flows);
 
+	    addImplFlowBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Prompt user to select a flow specification
+				final ElementSelectionDialog flowSpecSelectionDlg = new ElementSelectionDialog(getShell(), "Create Flow Implementation", "Select a Flow Specification", ci.getType().getAllFlowSpecifications());
+				if(flowSpecSelectionDlg.open() == Dialog.CANCEL) {
+					return;
+				}
+
+				final Object selectedFlowSpecification = flowSpecSelectionDlg.getFirstSelectedElement();
+				if(selectedFlowSpecification instanceof FlowSpecification) {
+					// Create a flow implementation
+					final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+					final FlowImplementation newFlow = (FlowImplementation)pkg.getEFactoryInstance().create(pkg.getFlowImplementation());
+	
+					// Set the flow specification
+					final FlowSpecification flowSpec = (FlowSpecification)selectedFlowSpecification;
+					
+					newFlow.setSpecification(flowSpec);
+					newFlow.setKind(flowSpec.getKind());
+					
+					// Add the flow to the list and refresh the flow list viewer
+					flows.add(newFlow);
+					flowListViewer.refresh();
+					flowListViewer.setSelection(new StructuredSelection(newFlow));
+				}
+			}
+	    });
+	    
+	    addETEFlowBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Prompt the user for a name for the new end to end flow
+				final InputDialog namePromptDlg = new InputDialog(getShell(), "Create End-to-End Flow", "Enter a name for the new End-to-End flow", "", new IInputValidator() {
+					@Override
+					public String isValid(final String newText) {
+						// Check if the name is a valid identifier and is not being used
+						boolean invalid = false;
+						if(!namingService.isValidIdentifier(newText) || namingService.isNameInUse(ci, newText)) {
+							invalid = true;
+						}
+						
+						// Check that none of the flows being edited have the specified name
+						for(final Flow flow : flows) {
+							if(newText.equalsIgnoreCase(flow.getName())) {
+								invalid = true;
+								break;
+							}
+						}
+						
+						return invalid ? "The specified name is not valid." : null;
+					}					
+				});
+				
+				if(namePromptDlg.open() == Dialog.CANCEL) {
+					return;
+				}
+
+				// Create a new end to end flow
+				final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+				final EndToEndFlow newFlow = (EndToEndFlow)pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
+				
+				// Set the name
+				newFlow.setName(namePromptDlg.getValue());
+				
+				// Add the flow to the list and refresh the flow list viewer
+				flows.add(newFlow);
+				flowListViewer.refresh();
+				flowListViewer.setSelection(new StructuredSelection(newFlow));				
+			}
+	    });
+	    
+	    deleteFlowBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				// Remove the current flow from the flow list and refresh the viewer
+				if(currentFlow != null) {
+					flows.remove(currentFlow);
+					flowListViewer.refresh();
+					flowListViewer.setSelection(null);
+							
+					refreshNavigationButtonState();
+				}
+			}
+	    });
+	    
 	    return area;
 	}
 	
-	private Flow currentFlow = null;
-	private void updateFlowDetails(final Composite flowDetailsPane, final Flow flow) {
+	private boolean isValid(final Flow flow) {
+		// TODO: Cleanup. Is it possible to have 1 function that is used for all the checks?
+		// Perform a basic validity check. Ensure that the number of elements is reasonable, that there aren't any null segments, and that connections are not adjacent in the segment list
+		if(flow instanceof EndToEndFlow) {
+			final EndToEndFlow eteFlow = (EndToEndFlow)flow;
+			
+			// Check for minimum number of flow segments
+			if(eteFlow.getAllFlowSegments().size() < 3 || (eteFlow.getAllFlowSegments().size() % 2) != 1) {
+				return false;
+			}
+			
+			EndToEndFlowSegment prevSegment = null;
+			for(final EndToEndFlowSegment seg : eteFlow.getAllFlowSegments()) {
+				if(seg.getFlowElement() == null) {
+					return false;
+				}
+
+				if(prevSegment == null) {
+					// start_subcomponent_flow_or_etef_identifier
+					if(seg.getFlowElement() instanceof Connection) {
+						return false;
+					}
+				} else {
+					// Ensure that two connections or two flow paths are not connected to one another
+					if((prevSegment.getFlowElement() instanceof Connection) == (seg.getFlowElement() instanceof Connection)) {
+						return false;
+					}
+				}
+				
+				prevSegment = seg;
+			}			
+			
+		} else if(flow instanceof FlowImplementation) {
+			final FlowImplementation fi = (FlowImplementation)flow;
+			if(fi.getKind() == FlowKind.SOURCE) {
+				//{ subcomponent_flow_identifier -> connection_identifier -> }*
+				FlowSegment prevSegment = null;				
+				if((fi.getOwnedFlowSegments().size() % 2) != 0) {
+					return false;
+				}
+				
+				for(final FlowSegment seg : fi.getOwnedFlowSegments()) {
+					if(seg.getFlowElement() == null) {
+						return false;
+					}
+					
+					if(prevSegment == null) {
+						if(seg.getFlowElement() instanceof Connection) {
+							return false;
+						}
+					} else if((prevSegment.getFlowElement() instanceof Connection) == (seg.getFlowElement() instanceof Connection)) { 
+						// Ensure that two connections or two flow paths are not connected to one another
+						return false;
+					}
+					
+					prevSegment = seg;
+				}
+			} else if(fi.getKind() == FlowKind.SINK) {
+				//{ -> connection_identifier -> subcomponent_flow_identifier }*
+				FlowSegment prevSegment = null;				
+				if((fi.getOwnedFlowSegments().size() % 2) != 0) {
+					return false;
+				}
+				
+				for(final FlowSegment seg : fi.getOwnedFlowSegments()) {
+					if(seg.getFlowElement() == null) {
+						return false;
+					}
+					
+					if(prevSegment == null) {
+						if(!(seg.getFlowElement() instanceof Connection)) {
+							return false;
+						}
+					} else if((prevSegment.getFlowElement() instanceof Connection) == (seg.getFlowElement() instanceof Connection)) {
+						// Ensure that two connections or two flow paths are not connected to one another
+						return false;
+					}
+					
+					prevSegment = seg;
+				}
+			} else if(fi.getKind() == FlowKind.PATH) {
+				//	[ { -> connection_identifier -> subcomponent_flow_identifier }+
+				//  -> connection_identifier ]
+				FlowSegment prevSegment = null;				
+				if((fi.getOwnedFlowSegments().size() % 2) != 1) {
+					return false;
+				}
+				
+				for(final FlowSegment seg : fi.getOwnedFlowSegments()) {
+					if(seg.getFlowElement() == null) {
+						return false;
+					}
+					
+					if(prevSegment == null) {
+						if(!(seg.getFlowElement() instanceof Connection)) {
+							return false;
+						}
+					} else if((prevSegment.getFlowElement() instanceof Connection) == (seg.getFlowElement() instanceof Connection)) {
+						// Ensure that two connections or two flow paths are not connected to one another
+						return false;
+					}
+					
+					prevSegment = seg;
+				}
+			} else {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public List<Flow> getFlows() {
+		return flows;
+	}
+
+	private void updateFlowDetails(final Flow flow) {
 		// Set the current flow
 		currentFlow = flow;
+		refreshNavigationButtonState();
 		
 		// Clear
 		for(Control child : flowDetailsPane.getChildren()) {
@@ -246,9 +462,9 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		int insertIndex = 0;
 		if(flow instanceof EndToEndFlow) {
 			final EndToEndFlow f = (EndToEndFlow)flow;
-			addInsertRow(flowDetailsPane, insertIndex++);
+			addInsertRow(insertIndex++);
 			for(final EndToEndFlowSegment fs : f.getAllFlowSegments()) {
-				addEditableFlowSegment(flowDetailsPane, fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
+				addEditableFlowSegment(fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
 			}
 		} else if(flow instanceof FlowImplementation) {
 			final FlowImplementation f = (FlowImplementation)flow;
@@ -259,11 +475,11 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					final FlowEnd outEnd = flowSpec.getOutEnd();
 					
 					if(outEnd != null) {
-						addInsertRow(flowDetailsPane, insertIndex++);
+						addInsertRow(insertIndex++);
 						for(final FlowSegment fs : f.getOwnedFlowSegments()) {
-							addEditableFlowSegment(flowDetailsPane, fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
+							addEditableFlowSegment(fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
 						}
-						addReadOnlyDetailsRow(flowDetailsPane, outEnd.getContext(), outEnd.getFeature(), false, false, insertIndex++);		
+						addReadOnlyDetailsRow(outEnd.getContext(), outEnd.getFeature(), false, insertIndex++);		
 					}
 					break;
 				}
@@ -271,10 +487,10 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				case SINK: {
 					final FlowEnd inEnd = flowSpec.getInEnd();
 					if(inEnd != null) {
-						addReadOnlyDetailsRow(flowDetailsPane, inEnd.getContext(), inEnd.getFeature(), true, true, insertIndex++);	
+						addReadOnlyDetailsRow(inEnd.getContext(), inEnd.getFeature(), true, insertIndex++);	
 					
 						for(final FlowSegment fs : f.getOwnedFlowSegments()) {
-							addEditableFlowSegment(flowDetailsPane, fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
+							addEditableFlowSegment(fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
 						}
 					}
 					break;
@@ -284,11 +500,11 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					final FlowEnd inEnd = flowSpec.getInEnd();
 					final FlowEnd outEnd = flowSpec.getOutEnd();
 					if(inEnd != null & outEnd != null) {
-						addReadOnlyDetailsRow(flowDetailsPane, inEnd.getContext(), inEnd.getFeature(), true, true, insertIndex++);
+						addReadOnlyDetailsRow(inEnd.getContext(), inEnd.getFeature(), true, insertIndex++);
 						for(final FlowSegment fs : f.getOwnedFlowSegments()) {
-							addEditableFlowSegment(flowDetailsPane, fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
+							addEditableFlowSegment(fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
 						}						
-						addReadOnlyDetailsRow(flowDetailsPane, outEnd.getContext(), outEnd.getFeature(), false, false, insertIndex++);
+						addReadOnlyDetailsRow(outEnd.getContext(), outEnd.getFeature(), false, insertIndex++);
 					}
 						
 					break;
@@ -312,14 +528,14 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		return name;
 	}
 	
-	private void addInsertRow(final Composite container, final int insertIndex) {
+	private void addInsertRow(final int insertIndex) {
 		// Create row of widgets. Just insert box
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
-		addInsertButton(container, insertIndex);
+		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(deleteWidth, SWT.DEFAULT).create());
+		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(segmentWidth, SWT.DEFAULT).create());
+		addInsertButton(insertIndex);
 	}
 	
-	private void addInsertButton(final Composite flowDetailsPane, final int insertIndex) {
+	private void addInsertButton(final int insertIndex) {
 		final Button insertSegmentBtn = new Button(flowDetailsPane, SWT.PUSH);
     	insertSegmentBtn.setText("Insert");
     	insertSegmentBtn.addSelectionListener(new SelectionAdapter() {
@@ -334,23 +550,12 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					fi.getOwnedFlowSegments().move(insertIndex, fi.createOwnedFlowSegment());
 				}
 
-				// Refresh details
-				updateFlowDetails(flowDetailsPane, currentFlow);
+				updateFlowDetails(currentFlow);
 			}
 	    });
 	}
 	
-	// TODO: could have a get flow segment info instead of passing in the selected segment
-	private void addEditableFlowSegment(final Composite flowDetailsPane, final Element flowSegment, final FlowSegmentInfo selectedSegment, final int insertIndex) {		
-		// TODO: Arrange things so that it's always valid.
-		// Flow paths... The add buttons need to be between the in and out feature?.
-		// Connection and then sc flow identifier OR just a connection identifier(to end)
-		// Flow Source - Each add should add a subcomponent and a conntection
-		// Flow Sink - Connection and sc flow
-    	// ETE - Connection and then flow path sc flow or ETEF identifier.
-		
-		// TODO: May need to reduce number of adapters created if this refreshing will take place often
-		// TODO: Only edge ones should be deletable.. Including hte ones being edited. Edge ones should also be editable
+	private void addEditableFlowSegment(final Element flowSegment, final FlowSegmentInfo selectedSegment, final int insertIndex) {		
     	final Button deleteSegmentBtn = new Button(flowDetailsPane, SWT.PUSH);
 	    deleteSegmentBtn.setText("Delete");
 	    deleteSegmentBtn.addSelectionListener(new SelectionAdapter() {
@@ -360,7 +565,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				EcoreUtil.remove(flowSegment);
 
 				// Refresh details
-				updateFlowDetails(flowDetailsPane, currentFlow);
+				updateFlowDetails(currentFlow);
 			}
 	    });
 
@@ -394,6 +599,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 						fs.setFlowElement((FlowElement)newSegmentInfo.flowElement);
 					}
 				}
+				
+				refreshNavigationButtonState();
 			}	    	
 	    });
     	cmb.setContentProvider(new ArrayContentProvider());
@@ -407,7 +614,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			cmb.setFilters(new ViewerFilter[]{flowElementFilter});
 		}
 
-    	addInsertButton(flowDetailsPane, insertIndex);
+    	addInsertButton(insertIndex);
 	}
 	
 	private ViewerFilter endToEndFlowElementFilter = new ViewerFilter() {
@@ -422,22 +629,34 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
 			return ((FlowSegmentInfo)element).flowElement instanceof FlowElement;
 		}		
-	};
+	};	
 	
-	private void addReadOnlyDetailsRow(final Composite flowDetailsPane, final Context ctx, final NamedElement flowElement, boolean showTrailingArrow, boolean showInsertButton, final int insertIndex) {
-		new Label(flowDetailsPane, SWT.NONE);
+	private void addReadOnlyDetailsRow(final Context ctx, final NamedElement flowElement, boolean showInsertButton, final int insertIndex) {
+		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(deleteWidth, SWT.DEFAULT).create());
 
 		final Label segmentLbl = new Label(flowDetailsPane, SWT.NONE);
-		final String lblTxt = getSegmentName(ctx, flowElement) + (showTrailingArrow ? " ->" : "");
+		final String lblTxt = getSegmentName(ctx, flowElement);
+		segmentLbl.setLayoutData(GridDataFactory.fillDefaults().hint(segmentWidth, SWT.DEFAULT).create());
 		segmentLbl.setText(lblTxt);
 
 		if(showInsertButton) {
-			addInsertButton(flowDetailsPane, insertIndex);
+			addInsertButton(insertIndex);
 		} else {
 			new Label(flowDetailsPane, SWT.NONE);
 		}
 	}
+		
+	private void refreshNavigationButtonState() {
+		setNavigationButtonsEnabled(currentFlow == null ? true : isValid(currentFlow));
+	}
 	
+    private void setNavigationButtonsEnabled(final boolean enabled) {
+    	flowList.setEnabled(enabled);
+        addImplFlowBtn.setEnabled(enabled);
+        addETEFlowBtn.setEnabled(enabled);
+        getButton(IDialogConstants.OK_ID).setEnabled(enabled);;
+    }
+    	
 	private static class FlowSegmentInfo {
 		public final Context context;
 		public final NamedElement flowElement;

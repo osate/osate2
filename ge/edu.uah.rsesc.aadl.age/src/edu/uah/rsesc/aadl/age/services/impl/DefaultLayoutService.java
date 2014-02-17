@@ -63,7 +63,7 @@ public class DefaultLayoutService implements LayoutService {
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService#checkSize(org.eclipse.graphiti.mm.pictograms.ContainerShape)
 	 */
 	@Override
-	public void checkSize(final ContainerShape container) {
+	public boolean checkSize(final ContainerShape container) {
 		boolean updateShape = false;
 		
 		// Check if the shape is entirely in the container
@@ -85,12 +85,12 @@ public class DefaultLayoutService implements LayoutService {
 			if(feature != null) {
 				if(feature.canUpdate(context)) {
 					feature.update(context);
-					
-					// Refresh the diagram visualization
-					fp.getDiagramTypeProvider().getDiagramBehavior().refresh();
+					return true;
 				}
 			}
-		}			
+		}
+		
+		return false;
 	}
 	
 	/* (non-Javadoc)

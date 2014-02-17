@@ -53,10 +53,9 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.FlowSegment;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.TriggerPort;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
@@ -527,12 +526,12 @@ public class SubcomponentPattern extends AgePattern {
 							fs.setContext(null);
 							fs.setContext(element);							
 						}
-					} else if(obj instanceof TriggerPort) {
-						final TriggerPort tp = (TriggerPort)obj;
-						if(tp.getContext() == element) {
+					} else if(obj instanceof ModeTransitionTrigger) {
+						final ModeTransitionTrigger mtt = (ModeTransitionTrigger)obj;
+						if(mtt.getContext() == element) {
 							// Reset the context. This will trigger and update by xtext
-							tp.setContext(null);
-							tp.setContext(element);							
+							mtt.setContext(null);
+							mtt.setContext(element);							
 						}
 					}
  				}

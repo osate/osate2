@@ -22,7 +22,12 @@ public interface LayoutService {
 	 */
 	void checkContainerSize(ContainerShape shape);
 
-	void checkSize(ContainerShape container);
+	/**
+	 * Checks that the specified container's children fits in the container. If they do not, the container's update feature is called
+	 *  @param container
+	 *  @returns whether or not the update feature was called.
+	 */
+	boolean checkSize(ContainerShape container);
 	
 	void layoutChildren(ContainerShape shape);
 
