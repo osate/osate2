@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -22,12 +24,14 @@ import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.Activator;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
@@ -122,7 +126,13 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final ModifyRunnable modifyRunnable = new ModifyRunnable();
 		if(Display.getDefault().getThread() == Thread.currentThread()) {
 			Log.info("Executing modification without a thread switch");
-			modifyRunnable.run();
+			try {
+				modifyRunnable.run();
+			} catch(RuntimeException ex) {			
+				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error occured modifying the AADL model.", ex);
+				StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+				throw ex; // Rethrow exception to let caller know that there was a problem.
+			}
 		} else {
 			Log.info("Executing modification after switching to display thread");
 			Display.getDefault().syncExec(modifyRunnable);	
