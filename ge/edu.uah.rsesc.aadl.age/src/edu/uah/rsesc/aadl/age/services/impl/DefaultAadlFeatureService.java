@@ -13,11 +13,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
@@ -161,16 +159,7 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 		if(fg.getFeatureGroupPrototype() == null) {
 			return fg.getAllFeatureGroupType();
 		} else {
-			final Element bindingContext = prototypeService.getPrototypeBindingContext(shape);
-			if(bindingContext != null) {
-				final FeatureGroupType fgt = ResolvePrototypeUtil.resolveFeatureGroupPrototype(fg.getFeatureGroupPrototype(), bindingContext);
-				if(fgt != null) {
-					return fgt;
-				}
-				return fg.getFeatureGroupPrototype().getConstrainingFeatureGroupType();
-			}			
+			return prototypeService.getFeatureGroupType(prototypeService.getPrototypeBindingContext(shape), fg);		
 		}
-
-		return null;
 	}
 }

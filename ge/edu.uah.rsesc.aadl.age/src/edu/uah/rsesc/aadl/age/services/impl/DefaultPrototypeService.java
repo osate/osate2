@@ -30,7 +30,42 @@ public class DefaultPrototypeService implements PrototypeService {
 	public DefaultPrototypeService(final BusinessObjectResolutionService bor) {
 		this.bor = bor;
 	}
+	
+	@Override
+	public ComponentClassifier getComponentClassifier(final Element bindingContext, final Subcomponent sc) {
+		if(sc.getPrototype() == null) {
+			return sc.getClassifier();
+		} else {
+			if(bindingContext == null) {
+				return null;
+			}
+			
+			final ComponentClassifier cc = ResolvePrototypeUtil.resolveComponentPrototype(sc.getPrototype(), bindingContext);
+			if(cc != null) {
+				return cc;
+			}
 
+			return sc.getPrototype().getConstrainingClassifier();	
+		}
+	}
+	
+	@Override
+	public FeatureGroupType getFeatureGroupType(final Element bindingContext, final FeatureGroup fg) {
+		if(fg.getFeatureGroupPrototype() == null) {
+			return fg.getAllFeatureGroupType();
+		} else {
+			if(bindingContext != null) {
+				final FeatureGroupType fgt = ResolvePrototypeUtil.resolveFeatureGroupPrototype(fg.getFeatureGroupPrototype(), bindingContext);
+				if(fgt != null) {
+					return fgt;
+				}
+				return fg.getFeatureGroupPrototype().getConstrainingFeatureGroupType();
+			}			
+		}
+
+		return null;
+	}
+	
 	@Override
 	public Element getPrototypeBindingContext(final Shape shape) {
 		ContainerShape temp = shape.getContainer();

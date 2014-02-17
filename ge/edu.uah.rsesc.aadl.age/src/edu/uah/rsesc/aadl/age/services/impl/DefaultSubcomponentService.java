@@ -12,10 +12,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
-
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.SubcomponentService;
 
@@ -31,18 +28,8 @@ public class DefaultSubcomponentService implements SubcomponentService {
 		if(sc.getPrototype() == null) {
 			return sc.getClassifier();
 		} else {
-			final Element bindingContext = prototypeService.getPrototypeBindingContext(shape);
-			if(bindingContext != null) {
-				final ComponentClassifier cc = ResolvePrototypeUtil.resolveComponentPrototype(sc.getPrototype(), bindingContext);
-				if(cc != null) {
-					return cc;
-				}
-
-				return sc.getPrototype().getConstrainingClassifier();
-			}			
+			return prototypeService.getComponentClassifier(prototypeService.getPrototypeBindingContext(shape), sc);	
 		}
-
-		return null;
 	}	
 	
 	/* (non-Javadoc)

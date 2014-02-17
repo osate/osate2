@@ -35,7 +35,7 @@ public class ComboContributionItem extends ControlContribution {
 			}
 			
 		});
-		
+
 		combo.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

@@ -42,19 +42,6 @@ public class ModeContributionItem extends ComboContributionItem {
 		return true;
 	}
 	
-	/*
-	CLEAN-UP: Can use this instead of dispose listeners. How to update when modes change by editing the diagram?(Instead of switching editors)
-	@Override
-	public void update() {
-		System.out.println("UP");
-		super.update();
-	}
-	
-	public void update(String id) {
-		System.out.println("UP2");
-		super.update(id);
-	}
-	*/
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if(editor != newEditor) {
 			saveModeSelection();
@@ -126,7 +113,13 @@ public class ModeContributionItem extends ComboContributionItem {
 	private void refresh() {
 		final Combo combo = getCombo();
 		if(combo != null) {
-			String selectedModeName = (editor == null) ? null : editor.getPartProperty(selectedModePropertyKey);			
+			String selectedModeName = null;
+			if(editor != null) {
+				selectedModeName = editor.getPartProperty(selectedModePropertyKey);
+				if(selectedModeName == null) {
+					selectedModeName = propertyUtil.getSelectedMode(editor.getDiagramTypeProvider().getDiagram()); 
+				}
+			}
 			
 			// Clear the combo box			
 			combo.removeAll();
@@ -160,8 +153,6 @@ public class ModeContributionItem extends ComboContributionItem {
 			
 			// Set the selection
 			combo.setText(selectionTxt);
-
-			combo.getParent().pack(true);
 		}
 	}
 	
@@ -171,20 +162,20 @@ public class ModeContributionItem extends ComboContributionItem {
 		final String transformedTxt = txt.equals(emptySelectionTxt) ? "" : txt;
 		if(cc != null) {	
 			if(!transformedTxt.equalsIgnoreCase(propertyUtil.getSelectedMode(editor.getDiagramTypeProvider().getDiagram()))) {
-				// Set the selected mode property on the diagram
+				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
+				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
+				
+				// Set the selected mode property on the diagram and update the diagram
 				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
 					@Override
 					protected void doExecute() {
 						propertyUtil.setSelectedMode(editor.getDiagramTypeProvider().getDiagram(), transformedTxt);
+						
+						if(feature != null && feature.canUpdate(ctx)) {
+							editor.getDiagramBehavior().executeFeature(feature, ctx);
+						}
 					}				
 				});
-			
-				// Update the diagram
-				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
-				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
-				if(feature != null && feature.canUpdate(ctx)) {
-					editor.getDiagramBehavior().executeFeature(feature, ctx);
-				}
 			}
 		}
 	}

@@ -126,8 +126,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 				}
 				
 				if(pe == null) {
-					// TODO: By qualified name could cause problems?
-					pe = shapeService.getChildShapeByElementQualifiedName(ownerShape, contextComponent);
+					pe = shapeService.getChildShapeByElementName(ownerShape, contextComponent);
 					if(pe == null || !(pe instanceof ContainerShape)) {
 						return null;
 					}

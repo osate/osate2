@@ -43,19 +43,6 @@ public class FlowContributionItem extends ComboContributionItem {
 		return true;
 	}
 	
-	/*
-	CLEAN-UP: Can use this instead of dispose listeners. How to update when flows change by editing the diagram?(Instead of switching editors)
-	@Override
-	public void update() {
-		System.out.println("UP");
-		super.update();
-	}
-	
-	public void update(String id) {
-		System.out.println("UP2");
-		super.update(id);
-	}
-	*/
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if(editor != newEditor) {
 			saveFlowSelection();
@@ -125,11 +112,18 @@ public class FlowContributionItem extends ComboContributionItem {
 	private void refresh() {
 		final Combo combo = getCombo();
 		if(combo != null) {
-			String selectedFlowName = (editor == null) ? null : editor.getPartProperty(selectedFlowPropertyKey);			
+			String selectedFlowName = null;
+			if(editor != null) {
+				selectedFlowName = editor.getPartProperty(selectedFlowPropertyKey);
+				if(selectedFlowName == null) {
+					selectedFlowName = propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram());
+				}
+			}
+			
 			// Clear the combo box			
 			combo.removeAll();
 
-			String selectionTxt = emptySelectionTxt; // TODO
+			String selectionTxt = emptySelectionTxt;
 			final ComponentImplementation componentImplementation = getComponentImplementation();
 			if(componentImplementation != null) {
 				combo.add(emptySelectionTxt);
@@ -160,8 +154,6 @@ public class FlowContributionItem extends ComboContributionItem {
 			
 			// Set the selection
 			combo.setText(selectionTxt);
-
-			combo.getParent().pack(true);
 		}
 	}
 	
@@ -171,20 +163,20 @@ public class FlowContributionItem extends ComboContributionItem {
 		final String transformedTxt = txt.equals(emptySelectionTxt) ? "" : txt;
 		if(cc != null) {
 			if(!transformedTxt.equalsIgnoreCase(propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
-				// Set the selected flow property on the diagram
+				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
+				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
+				
+				// Set the selected flow property on the diagram and then update it
 				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
 					@Override
 					protected void doExecute() {
 						propertyUtil.setSelectedFlow(editor.getDiagramTypeProvider().getDiagram(), transformedTxt);
+						
+						if(feature != null && feature.canUpdate(ctx)) {
+							feature.execute(ctx);
+						}
 					}				
 				});
-
-				// Update the diagram
-				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
-				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
-				if(feature != null && feature.canUpdate(ctx)) {
-					editor.getDiagramBehavior().executeFeature(feature, ctx);
-				}
 			}
 		}
 	}

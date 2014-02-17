@@ -112,25 +112,32 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 					new HorizontalShift(layoutStyles)
 			});
 
-			layout(shape, alg, relayoutShapes);			
+			// Layout the shapes and refresh the diagram visualization if necessary
+			if(layout(shape, alg, relayoutShapes)) {
+				getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();				
+			}
+			
 		} catch (final InvalidLayoutConfiguration e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	private void layout(final ContainerShape shape, final LayoutAlgorithm alg, final boolean relayoutShapes) throws InvalidLayoutConfiguration {
+	private boolean layout(final ContainerShape shape, final LayoutAlgorithm alg, final boolean relayoutShapes) throws InvalidLayoutConfiguration {
 		final List<Shape> children = visibilityHelper.getNonGhostChildren(shape);
+		boolean updateVisualization = false;
 
 		// Layout the inside of the child shapes
 		for(final Shape child : children) {
 			if(child instanceof ContainerShape) {
-				layout((ContainerShape)child, alg, relayoutShapes);
+				if(layout((ContainerShape)child, alg, relayoutShapes)) {
+					updateVisualization = true;					
+				}
 			}
 		}		
 		
 		// Don't perform any automatic layout if there is not more than 1 child shape
 		if(children.size() <= 1) {
-			return;
+			return updateVisualization;
 		}
 
 		final Map<Shape, SimpleNode> shapeToNodeMap = new HashMap<Shape, SimpleNode>();
@@ -149,7 +156,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		}						
 		
 		if(!performLayout) {
-			return;
+			return updateVisualization;
 		}
 		
 		// Create relationships between every node and it's container
@@ -171,12 +178,17 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		// Update the shapes
 		for(final SimpleNode entity : shapeToNodeMap.values()) {
 			updateShape(entity);
+			updateVisualization = true;
 		}
 		
 		// Use the resize helper to resize the shape
 		if(!(shape instanceof Diagram)) {
-			resizeHelper.checkSize(shape);
+			if(resizeHelper.checkSize(shape)) {
+				updateVisualization = true;
+			}
 		}
+		
+		return updateVisualization;
 	}
 	
 	private boolean shouldIgnoreShape(final Shape shape, final boolean relayoutShapes) {
@@ -218,8 +230,6 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		final Shape shape = (Shape)entity.getRealObject();
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		if(!entity.hasPreferredLocation()) {
-			//System.out.println("SETTING LOCATION");
-			//System.out.println(((int)entity.getXInLayout()) + "," + ((int)entity.getYInLayout()) + " - " + ((int)entity.getWidthInLayout()) + "," + ((int)entity.getHeightInLayout()));
 			ga.setX((int)entity.getXInLayout());
 			ga.setY((int)entity.getYInLayout());
 			propertyUtil.setIsLayedOut(shape, true);

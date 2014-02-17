@@ -9,7 +9,11 @@
 package edu.uah.rsesc.aadl.age.services;
 
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.Subcomponent;
 
 /**
  * Contains methods for working with AADL prototypes
@@ -17,6 +21,9 @@ import org.osate.aadl2.Element;
  *
  */
 public interface PrototypeService {
+	ComponentClassifier getComponentClassifier(Element bindingContext, Subcomponent sc);
+	FeatureGroupType getFeatureGroupType(Element bindingContext, FeatureGroup fg);
+	
 	/**
 	 * @param shape
 	 * @param fp

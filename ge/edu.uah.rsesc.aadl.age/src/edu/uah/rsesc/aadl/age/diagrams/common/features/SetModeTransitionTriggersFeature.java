@@ -21,8 +21,6 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -137,11 +135,10 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 					}
 					
 					// Add the selected ones to it				
-					final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		 			for(ModeTransitionTriggerInfo selectedPort : selectedTriggers) {
-		 				final TriggerPort newTrigger = (TriggerPort)mt.createOwnedTrigger(p.getTriggerPort());
-		 				newTrigger.setPort(selectedPort.port);
-		 				newTrigger.setContext(selectedPort.context);
+		 				final ModeTransitionTrigger mtt = mt.createOwnedTrigger();
+		 				mtt.setTriggerPort(selectedPort.port);
+		 				mtt.setContext(selectedPort.context);
 		 			}
 
 					return null;

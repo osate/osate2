@@ -59,8 +59,8 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 	@Override
 	public Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo) {
 		final ModeTransition mt = (ModeTransition)bo;
-		final ContainerShape srcShape = (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(ownerShape, mt.getSource());
-		final ContainerShape dstShape = (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(ownerShape, mt.getDestination());
+		final ContainerShape srcShape = (ContainerShape)shapeHelper.getChildShapeByElementName(ownerShape, mt.getSource());
+		final ContainerShape dstShape = (ContainerShape)shapeHelper.getChildShapeByElementName(ownerShape, mt.getDestination());
 		if(srcShape == null || dstShape == null) {
 			return null;
 		}				

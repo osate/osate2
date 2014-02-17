@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.osate.aadl2.ComponentImplementation;
@@ -89,12 +90,18 @@ public class DefaultHighlightingService implements HighlightingService {
 	 			// Check Flow Implementations
 	 			for(final FlowImplementation flow : ci.getAllFlowImplementations()) {
 	 				if(flow.getSpecification() != null && selectedFlowName.equalsIgnoreCase(flow.getSpecification().getName())) {
-	 					for(final FlowSegment fs : flow.getOwnedFlowSegments()) {
-	 						if(doesElementMatchFlowElement(element, context, isElementFlowSpec, fs.getFlowElement(), fs.getContext())) {
-	 							inSelectedFlow = true;
-								break;
-	 						}
-	 					}
+	 					if(flow.getSpecification().getInEnd() != null && doesElementMatchFlowElement(element, context, isElementFlowSpec, flow.getSpecification().getInEnd().getFeature(), flow.getSpecification().getInEnd().getContext() )) {
+ 							inSelectedFlow = true;
+ 						} else if(flow.getSpecification().getOutEnd() != null && doesElementMatchFlowElement(element, context, isElementFlowSpec, flow.getSpecification().getOutEnd().getFeature(), flow.getSpecification().getOutEnd().getContext())) {
+ 							inSelectedFlow = true;
+ 						} else {
+		 					for(final FlowSegment fs : flow.getOwnedFlowSegments()) {
+		 						if(doesElementMatchFlowElement(element, context, isElementFlowSpec, fs.getFlowElement(), fs.getContext())) {
+		 							inSelectedFlow = true;
+									break;
+		 						}
+		 					}
+ 						}
 	 				}
 	 			}
 	 			
@@ -110,13 +117,21 @@ public class DefaultHighlightingService implements HighlightingService {
 		
 		// Highlight accordingly
  		if(inSelectedMode && inSelectedFlow) {
- 			ga.setForeground(Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedModeAndFlowColor()));
+ 			setForeground(ga, Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedModeAndFlowColor()));
  		} else if(inSelectedMode) {
- 			ga.setForeground(Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedModeColor()));
+ 			setForeground(ga, Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedModeColor()));
  		} else if(inSelectedFlow) {
- 			ga.setForeground(Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedFlowColor()));
+ 			setForeground(ga, Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedFlowColor()));
  		}
  	}
+	
+	private void setForeground(final GraphicsAlgorithm ga, Color color) {
+		ga.setForeground(color);
+		
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			setForeground(childGa, color);
+		}
+	}
 	
 	private boolean isInEndToEndFlow(final Element element, final Element context, boolean isElementFlowSpec, final EndToEndFlow flow) {
 		for(final EndToEndFlowSegment fs : flow.getAllFlowSegments()) {
