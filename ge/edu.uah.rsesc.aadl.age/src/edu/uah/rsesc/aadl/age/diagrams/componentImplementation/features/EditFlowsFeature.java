@@ -57,7 +57,7 @@ public class EditFlowsFeature extends AbstractCustomFeature {
 	
     @Override
 	public boolean isAvailable(final IContext context) {
-    	/*
+    	
 		final ICustomContext customCtx = (ICustomContext)context;
 		final PictogramElement[] pes = customCtx.getPictogramElements();		
 		if(customCtx.getPictogramElements().length < 1) {
@@ -68,9 +68,6 @@ public class EditFlowsFeature extends AbstractCustomFeature {
 		final PictogramElement pe = pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		return bo instanceof ComponentImplementation;
-		*/
-    	// Disabled until issue with serialization of flow sink implementations is resolved
-    	return false;
 	}
     
     @Override
