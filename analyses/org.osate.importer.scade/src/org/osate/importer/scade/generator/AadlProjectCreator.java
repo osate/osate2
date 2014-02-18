@@ -42,6 +42,7 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Preferences;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.ComponentType;
+import org.osate.importer.model.Component.PortType;
 import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
 import org.osate.importer.model.sm.State;
@@ -92,25 +93,26 @@ public class AadlProjectCreator
 			ftmp.mkdir();
 		}
 	}
-
-
-
-	
-	
-	
 	
 	public static void createAadlFunctions (String outputFile, Model genericModel)
 	{
 		FileWriter fstream;
 		BufferedWriter out;
-
-
+		String aadlPackagePrefix;
+		
+		aadlPackagePrefix = "";
+		
+		if (genericModel.getPackageName() != null)
+		{
+			aadlPackagePrefix = genericModel.getPackageName()+"::";
+		}
+		
 		try
 		{	 
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write ("package "+Preferences.getPackagePrefix()+"imported::functions\n");
+			out.write ("package "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::functions\n");
 
 			out.write ("public\n");
 
@@ -152,7 +154,7 @@ public class AadlProjectCreator
 				}
 			}
 
-			out.write ("end "+Preferences.getPackagePrefix()+"imported::functions;\n");
+			out.write ("end "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::functions;\n");
 
 			out.close();
 			fstream.close();
@@ -174,20 +176,26 @@ public class AadlProjectCreator
 		FileWriter fstream;
 		BufferedWriter out;
 		int tmp;
+		String aadlPackagePrefix;
 		boolean connectionPreamble;
 		StateMachine sm;
 		connectionPreamble = false;
-
+		aadlPackagePrefix = "";
 		try
 		{	 
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write ("package "+Preferences.getPackagePrefix()+"imported::runtime\n");
+			if (genericModel.getPackageName() != null)
+			{
+				aadlPackagePrefix = genericModel.getPackageName()+"::";
+			}
+			
+			out.write ("package "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::runtime\n");
 
 			out.write ("public\n");
 			out.write ("with "+Preferences.getPackagePrefix()+"runtime::common;\n");
-			out.write ("with "+Preferences.getPackagePrefix()+"imported::functions;\n");
+			out.write ("with "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::functions;\n");
 			out.write ("with SEI;\n");
 			out.write ("with Data_Model;\n");
 			out.write ("with ARINC653;\n\n\n");
@@ -265,13 +273,24 @@ public class AadlProjectCreator
 					}
 					for (Component e2 : e.getSubEntities())
 					{
-						if (e2.getType() == ComponentType.EXTERNAL_INPORT)
+						String direction = "";
+						String type = "generictype";
+						if ((e2.getType() == ComponentType.EXTERNAL_INPORT) || (e2.getType() == ComponentType.EXTERNAL_OUTPORT))
 						{
-							out.write ("   "+e2.getAadlName()+" : in event data port generictype;\n");
-						}
-						if (e2.getType() == ComponentType.EXTERNAL_OUTPORT)
-						{
-							out.write ("   "+e2.getAadlName()+" : out event data port generictype;\n");
+							if (e2.getType() == ComponentType.EXTERNAL_INPORT)
+							{
+								direction = " in ";
+							}
+							if (e2.getType() == ComponentType.EXTERNAL_OUTPORT)
+							{
+								direction = " out ";
+							}
+							if (e2.getPortType() == PortType.BOOL)
+							{
+								type = "generictype_boolean";
+							}
+							
+							out.write ("   "+e2.getAadlName()+" : "+direction+" event data port "+type+";\n");
 						}
 					}
 					for (Component e2 : e.getIncomingDependencies())
@@ -561,7 +580,7 @@ public class AadlProjectCreator
 			out.write("end mainsystem.i; \n");
 
 
-			out.write("end "+Preferences.getPackagePrefix()+"imported::runtime; \n");
+			out.write("end "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::runtime; \n");
 
 			out.close();
 			fstream.close();
@@ -637,11 +656,12 @@ public class AadlProjectCreator
 		String outputFileFunctional;
 		String outputFileRuntime;
 		String outputFileGenericRuntime;
-
-		outputPathFunctional = outputPath + File.separatorChar + "functional";
+		String prefix = "";
+		prefix = genericModel.getPackageName() + "-";
+		outputPathFunctional = outputPath + File.separatorChar +"functional";
 		outputPathRuntime = outputPath + File.separatorChar + "runtime";
-		outputFileFunctional = outputPathFunctional + File.separatorChar + "functional.aadl";
-		outputFileRuntime    = outputPathRuntime + File.separatorChar + "runtime.aadl";
+		outputFileFunctional = outputPathFunctional + File.separatorChar +  prefix + "functional.aadl";
+		outputFileRuntime    = outputPathRuntime + File.separatorChar +  prefix + "runtime.aadl";
 		outputFileGenericRuntime = outputPathRuntime + File.separatorChar + "runtime-generic.aadl";
 
 		createDirectories(outputPath);

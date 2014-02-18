@@ -42,6 +42,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.ComponentType;
+import org.osate.importer.model.Component.PortType;
 import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
 import org.osate.importer.model.sm.State;
@@ -56,26 +57,24 @@ public class ImportModel {
 
 	public static void process (Node node, Model produced)
 	{
-		NodeList nList = node.getChildNodes();
+		if (node.getNodeName().equalsIgnoreCase("package"))
+		{
+			Node attrName = null;
+			attrName = Utils.getAttribute(node, "name");
 			
+			if (attrName != null)
+			{
+				String attrStr = attrName.getNodeValue().toString();
+				produced.setPackageName (attrStr);
+			}
+		}
+		
+		NodeList nList = node.getChildNodes();
 	
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
 			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("package"))
-			{
-				Node attrName = null;
-				attrName = Utils.getAttribute(nNode, "Name");
-				
-				if (attrName != null)
-				{
-					String attrStr = attrName.getNodeValue().toString();
-					produced.setPackageName (attrStr);
-				}
-				
-				process (nNode, produced);
-			}
-			else if (nNode.getNodeName().equalsIgnoreCase("operator"))
+			if (nNode.getNodeName().equalsIgnoreCase("operator"))
 			{
 				processOperator (nNode, produced);
 			}
@@ -197,9 +196,7 @@ public class ImportModel {
 				if (attrName != null)
 				{
 					String varName = attrName.getNodeValue().toString();
-					OsateDebug.osateDebug("varName" + varName);
 					String resolve = resolveVariabletoOutput (varName, operator, calledComponent);
-					OsateDebug.osateDebug("resolve2" + resolve);
 					if (resolve != null)
 					{
 						Component sc = mainComponent.findSubcomponent (resolve);
@@ -228,9 +225,9 @@ public class ImportModel {
 			if (nNode.getNodeName().equalsIgnoreCase("idexpression"))
 			{
 				String name = Utils.getExpressionName (nNode);
-				OsateDebug.osateDebug("var name" + name);
+//				OsateDebug.osateDebug("var name" + name);
 				String resolve = resolveVariabletoInput (name, operator, calledComponent);
-				OsateDebug.osateDebug("resolve" + resolve);
+//				OsateDebug.osateDebug("resolve" + resolve);
 				if (resolve != null)
 				{
 					Component sc = mainComponent.findSubcomponent (resolve);
@@ -388,12 +385,44 @@ public class ImportModel {
 				{
 					return;
 				}
+				
 				String componentName = attrName.getNodeValue().toString();
 				Component c = new Component(componentName);
+				c.setPortType(getVariableType (nNode));
 				c.setType(ct);
 				comp.addSubsystem(c);
 			}
 		}
+	}
+	
+	public static PortType getVariableType (Node node)
+	{
+		Node attrName = null;
+		String direction;
+		NodeList nList = node.getChildNodes();
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("TypeRef"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					if (attrName.getNodeValue().toString().equalsIgnoreCase("bool"))
+					{
+						return PortType.BOOL;
+					}
+				}
+			}
+			
+			PortType ptret = getVariableType (nNode);
+			if (ptret != PortType.UNKNOWN)
+			{
+				return ptret;
+			}
+		}
+		return PortType.UNKNOWN;
 	}
 
 	private static boolean addConnection (String srcString, String dstString, Model model)

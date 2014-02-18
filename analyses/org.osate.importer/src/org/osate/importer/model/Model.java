@@ -23,7 +23,13 @@ public class Model
 	
 	public void setPackageName (String s)
 	{
-		this.packageName = s;
+		String tmp;
+		tmp = s.toLowerCase();
+		if (tmp.equalsIgnoreCase("system"))
+		{
+			tmp = "system_pkg";
+		}
+		this.packageName = tmp;
 	}
 	
 	public String getPackageName ()

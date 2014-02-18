@@ -39,6 +39,10 @@ public class Component implements Comparable {
 		EXTERNAL_INPORT, EXTERNAL_OUTPORT, BLOCK, UNKNOWN
 	};
 	
+	public enum PortType {
+		BOOL, FLOAT, DOUBLE, INT, UNKNOWN
+	};
+	
 	private String 				name;
 	private ComponentType 		type;
 	private int    				identifier;
@@ -46,12 +50,14 @@ public class Component implements Comparable {
 	private List<Component> 	subEntities;
 	private Component 			parent;
 	private List<StateMachine>	stateMachines;
+	private PortType			portType;
 	
 	public final int COMPONENT_TYPE_EXTERNAL_INPORT  	= 1;
 	public final int COMPONENT_TYPE_EXTERNAL_OUTPORT 	= 2;
 	public final int COMPONENT_TYPE_BLOCK	 			= 3;
 	
 
+	
 	
 	public Component (String n)
 	{
@@ -85,6 +91,17 @@ public class Component implements Comparable {
 		}
 		
 		return false;
+	}
+	
+	
+	public void setPortType (PortType pt)
+	{
+		this.portType = pt;
+	}
+	
+	public PortType getPortType ()
+	{
+		return this.portType;
 	}
 	
 	public void addStateMachine (StateMachine sm)
