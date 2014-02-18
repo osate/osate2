@@ -64,4 +64,9 @@ public class ComboContributionItem extends ControlContribution {
 	protected void onSelection(final String txt) {
 		
 	}
+	
+	// Force a fixed width for the combo contribution items. Otherwise the sizes are often incorrect due to the dynamic nature of the control.
+	protected int computeWidth(Control control) {
+	    return 150;
+	}
 }
