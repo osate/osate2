@@ -10,6 +10,8 @@ package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features;
 
 import javax.inject.Inject;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -25,7 +27,9 @@ import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.modelsupport.Activator;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
@@ -63,7 +67,7 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 	
 	@Override
 	public boolean canUpdate(final IUpdateContext context) {
-		return getComponentImplementation(context) != null;
+		return true;
 	}
 
 	@Override
@@ -76,6 +80,12 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 		Log.info("called with context: " + context);
 		final ComponentImplementation ci = getComponentImplementation(context);
 		final Diagram diagram = getDiagram();
+		
+		if(ci == null) {
+			final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "Unable to update diagram. Unable to find AADL model element associated with diagram.", null);
+			StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+			return false;
+		}
 		
 		// Update the diagram's name
 		if(ci.getQualifiedName() != null) {
