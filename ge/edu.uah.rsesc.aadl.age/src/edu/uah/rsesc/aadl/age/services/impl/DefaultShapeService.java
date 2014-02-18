@@ -152,11 +152,13 @@ public class DefaultShapeService implements ShapeService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getClosestBusinessObjectOfType(Shape s, Class<T> type) {
+	public <T> T getClosestBusinessObjectOfType(Shape s, final Class<?> ... types) {
 		for(Shape tmpShape = s; tmpShape != null; tmpShape = tmpShape.getContainer()) {
 			final Object tmpShapeBo = bor.getBusinessObjectForPictogramElement(tmpShape);
-			if(type.isInstance(tmpShapeBo)) {
-				return (T)tmpShapeBo;
+			for(Class<?>type : types) {
+				if(type.isInstance(tmpShapeBo)) {
+					return (T)tmpShapeBo;
+				}	
 			}			
 		}
 		

@@ -53,6 +53,7 @@ import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -114,7 +115,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final VisibilityService visibilityHelper;
 	private final PropertyService propertyUtil;
 	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
-	private final ShapeService shapeHelper;
+	private final ShapeService shapeService;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final AadlFeatureService featureService;
 	private final PrototypeService prototypeService;
@@ -152,7 +153,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	@Inject
 	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
-			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
+			final ShapeService shapeService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
@@ -162,7 +163,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.visibilityHelper = visibilityHelper;
 		this.propertyUtil = propertyUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
-		this.shapeHelper = shapeHelper;
+		this.shapeService = shapeService;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.featureService = featureService;
 		this.prototypeService = prototypeService;
@@ -392,7 +393,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        
 		        // Create/Update shapes for the child features
 				for(final Feature childFeature : featureService.getAllFeatures(fgt)) {
-					ContainerShape childFeatureContainer = (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(featureShape, childFeature);
+					ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByElementQualifiedName(featureShape, childFeature);
 					
 					// Get existing shape instead of always creating
 					if(childFeatureContainer == null) {
@@ -461,11 +462,12 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			}
 		}
 		
-		// Position the feature shape
+		// Position the feature shape		
 		gaService.setLocation(featureShape.getGraphicsAlgorithm(), 0, labelSize.getHeight());  
 		
-		 // Set color based on currently selected flow and mode
-     	highlightingService.highlight(feature, null, featureShape.getGraphicsAlgorithm());		
+		// Determine whether the feature has a "context" and then highlight it
+		final Element possibleContext = shapeService.getClosestBusinessObjectOfType(shape, Context.class, Classifier.class);
+     	highlightingService.highlight(feature, possibleContext instanceof Context ? (Context)possibleContext : null, featureShape.getGraphicsAlgorithm());		
      	
         // Set size as appropriate
         gaService.setSize(ga, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())), 
@@ -512,11 +514,11 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	private ContainerShape getFeatureShape(final ContainerShape container) {
-		return (ContainerShape)shapeHelper.getChildShapeByName(container, featureShapeName);
+		return (ContainerShape)shapeService.getChildShapeByName(container, featureShapeName);
 	}
 	
 	private Shape getLabelShape(final ContainerShape container) {
-		return shapeHelper.getChildShapeByName(container, labelShapeName);
+		return shapeService.getChildShapeByName(container, labelShapeName);
 	}	
 
 	private int getWidth(final GraphicsAlgorithm ga) {

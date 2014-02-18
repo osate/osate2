@@ -9,6 +9,7 @@
 package edu.uah.rsesc.aadl.age.services;
 
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 
 /**
@@ -23,5 +24,5 @@ public interface HighlightingService {
 	 * @param context is the context in which the element is used. For example for a flow specification, the context will be the subcomponent. May be null
 	 * @param ga
 	 */
-	void highlight(Element element, Element context, GraphicsAlgorithm ga);
+	void highlight(Element element, Context context, GraphicsAlgorithm ga);
 }

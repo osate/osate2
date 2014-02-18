@@ -16,12 +16,12 @@ import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.NamedElement;
@@ -49,7 +49,7 @@ public class DefaultHighlightingService implements HighlightingService {
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService#highlight(org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Element, org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm)
 	 */
 	@Override
-	public void highlight(final Element element, final Element context, final GraphicsAlgorithm ga) {
+	public void highlight(final Element element, final Context context, final GraphicsAlgorithm ga) {
 		final String selectedModeName = propertyUtil.getSelectedMode(getDiagram());
  		final boolean isModeSelected = !selectedModeName.equals(""); 	
  		boolean inSelectedMode = false;
@@ -80,8 +80,6 @@ public class DefaultHighlightingService implements HighlightingService {
  		final boolean isFlowSelected = !selectedFlowName.equals("");
  		boolean inSelectedFlow = false;
  		if(isFlowSelected) {
- 			final boolean isElementFlowSpec = element instanceof FlowSpecification;
- 			
  			// If the current diagram's BO is a component implementation
 	 		final Object bo = bor.getBusinessObjectForPictogramElement(getDiagram());
 	 		if(bo instanceof ComponentImplementation) {
@@ -89,14 +87,14 @@ public class DefaultHighlightingService implements HighlightingService {
 	 			
 	 			// Check Flow Implementations
 	 			for(final FlowImplementation flow : ci.getAllFlowImplementations()) {
-	 				if(flow.getSpecification() != null && selectedFlowName.equalsIgnoreCase(flow.getSpecification().getName())) {
-	 					if(flow.getSpecification().getInEnd() != null && doesElementMatchFlowElement(element, context, isElementFlowSpec, flow.getSpecification().getInEnd().getFeature(), flow.getSpecification().getInEnd().getContext() )) {
+	 				if(flow.getSpecification() != null && selectedFlowName.equalsIgnoreCase(flow.getSpecification().getName())) {					
+	 					if(flow.getSpecification().getInEnd() != null && doesElementMatchFlowElement(element, context, flow.getSpecification().getInEnd().getFeature(), flow.getSpecification().getInEnd().getContext() )) {
  							inSelectedFlow = true;
- 						} else if(flow.getSpecification().getOutEnd() != null && doesElementMatchFlowElement(element, context, isElementFlowSpec, flow.getSpecification().getOutEnd().getFeature(), flow.getSpecification().getOutEnd().getContext())) {
+ 						} else if(flow.getSpecification().getOutEnd() != null && doesElementMatchFlowElement(element, context, flow.getSpecification().getOutEnd().getFeature(), flow.getSpecification().getOutEnd().getContext())) {
  							inSelectedFlow = true;
  						} else {
 		 					for(final FlowSegment fs : flow.getOwnedFlowSegments()) {
-		 						if(doesElementMatchFlowElement(element, context, isElementFlowSpec, fs.getFlowElement(), fs.getContext())) {
+		 						if(doesElementMatchFlowElement(element, context, fs.getFlowElement(), fs.getContext())) {
 		 							inSelectedFlow = true;
 									break;
 		 						}
@@ -108,7 +106,7 @@ public class DefaultHighlightingService implements HighlightingService {
 	 			// Check End to End Flows
 				for(final EndToEndFlow flow : ci.getAllEndToEndFlows()) {
 					if(selectedFlowName.equalsIgnoreCase(flow.getName())) {
-						inSelectedFlow = isInEndToEndFlow(element, context, isElementFlowSpec,flow);
+						inSelectedFlow = isInEndToEndFlow(element, context, flow);
 						break;
 	 				}
 				}
@@ -133,15 +131,15 @@ public class DefaultHighlightingService implements HighlightingService {
 		}
 	}
 	
-	private boolean isInEndToEndFlow(final Element element, final Element context, boolean isElementFlowSpec, final EndToEndFlow flow) {
+	private boolean isInEndToEndFlow(final Element element, final Context context, final EndToEndFlow flow) {
 		for(final EndToEndFlowSegment fs : flow.getAllFlowSegments()) {
-			if(doesElementMatchFlowElement(element, context, isElementFlowSpec, fs.getFlowElement(), fs.getContext())) {
+			if(doesElementMatchFlowElement(element, context, fs.getFlowElement(), fs.getContext())) {
 				return true;
 			}
 			
 			// Handle referencing another ETEF
 			if(fs.getContext() == null && fs.getFlowElement() instanceof EndToEndFlow) {
-				if(isInEndToEndFlow(element, context, isElementFlowSpec, (EndToEndFlow)fs.getFlowElement())) {
+				if(isInEndToEndFlow(element, context, (EndToEndFlow)fs.getFlowElement())) {
 					return true;
 				}
 			}
@@ -150,18 +148,11 @@ public class DefaultHighlightingService implements HighlightingService {
 		return false;
 	}
 	
-	// Returns whether or not the specified element matches the specified flow element taking into consideration the type of element.
-	private boolean doesElementMatchFlowElement(final Element element, final Element context, boolean isElementFlowSpec, final Element flowElement, final Element flowContext) {
-		// Flow Specs
-		if(isElementFlowSpec) {
-			if(context == flowContext && element == flowElement) {
-				return true;
-			}
-		} else { // Features and Connections
-			if(flowContext == null && element == flowElement) {
-				return true;
-			}
+	private boolean doesElementMatchFlowElement(final Element element, final Context context, final Element flowElement, final Context flowContext) {
+		if(context == flowContext && element == flowElement) {
+			return true;
 		}
+
 		return false;
 	}
 	
