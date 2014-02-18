@@ -35,7 +35,7 @@
  * 
  */
 
-package org.osate.importer.generator;
+package org.osate.importer.simulink.generator;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

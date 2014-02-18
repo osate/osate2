@@ -84,10 +84,10 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
-import org.osate.importer.generator.AadlProjectCreator;
 import org.osate.importer.model.Model;
 import org.osate.importer.simulink.Activator;
 import org.osate.importer.simulink.FileImport;
+import org.osate.importer.simulink.generator.AadlProjectCreator;
 import org.osgi.framework.Bundle;
 
  class SimulinkSystemDialog extends TitleAreaDialog {
