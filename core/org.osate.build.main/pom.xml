@@ -54,6 +54,7 @@
     <module>../../plugins/org.osate.analysis.arinc653</module>
     
     <module>../../plugins/org.osate.importer</module>
+    <module>../../plugins/org.osate.importer.scade</module>
     <module>../../plugins/org.osate.importer.simulink</module>
     <module>../../plugins/org.osate.importer.lattix</module>
     
