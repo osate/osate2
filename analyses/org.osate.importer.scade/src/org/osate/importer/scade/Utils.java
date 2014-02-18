@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.importer.model.Component;
+import org.osate.importer.model.Component.ComponentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -236,6 +238,49 @@ public class Utils {
 		result.addAll(getVariablesFromConditionOrAction(action));
 
 		return result;
+	}
+	
+	public static Node getFirstNode (Node node, String name)
+	{
+		NodeList nList = node.getChildNodes();
+	
+	
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase(name))
+			{
+				return nNode;
+			}
+		}
+		return null;
+	}
+	
+	
+	public static String getExpressionName (Node node)
+	{
+		NodeList nList = node.getChildNodes();
+	
+	
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("constvarref"))
+			{
+				Node attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					return (attrName.getNodeValue().toString());
+				}
+			}
+
+			String strtmp = getExpressionName (nNode);
+			if (strtmp != null)
+			{
+				return strtmp;
+			}
+		}
+		return null;
 	}
 	
 

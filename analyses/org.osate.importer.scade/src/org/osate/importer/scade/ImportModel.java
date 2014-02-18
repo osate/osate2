@@ -54,195 +54,347 @@ import org.w3c.dom.NodeList;
 
 public class ImportModel {
 
-	public static void processModel (Node model, Model produced, String rootName)
-		{
-			NodeList nList = model.getChildNodes();
+	public static void process (Node node, Model produced)
+	{
+		NodeList nList = node.getChildNodes();
 			
 	
-			for (int temp = 0; temp < nList.getLength(); temp++) 
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("package"))
 			{
-				Node nNode = nList.item(temp);
-				if (nNode.getNodeName().equalsIgnoreCase("system"))
+				Node attrName = null;
+				attrName = Utils.getAttribute(nNode, "Name");
+				
+				if (attrName != null)
 				{
-					processSystem (nNode, produced, rootName);
+					String attrStr = attrName.getNodeValue().toString();
+					produced.setPackageName (attrStr);
 				}
+				
+				process (nNode, produced);
+			}
+			else if (nNode.getNodeName().equalsIgnoreCase("operator"))
+			{
+				processOperator (nNode, produced);
+			}
+			else
+			{
+				process (nNode, produced);
 			}
 		}
+	}
 
-	public static void processSystem (Node system, Model model, String rootName)
+	public static void processOperator (Node operator, Model model)
+	{
+		Node attrName = null;
+		String direction;
+		NodeList nList = operator.getChildNodes();
+
+		attrName = Utils.getAttribute(operator, "name");
+		if (attrName == null)
 		{
-			Node attrName = null;
-			String direction;
-			NodeList nList = system.getChildNodes();
-			
-	
-			for (int temp = 0; temp < nList.getLength(); temp++) 
+			return;
+		}
+		String componentName = attrName.getNodeValue().toString();
+		Component c = new Component(componentName);
+		c.setType(ComponentType.BLOCK);
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("inputs"))
 			{
-				Node nNode = nList.item(temp);
-				if (nNode.getNodeName().equalsIgnoreCase("block"))
+				processInterfaces (nNode, c, ComponentType.EXTERNAL_INPORT);
+			}
+			if (nNode.getNodeName().equalsIgnoreCase("outputs"))
+			{
+				processInterfaces (nNode, c, ComponentType.EXTERNAL_OUTPORT);
+			}
+			if (nNode.getNodeName().equalsIgnoreCase("data"))
+			{
+				processOperatorData (operator, nNode, c);
+			}
+		}
+		
+		model.addComponent(c);
+	}
+	
+	public static String getCallExpressionOperator (Node tmp)
+	{
+		Node attrName = null;
+		String operatorRefName = null;
+		
+		NodeList nList = tmp.getChildNodes();
+
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("operatorref"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
 				{
-					
-					attrName = Utils.getAttribute(nNode, "Name");
-					
-					if (attrName == null)
-					{
-						continue;
-					}
-					
-					String blockName = attrName.getNodeValue().toString();
-					
-					attrName = Utils.getAttribute(nNode, "BlockType");
-					
-					if (attrName == null)
-					{
-						continue;
-					}
-					String blockType = attrName.getNodeValue().toString();
-										
-					attrName = Utils.getAttribute(nNode, "SID");
-					
-					if (attrName == null)
-					{
-						continue;
-					}
-					String sidStr = attrName.getNodeValue().toString();
-					
-					if (sidStr.contains(":"))
-					{
-						sidStr = sidStr.substring(sidStr.lastIndexOf(":")+1);
-					}
-					
-					
-					int sidValue = Integer.parseInt(sidStr);
-					Component c = new Component(blockName);
-					c.setIdentifier (sidValue);
-					
-					if (blockType.equalsIgnoreCase("inport"))
-					{
-						c.setType(ComponentType.EXTERNAL_INPORT);
-					}
-					if (blockType.equalsIgnoreCase("outport"))
-					{
-						c.setType(ComponentType.EXTERNAL_OUTPORT);
-					}
-					if (blockType.equalsIgnoreCase("reference"))
-					{
-						c.setType(ComponentType.BLOCK);
-						if (blockName.equalsIgnoreCase(rootName))
-						{
-							String referenceSource = Utils.getSourceBlock (nNode);
-							OsateDebug.osateDebug(referenceSource);
-							if (referenceSource != null)
-							{
-								String[] strs = referenceSource.split("/");
-								String sourceFile = strs[0];
-								String sourceBlock = strs[1];
-//								OsateDebug.osateDebug("file=" + sourceFile);
-//								OsateDebug.osateDebug("block=" + sourceBlock);
-								c.setType(ComponentType.BLOCK);
-								FileImport.loadComponentFromLibrary (c, model, DoImportModel.getWorkingDirectory() + File.separator +  sourceFile + ".slx", sourceBlock);
-							}
-						}
-					}
-					if (blockType.equalsIgnoreCase("subsystem"))
-					{
-						c.setType(ComponentType.BLOCK);
-					}
-					
-					if ((c.getType() != ComponentType.UNKNOWN) && (DoImportModel.filterSystem() == false))
-					{
-						model.addComponent(c);
-					}
-					
+					return (attrName.getNodeValue().toString());
 				}
 			}
 			
-			
-			for (int temp = 0; temp < nList.getLength(); temp++) 
+			if (operatorRefName == null)
 			{
-				String srcString;
-				String dstString;
-				int srcBlockIndex;
-				int dstBlockIndex;
-				int srcPortIndex;
-				int dstPortIndex;
-				
-				Node tmpNode;
-				
-				srcBlockIndex = -1;
-				dstBlockIndex = -1;
-				
-				Node nNode = nList.item(temp);
-				if (nNode.getNodeName().equalsIgnoreCase("Line"))
+				String strtmp = getCallExpressionOperator (nNode);
+				if (strtmp != null)
 				{
-					srcString = null;
-					dstString = null;
-					NodeList children = nNode.getChildNodes();
-					for (int temp2 = 0 ; temp2 < children.getLength() ; temp2++)
-					{
-						tmpNode = children.item(temp2);
-						if (tmpNode.getNodeName().equalsIgnoreCase("p"))
-						{
-							attrName = Utils.getAttribute(tmpNode, "Name");
-							
-							if (attrName == null)
-							{
-								continue;
-							}
-							direction = attrName.getNodeValue().toString();
-	//						OsateDebug.osateDebug("direction="+direction);
-							if (direction.equalsIgnoreCase("src"))
-							{
-								srcString = tmpNode.getTextContent();
-	//							OsateDebug.osateDebug("srcString="+srcString);
-								addConnection (srcString, dstString, model);
-							}
-							
-							if (direction.equalsIgnoreCase("dst"))
-							{
-								dstString = tmpNode.getTextContent();
-	//							OsateDebug.osateDebug("dstString="+dstString);
-								addConnection (srcString, dstString, model);
-							}
-						}
-						if (tmpNode.getNodeName().equalsIgnoreCase("branch"))
-						{
-							NodeList children4 = tmpNode.getChildNodes();
-							for (int temp4 = 0 ; temp4 < children4.getLength() ; temp4++)
-							{
-								Node tmpNode4 = children4.item(temp4);
-								if (tmpNode4.getNodeName().equalsIgnoreCase("p"))
-								{
-									Node attrName2 = Utils.getAttribute(tmpNode4, "Name");
-									
-									if (attrName2 == null)
-									{
-										continue;
-									}
-									String direction2 = attrName2.getNodeValue().toString();
-	//								OsateDebug.osateDebug("direction="+direction);
-									if (direction2.equalsIgnoreCase("src"))
-									{
-										srcString = tmpNode4.getTextContent();
-	//									OsateDebug.osateDebug("srcString="+srcString);
-										srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-										addConnection (srcString, dstString, model);
-									}
-									
-									if (direction2.equalsIgnoreCase("dst"))
-									{
-										dstString = tmpNode4.getTextContent();
-	//									OsateDebug.osateDebug("dstString="+dstString);
-										dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-										addConnection (srcString, dstString, model);
-									}
-								}
-							}
-						}
-					}
+					return strtmp;
 				}
 			}
 		}
+		return null;
+	}
+	
+	
+	
+	
+	public static void processOperatorData (Node operatorNode, Node currentNode, Component comp)
+	{
+
+		NodeList nList = currentNode.getChildNodes();
+
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("callexpression"))
+			{
+				String operatorRef = getCallExpressionOperator (nNode);
+				Component subComponent = new Component(operatorRef);
+				subComponent.setType(ComponentType.BLOCK);
+				subComponent.setParent(comp);
+				comp.addSubsystem(subComponent);
+				
+				processCallParameters (Utils.getFirstNode (nNode, "callparameters"), operatorNode, comp, subComponent);
+				processCallReturns (Utils.getFirstNode (nNode.getParentNode().getParentNode(), "lefts"),operatorNode, comp, subComponent);
+			}
+			else
+			{
+				processOperatorData (operatorNode, nNode, comp);
+			}
+		}
+	}
+	
+	public static void processCallReturns (Node currentNode, Node operator, Component mainComponent, Component calledComponent)
+	{
+		NodeList nList = currentNode.getChildNodes();
+		Node attrName = null;
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("variableref"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					String varName = attrName.getNodeValue().toString();
+					OsateDebug.osateDebug("varName" + varName);
+					String resolve = resolveVariabletoOutput (varName, operator, calledComponent);
+					OsateDebug.osateDebug("resolve2" + resolve);
+					if (resolve != null)
+					{
+						Component sc = mainComponent.findSubcomponent (resolve);
+						if (sc != null)
+						{
+							Connection conn = new Connection (calledComponent,sc);
+							mainComponent.addConnection(conn);
+							break;
+						}
+					}
+				}
+				
+			}
+		}	
+	}
+	
+	public static void processCallParameters (Node currentNode, Node operator, Component mainComponent, Component calledComponent)
+	{
+
+		NodeList nList = currentNode.getChildNodes();
+
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("idexpression"))
+			{
+				String name = Utils.getExpressionName (nNode);
+				OsateDebug.osateDebug("var name" + name);
+				String resolve = resolveVariabletoInput (name, operator, calledComponent);
+				OsateDebug.osateDebug("resolve" + resolve);
+				if (resolve != null)
+				{
+					Component sc = mainComponent.findSubcomponent (resolve);
+					if (sc != null)
+					{
+						Connection conn = new Connection (sc, calledComponent);
+						mainComponent.addConnection(conn);
+					}
+				}
+			}
+		}	
+	}
+	
+	
+	public static String resolveVariabletoOutput (String varName, Node operator, Component calledComponent)
+	{
+		NodeList nList = Utils.getFirstNode(operator, "data").getChildNodes();
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("equation"))
+			{
+				if (equationContains (Utils.getFirstNode(nNode, "right"), varName))
+				{
+					return findVarRef (Utils.getFirstNode(nNode, "lefts"));
+				}
+			}
+		}	
+		return null;
+		
+	}
+	
+	public static String resolveVariabletoInput (String varName, Node operator, Component calledComponent)
+	{
+		NodeList nList = Utils.getFirstNode(operator, "data").getChildNodes();
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("equation"))
+			{
+				if (equationContains (Utils.getFirstNode(nNode, "lefts"), varName))
+				{
+					return findConstVarRef (Utils.getFirstNode(nNode, "right"));
+				}
+			}
+		}	
+		return null;
+		
+	}
+	
+	public static String findConstVarRef (Node node)
+	{
+		Node attrName = null;
+		NodeList nList = node.getChildNodes();
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("constvarref"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					return attrName.getNodeValue().toString();
+				}
+			}
+			String strtmp = findConstVarRef (nNode);
+			
+			if (strtmp != null)
+			{
+				return strtmp;
+			}
+		}
+		return null;
+	}
+	
+	public static String findVarRef (Node node)
+	{
+		Node attrName = null;
+		NodeList nList = node.getChildNodes();
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("variableref"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					return attrName.getNodeValue().toString();
+				}
+			}
+			String strtmp = findConstVarRef (nNode);
+			
+			if (strtmp != null)
+			{
+				return strtmp;
+			}
+		}
+		return null;
+	}
+	
+	public static boolean equationContains (Node node, String var)
+	{
+		Node attrName = null;
+		NodeList nList = node.getChildNodes();
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("variableref"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					if (attrName.getNodeValue().toString().equalsIgnoreCase(var))
+					{
+						return true;
+					}
+				}
+			}
+			if (nNode.getNodeName().equalsIgnoreCase("constvarref"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					if (attrName.getNodeValue().toString().equalsIgnoreCase(var))
+					{
+						return true;
+					}
+				}
+			}
+			
+			boolean ret =  equationContains (nNode,var);
+			if (ret == true)
+			{
+				return true;
+			}
+		}	
+		return false;
+	}
+
+	
+	public static void processInterfaces (Node inputs, Component comp, ComponentType ct)
+	{
+		Node attrName = null;
+		String direction;
+		NodeList nList = inputs.getChildNodes();
+
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("variable"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName == null)
+				{
+					return;
+				}
+				String componentName = attrName.getNodeValue().toString();
+				Component c = new Component(componentName);
+				c.setType(ct);
+				comp.addSubsystem(c);
+			}
+		}
+	}
 
 	private static boolean addConnection (String srcString, String dstString, Model model)
 	{
@@ -266,6 +418,7 @@ public class ImportModel {
 		}
 		return false;
 	}
+
 
 
 }

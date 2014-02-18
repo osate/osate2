@@ -83,82 +83,6 @@ import org.osate.importer.scade.FileImport;
 import org.osate.importer.scade.generator.AadlProjectCreator;
 import org.osgi.framework.Bundle;
 
- class SimulinkSystemDialog extends TitleAreaDialog {
-
-	  private Text txtSystemName;
-	  private String systemName;
-
-	  
-	  
-	  public SimulinkSystemDialog (Shell parentShell) {
-	    super(parentShell);
-	  }
-
-	  @Override
-	  public void create() {
-	    super.create();
-	    setTitle("Main System Selection");
-	    setMessage("Please select the System or Node that is the root AADL system", IMessageProvider.INFORMATION);
-	  }
-
-	  @Override
-	  protected Control createDialogArea(Composite parent) {
-	    Composite area = (Composite) super.createDialogArea(parent);
-	    Composite container = new Composite(area, SWT.NONE);
-	    container.setLayoutData(new GridData(GridData.FILL_BOTH));
-	    GridLayout layout = new GridLayout(2, false);
-	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-	    container.setLayout(layout);
-
-	    createSystemName(container);
-
-	    return area;
-	  }
-
-	  private void createSystemName(Composite container) {
-	    Label labelSystemName  = new Label(container, SWT.NONE);
-	    labelSystemName.setText("Root Simulink System");
-
-	    GridData dataSystemName = new GridData();
-	    dataSystemName.grabExcessHorizontalSpace = true;
-	    dataSystemName.horizontalAlignment = GridData.FILL;
-
-	    txtSystemName = new Text(container, SWT.BORDER);
-	    txtSystemName.setLayoutData(dataSystemName);
-	  }
-
-
-
-
-	  @Override
-	  protected boolean isResizable() {
-	    return true;
-	  }
-
-	  // save content of the Text fields because they get disposed
-	  // as soon as the Dialog closes
-	  private void saveInput() {
-	    systemName = txtSystemName.getText();
-
-	  }
-
-	  @Override
-	  protected void okPressed() {
-	    saveInput();
-	    super.okPressed();
-	  }
-
-	  public String getSystemName()
-	  {
-		  if (systemName.length() == 0)
-		  {
-			  return null;
-		  }
-		  return systemName;
-	  }
-
-	} 
-
 public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 	
 	private String inputFile;
@@ -243,25 +167,11 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 					
 			}});
 		
-		SimulinkSystemDialog dialog = new SimulinkSystemDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
-		dialog.create();
-		if (dialog.open() == Window.OK) 
-		{
-			final String rootSystemName = dialog.getSystemName();
-			if ((rootSystemName != null) && (rootSystemName.length() >= 0))
-			{
-				filterSystem = true;
-			}
-			else
-			{
-				filterSystem = false;
-			}
-			
-			Job aadlGenerator = new Job("SIMULINK2AADL") {
+			Job aadlGenerator = new Job("SCADE2AADL") {
 				  protected IStatus run(IProgressMonitor monitor) {
 					monitor.beginTask("Generating AADL files from LDM", 100);
 					Model genericModel = new Model();
-					FileImport.loadFile (inputFile, genericModel, rootSystemName);
+					FileImport.loadFile (inputFile, genericModel);
 				    AadlProjectCreator.createProject (outputDirectory, genericModel);
 					
 					Utils.refreshWorkspace(monitor);
@@ -270,7 +180,7 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 				  }
 				};
 		  aadlGenerator.schedule();
-		} 
+		 
 
 		
 	}

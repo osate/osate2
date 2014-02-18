@@ -64,6 +64,29 @@ public class Component implements Comparable {
 		this.type 				= ComponentType.UNKNOWN;
 	}
 	
+	public boolean hasInterfaces ()
+	{
+		if (this.getIncomingDependencies().size() > 0)
+		{
+			return true;
+		}	
+		if (this.getOutgoingDependencies().size() > 0)
+		{
+			return true;
+		}	
+		
+		for (Component c : subEntities)
+		{
+			if ((c.getType() == ComponentType.EXTERNAL_INPORT) ||
+				(c.getType() == ComponentType.EXTERNAL_OUTPORT))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void addStateMachine (StateMachine sm)
 	{
 		this.stateMachines.add(sm);
@@ -72,6 +95,18 @@ public class Component implements Comparable {
 	public ComponentType getType ()
 	{
 		return this.type;
+	}
+	
+	public Component findSubcomponent (String n)
+	{
+		for (Component c : subEntities)
+		{
+			if (c.getName().equalsIgnoreCase(n))
+			{
+				return c;
+			}
+		}
+		return null;
 	}
 	
 	public void setType (ComponentType t)
@@ -157,10 +192,17 @@ public class Component implements Comparable {
 	{
 		String result;
 
+		if (this.name.equalsIgnoreCase("set"))
+		{
+			return "set_t";
+		}
+		
 		result = this.name.replaceAll("root", "");
 		result = result.replace('\n', '_');
 		result = result.replace('$', ' ');
 		result = result.replace('.', ' ');
+		result = result.replace(":", "_");
+		result = result.replace("__", "_");
 		result = result.replaceAll(" ", "");
 		result = result.replaceAll("/", "_");
 		result = result.toLowerCase();

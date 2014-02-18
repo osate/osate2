@@ -41,6 +41,8 @@ import javax.imageio.stream.FileImageInputStream;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Preferences;
 import org.osate.importer.model.Component;
+import org.osate.importer.model.Component.ComponentType;
+import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;
@@ -121,10 +123,20 @@ public class AadlProjectCreator
 				if (e.getType() == Component.ComponentType.BLOCK)
 				{
 					out.write ("abstract "+e.getAadlName()+"\n");
-					if ( (e.getIncomingDependencies().size() > 0) ||
-							(e.getOutgoingDependencies().size() > 0))
+					if (e.hasInterfaces())
 					{
 						out.write ("features\n");
+						for (Component e2 : e.getSubEntities())
+						{
+							if (e2.getType() == ComponentType.EXTERNAL_INPORT)
+							{
+								out.write ("   " + e2.getAadlName() + " : in event port;\n");
+							}
+							if (e2.getType() == ComponentType.EXTERNAL_OUTPORT)
+							{
+								out.write ("   " + e2.getAadlName() + " : out event port;\n");
+							}
+						}
 						for (Component e2 : e.getIncomingDependencies())
 						{
 							out.write ("   from_"+e2.getAadlName()+" : in event port;\n");
@@ -244,13 +256,23 @@ public class AadlProjectCreator
 				if (e.getParent() == null)
 				{
 					out.write ("system s_"+e.getAadlName()+"\n");
-					if ( (e.getIncomingDependencies().size() > 0 )||
-							(e.getOutgoingDependencies().size() > 0 )||
+					if ( (e.hasInterfaces())||
 							((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
 									||
 									(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
 					{
 						out.write ("features\n");
+					}
+					for (Component e2 : e.getSubEntities())
+					{
+						if (e2.getType() == ComponentType.EXTERNAL_INPORT)
+						{
+							out.write ("   "+e2.getAadlName()+" : in event data port generictype;\n");
+						}
+						if (e2.getType() == ComponentType.EXTERNAL_OUTPORT)
+						{
+							out.write ("   "+e2.getAadlName()+" : out event data port generictype;\n");
+						}
 					}
 					for (Component e2 : e.getIncomingDependencies())
 					{
@@ -260,6 +282,8 @@ public class AadlProjectCreator
 					{
 						out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
 					}
+					
+					
 					out.write ("end s_"+ e.getAadlName() + ";\n\n");
 
 					out.write ("system implementation s_"+e.getAadlName()+".i\n");
@@ -280,8 +304,35 @@ public class AadlProjectCreator
 //							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
 //
 //						}
-
-						
+						if (e.getSubEntities().size() > 0)
+						{
+							out.write ("subcomponents\n");
+							for (Component ctmp : e.getSubEntities())
+							{
+								if (ctmp.getType() == ComponentType.BLOCK)
+								{
+									out.write ("   " + ctmp.getAadlName() + " : system " + ctmp.getAadlName() + ";\n");
+								}
+							}
+						}
+						if (e.getConnections().size() > 0)
+						{
+							out.write ("connections\n");
+							int connIdentifier = 0;
+							for (Connection conn : e.getConnections())
+							{
+								if (conn.getSource().getType() == ComponentType.EXTERNAL_INPORT)
+								{
+									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + " -> "+conn.getDestination().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+								}
+								if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT)
+								{
+									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + "." + conn.getDestination().getAadlName() +" -> "+conn.getDestination().getAadlName()+";\n");
+								}
+								connIdentifier++;
+							}
+							
+						}
 						
 						if (sm != null)
 						{

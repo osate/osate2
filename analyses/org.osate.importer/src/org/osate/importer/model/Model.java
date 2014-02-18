@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.osate.importer.model.sm.StateMachine;
 
-public class Model {
+public class Model
+{
+	private String packageName;
 	private List<Component> 	components;
 	private List<Connection> 	connections;
 	private List<StateMachine> 	stateMachines; 
@@ -13,10 +15,23 @@ public class Model {
 	
 	public Model ()
 	{
+		this.packageName	= "unknown";
 		this.components 	= new ArrayList<Component>();
 		this.connections 	= new ArrayList<Connection>();
 		this.stateMachines	= new ArrayList<StateMachine>();
 	}
+	
+	public void setPackageName (String s)
+	{
+		this.packageName = s;
+	}
+	
+	public String getPackageName ()
+	{
+		return this.packageName;
+	}
+	
+	
 	
 	public void addStateMachine (StateMachine sm)
 	{

@@ -30,6 +30,11 @@
 
 package org.osate.importer.scade;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +54,6 @@ import org.w3c.dom.NodeList;
 
 public class FileImport {
 
-	private static String SIMULINK_ENTRYFILE = "simulink/blockdiagram.xml";
 	
 	private static List<StateFlowInstance> stateFlowInstances;
 	
@@ -76,145 +80,69 @@ public class FileImport {
 		return null;
 	}
 	
-	public static Document loadXMLZip (String inputFile)
-	{
-		
-		InputStream in;
-		ZipFile 	zipFile;
-		
-		zipFile = null;
-		
-		try 
-		{
-			OsateDebug.osateDebug("[FileImport] Try to load " + inputFile);
-			/*
-			 * In fact, the simulink model (slx file) is a zip file
-			 * like openfocument file. We parse the zip and extract
-			 * the file that contains all interesting information
-			 * (blockdiagram.xml).
-			 */
-			if (inputFile.contains(".slx"))
-			{
-				zipFile = new ZipFile(inputFile);
-				in = zipFile.getInputStream(zipFile.getEntry(SIMULINK_ENTRYFILE));
-			}
-			else
-			{
-				OsateDebug.osateDebug("[FileImport] Not a Simulink model");
-				return null;
-			}
-			
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(in);
-			if (zipFile != null)
-			{
-				zipFile.close();
-			}
-			in.close();
-			return doc;
-		}
-		catch (Exception e)
-		{
-//			OsateDebug.osateDebug("[FileImport] Exception in loadXMLZip()");
-			e.printStackTrace();
-		}
-		return null;
-	}
 
-	private static void loadComponentFromLibraryBrowseLibrary (Node n, Model producedModel, String rootName)
-	{
-		NodeList list = n.getChildNodes();
-		for (int s = 0 ; s < list.getLength() ; s++)
-		{
-			Node child = list.item (s);
-			if (child.getNodeName().toString().equalsIgnoreCase("block"))
-			{
-				Node attrName = Utils.getAttribute(child, "Name");
-				
-				if (attrName == null)
-				{
-					continue;
-				}
-				
-				String blockName = attrName.getNodeValue().toString();
-				
-				if (! blockName.equalsIgnoreCase(rootName))
-				{
-					continue;
-				}
-				DoImportModel.setFilterSystem(false);
-				NodeList children = child.getChildNodes();
-				for (int s2 = 0 ; s2 < children.getLength() ; s2++)
-				{
-//					OsateDebug.osateDebug("[FileImport] Import from library block " + blockName);
-					Node tmp = children.item(s2);
-					if (tmp.getNodeName().toString().equalsIgnoreCase("system"))
-					{
-						ImportModel.processSystem(tmp, producedModel, rootName);
-					}
-				}
-				DoImportModel.setFilterSystem(true);
-			}
-			else
-			{
-				loadComponentFromLibraryBrowseLibrary(child, producedModel, rootName);
-			}
-		}
-	}
+
+//	private static void loadComponentFromLibraryBrowseLibrary (Node n, Model producedModel, String rootName)
+//	{
+//		NodeList list = n.getChildNodes();
+//		for (int s = 0 ; s < list.getLength() ; s++)
+//		{
+//			Node child = list.item (s);
+//			if (child.getNodeName().toString().equalsIgnoreCase("block"))
+//			{
+//				Node attrName = Utils.getAttribute(child, "Name");
+//				
+//				if (attrName == null)
+//				{
+//					continue;
+//				}
+//				
+//				String blockName = attrName.getNodeValue().toString();
+//				
+//				if (! blockName.equalsIgnoreCase(rootName))
+//				{
+//					continue;
+//				}
+//				DoImportModel.setFilterSystem(false);
+//				NodeList children = child.getChildNodes();
+//				for (int s2 = 0 ; s2 < children.getLength() ; s2++)
+//				{
+////					OsateDebug.osateDebug("[FileImport] Import from library block " + blockName);
+//					Node tmp = children.item(s2);
+//					if (tmp.getNodeName().toString().equalsIgnoreCase("system"))
+//					{
+//						ImportModel.processSystem(tmp, producedModel, rootName);
+//					}
+//				}
+//				DoImportModel.setFilterSystem(true);
+//			}
+//			else
+//			{
+//				loadComponentFromLibraryBrowseLibrary(child, producedModel, rootName);
+//			}
+//		}
+//	}
+//	
 	
 	
-	public static void loadComponentFromLibrary (Component component, Model model, String file, String componentName)
-	{
-
-		Document doc = loadXMLZip (file);
-		if (doc == null)
-		{
-			OsateDebug.osateDebug("[FileImport] null doc when trying to load " + file);
-			return;
-		}
-		doc.getDocumentElement().normalize();			
-
-		NodeList modelInformationNodes = doc.getElementsByTagName("ModelInformation");
-		for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
-		{
-			Node nNode = modelInformationNodes.item(s);
-			NodeList children = nNode.getChildNodes();
-			
-			for (int t = 0 ; t < children.getLength() ; t++)
-			{
-				Node tNode = children.item (t);
-				
-				/**
-				 * The model node contains the structure of the
-				 * simulink model (the block diagrams). We parse
-				 * it to map it into an AADL architecture model.
-				 */
-				if (tNode.getNodeName().equalsIgnoreCase("library"))
-				{
-					FileImport.loadComponentFromLibraryBrowseLibrary (tNode, model, componentName);
-				}
-
-			}
-		}
-	}
 	
 	
-	public static Model loadFile (String inputFile, Model producedModel, String rootName)
+	public static Model loadFile (String inputFile, Model producedModel)
 	{
 		Node 		nNode;
 		
-		stateFlowInstances = new ArrayList<StateFlowInstance> ();
-		
+			
 		try 
 		{
-			Document doc = loadXMLZip (inputFile);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(new FileInputStream (inputFile));
 			doc.getDocumentElement().normalize();			
 
-			NodeList modelInformationNodes = doc.getElementsByTagName("ModelInformation");
-			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
+			NodeList declarations = doc.getElementsByTagName("declarations");
+			for (int s = 0 ; s < declarations.getLength() ; s++)
 			{
-				nNode = modelInformationNodes.item(s);
+				nNode = declarations.item(s);
 				NodeList children = nNode.getChildNodes();
 				
 				for (int t = 0 ; t < children.getLength() ; t++)
@@ -226,35 +154,14 @@ public class FileImport {
 					 * simulink model (the block diagrams). We parse
 					 * it to map it into an AADL architecture model.
 					 */
-					if (tNode.getNodeName().equalsIgnoreCase("model"))
+					if (tNode.getNodeName().equalsIgnoreCase("package"))
 					{
-						ImportModel.processModel (tNode, producedModel, rootName);
+						ImportModel.process (tNode, producedModel);
 					}
 
 				}
 			}
 			
-			
-			/**
-			 * The stateflow information are separated from the model. Then,
-			 * we associate a stateflow with the component by name matching:
-			 * if the stateflow instance matches the block name, we add
-			 * the state machine into the component description.
-			 */
-			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
-			{
-				nNode = modelInformationNodes.item(s);
-				NodeList children = nNode.getChildNodes();
-				
-				for (int t = 0 ; t < children.getLength() ; t++)
-				{
-					Node tNode = children.item (t);
-					if (tNode.getNodeName().equalsIgnoreCase("stateflow"))
-					{
-						ImportStateFlow.processStateFlow (tNode, producedModel);
-					}
-				}
-			}
 		} 
 		catch (Exception e) 
 		{
