@@ -340,21 +340,32 @@ public class AadlProjectCreator
 							int connIdentifier = 0;
 							for (Connection conn : e.getConnections())
 							{
-								if (conn.getSource().getType() == ComponentType.EXTERNAL_INPORT)
-								{
-									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + " -> "+conn.getDestination().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
-								}
-								
+
+								/**
+								 * Connection between sub-components.
+								 */
 								if ( (conn.getSource().getType() == ComponentType.EXTERNAL_OUTPORT) &&
 								     (conn.getDestination().getType() == ComponentType.EXTERNAL_INPORT))
 								{
 									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getParent().getAadlName() +"."+conn.getSource().getAadlName() + " -> "+conn.getDestination().getParent().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
 								}
 								
+								/**
+								 * Connection from external interfaces to internal sub-components.
+								 */
 								if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT)
 								{
 									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + "." + conn.getDestination().getAadlName() +" -> "+conn.getDestination().getAadlName()+";\n");
 								}
+								
+								/**
+								 * Connection from internal sub-components to external interfaces.
+								 */
+								if (conn.getSource().getType() == ComponentType.EXTERNAL_INPORT)
+								{
+									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + " -> "+conn.getDestination().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+								}
+								
 								connIdentifier++;
 							}
 							

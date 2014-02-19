@@ -53,8 +53,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class ImportModel {
-
+public class ImportModel
+{
+	/**
+	 * Main entry method to parse the SCADE model.
+	 * @param node		 - the main XML node. Is currently the top node.
+	 * @param produced   - The model that will be populated when parsing the SCADE document.
+	 */
 	public static void process (Node node, Model produced)
 	{
 		if (node.getNodeName().equalsIgnoreCase("package"))
@@ -85,10 +90,14 @@ public class ImportModel {
 		}
 	}
 
+	/**
+	 * Process the operator XML mode.
+	 * @param operator - XML node with the type operator
+	 * @param model    - the model that is being populated.
+	 */
 	public static void processOperator (Node operator, Model model)
 	{
 		Node attrName = null;
-		String direction;
 		NodeList nList = operator.getChildNodes();
 
 		attrName = Utils.getAttribute(operator, "name");
@@ -120,6 +129,12 @@ public class ImportModel {
 		model.addComponent(c);
 	}
 	
+	/**
+	 * Get the name of the operator being called by the SCADE model.
+	 * 
+	 * @param tmp - XML node with the type callexpression
+	 * @return    - name of the operator
+	 */
 	public static String getCallExpressionOperator (Node tmp)
 	{
 		Node attrName = null;
@@ -219,7 +234,7 @@ public class ImportModel {
 	/**
 	 * Analyze all variables modified by a function call.
 	 * @param currentNode      - the XML node that corresponds to the lefts part of the equation
-	 * @param operator         - the operator that contains the expression
+	 * @param operator         - the XML node of the main operator
 	 * @param mainComponent    - the component that contains the call
 	 * @param calledComponent  - the component that is called
 	 */
@@ -236,9 +251,19 @@ public class ImportModel {
 				attrName = Utils.getAttribute(nNode, "name");
 				if (attrName != null)
 				{
+					/**
+					 * varName here is the name of the internal SCADE variable
+					 * which is like _l2, _v2, etc.
+					 */
 					String varName = attrName.getNodeValue().toString();
 //					OsateDebug.osateDebug("[ImportModel/SCADE]Try to resolve " + varName);
 
+					/**
+					 * Here, we try to see what is the port related to the output variable.
+					 * With that information, we can then make a connection. The resolve
+					 * pass transforms the internal SCADE notation into the internal/external
+					 * ports with human-required names.
+					 */
 					String resolve = resolveVariabletoOutput (varName, operator, calledComponent);
 					if (resolve != null)
 					{
@@ -247,6 +272,11 @@ public class ImportModel {
 						Component sc = mainComponent.findSubcomponent (resolve);
 						if (sc != null)
 						{
+							/**
+							 * If we find a variable name, then, we add
+							 * an external output to the component and add
+							 * a connection.
+							 */
 							Component ctmp = new Component(sc.getName());
 							ctmp.setPortType(ctmp.getPortType());
 							ctmp.setType(ComponentType.EXTERNAL_OUTPORT);
@@ -257,12 +287,31 @@ public class ImportModel {
 						}
 						else
 						{
+							/**
+							 * If we do not find a corresponding port, we are
+							 * trying to see if the output variable
+							 * is connecting to the input of another block. We then
+							 * try to find all the components called that may use this variable.
+							 */
 //							OsateDebug.osateDebug("[ImportModel/SCADE] Did not found the port for " + resolve);
+							
+							/**
+							 * We use 4 times parent because the data nodes is located 4 levels
+							 * up from the operator node.
+							 */
 							Node dataNode = operator.getParentNode().getParentNode().getParentNode().getParentNode();
+							
+							/**
+							 * Here, we retrieved all the components that use this variable.
+							 */
 							List<Component> calledComponents = new ArrayList<Component> ();
 							getComponentsUsingVariable (dataNode, mainComponent, calledComponents, varName);
 							for (Component c : calledComponents)
 							{
+								/**
+								 * Then, introduce a connection between subcomponents.
+								 * We add external ports to these components then.
+								 */
 //								OsateDebug.osateDebug("[ImportModel/SCADE] internal connection to " + c);
 //								Connection conn = new Connection (calledComponent,c);
 //								mainComponent.addConnection(conn);
@@ -387,6 +436,17 @@ public class ImportModel {
 	}
 	
 	
+	/**
+	 * Find the human-readable name of a variable for an internal
+	 * local SCADE variable. This function returns the human-readable
+	 * name in the SCADE model from the name of the internal variable
+	 * name. It will retrieve the name of the port according
+	 * to the name of the local variable. 
+	 * @param varName         - name of the local variable (such as _v2 or _l2, etc.)
+	 * @param operator        - the operator that contains the call containing
+	 * @param calledComponent - the component that was called
+	 * @return
+	 */
 	public static String resolveVariabletoOutput (String varName, Node operator, Component calledComponent)
 	{
 		NodeList nList = Utils.getFirstNode(operator, "data").getChildNodes();
@@ -406,6 +466,17 @@ public class ImportModel {
 		
 	}
 	
+	/**
+	 * Find the human-readable name of a variable for an internal
+	 * local SCADE variable. This function returns the human-readable
+	 * name in the SCADE model from the name of the internal variable
+	 * name. It will retrieve the name of the port according
+	 * to the name of the local variable. 
+	 * @param varName         - name of the local variable (such as _v2 or _l2, etc.)
+	 * @param operator        - the operator that contains the call containing
+	 * @param calledComponent - the component that was called
+	 * @return
+	 */
 	public static String resolveVariabletoInput (String varName, Node operator, Component calledComponent)
 	{
 		NodeList nList = Utils.getFirstNode(operator, "data").getChildNodes();
@@ -424,6 +495,13 @@ public class ImportModel {
 		
 	}
 	
+	
+	/**
+	 * Try to find a node with the name constvarref and 
+	 * return the value of the name attribute.
+	 * @param node - The XML node with the constvarref name
+	 * @return     - Value of the name attribute.
+	 */
 	public static String findConstVarRef (Node node)
 	{
 		Node attrName = null;
@@ -448,7 +526,15 @@ public class ImportModel {
 		}
 		return null;
 	}
+
 	
+	
+	/**
+	 * Try to find a node with the name varref and 
+	 * return the value of the name attribute.
+	 * @param node - The XML node with the varref name
+	 * @return     - Value of the name attribute.
+	 */	
 	public static String findVarRef (Node node)
 	{
 		Node attrName = null;
@@ -464,7 +550,7 @@ public class ImportModel {
 					return attrName.getNodeValue().toString();
 				}
 			}
-			String strtmp = findConstVarRef (nNode);
+			String strtmp = findVarRef (nNode);
 			
 			if (strtmp != null)
 			{
@@ -528,7 +614,6 @@ public class ImportModel {
 	 */
 	public static boolean equationContainsCallExpression (Node node)
 	{
-		Node attrName = null;
 		NodeList nList = node.getChildNodes();
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
@@ -547,12 +632,17 @@ public class ImportModel {
 	}
 
 
-	
-	public static void processInterfaces (Node inputs, Component comp, ComponentType ct)
+	/**
+	 * Process all the interfaces (inputs/outputs) of the operator
+	 * @param ifs  - the inputs XML node. The subnodes 
+	 * contain then the different inputs/outputs
+	 * @param comp - the components where we can add the interfaces
+	 * @param ct - the type of the component
+	 */
+	public static void processInterfaces (Node ifs, Component comp, ComponentType ct)
 	{
 		Node attrName = null;
-		String direction;
-		NodeList nList = inputs.getChildNodes();
+		NodeList nList = ifs.getChildNodes();
 
 
 		for (int temp = 0; temp < nList.getLength(); temp++) 
@@ -575,10 +665,15 @@ public class ImportModel {
 		}
 	}
 	
+	/**
+	 * Find the mapping type for a SCADE data.
+	 * @param node - the XML node that contain the variable definition
+	 * @return the appropriate PortType value or PortType.UNKNOWN if the
+	 *         type cannot be found
+	 */
 	public static PortType getVariableType (Node node)
 	{
 		Node attrName = null;
-		String direction;
 		NodeList nList = node.getChildNodes();
 
 		for (int temp = 0; temp < nList.getLength(); temp++) 
@@ -605,28 +700,6 @@ public class ImportModel {
 		return PortType.UNKNOWN;
 	}
 
-	private static boolean addConnection (String srcString, String dstString, Model model)
-	{
-		if ((dstString != null) && (srcString != null))
-		{
-			int srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-			int dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-			
-//			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
-			Component srcComponent = model.findComponentById(srcBlockIndex);
-			Component dstComponent = model.findComponentById(dstBlockIndex);
-			
-			if ((srcComponent != null) && (dstComponent != null))
-			{
-				Connection c = new Connection(srcComponent, dstComponent);
-				srcComponent.addConnection(c);
-				dstComponent.addConnection(c);
-				model.addConnection(c);
-				return true;
-			}
-		}
-		return false;
-	}
 
 
 
