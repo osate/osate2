@@ -181,10 +181,19 @@ public class ImportModel {
 			if (nNode.getNodeName().equalsIgnoreCase("callexpression"))
 			{
 				String operatorRef = getCallExpressionOperator (nNode);
-				Component subComponent = new Component(operatorRef);
-				subComponent.setType(ComponentType.BLOCK);
-				subComponent.setParent(comp);
-				comp.addSubsystem(subComponent);
+				
+				Component subComponent = comp.getSubEntity(operatorRef);
+				
+				if (subComponent == null)
+				{
+//					OsateDebug.osateDebug("[ImportModel] processOperatorData() subComponent is null, creating component " + operatorRef);
+
+					subComponent = new Component(operatorRef);
+					subComponent.setType(ComponentType.BLOCK); 
+					subComponent.setParent(comp);
+					comp.addSubsystem(subComponent);
+				}
+
 				
 				/**
 				 * Call parameters for the INPUTS.
@@ -228,12 +237,12 @@ public class ImportModel {
 				if (attrName != null)
 				{
 					String varName = attrName.getNodeValue().toString();
-					OsateDebug.osateDebug("[ImportModel/SCADE]Try to resolve " + varName);
+//					OsateDebug.osateDebug("[ImportModel/SCADE]Try to resolve " + varName);
 
 					String resolve = resolveVariabletoOutput (varName, operator, calledComponent);
 					if (resolve != null)
 					{
-						OsateDebug.osateDebug("[ImportModel/SCADE]Resolved to  " + resolve);
+//						OsateDebug.osateDebug("[ImportModel/SCADE]Resolved to  " + resolve);
 
 						Component sc = mainComponent.findSubcomponent (resolve);
 						if (sc != null)
@@ -248,18 +257,95 @@ public class ImportModel {
 						}
 						else
 						{
-							OsateDebug.osateDebug("[ImportModel/SCADE] Did not found the port for " + resolve);
+//							OsateDebug.osateDebug("[ImportModel/SCADE] Did not found the port for " + resolve);
+							Node dataNode = operator.getParentNode().getParentNode().getParentNode().getParentNode();
+							List<Component> calledComponents = new ArrayList<Component> ();
+							getComponentsUsingVariable (dataNode, mainComponent, calledComponents, varName);
+							for (Component c : calledComponents)
+							{
+//								OsateDebug.osateDebug("[ImportModel/SCADE] internal connection to " + c);
+//								Connection conn = new Connection (calledComponent,c);
+//								mainComponent.addConnection(conn);
+//								OsateDebug.osateDebug("[ImportModel/SCADE] connect from " + calledComponent.getName() + " to " + c.getName() + " in " + mainComponent.getName());
+
+								Component ctmp = new Component(varName);
+								ctmp.setPortType(ctmp.getPortType());
+								ctmp.setType(ComponentType.EXTERNAL_OUTPORT);
+								ctmp.setParent(calledComponent);
+								calledComponent.addSubsystem(ctmp);
+								
+								Component ctmp2 = new Component(varName);
+								ctmp2.setPortType(ctmp.getPortType());
+								ctmp2.setType(ComponentType.EXTERNAL_INPORT);
+								ctmp2.setParent(c);
+								c.addSubsystem(ctmp2);
+								
+								Connection conn = new Connection (ctmp,ctmp2);
+								mainComponent.addConnection(conn);
+								
+							}
 						}
 					}
-					else
-					{
-						OsateDebug.osateDebug("[ImportModel/SCADE] Cannot resolve temp var " + varName);
-					}
+//					else
+//					{
+//						OsateDebug.osateDebug("[ImportModel/SCADE] Cannot resolve temp var " + varName);
+//					}
 				}
 				
 			}
 		}	
 	}
+	
+	/**
+	 * Get the list of all components that use a given variable
+	 * @param  - varName the name of the input variable
+	 * @return - a list of component that use this variable name
+	 */
+	public static void getComponentsUsingVariable (Node currentNode, Component mainComponent, List<Component> components, String varName)
+	{
+		NodeList nList = currentNode.getChildNodes();
+		Node attrName = null;
+		String foundName;
+		
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("ConstVarRef"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					foundName = attrName.getNodeValue().toString().toLowerCase();
+					
+					if (foundName.equalsIgnoreCase(varName))
+					{
+						Node tmpNode = nNode.getParentNode().getParentNode().getParentNode().getParentNode();
+						if (tmpNode.getNodeName().equalsIgnoreCase("callexpression"))
+						{
+							String operatorStr = getCallExpressionOperator (tmpNode);
+							Component ctmp = mainComponent.getSubEntity (operatorStr);
+							if (ctmp == null)
+							{
+//								OsateDebug.osateDebug("[ImportModel] getComponentsUsingVariable() ctmp is null, creating component " + operatorStr);
+
+								ctmp = new Component (operatorStr);
+								ctmp.setType(ComponentType.BLOCK);
+								ctmp.setParent(mainComponent);
+								mainComponent.addSubsystem(ctmp);
+							}
+							components.add(ctmp);
+							//OsateDebug.osateDebug("[ImportModel] Found operator " + operatorStr);
+						}
+					}
+				}
+			}
+			else
+			{
+				getComponentsUsingVariable(nNode, mainComponent, components, varName);
+			}
+		}
+	}
+	
 	
 	
 	/**
@@ -526,7 +612,7 @@ public class ImportModel {
 			int srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
 			int dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
 			
-			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
+//			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
 			Component srcComponent = model.findComponentById(srcBlockIndex);
 			Component dstComponent = model.findComponentById(dstBlockIndex);
 			

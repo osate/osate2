@@ -30,6 +30,7 @@ package org.osate.importer.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
 import org.osate.importer.model.sm.StateMachine;
 
@@ -233,6 +234,12 @@ public class Component implements Comparable {
 		{
 			result = result.substring(result.indexOf("::") + 2);
 		}
+		
+		if (result.charAt(0) == '_')
+		{
+			result = "v" + result;
+		}
+		
 		result = result.replace('\n', '_');
 		result = result.replace('$', ' ');
 		result = result.replace('.', ' ');
@@ -301,6 +308,7 @@ public class Component implements Comparable {
 			if ((c.getSource().getName() == ec.getSource().getName()) &&
 				(c.getDestination().getName() == ec.getDestination().getName()))
 			{
+//				OsateDebug.osateDebug("[Component] not adding the connection");
 				return;
 			}
 		}
@@ -326,6 +334,18 @@ public class Component implements Comparable {
 
 	public boolean equalsTo(Object arg0) {
 		return this.compareTo(arg0)==0;
+	}
+	
+	public Component getSubEntity (String name)
+	{
+		for (Component c : subEntities)
+		{
+			if (c.getName().equalsIgnoreCase(name))
+			{
+				return c;
+			}
+		}
+		return null;
 	}
 	
 	public int compareTo(Object arg0) {

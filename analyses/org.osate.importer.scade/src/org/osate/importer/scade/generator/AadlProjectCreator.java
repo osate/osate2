@@ -344,6 +344,13 @@ public class AadlProjectCreator
 								{
 									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + " -> "+conn.getDestination().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
 								}
+								
+								if ( (conn.getSource().getType() == ComponentType.EXTERNAL_OUTPORT) &&
+								     (conn.getDestination().getType() == ComponentType.EXTERNAL_INPORT))
+								{
+									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getParent().getAadlName() +"."+conn.getSource().getAadlName() + " -> "+conn.getDestination().getParent().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+								}
+								
 								if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT)
 								{
 									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + "." + conn.getDestination().getAadlName() +" -> "+conn.getDestination().getAadlName()+";\n");
