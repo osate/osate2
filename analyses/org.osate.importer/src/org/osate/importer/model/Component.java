@@ -94,6 +94,20 @@ public class Component implements Comparable {
 	}
 	
 	
+	public boolean hasSubcomponents ()
+	{
+		for (Component c : subEntities)
+		{
+			if (c.getType() == ComponentType.BLOCK)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
 	public void setPortType (PortType pt)
 	{
 		this.portType = pt;
@@ -215,10 +229,13 @@ public class Component implements Comparable {
 		}
 		
 		result = this.name.replaceAll("root", "");
+		if (result.contains("::"))
+		{
+			result = result.substring(result.indexOf("::") + 2);
+		}
 		result = result.replace('\n', '_');
 		result = result.replace('$', ' ');
 		result = result.replace('.', ' ');
-		result = result.replace(":", "_");
 		result = result.replace("__", "_");
 		result = result.replaceAll(" ", "");
 		result = result.replaceAll("/", "_");

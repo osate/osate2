@@ -154,7 +154,15 @@ public class ImportModel {
 	
 	
 	
-	
+	/**
+	 * Process the <data/> node of the operator node.
+	 * The data nodes contains local variable, call expression, etc.
+	 * This function is used to process the data and generate appropriate artifacts.
+	 * @param operatorNode - XML node that contains the operator
+	 * @param currentNode  - current processing node. In fact, we browse recursively
+	 *                       the XML tree in order to find nodes we can parse
+	 * @param comp         - the component that contains the operator.
+	 */
 	public static void processOperatorData (Node operatorNode, Node currentNode, Component comp)
 	{
 
@@ -164,6 +172,12 @@ public class ImportModel {
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
 			Node nNode = nList.item(temp);
+			/**
+			 * Here we get a callexpression node. This corresponds
+			 * to a call to another block. So, we first create a new
+			 * component that corresponds to this block. Then, 
+			 * we try to add the call parameters and establish connections.
+			 */
 			if (nNode.getNodeName().equalsIgnoreCase("callexpression"))
 			{
 				String operatorRef = getCallExpressionOperator (nNode);
@@ -172,16 +186,34 @@ public class ImportModel {
 				subComponent.setParent(comp);
 				comp.addSubsystem(subComponent);
 				
+				/**
+				 * Call parameters for the INPUTS.
+				 */
 				processCallParameters (Utils.getFirstNode (nNode, "callparameters"), operatorNode, comp, subComponent);
+				
+				/**
+				 * Call parameters for the OUTPUTS.
+				 */
 				processCallReturns (Utils.getFirstNode (nNode.getParentNode().getParentNode(), "lefts"),operatorNode, comp, subComponent);
 			}
 			else
 			{
+				/**
+				 * If the current node does not need to be mapped, then, browse the XML
+				 * file recursively.
+				 */
 				processOperatorData (operatorNode, nNode, comp);
 			}
 		}
 	}
 	
+	/**
+	 * Analyze all variables modified by a function call.
+	 * @param currentNode      - the XML node that corresponds to the lefts part of the equation
+	 * @param operator         - the operator that contains the expression
+	 * @param mainComponent    - the component that contains the call
+	 * @param calledComponent  - the component that is called
+	 */
 	public static void processCallReturns (Node currentNode, Node operator, Component mainComponent, Component calledComponent)
 	{
 		NodeList nList = currentNode.getChildNodes();
@@ -196,16 +228,32 @@ public class ImportModel {
 				if (attrName != null)
 				{
 					String varName = attrName.getNodeValue().toString();
+					OsateDebug.osateDebug("[ImportModel/SCADE]Try to resolve " + varName);
+
 					String resolve = resolveVariabletoOutput (varName, operator, calledComponent);
 					if (resolve != null)
 					{
+						OsateDebug.osateDebug("[ImportModel/SCADE]Resolved to  " + resolve);
+
 						Component sc = mainComponent.findSubcomponent (resolve);
 						if (sc != null)
 						{
+							Component ctmp = new Component(sc.getName());
+							ctmp.setPortType(ctmp.getPortType());
+							ctmp.setType(ComponentType.EXTERNAL_OUTPORT);
+							calledComponent.addSubsystem(ctmp);
 							Connection conn = new Connection (calledComponent,sc);
 							mainComponent.addConnection(conn);
-							break;
+							
 						}
+						else
+						{
+							OsateDebug.osateDebug("[ImportModel/SCADE] Did not found the port for " + resolve);
+						}
+					}
+					else
+					{
+						OsateDebug.osateDebug("[ImportModel/SCADE] Cannot resolve temp var " + varName);
 					}
 				}
 				
@@ -213,11 +261,18 @@ public class ImportModel {
 		}	
 	}
 	
+	
+	/**
+	 * Process the call parameters. This is the variables passed to the called
+	 * block.
+	 * @param currentNode     - the current node that contains all parameters
+	 * @param operator        - the current operator that initiate the call 
+	 * @param mainComponent   - the main component that contain the component added
+	 * @param calledComponent - the component that is called
+	 */
 	public static void processCallParameters (Node currentNode, Node operator, Component mainComponent, Component calledComponent)
 	{
-
 		NodeList nList = currentNode.getChildNodes();
-
 
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
@@ -225,15 +280,19 @@ public class ImportModel {
 			if (nNode.getNodeName().equalsIgnoreCase("idexpression"))
 			{
 				String name = Utils.getExpressionName (nNode);
-//				OsateDebug.osateDebug("var name" + name);
 				String resolve = resolveVariabletoInput (name, operator, calledComponent);
-//				OsateDebug.osateDebug("resolve" + resolve);
 				if (resolve != null)
 				{
 					Component sc = mainComponent.findSubcomponent (resolve);
 					if (sc != null)
 					{
 						Connection conn = new Connection (sc, calledComponent);
+						
+						Component ctmp = new Component(sc.getName());
+						ctmp.setPortType(ctmp.getPortType());
+						ctmp.setType(ComponentType.EXTERNAL_INPORT);
+						calledComponent.addSubsystem(ctmp);
+						
 						mainComponent.addConnection(conn);
 					}
 				}
@@ -250,10 +309,11 @@ public class ImportModel {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeName().equalsIgnoreCase("equation"))
 			{
-				if (equationContains (Utils.getFirstNode(nNode, "right"), varName))
+				if (equationContains (Utils.getFirstNode(nNode, "right"), varName) && ( ! equationContainsCallExpression (nNode)))
 				{
 					return findVarRef (Utils.getFirstNode(nNode, "lefts"));
 				}
+				
 			}
 		}	
 		return null;
@@ -328,6 +388,14 @@ public class ImportModel {
 		return null;
 	}
 	
+	
+	/**
+	 * returns true or false depending if an equation contains
+	 * a certain variable.
+	 * @param node  - the node that contains the equation
+	 * @param var   - the name of the variable we are looking for.
+	 * @return true if the equation contains a variable with such a name
+	 */
 	public static boolean equationContains (Node node, String var)
 	{
 		Node attrName = null;
@@ -366,6 +434,32 @@ public class ImportModel {
 		}	
 		return false;
 	}
+	
+	/**
+	 * Return true or false - if an equation contains a call expression
+	 * @param node  - the node that contain the equation XML node.
+	 * @return true if the equation contains a call expression
+	 */
+	public static boolean equationContainsCallExpression (Node node)
+	{
+		Node attrName = null;
+		NodeList nList = node.getChildNodes();
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("callexpression"))
+			{
+				return true;
+			}
+			boolean ret =  equationContainsCallExpression (nNode);
+			if (ret == true)
+			{
+				return true;
+			}
+		}	
+		return false;
+	}
+
 
 	
 	public static void processInterfaces (Node inputs, Component comp, ComponentType ct)

@@ -323,14 +323,14 @@ public class AadlProjectCreator
 //							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
 //
 //						}
-						if (e.getSubEntities().size() > 0)
-						{
+						if (e.hasSubcomponents())
+						{ 
 							out.write ("subcomponents\n");
 							for (Component ctmp : e.getSubEntities())
 							{
 								if (ctmp.getType() == ComponentType.BLOCK)
 								{
-									out.write ("   " + ctmp.getAadlName() + " : system " + ctmp.getAadlName() + ";\n");
+									out.write ("   " + ctmp.getAadlName() + " : system s_" + ctmp.getAadlName() + ";\n");
 								}
 							}
 						}
