@@ -56,7 +56,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 
 	@Override
 	public String getName() {
-		return "Set Extended Classifier";
+		return "Set Extended Classifier...";
 	}
 
 	@Override
