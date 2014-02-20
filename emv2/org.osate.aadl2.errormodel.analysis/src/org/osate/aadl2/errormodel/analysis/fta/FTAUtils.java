@@ -706,10 +706,13 @@ public class FTAUtils
 		}
 		
 		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
-		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,behaviorState,null);
+		ts = behaviorState.getTypeSet();
+		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,behaviorState,ts);
 		//OsateDebug.osateDebug("         PA " + PA);
 		if (!PA.isEmpty()){
 			double prob = EMV2Properties.getOccurenceValue (PA.get(0));
+//			OsateDebug.osateDebug("state " + behaviorState.getName()+ "prob= " + prob);
+
 			event.setProbability(prob);
 		}
 		

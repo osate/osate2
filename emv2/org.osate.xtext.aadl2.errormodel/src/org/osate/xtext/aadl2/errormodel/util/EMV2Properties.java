@@ -459,7 +459,7 @@ public class EMV2Properties {
 						}
 					} else if (typeelement instanceof TypeSet){
 						// we refer to a type
-						if (EM2TypeSetUtil.contains((TypeSet)lastel,ts)){
+						if (EM2TypeSetUtil.contains((TypeSet)typeelement,ts)){
 							// skip to next iteration
 							return containedNamedElement;
 						}
