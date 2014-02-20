@@ -216,5 +216,15 @@
         </commonSorter>
      </navigatorContent>
   </extension>
+  <extension
+        point="org.eclipse.ui.newWizards">
+     <wizard
+           category="org.osate.Wizard.category.ID"
+           class="edu.uah.rsesc.aadl.age.wizards.NewPackageWizard"
+           icon="icons/sample.gif"
+           id="edu.uah.rsesc.aadl.age.wizards.NewPackageWizard"
+           name="Aadl Package (Graphical)">
+     </wizard>
+  </extension>
  
 </plugin>

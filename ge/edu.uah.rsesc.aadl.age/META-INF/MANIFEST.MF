@@ -26,7 +26,8 @@ Require-Bundle: org.eclipse.ui,
  org.junit,
  org.eclipse.ui.navigator,
  org.eclipse.ui.ide,
- org.eclipse.jface
+ org.eclipse.jface,
+ org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: org.eclipse.draw2d.graph,
