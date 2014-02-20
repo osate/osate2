@@ -655,7 +655,8 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		}
 		
 		@Override
-		public void beforeCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
+		public void afterCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
+			// Commit the diagram changes after the commit because the EMF index needs to be updated before the diagram can be
 			diagramMod.commit();
 			diagramMod = null;
 		}

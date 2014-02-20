@@ -34,7 +34,6 @@ package edu.uah.rsesc.aadl.age.wizards;
  */
 // Based on Osate 2's org.osate.ui.wizards.NewModelWizard
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -55,15 +54,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.transaction.util.TransactionUtil;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IPeService;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -83,13 +73,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.ContainerGenerator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.NamedElement;
@@ -99,11 +87,7 @@ import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
-import edu.uah.rsesc.aadl.age.ui.editor.AgeDiagramEditor;
-import edu.uah.rsesc.aadl.age.ui.util.SelectionHelper;
-import edu.uah.rsesc.aadl.age.util.Log;
 
 
 /**
@@ -121,11 +105,6 @@ public class NewPackageWizard extends Wizard implements INewWizard
 	private NewPackageWizardNewPackageCreationPage newPackageCreationPage = null;
 	
 	/**
-	 * Remember the workbench during initialization.
-	 */
-	private IWorkbench workbench;
-	
-	/**
 	 * Selected project in the package explorer.  This will become the selected project
 	 * in the wizard's page.
 	 */
@@ -137,7 +116,6 @@ public class NewPackageWizard extends Wizard implements INewWizard
 //	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection)
 	{
-		this.workbench = workbench;
 		if (selection != null)
 		{
 			Object selectedElement = selection.getFirstElement();
