@@ -61,12 +61,19 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					final NamedElement namedElement = (NamedElement)bo;
 					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
 					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
-
+				
+					// TODO: Prevent another update when one is running? Always need to run the last one though.
+					// TODO: Optimize the reason that the updating is slow.
+					// TODO: Need to be able to edit in split view
 					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
 						final Runnable updateDiagramRunnable = new Runnable() {
 							public void run() {			
-								// Update the entire diagram
-								getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
+								// Don't update unless the diagram is visible
+								// TODO: Means that diagram has to be manually updated once it becomes visible..
+								if(getContentEditPart().getViewer().getControl().isVisible()) {
+									// Update the entire diagram
+									getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });									
+								}
 							}
 						};
 						

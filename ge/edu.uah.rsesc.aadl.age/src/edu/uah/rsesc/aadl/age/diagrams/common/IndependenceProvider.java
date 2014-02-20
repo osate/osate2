@@ -9,12 +9,17 @@
 package edu.uah.rsesc.aadl.age.diagrams.common;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
@@ -25,6 +30,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.Mode;
@@ -34,6 +40,7 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
@@ -98,7 +105,7 @@ public class IndependenceProvider implements IIndependenceSolver {
 		
 		return (NamedElement)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
 	}
-			
+	
 	private AadlPackage getPackage() {
 		final Diagram diagram = featureProvider.getDiagramTypeProvider().getDiagram();
 		gettingDiagramObj = true;
@@ -237,7 +244,10 @@ public class IndependenceProvider implements IIndependenceSolver {
 		}
 		
 		final String seg = pathSegs[i];
-		if(element instanceof Namespace) {
+		if(element instanceof Classifier) {
+			final Classifier c = (Classifier)element;
+			return findNamedElementInClassifier(c, pathSegs, i, new HashSet<Classifier>());
+		} else if(element instanceof Namespace) {
 			for(final NamedElement member : ((Namespace)element).getMembers()) {
 				final String name = member.getName();
 				if(name != null) {
@@ -260,6 +270,37 @@ public class IndependenceProvider implements IIndependenceSolver {
 				}				
 			}
 		}			
+		
+		return null;
+	}
+	
+	// Specialized implementation of findNamedElement for Classifiers because of performance issues when using Classifier.getMembers()
+	private NamedElement findNamedElementInClassifier(final Classifier c, final String[] pathSegs, final int i, Set<Classifier> checkedClassifiers) {
+		final String seg = pathSegs[i];
+		
+		for(final NamedElement member : c.getOwnedMembers()) {
+			final String name = member.getName();
+			if(name != null) {
+				if(name.equalsIgnoreCase(seg)) {
+					final NamedElement result = findNamedElement(member, pathSegs, i+1);
+					if(result != null) {
+						return result;
+					}
+				} 
+			}
+		}
+		
+		for (Generalization g : c.getGeneralizations()) {
+			final Classifier gc = g.getGeneral();
+			// Only check the generalization if it has not been checked yet. This protects against cycles.
+			if(!checkedClassifiers.contains(gc)) {
+				checkedClassifiers.add(gc);
+				final NamedElement result = findNamedElementInClassifier(gc, pathSegs, i, checkedClassifiers);
+				if(result != null) {
+					return result;
+				}				
+			}
+		}
 		
 		return null;
 	}
