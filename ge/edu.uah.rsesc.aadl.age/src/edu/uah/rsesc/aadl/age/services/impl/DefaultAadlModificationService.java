@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -35,6 +36,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
+
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.ui.util.SelectionHelper;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
@@ -86,15 +88,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 								fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
 							}
 						});
-
-						// Build the project so that the index will be updated
-						final IProject project = SelectionHelper.getProject(res);
-						try {
-							project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, null);
-						} catch(CoreException | RuntimeException ex) {
-							final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after a graphical modification.", ex);
-							StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
-						}
 						
 						// Call the after modification callback
 						modifier.afterCommit(res, element, modifierResult);

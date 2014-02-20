@@ -14,6 +14,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -42,6 +48,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
@@ -57,6 +64,7 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.modelsupport.Activator;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -73,6 +81,7 @@ import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
+import edu.uah.rsesc.aadl.age.ui.util.SelectionHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
@@ -656,6 +665,16 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		@Override
 		public void afterCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
+			// Build the project so that the index will be updated
+			// This was formerly part of DefaultAadlModificationService but it causes deadlock under certain circumstances(renaming features).
+			final IProject project = SelectionHelper.getProject(resource);
+			try {
+				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
+			} catch(CoreException | RuntimeException ex) {
+				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after a graphical modification.", ex);
+				StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+			}
+			
 			// Commit the diagram changes after the commit because the EMF index needs to be updated before the diagram can be
 			diagramMod.commit();
 			diagramMod = null;
