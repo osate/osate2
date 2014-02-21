@@ -11,11 +11,11 @@ public class Model
 	private List<Component> 	components;
 	private List<Connection> 	connections;
 	private List<StateMachine> 	stateMachines; 
-	
+	public static final String  DEFAULT_NAME = "unknown";
 	
 	public Model ()
 	{
-		this.packageName	= "unknown";
+		this.packageName	= DEFAULT_NAME;
 		this.components 	= new ArrayList<Component>();
 		this.connections 	= new ArrayList<Connection>();
 		this.stateMachines	= new ArrayList<StateMachine>();

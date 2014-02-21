@@ -152,6 +152,21 @@ public class StateMachine {
 		return null;
 	}
 	
+	public State getState (String name)
+	{
+		for (State s : this.states)
+		{
+			if (s.getName().equalsIgnoreCase(name))
+			{
+				return s;
+			}
+		}
+		State s = new State ();
+		s.setName(name);
+		this.addState(s);
+		return s;
+	}
+	
 	public void addState (State s)
 	{
 		this.states.add (s);

@@ -34,8 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.importer.model.Component;
-import org.osate.importer.model.Component.ComponentType;
+import org.osate.importer.model.Component.PortType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -240,6 +239,41 @@ public class Utils {
 		return result;
 	}
 	
+	/**
+	 * Find the mapping type for a SCADE data.
+	 * @param node - the XML node that contain the variable definition
+	 * @return the appropriate PortType value or PortType.UNKNOWN if the
+	 *         type cannot be found
+	 */
+	public static PortType getVariableType (Node node)
+	{
+		Node attrName = null;
+		NodeList nList = node.getChildNodes();
+
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("TypeRef"))
+			{
+				attrName = Utils.getAttribute(nNode, "name");
+				if (attrName != null)
+				{
+					if (attrName.getNodeValue().toString().equalsIgnoreCase("bool"))
+					{
+						return PortType.BOOL;
+					}
+				}
+			}
+			
+			PortType ptret = getVariableType (nNode);
+			if (ptret != PortType.UNKNOWN)
+			{
+				return ptret;
+			}
+		}
+		return PortType.UNKNOWN;
+	}
+	
 	public static Node getFirstNode (Node node, String name)
 	{
 		NodeList nList = node.getChildNodes();
@@ -305,6 +339,34 @@ public class Utils {
 		return label;
 	}
 
+	/**
+	 * return the name attribute for a node
+	 * @param smNode - the XML node that contains the node with the name attribute
+	 * @return       - the name attribute as a string
+	 */
+	public static String getNodeName (Node node)
+	{
+		return getNodeAttribute (node, "name");
+	}
+	
+	/**
+	 * return the string value for an XML attribute on a node
+	 * @param node - the XML node
+	 * @param attr - the attribute on the node
+	 * @return     - the value of the attribute, null if undefined
+	 */
+	public static String getNodeAttribute (Node node, String attr)
+	{
+		Node attrName = null;
+		
+		attrName = Utils.getAttribute(node, attr);
+		if (attrName != null)
+		{
+			return (attrName.getNodeValue().toString());
+		}
+		return null;
+	}
+	
 	/*
 	 *  A connection point contains several informations about the port, either
 	 *  the index/identifier (id) of the block, the port direction (in or out)
