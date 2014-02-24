@@ -102,7 +102,8 @@ public class ImportStateMachine
 		{
 			Node nNode = nList.item (temp);
 			processStateMachineStateTransition (nNode, state, smNode, s);
-			
+			processStateMachineStateData (nNode, state, smNode, s);
+
 		}
 		OsateDebug.osateDebug("[ImportStateMachine] add state " + s.getName());
 		stateMachine.addState(s);
@@ -152,4 +153,28 @@ public class ImportStateMachine
 			}
 		}
 	}
+	
+	public static void processStateMachineStateData (Node currentNode, Node stateNode, Node stateMachineNode, State state)
+	{
+		NodeList nList = currentNode.getChildNodes();
+		
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item (temp);
+			if (nNode.getNodeName().equalsIgnoreCase("statemachine"))
+			{
+				String innerStateMachineName = Utils.getNodeName(nNode);
+				if (innerStateMachineName != null)
+				{
+					OsateDebug.osateDebug("[ImportStateMachine] inner state machine " + innerStateMachineName);
+				}
+
+			}
+			if (nNode.getNodeName().equalsIgnoreCase("data"))
+			{
+				processStateMachineStateData (nNode, stateNode, stateMachineNode, state);
+			}
+		}
+	}
+	
 }
