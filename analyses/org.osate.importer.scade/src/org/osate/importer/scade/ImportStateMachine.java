@@ -102,7 +102,10 @@ public class ImportStateMachine
 		{
 			Node nNode = nList.item (temp);
 			processStateMachineStateTransition (nNode, state, smNode, s);
+			
 		}
+		OsateDebug.osateDebug("[ImportStateMachine] add state " + s.getName());
+		stateMachine.addState(s);
 	}
 	
 	public static void processStateMachineStateTransition (Node currentNode, Node stateNode, Node stateMachineNode, State state)
@@ -116,17 +119,34 @@ public class ImportStateMachine
 			{
 				Node targetNode = Utils.getFirstNode(nNode, "target");
 				Node stateRefNode = Utils.getFirstNode(targetNode, "stateref");
+				
+				/**
+				 * Get the target state name
+				 */
 				String targetStateName = Utils.getNodeName(stateRefNode);
 				OsateDebug.osateDebug("[ImportModel] target state name=" + targetStateName);
 				State targetState = state.getStateMachine().getState (targetStateName);
+				
+				/**
+				 * Get the condition string
+				 */
+				Node condNode = Utils.getFirstNodeRec(nNode, "constvarref");
+				String conditionString = "";
+				if (condNode != null)
+				{
+					conditionString = Utils.getNodeName (condNode);
+				}
+				
+				
 				Transition t = new Transition();
 				t.setSrcState(state);
 				t.setDstState(targetState);
+				t.setCondition(conditionString);
 				state.getStateMachine().addTransition(t);
 				OsateDebug.osateDebug("[ImportModel] add transition=" + t);
 
 			}
-			else
+			if (nNode.getNodeName().equalsIgnoreCase("unless"))
 			{
 				processStateMachineStateTransition (nNode, stateNode, stateMachineNode, state);
 			}

@@ -124,6 +124,11 @@ public class Component implements Comparable {
 		this.stateMachines.add(sm);
 	}
 	
+	public List<StateMachine> getStateMachines ()
+	{
+		return (this.stateMachines);
+	}
+	
 	public ComponentType getType ()
 	{
 		return this.type;

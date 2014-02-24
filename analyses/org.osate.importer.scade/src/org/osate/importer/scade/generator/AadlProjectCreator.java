@@ -178,7 +178,6 @@ public class AadlProjectCreator
 		int tmp;
 		String aadlPackagePrefix;
 		boolean connectionPreamble;
-		StateMachine sm;
 		connectionPreamble = false;
 		aadlPackagePrefix = "";
 		try
@@ -216,48 +215,47 @@ public class AadlProjectCreator
 				 * Try to find if we have a corresponding state machine
 				 * for this component.
 				 */
-				sm = null;
 
 
 				/**
 				 * Let's generate the subprogram for the nested state
 				 * machines of the current component.
 				 */
-				if ((sm != null ) && (sm.hasNestedStateMachines()))
-				{
-					for (State s : sm.getStates())
-					{
-						if (! s.getStateMachine().isEmpty())
-						{
-							out.write ("system "+s.getName()+"\n");
-							if (s.getStateMachine().hasVariables())
-							{
-								out.write("features\n");
-								for (String var : s.getStateMachine().getVariables())
-								{
-									out.write("   ");
-									out.write(var);
-									out.write(" : requires data access ");
-									if (s.getStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
-									{
-										out.write("generictype_boolean");
-									}
-									else
-									{
-										out.write("generictype");
-									}
-									out.write(";\n");
-								}
-							}
-							out.write ("end " + s.getName() + ";\n\n\n");
-							
-							
-							out.write ("system implementation "+s.getName()+".i\n");
-							Utils.writeBehaviorAnnex (s.getStateMachine(), out);
-							out.write ("end " + s.getName() + ".i;\n\n\n");
-						}
-					}
-				}
+//				if ((sm != null ) && (sm.hasNestedStateMachines()))
+//				{
+//					for (State s : sm.getStates())
+//					{
+//						if (! s.getStateMachine().isEmpty())
+//						{
+//							out.write ("system "+s.getName()+"\n");
+//							if (s.getStateMachine().hasVariables())
+//							{
+//								out.write("features\n");
+//								for (String var : s.getStateMachine().getVariables())
+//								{
+//									out.write("   ");
+//									out.write(var);
+//									out.write(" : requires data access ");
+//									if (s.getStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
+//									{
+//										out.write("generictype_boolean");
+//									}
+//									else
+//									{
+//										out.write("generictype");
+//									}
+//									out.write(";\n");
+//								}
+//							}
+//							out.write ("end " + s.getName() + ";\n\n\n");
+//							
+//							
+//							out.write ("system implementation "+s.getName()+".i\n");
+//							Utils.writeBehaviorAnnex (s.getStateMachine(), out);
+//							out.write ("end " + s.getName() + ".i;\n\n\n");
+//						}
+//					}
+//				}
 				
 	
 
@@ -371,17 +369,23 @@ public class AadlProjectCreator
 							
 						}
 						
-						if (sm != null)
+						StateMachine stateMachine = null;
+						
+						if (e.getStateMachines().size() > 0)
 						{
-				
+							stateMachine = e.getStateMachines().get(0);
+						}
+						if (stateMachine != null)
+						{
+							Utils.writeBehaviorAnnex (stateMachine, out);
 							
-							if (sm.hasVariables() || sm.nestedStateMachinehasVariables() || sm.hasNestedStateMachines())
-							{
-								out.write ("subcomponents\n");
-							}
-							
-							Utils.writeSubprogramSubcomponents (sm, out, new ArrayList<String>());
-							
+//							if (stateMachine.hasVariables() || stateMachine.nestedStateMachinehasVariables() || stateMachine.hasNestedStateMachines())
+//							{
+//								out.write ("subcomponents\n");
+//							}
+//							
+//							Utils.writeSubprogramSubcomponents (stateMachine, out, new ArrayList<String>());
+//							
 							/**
 							 * Let's call the other subprogram that contains
 							 * the sub state machines. Then, if these
@@ -389,18 +393,18 @@ public class AadlProjectCreator
 							 * add data components and connect them. 
 							 */
 							
-							if (sm.hasNestedStateMachines())
-							{
-
-								for (State s : sm.getStates())
-								{
-									if (! s.getStateMachine().isEmpty())
-									{
-										out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
-
-									}
-								}
-							}
+//							if (sm.hasNestedStateMachines())
+//							{
+//
+//								for (State s : sm.getStates())
+//								{
+//									if (! s.getStateMachine().isEmpty())
+//									{
+//										out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
+//
+//									}
+//								}
+//							}
 							
 							
 							/**
@@ -408,19 +412,19 @@ public class AadlProjectCreator
 							 * Connect the data components shared among the different subprograms
 							 * using data access connections.
 							 */
-							if (sm.nestedStateMachinehasVariables())
-							{
-
-								out.write ("connections\n");
-								for (State state : sm.getStates())
-								{
-									for (String var : state.getStateMachine().getVariables())
-									{
-										out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
-
-									}
-								}
-							}
+//							if (sm.nestedStateMachinehasVariables())
+//							{
+//
+//								out.write ("connections\n");
+//								for (State state : sm.getStates())
+//								{
+//									for (String var : state.getStateMachine().getVariables())
+//									{
+//										out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
+//
+//									}
+//								}
+//							}
 						}
 					out.write ("end s_"+ e.getAadlName() + ".i;\n\n");
 				}

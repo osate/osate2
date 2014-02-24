@@ -149,7 +149,7 @@ public class ImportModel
 			}
 			if (nNode.getNodeName().equalsIgnoreCase("data"))
 			{
-				processOperatorData (operator, nNode, c);
+				processOperatorData (operator, nNode, c, model);
 			}
 		}
 		
@@ -206,7 +206,7 @@ public class ImportModel
 	 *                       the XML tree in order to find nodes we can parse
 	 * @param comp         - the component that contains the operator.
 	 */
-	public static void processOperatorData (Node operatorNode, Node currentNode, Component comp)
+	public static void processOperatorData (Node operatorNode, Node currentNode, Component comp, Model model)
 	{
 
 		NodeList nList = currentNode.getChildNodes();
@@ -256,6 +256,8 @@ public class ImportModel
 				
 				StateMachine stateMachine = new StateMachine ();
 				ImportStateMachine.processStateMachine (nNode, operatorNode, stateMachine, comp);
+				comp.addStateMachine (stateMachine);
+				model.addStateMachine (stateMachine);
 			}
 			else
 			{
@@ -263,7 +265,7 @@ public class ImportModel
 				 * If the current node does not need to be mapped, then, browse the XML
 				 * file recursively.
 				 */
-				processOperatorData (operatorNode, nNode, comp);
+				processOperatorData (operatorNode, nNode, comp, model);
 			}
 		}
 	}

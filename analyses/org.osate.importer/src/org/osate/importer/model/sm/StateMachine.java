@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
 import org.osate.importer.model.Component;
 
@@ -163,12 +164,21 @@ public class StateMachine {
 		}
 		State s = new State ();
 		s.setName(name);
+		s.setStateMachine(this);
 		this.addState(s);
 		return s;
 	}
 	
 	public void addState (State s)
 	{
+		for (State stmp : this.states)
+		{
+			if (s.getName().equalsIgnoreCase(stmp.getName()))
+			{
+				return;
+			}
+		}
+		OsateDebug.osateDebug("[StateMachine] add state " + s.getName() + " in state machine " + s.getStateMachine().getName());
 		this.states.add (s);
 	}
 	

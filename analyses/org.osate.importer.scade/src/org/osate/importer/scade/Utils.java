@@ -290,6 +290,27 @@ public class Utils {
 		return null;
 	}
 	
+	public static Node getFirstNodeRec (Node node, String name)
+	{
+		NodeList nList = node.getChildNodes();
+	
+	
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase(name))
+			{
+				return nNode;
+			}
+			Node ntmp = getFirstNodeRec (nNode, name);
+			if (ntmp != null)
+			{
+				return ntmp;
+			}
+		}
+		return null;
+	}
+	
 	
 	public static String getExpressionName (Node node)
 	{

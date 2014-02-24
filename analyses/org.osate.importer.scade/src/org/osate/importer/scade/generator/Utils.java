@@ -86,7 +86,7 @@ public class Utils {
 	
 	public static void writeBehaviorAnnex (StateMachine sm, BufferedWriter out) throws IOException
 	{
-		OsateDebug.osateDebug("WE GOT TWO !");
+		//OsateDebug.osateDebug("WE GOT TWO !");
 		out.write ("annex behavior_specification {**\n");
 
 		if (sm.getStates().size() > 0)
@@ -95,10 +95,6 @@ public class Utils {
 
 			for (State state : sm.getStates())
 			{
-				if ((! state.getStateMachine().isEmpty()) || (!state.isValid()))
-				{
-					continue;
-				}
 				
 				if (sectionStatesDeclared == false)
 				{
@@ -106,12 +102,12 @@ public class Utils {
 					sectionStatesDeclared = true;
 				}
 				
-				if (state.isValid() && sm.isInitialState (state))
+				if ( sm.isInitialState (state))
 				{
 					out.write ("   " + state.getName() + ": initial final state;\n");
 				}
 
-				if (state.isValid() && ( ! sm.isInitialState (state)))
+				if ( ! sm.isInitialState (state))
 				{
 					out.write ("   " + state.getName() + ": state;\n");
 				}
