@@ -255,7 +255,7 @@ public class ImportModel
 				 */
 				
 				StateMachine stateMachine = new StateMachine ();
-				ImportStateMachine.processStateMachine (nNode, stateMachine);
+				ImportStateMachine.processStateMachine (nNode, stateMachine, comp);
 				comp.addStateMachine (stateMachine);
 				model.addStateMachine (stateMachine);
 			}

@@ -48,6 +48,61 @@ public class Utils {
 	public static final int CONNECTION_FIELD_PORT_IN 		= 1;
 	public static final int CONNECTION_FIELD_PORT_OUT 		= 2;
 	
+	public static List<String> getAllReferencedVar (Node condition)
+	{
+		List<String> vars = new ArrayList<String>();
+		List<Node> nodes = new ArrayList<Node>();
+		
+		getAllNodes (nodes, condition, "constvarref");
+		
+		for (Node n : nodes)
+		{
+			vars.add(Utils.getNodeName(n));
+		}
+		
+		return vars;
+	}
+	
+	public static String mapConditionToString (Node condition)
+	{
+		Node operand = getFirstNode(condition, "binaryop");
+		if (operand == null)
+		{
+			Node varref = getFirstNodeRec(condition, "constvarref");
+			if (varref != null)
+			{
+				return getNodeName(varref);
+			}
+		}
+		else
+		{
+			String operandString = getNodeAttribute(operand, "operator");
+			List<Node> varrefs = new ArrayList<Node>();
+			getAllNodes(varrefs, condition, "constvarref");
+			if (varrefs.size() > 1)
+			{
+				return getNodeName(varrefs.get(0)) + operandString + getNodeName(varrefs.get(1));
+			}
+		}
+		return "unknown_condition";
+	}
+	
+	public static void getAllNodes (List<Node> list, Node n, String name)
+	{
+		NodeList nList = n.getChildNodes();
+		
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item (temp);
+			if (nNode.getNodeName().equalsIgnoreCase(name))
+			{
+				list.add (nNode);
+			}
+			getAllNodes (list, nNode, name);
+		}
+	}
+	
+	
 	
 	public static String getTagValue(String sTag, Element eElement)
 	{

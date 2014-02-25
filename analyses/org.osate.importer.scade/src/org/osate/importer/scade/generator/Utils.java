@@ -41,7 +41,28 @@ import org.osate.importer.model.sm.Transition;
 
 public class Utils {
 
+	public static boolean needConnection (StateMachine stateMachine, String portName)
+	{
+		for (String v : stateMachine.getVariables())
+		{
+			if (v.equalsIgnoreCase(portName))
+			{
+				return true;
+			}
+		}
+		
+		for (State s : stateMachine.getStates())
+		{
+			if (needConnection (s.getInternalStateMachine(), portName))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
+
 	public static void writeSubprogramSubcomponents
 		(StateMachine sm, BufferedWriter out, List<String> existingSubcomponents) throws IOException
 	{

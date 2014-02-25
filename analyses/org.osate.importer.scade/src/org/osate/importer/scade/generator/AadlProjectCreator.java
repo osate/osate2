@@ -93,20 +93,20 @@ public class AadlProjectCreator
 			ftmp.mkdir();
 		}
 	}
-	
+
 	public static void createAadlFunctions (String outputFile, Model genericModel)
 	{
 		FileWriter fstream;
 		BufferedWriter out;
 		String aadlPackagePrefix;
-		
+
 		aadlPackagePrefix = "";
-		
+
 		if (genericModel.getPackageName() != null)
 		{
 			aadlPackagePrefix = genericModel.getPackageName()+"::";
 		}
-		
+
 		try
 		{	 
 			fstream = new FileWriter(outputFile);
@@ -166,65 +166,65 @@ public class AadlProjectCreator
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public static void writeInnerStateMachine (StateMachine sm, BufferedWriter out) throws IOException
 	{
 
-			for (State s : sm.getStates())
+		for (State s : sm.getStates())
+		{
+			if (! s.getInternalStateMachine().isEmpty())
 			{
+				out.write ("system "+s.getName()+"\n");
+				if (s.getInternalStateMachine().hasVariables())
+				{
+					out.write("features\n");
+					for (String var : s.getInternalStateMachine().getVariables())
+					{
+						out.write("   ");
+						out.write(var);
+						out.write(" : in event data port ");
+						if (s.getInternalStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
+						{
+							out.write("generictype_boolean");
+						}
+						else
+						{
+							out.write("generictype");
+						}
+						out.write(";\n");
+					}
+				}
+				out.write ("end " + s.getName() + ";\n\n\n");
+
+
+				out.write ("system implementation "+s.getName()+".i\n");
 				if (! s.getInternalStateMachine().isEmpty())
 				{
-					out.write ("system "+s.getName()+"\n");
-					if (s.getInternalStateMachine().hasVariables())
-					{
-						out.write("features\n");
-						for (String var : s.getInternalStateMachine().getVariables())
-						{
-							out.write("   ");
-							out.write(var);
-							out.write(" : in event data port ");
-							if (s.getInternalStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
-							{
-								out.write("generictype_boolean");
-							}
-							else
-							{
-								out.write("generictype");
-							}
-							out.write(";\n");
-						}
-					}
-					out.write ("end " + s.getName() + ";\n\n\n");
-					
-					
-					out.write ("system implementation "+s.getName()+".i\n");
-					if (! s.getInternalStateMachine().isEmpty())
-					{
-						boolean subcomponentSectionWritten = false;
-						
-						for (State s2 : s.getInternalStateMachine().getStates())
-						{
-							if (! s2.getInternalStateMachine().isEmpty())
-							{
-								if (! subcomponentSectionWritten)
-								{
-									out.write ("subcomponents\n");
-									subcomponentSectionWritten = true;
-								}
-								out.write ("   " + s2.getName() + " : system "+s2.getName()+".i;\n");
-							}
-						}
-					}
-					Utils.writeBehaviorAnnex (s.getInternalStateMachine(), out);
-					out.write ("end " + s.getName() + ".i;\n\n\n");
-					
+					boolean subcomponentSectionWritten = false;
 
-					writeInnerStateMachine(s.getInternalStateMachine(), out);
-					
+					for (State s2 : s.getInternalStateMachine().getStates())
+					{
+						if (! s2.getInternalStateMachine().isEmpty())
+						{
+							if (! subcomponentSectionWritten)
+							{
+								out.write ("subcomponents\n");
+								subcomponentSectionWritten = true;
+							}
+							out.write ("   " + s2.getName() + " : system "+s2.getName()+".i;\n");
+						}
+					}
 				}
+				Utils.writeBehaviorAnnex (s.getInternalStateMachine(), out);
+				out.write ("end " + s.getName() + ".i;\n\n\n");
+
+
+				writeInnerStateMachine(s.getInternalStateMachine(), out);
+
 			}
-		
+		}
+
 	}
 
 	public static void createAadlRuntime (String outputFile, Model genericModel)
@@ -245,7 +245,7 @@ public class AadlProjectCreator
 			{
 				aadlPackagePrefix = genericModel.getPackageName()+"::";
 			}
-			
+
 			out.write ("package "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::runtime\n");
 
 			out.write ("public\n");
@@ -262,11 +262,18 @@ public class AadlProjectCreator
 
 			for (Component e : genericModel.getComponents())
 			{
+				StateMachine stateMachine = null;
+
+				if (e.getStateMachines().size() > 0)
+				{
+					stateMachine = e.getStateMachines().get(0);
+				}
+
 				if (e.getType() != Component.ComponentType.BLOCK)
 				{
 					continue;
 				}
-				
+
 				/**
 				 * Try to find if we have a corresponding state machine
 				 * for this component.
@@ -282,9 +289,9 @@ public class AadlProjectCreator
 				{
 					writeInnerStateMachine (sm, out);
 				}
-				
-				
-	
+
+
+
 
 				if (e.getParent() == null)
 				{
@@ -314,7 +321,7 @@ public class AadlProjectCreator
 							{
 								type = "generictype_boolean";
 							}
-							
+
 							out.write ("   "+e2.getAadlName()+" : "+direction+" event data port "+type+";\n");
 						}
 					}
@@ -326,133 +333,181 @@ public class AadlProjectCreator
 					{
 						out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
 					}
-					
-					
+
+
 					out.write ("end s_"+ e.getAadlName() + ";\n\n");
 
 					out.write ("system implementation s_"+e.getAadlName()+".i\n");
 
-						int connectionId = 0;
-						if ( ((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
-										||
-										(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
+					int connectionId = 0;
+					if ( ((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
+							||
+							(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
+					{
+						out.write ("connections\n");
+					}
+					//						for (Component e2 : e.getIncomingDependencies())
+					//						{
+					//							out.write ("   c" + connectionId++ +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
+					//						}
+					//						for (Component e2 : e.getOutgoingDependencies())
+					//						{
+					//							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+					//
+					//						}
+					boolean subcomponentSectionWritten = false;
+					if (e.hasSubcomponents())
+					{ 
+						if (! subcomponentSectionWritten)
 						{
-							out.write ("connections\n");
-						}
-//						for (Component e2 : e.getIncomingDependencies())
-//						{
-//							out.write ("   c" + connectionId++ +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
-//						}
-//						for (Component e2 : e.getOutgoingDependencies())
-//						{
-//							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
-//
-//						}
-						if (e.hasSubcomponents())
-						{ 
 							out.write ("subcomponents\n");
-							for (Component ctmp : e.getSubEntities())
+							subcomponentSectionWritten = true;
+						}
+						for (Component ctmp : e.getSubEntities())
+						{
+							if (ctmp.getType() == ComponentType.BLOCK)
 							{
-								if (ctmp.getType() == ComponentType.BLOCK)
-								{
-									out.write ("   " + ctmp.getAadlName() + " : system s_" + ctmp.getAadlName() + ";\n");
-								}
+								out.write ("   " + ctmp.getAadlName() + " : system s_" + ctmp.getAadlName() + ";\n");
 							}
 						}
-						if (e.getConnections().size() > 0)
+					}
+
+					if (stateMachine != null)
+					{
+						for (State s : stateMachine.getStates())
 						{
-							out.write ("connections\n");
-							int connIdentifier = 0;
-							for (Connection conn : e.getConnections())
+							if (! s.getInternalStateMachine().isEmpty())
 							{
 
-								/**
-								 * Connection between sub-components.
-								 */
-								if ( (conn.getSource().getType() == ComponentType.EXTERNAL_OUTPORT) &&
-								     (conn.getDestination().getType() == ComponentType.EXTERNAL_INPORT))
+
+								if (! subcomponentSectionWritten)
 								{
-									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getParent().getAadlName() +"."+conn.getSource().getAadlName() + " -> "+conn.getDestination().getParent().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+									out.write ("subcomponents\n");
+									subcomponentSectionWritten = true;
 								}
-								
-								/**
-								 * Connection from external interfaces to internal sub-components.
-								 */
-								if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT)
-								{
-									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + "." + conn.getDestination().getAadlName() +" -> "+conn.getDestination().getAadlName()+";\n");
-								}
-								
-								/**
-								 * Connection from internal sub-components to external interfaces.
-								 */
-								if (conn.getSource().getType() == ComponentType.EXTERNAL_INPORT)
-								{
-									out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + " -> "+conn.getDestination().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
-								}
-								
-								connIdentifier++;
+								out.write ("   " + s.getName() + " : system "+s.getName()+".i;\n");
+
 							}
-							
 						}
-						
-						StateMachine stateMachine = null;
-						
-						if (e.getStateMachines().size() > 0)
+					}
+
+					boolean connectionsSectionWritten = false;
+					int connIdentifier = 0;
+					if (e.getConnections().size() > 0)
+					{
+						out.write ("connections\n");
+						connectionsSectionWritten = true;
+
+						for (Connection conn : e.getConnections())
 						{
-							stateMachine = e.getStateMachines().get(0);
+
+							/**
+							 * Connection between sub-components.
+							 */
+							if ( (conn.getSource().getType() == ComponentType.EXTERNAL_OUTPORT) &&
+									(conn.getDestination().getType() == ComponentType.EXTERNAL_INPORT))
+							{
+								out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getParent().getAadlName() +"."+conn.getSource().getAadlName() + " -> "+conn.getDestination().getParent().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+							}
+
+							/**
+							 * Connection from external interfaces to internal sub-components.
+							 */
+							if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT)
+							{
+								out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + "." + conn.getDestination().getAadlName() +" -> "+conn.getDestination().getAadlName()+";\n");
+							}
+
+							/**
+							 * Connection from internal sub-components to external interfaces.
+							 */
+							if (conn.getSource().getType() == ComponentType.EXTERNAL_INPORT)
+							{
+								out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + " -> "+conn.getDestination().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+							}
+
+							connIdentifier++;
 						}
-						if (stateMachine != null)
+					}
+
+					if (stateMachine != null)
+					{
+						for (State s : stateMachine.getStates())
 						{
-							Utils.writeBehaviorAnnex (stateMachine, out);
-							
-//							if (stateMachine.hasVariables() || stateMachine.nestedStateMachinehasVariables() || stateMachine.hasNestedStateMachines())
-//							{
-//								out.write ("subcomponents\n");
-//							}
-//							
-//							Utils.writeSubprogramSubcomponents (stateMachine, out, new ArrayList<String>());
-//							
-							/**
-							 * Let's call the other subprogram that contains
-							 * the sub state machines. Then, if these
-							 * state machines share data, we need to
-							 * add data components and connect them. 
-							 */
-							
-//							if (sm.hasNestedStateMachines())
-//							{
-//
-//								for (State s : sm.getStates())
-//								{
-//									if (! s.getStateMachine().isEmpty())
-//									{
-//										out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
-//
-//									}
-//								}
-//							}
-							
-							
-							/**
-							 * 
-							 * Connect the data components shared among the different subprograms
-							 * using data access connections.
-							 */
-//							if (sm.nestedStateMachinehasVariables())
-//							{
-//
-//								out.write ("connections\n");
-//								for (State state : sm.getStates())
-//								{
-//									for (String var : state.getStateMachine().getVariables())
-//									{
-//										out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
-//
-//									}
-//								}
-//							}
+							if (! s.getInternalStateMachine().isEmpty())
+							{
+									for (Component subComponent : e.getSubEntities())
+									{
+										String varName = subComponent.getAadlName();
+										if (Utils.needConnection( s.getInternalStateMachine(), varName))
+										{
+											if (! connectionsSectionWritten)
+											{
+												out.write ("connections\n");
+												connectionsSectionWritten = true;
+											}
+
+											out.write ("   conn" + connIdentifier + " : port " + varName + " -> "+s.getName()+"."+varName+";\n");
+											connIdentifier++;
+										}
+									}
+								
+															}
 						}
+					}
+
+
+					if (stateMachine != null)
+					{
+						Utils.writeBehaviorAnnex (stateMachine, out);
+
+						//							if (stateMachine.hasVariables() || stateMachine.nestedStateMachinehasVariables() || stateMachine.hasNestedStateMachines())
+						//							{
+						//								out.write ("subcomponents\n");
+						//							}
+						//							
+						//							Utils.writeSubprogramSubcomponents (stateMachine, out, new ArrayList<String>());
+						//							
+						/**
+						 * Let's call the other subprogram that contains
+						 * the sub state machines. Then, if these
+						 * state machines share data, we need to
+						 * add data components and connect them. 
+						 */
+
+						//							if (sm.hasNestedStateMachines())
+						//							{
+						//
+						//								for (State s : sm.getStates())
+						//								{
+						//									if (! s.getStateMachine().isEmpty())
+						//									{
+						//										out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
+						//
+						//									}
+						//								}
+						//							}
+
+
+						/**
+						 * 
+						 * Connect the data components shared among the different subprograms
+						 * using data access connections.
+						 */
+						//							if (sm.nestedStateMachinehasVariables())
+						//							{
+						//
+						//								out.write ("connections\n");
+						//								for (State state : sm.getStates())
+						//								{
+						//									for (String var : state.getStateMachine().getVariables())
+						//									{
+						//										out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
+						//
+						//									}
+						//								}
+						//							}
+					}
 					out.write ("end s_"+ e.getAadlName() + ".i;\n\n");
 				}
 			}

@@ -32,6 +32,7 @@ package org.osate.importer.scade;
 
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
+import org.osate.importer.model.Component.PortType;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;
 import org.osate.importer.model.sm.Transition;
@@ -52,7 +53,7 @@ public class ImportStateMachine
 	 * @param stateMachine  - the state machine that will be completed with this function
 	 * @param component     - the mapped component that will contain the state machine
 	 */
-	public static void processStateMachine (Node smNode, StateMachine stateMachine)
+	public static void processStateMachine (Node smNode, StateMachine stateMachine, Component comp)
 	{
 		String smName = Utils.getNodeName (smNode);
 
@@ -67,14 +68,13 @@ public class ImportStateMachine
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeName().equalsIgnoreCase("states"))
 			{
-				
-				processStateMachineStates (nNode, smNode, stateMachine);
+				processStateMachineStates (nNode, smNode, stateMachine, comp);
 			}
 		}
 	}
 
 	
-	public static void processStateMachineStates (Node states, Node smNode, StateMachine stateMachine)
+	public static void processStateMachineStates (Node states, Node smNode, StateMachine stateMachine, Component comp)
 	{
 		NodeList nList = states.getChildNodes();
 
@@ -84,12 +84,12 @@ public class ImportStateMachine
 			if (nNode.getNodeName().equalsIgnoreCase("state"))
 			{
 				
-				processStateMachineState (nNode, smNode, stateMachine);
+				processStateMachineState (nNode, smNode, stateMachine, comp);
 			}
 		}
 	}
 	
-	public static void processStateMachineState (Node state, Node smNode, StateMachine stateMachine)
+	public static void processStateMachineState (Node state, Node smNode, StateMachine stateMachine, Component comp)
 	{
 		NodeList nList = state.getChildNodes();
 		String stateName = Utils.getNodeName(state);
@@ -100,15 +100,15 @@ public class ImportStateMachine
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
 			Node nNode = nList.item (temp);
-			processStateMachineStateTransition (nNode, state, smNode, s);
-			processStateMachineStateData (nNode, state, smNode, s);
+			processStateMachineStateTransition (nNode, state, smNode, s, comp);
+			processStateMachineStateData (nNode, state, smNode, s, comp);
 
 		}
 		OsateDebug.osateDebug("[ImportStateMachine] add state " + s.getName());
 		stateMachine.addState(s);
 	}
 	
-	public static void processStateMachineStateTransition (Node currentNode, Node stateNode, Node stateMachineNode, State state)
+	public static void processStateMachineStateTransition (Node currentNode, Node stateNode, Node stateMachineNode, State state, Component comp)
 	{
 		NodeList nList = currentNode.getChildNodes();
 		
@@ -130,14 +130,28 @@ public class ImportStateMachine
 				/**
 				 * Get the condition string
 				 */
-				Node condNode = Utils.getFirstNodeRec(nNode, "constvarref");
-				String conditionString = "";
-				if (condNode != null)
+				
+				Node condNode = Utils.getFirstNodeRec(nNode, "condition");
+				for (String condVar : Utils.getAllReferencedVar (condNode))
 				{
-					conditionString = Utils.getNodeName (condNode);
-					state.getParentStateMachine().addVariable(conditionString, StateMachine.VARIABLE_TYPE_BOOL);
+					int type = StateMachine.VARIABLE_TYPE_BOOL;
+
+					for (Component c : comp.getSubEntities())
+					{
+						if (c.getName().equalsIgnoreCase(condVar))
+						{
+							if (c.getPortType() != PortType.BOOL)
+							{
+								type = StateMachine.VARIABLE_TYPE_INTEGER;
+								
+							}
+						}
+					}
+					state.getParentStateMachine().addVariable(condVar, type);
+					
 				}
 				
+				String conditionString = Utils.mapConditionToString(condNode);
 				
 				Transition t = new Transition();
 				t.setSrcState(state);
@@ -149,12 +163,12 @@ public class ImportStateMachine
 			}
 			if (nNode.getNodeName().equalsIgnoreCase("unless"))
 			{
-				processStateMachineStateTransition (nNode, stateNode, stateMachineNode, state);
+				processStateMachineStateTransition (nNode, stateNode, stateMachineNode, state, comp);
 			}
 		}
 	}
 	
-	public static void processStateMachineStateData (Node currentNode, Node stateNode, Node stateMachineNode, State parentActivestate)
+	public static void processStateMachineStateData (Node currentNode, Node stateNode, Node stateMachineNode, State parentActivestate, Component comp)
 	{
 		NodeList nList = currentNode.getChildNodes();
 		
@@ -164,11 +178,11 @@ public class ImportStateMachine
 			if (nNode.getNodeName().equalsIgnoreCase("statemachine"))
 			{
 				OsateDebug.osateDebug("[ImportStateMachine] Add state machine to state" + parentActivestate.getName());
-				processStateMachine(nNode, parentActivestate.getInternalStateMachine());
+				processStateMachine(nNode, parentActivestate.getInternalStateMachine(), comp);
 			}
 			if (nNode.getNodeName().equalsIgnoreCase("data"))
 			{
-				processStateMachineStateData (nNode, stateNode, stateMachineNode, parentActivestate);
+				processStateMachineStateData (nNode, stateNode, stateMachineNode, parentActivestate, comp);
 			}
 		}
 	}
