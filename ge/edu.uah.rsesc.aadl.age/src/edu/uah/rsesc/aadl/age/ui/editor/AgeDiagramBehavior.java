@@ -25,6 +25,8 @@ import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
@@ -44,12 +46,30 @@ import java.util.Map;
 public class AgeDiagramBehavior extends DiagramBehavior {
 	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
+	private boolean updateInProgress = false;
+	private boolean updateWhenVisible = false;
+	
+	private PaintListener paintListener = new PaintListener() {
+		@Override
+		public void paintControl(PaintEvent e) {
+			if(updateWhenVisible) {
+				update();
+				updateWhenVisible = false;
+			}
+		}			
+	};
 	
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService) {
 		super(diagramContainer);
 		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
 	}	
+	
+	@Override
+	protected void addGefListeners() {
+		super.addGefListeners();
+		getContentEditPart().getViewer().getControl().addPaintListener(paintListener);
+	}
 	
 	private IXtextModelListener modelListener = new IXtextModelListener() {
 		@Override
@@ -62,34 +82,58 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
 					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
 				
-					// TODO: Prevent another update when one is running? Always need to run the last one though.
-					// TODO: Optimize the reason that the updating is slow.
-					// TODO: Need to be able to edit in split view
 					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
-						final Runnable updateDiagramRunnable = new Runnable() {
-							public void run() {			
-								// Don't update unless the diagram is visible
-								// TODO: Means that diagram has to be manually updated once it becomes visible..
-								if(getContentEditPart().getViewer().getControl().isVisible()) {
-									// Update the entire diagram
-									getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });									
-								}
-							}
-						};
-						
-						if(Display.getDefault().getThread() == Thread.currentThread()) {
-							Log.info("Updating diagram synchronously - current thread is the display thread");
-							updateDiagramRunnable.run();
-						} else {
-							Log.info("Updating diagram asynchronously - current thread is not the display thread");
-							Display.getDefault().asyncExec(updateDiagramRunnable);	
-						}
+						update();
 					}
 				}
 			}					
 		}	
 	};
 
+	private void update() {
+		final Runnable updateDiagramRunnable = new Runnable() {
+			private boolean updateQueued = false;
+			
+			public void run() {
+				// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
+				// Don't update if update is already in progress
+				if(!updateInProgress) {
+					updateQueued = false;
+					updateInProgress = true;
+					
+					try {
+						// Don't update unless the diagram is visible
+						if(getContentEditPart().getViewer().getControl().isVisible()) {
+							// Update the entire diagram
+							getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });									
+						} else {
+							// Queue the update for when the control becomes visible
+							updateWhenVisible = true;
+						}
+					} finally {
+						updateInProgress = false;
+					}
+					
+					// Check if an update has been queued
+					if(updateQueued) {
+						update();
+					}					
+				} else {
+					// Queue the update
+					updateQueued = true;
+				}								
+			}
+		};
+		
+		if(Display.getDefault().getThread() == Thread.currentThread()) {
+			Log.info("Updating diagram synchronously - current thread is the display thread");
+			updateDiagramRunnable.run();
+		} else {
+			Log.info("Updating diagram asynchronously - current thread is not the display thread");
+			Display.getDefault().asyncExec(updateDiagramRunnable);	
+		}
+	}
+	
 	@Override
 	protected DefaultUpdateBehavior createUpdateBehavior() {
 		return new AgeUpdateBehavior(this);

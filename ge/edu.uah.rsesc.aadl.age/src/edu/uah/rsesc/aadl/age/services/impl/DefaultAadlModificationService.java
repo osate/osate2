@@ -13,11 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -38,7 +34,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
-import edu.uah.rsesc.aadl.age.ui.util.SelectionHelper;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.util.Log;
 
