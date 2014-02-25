@@ -55,7 +55,7 @@ public class StateMachine {
 	{
 		for (State s : this.states)
 		{
-			if (s.getStateMachine().hasVariables())
+			if (s.getInternalStateMachine().hasVariables())
 			{
 				return true;
 			}
@@ -164,7 +164,7 @@ public class StateMachine {
 		}
 		State s = new State ();
 		s.setName(name);
-		s.setStateMachine(this);
+		s.setParentStateMachine(this);
 		this.addState(s);
 		return s;
 	}
@@ -178,7 +178,7 @@ public class StateMachine {
 				return;
 			}
 		}
-		OsateDebug.osateDebug("[StateMachine] add state " + s.getName() + " in state machine " + s.getStateMachine().getName());
+		OsateDebug.osateDebug("[StateMachine] add state " + s.getName() + " in state machine " + s.getParentStateMachine().getName());
 		this.states.add (s);
 	}
 	
@@ -246,7 +246,7 @@ public class StateMachine {
 	{
 		for (State s : this.states)
 		{
-			if (! s.getStateMachine().isEmpty())
+			if (! s.getInternalStateMachine().isEmpty())
 			{
 				return true;
 			}

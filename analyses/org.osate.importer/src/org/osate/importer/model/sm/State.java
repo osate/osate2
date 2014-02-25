@@ -11,6 +11,7 @@ public class State {
 	private List<Transition>	incomingTransitions;
 	private List<Transition>	outgoingTransitions;
 	private StateMachine		internalStateMachine;
+	private StateMachine		parentStateMachine;
 	private String 				entrypoint;
 	
 	public State ()
@@ -20,6 +21,7 @@ public class State {
 		this.incomingTransitions 	= new ArrayList<Transition> ();
 		this.outgoingTransitions 	= new ArrayList<Transition> ();
 		this.internalStateMachine	= new StateMachine ();
+		this.parentStateMachine     = null;
 		this.entrypoint				= null;
 	}
 	
@@ -43,12 +45,22 @@ public class State {
 		this.entrypoint = t;
 	}
 	
-	public StateMachine getStateMachine ()
+	public StateMachine getParentStateMachine ()
+	{
+		return this.parentStateMachine;
+	}
+	
+	public StateMachine getInternalStateMachine ()
 	{
 		return this.internalStateMachine;
 	}
 	
-	public void setStateMachine (StateMachine sm)
+	public void setParentStateMachine (StateMachine sm)
+	{
+		this.parentStateMachine = sm;
+	}
+	
+	public void setInternalStateMachine (StateMachine sm)
 	{
 		this.internalStateMachine = sm;
 	}
@@ -56,7 +68,7 @@ public class State {
 	public State (String n)
 	{
 		this ();
-		this.name = n;
+		this.setName(n);
 	}
 	
 	public String getName()
@@ -66,7 +78,16 @@ public class State {
 	
 	public void setName (String n)
 	{
-		String s = n.replace('\n', '_');
+		String s = n.toLowerCase();
+		if (s.equalsIgnoreCase("on"))
+		{
+			s = "son";
+		}
+		if (s.equalsIgnoreCase("off"))
+		{
+			s = "soff";
+		}
+		s = s.replace('\n', '_');
 		this.name = s;
 	}
 	

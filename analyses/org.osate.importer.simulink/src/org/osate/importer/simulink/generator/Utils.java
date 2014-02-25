@@ -85,7 +85,7 @@ public class Utils {
 		{
 			for (State s : sm.getStates())
 			{
-				writeSubprogramSubcomponents (s.getStateMachine(), out, existingSubcomponents);
+				writeSubprogramSubcomponents (s.getInternalStateMachine(), out, existingSubcomponents);
 			}
 		}
 	}
@@ -102,7 +102,7 @@ public class Utils {
 
 			for (State state : sm.getStates())
 			{
-				if ((! state.getStateMachine().isEmpty()) || (!state.isValid()))
+				if ((! state.getInternalStateMachine().isEmpty()) || (!state.isValid()))
 				{
 					continue;
 				}

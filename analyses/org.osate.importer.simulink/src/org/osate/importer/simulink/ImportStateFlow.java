@@ -259,7 +259,7 @@ public class ImportStateFlow {
 				 */
 				if (nNode.getNodeName().equalsIgnoreCase("children"))
 				{
-					processStateFlowChild(nNode, newState.getStateMachine());
+					processStateFlowChild(nNode, newState.getInternalStateMachine());
 				}
 	
 				if (nNode.getNodeName().equalsIgnoreCase("p"))
@@ -271,7 +271,7 @@ public class ImportStateFlow {
 					{
 						String label = nNode.getTextContent();
 						newState.setName(Utils.filterStateName(label));
-						newState.getStateMachine().setName(Utils.filterStateName(label));
+						newState.getInternalStateMachine().setName(Utils.filterStateName(label));
 	//					OsateDebug.osateDebug("[FileImport] Label="+label);
 						
 						for (String var : Utils.getVariablesFromConditionOrAction(Utils.getStatementsFromStateLabelString(label)))

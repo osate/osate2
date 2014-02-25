@@ -49,11 +49,10 @@ public class ImportStateMachine
 	 * Process the XML node StateMachine in the SCADE model
 	 * and complete the stateMachine abstract/generic object
 	 * @param smNode        - the XML node that contains the State Machine in the SCADE model
-	 * @param operatorNode  - the main operator node in the SCADE model
 	 * @param stateMachine  - the state machine that will be completed with this function
 	 * @param component     - the mapped component that will contain the state machine
 	 */
-	public static void processStateMachine (Node smNode, Node operatorNode, StateMachine stateMachine, Component component)
+	public static void processStateMachine (Node smNode, StateMachine stateMachine)
 	{
 		String smName = Utils.getNodeName (smNode);
 
@@ -69,13 +68,13 @@ public class ImportStateMachine
 			if (nNode.getNodeName().equalsIgnoreCase("states"))
 			{
 				
-				processStateMachineStates (nNode, smNode, operatorNode, stateMachine, component);
+				processStateMachineStates (nNode, smNode, stateMachine);
 			}
 		}
 	}
 
 	
-	public static void processStateMachineStates (Node states, Node smNode, Node operatorNode, StateMachine stateMachine, Component component)
+	public static void processStateMachineStates (Node states, Node smNode, StateMachine stateMachine)
 	{
 		NodeList nList = states.getChildNodes();
 
@@ -85,12 +84,12 @@ public class ImportStateMachine
 			if (nNode.getNodeName().equalsIgnoreCase("state"))
 			{
 				
-				processStateMachineState (nNode, smNode, operatorNode, stateMachine, component);
+				processStateMachineState (nNode, smNode, stateMachine);
 			}
 		}
 	}
 	
-	public static void processStateMachineState (Node state, Node smNode, Node operatorNode, StateMachine stateMachine, Component component)
+	public static void processStateMachineState (Node state, Node smNode, StateMachine stateMachine)
 	{
 		NodeList nList = state.getChildNodes();
 		String stateName = Utils.getNodeName(state);
@@ -126,7 +125,7 @@ public class ImportStateMachine
 				 */
 				String targetStateName = Utils.getNodeName(stateRefNode);
 				OsateDebug.osateDebug("[ImportModel] target state name=" + targetStateName);
-				State targetState = state.getStateMachine().getState (targetStateName);
+				State targetState = state.getParentStateMachine().getState (targetStateName);
 				
 				/**
 				 * Get the condition string
@@ -136,6 +135,7 @@ public class ImportStateMachine
 				if (condNode != null)
 				{
 					conditionString = Utils.getNodeName (condNode);
+					state.getParentStateMachine().addVariable(conditionString, StateMachine.VARIABLE_TYPE_BOOL);
 				}
 				
 				
@@ -143,7 +143,7 @@ public class ImportStateMachine
 				t.setSrcState(state);
 				t.setDstState(targetState);
 				t.setCondition(conditionString);
-				state.getStateMachine().addTransition(t);
+				state.getParentStateMachine().addTransition(t);
 				OsateDebug.osateDebug("[ImportModel] add transition=" + t);
 
 			}
@@ -154,7 +154,7 @@ public class ImportStateMachine
 		}
 	}
 	
-	public static void processStateMachineStateData (Node currentNode, Node stateNode, Node stateMachineNode, State state)
+	public static void processStateMachineStateData (Node currentNode, Node stateNode, Node stateMachineNode, State parentActivestate)
 	{
 		NodeList nList = currentNode.getChildNodes();
 		
@@ -163,16 +163,12 @@ public class ImportStateMachine
 			Node nNode = nList.item (temp);
 			if (nNode.getNodeName().equalsIgnoreCase("statemachine"))
 			{
-				String innerStateMachineName = Utils.getNodeName(nNode);
-				if (innerStateMachineName != null)
-				{
-					OsateDebug.osateDebug("[ImportStateMachine] inner state machine " + innerStateMachineName);
-				}
-
+				OsateDebug.osateDebug("[ImportStateMachine] Add state machine to state" + parentActivestate.getName());
+				processStateMachine(nNode, parentActivestate.getInternalStateMachine());
 			}
 			if (nNode.getNodeName().equalsIgnoreCase("data"))
 			{
-				processStateMachineStateData (nNode, stateNode, stateMachineNode, state);
+				processStateMachineStateData (nNode, stateNode, stateMachineNode, parentActivestate);
 			}
 		}
 	}

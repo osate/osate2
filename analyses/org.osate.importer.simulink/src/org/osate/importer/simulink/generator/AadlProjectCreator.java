@@ -222,18 +222,18 @@ public class AadlProjectCreator
 				{
 					for (State s : sm.getStates())
 					{
-						if (! s.getStateMachine().isEmpty())
+						if (! s.getInternalStateMachine().isEmpty())
 						{
 							out.write ("system "+s.getName()+"\n");
-							if (s.getStateMachine().hasVariables())
+							if (s.getInternalStateMachine().hasVariables())
 							{
 								out.write("features\n");
-								for (String var : s.getStateMachine().getVariables())
+								for (String var : s.getInternalStateMachine().getVariables())
 								{
 									out.write("   ");
 									out.write(var);
 									out.write(" : requires data access ");
-									if (s.getStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
+									if (s.getInternalStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
 									{
 										out.write("generictype_boolean");
 									}
@@ -248,7 +248,7 @@ public class AadlProjectCreator
 							
 							
 							out.write ("system implementation "+s.getName()+".i\n");
-							Utils.writeBehaviorAnnex (s.getStateMachine(), out);
+							Utils.writeBehaviorAnnex (s.getInternalStateMachine(), out);
 							out.write ("end " + s.getName() + ".i;\n\n\n");
 						}
 					}
@@ -321,7 +321,7 @@ public class AadlProjectCreator
 
 								for (State s : sm.getStates())
 								{
-									if (! s.getStateMachine().isEmpty())
+									if (! s.getInternalStateMachine().isEmpty())
 									{
 										out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
 
@@ -341,7 +341,7 @@ public class AadlProjectCreator
 								out.write ("connections\n");
 								for (State state : sm.getStates())
 								{
-									for (String var : state.getStateMachine().getVariables())
+									for (String var : state.getInternalStateMachine().getVariables())
 									{
 										out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
 
