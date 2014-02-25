@@ -10,7 +10,17 @@ public class State {
 	private int					identifier;
 	private List<Transition>	incomingTransitions;
 	private List<Transition>	outgoingTransitions;
+
+	/**
+	 * The internal state machine is the state machine
+	 * used when being in this state.
+	 */
 	private StateMachine		internalStateMachine;
+	
+	/**
+	 * The parent state machine is the state machine
+	 * where the state belongs to.
+	 */
 	private StateMachine		parentStateMachine;
 	private String 				entrypoint;
 	

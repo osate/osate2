@@ -30,7 +30,6 @@
 
 package org.osate.importer.scade;
 
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.PortType;
 import org.osate.importer.model.sm.State;
@@ -57,7 +56,7 @@ public class ImportStateMachine
 	{
 		String smName = Utils.getNodeName (smNode);
 
-		OsateDebug.osateDebug("[ImportModel] state machine name=" + smName);
+//		OsateDebug.osateDebug("[ImportModel] state machine name=" + smName);
 		
 		stateMachine.setName(smName);
 		
@@ -94,7 +93,7 @@ public class ImportStateMachine
 		NodeList nList = state.getChildNodes();
 		String stateName = Utils.getNodeName(state);
 		
-		OsateDebug.osateDebug("[ImportModel] state name=" + stateName);
+//		OsateDebug.osateDebug("[ImportModel] state name=" + stateName);
 		State s = stateMachine.getState(stateName);
 		
 		for (int temp = 0; temp < nList.getLength(); temp++) 
@@ -104,10 +103,20 @@ public class ImportStateMachine
 			processStateMachineStateData (nNode, state, smNode, s, comp);
 
 		}
-		OsateDebug.osateDebug("[ImportStateMachine] add state " + s.getName());
+//		OsateDebug.osateDebug("[ImportStateMachine] add state " + s.getName());
 		stateMachine.addState(s);
 	}
 	
+	
+	/**
+	 * Map a state machine transition from SCADE into our generic State Machine
+	 * 
+	 * @param currentNode        - the current XML node in the SCADE file
+	 * @param stateNode          - the state Node in the SCADE file
+	 * @param stateMachineNode   - the XML node for the state machine
+	 * @param state              - the current state
+	 * @param comp               - the component that contain the state machine
+	 */
 	public static void processStateMachineStateTransition (Node currentNode, Node stateNode, Node stateMachineNode, State state, Component comp)
 	{
 		NodeList nList = currentNode.getChildNodes();
@@ -124,13 +133,12 @@ public class ImportStateMachine
 				 * Get the target state name
 				 */
 				String targetStateName = Utils.getNodeName(stateRefNode);
-				OsateDebug.osateDebug("[ImportModel] target state name=" + targetStateName);
+//				OsateDebug.osateDebug("[ImportModel] target state name=" + targetStateName);
 				State targetState = state.getParentStateMachine().getState (targetStateName);
 				
 				/**
 				 * Get the condition string
 				 */
-				
 				Node condNode = Utils.getFirstNodeRec(nNode, "condition");
 				for (String condVar : Utils.getAllReferencedVar (condNode))
 				{
@@ -158,7 +166,7 @@ public class ImportStateMachine
 				t.setDstState(targetState);
 				t.setCondition(conditionString);
 				state.getParentStateMachine().addTransition(t);
-				OsateDebug.osateDebug("[ImportModel] add transition=" + t);
+//				OsateDebug.osateDebug("[ImportModel] add transition=" + t);
 
 			}
 			if (nNode.getNodeName().equalsIgnoreCase("unless"))
@@ -168,6 +176,16 @@ public class ImportStateMachine
 		}
 	}
 	
+	
+	/**
+	 * process the <data/> node for a state machine.
+	 * 
+	 * @param currentNode        - the current XML node
+	 * @param stateNode          - the node containing the state
+	 * @param stateMachineNode   - the state machine node containing the data
+	 * @param parentActivestate  - the active states containing the data if any
+	 * @param comp               - the component that contains the state machine
+	 */
 	public static void processStateMachineStateData (Node currentNode, Node stateNode, Node stateMachineNode, State parentActivestate, Component comp)
 	{
 		NodeList nList = currentNode.getChildNodes();
@@ -177,7 +195,7 @@ public class ImportStateMachine
 			Node nNode = nList.item (temp);
 			if (nNode.getNodeName().equalsIgnoreCase("statemachine"))
 			{
-				OsateDebug.osateDebug("[ImportStateMachine] Add state machine to state" + parentActivestate.getName());
+//				OsateDebug.osateDebug("[ImportStateMachine] Add state machine to state" + parentActivestate.getName());
 				processStateMachine(nNode, parentActivestate.getInternalStateMachine(), comp);
 			}
 			if (nNode.getNodeName().equalsIgnoreCase("data"))

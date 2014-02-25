@@ -48,6 +48,12 @@ public class Utils {
 	public static final int CONNECTION_FIELD_PORT_IN 		= 1;
 	public static final int CONNECTION_FIELD_PORT_OUT 		= 2;
 	
+	
+	/**
+	 * Get all the referenced variables from a condition node.
+	 * @param condition - the XML node that references the condition in the SCADE XML file.
+	 * @return          - a list of variable names referenced in the condition.
+	 */
 	public static List<String> getAllReferencedVar (Node condition)
 	{
 		List<String> vars = new ArrayList<String>();
@@ -63,6 +69,13 @@ public class Utils {
 		return vars;
 	}
 	
+	/**
+	 * Map the <condition/> XML node into a string that can
+	 * be used with the behavior annex
+	 * 
+	 * @param condition - the XML node that contains the condition in the SCADE model
+	 * @return          - a string representing the condition in the behavior annex
+	 */
 	public static String mapConditionToString (Node condition)
 	{
 		Node operand = getFirstNode(condition, "binaryop");
@@ -87,6 +100,13 @@ public class Utils {
 		return "unknown_condition";
 	}
 	
+	/**
+	 * Get all sub nodes that have a particular names and add them
+	 * in a list.
+	 * @param list - The list that will contain the result
+	 * @param n    - the top node that is used to browse the XML tree
+	 * @param name - the name of the node we are looking for.
+	 */
 	public static void getAllNodes (List<Node> list, Node n, String name)
 	{
 		NodeList nList = n.getChildNodes();
@@ -123,7 +143,12 @@ public class Utils {
 		}
 	}
 
-
+	/**
+	 * Get the value of a specific attribute on an XML node
+	 * @param node  - the XML node that contains the attribute.
+	 * @param attr  - the name of the attribute
+	 * @return      - a node containing the attribute.
+	 */
 	public static Node getAttribute (Node node, String attr)
 	{
 		return node.getAttributes().getNamedItem(attr);
@@ -477,7 +502,7 @@ public class Utils {
 			}
 			catch (Exception e)
 			{
-				OsateDebug.osateDebug("[Utils] invalid string");
+//				OsateDebug.osateDebug("[Utils] invalid string");
 				return 0;
 			}
 			switch (field)
