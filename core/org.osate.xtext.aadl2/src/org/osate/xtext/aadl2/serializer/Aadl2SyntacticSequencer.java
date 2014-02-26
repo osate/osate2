@@ -75,6 +75,14 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 		if (semanticObject instanceof FlowImplementation){
 			FlowEnd outend = ((FlowImplementation)semanticObject).getSpecification().getOutEnd();
 			FlowEnd inend = ((FlowImplementation)semanticObject).getSpecification().getInEnd();
+			
+			// For some reason this can be called when handling Flow Sink Implementations. In that case, return the name of the in end unless there actually is an out end set.
+			if(((FlowImplementation)semanticObject).getKind() == FlowKind.SINK) {
+				if(outend == null && inend != null) {
+					return AadlUtil.getFlowEndName(inend);
+				}
+				return AadlUtil.getFlowEndName(outend);
+			}
 			String head = (((FlowImplementation)semanticObject).getKind() == FlowKind.PATH && ((FlowImplementation)semanticObject).getOwnedFlowSegments().isEmpty()?AadlUtil.getFlowEndName(inend)+" -> ":"");
  			return head+AadlUtil.getFlowEndName(outend);
 		}
