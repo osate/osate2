@@ -229,26 +229,29 @@ public class AadlProjectCreator {
 					  out.write ("};\n");
 					  
 					  out.write ("connections\n");
+					  int connId = 0;
 					  for (Component etmp : e.getSubEntities())
 					  {
 						  for (Component e2 : etmp.getIncomingDependencies())
 						  {
 							  if (e.contains(e2))
 							  {
-								  out.write ("   parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> call_"+e2.getAadlName()+"to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
+								  out.write ("   c" + connId + ": parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> call_"+e2.getAadlName()+"to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
 
 							  }
 							  else
 							  {
-								  out.write ("   parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
+								  out.write ("   c" + connId + ": parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
 							  }
+							  connId++;
 						  }
 						  for (Component e2 : etmp.getOutgoingDependencies())
 						  {
 							  if (e.contains(e2))
 							  {
-								  out.write ("   parameter call_"+e2.getAadlName()+ "to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
+								  out.write ("   c" + connId + ": parameter call_"+e2.getAadlName()+ "to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
 							  }
+							  connId++;
 						  }
 					  }
 				  }
@@ -308,14 +311,16 @@ public class AadlProjectCreator {
 						{
 					  out.write ("connections\n");
 						}
+					  int connId = 0;
 					  for (Component e2 : e.getIncomingDependencies())
 					  {
-						  out.write ("   parameter from_"+e2.getAadlName()+" -> call1.to_"+e.getAadlName()+"_from_"+e2.getAadlName()+";\n");
+						  out.write ("   c" + connId + ": parameter from_"+e2.getAadlName()+" -> call1.to_"+e.getAadlName()+"_from_"+e2.getAadlName()+";\n");
+						  connId++;
 					  }
 					  for (Component e2 : e.getOutgoingDependencies())
 					  {
-						  out.write ("   parameter call1.from_"+e.getAadlName()+"_to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
-	
+						  out.write ("   c" + connId + ": parameter call1.from_"+e.getAadlName()+"_to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+						  connId++;
 					  }
 					  out.write ("end thr_"+ e.getAadlName() + ".i;\n\n");
 					  
@@ -351,12 +356,13 @@ public class AadlProjectCreator {
 						}
 					  for (Component e2 : e.getIncomingDependencies())
 					  {
-						  out.write ("   port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
+						  out.write ("   c" + connId + ": port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
+						  connId++;
 					  }
 					  for (Component e2 : e.getOutgoingDependencies())
 					  {
-						  out.write ("   port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
-	
+						  out.write ("   c" + connId + ": port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+						  connId++;
 					  }
 					  out.write ("end pr_"+ e.getAadlName() + ".i;\n\n");
 				  }
@@ -458,13 +464,15 @@ public class AadlProjectCreator {
 				  out.write("	ram    : memory ram.i;\n");
 			  }
 			  
-			  
+
+			  int connId = 0;
 			  for (Component e : matrix.getModules())
 			  {
 				  if (e.getParent() != null)
 				  {
 					  continue;
 				  }
+
 				  for (Component e2 : e.getOutgoingDependencies())
 				  {
 					  if (!connectionPreamble)
@@ -472,7 +480,8 @@ public class AadlProjectCreator {
 						  connectionPreamble = true;
 						  out.write("connections\n");
 					  }
-					  out.write("   port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					  out.write("   c" + connId + ": port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					  connId++;
 				  }
 			  }
 			  
