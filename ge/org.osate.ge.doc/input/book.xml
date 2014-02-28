@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "../docbook-xml-4.5/docbookx.dtd">
+
+<book>
+	<title>OSATE Graphical Editor User Guide</title>
+	<bookinfo>
+		<title>OSATE Graphical Editor User Guide</title>
+	</bookinfo>
+	<section>
+		<title>Getting Started</title>
+		<para>The OSATE Graphical Editor allows viewing and manipulating AADL declarative models in a graphical way.</para>
+		<section>
+			<title>Creating a new AADL Package </title>
+			<para>A new AADL package and an associated diagram can be created by using a wizard.</para>
+			<orderedlist>
+				<listitem>
+					<para>Open the new file dialog by selecting <emphasis>File->New->Other...</emphasis></para>
+				</listitem>
+				<listitem>
+					<para>Select <emphasis>Aadl Package (Graphical).</emphasis></para>
+				</listitem>
+				<listitem>
+					<para>Enter a name for the new package.</para>
+				</listitem>
+				<listitem>
+					<para>Select the AADL Project to create the package inside.</para>
+				</listitem>
+				<listitem>
+					<para>Select <emphasis>Finish</emphasis>.</para>
+				</listitem>
+			</orderedlist>
+			<para>The new package will appear in the graphical editor.</para>
+		</section>
+		<section>
+			<title>Opening an Existing AADL Model</title>
+			<para>An existing AADL model can be opened in the graphical editor. Changes made to either the AADL source or the diagram will be reflected in the other.</para>
+			<orderedlist>
+				<listitem>
+					<para>Open an existing AADL source file.</para>
+				</listitem>
+				<listitem>
+					<para>Right click the AADL package or component in the <emphasis>Outline view</emphasis>.</para>
+				</listitem>
+				<listitem>
+					<para>Select <emphasis>Open Package Diagram</emphasis> for the package that contains the element. Select <emphasis>Open Classifier Diagram</emphasis> to open the diagram for the selected classifier. The diagram will be created if one does not already exist.</para>
+				</listitem>
+			</orderedlist>
+			<para>The diagram for the element will appear in the graphical editor.</para>
+		</section>
+	</section>	
+	<section>
+		<title>Notes</title>
+		<para><emphasis>Project->Build Automatically</emphasis> must be enabled. If it is not enabled, the graphical editor will not function properly.</para>
+		<para>The OSATE Graphical Editor stores diagrams in files with names based on UUID's. Eclipse's Project Explorer view will show the title of the diagrams instead of the filenames.</para>
+	</section>	
+</book> 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<toc label="OSATE Graphical Editor User Guide" topic="output\index.html">
+   <topic label="Getting Started" href="output\index.html#d0e7">
+      <topic label="Creating a new AADL Package" href="output\index.html#d0e12"/>
+      <topic label="Opening an Existing AADL Model" href="output\index.html#d0e42"/>
+   </topic>
+   <topic label="Notes" href="output\bk01s02.html"/>
+</toc>
