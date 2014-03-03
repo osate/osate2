@@ -674,9 +674,13 @@
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AnnexLibrary"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//DefaultAnnexLibrary">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//DefaultAnnexLibrary/sourceText"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DefaultAnnexLibrary/parsedAnnexLibrary"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//DefaultAnnexSubclause">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//DefaultAnnexSubclause/sourceText"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DefaultAnnexSubclause/parsedAnnexSubclause"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PublicPackageSection">
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
