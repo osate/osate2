@@ -206,6 +206,11 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		return isInitial.booleanValue();
 	}
 
+	@Override
+	public boolean isDerived() {
+		return false;
+	}
+
 	public String toString() {
 		/* Don't return a string with spaces in it becase this is used to 
 		 * create a name for the object, and we cannot have spaces in our 
