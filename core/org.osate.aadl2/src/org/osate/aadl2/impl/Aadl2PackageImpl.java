@@ -5155,6 +5155,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getDefaultAnnexLibrary_ParsedAnnexLibrary() {
+		return (EReference) getDefaultAnnexLibrary().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDefaultAnnexSubclause() {
 		if (defaultAnnexSubclauseEClass == null) {
 			defaultAnnexSubclauseEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
@@ -5170,6 +5179,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	public EAttribute getDefaultAnnexSubclause_SourceText() {
 		return (EAttribute) getDefaultAnnexSubclause().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDefaultAnnexSubclause_ParsedAnnexSubclause() {
+		return (EReference) getDefaultAnnexSubclause().getEStructuralFeatures().get(1);
 	}
 
 	/**
