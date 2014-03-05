@@ -211,7 +211,7 @@ public class FileUtils
       
       if(! result.exists())
       {
-        throw new FileNotFoundException (path) ;
+        throw new FileNotFoundException ('\'' + path + "\' is not found") ;
       }
       else
       {
@@ -220,7 +220,7 @@ public class FileUtils
     }
     else
     {
-      throw new FileNotFoundException("null") ;
+      throw new FileNotFoundException("the given path is null") ;
     }
   }
   
