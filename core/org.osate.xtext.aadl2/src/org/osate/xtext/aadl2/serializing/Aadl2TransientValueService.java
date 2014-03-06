@@ -48,6 +48,8 @@ public class Aadl2TransientValueService  extends DefaultTransientValueService {
 					|| feature == Aadl2Package.eINSTANCE.getSubprogramCall_Context()
 					|| feature == Aadl2Package.eINSTANCE.getModalElement_InMode()
 					|| feature == Aadl2Package.eINSTANCE.getElement_OwnedComment()
+					|| feature == Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_ParsedAnnexLibrary()
+					|| feature == Aadl2Package.eINSTANCE.getDefaultAnnexSubclause_ParsedAnnexSubclause()
 					) return true;
 //			else if (owner instanceof PackageSection && feature == Aadl2Package.eINSTANCE.getNamedElement_Name()){
 //				// name not explicitly stored

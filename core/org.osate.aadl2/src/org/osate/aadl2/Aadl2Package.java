@@ -12321,13 +12321,22 @@ public interface Aadl2Package extends EPackage {
 	int DEFAULT_ANNEX_LIBRARY__SOURCE_TEXT = ANNEX_LIBRARY_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Parsed Annex Library</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFAULT_ANNEX_LIBRARY__PARSED_ANNEX_LIBRARY = ANNEX_LIBRARY_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Default Annex Library</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEFAULT_ANNEX_LIBRARY_FEATURE_COUNT = ANNEX_LIBRARY_FEATURE_COUNT + 1;
+	int DEFAULT_ANNEX_LIBRARY_FEATURE_COUNT = ANNEX_LIBRARY_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -12393,13 +12402,22 @@ public interface Aadl2Package extends EPackage {
 	int DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT = ANNEX_SUBCLAUSE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Parsed Annex Subclause</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE = ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Default Annex Subclause</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEFAULT_ANNEX_SUBCLAUSE_FEATURE_COUNT = ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
+	int DEFAULT_ANNEX_SUBCLAUSE_FEATURE_COUNT = ANNEX_SUBCLAUSE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38423,6 +38441,17 @@ public interface Aadl2Package extends EPackage {
 	EAttribute getDefaultAnnexLibrary_SourceText();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.DefaultAnnexLibrary#getParsedAnnexLibrary <em>Parsed Annex Library</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Parsed Annex Library</em>'.
+	 * @see org.osate.aadl2.DefaultAnnexLibrary#getParsedAnnexLibrary()
+	 * @see #getDefaultAnnexLibrary()
+	 * @generated
+	 */
+	EReference getDefaultAnnexLibrary_ParsedAnnexLibrary();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.DefaultAnnexSubclause <em>Default Annex Subclause</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38442,6 +38471,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDefaultAnnexSubclause_SourceText();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.DefaultAnnexSubclause#getParsedAnnexSubclause <em>Parsed Annex Subclause</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Parsed Annex Subclause</em>'.
+	 * @see org.osate.aadl2.DefaultAnnexSubclause#getParsedAnnexSubclause()
+	 * @see #getDefaultAnnexSubclause()
+	 * @generated
+	 */
+	EReference getDefaultAnnexSubclause_ParsedAnnexSubclause();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.PublicPackageSection <em>Public Package Section</em>}'.

@@ -997,10 +997,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="DefaultAnnexLibrary" eSuperTypes="#//AnnexLibrary">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceText" ordered="false"
         lowerBound="1" eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parsedAnnexLibrary" ordered="false"
+        eType="#//AnnexLibrary" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DefaultAnnexSubclause" eSuperTypes="#//AnnexSubclause">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceText" ordered="false"
         lowerBound="1" eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parsedAnnexSubclause" ordered="false"
+        eType="#//AnnexSubclause" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PublicPackageSection" eSuperTypes="#//PackageSection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="privateSection" ordered="false"
