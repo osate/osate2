@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -18,10 +19,17 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class AnnexUtil {
 	
 	public static AnnexParseResult getAnnexParseResult(EObject obj)	{
+		if (obj instanceof DefaultAnnexLibrary){
+			obj = ((DefaultAnnexLibrary)obj).getParsedAnnexLibrary();
+		} else if (obj instanceof DefaultAnnexSubclause){
+			obj = ((DefaultAnnexSubclause)obj).getParsedAnnexSubclause();
+		}
+		if (obj == null) return null;
 		// Find the Parseresult information
 		for(Adapter adapter : obj.eAdapters()) {
 			if(adapter instanceof AnnexParseResult) {
@@ -30,25 +38,53 @@ public class AnnexUtil {
 		}
 		return null;
 	}
+	
+	public static String getSourceText(EObject annexObj){
+		if (annexObj instanceof DefaultAnnexLibrary){
+			return ((DefaultAnnexLibrary)annexObj).getSourceText();
+		}
+		if (annexObj instanceof DefaultAnnexSubclause){
+			return ((DefaultAnnexSubclause)annexObj).getSourceText();
+		}
+		if (annexObj instanceof AnnexLibrary){
+			return ((DefaultAnnexLibrary)annexObj.eContainer()).getSourceText();
+		}
+		if (annexObj instanceof AnnexSubclause){
+			return ((DefaultAnnexSubclause)annexObj.eContainer()).getSourceText();
+		}
+		return "";
+	}
 
 	
-	/**
-	 * get the root element of the actual annex subclause/library for the given default annex subclause/library
-	 * @param obj EObject DefaultAnnexSubclause or DefaultAnnexLibrary
-	 * @return actual annex subclause or library or null
-	 */
-	public static EObject getAnnexRootElement(EObject obj)	{
-		// Find the Parseresult information
-		for(Adapter adapter : obj.eAdapters()) {
-			if(adapter instanceof AnnexParseResult) {
-				AnnexParseResult apr = (AnnexParseResult) adapter;
-				if (apr.getParseResult() != null)
-					return apr.getParseResult().getRootASTElement();
-			}
+	public static EObject getParsedAnnex(EObject annexObj){
+		if (annexObj instanceof DefaultAnnexLibrary){
+			return ((DefaultAnnexLibrary)annexObj).getParsedAnnexLibrary();
+		}
+		if (annexObj instanceof DefaultAnnexSubclause){
+			return ((DefaultAnnexSubclause)annexObj).getParsedAnnexSubclause();
+		}
+		if (annexObj instanceof AnnexLibrary){
+			return annexObj;
+		}
+		if (annexObj instanceof AnnexSubclause){
+			return annexObj;
 		}
 		return null;
 	}
 
+
+	public static int getAnnexOffset(EObject asc, int sourcelength){
+		INode node = NodeModelUtils.findActualNodeFor(asc);
+		if (node != null){
+			int offset = node.getOffset();
+			int nlength = node.getLength();
+			offset = offset + (nlength-sourcelength-1)+3;
+			return offset;
+		} else {
+			return 0;
+		}
+	}
+	
 	
 	/**
 	 * get the line number for a given model object in the core model
