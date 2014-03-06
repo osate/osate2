@@ -44,6 +44,7 @@ public class AadlBaSemanticHighlighter implements AnnexHighlighter
 	public void highlightAnnexSubclause(AnnexSubclause subclause,
 			AnnexHighlighterPositionAcceptor acceptor) {
     BehaviorAnnex actualBA = (BehaviorAnnex)AnnexUtil.getParsedAnnex(subclause) ;
+    if (actualBA != null){
     XtextAadlBaHighlighter ht = (XtextAadlBaHighlighter) actualBA.getHighlighters().get(actualBA);
     for (AadlBaLocationReference location : ht.getElementsToHighlitght(actualBA))
 	    {
@@ -51,6 +52,6 @@ public class AadlBaSemanticHighlighter implements AnnexHighlighter
 	                            location.getLength(),
 	                            location.getId());
 	    }
-		
+    }
 	}
 }
