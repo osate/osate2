@@ -48,8 +48,7 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 			// handle extensionpoint based text position
 			EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 			if (obj instanceof NamedElement){
-				AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-				EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+				EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 				if (actualAnnexElement != null){
 					String annexName = ((NamedElement)obj).getName();
 					if (textpositionresolverregistry == null) initTextPositionResolverRegistry();

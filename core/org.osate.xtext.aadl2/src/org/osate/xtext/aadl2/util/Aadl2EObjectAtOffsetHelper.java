@@ -58,8 +58,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 					// find the actual subclause or library instead of the default one found from the NodeModel
 					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
 						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+						EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 						if (atpr != null&& actualAnnexElement != null){
 							TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset);
 							return tpo.getModelObject();
@@ -109,8 +108,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 					// find the actual subclause or library instead of the default one found from the NodeModel
 					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
 						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+						EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 						if (atpr != null&& actualAnnexElement != null){
 							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset);
 							return tpo.getModelObject();
