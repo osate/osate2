@@ -172,7 +172,11 @@ public class AnnexParserAgent  extends LazyLinker {
 						if (resolver != null
 							    &&hasToResolveAnnex &&
 							    errReporter.getNumErrors() == errs){
+							errs =resolveErrManager.getNumErrors();
 							resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+							if (errs !=resolveErrManager.getNumErrors()){
+								defaultAnnexLibrary.setParsedAnnexLibrary(null);
+							}
 						} else if (linkingservice != null){ 
 							try {
 								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
@@ -247,7 +251,11 @@ public class AnnexParserAgent  extends LazyLinker {
 						if (resolver != null &&
 						    hasToResolveAnnex &&
 						    errReporter.getNumErrors() == errs) {// Don't resolve any annex with parsing error.)
+							errs =resolveErrManager.getNumErrors();
 							resolver.resolveAnnex(annexName, Collections.singletonList(asc), resolveErrManager);
+							if (errs !=resolveErrManager.getNumErrors()){
+								defaultAnnexSubclause.setParsedAnnexSubclause(null);
+							}
 						} else if (linkingservice != null){ 
 							try {
 								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
