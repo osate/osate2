@@ -1645,6 +1645,10 @@ For access features, the classifier specifies the type of the shared component.<
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#String"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_Wfg_PqL3EeOAWuPRjbhNhg" name="parsedAnnexLibrary" type="Extensibility-AnnexLibrary" aggregation="composite" association="_Wfg_OqL3EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Wfg_P6L3EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Wfg_QKL3EeOAWuPRjbhNhg"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Extensibility-DefaultAnnexSubclause" name="DefaultAnnexSubclause">
         <ownedComment xmi:id="_nUU6sBxoEd6iQOXbgKnisg">
@@ -1656,6 +1660,10 @@ For access features, the classifier specifies the type of the shared component.<
             <body>Specifies the source text of this annex subclause.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_CTeHPqL4EeOAWuPRjbhNhg" name="parsedAnnexSubclause" type="Extensibility-AnnexSubclause" aggregation="composite" association="_CTeHOqL4EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CTeHP6L4EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CTeHQKL4EeOAWuPRjbhNhg"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Extensibility-A_classifier_ownedAnnexSubclause" name="A_classifier_ownedAnnexSubclause" memberEnd="Extensibility-A_classifier_ownedAnnexSubclause-owner Extensibility-Classifier-ownedAnnexSubclause">
@@ -1685,6 +1693,18 @@ For access features, the classifier specifies the type of the shared component.<
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Extensibility-Classifier-ownedAnnexSubclause-_lowerValue"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_Wfg_OqL3EeOAWuPRjbhNhg" name="A_defaultAnnexLibrary_parsedAnnexLibrary" memberEnd="_Wfg_O6L3EeOAWuPRjbhNhg _Wfg_PqL3EeOAWuPRjbhNhg">
+        <ownedEnd xmi:id="_Wfg_O6L3EeOAWuPRjbhNhg" name="owner" type="Extensibility-DefaultAnnexLibrary" association="_Wfg_OqL3EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Wfg_PKL3EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Wfg_PaL3EeOAWuPRjbhNhg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_CTeHOqL4EeOAWuPRjbhNhg" name="A_defaultAnnexSubclause_parsedAnnexSubclause" memberEnd="_CTeHO6L4EeOAWuPRjbhNhg _CTeHPqL4EeOAWuPRjbhNhg">
+        <ownedEnd xmi:id="_CTeHO6L4EeOAWuPRjbhNhg" name="owner" type="Extensibility-DefaultAnnexSubclause" association="_CTeHOqL4EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CTeHPKL4EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CTeHPaL4EeOAWuPRjbhNhg" value="1"/>
+        </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Connections" name="Connections">

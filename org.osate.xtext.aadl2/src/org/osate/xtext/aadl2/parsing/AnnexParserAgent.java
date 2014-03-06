@@ -152,28 +152,31 @@ public class AnnexParserAgent  extends LazyLinker {
 					if (al != null )//&& errReporter.getNumErrors() == errs) 
 					{ 
 						al.setName(annexName);
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(al);
-						if (apr != null){
-							defaultAnnexLibrary.eAdapters().add(apr);
-						} else {
-							// create a parse result adapter based on generic parsing rather than Xtext parsing
-							// this adapter lets us get the acutal annex library or subclause from the default one
-							// we set the node because the constructor requires one.
-							IParseResult parseResult = new ParseResult(al, NodeModelUtils.getNode(defaultAnnexLibrary), false);
-							apr = new AnnexParseResultImpl(parseResult,offset);
-							al.eAdapters().add(apr);
-							defaultAnnexLibrary.eAdapters().add(apr);
-						}
-						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
-						// replace default annex library with the new one. 
-						EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
-						int idx = ael.indexOf(defaultAnnexLibrary);
-						ael.add(idx, al);
-						ael.remove(defaultAnnexLibrary);
+						defaultAnnexLibrary.setParsedAnnexLibrary(al);
+//						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(al);
+//						if (apr != null){
+//							defaultAnnexLibrary.eAdapters().add(apr);
+//						} else {
+//							// create a parse result adapter based on generic parsing rather than Xtext parsing
+//							// this adapter lets us get the acutal annex library or subclause from the default one
+//							// we set the node because the constructor requires one.
+//							IParseResult parseResult = new ParseResult(al, NodeModelUtils.getNode(defaultAnnexLibrary), false);
+//							apr = new AnnexParseResultImpl(parseResult,offset);
+//							al.eAdapters().add(apr);
+//							defaultAnnexLibrary.eAdapters().add(apr);
+//						}
+//						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
+
 						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
 						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
-						if (resolver != null){
+						if (resolver != null
+							    &&hasToResolveAnnex &&
+							    errReporter.getNumErrors() == errs){
+							errs =resolveErrManager.getNumErrors();
 							resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+							if (errs !=resolveErrManager.getNumErrors()){
+								defaultAnnexLibrary.setParsedAnnexLibrary(null);
+							}
 						} else if (linkingservice != null){ 
 							try {
 								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
@@ -223,46 +226,36 @@ public class AnnexParserAgent  extends LazyLinker {
 					if (asc != null )//&& errReporter.getNumErrors() == errs) 
 					{
 						asc.setName(annexName);
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(asc);
-						if (apr != null){
-							defaultAnnexSubclause.eAdapters().add(apr);
-						} else {
-							// create a parse result adapter based on generic parsing rather than Xtext parsing
-							// this adapter lets us get the acutal annex library or subclause from the default one
-							IParseResult parseResult = new ParseResult(asc, NodeModelUtils.getNode(defaultAnnexSubclause), false);
-							apr = new AnnexParseResultImpl(parseResult,offset);
-							asc.eAdapters().add(apr);
-							defaultAnnexSubclause.eAdapters().add(apr);
-						}
-						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
+						defaultAnnexSubclause.setParsedAnnexSubclause(asc);
+//	XXX					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(asc);
+//						if (apr != null){
+//							defaultAnnexSubclause.eAdapters().add(apr);
+//						} else {
+//							// create a parse result adapter based on generic parsing rather than Xtext parsing
+//							// this adapter lets us get the acutal annex library or subclause from the default one
+//							IParseResult parseResult = new ParseResult(asc, NodeModelUtils.getNode(defaultAnnexSubclause), false);
+//							apr = new AnnexParseResultImpl(parseResult,offset);
+//							asc.eAdapters().add(apr);
+//							defaultAnnexSubclause.eAdapters().add(apr);
+//						}
+//						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 						// copy in modes list
 						EList<Mode> inmodelist = defaultAnnexSubclause.getInModes();
 						for (Mode mode : inmodelist) {
 							asc.getInModes().add(mode);
 						}
 														
-						// replace default annex subclause with the new one. 
-						EObject subclauseOwner = defaultAnnexSubclause.eContainer();
-						EList<AnnexSubclause> ael=null;
-						if (subclauseOwner instanceof Classifier){
-						    ael= ((Classifier)subclauseOwner).getOwnedAnnexSubclauses();
-						} else if (subclauseOwner instanceof PropertySet){
-							ael= ((PropertySet)subclauseOwner).getOwnedAnnexSubclauses();
-						} else 
-						{
-							OsateDebug.osateDebug ("annex subclause parent is not Classifier or PropertySet: " + defaultAnnexSubclause.getSourceText());
-							continue;
-						}
-						int idx = ael.indexOf(defaultAnnexSubclause);
-						ael.add(idx, asc);
-						ael.remove(defaultAnnexSubclause);
 						// now resolve reference so we messages if we have references to undefined items
 						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
 						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
 						if (resolver != null &&
 						    hasToResolveAnnex &&
 						    errReporter.getNumErrors() == errs) {// Don't resolve any annex with parsing error.)
+							errs =resolveErrManager.getNumErrors();
 							resolver.resolveAnnex(annexName, Collections.singletonList(asc), resolveErrManager);
+							if (errs !=resolveErrManager.getNumErrors()){
+								defaultAnnexSubclause.setParsedAnnexSubclause(null);
+							}
 						} else if (linkingservice != null){ 
 							try {
 								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
