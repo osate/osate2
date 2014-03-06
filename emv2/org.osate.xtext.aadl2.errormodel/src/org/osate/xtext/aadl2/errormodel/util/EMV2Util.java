@@ -19,6 +19,8 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
@@ -170,8 +172,9 @@ public class EMV2Util {
 		if (cl == null) return null;
 		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause al : asl){
-			if (al instanceof ErrorModelSubclause){
-				return ((ErrorModelSubclause)al);
+			AnnexSubclause actal = ((DefaultAnnexSubclause)al).getParsedAnnexSubclause();
+			if (actal instanceof ErrorModelSubclause){
+				return ((ErrorModelSubclause)actal);
 			}
 		}
 		return null;

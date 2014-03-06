@@ -13,10 +13,13 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -30,6 +33,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -37,6 +41,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
@@ -228,16 +233,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 					searchResult = EMV2Util.findPropagationPoint(cl,name);
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
-			// first look it up in global index
-			
-			EObject gobj = getIndexedObject(context, reference, name+"::emv2");
-			if (gobj != null ){
-				if( gobj.eClass() == requiredType){
-					return Collections.singletonList(gobj);
-				} else {
-					System.out.println("Global lookup of type did not match "+name);
-				}
-			}
 			searchResult = findErrorModelLibrary(context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorStateOrTypeSet() == requiredType) {
@@ -309,6 +304,33 @@ public class EMLinkingService extends PropertiesLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 	
+	/**
+	 * name is qualified with annex name
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public AnnexLibrary getActualAnnexLibrary(EObject context, String name){
+		ErrorModelLibrary dal = (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name);
+		 if (dal != null){
+			 return dal;//.getParsedAnnexLibrary();
+		 }
+		 return null;
+	}
+	/**
+	 * name is qualified with annex name
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public AnnexSubclause getActualAnnexSubclause(EObject context, String name){
+		ErrorModelSubclause dasc = (ErrorModelSubclause) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), name);
+		 if (dasc != null){
+			 return dasc;//.getParsedAnnexSubclause();
+		 }
+		 return null;
+	}
+
 	
 	/**
 	 * find the error model library. The String name refers to the package and the default EML name is added ("emv2")
@@ -317,8 +339,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	 * @return
 	 */
 	public ErrorModelLibrary findErrorModelLibrary(EObject context, String name){
-
-		ErrorModelLibrary eml = (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name+"::"+"emv2");
+		ErrorModelLibrary eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name+"::"+"emv2");
 		if (eml != null) return eml;
 		AadlPackage ap = AadlUtil.findImportedPackage(name, AadlUtil.getContainingTopLevelNamespace(context));
 		if (ap == null)
@@ -326,8 +347,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 		PackageSection ps = ap.getOwnedPublicSection();
 		EList<AnnexLibrary>all=ps.getOwnedAnnexLibraries();
 		for (AnnexLibrary al : all){
-			if (al instanceof ErrorModelLibrary){
-				return (ErrorModelLibrary)al;
+			if (al instanceof DefaultAnnexLibrary){
+				return (ErrorModelLibrary)((DefaultAnnexLibrary)al).getParsedAnnexLibrary();
 			}
 		}
 		return null;
