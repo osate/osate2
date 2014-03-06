@@ -62,6 +62,7 @@ import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -84,9 +85,11 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.MetaclassReferenceImpl;
+import org.osate.aadl2.impl.SubcomponentImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
@@ -129,9 +132,17 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		// type check value against type
 		Property pdef = pa.getProperty();
 		checkPropertySetElementReference(pdef, pa);
-		if (Aadl2Util.isNull(pdef)) return;
+		if (Aadl2Util.isNull(pdef))
+		{
+			return;
+		}
+		
 		PropertyType pt = pdef.getPropertyType();
-		if (Aadl2Util.isNull(pt)) return;
+		if (Aadl2Util.isNull(pt))
+		{
+			return;
+		}
+		
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) 
 		{
@@ -401,8 +412,48 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				typeMatchRecordFields(((RecordValue)pv).getOwnedFieldValues(),holder,defName);
 			}
 		} else if (pv instanceof ReferenceValue ){
-			if(!(pt instanceof ReferenceType)){
-				error(holder, prefix+"Assigning incorrect reference value"+msg);
+			if(!(pt instanceof ReferenceType))
+			{
+							error(holder, prefix+"Assigning incorrect reference value"+msg);
+			}
+			else
+			{
+				ReferenceType ptrt = (ReferenceType)pt;
+				ReferenceValue pvrv = (ReferenceValue) pv;
+				boolean found = false;
+				
+				for (MetaclassReference mcr : ptrt.getNamedElementReferences())
+				{
+					String requiredMetaClassName = "";
+					for (String s : mcr.getMetaclassNames())
+					{
+						if (requiredMetaClassName.length() > 0)
+						{
+							requiredMetaClassName += " ";
+						}
+						requiredMetaClassName += s;
+					}
+					
+					NamedElement containedElement = pvrv.getContainmentPathElements().get(0).getNamedElement();
+					if(containedElement instanceof SubcomponentImpl)
+					{
+						SubcomponentImpl simpl = (SubcomponentImpl) containedElement;
+						simpl.getCategory().getName();
+//						
+//						OsateDebug.osateDebug("HERE2|" + simpl.getCategory().getName() +"|");
+//						OsateDebug.osateDebug("HERE|" + requiredMetaClassName+"|");	
+//						
+						if (simpl.getCategory().getName().equalsIgnoreCase(requiredMetaClassName))
+						{
+							found = true;
+						}
+					}
+				}
+				if (!found)
+				{
+					error(holder, prefix+"invalid classifier"+msg);
+				}
+
 			}
 		} else if (pv instanceof NamedValue ){
 			AbstractNamedValue nv = ((NamedValue)pv).getNamedValue();
