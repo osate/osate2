@@ -194,8 +194,8 @@ public class DoResourceBudgetLogic {
 	 * @return double total, zero, if no budget, -1 if hardware only in
 	 *         substructure
 	 */
-	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, final SystemOperationMode som,String prefix) {
-		final String somName = som.getName();
+	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, final SystemOperationMode som,String prefix)
+	{
 		double subtotal = 0.0;
 		EList subcis = ci.getComponentInstances();
 		boolean HWOnly = false;
@@ -277,9 +277,15 @@ public class DoResourceBudgetLogic {
 	}
 
 	private void report(SystemInstance si, String resourceName, UnitLiteral unit, final SystemOperationMode som) {
-		final String somName = som.getName();
+		String somName = "default";
+		if (som != null)
+		{
+			somName = som.getName();
+		}
 		if (budgetTotal < 0)
+		{
 			budgetTotal = 0;
+		}
 		errManager.infoSummaryReportOnly(si,som, "Summary\n");
 
 		String modelStats = resourceName + " capacity " + GetProperties.toStringScaled(capacity, unit) + " : "
