@@ -675,13 +675,7 @@ public class AadlBaUtils {
       
       if(parentContainer == null)
       {
-        // Fetch ba's parent component in order to resolve prototype.
-        EObject tmp = v.eContainer() ;
-        while(tmp.eClass().getClassifierID() != AadlBaPackage.BEHAVIOR_ANNEX)
-        {
-          tmp = tmp.eContainer() ;
-        }
-        parentContainer = (ComponentClassifier) tmp.eContainer() ;
+        parentContainer = (ComponentClassifier) v.getContainingClassifier() ;
       }
       
       result = getClassifier(el, parentContainer) ;

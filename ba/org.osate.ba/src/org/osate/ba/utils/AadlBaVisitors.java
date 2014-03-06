@@ -258,7 +258,7 @@ public class AadlBaVisitors
     */
    public static ComponentClassifier getParentComponent(BehaviorAnnex ba)
    {
-      return (ComponentClassifier) ba.eContainer() ;
+     return (ComponentClassifier) ba.getContainingClassifier() ;
    }
 
   protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = 

@@ -25,6 +25,7 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.annexsupport.AnnexHighlighter;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
+import org.osate.annexsupport.AnnexUtil ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
@@ -42,8 +43,9 @@ public class AadlBaSemanticHighlighter implements AnnexHighlighter
 	@Override
 	public void highlightAnnexSubclause(AnnexSubclause subclause,
 			AnnexHighlighterPositionAcceptor acceptor) {
-		XtextAadlBaHighlighter ht = (XtextAadlBaHighlighter) ((BehaviorAnnex)subclause).getHighlighters().get(subclause);
-		for (AadlBaLocationReference location : ht.getElementsToHighlitght((BehaviorAnnex)subclause))
+    BehaviorAnnex actualBA = (BehaviorAnnex)AnnexUtil.getParsedAnnex(subclause) ;
+    XtextAadlBaHighlighter ht = (XtextAadlBaHighlighter) actualBA.getHighlighters().get(actualBA);
+    for (AadlBaLocationReference location : ht.getElementsToHighlitght(actualBA))
 	    {
 	       acceptor.addPosition(location.getRelativeOffset(),
 	                            location.getLength(),
