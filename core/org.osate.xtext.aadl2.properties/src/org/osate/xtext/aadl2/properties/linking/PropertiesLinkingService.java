@@ -486,7 +486,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 								.findNamedElement(name);
 					}
 				} else {
-					if (pa.getOwner() instanceof Subcomponent) {
+					if ((pa != null) && (pa.getOwner() instanceof Subcomponent)) {
 						res = ((Subcomponent) pa.getOwner()).getAllClassifier().findNamedElement(name);
 					} else {
 						res = AadlUtil.getContainingClassifier(context)
