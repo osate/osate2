@@ -310,11 +310,16 @@ public class EMLinkingService extends PropertiesLinkingService {
 	 * @param name
 	 * @return
 	 */
-	public AnnexLibrary getActualAnnexLibrary(EObject context, String name){
-		ErrorModelLibrary dal = (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name);
-		 if (dal != null){
-			 return dal;//.getParsedAnnexLibrary();
-		 }
+	public AnnexLibrary getActualAnnexLibrary(EObject context, String name)
+	{
+		EObject eo = EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name);
+		if (eo instanceof ErrorModelLibrary)
+		{
+			ErrorModelLibrary dal = (ErrorModelLibrary) eo;
+			 if (dal != null){
+				 return dal;//.getParsedAnnexLibrary();
+			 }
+		}
 		 return null;
 	}
 	/**
@@ -348,7 +353,11 @@ public class EMLinkingService extends PropertiesLinkingService {
 		EList<AnnexLibrary>all=ps.getOwnedAnnexLibraries();
 		for (AnnexLibrary al : all){
 			if (al instanceof DefaultAnnexLibrary){
-				return (ErrorModelLibrary)((DefaultAnnexLibrary)al).getParsedAnnexLibrary();
+				DefaultAnnexLibrary dal = (DefaultAnnexLibrary)al;
+				if (dal instanceof ErrorModelLibrary)
+				{
+					return (ErrorModelLibrary)dal.getParsedAnnexLibrary();
+				}
 			}
 		}
 		return null;
