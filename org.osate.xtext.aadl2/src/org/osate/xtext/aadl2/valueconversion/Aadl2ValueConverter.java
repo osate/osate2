@@ -45,6 +45,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.PortCategory;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
 public class Aadl2ValueConverter extends PropertiesValueConverter {
@@ -240,7 +241,6 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
     public IValueConverter<ComponentCategory> ComponentCategory() {
         return new IValueConverter<ComponentCategory>() {
             public ComponentCategory toValue(String string, INode node) {
-            	
 				return ComponentCategory.get(string.toLowerCase());
 			}
 
@@ -254,7 +254,10 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
     public IValueConverter<AccessCategory> AccessCategory() {
         return new IValueConverter<AccessCategory>() {
             public AccessCategory toValue(String string, INode node) {
-            	
+            	if (string.equalsIgnoreCase("subprogram group"))
+            	{
+            		string = "subprogramGroup";
+            	}
 				return AccessCategory.get(string.toLowerCase());
 			}
 

@@ -176,7 +176,7 @@ public enum AccessCategory implements Enumerator {
 	public static AccessCategory get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			AccessCategory result = VALUES_ARRAY[i];
-			if (result.toString().equals(literal)) {
+			if (result.toString().equalsIgnoreCase(literal)) {
 				return result;
 			}
 		}
