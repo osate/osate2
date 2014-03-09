@@ -67,18 +67,12 @@ public class Aadl2QualifiedNameFragmentProvider implements IFragmentProvider {
 
 	@Override
 	public String getFragment(EObject obj, Fallback fallback) {
-		String qName = null;
-		if (obj instanceof NamedElement) {
-			qName = ((NamedElement) obj).getQualifiedName();
-		}
-		else {
-			final QualifiedName qualifiedName =  qualifiedNameProvider.getFullyQualifiedName(obj);
+		final QualifiedName qualifiedName =  qualifiedNameProvider.getFullyQualifiedName(obj);
 
-			if ( qualifiedName != null ) {
-				qName = qualifiedName.toString();
-			}
+		if ( qualifiedName != null ) {
+			return qualifiedName.toString();
 		}
-		return qName != null ? qName : fallback.getFragment(obj);
+		return fallback.getFragment(obj);
 	}
 
 	@Override
