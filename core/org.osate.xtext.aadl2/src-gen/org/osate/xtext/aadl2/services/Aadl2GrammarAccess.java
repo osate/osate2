@@ -23448,17 +23448,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
 		private final Keyword cSemicolonKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
-		////
-		// //terminal ANNEXTEXT:
-		// //	'{**'->'**}';
-		// //terminal ANNEXTEXT	: 
-		//
-		////			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
-		// //		; 
-		// // **************
+		//// **************
 		// // Properties
-		//
-		//PropertySet returns aadl2::PropertySet:
+		// PropertySet returns aadl2::PropertySet:
 		//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
 		//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition |
 		//	ownedPropertyConstant+=PropertyConstant)* ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
@@ -28187,17 +28179,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getDefaultAnnexSubclauseAccess().getRule();
 	}
 
-	////
-	// //terminal ANNEXTEXT:
-	// //	'{**'->'**}';
-	// //terminal ANNEXTEXT	: 
-	//
-	////			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
-	// //		; 
-	// // **************
+	//// **************
 	// // Properties
-	//
-	//PropertySet returns aadl2::PropertySet:
+	// PropertySet returns aadl2::PropertySet:
 	//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
 	//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition |
 	//	ownedPropertyConstant+=PropertyConstant)* ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
