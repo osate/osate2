@@ -34,30 +34,22 @@
  */
 package org.osate.xtext.aadl2.ui.highlighting;
 
-import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.NamedElement;
 import org.osate.annexsupport.AnnexHighlighter;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
 import org.osate.annexsupport.AnnexHighlighterRegistry;
-import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexSource;
 import org.osate.annexsupport.AnnexUtil;
 
 public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {

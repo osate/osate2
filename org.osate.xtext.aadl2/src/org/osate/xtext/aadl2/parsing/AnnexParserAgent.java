@@ -40,26 +40,19 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.parser.IParseResult;
-import org.eclipse.xtext.parser.ParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
 import org.osate.aadl2.modelsupport.errorreporting.LogParseErrorReporter;
@@ -71,14 +64,11 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
-import org.osate.annexsupport.AnnexParseResult;
-import org.osate.annexsupport.AnnexParseResultImpl;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
-import org.osate.annexsupport.AnnexSourceImpl;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.core.OsateCorePlugin;
 
@@ -153,19 +143,6 @@ public class AnnexParserAgent  extends LazyLinker {
 					{ 
 						al.setName(annexName);
 						defaultAnnexLibrary.setParsedAnnexLibrary(al);
-//						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(al);
-//						if (apr != null){
-//							defaultAnnexLibrary.eAdapters().add(apr);
-//						} else {
-//							// create a parse result adapter based on generic parsing rather than Xtext parsing
-//							// this adapter lets us get the acutal annex library or subclause from the default one
-//							// we set the node because the constructor requires one.
-//							IParseResult parseResult = new ParseResult(al, NodeModelUtils.getNode(defaultAnnexLibrary), false);
-//							apr = new AnnexParseResultImpl(parseResult,offset);
-//							al.eAdapters().add(apr);
-//							defaultAnnexLibrary.eAdapters().add(apr);
-//						}
-//						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 
 						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
 						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
@@ -227,18 +204,6 @@ public class AnnexParserAgent  extends LazyLinker {
 					{
 						asc.setName(annexName);
 						defaultAnnexSubclause.setParsedAnnexSubclause(asc);
-//	XXX					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(asc);
-//						if (apr != null){
-//							defaultAnnexSubclause.eAdapters().add(apr);
-//						} else {
-//							// create a parse result adapter based on generic parsing rather than Xtext parsing
-//							// this adapter lets us get the acutal annex library or subclause from the default one
-//							IParseResult parseResult = new ParseResult(asc, NodeModelUtils.getNode(defaultAnnexSubclause), false);
-//							apr = new AnnexParseResultImpl(parseResult,offset);
-//							asc.eAdapters().add(apr);
-//							defaultAnnexSubclause.eAdapters().add(apr);
-//						}
-//						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 						// copy in modes list
 						EList<Mode> inmodelist = defaultAnnexSubclause.getInModes();
 						for (Mode mode : inmodelist) {
