@@ -69,6 +69,7 @@ import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.internal.workspace.AadlWorkspace;
 
 /**
@@ -312,41 +313,22 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				String annexName = al.getName();
 				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
 
-				if (unparser != null) {
 					processComments(al);
 					aadlText.addOutputNewline("annex " + annexName + " {**");
 					aadlText.incrementIndent();
-					aadlText.addOutput(unparser.unparseAnnexLibrary(al,
+					EObject annex = AnnexUtil.getParsedAnnex(al);
+					if (annex != null) {
+					aadlText.addOutput(unparser.unparseAnnexLibrary((AnnexLibrary)annex,
 							aadlText.getIndentString()));
+					} else {
+						aadlText.addOutput(unparser.unparseAnnexLibrary(al,
+								aadlText.getIndentString()));
+					}
 					aadlText.decrementIndent();
 					aadlText.addOutputNewline("**};");
-				}
 				return DONE;
 			}
 
-			/**
-			 * unparses default annex library
-			 * 
-			 * @param dal
-			 *            DefaultAnnexLibrary object
-			 */
-			public String caseDefaultAnnexLibrary(DefaultAnnexLibrary dal) {
-				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
-						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
-				String annexName = dal.getName();
-				AnnexUnparser unparser = registry.getAnnexUnparser("*");
-
-				if (unparser != null) {
-					processComments(dal);
-					aadlText.addOutput("annex " + annexName + " {**");
-					aadlText.incrementIndent();
-					aadlText.addOutput(unparser.unparseAnnexLibrary(dal,
-							aadlText.getIndentString()));
-					aadlText.decrementIndent();
-					aadlText.addOutputNewline("**};");
-				}
-				return DONE;
-			}
 
 			/**
 			 * unparses annex subclause
@@ -360,68 +342,22 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 				String annexName = as.getName();
 
-				/**
-				 * JD
-				 * Workaround for implementing annex unparsing
-				 * without registering them. Required for META toolset.
-				 * 
-				 * The behavior is that if the class has a method called
-				 * getAnnexContent, then, we get the content
-				 * of the annex and put it directly into the component.
-				 */
-				if (as instanceof AnnexSubclauseImpl)
-				{
-					AnnexSubclauseImpl asi = (AnnexSubclauseImpl)as;
-					if ((asi.bypassUnparser()) && (asi.getAnnexContent().length() > 0))
-					{
-						aadlText.addOutputNewline("annex " + annexName + " {**");
-						aadlText.incrementIndent();
-						aadlText.addOutput(asi.getAnnexContent());
-						aadlText.decrementIndent();
-						aadlText.addOutputNewline("**};");
-						return DONE;
-					}
-				}
-				
 				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
 
-				if (unparser != null) {
 					processComments(as);
 					aadlText.addOutputNewline("annex " + annexName + " {**");
 					aadlText.incrementIndent();
-					aadlText.addOutput(unparser.unparseAnnexSubclause(as,
+					EObject annex = AnnexUtil.getParsedAnnex(as);
+					if (annex != null) {
+					aadlText.addOutput(unparser.unparseAnnexSubclause((AnnexSubclause)annex,
 							aadlText.getIndentString()));
+					} else {
+						aadlText.addOutput(unparser.unparseAnnexSubclause(as,
+								aadlText.getIndentString()));
+					}
 					aadlText.decrementIndent();
 					aadlText.addOutputNewline("**};");
-				}
 				
-				return DONE;
-			}
-
-			/**
-			 * unparses defaultannex subclause
-			 * 
-			 * @param das
-			 *            DefaultAnnexSubclause object
-			 */
-			public String caseDefaultAnnexSubclause(DefaultAnnexSubclause das)
-			{
-
-				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
-						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
-				String annexName = das.getName();
-				AnnexUnparser unparser = registry.getAnnexUnparser("*");
-
-				if (unparser != null)
-				{
-					processComments(das);
-					aadlText.addOutputNewline("annex " + annexName + " {**");
-					aadlText.incrementIndent();
-					aadlText.addOutputNewline(unparser.unparseAnnexSubclause(
-							das, aadlText.getIndentString()));
-					aadlText.decrementIndent();
-					aadlText.addOutputNewline("**};");
-				}
 				return DONE;
 			}
 
