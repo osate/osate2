@@ -50,7 +50,7 @@ public class AnnexUnparserRegistry extends AnnexRegistry {
 		AnnexUnparser unparser = (AnnexUnparser) extensions.get(annexName.toLowerCase());
 		
 		if (unparser == null) {
-			AnnexPlugin.logWarning("No unparser found for annex" + annexName);
+			unparser = (AnnexUnparser) extensions.get("*");
 		}
 		return unparser;
 	}
