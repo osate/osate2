@@ -23,21 +23,21 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class AnnexUtil {
 	
-	public static AnnexParseResult getAnnexParseResult(EObject obj)	{
-		if (obj instanceof DefaultAnnexLibrary){
-			obj = ((DefaultAnnexLibrary)obj).getParsedAnnexLibrary();
-		} else if (obj instanceof DefaultAnnexSubclause){
-			obj = ((DefaultAnnexSubclause)obj).getParsedAnnexSubclause();
-		}
-		if (obj == null) return null;
-		// Find the Parseresult information
-		for(Adapter adapter : obj.eAdapters()) {
-			if(adapter instanceof AnnexParseResult) {
-				return (AnnexParseResult)adapter;
-			}
-		}
-		return null;
-	}
+//	public static AnnexParseResult getAnnexParseResult(EObject obj)	{
+//		if (obj instanceof DefaultAnnexLibrary){
+//			obj = ((DefaultAnnexLibrary)obj).getParsedAnnexLibrary();
+//		} else if (obj instanceof DefaultAnnexSubclause){
+//			obj = ((DefaultAnnexSubclause)obj).getParsedAnnexSubclause();
+//		}
+//		if (obj == null) return null;
+//		// Find the Parseresult information
+//		for(Adapter adapter : obj.eAdapters()) {
+//			if(adapter instanceof AnnexParseResult) {
+//				return (AnnexParseResult)adapter;
+//			}
+//		}
+//		return null;
+//	}
 	
 	public static String getSourceText(EObject annexObj){
 		if (annexObj instanceof DefaultAnnexLibrary){
@@ -86,23 +86,23 @@ public class AnnexUtil {
 	}
 	
 	
-	/**
-	 * get the line number for a given model object in the core model
-	 * This method makes use of the Xtext parse tree.
-	 * @return line number
-	 */
-	public static int getLineNumberFor(EObject obj)	{
-		if (obj == null) return 0;
-		AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-		if (apr != null){
-			obj = (EObject) apr.getTarget();
-		}
-		INode node = NodeModelUtils.findActualNodeFor(obj);
-		if (node != null){
-			return node.getStartLine();
-		}
-		return 0;
-	}
+//	/**
+//	 * get the line number for a given model object in the core model
+//	 * This method makes use of the Xtext parse tree.
+//	 * @return line number
+//	 */
+//	public static int getLineNumberFor(EObject obj)	{
+//		if (obj == null) return 0;
+//		AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
+//		if (apr != null){
+//			obj = (EObject) apr.getTarget();
+//		}
+//		INode node = NodeModelUtils.findActualNodeFor(obj);
+//		if (node != null){
+//			return node.getStartLine();
+//		}
+//		return 0;
+//	}
 	
 	
 	public static List<DefaultAnnexLibrary> getAllDefaultAnnexLibraries(EObject root) {
