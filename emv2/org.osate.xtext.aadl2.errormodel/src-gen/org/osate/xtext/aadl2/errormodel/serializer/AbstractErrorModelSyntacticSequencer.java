@@ -181,7 +181,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	
 	/**
 	 * Syntax:
-	 *     '{' | '('
+	 *     '(' | '{'
 	 */
 	protected void emit_TypeTokenOrNoError_LeftCurlyBracketKeyword_2_0_or_LeftParenthesisKeyword_1_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

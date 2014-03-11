@@ -25,9 +25,9 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalErrorModelParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "KEYWORD_85", "KEYWORD_84", "KEYWORD_81", "KEYWORD_82", "KEYWORD_83", "KEYWORD_77", "KEYWORD_78", "KEYWORD_79", "KEYWORD_80", "KEYWORD_73", "KEYWORD_74", "KEYWORD_75", "KEYWORD_76", "KEYWORD_69", "KEYWORD_70", "KEYWORD_71", "KEYWORD_72", "KEYWORD_60", "KEYWORD_61", "KEYWORD_62", "KEYWORD_63", "KEYWORD_64", "KEYWORD_65", "KEYWORD_66", "KEYWORD_67", "KEYWORD_68", "KEYWORD_51", "KEYWORD_52", "KEYWORD_53", "KEYWORD_54", "KEYWORD_55", "KEYWORD_56", "KEYWORD_57", "KEYWORD_58", "KEYWORD_59", "KEYWORD_41", "KEYWORD_42", "KEYWORD_43", "KEYWORD_44", "KEYWORD_45", "KEYWORD_46", "KEYWORD_47", "KEYWORD_48", "KEYWORD_49", "KEYWORD_50", "KEYWORD_32", "KEYWORD_33", "KEYWORD_34", "KEYWORD_35", "KEYWORD_36", "KEYWORD_37", "KEYWORD_38", "KEYWORD_39", "KEYWORD_40", "KEYWORD_23", "KEYWORD_24", "KEYWORD_25", "KEYWORD_26", "KEYWORD_27", "KEYWORD_28", "KEYWORD_29", "KEYWORD_30", "KEYWORD_31", "KEYWORD_15", "KEYWORD_16", "KEYWORD_17", "KEYWORD_18", "KEYWORD_19", "KEYWORD_20", "KEYWORD_21", "KEYWORD_22", "KEYWORD_1", "KEYWORD_2", "KEYWORD_3", "KEYWORD_4", "KEYWORD_5", "KEYWORD_6", "KEYWORD_7", "KEYWORD_8", "KEYWORD_9", "KEYWORD_10", "KEYWORD_11", "KEYWORD_12", "KEYWORD_13", "KEYWORD_14", "RULE_SL_COMMENT", "RULE_INTEGER_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_REAL_LIT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ANNEXTEXT", "RULE_STRING", "RULE_ID", "RULE_WS"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "KEYWORD_85", "KEYWORD_84", "KEYWORD_81", "KEYWORD_82", "KEYWORD_83", "KEYWORD_77", "KEYWORD_78", "KEYWORD_79", "KEYWORD_80", "KEYWORD_73", "KEYWORD_74", "KEYWORD_75", "KEYWORD_76", "KEYWORD_69", "KEYWORD_70", "KEYWORD_71", "KEYWORD_72", "KEYWORD_60", "KEYWORD_61", "KEYWORD_62", "KEYWORD_63", "KEYWORD_64", "KEYWORD_65", "KEYWORD_66", "KEYWORD_67", "KEYWORD_68", "KEYWORD_51", "KEYWORD_52", "KEYWORD_53", "KEYWORD_54", "KEYWORD_55", "KEYWORD_56", "KEYWORD_57", "KEYWORD_58", "KEYWORD_59", "KEYWORD_41", "KEYWORD_42", "KEYWORD_43", "KEYWORD_44", "KEYWORD_45", "KEYWORD_46", "KEYWORD_47", "KEYWORD_48", "KEYWORD_49", "KEYWORD_50", "KEYWORD_32", "KEYWORD_33", "KEYWORD_34", "KEYWORD_35", "KEYWORD_36", "KEYWORD_37", "KEYWORD_38", "KEYWORD_39", "KEYWORD_40", "KEYWORD_23", "KEYWORD_24", "KEYWORD_25", "KEYWORD_26", "KEYWORD_27", "KEYWORD_28", "KEYWORD_29", "KEYWORD_30", "KEYWORD_31", "KEYWORD_15", "KEYWORD_16", "KEYWORD_17", "KEYWORD_18", "KEYWORD_19", "KEYWORD_20", "KEYWORD_21", "KEYWORD_22", "KEYWORD_1", "KEYWORD_2", "KEYWORD_3", "KEYWORD_4", "KEYWORD_5", "KEYWORD_6", "KEYWORD_7", "KEYWORD_8", "KEYWORD_9", "KEYWORD_10", "KEYWORD_11", "KEYWORD_12", "KEYWORD_13", "KEYWORD_14", "RULE_SL_COMMENT", "RULE_INTEGER_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_REAL_LIT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_STRING", "RULE_ID", "RULE_WS"
     };
-    public static final int RULE_ID=99;
+    public static final int RULE_ID=98;
     public static final int RULE_REAL_LIT=94;
     public static final int KEYWORD_56=35;
     public static final int KEYWORD_55=34;
@@ -40,7 +40,6 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     public static final int KEYWORD_59=38;
     public static final int KEYWORD_58=37;
     public static final int KEYWORD_57=36;
-    public static final int RULE_ANNEXTEXT=97;
     public static final int KEYWORD_65=26;
     public static final int KEYWORD_64=25;
     public static final int KEYWORD_67=28;
@@ -62,7 +61,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     public static final int KEYWORD_36=53;
     public static final int KEYWORD_35=52;
     public static final int KEYWORD_39=56;
-    public static final int RULE_STRING=98;
+    public static final int RULE_STRING=97;
     public static final int RULE_EXPONENT=92;
     public static final int KEYWORD_41=39;
     public static final int KEYWORD_40=57;
@@ -124,7 +123,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     public static final int RULE_INT_EXPONENT=93;
     public static final int KEYWORD_81=6;
     public static final int KEYWORD_80=12;
-    public static final int RULE_WS=100;
+    public static final int RULE_WS=99;
 
     // delegates
     // delegators
@@ -73924,11 +73923,11 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     static final String DFA40_eofS =
         "\10\uffff\1\17\1\21\1\23\3\uffff\1\17\1\uffff\1\21\3\uffff\1\23";
     static final String DFA40_minS =
-        "\1\11\5\uffff\2\132\3\25\3\uffff\1\25\1\uffff\1\25\1\uffff\1\143"+
+        "\1\11\5\uffff\2\132\3\25\3\uffff\1\25\1\uffff\1\25\1\uffff\1\142"+
         "\1\uffff\1\25";
     static final String DFA40_maxS =
-        "\1\143\5\uffff\4\143\1\124\3\uffff\1\124\1\uffff\1\124\1\uffff"+
-        "\1\143\1\uffff\1\124";
+        "\1\142\5\uffff\4\142\1\124\3\uffff\1\124\1\uffff\1\124\1\uffff"+
+        "\1\142\1\uffff\1\124";
     static final String DFA40_acceptS =
         "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7"+
         "\1\uffff\1\10\1\uffff\1\13\1\uffff";
@@ -73937,18 +73936,18 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     static final String[] DFA40_transitionS = {
             "\1\3\6\uffff\1\2\6\uffff\1\4\22\uffff\1\14\13\uffff\1\14\25"+
             "\uffff\1\13\2\uffff\1\6\1\uffff\1\7\3\uffff\1\1\4\uffff\1\11"+
-            "\3\uffff\1\10\3\uffff\1\5\1\12",
+            "\3\uffff\1\10\2\uffff\1\5\1\12",
             "",
             "",
             "",
             "",
             "",
-            "\1\11\3\uffff\1\10\4\uffff\1\15",
-            "\1\11\3\uffff\1\10\4\uffff\1\15",
+            "\1\11\3\uffff\1\10\3\uffff\1\15",
+            "\1\11\3\uffff\1\10\3\uffff\1\15",
             "\1\17\57\uffff\1\15\2\uffff\1\17\4\uffff\1\17\2\uffff\1\17"+
-            "\3\uffff\1\17\16\uffff\1\16",
+            "\3\uffff\1\17\15\uffff\1\16",
             "\1\21\57\uffff\1\15\2\uffff\1\21\4\uffff\1\21\2\uffff\1\21"+
-            "\3\uffff\1\21\16\uffff\1\20",
+            "\3\uffff\1\21\15\uffff\1\20",
             "\1\23\57\uffff\1\15\1\22\1\uffff\1\23\4\uffff\1\23\2\uffff"+
             "\1\23\3\uffff\1\23",
             "",
@@ -74445,7 +74444,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1__0__Impl_in_rule__ErrorModelSubclause__Group_1__09772 = new BitSet(new long[]{0x0001000000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1__1_in_rule__ErrorModelSubclause__Group_1__09775 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_1__0__Impl9803 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1__1__Impl_in_rule__ErrorModelSubclause__Group_1__19834 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1__1__Impl_in_rule__ErrorModelSubclause__Group_1__19834 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1__2_in_rule__ErrorModelSubclause__Group_1__19837 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_50_in_rule__ErrorModelSubclause__Group_1__1__Impl9865 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1__2__Impl_in_rule__ErrorModelSubclause__Group_1__29896 = new BitSet(new long[]{0x0000000000000000L,0x0000000000110000L});
@@ -74456,7 +74455,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1_3__0_in_rule__ErrorModelSubclause__Group_1__3__Impl9986 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1__4__Impl_in_rule__ErrorModelSubclause__Group_1__410017 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_1__4__Impl10045 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1_3__0__Impl_in_rule__ErrorModelSubclause__Group_1_3__010086 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1_3__0__Impl_in_rule__ErrorModelSubclause__Group_1_3__010086 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1_3__1_in_rule__ErrorModelSubclause__Group_1_3__010089 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ErrorModelSubclause__Group_1_3__0__Impl10117 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1_3__1__Impl_in_rule__ErrorModelSubclause__Group_1_3__110148 = new BitSet(new long[]{0x0000000000000002L});
@@ -74467,7 +74466,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__1__Impl_in_rule__ErrorModelSubclause__Group_2__110271 = new BitSet(new long[]{0x0000000000000040L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__2_in_rule__ErrorModelSubclause__Group_2__110274 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_38_in_rule__ErrorModelSubclause__Group_2__1__Impl10302 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__2__Impl_in_rule__ErrorModelSubclause__Group_2__210333 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__2__Impl_in_rule__ErrorModelSubclause__Group_2__210333 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__3_in_rule__ErrorModelSubclause__Group_2__210336 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_81_in_rule__ErrorModelSubclause__Group_2__2__Impl10364 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__3__Impl_in_rule__ErrorModelSubclause__Group_2__310395 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -74478,7 +74477,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__0__Impl_in_rule__ErrorModelSubclause__Group_3__010524 = new BitSet(new long[]{0x0000000000100000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__1_in_rule__ErrorModelSubclause__Group_3__010527 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_3__0__Impl10555 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__1__Impl_in_rule__ErrorModelSubclause__Group_3__110586 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__1__Impl_in_rule__ErrorModelSubclause__Group_3__110586 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__2_in_rule__ErrorModelSubclause__Group_3__110589 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_72_in_rule__ErrorModelSubclause__Group_3__1__Impl10617 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__2__Impl_in_rule__ErrorModelSubclause__Group_3__210648 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -74489,7 +74488,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__0__Impl_in_rule__ErrorModelSubclause__Group_4__010775 = new BitSet(new long[]{0x0000000000020000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__1_in_rule__ErrorModelSubclause__Group_4__010778 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_4__0__Impl10806 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__1__Impl_in_rule__ErrorModelSubclause__Group_4__110837 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__1__Impl_in_rule__ErrorModelSubclause__Group_4__110837 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__2_in_rule__ErrorModelSubclause__Group_4__110840 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_4__1__Impl10868 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__2__Impl_in_rule__ErrorModelSubclause__Group_4__210899 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -74500,13 +74499,13 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__0__Impl_in_rule__ErrorModelSubclause__Group_5__011026 = new BitSet(new long[]{0x0000000000000020L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__1_in_rule__ErrorModelSubclause__Group_5__011029 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_5__0__Impl11057 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__1__Impl_in_rule__ErrorModelSubclause__Group_5__111088 = new BitSet(new long[]{0x4000080140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__1__Impl_in_rule__ErrorModelSubclause__Group_5__111088 = new BitSet(new long[]{0x4000080140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__2_in_rule__ErrorModelSubclause__Group_5__111091 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_84_in_rule__ErrorModelSubclause__Group_5__1__Impl11119 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__2__Impl_in_rule__ErrorModelSubclause__Group_5__211150 = new BitSet(new long[]{0x4000080140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__2__Impl_in_rule__ErrorModelSubclause__Group_5__211150 = new BitSet(new long[]{0x4000080140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__3_in_rule__ErrorModelSubclause__Group_5__211153 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropagationsAssignment_5_2_in_rule__ErrorModelSubclause__Group_5__2__Impl11180 = new BitSet(new long[]{0x0000000140448402L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__3__Impl_in_rule__ErrorModelSubclause__Group_5__311211 = new BitSet(new long[]{0x4000080140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropagationsAssignment_5_2_in_rule__ErrorModelSubclause__Group_5__2__Impl11180 = new BitSet(new long[]{0x0000000140448402L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__3__Impl_in_rule__ErrorModelSubclause__Group_5__311211 = new BitSet(new long[]{0x4000080140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__4_in_rule__ErrorModelSubclause__Group_5__311214 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__0_in_rule__ErrorModelSubclause__Group_5__3__Impl11241 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__4__Impl_in_rule__ErrorModelSubclause__Group_5__411272 = new BitSet(new long[]{0x0000000000000020L});
@@ -74517,12 +74516,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_84_in_rule__ErrorModelSubclause__Group_5__5__Impl11365 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__6__Impl_in_rule__ErrorModelSubclause__Group_5__611396 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_5__6__Impl11424 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__0__Impl_in_rule__ErrorModelSubclause__Group_5_3__011469 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__0__Impl_in_rule__ErrorModelSubclause__Group_5_3__011469 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__1_in_rule__ErrorModelSubclause__Group_5_3__011472 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_45_in_rule__ErrorModelSubclause__Group_5_3__0__Impl11500 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__1__Impl_in_rule__ErrorModelSubclause__Group_5_3__111531 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl11560 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl11572 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl11560 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl11572 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__0__Impl_in_rule__ErrorModelSubclause__Group_6__011609 = new BitSet(new long[]{0x0000010000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__1_in_rule__ErrorModelSubclause__Group_6__011612 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_6__0__Impl11640 = new BitSet(new long[]{0x0000000000000002L});
@@ -74561,7 +74560,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__0__Impl_in_rule__ErrorModelSubclause__Group_6_3__012368 = new BitSet(new long[]{0x0000000000000010L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__1_in_rule__ErrorModelSubclause__Group_6_3__012371 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_6_3__0__Impl12399 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__1__Impl_in_rule__ErrorModelSubclause__Group_6_3__112430 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__1__Impl_in_rule__ErrorModelSubclause__Group_6_3__112430 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__2_in_rule__ErrorModelSubclause__Group_6_3__112433 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_6_3__1__Impl12461 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__2__Impl_in_rule__ErrorModelSubclause__Group_6_3__212492 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -74569,39 +74568,39 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__UseTransformationAssignment_6_3_2_in_rule__ErrorModelSubclause__Group_6_3__2__Impl12522 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__3__Impl_in_rule__ErrorModelSubclause__Group_6_3__312552 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_6_3__3__Impl12580 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_4__0__Impl_in_rule__ErrorModelSubclause__Group_6_4__012619 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_4__0__Impl_in_rule__ErrorModelSubclause__Group_6_4__012619 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_4__1_in_rule__ErrorModelSubclause__Group_6_4__012622 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_52_in_rule__ErrorModelSubclause__Group_6_4__0__Impl12650 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_4__1__Impl_in_rule__ErrorModelSubclause__Group_6_4__112681 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_6_4_1_in_rule__ErrorModelSubclause__Group_6_4__1__Impl12710 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_6_4_1_in_rule__ErrorModelSubclause__Group_6_4__1__Impl12722 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_5__0__Impl_in_rule__ErrorModelSubclause__Group_6_5__012759 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_6_4_1_in_rule__ErrorModelSubclause__Group_6_4__1__Impl12710 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_6_4_1_in_rule__ErrorModelSubclause__Group_6_4__1__Impl12722 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_5__0__Impl_in_rule__ErrorModelSubclause__Group_6_5__012759 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_5__1_in_rule__ErrorModelSubclause__Group_6_5__012762 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_83_in_rule__ErrorModelSubclause__Group_6_5__0__Impl12790 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_5__1__Impl_in_rule__ErrorModelSubclause__Group_6_5__112821 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_6_5_1_in_rule__ErrorModelSubclause__Group_6_5__1__Impl12850 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_6_5_1_in_rule__ErrorModelSubclause__Group_6_5__1__Impl12862 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_6__0__Impl_in_rule__ErrorModelSubclause__Group_6_6__012899 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_6_5_1_in_rule__ErrorModelSubclause__Group_6_5__1__Impl12850 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_6_5_1_in_rule__ErrorModelSubclause__Group_6_5__1__Impl12862 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_6__0__Impl_in_rule__ErrorModelSubclause__Group_6_6__012899 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_6__1_in_rule__ErrorModelSubclause__Group_6_6__012902 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_84_in_rule__ErrorModelSubclause__Group_6_6__0__Impl12930 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_6__1__Impl_in_rule__ErrorModelSubclause__Group_6_6__112961 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_6_6_1_in_rule__ErrorModelSubclause__Group_6_6__1__Impl12990 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_6_6_1_in_rule__ErrorModelSubclause__Group_6_6__1__Impl13002 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_7__0__Impl_in_rule__ErrorModelSubclause__Group_6_7__013039 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_6_6_1_in_rule__ErrorModelSubclause__Group_6_6__1__Impl12990 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_6_6_1_in_rule__ErrorModelSubclause__Group_6_6__1__Impl13002 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_7__0__Impl_in_rule__ErrorModelSubclause__Group_6_7__013039 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_7__1_in_rule__ErrorModelSubclause__Group_6_7__013042 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_79_in_rule__ErrorModelSubclause__Group_6_7__0__Impl13070 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_7__1__Impl_in_rule__ErrorModelSubclause__Group_6_7__113101 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_6_7_1_in_rule__ErrorModelSubclause__Group_6_7__1__Impl13130 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_6_7_1_in_rule__ErrorModelSubclause__Group_6_7__1__Impl13142 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_6_7_1_in_rule__ErrorModelSubclause__Group_6_7__1__Impl13130 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_6_7_1_in_rule__ErrorModelSubclause__Group_6_7__1__Impl13142 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_8__0__Impl_in_rule__ErrorModelSubclause__Group_6_8__013179 = new BitSet(new long[]{0x0000000000100000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_8__1_in_rule__ErrorModelSubclause__Group_6_8__013182 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_32_in_rule__ErrorModelSubclause__Group_6_8__0__Impl13210 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_8__1__Impl_in_rule__ErrorModelSubclause__Group_6_8__113241 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_8__1__Impl_in_rule__ErrorModelSubclause__Group_6_8__113241 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_8__2_in_rule__ErrorModelSubclause__Group_6_8__113244 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_72_in_rule__ErrorModelSubclause__Group_6_8__1__Impl13272 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_8__2__Impl_in_rule__ErrorModelSubclause__Group_6_8__213303 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_6_8_2_in_rule__ErrorModelSubclause__Group_6_8__2__Impl13332 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_6_8_2_in_rule__ErrorModelSubclause__Group_6_8__2__Impl13344 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_6_8_2_in_rule__ErrorModelSubclause__Group_6_8__2__Impl13332 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_6_8_2_in_rule__ErrorModelSubclause__Group_6_8__2__Impl13344 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7__0__Impl_in_rule__ErrorModelSubclause__Group_7__013383 = new BitSet(new long[]{0x0000010000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7__1_in_rule__ErrorModelSubclause__Group_7__013386 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_7__0__Impl13414 = new BitSet(new long[]{0x0000000000000002L});
@@ -74622,24 +74621,24 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_7__5__Impl13723 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7__6__Impl_in_rule__ErrorModelSubclause__Group_7__613754 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_7__6__Impl13782 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7_3__0__Impl_in_rule__ErrorModelSubclause__Group_7_3__013827 = new BitSet(new long[]{0x0000000000000000L,0x0000000800200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7_3__0__Impl_in_rule__ErrorModelSubclause__Group_7_3__013827 = new BitSet(new long[]{0x0000000000000000L,0x0000000400200000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7_3__1_in_rule__ErrorModelSubclause__Group_7_3__013830 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_59_in_rule__ErrorModelSubclause__Group_7_3__0__Impl13858 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7_3__1__Impl_in_rule__ErrorModelSubclause__Group_7_3__113889 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_7_3_1_in_rule__ErrorModelSubclause__Group_7_3__1__Impl13918 = new BitSet(new long[]{0x0000000000000002L,0x0000000800200000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_7_3_1_in_rule__ErrorModelSubclause__Group_7_3__1__Impl13930 = new BitSet(new long[]{0x0000000000000002L,0x0000000800200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_7_3_1_in_rule__ErrorModelSubclause__Group_7_3__1__Impl13918 = new BitSet(new long[]{0x0000000000000002L,0x0000000400200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_7_3_1_in_rule__ErrorModelSubclause__Group_7_3__1__Impl13930 = new BitSet(new long[]{0x0000000000000002L,0x0000000400200000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__0__Impl_in_rule__ErrorModelSubclause__Group_8__013967 = new BitSet(new long[]{0x0000010000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__1_in_rule__ErrorModelSubclause__Group_8__013970 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_78_in_rule__ErrorModelSubclause__Group_8__0__Impl13998 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__1__Impl_in_rule__ErrorModelSubclause__Group_8__114029 = new BitSet(new long[]{0x4000000000000000L,0x0000000800000004L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__1__Impl_in_rule__ErrorModelSubclause__Group_8__114029 = new BitSet(new long[]{0x4000000000000000L,0x0000000400000004L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__2_in_rule__ErrorModelSubclause__Group_8__114032 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_8__1__Impl14060 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__2__Impl_in_rule__ErrorModelSubclause__Group_8__214091 = new BitSet(new long[]{0x4000000000000000L,0x0000000800000004L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__2__Impl_in_rule__ErrorModelSubclause__Group_8__214091 = new BitSet(new long[]{0x4000000000000000L,0x0000000400000004L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__3_in_rule__ErrorModelSubclause__Group_8__214094 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8_2__0_in_rule__ErrorModelSubclause__Group_8__2__Impl14121 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__3__Impl_in_rule__ErrorModelSubclause__Group_8__314152 = new BitSet(new long[]{0x4000000000000000L,0x0000000800000004L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__3__Impl_in_rule__ErrorModelSubclause__Group_8__314152 = new BitSet(new long[]{0x4000000000000000L,0x0000000400000004L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__4_in_rule__ErrorModelSubclause__Group_8__314155 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ConnectionErrorSourcesAssignment_8_3_in_rule__ErrorModelSubclause__Group_8__3__Impl14182 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ConnectionErrorSourcesAssignment_8_3_in_rule__ErrorModelSubclause__Group_8__3__Impl14182 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__4__Impl_in_rule__ErrorModelSubclause__Group_8__414213 = new BitSet(new long[]{0x0000000000000400L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8__5_in_rule__ErrorModelSubclause__Group_8__414216 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_8__4__Impl14244 = new BitSet(new long[]{0x0000000000000002L});
@@ -74651,7 +74650,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8_2__0__Impl_in_rule__ErrorModelSubclause__Group_8_2__014410 = new BitSet(new long[]{0x0000000000000010L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8_2__1_in_rule__ErrorModelSubclause__Group_8_2__014413 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_8_2__0__Impl14441 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8_2__1__Impl_in_rule__ErrorModelSubclause__Group_8_2__114472 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8_2__1__Impl_in_rule__ErrorModelSubclause__Group_8_2__114472 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8_2__2_in_rule__ErrorModelSubclause__Group_8_2__114475 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_8_2__1__Impl14503 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_8_2__2__Impl_in_rule__ErrorModelSubclause__Group_8_2__214534 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -74662,15 +74661,15 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__0__Impl_in_rule__ErrorModelSubclause__Group_9__014661 = new BitSet(new long[]{0x0000200000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__1_in_rule__ErrorModelSubclause__Group_9__014664 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_82_in_rule__ErrorModelSubclause__Group_9__0__Impl14692 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__1__Impl_in_rule__ErrorModelSubclause__Group_9__114723 = new BitSet(new long[]{0x4000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__1__Impl_in_rule__ErrorModelSubclause__Group_9__114723 = new BitSet(new long[]{0x4000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__2_in_rule__ErrorModelSubclause__Group_9__114726 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_47_in_rule__ErrorModelSubclause__Group_9__1__Impl14754 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__2__Impl_in_rule__ErrorModelSubclause__Group_9__214785 = new BitSet(new long[]{0x4000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__2__Impl_in_rule__ErrorModelSubclause__Group_9__214785 = new BitSet(new long[]{0x4000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__3_in_rule__ErrorModelSubclause__Group_9__214788 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PointsAssignment_9_2_in_rule__ErrorModelSubclause__Group_9__2__Impl14815 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__3__Impl_in_rule__ErrorModelSubclause__Group_9__314846 = new BitSet(new long[]{0x4000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PointsAssignment_9_2_in_rule__ErrorModelSubclause__Group_9__2__Impl14815 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__3__Impl_in_rule__ErrorModelSubclause__Group_9__314846 = new BitSet(new long[]{0x4000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__4_in_rule__ErrorModelSubclause__Group_9__314849 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PathsAssignment_9_3_in_rule__ErrorModelSubclause__Group_9__3__Impl14876 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PathsAssignment_9_3_in_rule__ErrorModelSubclause__Group_9__3__Impl14876 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__4__Impl_in_rule__ErrorModelSubclause__Group_9__414907 = new BitSet(new long[]{0x0000200000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__5_in_rule__ErrorModelSubclause__Group_9__414910 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_9__4__Impl14938 = new BitSet(new long[]{0x0000000000000002L});
@@ -74679,12 +74678,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_47_in_rule__ErrorModelSubclause__Group_9__5__Impl15000 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_9__6__Impl_in_rule__ErrorModelSubclause__Group_9__615031 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_9__6__Impl15059 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_10__0__Impl_in_rule__ErrorModelSubclause__Group_10__015104 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_10__0__Impl_in_rule__ErrorModelSubclause__Group_10__015104 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_10__1_in_rule__ErrorModelSubclause__Group_10__015107 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_80_in_rule__ErrorModelSubclause__Group_10__0__Impl15135 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_10__1__Impl_in_rule__ErrorModelSubclause__Group_10__115166 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropertiesAssignment_10_1_in_rule__ErrorModelSubclause__Group_10__1__Impl15195 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropertiesAssignment_10_1_in_rule__ErrorModelSubclause__Group_10__1__Impl15207 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropertiesAssignment_10_1_in_rule__ErrorModelSubclause__Group_10__1__Impl15195 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropertiesAssignment_10_1_in_rule__ErrorModelSubclause__Group_10__1__Impl15207 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group__0__Impl_in_rule__ErrorModelLibrary__Group__015244 = new BitSet(new long[]{0x0080010000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group__1_in_rule__ErrorModelLibrary__Group__015247 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group__1__Impl_in_rule__ErrorModelLibrary__Group__115305 = new BitSet(new long[]{0x0080010000000000L});
@@ -74701,16 +74700,16 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__0__Impl_in_rule__ErrorModelLibrary__Group_1__015556 = new BitSet(new long[]{0x0001000000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__1_in_rule__ErrorModelLibrary__Group_1__015559 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelLibrary__Group_1__0__Impl15587 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__1__Impl_in_rule__ErrorModelLibrary__Group_1__115618 = new BitSet(new long[]{0x4000000001001000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__1__Impl_in_rule__ErrorModelLibrary__Group_1__115618 = new BitSet(new long[]{0x4000000001001000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__2_in_rule__ErrorModelLibrary__Group_1__115621 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_50_in_rule__ErrorModelLibrary__Group_1__1__Impl15649 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__2__Impl_in_rule__ErrorModelLibrary__Group_1__215680 = new BitSet(new long[]{0x4000000001001000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__2__Impl_in_rule__ErrorModelLibrary__Group_1__215680 = new BitSet(new long[]{0x4000000001001000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__3_in_rule__ErrorModelLibrary__Group_1__215683 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2__0_in_rule__ErrorModelLibrary__Group_1__2__Impl15710 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__3__Impl_in_rule__ErrorModelLibrary__Group_1__315741 = new BitSet(new long[]{0x4000000001001000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__3__Impl_in_rule__ErrorModelLibrary__Group_1__315741 = new BitSet(new long[]{0x4000000001001000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__4_in_rule__ErrorModelLibrary__Group_1__315744 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Alternatives_1_3_in_rule__ErrorModelLibrary__Group_1__3__Impl15771 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__4__Impl_in_rule__ErrorModelLibrary__Group_1__415802 = new BitSet(new long[]{0x4000000001001000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Alternatives_1_3_in_rule__ErrorModelLibrary__Group_1__3__Impl15771 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__4__Impl_in_rule__ErrorModelLibrary__Group_1__415802 = new BitSet(new long[]{0x4000000001001000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__5_in_rule__ErrorModelLibrary__Group_1__415805 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_4__0_in_rule__ErrorModelLibrary__Group_1__4__Impl15832 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__5__Impl_in_rule__ErrorModelLibrary__Group_1__515863 = new BitSet(new long[]{0x0001000000000000L});
@@ -74721,7 +74720,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_50_in_rule__ErrorModelLibrary__Group_1__6__Impl15956 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1__7__Impl_in_rule__ErrorModelLibrary__Group_1__715987 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelLibrary__Group_1__7__Impl16015 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2__0__Impl_in_rule__ErrorModelLibrary__Group_1_2__016062 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2__0__Impl_in_rule__ErrorModelLibrary__Group_1_2__016062 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2__1_in_rule__ErrorModelLibrary__Group_1_2__016065 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_63_in_rule__ErrorModelLibrary__Group_1_2__0__Impl16093 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2__1__Impl_in_rule__ErrorModelLibrary__Group_1_2__116124 = new BitSet(new long[]{0x0200000000000000L,0x0000000000010000L});
@@ -74732,17 +74731,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2_2__0_in_rule__ErrorModelLibrary__Group_1_2__2__Impl16214 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2__3__Impl_in_rule__ErrorModelLibrary__Group_1_2__316245 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_40_in_rule__ErrorModelLibrary__Group_1_2__3__Impl16273 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2_2__0__Impl_in_rule__ErrorModelLibrary__Group_1_2_2__016312 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2_2__0__Impl_in_rule__ErrorModelLibrary__Group_1_2_2__016312 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2_2__1_in_rule__ErrorModelLibrary__Group_1_2_2__016315 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ErrorModelLibrary__Group_1_2_2__0__Impl16343 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_2_2__1__Impl_in_rule__ErrorModelLibrary__Group_1_2_2__116374 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__ExtendsAssignment_1_2_2_1_in_rule__ErrorModelLibrary__Group_1_2_2__1__Impl16401 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_4__0__Impl_in_rule__ErrorModelLibrary__Group_1_4__016435 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_4__0__Impl_in_rule__ErrorModelLibrary__Group_1_4__016435 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_4__1_in_rule__ErrorModelLibrary__Group_1_4__016438 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_80_in_rule__ErrorModelLibrary__Group_1_4__0__Impl16466 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelLibrary__Group_1_4__1__Impl_in_rule__ErrorModelLibrary__Group_1_4__116497 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__PropertiesAssignment_1_4_1_in_rule__ErrorModelLibrary__Group_1_4__1__Impl16526 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelLibrary__PropertiesAssignment_1_4_1_in_rule__ErrorModelLibrary__Group_1_4__1__Impl16538 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__PropertiesAssignment_1_4_1_in_rule__ErrorModelLibrary__Group_1_4__1__Impl16526 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelLibrary__PropertiesAssignment_1_4_1_in_rule__ErrorModelLibrary__Group_1_4__1__Impl16538 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group__0__Impl_in_rule__TypeDefinition__Group__016575 = new BitSet(new long[]{0x0000000020000000L,0x0000000000080000L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group__1_in_rule__TypeDefinition__Group__016578 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeDefinition__NameAssignment_0_in_rule__TypeDefinition__Group__0__Impl16605 = new BitSet(new long[]{0x0000000000000002L});
@@ -74759,7 +74758,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_38_in_rule__TypeDefinition__Group_1_0__1__Impl16853 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_0__2__Impl_in_rule__TypeDefinition__Group_1_0__216884 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_0_2__0_in_rule__TypeDefinition__Group_1_0__2__Impl16911 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_0_2__0__Impl_in_rule__TypeDefinition__Group_1_0_2__016948 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_0_2__0__Impl_in_rule__TypeDefinition__Group_1_0_2__016948 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_0_2__1_in_rule__TypeDefinition__Group_1_0_2__016951 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_63_in_rule__TypeDefinition__Group_1_0_2__0__Impl16979 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_0_2__1__Impl_in_rule__TypeDefinition__Group_1_0_2__117010 = new BitSet(new long[]{0x0000000000000002L});
@@ -74767,7 +74766,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_1__0__Impl_in_rule__TypeDefinition__Group_1_1__017071 = new BitSet(new long[]{0x0080000000000000L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_1__1_in_rule__TypeDefinition__Group_1_1__017074 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_68_in_rule__TypeDefinition__Group_1_1__0__Impl17102 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_1__1__Impl_in_rule__TypeDefinition__Group_1_1__117133 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_1__1__Impl_in_rule__TypeDefinition__Group_1_1__117133 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_1__2_in_rule__TypeDefinition__Group_1_1__117136 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_38_in_rule__TypeDefinition__Group_1_1__1__Impl17164 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeDefinition__Group_1_1__2__Impl_in_rule__TypeDefinition__Group_1_1__217195 = new BitSet(new long[]{0x0000000000000002L});
@@ -74789,7 +74788,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0__2__Impl_in_rule__TypeSetDefinition__Group_1_0__217567 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0__3_in_rule__TypeSetDefinition__Group_1_0__217570 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_30_in_rule__TypeSetDefinition__Group_1_0__2__Impl17598 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0__3__Impl_in_rule__TypeSetDefinition__Group_1_0__317629 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0__3__Impl_in_rule__TypeSetDefinition__Group_1_0__317629 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0__4_in_rule__TypeSetDefinition__Group_1_0__317632 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_13_in_rule__TypeSetDefinition__Group_1_0__3__Impl17660 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0__4__Impl_in_rule__TypeSetDefinition__Group_1_0__417691 = new BitSet(new long[]{0x0000000000000000L,0x0000000001010000L});
@@ -74800,7 +74799,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0_5__0_in_rule__TypeSetDefinition__Group_1_0__5__Impl17781 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0__6__Impl_in_rule__TypeSetDefinition__Group_1_0__617812 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_14_in_rule__TypeSetDefinition__Group_1_0__6__Impl17840 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0_5__0__Impl_in_rule__TypeSetDefinition__Group_1_0_5__017885 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0_5__0__Impl_in_rule__TypeSetDefinition__Group_1_0_5__017885 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0_5__1_in_rule__TypeSetDefinition__Group_1_0_5__017888 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__TypeSetDefinition__Group_1_0_5__0__Impl17916 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_0_5__1__Impl_in_rule__TypeSetDefinition__Group_1_0_5__117947 = new BitSet(new long[]{0x0000000000000002L});
@@ -74811,12 +74810,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_1__1__Impl_in_rule__TypeSetDefinition__Group_1_1__118070 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_1__2_in_rule__TypeSetDefinition__Group_1_1__118073 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_38_in_rule__TypeSetDefinition__Group_1_1__1__Impl18101 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_1__2__Impl_in_rule__TypeSetDefinition__Group_1_1__218132 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_1__2__Impl_in_rule__TypeSetDefinition__Group_1_1__218132 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_1__3_in_rule__TypeSetDefinition__Group_1_1__218135 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_30_in_rule__TypeSetDefinition__Group_1_1__2__Impl18163 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__Group_1_1__3__Impl_in_rule__TypeSetDefinition__Group_1_1__318194 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetDefinition__AliasedTypeAssignment_1_1_3_in_rule__TypeSetDefinition__Group_1_1__3__Impl18221 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeSetConstructor__Group__0__Impl_in_rule__TypeSetConstructor__Group__018259 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeSetConstructor__Group__0__Impl_in_rule__TypeSetConstructor__Group__018259 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeSetConstructor__Group__1_in_rule__TypeSetConstructor__Group__018262 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_13_in_rule__TypeSetConstructor__Group__0__Impl18290 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetConstructor__Group__1__Impl_in_rule__TypeSetConstructor__Group__118321 = new BitSet(new long[]{0x0000000000000000L,0x0000000001010000L});
@@ -74827,7 +74826,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeSetConstructor__Group_2__0_in_rule__TypeSetConstructor__Group__2__Impl18411 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__TypeSetConstructor__Group__3__Impl_in_rule__TypeSetConstructor__Group__318442 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_14_in_rule__TypeSetConstructor__Group__3__Impl18470 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeSetConstructor__Group_2__0__Impl_in_rule__TypeSetConstructor__Group_2__018509 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeSetConstructor__Group_2__0__Impl_in_rule__TypeSetConstructor__Group_2__018509 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeSetConstructor__Group_2__1_in_rule__TypeSetConstructor__Group_2__018512 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__TypeSetConstructor__Group_2__0__Impl18540 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetConstructor__Group_2__1__Impl_in_rule__TypeSetConstructor__Group_2__118571 = new BitSet(new long[]{0x0000000000000002L});
@@ -74837,7 +74836,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeSetElement__TypeAssignment_0_in_rule__TypeSetElement__Group__0__Impl18662 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetElement__Group__1__Impl_in_rule__TypeSetElement__Group__118692 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetElement__Group_1__0_in_rule__TypeSetElement__Group__1__Impl18719 = new BitSet(new long[]{0x0000000000000002L,0x0000000000004000L});
-        public static final BitSet FOLLOW_rule__TypeSetElement__Group_1__0__Impl_in_rule__TypeSetElement__Group_1__018754 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeSetElement__Group_1__0__Impl_in_rule__TypeSetElement__Group_1__018754 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeSetElement__Group_1__1_in_rule__TypeSetElement__Group_1__018757 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_4_in_rule__TypeSetElement__Group_1__0__Impl18785 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeSetElement__Group_1__1__Impl_in_rule__TypeSetElement__Group_1__118816 = new BitSet(new long[]{0x0000000000000002L});
@@ -74860,7 +74859,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeToken__Group_0__1_in_rule__TypeToken__Group_0__019252 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_0__1__Impl_in_rule__TypeToken__Group_0__119310 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_0_1__0_in_rule__TypeToken__Group_0__1__Impl19337 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeToken__Group_0_1__0__Impl_in_rule__TypeToken__Group_0_1__019371 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeToken__Group_0_1__0__Impl_in_rule__TypeToken__Group_0_1__019371 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_0_1__1_in_rule__TypeToken__Group_0_1__019374 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__TypeToken__Group_0_1__0__Impl19402 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_0_1__1__Impl_in_rule__TypeToken__Group_0_1__119433 = new BitSet(new long[]{0x0000000000000000L,0x0000000000006000L});
@@ -74871,12 +74870,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeToken__Group_0_1_2__0_in_rule__TypeToken__Group_0_1__2__Impl19523 = new BitSet(new long[]{0x0000000000000002L,0x0000000000004000L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_0_1__3__Impl_in_rule__TypeToken__Group_0_1__319554 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__TypeToken__Group_0_1__3__Impl19582 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeToken__Group_0_1_2__0__Impl_in_rule__TypeToken__Group_0_1_2__019621 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeToken__Group_0_1_2__0__Impl_in_rule__TypeToken__Group_0_1_2__019621 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_0_1_2__1_in_rule__TypeToken__Group_0_1_2__019624 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_4_in_rule__TypeToken__Group_0_1_2__0__Impl19652 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_0_1_2__1__Impl_in_rule__TypeToken__Group_0_1_2__119683 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeToken__TypeAssignment_0_1_2_1_in_rule__TypeToken__Group_0_1_2__1__Impl19710 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeToken__Group_1__0__Impl_in_rule__TypeToken__Group_1__019744 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeToken__Group_1__0__Impl_in_rule__TypeToken__Group_1__019744 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_1__1_in_rule__TypeToken__Group_1__019747 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_13_in_rule__TypeToken__Group_1__0__Impl19775 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_1__1__Impl_in_rule__TypeToken__Group_1__119806 = new BitSet(new long[]{0x0000000000000000L,0x0000000001004000L});
@@ -74887,7 +74886,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeToken__Group_1_2__0_in_rule__TypeToken__Group_1__2__Impl19896 = new BitSet(new long[]{0x0000000000000002L,0x0000000000004000L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_1__3__Impl_in_rule__TypeToken__Group_1__319927 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_14_in_rule__TypeToken__Group_1__3__Impl19955 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeToken__Group_1_2__0__Impl_in_rule__TypeToken__Group_1_2__019994 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeToken__Group_1_2__0__Impl_in_rule__TypeToken__Group_1_2__019994 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_1_2__1_in_rule__TypeToken__Group_1_2__019997 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_4_in_rule__TypeToken__Group_1_2__0__Impl20025 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeToken__Group_1_2__1__Impl_in_rule__TypeToken__Group_1_2__120056 = new BitSet(new long[]{0x0000000000000002L});
@@ -74911,7 +74910,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group__0__Impl_in_rule__TypeTransformationSet__Group__020489 = new BitSet(new long[]{0x0000000000000010L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group__1_in_rule__TypeTransformationSet__Group__020492 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_38_in_rule__TypeTransformationSet__Group__0__Impl20520 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeTransformationSet__Group__1__Impl_in_rule__TypeTransformationSet__Group__120551 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeTransformationSet__Group__1__Impl_in_rule__TypeTransformationSet__Group__120551 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group__2_in_rule__TypeTransformationSet__Group__120554 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_85_in_rule__TypeTransformationSet__Group__1__Impl20582 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group__2__Impl_in_rule__TypeTransformationSet__Group__220613 = new BitSet(new long[]{0x1000000000000000L,0x0000000000800004L});
@@ -74935,7 +74934,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3__0__Impl_in_rule__TypeTransformationSet__Group_3__021010 = new BitSet(new long[]{0x0001000000000000L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3__1_in_rule__TypeTransformationSet__Group_3__021013 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__TypeTransformationSet__Group_3__0__Impl21041 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3__1__Impl_in_rule__TypeTransformationSet__Group_3__121072 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3__1__Impl_in_rule__TypeTransformationSet__Group_3__121072 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3__2_in_rule__TypeTransformationSet__Group_3__121075 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_50_in_rule__TypeTransformationSet__Group_3__1__Impl21103 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3__2__Impl_in_rule__TypeTransformationSet__Group_3__221134 = new BitSet(new long[]{0x0000000000000000L,0x0000000000110000L});
@@ -74946,7 +74945,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3_3__0_in_rule__TypeTransformationSet__Group_3__3__Impl21224 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3__4__Impl_in_rule__TypeTransformationSet__Group_3__421255 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__TypeTransformationSet__Group_3__4__Impl21283 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3_3__0__Impl_in_rule__TypeTransformationSet__Group_3_3__021324 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3_3__0__Impl_in_rule__TypeTransformationSet__Group_3_3__021324 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3_3__1_in_rule__TypeTransformationSet__Group_3_3__021327 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__TypeTransformationSet__Group_3_3__0__Impl21355 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeTransformationSet__Group_3_3__1__Impl_in_rule__TypeTransformationSet__Group_3_3__121386 = new BitSet(new long[]{0x0000000000000002L});
@@ -74971,7 +74970,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group__0__Impl_in_rule__TypeMappingSet__Group__021823 = new BitSet(new long[]{0x0000000000100000L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group__1_in_rule__TypeMappingSet__Group__021826 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_38_in_rule__TypeMappingSet__Group__0__Impl21854 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeMappingSet__Group__1__Impl_in_rule__TypeMappingSet__Group__121885 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeMappingSet__Group__1__Impl_in_rule__TypeMappingSet__Group__121885 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group__2_in_rule__TypeMappingSet__Group__121888 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_72_in_rule__TypeMappingSet__Group__1__Impl21916 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group__2__Impl_in_rule__TypeMappingSet__Group__221947 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800004L});
@@ -74995,7 +74994,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3__0__Impl_in_rule__TypeMappingSet__Group_3__022344 = new BitSet(new long[]{0x0001000000000000L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3__1_in_rule__TypeMappingSet__Group_3__022347 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__TypeMappingSet__Group_3__0__Impl22375 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3__1__Impl_in_rule__TypeMappingSet__Group_3__122406 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3__1__Impl_in_rule__TypeMappingSet__Group_3__122406 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3__2_in_rule__TypeMappingSet__Group_3__122409 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_50_in_rule__TypeMappingSet__Group_3__1__Impl22437 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3__2__Impl_in_rule__TypeMappingSet__Group_3__222468 = new BitSet(new long[]{0x0000000000000000L,0x0000000000110000L});
@@ -75009,7 +75008,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3_3__0_in_rule__TypeMappingSet__Group_3__3__Impl22558 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3__4__Impl_in_rule__TypeMappingSet__Group_3__422589 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__TypeMappingSet__Group_3__4__Impl22617 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3_3__0__Impl_in_rule__TypeMappingSet__Group_3_3__022658 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3_3__0__Impl_in_rule__TypeMappingSet__Group_3_3__022658 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3_3__1_in_rule__TypeMappingSet__Group_3_3__022661 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__TypeMappingSet__Group_3_3__0__Impl22689 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeMappingSet__Group_3_3__1__Impl_in_rule__TypeMappingSet__Group_3_3__122720 = new BitSet(new long[]{0x0000000000000002L});
@@ -75025,7 +75024,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TypeMapping__TargetAssignment_2_in_rule__TypeMapping__Group__2__Impl22933 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TypeMapping__Group__3__Impl_in_rule__TypeMapping__Group__322963 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__TypeMapping__Group__3__Impl22991 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorPropagation__Group__0__Impl_in_rule__ErrorPropagation__Group__023030 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorPropagation__Group__0__Impl_in_rule__ErrorPropagation__Group__023030 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorPropagation__Group__1_in_rule__ErrorPropagation__Group__023033 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPropagation__Group__1__Impl_in_rule__ErrorPropagation__Group__123091 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
         public static final BitSet FOLLOW_rule__ErrorPropagation__Group__2_in_rule__ErrorPropagation__Group__123094 = new BitSet(new long[]{0x0000000000000002L});
@@ -75052,7 +75051,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorPropagation__FeatureorPPRefsAssignment_1_1_0_in_rule__ErrorPropagation__Group_1_1__0__Impl23561 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPropagation__Group_1_1__1__Impl_in_rule__ErrorPropagation__Group_1_1__123591 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPropagation__Group_1_1_1__0_in_rule__ErrorPropagation__Group_1_1__1__Impl23618 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
-        public static final BitSet FOLLOW_rule__ErrorPropagation__Group_1_1_1__0__Impl_in_rule__ErrorPropagation__Group_1_1_1__023653 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorPropagation__Group_1_1_1__0__Impl_in_rule__ErrorPropagation__Group_1_1_1__023653 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorPropagation__Group_1_1_1__1_in_rule__ErrorPropagation__Group_1_1_1__023656 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__ErrorPropagation__Group_1_1_1__0__Impl23684 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPropagation__Group_1_1_1__1__Impl_in_rule__ErrorPropagation__Group_1_1_1__123715 = new BitSet(new long[]{0x0000000000000002L});
@@ -75066,7 +75065,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorSource__Group__2__Impl_in_rule__ErrorSource__Group__223898 = new BitSet(new long[]{0x0000002000000000L});
         public static final BitSet FOLLOW_rule__ErrorSource__Group__3_in_rule__ErrorSource__Group__223901 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorSource__Group__2__Impl23929 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorSource__Group__3__Impl_in_rule__ErrorSource__Group__323960 = new BitSet(new long[]{0x1000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorSource__Group__3__Impl_in_rule__ErrorSource__Group__323960 = new BitSet(new long[]{0x1000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorSource__Group__4_in_rule__ErrorSource__Group__323963 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_58_in_rule__ErrorSource__Group__3__Impl23991 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorSource__Group__4__Impl_in_rule__ErrorSource__Group__424022 = new BitSet(new long[]{0x0100000000000000L,0x0000000000900004L});
@@ -75080,7 +75079,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorSource__Group_6__0_in_rule__ErrorSource__Group__6__Impl24173 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorSource__Group__7__Impl_in_rule__ErrorSource__Group__724204 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorSource__Group__7__Impl24232 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorSource__Group_6__0__Impl_in_rule__ErrorSource__Group_6__024279 = new BitSet(new long[]{0x0000000000000000L,0x0000000C00800000L});
+        public static final BitSet FOLLOW_rule__ErrorSource__Group_6__0__Impl_in_rule__ErrorSource__Group_6__024279 = new BitSet(new long[]{0x0000000000000000L,0x0000000600800000L});
         public static final BitSet FOLLOW_rule__ErrorSource__Group_6__1_in_rule__ErrorSource__Group_6__024282 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_39_in_rule__ErrorSource__Group_6__0__Impl24310 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorSource__Group_6__1__Impl_in_rule__ErrorSource__Group_6__124341 = new BitSet(new long[]{0x0000000000000002L});
@@ -75099,7 +75098,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorSink__Group__2__Impl_in_rule__ErrorSink__Group__224646 = new BitSet(new long[]{0x0020000000000000L});
         public static final BitSet FOLLOW_rule__ErrorSink__Group__3_in_rule__ErrorSink__Group__224649 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorSink__Group__2__Impl24677 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorSink__Group__3__Impl_in_rule__ErrorSink__Group__324708 = new BitSet(new long[]{0x1000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorSink__Group__3__Impl_in_rule__ErrorSink__Group__324708 = new BitSet(new long[]{0x1000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorSink__Group__4_in_rule__ErrorSink__Group__324711 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_36_in_rule__ErrorSink__Group__3__Impl24739 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorSink__Group__4__Impl_in_rule__ErrorSink__Group__424770 = new BitSet(new long[]{0x0000000000000000L,0x0000000000900004L});
@@ -75119,7 +75118,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorPath__Group__2__Impl_in_rule__ErrorPath__Group__225086 = new BitSet(new long[]{0x0004000000000000L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group__3_in_rule__ErrorPath__Group__225089 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorPath__Group__2__Impl25117 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorPath__Group__3__Impl_in_rule__ErrorPath__Group__325148 = new BitSet(new long[]{0x1000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorPath__Group__3__Impl_in_rule__ErrorPath__Group__325148 = new BitSet(new long[]{0x1000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group__4_in_rule__ErrorPath__Group__325151 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_33_in_rule__ErrorPath__Group__3__Impl25179 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group__4__Impl_in_rule__ErrorPath__Group__425210 = new BitSet(new long[]{0x0000000000000000L,0x000000000080000CL});
@@ -75128,7 +75127,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorPath__Group__5__Impl_in_rule__ErrorPath__Group__525270 = new BitSet(new long[]{0x0000000000000000L,0x000000000080000CL});
         public static final BitSet FOLLOW_rule__ErrorPath__Group__6_in_rule__ErrorPath__Group__525273 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPath__TypeTokenConstraintAssignment_5_in_rule__ErrorPath__Group__5__Impl25300 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorPath__Group__6__Impl_in_rule__ErrorPath__Group__625331 = new BitSet(new long[]{0x1000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorPath__Group__6__Impl_in_rule__ErrorPath__Group__625331 = new BitSet(new long[]{0x1000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group__7_in_rule__ErrorPath__Group__625334 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_15_in_rule__ErrorPath__Group__6__Impl25362 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group__7__Impl_in_rule__ErrorPath__Group__725393 = new BitSet(new long[]{0x0000000000000000L,0x0000000000901004L});
@@ -75142,7 +75141,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorPath__Group_8_1__0__Impl_in_rule__ErrorPath__Group_8_1__025593 = new BitSet(new long[]{0x0000000000100000L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group_8_1__1_in_rule__ErrorPath__Group_8_1__025596 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorPath__Group_8_1__0__Impl25624 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorPath__Group_8_1__1__Impl_in_rule__ErrorPath__Group_8_1__125655 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorPath__Group_8_1__1__Impl_in_rule__ErrorPath__Group_8_1__125655 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group_8_1__2_in_rule__ErrorPath__Group_8_1__125658 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_72_in_rule__ErrorPath__Group_8_1__1__Impl25686 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPath__Group_8_1__2__Impl_in_rule__ErrorPath__Group_8_1__225717 = new BitSet(new long[]{0x0000000000000002L});
@@ -75152,7 +75151,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_RULE_ID_in_rule__ErrorPropagationPoint__Group_1__0__Impl25810 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPropagationPoint__Group_1__1__Impl_in_rule__ErrorPropagationPoint__Group_1__125839 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPropagationPoint__Group_1_1__0_in_rule__ErrorPropagationPoint__Group_1__1__Impl25866 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
-        public static final BitSet FOLLOW_rule__ErrorPropagationPoint__Group_1_1__0__Impl_in_rule__ErrorPropagationPoint__Group_1_1__025901 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorPropagationPoint__Group_1_1__0__Impl_in_rule__ErrorPropagationPoint__Group_1_1__025901 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorPropagationPoint__Group_1_1__1_in_rule__ErrorPropagationPoint__Group_1_1__025904 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__ErrorPropagationPoint__Group_1_1__0__Impl25932 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorPropagationPoint__Group_1_1__1__Impl_in_rule__ErrorPropagationPoint__Group_1_1__125963 = new BitSet(new long[]{0x0000000000000002L});
@@ -75171,13 +75170,13 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_48_in_rule__PropagationPoint__Group__3__Impl26238 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__PropagationPoint__Group__4__Impl_in_rule__PropagationPoint__Group__426269 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__PropagationPoint__Group__4__Impl26297 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__PropagationPath__Group__0__Impl_in_rule__PropagationPath__Group__026338 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__PropagationPath__Group__0__Impl_in_rule__PropagationPath__Group__026338 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__PropagationPath__Group__1_in_rule__PropagationPath__Group__026341 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__PropagationPath__Group_0__0_in_rule__PropagationPath__Group__0__Impl26368 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__PropagationPath__Group__1__Impl_in_rule__PropagationPath__Group__126399 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
         public static final BitSet FOLLOW_rule__PropagationPath__Group__2_in_rule__PropagationPath__Group__126402 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__PropagationPath__SourceAssignment_1_in_rule__PropagationPath__Group__1__Impl26429 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__PropagationPath__Group__2__Impl_in_rule__PropagationPath__Group__226459 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__PropagationPath__Group__2__Impl_in_rule__PropagationPath__Group__226459 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__PropagationPath__Group__3_in_rule__PropagationPath__Group__226462 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_15_in_rule__PropagationPath__Group__2__Impl26490 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__PropagationPath__Group__3__Impl_in_rule__PropagationPath__Group__326521 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -75190,10 +75189,10 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__PropagationPath__NameAssignment_0_0_in_rule__PropagationPath__Group_0__0__Impl26680 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__PropagationPath__Group_0__1__Impl_in_rule__PropagationPath__Group_0__126710 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_9_in_rule__PropagationPath__Group_0__1__Impl26738 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group__0__Impl_in_rule__QualifiedPropagationPoint__Group__026773 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group__0__Impl_in_rule__QualifiedPropagationPoint__Group__026773 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group__1_in_rule__QualifiedPropagationPoint__Group__026776 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group_0__0_in_rule__QualifiedPropagationPoint__Group__0__Impl26805 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group_0__0_in_rule__QualifiedPropagationPoint__Group__0__Impl26817 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group_0__0_in_rule__QualifiedPropagationPoint__Group__0__Impl26805 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group_0__0_in_rule__QualifiedPropagationPoint__Group__0__Impl26817 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group__1__Impl_in_rule__QualifiedPropagationPoint__Group__126850 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__PropagationPointAssignment_1_in_rule__QualifiedPropagationPoint__Group__1__Impl26877 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QualifiedPropagationPoint__Group_0__0__Impl_in_rule__QualifiedPropagationPoint__Group_0__026911 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
@@ -75204,7 +75203,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group__0__Impl_in_rule__ErrorBehaviorStateMachine__Group__027034 = new BitSet(new long[]{0x0000000000020000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group__1_in_rule__ErrorBehaviorStateMachine__Group__027037 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorBehaviorStateMachine__Group__0__Impl27065 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group__1__Impl_in_rule__ErrorBehaviorStateMachine__Group__127096 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group__1__Impl_in_rule__ErrorBehaviorStateMachine__Group__127096 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group__2_in_rule__ErrorBehaviorStateMachine__Group__127099 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorBehaviorStateMachine__Group__1__Impl27127 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group__2__Impl_in_rule__ErrorBehaviorStateMachine__Group__227158 = new BitSet(new long[]{0x4000004080001100L,0x0000000000000004L});
@@ -75239,7 +75238,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_3__027791 = new BitSet(new long[]{0x0001000000000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3__1_in_rule__ErrorBehaviorStateMachine__Group_3__027794 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorBehaviorStateMachine__Group_3__0__Impl27822 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_3__127853 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_3__127853 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3__2_in_rule__ErrorBehaviorStateMachine__Group_3__127856 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_50_in_rule__ErrorBehaviorStateMachine__Group_3__1__Impl27884 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3__2__Impl_in_rule__ErrorBehaviorStateMachine__Group_3__227915 = new BitSet(new long[]{0x0000000000000000L,0x0000000000110000L});
@@ -75250,7 +75249,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3_3__0_in_rule__ErrorBehaviorStateMachine__Group_3__3__Impl28005 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3__4__Impl_in_rule__ErrorBehaviorStateMachine__Group_3__428036 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorBehaviorStateMachine__Group_3__4__Impl28064 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3_3__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_3_3__028105 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3_3__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_3_3__028105 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3_3__1_in_rule__ErrorBehaviorStateMachine__Group_3_3__028108 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ErrorBehaviorStateMachine__Group_3_3__0__Impl28136 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_3_3__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_3_3__128167 = new BitSet(new long[]{0x0000000000000002L});
@@ -75258,7 +75257,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_4__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_4__028228 = new BitSet(new long[]{0x0000000000000010L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_4__1_in_rule__ErrorBehaviorStateMachine__Group_4__028231 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorBehaviorStateMachine__Group_4__0__Impl28259 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_4__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_4__128290 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_4__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_4__128290 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_4__2_in_rule__ErrorBehaviorStateMachine__Group_4__128293 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorBehaviorStateMachine__Group_4__1__Impl28321 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_4__2__Impl_in_rule__ErrorBehaviorStateMachine__Group_4__228352 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -75266,30 +75265,30 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__UseTransformationAssignment_4_2_in_rule__ErrorBehaviorStateMachine__Group_4__2__Impl28382 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_4__3__Impl_in_rule__ErrorBehaviorStateMachine__Group_4__328412 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorBehaviorStateMachine__Group_4__3__Impl28440 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_5__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_5__028479 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_5__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_5__028479 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_5__1_in_rule__ErrorBehaviorStateMachine__Group_5__028482 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_52_in_rule__ErrorBehaviorStateMachine__Group_5__0__Impl28510 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_5__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_5__128541 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__EventsAssignment_5_1_in_rule__ErrorBehaviorStateMachine__Group_5__1__Impl28570 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__EventsAssignment_5_1_in_rule__ErrorBehaviorStateMachine__Group_5__1__Impl28582 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_6__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_6__028619 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__EventsAssignment_5_1_in_rule__ErrorBehaviorStateMachine__Group_5__1__Impl28570 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__EventsAssignment_5_1_in_rule__ErrorBehaviorStateMachine__Group_5__1__Impl28582 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_6__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_6__028619 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_6__1_in_rule__ErrorBehaviorStateMachine__Group_6__028622 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_59_in_rule__ErrorBehaviorStateMachine__Group_6__0__Impl28650 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_6__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_6__128681 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__StatesAssignment_6_1_in_rule__ErrorBehaviorStateMachine__Group_6__1__Impl28710 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__StatesAssignment_6_1_in_rule__ErrorBehaviorStateMachine__Group_6__1__Impl28722 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_7__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_7__028759 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__StatesAssignment_6_1_in_rule__ErrorBehaviorStateMachine__Group_6__1__Impl28710 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__StatesAssignment_6_1_in_rule__ErrorBehaviorStateMachine__Group_6__1__Impl28722 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_7__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_7__028759 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_7__1_in_rule__ErrorBehaviorStateMachine__Group_7__028762 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_83_in_rule__ErrorBehaviorStateMachine__Group_7__0__Impl28790 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_7__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_7__128821 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__TransitionsAssignment_7_1_in_rule__ErrorBehaviorStateMachine__Group_7__1__Impl28850 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__TransitionsAssignment_7_1_in_rule__ErrorBehaviorStateMachine__Group_7__1__Impl28862 = new BitSet(new long[]{0x1000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_8__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_8__028899 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__TransitionsAssignment_7_1_in_rule__ErrorBehaviorStateMachine__Group_7__1__Impl28850 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__TransitionsAssignment_7_1_in_rule__ErrorBehaviorStateMachine__Group_7__1__Impl28862 = new BitSet(new long[]{0x1000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_8__0__Impl_in_rule__ErrorBehaviorStateMachine__Group_8__028899 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_8__1_in_rule__ErrorBehaviorStateMachine__Group_8__028902 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_80_in_rule__ErrorBehaviorStateMachine__Group_8__0__Impl28930 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__Group_8__1__Impl_in_rule__ErrorBehaviorStateMachine__Group_8__128961 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__PropertiesAssignment_8_1_in_rule__ErrorBehaviorStateMachine__Group_8__1__Impl28990 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__PropertiesAssignment_8_1_in_rule__ErrorBehaviorStateMachine__Group_8__1__Impl29002 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__PropertiesAssignment_8_1_in_rule__ErrorBehaviorStateMachine__Group_8__1__Impl28990 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorStateMachine__PropertiesAssignment_8_1_in_rule__ErrorBehaviorStateMachine__Group_8__1__Impl29002 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorEvent__Group__0__Impl_in_rule__ErrorEvent__Group__029039 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
         public static final BitSet FOLLOW_rule__ErrorEvent__Group__1_in_rule__ErrorEvent__Group__029042 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorEvent__NameAssignment_0_in_rule__ErrorEvent__Group__0__Impl29069 = new BitSet(new long[]{0x0000000000000002L});
@@ -75310,7 +75309,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorEvent__Group_5__0_in_rule__ErrorEvent__Group__5__Impl29376 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorEvent__Group__6__Impl_in_rule__ErrorEvent__Group__629407 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorEvent__Group__6__Impl29435 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorEvent__Group_5__0__Impl_in_rule__ErrorEvent__Group_5__029480 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__ErrorEvent__Group_5__0__Impl_in_rule__ErrorEvent__Group_5__029480 = new BitSet(new long[]{0x0000000000000000L,0x0000000200000000L});
         public static final BitSet FOLLOW_rule__ErrorEvent__Group_5__1_in_rule__ErrorEvent__Group_5__029483 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_39_in_rule__ErrorEvent__Group_5__0__Impl29511 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorEvent__Group_5__1__Impl_in_rule__ErrorEvent__Group_5__129542 = new BitSet(new long[]{0x0000000000000002L});
@@ -75332,7 +75331,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__RepairEvent__Group_4__0_in_rule__RepairEvent__Group__4__Impl29879 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RepairEvent__Group__5__Impl_in_rule__RepairEvent__Group__529910 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__RepairEvent__Group__5__Impl29938 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__RepairEvent__Group_4__0__Impl_in_rule__RepairEvent__Group_4__029981 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__RepairEvent__Group_4__0__Impl_in_rule__RepairEvent__Group_4__029981 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__RepairEvent__Group_4__1_in_rule__RepairEvent__Group_4__029984 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_39_in_rule__RepairEvent__Group_4__0__Impl30012 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RepairEvent__Group_4__1__Impl_in_rule__RepairEvent__Group_4__130043 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
@@ -75340,7 +75339,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__RepairEvent__ConditionAssignment_4_1_in_rule__RepairEvent__Group_4__1__Impl30073 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RepairEvent__Group_4__2__Impl_in_rule__RepairEvent__Group_4__230103 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RepairEvent__Group_4_2__0_in_rule__RepairEvent__Group_4__2__Impl30130 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-        public static final BitSet FOLLOW_rule__RepairEvent__Group_4_2__0__Impl_in_rule__RepairEvent__Group_4_2__030167 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__RepairEvent__Group_4_2__0__Impl_in_rule__RepairEvent__Group_4_2__030167 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__RepairEvent__Group_4_2__1_in_rule__RepairEvent__Group_4_2__030170 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__RepairEvent__Group_4_2__0__Impl30198 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RepairEvent__Group_4_2__1__Impl_in_rule__RepairEvent__Group_4_2__130229 = new BitSet(new long[]{0x0000000000000002L});
@@ -75362,7 +75361,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__RecoverEvent__Group_4__0_in_rule__RecoverEvent__Group__4__Impl30566 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RecoverEvent__Group__5__Impl_in_rule__RecoverEvent__Group__530597 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__RecoverEvent__Group__5__Impl30625 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__RecoverEvent__Group_4__0__Impl_in_rule__RecoverEvent__Group_4__030668 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__RecoverEvent__Group_4__0__Impl_in_rule__RecoverEvent__Group_4__030668 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__RecoverEvent__Group_4__1_in_rule__RecoverEvent__Group_4__030671 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_39_in_rule__RecoverEvent__Group_4__0__Impl30699 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RecoverEvent__Group_4__1__Impl_in_rule__RecoverEvent__Group_4__130730 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
@@ -75370,7 +75369,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__RecoverEvent__ConditionAssignment_4_1_in_rule__RecoverEvent__Group_4__1__Impl30760 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RecoverEvent__Group_4__2__Impl_in_rule__RecoverEvent__Group_4__230790 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RecoverEvent__Group_4_2__0_in_rule__RecoverEvent__Group_4__2__Impl30817 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-        public static final BitSet FOLLOW_rule__RecoverEvent__Group_4_2__0__Impl_in_rule__RecoverEvent__Group_4_2__030854 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__RecoverEvent__Group_4_2__0__Impl_in_rule__RecoverEvent__Group_4_2__030854 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__RecoverEvent__Group_4_2__1_in_rule__RecoverEvent__Group_4_2__030857 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__RecoverEvent__Group_4_2__0__Impl30885 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RecoverEvent__Group_4_2__1__Impl_in_rule__RecoverEvent__Group_4_2__130916 = new BitSet(new long[]{0x0000000000000002L});
@@ -75392,19 +75391,19 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorState__TypeSetAssignment_4_in_rule__ErrorBehaviorState__Group__4__Impl31252 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorState__Group__5__Impl_in_rule__ErrorBehaviorState__Group__531283 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorBehaviorState__Group__5__Impl31311 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__0__Impl_in_rule__ErrorBehaviorTransition__Group__031354 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__0__Impl_in_rule__ErrorBehaviorTransition__Group__031354 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__1_in_rule__ErrorBehaviorTransition__Group__031357 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_0__0_in_rule__ErrorBehaviorTransition__Group__0__Impl31384 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__1__Impl_in_rule__ErrorBehaviorTransition__Group__131415 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__2_in_rule__ErrorBehaviorTransition__Group__131418 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Alternatives_1_in_rule__ErrorBehaviorTransition__Group__1__Impl31445 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__2__Impl_in_rule__ErrorBehaviorTransition__Group__231475 = new BitSet(new long[]{0x0000000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__2__Impl_in_rule__ErrorBehaviorTransition__Group__231475 = new BitSet(new long[]{0x0000000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__3_in_rule__ErrorBehaviorTransition__Group__231478 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_16_in_rule__ErrorBehaviorTransition__Group__2__Impl31506 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__3__Impl_in_rule__ErrorBehaviorTransition__Group__331537 = new BitSet(new long[]{0x0800000000000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__4_in_rule__ErrorBehaviorTransition__Group__331540 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__ConditionAssignment_3_in_rule__ErrorBehaviorTransition__Group__3__Impl31567 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__4__Impl_in_rule__ErrorBehaviorTransition__Group__431597 = new BitSet(new long[]{0x0008000000000000L,0x0000000800001000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__4__Impl_in_rule__ErrorBehaviorTransition__Group__431597 = new BitSet(new long[]{0x0008000000000000L,0x0000000400001000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__5_in_rule__ErrorBehaviorTransition__Group__431600 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_24_in_rule__ErrorBehaviorTransition__Group__4__Impl31628 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group__5__Impl_in_rule__ErrorBehaviorTransition__Group__531659 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -75432,7 +75431,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__SteadyStateAssignment_5_1_0_in_rule__ErrorBehaviorTransition__Group_5_1__0__Impl32189 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_1__1__Impl_in_rule__ErrorBehaviorTransition__Group_5_1__132219 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_49_in_rule__ErrorBehaviorTransition__Group_5_1__1__Impl32247 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2__0__Impl_in_rule__ErrorBehaviorTransition__Group_5_2__032282 = new BitSet(new long[]{0x0008000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2__0__Impl_in_rule__ErrorBehaviorTransition__Group_5_2__032282 = new BitSet(new long[]{0x0008000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2__1_in_rule__ErrorBehaviorTransition__Group_5_2__032285 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ErrorBehaviorTransition__Group_5_2__0__Impl32313 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2__1__Impl_in_rule__ErrorBehaviorTransition__Group_5_2__132344 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
@@ -75444,7 +75443,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2_2__0_in_rule__ErrorBehaviorTransition__Group_5_2__2__Impl32448 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2__3__Impl_in_rule__ErrorBehaviorTransition__Group_5_2__332481 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__ErrorBehaviorTransition__Group_5_2__3__Impl32509 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2_2__0__Impl_in_rule__ErrorBehaviorTransition__Group_5_2_2__032548 = new BitSet(new long[]{0x0008000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2_2__0__Impl_in_rule__ErrorBehaviorTransition__Group_5_2_2__032548 = new BitSet(new long[]{0x0008000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2_2__1_in_rule__ErrorBehaviorTransition__Group_5_2_2__032551 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ErrorBehaviorTransition__Group_5_2_2__0__Impl32579 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorBehaviorTransition__Group_5_2_2__1__Impl_in_rule__ErrorBehaviorTransition__Group_5_2_2__132610 = new BitSet(new long[]{0x0000000000000002L});
@@ -75452,7 +75451,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TransitionBranch__Group__0__Impl_in_rule__TransitionBranch__Group__032671 = new BitSet(new long[]{0x0200000000000000L});
         public static final BitSet FOLLOW_rule__TransitionBranch__Group__1_in_rule__TransitionBranch__Group__032674 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TransitionBranch__Alternatives_0_in_rule__TransitionBranch__Group__0__Impl32701 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__TransitionBranch__Group__1__Impl_in_rule__TransitionBranch__Group__132731 = new BitSet(new long[]{0x0000000800000000L,0x0000000840000000L});
+        public static final BitSet FOLLOW_rule__TransitionBranch__Group__1__Impl_in_rule__TransitionBranch__Group__132731 = new BitSet(new long[]{0x0000000800000000L,0x0000000440000000L});
         public static final BitSet FOLLOW_rule__TransitionBranch__Group__2_in_rule__TransitionBranch__Group__132734 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_40_in_rule__TransitionBranch__Group__1__Impl32762 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TransitionBranch__Group__2__Impl_in_rule__TransitionBranch__Group__232793 = new BitSet(new long[]{0x0000000000000002L});
@@ -75467,7 +75466,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__TransitionBranch__SteadyStateAssignment_0_1_0_in_rule__TransitionBranch__Group_0_1__0__Impl33008 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__TransitionBranch__Group_0_1__1__Impl_in_rule__TransitionBranch__Group_0_1__133038 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_49_in_rule__TransitionBranch__Group_0_1__1__Impl33066 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__BranchValue__Group__0__Impl_in_rule__BranchValue__Group__033101 = new BitSet(new long[]{0x0000000800000000L,0x0000000840000000L});
+        public static final BitSet FOLLOW_rule__BranchValue__Group__0__Impl_in_rule__BranchValue__Group__033101 = new BitSet(new long[]{0x0000000800000000L,0x0000000440000000L});
         public static final BitSet FOLLOW_rule__BranchValue__Group__1_in_rule__BranchValue__Group__033104 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__BranchValue__Group__1__Impl_in_rule__BranchValue__Group__133162 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__BranchValue__Alternatives_1_in_rule__BranchValue__Group__1__Impl33189 = new BitSet(new long[]{0x0000000000000002L});
@@ -75480,7 +75479,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group__2__Impl_in_rule__ConnectionErrorSource__Group__233345 = new BitSet(new long[]{0x0000002000000000L});
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group__3_in_rule__ConnectionErrorSource__Group__233348 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_42_in_rule__ConnectionErrorSource__Group__2__Impl33376 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group__3__Impl_in_rule__ConnectionErrorSource__Group__333407 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group__3__Impl_in_rule__ConnectionErrorSource__Group__333407 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group__4_in_rule__ConnectionErrorSource__Group__333410 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_58_in_rule__ConnectionErrorSource__Group__3__Impl33438 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group__4__Impl_in_rule__ConnectionErrorSource__Group__433469 = new BitSet(new long[]{0x0100000000000000L,0x0000000000900004L});
@@ -75494,7 +75493,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group_6__0_in_rule__ConnectionErrorSource__Group__6__Impl33620 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group__7__Impl_in_rule__ConnectionErrorSource__Group__733651 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ConnectionErrorSource__Group__7__Impl33679 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group_6__0__Impl_in_rule__ConnectionErrorSource__Group_6__033726 = new BitSet(new long[]{0x0000000000000000L,0x0000000400800000L});
+        public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group_6__0__Impl_in_rule__ConnectionErrorSource__Group_6__033726 = new BitSet(new long[]{0x0000000000000000L,0x0000000200800000L});
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group_6__1_in_rule__ConnectionErrorSource__Group_6__033729 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_39_in_rule__ConnectionErrorSource__Group_6__0__Impl33757 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ConnectionErrorSource__Group_6__1__Impl_in_rule__ConnectionErrorSource__Group_6__133788 = new BitSet(new long[]{0x0000000000000002L});
@@ -75506,7 +75505,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ConditionExpression__Group_1__0_in_rule__ConditionExpression__Group__1__Impl33935 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000200L});
         public static final BitSet FOLLOW_rule__ConditionExpression__Group_1__0__Impl_in_rule__ConditionExpression__Group_1__033970 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
         public static final BitSet FOLLOW_rule__ConditionExpression__Group_1__1_in_rule__ConditionExpression__Group_1__033973 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ConditionExpression__Group_1__1__Impl_in_rule__ConditionExpression__Group_1__134031 = new BitSet(new long[]{0x0000000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__ConditionExpression__Group_1__1__Impl_in_rule__ConditionExpression__Group_1__134031 = new BitSet(new long[]{0x0000000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__ConditionExpression__Group_1__2_in_rule__ConditionExpression__Group_1__134034 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_21_in_rule__ConditionExpression__Group_1__1__Impl34062 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ConditionExpression__Group_1__2__Impl_in_rule__ConditionExpression__Group_1__234093 = new BitSet(new long[]{0x0000000000000002L});
@@ -75518,7 +75517,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__AndExpression__Group_1__0_in_rule__AndExpression__Group__1__Impl34242 = new BitSet(new long[]{0x2000000000000002L});
         public static final BitSet FOLLOW_rule__AndExpression__Group_1__0__Impl_in_rule__AndExpression__Group_1__034277 = new BitSet(new long[]{0x2000000000000000L});
         public static final BitSet FOLLOW_rule__AndExpression__Group_1__1_in_rule__AndExpression__Group_1__034280 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__AndExpression__Group_1__1__Impl_in_rule__AndExpression__Group_1__134338 = new BitSet(new long[]{0x0000000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__AndExpression__Group_1__1__Impl_in_rule__AndExpression__Group_1__134338 = new BitSet(new long[]{0x0000000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__AndExpression__Group_1__2_in_rule__AndExpression__Group_1__134341 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_26_in_rule__AndExpression__Group_1__1__Impl34369 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__AndExpression__Group_1__2__Impl_in_rule__AndExpression__Group_1__234400 = new BitSet(new long[]{0x0000000000000002L});
@@ -75529,7 +75528,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group__1__Impl_in_rule__OrmoreExpression__Group__134523 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group__2_in_rule__OrmoreExpression__Group__134526 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_55_in_rule__OrmoreExpression__Group__1__Impl34554 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OrmoreExpression__Group__2__Impl_in_rule__OrmoreExpression__Group__234585 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OrmoreExpression__Group__2__Impl_in_rule__OrmoreExpression__Group__234585 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group__3_in_rule__OrmoreExpression__Group__234588 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__OrmoreExpression__Group__2__Impl34616 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group__3__Impl_in_rule__OrmoreExpression__Group__334647 = new BitSet(new long[]{0x0000000000000000L,0x0000000000012000L});
@@ -75540,7 +75539,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group_4__0_in_rule__OrmoreExpression__Group__4__Impl34737 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group__5__Impl_in_rule__OrmoreExpression__Group__534768 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__OrmoreExpression__Group__5__Impl34796 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OrmoreExpression__Group_4__0__Impl_in_rule__OrmoreExpression__Group_4__034839 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OrmoreExpression__Group_4__0__Impl_in_rule__OrmoreExpression__Group_4__034839 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group_4__1_in_rule__OrmoreExpression__Group_4__034842 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__OrmoreExpression__Group_4__0__Impl34870 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OrmoreExpression__Group_4__1__Impl_in_rule__OrmoreExpression__Group_4__134901 = new BitSet(new long[]{0x0000000000000002L});
@@ -75551,7 +75550,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__OrlessExpression__Group__1__Impl_in_rule__OrlessExpression__Group__135022 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__OrlessExpression__Group__2_in_rule__OrlessExpression__Group__135025 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_54_in_rule__OrlessExpression__Group__1__Impl35053 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OrlessExpression__Group__2__Impl_in_rule__OrlessExpression__Group__235084 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OrlessExpression__Group__2__Impl_in_rule__OrlessExpression__Group__235084 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OrlessExpression__Group__3_in_rule__OrlessExpression__Group__235087 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__OrlessExpression__Group__2__Impl35115 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OrlessExpression__Group__3__Impl_in_rule__OrlessExpression__Group__335146 = new BitSet(new long[]{0x0000000000000000L,0x0000000000012000L});
@@ -75562,12 +75561,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__OrlessExpression__Group_4__0_in_rule__OrlessExpression__Group__4__Impl35236 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__OrlessExpression__Group__5__Impl_in_rule__OrlessExpression__Group__535267 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__OrlessExpression__Group__5__Impl35295 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OrlessExpression__Group_4__0__Impl_in_rule__OrlessExpression__Group_4__035338 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OrlessExpression__Group_4__0__Impl_in_rule__OrlessExpression__Group_4__035338 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OrlessExpression__Group_4__1_in_rule__OrlessExpression__Group_4__035341 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__OrlessExpression__Group_4__0__Impl35369 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OrlessExpression__Group_4__1__Impl_in_rule__OrlessExpression__Group_4__135400 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OrlessExpression__OperandsAssignment_4_1_in_rule__OrlessExpression__Group_4__1__Impl35427 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ConditionTerm__Group_3__0__Impl_in_rule__ConditionTerm__Group_3__035461 = new BitSet(new long[]{0x0000000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__ConditionTerm__Group_3__0__Impl_in_rule__ConditionTerm__Group_3__035461 = new BitSet(new long[]{0x0000000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__ConditionTerm__Group_3__1_in_rule__ConditionTerm__Group_3__035464 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ConditionTerm__Group_3__0__Impl35492 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ConditionTerm__Group_3__1__Impl_in_rule__ConditionTerm__Group_3__135523 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
@@ -75580,19 +75579,19 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ConditionElement__IncomingAssignment_0_in_rule__ConditionElement__Group__0__Impl35677 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ConditionElement__Group__1__Impl_in_rule__ConditionElement__Group__135707 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ConditionElement__ConstraintAssignment_1_in_rule__ConditionElement__Group__1__Impl35734 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__0__Impl_in_rule__OutgoingPropagationCondition__Group__035769 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__0__Impl_in_rule__OutgoingPropagationCondition__Group__035769 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__1_in_rule__OutgoingPropagationCondition__Group__035772 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group_0__0_in_rule__OutgoingPropagationCondition__Group__0__Impl35799 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__1__Impl_in_rule__OutgoingPropagationCondition__Group__135830 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__2_in_rule__OutgoingPropagationCondition__Group__135833 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Alternatives_1_in_rule__OutgoingPropagationCondition__Group__1__Impl35860 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__2__Impl_in_rule__OutgoingPropagationCondition__Group__235890 = new BitSet(new long[]{0x0800000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__2__Impl_in_rule__OutgoingPropagationCondition__Group__235890 = new BitSet(new long[]{0x0800000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__3_in_rule__OutgoingPropagationCondition__Group__235893 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_16_in_rule__OutgoingPropagationCondition__Group__2__Impl35921 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__3__Impl_in_rule__OutgoingPropagationCondition__Group__335952 = new BitSet(new long[]{0x0800000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__3__Impl_in_rule__OutgoingPropagationCondition__Group__335952 = new BitSet(new long[]{0x0800000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__4_in_rule__OutgoingPropagationCondition__Group__335955 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__ConditionAssignment_3_in_rule__OutgoingPropagationCondition__Group__3__Impl35982 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__4__Impl_in_rule__OutgoingPropagationCondition__Group__436013 = new BitSet(new long[]{0x1000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__4__Impl_in_rule__OutgoingPropagationCondition__Group__436013 = new BitSet(new long[]{0x1000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__5_in_rule__OutgoingPropagationCondition__Group__436016 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_24_in_rule__OutgoingPropagationCondition__Group__4__Impl36044 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group__5__Impl_in_rule__OutgoingPropagationCondition__Group__536075 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -75615,28 +75614,28 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Alternatives_5_0_in_rule__OutgoingPropagationCondition__Group_5__0__Impl36483 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__Group_5__1__Impl_in_rule__OutgoingPropagationCondition__Group_5__136513 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OutgoingPropagationCondition__TypeTokenAssignment_5_1_in_rule__OutgoingPropagationCondition__Group_5__1__Impl36540 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorDetection__Group__0__Impl_in_rule__ErrorDetection__Group__036575 = new BitSet(new long[]{0x1000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorDetection__Group__0__Impl_in_rule__ErrorDetection__Group__036575 = new BitSet(new long[]{0x1000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__1_in_rule__ErrorDetection__Group__036578 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group_0__0_in_rule__ErrorDetection__Group__0__Impl36605 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__1__Impl_in_rule__ErrorDetection__Group__136636 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__2_in_rule__ErrorDetection__Group__136639 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Alternatives_1_in_rule__ErrorDetection__Group__1__Impl36666 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorDetection__Group__2__Impl_in_rule__ErrorDetection__Group__236696 = new BitSet(new long[]{0x0800000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__ErrorDetection__Group__2__Impl_in_rule__ErrorDetection__Group__236696 = new BitSet(new long[]{0x0800000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__3_in_rule__ErrorDetection__Group__236699 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_16_in_rule__ErrorDetection__Group__2__Impl36727 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorDetection__Group__3__Impl_in_rule__ErrorDetection__Group__336758 = new BitSet(new long[]{0x0800000140448400L,0x0000000804001000L});
+        public static final BitSet FOLLOW_rule__ErrorDetection__Group__3__Impl_in_rule__ErrorDetection__Group__336758 = new BitSet(new long[]{0x0800000140448400L,0x0000000404001000L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__4_in_rule__ErrorDetection__Group__336761 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__ConditionAssignment_3_in_rule__ErrorDetection__Group__3__Impl36788 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorDetection__Group__4__Impl_in_rule__ErrorDetection__Group__436819 = new BitSet(new long[]{0x0010000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorDetection__Group__4__Impl_in_rule__ErrorDetection__Group__436819 = new BitSet(new long[]{0x0010000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__5_in_rule__ErrorDetection__Group__436822 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_24_in_rule__ErrorDetection__Group__4__Impl36850 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__5__Impl_in_rule__ErrorDetection__Group__536881 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__6_in_rule__ErrorDetection__Group__536884 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Alternatives_5_in_rule__ErrorDetection__Group__5__Impl36911 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorDetection__Group__6__Impl_in_rule__ErrorDetection__Group__636941 = new BitSet(new long[]{0x0000000000000000L,0x0000000C04100000L});
+        public static final BitSet FOLLOW_rule__ErrorDetection__Group__6__Impl_in_rule__ErrorDetection__Group__636941 = new BitSet(new long[]{0x0000000000000000L,0x0000000604100000L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__7_in_rule__ErrorDetection__Group__636944 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_1_in_rule__ErrorDetection__Group__6__Impl36972 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorDetection__Group__7__Impl_in_rule__ErrorDetection__Group__737003 = new BitSet(new long[]{0x0000000000000000L,0x0000000C04100000L});
+        public static final BitSet FOLLOW_rule__ErrorDetection__Group__7__Impl_in_rule__ErrorDetection__Group__737003 = new BitSet(new long[]{0x0000000000000000L,0x0000000604100000L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__8_in_rule__ErrorDetection__Group__737006 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__ErrorCodeAssignment_7_in_rule__ErrorDetection__Group__7__Impl37033 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorDetection__Group__8__Impl_in_rule__ErrorDetection__Group__837064 = new BitSet(new long[]{0x0000000000000002L});
@@ -75663,7 +75662,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group__3__Impl_in_rule__ErrorStateToModeMapping__Group__337569 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group__4_in_rule__ErrorStateToModeMapping__Group__337572 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_46_in_rule__ErrorStateToModeMapping__Group__3__Impl37600 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group__4__Impl_in_rule__ErrorStateToModeMapping__Group__437631 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group__4__Impl_in_rule__ErrorStateToModeMapping__Group__437631 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group__5_in_rule__ErrorStateToModeMapping__Group__437634 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ErrorStateToModeMapping__Group__4__Impl37662 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group__5__Impl_in_rule__ErrorStateToModeMapping__Group__537693 = new BitSet(new long[]{0x0000000000000000L,0x0000000000012000L});
@@ -75677,7 +75676,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__ErrorStateToModeMapping__Group__7__Impl37845 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group__8__Impl_in_rule__ErrorStateToModeMapping__Group__837876 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorStateToModeMapping__Group__8__Impl37904 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group_6__0__Impl_in_rule__ErrorStateToModeMapping__Group_6__037953 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group_6__0__Impl_in_rule__ErrorStateToModeMapping__Group_6__037953 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group_6__1_in_rule__ErrorStateToModeMapping__Group_6__037956 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ErrorStateToModeMapping__Group_6__0__Impl37984 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorStateToModeMapping__Group_6__1__Impl_in_rule__ErrorStateToModeMapping__Group_6__138015 = new BitSet(new long[]{0x0000000000000002L});
@@ -75685,21 +75684,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__InternalPort__Group__0__Impl_in_rule__InternalPort__Group__038076 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
         public static final BitSet FOLLOW_rule__InternalPort__Group__1_in_rule__InternalPort__Group__038079 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_35_in_rule__InternalPort__Group__0__Impl38107 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__InternalPort__Group__1__Impl_in_rule__InternalPort__Group__138138 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__InternalPort__Group__1__Impl_in_rule__InternalPort__Group__138138 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__InternalPort__Group__2_in_rule__InternalPort__Group__138141 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__InternalPort__Group__1__Impl38169 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__InternalPort__Group__2__Impl_in_rule__InternalPort__Group__238200 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__InternalPort__NameAssignment_2_in_rule__InternalPort__Group__2__Impl38227 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__CompositeState__Group__0__Impl_in_rule__CompositeState__Group__038263 = new BitSet(new long[]{0x0000000000000000L,0x0000000800200000L});
+        public static final BitSet FOLLOW_rule__CompositeState__Group__0__Impl_in_rule__CompositeState__Group__038263 = new BitSet(new long[]{0x0000000000000000L,0x0000000400200000L});
         public static final BitSet FOLLOW_rule__CompositeState__Group__1_in_rule__CompositeState__Group__038266 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__CompositeState__Group_0__0_in_rule__CompositeState__Group__0__Impl38293 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__CompositeState__Group__1__Impl_in_rule__CompositeState__Group__138324 = new BitSet(new long[]{0x0000000800000000L,0x0000000804001100L});
+        public static final BitSet FOLLOW_rule__CompositeState__Group__1__Impl_in_rule__CompositeState__Group__138324 = new BitSet(new long[]{0x0000000800000000L,0x0000000404001100L});
         public static final BitSet FOLLOW_rule__CompositeState__Group__2_in_rule__CompositeState__Group__138327 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_11_in_rule__CompositeState__Group__1__Impl38355 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__CompositeState__Group__2__Impl_in_rule__CompositeState__Group__238386 = new BitSet(new long[]{0x0800000000000000L});
         public static final BitSet FOLLOW_rule__CompositeState__Group__3_in_rule__CompositeState__Group__238389 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__CompositeState__Alternatives_2_in_rule__CompositeState__Group__2__Impl38416 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__CompositeState__Group__3__Impl_in_rule__CompositeState__Group__338446 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__CompositeState__Group__3__Impl_in_rule__CompositeState__Group__338446 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__CompositeState__Group__4_in_rule__CompositeState__Group__338449 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_24_in_rule__CompositeState__Group__3__Impl38477 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__CompositeState__Group__4__Impl_in_rule__CompositeState__Group__438508 = new BitSet(new long[]{0x0000000000000000L,0x0000000000901000L});
@@ -75722,7 +75721,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SConditionExpression__Group_1__0_in_rule__SConditionExpression__Group__1__Impl38911 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000200L});
         public static final BitSet FOLLOW_rule__SConditionExpression__Group_1__0__Impl_in_rule__SConditionExpression__Group_1__038946 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
         public static final BitSet FOLLOW_rule__SConditionExpression__Group_1__1_in_rule__SConditionExpression__Group_1__038949 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SConditionExpression__Group_1__1__Impl_in_rule__SConditionExpression__Group_1__139007 = new BitSet(new long[]{0x0000000000000000L,0x0000000804001100L});
+        public static final BitSet FOLLOW_rule__SConditionExpression__Group_1__1__Impl_in_rule__SConditionExpression__Group_1__139007 = new BitSet(new long[]{0x0000000000000000L,0x0000000404001100L});
         public static final BitSet FOLLOW_rule__SConditionExpression__Group_1__2_in_rule__SConditionExpression__Group_1__139010 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_21_in_rule__SConditionExpression__Group_1__1__Impl39038 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionExpression__Group_1__2__Impl_in_rule__SConditionExpression__Group_1__239069 = new BitSet(new long[]{0x0000000000000002L});
@@ -75734,7 +75733,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SAndExpression__Group_1__0_in_rule__SAndExpression__Group__1__Impl39218 = new BitSet(new long[]{0x2000000000000002L});
         public static final BitSet FOLLOW_rule__SAndExpression__Group_1__0__Impl_in_rule__SAndExpression__Group_1__039253 = new BitSet(new long[]{0x2000000000000000L});
         public static final BitSet FOLLOW_rule__SAndExpression__Group_1__1_in_rule__SAndExpression__Group_1__039256 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SAndExpression__Group_1__1__Impl_in_rule__SAndExpression__Group_1__139314 = new BitSet(new long[]{0x0000000000000000L,0x0000000804001100L});
+        public static final BitSet FOLLOW_rule__SAndExpression__Group_1__1__Impl_in_rule__SAndExpression__Group_1__139314 = new BitSet(new long[]{0x0000000000000000L,0x0000000404001100L});
         public static final BitSet FOLLOW_rule__SAndExpression__Group_1__2_in_rule__SAndExpression__Group_1__139317 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_26_in_rule__SAndExpression__Group_1__1__Impl39345 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SAndExpression__Group_1__2__Impl_in_rule__SAndExpression__Group_1__239376 = new BitSet(new long[]{0x0000000000000002L});
@@ -75745,7 +75744,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group__1__Impl_in_rule__SOrmoreExpression__Group__139499 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group__2_in_rule__SOrmoreExpression__Group__139502 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_55_in_rule__SOrmoreExpression__Group__1__Impl39530 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SOrmoreExpression__Group__2__Impl_in_rule__SOrmoreExpression__Group__239561 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000100L});
+        public static final BitSet FOLLOW_rule__SOrmoreExpression__Group__2__Impl_in_rule__SOrmoreExpression__Group__239561 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000100L});
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group__3_in_rule__SOrmoreExpression__Group__239564 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__SOrmoreExpression__Group__2__Impl39592 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group__3__Impl_in_rule__SOrmoreExpression__Group__339623 = new BitSet(new long[]{0x0000000000000000L,0x0000000000012000L});
@@ -75756,7 +75755,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group_4__0_in_rule__SOrmoreExpression__Group__4__Impl39713 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group__5__Impl_in_rule__SOrmoreExpression__Group__539744 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__SOrmoreExpression__Group__5__Impl39772 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SOrmoreExpression__Group_4__0__Impl_in_rule__SOrmoreExpression__Group_4__039815 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000100L});
+        public static final BitSet FOLLOW_rule__SOrmoreExpression__Group_4__0__Impl_in_rule__SOrmoreExpression__Group_4__039815 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000100L});
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group_4__1_in_rule__SOrmoreExpression__Group_4__039818 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__SOrmoreExpression__Group_4__0__Impl39846 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SOrmoreExpression__Group_4__1__Impl_in_rule__SOrmoreExpression__Group_4__139877 = new BitSet(new long[]{0x0000000000000002L});
@@ -75767,7 +75766,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group__1__Impl_in_rule__SOrlessExpression__Group__139998 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group__2_in_rule__SOrlessExpression__Group__140001 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_54_in_rule__SOrlessExpression__Group__1__Impl40029 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SOrlessExpression__Group__2__Impl_in_rule__SOrlessExpression__Group__240060 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000100L});
+        public static final BitSet FOLLOW_rule__SOrlessExpression__Group__2__Impl_in_rule__SOrlessExpression__Group__240060 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000100L});
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group__3_in_rule__SOrlessExpression__Group__240063 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__SOrlessExpression__Group__2__Impl40091 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group__3__Impl_in_rule__SOrlessExpression__Group__340122 = new BitSet(new long[]{0x0000000000000000L,0x0000000000012000L});
@@ -75778,12 +75777,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group_4__0_in_rule__SOrlessExpression__Group__4__Impl40212 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group__5__Impl_in_rule__SOrlessExpression__Group__540243 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__SOrlessExpression__Group__5__Impl40271 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SOrlessExpression__Group_4__0__Impl_in_rule__SOrlessExpression__Group_4__040314 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000100L});
+        public static final BitSet FOLLOW_rule__SOrlessExpression__Group_4__0__Impl_in_rule__SOrlessExpression__Group_4__040314 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000100L});
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group_4__1_in_rule__SOrlessExpression__Group_4__040317 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__SOrlessExpression__Group_4__0__Impl40345 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SOrlessExpression__Group_4__1__Impl_in_rule__SOrlessExpression__Group_4__140376 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SOrlessExpression__OperandsAssignment_4_1_in_rule__SOrlessExpression__Group_4__1__Impl40403 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SConditionTerm__Group_3__0__Impl_in_rule__SConditionTerm__Group_3__040437 = new BitSet(new long[]{0x0000000000000000L,0x0000000804001100L});
+        public static final BitSet FOLLOW_rule__SConditionTerm__Group_3__0__Impl_in_rule__SConditionTerm__Group_3__040437 = new BitSet(new long[]{0x0000000000000000L,0x0000000404001100L});
         public static final BitSet FOLLOW_rule__SConditionTerm__Group_3__1_in_rule__SConditionTerm__Group_3__040440 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__SConditionTerm__Group_3__0__Impl40468 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionTerm__Group_3__1__Impl_in_rule__SConditionTerm__Group_3__140499 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
@@ -75791,10 +75790,10 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_ruleSConditionExpression_in_rule__SConditionTerm__Group_3__1__Impl40529 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionTerm__Group_3__2__Impl_in_rule__SConditionTerm__Group_3__240558 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__SConditionTerm__Group_3__2__Impl40586 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SConditionElement__Group_0__0__Impl_in_rule__SConditionElement__Group_0__040623 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__SConditionElement__Group_0__0__Impl_in_rule__SConditionElement__Group_0__040623 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_0__1_in_rule__SConditionElement__Group_0__040626 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SConditionElement__Group_0_0__0_in_rule__SConditionElement__Group_0__0__Impl40655 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__SConditionElement__Group_0_0__0_in_rule__SConditionElement__Group_0__0__Impl40667 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__SConditionElement__Group_0_0__0_in_rule__SConditionElement__Group_0__0__Impl40655 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__SConditionElement__Group_0_0__0_in_rule__SConditionElement__Group_0__0__Impl40667 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_0__1__Impl_in_rule__SConditionElement__Group_0__140700 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800004L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_0__2_in_rule__SConditionElement__Group_0__140703 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__StateAssignment_0_1_in_rule__SConditionElement__Group_0__1__Impl40730 = new BitSet(new long[]{0x0000000000000002L});
@@ -75805,7 +75804,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SConditionElement__SubcomponentsAssignment_0_0_0_in_rule__SConditionElement__Group_0_0__0__Impl40854 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_0_0__1__Impl_in_rule__SConditionElement__Group_0_0__140884 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__SConditionElement__Group_0_0__1__Impl40912 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SConditionElement__Group_1__0__Impl_in_rule__SConditionElement__Group_1__040947 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__SConditionElement__Group_1__0__Impl_in_rule__SConditionElement__Group_1__040947 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_1__1_in_rule__SConditionElement__Group_1__040950 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_20_in_rule__SConditionElement__Group_1__0__Impl40978 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_1__1__Impl_in_rule__SConditionElement__Group_1__141009 = new BitSet(new long[]{0x0000000000000002L});
@@ -75815,9 +75814,9 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SConditionElement__IncomingAssignment_1_1_0_in_rule__SConditionElement__Group_1_1__0__Impl41100 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_1_1__1__Impl_in_rule__SConditionElement__Group_1_1__141130 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__ConstraintAssignment_1_1_1_in_rule__SConditionElement__Group_1_1__1__Impl41157 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QEMREF__Group__0__Impl_in_rule__QEMREF__Group__041192 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QEMREF__Group__0__Impl_in_rule__QEMREF__Group__041192 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QEMREF__Group__1_in_rule__QEMREF__Group__041195 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QEMREF__Group_0__0_in_rule__QEMREF__Group__0__Impl41222 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QEMREF__Group_0__0_in_rule__QEMREF__Group__0__Impl41222 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QEMREF__Group__1__Impl_in_rule__QEMREF__Group__141253 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_rule__QEMREF__Group__1__Impl41280 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QEMREF__Group_0__0__Impl_in_rule__QEMREF__Group_0__041313 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
@@ -75828,10 +75827,10 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__0__Impl_in_rule__ContainedPropertyAssociation__Group__041435 = new BitSet(new long[]{0x0400000000000000L,0x0000000000000080L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__1_in_rule__ContainedPropertyAssociation__Group__041438 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__PropertyAssignment_0_in_rule__ContainedPropertyAssociation__Group__0__Impl41465 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__1__Impl_in_rule__ContainedPropertyAssociation__Group__141495 = new BitSet(new long[]{0x0040040000890200L,0x0000000C44229000L});
+        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__1__Impl_in_rule__ContainedPropertyAssociation__Group__141495 = new BitSet(new long[]{0x0040040000890200L,0x0000000644229000L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__2_in_rule__ContainedPropertyAssociation__Group__141498 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Alternatives_1_in_rule__ContainedPropertyAssociation__Group__1__Impl41525 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__2__Impl_in_rule__ContainedPropertyAssociation__Group__241555 = new BitSet(new long[]{0x0040040000890200L,0x0000000C44229000L});
+        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__2__Impl_in_rule__ContainedPropertyAssociation__Group__241555 = new BitSet(new long[]{0x0040040000890200L,0x0000000644229000L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__3_in_rule__ContainedPropertyAssociation__Group__241558 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__ConstantAssignment_2_in_rule__ContainedPropertyAssociation__Group__2__Impl41585 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group__3__Impl_in_rule__ContainedPropertyAssociation__Group__341616 = new BitSet(new long[]{0x0000000000200000L,0x0000000000100100L});
@@ -75850,7 +75849,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__OwnedValueAssignment_3_0_in_rule__ContainedPropertyAssociation__Group_3__0__Impl41901 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_3__1__Impl_in_rule__ContainedPropertyAssociation__Group_3__141931 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_3_1__0_in_rule__ContainedPropertyAssociation__Group_3__1__Impl41958 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_3_1__0__Impl_in_rule__ContainedPropertyAssociation__Group_3_1__041993 = new BitSet(new long[]{0x0040040000890200L,0x0000000C44229000L});
+        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_3_1__0__Impl_in_rule__ContainedPropertyAssociation__Group_3_1__041993 = new BitSet(new long[]{0x0040040000890200L,0x0000000644229000L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_3_1__1_in_rule__ContainedPropertyAssociation__Group_3_1__041996 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ContainedPropertyAssociation__Group_3_1__0__Impl42024 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_3_1__1__Impl_in_rule__ContainedPropertyAssociation__Group_3_1__142055 = new BitSet(new long[]{0x0000000000000002L});
@@ -75858,7 +75857,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4__0__Impl_in_rule__ContainedPropertyAssociation__Group_4__042116 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4__1_in_rule__ContainedPropertyAssociation__Group_4__042119 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_60_in_rule__ContainedPropertyAssociation__Group_4__0__Impl42147 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4__1__Impl_in_rule__ContainedPropertyAssociation__Group_4__142178 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4__1__Impl_in_rule__ContainedPropertyAssociation__Group_4__142178 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4__2_in_rule__ContainedPropertyAssociation__Group_4__142181 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_22_in_rule__ContainedPropertyAssociation__Group_4__1__Impl42209 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4__2__Impl_in_rule__ContainedPropertyAssociation__Group_4__242240 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
@@ -75866,7 +75865,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__AppliesToAssignment_4_2_in_rule__ContainedPropertyAssociation__Group_4__2__Impl42270 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4__3__Impl_in_rule__ContainedPropertyAssociation__Group_4__342300 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4_3__0_in_rule__ContainedPropertyAssociation__Group_4__3__Impl42327 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4_3__0__Impl_in_rule__ContainedPropertyAssociation__Group_4_3__042366 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4_3__0__Impl_in_rule__ContainedPropertyAssociation__Group_4_3__042366 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4_3__1_in_rule__ContainedPropertyAssociation__Group_4_3__042369 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ContainedPropertyAssociation__Group_4_3__0__Impl42397 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_4_3__1__Impl_in_rule__ContainedPropertyAssociation__Group_4_3__142428 = new BitSet(new long[]{0x0000000000000002L});
@@ -75877,7 +75876,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_5__1__Impl_in_rule__ContainedPropertyAssociation__Group_5__142551 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_5__2_in_rule__ContainedPropertyAssociation__Group_5__142554 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_61_in_rule__ContainedPropertyAssociation__Group_5__1__Impl42582 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_5__2__Impl_in_rule__ContainedPropertyAssociation__Group_5__242613 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_5__2__Impl_in_rule__ContainedPropertyAssociation__Group_5__242613 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_5__3_in_rule__ContainedPropertyAssociation__Group_5__242616 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ContainedPropertyAssociation__Group_5__2__Impl42644 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_5__3__Impl_in_rule__ContainedPropertyAssociation__Group_5__342675 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
@@ -75885,14 +75884,14 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__InBindingAssignment_5_3_in_rule__ContainedPropertyAssociation__Group_5__3__Impl42705 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainedPropertyAssociation__Group_5__4__Impl_in_rule__ContainedPropertyAssociation__Group_5__442735 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__ContainedPropertyAssociation__Group_5__4__Impl42763 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ContainmentPath__Group__0__Impl_in_rule__ContainmentPath__Group__042809 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ContainmentPath__Group__0__Impl_in_rule__ContainmentPath__Group__042809 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ContainmentPath__Group__1_in_rule__ContainmentPath__Group__042812 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainmentPath__Group__1__Impl_in_rule__ContainmentPath__Group__142870 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
         public static final BitSet FOLLOW_rule__ContainmentPath__Group__2_in_rule__ContainmentPath__Group__142873 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainmentPath__ContainmentPathElementAssignment_1_in_rule__ContainmentPath__Group__1__Impl42900 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainmentPath__Group__2__Impl_in_rule__ContainmentPath__Group__242930 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainmentPath__Group_2__0_in_rule__ContainmentPath__Group__2__Impl42957 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
-        public static final BitSet FOLLOW_rule__ContainmentPath__Group_2__0__Impl_in_rule__ContainmentPath__Group_2__042994 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ContainmentPath__Group_2__0__Impl_in_rule__ContainmentPath__Group_2__042994 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ContainmentPath__Group_2__1_in_rule__ContainmentPath__Group_2__042997 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__ContainmentPath__Group_2__0__Impl43025 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainmentPath__Group_2__1__Impl_in_rule__ContainmentPath__Group_2__143056 = new BitSet(new long[]{0x0000000000000002L});
@@ -75908,7 +75907,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1__1__Impl_in_rule__OptionalModalPropertyValue__Group_1__143303 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1__2_in_rule__OptionalModalPropertyValue__Group_1__143306 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_46_in_rule__OptionalModalPropertyValue__Group_1__1__Impl43334 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1__2__Impl_in_rule__OptionalModalPropertyValue__Group_1__243365 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1__2__Impl_in_rule__OptionalModalPropertyValue__Group_1__243365 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1__3_in_rule__OptionalModalPropertyValue__Group_1__243368 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__OptionalModalPropertyValue__Group_1__2__Impl43396 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1__3__Impl_in_rule__OptionalModalPropertyValue__Group_1__343427 = new BitSet(new long[]{0x0000000000000000L,0x0000000000012000L});
@@ -75919,7 +75918,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1_4__0_in_rule__OptionalModalPropertyValue__Group_1__4__Impl43517 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1__5__Impl_in_rule__OptionalModalPropertyValue__Group_1__543548 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__OptionalModalPropertyValue__Group_1__5__Impl43576 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1_4__0__Impl_in_rule__OptionalModalPropertyValue__Group_1_4__043619 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1_4__0__Impl_in_rule__OptionalModalPropertyValue__Group_1_4__043619 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1_4__1_in_rule__OptionalModalPropertyValue__Group_1_4__043622 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__OptionalModalPropertyValue__Group_1_4__0__Impl43650 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__OptionalModalPropertyValue__Group_1_4__1__Impl_in_rule__OptionalModalPropertyValue__Group_1_4__143681 = new BitSet(new long[]{0x0000000000000002L});
@@ -75931,10 +75930,10 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group__0__Impl_in_rule__ReferenceTerm__Group__043864 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group__1_in_rule__ReferenceTerm__Group__043867 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_76_in_rule__ReferenceTerm__Group__0__Impl43895 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ReferenceTerm__Group__1__Impl_in_rule__ReferenceTerm__Group__143926 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ReferenceTerm__Group__1__Impl_in_rule__ReferenceTerm__Group__143926 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group__2_in_rule__ReferenceTerm__Group__143929 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ReferenceTerm__Group__1__Impl43957 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ReferenceTerm__Group__2__Impl_in_rule__ReferenceTerm__Group__243988 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ReferenceTerm__Group__2__Impl_in_rule__ReferenceTerm__Group__243988 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group__3_in_rule__ReferenceTerm__Group__243991 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group_2__0_in_rule__ReferenceTerm__Group__2__Impl44018 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group__3__Impl_in_rule__ReferenceTerm__Group__344049 = new BitSet(new long[]{0x0000000000000000L,0x0000000000042000L});
@@ -75950,24 +75949,24 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ReferenceTerm__ContainmentPathElementAssignment_2_0_in_rule__ReferenceTerm__Group_2__0__Impl44271 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group_2__1__Impl_in_rule__ReferenceTerm__Group_2__144301 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__ReferenceTerm__Group_2__1__Impl44329 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ReferenceTerm__Group_4__0__Impl_in_rule__ReferenceTerm__Group_4__044364 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ReferenceTerm__Group_4__0__Impl_in_rule__ReferenceTerm__Group_4__044364 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group_4__1_in_rule__ReferenceTerm__Group_4__044367 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__ReferenceTerm__Group_4__0__Impl44395 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__Group_4__1__Impl_in_rule__ReferenceTerm__Group_4__144426 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ReferenceTerm__ContainmentPathElementAssignment_4_1_in_rule__ReferenceTerm__Group_4__1__Impl44453 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__RecordTerm__Group__0__Impl_in_rule__RecordTerm__Group__044487 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__RecordTerm__Group__0__Impl_in_rule__RecordTerm__Group__044487 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__RecordTerm__Group__1_in_rule__RecordTerm__Group__044490 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_11_in_rule__RecordTerm__Group__0__Impl44518 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RecordTerm__Group__1__Impl_in_rule__RecordTerm__Group__144549 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_rule__RecordTerm__Group__2_in_rule__RecordTerm__Group__144552 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__RecordTerm__OwnedFieldValueAssignment_1_in_rule__RecordTerm__Group__1__Impl44581 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
-        public static final BitSet FOLLOW_rule__RecordTerm__OwnedFieldValueAssignment_1_in_rule__RecordTerm__Group__1__Impl44593 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__RecordTerm__OwnedFieldValueAssignment_1_in_rule__RecordTerm__Group__1__Impl44581 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rule__RecordTerm__OwnedFieldValueAssignment_1_in_rule__RecordTerm__Group__1__Impl44593 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__RecordTerm__Group__2__Impl_in_rule__RecordTerm__Group__244626 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_12_in_rule__RecordTerm__Group__2__Impl44654 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ComputedTerm__Group__0__Impl_in_rule__ComputedTerm__Group__044692 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__ComputedTerm__Group__1_in_rule__ComputedTerm__Group__044695 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_62_in_rule__ComputedTerm__Group__0__Impl44723 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ComputedTerm__Group__1__Impl_in_rule__ComputedTerm__Group__144754 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ComputedTerm__Group__1__Impl_in_rule__ComputedTerm__Group__144754 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ComputedTerm__Group__2_in_rule__ComputedTerm__Group__144757 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ComputedTerm__Group__1__Impl44785 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ComputedTerm__Group__2__Impl_in_rule__ComputedTerm__Group__244816 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
@@ -75978,7 +75977,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ComponentClassifierTerm__Group__0__Impl_in_rule__ComponentClassifierTerm__Group__044943 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__ComponentClassifierTerm__Group__1_in_rule__ComponentClassifierTerm__Group__044946 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_77_in_rule__ComponentClassifierTerm__Group__0__Impl44974 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ComponentClassifierTerm__Group__1__Impl_in_rule__ComponentClassifierTerm__Group__145005 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__ComponentClassifierTerm__Group__1__Impl_in_rule__ComponentClassifierTerm__Group__145005 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__ComponentClassifierTerm__Group__2_in_rule__ComponentClassifierTerm__Group__145008 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ComponentClassifierTerm__Group__1__Impl45036 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ComponentClassifierTerm__Group__2__Impl_in_rule__ComponentClassifierTerm__Group__245067 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
@@ -75988,10 +75987,10 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_3_in_rule__ComponentClassifierTerm__Group__3__Impl45155 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ListTerm__Group__0__Impl_in_rule__ListTerm__Group__045194 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
         public static final BitSet FOLLOW_rule__ListTerm__Group__1_in_rule__ListTerm__Group__045197 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ListTerm__Group__1__Impl_in_rule__ListTerm__Group__145255 = new BitSet(new long[]{0x0040040000890200L,0x0000000C4422B000L});
+        public static final BitSet FOLLOW_rule__ListTerm__Group__1__Impl_in_rule__ListTerm__Group__145255 = new BitSet(new long[]{0x0040040000890200L,0x000000064422B000L});
         public static final BitSet FOLLOW_rule__ListTerm__Group__2_in_rule__ListTerm__Group__145258 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_2_in_rule__ListTerm__Group__1__Impl45286 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ListTerm__Group__2__Impl_in_rule__ListTerm__Group__245317 = new BitSet(new long[]{0x0040040000890200L,0x0000000C4422B000L});
+        public static final BitSet FOLLOW_rule__ListTerm__Group__2__Impl_in_rule__ListTerm__Group__245317 = new BitSet(new long[]{0x0040040000890200L,0x000000064422B000L});
         public static final BitSet FOLLOW_rule__ListTerm__Group__3_in_rule__ListTerm__Group__245320 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ListTerm__Group_2__0_in_rule__ListTerm__Group__2__Impl45347 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ListTerm__Group__3__Impl_in_rule__ListTerm__Group__345378 = new BitSet(new long[]{0x0000000000000002L});
@@ -76001,7 +76000,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ListTerm__OwnedListElementAssignment_2_0_in_rule__ListTerm__Group_2__0__Impl45475 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ListTerm__Group_2__1__Impl_in_rule__ListTerm__Group_2__145505 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ListTerm__Group_2_1__0_in_rule__ListTerm__Group_2__1__Impl45532 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-        public static final BitSet FOLLOW_rule__ListTerm__Group_2_1__0__Impl_in_rule__ListTerm__Group_2_1__045567 = new BitSet(new long[]{0x0040040000890200L,0x0000000C44229000L});
+        public static final BitSet FOLLOW_rule__ListTerm__Group_2_1__0__Impl_in_rule__ListTerm__Group_2_1__045567 = new BitSet(new long[]{0x0040040000890200L,0x0000000644229000L});
         public static final BitSet FOLLOW_rule__ListTerm__Group_2_1__1_in_rule__ListTerm__Group_2_1__045570 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ListTerm__Group_2_1__0__Impl45598 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ListTerm__Group_2_1__1__Impl_in_rule__ListTerm__Group_2_1__145629 = new BitSet(new long[]{0x0000000000000002L});
@@ -76012,7 +76011,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__FieldPropertyAssociation__Group__0__Impl_in_rule__FieldPropertyAssociation__Group__045690 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
         public static final BitSet FOLLOW_rule__FieldPropertyAssociation__Group__1_in_rule__FieldPropertyAssociation__Group__045693 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__FieldPropertyAssociation__PropertyAssignment_0_in_rule__FieldPropertyAssociation__Group__0__Impl45720 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__FieldPropertyAssociation__Group__1__Impl_in_rule__FieldPropertyAssociation__Group__145750 = new BitSet(new long[]{0x0040040000890200L,0x0000000C44229000L});
+        public static final BitSet FOLLOW_rule__FieldPropertyAssociation__Group__1__Impl_in_rule__FieldPropertyAssociation__Group__145750 = new BitSet(new long[]{0x0040040000890200L,0x0000000644229000L});
         public static final BitSet FOLLOW_rule__FieldPropertyAssociation__Group__2_in_rule__FieldPropertyAssociation__Group__145753 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_19_in_rule__FieldPropertyAssociation__Group__1__Impl45781 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__FieldPropertyAssociation__Group__2__Impl_in_rule__FieldPropertyAssociation__Group__245812 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
@@ -76043,12 +76042,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_17_in_rule__ArrayRange__Group_3__0__Impl46406 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ArrayRange__Group_3__1__Impl_in_rule__ArrayRange__Group_3__146437 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ArrayRange__UpperBoundAssignment_3_1_in_rule__ArrayRange__Group_3__1__Impl46464 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SignedConstant__Group__0__Impl_in_rule__SignedConstant__Group__046498 = new BitSet(new long[]{0x0000000000000000L,0x0000000844028000L});
+        public static final BitSet FOLLOW_rule__SignedConstant__Group__0__Impl_in_rule__SignedConstant__Group__046498 = new BitSet(new long[]{0x0000000000000000L,0x0000000444028000L});
         public static final BitSet FOLLOW_rule__SignedConstant__Group__1_in_rule__SignedConstant__Group__046501 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SignedConstant__OpAssignment_0_in_rule__SignedConstant__Group__0__Impl46528 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SignedConstant__Group__1__Impl_in_rule__SignedConstant__Group__146558 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SignedConstant__OwnedPropertyExpressionAssignment_1_in_rule__SignedConstant__Group__1__Impl46585 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__IntegerTerm__Group__0__Impl_in_rule__IntegerTerm__Group__046619 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__IntegerTerm__Group__0__Impl_in_rule__IntegerTerm__Group__046619 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__IntegerTerm__Group__1_in_rule__IntegerTerm__Group__046622 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__IntegerTerm__ValueAssignment_0_in_rule__IntegerTerm__Group__0__Impl46649 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__IntegerTerm__Group__1__Impl_in_rule__IntegerTerm__Group__146679 = new BitSet(new long[]{0x0000000000000002L});
@@ -76058,7 +76057,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SignedInt__Alternatives_0_in_rule__SignedInt__Group__0__Impl46771 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SignedInt__Group__1__Impl_in_rule__SignedInt__Group__146802 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_INTEGER_LIT_in_rule__SignedInt__Group__1__Impl46829 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__RealTerm__Group__0__Impl_in_rule__RealTerm__Group__046862 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__RealTerm__Group__0__Impl_in_rule__RealTerm__Group__046862 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__RealTerm__Group__1_in_rule__RealTerm__Group__046865 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RealTerm__ValueAssignment_0_in_rule__RealTerm__Group__0__Impl46892 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__RealTerm__Group__1__Impl_in_rule__RealTerm__Group__146922 = new BitSet(new long[]{0x0000000000000002L});
@@ -76071,7 +76070,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group__0__Impl_in_rule__NumericRangeTerm__Group__047105 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group__1_in_rule__NumericRangeTerm__Group__047108 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__MinimumAssignment_0_in_rule__NumericRangeTerm__Group__0__Impl47135 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__NumericRangeTerm__Group__1__Impl_in_rule__NumericRangeTerm__Group__147165 = new BitSet(new long[]{0x0000000000000000L,0x0000000844028000L});
+        public static final BitSet FOLLOW_rule__NumericRangeTerm__Group__1__Impl_in_rule__NumericRangeTerm__Group__147165 = new BitSet(new long[]{0x0000000000000000L,0x0000000444028000L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group__2_in_rule__NumericRangeTerm__Group__147168 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_17_in_rule__NumericRangeTerm__Group__1__Impl47196 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group__2__Impl_in_rule__NumericRangeTerm__Group__247227 = new BitSet(new long[]{0x0000008000000000L});
@@ -76079,7 +76078,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__NumericRangeTerm__MaximumAssignment_2_in_rule__NumericRangeTerm__Group__2__Impl47257 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group__3__Impl_in_rule__NumericRangeTerm__Group__347287 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group_3__0_in_rule__NumericRangeTerm__Group__3__Impl47314 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__NumericRangeTerm__Group_3__0__Impl_in_rule__NumericRangeTerm__Group_3__047353 = new BitSet(new long[]{0x0000000000000000L,0x0000000844028000L});
+        public static final BitSet FOLLOW_rule__NumericRangeTerm__Group_3__0__Impl_in_rule__NumericRangeTerm__Group_3__047353 = new BitSet(new long[]{0x0000000000000000L,0x0000000444028000L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group_3__1_in_rule__NumericRangeTerm__Group_3__047356 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_41_in_rule__NumericRangeTerm__Group_3__0__Impl47384 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__NumericRangeTerm__Group_3__1__Impl_in_rule__NumericRangeTerm__Group_3__147415 = new BitSet(new long[]{0x0000000000000002L});
@@ -76087,7 +76086,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__QCLREF__Group__0__Impl_in_rule__QCLREF__Group__047476 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
         public static final BitSet FOLLOW_rule__QCLREF__Group__1_in_rule__QCLREF__Group__047479 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_rule__QCLREF__Group__0__Impl47506 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QCLREF__Group__1__Impl_in_rule__QCLREF__Group__147535 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QCLREF__Group__1__Impl_in_rule__QCLREF__Group__147535 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QCLREF__Group__2_in_rule__QCLREF__Group__147538 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_18_in_rule__QCLREF__Group__1__Impl47566 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QCLREF__Group__2__Impl_in_rule__QCLREF__Group__247597 = new BitSet(new long[]{0x0000000000000002L});
@@ -76097,14 +76096,14 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_RULE_ID_in_rule__QPREF__Group__0__Impl47689 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QPREF__Group__1__Impl_in_rule__QPREF__Group__147718 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QPREF__Group_1__0_in_rule__QPREF__Group__1__Impl47745 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QPREF__Group_1__0__Impl_in_rule__QPREF__Group_1__047780 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QPREF__Group_1__0__Impl_in_rule__QPREF__Group_1__047780 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QPREF__Group_1__1_in_rule__QPREF__Group_1__047783 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_18_in_rule__QPREF__Group_1__0__Impl47811 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QPREF__Group_1__1__Impl_in_rule__QPREF__Group_1__147842 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_rule__QPREF__Group_1__1__Impl47869 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QCREF__Group__0__Impl_in_rule__QCREF__Group__047902 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QCREF__Group__0__Impl_in_rule__QCREF__Group__047902 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QCREF__Group__1_in_rule__QCREF__Group__047905 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QCREF__Group_0__0_in_rule__QCREF__Group__0__Impl47932 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QCREF__Group_0__0_in_rule__QCREF__Group__0__Impl47932 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QCREF__Group__1__Impl_in_rule__QCREF__Group__147963 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
         public static final BitSet FOLLOW_rule__QCREF__Group__2_in_rule__QCREF__Group__147966 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_rule__QCREF__Group__1__Impl47993 = new BitSet(new long[]{0x0000000000000002L});
@@ -76115,7 +76114,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_RULE_ID_in_rule__QCREF__Group_0__0__Impl48116 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QCREF__Group_0__1__Impl_in_rule__QCREF__Group_0__148145 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_18_in_rule__QCREF__Group_0__1__Impl48173 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__QCREF__Group_2__0__Impl_in_rule__QCREF__Group_2__048208 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+        public static final BitSet FOLLOW_rule__QCREF__Group_2__0__Impl_in_rule__QCREF__Group_2__048208 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
         public static final BitSet FOLLOW_rule__QCREF__Group_2__1_in_rule__QCREF__Group_2__048211 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_8_in_rule__QCREF__Group_2__0__Impl48239 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__QCREF__Group_2__1__Impl_in_rule__QCREF__Group_2__148270 = new BitSet(new long[]{0x0000000000000002L});
