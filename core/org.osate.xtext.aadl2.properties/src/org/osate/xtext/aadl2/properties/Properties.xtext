@@ -271,12 +271,6 @@ QCREF:
 	
 STAR : '*';
 
-//terminal IDANNEXTEXT: ID ANNEXTEXT;
-
-terminal ANNEXTEXT:
-	'{**'->'**}';
-
-
 terminal STRING	: 
 			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
 			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"

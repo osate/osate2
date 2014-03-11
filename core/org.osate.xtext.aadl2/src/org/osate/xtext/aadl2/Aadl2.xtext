@@ -2260,3 +2260,8 @@ REFINEDNAME:
 	ID;
 
 
+terminal ANNEXTEXT:
+	'{**'->'**}';
+
+
+

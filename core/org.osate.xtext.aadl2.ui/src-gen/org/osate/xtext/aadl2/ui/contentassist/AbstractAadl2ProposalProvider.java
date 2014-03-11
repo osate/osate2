@@ -4079,4 +4079,7 @@ public class AbstractAadl2ProposalProvider extends org.osate.xtext.aadl2.propert
 	public void complete_REFINEDNAME(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
+	public void complete_ANNEXTEXT(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// subclasses may override
+	}
 }

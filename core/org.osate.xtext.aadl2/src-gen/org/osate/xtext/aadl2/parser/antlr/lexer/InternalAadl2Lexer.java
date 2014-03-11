@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalAadl2Lexer extends Lexer {
     public static final int RULE_ID=110;
-    public static final int RULE_REAL_LIT=104;
+    public static final int RULE_REAL_LIT=105;
     public static final int KEYWORD_56=43;
     public static final int KEYWORD_55=42;
     public static final int KEYWORD_54=41;
@@ -25,7 +25,7 @@ public class InternalAadl2Lexer extends Lexer {
     public static final int KEYWORD_59=46;
     public static final int KEYWORD_58=45;
     public static final int KEYWORD_57=44;
-    public static final int RULE_ANNEXTEXT=108;
+    public static final int RULE_ANNEXTEXT=100;
     public static final int KEYWORD_65=30;
     public static final int KEYWORD_64=29;
     public static final int KEYWORD_67=32;
@@ -36,7 +36,7 @@ public class InternalAadl2Lexer extends Lexer {
     public static final int KEYWORD_62=27;
     public static final int KEYWORD_69=34;
     public static final int KEYWORD_68=33;
-    public static final int RULE_EXTENDED_DIGIT=107;
+    public static final int RULE_EXTENDED_DIGIT=108;
     public static final int KEYWORD_30=77;
     public static final int KEYWORD_34=61;
     public static final int KEYWORD_33=60;
@@ -48,7 +48,7 @@ public class InternalAadl2Lexer extends Lexer {
     public static final int KEYWORD_35=62;
     public static final int KEYWORD_39=66;
     public static final int RULE_STRING=109;
-    public static final int RULE_EXPONENT=102;
+    public static final int RULE_EXPONENT=103;
     public static final int KEYWORD_41=68;
     public static final int KEYWORD_40=67;
     public static final int KEYWORD_43=48;
@@ -56,11 +56,11 @@ public class InternalAadl2Lexer extends Lexer {
     public static final int KEYWORD_45=50;
     public static final int KEYWORD_44=49;
     public static final int KEYWORD_47=52;
-    public static final int RULE_DIGIT=101;
+    public static final int RULE_DIGIT=102;
     public static final int KEYWORD_46=51;
     public static final int KEYWORD_49=54;
     public static final int KEYWORD_48=53;
-    public static final int RULE_INTEGER_LIT=106;
+    public static final int RULE_INTEGER_LIT=107;
     public static final int KEYWORD_93=8;
     public static final int KEYWORD_94=9;
     public static final int KEYWORD_95=5;
@@ -107,15 +107,15 @@ public class InternalAadl2Lexer extends Lexer {
     public static final int KEYWORD_70=35;
     public static final int KEYWORD_3=89;
     public static final int KEYWORD_2=88;
-    public static final int RULE_BASED_INTEGER=105;
-    public static final int RULE_SL_COMMENT=100;
+    public static final int RULE_BASED_INTEGER=106;
+    public static final int RULE_SL_COMMENT=101;
     public static final int KEYWORD_84=16;
     public static final int KEYWORD_85=17;
     public static final int KEYWORD_82=25;
     public static final int KEYWORD_83=15;
     public static final int KEYWORD_88=12;
     public static final int KEYWORD_89=13;
-    public static final int RULE_INT_EXPONENT=103;
+    public static final int RULE_INT_EXPONENT=104;
     public static final int KEYWORD_86=10;
     public static final int KEYWORD_87=11;
     public static final int KEYWORD_81=24;
@@ -6302,30 +6302,99 @@ public class InternalAadl2Lexer extends Lexer {
     }
     // $ANTLR end "KEYWORD_13"
 
-    // $ANTLR start "RULE_SL_COMMENT"
-    public final void mRULE_SL_COMMENT() throws RecognitionException {
+    // $ANTLR start "RULE_ANNEXTEXT"
+    public final void mRULE_ANNEXTEXT() throws RecognitionException {
         try {
-            int _type = RULE_SL_COMMENT;
+            int _type = RULE_ANNEXTEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:16: ( '{**' ( options {greedy=false; } : . )* '**}' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:18: '{**' ( options {greedy=false; } : . )* '**}'
             {
-            match("--"); 
+            match("{**"); 
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:24: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>='\u0000' && LA1_0<='\t')||(LA1_0>='\u000B' && LA1_0<='\f')||(LA1_0>='\u000E' && LA1_0<='\uFFFF')) ) {
+                if ( (LA1_0=='*') ) {
+                    int LA1_1 = input.LA(2);
+
+                    if ( (LA1_1=='*') ) {
+                        int LA1_3 = input.LA(3);
+
+                        if ( (LA1_3=='}') ) {
+                            alt1=2;
+                        }
+                        else if ( ((LA1_3>='\u0000' && LA1_3<='|')||(LA1_3>='~' && LA1_3<='\uFFFF')) ) {
+                            alt1=1;
+                        }
+
+
+                    }
+                    else if ( ((LA1_1>='\u0000' && LA1_1<=')')||(LA1_1>='+' && LA1_1<='\uFFFF')) ) {
+                        alt1=1;
+                    }
+
+
+                }
+                else if ( ((LA1_0>='\u0000' && LA1_0<=')')||(LA1_0>='+' && LA1_0<='\uFFFF')) ) {
                     alt1=1;
                 }
 
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:52: .
+            	    {
+            	    matchAny(); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop1;
+                }
+            } while (true);
+
+            match("**}"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_ANNEXTEXT"
+
+    // $ANTLR start "RULE_SL_COMMENT"
+    public final void mRULE_SL_COMMENT() throws RecognitionException {
+        try {
+            int _type = RULE_SL_COMMENT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            {
+            match("--"); 
+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            loop2:
+            do {
+                int alt2=2;
+                int LA2_0 = input.LA(1);
+
+                if ( ((LA2_0>='\u0000' && LA2_0<='\t')||(LA2_0>='\u000B' && LA2_0<='\f')||(LA2_0>='\u000E' && LA2_0<='\uFFFF')) ) {
+                    alt2=1;
+                }
+
+
+                switch (alt2) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -6341,31 +6410,31 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop1;
+            	    break loop2;
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:40: ( ( '\\r' )? '\\n' )?
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:40: ( ( '\\r' )? '\\n' )?
+            int alt4=2;
+            int LA4_0 = input.LA(1);
 
-            if ( (LA3_0=='\n'||LA3_0=='\r') ) {
-                alt3=1;
+            if ( (LA4_0=='\n'||LA4_0=='\r') ) {
+                alt4=1;
             }
-            switch (alt3) {
+            switch (alt4) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:41: ( '\\r' )?
-                    int alt2=2;
-                    int LA2_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:41: ( '\\r' )?
+                    int alt3=2;
+                    int LA3_0 = input.LA(1);
 
-                    if ( (LA2_0=='\r') ) {
-                        alt2=1;
+                    if ( (LA3_0=='\r') ) {
+                        alt3=1;
                     }
-                    switch (alt2) {
+                    switch (alt3) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:213:41: '\\r'
+                            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:41: '\\r'
                             {
                             match('\r'); 
 
@@ -6395,8 +6464,8 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -6407,14 +6476,14 @@ public class InternalAadl2Lexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:36: ( '+' | '-' )?
-            int alt4=2;
-            int LA4_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:36: ( '+' | '-' )?
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            if ( (LA4_0=='+'||LA4_0=='-') ) {
-                alt4=1;
+            if ( (LA5_0=='+'||LA5_0=='-') ) {
+                alt5=1;
             }
-            switch (alt4) {
+            switch (alt5) {
                 case 1 :
                     // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:
                     {
@@ -6433,21 +6502,21 @@ public class InternalAadl2Lexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:47: ( RULE_DIGIT )+
-            int cnt5=0;
-            loop5:
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:47: ( RULE_DIGIT )+
+            int cnt6=0;
+            loop6:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( ((LA5_0>='0' && LA5_0<='9')) ) {
-                    alt5=1;
+                if ( ((LA6_0>='0' && LA6_0<='9')) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt6) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:215:47: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -6455,12 +6524,12 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt5 >= 1 ) break loop5;
+            	    if ( cnt6 >= 1 ) break loop6;
                         EarlyExitException eee =
-                            new EarlyExitException(5, input);
+                            new EarlyExitException(6, input);
                         throw eee;
                 }
-                cnt5++;
+                cnt6++;
             } while (true);
 
 
@@ -6475,8 +6544,8 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -6487,16 +6556,16 @@ public class InternalAadl2Lexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:40: ( '+' )?
-            int alt6=2;
-            int LA6_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:40: ( '+' )?
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA6_0=='+') ) {
-                alt6=1;
+            if ( (LA7_0=='+') ) {
+                alt7=1;
             }
-            switch (alt6) {
+            switch (alt7) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:40: '+'
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:40: '+'
                     {
                     match('+'); 
 
@@ -6505,21 +6574,21 @@ public class InternalAadl2Lexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:45: ( RULE_DIGIT )+
-            int cnt7=0;
-            loop7:
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:45: ( RULE_DIGIT )+
+            int cnt8=0;
+            loop8:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( ((LA7_0>='0' && LA7_0<='9')) ) {
-                    alt7=1;
+                if ( ((LA8_0>='0' && LA8_0<='9')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:217:45: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -6527,12 +6596,12 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt7 >= 1 ) break loop7;
+            	    if ( cnt8 >= 1 ) break loop8;
                         EarlyExitException eee =
-                            new EarlyExitException(7, input);
+                            new EarlyExitException(8, input);
                         throw eee;
                 }
-                cnt7++;
+                cnt8++;
             } while (true);
 
 
@@ -6549,24 +6618,24 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:17: ( RULE_DIGIT )+
-            int cnt8=0;
-            loop8:
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:17: ( RULE_DIGIT )+
+            int cnt9=0;
+            loop9:
             do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
+                int alt9=2;
+                int LA9_0 = input.LA(1);
 
-                if ( ((LA8_0>='0' && LA8_0<='9')) ) {
-                    alt8=1;
+                if ( ((LA9_0>='0' && LA9_0<='9')) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:17: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:17: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -6574,131 +6643,45 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt8 >= 1 ) break loop8;
+            	    if ( cnt9 >= 1 ) break loop9;
                         EarlyExitException eee =
-                            new EarlyExitException(8, input);
+                            new EarlyExitException(9, input);
                         throw eee;
                 }
-                cnt8++;
+                cnt9++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:29: ( '_' ( RULE_DIGIT )+ )*
-            loop10:
-            do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
-
-                if ( (LA10_0=='_') ) {
-                    alt10=1;
-                }
-
-
-                switch (alt10) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:30: '_' ( RULE_DIGIT )+
-            	    {
-            	    match('_'); 
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:34: ( RULE_DIGIT )+
-            	    int cnt9=0;
-            	    loop9:
-            	    do {
-            	        int alt9=2;
-            	        int LA9_0 = input.LA(1);
-
-            	        if ( ((LA9_0>='0' && LA9_0<='9')) ) {
-            	            alt9=1;
-            	        }
-
-
-            	        switch (alt9) {
-            	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:34: RULE_DIGIT
-            	    	    {
-            	    	    mRULE_DIGIT(); 
-
-            	    	    }
-            	    	    break;
-
-            	    	default :
-            	    	    if ( cnt9 >= 1 ) break loop9;
-            	                EarlyExitException eee =
-            	                    new EarlyExitException(9, input);
-            	                throw eee;
-            	        }
-            	        cnt9++;
-            	    } while (true);
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop10;
-                }
-            } while (true);
-
-            match('.'); 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:52: ( RULE_DIGIT )+
-            int cnt11=0;
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:29: ( '_' ( RULE_DIGIT )+ )*
             loop11:
             do {
                 int alt11=2;
                 int LA11_0 = input.LA(1);
 
-                if ( ((LA11_0>='0' && LA11_0<='9')) ) {
+                if ( (LA11_0=='_') ) {
                     alt11=1;
                 }
 
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:52: RULE_DIGIT
-            	    {
-            	    mRULE_DIGIT(); 
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt11 >= 1 ) break loop11;
-                        EarlyExitException eee =
-                            new EarlyExitException(11, input);
-                        throw eee;
-                }
-                cnt11++;
-            } while (true);
-
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:64: ( '_' ( RULE_DIGIT )+ )*
-            loop13:
-            do {
-                int alt13=2;
-                int LA13_0 = input.LA(1);
-
-                if ( (LA13_0=='_') ) {
-                    alt13=1;
-                }
-
-
-                switch (alt13) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:65: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:69: ( RULE_DIGIT )+
-            	    int cnt12=0;
-            	    loop12:
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:34: ( RULE_DIGIT )+
+            	    int cnt10=0;
+            	    loop10:
             	    do {
-            	        int alt12=2;
-            	        int LA12_0 = input.LA(1);
+            	        int alt10=2;
+            	        int LA10_0 = input.LA(1);
 
-            	        if ( ((LA12_0>='0' && LA12_0<='9')) ) {
-            	            alt12=1;
+            	        if ( ((LA10_0>='0' && LA10_0<='9')) ) {
+            	            alt10=1;
             	        }
 
 
-            	        switch (alt12) {
+            	        switch (alt10) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:69: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:34: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -6706,12 +6689,12 @@ public class InternalAadl2Lexer extends Lexer {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt12 >= 1 ) break loop12;
+            	    	    if ( cnt10 >= 1 ) break loop10;
             	                EarlyExitException eee =
-            	                    new EarlyExitException(12, input);
+            	                    new EarlyExitException(10, input);
             	                throw eee;
             	        }
-            	        cnt12++;
+            	        cnt10++;
             	    } while (true);
 
 
@@ -6719,20 +6702,106 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop13;
+            	    break loop11;
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:83: ( RULE_EXPONENT )?
-            int alt14=2;
-            int LA14_0 = input.LA(1);
+            match('.'); 
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:52: ( RULE_DIGIT )+
+            int cnt12=0;
+            loop12:
+            do {
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-            if ( (LA14_0=='E'||LA14_0=='e') ) {
-                alt14=1;
+                if ( ((LA12_0>='0' && LA12_0<='9')) ) {
+                    alt12=1;
+                }
+
+
+                switch (alt12) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:52: RULE_DIGIT
+            	    {
+            	    mRULE_DIGIT(); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt12 >= 1 ) break loop12;
+                        EarlyExitException eee =
+                            new EarlyExitException(12, input);
+                        throw eee;
+                }
+                cnt12++;
+            } while (true);
+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:64: ( '_' ( RULE_DIGIT )+ )*
+            loop14:
+            do {
+                int alt14=2;
+                int LA14_0 = input.LA(1);
+
+                if ( (LA14_0=='_') ) {
+                    alt14=1;
+                }
+
+
+                switch (alt14) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:65: '_' ( RULE_DIGIT )+
+            	    {
+            	    match('_'); 
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:69: ( RULE_DIGIT )+
+            	    int cnt13=0;
+            	    loop13:
+            	    do {
+            	        int alt13=2;
+            	        int LA13_0 = input.LA(1);
+
+            	        if ( ((LA13_0>='0' && LA13_0<='9')) ) {
+            	            alt13=1;
+            	        }
+
+
+            	        switch (alt13) {
+            	    	case 1 :
+            	    	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:69: RULE_DIGIT
+            	    	    {
+            	    	    mRULE_DIGIT(); 
+
+            	    	    }
+            	    	    break;
+
+            	    	default :
+            	    	    if ( cnt13 >= 1 ) break loop13;
+            	                EarlyExitException eee =
+            	                    new EarlyExitException(13, input);
+            	                throw eee;
+            	        }
+            	        cnt13++;
+            	    } while (true);
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop14;
+                }
+            } while (true);
+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:83: ( RULE_EXPONENT )?
+            int alt15=2;
+            int LA15_0 = input.LA(1);
+
+            if ( (LA15_0=='E'||LA15_0=='e') ) {
+                alt15=1;
             }
-            switch (alt14) {
+            switch (alt15) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:219:83: RULE_EXPONENT
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:83: RULE_EXPONENT
                     {
                     mRULE_EXPONENT(); 
 
@@ -6757,24 +6826,24 @@ public class InternalAadl2Lexer extends Lexer {
         try {
             int _type = RULE_INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:20: ( RULE_DIGIT )+
-            int cnt15=0;
-            loop15:
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:20: ( RULE_DIGIT )+
+            int cnt16=0;
+            loop16:
             do {
-                int alt15=2;
-                int LA15_0 = input.LA(1);
+                int alt16=2;
+                int LA16_0 = input.LA(1);
 
-                if ( ((LA15_0>='0' && LA15_0<='9')) ) {
-                    alt15=1;
+                if ( ((LA16_0>='0' && LA16_0<='9')) ) {
+                    alt16=1;
                 }
 
 
-                switch (alt15) {
+                switch (alt16) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:20: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:20: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -6782,45 +6851,45 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt15 >= 1 ) break loop15;
+            	    if ( cnt16 >= 1 ) break loop16;
                         EarlyExitException eee =
-                            new EarlyExitException(15, input);
+                            new EarlyExitException(16, input);
                         throw eee;
                 }
-                cnt15++;
+                cnt16++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:32: ( '_' ( RULE_DIGIT )+ )*
-            loop17:
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:32: ( '_' ( RULE_DIGIT )+ )*
+            loop18:
             do {
-                int alt17=2;
-                int LA17_0 = input.LA(1);
+                int alt18=2;
+                int LA18_0 = input.LA(1);
 
-                if ( (LA17_0=='_') ) {
-                    alt17=1;
+                if ( (LA18_0=='_') ) {
+                    alt18=1;
                 }
 
 
-                switch (alt17) {
+                switch (alt18) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:33: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:33: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:37: ( RULE_DIGIT )+
-            	    int cnt16=0;
-            	    loop16:
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:37: ( RULE_DIGIT )+
+            	    int cnt17=0;
+            	    loop17:
             	    do {
-            	        int alt16=2;
-            	        int LA16_0 = input.LA(1);
+            	        int alt17=2;
+            	        int LA17_0 = input.LA(1);
 
-            	        if ( ((LA16_0>='0' && LA16_0<='9')) ) {
-            	            alt16=1;
+            	        if ( ((LA17_0>='0' && LA17_0<='9')) ) {
+            	            alt17=1;
             	        }
 
 
-            	        switch (alt16) {
+            	        switch (alt17) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:37: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:37: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -6828,12 +6897,12 @@ public class InternalAadl2Lexer extends Lexer {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt16 >= 1 ) break loop16;
+            	    	    if ( cnt17 >= 1 ) break loop17;
             	                EarlyExitException eee =
-            	                    new EarlyExitException(16, input);
+            	                    new EarlyExitException(17, input);
             	                throw eee;
             	        }
-            	        cnt16++;
+            	        cnt17++;
             	    } while (true);
 
 
@@ -6841,36 +6910,36 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop17;
+            	    break loop18;
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
-            int alt20=2;
-            int LA20_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            int alt21=2;
+            int LA21_0 = input.LA(1);
 
-            if ( (LA20_0=='#') ) {
-                alt20=1;
+            if ( (LA21_0=='#') ) {
+                alt21=1;
             }
             else {
-                alt20=2;}
-            switch (alt20) {
+                alt21=2;}
+            switch (alt21) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
                     {
                     match('#'); 
                     mRULE_BASED_INTEGER(); 
                     match('#'); 
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:79: ( RULE_INT_EXPONENT )?
-                    int alt18=2;
-                    int LA18_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:79: ( RULE_INT_EXPONENT )?
+                    int alt19=2;
+                    int LA19_0 = input.LA(1);
 
-                    if ( (LA18_0=='E'||LA18_0=='e') ) {
-                        alt18=1;
+                    if ( (LA19_0=='E'||LA19_0=='e') ) {
+                        alt19=1;
                     }
-                    switch (alt18) {
+                    switch (alt19) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:79: RULE_INT_EXPONENT
+                            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:79: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -6883,18 +6952,18 @@ public class InternalAadl2Lexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:98: ( RULE_INT_EXPONENT )?
                     {
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:98: ( RULE_INT_EXPONENT )?
-                    int alt19=2;
-                    int LA19_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:98: ( RULE_INT_EXPONENT )?
+                    int alt20=2;
+                    int LA20_0 = input.LA(1);
 
-                    if ( (LA19_0=='E'||LA19_0=='e') ) {
-                        alt19=1;
+                    if ( (LA20_0=='E'||LA20_0=='e') ) {
+                        alt20=1;
                     }
-                    switch (alt19) {
+                    switch (alt20) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:98: RULE_INT_EXPONENT
+                            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:98: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -6923,8 +6992,8 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:21: ( '0' .. '9' )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:23: '0' .. '9'
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:225:21: ( '0' .. '9' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:225:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -6939,8 +7008,8 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR start "RULE_EXTENDED_DIGIT"
     public final void mRULE_EXTENDED_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:225:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:225:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -6963,35 +7032,35 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR start "RULE_BASED_INTEGER"
     public final void mRULE_BASED_INTEGER() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
             {
             mRULE_EXTENDED_DIGIT(); 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
-            loop22:
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            loop23:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt23=2;
+                int LA23_0 = input.LA(1);
 
-                if ( ((LA22_0>='0' && LA22_0<='9')||(LA22_0>='A' && LA22_0<='F')||LA22_0=='_'||(LA22_0>='a' && LA22_0<='f')) ) {
-                    alt22=1;
+                if ( ((LA23_0>='0' && LA23_0<='9')||(LA23_0>='A' && LA23_0<='F')||LA23_0=='_'||(LA23_0>='a' && LA23_0<='f')) ) {
+                    alt23=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt23) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:52: ( '_' )? RULE_EXTENDED_DIGIT
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:52: ( '_' )?
-            	    int alt21=2;
-            	    int LA21_0 = input.LA(1);
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:52: ( '_' )?
+            	    int alt22=2;
+            	    int LA22_0 = input.LA(1);
 
-            	    if ( (LA21_0=='_') ) {
-            	        alt21=1;
+            	    if ( (LA22_0=='_') ) {
+            	        alt22=1;
             	    }
-            	    switch (alt21) {
+            	    switch (alt22) {
             	        case 1 :
-            	            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:227:52: '_'
+            	            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:52: '_'
             	            {
             	            match('_'); 
 
@@ -7006,7 +7075,7 @@ public class InternalAadl2Lexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop23;
                 }
             } while (true);
 
@@ -7018,75 +7087,6 @@ public class InternalAadl2Lexer extends Lexer {
         }
     }
     // $ANTLR end "RULE_BASED_INTEGER"
-
-    // $ANTLR start "RULE_ANNEXTEXT"
-    public final void mRULE_ANNEXTEXT() throws RecognitionException {
-        try {
-            int _type = RULE_ANNEXTEXT;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:16: ( '{**' ( options {greedy=false; } : . )* '**}' )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:18: '{**' ( options {greedy=false; } : . )* '**}'
-            {
-            match("{**"); 
-
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:24: ( options {greedy=false; } : . )*
-            loop23:
-            do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
-
-                if ( (LA23_0=='*') ) {
-                    int LA23_1 = input.LA(2);
-
-                    if ( (LA23_1=='*') ) {
-                        int LA23_3 = input.LA(3);
-
-                        if ( (LA23_3=='}') ) {
-                            alt23=2;
-                        }
-                        else if ( ((LA23_3>='\u0000' && LA23_3<='|')||(LA23_3>='~' && LA23_3<='\uFFFF')) ) {
-                            alt23=1;
-                        }
-
-
-                    }
-                    else if ( ((LA23_1>='\u0000' && LA23_1<=')')||(LA23_1>='+' && LA23_1<='\uFFFF')) ) {
-                        alt23=1;
-                    }
-
-
-                }
-                else if ( ((LA23_0>='\u0000' && LA23_0<=')')||(LA23_0>='+' && LA23_0<='\uFFFF')) ) {
-                    alt23=1;
-                }
-
-
-                switch (alt23) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:229:52: .
-            	    {
-            	    matchAny(); 
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop23;
-                }
-            } while (true);
-
-            match("**}"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "RULE_ANNEXTEXT"
 
     // $ANTLR start "RULE_STRING"
     public final void mRULE_STRING() throws RecognitionException {
@@ -7384,7 +7384,7 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR end "RULE_WS"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:8: ( KEYWORD_96 | KEYWORD_95 | KEYWORD_91 | KEYWORD_92 | KEYWORD_93 | KEYWORD_94 | KEYWORD_86 | KEYWORD_87 | KEYWORD_88 | KEYWORD_89 | KEYWORD_90 | KEYWORD_83 | KEYWORD_84 | KEYWORD_85 | KEYWORD_75 | KEYWORD_76 | KEYWORD_77 | KEYWORD_78 | KEYWORD_79 | KEYWORD_80 | KEYWORD_81 | KEYWORD_82 | KEYWORD_61 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_65 | KEYWORD_66 | KEYWORD_67 | KEYWORD_68 | KEYWORD_69 | KEYWORD_70 | KEYWORD_71 | KEYWORD_72 | KEYWORD_73 | KEYWORD_74 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_ANNEXTEXT | RULE_STRING | RULE_ID | RULE_WS )
+        // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:8: ( KEYWORD_96 | KEYWORD_95 | KEYWORD_91 | KEYWORD_92 | KEYWORD_93 | KEYWORD_94 | KEYWORD_86 | KEYWORD_87 | KEYWORD_88 | KEYWORD_89 | KEYWORD_90 | KEYWORD_83 | KEYWORD_84 | KEYWORD_85 | KEYWORD_75 | KEYWORD_76 | KEYWORD_77 | KEYWORD_78 | KEYWORD_79 | KEYWORD_80 | KEYWORD_81 | KEYWORD_82 | KEYWORD_61 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_65 | KEYWORD_66 | KEYWORD_67 | KEYWORD_68 | KEYWORD_69 | KEYWORD_70 | KEYWORD_71 | KEYWORD_72 | KEYWORD_73 | KEYWORD_74 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | RULE_ANNEXTEXT | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS )
         int alt30=103;
         alt30 = dfa30.predict(input);
         switch (alt30) {
@@ -8061,30 +8061,30 @@ public class InternalAadl2Lexer extends Lexer {
                 }
                 break;
             case 97 :
-                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1057: RULE_SL_COMMENT
+                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1057: RULE_ANNEXTEXT
+                {
+                mRULE_ANNEXTEXT(); 
+
+                }
+                break;
+            case 98 :
+                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1072: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 98 :
-                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1073: RULE_REAL_LIT
+            case 99 :
+                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1088: RULE_REAL_LIT
                 {
                 mRULE_REAL_LIT(); 
 
                 }
                 break;
-            case 99 :
-                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1087: RULE_INTEGER_LIT
+            case 100 :
+                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1102: RULE_INTEGER_LIT
                 {
                 mRULE_INTEGER_LIT(); 
-
-                }
-                break;
-            case 100 :
-                // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:1:1104: RULE_ANNEXTEXT
-                {
-                mRULE_ANNEXTEXT(); 
 
                 }
                 break;
@@ -8226,8 +8226,8 @@ public class InternalAadl2Lexer extends Lexer {
     static final String DFA30_acceptS =
         "\24\uffff\1\104\5\uffff\1\117\1\124\1\125\1\126\1\130\1\134\1\135"+
         "\1\uffff\1\140\1\uffff\1\145\1\146\1\147\55\uffff\1\103\1\127\1"+
-        "\105\1\136\2\uffff\1\113\1\114\1\141\1\131\1\115\1\132\1\116\1\133"+
-        "\1\144\1\137\1\143\1\uffff\1\142\5\uffff\1\120\1\121\56\uffff\1"+
+        "\105\1\136\2\uffff\1\113\1\114\1\142\1\131\1\115\1\132\1\116\1\133"+
+        "\1\141\1\137\1\144\1\uffff\1\143\5\uffff\1\120\1\121\56\uffff\1"+
         "\123\6\uffff\1\122\13\uffff\1\112\6\uffff\1\106\6\uffff\1\110\26"+
         "\uffff\1\107\16\uffff\1\111\11\uffff\1\76\1\77\27\uffff\1\74\1\uffff"+
         "\1\75\11\uffff\1\70\4\uffff\1\67\2\uffff\1\72\1\uffff\1\100\1\101"+
@@ -8777,7 +8777,7 @@ public class InternalAadl2Lexer extends Lexer {
             this.transition = DFA30_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( KEYWORD_96 | KEYWORD_95 | KEYWORD_91 | KEYWORD_92 | KEYWORD_93 | KEYWORD_94 | KEYWORD_86 | KEYWORD_87 | KEYWORD_88 | KEYWORD_89 | KEYWORD_90 | KEYWORD_83 | KEYWORD_84 | KEYWORD_85 | KEYWORD_75 | KEYWORD_76 | KEYWORD_77 | KEYWORD_78 | KEYWORD_79 | KEYWORD_80 | KEYWORD_81 | KEYWORD_82 | KEYWORD_61 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_65 | KEYWORD_66 | KEYWORD_67 | KEYWORD_68 | KEYWORD_69 | KEYWORD_70 | KEYWORD_71 | KEYWORD_72 | KEYWORD_73 | KEYWORD_74 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_ANNEXTEXT | RULE_STRING | RULE_ID | RULE_WS );";
+            return "1:1: Tokens : ( KEYWORD_96 | KEYWORD_95 | KEYWORD_91 | KEYWORD_92 | KEYWORD_93 | KEYWORD_94 | KEYWORD_86 | KEYWORD_87 | KEYWORD_88 | KEYWORD_89 | KEYWORD_90 | KEYWORD_83 | KEYWORD_84 | KEYWORD_85 | KEYWORD_75 | KEYWORD_76 | KEYWORD_77 | KEYWORD_78 | KEYWORD_79 | KEYWORD_80 | KEYWORD_81 | KEYWORD_82 | KEYWORD_61 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_65 | KEYWORD_66 | KEYWORD_67 | KEYWORD_68 | KEYWORD_69 | KEYWORD_70 | KEYWORD_71 | KEYWORD_72 | KEYWORD_73 | KEYWORD_74 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_60 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_51 | KEYWORD_52 | KEYWORD_31 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_41 | KEYWORD_42 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | RULE_ANNEXTEXT | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS );";
         }
     }
  

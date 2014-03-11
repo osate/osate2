@@ -120,24 +120,16 @@ public class AnnexParserAgent  extends LazyLinker {
 		for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
 			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
 			int offset = node.getOffset();
-			int line = node.getStartLine();
-			String sourceText = defaultAnnexLibrary.getSourceText();
-			if (sourceText == null) break;
-			int nlength = node.getLength();
-			int sourcelength = sourceText.length();
-			offset = offset + (nlength-sourcelength-1)+3;
+			int line = node.getStartLine()+ computeLineOffset(node);
+			offset = AnnexUtil.getAnnexOffset(defaultAnnexLibrary);
 			AnnexLibrary al = null;
 			// look for plug-in parser
 			String annexText = defaultAnnexLibrary.getSourceText();
 			String annexName = defaultAnnexLibrary.getName();
 			if (annexText != null && annexName != null){
-				if (annexText.length() > 6) {
-					annexText = annexText.substring(3, annexText.length() - 3);
-				}
 				AnnexParser ap = registry.getAnnexParser(annexName);
 				try {
 					int errs = errReporter.getNumErrors();
-					// offset +3 to compensate for removing the {**
 					al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
 					if (al != null )//&& errReporter.getNumErrors() == errs) 
 					{ 
@@ -183,19 +175,12 @@ public class AnnexParserAgent  extends LazyLinker {
 				continue;
 			}
 			int offset = node.getOffset();
-			int line = node.getStartLine() + computeLineOffset(node, defaultAnnexSubclause);
-			String sourceText = defaultAnnexSubclause.getSourceText();
-			if (sourceText == null) break;
-			int nlength = node.getLength();
-			int sourcelength = sourceText.length();
-			offset = offset + (nlength-sourcelength-1)+3;
+			int line = node.getStartLine() + computeLineOffset(node);
+			offset = AnnexUtil.getAnnexOffset(defaultAnnexSubclause);
 			// look for plug-in parser
 			String annexText = defaultAnnexSubclause.getSourceText();
 			String annexName = defaultAnnexSubclause.getName();
 			if (annexText != null && annexName != null){
-				if (annexText.length() > 6) {
-					annexText = annexText.substring(3, annexText.length() - 3);
-				}
 				AnnexParser ap = registry.getAnnexParser(annexName);
 				try {
 					int errs = errReporter.getNumErrors();
@@ -245,9 +230,7 @@ public class AnnexParserAgent  extends LazyLinker {
 
 	//Compute the number of line between the token "annex" and the token "{**".
   //TODO test under windows.
-  private int computeLineOffset(INode node ,
-                                DefaultAnnexSubclause defaultAnnexSubclause )
-  {
+  private int computeLineOffset(INode node ){
     int result = 0 ;
     boolean next = true ;
     char c ;

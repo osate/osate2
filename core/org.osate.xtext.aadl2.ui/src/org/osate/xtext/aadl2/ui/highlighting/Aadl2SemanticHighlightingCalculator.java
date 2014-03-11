@@ -99,7 +99,7 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 	 */
 	private AnnexHighlighterPositionAcceptor createAcceptor(EObject semanticObj, final IHighlightedPositionAcceptor acceptor) {
 		final int annexTextLength = AnnexUtil.getSourceText(semanticObj).length();
-		final int annexTextOffset = AnnexUtil.getAnnexOffset(semanticObj,annexTextLength);
+		final int annexTextOffset = AnnexUtil.getAnnexOffset(semanticObj);
 
 		return new AnnexHighlighterPositionAcceptor() {
 			@Override
@@ -129,7 +129,7 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		}
 		INode root = annexnode.getRootNode();
 		final int annexTextLength = AnnexUtil.getSourceText(annexObject).length();
-		final int annexTextOffset = AnnexUtil.getAnnexOffset(annexObject,annexTextLength);
+		final int annexTextOffset = AnnexUtil.getAnnexOffset(annexObject);
 		for (INode node : root.getAsTreeIterable()) {
 			EObject ge = node.getGrammarElement();
 			if (ge instanceof RuleCall) {
