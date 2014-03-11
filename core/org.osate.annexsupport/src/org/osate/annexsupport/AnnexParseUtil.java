@@ -29,13 +29,11 @@ public class AnnexParseUtil {
 			EObject result = null;
 			if (isValidParseResult(parseResult)) {
 				result = parseResult.getRootASTElement();
-				result.eAdapters().add(new AnnexParseResultImpl(parseResult,offset));
 				return result;
 			} else {
 				createDiagnostics(parseResult,filename,err);
 				result = parseResult.getRootASTElement();
 				if (result != null){
-					result.eAdapters().add(new AnnexParseResultImpl(parseResult,offset));
 					return result;
 				} else {
 					return null;
