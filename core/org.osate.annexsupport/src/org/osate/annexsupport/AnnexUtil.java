@@ -73,6 +73,11 @@ public class AnnexUtil {
 	}
 
 
+	/**
+	 * returns the offset of the annex. The annex is assumed to be a DefaultAnnexSubclause or a DefaultAnnexLibrary
+	 * @param asc
+	 * @return
+	 */
 	public static int getAnnexOffset(EObject asc){
 		INode node = NodeModelUtils.findActualNodeFor(asc);
 		if (node != null){
