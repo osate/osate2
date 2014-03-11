@@ -12,6 +12,8 @@ import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
@@ -92,19 +94,36 @@ public class AnnexUtil {
 			return 0;
 		}
 	}
-	
 
-public static boolean isAnnexLeaf(ILeafNode leaf){
-	if (leaf == null) return false;
-	EObject ge = leaf.getGrammarElement();
-	if (ge instanceof RuleCall){
-		AbstractRule rule = ((RuleCall)ge).getRule();
-		if (rule.getName().equalsIgnoreCase("ANNEXTEXT")){
-			return true;
+	/**
+	 * return the ILeafNode for the ANNEXTEXT if the offset points into an annex
+	 * @param resource
+	 * @param offset
+	 * @return
+	 */
+	public static ILeafNode findAnnexLeafNode(XtextResource resource, int offset){
+		IParseResult parseResult = resource.getParseResult();
+		if (parseResult != null && parseResult.getRootNode() != null) {
+			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
+			if (AnnexUtil.isAnnexLeaf(leaf)){
+				return leaf;
+			}
 		}
+		return null;
 	}
-return false;
-}
+
+
+	public static boolean isAnnexLeaf(ILeafNode leaf){
+		if (leaf == null) return false;
+		EObject ge = leaf.getGrammarElement();
+		if (ge instanceof RuleCall){
+			AbstractRule rule = ((RuleCall)ge).getRule();
+			if (rule.getName().equalsIgnoreCase("ANNEXTEXT")){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 //	/**
 //	 * get the line number for a given model object in the core model
