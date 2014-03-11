@@ -119,9 +119,8 @@ public class AnnexParserAgent  extends LazyLinker {
 		List<DefaultAnnexLibrary> all=AnnexUtil.getAllDefaultAnnexLibraries(model);
 		for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
 			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
-			int offset = node.getOffset();
 			int line = node.getStartLine()+ computeLineOffset(node);
-			offset = AnnexUtil.getAnnexOffset(defaultAnnexLibrary);
+			int offset = AnnexUtil.getAnnexOffset(defaultAnnexLibrary);
 			AnnexLibrary al = null;
 			// look for plug-in parser
 			String annexText = defaultAnnexLibrary.getSourceText();
@@ -129,7 +128,7 @@ public class AnnexParserAgent  extends LazyLinker {
 			if (annexText != null && annexText.length() > 6 && annexName != null){
 				// strip {** **}
 				   annexText = annexText.substring(3, annexText.length() - 3);
-				   offset = offset +3;
+//				   offset = offset +3;
 				AnnexParser ap = registry.getAnnexParser(annexName);
 				try {
 					int errs = errReporter.getNumErrors();
@@ -186,7 +185,7 @@ public class AnnexParserAgent  extends LazyLinker {
 			if (annexText != null && annexText.length() > 6 && annexName != null){
 				// strip {** **}
 					annexText = annexText.substring(3, annexText.length() - 3);
-					offset = offset +3;
+//					offset = offset +3;
 				AnnexParser ap = registry.getAnnexParser(annexName);
 				try {
 					int errs = errReporter.getNumErrors();

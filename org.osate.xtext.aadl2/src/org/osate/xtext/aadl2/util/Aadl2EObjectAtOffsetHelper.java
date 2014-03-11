@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.Region;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -219,7 +220,10 @@ protected ILeafNode getAnnexLeaf(ILeafNode leaf, int offset){
 //		}
 		EObject parsedAnnex = AnnexUtil.getParsedAnnex(semobj);
 		if (parsedAnnex != null){
-			leaf = NodeModelUtils.findLeafNodeAtOffset(NodeModelUtils.findActualNodeFor(parsedAnnex), offset);
+			ICompositeNode pLeaf = NodeModelUtils.findActualNodeFor(parsedAnnex);
+			if (pLeaf != null){
+				leaf = NodeModelUtils.findLeafNodeAtOffset(pLeaf, offset);
+			}
 		}
 	}
 	return leaf;
