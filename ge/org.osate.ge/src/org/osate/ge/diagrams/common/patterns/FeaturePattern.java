@@ -718,7 +718,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	        if (bo instanceof Feature && ga instanceof Text) {
 	        	final Shape labelShape = (Shape)context.getPictogramElement();
 	        	final Shape featureShape = labelShape.getContainer();
-	        	return canEdit(featureShape);
+	        	return canEdit(featureShape) && ((Feature)bo).getRefined() == null;
 	        }
 		}
 
