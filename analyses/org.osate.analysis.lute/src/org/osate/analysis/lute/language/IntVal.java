@@ -54,6 +54,12 @@ public class IntVal extends Val {
 			IntVal other = (IntVal) obj;
 			return getInt().equals(other.getInt());
 		}
+		
+		if (obj instanceof RealVal)
+		{
+			RealVal rv = (RealVal) obj;
+			return rv.getReal() == (double)this.i;		
+		}
 		return false;
 	}
 

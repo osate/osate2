@@ -1220,11 +1220,16 @@ public class FnCallExpr extends Expr {
 		return result;
 	}
 	
-	private Val getPropertyConstant( final String p_propertyName ) {
+	private Val getPropertyConstant( final String p_propertyName )
+	{
 		final PropertyConstant propConst = EMFIndexRetrieval.getPropertyConstantInWorkspace( OsateResourceUtil.getResourceSet(), p_propertyName );
-		
-		return AADLPropertyValueToValue( propConst.getConstantValue(), null );
+		if (propConst != null)
+		{
+			return AADLPropertyValueToValue( propConst.getConstantValue(), null );
+		}
+		return null;
 	}
+	
 	
 	private Val getPropertyConstant( 	final String p_propertyName,
 										final String p_unit ) {
