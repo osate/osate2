@@ -7,6 +7,9 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
@@ -80,9 +83,22 @@ public class AnnexUtil {
 	 */
 	public static int getAnnexOffset(EObject asc){
 		INode node = NodeModelUtils.findActualNodeFor(asc);
+		ILeafNode annexTextNode = null;
 		if (node != null){
+			Iterable<ILeafNode> leafNodes = node.getLeafNodes();
+			for (ILeafNode iLeafNode : leafNodes) {
+				if (isAnnexLeaf(iLeafNode)){
+					annexTextNode = iLeafNode;
+				}
+			}
+			if (annexTextNode != null){
+				int offset = annexTextNode.getOffset()+3;
+				return offset;
+			}
 			int offset = node.getOffset();
 			int nlength = node.getLength();
+			String s = node.getText();
+			int tlength = node.getTotalLength();
 			int sourcelength = AnnexUtil.getSourceText(asc).length();
 			// compensate for stripping {**
 			offset = offset + (nlength-sourcelength-1)+3;
@@ -92,6 +108,18 @@ public class AnnexUtil {
 		}
 	}
 	
+
+public static boolean isAnnexLeaf(ILeafNode leaf){
+	if (leaf == null) return false;
+	EObject ge = leaf.getGrammarElement();
+	if (ge instanceof RuleCall){
+		AbstractRule rule = ((RuleCall)ge).getRule();
+		if (rule.getName().equalsIgnoreCase("ANNEXTEXT")){
+			return true;
+		}
+	}
+return false;
+}
 	
 //	/**
 //	 * get the line number for a given model object in the core model
