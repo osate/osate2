@@ -26138,6 +26138,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private INAMEElements pINAME;
 	private FULLINAMEElements pFULLINAME;
 	private REFINEDNAMEElements pREFINEDNAME;
+	private TerminalRule tANNEXTEXT;
 	
 	private final Grammar grammar;
 
@@ -28701,6 +28702,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getREFINEDNAMEAccess().getRule();
 	}
 
+	//terminal ANNEXTEXT:
+	//	"{**"->"**}";
+	public TerminalRule getANNEXTEXTRule() {
+		return (tANNEXTEXT != null) ? tANNEXTEXT : (tANNEXTEXT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ANNEXTEXT"));
+	} 
+
 	//PModel returns aadl2::Element: //| BasicPropertyAssociation | PropertyAssociation
 	// ContainedPropertyAssociation;
 	public PropertiesGrammarAccess.PModelElements getPModelAccess() {
@@ -29163,13 +29170,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getSTARRule() {
 		return getSTARAccess().getRule();
 	}
-
-	////terminal IDANNEXTEXT: ID ANNEXTEXT;
-	// terminal ANNEXTEXT:
-	//	"{**"->"**}";
-	public TerminalRule getANNEXTEXTRule() {
-		return gaProperties.getANNEXTEXTRule();
-	} 
 
 	//terminal STRING:
 	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" |

@@ -73,12 +73,13 @@ public class AnnexUtil {
 	}
 
 
-	public static int getAnnexOffset(EObject asc, int sourcelength){
+	public static int getAnnexOffset(EObject asc){
 		INode node = NodeModelUtils.findActualNodeFor(asc);
 		if (node != null){
 			int offset = node.getOffset();
 			int nlength = node.getLength();
-			offset = offset + (nlength-sourcelength-1)+3;
+			int sourcelength = AnnexUtil.getSourceText(asc).length();
+			offset = offset + (nlength-sourcelength-1);
 			return offset;
 		} else {
 			return 0;
