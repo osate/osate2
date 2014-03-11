@@ -1,8 +1,6 @@
 package org.osate.xtext.aadl2.util;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.text.Region;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -15,12 +13,7 @@ import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.TextRegion;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.annexsupport.AnnexLinkingServiceRegistry;
-import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
@@ -212,12 +205,6 @@ protected ILeafNode getAnnexLeaf(ILeafNode leaf, int offset){
 	if (leaf == null) return null;
 	EObject semobj = NodeModelUtils.findActualSemanticObjectFor(leaf);
 	if (semobj instanceof AnnexSubclause || semobj instanceof AnnexLibrary){
-//		AnnexParseResult apr =AnnexUtil.getAnnexParseResult(semobj);
-//		if (apr == null) return leaf;
-//		IParseResult aParseResult = apr.getParseResult();
-//		if (aParseResult != null && aParseResult.getRootNode() != null) {
-//			leaf = NodeModelUtils.findLeafNodeAtOffset(aParseResult.getRootNode(), offset);
-//		}
 		EObject parsedAnnex = AnnexUtil.getParsedAnnex(semobj);
 		if (parsedAnnex != null){
 			ICompositeNode pLeaf = NodeModelUtils.findActualNodeFor(parsedAnnex);

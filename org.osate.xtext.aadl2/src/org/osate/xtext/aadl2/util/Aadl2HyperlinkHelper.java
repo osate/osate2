@@ -14,7 +14,6 @@ import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.util.TextRegion;
 import org.osate.aadl2.NamedElement;
-import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.AnnexTextPositionResolverRegistry;

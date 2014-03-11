@@ -26,21 +26,6 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class AnnexUtil {
 	
-//	public static AnnexParseResult getAnnexParseResult(EObject obj)	{
-//		if (obj instanceof DefaultAnnexLibrary){
-//			obj = ((DefaultAnnexLibrary)obj).getParsedAnnexLibrary();
-//		} else if (obj instanceof DefaultAnnexSubclause){
-//			obj = ((DefaultAnnexSubclause)obj).getParsedAnnexSubclause();
-//		}
-//		if (obj == null) return null;
-//		// Find the Parseresult information
-//		for(Adapter adapter : obj.eAdapters()) {
-//			if(adapter instanceof AnnexParseResult) {
-//				return (AnnexParseResult)adapter;
-//			}
-//		}
-//		return null;
-//	}
 	
 	public static String getSourceText(EObject annexObj){
 		if (annexObj instanceof DefaultAnnexLibrary){
