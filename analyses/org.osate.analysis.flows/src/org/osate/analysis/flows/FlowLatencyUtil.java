@@ -55,7 +55,12 @@ public class FlowLatencyUtil {
 		List<ComponentInstance> reflist = new BasicEList<ComponentInstance>();
 		try {
 			List pvlist = GetProperties.getActualConnectionBinding(pci);
-			for ( Object pv: pvlist){
+			for ( Object pv: pvlist)
+			{
+				if (pv instanceof ComponentInstance)
+				{
+					reflist.add((ComponentInstance)pv);
+				}
 				if(pv instanceof InstanceReferenceValue)
 				{
 
