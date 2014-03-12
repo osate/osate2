@@ -20732,7 +20732,7 @@ ruleFeaturePrototypeReference returns [EObject current=null]
 	    }
 
 )
-)
+)?
 	otherlv_1=KEYWORD_65
     {
     	newLeafNode(otherlv_1, grammarAccess.getFeaturePrototypeReferenceAccess().getFeatureKeyword_1());
