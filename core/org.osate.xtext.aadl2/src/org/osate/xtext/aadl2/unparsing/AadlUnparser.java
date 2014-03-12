@@ -367,12 +367,17 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
 
 					processComments(as);
+					EObject annex = AnnexUtil.getParsedAnnex(as);
+					String astring = unparser.unparseAnnexSubclause((AnnexSubclause)annex,aadlText.getIndentString());
+					if (astring.startsWith("{**")){
+						aadlText.addOutputNewline("annex " + annexName + astring+";");
+						return DONE;
+					}
+					// now unparse test that has been set without {**
 					aadlText.addOutputNewline("annex " + annexName + " {**");
 					aadlText.incrementIndent();
-					EObject annex = AnnexUtil.getParsedAnnex(as);
 					if (annex != null) {
-					aadlText.addOutput(unparser.unparseAnnexSubclause((AnnexSubclause)annex,
-							aadlText.getIndentString()));
+					aadlText.addOutput(astring);
 					} else {
 						aadlText.addOutput(unparser.unparseAnnexSubclause(as,
 								aadlText.getIndentString()));
