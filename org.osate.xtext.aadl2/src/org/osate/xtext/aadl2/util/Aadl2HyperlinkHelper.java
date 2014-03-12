@@ -42,7 +42,7 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 
 	@Override
 	public void createHyperlinksByOffset(XtextResource resource, int offset, IHyperlinkAcceptor acceptor) {
-		INode annexLeaf = findAnnexLeafNode(resource, offset);
+		INode annexLeaf = findAnnexTextLeafNode(resource, offset);
 		if (annexLeaf!= null){
 			// handle extensionpoint based text position
 			EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
@@ -82,7 +82,7 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 	 * @param offset
 	 * @return
 	 */
-	protected ILeafNode findAnnexLeafNode(XtextResource resource, int offset){
+	protected ILeafNode findAnnexTextLeafNode(XtextResource resource, int offset){
 		IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
