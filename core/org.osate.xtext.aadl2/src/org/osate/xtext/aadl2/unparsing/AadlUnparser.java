@@ -370,7 +370,14 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					EObject annex = AnnexUtil.getParsedAnnex(as);
 					String astring = unparser.unparseAnnexSubclause((AnnexSubclause)annex,aadlText.getIndentString());
 					if (astring.startsWith("{**")){
-						aadlText.addOutputNewline("annex " + annexName + astring+";");
+						aadlText.addOutput("annex " + annexName + astring);
+						EList<Mode> mlist = as.getInModes();
+						if (!mlist.isEmpty()){
+							aadlText.addOutput(" in modes (");
+							processRefEList(mlist, ",",as);
+							aadlText.addOutput(")");
+						}
+						aadlText.addOutputNewline(";");
 						return DONE;
 					}
 					// now unparse test that has been set without {**
@@ -1687,14 +1694,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(AadlUtil.getPropertySetElementName(object.getProperty()));
 				aadlText.addOutput(object.isAppend() ? " +=> " : " => ");
 				final EList<ModalPropertyValue> pl = object.getOwnedValues();
-//				boolean didParens = false;
-//				if (pl.size() > 1 || (pl.size()==1 && !((ModalPropertyValue)pl.get(0)).getInModes().isEmpty())){
-//					aadlText.addOutput("(");
-//					didParens = true;
-//				}
 				processEList(pl, ", ");
-//				if (didParens)
-//					aadlText.addOutput(")");
 				EList<ContainedNamedElement> atl = object.getAppliesTos();
 
 				if (atl.size() > 0) {
