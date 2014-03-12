@@ -84,8 +84,6 @@ public class AnnexUtil {
 			}
 			int offset = node.getOffset();
 			int nlength = node.getLength();
-			String s = node.getText();
-			int tlength = node.getTotalLength();
 			int sourcelength = AnnexUtil.getSourceText(asc).length();
 			// compensate for stripping {**
 			offset = offset + (nlength-sourcelength-1)+3;
