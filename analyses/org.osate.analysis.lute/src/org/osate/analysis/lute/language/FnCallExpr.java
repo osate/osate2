@@ -1009,7 +1009,7 @@ public class FnCallExpr extends Expr {
 				final List<Val> list = new ArrayList<Val>();
 
 				for ( final PropertyExpression propExprIter : p_aadlElement.getPropertyValueList( propDef ) ) {
-					list.add( AADLPropertyValueToValue( propExprIter, p_unit ) );
+					list.add( AADLPropertyValueToValue( p_aadlElement, propExprIter, p_unit ) );
 				}
 
 				return new SetVal( list );
@@ -1017,7 +1017,7 @@ public class FnCallExpr extends Expr {
 
 			final PropertyExpression propExpr = PropertyUtils.getSimplePropertyValue( p_aadlElement, propDef );
 
-			return AADLPropertyValueToValue( propExpr, p_unit );
+			return AADLPropertyValueToValue( p_aadlElement, propExpr, p_unit );
 		}
 		catch ( final PropertyNotPresentException p_ex ) {
 			return null;
@@ -1077,7 +1077,7 @@ public class FnCallExpr extends Expr {
 		return unitLit;
 	}
 
-	private Val AADLPropertyValueToValue( 	final PropertyExpression p_expr,
+	private Val AADLPropertyValueToValue(final NamedElement aadlElement,	final PropertyExpression p_expr,
 			final String p_unit ) {
 		if ( p_expr == null ) {
 			return null;
@@ -1142,9 +1142,9 @@ public class FnCallExpr extends Expr {
 			RangeValue range = (RangeValue) p_expr;
 
 			return new RangeVal(
-					AADLPropertyValueToValue( range.getMinimumValue(), p_unit ),
-					AADLPropertyValueToValue( range.getMaximumValue(), p_unit ),
-					AADLPropertyValueToValue( range.getDelta(), p_unit )
+					AADLPropertyValueToValue( aadlElement, range.getMinimumValue(), p_unit ),
+					AADLPropertyValueToValue( aadlElement, range.getMaximumValue(), p_unit ),
+					AADLPropertyValueToValue( aadlElement, range.getDelta(), p_unit )
 					);
 		}
 
@@ -1155,16 +1155,24 @@ public class FnCallExpr extends Expr {
 		}
 
 		if ( p_expr instanceof ReferenceValue ) {
+			ComponentInstance refCI;
 			final ReferenceValue refValue = (ReferenceValue) p_expr;
-
-			return new AADLVal( getReferencedObject( refValue ) );
+			ComponentInstance ci = (ComponentInstance)aadlElement;
+			PropertyExpression irv = ((ReferenceValue) refValue).instantiate(ci);
+			refCI = null;
+			if (irv instanceof InstanceReferenceValue)
+			{
+				refCI = (ComponentInstance) ((InstanceReferenceValue)irv).getReferencedInstanceObject();
+			
+			}
+			return new AADLVal ( refCI );
 		}
 
 		if ( p_expr instanceof ListValue ) {
 			final List<Val> values = new ArrayList<Val>();
 
 			for ( final PropertyExpression propExprIter : ( (ListValue) p_expr ).getOwnedListElements() ) {
-				values.add( AADLPropertyValueToValue( propExprIter, p_unit ) );
+				values.add( AADLPropertyValueToValue( aadlElement, propExprIter, p_unit ) );
 			}
 
 			return new SetVal( values );
@@ -1195,6 +1203,8 @@ public class FnCallExpr extends Expr {
 
 	private NamedElement getReferencedObject( final ReferenceValue p_propertyValue ) {
 		return p_propertyValue.getContainmentPathElements().get( 0 ).getNamedElement();
+		//									PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
+
 	}
 
 	
@@ -1225,7 +1235,7 @@ public class FnCallExpr extends Expr {
 		final PropertyConstant propConst = EMFIndexRetrieval.getPropertyConstantInWorkspace( OsateResourceUtil.getResourceSet(), p_propertyName );
 		if (propConst != null)
 		{
-			return AADLPropertyValueToValue( propConst.getConstantValue(), null );
+			return AADLPropertyValueToValue( null, propConst.getConstantValue(), null );
 		}
 		return null;
 	}
@@ -1235,7 +1245,7 @@ public class FnCallExpr extends Expr {
 										final String p_unit ) {
 		final PropertyConstant propConst = EMFIndexRetrieval.getPropertyConstantInWorkspace( OsateResourceUtil.getResourceSet(), p_propertyName );
 		
-		return AADLPropertyValueToValue( propConst.getConstantValue(), p_unit );
+		return AADLPropertyValueToValue( null, propConst.getConstantValue(), p_unit );
 	}
 	
 	private Number getNumberValue( final Val p_value ) {

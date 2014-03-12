@@ -28,6 +28,11 @@ public class ConsEnv extends Environment {
 	final private Val value;
 	final private Environment tail;
 	
+	
+	public Val getVal()
+	{
+		return this.value;
+	}
 	public ConsEnv(String key, Val value, Environment tail) {
 		super();
 		this.key = key;
