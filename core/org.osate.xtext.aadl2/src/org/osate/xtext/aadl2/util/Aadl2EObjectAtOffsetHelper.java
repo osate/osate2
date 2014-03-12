@@ -132,7 +132,9 @@ public class Aadl2EObjectAtOffsetHelper extends
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), region.getOffset());
 			// getAnnexleaf is the addition.
-			leaf = getLeafInParsedAnnex(leaf, region.getOffset());
+			if (AnnexUtil.isAnnexLeaf(leaf)){
+				leaf = getLeafInParsedAnnex(leaf, region.getOffset());
+			}
 			INode crossRefNode = findCrossReferenceNode(leaf);
 			// if not a cross reference position and the cursor is at the beginning of a node try the previous one.
 			if (crossRefNode == null && leaf != null && region.getLength()==0 && leaf.getOffset() == region.getOffset()) {
@@ -155,7 +157,9 @@ public class Aadl2EObjectAtOffsetHelper extends
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
 			// we look up annex leaf in the annex specific parse tree
-			leaf = getLeafInParsedAnnex(leaf, offset);
+			if (AnnexUtil.isAnnexLeaf(leaf)){
+				leaf = getLeafInParsedAnnex(leaf,  offset);
+			}
 			if (leaf != null && leaf.isHidden() && leaf.getOffset() == offset) {
 				leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset - 1);
 			}
