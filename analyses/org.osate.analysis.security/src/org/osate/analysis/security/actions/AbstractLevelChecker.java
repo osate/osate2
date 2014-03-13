@@ -57,6 +57,8 @@ import org.osate.ui.dialogs.Dialog;
 
 
 public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarativeModelModifyActionAction {
+	private boolean initialized = false;
+	
 	/**
 	 * Connection level comparator for levels that must be greater on the
 	 * connection source.
@@ -118,14 +120,23 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 	 */
 	protected abstract LevelComparator getLevelComparator();
 	
-	protected boolean initializeAnalysis() {
+	protected boolean initializeAnalysis()
+	{
+		if (initialized)
+		{
+			return true;
+		}
 		theProperty = lookupOptionalPropertyDefinition(
 				getLevelPropertyPropertySet(), getLevelPropertyName());
-		if (theProperty == null) {
+		if (theProperty == null)
+		{
 			final String propName = getLevelPropertyPropertySet() + "::" + getLevelPropertyName();
 			Dialog.showError("Error", "Cannot find property " + propName + ".");
 			return false;
-		} else {
+		}
+		else
+		{
+			initialized = true;
 			return true;
 		}
 	}
@@ -134,6 +145,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 			IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
 		final Element as;
+		initializeAnalysis();
 		if (!(declarativeObject instanceof ComponentImplementation)) {
 			as = declarativeObject.getElementRoot();
 		} else {
@@ -177,6 +189,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		 * security levels.  The switch acts as filter on the model object
 		 * classes.  
 		 */
+		initializeAnalysis();
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		final ComponentInstanceLevelChecker componentSecuritySwitch =
 			new ComponentInstanceLevelChecker(errManager, theProperty);
