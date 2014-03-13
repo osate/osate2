@@ -139,7 +139,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 	}
 	
 	private Context getContext(final Shape featureShape) {
-		return shapeService.getClosestBusinessObjectOfType(featureShape, Context.class);
+		return shapeService.getClosestBusinessObjectOfType(featureShape.getContainer(), Context.class);
 	}
 	
     @Override
