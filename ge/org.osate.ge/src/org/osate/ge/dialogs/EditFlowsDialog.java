@@ -102,9 +102,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		this.ci = ci;
 		this.prototypeService = prototypeService;
 		this.namingService = namingService;
-		
-		populatePotentialFlowSegmentList();
-	    
+		this.setHelpAvailable(false);
+		populatePotentialFlowSegmentList();	    
 	}
 	
 	private void populatePotentialFlowSegmentList() {
