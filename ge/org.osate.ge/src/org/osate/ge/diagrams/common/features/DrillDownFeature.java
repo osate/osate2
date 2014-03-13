@@ -62,7 +62,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
 			return false;
 		}
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pes[0]));
-		return bo instanceof ComponentType || bo instanceof ComponentImplementation || bo instanceof FeatureGroupType;	
+		return bo instanceof ComponentType || bo instanceof ComponentImplementation || bo instanceof FeatureGroupType || bo instanceof Subcomponent;	
 	}
     
     @Override
