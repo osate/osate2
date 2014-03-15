@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright �� 2011 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -26,8 +26,6 @@ import java.util.Comparator ;
 import java.util.ListIterator ;
 
 import org.eclipse.emf.common.util.EList ;
-import org.eclipse.emf.ecore.EObject ;
-
 import org.osate.aadl2.* ;
 import org.osate.aadl2.ThreadGroup ;
 import org.osate.ba.aadlba.* ;
@@ -38,8 +36,6 @@ import org.osate.utils.Aadl2Visitors ;
 import org.osate.utils.PropertyUtils ;
 import org.osate.utils.Aadl2Utils.DataAccessRight ;
 import org.osate.utils.names.DataModelProperties ;
-
-
 
 /**
  * A collection of static utils methods.
@@ -630,6 +626,37 @@ public class AadlBaUtils {
     return getDataClassifier(v, null) ;
   }
   
+  // DOC ME
+  public static DataClassifier getDataClassifier(Target t)
+  {
+    NamedElement result ;
+    
+    if (t instanceof DataHolder)
+    {
+      result = ((DataHolder) t).getElement();
+    }
+    else if (t instanceof DataComponentReference)
+    {
+      DataComponentReference r = (DataComponentReference) t;
+      DataHolder h = r.getData().get(r.getData().size() - 1);
+      result = ((DataHolder) h).getElement();
+    }
+    else
+    {
+      throw new UnsupportedOperationException('\'' +
+        t.getClass().getSimpleName() + "\' is not yet supported") ;
+    }
+    
+    if(result instanceof DataClassifier)
+    {
+      return (DataClassifier) result ;
+    }
+    else // Abstract components case.
+    {
+      return null ;
+    }
+  }
+  
   /**
    * Returns the DataClassifier of the element binded to the given 
    * Value object. A target instance can be given to this method as 
@@ -784,7 +811,7 @@ public class AadlBaUtils {
    * @exception UnsupportedOperationException for the unsupported types
    */
   private static TypeHolder getTypeHolder(Value v,
-                                            ComponentClassifier parentContainer)
+                                          ComponentClassifier parentContainer)
   {
     TypeHolder result = new TypeHolder();
 
@@ -1023,8 +1050,8 @@ public class AadlBaUtils {
   // TypeHolder object.
   // The given expression dimension is used as an dimension offset.
   private static void processArrayDataRepresentation(Element el,
-                                                       TypeHolder type,
-                                                       int exprDim)
+                                                     TypeHolder type,
+                                                     int exprDim)
                                                       throws DimensionException
   {
     // Treats only type declared as an array. Otherwise returns.
