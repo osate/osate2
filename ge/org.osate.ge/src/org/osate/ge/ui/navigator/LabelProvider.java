@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.LabelProviderChangedEvent;
@@ -28,6 +29,7 @@ import org.osate.ge.services.DiagramService;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 
 public class LabelProvider implements ILabelProvider {
+	private final IBaseLabelProvider innerLabelProvider; // An optional label provider that will return the results if the content is not a diagram.
 	private final List<ILabelProviderListener> listeners = new ArrayList<ILabelProviderListener>();
 	private final DiagramService diagramService;
 	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
@@ -60,28 +62,45 @@ public class LabelProvider implements ILabelProvider {
 	   };
 	   
 	public LabelProvider() {
+		this(null);
+	}	
+	
+	public LabelProvider(final IBaseLabelProvider innerLabelProvider) {
+		this.innerLabelProvider = innerLabelProvider;
 		this.diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 		
 		// Register to listen for workspace changes
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
-	}	
+	}
 	
 	@Override
 	public void addListener(final ILabelProviderListener listener) {
 		listeners.add(listener);
+		
+		if(innerLabelProvider != null) {
+			innerLabelProvider.addListener(listener);
+		}
 	}
 
 	@Override
 	public void removeListener(final ILabelProviderListener listener) {
 		listeners.remove(listener);
+		
+		if(innerLabelProvider != null) {
+			innerLabelProvider.removeListener(listener);
+		}
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() {	
 		listeners.clear();
 		
 		// Register to listen for workspace changes
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
+		
+		if(innerLabelProvider != null) {
+			innerLabelProvider.dispose();
+		}
 	}
 	
 	private void notifyListeners(final Object resource) {
@@ -92,11 +111,19 @@ public class LabelProvider implements ILabelProvider {
 	
 	@Override
 	public boolean isLabelProperty(Object element, String property) {
+		if(innerLabelProvider != null) {
+			return innerLabelProvider.isLabelProperty(element, property);
+		}
+		
 		return false;
 	}
 	
 	@Override
 	public Image getImage(Object element) {
+		if(innerLabelProvider instanceof ILabelProvider) {
+			return((ILabelProvider)innerLabelProvider).getImage(element);
+		}
+		
 		return null;
 	}
 
@@ -115,6 +142,10 @@ public class LabelProvider implements ILabelProvider {
 			final IFile file = (IFile)element;
 			final String name = diagramService.getName(file);
 			return name == null ? file.getName() : name;
+		}
+		
+		if(innerLabelProvider instanceof ILabelProvider) {
+			return ((ILabelProvider)innerLabelProvider).getText(element);
 		}
 		
 		return null;

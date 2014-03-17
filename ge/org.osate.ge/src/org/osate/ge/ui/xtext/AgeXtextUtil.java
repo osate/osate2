@@ -29,7 +29,7 @@ public class AgeXtextUtil {
 	 * @author philip.alldredge
 	 *
 	 */
-	public static class Initializer  implements IStartup {		
+	public static class Initializer implements IStartup {		
 		public void earlyStartup() {
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
