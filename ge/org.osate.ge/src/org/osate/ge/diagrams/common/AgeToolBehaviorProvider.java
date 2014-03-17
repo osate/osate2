@@ -71,4 +71,10 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		
 		return null;
 	}
+	
+	@Override
+	public String getTitleToolTip() {		
+		final String diagramTitle = getDiagramTypeProvider() == null ? null : getDiagramTypeProvider().getDiagramTitle();
+		return diagramTitle == null ? super.getTitleToolTip() : diagramTitle;
+	}
 }
