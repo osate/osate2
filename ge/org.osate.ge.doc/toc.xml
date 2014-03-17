@@ -54,8 +54,7 @@
    </topic>
    <topic label="Troubleshooting" href="output\ch04.html">
       <topic label="Build Automatically" href="output\ch04.html#d0e446"/>
-      <topic label="Filenames" href="output\ch04s02.html"/>
-      <topic label="Updating a Diagram" href="output\ch04s03.html"/>
-      <topic label="Reporting Bugs" href="output\ch04s04.html"/>
+      <topic label="Updating a Diagram" href="output\ch04s02.html"/>
+      <topic label="Reporting Bugs" href="output\ch04s03.html"/>
    </topic>
 </toc>

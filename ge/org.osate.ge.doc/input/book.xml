@@ -290,10 +290,6 @@
 			<para><emphasis>Project->Build Automatically</emphasis> must be enabled. If it is not enabled, the graphical editor will not function properly.</para>
 		</section>
 		<section>
-			<title>Filenames</title>
-			<para>The OSATE Graphical Editor stores diagrams in files with names based on Universally unique identifiers (UUIDs). The Eclipse <emphasis>Project Explorer</emphasis> view will show the title of the diagrams instead of the filenames.</para>
-		</section>
-		<section>
 			<title>Updating a Diagram</title>
 			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>
 		</section>
