@@ -50,7 +50,7 @@ public class ModelListener {
 	}
 	
 	public void modelChanged(final IXtextDocument document, final XtextResource resource) {
-		if(resource.getContents().size() > 0) {
+		if(resource.getContents() != null && resource.getContents().size() > 0) {
 			final EObject obj = resource.getContents().get(0);
 
 			//handleRenames(resource);
