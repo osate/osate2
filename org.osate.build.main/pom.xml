@@ -79,12 +79,16 @@
     <module>../../error-model1/edu.laas.aadl.aadl2gspn</module>
     <module>../../error-model1/edu.laas.aadl.dependency</module>
     <module>../../error-model1/edu.laas.aadl.gspn.model</module>
-    
-    <module>../../aadlba/org.osate.utils</module>
-    <module>../../aadlba/org.osate.utils.feature</module>
+
     <module>../../aadlba/org.osate.ba</module>
     <module>../../aadlba/org.osate.ba.feature</module>
     <module>../../aadlba/org.osate.ba.edit</module>
+    <module>../../aadlba/org.osate.utils</module>
+    <module>../../aadlba/org.osate.utils.feature</module>
+
+    <module>../../osate-ge/org.osate.ge</module>
+    <module>../../osate-ge/org.osate.ge.doc</module>
+    <module>../../osate-ge/org.osate.ge.feature</module>
     
   </modules>
 
