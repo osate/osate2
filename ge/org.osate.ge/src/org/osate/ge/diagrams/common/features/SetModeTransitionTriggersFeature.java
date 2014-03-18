@@ -8,8 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.features;
 
-import java.util.Iterator;
-
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
@@ -24,7 +22,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.TriggerPort;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.services.AadlModificationService;
@@ -126,12 +123,7 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 		 			diagramMod.markRelatedDiagramsAsDirty(mt.getContainingClassifier());
 
 		 			// Remove all trigger port triggers from the mode transition
-					final Iterator<ModeTransitionTrigger> mttIt = mt.getOwnedTriggers().iterator();
-					while(mttIt.hasNext()) {
-						if(mttIt.next() instanceof TriggerPort) {
-							mttIt.remove();
-						}
-					}
+					mt.getOwnedTriggers().clear();
 					
 					// Add the selected ones to it				
 		 			for(ModeTransitionTriggerInfo selectedPort : selectedTriggers) {

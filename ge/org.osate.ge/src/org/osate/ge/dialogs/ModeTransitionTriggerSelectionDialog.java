@@ -34,9 +34,7 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 		if(mt != null) {
 			final List<ModeTransitionTriggerInfo> currentTriggerPorts = new ArrayList<ModeTransitionTriggerInfo>();
 			for(final ModeTransitionTrigger mtt : mt.getOwnedTriggers()) {
-				if(mtt instanceof TriggerPort) {
-					currentTriggerPorts.add(new ModeTransitionTriggerInfo(mtt.getTriggerPort(), mtt.getContext()));
-				}
+				currentTriggerPorts.add(new ModeTransitionTriggerInfo(mtt.getTriggerPort(), mtt.getContext()));
 			}
 			triggerSelectionDlg.setInitialSelections(currentTriggerPorts.toArray());
 		}

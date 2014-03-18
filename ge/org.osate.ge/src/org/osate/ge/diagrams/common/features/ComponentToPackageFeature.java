@@ -50,7 +50,7 @@ public class ComponentToPackageFeature extends AbstractCustomFeature {
 		}
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		return bo instanceof NamedElement && ((NamedElement)bo).getElementRoot() instanceof AadlPackage;
+		return (!(bo instanceof AadlPackage)) && bo instanceof NamedElement && ((NamedElement)bo).getElementRoot() instanceof AadlPackage;
 	}
     
 

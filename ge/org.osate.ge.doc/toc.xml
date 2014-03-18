@@ -1,8 +1,60 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <toc label="OSATE Graphical Editor User Guide" topic="output\index.html">
-   <topic label="Getting Started" href="output\index.html#d0e7">
-      <topic label="Creating a new AADL Package" href="output\index.html#d0e12"/>
-      <topic label="Opening an Existing AADL Model" href="output\index.html#d0e42"/>
+   <topic label="Getting Started" href="output\ch01.html">
+      <topic label="Creating a new AADL Package" href="output\ch01.html#d0e12"/>
+      <topic label="Opening an Existing AADL Model" href="output\ch01s02.html"/>
    </topic>
-   <topic label="Notes" href="output\bk01s02.html"/>
+   <topic label="Navigating Between Diagrams" href="output\ch02.html">
+      <topic label="Opening an Associated Diagram" href="output\ch02.html#d0e71"/>
+      <topic label="Opening an Element's Package Diagram" href="output\ch02s02.html"/>
+      <topic label="Opening the Type Diagram for a Component Implementation" href="output\ch02s03.html"/>
+   </topic>
+   <topic label="Editing AADL Models" href="output\ch03.html">
+      <topic label="Basics" href="output\ch03.html#d0e100">
+         <topic label="Deleting" href="output\ch03.html#d0e105"/>
+         <topic label="Renaming" href="output\ch03.html#d0e118"/>
+         <topic label="Refining" href="output\ch03.html#d0e141"/>
+         <topic label="Editing Property Associations" href="output\ch03.html#d0e149"/>
+         <topic label="Performing Diagram Layout" href="output\ch03.html#d0e157"/>
+      </topic>
+      <topic label="Classifiers" href="output\ch03s02.html">
+         <topic label="Creating" href="output\ch03s02.html#d0e170"/>
+         <topic label="Extending" href="output\ch03s02.html#d0e185">
+            <topic label="Using the Palette to Extend a Classifier" href="output\ch03s02.html#d0e190"/>
+            <topic label="Using the Context Menu to Set Extended Classifier" href="output\ch03s02.html#d0e206"/>
+         </topic>
+      </topic>
+      <topic label="Features" href="output\ch03s03.html">
+         <topic label="Creating" href="output\ch03s03.html#d0e232"/>
+         <topic label="Setting the Feature Classifier" href="output\ch03s03.html#d0e237"/>
+         <topic label="Setting the Feature Direction (Directional Features Only)" href="output\ch03s03.html#d0e245"/>
+         <topic label="Setting Access Kind (Access Features Only)" href="output\ch03s03.html#d0e259"/>
+      </topic>
+      <topic label="Subcomponents" href="output\ch03s04.html">
+         <topic label="Creating" href="output\ch03s04.html#d0e275"/>
+         <topic label="Setting the Classifier" href="output\ch03s04.html#d0e280"/>
+         <topic label="Setting Modes" href="output\ch03s04.html#d0e288"/>
+      </topic>
+      <topic label="Flows" href="output\ch03s05.html">
+         <topic label="Creating Flow Sources" href="output\ch03s05.html#d0e300"/>
+         <topic label="Creating Flow Sinks" href="output\ch03s05.html#d0e308"/>
+         <topic label="Creating Flow Paths" href="output\ch03s05.html#d0e316"/>
+         <topic label="Editing Flow Implementations and End-to-End Flows" href="output\ch03s05.html#d0e334"/>
+         <topic label="Highlighting Flow Implementations and End-to-End Flows" href="output\ch03s05.html#d0e342"/>
+      </topic>
+      <topic label="Modes" href="output\ch03s06.html">
+         <topic label="Creating Modes" href="output\ch03s06.html#d0e352"/>
+         <topic label="Setting the Initial Mode" href="output\ch03s06.html#d0e360"/>
+         <topic label="Creating Mode Transitions" href="output\ch03s06.html#d0e368"/>
+         <topic label="Setting Mode Transition Triggers" href="output\ch03s06.html#d0e401"/>
+         <topic label="Switching Between Derived and Non-derived Modes" href="output\ch03s06.html#d0e409"/>
+         <topic label="Highlighting" href="output\ch03s06.html#d0e428"/>
+         <topic label="Selecting Active Components" href="output\ch03s06.html#modes_configuring_in_modes"/>
+      </topic>
+   </topic>
+   <topic label="Troubleshooting" href="output\ch04.html">
+      <topic label="Build Automatically" href="output\ch04.html#d0e446"/>
+      <topic label="Updating a Diagram" href="output\ch04s02.html"/>
+      <topic label="Reporting Bugs" href="output\ch04s03.html"/>
+   </topic>
 </toc>
