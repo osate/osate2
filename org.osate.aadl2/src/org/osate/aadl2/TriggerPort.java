@@ -36,7 +36,6 @@
  */
 package org.osate.aadl2;
 
-import org.osate.aadl2.parsesupport.AObject;
 
 /**
  * <!-- begin-user-doc -->

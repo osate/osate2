@@ -834,7 +834,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
       eSuperTypes="#//SubcomponentType #//SubprogramGroup #//FeatureClassifier"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature #//TriggerPort">
     <eStructuralFeatures xsi:type="ecore:EReference" name="featurePrototype" ordered="false"
         eType="#//FeaturePrototype"/>
   </eClassifiers>
