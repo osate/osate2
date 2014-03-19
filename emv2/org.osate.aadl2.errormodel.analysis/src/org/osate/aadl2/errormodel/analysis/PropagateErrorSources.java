@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -58,6 +59,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -70,11 +72,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureorPPReferenceImpl;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
@@ -555,7 +559,9 @@ public class PropagateErrorSources {
 					}
 				}
 			}
-		} else {
+		}
+		else
+		{
 			for (PropagationPathRecord path : paths) {
 				ConnectionInstance pathConni = path.getConnectionInstance();
 				TypeMappingSet typeEquivalence = EMV2Util.getAllTypeEquivalenceMapping(ci.getContainingComponentInstance());
@@ -607,7 +613,8 @@ public class PropagateErrorSources {
 					dstEnds = new BasicEList<PropagationPathEnd>();
 					dstEnds.add(path.getPathDst());
 				}
-				for (PropagationPathEnd propagationPathEnd : dstEnds) {
+				for (PropagationPathEnd propagationPathEnd : dstEnds)
+				{
 					ComponentInstance destci = propagationPathEnd.getComponentInstance();
 					ErrorPropagation destEP = propagationPathEnd.getErrorPropagation();
 					TypeSet dstTS = destEP.getTypeSet();
@@ -633,7 +640,10 @@ public class PropagateErrorSources {
 						// outgoing only, but not ending at root
 						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
 						reportEntry(entryText+effectText+connText,depth);
-					} else if (destci != null && destEP != null){
+					} else if (destci != null && destEP != null)
+					{
+//						OsateDebug.osateDebug("ci=" + ci.getName());
+//						OsateDebug.osateDebug("destEP=" + destEP);
 						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP);
 						traceErrorFlows(destci, destEP, targettt, depth, entryText+effectText+connText);
 					}
@@ -671,7 +681,7 @@ public class PropagateErrorSources {
 		}
 		
 		alreadyTreated.get(ci).add(entryText);
-		
+	//	OsateDebug.osateDebug("[traceErrorFlows] ci=" + ci.getName() + "text=" + entryText);
 		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
 		boolean handled = false;
 		Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
@@ -799,7 +809,10 @@ public class PropagateErrorSources {
 				// now all outgoing propagations or features since we did not find flows
 				EList<FeatureInstance> filist = ci.getFeatureInstances();
 				boolean res = doAllOutPropagationsOrFeatures(ci, filist, ep, tt, depth, entryText);
-				if (res) handled = true;
+				if (res)
+				{
+					handled = true;
+				}
 			}
 		}
 		if (!handled ){
@@ -810,28 +823,63 @@ public class PropagateErrorSources {
 	
 	protected boolean doAllOutPropagationsOrFeatures(ComponentInstance ci, EList<FeatureInstance> filist,ErrorPropagation ep, TypeToken tt, int depth, String entryText){
 		boolean handled = false;
-		for (FeatureInstance fi : filist) {
+
+		for (FeatureInstance fi : filist)
+		{
+			/**
+			 * JD
+			 * The toAnalyze boolean indicate if we have to analyze the current feature or not
+			 * This is made to try to detect cycle in the error path.
+			 * 
+			 */
+			boolean toAnalyze = true;
+			
+			for (FeatureorPPReference freftmp : ep.getFeatureorPPRefs())
+			{
+				if (freftmp.getFeatureorPP() instanceof Feature)
+				{
+					if (freftmp == fi.getFeature())
+					{
+						toAnalyze = false;
+					}
+				}
+			}
+			
+			if (toAnalyze)
+			{
+				continue;
+			}
+			
 			if (fi.getDirection().outgoing()){
 				ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-				if (outp!=null){
+				if (outp!=null)
+				{
 					TypeToken newtt = EMV2Util.mapToken(tt,null);
 					if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)){
 						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [All Out Props]");
 						handled = true;
-					} else {
+					}
+					else
+					{
 						Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
-						if (intersection.isEmpty()){
+						if (intersection.isEmpty())
+						{
 							String errorText = ",\""+generateFailureModeText(ci,outp,newtt)+" [Not in type constraint "+EMV2Util.getPrintName(outp.getTypeSet())+" ]\"";
 							reportEntry(entryText+errorText, depth);
 							handled = true;
-						} else {
-							for (TypeToken typeToken : intersection) {
+						} 
+						else 
+						{
+							for (TypeToken typeToken : intersection) 
+							{
 								traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [All Out Subtype]");
 								handled = true;
 							}
 						}
 					}
-				} else {
+				} 
+				else 
+				{
 					if (!fi.getFeatureInstances().isEmpty()){
 						 boolean res = doAllOutPropagationsOrFeatures(ci, fi.getFeatureInstances(), ep, tt, depth, entryText);
 						 if (res) {
