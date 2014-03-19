@@ -35,7 +35,6 @@
  */
 package org.osate.aadl2;
 
-import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->

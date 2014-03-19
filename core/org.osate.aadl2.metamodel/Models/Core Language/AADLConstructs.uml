@@ -1233,6 +1233,7 @@ For access features, the classifier specifies the type of the shared component.<
           <body>A generic feature.</body>
         </ownedComment>
         <generalization xmi:id="Features-AbstractFeature-_generalization.0" general="_r3p5SJyLEd64G8zRE2nwuA"/>
+        <generalization xmi:id="_UmqLIK6zEeOaq6uNJTRf4A" general="Modes-TriggerPort"/>
         <ownedAttribute xmi:id="_LYb6hG6nEeGGmbyPbDXL2g" name="featurePrototype" type="Templates-FeaturePrototype" association="_LYb6gG6nEeGGmbyPbDXL2g">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LYb6hW6nEeGGmbyPbDXL2g" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LYb6hm6nEeGGmbyPbDXL2g"/>
