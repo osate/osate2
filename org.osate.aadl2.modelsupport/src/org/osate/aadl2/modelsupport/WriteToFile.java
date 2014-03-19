@@ -97,21 +97,24 @@ public class WriteToFile {
 	 * @param root
 	 * @return
 	 */
-	protected IPath getReportPath(String reporttype, EObject root){
+	protected IPath getReportPath(String reporttype, EObject root)
+	{
+
+		String filename = null;
 		reporttype = reporttype.replaceAll(" ", "");
 		Resource res = root.eResource();
 		URI uri = res.getURI();
 		IPath path = OsateResourceUtil.getOsatePath(uri);
 		if (root instanceof InstanceObject){
 			path = path.removeFileExtension();
-			String filename = path.lastSegment()+"__"+reporttype;
+			filename = path.lastSegment()+"__"+reporttype;
 			if (this.suffix != null)
 			{
 				filename = filename + suffix;
 			}
 			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		} else {
-			String filename = path.lastSegment()+reporttype;
+			filename = path.lastSegment()+reporttype;
 			if (this.suffix != null)
 			{
 				filename = filename + suffix;
@@ -121,6 +124,27 @@ public class WriteToFile {
 
 		path = path.addFileExtension(this.fileExtension);
 		return path;
+	}
+	
+	public static String getFileName(String reporttype, EObject root)
+	{
+		String filename = null;
+		reporttype = reporttype.replaceAll(" ", "");
+		Resource res = root.eResource();
+		URI uri = res.getURI();
+		IPath path = OsateResourceUtil.getOsatePath(uri);
+		if (root instanceof InstanceObject){
+			path = path.removeFileExtension();
+			filename = path.lastSegment()+"__"+reporttype;
+
+			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+		} else {
+			filename = path.lastSegment()+reporttype;
+
+			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+		}
+
+		return filename;
 	}
 	
 	
