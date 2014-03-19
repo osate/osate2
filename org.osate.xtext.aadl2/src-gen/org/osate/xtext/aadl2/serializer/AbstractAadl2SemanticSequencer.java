@@ -2345,7 +2345,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (direction=InOutDirection prototype=[FeaturePrototype|ID])
+	 *     (direction=InOutDirection? prototype=[FeaturePrototype|ID])
 	 */
 	protected void sequence_FeaturePrototypeReference(EObject context, FeaturePrototypeReference semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

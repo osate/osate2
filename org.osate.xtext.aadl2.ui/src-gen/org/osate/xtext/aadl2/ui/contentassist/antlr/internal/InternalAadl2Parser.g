@@ -68914,7 +68914,7 @@ rule__FeaturePrototypeReference__Group__0__Impl
 :
 (
 { before(grammarAccess.getFeaturePrototypeReferenceAccess().getDirectionAssignment_0()); }
-(rule__FeaturePrototypeReference__DirectionAssignment_0)
+(rule__FeaturePrototypeReference__DirectionAssignment_0)?
 { after(grammarAccess.getFeaturePrototypeReferenceAccess().getDirectionAssignment_0()); }
 )
 

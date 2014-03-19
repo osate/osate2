@@ -44,7 +44,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -61,20 +60,13 @@ import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
-import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.internal.workspace.AadlWorkspace;
-import org.osate.workspace.IAadlProject;
-import org.osate.workspace.IAadlWorkspace;
-import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
@@ -1388,19 +1380,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error(impl,
 						"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
 								+ impl.getQualifiedName() + "' or in type '" + impl.getTypeName() + "'");
-			}
-		}
-		EList<FlowImplementation> fimpllist = impl.getAllFlowImplementations();
-		final Set<String> seen = new HashSet<String>();
-		for (FlowImplementation flowImplementation : fimpllist) {
-			if (flowImplementation.getInModeOrTransitions().isEmpty()){
-				// check of previously declared
-				FlowSpecification spec = flowImplementation.getSpecification();
-				if (!Aadl2Util.isNull(spec)){
-					if (!seen.add(spec.getName())){
-						error(flowImplementation,"Flow implementation "+spec.getName()+" declared more than once.");
-					}
-				}
 			}
 		}
 	}
@@ -2851,7 +2830,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkRequiresAccessOnly(DataAccess dataAccess) {
 		Classifier cl = ((Feature)dataAccess).getContainingClassifier();
-		if ((cl instanceof Subprogram)) {
+		if ((cl instanceof SubprogramType)) {
 			if (dataAccess.getKind().equals(AccessType.PROVIDES)){
 				error(dataAccess, "Subprograms cannot have provides data access.");
 			}
@@ -2866,7 +2845,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkProvidesAccessOnly(SubprogramAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Processor || cl instanceof VirtualProcessor|| cl instanceof Device)) {
+		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)){
 				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram access.");
 			}
@@ -2875,7 +2854,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkProvidesAccessOnly(SubprogramGroupAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Processor || cl instanceof VirtualProcessor|| cl instanceof Device)) {
+		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)){
 				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram group access.");
 			}
@@ -2884,7 +2863,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkRequiresAccessOnly(SubprogramAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Subprogram)) {
+		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)){
 				error(spAccess, "Subprograms cannot have provides subprogram access.");
 			}
@@ -2893,7 +2872,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkRequiresAccessOnly(SubprogramGroupAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Subprogram)) {
+		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)){
 				error(spAccess, "Subprograms cannot have provides subprogram group access.");
 			}
