@@ -292,9 +292,11 @@ public class EMLinkingService extends PropertiesLinkingService {
 					Subcomponent subcomponent = se.getSubcomponent();
 					ns = subcomponent.getAllClassifier();
 				}
-				EObject res = ns.findNamedElement(name);
-				if (res instanceof Subcomponent) {
-					searchResult = res;
+				if (ns != null){
+					EObject res = ns.findNamedElement(name);
+					if (res instanceof Subcomponent) {
+						searchResult = res;
+					}
 				}
 			}
 		}
