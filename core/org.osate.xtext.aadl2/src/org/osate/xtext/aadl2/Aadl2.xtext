@@ -1281,7 +1281,7 @@ AccessSpecification returns aadl2::AccessSpecification:
 
 	
 FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
-	direction=InOutDirection 'feature' prototype=[aadl2::FeaturePrototype|ID]
+	direction=InOutDirection? 'feature' prototype=[aadl2::FeaturePrototype|ID]
 	;
 
 
