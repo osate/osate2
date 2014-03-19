@@ -348,6 +348,16 @@ public class EMLinkingService extends PropertiesLinkingService {
 	public ErrorModelLibrary findErrorModelLibrary(EObject context, String name){
 		ErrorModelLibrary eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name+"::"+"emv2");
 		if (eml != null) return eml;
+		ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary((Element)context);
+		if (owneml != null){
+			AadlPackage pack = (AadlPackage)AadlUtil.getContainingPackage(context);
+			if (pack != null){
+			String emlname = pack.getName();
+			if (name.equalsIgnoreCase(emlname)){
+				return owneml;
+			}
+			}
+		}
 		AadlPackage ap = AadlUtil.findImportedPackage(name, AadlUtil.getContainingTopLevelNamespace(context));
 		if (ap == null)
 			return null;
