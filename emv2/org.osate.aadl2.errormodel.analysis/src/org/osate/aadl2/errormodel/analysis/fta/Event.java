@@ -156,21 +156,46 @@ public class Event
 		return sb.toString();
 	}
 	
+	public String toPED()
+	{
+		StringBuffer sb = new StringBuffer ();
+		if (this.type == EventType.EVENT)
+		{
+			String description;
+			if (this.getDescription() != null)
+			{
+				description = this.getDescription();
+			}
+			else
+			{
+				description = "no description";
+			}
+			sb.append (this.identifier + ";;B;"+description+";"+this.getProbability()+";L;\n");
+			return sb.toString();
+		}
+		
+		for (Event e : this.subEvents)
+		{
+			sb.append(e.toPED());
+		}
+		return sb.toString();
+	}
+	
 	public String toFTA()
 	{
 		StringBuffer sb = new StringBuffer ();
-		
+		String title = "";
 		if (this.type == EventType.EVENT)
 		{
-			String tmp = this.name;
-			tmp = tmp.replace(' ', '_');
-			tmp = tmp.replace('/', '-');
-			tmp = tmp.replace('(', '-');
-			tmp = tmp.replace(')', '-');
-			tmp = tmp.replace("__", "_");
-			
-			tmp = tmp.toLowerCase();
-			sb.append ("B " + tmp  + this.identifier + " 0\n");
+//			String tmp = this.name;
+//			tmp = tmp.replace(' ', '_');
+//			tmp = tmp.replace('/', '-');
+//			tmp = tmp.replace('(', '-');
+//			tmp = tmp.replace(')', '-');
+//			tmp = tmp.replace("__", "_");
+//			
+//			tmp = tmp.toLowerCase();
+			sb.append ("B " + this.identifier + " 0\n");
 			return sb.toString();
 		}
 		
@@ -185,10 +210,17 @@ public class Event
 			sb.append (" 1\n");
 		}
 		
-		sb.append ("" + this.name.length() + " " + this.name + "\n");
+		title = this.name;
+		
+		if (this.getDescription() != null)
+		{
+			title = this.getDescription();
+		}
+		
+		sb.append ("" + title.length() + " " + title + "\n");
+		
 		switch (this.type)
 		{
-		
 			case AND:
 			{
 				sb.append ("A " + this.identifier + " " + this.subEvents.size()+"\n");

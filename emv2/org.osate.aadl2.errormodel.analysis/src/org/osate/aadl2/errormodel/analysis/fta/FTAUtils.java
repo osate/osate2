@@ -311,9 +311,22 @@ public class FTAUtils
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
 										propagations.add(newEvent);
+										if (EMV2Properties.getDescription (eop, relatedInstance) != null)
+										{
+											newEvent.setDescription("\"" + EMV2Properties.getDescription (eop, relatedInstance) +"\"");
+										}
+										EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,eop,null);
+										//OsateDebug.osateDebug("         PA " + PA);
+										if (!PA.isEmpty()){
+											double prob = EMV2Properties.getOccurenceValue (PA.get(0));
+											newEvent.setProbability(prob);
+										}
 									}
 								}
 							}
+							
+
+							
 							/*
 							 * Then, if we fail to get the type name, we retrieve
 							 * the associated event name.
@@ -327,6 +340,18 @@ public class FTAUtils
 								newEvent.setEventType(EventType.EVENT);
 								
 								propagations.add(newEvent);
+								
+								if (EMV2Properties.getDescription (ev, relatedInstance) != null)
+								{
+									newEvent.setDescription("\"" + EMV2Properties.getDescription (ev, relatedInstance) +"\"");
+								}
+								
+								EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,ev,null);
+								//OsateDebug.osateDebug("         PA " + PA);
+								if (!PA.isEmpty()){
+									double prob = EMV2Properties.getOccurenceValue (PA.get(0));
+									newEvent.setProbability(prob);
+								}
 							}
 							
 
@@ -663,6 +688,13 @@ public class FTAUtils
 				{
 					targetEvent = ftaEvent;
 				}
+				
+				
+				if (EMV2Properties.getDescription (ebs, relatedInstance) != null)
+				{
+					targetEvent.setDescription("\"" + EMV2Properties.getDescription (ebs, relatedInstance) +")\"");
+				}
+				
 				FTAUtils.fillFTAEventfromEventState (targetEvent, ebs, relatedInstance, componentInstances);
 				FTAUtils.handleCondition (targetEvent, ebs, relatedInstance, state.getCondition(), componentInstances, false);
 				if (nBranches > 1)

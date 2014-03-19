@@ -59,6 +59,8 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 	
 	private static String 				ERROR_STATE_NAME = null;
 	private WriteToFile     			ftaFile;
+	private WriteToFile     			pedFile;
+	private WriteToFile     			xmlFile;
 	private Event     					ftaEvent;
 	
 	protected String getMarkerType() {
@@ -139,16 +141,21 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 			ftaEvent = processRootSystem (si);
 			if (ftaEvent != null)
 			{
-				this.ftaFile = new WriteToFile("FTA", si);
-				this.ftaFile.setFileExtension("xml");
-				this.ftaFile.addOutput(ftaEvent.toXML());
-				this.ftaFile.saveToFile();
+				this.xmlFile = new WriteToFile("FTA", si);
+				this.xmlFile.setFileExtension("xml");
+				this.xmlFile.addOutput(ftaEvent.toXML());
+				this.xmlFile.saveToFile();
 				
 				this.ftaFile = new WriteToFile("FTA", si);
 				this.ftaFile.setFileExtension("fta");
-				this.ftaFile.addOutput("NULL\nS NULL 0\n3 fta\n");
+				this.ftaFile.addOutput(WriteToFile.getFileName("FHA", si)+".ped\nS NULL 0\n3 fta\n");
 				this.ftaFile.addOutput(ftaEvent.toFTA());
 				this.ftaFile.saveToFile();
+				
+				this.pedFile = new WriteToFile("FTA", si);
+				this.pedFile.setFileExtension("ped");
+				this.pedFile.addOutput(ftaEvent.toPED());
+				this.pedFile.saveToFile();
 			}
 			else
 			{
