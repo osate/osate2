@@ -1951,7 +1951,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		if (this.getType() != null) {
 			this.getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall);
 		} else {
-			throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
+//	XXX we have an unresolved implementation or alias		throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
 		}
 	}
 
