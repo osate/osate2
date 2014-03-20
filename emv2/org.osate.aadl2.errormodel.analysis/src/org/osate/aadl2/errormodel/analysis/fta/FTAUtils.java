@@ -203,16 +203,16 @@ public class FTAUtils
 									//OsateDebug.osateDebug("opc outgoing" + opc.getOutgoing());
 									//OsateDebug.osateDebug("ppe getprep " + ppe.getErrorPropagation());
 									if (opc.getOutgoing() == ppe.getErrorPropagation() &&
-										((opc.getTypeToken().isNoError() == ep.getTypeSet().getTypeTokens().get(0).isNoError())&&
-										EM2TypeSetUtil.contains( ep.getTypeSet(),opc.getOutgoing().getTypeSet())))
+//										((opc.getTypeToken().isNoError() == ep.getTypeSet().getTypeTokens().get(0).isNoError())&&
+										EM2TypeSetUtil.contains( ep.getTypeSet(),opc.getOutgoing().getTypeSet()))
 //									if ((opc.getOutgoing() == ppe.getErrorPropagation()) &&
 //										(EM2TypeSetUtil.contains(opc.getTypeTokenConstraint(), ppe.getErrorPropagation().getTypeSet())))
 									{
 //										(opc.getTypeToken().isNoError() && ppe.getErrorPropagation().getTypeSet().getTypeTokens().get(0).isNoError())
-										OsateDebug.osateDebug("opc="+EMV2Util.getPrintName(opc.getTypeTokenConstraint()));
-										OsateDebug.osateDebug("opc2="+EMV2Util.getPrintName(opc.getOutgoing().getTypeSet()));
-										OsateDebug.osateDebug("ppe="+EMV2Util.getPrintName( ppe.getErrorPropagation().getTypeSet()));
-										OsateDebug.osateDebug("opc2==ppe: "+EM2TypeSetUtil.contains(opc.getOutgoing().getTypeSet(), ppe.getErrorPropagation().getTypeSet()));
+//										OsateDebug.osateDebug("opc="+EMV2Util.getPrintName(opc.getTypeTokenConstraint()));
+//										OsateDebug.osateDebug("opc2="+EMV2Util.getPrintName(opc.getOutgoing().getTypeSet()));
+//										OsateDebug.osateDebug("ppe="+EMV2Util.getPrintName( ppe.getErrorPropagation().getTypeSet()));
+//										OsateDebug.osateDebug("opc2==ppe: "+EM2TypeSetUtil.contains(opc.getOutgoing().getTypeSet(), ppe.getErrorPropagation().getTypeSet()));
 										ErrorBehaviorState ebs = opc.getState();
 										
 										newEventName = ciSource.getName() + "/" + ebs.getName();
