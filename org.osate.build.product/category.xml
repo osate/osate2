@@ -6,6 +6,9 @@
    <feature url="features/org.osate.plugins.feature_2.0.0.qualifier.jar" id="org.osate.plugins.feature" version="2.0.0.qualifier">
       <category name="osate2"/>
    </feature>
+   <feature url="features/org.osate.ge.feature_2.0.0.qualifier.jar" id="org.osate.ge.feature" version="2.0.0.qualifier">
+      <category name="osate2"/>
+   </feature>
    <feature url="features/org.osate.core.source.feature_2.0.0.qualifier.jar" id="org.osate.core.source.feature" version="2.0.0.qualifier">
       <category name="osate2source"/>
    </feature>
