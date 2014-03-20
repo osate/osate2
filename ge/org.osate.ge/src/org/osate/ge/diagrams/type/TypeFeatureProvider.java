@@ -23,8 +23,10 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.diagrams.common.AgeFeatureProvider;
@@ -126,5 +128,18 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		}
 
 		return super.getDirectEditingFeatureAdditional(context);
+	}
+	
+	@Override
+	protected boolean allowConnectionCreation(final IConnectionPattern conPattern) {
+		// Hide mode transition patterns and flow specification pattern palette entries from diagrams of feature group types
+		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+		if(bor != null) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
+			if(bo instanceof FeatureGroupType && (conPattern instanceof ModeTransitionPattern || conPattern instanceof FlowSpecificationPattern)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

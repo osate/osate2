@@ -298,6 +298,10 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		return shapeService.getClosestBusinessObjectOfType(featureShape.getContainer(), Context.class);
 	}
 	
+	private ComponentType getComponentType(final Shape shape) {
+		return shapeService.getClosestBusinessObjectOfType(shape, ComponentType.class);
+	}
+	
 	@Override
 	public Connection create(final ICreateConnectionContext context) {
 		final Shape inFeatureShape = getFeatureShape((Shape)context.getSourcePictogramElement());
@@ -306,7 +310,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		final Feature outFeature = (Feature)bor.getBusinessObjectForPictogramElement(outFeatureShape);
 		
 		// Get the Component Type
-		final ComponentType ct = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), ComponentType.class);
+		final ComponentType ct = getComponentType((Shape)context.getSourcePictogramElement());
 		
 		// Determine the name for the new flow specification
 		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
@@ -358,9 +362,15 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		if(!(pe instanceof Shape)) {
 			return false;
 		}
-
+		
 		// Check that the pictogram represents a feature
 		final Shape shape = (Shape)pe;
+		
+		// Shape must be contained in a component type
+		if(getComponentType(shape) == null) {
+			return false;
+		}
+		
 		final Feature feature = shapeService.getClosestBusinessObjectOfType(shape, Feature.class);
 		if(feature == null) {
 			return false;
