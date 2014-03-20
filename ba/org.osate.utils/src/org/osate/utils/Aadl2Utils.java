@@ -307,28 +307,30 @@ public class Aadl2Utils
    * Returns the local "Parameter_Usage" property value, if it is set. Otherwise,
    * returns the default parameter value found in Generation_Properties (home
    * made property set). If the default parameter value is not found,
-   * returns {@code null}.  
+   * returns an empty string (not {@code null}).  
    * 
    * @param ne the given NamedElement object
-   * @return local parameter usage or default parameter usage or {@code null}
+   * @return local parameter usage or default parameter usage or an empty string
    */
-  public static String getParameter_Usage(NamedElement ne)
+  public static String getParameterUsage(NamedElement ne)
   {
-    String result = "" ;
-   
-    try
+    String result = PropertyUtils.getEnumValue(ne, "Parameter_Usage") ;
+    if(result == null)
     {
-      result = PropertyUtils.getEnumValue(ne, "Parameter_Usage") ;
-    }
-    catch(Exception e)
-    {
-      try
+      Property prop = GetProperties.lookupPropertyDefinition(ne, "Generation_Properties", "Parameter_Usage");
+      if(prop != null)
       {
-        Property prop = GetProperties.lookupPropertyDefinition(ne, "Generation_Properties", "Parameter_Usage");
         NamedValue nv = (NamedValue) prop.getDefaultValue() ;
-        result = ((EnumerationLiteral) nv.getNamedValue()).getName();
+        if(nv != null)
+        {
+          result = ((EnumerationLiteral) nv.getNamedValue()).getName();
+        }
+        else
+        {
+          return "" ;
+        }
       }
-      catch(Exception e1)
+      else
       {
         return "" ;
       }
@@ -350,24 +352,19 @@ public class Aadl2Utils
    */
   public static String getAccessRight(NamedElement ne)
   {
-    String result = "unknown" ;
-    
-    try
-    {
-      result = PropertyUtils.getEnumValue(ne, "Access_Right") ;
-    }
-    catch(Exception e)
+    String result = PropertyUtils.getEnumValue(ne, "Access_Right") ;
+    if(result == null)
     {
       if(DEFAULT_ACCESS_RIGHT == null)
       {
-        try
+        Property prop = GetProperties.lookupPropertyDefinition(ne, "Memory_Properties", "Access_Right");
+        if(prop != null)
         {
-          Property prop = GetProperties.lookupPropertyDefinition(ne, "Memory_Properties", "Access_Right");
           NamedValue nv = (NamedValue) prop.getDefaultValue() ;
           result = ((EnumerationLiteral) nv.getNamedValue()).getName();
           DEFAULT_ACCESS_RIGHT = result ;
         }
-        catch(Exception e1)
+        else
         {
           return "unknown" ;
         }

@@ -64,6 +64,15 @@ import org.osate.xtext.aadl2.properties.util.GetProperties ;
  */
 public class PropertyUtils {
   
+  /**
+   * TODO: DOC ME !
+   * 
+   * May return null
+   * 
+   * @param propertyName
+   * @param owner
+   * @return
+   */
   public static PropertyAssociation findProperty(String propertyName, NamedElement owner) {
 		for (PropertyAssociation pa : owner.getOwnedPropertyAssociations()) {
 			if (pa.getProperty().getName() == null) {
@@ -115,17 +124,15 @@ public class PropertyUtils {
 	}
 	
 	/**
-	 * Extract integer value from a specified property.
+	 * Extract integer value from a specified property. May return null
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not an integer.
 	 */
-	public static long getIntValue(NamedElement i, String propertyName) throws Exception {
+	public static Long getIntValue(NamedElement i, String propertyName) {
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -165,10 +172,20 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
-	public static RecordValue getRecordValue(NamedElement i, String propertyName) throws Exception {
+	/**
+	 *    * TODO: DOC ME !
+   * 
+   * May return null
+	 * 
+	 * @param i
+	 * @param propertyName
+	 * @return
+	 */
+	public static RecordValue getRecordValue(NamedElement i, String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -188,21 +205,20 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
 	/**
-	 * Extract float value from a specified property.
+	 * Extract float value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not an integer.
 	 */
-	public static float getFloatValue(NamedElement i, String propertyName, String unit) throws Exception {
+	public static Float getFloatValue(NamedElement i, String propertyName, String unit)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -237,21 +253,21 @@ public class PropertyUtils {
 		  if(re.getRefinedElement()!=null)
 			return getFloatValue(re.getRefinedElement(), propertyName, unit);
 		}
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		
+		return null ;
 	}
 
 	/**
-	 * Extract float value from a specified property.
+	 * Extract float value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not an integer.
 	 */
-	public static float getFloatValue(NamedElement i, String propertyName) throws Exception {
+	public static Float getFloatValue(NamedElement i, String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -279,21 +295,21 @@ public class PropertyUtils {
 		  if(re.getRefinedElement()!=null)
 			return getFloatValue(re.getRefinedElement(), propertyName);
 		}
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		
+		return null ;
 	}
 
 	/**
-	 * Extract boolean value from a specified property.
+	 * Extract boolean value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not a Boolean.
 	 */
-	public static boolean getBooleanValue(NamedElement i, String propertyName) throws Exception {
+	public static Boolean getBooleanValue(NamedElement i, String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -313,21 +329,20 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
 	/**
-	 * Extract String value from a specified property.
+	 * Extract String value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not a String.
 	 */
-	public static String getStringValue(NamedElement i, String propertyName) throws Exception {
+	public static String getStringValue(NamedElement i, String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -347,21 +362,20 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
 	/**
-	 * Extract String list value from a specified property.
+	 * Extract String list value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not a String.
 	 */
-	public static List<String> getStringListValue(NamedElement i, String propertyName) throws Exception {
+	public static List<String> getStringListValue(NamedElement i, String propertyName)
+	{
 		List<String> res = new ArrayList<String>();
 		PropertyAssociation pa = findProperty(propertyName, i);
 
@@ -400,22 +414,21 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
 	/**
-	 * Extract enumeration value from a specified property.
+	 * Extract enumeration value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not an
 	 *             enumeration.
 	 */
-	public static String getEnumValue(NamedElement i, String propertyName) throws Exception {
+	public static String getEnumValue(NamedElement i, String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -448,11 +461,11 @@ public class PropertyUtils {
 		  if(re.getRefinedElement()!=null)
 			return getEnumValue(re.getRefinedElement(), propertyName);
 		}
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
 	/**
-	 * Extract range value from a specified property.
+	 * Extract range value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
@@ -484,17 +497,16 @@ public class PropertyUtils {
 	}
 
 	/**
-	 * Extract minimum range value from a specified property.
+	 * Extract minimum range value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not a range.
 	 */
-	public static NumberValue getMinRangeValue(NamedElement i, String propertyName) throws Exception {
+	public static NumberValue getMinRangeValue(NamedElement i, String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -517,21 +529,20 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
 	/**
-	 * Extract maximum range value from a specified property.
+	 * Extract maximum range value from a specified property. May return null.
 	 * 
 	 * @param i
 	 *            component instance.
 	 * @param propertyName
 	 *            property name.
 	 * @return property value.
-	 * @throws Exception
-	 *             thrown if property does not exist or if is not a range.
 	 */
-	public static NumberValue getMaxRangeValue(NamedElement i, String propertyName) throws Exception {
+	public static NumberValue getMaxRangeValue(NamedElement i, String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -554,7 +565,7 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + i.getName());
+		return null ;
 	}
 
 	/**
@@ -566,31 +577,77 @@ public class PropertyUtils {
 	 *            property name.
 	 * @return property value.
 	 */
-	public static double getMaxRangeValue(NamedElement i, String propertyName, float defaultValue) {
-		try {
-			RealLiteral rl = (RealLiteral) getMaxRangeValue(i, propertyName);
-			return  rl.getValue();
-		} catch (Exception e) {
-			return defaultValue;
+	public static double getMaxRangeValue(NamedElement i, String propertyName,
+	                                      float defaultValue)
+  {
+	  RealLiteral rl = (RealLiteral) getMaxRangeValue(i, propertyName) ;
+    if(rl != null)
+    {
+      return rl.getValue() ;
+    }
+    else
+    {
+      return defaultValue ;
+    }
+  }
+	
+  /**
+   * TODO: DOC ME !
+   * 
+   * May return null.
+   * 
+   * @param propertyName
+   * @param owner
+   * @return
+   */
+	public static ComponentInstance getPropertyComponentRef(String propertyName,
+	                                                        NamedElement owner)
+	{
+		PropertyExpression val = getPropertyValue(propertyName, owner);
+		if(val != null)
+		{
+		  return (ComponentInstance) ((InstanceReferenceValue) val).
+                                                  getReferencedInstanceObject();
+		}
+		else
+		{
+		  return null ;
 		}
 	}
-
-	public static ComponentInstance getPropertyComponentRef(String propertyName, NamedElement owner) throws Exception {
-		PropertyExpression val = getPropertyValue(propertyName, owner);
-		return (ComponentInstance) ((InstanceReferenceValue) val).getReferencedInstanceObject();
-	}
-
-	public static PropertyExpression getPropertyValue(String propertyName, NamedElement owner) throws Exception {
+	
+	/**
+	 * TODO: DOC ME !
+	 * 
+	 * May return null.
+	 * 
+	 * @param propertyName
+	 * @param owner
+	 * @return
+	 */
+	public static PropertyExpression getPropertyValue(String propertyName,
+	                                                  NamedElement owner)
+	{
 		PropertyAssociation assign = findProperty(propertyName, owner);
 
 		if (assign != null) {
 			return assign.getOwnedValues().get(0).getOwnedValue();
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + owner.getName());
+		return null ;
 	}
 
-	public static Classifier getClassifierValue(NamedElement owner, String propertyName) throws Exception {
+	/**
+	 * TODO: DOC ME !
+	 * 
+	 * May return null.
+	 * 
+	 * @param owner
+	 * @param propertyName
+	 * @return
+	 */
+	public static Classifier getClassifierValue(NamedElement owner,
+	                                            String propertyName)
+	{
 		PropertyAssociation pa = findProperty(propertyName, owner);
 
 		if (pa != null) {
@@ -610,10 +667,12 @@ public class PropertyUtils {
 			}
 		}
 
-		throw new Exception("Property " + propertyName + " not found for " + owner.getName());
+		return null ;
 	}
 
-	public static PropertyAssociation createIntegerAssignment(String propertyName, long value) {
+	public static PropertyAssociation createIntegerAssignment(String propertyName,
+	                                                          long value)
+	{
 		Property property = Aadl2Factory.eINSTANCE.createProperty();
 		PropertyAssociation assignment = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 		ModalPropertyValue modalPropertyValue = Aadl2Factory.eINSTANCE.createModalPropertyValue();
@@ -626,10 +685,13 @@ public class PropertyUtils {
 		return assignment;
 	}
 
-	public static boolean setFloatValue(NamedElement e, String propertyName, float value) {
+	public static boolean setFloatValue(NamedElement e, String propertyName,
+	                                    float value)
+	{
 		PropertyAssociation pa = findProperty(propertyName, e);
 
-		if (pa != null) {
+		if (pa != null)
+		{
 			RealLiteral r = Aadl2Factory.eINSTANCE.createRealLiteral();
 			r.setValue(value);
 			r.setUnit(getUnit(pa));
@@ -639,26 +701,44 @@ public class PropertyUtils {
 
 		return false;
 	}
-
-	private static UnitLiteral getUnit(PropertyAssociation pa) {
-		PropertyExpression e = pa.getOwnedValues().get(0).getOwnedValue();
-		if (e instanceof NumberValue) {
-		  return ((NumberValue) e).getUnit();
-		} else if (e instanceof RangeValue) {
-		  return ((RangeValue) e).getMaximumValue().getUnit();
-		} else {
-		  return null;
-		}
+	
+	// May return null.
+	private static UnitLiteral getUnit(PropertyAssociation pa)
+	{
+    PropertyExpression e = pa.getOwnedValues().get(0).getOwnedValue() ;
+    if(e instanceof NumberValue)
+    {
+      return ((NumberValue) e).getUnit() ;
+    }
+    else if(e instanceof RangeValue)
+    {
+      return ((RangeValue) e).getMaximumValue().getUnit() ;
+    }
+    else
+    {
+      return null ;
+    }
 	}
 	
+	/**
+	 * TODO: DOC ME !
+	 * 
+	 * May return null.
+	 * 
+	 * 
+	 * @param object
+	 * @param propertyName
+	 * @return
+	 */
   public static List<ComponentInstance> getComponentInstanceList(NamedElement object,
-                        String propertyName)
+                                                            String propertyName)
   {
-    List<ComponentInstance> res = new ArrayList<ComponentInstance>() ;
+    List<ComponentInstance> res = null ;
     PropertyAssociation pa = findProperty(propertyName, object) ;
 
     if(pa != null)
     {
+      res = new ArrayList<ComponentInstance>() ;
       Property p = pa.getProperty() ;
 
       if(p.getName().equals(propertyName))
@@ -690,13 +770,21 @@ public class PropertyUtils {
     return res ;
   }
   
+  /**
+   * May return an empty list.
+   * 
+   * 
+   * @param object
+   * @param propertyName
+   * @return
+   */
   public static List<Subcomponent> getSubcomponentList(NamedElement object,
-                                                       String propertyName) throws Exception
+                                                       String propertyName)
   {
     List<Subcomponent> res = new ArrayList<Subcomponent>() ;
     PropertyAssociation pa = findProperty(propertyName, object) ;
     if (pa == null)
-      throw new Exception("Could not find property " + propertyName + " on " + object.getName() + " component.");
+      return null ;
     else {
       Property p = pa.getProperty();
 
@@ -730,13 +818,25 @@ public class PropertyUtils {
     }
   }
   
-
-	public static List<Long> getIntListValue(NamedElement object, String propertyName) throws Exception {
+  /**
+   * 
+   * TODO: DOC ME !
+   * 
+   * May return null.
+   * 
+   * 
+   * @param object
+   * @param propertyName
+   * @return
+   */
+	public static List<Long> getIntListValue(NamedElement object,
+	                                         String propertyName)
+	{
 		List<Long> res = new ArrayList<Long>();
 		PropertyAssociation pa = findProperty(propertyName, object);
 
 		if (pa == null)
-			throw new Exception("Could not find property " + propertyName + " on " + object.getName() + " component.");
+			return null ;
 		else {
 			Property p = pa.getProperty();
 
@@ -765,12 +865,29 @@ public class PropertyUtils {
 		{
 		  RefinableElement re = (RefinableElement) object;
 		  if(re.getRefinedElement()!=null)
-			res.addAll(getIntListValue((ProcessorSubcomponent)re.getRefinedElement(), propertyName));
+		  {
+		    List<Long> l = getIntListValue((ProcessorSubcomponent)re.getRefinedElement(),
+		                               propertyName) ;
+		    if(l != null)
+		    {
+		      res.addAll(l);
+		    }
+		  }
 		}
 		return res;
 	}
 
-	public static List<Subcomponent> getSubcomponentList(ProcessorSubcomponent object, String propertyName) {
+	/**
+	 * May return an empty list.
+	 * 
+	 * 
+	 * @param object
+	 * @param propertyName
+	 * @return
+	 */
+	public static List<Subcomponent> getSubcomponentList(ProcessorSubcomponent object,
+	                                                     String propertyName)
+	{
 		List<Subcomponent> res = new ArrayList<Subcomponent>();
 		PropertyAssociation pa = findProperty(propertyName, object);
 
@@ -790,7 +907,8 @@ public class PropertyUtils {
 						for (PropertyExpression pe : lv.getOwnedListElements()) {
 							if (pe instanceof ReferenceValue) {
 								ReferenceValue c = ((ReferenceValue) pe);
-								ContainmentPathElement cpe = c.getContainmentPathElements().get(c.getContainmentPathElements().size()-1);
+								ContainmentPathElement cpe = c.getContainmentPathElements().
+								                   get(c.getContainmentPathElements().size()-1);
 								res.add((Subcomponent) cpe.getNamedElement());
 							}
 						}
@@ -803,7 +921,14 @@ public class PropertyUtils {
 		{
 		  RefinableElement re = (RefinableElement) object;
 		  if(re.getRefinedElement()!=null)
-			res.addAll(getSubcomponentList((ProcessorSubcomponent)re.getRefinedElement(), propertyName));
+			{
+		    List<Subcomponent> l = getSubcomponentList((ProcessorSubcomponent)re.getRefinedElement(),
+		                                               propertyName) ;
+		    if(! l.isEmpty())
+		    {
+		      res.addAll(l);
+		    }
+			}
 		}
 		return res;
 	}
@@ -813,43 +938,43 @@ public class PropertyUtils {
    * to a given property name within a given component and its ancestor if the
    * given component is a component implementation. The returned list'size 
    * is > 1 when the given component associated to the given classifier has
-   * refined the given property.
+   * refined the given property. The list may be empty.
    * 
    * @param cc the given component
    * @param propertyName the given property
    * @return the list of property expressions. The list may be empty.
    */
   public static EList<PropertyExpression> getPropertyExpression(Classifier cc,
-                                                  String propertyName)
+                                                            String propertyName)
     {
-    EList<PropertyExpression> result = new BasicEList<PropertyExpression>();
+      EList<PropertyExpression> result = new BasicEList<PropertyExpression>();
  
-    EList<PropertyAssociation> lpa = getPropertyAssociations(cc,
+      EList<PropertyAssociation> lpa = getPropertyAssociations(cc,
                                                          propertyName) ;
     
-    for (PropertyAssociation pa : lpa)
-    {
-      result.addAll(getPropertyExpression(pa)) ;
-    }
+      for (PropertyAssociation pa : lpa)
+      {
+        result.addAll(getPropertyExpression(pa)) ;
+      }
 
-    // If no property value is found, search within parent container if only
-    // the given component is a component implementation. Recursive call.
-    if(result.isEmpty() && cc instanceof ComponentImplementation )
-    {
-      cc = ((ComponentImplementation) cc).getType() ;
-      result = getPropertyExpression(cc, propertyName) ;
-    }
+      // If no property value is found, search within parent container if only
+      // the given component is a component implementation. Recursive call.
+      if(result.isEmpty() && cc instanceof ComponentImplementation )
+      {
+        cc = ((ComponentImplementation) cc).getType() ;
+        result = getPropertyExpression(cc, propertyName) ;
+      }
 
-    return result ;
+      return result ;
     }
   
   /**
    * Returns the property association which match
-   * the given propertyName if it is defined
+   * the given propertyName if it is defined. May return null.
    * 
    * @param cc a given component classifier
    * @param propertyName a given property name
-   * @return the property association
+   * @return the property association or null
    */
   public static PropertyAssociation getPropertyAssociation(Classifier cc,
                                                            String propertyName)
@@ -872,10 +997,19 @@ public class PropertyUtils {
     return null ;
   }
   
+  /**
+   * TODO: DOC ME !
+   * 
+   * May return null.
+   * 
+   * @param c
+   * @param propertyName
+   * @return
+   */
   public static PropertyAssociation getPropertyAssociation(NamedElement c,
-		  												   String propertyName)
+		  												                             String propertyName)
   {
-	Property p = null ;
+	  Property p = null ;
 	  
     for(PropertyAssociation pa : c.getOwnedPropertyAssociations())
     {
@@ -891,12 +1025,12 @@ public class PropertyUtils {
   /**
    * Returns the list of property association which match
    * the given propertyName if several property association
-   * is defined
+   * is defined. The list may be empty.
    * 
    * @param cc a given component classifier
    * @param propertyName a given property name
    * @return the list of property association which match
-   * the given propertyName
+   * the given propertyName. The list may be empty.
    */
   public static EList<PropertyAssociation> getPropertyAssociations(
                                                                   Classifier cc,
@@ -932,10 +1066,10 @@ public class PropertyUtils {
 
   /**
    * Returns the list of PropertyExpression objects binded to the 
-   * given PropertyAssociation.
+   * given PropertyAssociation. The list may be empty.
    * 
    * @param pa the given property association
-   * @return the list of property expressions
+   * @return the list of property expressions. The list may be empty
    */
 
   public static EList<PropertyExpression> getPropertyExpression(
