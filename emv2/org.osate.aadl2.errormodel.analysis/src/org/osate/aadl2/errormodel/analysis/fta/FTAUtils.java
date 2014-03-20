@@ -418,7 +418,7 @@ public class FTAUtils
 							tmpEvent = new Event();
 							tmpEvent.setEventType(EventType.EVENT);
 							tmpEvent.setName(fppr.getFeatureorPP().getName());
-							OsateDebug.osateDebug("EVENT NAME5" + fppr.getFeatureorPP().getName());
+//							OsateDebug.osateDebug("EVENT NAME5" + fppr.getFeatureorPP().getName());
 							fillEventWithProperties (tmpEvent, relatedComponentInstance, ep);
 	
 							toAdd.add(tmpEvent);
@@ -464,7 +464,7 @@ public class FTAUtils
 					event.setEventType(EventType.EVENT);
 					fillEventWithProperties (event, relatedComponentInstance, ee,null);
 					
-					OsateDebug.osateDebug("EVENT NAME5" +ee.getName());
+//					OsateDebug.osateDebug("EVENT NAME5" +ee.getName());
 					event.setName(ee.getName());
 				}
 			}
