@@ -63,7 +63,7 @@ public class FTAUtils
 				return ci;
 			}
 		}
-		OsateDebug.osateDebug("[FTAUtils] Did not find the instance " + name);
+//		OsateDebug.osateDebug("[FTAUtils] Did not find the instance " + name);
 		return null;
 	}
 	
@@ -210,24 +210,26 @@ public class FTAUtils
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.NORMAL);
 										
+										fillEventWithProperties (newEvent, relatedInstance, ebs);
 										//OsateDebug.osateDebug("ep="  + ep);
-		
+										int nTransitions = 0;
 										for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(ciSource))
 										{
 											if (ebt.getTarget() == ebs)
 											{
-												
+												nTransitions++;
 												Event subEvent = new Event();
 												subEvent.setName ("sub");
 												subEvent.setEventType(EventType.EVENT);
 												handleCondition (subEvent,ebs,ciSource,ebt.getCondition(),componentInstances, true);
-												
-												
-													
+
 												newEvent.addSubEvent(subEvent);
 											}
 										}
-										
+										if (nTransitions > 1)
+										{
+											newEvent.setEventType(EventType.OR);
+										}
 										propagations.add(newEvent);
 										
 									}
@@ -248,12 +250,27 @@ public class FTAUtils
 										//OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
 										
 										newEventName = tt.getType().get(0).getName();
-		
 										newEvent = new Event();
+										if (ep.getFeatureorPPRefs().size() > 0)
+										{
+											FeatureorPPReference fppr = ep.getFeatureorPPRefs().get(0);
+											Feature f = (Feature) fppr.getFeatureorPP();
+											if (f != null)
+											{
+												newEventName += " on " + f.getName();
+											}
+										}
+										else
+										{
+											
+										}
+										
+										OsateDebug.osateDebug("EVENT NAME1" + newEventName);
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
 										propagations.add(newEvent);
-										OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations ep="  + ep);
+										fillEventWithProperties (newEvent, relatedInstance, ep,ts);
+//										OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations ep="  + ep);
 									}
 								}
 								
@@ -272,6 +289,8 @@ public class FTAUtils
 										newEvent = new Event();
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
+										OsateDebug.osateDebug("EVENT NAME2" + newEventName);
+										fillEventWithProperties (newEvent, relatedInstance, fe.getFeatureorPP());
 										propagations.add(newEvent);
 										//OsateDebug.osateDebug("ep="  + ep);
 									}
@@ -310,17 +329,9 @@ public class FTAUtils
 										newEvent = new Event ();
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
+										OsateDebug.osateDebug("EVENT NAME3" + newEventName);
 										propagations.add(newEvent);
-										if (EMV2Properties.getDescription (eop, relatedInstance) != null)
-										{
-											newEvent.setDescription("\"" + EMV2Properties.getDescription (eop, relatedInstance) +"\"");
-										}
-										EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,eop,null);
-										//OsateDebug.osateDebug("         PA " + PA);
-										if (!PA.isEmpty()){
-											double prob = EMV2Properties.getOccurenceValue (PA.get(0));
-											newEvent.setProbability(prob);
-										}
+										fillEventWithProperties (newEvent, relatedInstance, eop);
 									}
 								}
 							}
@@ -338,20 +349,10 @@ public class FTAUtils
 								newEventName = ev.getName();
 								newEvent.setName (newEventName);
 								newEvent.setEventType(EventType.EVENT);
-								
+								OsateDebug.osateDebug("EVENT NAME4" + newEventName);
 								propagations.add(newEvent);
+								fillEventWithProperties (newEvent, relatedInstance, ev);
 								
-								if (EMV2Properties.getDescription (ev, relatedInstance) != null)
-								{
-									newEvent.setDescription("\"" + EMV2Properties.getDescription (ev, relatedInstance) +"\"");
-								}
-								
-								EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,ev,null);
-								//OsateDebug.osateDebug("         PA " + PA);
-								if (!PA.isEmpty()){
-									double prob = EMV2Properties.getOccurenceValue (PA.get(0));
-									newEvent.setProbability(prob);
-								}
 							}
 							
 
@@ -402,18 +403,9 @@ public class FTAUtils
 						tmpEvent = new Event();
 						tmpEvent.setEventType(EventType.EVENT);
 						tmpEvent.setName(fppr.getFeatureorPP().getName());
-						EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,ep,null);
-						//OsateDebug.osateDebug("         PA " + PA);
-						if (!PA.isEmpty()){
-							double prob = EMV2Properties.getOccurenceValue (PA.get(0));
-							tmpEvent.setProbability(prob);
-						}
-						
-						if (EMV2Properties.getDescription (ep, relatedComponentInstance) != null)
-						{
-							event.setDescription("\"" + EMV2Properties.getDescription (ep, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
-						}
-						
+						OsateDebug.osateDebug("EVENT NAME5" + fppr.getFeatureorPP().getName());
+						fillEventWithProperties (tmpEvent, relatedComponentInstance, ep);
+
 						toAdd.add(tmpEvent);
 					}
 //						event.setName("unknown fault");
@@ -473,18 +465,9 @@ public class FTAUtils
 				{
 					ErrorEvent ee = (ErrorEvent) conditionElement.getIncoming();
 					event.setEventType(EventType.EVENT);
-					EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,ee,null);
-					//OsateDebug.osateDebug("         PA " + PA);
-					if (!PA.isEmpty()){
-						double prob = EMV2Properties.getOccurenceValue (PA.get(0));
-						event.setProbability(prob);
-					}		
+					fillEventWithProperties (event, relatedComponentInstance, ee,null);
 					
-					if (EMV2Properties.getDescription (ee, relatedComponentInstance) != null)
-					{
-						event.setDescription("\"" + EMV2Properties.getDescription (ee, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
-					}
-					
+					OsateDebug.osateDebug("EVENT NAME5" +ee.getName());
 					event.setName(ee.getName());
 				}
 			}
@@ -511,7 +494,7 @@ public class FTAUtils
 						
 						targetStateName += conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0).getName();
 					}
-					OsateDebug.osateDebug("[FTAUtils] handleCondition targetStateName=" + targetStateName + " on " + relatedInstance.getName());
+//					OsateDebug.osateDebug("[FTAUtils] handleCondition targetStateName=" + targetStateName + " on " + relatedInstance.getName());
 					EList<CompositeState> emslist = EMV2Util.getAllCompositeStates(relatedInstance);
 					
 					if (!emslist.isEmpty())
@@ -529,8 +512,8 @@ public class FTAUtils
 							{
 								Event resultEvent = new Event();
 								resultEvent.setEventType(EventType.NORMAL);
+								fillEventWithProperties (resultEvent, relatedInstance, behaviorState);
 								fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
-								
 								event.addSubEvent(resultEvent);
 								
 							}
@@ -561,7 +544,7 @@ public class FTAUtils
 			event.setEventType(EventType.OR);
 			
 			String desc;
-			desc = "\"occurrence of one event";
+			desc = "\"occurrence (OR) of one event";
 			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
 			{
 				boolean first = true;
@@ -601,7 +584,7 @@ public class FTAUtils
 			}
 			event.setEventType(EventType.AND);
 			String desc;
-			desc = "\"combination of events";
+			desc = "\"combination (AND) of events";
 			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
 			{
 				boolean first = true;
@@ -623,8 +606,6 @@ public class FTAUtils
 						
 			for (ConditionExpression conditionExpression : sae.getOperands())
 			{
-				//OsateDebug.osateDebug("      operand=" + conditionExpression);
-				//result += handleCondition (conditionExpression, componentInstances);
 				Event resultEvent = new Event ();
 				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances, exploreRelativeCompositeStates);
 				if (conditionExpression instanceof SAndExpression)
@@ -657,9 +638,13 @@ public class FTAUtils
 		
 		if (nBranches > 1)
 		{
+			String desc;
+			desc = "Switch to " + stateName + " due to the occurence of one of the following condition";
 			ftaEvent.setEventType(EventType.OR);
-			ftaEvent.setName("State to " + stateName);
-			ftaEvent.setIdentifier("State to " + stateName);
+			
+			ftaEvent.setName (stateName);
+			ftaEvent.setDescription(desc);
+			ftaEvent.setIdentifier (stateName);
 		}
 		
 		for (CompositeState state : states)
@@ -672,7 +657,7 @@ public class FTAUtils
 				originalStateName += state.getTypedToken().getType().get(0).getName();
 			}
 			
-			OsateDebug.osateDebug("[FTAUtils] fillCompositeBehavior on " + relatedInstance.getName() +  " looking for="+ stateName +"|browsing state name=" + originalStateName);
+//			OsateDebug.osateDebug("[FTAUtils] fillCompositeBehavior on " + relatedInstance.getName() +  " looking for="+ stateName +"|browsing state name=" + originalStateName);
 			
 			if (originalStateName.equalsIgnoreCase(stateName))
 			{
@@ -689,13 +674,10 @@ public class FTAUtils
 					targetEvent = ftaEvent;
 				}
 				
-				
-				if (EMV2Properties.getDescription (ebs, relatedInstance) != null)
-				{
-					targetEvent.setDescription("\"" + EMV2Properties.getDescription (ebs, relatedInstance) +")\"");
-				}
+				fillEventWithProperties (targetEvent, relatedInstance, ebs);
 				
 				FTAUtils.fillFTAEventfromEventState (targetEvent, ebs, relatedInstance, componentInstances);
+
 				FTAUtils.handleCondition (targetEvent, ebs, relatedInstance, state.getCondition(), componentInstances, false);
 				if (nBranches > 1)
 				{
@@ -707,12 +689,28 @@ public class FTAUtils
 		}
 	}
 	
+	public static void fillEventWithProperties (Event event, ComponentInstance ci, NamedElement ne)
+	{
+		fillEventWithProperties (event, ci, ne, null);
+	}
 	
+	public static void fillEventWithProperties (Event event, ComponentInstance ci, NamedElement ne, TypeSet ts)
+	{
+		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(ci,ne,ts);
+		
+		if (!PA.isEmpty()){
+			double prob = EMV2Properties.getOccurenceValue (PA.get(0));
+			event.setProbability(prob);
+		}
+		
+		if (EMV2Properties.getDescription (ne, ci) != null)
+		{
+			event.setDescription("\"" + EMV2Properties.getDescription (ne, ci) + "\"");
+		}
+	}
 	
 	public static void fillFTAEventfromEventState (Event event, ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance, final EList<ComponentInstance> componentInstances)
 	{
-		TypeSet ts= null;
-		
 		if (event == null)
 		{
 			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
@@ -730,24 +728,9 @@ public class FTAUtils
 			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
 			return;
 		}
-		
-
-		if (EMV2Properties.getDescription (behaviorState, relatedComponentInstance) != null)
-		{
-			event.setDescription("\"" + EMV2Properties.getDescription (behaviorState, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
-		}
-		
+				
 		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
-		ts = behaviorState.getTypeSet();
-		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,behaviorState,ts);
-		//OsateDebug.osateDebug("         PA " + PA);
-		if (!PA.isEmpty()){
-			double prob = EMV2Properties.getOccurenceValue (PA.get(0));
-//			OsateDebug.osateDebug("state " + behaviorState.getName()+ "prob= " + prob);
-
-			event.setProbability(prob);
-		}
-		
+		fillEventWithProperties (event, relatedComponentInstance, behaviorState, behaviorState.getTypeSet());		
 	}
 	
 }

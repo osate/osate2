@@ -168,7 +168,7 @@ public class Event
 			}
 			else
 			{
-				description = "no description";
+				description = this.name + "(no extended description)" ;
 			}
 			sb.append (this.identifier + ";;B;"+description+";"+this.getProbability()+";L;\n");
 			return sb.toString();

@@ -148,7 +148,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 				
 				this.ftaFile = new WriteToFile("FTA", si);
 				this.ftaFile.setFileExtension("fta");
-				this.ftaFile.addOutput(WriteToFile.getFileName("FHA", si)+".ped\nS NULL 0\n3 fta\n");
+				this.ftaFile.addOutput(WriteToFile.getFileName("FTA", si)+".ped\nS NULL 0\n3 fta\n");
 				this.ftaFile.addOutput(ftaEvent.toFTA());
 				this.ftaFile.saveToFile();
 				
