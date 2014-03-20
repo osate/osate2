@@ -51,6 +51,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Context;
@@ -390,25 +391,28 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        final Set<Shape> featureShapeChildrenToGhost = new HashSet<Shape>();
 		        featureShapeChildrenToGhost.addAll(visibilityHelper.getNonGhostChildren(featureShape));
 		        
-		        // Create/Update shapes for the child features
-				for(final Feature childFeature : featureService.getAllFeatures(fgt)) {
-					ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByElementQualifiedName(featureShape, childFeature);
-					
-					// Get existing shape instead of always creating
-					if(childFeatureContainer == null) {
-			        	// Create the container shape
-			        	childFeatureContainer = peCreateService.createContainerShape(featureShape, true);
-			        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
-			        } else {
-						// Remove the shape from the list of shapes to remove
-						featureShapeChildrenToGhost.remove(childFeatureContainer);
-			        }
-					
-			        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
-			        final GraphicsAlgorithm childFeatureGa = childFeatureContainer.getGraphicsAlgorithm();
-			        childY += childFeatureGa.getHeight() + 5;
-			        maxChildWidth = Math.max(maxChildWidth, childFeatureGa.getWidth());
-				}
+		        // Create shapes for each of the children if the feature group is not part of a subcomponent
+		        if(shapeService.getClosestAncestorWithBusinessObjectType(shape, Subcomponent.class) == null) {
+			        // Create/Update shapes for the child features
+					for(final Feature childFeature : featureService.getAllFeatures(fgt)) {
+						ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByElementQualifiedName(featureShape, childFeature);
+						
+						// Get existing shape instead of always creating
+						if(childFeatureContainer == null) {
+				        	// Create the container shape
+				        	childFeatureContainer = peCreateService.createContainerShape(featureShape, true);
+				        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
+				        } else {
+							// Remove the shape from the list of shapes to remove
+							featureShapeChildrenToGhost.remove(childFeatureContainer);
+				        }
+						
+				        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
+				        final GraphicsAlgorithm childFeatureGa = childFeatureContainer.getGraphicsAlgorithm();
+				        childY += childFeatureGa.getHeight() + 5;
+				        maxChildWidth = Math.max(maxChildWidth, childFeatureGa.getWidth());
+					}
+		        }
 				
 				// Remove children of the feature shape that were not updated
 				for(final Shape featureShapeChild : featureShapeChildrenToGhost) {
