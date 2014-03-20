@@ -396,37 +396,27 @@ public class FTAUtils
 					
 					ErrorPropagation ep = (ErrorPropagation) conditionElement.getIncoming();
 					
-
-					for (FeatureorPPReference fppr : ep.getFeatureorPPRefs())
+					if (ep.getFeatureorPPRefs().size() == 0)
 					{
-							//OsateDebug.osateDebug("BLA" + fppr.getFeatureorPP());
-						tmpEvent = new Event();
-						tmpEvent.setEventType(EventType.EVENT);
-						tmpEvent.setName(fppr.getFeatureorPP().getName());
-						OsateDebug.osateDebug("EVENT NAME5" + fppr.getFeatureorPP().getName());
-						fillEventWithProperties (tmpEvent, relatedComponentInstance, ep);
-
-						toAdd.add(tmpEvent);
+						EMV2Util.getPrintName(ep.getTypeSet());
+						event.setEventType(EventType.EVENT);
+						event.setName ("processor" + EMV2Util.getPrintName(ep.getTypeSet()));
+						event.setDescription("processor binding error, receive error type " + EMV2Util.getPrintName(conditionElement.getConstraint()));
 					}
-//						event.setName("unknown fault");
-					
-//					
-//					for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(relatedComponentInstance, ep))
-//					{
-//						ComponentInstance ciSource = ppe.getComponentInstance();
-//						Collection<OutgoingPropagationCondition> outConditions = EMV2Util.getAllOutgoingPropagationConditions(ciSource);
-//						if (outConditions)
-//						OsateDebug.osateDebug("ppe="+ppe.getComponentInstance());
-//						
-//					}
-//					for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(relatedComponentInstance))
-//					{
-//						if (opc.getState() == resultingBehaviorState)
-//						{
-//							OsateDebug.osateDebug("BLA=" + opc.getOutgoing().getName());
-//						}
-//					}
-					
+					else
+					{
+						for (FeatureorPPReference fppr : ep.getFeatureorPPRefs())
+						{
+								//OsateDebug.osateDebug("BLA" + fppr.getFeatureorPP());
+							tmpEvent = new Event();
+							tmpEvent.setEventType(EventType.EVENT);
+							tmpEvent.setName(fppr.getFeatureorPP().getName());
+							OsateDebug.osateDebug("EVENT NAME5" + fppr.getFeatureorPP().getName());
+							fillEventWithProperties (tmpEvent, relatedComponentInstance, ep);
+	
+							toAdd.add(tmpEvent);
+						}
+					}
 					
 					if (exploreRelativeCompositeStates)
 					{
@@ -445,18 +435,18 @@ public class FTAUtils
 						}
 					}
 					
-					if (toAdd.size() == 1)
-					{
-						event.setName(toAdd.get(0).getName());
-						event.setEventType(toAdd.get(0).getEventType());
-					}
-					else
+					if (toAdd.size() > 1)
 					{
 						event.setEventType(EventType.OR);
 						for (Event e : toAdd)
 						{
 							event.addSubEvent(e);
 						}
+					}
+					if (toAdd.size() == 1)
+					{
+						event.setName(toAdd.get(0).getName());
+						event.setEventType(toAdd.get(0).getEventType());
 					}
 						
 
