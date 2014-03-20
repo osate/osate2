@@ -37,6 +37,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
+import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
@@ -200,8 +202,17 @@ public class FTAUtils
 								{
 									//OsateDebug.osateDebug("opc outgoing" + opc.getOutgoing());
 									//OsateDebug.osateDebug("ppe getprep " + ppe.getErrorPropagation());
-									if (opc.getOutgoing() == ppe.getErrorPropagation())
+									if (opc.getOutgoing() == ppe.getErrorPropagation() &&
+										((opc.getTypeToken().isNoError() == ep.getTypeSet().getTypeTokens().get(0).isNoError())&&
+										EM2TypeSetUtil.contains( ep.getTypeSet(),opc.getOutgoing().getTypeSet())))
+//									if ((opc.getOutgoing() == ppe.getErrorPropagation()) &&
+//										(EM2TypeSetUtil.contains(opc.getTypeTokenConstraint(), ppe.getErrorPropagation().getTypeSet())))
 									{
+//										(opc.getTypeToken().isNoError() && ppe.getErrorPropagation().getTypeSet().getTypeTokens().get(0).isNoError())
+										OsateDebug.osateDebug("opc="+EMV2Util.getPrintName(opc.getTypeTokenConstraint()));
+										OsateDebug.osateDebug("opc2="+EMV2Util.getPrintName(opc.getOutgoing().getTypeSet()));
+										OsateDebug.osateDebug("ppe="+EMV2Util.getPrintName( ppe.getErrorPropagation().getTypeSet()));
+										OsateDebug.osateDebug("opc2==ppe: "+EM2TypeSetUtil.contains(opc.getOutgoing().getTypeSet(), ppe.getErrorPropagation().getTypeSet()));
 										ErrorBehaviorState ebs = opc.getState();
 										
 										newEventName = ciSource.getName() + "/" + ebs.getName();
@@ -265,7 +276,6 @@ public class FTAUtils
 											
 										}
 										
-										OsateDebug.osateDebug("EVENT NAME1" + newEventName);
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
 										propagations.add(newEvent);
@@ -289,7 +299,6 @@ public class FTAUtils
 										newEvent = new Event();
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
-										OsateDebug.osateDebug("EVENT NAME2" + newEventName);
 										fillEventWithProperties (newEvent, relatedInstance, fe.getFeatureorPP());
 										propagations.add(newEvent);
 										//OsateDebug.osateDebug("ep="  + ep);
@@ -329,7 +338,6 @@ public class FTAUtils
 										newEvent = new Event ();
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
-										OsateDebug.osateDebug("EVENT NAME3" + newEventName);
 										propagations.add(newEvent);
 										fillEventWithProperties (newEvent, relatedInstance, eop);
 									}
@@ -349,7 +357,6 @@ public class FTAUtils
 								newEventName = ev.getName();
 								newEvent.setName (newEventName);
 								newEvent.setEventType(EventType.EVENT);
-								OsateDebug.osateDebug("EVENT NAME4" + newEventName);
 								propagations.add(newEvent);
 								fillEventWithProperties (newEvent, relatedInstance, ev);
 								
@@ -511,6 +518,10 @@ public class FTAUtils
 							{
 								fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
 								List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement, componentInstances);
+								if (propagations.size() > 1)
+								{
+									event.setEventType(EventType.OR);
+								}
 								for (Event tmpEvent : propagations)
 								{
 									event.addSubEvent(tmpEvent);
@@ -701,6 +712,7 @@ public class FTAUtils
 	
 	public static void fillFTAEventfromEventState (Event event, ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance, final EList<ComponentInstance> componentInstances)
 	{
+		String eventName;
 		if (event == null)
 		{
 			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
@@ -718,8 +730,8 @@ public class FTAUtils
 			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
 			return;
 		}
-				
-		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
+		eventName = behaviorState.getName() + "/" + relatedComponentInstance.getName();
+		event.setName(eventName); 
 		fillEventWithProperties (event, relatedComponentInstance, behaviorState, behaviorState.getTypeSet());		
 	}
 	
