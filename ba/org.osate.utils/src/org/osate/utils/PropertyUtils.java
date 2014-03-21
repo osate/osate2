@@ -100,7 +100,14 @@ public class PropertyUtils {
 		if (owner instanceof ComponentInstance) {
 			ComponentInstance inst = (ComponentInstance) owner;
 			ComponentImplementation impl = inst.getContainingComponentImpl();
-			return findProperty(propertyName, impl);
+			if(impl != null)
+			{
+			  return findProperty(propertyName, impl);
+			}
+			else
+			{
+			  return null ;
+			}
 		} else if (owner instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) owner;
 			ComponentType type = impl.getType();
