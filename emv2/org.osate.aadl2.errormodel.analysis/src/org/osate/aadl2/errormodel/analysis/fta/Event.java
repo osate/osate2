@@ -118,7 +118,17 @@ public class Event
 	
 	public String toXML()
 	{
-		StringBuffer sb = new StringBuffer ();
+		StringBuffer sb;
+		
+		if (this.type == EventType.NONE)
+		{
+			return "";
+		}
+		
+		sb = new StringBuffer ();
+		
+
+		
 		sb.append ("<event");
 		if (this.type == EventType.NORMAL)
 		{
@@ -183,7 +193,14 @@ public class Event
 	
 	public String toFTA()
 	{
-		StringBuffer sb = new StringBuffer ();
+		StringBuffer sb;
+		
+		if (this.type == EventType.NONE)
+		{
+			return "";
+		}
+		
+		sb = new StringBuffer ();
 		String title = "";
 		if (this.type == EventType.EVENT)
 		{

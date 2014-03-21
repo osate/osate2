@@ -65,7 +65,7 @@ public class FTAUtils
 				return ci;
 			}
 		}
-//		OsateDebug.osateDebug("[FTAUtils] Did not find the instance " + name);
+		OsateDebug.osateDebug("[FTAUtils] Did not find the instance " + name);
 		return null;
 	}
 	
@@ -215,7 +215,8 @@ public class FTAUtils
 //										OsateDebug.osateDebug("opc2==ppe: "+EM2TypeSetUtil.contains(opc.getOutgoing().getTypeSet(), ppe.getErrorPropagation().getTypeSet()));
 										ErrorBehaviorState ebs = opc.getState();
 										
-										newEventName = ciSource.getName() + "/" + ebs.getName();
+										newEventName = "component " + ciSource.getName() + " in state " + ebs.getName();
+
 										
 										newEvent = new Event();
 										newEvent.setName (newEventName);
@@ -240,6 +241,18 @@ public class FTAUtils
 										if (nTransitions > 1)
 										{
 											newEvent.setEventType(EventType.OR);
+										}
+										
+										/**
+										 * If the new event (that result for a component to being
+										 * in a particular state) does not contain sub-events (due to
+										 * error propagations, error events, etc.), then, we declare
+										 * it as an Event so that OpenFTA will not complain about
+										 * validation issue/error.
+										 */
+										if (newEvent.getSubEvents().size() == 0)
+										{
+											newEvent.setEventType(EventType.EVENT);
 										}
 										propagations.add(newEvent);
 										
@@ -458,7 +471,7 @@ public class FTAUtils
 						
 
 				}
-				if (conditionElement.getIncoming() instanceof ErrorEvent)
+				else if (conditionElement.getIncoming() instanceof ErrorEvent)
 				{
 					ErrorEvent ee = (ErrorEvent) conditionElement.getIncoming();
 					event.setEventType(EventType.EVENT);
@@ -466,6 +479,10 @@ public class FTAUtils
 					
 //					OsateDebug.osateDebug("EVENT NAME5" +ee.getName());
 					event.setName(ee.getName());
+				}
+				else
+				{
+					OsateDebug.osateDebug("UNHANDLED");
 				}
 			}
 			else
@@ -516,8 +533,14 @@ public class FTAUtils
 							}
 							else
 							{
+
 								fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
 								List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement, componentInstances);
+								if (propagations.size() == 0)
+								{
+									event.setEventType(EventType.NONE);
+								}
+								
 								if (propagations.size() > 1)
 								{
 									event.setEventType(EventType.OR);
@@ -545,7 +568,7 @@ public class FTAUtils
 			event.setEventType(EventType.OR);
 			
 			String desc;
-			desc = "\"occurrence (OR) of one event";
+			desc = "\"Component " + relatedComponentInstance.getName() + " in state " + resultingBehaviorState.getName() + " due to the occurrence (OR) of one event";
 			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
 			{
 				boolean first = true;
@@ -572,6 +595,11 @@ public class FTAUtils
 				//result += handleCondition (conditionExpression, componentInstances);
 				Event resultEvent = new Event ();
 				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances, exploreRelativeCompositeStates);
+				
+//				if ( (resultEvent.getSubEvents().size()==0) && resultEvent.getEventType() == EventType.NORMAL)
+//				{
+//					OsateDebug.osateDebug("NAME=" + resultEvent.getName() + "|TYPE=" + resultEvent.getEventType());
+//				}
 				event.addSubEvent(resultEvent);
 			}
 		}
@@ -585,7 +613,7 @@ public class FTAUtils
 			}
 			event.setEventType(EventType.AND);
 			String desc;
-			desc = "\"combination (AND) of events";
+			desc = "\"Component " + relatedComponentInstance.getName() + " in state " + resultingBehaviorState.getName() + " combination (AND) of events";
 			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
 			{
 				boolean first = true;

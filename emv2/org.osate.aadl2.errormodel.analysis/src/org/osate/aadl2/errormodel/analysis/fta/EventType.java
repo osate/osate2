@@ -2,7 +2,7 @@ package org.osate.aadl2.errormodel.analysis.fta;
 
 public enum EventType
 {
-	AND, OR, XOR, EVENT, NORMAL;
+	AND, OR, XOR, EVENT, NORMAL, NONE;
 	
 	
 	public static String toString (EventType t)
