@@ -120,10 +120,7 @@ public class Event
 	{
 		StringBuffer sb;
 		
-		if (this.type == EventType.NONE)
-		{
-			return "";
-		}
+
 		
 		sb = new StringBuffer ();
 		
@@ -195,10 +192,7 @@ public class Event
 	{
 		StringBuffer sb;
 		
-		if (this.type == EventType.NONE)
-		{
-			return "";
-		}
+
 		
 		sb = new StringBuffer ();
 		String title = "";

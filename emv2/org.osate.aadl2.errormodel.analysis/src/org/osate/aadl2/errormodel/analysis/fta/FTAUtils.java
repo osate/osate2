@@ -159,11 +159,7 @@ public class FTAUtils
 		
 		
 		cl = relatedInstance.getComponentClassifier();
-//		OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations on: " + relatedInstance);
-//		OsateDebug.osateDebug("relatedInstance" + relatedInstance);
-//		OsateDebug.osateDebug("condition state" + conditionElement.getState());
-//		OsateDebug.osateDebug("Classifier=" + cl);
-		
+	
 		if (EMV2Util.hasComponentErrorBehaviorTransitions(relatedInstance))
 		{
 			Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(cl);
@@ -283,10 +279,6 @@ public class FTAUtils
 											{
 												newEventName += " on " + f.getName();
 											}
-										}
-										else
-										{
-											
 										}
 										
 										newEvent.setName (newEventName);
@@ -536,9 +528,14 @@ public class FTAUtils
 
 								fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
 								List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement, componentInstances);
+								
+								/**
+								 * Here, we do not find any other propagations,
+								 * so we set the error as an event.
+								 */
 								if (propagations.size() == 0)
 								{
-									event.setEventType(EventType.NONE);
+									event.setEventType(EventType.EVENT);
 								}
 								
 								if (propagations.size() > 1)
@@ -759,6 +756,7 @@ public class FTAUtils
 			return;
 		}
 		eventName = behaviorState.getName() + "/" + relatedComponentInstance.getName();
+		event.setDescription("Component " + relatedComponentInstance.getName() + " in state " + behaviorState.getName());
 		event.setName(eventName); 
 		fillEventWithProperties (event, relatedComponentInstance, behaviorState, behaviorState.getTypeSet());		
 	}

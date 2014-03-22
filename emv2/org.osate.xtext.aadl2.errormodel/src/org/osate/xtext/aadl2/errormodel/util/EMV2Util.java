@@ -2186,8 +2186,11 @@ public class EMV2Util {
 	public static boolean hasComponentErrorBehaviorTransitions(ComponentClassifier cl){
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			EList<ErrorBehaviorTransition> cet = errorModelSubclause.getTransitions();
-			if (!cet.isEmpty()){
+			
+			if (!errorModelSubclause.getTransitions().isEmpty()){
+				return true;
+			}
+			if (!errorModelSubclause.getUseBehavior().getTransitions().isEmpty()){
 				return true;
 			}
 		}
