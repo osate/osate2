@@ -321,7 +321,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			componentName = "Root system";
 		}
 		// component name & error propagation name/type
-		report.addOutput(componentName+", \""+(typetext.isEmpty()?"":typetext+" on ")+failureModeName+"\"");
+		report.addOutput(componentName+", \""+(typetext.isEmpty()?"":typetext)+(failureModeName.isEmpty()?"":" on "+failureModeName)+"\"");
 		// description (Effect)
 		addComma(report);
 		if (!reportStringProperty(fields,"hazardtitle",report))

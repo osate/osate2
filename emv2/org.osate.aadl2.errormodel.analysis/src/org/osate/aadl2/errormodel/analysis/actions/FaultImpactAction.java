@@ -76,7 +76,7 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		{
 			if (componentInstance != null)
 			{
-				OsateDebug.osateDebug("start flow for ci="+componentInstance.getName());
+				//OsateDebug.osateDebug("start flow for ci="+componentInstance.getName());
 				faultimpact.startErrorFlows(componentInstance);
 			}
 		}
