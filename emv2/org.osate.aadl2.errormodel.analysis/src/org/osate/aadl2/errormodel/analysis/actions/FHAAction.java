@@ -128,7 +128,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 					EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,errorEvent.getTypeSet());
 					for (ContainedNamedElement hazProp: PA)
 					{
-						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), null, errorEvent.getTypeSet(), errorEvent,report);
+						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), errorEvent, errorEvent.getTypeSet(), errorEvent,report);
 					}
 				}
 				//condElement.getIncoming()
@@ -241,7 +241,28 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			Element target, TypeSet ts, Element localContext,WriteToFile report){
 		
 		ErrorType targetType = EMV2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
+		String targetName;
+		
+		if (target == null)
+		{
+			targetName = "";
+		}
+		else
+		{
+			targetName = EMV2Util.getPrintName(target);
+			if (target instanceof ErrorEvent)
+			{
+				targetName = "event " + targetName;
+			}
+			
+			if (target instanceof ErrorBehaviorState)
+			{
+				targetName = "state " + targetName;
+			}
+		}
+		
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues())
+		{
 			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
 			if (peVal instanceof ListValue)
 			{ // it is always a list
@@ -258,19 +279,11 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 						if (targetType==null){
 							if (ts != null){
 								for(TypeToken token: ts.getTypeTokens()){
-									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
+									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,EMV2Util.getName(token));
 								}
 							} else {
 								// did not have a type set. Let's use fmr (state of type set as failure mode.
-								String targetName;
-								if (target == null)
-								{
-									targetName = "";
-								}
-								else
-								{
-									targetName = EMV2Util.getPrintName(target);
-								}
+
 								if (localContext == null)
 								{
 									reportFHAEntry(report, fields, severityValue, likelihoodValue,ci, targetName,"");
@@ -280,7 +293,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 							}
 						} else {
 							// property points to type
-							reportFHAEntry(report, fields,  severityValue, likelihoodValue,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
+							reportFHAEntry(report, fields,  severityValue, likelihoodValue,ci,targetName, EMV2Util.getPrintName(targetType));
 						}
 					}		
 				}
