@@ -171,7 +171,7 @@ public enum AccessCategory implements Enumerator {
 	 * Returns the '<em><b>Access Category</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static AccessCategory get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {

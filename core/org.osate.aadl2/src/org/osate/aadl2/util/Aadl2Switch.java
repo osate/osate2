@@ -1720,6 +1720,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseDirectedFeature(abstractFeature);
 			if (result == null)
+				result = caseTriggerPort(abstractFeature);
+			if (result == null)
 				result = caseFeature(abstractFeature);
 			if (result == null)
 				result = caseStructuralFeature(abstractFeature);

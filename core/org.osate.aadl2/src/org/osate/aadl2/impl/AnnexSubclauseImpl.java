@@ -88,6 +88,7 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 	public void setAnnexContent(String s) {
 		this.annexContent = s;
 	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
