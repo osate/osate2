@@ -368,7 +368,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 			for (MetaclassReference mcri : ct.getClassifierReferences())
 			{
-				if(mcri.getMetaclass().isSuperTypeOf(cv.eClass())){
+				if(mcri.getMetaclass().isSuperTypeOf(cv.getClassifier().eClass())){
 					return;
 				}
 			}
