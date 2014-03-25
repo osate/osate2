@@ -582,7 +582,7 @@ public class EMV2Util {
 			{
 				if (fr1.getFeatureorPP() == fr2.getFeatureorPP())
 				{
-					if (EM2TypeSetUtil.contains (ep1.getTypeSet(), ep2.getTypeSet()))
+					if (EM2TypeSetUtil.contains (ep1.getTypeSet(), ep2.getTypeSet()) && EM2TypeSetUtil.contains (ep2.getTypeSet(), ep1.getTypeSet()))
 					{
 						found = true;
 					}
