@@ -26,6 +26,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataSubcomponentType;
+import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.services.AadlModificationService;
@@ -104,6 +107,13 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 				// Copy structural feature values to the replacement object.
 				transferStructuralFeatureValues(feature, replacementFeature);
 				
+				// Handle copying the data feature classifier
+				if(replacementFeature instanceof EventDataPort) {
+					((EventDataPort) replacementFeature).setDataFeatureClassifier(getDataFeatureClassifier(feature));
+				} else if(replacementFeature instanceof DataPort) {
+					((DataPort) replacementFeature).setDataFeatureClassifier(getDataFeatureClassifier(feature));
+				}
+				
 				// Remove the old object
 				EcoreUtil.remove(feature);
 				
@@ -112,6 +122,16 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 				return null;
 			}			
 		});
+	}
+	
+	private DataSubcomponentType getDataFeatureClassifier(final Feature feature) {
+		if(feature instanceof EventDataPort) {
+			return ((EventDataPort) feature).getDataFeatureClassifier();
+		} else if(feature instanceof DataPort) {
+			return ((DataPort) feature).getDataFeatureClassifier();
+		}
+		
+		return null;
 	}
 	
 	/**
