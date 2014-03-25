@@ -29,31 +29,32 @@
          <topic label="Setting the Feature Classifier" href="output\ch03s03.html#d0e237"/>
          <topic label="Setting the Feature Direction (Directional Features Only)" href="output\ch03s03.html#d0e245"/>
          <topic label="Setting Access Kind (Access Features Only)" href="output\ch03s03.html#d0e259"/>
+         <topic label="Setting a Feature Group as Inverse" href="output\ch03s03.html#d0e270"/>
       </topic>
       <topic label="Subcomponents" href="output\ch03s04.html">
-         <topic label="Creating" href="output\ch03s04.html#d0e275"/>
-         <topic label="Setting the Classifier" href="output\ch03s04.html#d0e280"/>
-         <topic label="Setting Modes" href="output\ch03s04.html#d0e288"/>
+         <topic label="Creating" href="output\ch03s04.html#d0e286"/>
+         <topic label="Setting the Classifier" href="output\ch03s04.html#d0e291"/>
+         <topic label="Setting Modes" href="output\ch03s04.html#d0e299"/>
       </topic>
       <topic label="Flows" href="output\ch03s05.html">
-         <topic label="Creating Flow Sources" href="output\ch03s05.html#d0e300"/>
-         <topic label="Creating Flow Sinks" href="output\ch03s05.html#d0e308"/>
-         <topic label="Creating Flow Paths" href="output\ch03s05.html#d0e316"/>
-         <topic label="Editing Flow Implementations and End-to-End Flows" href="output\ch03s05.html#d0e334"/>
-         <topic label="Highlighting Flow Implementations and End-to-End Flows" href="output\ch03s05.html#d0e342"/>
+         <topic label="Creating Flow Sources" href="output\ch03s05.html#d0e311"/>
+         <topic label="Creating Flow Sinks" href="output\ch03s05.html#d0e319"/>
+         <topic label="Creating Flow Paths" href="output\ch03s05.html#d0e327"/>
+         <topic label="Editing Flow Implementations and End-to-End Flows" href="output\ch03s05.html#d0e345"/>
+         <topic label="Highlighting Flow Implementations and End-to-End Flows" href="output\ch03s05.html#d0e353"/>
       </topic>
       <topic label="Modes" href="output\ch03s06.html">
-         <topic label="Creating Modes" href="output\ch03s06.html#d0e352"/>
-         <topic label="Setting the Initial Mode" href="output\ch03s06.html#d0e360"/>
-         <topic label="Creating Mode Transitions" href="output\ch03s06.html#d0e368"/>
-         <topic label="Setting Mode Transition Triggers" href="output\ch03s06.html#d0e401"/>
-         <topic label="Switching Between Derived and Non-derived Modes" href="output\ch03s06.html#d0e409"/>
-         <topic label="Highlighting" href="output\ch03s06.html#d0e428"/>
+         <topic label="Creating Modes" href="output\ch03s06.html#d0e363"/>
+         <topic label="Setting the Initial Mode" href="output\ch03s06.html#d0e371"/>
+         <topic label="Creating Mode Transitions" href="output\ch03s06.html#d0e379"/>
+         <topic label="Setting Mode Transition Triggers" href="output\ch03s06.html#d0e412"/>
+         <topic label="Switching Between Derived and Non-derived Modes" href="output\ch03s06.html#d0e420"/>
+         <topic label="Highlighting" href="output\ch03s06.html#d0e439"/>
          <topic label="Selecting Active Components" href="output\ch03s06.html#modes_configuring_in_modes"/>
       </topic>
    </topic>
    <topic label="Troubleshooting" href="output\ch04.html">
-      <topic label="Build Automatically" href="output\ch04.html#d0e446"/>
+      <topic label="Build Automatically" href="output\ch04.html#d0e457"/>
       <topic label="Updating a Diagram" href="output\ch04s02.html"/>
       <topic label="Reporting Bugs" href="output\ch04s03.html"/>
    </topic>

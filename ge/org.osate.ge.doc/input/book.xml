@@ -173,11 +173,15 @@
 			</section>
 			<section>
 				<title>Setting the Feature Direction (Directional Features Only)</title>
-				<para>To set the direction of a directional feature, right-click on the feature and select <emphasis>Set Direction to In</emphasis>, <emphasis>Set Direction to Out</emphasis>, or <emphasis>Set Direction to In and Out</emphasis> from the context menu.</para>
+				<para>To set the direction of a directional feature, right-click on the feature and select <emphasis>Set Direction to In</emphasis>, <emphasis>Set Direction to Out</emphasis>, or <emphasis>Set Direction to In and Out</emphasis> from the context menu after setting the feature group's classifier.</para>
 			</section>
 			<section>
 				<title>Setting Access Kind (Access Features Only)</title>
 				<para>To set the direction of an access feature, right-click on the feature and select <emphasis>Set Kind to Provides</emphasis> or <emphasis>Set Kind to Requires</emphasis> from the context menu.</para>
+			</section>
+			<section>
+				<title>Setting a Feature Group as Inverse</title>
+				<para>To set a feature group as either the inverse of or not the inverse of the selected feature group type, right-click on the feature group and select <emphasis>Set to Inverse</emphasis> or <emphasis>Set to Not Inverse</emphasis> from the context menu.</para>
 			</section>
 		</section>
 			<section>

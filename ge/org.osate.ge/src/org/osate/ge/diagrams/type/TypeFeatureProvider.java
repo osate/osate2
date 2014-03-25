@@ -42,6 +42,7 @@ import org.osate.ge.diagrams.type.features.RenameFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
+import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.diagrams.type.features.TypeUpdateDiagramFeature;
 import org.osate.ge.diagrams.type.patterns.TypeClassifierPattern;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -77,6 +78,8 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		features.add(make(RefineFeatureFeature.class));
 		features.add(make(RefineFlowSpecificationFeature.class));
 		features.add(make(SetFeatureClassifierFeature.class));
+		features.add(createSetFeatureGroupInverseFeature(true));
+		features.add(createSetFeatureGroupInverseFeature(false));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN));
 		features.add(createSetFeatureDirectionFeature(DirectionType.OUT));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN_OUT));		
@@ -99,6 +102,14 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		childCtx.set("Direction", dirType);
 
 		return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
+	}
+	
+	private SetFeatureGroupInverseFeature createSetFeatureGroupInverseFeature(final boolean inverse) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Inverse", inverse);
+
+		return ContextInjectionFactory.make(SetFeatureGroupInverseFeature.class, childCtx);
 	}
 	
 	private SetAccessFeatureKindFeature createSetFeatureKindFeature(final AccessType accType) 
