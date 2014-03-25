@@ -72,19 +72,19 @@ public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 			if(context == grammarAccess.getAnnexLibraryRule() ||
 					context == grammarAccess.getDefaultAnnexLibraryRule()) {
 				DefaultAnnexLibrary dal = (DefaultAnnexLibrary)semanticObject;
-				AnnexLibrary pal = dal.getParsedAnnexLibrary();
+/*				AnnexLibrary pal = dal.getParsedAnnexLibrary();
 				String annexName = ((NamedElement)semanticObject).getName();
 				AnnexUnparser atpr = getAnnexUnparserRegistry().getAnnexUnparser(annexName);
 				String text = dal.getSourceText();
 				// serialize if there is an unparser and the annex has been parsed
 				//otherwise use the original annex text
 				if (pal != null&&atpr != null){
-//					String text = atpr.unparseAnnexLibrary(pal, "  ");
+					text = atpr.unparseAnnexLibrary(pal, "  ");
 				}
-				DefaultAnnexLibrary tdal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
+				dal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
 				tdal.setName(dal.getName());
-				tdal.setSourceText(text);
-				sequence_DefaultAnnexLibrary(context, tdal); 
+				tdal.setSourceText(text);  */
+				sequence_DefaultAnnexLibrary(context, dal);
 				return; 
 			}
 		}
@@ -92,7 +92,7 @@ public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 			if(context == grammarAccess.getAnnexSubclauseRule() ||
 					context == grammarAccess.getDefaultAnnexSubclauseRule()) {
 				DefaultAnnexSubclause dasc = (DefaultAnnexSubclause)semanticObject;
-				AnnexSubclause pasc = dasc.getParsedAnnexSubclause();
+			/*	AnnexSubclause pasc = dasc.getParsedAnnexSubclause();
 				String annexName = ((NamedElement)semanticObject).getName();
 				AnnexUnparser atpr = getAnnexUnparserRegistry().getAnnexUnparser(annexName);
 				String text = dasc.getSourceText();
@@ -101,8 +101,8 @@ public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				if (pasc != null&&atpr != null){
 //					String text = atpr.unparseAnnexSubclause(pasc, "  ");
 				}
-				DefaultAnnexLibrary tdasc = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
-				dasc.setSourceText(text);
+				dasc = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
+				dasc.setSourceText(text); */
 				sequence_DefaultAnnexSubclause(context, dasc); 
 				return; 
 			}
