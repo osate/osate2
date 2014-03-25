@@ -651,6 +651,26 @@ public class AadlBaUtils {
     {
       return (DataClassifier) result ;
     }
+    else if(result instanceof DataSubcomponent)
+    {
+      DataSubcomponentType dst = ((DataSubcomponent) result).getDataSubcomponentType(); 
+      return (DataClassifier) dst;
+    }
+    else if (result instanceof BehaviorVariable)
+    {
+      BehaviorVariable bv = (BehaviorVariable) result;
+      return bv.getDataClassifier();
+    }
+    else if(result instanceof DataAccess)
+    {
+      DataAccess da = (DataAccess) result;
+      return (DataClassifier) da.getDataFeatureClassifier();
+    }
+    else if (result instanceof Parameter)
+    {
+      Parameter p = (Parameter) result;
+      return (DataClassifier) p.getDataFeatureClassifier();
+    }
     else // Abstract components case.
     {
       return null ;
