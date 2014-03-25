@@ -118,6 +118,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			final ComponentClassifier scClassifier = prototypeService.getComponentClassifier(ci, sc);
 			if(scClassifier instanceof ComponentType) {
 				addElementsToPotentialFlowSegmentList(sc, ((ComponentType) scClassifier).getAllFlowSpecifications());
+			} else if(scClassifier instanceof ComponentImplementation && ((ComponentImplementation) scClassifier).getType() != null) {
+				addElementsToPotentialFlowSegmentList(sc, ((ComponentImplementation) scClassifier).getType().getAllFlowSpecifications());
 			}
 		}
 		
