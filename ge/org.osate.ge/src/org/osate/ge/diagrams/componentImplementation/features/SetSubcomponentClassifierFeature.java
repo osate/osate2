@@ -41,6 +41,8 @@ import org.osate.aadl2.DeviceSubcomponentType;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.MemorySubcomponentType;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessSubcomponentType;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponentType;
 import org.osate.aadl2.Prototype;
@@ -159,6 +161,8 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 					((VirtualBusSubcomponent)sc).setVirtualBusSubcomponentType((VirtualBusSubcomponentType)selectedSubcomponentType);
 				} else if(sc instanceof BusSubcomponent) {
 					((BusSubcomponent)sc).setBusSubcomponentType((BusSubcomponentType)selectedSubcomponentType);
+				} else if(sc instanceof ProcessSubcomponent) {
+					((ProcessSubcomponent)sc).setProcessSubcomponentType((ProcessSubcomponentType)selectedSubcomponentType);
 				} else if(sc instanceof ProcessorSubcomponent) {
 					((ProcessorSubcomponent)sc).setProcessorSubcomponentType((ProcessorSubcomponentType)selectedSubcomponentType);
 				} else if(sc instanceof DeviceSubcomponent) {
