@@ -43,11 +43,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
@@ -199,6 +201,16 @@ public class NewPackageWizard extends Wizard implements INewWizard
 		try
 		{
 			getContainer().run(true, true, operation);
+			
+			// Build the project so that the index will be updated
+			if(project != null) {
+				try {
+					project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
+				} catch(CoreException | RuntimeException ex) {
+					final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after creating a new AADL file.", ex);
+					StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+				}
+			}
 			
 			// Get the element from the newly created AADL package
 			final URI uri = URI.createPlatformResourceURI(newFile.getFullPath().toString(), true);
