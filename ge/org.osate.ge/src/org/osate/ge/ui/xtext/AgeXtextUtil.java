@@ -115,21 +115,12 @@ public class AgeXtextUtil {
 	}
 	
 	/**
-	 * Returns the resource set that contains the resource with the package of the element with the specified qualified name
+	 * Returns the Xtext document that contains the packaeg with the specified name
 	 * @param qualifiedName
 	 * @return the last document updated for the qualified name or null if one does not exist
 	 */
-	public static IXtextDocument getDocumentByQualifiedName(final String qualifiedName) {
-		// Check if the qualified name is a package
-		IXtextDocument document = modelListener.getDocument(qualifiedName);
-		if(document != null) {
-			return document;
-		}
-		
-		// Assume it was not
-		final String segs[] = qualifiedName.split("::");
-		final String packageName = StringUtil.join(segs, 0, segs.length-1, "::");
-		return modelListener.getDocument(packageName);
+	public static IXtextDocument getDocumentByPackageName(final String qualifiedName) {
+		return modelListener.getDocument(qualifiedName);
 	}
 	
 	public static void addModelListener(final IXtextModelListener listener) {
