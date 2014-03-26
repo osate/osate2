@@ -65,15 +65,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		////ID ('::' ID)* ';';
-		//AadlPackage returns aadl2::AadlPackage:
+		// AadlPackage returns aadl2::AadlPackage:
 		//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-		//	ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-		//	| "none" ";"))? "end" PNAME ";";
+		//	ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+
+		//	//| (noProperties?='none' ';')
+		// | "none" ";"))? "end" PNAME ";";
 		public ParserRule getRule() { return rule; }
 
 		//"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-		//ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-		//| "none" ";"))? "end" PNAME ";"
+		//ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+
+		////| (noProperties?='none' ';')
+		// | "none" ";"))? "end" PNAME ";"
 		public Group getGroup() { return cGroup; }
 
 		//"package"
@@ -111,14 +113,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0; }
 
 		//("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-		//| "none" ";"))?
+		// | "none" ";"))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"properties"
 		public Keyword getPropertiesKeyword_3_0() { return cPropertiesKeyword_3_0; }
 
 		//ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-		//| "none" ";"
+		// | "none" ";"
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//ownedPropertyAssociation+=BasicPropertyAssociation+
@@ -950,7 +952,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -986,7 +988,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
 		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
-		//	ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
@@ -998,7 +1000,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
 		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
-		//ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
@@ -1078,8 +1080,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
-		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		//| ownedAbstractFeature+=AbstractFeature)+))?
+		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"features"
@@ -1190,11 +1192,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(derivedModes?="requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//derivedModes?="requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
 		//derivedModes?="requires"
@@ -1206,11 +1208,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -1355,10 +1357,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -1393,9 +1396,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 		//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//	ownedAbstractFeature+=AbstractFeature)+ | noFeatures?="none" ";"))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -1405,9 +1408,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+ | noFeatures?="none" ";"))? ("flows"
-		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
@@ -1598,24 +1601,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -1758,10 +1764,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -1796,9 +1803,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -1808,9 +1815,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
@@ -1993,24 +2000,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -2154,10 +2164,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6_1_1_1 = (Keyword)cGroup_6_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_7 = (Alternatives)cGroup.eContents().get(7);
 		private final Group cGroup_7_0 = (Group)cAlternatives_7.eContents().get(0);
-		private final Keyword cRequiresKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_7_0_0 = (Assignment)cGroup_7_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_7_0_0_0 = (Keyword)cDerivedModesAssignment_7_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_7_0_1 = (Keyword)cGroup_7_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_7_0_2 = (Assignment)cGroup_7_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_7_0_2_0 = (RuleCall)cOwnedModeAssignment_7_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_7_0_2_0 = (RuleCall)cOwnedModeAssignment_7_0_2.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cAlternatives_7.eContents().get(1);
 		private final Keyword cModesKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
 		private final Alternatives cAlternatives_7_1_1 = (Alternatives)cGroup_7_1.eContents().get(1);
@@ -2192,9 +2203,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -2204,9 +2215,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
@@ -2392,24 +2403,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_6_1_1_1() { return cSemicolonKeyword_6_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_7() { return cAlternatives_7; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_7_0() { return cGroup_7_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_7_0_0() { return cDerivedModesAssignment_7_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_7_0_0() { return cRequiresKeyword_7_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_7_0_0_0() { return cDerivedModesRequiresKeyword_7_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_7_0_1() { return cModesKeyword_7_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_7_0_2() { return cOwnedModeAssignment_7_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_7_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_7_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_7_0_2_0() { return cOwnedModeModeParserRuleCall_7_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_7_1() { return cGroup_7_1; }
@@ -2552,10 +2566,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -2590,9 +2605,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -2602,9 +2617,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
@@ -2787,24 +2802,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -2947,10 +2965,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -2985,9 +3004,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -2997,9 +3016,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
@@ -3182,24 +3201,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -3626,10 +3648,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -3664,9 +3687,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -3674,11 +3697,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
-		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		//| ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
-		//";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-		//| noModes?="none" ";"))? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none"
-		//";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
+		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
 		//"processor"
@@ -3860,24 +3884,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -4020,10 +4047,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -4058,9 +4086,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -4068,11 +4096,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
-		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		//| ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
-		//";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-		//| noModes?="none" ";"))? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none"
-		//";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
+		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
 		//"device"
@@ -4254,24 +4283,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -4401,10 +4433,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_5.eContents().get(0);
 		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cAlternatives_5.eContents().get(0);
-		private final Keyword cRequiresKeyword_5_0_0 = (Keyword)cGroup_5_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_5_0_0 = (Assignment)cGroup_5_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_5_0_0_0 = (Keyword)cDerivedModesAssignment_5_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_5_0_1 = (Keyword)cGroup_5_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_5_0_2 = (Assignment)cGroup_5_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_5_0_2_0 = (RuleCall)cOwnedModeAssignment_5_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_5_0_2_0 = (RuleCall)cOwnedModeAssignment_5_0_2.eContents().get(0);
 		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
 		private final Keyword cModesKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
 		private final Alternatives cAlternatives_5_1_1 = (Alternatives)cGroup_5_1.eContents().get(1);
@@ -4437,8 +4470,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//	ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-		//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//	ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+		//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
@@ -4447,8 +4480,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
@@ -4590,24 +4623,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_5_0() { return cGroup_5_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_5_0_0() { return cDerivedModesAssignment_5_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_5_0_0() { return cRequiresKeyword_5_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_5_0_0_0() { return cDerivedModesRequiresKeyword_5_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_5_0_1() { return cModesKeyword_5_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_5_0_2() { return cOwnedModeAssignment_5_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_5_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_5_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_5_0_2_0() { return cOwnedModeModeParserRuleCall_5_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_5_1() { return cGroup_5_1; }
@@ -4737,10 +4773,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_5.eContents().get(0);
 		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cAlternatives_5.eContents().get(0);
-		private final Keyword cRequiresKeyword_5_0_0 = (Keyword)cGroup_5_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_5_0_0 = (Assignment)cGroup_5_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_5_0_0_0 = (Keyword)cDerivedModesAssignment_5_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_5_0_1 = (Keyword)cGroup_5_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_5_0_2 = (Assignment)cGroup_5_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_5_0_2_0 = (RuleCall)cOwnedModeAssignment_5_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_5_0_2_0 = (RuleCall)cOwnedModeAssignment_5_0_2.eContents().get(0);
 		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
 		private final Keyword cModesKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
 		private final Alternatives cAlternatives_5_1_1 = (Alternatives)cGroup_5_1.eContents().get(1);
@@ -4773,8 +4810,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//	ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-		//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//	ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+		//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
@@ -4783,8 +4820,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
@@ -4926,24 +4963,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_5_0() { return cGroup_5_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_5_0_0() { return cDerivedModesAssignment_5_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_5_0_0() { return cRequiresKeyword_5_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_5_0_0_0() { return cDerivedModesRequiresKeyword_5_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_5_0_1() { return cModesKeyword_5_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_5_0_2() { return cOwnedModeAssignment_5_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_5_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_5_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_5_0_2_0() { return cOwnedModeModeParserRuleCall_5_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_5_1() { return cGroup_5_1; }
@@ -5072,10 +5112,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_4_0 = (RuleCall)cOwnedAbstractFeatureAssignment_5_1_1_4.eContents().get(0);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -5108,8 +5149,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//	ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//	ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-		//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//	ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+		//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
@@ -5118,8 +5159,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
@@ -5257,24 +5298,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_4_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_4_0; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -5416,10 +5460,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6_1_1_1 = (Keyword)cGroup_6_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_7 = (Alternatives)cGroup.eContents().get(7);
 		private final Group cGroup_7_0 = (Group)cAlternatives_7.eContents().get(0);
-		private final Keyword cRequiresKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_7_0_0 = (Assignment)cGroup_7_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_7_0_0_0 = (Keyword)cDerivedModesAssignment_7_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_7_0_1 = (Keyword)cGroup_7_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_7_0_2 = (Assignment)cGroup_7_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_7_0_2_0 = (RuleCall)cOwnedModeAssignment_7_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_7_0_2_0 = (RuleCall)cOwnedModeAssignment_7_0_2.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cAlternatives_7.eContents().get(1);
 		private final Keyword cModesKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
 		private final Alternatives cAlternatives_7_1_1 = (Alternatives)cGroup_7_1.eContents().get(1);
@@ -5454,7 +5499,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//	ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
-		//	";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
+		//	";"))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode |
 		//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
@@ -5466,9 +5511,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
-		//";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-		//| noModes?="none" ";"))? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none"
-		//";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
+		//";"))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode |
+		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
 		//"virtual"
@@ -5646,24 +5692,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_6_1_1_1() { return cSemicolonKeyword_6_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_7() { return cAlternatives_7; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_7_0() { return cGroup_7_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_7_0_0() { return cDerivedModesAssignment_7_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_7_0_0() { return cRequiresKeyword_7_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_7_0_0_0() { return cDerivedModesRequiresKeyword_7_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_7_0_1() { return cModesKeyword_7_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_7_0_2() { return cOwnedModeAssignment_7_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_7_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_7_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_7_0_2_0() { return cOwnedModeModeParserRuleCall_7_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_7_1() { return cGroup_7_1; }
@@ -5800,10 +5849,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
 		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
-		private final Keyword cRequiresKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
+		private final Assignment cDerivedModesAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final Keyword cDerivedModesRequiresKeyword_6_0_0_0 = (Keyword)cDerivedModesAssignment_6_0_0.eContents().get(0);
 		private final Keyword cModesKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
 		private final Assignment cOwnedModeAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final RuleCall cOwnedModeRequiresModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
+		private final RuleCall cOwnedModeModeParserRuleCall_6_0_2_0 = (RuleCall)cOwnedModeAssignment_6_0_2.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
 		private final Keyword cModesKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_6_1_1 = (Alternatives)cGroup_6_1.eContents().get(1);
@@ -5837,9 +5887,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
@@ -5848,9 +5898,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+		//ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
@@ -6013,24 +6063,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
+		//(derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ |
 		//noModes?="none" ";"))?
 		public Alternatives getAlternatives_6() { return cAlternatives_6; }
 
-		//"requires" "modes" ownedMode+=RequiresMode+
+		//derivedModes?="requires" "modes" ownedMode+=Mode+
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
+		//derivedModes?="requires"
+		public Assignment getDerivedModesAssignment_6_0_0() { return cDerivedModesAssignment_6_0_0; }
+
 		//"requires"
-		public Keyword getRequiresKeyword_6_0_0() { return cRequiresKeyword_6_0_0; }
+		public Keyword getDerivedModesRequiresKeyword_6_0_0_0() { return cDerivedModesRequiresKeyword_6_0_0_0; }
 
 		//"modes"
 		public Keyword getModesKeyword_6_0_1() { return cModesKeyword_6_0_1; }
 
-		//ownedMode+=RequiresMode+
+		//ownedMode+=Mode+
 		public Assignment getOwnedModeAssignment_6_0_2() { return cOwnedModeAssignment_6_0_2; }
 
-		//RequiresMode
-		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_0_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_0_2_0; }
+		//Mode
+		public RuleCall getOwnedModeModeParserRuleCall_6_0_2_0() { return cOwnedModeModeParserRuleCall_6_0_2_0; }
 
 		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";")
 		public Group getGroup_6_1() { return cGroup_6_1; }
@@ -6130,7 +6183,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDataImplementationParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		
 		//// Component Implementations: 
-		//ComponentImplementation returns aadl2::ComponentImplementation:
+		// ComponentImplementation returns aadl2::ComponentImplementation:
 		//	AbstractImplementation | SystemImplementation | ProcessorImplementation | ProcessImplementation |
 		//	ThreadGroupImplementation | ThreadImplementation | DeviceImplementation | BusImplementation |
 		//	VirtualProcessorImplementation | VirtualBusImplementation | MemoryImplementation | SubprogramImplementation |
@@ -7025,9 +7078,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"features" (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)+)? ("connections"
 		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
-		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+
-		//| noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
-		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation |
+		//ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
+		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";"
 		public Group getGroup() { return cGroup; }
 
@@ -7590,9 +7644,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"features" (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)+)? ("connections"
 		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
-		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+
-		//| noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
-		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation |
+		//ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
+		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";"
 		public Group getGroup() { return cGroup; }
 
@@ -8111,9 +8166,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"features" (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)+)? ("connections"
 		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
-		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+
-		//| noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
-		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation |
+		//ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
+		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";"
 		public Group getGroup() { return cGroup; }
 
@@ -8634,13 +8690,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"thread" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
 		//ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
 		//(ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))? ("subcomponents"
-		//((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent |
-		//ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none"
-		//";"))? ("internal" "features" (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)+)? ("processor"
-		//"features" (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)+)? ("calls"
-		//(ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))? ("connections"
-		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
-		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
+		//((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+		//| ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ |
+		//noSubcomponents?="none" ";"))? ("internal" "features" (ownedEventSource+=EventSource |
+		//ownedEventDataSource+=EventDataSource)+)? ("processor" "features" (ownedPortProxy+=PortProxy |
+		//ownedSubprogramProxy+=SubprogramProxy)+)? ("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ |
+		//noCalls?="none" ";"))? ("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+		//| ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))? ("flows"
 		//((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes"
 		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
@@ -9159,8 +9215,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_19 = (Keyword)cGroup.eContents().get(19);
 		
 		//SubprogramImplementation returns aadl2::SubprogramImplementation:
-		//	"subprogram" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
-		//	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
+		//	"subprogram" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension?
+		//	("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
 		//	(ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))? ("subcomponents"
 		//	((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent |
 		//	ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?="none" ";"))? ("internal" "features"
@@ -9691,8 +9747,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//"subprogram" "group" "implementation" ownedRealization=Realization "." name=INAME
 		//ownedExtension=ImplementationExtension? ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
-		//("subcomponents" ((ownedSubprogramSubcomponent+=SubprogramSubcomponent |
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none"
+		//";"))? ("subcomponents" ((ownedSubprogramSubcomponent+=SubprogramSubcomponent |
 		//ownedAbstractSubcomponent+=AbstractSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent |
 		//ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?="none" ";"))? ("internal" "features"
 		//(ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)+)? ("processor" "features"
@@ -10150,9 +10206,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"features" (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)+)? ("connections"
 		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
-		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+
-		//| noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
-		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation |
+		//ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
+		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";"
 		public Group getGroup() { return cGroup; }
 
@@ -10625,16 +10682,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//"virtual" "processor" "implementation" ownedRealization=Realization "." name=INAME
 		//ownedExtension=ImplementationExtension? ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
-		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent |
-		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)+
-		//| noSubcomponents?="none" ";"))? ("internal" "features" (ownedEventSource+=EventSource |
-		//ownedEventDataSource+=EventDataSource)+)? ("processor" "features" (ownedPortProxy+=PortProxy |
-		//ownedSubprogramProxy+=SubprogramProxy)+)? ("connections" ((ownedPortConnection+=PortConnection |
-		//ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
-		//ownedFeatureConnection+=FeatureConnection)+ | noConnections?="none" ";"))? ("flows"
-		//((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes"
-		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none"
+		//";"))? ("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent |
+		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent |
+		//ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)+ | noSubcomponents?="none" ";"))? ("internal"
+		//"features" (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)+)? ("processor" "features"
+		//(ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)+)? ("connections"
+		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
+		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation |
+		//ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode |
+		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";"
 		public Group getGroup() { return cGroup; }
@@ -11122,14 +11180,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
 		//(ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))? ("subcomponents"
 		//((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
-		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | noSubcomponents?="none"
-		//";"))? ("internal" "features" (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)+)? ("processor"
-		//"features" (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)+)? ("connections"
-		//((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
-		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
-		//noConnections?="none" ";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+
-		//| noFlows?="none" ";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
-		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ |
+		//noSubcomponents?="none" ";"))? ("internal" "features" (ownedEventSource+=EventSource |
+		//ownedEventDataSource+=EventDataSource)+)? ("processor" "features" (ownedPortProxy+=PortProxy |
+		//ownedSubprogramProxy+=SubprogramProxy)+)? ("connections" ((ownedPortConnection+=PortConnection |
+		//ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
+		//ownedFeatureConnection+=FeatureConnection)+ | noConnections?="none" ";"))? ("flows"
+		//((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none" ";"))? ("modes"
+		//((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";"
 		public Group getGroup() { return cGroup; }
 
@@ -11215,16 +11274,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
 		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
-		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | noSubcomponents?="none"
-		//";"))?
+		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ |
+		//noSubcomponents?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
 		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
-		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | noSubcomponents?="none"
-		//";"
+		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ |
+		//noSubcomponents?="none" ";"
 		public Alternatives getAlternatives_8_1() { return cAlternatives_8_1; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
@@ -12644,8 +12703,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//{aadl2::DataImplementation} "data" "implementation" ownedRealization=Realization "." name=INAME
 		//ownedExtension=ImplementationExtension? ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
-		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none"
+		//";"))? ("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
 		//ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | noSubcomponents?="none" ";"))? ("internal" "features"
 		//(ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)+)? ("connections"
 		//((ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
@@ -13126,19 +13185,25 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SubprogramCall returns aadl2::SubprogramCall:
 		//	{aadl2::SubprogramCall} name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "."
-		//	calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+		//	calledSubprogram=[aadl2::CalledSubprogram]
+		//	// direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+		//
 		//	// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
+		//
 		//	//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-		//	| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{"
-		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
+		// | "processor" "." calledSubprogram=[aadl2::SubprogramProxy] |
+		//	calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//{aadl2::SubprogramCall} name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "."
-		//calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+		//calledSubprogram=[aadl2::CalledSubprogram]
+		//// direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+		//
 		//// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
+		//
 		////calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-		//| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{"
-		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
+		// | "processor" "." calledSubprogram=[aadl2::SubprogramProxy] |
+		//calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::SubprogramCall}
@@ -13156,10 +13221,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"subprogram"
 		public Keyword getSubprogramKeyword_3() { return cSubprogramKeyword_3; }
 
-		//context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+		//context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram]
+		//// direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+		//
 		//// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
+		//
 		////calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-		//| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]
+		// | "processor" "." calledSubprogram=[aadl2::SubprogramProxy] |
+		//calledSubprogram=[aadl2::CalledSubprogram|PNAME]
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
 		//context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram]
@@ -13269,7 +13338,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//// ******* Prototypes
-		//Prototype returns aadl2::Prototype:
+		// Prototype returns aadl2::Prototype:
 		//	((AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
 		//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
 		//	VirtualProcessorPrototype | SystemPrototype | DataPrototype)
@@ -13279,21 +13348,22 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//((AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
 		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//VirtualProcessorPrototype | SystemPrototype | DataPrototype) constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
-		//(array?="[" "]")? | FeatureGroupPrototype | FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-		//";"
+		//VirtualProcessorPrototype | SystemPrototype | DataPrototype)
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype |
+		//FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//(AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
 		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//VirtualProcessorPrototype | SystemPrototype | DataPrototype) constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
-		//(array?="[" "]")? | FeatureGroupPrototype | FeaturePrototype
+		//VirtualProcessorPrototype | SystemPrototype | DataPrototype)
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype |
+		//FeaturePrototype
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//(AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
 		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//VirtualProcessorPrototype | SystemPrototype | DataPrototype) constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
-		//(array?="[" "]")?
+		//VirtualProcessorPrototype | SystemPrototype | DataPrototype)
+		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
 		public Group getGroup_0_0() { return cGroup_0_0; }
 
 		//AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
@@ -14406,12 +14476,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
 		
 		//FeaturePrototype returns aadl2::FeaturePrototype:
-		//	(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? // only in or out not inout
-		//	"feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?;
+		//	(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection?
+		//	// only in or out not inout
+		// "feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?;
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? // only in or out not inout
-		//"feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+		//(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection?
+		//// only in or out not inout
+		// "feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to"
@@ -16251,8 +16323,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ":" "refined" "to") "subprogram"
-		//(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding
+		//("," ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
 		//implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
@@ -18622,7 +18694,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//// ******** Features
-		//DataPort returns aadl2::DataPort:
+		// DataPort returns aadl2::DataPort:
 		//	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
 		//	"data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
@@ -18881,7 +18953,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//EventPort returns aadl2::EventPort:
 		//	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
-		//	"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+		//	"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//	";";
 		public ParserRule getRule() { return rule; }
 
 		//{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
@@ -19002,19 +19075,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//FeatureGroup returns aadl2::FeatureGroup:
 		//	(name=ID ":" // default is inout if no direction
-		//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
-		//	((inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF])? arrayDimension+=ArrayDimension? ("{"
-		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+		// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to")
+		//	direction=InOutDirection? "feature" "group" ((inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF])?
+		//	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" // default is inout if no direction
-		//| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
-		//((inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF])? arrayDimension+=ArrayDimension? ("{"
-		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+		// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to")
+		//direction=InOutDirection? "feature" "group" ((inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF])?
+		//arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID ":" // default is inout if no direction
-		//| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to"
+		// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to"
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name=ID ":"
@@ -19263,7 +19336,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//// AccessCategory not set (is encoded in type)
-		//SubprogramAccess returns aadl2::SubprogramAccess:
+		// SubprogramAccess returns aadl2::SubprogramAccess:
 		//	(name=ID ":" | refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to") kind=AccessDirection "subprogram"
 		//	"access" subprogramFeatureClassifier=[aadl2::SubprogramSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
@@ -19764,19 +19837,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AbstractFeature returns aadl2::AbstractFeature:
 		//	(name=ID ":" // default is inout if no direction
-		//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-		//	featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension? ("{"
-		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+		// | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to")
+		//	direction=InOutDirection? "feature" featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension?
+		//	("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" // default is inout if no direction
-		//| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-		//featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension? ("{"
-		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+		// | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to")
+		//direction=InOutDirection? "feature" featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID ":" // default is inout if no direction
-		//| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to"
+		// | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to"
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name=ID ":"
@@ -20033,6 +20106,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	"feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//	ownedPrototype+=Prototype+))? ("features" // no none for FGT in standard 2.1 (noFeatures?='none' ';') |
+		//
 		//	(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 		//	ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 		//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
@@ -20044,6 +20118,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
 		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 		//ownedPrototype+=Prototype+))? ("features" // no none for FGT in standard 2.1 (noFeatures?='none' ';') |
+		//
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 		//ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
@@ -20129,10 +20204,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_4_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_4_1_1_0; }
 
 		//("features" // no none for FGT in standard 2.1 (noFeatures?='none' ';') |
-		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
-		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
-		//ownedAbstractFeature+=AbstractFeature)+)?
+		// (ownedDataPort+=DataPort |
+		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
+		//ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+)?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"features"
@@ -20286,7 +20361,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//// ********* internal features
-		//InternalFeature returns aadl2::InternalFeature:
+		// InternalFeature returns aadl2::InternalFeature:
 		//	(EventSource | EventDataSource) ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
 		//	("properties" ownedPropertyAssociation+=ContainedPropertyAssociation+)? ";";
 		public ParserRule getRule() { return rule; }
@@ -20593,7 +20668,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConnectionEndConnectionEndIDTerminalRuleCall_1_0_1 = (RuleCall)cConnectionEndConnectionEndCrossReference_1_0.eContents().get(1);
 		
 		//// ********* connections 
-		//ConnectedElement returns aadl2::ConnectedElement:
+		// ConnectedElement returns aadl2::ConnectedElement:
 		//	(context=[aadl2::Context] ".")? connectionEnd=[aadl2::ConnectionEnd];
 		public ParserRule getRule() { return rule; }
 
@@ -22182,8 +22257,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//FlowImplementation returns aadl2::FlowImplementation:
-		//	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
-		//	"(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
+		//	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
+		//	"modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
@@ -22355,21 +22430,21 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//FlowSinkImpl returns aadl2::FlowImplementation:
 		//	specification= //name=ID 
-		//	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink FLOWIN ("->" ownedFlowSegment+=ConnectionFlow "->"
-		//	ownedFlowSegment+=SubcomponentFlow)*;
+		// [aadl2::FlowSpecification] ":" "flow" kind=FlowSink FLOWIN ("->"
+		//	ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*;
 		public ParserRule getRule() { return rule; }
 
 		//specification= //name=ID 
-		//[aadl2::FlowSpecification] ":" "flow" kind=FlowSink FLOWIN ("->" ownedFlowSegment+=ConnectionFlow "->"
-		//ownedFlowSegment+=SubcomponentFlow)*
+		// [aadl2::FlowSpecification] ":" "flow" kind=FlowSink FLOWIN ("->"
+		//ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*
 		public Group getGroup() { return cGroup; }
 
 		//specification= //name=ID 
-		//[aadl2::FlowSpecification]
+		// [aadl2::FlowSpecification]
 		public Assignment getSpecificationAssignment_0() { return cSpecificationAssignment_0; }
 
 		////name=ID 
-		//[aadl2::FlowSpecification]
+		// [aadl2::FlowSpecification]
 		public CrossReference getSpecificationFlowSpecificationCrossReference_0_0() { return cSpecificationFlowSpecificationCrossReference_0_0; }
 
 		//ID
@@ -22439,21 +22514,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//FlowPathImpl returns aadl2::FlowImplementation:
 		//	specification= //name=ID 
-		//	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath FLOWIN (("->" ownedFlowSegment+=ConnectionFlow "->"
-		//	ownedFlowSegment+=SubcomponentFlow)* "->" ownedFlowSegment+=ConnectionFlow)? "->" FLOWOUT;
+		// [aadl2::FlowSpecification] ":" "flow" kind=FlowPath FLOWIN (("->"
+		//	ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->" ownedFlowSegment+=ConnectionFlow)?
+		//	"->" FLOWOUT;
 		public ParserRule getRule() { return rule; }
 
 		//specification= //name=ID 
-		//[aadl2::FlowSpecification] ":" "flow" kind=FlowPath FLOWIN (("->" ownedFlowSegment+=ConnectionFlow "->"
-		//ownedFlowSegment+=SubcomponentFlow)* "->" ownedFlowSegment+=ConnectionFlow)? "->" FLOWOUT
+		// [aadl2::FlowSpecification] ":" "flow" kind=FlowPath FLOWIN (("->"
+		//ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->" ownedFlowSegment+=ConnectionFlow)?
+		//"->" FLOWOUT
 		public Group getGroup() { return cGroup; }
 
 		//specification= //name=ID 
-		//[aadl2::FlowSpecification]
+		// [aadl2::FlowSpecification]
 		public Assignment getSpecificationAssignment_0() { return cSpecificationAssignment_0; }
 
 		////name=ID 
-		//[aadl2::FlowSpecification]
+		// [aadl2::FlowSpecification]
 		public CrossReference getSpecificationFlowSpecificationCrossReference_0_0() { return cSpecificationFlowSpecificationCrossReference_0_0; }
 
 		//ID
@@ -22743,7 +22820,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFlowElementFlowElementIDTerminalRuleCall_1_0_1 = (RuleCall)cFlowElementFlowElementCrossReference_1_0.eContents().get(1);
 		
 		//// refinement should have at elast one of property or in modes. We perform a validation check    
-		//SubcomponentFlow returns aadl2::FlowSegment:
+		// SubcomponentFlow
+		//returns aadl2::FlowSegment:
 		//	(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::FlowElement];
 		public ParserRule getRule() { return rule; }
 
@@ -22876,67 +22954,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//// Modes 
-		//Mode returns aadl2::Mode:
-		//	name=ID ":" initial?="initial"? "mode" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
-		public ParserRule getRule() { return rule; }
-
-		//name=ID ":" initial?="initial"? "mode" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
-		public Group getGroup() { return cGroup; }
-
-		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
-
-		//":"
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
-
-		//initial?="initial"?
-		public Assignment getInitialAssignment_2() { return cInitialAssignment_2; }
-
-		//"initial"
-		public Keyword getInitialInitialKeyword_2_0() { return cInitialInitialKeyword_2_0; }
-
-		//"mode"
-		public Keyword getModeKeyword_3() { return cModeKeyword_3; }
-
-		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
-
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_4_1() { return cOwnedPropertyAssociationAssignment_4_1; }
-
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
-
-		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
-	}
-
-	public class RequiresModeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RequiresMode");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cInitialAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Keyword cInitialInitialKeyword_2_0 = (Keyword)cInitialAssignment_2.eContents().get(0);
-		private final Keyword cModeKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		
-		//RequiresMode returns aadl2::Mode:
+		// Mode returns aadl2::Mode:
 		//	name=ID ":" initial?="initial"? "mode" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
@@ -23201,7 +23219,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDerivedModeModeIDTerminalRuleCall_1_1_0_1 = (RuleCall)cDerivedModeModeCrossReference_1_1_0.eContents().get(1);
 		
 		//// used where component_in_modes is shown in standard grammar
-		//ModeRef returns aadl2::ModeBinding:
+		// ModeRef returns aadl2::ModeBinding:
 		//	parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?;
 		public ParserRule getRule() { return rule; }
 
@@ -23318,7 +23336,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
-		//	"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
+		//	"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
+		//	";";
 		public ParserRule getRule() { return rule; }
 
 		//"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";"
@@ -23418,11 +23437,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//// **************
-		//// Properties
-		//PropertySet returns aadl2::PropertySet:
+		// // Properties
+		// PropertySet returns aadl2::PropertySet:
 		//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
-		//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
-		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
+		//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition |
+		//	ownedPropertyConstant+=PropertyConstant)* ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
 		//"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
@@ -24868,11 +24887,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//RecordField returns aadl2::BasicProperty:
 		//	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//	| ownedPropertyType=UnnamedPropertyType) ";";
+		// |
+		//	ownedPropertyType=UnnamedPropertyType) ";";
 		public ParserRule getRule() { return rule; }
 
 		//name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//| ownedPropertyType=UnnamedPropertyType) ";"
+		// |
+		//ownedPropertyType=UnnamedPropertyType) ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -24885,7 +24906,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
 		//propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//| ownedPropertyType=UnnamedPropertyType
+		// |
+		//ownedPropertyType=UnnamedPropertyType
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//propertyType=[aadl2::PropertyType|QPREF]
@@ -24942,15 +24964,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		////&&&&& Property Definition
-		//PropertyDefinition returns aadl2::Property:
-		//	name=ID ":" inherit?="inherit"? (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//	| ownedPropertyType=UnnamedPropertyType) ("=>" defaultValue=PropertyExpression)? "applies" "to" "("
-		//	(appliesTo+=PropertyOwner ("," appliesTo+=PropertyOwner)* | appliesTo+=AllReference) ")" ";";
+		// PropertyDefinition returns aadl2::Property:
+		//	name=ID ":" inherit?="inherit"? (propertyType=[aadl2::PropertyType|QPREF]
+		//	//	('list' 'of')* is handled as part of UnnamedPropertytype
+		// | ownedPropertyType=UnnamedPropertyType) ("=>"
+		//	defaultValue=PropertyExpression)? "applies" "to" "(" (appliesTo+=PropertyOwner ("," appliesTo+=PropertyOwner)* |
+		//	appliesTo+=AllReference) ")" ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" inherit?="inherit"? (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//| ownedPropertyType=UnnamedPropertyType) ("=>" defaultValue=PropertyExpression)? "applies" "to" "("
-		//(appliesTo+=PropertyOwner ("," appliesTo+=PropertyOwner)* | appliesTo+=AllReference) ")" ";"
+		//name=ID ":" inherit?="inherit"? (propertyType=[aadl2::PropertyType|QPREF]
+		////	('list' 'of')* is handled as part of UnnamedPropertytype
+		// | ownedPropertyType=UnnamedPropertyType) ("=>"
+		//defaultValue=PropertyExpression)? "applies" "to" "(" (appliesTo+=PropertyOwner ("," appliesTo+=PropertyOwner)* |
+		//appliesTo+=AllReference) ")" ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -24969,7 +24995,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getInheritInheritKeyword_2_0() { return cInheritInheritKeyword_2_0; }
 
 		//propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//| ownedPropertyType=UnnamedPropertyType
+		// |
+		//ownedPropertyType=UnnamedPropertyType
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
 		//propertyType=[aadl2::PropertyType|QPREF]
@@ -25052,15 +25079,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AllReference returns aadl2::MetaclassReference:
 		//	metaclassName+= // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
-		//	"all";
+		// "all";
 		public ParserRule getRule() { return rule; }
 
 		//metaclassName+= // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
-		//"all"
+		// "all"
 		public Assignment getMetaclassNameAssignment() { return cMetaclassNameAssignment; }
 
 		//// &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
-		//"all"
+		// "all"
 		public Keyword getMetaclassNameAllKeyword_0() { return cMetaclassNameAllKeyword_0; }
 	}
 
@@ -25115,15 +25142,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cQCReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//PropertyOwner returns aadl2::PropertyOwner: // classifier value is always qualified by a package name
-		//	QMReference | QCReference;
+		// QMReference |
+		//	QCReference;
 		public ParserRule getRule() { return rule; }
 
 		//// classifier value is always qualified by a package name
-		//QMReference | QCReference
+		// QMReference | QCReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//// classifier value is always qualified by a package name
-		//QMReference
+		// QMReference
 		public RuleCall getQMReferenceParserRuleCall_0() { return cQMReferenceParserRuleCall_0; }
 
 		//QCReference
@@ -25149,12 +25177,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//PropertyConstant returns aadl2::PropertyConstant:
-		//	name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//	| ownedPropertyType=UnnamedPropertyType) "=>" constantValue=ConstantPropertyExpression ";";
+		//	name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF]
+		//	//	('list' 'of')* is handled as part of UnnamedPropertytype
+		// | ownedPropertyType=UnnamedPropertyType) "=>"
+		//	constantValue=ConstantPropertyExpression ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//| ownedPropertyType=UnnamedPropertyType) "=>" constantValue=ConstantPropertyExpression ";"
+		//name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF]
+		////	('list' 'of')* is handled as part of UnnamedPropertytype
+		// | ownedPropertyType=UnnamedPropertyType) "=>"
+		//constantValue=ConstantPropertyExpression ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -25170,7 +25202,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getConstantKeyword_2() { return cConstantKeyword_2; }
 
 		//propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-		//| ownedPropertyType=UnnamedPropertyType
+		// |
+		//ownedPropertyType=UnnamedPropertyType
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
 		//propertyType=[aadl2::PropertyType|QPREF]
@@ -25268,17 +25301,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cLiteralorReferenceTermParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
 		
 		//ConstantPropertyExpression returns aadl2::PropertyExpression: //	OldRecordTerm | 
-		//	RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm
-		//	| BooleanLiteral | LiteralorReferenceTerm;
+		// RecordTerm | ComponentClassifierTerm
+		//	| ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral |
+		//	LiteralorReferenceTerm;
 		public ParserRule getRule() { return rule; }
 
 		////	OldRecordTerm | 
-		//RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm
-		//| BooleanLiteral | LiteralorReferenceTerm
+		// RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+		//IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		////	OldRecordTerm | 
-		//RecordTerm
+		// RecordTerm
 		public RuleCall getRecordTermParserRuleCall_0() { return cRecordTermParserRuleCall_0; }
 
 		//ComponentClassifierTerm
@@ -25485,6 +25519,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cWithKeyword_57 = (Keyword)cAlternatives.eContents().get(57);
 		
 		////// properties grammar	|'properties'|'property'|'delta'|'false'|'not'| 'and'|'or'|'range'|'record'|'reference'|'true'|'units'
+		//
 		//CoreKeyWord:
 		//	"abstract" | "access" | "annex" | "applies" | "bus" | "calls" | "classifier" | "connections" | "constant" | "data" |
 		//	"device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" | "group" |
@@ -25686,7 +25721,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//// package anme
-		//PNAME:
+		// PNAME:
 		//	ID ("::" ID)*;
 		public ParserRule getRule() { return rule; }
 
@@ -25774,7 +25809,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
 		//// fully qualified classifier name (always includes package name
-		//FQCREF:
+		// FQCREF:
 		//	(ID "::")+ ID ("." ID)?;
 		public ParserRule getRule() { return rule; }
 
@@ -25808,7 +25843,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//// implementation name (used by value converter)
-		//INAME:
+		// INAME:
 		//	ID;
 		public ParserRule getRule() { return rule; }
 
@@ -25824,7 +25859,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//// implementation name (used by value converter)
-		//FULLINAME:
+		// FULLINAME:
 		//	ID "." ID;
 		public ParserRule getRule() { return rule; }
 
@@ -25846,7 +25881,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//// name of refined entity. Used to set name field by value converter	
-		//REFINEDNAME:
+		// REFINEDNAME:
 		//	ID;
 		public ParserRule getRule() { return rule; }
 
@@ -25866,7 +25901,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSinkSinkKeyword_2_0 = (Keyword)cSinkEnumLiteralDeclaration_2.eContents().get(0);
 		
 		//// ******** Flows 
-		//enum FlowKind returns aadl2::FlowKind:
+		// enum FlowKind returns aadl2::FlowKind:
 		//	source | path | sink;
 		public EnumRule getRule() { return rule; }
 
@@ -26035,7 +26070,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private ETESubcomponentFlowElements pETESubcomponentFlow;
 	private ETEConnectionFlowElements pETEConnectionFlow;
 	private ModeElements pMode;
-	private RequiresModeElements pRequiresMode;
 	private ModeTransitionElements pModeTransition;
 	private TriggerElements pTrigger;
 	private ModeRefElements pModeRef;
@@ -26142,10 +26176,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////ID ('::' ID)* ';';
-	//AadlPackage returns aadl2::AadlPackage:
+	// AadlPackage returns aadl2::AadlPackage:
 	//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-	//	ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-	//	| "none" ";"))? "end" PNAME ";";
+	//	ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+
+	//	//| (noProperties?='none' ';')
+	// | "none" ";"))? "end" PNAME ";";
 	public AadlPackageElements getAadlPackageAccess() {
 		return (pAadlPackage != null) ? pAadlPackage : (pAadlPackage = new AadlPackageElements());
 	}
@@ -26290,7 +26325,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
 	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
-	//	ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public AbstractTypeElements getAbstractTypeAccess() {
@@ -26308,9 +26343,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 	//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 	//	ownedAbstractFeature+=AbstractFeature)+ | noFeatures?="none" ";"))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public SystemTypeElements getSystemTypeAccess() {
 		return (pSystemType != null) ? pSystemType : (pSystemType = new SystemTypeElements());
@@ -26327,9 +26362,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ProcessTypeElements getProcessTypeAccess() {
 		return (pProcessType != null) ? pProcessType : (pProcessType = new ProcessTypeElements());
@@ -26346,9 +26381,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ThreadGroupTypeElements getThreadGroupTypeAccess() {
 		return (pThreadGroupType != null) ? pThreadGroupType : (pThreadGroupType = new ThreadGroupTypeElements());
@@ -26365,9 +26400,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ThreadTypeElements getThreadTypeAccess() {
 		return (pThreadType != null) ? pThreadType : (pThreadType = new ThreadTypeElements());
@@ -26384,9 +26419,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public SubprogramTypeElements getSubprogramTypeAccess() {
 		return (pSubprogramType != null) ? pSubprogramType : (pSubprogramType = new SubprogramTypeElements());
@@ -26419,9 +26454,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ProcessorTypeElements getProcessorTypeAccess() {
 		return (pProcessorType != null) ? pProcessorType : (pProcessorType = new ProcessorTypeElements());
@@ -26438,9 +26473,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public DeviceTypeElements getDeviceTypeAccess() {
 		return (pDeviceType != null) ? pDeviceType : (pDeviceType = new DeviceTypeElements());
@@ -26455,8 +26490,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 	//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-	//	ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-	//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+	//	ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+	//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public MemoryTypeElements getMemoryTypeAccess() {
@@ -26472,8 +26507,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 	//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-	//	ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-	//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+	//	ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+	//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public BusTypeElements getBusTypeAccess() {
@@ -26489,8 +26524,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 	//	ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-	//	ownedAbstractFeature+=AbstractFeature)+))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
-	//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+	//	ownedAbstractFeature+=AbstractFeature)+))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes"
+	//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public VirtualBusTypeElements getVirtualBusTypeAccess() {
@@ -26508,7 +26543,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 	//	ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
-	//	";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
+	//	";"))? (derivedModes?="requires" "modes" ownedMode+=Mode+ | "modes" ((ownedMode+=Mode |
 	//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
@@ -26526,9 +26561,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 	//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
-	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
-	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? (derivedModes?="requires" "modes"
+	//	ownedMode+=Mode+ | "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public DataTypeElements getDataTypeAccess() {
 		return (pDataType != null) ? pDataType : (pDataType = new DataTypeElements());
@@ -26539,7 +26574,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Component Implementations: 
-	//ComponentImplementation returns aadl2::ComponentImplementation:
+	// ComponentImplementation returns aadl2::ComponentImplementation:
 	//	AbstractImplementation | SystemImplementation | ProcessorImplementation | ProcessImplementation |
 	//	ThreadGroupImplementation | ThreadImplementation | DeviceImplementation | BusImplementation |
 	//	VirtualProcessorImplementation | VirtualBusImplementation | MemoryImplementation | SubprogramImplementation |
@@ -26691,8 +26726,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SubprogramImplementation returns aadl2::SubprogramImplementation:
-	//	"subprogram" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
-	//	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
+	//	"subprogram" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension?
+	//	("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
 	//	(ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))? ("subcomponents"
 	//	((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent |
 	//	ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?="none" ";"))? ("internal" "features"
@@ -26894,11 +26929,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//SubprogramCall returns aadl2::SubprogramCall:
 	//	{aadl2::SubprogramCall} name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "."
-	//	calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+	//	calledSubprogram=[aadl2::CalledSubprogram]
+	//	// direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+	//
 	//	// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
+	//
 	//	//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-	//	| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{"
-	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
+	// | "processor" "." calledSubprogram=[aadl2::SubprogramProxy] |
+	//	calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public SubprogramCallElements getSubprogramCallAccess() {
 		return (pSubprogramCall != null) ? pSubprogramCall : (pSubprogramCall = new SubprogramCallElements());
 	}
@@ -26908,7 +26946,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// ******* Prototypes
-	//Prototype returns aadl2::Prototype:
+	// Prototype returns aadl2::Prototype:
 	//	((AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
 	//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
 	//	VirtualProcessorPrototype | SystemPrototype | DataPrototype)
@@ -27074,8 +27112,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FeaturePrototype returns aadl2::FeaturePrototype:
-	//	(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? // only in or out not inout
-	//	"feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?;
+	//	(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") direction=InOutDirection?
+	//	// only in or out not inout
+	// "feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?;
 	public FeaturePrototypeElements getFeaturePrototypeAccess() {
 		return (pFeaturePrototype != null) ? pFeaturePrototype : (pFeaturePrototype = new FeaturePrototypeElements());
 	}
@@ -27436,7 +27475,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// ******** Features
-	//DataPort returns aadl2::DataPort:
+	// DataPort returns aadl2::DataPort:
 	//	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
 	//	"data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
@@ -27462,7 +27501,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//EventPort returns aadl2::EventPort:
 	//	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") direction=PortDirection
-	//	"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+	//	"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+	//	";";
 	public EventPortElements getEventPortAccess() {
 		return (pEventPort != null) ? pEventPort : (pEventPort = new EventPortElements());
 	}
@@ -27473,9 +27513,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FeatureGroup returns aadl2::FeatureGroup:
 	//	(name=ID ":" // default is inout if no direction
-	//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
-	//	((inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF])? arrayDimension+=ArrayDimension? ("{"
-	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+	// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to")
+	//	direction=InOutDirection? "feature" "group" ((inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF])?
+	//	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public FeatureGroupElements getFeatureGroupAccess() {
 		return (pFeatureGroup != null) ? pFeatureGroup : (pFeatureGroup = new FeatureGroupElements());
 	}
@@ -27497,7 +27537,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// AccessCategory not set (is encoded in type)
-	//SubprogramAccess returns aadl2::SubprogramAccess:
+	// SubprogramAccess returns aadl2::SubprogramAccess:
 	//	(name=ID ":" | refined=[aadl2::SubprogramAccess|REFINEDNAME] ":" "refined" "to") kind=AccessDirection "subprogram"
 	//	"access" subprogramFeatureClassifier=[aadl2::SubprogramSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
@@ -27547,9 +27587,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//AbstractFeature returns aadl2::AbstractFeature:
 	//	(name=ID ":" // default is inout if no direction
-	//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature"
-	//	featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension? ("{"
-	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+	// | refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to")
+	//	direction=InOutDirection? "feature" featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension?
+	//	("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public AbstractFeatureElements getAbstractFeatureAccess() {
 		return (pAbstractFeature != null) ? pAbstractFeature : (pAbstractFeature = new AbstractFeatureElements());
 	}
@@ -27602,6 +27642,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	"feature" "group" name=ID (ownedExtension=GroupExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
 	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
 	//	ownedPrototype+=Prototype+))? ("features" // no none for FGT in standard 2.1 (noFeatures?='none' ';') |
+	//
 	//	(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 	//	ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 	//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
@@ -27617,7 +27658,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// ********* internal features
-	//InternalFeature returns aadl2::InternalFeature:
+	// InternalFeature returns aadl2::InternalFeature:
 	//	(EventSource | EventDataSource) ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
 	//	("properties" ownedPropertyAssociation+=ContainedPropertyAssociation+)? ";";
 	public InternalFeatureElements getInternalFeatureAccess() {
@@ -27680,7 +27721,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// ********* connections 
-	//ConnectedElement returns aadl2::ConnectedElement:
+	// ConnectedElement returns aadl2::ConnectedElement:
 	//	(context=[aadl2::Context] ".")? connectionEnd=[aadl2::ConnectionEnd];
 	public ConnectedElementElements getConnectedElementAccess() {
 		return (pConnectedElement != null) ? pConnectedElement : (pConnectedElement = new ConnectedElementElements());
@@ -27826,7 +27867,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// ******** Flows 
-	//enum FlowKind returns aadl2::FlowKind:
+	// enum FlowKind returns aadl2::FlowKind:
 	//	source | path | sink;
 	public FlowKindElements getFlowKindAccess() {
 		return (unknownRuleFlowKind != null) ? unknownRuleFlowKind : (unknownRuleFlowKind = new FlowKindElements());
@@ -27929,8 +27970,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FlowImplementation returns aadl2::FlowImplementation:
-	//	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
-	//	"(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
+	//	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
+	//	"modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
 	public FlowImplementationElements getFlowImplementationAccess() {
 		return (pFlowImplementation != null) ? pFlowImplementation : (pFlowImplementation = new FlowImplementationElements());
 	}
@@ -27952,8 +27993,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FlowSinkImpl returns aadl2::FlowImplementation:
 	//	specification= //name=ID 
-	//	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink FLOWIN ("->" ownedFlowSegment+=ConnectionFlow "->"
-	//	ownedFlowSegment+=SubcomponentFlow)*;
+	// [aadl2::FlowSpecification] ":" "flow" kind=FlowSink FLOWIN ("->"
+	//	ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*;
 	public FlowSinkImplElements getFlowSinkImplAccess() {
 		return (pFlowSinkImpl != null) ? pFlowSinkImpl : (pFlowSinkImpl = new FlowSinkImplElements());
 	}
@@ -27964,8 +28005,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FlowPathImpl returns aadl2::FlowImplementation:
 	//	specification= //name=ID 
-	//	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath FLOWIN (("->" ownedFlowSegment+=ConnectionFlow "->"
-	//	ownedFlowSegment+=SubcomponentFlow)* "->" ownedFlowSegment+=ConnectionFlow)? "->" FLOWOUT;
+	// [aadl2::FlowSpecification] ":" "flow" kind=FlowPath FLOWIN (("->"
+	//	ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->" ownedFlowSegment+=ConnectionFlow)?
+	//	"->" FLOWOUT;
 	public FlowPathImplElements getFlowPathImplAccess() {
 		return (pFlowPathImpl != null) ? pFlowPathImpl : (pFlowPathImpl = new FlowPathImplElements());
 	}
@@ -27989,7 +28031,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// refinement should have at elast one of property or in modes. We perform a validation check    
-	//SubcomponentFlow returns aadl2::FlowSegment:
+	// SubcomponentFlow
+	//returns aadl2::FlowSegment:
 	//	(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::FlowElement];
 	public SubcomponentFlowElements getSubcomponentFlowAccess() {
 		return (pSubcomponentFlow != null) ? pSubcomponentFlow : (pSubcomponentFlow = new SubcomponentFlowElements());
@@ -28030,7 +28073,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Modes 
-	//Mode returns aadl2::Mode:
+	// Mode returns aadl2::Mode:
 	//	name=ID ":" initial?="initial"? "mode" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public ModeElements getModeAccess() {
 		return (pMode != null) ? pMode : (pMode = new ModeElements());
@@ -28038,16 +28081,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getModeRule() {
 		return getModeAccess().getRule();
-	}
-
-	//RequiresMode returns aadl2::Mode:
-	//	name=ID ":" initial?="initial"? "mode" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
-	public RequiresModeElements getRequiresModeAccess() {
-		return (pRequiresMode != null) ? pRequiresMode : (pRequiresMode = new RequiresModeElements());
-	}
-	
-	public ParserRule getRequiresModeRule() {
-		return getRequiresModeAccess().getRule();
 	}
 
 	//ModeTransition returns aadl2::ModeTransition:
@@ -28073,7 +28106,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// used where component_in_modes is shown in standard grammar
-	//ModeRef returns aadl2::ModeBinding:
+	// ModeRef returns aadl2::ModeBinding:
 	//	parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?;
 	public ModeRefElements getModeRefAccess() {
 		return (pModeRef != null) ? pModeRef : (pModeRef = new ModeRefElements());
@@ -28114,7 +28147,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
-	//	"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
+	//	"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
+	//	";";
 	public DefaultAnnexSubclauseElements getDefaultAnnexSubclauseAccess() {
 		return (pDefaultAnnexSubclause != null) ? pDefaultAnnexSubclause : (pDefaultAnnexSubclause = new DefaultAnnexSubclauseElements());
 	}
@@ -28124,11 +28158,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// **************
-	//// Properties
-	//PropertySet returns aadl2::PropertySet:
+	// // Properties
+	// PropertySet returns aadl2::PropertySet:
 	//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
-	//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
-	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
+	//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition |
+	//	ownedPropertyConstant+=PropertyConstant)* ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public PropertySetElements getPropertySetAccess() {
 		return (pPropertySet != null) ? pPropertySet : (pPropertySet = new PropertySetElements());
 	}
@@ -28420,7 +28454,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//RecordField returns aadl2::BasicProperty:
 	//	name=ID ":" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-	//	| ownedPropertyType=UnnamedPropertyType) ";";
+	// |
+	//	ownedPropertyType=UnnamedPropertyType) ";";
 	public RecordFieldElements getRecordFieldAccess() {
 		return (pRecordField != null) ? pRecordField : (pRecordField = new RecordFieldElements());
 	}
@@ -28430,10 +28465,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////&&&&& Property Definition
-	//PropertyDefinition returns aadl2::Property:
-	//	name=ID ":" inherit?="inherit"? (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-	//	| ownedPropertyType=UnnamedPropertyType) ("=>" defaultValue=PropertyExpression)? "applies" "to" "("
-	//	(appliesTo+=PropertyOwner ("," appliesTo+=PropertyOwner)* | appliesTo+=AllReference) ")" ";";
+	// PropertyDefinition returns aadl2::Property:
+	//	name=ID ":" inherit?="inherit"? (propertyType=[aadl2::PropertyType|QPREF]
+	//	//	('list' 'of')* is handled as part of UnnamedPropertytype
+	// | ownedPropertyType=UnnamedPropertyType) ("=>"
+	//	defaultValue=PropertyExpression)? "applies" "to" "(" (appliesTo+=PropertyOwner ("," appliesTo+=PropertyOwner)* |
+	//	appliesTo+=AllReference) ")" ";";
 	public PropertyDefinitionElements getPropertyDefinitionAccess() {
 		return (pPropertyDefinition != null) ? pPropertyDefinition : (pPropertyDefinition = new PropertyDefinitionElements());
 	}
@@ -28444,7 +28481,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//AllReference returns aadl2::MetaclassReference:
 	//	metaclassName+= // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
-	//	"all";
+	// "all";
 	public AllReferenceElements getAllReferenceAccess() {
 		return (pAllReference != null) ? pAllReference : (pAllReference = new AllReferenceElements());
 	}
@@ -28464,7 +28501,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyOwner returns aadl2::PropertyOwner: // classifier value is always qualified by a package name
-	//	QMReference | QCReference;
+	// QMReference |
+	//	QCReference;
 	public PropertyOwnerElements getPropertyOwnerAccess() {
 		return (pPropertyOwner != null) ? pPropertyOwner : (pPropertyOwner = new PropertyOwnerElements());
 	}
@@ -28474,8 +28512,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyConstant returns aadl2::PropertyConstant:
-	//	name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
-	//	| ownedPropertyType=UnnamedPropertyType) "=>" constantValue=ConstantPropertyExpression ";";
+	//	name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF]
+	//	//	('list' 'of')* is handled as part of UnnamedPropertytype
+	// | ownedPropertyType=UnnamedPropertyType) "=>"
+	//	constantValue=ConstantPropertyExpression ";";
 	public PropertyConstantElements getPropertyConstantAccess() {
 		return (pPropertyConstant != null) ? pPropertyConstant : (pPropertyConstant = new PropertyConstantElements());
 	}
@@ -28515,8 +28555,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantPropertyExpression returns aadl2::PropertyExpression: //	OldRecordTerm | 
-	//	RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm
-	//	| BooleanLiteral | LiteralorReferenceTerm;
+	// RecordTerm | ComponentClassifierTerm
+	//	| ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral |
+	//	LiteralorReferenceTerm;
 	public ConstantPropertyExpressionElements getConstantPropertyExpressionAccess() {
 		return (pConstantPropertyExpression != null) ? pConstantPropertyExpression : (pConstantPropertyExpression = new ConstantPropertyExpressionElements());
 	}
@@ -28547,6 +28588,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////// properties grammar	|'properties'|'property'|'delta'|'false'|'not'| 'and'|'or'|'range'|'record'|'reference'|'true'|'units'
+	//
 	//CoreKeyWord:
 	//	"abstract" | "access" | "annex" | "applies" | "bus" | "calls" | "classifier" | "connections" | "constant" | "data" |
 	//	"device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" | "group" |
@@ -28563,7 +28605,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// package anme
-	//PNAME:
+	// PNAME:
 	//	ID ("::" ID)*;
 	public PNAMEElements getPNAMEAccess() {
 		return (pPNAME != null) ? pPNAME : (pPNAME = new PNAMEElements());
@@ -28594,7 +28636,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// fully qualified classifier name (always includes package name
-	//FQCREF:
+	// FQCREF:
 	//	(ID "::")+ ID ("." ID)?;
 	public FQCREFElements getFQCREFAccess() {
 		return (pFQCREF != null) ? pFQCREF : (pFQCREF = new FQCREFElements());
@@ -28605,7 +28647,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// implementation name (used by value converter)
-	//INAME:
+	// INAME:
 	//	ID;
 	public INAMEElements getINAMEAccess() {
 		return (pINAME != null) ? pINAME : (pINAME = new INAMEElements());
@@ -28616,7 +28658,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// implementation name (used by value converter)
-	//FULLINAME:
+	// FULLINAME:
 	//	ID "." ID;
 	public FULLINAMEElements getFULLINAMEAccess() {
 		return (pFULLINAME != null) ? pFULLINAME : (pFULLINAME = new FULLINAMEElements());
@@ -28627,7 +28669,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// name of refined entity. Used to set name field by value converter	
-	//REFINEDNAME:
+	// REFINEDNAME:
 	//	ID;
 	public REFINEDNAMEElements getREFINEDNAMEAccess() {
 		return (pREFINEDNAME != null) ? pREFINEDNAME : (pREFINEDNAME = new REFINEDNAMEElements());
@@ -28644,7 +28686,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//PModel returns aadl2::Element: //| BasicPropertyAssociation | PropertyAssociation
-	//	ContainedPropertyAssociation;
+	// ContainedPropertyAssociation;
 	public PropertiesGrammarAccess.PModelElements getPModelAccess() {
 		return gaProperties.getPModelAccess();
 	}
@@ -28654,7 +28696,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Properties
-	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
+	// ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=OptionalModalPropertyValue
 	//	("," ownedValue+=OptionalModalPropertyValue)*) ("applies" "to" appliesTo+=ContainmentPath (","
 	//	appliesTo+=ContainmentPath)*)? ("in" "binding" "(" inBinding+=[aadl2::Classifier|QCREF] ")")? ";";
@@ -28688,7 +28730,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////	( 'annex' containmentPathElement+=AnnexPath )?
-	//ContainmentPath returns aadl2::ContainedNamedElement:
+	// ContainmentPath returns aadl2::ContainedNamedElement:
 	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
 	//	containmentPathElement+=ContainmentPathElement)*;
 	public PropertiesGrammarAccess.ContainmentPathElements getContainmentPathAccess() {
@@ -28700,7 +28742,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////AnnexPath returns aadl2::ContainmentPathElement:
-	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
+	// //	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
+	//
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
@@ -28713,6 +28756,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+	//
 	//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
 	public PropertiesGrammarAccess.OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
 		return gaProperties.getOptionalModalPropertyValueAccess();
@@ -28723,7 +28767,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// &&&&&&&&&& handling of in binding
-	//PropertyValue returns aadl2::ModalPropertyValue:
+	// PropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression;
 	public PropertiesGrammarAccess.PropertyValueElements getPropertyValueAccess() {
 		return gaProperties.getPropertyValueAccess();
@@ -28734,8 +28778,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyExpression returns aadl2::PropertyExpression: //	OldRecordTerm |
-	//	RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
-	//	IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
+	// RecordTerm | ReferenceTerm |
+	//	ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm |
+	//	BooleanLiteral | LiteralorReferenceTerm;
 	public PropertiesGrammarAccess.PropertyExpressionElements getPropertyExpressionAccess() {
 		return gaProperties.getPropertyExpressionAccess();
 	}
@@ -28776,11 +28821,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
 	//	"reference" "(" (containmentPathElement+=QualifiedContainmentPathElement ".")?
-	//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)* //	( 'annex' ID '{**' 
-	//	//	containmentPathElement+=ContainmentPathElement
+	//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
+	//	//	( 'annex' ID '{**' 
+	// //	containmentPathElement+=ContainmentPathElement
+	//
 	//	//	( '.' containmentPathElement+=ContainmentPathElement)*
-	//	//	'**}')?
-	//	")";
+	// //	'**}')?
+	// ")";
 	public PropertiesGrammarAccess.ReferenceTermElements getReferenceTermAccess() {
 		return gaProperties.getReferenceTermAccess();
 	}
@@ -28850,8 +28897,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// from AADL2
-	//// need to add annex path element
-	////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
+	// // need to add annex path element
+	// //	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
+	//
 	//ContainmentPathElement returns aadl2::ContainmentPathElement:
 	//	namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?;
 	public PropertiesGrammarAccess.ContainmentPathElementElements getContainmentPathElementAccess() {
@@ -28873,7 +28921,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ANNEXREF: // check what values are ok inside ** **
-	//	"{" STAR STAR ID STAR STAR "}";
+	// "{" STAR STAR ID STAR STAR "}";
 	public PropertiesGrammarAccess.ANNEXREFElements getANNEXREFAccess() {
 		return gaProperties.getANNEXREFAccess();
 	}
@@ -28903,7 +28951,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NoQuoteString: // remove quotes from string in ValueConverter
-	//	STRING;
+	// STRING;
 	public PropertiesGrammarAccess.NoQuoteStringElements getNoQuoteStringAccess() {
 		return gaProperties.getNoQuoteStringAccess();
 	}
@@ -28974,9 +29022,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//NumericRangeTerm returns aadl2::RangeValue:
 	//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-	//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	//	NumAlt)?;
+	// NumAlt ".." maximum=
+	//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	// NumAlt ("delta" delta=
+	//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	// NumAlt)?;
 	public PropertiesGrammarAccess.NumericRangeTermElements getNumericRangeTermAccess() {
 		return gaProperties.getNumericRangeTermAccess();
 	}
@@ -29002,7 +29052,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//INTVALUE returns aadl2::Integer: //NUMERAL 	
-	//	INTEGER_LIT;
+	// INTEGER_LIT;
 	public PropertiesGrammarAccess.INTVALUEElements getINTVALUEAccess() {
 		return gaProperties.getINTVALUEAccess();
 	}
@@ -29012,9 +29062,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////terminal NUMERAL:
-	////	(DIGIT)+('_' (DIGIT)+)*
-	////;
-	////terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
+	// //	(DIGIT)+('_' (DIGIT)+)*
+	// //;
+	// //terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
+	//
 	//terminal fragment EXPONENT:
 	//	("e" | "E") ("+" | "-")? DIGIT+;
 	public TerminalRule getEXPONENTRule() {
@@ -29105,7 +29156,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	////terminal ID  		: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
-	//terminal ID:
+	// terminal ID:
 	//	("a".."z" | "A".."Z") ("_"? ("a".."z" | "A".."Z" | "0".."9"))*;
 	public TerminalRule getIDRule() {
 		return gaProperties.getIDRule();

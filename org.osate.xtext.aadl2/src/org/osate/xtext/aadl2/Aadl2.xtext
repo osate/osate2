@@ -119,7 +119,7 @@ AbstractType returns aadl2::AbstractType:
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 	((derivedModes?='requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -150,8 +150,8 @@ SystemType returns aadl2::SystemType:
  	) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -178,8 +178,8 @@ ProcessType returns aadl2::ProcessType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -206,8 +206,8 @@ ThreadGroupType returns aadl2::ThreadGroupType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -233,8 +233,8 @@ ThreadType returns aadl2::ThreadType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -260,8 +260,8 @@ SubprogramType returns aadl2::SubprogramType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -310,8 +310,8 @@ ProcessorType returns aadl2::ProcessorType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -337,8 +337,8 @@ DeviceType returns aadl2::DeviceType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -361,8 +361,8 @@ MemoryType returns aadl2::MemoryType:
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -385,8 +385,8 @@ BusType returns aadl2::BusType:
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -409,8 +409,8 @@ VirtualBusType returns aadl2::VirtualBusType:
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -437,8 +437,8 @@ VirtualProcessorType returns aadl2::VirtualProcessorType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -464,8 +464,8 @@ DataType returns aadl2::DataType:
 	 )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -1936,11 +1936,6 @@ ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
 // Modes 
 
 Mode returns aadl2::Mode:
-	name=ID ':' initial?='initial'? 'mode' 
-	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	';';
-
-RequiresMode returns aadl2::Mode:
 	name=ID ':' initial?='initial'? 'mode' 
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';';
