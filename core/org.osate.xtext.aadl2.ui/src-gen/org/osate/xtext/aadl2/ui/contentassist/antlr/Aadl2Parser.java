@@ -1272,8 +1272,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getETESubcomponentFlowAccess().getGroup_0(), "rule__ETESubcomponentFlow__Group_0__0");
 					put(grammarAccess.getModeAccess().getGroup(), "rule__Mode__Group__0");
 					put(grammarAccess.getModeAccess().getGroup_4(), "rule__Mode__Group_4__0");
-					put(grammarAccess.getRequiresModeAccess().getGroup(), "rule__RequiresMode__Group__0");
-					put(grammarAccess.getRequiresModeAccess().getGroup_4(), "rule__RequiresMode__Group_4__0");
 					put(grammarAccess.getModeTransitionAccess().getGroup(), "rule__ModeTransition__Group__0");
 					put(grammarAccess.getModeTransitionAccess().getGroup_0(), "rule__ModeTransition__Group_0__0");
 					put(grammarAccess.getModeTransitionAccess().getGroup_4(), "rule__ModeTransition__Group_4__0");
@@ -1474,6 +1472,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemTypeAccess().getNoFeaturesAssignment_4_1_1_0(), "rule__SystemType__NoFeaturesAssignment_4_1_1_0");
 					put(grammarAccess.getSystemTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__SystemType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getSystemTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__SystemType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getSystemTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__SystemType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getSystemTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__SystemType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getSystemTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__SystemType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getSystemTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__SystemType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -1498,6 +1497,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getProcessTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_7(), "rule__ProcessType__OwnedAbstractFeatureAssignment_4_1_1_7");
 					put(grammarAccess.getProcessTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__ProcessType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getProcessTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__ProcessType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getProcessTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__ProcessType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getProcessTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__ProcessType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getProcessTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__ProcessType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getProcessTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__ProcessType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -1522,6 +1522,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadGroupTypeAccess().getOwnedAbstractFeatureAssignment_5_1_1_7(), "rule__ThreadGroupType__OwnedAbstractFeatureAssignment_5_1_1_7");
 					put(grammarAccess.getThreadGroupTypeAccess().getOwnedFlowSpecificationAssignment_6_1_0(), "rule__ThreadGroupType__OwnedFlowSpecificationAssignment_6_1_0");
 					put(grammarAccess.getThreadGroupTypeAccess().getNoFlowsAssignment_6_1_1_0(), "rule__ThreadGroupType__NoFlowsAssignment_6_1_1_0");
+					put(grammarAccess.getThreadGroupTypeAccess().getDerivedModesAssignment_7_0_0(), "rule__ThreadGroupType__DerivedModesAssignment_7_0_0");
 					put(grammarAccess.getThreadGroupTypeAccess().getOwnedModeAssignment_7_0_2(), "rule__ThreadGroupType__OwnedModeAssignment_7_0_2");
 					put(grammarAccess.getThreadGroupTypeAccess().getOwnedModeAssignment_7_1_1_0_0(), "rule__ThreadGroupType__OwnedModeAssignment_7_1_1_0_0");
 					put(grammarAccess.getThreadGroupTypeAccess().getOwnedModeTransitionAssignment_7_1_1_0_1(), "rule__ThreadGroupType__OwnedModeTransitionAssignment_7_1_1_0_1");
@@ -1546,6 +1547,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getThreadTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_7(), "rule__ThreadType__OwnedAbstractFeatureAssignment_4_1_1_7");
 					put(grammarAccess.getThreadTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__ThreadType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getThreadTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__ThreadType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getThreadTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__ThreadType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getThreadTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__ThreadType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getThreadTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__ThreadType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getThreadTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__ThreadType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -1570,6 +1572,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_7(), "rule__SubprogramType__OwnedAbstractFeatureAssignment_4_1_1_7");
 					put(grammarAccess.getSubprogramTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__SubprogramType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getSubprogramTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__SubprogramType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getSubprogramTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__SubprogramType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getSubprogramTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__SubprogramType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getSubprogramTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__SubprogramType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getSubprogramTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__SubprogramType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -1610,6 +1613,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getProcessorTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_7(), "rule__ProcessorType__OwnedAbstractFeatureAssignment_4_1_1_7");
 					put(grammarAccess.getProcessorTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__ProcessorType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getProcessorTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__ProcessorType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getProcessorTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__ProcessorType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getProcessorTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__ProcessorType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getProcessorTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__ProcessorType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getProcessorTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__ProcessorType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -1634,6 +1638,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDeviceTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_7(), "rule__DeviceType__OwnedAbstractFeatureAssignment_4_1_1_7");
 					put(grammarAccess.getDeviceTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__DeviceType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getDeviceTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__DeviceType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getDeviceTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__DeviceType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getDeviceTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__DeviceType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getDeviceTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__DeviceType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getDeviceTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__DeviceType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -1654,6 +1659,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getMemoryTypeAccess().getOwnedEventPortAssignment_4_1_1_3(), "rule__MemoryType__OwnedEventPortAssignment_4_1_1_3");
 					put(grammarAccess.getMemoryTypeAccess().getOwnedEventDataPortAssignment_4_1_1_4(), "rule__MemoryType__OwnedEventDataPortAssignment_4_1_1_4");
 					put(grammarAccess.getMemoryTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_5(), "rule__MemoryType__OwnedAbstractFeatureAssignment_4_1_1_5");
+					put(grammarAccess.getMemoryTypeAccess().getDerivedModesAssignment_5_0_0(), "rule__MemoryType__DerivedModesAssignment_5_0_0");
 					put(grammarAccess.getMemoryTypeAccess().getOwnedModeAssignment_5_0_2(), "rule__MemoryType__OwnedModeAssignment_5_0_2");
 					put(grammarAccess.getMemoryTypeAccess().getOwnedModeAssignment_5_1_1_0_0(), "rule__MemoryType__OwnedModeAssignment_5_1_1_0_0");
 					put(grammarAccess.getMemoryTypeAccess().getOwnedModeTransitionAssignment_5_1_1_0_1(), "rule__MemoryType__OwnedModeTransitionAssignment_5_1_1_0_1");
@@ -1674,6 +1680,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBusTypeAccess().getOwnedEventPortAssignment_4_1_1_3(), "rule__BusType__OwnedEventPortAssignment_4_1_1_3");
 					put(grammarAccess.getBusTypeAccess().getOwnedEventDataPortAssignment_4_1_1_4(), "rule__BusType__OwnedEventDataPortAssignment_4_1_1_4");
 					put(grammarAccess.getBusTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_5(), "rule__BusType__OwnedAbstractFeatureAssignment_4_1_1_5");
+					put(grammarAccess.getBusTypeAccess().getDerivedModesAssignment_5_0_0(), "rule__BusType__DerivedModesAssignment_5_0_0");
 					put(grammarAccess.getBusTypeAccess().getOwnedModeAssignment_5_0_2(), "rule__BusType__OwnedModeAssignment_5_0_2");
 					put(grammarAccess.getBusTypeAccess().getOwnedModeAssignment_5_1_1_0_0(), "rule__BusType__OwnedModeAssignment_5_1_1_0_0");
 					put(grammarAccess.getBusTypeAccess().getOwnedModeTransitionAssignment_5_1_1_0_1(), "rule__BusType__OwnedModeTransitionAssignment_5_1_1_0_1");
@@ -1693,6 +1700,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedEventPortAssignment_5_1_1_2(), "rule__VirtualBusType__OwnedEventPortAssignment_5_1_1_2");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedEventDataPortAssignment_5_1_1_3(), "rule__VirtualBusType__OwnedEventDataPortAssignment_5_1_1_3");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedAbstractFeatureAssignment_5_1_1_4(), "rule__VirtualBusType__OwnedAbstractFeatureAssignment_5_1_1_4");
+					put(grammarAccess.getVirtualBusTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__VirtualBusType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__VirtualBusType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__VirtualBusType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__VirtualBusType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -1716,6 +1724,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedAbstractFeatureAssignment_5_1_1_6(), "rule__VirtualProcessorType__OwnedAbstractFeatureAssignment_5_1_1_6");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedFlowSpecificationAssignment_6_1_0(), "rule__VirtualProcessorType__OwnedFlowSpecificationAssignment_6_1_0");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getNoFlowsAssignment_6_1_1_0(), "rule__VirtualProcessorType__NoFlowsAssignment_6_1_1_0");
+					put(grammarAccess.getVirtualProcessorTypeAccess().getDerivedModesAssignment_7_0_0(), "rule__VirtualProcessorType__DerivedModesAssignment_7_0_0");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedModeAssignment_7_0_2(), "rule__VirtualProcessorType__OwnedModeAssignment_7_0_2");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedModeAssignment_7_1_1_0_0(), "rule__VirtualProcessorType__OwnedModeAssignment_7_1_1_0_0");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedModeTransitionAssignment_7_1_1_0_1(), "rule__VirtualProcessorType__OwnedModeTransitionAssignment_7_1_1_0_1");
@@ -1737,6 +1746,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_4(), "rule__DataType__OwnedAbstractFeatureAssignment_4_1_1_4");
 					put(grammarAccess.getDataTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__DataType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getDataTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__DataType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getDataTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__DataType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getDataTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__DataType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getDataTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__DataType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getDataTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__DataType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -2571,9 +2581,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeAccess().getNameAssignment_0(), "rule__Mode__NameAssignment_0");
 					put(grammarAccess.getModeAccess().getInitialAssignment_2(), "rule__Mode__InitialAssignment_2");
 					put(grammarAccess.getModeAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__Mode__OwnedPropertyAssociationAssignment_4_1");
-					put(grammarAccess.getRequiresModeAccess().getNameAssignment_0(), "rule__RequiresMode__NameAssignment_0");
-					put(grammarAccess.getRequiresModeAccess().getInitialAssignment_2(), "rule__RequiresMode__InitialAssignment_2");
-					put(grammarAccess.getRequiresModeAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__RequiresMode__OwnedPropertyAssociationAssignment_4_1");
 					put(grammarAccess.getModeTransitionAccess().getNameAssignment_0_0(), "rule__ModeTransition__NameAssignment_0_0");
 					put(grammarAccess.getModeTransitionAccess().getSourceAssignment_1(), "rule__ModeTransition__SourceAssignment_1");
 					put(grammarAccess.getModeTransitionAccess().getOwnedTriggerAssignment_3(), "rule__ModeTransition__OwnedTriggerAssignment_3");
