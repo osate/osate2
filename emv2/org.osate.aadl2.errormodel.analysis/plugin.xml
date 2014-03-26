@@ -171,7 +171,7 @@
                id="org.osate.aadl2.errormodel.analysis.actions.ImplementationCompliance.action"
                label="%ImplementationCompliance.label"
                tooltip="%ImplementationCompliance.toolTip"
-               icon="icons/cutset.gif"
+               icon="icons/compliance.png"
                class="org.osate.aadl2.errormodel.analysis.actions.ImplementationComplianceAction"
                menubarPath="menu.analyses/menu.fault/stuff.grp"
                toolbarPath="fault.toolbar"

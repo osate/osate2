@@ -42,7 +42,6 @@ public class EMV2Properties {
 	public static final String INVALID_OCCURRENCE_TYPE = "unknown_distribution";
 
 
-
 	
 	public static double getProbability (ComponentInstance ci, NamedElement ne, TypeSet ts)
 	{
@@ -421,8 +420,6 @@ public class EMV2Properties {
 			ComponentInstance cisci = ciStack.get(i);
 			ContainmentPathElement cpesci = cpes.get(idx);
 
-//			OsateDebug.osateDebug ("cisci=" + cisci.getSubcomponent());
-//			OsateDebug.osateDebug ("cpeci=" + cpesci.getNamedElement());
 			if (ciStack.get(i).getSubcomponent() != cpes.get(idx).getNamedElement())
 			{
 				return false;

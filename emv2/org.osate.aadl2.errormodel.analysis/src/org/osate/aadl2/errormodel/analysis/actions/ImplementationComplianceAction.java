@@ -69,6 +69,9 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
@@ -121,12 +124,12 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 		
 		componentImplementation = (ComponentImplementation) instance.getComponentClassifier();
 		componentType = componentImplementation.getType();
-		
-		OsateDebug.osateDebug("instance  =" + instance);
-		OsateDebug.osateDebug("impl      =" + componentImplementation);
-		OsateDebug.osateDebug("classifier=" + componentType);
-		
 
+		/**
+		 * Here, we check that the outgoing error propagations
+		 * between the type and the implementation uses
+		 * the same types.
+		 */
 		for (ErrorPropagation epi : EMV2Util.getAllOutgoingErrorPropagations(componentImplementation))
 		{
 			boolean found = false;
@@ -139,18 +142,121 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 	
 					if ( ! EMV2Util.areEquivalent(epi, epc))
 					{
-						error (obj, "Implementation does not match all type errors");
+						error (obj, "Implementation does not match all errors types on outgoing error propagations");
 					}
-//					
-//					double probEpc = EMV2Properties.getProbability (componentImplementation, epc, null);
-//					double probEpi = EMV2Properties.getProbability (componentImplementation, epi, null);
- 
+					
 				}
 			}
+			
+			
 			
 			if (found == false)
 			{
 				error (obj, "Object does not have matching error propagations");
+			}
+		}
+		
+		/**
+		 * Here, we check that the incoming error propagations
+		 * between the type and the implementation uses
+		 * the same types.
+		 */
+		for (ErrorPropagation epi : EMV2Util.getAllIncomingErrorPropagations(componentImplementation))
+		{
+			boolean found = false;
+			
+			for (ErrorPropagation epc : EMV2Util.getAllIncomingErrorPropagations(componentType))
+			{
+				if (epi.getFeatureorPPRefs().get(0).getFeatureorPP() == epc.getFeatureorPPRefs().get(0).getFeatureorPP())
+				{
+					found = true;
+	
+					if ( ! EMV2Util.areEquivalent(epi, epc))
+					{
+						error (obj, "Implementation does not match all type errors in its incoming error propagations");
+					}
+					
+
+				}
+			}
+			
+			
+			if (found == false)
+			{
+				error (obj, "Object does not have matching error propagations");
+			}
+		}
+		
+		
+		/**
+		 * Finally, we check the compliance of the components error behavior.
+		 * Check the states of the states and that the states also
+		 * exists.
+		 */
+		for (ErrorBehaviorState typeState : EMV2Util.getAllErrorBehaviorStates(componentType))
+		{
+		
+			boolean found = false;
+			for (ErrorBehaviorState implementationState : EMV2Util.getAllErrorBehaviorStates(componentImplementation))
+			{
+				if (typeState.getName().equalsIgnoreCase(implementationState.getName()))
+				{
+					
+					found = true;
+					if ((typeState.getTypeSet() != null) && (implementationState.getTypeSet() != null) &&
+					   (! EM2TypeSetUtil.contains(typeState.getTypeSet(), implementationState.getTypeSet())))
+					{
+						error (obj, "State " + typeState.getName() + " does not have the same types between type and impl");
+					}
+				}
+			}
+			
+			
+			if (found == false)
+			{
+				error (obj, "Did not find the error state");
+			}
+		}
+		
+		
+		/**
+		 * Check the error events now
+		 */
+		for (ErrorBehaviorEvent typeBehaviorEvent : EMV2Util.getAllErrorBehaviorEvents(componentType))
+		{
+		
+			boolean found = false;
+			ErrorEvent typeEvent = null;
+			ErrorEvent implementationEvent = null;
+			
+			for (ErrorBehaviorEvent implementationBehaviorEvent : EMV2Util.getAllErrorBehaviorEvents(componentImplementation))
+			{
+				if (implementationBehaviorEvent instanceof ErrorEvent)
+				{
+					implementationEvent = (ErrorEvent) implementationBehaviorEvent;
+				}
+				
+				if (typeBehaviorEvent instanceof ErrorEvent)
+				{
+					typeEvent = (ErrorEvent) typeBehaviorEvent;
+				}
+
+				if (typeEvent.getName().equalsIgnoreCase(implementationEvent.getName()))
+				{
+
+					found = true;
+					if ((typeEvent.getTypeSet() != null) && (implementationEvent.getTypeSet() != null) &&
+						(! EM2TypeSetUtil.contains(typeEvent.getTypeSet(), implementationEvent.getTypeSet())))
+					{
+						error (obj, "Event " + typeEvent.getName() + " does not have the same types between type and impl");
+					}
+				}
+			}
+			
+			
+			if (found == false)
+			{
+				error (obj, "Did not find the error state");
 			}
 		}
 		
