@@ -27,19 +27,20 @@ public class AnnexUtil {
 	
 	
 	public static String getSourceText(EObject annexObj){
+		String result = "";
 		if (annexObj instanceof DefaultAnnexLibrary){
-			return ((DefaultAnnexLibrary)annexObj).getSourceText();
-		}
+			result= ((DefaultAnnexLibrary)annexObj).getSourceText();
+		} else 
 		if (annexObj instanceof DefaultAnnexSubclause){
-			return ((DefaultAnnexSubclause)annexObj).getSourceText();
-		}
+			result= ((DefaultAnnexSubclause)annexObj).getSourceText();
+		} else
 		if (annexObj instanceof AnnexLibrary){
-			return ((DefaultAnnexLibrary)annexObj.eContainer()).getSourceText();
-		}
+			result = ((DefaultAnnexLibrary)annexObj.eContainer()).getSourceText();
+		} else
 		if (annexObj instanceof AnnexSubclause){
-			return ((DefaultAnnexSubclause)annexObj.eContainer()).getSourceText();
+			result= ((DefaultAnnexSubclause)annexObj.eContainer()).getSourceText();
 		}
-		return "";
+		return result ==null?"":result;
 	}
 
 	/**
@@ -111,7 +112,8 @@ public class AnnexUtil {
 			}
 			int offset = node.getOffset();
 			int nlength = node.getLength();
-			int sourcelength = AnnexUtil.getSourceText(asc).length();
+			String text = AnnexUtil.getSourceText(asc);
+			int sourcelength = text == null?0:AnnexUtil.getSourceText(asc).length();
 			// compensate for stripping {**
 			offset = offset + (nlength-sourcelength-1)+3;
 			return offset;
