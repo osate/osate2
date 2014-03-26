@@ -11,6 +11,8 @@ package org.osate.ge.services;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
@@ -42,4 +44,12 @@ public interface AadlFeatureService {
 	boolean isFeatureInverted(Shape featureShape);
 
 	FeatureGroupType getFeatureGroupType(Shape shape, FeatureGroup fg);
+	
+	/**
+	 * Returns the actual direction of a feature. Take into account inverted feature groups, etc
+	 * @param featureShape
+	 * @param feature
+	 * @return
+	 */
+	DirectionType getFeatureDirection(final Shape featureShape, DirectedFeature feature);
 }

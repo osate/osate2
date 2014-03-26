@@ -13,6 +13,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
@@ -160,5 +162,22 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 		} else {
 			return prototypeService.getFeatureGroupType(prototypeService.getPrototypeBindingContext(shape), fg);		
 		}
+	}
+	
+	@Override
+	public DirectionType getFeatureDirection(final Shape featureShape, DirectedFeature feature) {
+		DirectionType direction = feature.getDirection();
+		final boolean isInverted = isFeatureInverted(featureShape);
+		
+		// Invert the direction
+		if(isInverted) {
+			if(direction == DirectionType.IN) {
+				direction = DirectionType.OUT;
+			} else if(direction == DirectionType.OUT) {
+				direction = DirectionType.IN;
+			}
+		}
+		
+		return direction;
 	}
 }
