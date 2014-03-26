@@ -264,9 +264,11 @@ public class AnnexUtil {
 	 * @param result
 	 */
 	private static void addDefaultSubclauses(PackageSection packsec,List<DefaultAnnexSubclause> result ){
-		EList<Classifier> classifiers = packsec.getOwnedClassifiers();
-		for (Classifier cl : classifiers) {
-			addDefaultSubclauses(cl,result);
+		if (packsec != null){
+			EList<Classifier> classifiers = packsec.getOwnedClassifiers();
+			for (Classifier cl : classifiers) {
+				addDefaultSubclauses(cl,result);
+			}
 		}
 	}
 
