@@ -45,7 +45,12 @@ public class AnnexUtil {
 		return "";
 	}
 
-	
+	/**
+	 * return actual annex library or subclause for the given (Default) annex library or subclause.
+	 * if the input is already the annex specific annex lib/subclause we return it.
+	 * @param annexObj
+	 * @return
+	 */
 	public static EObject getParsedAnnex(EObject annexObj){
 		if (annexObj instanceof DefaultAnnexLibrary){
 			return ((DefaultAnnexLibrary)annexObj).getParsedAnnexLibrary();
@@ -60,6 +65,31 @@ public class AnnexUtil {
 			return annexObj;
 		}
 		return null;
+	}
+
+	
+	/**
+	 * return the actual annex library if present. otherwise return the given (default) annex library
+	 * @param annexObj AnnexLibrary (either default or actual
+	 * @return AnnexLibrary
+	 */
+	public static AnnexLibrary getActualAnnexLibrary(AnnexLibrary annexObj){
+		if (annexObj instanceof DefaultAnnexLibrary){
+			return ((DefaultAnnexLibrary)annexObj).getParsedAnnexLibrary();
+		}
+		return annexObj;
+	}
+	
+	/**
+	 * return the actual annex subclause if present. otherwise return the given (default) annex subclause
+	 * @param annexObj AnnexSubclause (either default or actual
+	 * @return AnnexSubclause
+	 */
+	public static AnnexSubclause getActualAnnexSubclause(AnnexSubclause annexObj){
+		if (annexObj instanceof DefaultAnnexSubclause){
+			return ((DefaultAnnexSubclause)annexObj).getParsedAnnexSubclause();
+		}
+		return annexObj;
 	}
 
 
@@ -110,7 +140,11 @@ public class AnnexUtil {
 		return null;
 	}
 
-
+/**
+ * determine whether the leaf node represents the ANNEXTEXT in the core grammar.
+ * @param leaf
+ * @return
+ */
 	public static boolean isAnnexLeaf(ILeafNode leaf){
 		if (leaf == null) return false;
 		EObject ge = leaf.getGrammarElement();
@@ -123,34 +157,69 @@ public class AnnexUtil {
 		return false;
 	}
 	
-//	/**
-//	 * get the line number for a given model object in the core model
-//	 * This method makes use of the Xtext parse tree.
-//	 * @return line number
-//	 */
-//	public static int getLineNumberFor(EObject obj)	{
-//		if (obj == null) return 0;
-//		AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-//		if (apr != null){
-//			obj = (EObject) apr.getTarget();
-//		}
-//		INode node = NodeModelUtils.findActualNodeFor(obj);
-//		if (node != null){
-//			return node.getStartLine();
-//		}
-//		return 0;
-//	}
-	
-	
-	public static List<DefaultAnnexLibrary> getAllDefaultAnnexLibraries(EObject root) {
+	/**
+	 * return all default annex libraries in a package
+	 * This includes both public and private sections
+	 * @param pack AADL Package
+	 * @return List<DefaultAnnexLibrary>
+	 */
+	public static List<DefaultAnnexLibrary> getAllDefaultAnnexLibraries(AadlPackage pack) {
 		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
-		if (root instanceof AadlPackage){
-			AadlPackage pack = (AadlPackage)root;
 			addLibs(pack.getOwnedPublicSection(), result);
 			addLibs(pack.getOwnedPrivateSection(),result);
-		} else if (root instanceof PackageSection){
+		return result;
+	}
+	
+	/**
+	 * return all default annex libraries in the public section of a package
+	 * This includes both public sections
+	 * @param pack AADL Package
+	 * @return List<DefaultAnnexLibrary>
+	 */
+	public static List<DefaultAnnexLibrary> getAllPublicDefaultAnnexLibraries(AadlPackage pack) {
+		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
+			addLibs(pack.getOwnedPublicSection(), result);
+		return result;
+	}
+	
+	/**
+	 * return all default annex libraries in a package
+	 * @param pack AADL PackageSectrion
+	 * @return List<DefaultAnnexLibrary>
+	 */
+	public static List<DefaultAnnexLibrary> getAllDefaultAnnexLibraries(PackageSection root) {
+		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
 			addLibs((PackageSection)root, result);
-		}
+		return result;
+	}
+	
+	public static List<AnnexLibrary> getAllActualAnnexLibraries(PackageSection root) {
+		List<AnnexLibrary> result = new ArrayList<AnnexLibrary>();
+			addActualLibs((PackageSection)root, result);
+		return result;
+	}
+	
+	/**
+	 * return all actual annex libraries in the public and private section of a package
+	 * Includes default annex library if the parsed actual is not present.
+	 * @param pack AADL Package
+	 * @return List<DefaultAnnexLibrary>
+	 */
+	public static List<DefaultAnnexLibrary> getAllActualAnnexLibraries(AadlPackage pack) {
+		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
+			addLibs(pack.getOwnedPublicSection(), result);
+			addLibs(pack.getOwnedPrivateSection(),result);
+		return result;
+	}
+	/**
+	 * return all actual annex libraries in the public section of a package
+	 * Includes actual annex library if the parsed actual is not present.
+	 * @param pack AADL Package
+	 * @return List<DefaultAnnexLibrary>
+	 */
+	public static List<DefaultAnnexLibrary> getAllPublicActualAnnexLibraries(AadlPackage pack) {
+		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
+			addLibs(pack.getOwnedPublicSection(), result);
 		return result;
 	}
 	
@@ -169,11 +238,41 @@ public class AnnexUtil {
 		}
 	}
 	/**
+	 * add actual annex libraries of packsec if present, otherwise default. Packsec can be null
+	 * @param packsec
+	 * @param result
+	 */
+	public static void addActualLibs(PackageSection packsec,List<AnnexLibrary> result ){
+		if (packsec != null){
+			EList<AnnexLibrary> libs = packsec.getOwnedAnnexLibraries();
+			for (AnnexLibrary annexLibrary : libs) {
+				if (annexLibrary instanceof DefaultAnnexLibrary)
+					result.add(getActualAnnexLibrary(annexLibrary));
+			}
+		}
+	}
+
+	/**
 	 * add default annex subclauses of property set.
 	 * @param property set
 	 * @param result
 	 */
-	public static void addSubclauses(PropertySet propset,List<DefaultAnnexSubclause> result ){
+	public static void addDefaultSubclauses(PropertySet propset,List<DefaultAnnexSubclause> result ){
+		if (propset != null){
+			EList<AnnexSubclause> libs = propset.getOwnedAnnexSubclauses();
+			for (AnnexSubclause annexSubclause : libs) {
+				if (annexSubclause instanceof DefaultAnnexSubclause)
+					result.add((DefaultAnnexSubclause)annexSubclause);
+			}
+		}
+	}
+
+	/**
+	 * add default annex subclauses of property set.
+	 * @param property set
+	 * @param result
+	 */
+	public static void addActualSubclauses(PropertySet propset,List<DefaultAnnexSubclause> result ){
 		if (propset != null){
 			EList<AnnexSubclause> libs = propset.getOwnedAnnexSubclauses();
 			for (AnnexSubclause annexSubclause : libs) {
@@ -188,12 +287,12 @@ public class AnnexUtil {
 		List<DefaultAnnexSubclause> result = new ArrayList<DefaultAnnexSubclause>();
 		if (root instanceof AadlPackage){
 			AadlPackage pack = (AadlPackage)root;
-			addSubclauses(pack.getOwnedPublicSection(), result);
-			addSubclauses(pack.getOwnedPrivateSection(),result);
+			addDefaultSubclauses(pack.getOwnedPublicSection(), result);
+			addDefaultSubclauses(pack.getOwnedPrivateSection(),result);
 		} else if (root instanceof PackageSection){
-			addSubclauses((PackageSection)root, result);
+			addDefaultSubclauses((PackageSection)root, result);
 		} else if (root instanceof PropertySet){
-			addSubclauses((PropertySet)root, result);
+			addDefaultSubclauses((PropertySet)root, result);
 		}
 		return result;
 	}
@@ -203,20 +302,26 @@ public class AnnexUtil {
 	 * @param packsec
 	 * @param result
 	 */
-	public static void addSubclauses(PackageSection packsec,List<DefaultAnnexSubclause> result ){
+	public static void addDefaultSubclauses(PackageSection packsec,List<DefaultAnnexSubclause> result ){
 		if (packsec != null){
 			EList<Classifier> classifiers = packsec.getOwnedClassifiers();
 			for (Classifier cl : classifiers) {
-					addSubclauses(cl,result);
+					addDefaultSubclauses(cl,result);
 			}
 		}
 	}
 	
-	public static void addSubclauses(Classifier cl, List<DefaultAnnexSubclause> result){
+	public static void addDefaultSubclauses(Classifier cl, List<DefaultAnnexSubclause> result){
 		EList<AnnexSubclause> subcs = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause annexSubclause : subcs) {
-			if (annexSubclause instanceof DefaultAnnexSubclause)
-				result.add((DefaultAnnexSubclause)annexSubclause);
+			result.add((DefaultAnnexSubclause)annexSubclause);
+		}
+	}
+
+	public static void addActualSubclauses(Classifier cl, List<AnnexSubclause> result){
+		EList<AnnexSubclause> subcs = cl.getOwnedAnnexSubclauses();
+		for (AnnexSubclause annexSubclause : subcs) {
+			result.add(getActualAnnexSubclause(annexSubclause));
 		}
 
 	}
