@@ -84,15 +84,6 @@ public class EMV2Util {
 	public final static String ErrorModelAnnexName = "EMV2";
 	private static EClass EMV2subclauseEClass = ErrorModelPackage.eINSTANCE.getErrorModelSubclause();
 	
-	/**
-	 * Get the error-annex subclause for a given Component Instance
-	 * @param ci	The component instance that contains the error model subclause
-	 * @return EList<AnnexSubclause> list of ErrorModelSubclause objects
-	 */
-	public static EList<AnnexSubclause> getErrorAnnexSubclauses (ComponentInstance ci)
-	{
-		return ci.getComponentClassifier().getAllAnnexSubclauses(EMV2subclauseEClass);
-	}
 	
 	public static ErrorSource getErrorSource (ComponentInstance ci, ErrorPropagation ep)
 	{
