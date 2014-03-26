@@ -8,6 +8,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
@@ -40,6 +41,17 @@ public class EMV2Properties {
 
 	public static final String INVALID_OCCURRENCE_TYPE = "unknown_distribution";
 
+
+	
+	public static double getProbability (ComponentInstance ci, NamedElement ne, TypeSet ts)
+	{
+		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(ci,ne,ts);
+		double prob = 0;
+		if (!PA.isEmpty()){
+			prob = EMV2Properties.getOccurenceValue (PA.get(0));
+		}
+		return prob;
+	}
 	
 	/**
 	 * 
@@ -408,8 +420,6 @@ public class EMV2Properties {
 			ComponentInstance cisci = ciStack.get(i);
 			ContainmentPathElement cpesci = cpes.get(idx);
 
-//			OsateDebug.osateDebug ("cisci=" + cisci.getSubcomponent());
-//			OsateDebug.osateDebug ("cpeci=" + cpesci.getNamedElement());
 			if (ciStack.get(i).getSubcomponent() != cpes.get(idx).getNamedElement())
 			{
 				return false;

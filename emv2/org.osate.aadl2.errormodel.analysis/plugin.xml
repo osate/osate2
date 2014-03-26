@@ -168,11 +168,11 @@
          </action>
 
          <action
-               id="org.osate.aadl2.errormodel.analysis.actions.Cutset.action"
-               label="%Cutset.label"
-               tooltip="%Cutset.toolTip"
-               icon="icons/cutset.gif"
-               class="org.osate.aadl2.errormodel.analysis.actions.CutsetAction"
+               id="org.osate.aadl2.errormodel.analysis.actions.ImplementationCompliance.action"
+               label="%ImplementationCompliance.label"
+               tooltip="%ImplementationCompliance.toolTip"
+               icon="icons/compliance.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.ImplementationComplianceAction"
                menubarPath="menu.analyses/menu.fault/stuff.grp"
                toolbarPath="fault.toolbar"
                enablesFor="1">
@@ -361,11 +361,11 @@
                enablesFor="1"/>  
                
          <action
-               id="org.osate.aadl2.errormodel.analysis.actions.Cutset.popupAction"
-               label="%Cutset.label"
-               tooltip="%Cutset.toolTip"
-               icon="icons/cutset.gif"
-               class="org.osate.aadl2.errormodel.analysis.actions.CutsetAction"
+               id="org.osate.aadl2.errormodel.analysis.actions.ImplementationCompliance.popupAction"
+               label="%ImplementationCompliance.label"
+               tooltip="%ImplementationCompliance.toolTip"
+               icon="icons/compliance.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.ImplementationComplianceAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>    
                

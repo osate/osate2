@@ -4,21 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -26,7 +18,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
@@ -38,21 +29,17 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
-import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FTAUtils 
 {
-	private static List<String>        currentHandledStates;
 	private static AnalysisModel       currentAnalysisModel;
 	
 	
 	public static void init (ComponentInstance root)
 	{
-		currentHandledStates = new ArrayList<String>();
 		currentAnalysisModel = new AnalysisModel(root);
 	}
 	
@@ -130,21 +117,7 @@ public class FTAUtils
 		return result;
 	}
 	
-	public static void findPropagationSource (NamedElement feature, List<ComponentInstance> componentInstances)
-	{
-		for (ComponentInstance ci : componentInstances)
-		{
-//			for (Feature f : ci.getComponentClassifier().getAllFeatures())
-//			{
 
-				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(ci.getComponentClassifier()))
-				{
-						OsateDebug.osateDebug("debug on " + ci);
-				}
-		//	}
-		}
-	}
-	
 	public static String buildHash (ComponentInstance instance, ErrorBehaviorState ebs)
 	{
 		return "##" + instance + "##" + instance.getComponentClassifier().getName() + "##" + ebs.getName() + "##";

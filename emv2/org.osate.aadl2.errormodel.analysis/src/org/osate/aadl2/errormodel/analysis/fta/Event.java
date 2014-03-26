@@ -165,10 +165,22 @@ public class Event
 	
 	public String toPED()
 	{
+		double prob;
+		String description;
+		
 		StringBuffer sb = new StringBuffer ();
+		
 		if (this.type == EventType.EVENT)
 		{
-			String description;
+			prob = this.getProbability();
+			/**
+			 * A probability of 0 makes the whole thing crash.
+			 * So, we put a default prob of 0.1
+			 */
+			if (prob == 0)
+			{
+				prob = 0.1;
+			}
 			if (this.getDescription() != null)
 			{
 				description = this.getDescription();
@@ -177,7 +189,7 @@ public class Event
 			{
 				description = this.name + "(no extended description)" ;
 			}
-			sb.append (this.identifier + ";;B;"+description+";"+this.getProbability()+";L;\n");
+			sb.append (this.identifier + ";;B;"+description+";"+prob+";L;\n");
 			return sb.toString();
 		}
 		
