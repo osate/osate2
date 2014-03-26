@@ -3,9 +3,9 @@ package org.osate.annexsupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.RuleCall;
@@ -14,17 +14,14 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class AnnexUtil {
 	
@@ -171,55 +168,28 @@ public class AnnexUtil {
 	}
 	
 	/**
-	 * return all default annex libraries in the public section of a package
-	 * This includes both public sections
-	 * @param pack AADL Package
-	 * @return List<DefaultAnnexLibrary>
-	 */
-	public static List<DefaultAnnexLibrary> getAllPublicDefaultAnnexLibraries(AadlPackage pack) {
-		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
-			addLibs(pack.getOwnedPublicSection(), result);
-		return result;
-	}
-	
-	/**
-	 * return all default annex libraries in a package
-	 * @param pack AADL PackageSectrion
-	 * @return List<DefaultAnnexLibrary>
-	 */
-	public static List<DefaultAnnexLibrary> getAllDefaultAnnexLibraries(PackageSection root) {
-		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
-			addLibs((PackageSection)root, result);
-		return result;
-	}
-	
-	public static List<AnnexLibrary> getAllActualAnnexLibraries(PackageSection root) {
-		List<AnnexLibrary> result = new ArrayList<AnnexLibrary>();
-			addActualLibs((PackageSection)root, result);
-		return result;
-	}
-	
-	/**
 	 * return all actual annex libraries in the public and private section of a package
-	 * Includes default annex library if the parsed actual is not present.
+	 * 	Meta model class of interest e.g., EMV2AnnexSubclauseClass = ErrorModelPackage.eINSTANCE.getErrorModelSubclause();
 	 * @param pack AADL Package
-	 * @return List<DefaultAnnexLibrary>
+	 * @param eclass Meta model class of annex subclause of interest
+	 * @return List<AnnexLibrary>
 	 */
-	public static List<DefaultAnnexLibrary> getAllActualAnnexLibraries(AadlPackage pack) {
-		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
-			addLibs(pack.getOwnedPublicSection(), result);
-			addLibs(pack.getOwnedPrivateSection(),result);
+	public static List<AnnexLibrary> getAllActualAnnexLibraries(AadlPackage pack, EClass eClass) {
+		List<AnnexLibrary> result = new ArrayList<AnnexLibrary>();
+			addActualLibs(pack.getOwnedPublicSection(), result, eClass);
+			addActualLibs(pack.getOwnedPrivateSection(),result, eClass);
 		return result;
 	}
 	/**
 	 * return all actual annex libraries in the public section of a package
-	 * Includes actual annex library if the parsed actual is not present.
+	 * 	Meta model class of interest e.g., EMV2AnnexSubclauseClass = ErrorModelPackage.eINSTANCE.getErrorModelSubclause();
 	 * @param pack AADL Package
-	 * @return List<DefaultAnnexLibrary>
+	 * @param eclass Meta model class of annex subclause of interest
+	 * @return List<AnnexLibrary>
 	 */
-	public static List<DefaultAnnexLibrary> getAllPublicActualAnnexLibraries(AadlPackage pack) {
-		List<DefaultAnnexLibrary> result = new ArrayList<DefaultAnnexLibrary>();
-			addLibs(pack.getOwnedPublicSection(), result);
+	public static List<AnnexLibrary> getAllPublicActualAnnexLibraries(AadlPackage pack, EClass eClass) {
+		List<AnnexLibrary> result = new ArrayList<AnnexLibrary>();
+			addActualLibs(pack.getOwnedPublicSection(), result, eClass);
 		return result;
 	}
 	
@@ -228,7 +198,7 @@ public class AnnexUtil {
 	 * @param packsec
 	 * @param result
 	 */
-	public static void addLibs(PackageSection packsec,List<DefaultAnnexLibrary> result ){
+	private static void addLibs(PackageSection packsec,List<DefaultAnnexLibrary> result ){
 		if (packsec != null){
 			EList<AnnexLibrary> libs = packsec.getOwnedAnnexLibraries();
 			for (AnnexLibrary annexLibrary : libs) {
@@ -241,13 +211,16 @@ public class AnnexUtil {
 	 * add actual annex libraries of packsec if present, otherwise default. Packsec can be null
 	 * @param packsec
 	 * @param result
+	 * @param eClass 
 	 */
-	public static void addActualLibs(PackageSection packsec,List<AnnexLibrary> result ){
+	private static void addActualLibs(PackageSection packsec,List<AnnexLibrary> result, EClass eClass ){
 		if (packsec != null){
 			EList<AnnexLibrary> libs = packsec.getOwnedAnnexLibraries();
 			for (AnnexLibrary annexLibrary : libs) {
-				if (annexLibrary instanceof DefaultAnnexLibrary)
+				AnnexLibrary actAnnexLib = getActualAnnexLibrary(annexLibrary);
+				if (actAnnexLib.eClass().equals(eClass)){
 					result.add(getActualAnnexLibrary(annexLibrary));
+				}
 			}
 		}
 	}
@@ -257,22 +230,7 @@ public class AnnexUtil {
 	 * @param property set
 	 * @param result
 	 */
-	public static void addDefaultSubclauses(PropertySet propset,List<DefaultAnnexSubclause> result ){
-		if (propset != null){
-			EList<AnnexSubclause> libs = propset.getOwnedAnnexSubclauses();
-			for (AnnexSubclause annexSubclause : libs) {
-				if (annexSubclause instanceof DefaultAnnexSubclause)
-					result.add((DefaultAnnexSubclause)annexSubclause);
-			}
-		}
-	}
-
-	/**
-	 * add default annex subclauses of property set.
-	 * @param property set
-	 * @param result
-	 */
-	public static void addActualSubclauses(PropertySet propset,List<DefaultAnnexSubclause> result ){
+	private static void addDefaultSubclauses(PropertySet propset,List<DefaultAnnexSubclause> result ){
 		if (propset != null){
 			EList<AnnexSubclause> libs = propset.getOwnedAnnexSubclauses();
 			for (AnnexSubclause annexSubclause : libs) {
@@ -283,14 +241,17 @@ public class AnnexUtil {
 	}
 
 	
+	/**
+	 * return all DefaultANnexSubclauses of an AADLPackage or PropertySet
+	 * @param root AadlPackage or PropertySet
+	 * @return List<DefaultAnnexSubclause>
+	 */
 	public static List<DefaultAnnexSubclause> getAllDefaultAnnexSubclauses(EObject root) {
 		List<DefaultAnnexSubclause> result = new ArrayList<DefaultAnnexSubclause>();
 		if (root instanceof AadlPackage){
 			AadlPackage pack = (AadlPackage)root;
 			addDefaultSubclauses(pack.getOwnedPublicSection(), result);
 			addDefaultSubclauses(pack.getOwnedPrivateSection(),result);
-		} else if (root instanceof PackageSection){
-			addDefaultSubclauses((PackageSection)root, result);
 		} else if (root instanceof PropertySet){
 			addDefaultSubclauses((PropertySet)root, result);
 		}
@@ -302,29 +263,57 @@ public class AnnexUtil {
 	 * @param packsec
 	 * @param result
 	 */
-	public static void addDefaultSubclauses(PackageSection packsec,List<DefaultAnnexSubclause> result ){
-		if (packsec != null){
-			EList<Classifier> classifiers = packsec.getOwnedClassifiers();
-			for (Classifier cl : classifiers) {
-					addDefaultSubclauses(cl,result);
-			}
+	private static void addDefaultSubclauses(PackageSection packsec,List<DefaultAnnexSubclause> result ){
+		EList<Classifier> classifiers = packsec.getOwnedClassifiers();
+		for (Classifier cl : classifiers) {
+			addDefaultSubclauses(cl,result);
 		}
 	}
-	
-	public static void addDefaultSubclauses(Classifier cl, List<DefaultAnnexSubclause> result){
+
+	private static void addDefaultSubclauses(Classifier cl, List<DefaultAnnexSubclause> result){
 		EList<AnnexSubclause> subcs = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause annexSubclause : subcs) {
 			result.add((DefaultAnnexSubclause)annexSubclause);
 		}
 	}
 
-	public static void addActualSubclauses(Classifier cl, List<AnnexSubclause> result){
-		EList<AnnexSubclause> subcs = cl.getOwnedAnnexSubclauses();
-		for (AnnexSubclause annexSubclause : subcs) {
-			result.add(getActualAnnexSubclause(annexSubclause));
+	/**
+	 * return set of annex subclauses for a given Classifier according to the classifier extends hierarchy and implementation -> type inheritance
+	 * 	Meta model class of interest e.g., EMV2AnnexSubclauseClass = ErrorModelPackage.eINSTANCE.getErrorModelSubclause();
+	 * @param cl Classifier
+	 * @param eclass Meta model class of annex subclause of interest
+	 * @return list of specific error model subclauses from specified classifier to those inherited
+	 */
+	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl,EClass eclass) {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
+		for (Classifier classifier : classifiers) {
+			EList<AnnexSubclause> oas = classifier.getOwnedAnnexSubclauses();
+			for (AnnexSubclause annexSubclause : oas) {
+				AnnexSubclause actualAnnexSubclause = (AnnexSubclause)getParsedAnnex(annexSubclause);
+				if (actualAnnexSubclause.eClass().equals(eclass)) {
+					result.add(actualAnnexSubclause);
+				}
+			}
 		}
-
+		return result;
 	}
-
+	
+	/**
+	 * return AnnexSubclause of a specific Meta model class in PropertySet 
+	 * 	Meta model class of interest e.g., EMV2AnnexSubclauseClass = ErrorModelPackage.eINSTANCE.getErrorModelSubclause();
+	 * @param root PropertySet
+	 * @param eclass Meta model class of annex subclause of interest
+	 * @return List<DefaultAnnexSubclause>
+	 */
+	public static AnnexSubclause getActualAnnexSubclause(PropertySet root, EClass eClass) {
+		for (AnnexSubclause annexSubclause : root.getOwnedAnnexSubclauses()) {
+			AnnexSubclause actualAnnexSubclause = (AnnexSubclause)getParsedAnnex(annexSubclause);
+			if (actualAnnexSubclause.eClass().equals(eClass)) {
+				return actualAnnexSubclause;
+			}
+		}
+		return null;
+	}
 
 }
