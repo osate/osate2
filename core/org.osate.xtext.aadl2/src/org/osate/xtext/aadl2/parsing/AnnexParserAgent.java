@@ -48,11 +48,13 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
 import org.osate.aadl2.modelsupport.errorreporting.LogParseErrorReporter;
@@ -86,7 +88,6 @@ public class AnnexParserAgent  extends LazyLinker {
 	 */
 	@Override
 	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
-
 		String filename = model.eResource().getURI().lastSegment();
 		// set up reporter for ParseErrors
 		IResource file = OsateResourceUtil.convertToIResource(model.eResource());
@@ -115,56 +116,59 @@ public class AnnexParserAgent  extends LazyLinker {
 
 	  // Don't resolve annexes if there are parsing errors.
 		boolean hasToResolveAnnex = errReporter.getNumErrors() <= 0 ;
+		if (model instanceof AadlPackage){
+			// do this only for packages
+			List<DefaultAnnexLibrary> all=AnnexUtil.getAllDefaultAnnexLibraries((AadlPackage)model);
+			for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
+				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
+				int line = node.getStartLine()+ computeLineOffset(node);
+				int offset = AnnexUtil.getAnnexOffset(defaultAnnexLibrary);
+				AnnexLibrary al = null;
+				// look for plug-in parser
+				String annexText = defaultAnnexLibrary.getSourceText();
+				String annexName = defaultAnnexLibrary.getName();
+				if (annexText != null && annexText.length() > 6 && annexName != null){
+					// strip {** **}
+					annexText = annexText.substring(3, annexText.length() - 3);
+					AnnexParser ap = registry.getAnnexParser(annexName);
+					try {
+						int errs = errReporter.getNumErrors();
+						al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
+						if (al != null )//&& errReporter.getNumErrors() == errs) 
+						{ 
+							al.setName(annexName);
+							defaultAnnexLibrary.setParsedAnnexLibrary(al);
 
-		List<DefaultAnnexLibrary> all=AnnexUtil.getAllDefaultAnnexLibraries(model);
-		for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
-			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
-			int line = node.getStartLine()+ computeLineOffset(node);
-			int offset = AnnexUtil.getAnnexOffset(defaultAnnexLibrary);
-			AnnexLibrary al = null;
-			// look for plug-in parser
-			String annexText = defaultAnnexLibrary.getSourceText();
-			String annexName = defaultAnnexLibrary.getName();
-			if (annexText != null && annexText.length() > 6 && annexName != null){
-				// strip {** **}
-				   annexText = annexText.substring(3, annexText.length() - 3);
-				AnnexParser ap = registry.getAnnexParser(annexName);
-				try {
-					int errs = errReporter.getNumErrors();
-					al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
-					if (al != null )//&& errReporter.getNumErrors() == errs) 
-					{ 
-						al.setName(annexName);
-						defaultAnnexLibrary.setParsedAnnexLibrary(al);
-
-						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
-						if (resolver != null
-							    &&hasToResolveAnnex &&
-							    errReporter.getNumErrors() == errs){
-							errs =resolveErrManager.getNumErrors();
-							resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
-							if (errs !=resolveErrManager.getNumErrors()){
-								defaultAnnexLibrary.setParsedAnnexLibrary(null);
-							}
-						} else if (linkingservice != null){ 
-							try {
-								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
-								Resource res = model.eResource();
-								ILinker linker = ((XtextResource)res).getLinker();
-								linker.linkModel(al, consumer);
-								res.getErrors().addAll(consumer.getResult(Severity.ERROR));
-								res.getWarnings().addAll(consumer.getResult(Severity.WARNING));
-							} catch (Exception e) {
-								errReporter.error(filename, line, "Linking Service error");
+							AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
+							AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
+							if (resolver != null
+									&&hasToResolveAnnex &&
+									errReporter.getNumErrors() == errs){
+								errs =resolveErrManager.getNumErrors();
+								resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+								if (errs !=resolveErrManager.getNumErrors()){
+									defaultAnnexLibrary.setParsedAnnexLibrary(null);
+								}
+							} else if (linkingservice != null){ 
+								try {
+									final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
+									Resource res = model.eResource();
+									ILinker linker = ((XtextResource)res).getLinker();
+									linker.linkModel(al, consumer);
+									res.getErrors().addAll(consumer.getResult(Severity.ERROR));
+									res.getWarnings().addAll(consumer.getResult(Severity.WARNING));
+								} catch (Exception e) {
+									errReporter.error(filename, line, "Linking Service error");
+								}
 							}
 						}
+					} catch (RecognitionException e) {
+						errReporter.error(filename, line, "Major parsing error");
 					}
-				} catch (RecognitionException e) {
-					errReporter.error(filename, line, "Major parsing error");
 				}
 			}
 		}
+		// do this for both packages and property sets
 		List<DefaultAnnexSubclause> asl=AnnexUtil.getAllDefaultAnnexSubclauses(model);
 		for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
 			
@@ -226,9 +230,7 @@ public class AnnexParserAgent  extends LazyLinker {
 					errReporter.error(filename, line, "Major uncaught parsing error");
 				} 
 			}
-
 		}
-
 	}
 
 	//Compute the number of line between the token "annex" and the token "{**".
