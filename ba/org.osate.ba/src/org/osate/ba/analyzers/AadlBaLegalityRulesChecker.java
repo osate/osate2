@@ -524,16 +524,10 @@ public class AadlBaLegalityRulesChecker
                   if(literal.equalsIgnoreCase(DispatchTriggerProperties.TIMED))
                   {
                      boolean hasPeriod = false ;
-                     try
-                     {
-                        PropertyUtils.getIntValue(_baParentContainer,
-                                                  TimingProperties.PERIOD) ;
-                        hasPeriod = true ;
-                     }
-                     catch(Exception e)
-                     {
-                        hasPeriod = false ;
-                     }
+                     
+                     Long period = PropertyUtils.getIntValue(_baParentContainer,
+                                               TimingProperties.PERIOD) ;
+                     hasPeriod = period != null ;
                      
                      // Positive case.
                      if(hasPeriod)

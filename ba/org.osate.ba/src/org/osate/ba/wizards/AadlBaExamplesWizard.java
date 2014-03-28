@@ -27,6 +27,7 @@ import java.util.Collection ;
 import java.util.HashMap ;
 import java.util.List ;
 import java.util.Map ;
+import java.util.Map.Entry ;
 
 import org.eclipse.core.runtime.IPath ;
 import org.eclipse.core.runtime.IStatus ;
@@ -74,6 +75,20 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
   
   protected List<File> _files = new ArrayList<File>() ;
   
+  protected static Map<String, File> _ALREADY_SELECTED = new HashMap<String, File>();
+  
+  public AadlBaExamplesWizard ()
+  {
+    super() ;
+    newProjectCreationPage = new AadlBaExamplesWizardPage("basicNewProjectPage");
+    newProjectCreationPage.setTitle("Aadl Behavior Annex Project");
+    newProjectCreationPage.setDescription("Create a new Aadl Behavior Annex project resource.");
+    
+    referencePage = new AadlWizardReferencePage("projectReferencePage");
+    referencePage.setTitle("AADL Settings");
+    referencePage.setDescription("Define the AADL Settings");
+  }
+  
   public class AadlBaExamplesWizardPage extends WizardNewAadlProjectCreationPage
   {
     // Gives the category for a given file index.
@@ -84,6 +99,22 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
       super(pageId) ;
       _EXCLUDED_DIRECTORIES.add(".svn") ;
       _EXCLUDED_DIRECTORIES.add("output_ref") ;
+      _EXCLUDED_DIRECTORIES.add("target") ;
+    }
+    
+    protected void setSelectedItems(String[][] items, File rootExamplePath)
+    {
+      for(String[] entry : items)
+      {
+        _ALREADY_SELECTED.put(computeCategory(entry[0]), new File(rootExamplePath +
+                                                 File.separator + entry[0] + 
+                                                 File.separator + entry[1])) ;
+      }
+    }
+    
+    protected String computeCategory(String path)
+    {
+      return path ;
     }
     
     public class TreeContentProvider implements ITreeContentProvider
@@ -292,7 +323,10 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
       
       try
       {
-         initTreeViewer(pickTree, loadExamples(_EXAMPLE_ROOT_PATH)) ;
+        Map<String, List<Integer>> examples = loadExamples(_EXAMPLE_ROOT_PATH) ;
+        initAlreadySelectedItem(examples, _SelectedExamplesTreeContent) ;
+        initTreeViewer(selectionTree, _SelectedExamplesTreeContent) ; 
+        initTreeViewer(pickTree, examples) ;
       }
       catch(Exception e)
       {
@@ -300,6 +334,27 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
       }
       
       this.setControl(inheritePanel) ;
+    }
+    
+    public void initAlreadySelectedItem(Map<String, List<Integer>> itemList,
+                                        Map<String, List<Integer>> selectedItem)
+    {
+      for(Entry<String, File> entry : _ALREADY_SELECTED.entrySet())
+      {
+        String catName = entry.getKey() ;
+        File file = entry.getValue() ;
+        Integer index = _files.indexOf(file) ;
+        itemList.get(catName).remove(index) ;
+
+        List<Integer> cat = selectedItem.get(catName) ;
+        if(cat == null)
+        {
+          cat = new ArrayList<Integer>() ;
+          selectedItem.put(catName, cat) ;
+        }
+        
+        cat.add(index) ;
+      }
     }
     
     protected Image getImage(Display disp, String relativePathToImage) throws Exception
@@ -456,18 +511,6 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
 
       return new TreeViewer(tree) ;
     }
-  }
-  
-  public AadlBaExamplesWizard ()
-  {
-    super() ;
-    newProjectCreationPage = new AadlBaExamplesWizardPage("basicNewProjectPage");
-    newProjectCreationPage.setTitle("Aadl Behavior Annex Project");
-    newProjectCreationPage.setDescription("Create a new Aadl Behavior Annex project resource.");
-    
-    referencePage = new AadlWizardReferencePage("projectReferencePage");
-    referencePage.setTitle("AADL Settings");
-    referencePage.setDescription("Define the AADL Settings");
   }
   
   @Override

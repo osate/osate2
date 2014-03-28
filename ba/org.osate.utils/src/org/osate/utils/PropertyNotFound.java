@@ -28,8 +28,12 @@ package org.osate.utils;
 public class PropertyNotFound extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
-
+/*
   public PropertyNotFound(Throwable cause) {
     super(cause);
+  }
+  */
+  public  PropertyNotFound(String msg) {
+    super(msg);
   }
 }
