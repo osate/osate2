@@ -224,6 +224,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				processOptionalSection(object.getOwnedPrototypes(), "prototypes", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedFeatures(), "features", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedFlowSpecifications(),"flows",AadlConstants.emptyString);
+				processOptionalSection(object.getOwnedModes(), object.isDerivedModes()? "requires modes":"modes", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedPropertyAssociations(),"properties",AadlConstants.emptyString);
 				processEList(object.getOwnedAnnexSubclauses());
 				aadlText.decrementIndent();
@@ -307,7 +308,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * @param al
 			 *            AnnexLibrary object
 			 */
-			public String caseAnnexLibrary(DefaultAnnexLibrary al) {
+			public String caseDefaultAnnexLibrary(DefaultAnnexLibrary al) {
 				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
 						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
 				String annexName = al.getName();
@@ -335,47 +336,31 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * @param as
 			 *            AnnexSubclause object
 			 */
-			public String caseAnnexSubclause(DefaultAnnexSubclause as) {
+			public String caseDefaultAnnexSubclause(DefaultAnnexSubclause as) {
 				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
 						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
 
 				String annexName = as.getName();
-//				/**
-//				 * JD
-//				 * Workaround for implementing annex unparsing
-//				 * without registering them. Required for META toolset.
-//				 * 
-//				 * The behavior is that if the class has a method called
-//				 * getAnnexContent, then, we get the content
-//				 * of the annex and put it directly into the component.
-//				 */
-//				if (as instanceof AnnexSubclauseImpl)
-//				{
-//					AnnexSubclauseImpl asi = (AnnexSubclauseImpl)as;
-//					if ((asi.bypassUnparser()) && (asi.getAnnexContent().length() > 0))
-//					{
-//						aadlText.addOutputNewline("annex " + annexName + " {**");
-//						aadlText.incrementIndent();
-//						aadlText.addOutput(asi.getAnnexContent());
-//						aadlText.decrementIndent();
-//						aadlText.addOutputNewline("**};");
-//						return DONE;
-//					}
-//				}
 
 				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
 				String astring = as.getSourceText();
 					processComments(as);
 					AnnexSubclause annex = as.getParsedAnnexSubclause();
 					if (astring.startsWith("{**")){
+						// the AADL parser stores the annex text with {** **} as text in DefaultAnnexLib/Subclause
+						if (annex != null&& unparser != null){
+							//we can get the text from the annex unparser
+							aadlText.incrementIndent();
+							astring = unparser.unparseAnnexSubclause(annex,aadlText.getIndentString());
+							aadlText.decrementIndent();
+						}
 						aadlText.addOutput("annex " + annexName + astring);
 					} else {
 						// now unparse test that has been set without {**
+						// XXX: TODO: we assume that it has not not been parsed.
+						// we should remove this hack once RC fills in the text with brackets
 						aadlText.addOutputNewline("annex " + annexName + " {**");
 						aadlText.incrementIndent();
-						if (annex != null&& unparser != null){
-							astring = unparser.unparseAnnexSubclause(annex,aadlText.getIndentString());
-						}
 						aadlText.addOutput(astring);
 						aadlText.decrementIndent();
 						aadlText.addOutput("**}");
