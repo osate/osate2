@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ContainedNamedElement;
@@ -23,6 +24,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
@@ -43,7 +45,14 @@ public class EMV2Properties {
 
 
 	
-	public static double getProbability (ComponentInstance ci, NamedElement ne, TypeSet ts)
+	/**
+	 * retrieve the probability
+	 * @param ci component instance, subcomponent, or classifier
+	 * @param ne named element for which we retrieve the probability
+	 * @param ts type set
+	 * @return
+	 */
+	public static double getProbability (NamedElement ci, NamedElement ne, TypeSet ts)
 	{
 		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(ci,ne,ts);
 		double prob = 0;
@@ -56,10 +65,10 @@ public class EMV2Properties {
 	/**
 	 * 
 	 * @param element - the EMV2 element that refers to the artifact
-	 * @param relatedComponentInstance - the component that have the property association
+	 * @param relatedComponent - the component (instance, subcomponent or classifier that have the property association
 	 * @return - the text related to the description part of the hazards property. Null if not defined
 	 */
-	public static String getDescription (NamedElement element, ComponentInstance relatedComponentInstance)
+	public static String getDescription (NamedElement element, NamedElement relatedComponent)
 	{
 		TypeSet ts = null;
 		
@@ -78,7 +87,7 @@ public class EMV2Properties {
 			ts = ((ErrorEvent)element).getTypeSet();
 		}
 		
-		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,element,ts);
+		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponent,element,ts);
 		
 		if (PA.isEmpty())
 		{
@@ -130,10 +139,10 @@ public class EMV2Properties {
 	/**
 	 * 
 	 * @param element - the EMV2 element that referes to the artifact
-	 * @param relatedComponentInstance - the component that have the property association
+	 * @param relatedComponent - the component the component (instance, subcomponent or classifier) that have the property association
 	 * @return - the text related to the failure part of the hazards property. Null if not defined
 	 */
-	public static String getFailure (NamedElement element, ComponentInstance relatedComponentInstance)
+	public static String getFailure (NamedElement element, NamedElement relatedComponent)
 	{
 		TypeSet ts = null;
 		
@@ -152,7 +161,7 @@ public class EMV2Properties {
 			ts = ((ErrorEvent)element).getTypeSet();
 		}
 		
-		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,element,ts);
+		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponent,element,ts);
 		
 		if (PA.isEmpty())
 		{
@@ -200,7 +209,14 @@ public class EMV2Properties {
 		return null;
 	}
 	
-	public static EList<ContainedNamedElement> getHazardsProperty(ComponentInstance ci, Element target, TypeSet ts){
+	/**
+	 * retrieve the hazards property
+	 * @param ci Component instance, subcomponent or classifier
+	 * @param target target error model element
+	 * @param ts TypeSet
+	 * @return
+	 */
+	public static EList<ContainedNamedElement> getHazardsProperty(NamedElement ci, Element target, TypeSet ts){
 		EList<ContainedNamedElement> result =  getProperty("EMV2::hazards",ci,target,ts);
 		if (result.isEmpty()) result =  getProperty("ARP4761::hazards",ci,target,ts);
 		if (result.isEmpty()) result =  getProperty("MILSTD882::hazards",ci,target,ts);
@@ -214,23 +230,33 @@ public class EMV2Properties {
 	 * res = EM2Util.getOccurenceValue (PA);
 	 * 
 	 * @see		Util
-	 * @param 	ci				ComponentInstance object that contains the property
-	 * @param localContext		the context or null
+	 * @param 	ci				Component instance, subcomponent or classifier that contains the property
 	 * @param target			the property
 	 * @param ts				corresponding typeset or null
 	 * @return
 	 */
-	public static EList<ContainedNamedElement> getOccurenceDistributionProperty(ComponentInstance ci, NamedElement target, TypeSet ts){
+	public static EList<ContainedNamedElement> getOccurenceDistributionProperty(NamedElement ci, NamedElement target, TypeSet ts){
 		EList<ContainedNamedElement> result =  getProperty("EMV2::OccurrenceDistribution",ci,target,ts);
 		
 		if (result.size() == 0)
 		{
-			if ((ci.getComponentClassifier().getCategory() == ComponentCategory.PROCESS)||
-					(ci.getComponentClassifier().getCategory() == ComponentCategory.ABSTRACT) ||
-					(ci.getComponentClassifier().getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) ||
-					(ci.getComponentClassifier().getCategory() == ComponentCategory.SYSTEM))
+			ComponentCategory cat = null;
+			if (ci instanceof ComponentInstance){
+				cat = ((ComponentInstance)ci).getComponentClassifier().getCategory();
+				// processor binding for instances only
+//			} else if (ci instanceof Subcomponent){
+//				cat = ((Subcomponent)ci).getCategory();
+//			} else if (ci instanceof ComponentClassifier){
+//				cat = ((ComponentClassifier)ci).getCategory();
+			} else {
+				return result;
+			}
+			if ((cat == ComponentCategory.PROCESS)||
+					(cat == ComponentCategory.ABSTRACT) ||
+					(cat == ComponentCategory.VIRTUAL_PROCESSOR) ||
+					(cat == ComponentCategory.SYSTEM))
 			{
-				List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
+				List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding((ComponentInstance)ci);
 				ComponentInstance cpu = cpus.isEmpty() ? null : cpus.get(0);
 				if (cpu != null)
 				{
@@ -291,14 +317,11 @@ public class EMV2Properties {
 	public static double getOccurenceValue (final ContainedNamedElement PAContainmentPath)
 	{
 		double result;
-		
 		result = 0;
-		
 		if (PAContainmentPath == null)
 		{
 			return 0;
 		}
-		
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue){
@@ -374,7 +397,7 @@ public class EMV2Properties {
 	 * @return list of paths
 	 */
 	public static EList<ContainedNamedElement> getMatchingPropertiesInList(EList<PropertyAssociation> props,String propertyName, Element target,
-			 Stack<ComponentInstance> ciStack, TypeSet ts){
+			 Stack<NamedElement> ciStack, TypeSet ts){
 		if (props.isEmpty()  ) return new BasicEList<ContainedNamedElement>();
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
 		for (PropertyAssociation propertyAssociation : props) {
@@ -392,13 +415,13 @@ public class EMV2Properties {
 	/**
 	 * check to see if the first part of the path matches the stack.
 	 * Note, the order of items on the stack is the inverse of that in the path.
-	 * If ciStack is null return true.
+	 * If ciStack is null or empty return true.
 	 * @param ciStack
 	 * @param cpes
 	 * @return
 	 */
-	private static boolean matchCIStack(Stack<ComponentInstance> ciStack,EList<ContainmentPathElement> cpes){
-		if (ciStack == null)
+	private static boolean matchCIStack(Stack<NamedElement> ciStack,EList<ContainmentPathElement> cpes){
+		if (ciStack == null || ciStack.isEmpty())
 		{
 			return true;
 		}
@@ -416,17 +439,15 @@ public class EMV2Properties {
 			{
 				return false;
 			}
-			
-			ComponentInstance cisci = ciStack.get(i);
-			ContainmentPathElement cpesci = cpes.get(idx);
-
-			if (ciStack.get(i).getSubcomponent() != cpes.get(idx).getNamedElement())
+			NamedElement el = ciStack.get(i);
+			if (el instanceof ComponentInstance){
+				el = ((ComponentInstance)el).getSubcomponent();
+			}
+			if (el != cpes.get(idx).getNamedElement())
 			{
 				return false;
 			}
 		}
-		
-
 		return true;
 	}
 	
@@ -436,13 +457,13 @@ public class EMV2Properties {
 	 * ciStack represents the path from the context of the PA to the component instance whose property we want to retrieve
 	 * The desired type set ts must be contained in the type set named in the containment path
 	 * @param propertyAssociation PropertyAssociation that is the candidate
-	 * @param ciStack ComponentInstance in instance model hierarchy with the error model element, whose property we are retrieving (or null)
+	 * @param ciStack (can be null or empty) ComponentInstance in instance model hierarchy with the error model element, whose property we are retrieving (or null)
 	 * @param target Element the target object in the error model whose property we retrieve
 	 * @param ts type set that must contain the last element if it is a type
 	 * @return ContainedNamedElement the containment path that matches
 	 */
 	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, Element target, 
-			Stack<ComponentInstance> ciStack, TypeSet ts ){
+			Stack<NamedElement> ciStack, TypeSet ts ){
 		boolean matchStack = false;
 		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
 		for (ContainedNamedElement containedNamedElement : applies) {
@@ -530,12 +551,12 @@ public class EMV2Properties {
 	 * In some cases we are interested in the state as it is associated with the component via the use behavior clause.
 	 * In that case there is no local context for the state reference.
 	 * @param propertyName String
-	 * @param ci ComponentInstance the component with the error model element, whose property we are retrieving
+	 * @param ci ComponentInstance the component instance, subcomponent, or classifier with the error model element, whose property we are retrieving
 	 * @param target Element the target object in the error model whose property we retrieve (the element may carry an error type)
 	 * @param ts Type Set null or any error type in the type set as part of the target error model element
 	 * @return
 	 */
-	public static EList<ContainedNamedElement> getProperty(String propertyName, ComponentInstance ci,Element target, TypeSet ts){
+	public static EList<ContainedNamedElement> getProperty(String propertyName, NamedElement ci,Element target, TypeSet ts){
 		EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName,ci,target, ts);
 		if (result.isEmpty()){
 			// look up in context of target definition
@@ -559,7 +580,7 @@ public class EMV2Properties {
 	 * @return
 	 */
 	private static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
-			Stack<ComponentInstance> ciStack, TypeSet ts){
+			Stack<NamedElement> ciStack, TypeSet ts){
 		if (ci != null ) {
 			if (ci.getContainingComponentInstance() != null){
 				ciStack.push(ci);
@@ -580,6 +601,7 @@ public class EMV2Properties {
 		return new BasicEList<ContainedNamedElement>();
 	}
 
+
 	/**
 	 * retrieve an error model property (such as Hazard) attached to an error model element based on contained property associations
 	 * in the annex subclause properties section.
@@ -592,21 +614,57 @@ public class EMV2Properties {
 	 * @return Containmentpath of the PA that matches the parameters.
 	 * we return the path because the PA applies to more than element
 	 */
-	public static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
+	public static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,Element target, 
 			TypeSet ts){
-		Stack<ComponentInstance> ciStack = new Stack<ComponentInstance>();
-		return getPropertyInInstanceHierarchy(propertyName,ci,target,ciStack, ts);
+		Stack<NamedElement> ciStack = new Stack<NamedElement>();
+		ComponentClassifier cl = null;
+		if (ci instanceof ComponentInstance){
+			return getPropertyInInstanceHierarchy(propertyName,(ComponentInstance)ci,target,ciStack, ts);
+		}
+		if (ci instanceof Subcomponent){
+			ciStack.push(ci);
+			cl = ((Subcomponent)ci).getAllClassifier();
+		}
+		if (ci instanceof ComponentClassifier){
+			cl = (ComponentClassifier)ci;
+		}
+		if (cl != null){
+			// deals with inherited properties by walking subclause inheritance
+			EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(cl);
+			for (ErrorModelSubclause ems : emslist) {
+				EList<PropertyAssociation> props = ems.getProperties();
+				EList<ContainedNamedElement>result = getMatchingPropertiesInList(props, propertyName, target, ciStack,ts);
+				if (!result.isEmpty()){
+					return result;
+				}
+			}
+		}
+		return null;
 	}
 	
 
-	public static EList<ContainedNamedElement> getSeverityProperty(ComponentInstance ci, Element target, TypeSet ts){
+	/**
+	 * get Severity
+	 * @param ci component instance, subcomponent, or classifier
+	 * @param target Error Model element
+	 * @param ts Typeset
+	 * @return path to element with property
+	 */
+	public static EList<ContainedNamedElement> getSeverityProperty(NamedElement ci, Element target, TypeSet ts){
 		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Severity",ci,target,ts);
 //		if (result==null)result = EMV2Properties.getProperty("ARP4761::Severity",ci,target,ts);
 //		if (result==null)result = EMV2Properties.getProperty("MILSTD882::Severity",ci,target,ts);
 		return result;
 	}
 	
-	public static EList<ContainedNamedElement> getLikelihoodProperty(ComponentInstance ci, Element target, TypeSet ts){
+	/**
+	 * get likelihood
+	 * @param ci component instance, subcomponent, or classifier
+	 * @param target Error Model element
+	 * @param ts Typeset
+	 * @return path to element with property
+	 */
+	public static EList<ContainedNamedElement> getLikelihoodProperty(NamedElement ci, Element target, TypeSet ts){
 		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Likelihood",ci,target,ts);
 //		if (result==null)result = EMV2Properties.getProperty("ARP4761::Likelihood",ci,target,ts);
 //		if (result==null)result = EMV2Properties.getProperty("MILSTD882::Likelihood",ci,target,ts);
