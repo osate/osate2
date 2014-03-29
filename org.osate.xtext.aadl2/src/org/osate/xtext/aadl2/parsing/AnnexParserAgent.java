@@ -129,7 +129,9 @@ public class AnnexParserAgent  extends LazyLinker {
 				String annexName = defaultAnnexLibrary.getName();
 				if (annexText != null && annexText.length() > 6 && annexName != null){
 					// strip {** **}
-					annexText = annexText.substring(3, annexText.length() - 3);
+					if (annexText.startsWith("{**")){
+						annexText = annexText.substring(3, annexText.length() - 3);
+					}
 					AnnexParser ap = registry.getAnnexParser(annexName);
 					try {
 						int errs = errReporter.getNumErrors();
@@ -187,7 +189,9 @@ public class AnnexParserAgent  extends LazyLinker {
 			String annexName = defaultAnnexSubclause.getName();
 			if (annexText != null && annexText.length() > 6 && annexName != null){
 				// strip {** **}
+				if (annexText.startsWith("{**")){
 					annexText = annexText.substring(3, annexText.length() - 3);
+				}
 				AnnexParser ap = registry.getAnnexParser(annexName);
 				try {
 					int errs = errReporter.getNumErrors();
