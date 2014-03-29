@@ -4,13 +4,13 @@
 
 property set Deployment_Properties is
 	Allowed_Processor_Binding_Class:
-		inherit list of classifier (processor, virtual processor, system)
+		inherit list of classifier (processor, virtual processor, system, device)
 		applies to (thread, thread group, process, system, virtual processor, device);
 			
-	Allowed_Processor_Binding: inherit list of reference (processor, virtual processor, system)
+	Allowed_Processor_Binding: inherit list of reference (processor, virtual processor, system, device)
 		applies to (thread, thread group, process, system, virtual processor, device);
 	
-	Actual_Processor_Binding: inherit list of reference (processor, virtual processor, system)
+	Actual_Processor_Binding: inherit list of reference (processor, virtual processor, system, device)
 		applies to (thread, thread group, process, system, virtual processor, device);
 	
 	Allowed_Memory_Binding_Class:
