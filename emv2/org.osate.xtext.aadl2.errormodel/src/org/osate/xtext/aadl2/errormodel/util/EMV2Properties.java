@@ -623,7 +623,7 @@ public class EMV2Properties {
 		}
 		if (ci instanceof Subcomponent){
 			ciStack.push(ci);
-			cl = ((Subcomponent)ci).getAllClassifier();
+			cl = (ComponentClassifier)((Subcomponent)ci).getContainingClassifier();
 		}
 		if (ci instanceof ComponentClassifier){
 			cl = (ComponentClassifier)ci;
