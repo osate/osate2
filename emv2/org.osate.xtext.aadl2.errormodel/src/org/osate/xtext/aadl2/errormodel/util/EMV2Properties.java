@@ -622,12 +622,34 @@ public class EMV2Properties {
 			return getPropertyInInstanceHierarchy(propertyName,(ComponentInstance)ci,target,ciStack, ts);
 		}
 		if (ci instanceof Subcomponent){
-			ciStack.push(ci);
+			// look in enclosing component impl first. Then in classifier of subcomponent
 			cl = (ComponentClassifier)((Subcomponent)ci).getContainingClassifier();
+			ciStack.push(ci);
+			EList<ContainedNamedElement> result = getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
+			if (result != null) return result;
+			ciStack.pop();
+			cl = ((Subcomponent)ci).getAllClassifier();
+			return getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
 		}
 		if (ci instanceof ComponentClassifier){
 			cl = (ComponentClassifier)ci;
+			return getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
 		}
+		return null;
+	}
+	
+	/**
+	 * retrieve an error model property (such as Hazard) attached to an error model element based on contained property associations
+	 * in the annex subclause properties section of the classifier.
+	 * @param propertyName name of property we are looking for
+	 * @param ci component instance whose EM element has the property
+	 * @param target the error model element (which is optionally followed by a type that is contained in the typeset ts
+	 * @param ts the type set
+	 * @return Containmentpath of the PA that matches the parameters.
+	 * we return the path because the PA applies to more than element
+	 */
+	public static EList<ContainedNamedElement> getPropertyInClassifier(String propertyName, Classifier cl,Element target, 
+			Stack<NamedElement> ciStack,TypeSet ts){
 		if (cl != null){
 			// deals with inherited properties by walking subclause inheritance
 			EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(cl);
