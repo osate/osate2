@@ -144,9 +144,26 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 					{
 						error (obj, "Implementation does not match all errors types on outgoing error propagations");
 					}
+
+					/**
+					 * In the following piece of code, we checked the failure
+					 * rate occurrence of the classifier against the implementation.
+					 * We make sure than the implementation does not exceed the
+					 * budget defined in the classifier.
+					 */
+					double probImplementation = 0;
+					double probClassifier     = 0;
+					probImplementation = EMV2Properties.getProbability(componentImplementation, epi, epi.getTypeSet());
+					probClassifier = EMV2Properties.getProbability(componentImplementation, epc, epc.getTypeSet());	
 					
+					if (probImplementation > probClassifier)
+					{
+						error (obj, "Failure rate on the implementation is higher than on the classifier (" + probImplementation + " vs " + probClassifier +")");
+					}
+//					OsateDebug.osateDebug("impl="+probImplementation + ";class=" + probClassifier);
 				}
 			}
+			
 			
 			
 			
