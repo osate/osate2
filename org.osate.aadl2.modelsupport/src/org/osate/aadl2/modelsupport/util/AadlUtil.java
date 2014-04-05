@@ -146,6 +146,7 @@ import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.parsesupport.AObject;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
@@ -2205,6 +2206,12 @@ public final class AadlUtil {
 	 */
 	public static int getLineNumberFor(EObject obj)	{
 		if (obj == null) return 0;
+		if (obj instanceof AObject){
+			LocationReference locref = ((AObject)obj).getLocationReference();
+			if (locref != null){
+				return locref.getLine();
+			}
+		}
 		INode node = NodeModelUtils.findActualNodeFor(obj);
 		if (node != null){
 			return node.getStartLine();
