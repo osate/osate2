@@ -78,6 +78,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Access;
@@ -92,6 +94,8 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
@@ -2193,5 +2197,41 @@ public final class AadlUtil {
 		IPath path = OsateResourceUtil.getOsatePath(uri);
 		return path.removeLastSegments(1);
 	}
+	
+	/**
+	 * get the line number for a given model object in the core model
+	 * This method makes use of the Xtext parse tree.
+	 * @return line number or zero
+	 */
+	public static int getLineNumberFor(EObject obj)	{
+		if (obj == null) return 0;
+		INode node = NodeModelUtils.findActualNodeFor(obj);
+		if (node != null){
+			return node.getStartLine();
+		} else {
+			EObject defaultannex = getContainingDefaultAnnex(obj);
+			if (defaultannex != null){
+				node = NodeModelUtils.findActualNodeFor(obj);
+				if (node != null){
+					return node.getStartLine();
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * find the enclosing default annex subclause of library, otherwise return null
+	 * @param obj
+	 * @return
+	 */
+	public static EObject getContainingDefaultAnnex(EObject obj){
+		EObject res = obj;
+		while (res != null && !(res instanceof DefaultAnnexSubclause) && !(res instanceof DefaultAnnexLibrary)) {
+			res = res.eContainer();
+		}
+		return res;
+	}
+
 
 }
