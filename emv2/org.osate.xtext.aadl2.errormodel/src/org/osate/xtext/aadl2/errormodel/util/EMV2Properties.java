@@ -6,6 +6,7 @@ import java.util.Stack;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -14,12 +15,14 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
@@ -43,7 +46,38 @@ public class EMV2Properties {
 
 	public static final String INVALID_OCCURRENCE_TYPE = "unknown_distribution";
 
+	/**
+	 * convert enumeration literals or integer values possibly assigned as property constant into String labels
+	 * @param val PropertyExpression
+	 * @returns String
+	 */
+	public static String getEnumerationOrIntegerPropertyConstantPropertyValue(PropertyExpression val){
+		// added code to handle integer value and use of property constant instead of enumeration literal
+		if (val instanceof NamedValue){
+			AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
+			if (eval instanceof EnumerationLiteral){
+				return ((EnumerationLiteral)eval).getName();
 
+			}else if (eval instanceof PropertyConstant){
+				return ((PropertyConstant)eval).getName();
+			}
+		} else if (val instanceof IntegerLiteral){
+			return ""+((IntegerLiteral)val).getValue();
+		}
+		return "";
+	}
+	
+	public static PropertyExpression getPropertyValue(ContainedNamedElement containmentPath)
+	{
+		if (containmentPath != null)
+		{
+			for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
+				PropertyExpression val = modalPropertyValue.getOwnedValue();
+				return val;
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * retrieve the probability

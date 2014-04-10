@@ -201,17 +201,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		}
 	}
 	
-	protected PropertyExpression getPropertyValue(ContainedNamedElement containmentPath)
-	{
-		if (containmentPath != null)
-		{
-			for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
-				PropertyExpression val = modalPropertyValue.getOwnedValue();
-				return val;
-			}
-		}
-		return null;
-	}
+
 	
 	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement containmentPath){
 		if (containmentPath == null){
@@ -271,8 +261,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				{
 					//OsateDebug.osateDebug ("pe=" + pe);
 					if (pe instanceof RecordValue){
-						PropertyExpression severityValue = getPropertyValue (SevContainmentPath);
-						PropertyExpression likelihoodValue = getPropertyValue (LikeContainmentPath);
+						PropertyExpression severityValue = EMV2Properties.getPropertyValue (SevContainmentPath);
+						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue (LikeContainmentPath);
 						EList<BasicPropertyAssociation> fields = ((RecordValue)pe).getOwnedFieldValues();
 						// for all error types/aliases in type set or the element identified in the containment clause 
 		
@@ -447,30 +437,11 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		if (xref != null){
 			val = xref.getOwnedValue();
 		}
-		report.addOutput(getEnumerationOrIntegerPropertyConstantPropertyValue(val));
+		report.addOutput(EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(val));
 	}
 
 	
-	/**
-	 * convert enumeration literals or integer values possibly assigned as property constant into String labels
-	 * @param val PropertyExpression
-	 * @returns String
-	 */
-	protected String getEnumerationOrIntegerPropertyConstantPropertyValue(PropertyExpression val){
-		// added code to handle integer value and use of property constant instead of enumeration literal
-		if (val instanceof NamedValue){
-			AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
-			if (eval instanceof EnumerationLiteral){
-				return ((EnumerationLiteral)eval).getName();
 
-			}else if (eval instanceof PropertyConstant){
-				return ((PropertyConstant)eval).getName();
-			}
-		} else if (val instanceof IntegerLiteral){
-			return ""+((IntegerLiteral)val).getValue();
-		}
-		return "";
-	}
 
 	protected String stripQuotes(String text){
 		if (text.startsWith("\"")&& text.endsWith("\"")){

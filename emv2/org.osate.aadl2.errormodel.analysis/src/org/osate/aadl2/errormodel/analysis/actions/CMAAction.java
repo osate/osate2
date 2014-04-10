@@ -51,6 +51,7 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -77,9 +78,16 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 		}
 		
 		monitor.beginTask("Common Mode Analysis", IProgressMonitor.UNKNOWN); 
-
+		
+		AnalysisModel analysisModel = new AnalysisModel (si, false);
+		
 		CMAReport report = new CMAReport();
 		
+		/**
+		 * We try to see what is the severity for each state. Then, if a state
+		 * is classified at least as the selected severity, we add all its common
+		 * cause of failures reported by the processState method.
+		 */
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si))
 		{
 			OsateDebug.osateDebug("[CMAAction] state " + state.getName());
@@ -92,7 +100,7 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 				OsateDebug.osateDebug("[CMAAction] severity " + sev);
 				if (sev.equalsIgnoreCase("hazardous"))
 				{
-					report.addEntries (CMAUtils.processState(si, state, state.getTypeSet()));
+					report.addEntries (CMAUtils.processState(analysisModel, state, state.getTypeSet()));
 				}
 			}
 			

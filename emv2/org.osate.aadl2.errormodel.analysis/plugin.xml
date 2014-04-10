@@ -57,6 +57,26 @@
                </or>
             </enablement>
          </action>
+
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.CMA.action"
+               label="%CMA.label"
+               tooltip="%CMA.toolTip"
+               icon="icons/cma.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.CMAAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action>
          
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.RBD.action"
@@ -83,7 +103,7 @@
                id="org.osate.aadl2.errormodel.analysis.actions.FTA.action"
                label="%FTA.label"
                tooltip="%FTA.toolTip"
-               icon="%FTA.icon"
+               icon="icons/fta.png"
                class="org.osate.aadl2.errormodel.analysis.actions.FTAAction"
                menubarPath="menu.analyses/menu.fault/stuff.grp"
                toolbarPath="fault.toolbar"
@@ -151,7 +171,7 @@
                id="org.osate.aadl2.errormodel.analysis.actions.UnhandledFaults.action"
                label="%UnhandledFaults.label"
                tooltip="%UnhandledFaults.toolTip"
-               icon="%UnhandledFaults.icon"
+               icon="icons/UnhandledFaults.gif"
                class="org.osate.aadl2.errormodel.analysis.actions.UnhandledFaultsAction"
                menubarPath="menu.analyses/menu.fault/stuff.grp"
                toolbarPath="fault.toolbar"
@@ -298,8 +318,16 @@
                id="org.osate.aadl2.errormodel.analysis.actions.FHA.popupAction"
                label="%FHA.label"
                tooltip="%FHA.toolTip"
-               icon="icons/prefs.png"
+               icon="icons/fha.png"
                class="org.osate.aadl2.errormodel.analysis.actions.FHAAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.CMA.popupAction"
+               label="%CMA.label"
+               tooltip="%CMA.toolTip"
+               icon="icons/cma.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.CMAAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
          <action
@@ -314,7 +342,7 @@
                id="org.osate.aadl2.errormodel.analysis.actions.FTA.popupAction"
                label="%FTA.label"
                tooltip="%FTA.toolTip"
-               icon="%FTA.icon"
+               icon="icons/fta.png" 
                class="org.osate.aadl2.errormodel.analysis.actions.FTAAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
@@ -338,7 +366,7 @@
                id="org.osate.aadl2.errormodel.analysis.actions.FaultImpact.popupAction"
                label="%FaultImpact.label"
                tooltip="%FaultImpact.toolTip"
-               icon="%FaultImpact.icon"
+               icon="icons/FaultImpact.gif"
                class="org.osate.aadl2.errormodel.analysis.actions.FaultImpactAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
