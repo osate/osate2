@@ -3,6 +3,8 @@ package org.osate.aadl2.errormodel.analysis.cma;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.modelsupport.WriteToFile;
+
 public class CMAReport {
 	private List<CMAReportEntry> entries;
 	
@@ -29,5 +31,10 @@ public class CMAReport {
 	public List<CMAReportEntry> getEntries()
 	{
 		return this.entries;
+	}
+	
+	public void write (WriteToFile file)
+	{
+		
 	}
 }

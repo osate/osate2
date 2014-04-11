@@ -13,11 +13,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 public class CMAUtils {
 
@@ -97,12 +100,26 @@ public class CMAUtils {
 		
 		List<CMAReportEntry> 		result;
 		List<ComponentClassifier> 	usedClassifiers;
+		List<PropagationPathEnd> 	relatedErrorSources;
 		List<ComponentInstance>     referencedInstances;
-		Map<ComponentInstance, List<ComponentClassifier>> componentClassifiers;
 		
-		result = new ArrayList<CMAReportEntry>();
-		referencedInstances = new ArrayList<ComponentInstance>();
-		componentClassifiers = new HashMap<ComponentInstance, List<ComponentClassifier>>();
+		/**
+		 * The componentClassifiers map contains all the classifiers contained/used
+		 * by a component instance so that we can later detect potential duplicates.
+		 */
+		Map<ComponentInstance, List<ComponentClassifier>> componentClassifiers;
+
+		/**
+		 * The errorSources map contains all the error sources contained/used
+		 * by a component instance so that we can later detect potential duplicates.
+		 */
+		Map<ComponentInstance, List<PropagationPathEnd>> errorSources;		
+		
+		result 					= new ArrayList<CMAReportEntry>();
+		referencedInstances 	= new ArrayList<ComponentInstance>();
+		componentClassifiers 	= new HashMap<ComponentInstance, List<ComponentClassifier>>();
+		errorSources 			= new HashMap<ComponentInstance, List<PropagationPathEnd>>();
+		
 		
 		for (ConditionElement elt : elements)
 		{
@@ -119,14 +136,82 @@ public class CMAUtils {
 				ComponentInstance subcompInstance = findComponentInstance (analysisModel.getRoot().getComponentInstance(), subcomp);
 				referencedInstances.add(subcompInstance);
 				
+				/**
+				 * Then, we get all the classifiers used by the subcomponent.
+				 */
 				usedClassifiers = new ArrayList<ComponentClassifier>();
 				getAllClassifiers (subcompInstance, usedClassifiers);
 				
+				/**
+				 * For each component involved in the condition, we stored
+				 * all the used classifiers.
+				 */
 				componentClassifiers.put(subcompInstance, usedClassifiers);
+			
+				/**
+				 * Then, we get all the error propagations that might
+				 * impact the component.
+				 */
+				relatedErrorSources = new ArrayList<PropagationPathEnd>();
+				getAllErrorSources (subcompInstance, analysisModel, relatedErrorSources);
 				
-				
+				/**
+				 * For each component involved in the condition, we stored
+				 * all the used classifiers.
+				 */
+				errorSources.put(subcompInstance, relatedErrorSources);
 			}
 		}
+		
+
+		/**
+		 * In the following, we try to find common error sources between ANDed components.
+		 */
+		for (ComponentInstance ci : referencedInstances)
+		{
+			List<ComponentInstance> duplicatesContainer = new ArrayList<ComponentInstance>();
+			boolean foundInOther;
+			boolean duplicated;
+			for (PropagationPathEnd ppe1 : errorSources.get(ci))
+			{
+				duplicated = true;
+				for (ComponentInstance ci2 : referencedInstances)
+				{
+					
+					foundInOther = false;
+					
+					if (ci2 == ci)
+					{
+						continue;
+					}
+					
+					for (PropagationPathEnd ppe2 : errorSources.get(ci2))
+					{
+						if (ppe1.getErrorPropagation() == ppe2.getErrorPropagation())
+						{
+							foundInOther = true;
+							duplicatesContainer.add (ci2);
+							duplicatesContainer.add (ci);
+						}
+					}
+					if (foundInOther == false)
+					{
+						duplicated = false;
+					}
+				}
+
+				if (duplicated)
+				{
+					OsateDebug.osateDebug("[CMAUtils] Propagation duplicate:" + ppe1.getErrorPropagation());
+					OsateDebug.osateDebug("[CMAUtils] found in components");
+					for (ComponentInstance tmp : duplicatesContainer)
+					{
+						OsateDebug.osateDebug("[CMAUtils]    " + tmp.getName());
+					}
+				}	
+			}
+		}
+		
 		
 		/**
 		 * In the following, we will then try to find duplicates classifier between ANDed
@@ -192,6 +277,32 @@ public class CMAUtils {
 		for (ComponentInstance child : instance.getComponentInstances())
 		{
 			getAllClassifiers(child, result);
+		}
+	}
+	
+	/**
+	 * Get all the error sources related to a component and its subcomponent. We can then
+	 * check if there is some overlap of error sources that impact two components.
+	 * @param instance - the top-level component that contains the rest.
+	 * @param result   - an initialized list that will contain the result (all the error sources)
+	 */
+	public static void getAllErrorSources (ComponentInstance instance, AnalysisModel analysisModel, List<PropagationPathEnd> result)
+	{
+		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(instance))
+		{
+//			OsateDebug.osateDebug("[CMAUtils] instance= " + instance + "ep=" + ep);
+			
+			//FIXME: no propagation path is found!
+			for (PropagationPathEnd ppe : analysisModel.getAllPropagationSourceEnds(instance, ep))
+			{
+//				OsateDebug.osateDebug("[CMAUtils] add ppe1=" + ppe);
+				result.add(ppe);
+			}
+		}
+		
+		for (ComponentInstance child : instance.getComponentInstances())
+		{
+			getAllErrorSources(child, analysisModel, result);
 		}
 	}
 	

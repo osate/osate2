@@ -5,6 +5,8 @@ public class CMAReportEntry {
 	private String mode;
 	private String justification;
 	
+	public enum EntryType {SPECIFICATION, ARCHITECTURE_DESIGN,INSTALLATION,OPERATION,ENVIRONMENTAL_FACTOR};
+	
 	public CMAReportEntry ()
 	{
 		source        = null;

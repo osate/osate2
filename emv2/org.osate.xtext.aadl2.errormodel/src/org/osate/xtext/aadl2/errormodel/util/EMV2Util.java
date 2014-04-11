@@ -1095,6 +1095,10 @@ public class EMV2Util {
 		return getAllErrorPropagations(cl,DirectionType.IN);
 	}
 	
+	public static Collection<ErrorPropagation> getAllIncomingErrorPropagations(ComponentInstance ci){
+		return getAllErrorPropagations(ci.getComponentClassifier(),DirectionType.IN);
+	}
+	
 	/**
 	 * return list of error propagations including those inherited from classifiers being extended
 	 * @param cl Classifier

@@ -79,7 +79,10 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 		
 		monitor.beginTask("Common Mode Analysis", IProgressMonitor.UNKNOWN); 
 		
-		AnalysisModel analysisModel = new AnalysisModel (si, false);
+		AnalysisModel analysisModel = new AnalysisModel (si.getComponentInstance(), false);
+		
+		OsateDebug.osateDebug("[CMAAction] Propagation paths");
+		analysisModel.printPropagationPaths();
 		
 		CMAReport report = new CMAReport();
 		
@@ -90,26 +93,24 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 		 */
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si))
 		{
-			OsateDebug.osateDebug("[CMAAction] state " + state.getName());
+//			OsateDebug.osateDebug("[CMAAction] state " + state.getName());
 			
 			List<ContainedNamedElement> severityValues = EMV2Properties.getSeverityProperty(si, state, state.getTypeSet());
 			for (ContainedNamedElement cne : severityValues)
 			{
 				PropertyExpression severityValue = EMV2Properties.getPropertyValue (cne);
 				String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue (severityValue);
-				OsateDebug.osateDebug("[CMAAction] severity " + sev);
+//				OsateDebug.osateDebug("[CMAAction] severity " + sev);
 				if (sev.equalsIgnoreCase("hazardous"))
 				{
 					report.addEntries (CMAUtils.processState(analysisModel, state, state.getTypeSet()));
 				}
-			}
-			
-		
-			
+			}	
 		}
-//		WriteToFile report = new WriteToFile("CMA", si);
-//
-//		report.saveToFile();
+		
+		WriteToFile csvReport = new WriteToFile("CMA", si);
+		report.write (csvReport);
+//		csvReport.saveToFile();
 
 		monitor.done();
 	}
