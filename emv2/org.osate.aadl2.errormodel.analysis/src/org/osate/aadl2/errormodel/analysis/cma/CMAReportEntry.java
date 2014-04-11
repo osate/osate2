@@ -4,14 +4,16 @@ public class CMAReportEntry {
 	private String source;
 	private String mode;
 	private String justification;
+	private EntryType type;
 	
-	public enum EntryType {SPECIFICATION, ARCHITECTURE_DESIGN,INSTALLATION,OPERATION,ENVIRONMENTAL_FACTOR};
+	public enum EntryType {NONE, SPECIFICATION, ARCHITECTURE_DESIGN,INSTALLATION,OPERATION,ENVIRONMENTAL_FACTOR};
 	
 	public CMAReportEntry ()
 	{
 		source        = null;
 		mode          = null;
 		justification = null;
+		type          = EntryType.NONE;
 	}
 	
 	public void setSource (String s)
@@ -42,5 +44,15 @@ public class CMAReportEntry {
 	public String getSource ()
 	{
 		return this.source;
+	}
+	
+	public void setType (EntryType t)
+	{
+		this.type = t;
+	}
+	
+	public EntryType getType ()
+	{
+		return this.type;
 	}
 }

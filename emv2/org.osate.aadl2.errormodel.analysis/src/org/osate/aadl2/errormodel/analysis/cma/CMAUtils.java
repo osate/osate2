@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.errormodel.analysis.cma.CMAReportEntry.EntryType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -23,8 +24,14 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 public class CMAUtils {
-
 	
+	public static final int SEVERITY_CATASTROPHIC 	= 1;
+	public static final int SEVERITY_HAZARDOUS 		= 2;
+	public static final int SEVERITY_SEVEREMAJOR 	= 2;
+	public static final int SEVERITY_MAJOR 			= 3;
+	public static final int SEVERITY_MINOR 			= 4;
+	public static final int SEVERITY_NOEFFECT		= 5;
+	public static final int SEVERITY_UNKNOWN 		= 100;
 	/**
 	 * The processState method is used to report all potential CMA report entry.
 	 * These entries are then added to the complete CMA report.
@@ -217,6 +224,7 @@ public class CMAUtils {
 		 * In the following, we will then try to find duplicates classifier between ANDed
 		 * components.
 		 */
+		Map<ComponentClassifier,List<ComponentInstance>> duplicatedFound = new HashMap<ComponentClassifier,List<ComponentInstance>>();
 		for (ComponentInstance ci : referencedInstances)
 		{
 			List<ComponentInstance> duplicatesContainer = new ArrayList<ComponentInstance>();
@@ -252,11 +260,32 @@ public class CMAUtils {
 
 				if (duplicated)
 				{
-					OsateDebug.osateDebug("[CMAUtils] Component duplicate:" + cl.getName());
-					OsateDebug.osateDebug("[CMAUtils] found in components");
-					for (ComponentInstance tmp : duplicatesContainer)
+					OsateDebug.osateDebug("cl=" + cl);
+					if (duplicatedFound.containsKey(cl) && duplicatedFound.get(cl).containsAll(duplicatesContainer))
 					{
-						OsateDebug.osateDebug("[CMAUtils]    " + tmp.getName());
+						OsateDebug.osateDebug("[CMAUtils] duplicate found");
+					}
+					else
+					{
+						CMAReportEntry entry;
+						String justification;
+						
+						entry = new CMAReportEntry ();
+						entry.setSource("Technical Specification and its origin");
+						justification = "Classifier (component type) " + cl.getName() + " is used within the following components: ";
+						for (int i = 0 ; i < duplicatesContainer.size() ; i++)
+						{
+							justification += duplicatesContainer.get(i).getName();
+							if (i < (duplicatesContainer.size() - 1))
+							{
+								justification += " and ";
+							}
+						}
+						entry.setJustification(justification);
+						entry.setMode("Defective specification");
+						entry.setType(EntryType.SPECIFICATION);
+						result.add(entry);
+						duplicatedFound.put(cl, duplicatesContainer);
 					}
 				}	
 			}
@@ -325,4 +354,40 @@ public class CMAUtils {
 		}
 		return result;
 	}
+	
+	public static int convertSeverity (String sev)
+	{
+		if (sev.equalsIgnoreCase("catastrophic"))
+		{
+				return SEVERITY_CATASTROPHIC;
+		}
+		
+		if (sev.equalsIgnoreCase("hazardous"))
+		{
+				return SEVERITY_HAZARDOUS;
+		}
+		
+		if (sev.equalsIgnoreCase("severemajor"))
+		{
+				return SEVERITY_SEVEREMAJOR;
+		}
+		
+		if (sev.equalsIgnoreCase("major"))
+		{
+				return SEVERITY_MAJOR;
+		}
+		
+		if (sev.equalsIgnoreCase("minor"))
+		{
+				return SEVERITY_MINOR;
+		}
+		
+		if (sev.equalsIgnoreCase("noeffect"))
+		{
+				return SEVERITY_NOEFFECT;
+		}
+		
+		return SEVERITY_UNKNOWN;
+	}
+
 }
