@@ -225,8 +225,8 @@ public class FileUtils
   }
   
   /**
-   * Returns the directory that contains the given file (even if the
-   * file doesn't exist). If the given object File represents a directory, it
+   * Returns the directory that contains the given file (which have to exist).
+   * If the given object File represents a directory, it
    * will return the same object. If the given file is in the file system root,
    * it will throw the NullPointerException.  
    * 
