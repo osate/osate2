@@ -21,8 +21,6 @@
 
 package org.osate.ba.declarative.impl ;
 
-
-
 import org.eclipse.emf.ecore.EAttribute ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.EPackage ;
@@ -723,6 +721,8 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                            .getValueConstant()) ;
     qualifiedNamedElementEClass.getESuperTypes()
           .add(theAadlBaPackage.getIntegerValueConstant()) ;
+    qualifiedNamedElementEClass.getESuperTypes()
+          .add(theAadl2Package.getProcessorClassifier()) ;
     referenceEClass.getESuperTypes()
           .add(theAadlBaPackage.getActualPortHolder()) ;
     referenceEClass.getESuperTypes().add(this.getDeclarativeBehaviorElement()) ;

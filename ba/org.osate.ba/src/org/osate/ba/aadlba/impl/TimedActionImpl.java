@@ -20,13 +20,18 @@
 package org.osate.ba.aadlba.impl;
 
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.ProcessorClassifier;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.TimedAction ;
@@ -40,6 +45,7 @@ import org.osate.ba.aadlba.TimedAction ;
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.TimedActionImpl#getLowerTime <em>Lower Time</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.TimedActionImpl#getUpperTime <em>Upper Time</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.TimedActionImpl#getProcessorClassifier <em>Processor Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,6 +72,16 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
    * @ordered
    */
   protected BehaviorTime upperTime;
+
+  /**
+   * The cached value of the '{@link #getProcessorClassifier() <em>Processor Classifier</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getProcessorClassifier()
+   * @generated
+   * @ordered
+   */
+  protected EList<ProcessorClassifier> processorClassifier;
 
   /**
    * <!-- begin-user-doc -->
@@ -189,6 +205,40 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ProcessorClassifier> getProcessorClassifier()
+  {
+    if (processorClassifier == null)
+    {
+      processorClassifier = new EObjectContainmentEList.Unsettable<ProcessorClassifier>(ProcessorClassifier.class, this, AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER);
+    }
+    return processorClassifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetProcessorClassifier()
+  {
+    if (processorClassifier != null) ((InternalEList.Unsettable<?>)processorClassifier).unset();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetProcessorClassifier()
+  {
+    return processorClassifier != null && ((InternalEList.Unsettable<?>)processorClassifier).isSet();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -198,6 +248,8 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
         return basicSetLowerTime(null, msgs);
       case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
         return basicSetUpperTime(null, msgs);
+      case AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER:
+        return ((InternalEList<?>)getProcessorClassifier()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -216,6 +268,8 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
         return getLowerTime();
       case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
         return getUpperTime();
+      case AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER:
+        return getProcessorClassifier();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -225,6 +279,7 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -235,6 +290,10 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
         return;
       case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
         setUpperTime((BehaviorTime)newValue);
+        return;
+      case AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER:
+        getProcessorClassifier().clear();
+        getProcessorClassifier().addAll((Collection<? extends ProcessorClassifier>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -256,6 +315,9 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
       case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
         setUpperTime((BehaviorTime)null);
         return;
+      case AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER:
+        unsetProcessorClassifier();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -274,6 +336,8 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
         return lowerTime != null;
       case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
         return upperTime != null;
+      case AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER:
+        return isSetProcessorClassifier();
     }
     return super.eIsSet(featureID);
   }

@@ -604,6 +604,9 @@
         eType="#//BehaviorTime" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="upperTime" eType="#//BehaviorTime"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processorClassifier" upperBound="-1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//ProcessorClassifier"
+        unsettable="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UnaryAddingOperator">
     <eLiterals name="None" literal=""/>

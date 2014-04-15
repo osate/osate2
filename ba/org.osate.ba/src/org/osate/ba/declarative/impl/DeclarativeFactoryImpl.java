@@ -21,7 +21,6 @@
 
 package org.osate.ba.declarative.impl ;
 
-
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.emf.ecore.EPackage ;
@@ -52,7 +51,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
     {
       DeclarativeFactory theDeclarativeFactory =
             (DeclarativeFactory) EPackage.Registry.INSTANCE
-                  .getEFactory("https://github.com/osate/osate2-ba.git/declarative") ;
+                  .getEFactory(DeclarativePackage.eNS_URI) ;
       if(theDeclarativeFactory != null)
       {
         return theDeclarativeFactory ;

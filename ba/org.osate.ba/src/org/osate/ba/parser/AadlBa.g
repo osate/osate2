@@ -176,6 +176,7 @@ options
   import org.osate.ba.utils.AadlBaLocationReference ;
   
   import org.osate.aadl2.Element ;
+  import org.osate.aadl2.ProcessorClassifier ;
   import org.osate.aadl2.Aadl2Package ;
   import org.osate.aadl2.parsesupport.ParseUtil ;
 }
@@ -1032,15 +1033,62 @@ communication_action returns [CommAction result]
 ;
 
 // timed_action ::= 
-//   computation ( behavior_time [ .. behavior_time ] )
+//   computation ( behavior_time [ .. behavior_time ] ) [ in_binding ]
 timed_action returns [TimedAction result]
   :
      COMPUTATION LPAREN behavior_time (DOTDOT behavior_time)? RPAREN
+       (in_binding [$result])?
    |
-     COMPUTATION (LPAREN)+ behavior_time (DOTDOT behavior_time)? (RPAREN)+
+     COMPUTATION (LPAREN)+ behavior_time (DOTDOT behavior_time)? (RPAREN)+ (in_binding [$result])?
      {
        notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
      }
+;
+
+// in_binding ::=
+//    in binding ( processor_parameter_list )
+in_binding [TimedAction ta]
+  :
+      IN BINDING LPAREN processor_parameter_list RPAREN
+    |
+      IN BINDING (LPAREN)+ processor_parameter_list (RPAREN)+
+      {
+        notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+      }
+;
+
+// processor_parameter_list ::=
+//   processor_unique_component_classifier_reference
+//                      { , processor_unique_component_classifier_reference }*
+processor_parameter_list returns [EList<ProcessorClassifier> result] locals[int count]
+  :
+    unique_component_classifier_reference
+    {
+      $count = 0 ;
+    }
+    (
+      (separator=COMMA)? unique_component_classifier_reference
+      {
+        $count++ ;
+        
+        if($separator == null) 
+        {
+          try
+          {
+            notifyErrorListeners($ctx.unique_component_classifier_reference($count -1).getStop(),
+                                 "missing subprogram parameter separator \',\'", null);
+          }
+          catch(Exception e)
+          {
+            notifyErrorListeners("missing subprogram parameter separator \',\'") ;
+          }
+        }
+        else
+        {
+          $ctx.separator = null ;
+        }
+      }
+    )*  
 ;
 
 // subprogram_parameter_list ::=
@@ -1435,6 +1483,7 @@ numeral returns [Integer result]
 ABS            : 'abs'; 
 AND            : 'and';
 ANY            : 'any';
+BINDING        : 'binding';
 COMPLETE       : 'complete';
 COMPUTATION    : 'computation';
 COUNT          : 'count';

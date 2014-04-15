@@ -21,7 +21,29 @@
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
   
-package org.osate.ba.parser;
+  package org.osate.ba.parser;
+  
+  import org.eclipse.emf.common.util.BasicEList ;
+
+  import org.eclipse.emf.common.util.EList;
+
+  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;  
+  
+  import org.osate.aadl2.parsesupport.AObject;
+  import org.osate.aadl2.parsesupport.LocationReference;
+  
+  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
+  
+  import org.osate.ba.aadlba.*;
+  import org.osate.ba.declarative.* ;
+  import org.osate.ba.analyzers.DeclarativeUtils ;
+  
+  import org.osate.ba.utils.AadlBaLocationReference ;
+  
+  import org.osate.aadl2.Element ;
+  import org.osate.aadl2.ProcessorClassifier ;
+  import org.osate.aadl2.Aadl2Package ;
+  import org.osate.aadl2.parsesupport.ParseUtil ;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -154,6 +176,13 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBinary_adding_operator(@NotNull AadlBaParser.Binary_adding_operatorContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#processor_parameter_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcessor_parameter_list(@NotNull AadlBaParser.Processor_parameter_listContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#behavior_action}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -161,18 +190,18 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBehavior_action(@NotNull AadlBaParser.Behavior_actionContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link AadlBaParser#assignment_action}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#logical_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLogical_operator(@NotNull AadlBaParser.Logical_operatorContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#assignment_action}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#communication_action}.
@@ -371,18 +400,18 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBehavior_variable(@NotNull AadlBaParser.Behavior_variableContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link AadlBaParser#factor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFactor(@NotNull AadlBaParser.FactorContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#relational_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitRelational_operator(@NotNull AadlBaParser.Relational_operatorContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactor(@NotNull AadlBaParser.FactorContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#behavior_annex}.
@@ -488,4 +517,11 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBehavior_transition(@NotNull AadlBaParser.Behavior_transitionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#in_binding}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIn_binding(@NotNull AadlBaParser.In_bindingContext ctx);
 }

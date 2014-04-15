@@ -5313,13 +5313,22 @@ public interface AadlBaPackage extends EPackage
   int TIMED_ACTION__UPPER_TIME = BASIC_ACTION_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Processor Classifier</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TIMED_ACTION__PROCESSOR_CLASSIFIER = BASIC_ACTION_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Timed Action</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TIMED_ACTION_FEATURE_COUNT = BASIC_ACTION_FEATURE_COUNT + 2;
+  int TIMED_ACTION_FEATURE_COUNT = BASIC_ACTION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.impl.UnlockActionImpl <em>Unlock Action</em>}' class.
@@ -7317,6 +7326,17 @@ public interface AadlBaPackage extends EPackage
   EReference getTimedAction_UpperTime();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Processor Classifier</em>'.
+   * @see org.osate.ba.aadlba.TimedAction#getProcessorClassifier()
+   * @see #getTimedAction()
+   * @generated
+   */
+  EReference getTimedAction_ProcessorClassifier();
+
+  /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.UnlockAction <em>Unlock Action</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -9087,6 +9107,14 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EReference TIMED_ACTION__UPPER_TIME = eINSTANCE.getTimedAction_UpperTime();
+
+    /**
+     * The meta object literal for the '<em><b>Processor Classifier</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TIMED_ACTION__PROCESSOR_CLASSIFIER = eINSTANCE.getTimedAction_ProcessorClassifier();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.UnlockActionImpl <em>Unlock Action</em>}' class.
