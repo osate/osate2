@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.ba.aadlba.AadlBaPackage ;
@@ -74,7 +74,7 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
   protected BehaviorTime upperTime;
 
   /**
-   * The cached value of the '{@link #getProcessorClassifier() <em>Processor Classifier</em>}' containment reference list.
+   * The cached value of the '{@link #getProcessorClassifier() <em>Processor Classifier</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getProcessorClassifier()
@@ -209,7 +209,7 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
   {
     if (processorClassifier == null)
     {
-      processorClassifier = new EObjectContainmentEList.Unsettable<ProcessorClassifier>(ProcessorClassifier.class, this, AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER);
+      processorClassifier = new EObjectResolvingEList.Unsettable<ProcessorClassifier>(ProcessorClassifier.class, this, AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER);
     }
     return processorClassifier;
   }
@@ -248,8 +248,6 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
         return basicSetLowerTime(null, msgs);
       case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
         return basicSetUpperTime(null, msgs);
-      case AadlBaPackage.TIMED_ACTION__PROCESSOR_CLASSIFIER:
-        return ((InternalEList<?>)getProcessorClassifier()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }

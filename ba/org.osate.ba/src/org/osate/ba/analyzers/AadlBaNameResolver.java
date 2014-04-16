@@ -38,6 +38,7 @@ import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.PackageSection ;
+import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
@@ -105,8 +106,6 @@ import org.osate.utils.names.DataModelProperties ;
 
 /**
  * A AADL behavior annex name resolver.
- * 
- * @author GET Telecom-Paristech
  * 
  */
 public class AadlBaNameResolver
@@ -1356,6 +1355,14 @@ public class AadlBaNameResolver
       if(act.getUpperTime() != null)
       {
          result &= behaviorTimeResolver((DeclarativeTime) act.getUpperTime());
+      }
+      
+      if(act.isSetProcessorClassifier())
+      {
+        for(ProcessorClassifier pc : act.getProcessorClassifier())
+        {
+          result &= qualifiedNamedElementResolver((QualifiedNamedElement) pc, true) ;
+        }
       }
       
       return result ;

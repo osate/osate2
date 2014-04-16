@@ -353,6 +353,8 @@
     <eLiterals name="PROVIDES_BUS_ACCESS_PROTOTYPE" value="60" literal="provides bus access prototype"/>
     <eLiterals name="REQUIRES_BUS_ACCESS_PROTOTYPE" value="61" literal="requires bus access prototype"/>
     <eLiterals name="SYSTEM_SUBCOMPONENT" value="62" literal="system subcomponent"/>
+    <eLiterals name="PROCESSOR_CLASSIFIER" value="63" literal="processor classifier"/>
+    <eLiterals name="PROCESS_CLASSIFIER" value="64" literal="process classifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ForOrForAllStatement" eSuperTypes="#//LoopStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="iteratedValues" lowerBound="1"
@@ -604,9 +606,9 @@
         eType="#//BehaviorTime" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="upperTime" eType="#//BehaviorTime"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="processorClassifier" upperBound="-1"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//ProcessorClassifier"
-        unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processorClassifier" unique="false"
+        upperBound="-1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//ProcessorClassifier"
+        unsettable="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UnaryAddingOperator">
     <eLiterals name="None" literal=""/>

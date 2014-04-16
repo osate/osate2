@@ -1114,6 +1114,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
 
     for(Unique_component_classifier_referenceContext uccrc : ctx.unique_component_classifier_reference())
     {
+      DeclarativeUtils.setEcontainer(_ba,uccrc.result) ;
       ctx.result.add(uccrc.result) ;
     }
     

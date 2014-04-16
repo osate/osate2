@@ -96,7 +96,7 @@ public interface TimedAction extends BasicAction
   void setUpperTime(BehaviorTime value);
 
   /**
-   * Returns the value of the '<em><b>Processor Classifier</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Processor Classifier</b></em>' reference list.
    * The list contents are of type {@link org.osate.aadl2.ProcessorClassifier}.
    * <!-- begin-user-doc -->
    * <p>
@@ -104,17 +104,17 @@ public interface TimedAction extends BasicAction
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Processor Classifier</em>' containment reference list.
+   * @return the value of the '<em>Processor Classifier</em>' reference list.
    * @see #isSetProcessorClassifier()
    * @see #unsetProcessorClassifier()
    * @see org.osate.ba.aadlba.AadlBaPackage#getTimedAction_ProcessorClassifier()
-   * @model containment="true" unsettable="true"
+   * @model unsettable="true"
    * @generated
    */
   EList<ProcessorClassifier> getProcessorClassifier();
 
   /**
-   * Unsets the value of the '{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}' containment reference list.
+   * Unsets the value of the '{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #isSetProcessorClassifier()
@@ -124,10 +124,10 @@ public interface TimedAction extends BasicAction
   void unsetProcessorClassifier();
 
   /**
-   * Returns whether the value of the '{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}' containment reference list is set.
+   * Returns whether the value of the '{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}' reference list is set.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Processor Classifier</em>' containment reference list is set.
+   * @return whether the value of the '<em>Processor Classifier</em>' reference list is set.
    * @see #unsetProcessorClassifier()
    * @see #getProcessorClassifier()
    * @generated
