@@ -23,30 +23,8 @@
   
   package org.osate.ba.parser;
   
-  import org.eclipse.emf.common.util.BasicEList ;
-
-  import org.eclipse.emf.common.util.EList;
-
-  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;  
-  
-  import org.osate.aadl2.parsesupport.AObject;
-  import org.osate.aadl2.parsesupport.LocationReference;
-  
-  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
-  
-  import org.osate.ba.aadlba.*;
-  import org.osate.ba.declarative.* ;
-  import org.osate.ba.analyzers.DeclarativeUtils ;
-  
-  import org.osate.ba.utils.AadlBaLocationReference ;
-  
-  import org.osate.aadl2.Element ;
-  import org.osate.aadl2.ProcessorClassifier ;
-  import org.osate.aadl2.Aadl2Package ;
-  import org.osate.aadl2.parsesupport.ParseUtil ;
-
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+  import org.antlr.v4.runtime.misc.NotNull ;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor ;
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
