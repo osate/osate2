@@ -130,6 +130,8 @@ annex behavior_specification {**
         computation (
                      (
                        0s .. 9s) ;
+                       
+        computation (100 ms) in binding ((p p, p) ;
         
         bool := 1 == 0 ;
         
