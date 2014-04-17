@@ -101,7 +101,7 @@ HM_Error_ID_Action_Type: type record (
 -- The HM_Error_ID_Actions specifies the error recovery handler
 -- at each layer.
 --
-HM_Error_ID_Actions : list of ARINC653::HM_Error_ID_Action_Type applies to (processor, virtual processor);
+HM_Error_ID_Actions : list of ARINC653::HM_Error_ID_Action_Type applies to (processor, virtual processor, thread);
 
 --
 -- Type for gathering information related to
