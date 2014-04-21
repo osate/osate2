@@ -95377,6 +95377,7 @@ rule__EventSource__Group__2
     }
 :
 	rule__EventSource__Group__2__Impl
+	rule__EventSource__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -95399,6 +95400,38 @@ rule__EventSource__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__EventSource__Group__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EventSource__Group__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EventSource__Group__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEventSourceAccess().getSemicolonKeyword_3()); }
+
+	KEYWORD_9 
+
+{ after(grammarAccess.getEventSourceAccess().getSemicolonKeyword_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -95504,6 +95537,7 @@ rule__EventDataSource__Group__3
     }
 :
 	rule__EventDataSource__Group__3__Impl
+	rule__EventDataSource__Group__4
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -95526,6 +95560,38 @@ rule__EventDataSource__Group__3__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__EventDataSource__Group__4
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EventDataSource__Group__4__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EventDataSource__Group__4__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEventDataSourceAccess().getSemicolonKeyword_4()); }
+
+	KEYWORD_9 
+
+{ after(grammarAccess.getEventDataSourceAccess().getSemicolonKeyword_4()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -95602,6 +95668,7 @@ rule__PortProxy__Group__2
     }
 :
 	rule__PortProxy__Group__2__Impl
+	rule__PortProxy__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -95624,6 +95691,38 @@ rule__PortProxy__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__PortProxy__Group__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__PortProxy__Group__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PortProxy__Group__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPortProxyAccess().getSemicolonKeyword_3()); }
+
+	KEYWORD_9 
+
+{ after(grammarAccess.getPortProxyAccess().getSemicolonKeyword_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -95698,6 +95797,7 @@ rule__SubprogramProxy__Group__2
     }
 :
 	rule__SubprogramProxy__Group__2__Impl
+	rule__SubprogramProxy__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -95720,6 +95820,38 @@ rule__SubprogramProxy__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__SubprogramProxy__Group__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__SubprogramProxy__Group__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SubprogramProxy__Group__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSubprogramProxyAccess().getSemicolonKeyword_3()); }
+
+	KEYWORD_9 
+
+{ after(grammarAccess.getSubprogramProxyAccess().getSemicolonKeyword_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 

@@ -28024,6 +28024,11 @@ ruleEventSource returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getEventSourceAccess().getEventKeyword_2());
     }
+
+	otherlv_3=KEYWORD_9
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getEventSourceAccess().getSemicolonKeyword_3());
+    }
 )
 ;
 
@@ -28078,6 +28083,11 @@ ruleEventDataSource returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getEventDataSourceAccess().getDataKeyword_3());
     }
+
+	otherlv_4=KEYWORD_9
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getEventDataSourceAccess().getSemicolonKeyword_4());
+    }
 )
 ;
 
@@ -28127,6 +28137,11 @@ rulePortProxy returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getPortProxyAccess().getPortKeyword_2());
     }
+
+	otherlv_3=KEYWORD_9
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getPortProxyAccess().getSemicolonKeyword_3());
+    }
 )
 ;
 
@@ -28175,6 +28190,11 @@ ruleSubprogramProxy returns [EObject current=null]
 	otherlv_2=KEYWORD_90
     {
     	newLeafNode(otherlv_2, grammarAccess.getSubprogramProxyAccess().getSubprogramKeyword_2());
+    }
+
+	otherlv_3=KEYWORD_9
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getSubprogramProxyAccess().getSemicolonKeyword_3());
     }
 )
 ;
