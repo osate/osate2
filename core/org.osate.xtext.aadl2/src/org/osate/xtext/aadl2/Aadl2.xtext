@@ -1719,19 +1719,19 @@ ProcessorFeature returns aadl2::ProcessorFeature:
 ;
 
 EventSource returns aadl2::EventSource:
-	name = ID ':' 'event'
+	name = ID ':' 'event' ';'
 ;
 
 EventDataSource returns aadl2::EventDataSource:
-	name = ID ':' 'event' 'data'
+	name = ID ':' 'event' 'data' ';'
 ;
 
 PortProxy returns aadl2::PortProxy:
-	name = ID ':' 'port'
+	name = ID ':' 'port' ';'
 ;
 
 SubprogramProxy returns aadl2::SubprogramProxy:
-	name = ID ':' 'subprogram'
+	name = ID ':' 'subprogram' ';'
 ;
 
 // ********* connections 
