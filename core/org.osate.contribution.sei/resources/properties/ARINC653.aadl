@@ -53,7 +53,7 @@ Module_Version : aadlstring applies to (processor);
 Module_Identifier : aadlstring applies to (processor);
 
 --Partition identifier unique within the module.
-Partition_Identifier : aadlstring applies to (virtual processor);
+Partition_Identifier : aadlinteger applies to (virtual processor);
 
 --Name of a partition name, should be unique within the module.
 Partition_Name : aadlstring applies to (virtual processor);
