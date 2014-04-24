@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.0.0";visibility:=reexport,
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.core;bundle-version="1.0.0",
  org.eclipse.ui;bundle-version="3.7.0",
- org.osate.annexsupport
+ org.osate.annexsupport,
+ org.eclipse.uml2.codegen.ecore;bundle-version="1.9.100"
 Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.errorModel,
  org.osate.xtext.aadl2.errormodel.errorModel.impl,
