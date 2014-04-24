@@ -24,6 +24,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAadlPackageParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cPropertySetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
+		////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 		//Model returns aadl2::ModelUnit:
 		//	(AadlPackage | PropertySet)?;
 		public ParserRule getRule() { return rule; }
@@ -26137,6 +26138,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
+	////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 	//Model returns aadl2::ModelUnit:
 	//	(AadlPackage | PropertySet)?;
 	public ModelElements getModelAccess() {
