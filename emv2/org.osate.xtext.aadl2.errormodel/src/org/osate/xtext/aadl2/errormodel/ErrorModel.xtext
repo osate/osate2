@@ -3,8 +3,7 @@ with org.osate.xtext.aadl2.properties.Properties
 
 generate errorModel "http://www.aadl.info/EMV2"
 
-
-import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
+import "http://aadl.info/AADL/2.0" as aadl2
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
@@ -99,7 +98,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
 	'end' 'paths' ';'
   )?
     ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
+ 	(properties+=ContainedPropertyAssociation)+)?
 //	'**}'
 	 ;
 
