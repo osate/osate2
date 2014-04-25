@@ -3159,8 +3159,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (((FeatureGroup) srcContext).isInverse()) {
 				srcDirection = srcDirection.getInverseDirection();
 			}
-			FeatureGroupType srcFGT = ((FeatureGroup) srcContext).getFeatureGroupType();
+			FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup) srcContext).getFeatureType());
 			FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
+			// FIXME LW this doesn't work if there's a prototype involved, also, we need to go up the containment hierarchy to the outermost fgt (I think)
 			if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
 				// feature group type has inverse and feature is defined in the inverse FGT
 				srcDirection = srcDirection.getInverseDirection();
@@ -3170,7 +3171,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (((FeatureGroup) dstContext).isInverse()) {
 				dstDirection = dstDirection.getInverseDirection();
 			}
-			FeatureGroupType dstFGT = ((FeatureGroup) dstContext).getFeatureGroupType();
+			FeatureGroupType dstFGT = getFGTforPrototype(((FeatureGroup) dstContext).getFeatureType());
 			FeatureGroupType contdstFGT = (FeatureGroupType) ((Feature) destination).getContainingClassifier();
 			if (dstFGT != contdstFGT && !Aadl2Util.isNull(dstFGT)  && dstFGT.getInverse() != null) {
 				dstDirection = dstDirection.getInverseDirection();
@@ -3220,6 +3221,34 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
+	/**
+	 * @param proto
+	 * @return the feature group type or null
+	 */
+	private FeatureGroupType getFGTforPrototype(org.osate.aadl2.FeatureType ft) {
+		if (Aadl2Util.isNull(ft)) {
+			return null;
+		}
+		
+		if (ft instanceof FeatureGroupType) {
+			return (FeatureGroupType) ft;
+		}
+		
+		FeatureGroupPrototype proto = (FeatureGroupPrototype) ft;	
+		ComponentImplementation impl = proto.getContainingComponentImpl();
+		
+		for (PrototypeBinding b : impl.getOwnedPrototypeBindings()) {
+			if (b.getFormal() == proto) {
+				FeatureGroupPrototypeActual actual = ((FeatureGroupPrototypeBinding) b).getActual();
+				if (!Aadl2Util.isNull(actual)) {
+					return getFGTforPrototype(actual.getFeatureType());
+				}
+			}
+		}
+		// no binding found
+		return null;
+	}
+	
 	/**
 	 * Check connection ends of port connections
 	 * Section 9.2 Legality rule L5
@@ -3662,7 +3691,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 					}
 				}
-				String hi = "hi";
 				checkOutgoingFeatureDirection(outFeature, flow, oppositeDirection,true);
 			}
 		}
@@ -3817,10 +3845,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
 				if (appliesTo instanceof MetaclassReference&&((MetaclassReference) appliesTo).getAnnexName()!=null){
-					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-						if (((MetaclassReference) appliesTo).getMetaclass() != null) {
+//					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+					if (((MetaclassReference) appliesTo).getMetaclass() != null) {
+					}
 				}
-			}
 			} catch (IllegalArgumentException e) {
 //				e.printStackTrace();
 				String msg = e.getMessage();
