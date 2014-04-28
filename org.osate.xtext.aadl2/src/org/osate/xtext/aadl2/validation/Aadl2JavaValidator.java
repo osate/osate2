@@ -3161,7 +3161,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup) srcContext).getFeatureType());
 			FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
-			// FIXME LW this doesn't work if there's a prototype involved, also, we need to go up the containment hierarchy to the outermost fgt (I think)
 			if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
 				// feature group type has inverse and feature is defined in the inverse FGT
 				srcDirection = srcDirection.getInverseDirection();
