@@ -7,7 +7,7 @@
     <package 
        uri = "http://www.aadl.info/EMV2" 
        class = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
-       genModel = "org/osate/xtext/aadl2/errormodel/ErrorModel.genmodel" /> 
+       genModel = "model/generated/ErrorModel.genmodel" /> 
 	
   </extension>
 
