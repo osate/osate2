@@ -70,7 +70,7 @@ public class CMAUtils {
 		List<CMAReportEntry> 	result = new ArrayList<CMAReportEntry>();
 		List<ConditionElement> toAnalyze = new ArrayList<ConditionElement>();
 		
-		OsateDebug.osateDebug("[CMAUtils] expression " + expression);
+//		OsateDebug.osateDebug("[CMAUtils] expression " + expression);
 		
 		if (expression instanceof SAndExpression)
 		{
@@ -79,13 +79,14 @@ public class CMAUtils {
 			
 			for (ConditionExpression element : exprs)
 			{
-				OsateDebug.osateDebug("[CMAUtils] element " + element);
+//				OsateDebug.osateDebug("[CMAUtils] element " + element);
 				if (element instanceof ConditionElement)
 				{
 					toAnalyze.add ((ConditionElement)element);
 				}
 				else
 				{
+					
 					OsateDebug.osateDebug("[CMAUtils] TODO - get all contributors to the ANDed branch");
 				}
 			}
@@ -221,7 +222,6 @@ public class CMAUtils {
 					{
 						if (errorSourcesDuplicatedFound.get(ciTmp).containsAll(errorSourcesduplicates))
 						{
-							OsateDebug.osateDebug("[CMAUtils] Already Reported");
 							alreadyReported = true;
 						}
 					}
@@ -231,9 +231,6 @@ public class CMAUtils {
 					 */
 					if (! alreadyReported)
 					{
-						OsateDebug.osateDebug("[CMAUtils] Propagation duplicate:" + ppe1.getErrorPropagation());
-						OsateDebug.osateDebug("[CMAUtils] found in components");
-						
 						
 						CMAReportEntry entry;
 						String justification;
@@ -361,12 +358,9 @@ public class CMAUtils {
 	{
 		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(instance))
 		{
-//			OsateDebug.osateDebug("[CMAUtils] instance= " + instance + "ep=" + ep);
-			
-			//FIXME: no propagation path is found!
+
 			for (PropagationPathEnd ppe : analysisModel.getAllPropagationSourceEnds(instance, ep))
 			{
-//				OsateDebug.osateDebug("[CMAUtils] add ppe1=" + ppe);
 				result.add(ppe);
 			}
 		}
