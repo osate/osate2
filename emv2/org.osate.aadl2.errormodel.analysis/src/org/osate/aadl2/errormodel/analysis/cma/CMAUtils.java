@@ -174,9 +174,11 @@ public class CMAUtils {
 		/**
 		 * In the following, we try to find common error sources between ANDed components.
 		 */
+		Map<ComponentInstance,List<PropagationPathEnd>> errorSourcesDuplicatedFound = new HashMap<ComponentInstance,List<PropagationPathEnd>>();
 		for (ComponentInstance ci : referencedInstances)
 		{
-			List<ComponentInstance> duplicatesContainer = new ArrayList<ComponentInstance>();
+			List<PropagationPathEnd> errorSourcesduplicates = new ArrayList<PropagationPathEnd>();
+			List<ComponentInstance> instancesDuplicates = new ArrayList<ComponentInstance>();
 			boolean foundInOther;
 			boolean duplicated;
 			for (PropagationPathEnd ppe1 : errorSources.get(ci))
@@ -194,11 +196,13 @@ public class CMAUtils {
 					
 					for (PropagationPathEnd ppe2 : errorSources.get(ci2))
 					{
-						if (ppe1.getErrorPropagation() == ppe2.getErrorPropagation())
+						if (ppe1.getErrorPropagation().getFeatureorPPRefs() == ppe2.getErrorPropagation().getFeatureorPPRefs())
 						{
 							foundInOther = true;
-							duplicatesContainer.add (ci2);
-							duplicatesContainer.add (ci);
+							errorSourcesduplicates.add (ppe1);
+							errorSourcesduplicates.add (ppe2);
+							instancesDuplicates.add (ci);
+							instancesDuplicates.add (ci2);
 						}
 					}
 					if (foundInOther == false)
@@ -207,15 +211,52 @@ public class CMAUtils {
 					}
 				}
 
+	
+				
 				if (duplicated)
 				{
-					OsateDebug.osateDebug("[CMAUtils] Propagation duplicate:" + ppe1.getErrorPropagation());
-					OsateDebug.osateDebug("[CMAUtils] found in components");
-					for (ComponentInstance tmp : duplicatesContainer)
+					boolean alreadyReported = false;
+					
+					for (ComponentInstance ciTmp : errorSourcesDuplicatedFound.keySet())
 					{
-						OsateDebug.osateDebug("[CMAUtils]    " + tmp.getName());
+						if (errorSourcesDuplicatedFound.get(ciTmp).containsAll(errorSourcesduplicates))
+						{
+							OsateDebug.osateDebug("[CMAUtils] Already Reported");
+							alreadyReported = true;
+						}
 					}
-				}	
+					
+					/**
+					 * This report entry has not been reported yet, so, we add it in the report.
+					 */
+					if (! alreadyReported)
+					{
+						OsateDebug.osateDebug("[CMAUtils] Propagation duplicate:" + ppe1.getErrorPropagation());
+						OsateDebug.osateDebug("[CMAUtils] found in components");
+						
+						
+						CMAReportEntry entry;
+						String justification;
+						
+						entry = new CMAReportEntry ();
+						entry.setSource("Technical Specification and its origin");
+						justification = "The same error source can impact the following components ";
+						for (int i = 0 ; i < instancesDuplicates.size() ; i++)
+						{
+							justification += instancesDuplicates.get(i).getName();
+							if (i < (instancesDuplicates.size() - 1))
+							{
+								justification += " and ";
+							}
+						}
+						entry.setJustification(justification);
+						entry.setMode("TO BE CHECKED - FIXME");
+						entry.setType(EntryType.SPECIFICATION);
+						result.add(entry);
+	
+						errorSourcesDuplicatedFound.put(ci, errorSourcesduplicates);
+					}
+				}
 			}
 		}
 		
@@ -224,7 +265,7 @@ public class CMAUtils {
 		 * In the following, we will then try to find duplicates classifier between ANDed
 		 * components.
 		 */
-		Map<ComponentClassifier,List<ComponentInstance>> duplicatedFound = new HashMap<ComponentClassifier,List<ComponentInstance>>();
+		Map<ComponentClassifier,List<ComponentInstance>> classifierDuplicatedFound = new HashMap<ComponentClassifier,List<ComponentInstance>>();
 		for (ComponentInstance ci : referencedInstances)
 		{
 			List<ComponentInstance> duplicatesContainer = new ArrayList<ComponentInstance>();
@@ -260,12 +301,13 @@ public class CMAUtils {
 
 				if (duplicated)
 				{
-					OsateDebug.osateDebug("cl=" + cl);
-					if (duplicatedFound.containsKey(cl) && duplicatedFound.get(cl).containsAll(duplicatesContainer))
-					{
-						OsateDebug.osateDebug("[CMAUtils] duplicate found");
-					}
-					else
+					boolean alreadyReported = false;
+					/**
+					 * The following condition checks that we already reported this issue/duplicate.
+					 */
+					alreadyReported = classifierDuplicatedFound.containsKey(cl) && classifierDuplicatedFound.get(cl).containsAll(duplicatesContainer);
+					
+					if (! alreadyReported)
 					{
 						CMAReportEntry entry;
 						String justification;
@@ -285,7 +327,7 @@ public class CMAUtils {
 						entry.setMode("Defective specification");
 						entry.setType(EntryType.SPECIFICATION);
 						result.add(entry);
-						duplicatedFound.put(cl, duplicatesContainer);
+						classifierDuplicatedFound.put(cl, duplicatesContainer);
 					}
 				}	
 			}
