@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ConnectedElement extends Element, AbstractConnectionEnd {
+public interface ConnectedElement extends Element {
 	/**
 	 * Returns the value of the '<em><b>Context</b></em>' reference.
 	 * <!-- begin-user-doc -->

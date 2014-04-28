@@ -98,6 +98,7 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE
 					.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedDataSubcomponent());
@@ -154,6 +155,7 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(SubprogramGroupImplementation.class)) {
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -172,6 +174,10 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramSubcomponent(),
+				Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent(),

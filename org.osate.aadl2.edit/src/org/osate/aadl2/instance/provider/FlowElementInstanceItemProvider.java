@@ -54,9 +54,8 @@ import org.osate.aadl2.instance.FlowElementInstance;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowElementInstanceItemProvider extends InstanceObjectItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FlowElementInstanceItemProvider extends InstanceObjectItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

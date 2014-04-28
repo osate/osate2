@@ -3,7 +3,6 @@ package org.osate.aadl2.util;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -12,6 +11,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -131,34 +131,22 @@ public class Aadl2Util {
 		if (owner instanceof ThreadImplementation)
 		{
 			ThreadImplementation ti = (ThreadImplementation) owner;
-			for (CallSpecification cs : ti.getCallSpecifications())
+			for (SubprogramCall sc : ti.getSubprogramCalls())
 			{
-				if (cs.getName() != null && cs.getName().equalsIgnoreCase(name))
+				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name))
 				{
-					return cs;
+					return sc;
 				}
 			}
 		} else
 		if (owner instanceof SubprogramImplementation)
 		{
-			SubprogramImplementation ti = (SubprogramImplementation) owner;
-			for (CallSpecification cs : ti.getCallSpecifications())
-			{
-				if (cs.getName() != null && cs.getName().equalsIgnoreCase(name))
-				{
-					return cs;
-				}
-			}
-		}
-		
-		if (owner instanceof SubprogramImplementation)
-		{
 			SubprogramImplementation si = (SubprogramImplementation) owner;
-			for (CallSpecification cs : si.getCallSpecifications())
+			for (SubprogramCall sc : si.getSubprogramCalls())
 			{
-				if (cs.getName() != null && cs.getName().equalsIgnoreCase(name))
+				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name))
 				{
-					return cs;
+					return sc;
 				}
 			}
 		}

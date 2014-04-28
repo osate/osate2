@@ -79,6 +79,7 @@ public class GeneralizationItemProvider extends DirectedRelationshipItemProvider
 			super.getPropertyDescriptors(object);
 
 			addGeneralPropertyDescriptor(object);
+			addSpecificPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -97,6 +98,22 @@ public class GeneralizationItemProvider extends DirectedRelationshipItemProvider
 				getString("_UI_PropertyDescriptor_description", "_UI_Generalization_general_feature",
 						"_UI_Generalization_type"), Aadl2Package.eINSTANCE.getGeneralization_General(), false, false,
 				false, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Specific feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSpecificPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_Generalization_specific_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Generalization_specific_feature",
+						"_UI_Generalization_type"), Aadl2Package.eINSTANCE.getGeneralization_Specific(), true, false,
+				true, null, null, null));
 	}
 
 	/**

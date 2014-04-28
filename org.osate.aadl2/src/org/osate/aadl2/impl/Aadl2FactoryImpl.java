@@ -40,172 +40,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlBoolean;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AadlReal;
-import org.osate.aadl2.AadlString;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractPrototype;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.AccessCategory;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.ArrayDimension;
-import org.osate.aadl2.ArrayRange;
-import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.BasicProperty;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusPrototype;
-import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.ClassifierType;
-import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.Comment;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentImplementationReference;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DevicePrototype;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.ElementName;
-import org.osate.aadl2.ElementNameKind;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeatureGroupTypeRename;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.FlowEnd;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.GlobalNamespace;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalEvent;
-import org.osate.aadl2.ListType;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemoryPrototype;
-import org.osate.aadl2.MemorySubcomponent;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.MetaclassReference;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeBinding;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.NumericRange;
-import org.osate.aadl2.Operation;
-import org.osate.aadl2.OperationKind;
-import org.osate.aadl2.PackageRename;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.PortCategory;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessPrototype;
-import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.ProcessorCall;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorPort;
-import org.osate.aadl2.ProcessorPrototype;
-import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubprogram;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeType;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.RecordField;
-import org.osate.aadl2.RecordType;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.ReferenceType;
-import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupPrototype;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemPrototype;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupPrototype;
-import org.osate.aadl2.ThreadGroupSubcomponent;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadPrototype;
-import org.osate.aadl2.ThreadSubcomponent;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusPrototype;
-import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorPrototype;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
-import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -282,6 +116,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createComponentImplementationReference();
 		case Aadl2Package.MODE_TRANSITION:
 			return (EObject) createModeTransition();
+		case Aadl2Package.MODE_TRANSITION_TRIGGER:
+			return (EObject) createModeTransitionTrigger();
 		case Aadl2Package.FLOW_SPECIFICATION:
 			return (EObject) createFlowSpecification();
 		case Aadl2Package.FLOW_END:
@@ -322,6 +158,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFlowImplementation();
 		case Aadl2Package.FLOW_SEGMENT:
 			return (EObject) createFlowSegment();
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return (EObject) createConnectedElement();
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return (EObject) createImplementationExtension();
 		case Aadl2Package.REALIZATION:
@@ -342,16 +180,18 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFeatureConnection();
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
 			return (EObject) createFeatureGroupConnection();
-		case Aadl2Package.CONNECTED_ELEMENT:
-			return (EObject) createConnectedElement();
-		case Aadl2Package.ELEMENT_NAME:
-			return (EObject) createElementName();
+		case Aadl2Package.EVENT_SOURCE:
+			return (EObject) createEventSource();
+		case Aadl2Package.EVENT_DATA_SOURCE:
+			return (EObject) createEventDataSource();
+		case Aadl2Package.PORT_PROXY:
+			return (EObject) createPortProxy();
+		case Aadl2Package.SUBPROGRAM_PROXY:
+			return (EObject) createSubprogramProxy();
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return (EObject) createDefaultAnnexLibrary();
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
 			return (EObject) createDefaultAnnexSubclause();
-		case Aadl2Package.TRIGGER_PORT:
-			return (EObject) createTriggerPort();
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
 			return (EObject) createPublicPackageSection();
 		case Aadl2Package.PACKAGE_RENAME:
@@ -382,8 +222,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFeaturePrototypeReference();
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
 			return (EObject) createSubprogramCallSequence();
-		case Aadl2Package.PROCESSOR_CALL:
-			return (EObject) createProcessorCall();
 		case Aadl2Package.SUBPROGRAM_CALL:
 			return (EObject) createSubprogramCall();
 		case Aadl2Package.ABSTRACT_TYPE:
@@ -558,14 +396,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createReferenceType();
 		case Aadl2Package.LIST_TYPE:
 			return (EObject) createListType();
-		case Aadl2Package.PROCESSOR_PORT:
-			return (EObject) createProcessorPort();
-		case Aadl2Package.INTERNAL_EVENT:
-			return (EObject) createInternalEvent();
-		case Aadl2Package.PROCESSOR_SUBPROGRAM:
-			return (EObject) createProcessorSubprogram();
-		case Aadl2Package.ANNEX_SUBCLAUSE:
-			return (EObject) createAnnexSubclause();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -591,8 +421,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return createPortCategoryFromString(eDataType, initialValue);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return createComponentCategoryFromString(eDataType, initialValue);
-		case Aadl2Package.ELEMENT_NAME_KIND:
-			return createElementNameKindFromString(eDataType, initialValue);
 		case Aadl2Package.OPERATION_KIND:
 			return createOperationKindFromString(eDataType, initialValue);
 		case Aadl2Package.STRING:
@@ -628,8 +456,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return convertPortCategoryToString(eDataType, instanceValue);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return convertComponentCategoryToString(eDataType, instanceValue);
-		case Aadl2Package.ELEMENT_NAME_KIND:
-			return convertElementNameKindToString(eDataType, instanceValue);
 		case Aadl2Package.OPERATION_KIND:
 			return convertOperationKindToString(eDataType, instanceValue);
 		case Aadl2Package.STRING:
@@ -800,29 +626,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TriggerPort createTriggerPort() {
-		TriggerPortImpl triggerPort = new TriggerPortImpl();
-		return triggerPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorPort createProcessorPort() {
-		ProcessorPortImpl processorPort = new ProcessorPortImpl();
-		return processorPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public InternalEvent createInternalEvent() {
-		InternalEventImpl internalEvent = new InternalEventImpl();
-		return internalEvent;
+	public ModeTransitionTrigger createModeTransitionTrigger() {
+		ModeTransitionTriggerImpl modeTransitionTrigger = new ModeTransitionTriggerImpl();
+		return modeTransitionTrigger;
 	}
 
 	/**
@@ -1070,16 +876,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ElementName createElementName() {
-		ElementNameImpl elementName = new ElementNameImpl();
-		return elementName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public AccessConnection createAccessConnection() {
 		AccessConnectionImpl accessConnection = new AccessConnectionImpl();
 		return accessConnection;
@@ -1130,9 +926,39 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProcessorSubprogram createProcessorSubprogram() {
-		ProcessorSubprogramImpl processorSubprogram = new ProcessorSubprogramImpl();
-		return processorSubprogram;
+	public EventSource createEventSource() {
+		EventSourceImpl eventSource = new EventSourceImpl();
+		return eventSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventDataSource createEventDataSource() {
+		EventDataSourceImpl eventDataSource = new EventDataSourceImpl();
+		return eventDataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortProxy createPortProxy() {
+		PortProxyImpl portProxy = new PortProxyImpl();
+		return portProxy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramProxy createSubprogramProxy() {
+		SubprogramProxyImpl subprogramProxy = new SubprogramProxyImpl();
+		return subprogramProxy;
 	}
 
 	public AnnexSubclause createAnnexSubclause() {
@@ -1895,16 +1721,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProcessorCall createProcessorCall() {
-		ProcessorCallImpl processorCall = new ProcessorCallImpl();
-		return processorCall;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public SubprogramCall createSubprogramCall() {
 		SubprogramCallImpl subprogramCall = new SubprogramCallImpl();
 		return subprogramCall;
@@ -2349,28 +2165,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * @generated
 	 */
 	public String convertComponentCategoryToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ElementNameKind createElementNameKindFromString(EDataType eDataType, String initialValue) {
-		ElementNameKind result = ElementNameKind.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertElementNameKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

@@ -63,23 +63,29 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EventDataSource;
+import org.osate.aadl2.EventSource;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.operations.ComponentImplementationOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -98,6 +104,8 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedConnections <em>Owned Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getGeneralizations <em>Generalization</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedProcessorFeatures <em>Owned Processor Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedInternalFeatures <em>Owned Internal Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getExtended <em>Extended</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedFlowImplementations <em>Owned Flow Implementation</em>}</li>
@@ -113,6 +121,10 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoSubcomponents <em>No Subcomponents</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoConnections <em>No Connections</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#isNoCalls <em>No Calls</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedEventSources <em>Owned Event Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedEventDataSources <em>Owned Event Data Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedPortProxies <em>Owned Port Proxy</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentImplementationImpl#getOwnedSubprogramProxies <em>Owned Subprogram Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -280,6 +292,46 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	protected boolean noCalls = NO_CALLS_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getOwnedEventSources() <em>Owned Event Source</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventSources()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventSource> ownedEventSources;
+
+	/**
+	 * The cached value of the '{@link #getOwnedEventDataSources() <em>Owned Event Data Source</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventDataSources()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventDataSource> ownedEventDataSources;
+
+	/**
+	 * The cached value of the '{@link #getOwnedPortProxies() <em>Owned Port Proxy</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedPortProxies()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PortProxy> ownedPortProxies;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramProxies() <em>Owned Subprogram Proxy</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramProxies()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramProxy> ownedSubprogramProxies;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -429,7 +481,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT,
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION,
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION,
-			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW };
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE };
 
 	/**
 	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
@@ -445,7 +499,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION,
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT,
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION,
-			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW };
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE };
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -512,6 +568,102 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS,
 					oldNoCalls, noCalls));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EventSource> getOwnedEventSources() {
+		if (ownedEventSources == null) {
+			ownedEventSources = new EObjectContainmentEList<EventSource>(EventSource.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE);
+		}
+		return ownedEventSources;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventSource createOwnedEventSource() {
+		EventSource newOwnedEventSource = (EventSource) create(Aadl2Package.eINSTANCE.getEventSource());
+		getOwnedEventSources().add(newOwnedEventSource);
+		return newOwnedEventSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EventDataSource> getOwnedEventDataSources() {
+		if (ownedEventDataSources == null) {
+			ownedEventDataSources = new EObjectContainmentEList<EventDataSource>(EventDataSource.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE);
+		}
+		return ownedEventDataSources;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventDataSource createOwnedEventDataSource() {
+		EventDataSource newOwnedEventDataSource = (EventDataSource) create(Aadl2Package.eINSTANCE.getEventDataSource());
+		getOwnedEventDataSources().add(newOwnedEventDataSource);
+		return newOwnedEventDataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<PortProxy> getOwnedPortProxies() {
+		if (ownedPortProxies == null) {
+			ownedPortProxies = new EObjectContainmentEList<PortProxy>(PortProxy.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY);
+		}
+		return ownedPortProxies;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortProxy createOwnedPortProxy() {
+		PortProxy newOwnedPortProxy = (PortProxy) create(Aadl2Package.eINSTANCE.getPortProxy());
+		getOwnedPortProxies().add(newOwnedPortProxy);
+		return newOwnedPortProxy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<SubprogramProxy> getOwnedSubprogramProxies() {
+		if (ownedSubprogramProxies == null) {
+			ownedSubprogramProxies = new EObjectContainmentEList<SubprogramProxy>(SubprogramProxy.class, this,
+					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY);
+		}
+		return ownedSubprogramProxies;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramProxy createOwnedSubprogramProxy() {
+		SubprogramProxy newOwnedSubprogramProxy = (SubprogramProxy) create(Aadl2Package.eINSTANCE.getSubprogramProxy());
+		getOwnedSubprogramProxies().add(newOwnedSubprogramProxy);
+		return newOwnedSubprogramProxy;
 	}
 
 	/**
@@ -651,6 +803,78 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	protected static final int[] GENERALIZATION_ESUBSETS = new int[] {
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION,
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION };
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ProcessorFeature> getOwnedProcessorFeatures() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<ProcessorFeature> ownedProcessorFeatures = (EList<ProcessorFeature>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedProcessorFeature());
+			if (ownedProcessorFeatures == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedProcessorFeature(),
+						ownedProcessorFeatures = new DerivedUnionEObjectEList<ProcessorFeature>(ProcessorFeature.class,
+								this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE,
+								OWNED_PROCESSOR_FEATURE_ESUBSETS));
+			}
+			return ownedProcessorFeatures;
+		}
+		return new DerivedUnionEObjectEList<ProcessorFeature>(ProcessorFeature.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE, OWNED_PROCESSOR_FEATURE_ESUBSETS);
+	}
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getOwnedProcessorFeatures() <em>Owned Processor Feature</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedProcessorFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] OWNED_PROCESSOR_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY };
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<InternalFeature> getOwnedInternalFeatures() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<InternalFeature> ownedInternalFeatures = (EList<InternalFeature>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedInternalFeature());
+			if (ownedInternalFeatures == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedInternalFeature(),
+						ownedInternalFeatures = new DerivedUnionEObjectEList<InternalFeature>(InternalFeature.class,
+								this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE,
+								OWNED_INTERNAL_FEATURE_ESUBSETS));
+			}
+			return ownedInternalFeatures;
+		}
+		return new DerivedUnionEObjectEList<InternalFeature>(InternalFeature.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE, OWNED_INTERNAL_FEATURE_ESUBSETS);
+	}
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getOwnedInternalFeatures() <em>Owned Internal Feature</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedInternalFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] OWNED_INTERNAL_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE,
+			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1020,6 +1244,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return ((InternalEList<?>) getOwnedFeatureConnections()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 			return ((InternalEList<?>) getOwnedFeatureGroupConnections()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE:
+			return ((InternalEList<?>) getOwnedEventSources()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE:
+			return ((InternalEList<?>) getOwnedEventDataSources()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY:
+			return ((InternalEList<?>) getOwnedPortProxies()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY:
+			return ((InternalEList<?>) getOwnedSubprogramProxies()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1036,6 +1268,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return getOwnedSubcomponents();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
 			return getOwnedConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE:
+			return getOwnedProcessorFeatures();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE:
+			return getOwnedInternalFeatures();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
 			if (resolve)
 				return getType();
@@ -1070,6 +1306,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return isNoConnections();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
 			return isNoCalls();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE:
+			return getOwnedEventSources();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE:
+			return getOwnedEventDataSources();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY:
+			return getOwnedPortProxies();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY:
+			return getOwnedSubprogramProxies();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1136,6 +1380,22 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
 			setNoCalls((Boolean) newValue);
 			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE:
+			getOwnedEventSources().clear();
+			getOwnedEventSources().addAll((Collection<? extends EventSource>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE:
+			getOwnedEventDataSources().clear();
+			getOwnedEventDataSources().addAll((Collection<? extends EventDataSource>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY:
+			getOwnedPortProxies().clear();
+			getOwnedPortProxies().addAll((Collection<? extends PortProxy>) newValue);
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY:
+			getOwnedSubprogramProxies().clear();
+			getOwnedSubprogramProxies().addAll((Collection<? extends SubprogramProxy>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1193,6 +1453,18 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
 			setNoCalls(NO_CALLS_EDEFAULT);
 			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE:
+			getOwnedEventSources().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE:
+			getOwnedEventDataSources().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY:
+			getOwnedPortProxies().clear();
+			return;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY:
+			getOwnedSubprogramProxies().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1209,6 +1481,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return isSetOwnedSubcomponents();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
 			return isSetOwnedConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE:
+			return isSetOwnedProcessorFeatures();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE:
+			return isSetOwnedInternalFeatures();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
 			return basicGetType() != null;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:
@@ -1239,6 +1515,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return noConnections != NO_CONNECTIONS_EDEFAULT;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
 			return noCalls != NO_CALLS_EDEFAULT;
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE:
+			return ownedEventSources != null && !ownedEventSources.isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE:
+			return ownedEventDataSources != null && !ownedEventDataSources.isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY:
+			return ownedPortProxies != null && !ownedPortProxies.isEmpty();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY:
+			return ownedSubprogramProxies != null && !ownedSubprogramProxies.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1293,7 +1577,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION) || isSetOwnedConnections()
-				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW)
+				|| isSetOwnedProcessorFeatures() || isSetOwnedInternalFeatures();
 	}
 
 	/**
@@ -1304,7 +1589,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedSubcomponents() || isSetOwnedConnections()
-				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW)
+				|| isSetOwnedProcessorFeatures() || isSetOwnedInternalFeatures();
 	}
 
 	/**
@@ -1329,6 +1615,26 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION)
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetOwnedProcessorFeatures() {
+		return eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetOwnedInternalFeatures() {
+		return eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE)
+				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE);
 	}
 
 	public void addConnection(Connection c) {
@@ -1645,7 +1951,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		if (this.getType() != null) {
 			this.getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall);
 		} else {
-			throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
+//	XXX we have an unresolved implementation or alias		throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
 		}
 	}
 

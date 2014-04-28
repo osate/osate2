@@ -91,8 +91,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
-		FeatureInstance {
+public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements FeatureInstance {
 	/**
 	 * The cached value of the '{@link #getSrcFlowSpecs() <em>Src Flow Spec</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -224,8 +223,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 			if (feature != oldFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.FEATURE_INSTANCE__FEATURE,
-							oldFeature, feature));
+							InstancePackage.FEATURE_INSTANCE__FEATURE, oldFeature, feature));
 			}
 		}
 		return feature;
@@ -249,9 +247,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 		Feature oldFeature = feature;
 		feature = newFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.FEATURE_INSTANCE__FEATURE, oldFeature,
-					feature));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__FEATURE,
+					oldFeature, feature));
 	}
 
 	/**
@@ -272,8 +269,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 		long oldIndex = index;
 		index = newIndex;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.FEATURE_INSTANCE__INDEX, oldIndex, index));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__INDEX, oldIndex,
+					index));
 	}
 
 	/**
@@ -283,15 +280,12 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSrcFlowSpecs())
-					.basicAdd(otherEnd, msgs);
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSrcFlowSpecs()).basicAdd(otherEnd, msgs);
 		case InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstFlowSpecs())
-					.basicAdd(otherEnd, msgs);
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstFlowSpecs()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -304,8 +298,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 	public EList<FlowSpecificationInstance> getSrcFlowSpecs() {
 		if (srcFlowSpecs == null) {
 			srcFlowSpecs = new EObjectWithInverseResolvingEList<FlowSpecificationInstance>(
-					FlowSpecificationInstance.class, this,
-					InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
+					FlowSpecificationInstance.class, this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE);
 		}
 		return srcFlowSpecs;
@@ -319,8 +312,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 	public EList<FlowSpecificationInstance> getDstFlowSpecs() {
 		if (dstFlowSpecs == null) {
 			dstFlowSpecs = new EObjectWithInverseResolvingEList<FlowSpecificationInstance>(
-					FlowSpecificationInstance.class, this,
-					InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
+					FlowSpecificationInstance.class, this, InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION);
 		}
 		return dstFlowSpecs;
@@ -333,8 +325,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 	 */
 	public EList<FeatureInstance> getFeatureInstances() {
 		if (featureInstances == null) {
-			featureInstances = new EObjectContainmentEList<FeatureInstance>(
-					FeatureInstance.class, this,
+			featureInstances = new EObjectContainmentEList<FeatureInstance>(FeatureInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__FEATURE_INSTANCE);
 		}
 		return featureInstances;
@@ -369,9 +360,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 		FeatureCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.FEATURE_INSTANCE__CATEGORY, oldCategory,
-					category));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__CATEGORY,
+					oldCategory, category));
 	}
 
 	/**
@@ -392,9 +382,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.FEATURE_INSTANCE__DIRECTION, oldDirection,
-					direction));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__DIRECTION,
+					oldDirection, direction));
 	}
 
 	/**
@@ -403,18 +392,14 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
-			return ((InternalEList<?>) getSrcFlowSpecs()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getSrcFlowSpecs()).basicRemove(otherEnd, msgs);
 		case InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC:
-			return ((InternalEList<?>) getDstFlowSpecs()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getDstFlowSpecs()).basicRemove(otherEnd, msgs);
 		case InstancePackage.FEATURE_INSTANCE__FEATURE_INSTANCE:
-			return ((InternalEList<?>) getFeatureInstances()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getFeatureInstances()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -458,18 +443,15 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
 			getSrcFlowSpecs().clear();
-			getSrcFlowSpecs().addAll(
-					(Collection<? extends FlowSpecificationInstance>) newValue);
+			getSrcFlowSpecs().addAll((Collection<? extends FlowSpecificationInstance>) newValue);
 			return;
 		case InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC:
 			getDstFlowSpecs().clear();
-			getDstFlowSpecs().addAll(
-					(Collection<? extends FlowSpecificationInstance>) newValue);
+			getDstFlowSpecs().addAll((Collection<? extends FlowSpecificationInstance>) newValue);
 			return;
 		case InstancePackage.FEATURE_INSTANCE__FEATURE_INSTANCE:
 			getFeatureInstances().clear();
-			getFeatureInstances().addAll(
-					(Collection<? extends FeatureInstance>) newValue);
+			getFeatureInstances().addAll((Collection<? extends FeatureInstance>) newValue);
 			return;
 		case InstancePackage.FEATURE_INSTANCE__CATEGORY:
 			setCategory((FeatureCategory) newValue);
@@ -581,8 +563,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 		for (Iterator<FeatureInstance> it = subcil.iterator(); it.hasNext();) {
 			FeatureInstance fi = it.next();
 			if (fi.getFeature() instanceof FeatureGroup) {
-				FeatureGroupType srcpgt = ((FeatureGroup) fi.getFeature())
-						.getFeatureGroupType();
+				FeatureGroupType srcpgt = ((FeatureGroup) fi.getFeature()).getFeatureGroupType();
 				if (srcpgt != null && srcpgt.isInverseOf(targetpgt))
 					return fi;
 				fi.findInverseFeatureGroup(targetpgt);
@@ -638,21 +619,18 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 	/**
 	 * Get all feature instances that fit a given path in a feature group.
 	 */
-	public Collection<FeatureInstance> findFeatureInstances(
-			final EList<ContainmentPathElement> referencePath) {
+	public Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath) {
 		if (referencePath.isEmpty()) {
 			return Collections.singleton((FeatureInstance) this);
 		} else {
 			FeatureInstance fi = this;
 
-			for (Iterator<ContainmentPathElement> pathIter = referencePath
-					.iterator(); pathIter.hasNext();) {
+			for (Iterator<ContainmentPathElement> pathIter = referencePath.iterator(); pathIter.hasNext();) {
 				NamedElement ne = pathIter.next().getNamedElement();
 
 				if (ne instanceof Feature) {
 					fi = fi.findFeatureInstance((Feature) ne);
-					while ((fi != null) && (ne instanceof FeatureGroup)
-							&& pathIter.hasNext()) {
+					while ((fi != null) && (ne instanceof FeatureGroup) && pathIter.hasNext()) {
 						// we may point to a port in a feature group
 						ne = pathIter.next().getNamedElement();
 						if (ne instanceof Feature) {
@@ -705,8 +683,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 			if ((r.getLowerBound() == 0 && r.getUpperBound() == 0)
 					|| (r.getLowerBound() == 0 && index == r.getUpperBound())
 					|| (r.getUpperBound() == 0 && index == r.getLowerBound())
-					|| (r.getLowerBound() <= index && index <= r
-							.getUpperBound())) {
+					|| (r.getLowerBound() <= index && index <= r.getUpperBound())) {
 				return true;
 			}
 		}

@@ -37,6 +37,7 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Element;
 
 /**
  * This class is the default annex unparser. It processes objects of type
@@ -54,10 +55,7 @@ public class DefaultAnnexUnparser implements AnnexUnparser {
 	 *         java.lang.String)
 	 */
 	public String unparseAnnexLibrary(AnnexLibrary library, String indent) {
-		if (library instanceof DefaultAnnexLibrary) {
-			return ((DefaultAnnexLibrary) library).getSourceText();
-		}
-		return "";
+		return AnnexUtil.getSourceText(library);
 	}
 
 	/*
@@ -67,10 +65,7 @@ public class DefaultAnnexUnparser implements AnnexUnparser {
 	 *         java.lang.String)
 	 */
 	public String unparseAnnexSubclause(AnnexSubclause subclause, String indent) {
-		if (subclause instanceof DefaultAnnexSubclause) {
-			return ((DefaultAnnexSubclause) subclause).getSourceText();
-		}
-		return "";
+		return AnnexUtil.getSourceText(subclause);
 	}
 
 }

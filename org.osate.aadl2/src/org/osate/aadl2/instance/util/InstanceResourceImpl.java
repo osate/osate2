@@ -7,7 +7,7 @@
 package org.osate.aadl2.instance.util;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
  * @see org.osate.aadl2.instance.util.InstanceResourceFactoryImpl
  * @generated
  */
-public class InstanceResourceImpl extends XMLResourceImpl {
+public class InstanceResourceImpl extends XMIResourceImpl {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->

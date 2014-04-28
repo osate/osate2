@@ -1,8 +1,8 @@
 grammar org.osate.xtext.aadl2.Aadl2 with org.osate.xtext.aadl2.properties.Properties
 
-import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
+import "http://aadl.info/AADL/2.0" as aadl2
 
-import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+//import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 
 Model returns aadl2::ModelUnit:
@@ -119,7 +119,7 @@ AbstractType returns aadl2::AbstractType:
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
 	((derivedModes?='requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -150,8 +150,8 @@ SystemType returns aadl2::SystemType:
  	) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -178,8 +178,8 @@ ProcessType returns aadl2::ProcessType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -206,8 +206,8 @@ ThreadGroupType returns aadl2::ThreadGroupType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -233,8 +233,8 @@ ThreadType returns aadl2::ThreadType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -260,8 +260,8 @@ SubprogramType returns aadl2::SubprogramType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -310,8 +310,8 @@ ProcessorType returns aadl2::ProcessorType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -337,8 +337,8 @@ DeviceType returns aadl2::DeviceType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -361,8 +361,8 @@ MemoryType returns aadl2::MemoryType:
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -385,8 +385,8 @@ BusType returns aadl2::BusType:
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -409,8 +409,8 @@ VirtualBusType returns aadl2::VirtualBusType:
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -437,8 +437,8 @@ VirtualProcessorType returns aadl2::VirtualProcessorType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -464,8 +464,8 @@ DataType returns aadl2::DataType:
 	 )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
-	 ((ownedMode+=RequiresMode)+))
+	((derivedModes?='requires' 'modes'
+	 ((ownedMode+=Mode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
 	)?
@@ -509,6 +509,18 @@ AbstractImplementation returns aadl2::AbstractImplementation:
 	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
+	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
 	)?
 	('calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
@@ -555,6 +567,18 @@ SystemImplementation returns aadl2::SystemImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
+	)?
 	('connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
@@ -588,6 +612,18 @@ ProcessImplementation returns aadl2::ProcessImplementation:
 	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
+	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
 	)?
 	('connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
@@ -623,6 +659,18 @@ ThreadGroupImplementation returns aadl2::ThreadGroupImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
+	)?
 	('connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
@@ -656,6 +704,18 @@ ThreadImplementation returns aadl2::ThreadImplementation:
 	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
+	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
 	)?
 	('calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
@@ -694,6 +754,18 @@ SubprogramImplementation returns aadl2::SubprogramImplementation:
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent)+
 	| (noSubcomponents?='none' ';'))
+	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
 	)?
 	('calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
@@ -734,6 +806,18 @@ SubprogramGroupImplementation returns aadl2::SubprogramGroupImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
+	)?
 	('connections'
 	(( ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
@@ -763,6 +847,12 @@ ProcessorImplementation returns aadl2::ProcessorImplementation:
 	  | ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent	  )+
 	| (noSubcomponents?='none' ';'))
+	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
 	)?
 	('connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
@@ -798,6 +888,18 @@ VirtualProcessorImplementation returns aadl2::VirtualProcessorImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
+	)?
 	('connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
@@ -831,6 +933,18 @@ DeviceImplementation returns aadl2::DeviceImplementation:
 	  | ownedBusSubcomponent+=BusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
+	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
+	(
+		'processor' 'features' (
+			ownedPortProxy+= PortProxy
+			| ownedSubprogramProxy+= SubprogramProxy
+		)+
 	)?
 	('connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
@@ -866,6 +980,12 @@ MemoryImplementation returns aadl2::MemoryImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
 	('connections'
 	((ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
@@ -896,6 +1016,12 @@ BusImplementation returns aadl2::BusImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
 	('modes'
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	| (noModes?='none' ';')))?
@@ -920,6 +1046,12 @@ VirtualBusImplementation returns aadl2::VirtualBusImplementation:
 	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
+	)?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
 	)?
 	('modes'
 	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
@@ -946,6 +1078,12 @@ DataImplementation returns aadl2::DataImplementation:
 	  | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';')))?
+	(
+		'internal' 'features' (
+			ownedEventSource+= EventSource
+			| ownedEventDataSource+= EventDataSource
+		)+
+	)?
 	('connections'
 	(( ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
@@ -968,7 +1106,7 @@ DataImplementation returns aadl2::DataImplementation:
 
 SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 	name = ID ':' '{'
-	( ownedCallSpecification+=CallSpecification)+
+	( ownedSubprogramCall+=SubprogramCall)+
 	'}'
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')? 
@@ -976,15 +1114,16 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 ;
 
 
-CallSpecification returns aadl2::CallSpecification:
-	(   ({aadl2::ProcessorCall}name=ID ':' 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
-     ({aadl2::SubprogramCall}name=ID ':' 'subprogram'
-// direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
-// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
-    	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
-     	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
-//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-     ))
+SubprogramCall returns aadl2::SubprogramCall:
+     {aadl2::SubprogramCall}name=ID ':' 'subprogram'
+		// direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+		// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
+     	//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
+    	(
+    		(context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID])
+    		| ('processor' '.' calledSubprogram=[aadl2::SubprogramProxy|ID])
+     		| calledSubprogram=[aadl2::CalledSubprogram|PNAME]
+		)
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'
 ;
@@ -1142,7 +1281,7 @@ AccessSpecification returns aadl2::AccessSpecification:
 
 	
 FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
-	direction=InOutDirection 'feature' prototype=[aadl2::FeaturePrototype|ID]
+	direction=InOutDirection? 'feature' prototype=[aadl2::FeaturePrototype|ID]
 	;
 
 
@@ -1541,6 +1680,60 @@ FeatureGroupType returns aadl2::FeatureGroupType:
 	(ownedAnnexSubclause+=AnnexSubclause)*
 	'end' ID ';';
 
+// ********* internal features
+
+InternalFeature returns aadl2::InternalFeature:
+	(
+		EventSource | EventDataSource
+	)
+	( 
+		'in' 'modes' '(' (
+			inMode+=[aadl2::Mode|ID] 
+			(',' inMode+=[aadl2::Mode|ID])* 
+		) ')'
+	)?
+	(
+		'properties' (
+			(ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		)
+	)?
+	';' 
+;
+
+ProcessorFeature returns aadl2::ProcessorFeature:
+	(
+		PortProxy | SubprogramProxy
+	)
+	( 
+		'in' 'modes' '(' (
+			inMode+=[aadl2::Mode|ID] 
+			(',' inMode+=[aadl2::Mode|ID])* 
+		) ')'
+	)? 
+	(
+		'properties' (
+			(ownedPropertyAssociation+=ContainedPropertyAssociation)+
+		)
+	)?
+	';'
+;
+
+EventSource returns aadl2::EventSource:
+	name = ID ':' 'event' ';'
+;
+
+EventDataSource returns aadl2::EventDataSource:
+	name = ID ':' 'event' 'data' ';'
+;
+
+PortProxy returns aadl2::PortProxy:
+	name = ID ':' 'port' ';'
+;
+
+SubprogramProxy returns aadl2::SubprogramProxy:
+	name = ID ':' 'subprogram' ';'
+;
+
 // ********* connections 
 
 ConnectedElement returns aadl2::ConnectedElement:
@@ -1548,27 +1741,28 @@ ConnectedElement returns aadl2::ConnectedElement:
 	connectionEnd=[aadl2::ConnectionEnd|ID]
 ;
 
-ProcessorPort returns aadl2::ProcessorPort:
-	 'processor' '.' name=ID
+ProcessorPort returns aadl2::ConnectedElement:
+	'processor' '.' connectionEnd=[aadl2::PortProxy|ID]
 ;
 
-InternalEventPort returns aadl2::InternalEvent:
-	 'self' '.' name=ID
+ProcessorSubprogram returns aadl2::ConnectedElement:
+	'processor' '.' connectionEnd=[aadl2::SubprogramProxy|ID]
 ;
 
-ProcessorSubprogram returns aadl2::ProcessorSubprogram:
-	 'processor' '.' name=ID
+InternalEvent returns aadl2::ConnectedElement:
+	'self' '.' connectionEnd=[aadl2::InternalFeature|ID]
 ;
 
-AbstractConnectionEnd returns aadl2::AbstractConnectionEnd:
-	 ConnectedElement|ProcessorPort|InternalEventPort
-;
-ProcessorConnectionEnd returns aadl2::AbstractConnectionEnd:
-	 ConnectedElement|ProcessorPort
+AbstractConnectionEnd returns aadl2::ConnectedElement:
+	 ConnectedElement | ProcessorPort | InternalEvent
 ;
 
-AccessConnectionEnd returns aadl2::AbstractConnectionEnd:
-	 ConnectedElement|ProcessorSubprogram
+ProcessorConnectionEnd returns aadl2::ConnectedElement:
+	 ConnectedElement | ProcessorPort
+;
+
+AccessConnectionEnd returns aadl2::ConnectedElement:
+	 ConnectedElement | ProcessorSubprogram
 ;
 
 PortConnection returns aadl2::PortConnection:
@@ -1746,11 +1940,6 @@ Mode returns aadl2::Mode:
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';';
 
-RequiresMode returns aadl2::Mode:
-	name=ID ':' initial?='initial'? 'mode' 
-	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	';';
-
 ModeTransition returns aadl2::ModeTransition:
 	(name=ID ':')?
 	source=[aadl2::Mode|ID] '-['
@@ -1761,12 +1950,13 @@ ModeTransition returns aadl2::ModeTransition:
 	';';
 
 Trigger returns aadl2::ModeTransitionTrigger:
-	TriggerPort | ProcessorPort | InternalEventPort
+	(
+		(context=[aadl2::Context|ID] '.')?
+		triggerPort=[aadl2::Port|ID]
+	)
+	| 'self' '.' triggerPort=[aadl2::InternalFeature|ID]
+	| 'processor' '.' triggerPort=[aadl2::PortProxy|ID]
 ;
-
-TriggerPort returns aadl2::TriggerPort:
-	(context=[aadl2::Context|ID] '.')? port=[aadl2::Port|ID]
-	;
 
 // used where component_in_modes is shown in standard grammar
 ModeRef returns aadl2::ModeBinding:
@@ -1791,14 +1981,6 @@ DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	( 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')? 
 	';';
 
-//
-//terminal ANNEXTEXT:
-//	'{**'->'**}';
-
-
-//terminal ANNEXTEXT	: 
-//			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
-//		; 
 
 	// **************
 
@@ -2071,5 +2253,10 @@ FULLINAME:
 // name of refined entity. Used to set name field by value converter	
 REFINEDNAME:
 	ID;
+
+
+terminal ANNEXTEXT:
+	'{**'->'**}';
+
 
 

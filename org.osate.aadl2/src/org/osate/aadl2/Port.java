@@ -52,7 +52,7 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface Port extends DirectedFeature, PortConnectionEnd {
+public interface Port extends DirectedFeature, PortConnectionEnd, TriggerPort {
 
 	/**
 	 * Returns the value of the '<em><b>Category</b></em>' attribute.

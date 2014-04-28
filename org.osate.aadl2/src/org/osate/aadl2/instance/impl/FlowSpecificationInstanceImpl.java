@@ -74,8 +74,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
-		implements FlowSpecificationInstance {
+public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl implements FlowSpecificationInstance {
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -154,11 +153,8 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 			source = (FeatureInstance) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE,
-							oldSource, source));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE, oldSource, source));
 			}
 		}
 		return source;
@@ -178,15 +174,12 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSource(FeatureInstance newSource,
-			NotificationChain msgs) {
+	public NotificationChain basicSetSource(FeatureInstance newSource, NotificationChain msgs) {
 		FeatureInstance oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE,
-					oldSource, newSource);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE, oldSource, newSource);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -204,19 +197,16 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 		if (newSource != source) {
 			NotificationChain msgs = null;
 			if (source != null)
-				msgs = ((InternalEObject) source).eInverseRemove(this,
-						InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
+				msgs = ((InternalEObject) source).eInverseRemove(this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 						FeatureInstance.class, msgs);
 			if (newSource != null)
-				msgs = ((InternalEObject) newSource).eInverseAdd(this,
-						InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
+				msgs = ((InternalEObject) newSource).eInverseAdd(this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 						FeatureInstance.class, msgs);
 			msgs = basicSetSource(newSource, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE,
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE,
 					newSource, newSource));
 	}
 
@@ -231,11 +221,8 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 			destination = (FeatureInstance) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION,
-							oldDestination, destination));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION, oldDestination, destination));
 			}
 		}
 		return destination;
@@ -255,15 +242,12 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDestination(
-			FeatureInstance newDestination, NotificationChain msgs) {
+	public NotificationChain basicSetDestination(FeatureInstance newDestination, NotificationChain msgs) {
 		FeatureInstance oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION,
-					oldDestination, newDestination);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION, oldDestination, newDestination);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -282,19 +266,16 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 			NotificationChain msgs = null;
 			if (destination != null)
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
-						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
-						FeatureInstance.class, msgs);
+						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC, FeatureInstance.class, msgs);
 			if (newDestination != null)
 				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
-						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
-						FeatureInstance.class, msgs);
+						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC, FeatureInstance.class, msgs);
 			msgs = basicSetDestination(newDestination, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION,
-					newDestination, newDestination));
+					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION, newDestination, newDestination));
 	}
 
 	/**
@@ -303,17 +284,14 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	 * @generated
 	 */
 	public FlowSpecification getFlowSpecification() {
-		if (flowSpecification != null
-				&& ((EObject) flowSpecification).eIsProxy()) {
+		if (flowSpecification != null && ((EObject) flowSpecification).eIsProxy()) {
 			InternalEObject oldFlowSpecification = (InternalEObject) flowSpecification;
 			flowSpecification = (FlowSpecification) eResolveProxy(oldFlowSpecification);
 			if (flowSpecification != oldFlowSpecification) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION,
-							oldFlowSpecification, flowSpecification));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION, oldFlowSpecification,
+							flowSpecification));
 			}
 		}
 		return flowSpecification;
@@ -337,11 +315,9 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 		FlowSpecification oldFlowSpecification = flowSpecification;
 		flowSpecification = newFlowSpecification;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(
-					this,
-					Notification.SET,
-					InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION,
-					oldFlowSpecification, flowSpecification));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION, oldFlowSpecification,
+					flowSpecification));
 	}
 
 	/**
@@ -351,8 +327,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	 */
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(
-					ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -365,9 +340,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	 */
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
-			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(
-					ModeTransitionInstance.class,
-					this,
+			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;
@@ -379,20 +352,17 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
 			if (source != null)
-				msgs = ((InternalEObject) source).eInverseRemove(this,
-						InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
+				msgs = ((InternalEObject) source).eInverseRemove(this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 						FeatureInstance.class, msgs);
 			return basicSetSource((FeatureInstance) otherEnd, msgs);
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION:
 			if (destination != null)
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
-						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
-						FeatureInstance.class, msgs);
+						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC, FeatureInstance.class, msgs);
 			return basicSetDestination((FeatureInstance) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -404,8 +374,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
 			return basicSetSource(null, msgs);
@@ -467,8 +436,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 			return;
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION:
 			getInModeTransitions().clear();
-			getInModeTransitions().addAll(
-					(Collection<? extends ModeTransitionInstance>) newValue);
+			getInModeTransitions().addAll((Collection<? extends ModeTransitionInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

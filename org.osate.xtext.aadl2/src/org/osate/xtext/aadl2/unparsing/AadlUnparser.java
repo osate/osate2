@@ -69,6 +69,7 @@ import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.internal.workspace.AadlWorkspace;
 
 /**
@@ -223,6 +224,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				processOptionalSection(object.getOwnedPrototypes(), "prototypes", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedFeatures(), "features", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedFlowSpecifications(),"flows",AadlConstants.emptyString);
+				processOptionalSection(object.getOwnedModes(), object.isDerivedModes()? "requires modes":"modes", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedPropertyAssociations(),"properties",AadlConstants.emptyString);
 				processEList(object.getOwnedAnnexSubclauses());
 				aadlText.decrementIndent();
@@ -306,47 +308,27 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * @param al
 			 *            AnnexLibrary object
 			 */
-			public String caseAnnexLibrary(AnnexLibrary al) {
+			public String caseDefaultAnnexLibrary(DefaultAnnexLibrary al) {
 				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
 						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
 				String annexName = al.getName();
 				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
 
-				if (unparser != null) {
 					processComments(al);
 					aadlText.addOutputNewline("annex " + annexName + " {**");
 					aadlText.incrementIndent();
-					aadlText.addOutput(unparser.unparseAnnexLibrary(al,
+					AnnexLibrary annex = al.getParsedAnnexLibrary();
+					if (annex != null && unparser != null) {
+					aadlText.addOutput(unparser.unparseAnnexLibrary(annex,
 							aadlText.getIndentString()));
+					} else {
+						aadlText.addOutput(al.getSourceText());
+					}
 					aadlText.decrementIndent();
 					aadlText.addOutputNewline("**};");
-				}
 				return DONE;
 			}
 
-			/**
-			 * unparses default annex library
-			 * 
-			 * @param dal
-			 *            DefaultAnnexLibrary object
-			 */
-			public String caseDefaultAnnexLibrary(DefaultAnnexLibrary dal) {
-				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
-						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
-				String annexName = dal.getName();
-				AnnexUnparser unparser = registry.getAnnexUnparser("*");
-
-				if (unparser != null) {
-					processComments(dal);
-					aadlText.addOutput("annex " + annexName + " {**");
-					aadlText.incrementIndent();
-					aadlText.addOutput(unparser.unparseAnnexLibrary(dal,
-							aadlText.getIndentString()));
-					aadlText.decrementIndent();
-					aadlText.addOutputNewline("**};");
-				}
-				return DONE;
-			}
 
 			/**
 			 * unparses annex subclause
@@ -354,75 +336,43 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * @param as
 			 *            AnnexSubclause object
 			 */
-			public String caseAnnexSubclause(AnnexSubclause as) {
+			public String caseDefaultAnnexSubclause(DefaultAnnexSubclause as) {
 				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
 						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
 
 				String annexName = as.getName();
 
-				/**
-				 * JD
-				 * Workaround for implementing annex unparsing
-				 * without registering them. Required for META toolset.
-				 * 
-				 * The behavior is that if the class has a method called
-				 * getAnnexContent, then, we get the content
-				 * of the annex and put it directly into the component.
-				 */
-				if (as instanceof AnnexSubclauseImpl)
-				{
-					AnnexSubclauseImpl asi = (AnnexSubclauseImpl)as;
-					if ((asi.bypassUnparser()) && (asi.getAnnexContent().length() > 0))
-					{
+				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
+				String astring = as.getSourceText();
+					processComments(as);
+					AnnexSubclause annex = as.getParsedAnnexSubclause();
+					if (astring.startsWith("{**")){
+						// the AADL parser stores the annex text with {** **} as text in DefaultAnnexLib/Subclause
+						if (annex != null&& unparser != null){
+							//we can get the text from the annex unparser
+							aadlText.incrementIndent();
+							astring = unparser.unparseAnnexSubclause(annex,aadlText.getIndentString());
+							aadlText.decrementIndent();
+						}
+						aadlText.addOutput("annex " + annexName + astring);
+					} else {
+						// now unparse test that has been set without {**
+						// XXX: TODO: we assume that it has not not been parsed.
+						// we should remove this hack once RC fills in the text with brackets
 						aadlText.addOutputNewline("annex " + annexName + " {**");
 						aadlText.incrementIndent();
-						aadlText.addOutput(asi.getAnnexContent());
+						aadlText.addOutput(astring);
 						aadlText.decrementIndent();
-						aadlText.addOutputNewline("**};");
-						return DONE;
+						aadlText.addOutput("**}");
 					}
-				}
-				
-				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
-
-				if (unparser != null) {
-					processComments(as);
-					aadlText.addOutputNewline("annex " + annexName + " {**");
-					aadlText.incrementIndent();
-					aadlText.addOutput(unparser.unparseAnnexSubclause(as,
-							aadlText.getIndentString()));
-					aadlText.decrementIndent();
-					aadlText.addOutputNewline("**};");
-				}
-				
-				return DONE;
-			}
-
-			/**
-			 * unparses defaultannex subclause
-			 * 
-			 * @param das
-			 *            DefaultAnnexSubclause object
-			 */
-			public String caseDefaultAnnexSubclause(DefaultAnnexSubclause das)
-			{
-
-				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
-						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
-				String annexName = das.getName();
-				AnnexUnparser unparser = registry.getAnnexUnparser("*");
-
-				if (unparser != null)
-				{
-					processComments(das);
-					aadlText.addOutputNewline("annex " + annexName + " {**");
-					aadlText.incrementIndent();
-					aadlText.addOutputNewline(unparser.unparseAnnexSubclause(
-							das, aadlText.getIndentString()));
-					aadlText.decrementIndent();
-					aadlText.addOutputNewline("**};");
-				}
-				return DONE;
+					EList<Mode> mlist = as.getInModes();
+					if (!mlist.isEmpty()){
+						aadlText.addOutput(" in modes (");
+						processRefEList(mlist, ",",as);
+						aadlText.addOutput(")");
+					}
+					aadlText.addOutputNewline(";");
+					return DONE;
 			}
 
 			/**
@@ -1121,25 +1071,25 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			/**
 			 * call sequence processing.
 			 */
-			public String caseSubprogramCallSequence(SubprogramCallSequence object) {
-				processComments(object);
-				
-				String n = object.getName();
-				aadlText.addOutput(n + ": ");
-				EList<CallSpecification> list = object.getOwnedCallSpecifications();
-				if (list != null && !list.isEmpty()) {
-					aadlText.addOutputNewline(" {");
-					aadlText.incrementIndent();
-					processEList(list);
-					aadlText.addOutput("}");
-					aadlText.decrementIndent();
-				}
-				aadlText.addOutput(" ");
-				processCurlyList(object.getOwnedPropertyAssociations());
-				processModalElement(object);
-				aadlText.addOutputNewline(";");
-				return DONE;
-			}
+//			public String caseSubprogramCallSequence(SubprogramCallSequence object) {
+//				processComments(object);
+//				
+//				String n = object.getName();
+//				aadlText.addOutput(n + ": ");
+//				EList<CallSpecification> list = object.getOwnedCallSpecifications();
+//				if (list != null && !list.isEmpty()) {
+//					aadlText.addOutputNewline(" {");
+//					aadlText.incrementIndent();
+//					processEList(list);
+//					aadlText.addOutput("}");
+//					aadlText.decrementIndent();
+//				}
+//				aadlText.addOutput(" ");
+//				processCurlyList(object.getOwnedPropertyAssociations());
+//				processModalElement(object);
+//				aadlText.addOutputNewline(";");
+//				return DONE;
+//			}
 
 			/**
 			 * subprogram call processing.
@@ -1161,15 +1111,15 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				return DONE;
 			}
 			
-			public String caseProcessorCall(
-					ProcessorCall object) {
-				processComments(object);
-				aadlText.addOutput(object.getName() + ": "
-						+ "subprogram processor."+object.getSubprogramAccessName());
-				processCurlyList(object.getOwnedPropertyAssociations());
-				aadlText.addOutputNewline(";");
-				return DONE;
-			}
+//			public String caseProcessorCall(
+//					ProcessorCall object) {
+//				processComments(object);
+//				aadlText.addOutput(object.getName() + ": "
+//						+ "subprogram processor."+object.getSubprogramAccessName());
+//				processCurlyList(object.getOwnedPropertyAssociations());
+//				aadlText.addOutputNewline(";");
+//				return DONE;
+//			}
 
 			public String casePortConnection(PortConnection object) {
 				processComments(object);
@@ -1724,14 +1674,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(AadlUtil.getPropertySetElementName(object.getProperty()));
 				aadlText.addOutput(object.isAppend() ? " +=> " : " => ");
 				final EList<ModalPropertyValue> pl = object.getOwnedValues();
-//				boolean didParens = false;
-//				if (pl.size() > 1 || (pl.size()==1 && !((ModalPropertyValue)pl.get(0)).getInModes().isEmpty())){
-//					aadlText.addOutput("(");
-//					didParens = true;
-//				}
 				processEList(pl, ", ");
-//				if (didParens)
-//					aadlText.addOutput(")");
 				EList<ContainedNamedElement> atl = object.getAppliesTos();
 
 				if (atl.size() > 0) {

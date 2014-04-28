@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_Wbv7gJJ-Ed671LC5FnhD_A" activeDiagram="_9TSBIFnREd-NdemEyhSnJg">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_Wbv7gJJ-Ed671LC5FnhD_A" activeDiagram="_DqxXsFheEd-rYOZ3UaShDA">
   <model href="AADL2.INSTANCE.uml#_0"/>
   <diagrams xmi:id="_Wbv7gZJ-Ed671LC5FnhD_A" position="0,0" size="100,100" name="Connection Instances" viewport="0,0">
     <property xmi:id="_WtyGsJJ-Ed671LC5FnhD_A" key="pageFormatName" value="A3"/>
@@ -296,7 +296,7 @@
       <waypoints>[267, 386, 266, 0]</waypoints>
     </contained>
     <contained xsi:type="di:GraphNode" xmi:id="_Aa4AkJb4Ed6qz8WeBBf9gQ" position="350,275" size="178,-1">
-      <property xmi:id="_sarXMH1hEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
+      <property xmi:id="_sarXMH1hEeOnMLJqAh0THw" key="font" value="Sans-regular-8"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Aa4AkZb4Ed6qz8WeBBf9gQ" presentation="default">
         <element href="AADL2.INSTANCE.uml#ConnectionKind"/>
       </semanticModel>
@@ -643,7 +643,7 @@
       <contained xsi:type="di:EdgeObjectOffset" xmi:id="_QOqZT1hiEd-rYOZ3UaShDA" id="stereotypeEdgeObject"/>
     </contained>
     <contained xsi:type="di:GraphNode" xmi:id="_As1KQF-NEd-C6ZnaMc7IFQ" position="417,19" size="172,-1">
-      <property xmi:id="_V88JYH1iEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
+      <property xmi:id="_V88JYH1iEeOnMLJqAh0THw" key="font" value="Sans-regular-8"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_As1KQV-NEd-C6ZnaMc7IFQ" presentation="default">
         <element href="AADL2.INSTANCE.uml#FeatureCategory"/>
       </semanticModel>
@@ -715,7 +715,7 @@
       </contained>
     </contained>
     <contained xsi:type="di:GraphNode" xmi:id="_GnLBwF-NEd-C6ZnaMc7IFQ" position="612,232" size="144,-1">
-      <property xmi:id="_V88JYX1iEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
+      <property xmi:id="_V88JYX1iEeOnMLJqAh0THw" key="font" value="Sans-regular-8"/>
       <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_GnLBwV-NEd-C6ZnaMc7IFQ" presentation="default">
         <element href="AADL2.EMF.merged.uml#ComponentCategory"/>
       </semanticModel>

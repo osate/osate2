@@ -36,74 +36,17 @@
  */
 package org.osate.aadl2;
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Trigger Port</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.TriggerPort#getContext <em>Context</em>}</li>
- *   <li>{@link org.osate.aadl2.TriggerPort#getPort <em>Port</em>}</li>
- * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getTriggerPort()
- * @model
+ * @model abstract="true"
  * @generated
  */
-public interface TriggerPort extends ModeTransitionTrigger {
-	/**
-	 * Returns the value of the '<em><b>Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Context</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Context</em>' reference.
-	 * @see #setContext(Context)
-	 * @see org.osate.aadl2.Aadl2Package#getTriggerPort_Context()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	Context getContext();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.TriggerPort#getContext <em>Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Context</em>' reference.
-	 * @see #getContext()
-	 * @generated
-	 */
-	void setContext(Context value);
-
-	/**
-	 * Returns the value of the '<em><b>Port</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Port</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Port</em>' reference.
-	 * @see #setPort(Port)
-	 * @see org.osate.aadl2.Aadl2Package#getTriggerPort_Port()
-	 * @model required="true" ordered="false"
-	 * @generated
-	 */
-	Port getPort();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.TriggerPort#getPort <em>Port</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Port</em>' reference.
-	 * @see #getPort()
-	 * @generated
-	 */
-	void setPort(Port value);
+public interface TriggerPort extends NamedElement {
 
 } // TriggerPort

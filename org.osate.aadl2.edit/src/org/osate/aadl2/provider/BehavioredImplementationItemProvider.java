@@ -83,26 +83,25 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCallSpecificationPropertyDescriptor(object);
+			addSubprogramCallPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Call Specification feature.
+	 * This adds a property descriptor for the Subprogram Call feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addCallSpecificationPropertyDescriptor(Object object) {
+	protected void addSubprogramCallPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_BehavioredImplementation_callSpecification_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_BehavioredImplementation_callSpecification_feature", "_UI_BehavioredImplementation_type"),
-				Aadl2Package.eINSTANCE.getBehavioredImplementation_CallSpecification(), true, false, true, null, null,
-				null));
+				getString("_UI_BehavioredImplementation_subprogramCall_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_BehavioredImplementation_subprogramCall_feature",
+						"_UI_BehavioredImplementation_type"), Aadl2Package.eINSTANCE
+						.getBehavioredImplementation_SubprogramCall(), true, false, true, null, null, null));
 	}
 
 	/**
