@@ -23,8 +23,10 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.diagrams.common.AgeFeatureProvider;
@@ -40,6 +42,7 @@ import org.osate.ge.diagrams.type.features.RenameFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
+import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.diagrams.type.features.TypeUpdateDiagramFeature;
 import org.osate.ge.diagrams.type.patterns.TypeClassifierPattern;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -75,6 +78,8 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		features.add(make(RefineFeatureFeature.class));
 		features.add(make(RefineFlowSpecificationFeature.class));
 		features.add(make(SetFeatureClassifierFeature.class));
+		features.add(createSetFeatureGroupInverseFeature(true));
+		features.add(createSetFeatureGroupInverseFeature(false));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN));
 		features.add(createSetFeatureDirectionFeature(DirectionType.OUT));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN_OUT));		
@@ -97,6 +102,14 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		childCtx.set("Direction", dirType);
 
 		return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
+	}
+	
+	private SetFeatureGroupInverseFeature createSetFeatureGroupInverseFeature(final boolean inverse) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Inverse", inverse);
+
+		return ContextInjectionFactory.make(SetFeatureGroupInverseFeature.class, childCtx);
 	}
 	
 	private SetAccessFeatureKindFeature createSetFeatureKindFeature(final AccessType accType) 
@@ -126,5 +139,18 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		}
 
 		return super.getDirectEditingFeatureAdditional(context);
+	}
+	
+	@Override
+	protected boolean allowConnectionCreation(final IConnectionPattern conPattern) {
+		// Hide mode transition patterns and flow specification pattern palette entries from diagrams of feature group types
+		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+		if(bor != null) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
+			if(bo instanceof FeatureGroupType && (conPattern instanceof ModeTransitionPattern || conPattern instanceof FlowSpecificationPattern)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

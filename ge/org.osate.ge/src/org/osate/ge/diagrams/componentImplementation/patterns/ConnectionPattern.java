@@ -54,10 +54,12 @@ import org.osate.aadl2.FeatureGroupConnectionEnd;
 import org.osate.aadl2.ParameterConnectionEnd;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortConnectionEnd;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
+import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
@@ -73,6 +75,7 @@ import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ConnectionPattern extends AgeConnectionPattern {
+	private final AadlFeatureService featureService;
 	private final StyleService styleUtil;
 	private final HighlightingService highlightingHelper;
 	private final ConnectionService connectionHelper;
@@ -102,10 +105,11 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	}
 	
 	@Inject
-	public ConnectionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, 
+	public ConnectionPattern(final AadlFeatureService featureService, final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, 
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final @Named("Connection Type") EClass connectionType) {
 		super(visibilityHelper);
+		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.highlightingHelper = highlightingHelper;
 		this.connectionHelper = connectionHelper;
@@ -369,7 +373,20 @@ public class ConnectionPattern extends AgeConnectionPattern {
 
 		// Perform type specific connection start connection validity check
 		final Class<?> connectionEndType = getConnectionEndType();
-		return connectionEndType != null && connectionEndType.isInstance(srcConnectedElement.getConnectionEnd());
+		if(connectionEndType == null || !connectionEndType.isInstance(srcConnectedElement.getConnectionEnd())) {
+			return false;
+		}
+		
+		final Subcomponent srcScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), Subcomponent.class);
+		final ConnectionEnd srcConnectionEnd = srcConnectedElement.getConnectionEnd();
+		if(srcConnectionEnd instanceof DirectedFeature) {
+			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getSourcePictogramElement(), (DirectedFeature)srcConnectionEnd);
+			if((direction == DirectionType.OUT && srcScContainer == null) || (direction == DirectionType.IN && srcScContainer != null)) {
+				return false;
+			}
+		}
+		
+		return true;
     }
 	
 	/**
@@ -413,11 +430,23 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		}
 
 		// TODO: Need to take into account prototypes, and inverses when dealing with them?
-		// TODO: Need to take into account feature group inverses, and context and check directions.
 		// TODO: Additional checks for access features
 		
 		final Class<?> connectionEndType = getConnectionEndType();
-		return connectionEndType != null && connectionEndType.isInstance(dstConnectedElement.getConnectionEnd());
+		if(connectionEndType == null || !connectionEndType.isInstance(dstConnectedElement.getConnectionEnd())) {
+			return false;
+		}
+		
+		final Subcomponent dstScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getTargetPictogramElement(), Subcomponent.class);
+		final ConnectionEnd dstConnectionEnd = dstConnectedElement.getConnectionEnd();
+		if(dstConnectionEnd instanceof DirectedFeature) {
+			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getTargetPictogramElement(), (DirectedFeature)dstConnectionEnd);
+			if((direction == DirectionType.IN && dstScContainer == null) || (direction == DirectionType.OUT && dstScContainer != null)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	@Override

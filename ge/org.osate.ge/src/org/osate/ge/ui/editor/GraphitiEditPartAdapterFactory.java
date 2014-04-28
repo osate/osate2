@@ -44,9 +44,9 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		if(IAadlPropertySource.class.equals(adapterType)) {
 			// If the business object is an AADL Named Element
 			if(bo instanceof NamedElement) {
-				final NamedElement namedElement = (NamedElement)bo;			
+				final NamedElement namedElement = (NamedElement)bo;		
 				return new IAadlPropertySource() {
-					private final IXtextDocument document = AgeXtextUtil.getDocumentByQualifiedName(namedElement.getQualifiedName());
+					private final IXtextDocument document = AgeXtextUtil.getDocumentByPackageName(namedElement.getElementRoot().getQualifiedName());
 					private final NamedElement element = namedElement;
 					
 					@Override

@@ -61,7 +61,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 				// Try to get the Xtext document	
 				final NamedElement root = element.getElementRoot();
-				final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
+				final IXtextDocument doc = AgeXtextUtil.getDocumentByPackageName(root.getQualifiedName());
 				if(doc == null) {
 					final XtextResource res = (XtextResource)element.eResource();
 					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, true);

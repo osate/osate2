@@ -390,24 +390,47 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        final Set<Shape> featureShapeChildrenToGhost = new HashSet<Shape>();
 		        featureShapeChildrenToGhost.addAll(visibilityHelper.getNonGhostChildren(featureShape));
 		        
+		        // Create shapes for each of the children if the feature group is not part of a subcomponent
+		        final Subcomponent sc = shapeService.getClosestBusinessObjectOfType(shape, Subcomponent.class);
+
 		        // Create/Update shapes for the child features
 				for(final Feature childFeature : featureService.getAllFeatures(fgt)) {
-					ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByElementQualifiedName(featureShape, childFeature);
-					
-					// Get existing shape instead of always creating
-					if(childFeatureContainer == null) {
-			        	// Create the container shape
-			        	childFeatureContainer = peCreateService.createContainerShape(featureShape, true);
-			        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
-			        } else {
-						// Remove the shape from the list of shapes to remove
-						featureShapeChildrenToGhost.remove(childFeatureContainer);
+		        	// Determine whether the child feature should be shown
+					// Show the child feature if the container is not a subcomponent or the feature is used as part of a flow specification
+					boolean showChild;
+					if(sc == null) {
+						showChild = true;
+					} else {
+						showChild = false;
+						if(sc.getComponentType() != null) {
+			        		for(final FlowSpecification fs : sc.getComponentType().getAllFlowSpecifications()) {
+			        			if((fs.getAllInEnd() != null && fs.getAllInEnd().getContext() == feature && fs.getAllInEnd().getFeature() == childFeature) ||
+			        					(fs.getAllOutEnd() != null && fs.getAllOutEnd().getContext() == feature && fs.getAllOutEnd().getFeature() == childFeature)) {
+			        				showChild = true;
+			        				break;
+			        			}		        			
+			        		}
+			        	}
+					}
+
+			        if(showChild) {
+						ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByElementQualifiedName(featureShape, childFeature);
+						
+						// Get existing shape instead of always creating
+						if(childFeatureContainer == null) {
+				        	// Create the container shape
+				        	childFeatureContainer = peCreateService.createContainerShape(featureShape, true);
+				        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
+				        } else {
+							// Remove the shape from the list of shapes to remove
+							featureShapeChildrenToGhost.remove(childFeatureContainer);
+				        }
+						
+				        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
+				        final GraphicsAlgorithm childFeatureGa = childFeatureContainer.getGraphicsAlgorithm();
+				        childY += childFeatureGa.getHeight() + 5;
+				        maxChildWidth = Math.max(maxChildWidth, childFeatureGa.getWidth());
 			        }
-					
-			        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
-			        final GraphicsAlgorithm childFeatureGa = childFeatureContainer.getGraphicsAlgorithm();
-			        childY += childFeatureGa.getHeight() + 5;
-			        maxChildWidth = Math.max(maxChildWidth, childFeatureGa.getWidth());
 				}
 				
 				// Remove children of the feature shape that were not updated
@@ -718,7 +741,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	        if (bo instanceof Feature && ga instanceof Text) {
 	        	final Shape labelShape = (Shape)context.getPictogramElement();
 	        	final Shape featureShape = labelShape.getContainer();
-	        	return canEdit(featureShape);
+	        	return canEdit(featureShape) && ((Feature)bo).getRefined() == null;
 	        }
 		}
 

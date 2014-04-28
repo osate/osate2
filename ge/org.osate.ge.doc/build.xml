@@ -51,6 +51,7 @@ description="Generates eclipse help files">
   <param name="eclipse.manifest" expression="0" />
   <param name="base.dir" expression="output\" />	
   <param name="eclipse.plugin.name" expression="AADL Graphical Editor"/>
+  <param name="ulink.target" expression="_blank"/>
 
   <param name="section.autolabel" expression="1" />
   <param name="make.clean.html" expression="1" />

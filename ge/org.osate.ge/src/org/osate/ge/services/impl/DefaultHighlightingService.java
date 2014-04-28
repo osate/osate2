@@ -25,6 +25,7 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.PropertyService;
@@ -54,7 +55,7 @@ public class DefaultHighlightingService implements HighlightingService {
  		boolean inSelectedMode = false;
  		
  		// Check the mode of the element
- 		if(isModeSelected) {
+ 		if(isModeSelected && !(context instanceof Subcomponent)) {
 			if(element instanceof ModalElement) {
 				final ModalElement modalElement = (ModalElement)element;
 				

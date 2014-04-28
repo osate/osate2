@@ -183,42 +183,44 @@ public class DefaultDiagramService implements DiagramService {
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);
 		boolean editingDomainCreated = false;
-		if(editingDomain == null) {
-			Log.info("Creating a editing domain");
-			editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
-			editingDomainCreated = true;
-		}
-
-		// Create the diagram and its file
-		final IPeService peService = Graphiti.getPeService();
-		final Diagram diagram = peService.createDiagram(diagramTypeId, namedElement.getQualifiedName(), true);
-		
-		GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, new AadlElementWrapper(namedElement));
-		
-		// Create a resource to hold the diagram
-		final IProject project = SelectionHelper.getProject(namedElement.eResource());
-		final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildUniqueFilename());
-		
-		// Store the diagram in the resource
-		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-			@Override
-			protected void doExecute() {
-				createdResource.getContents().add(diagram);
-			}			
-		});		
-		
 		try {
-			createdResource.save(null);
-		} catch (IOException e) {
-			throw new RuntimeException("Error saving new diagram", e);
+			if(editingDomain == null) {
+				Log.info("Creating a editing domain");
+				editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
+				editingDomainCreated = true;
+			}
+	
+			// Create the diagram and its file
+			final IPeService peService = Graphiti.getPeService();
+			final Diagram diagram = peService.createDiagram(diagramTypeId, namedElement.getQualifiedName(), true);
+			
+			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, new AadlElementWrapper(namedElement));
+			
+			// Create a resource to hold the diagram
+			final IProject project = SelectionHelper.getProject(namedElement.eResource());
+			final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildUniqueFilename());
+			
+			// Store the diagram in the resource
+			editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+				@Override
+				protected void doExecute() {
+					createdResource.getContents().add(diagram);
+				}			
+			});		
+			
+			try {
+				createdResource.save(null);
+			} catch (IOException e) {
+				throw new RuntimeException("Error saving new diagram", e);
+			}
+			
+			return createdResource;
+		} finally {		
+			// Dispose of the editing domain if we created it
+			if(editingDomainCreated) {
+				editingDomain.dispose();
+			}
 		}
-		
-		// Dispose of the editing domain if we created it
-		if(editingDomainCreated) {
-			editingDomain.dispose();
-		}
-		
-		return createdResource;
 	}
 	
 	/**

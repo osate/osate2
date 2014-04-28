@@ -100,9 +100,13 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 		if(!(bo instanceof Feature)) {
 			return false;
 		}
-
+		
 		final Shape shape = (Shape)pe;
 		final Feature feature = (Feature)bo;
+		
+		if(getComponentType(shape) == null) {
+			return false;
+		}
 		
 		// Check that the feature is of the appropriate type
 		if(!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess || feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
@@ -139,7 +143,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 	}
 	
 	private Context getContext(final Shape featureShape) {
-		return shapeService.getClosestBusinessObjectOfType(featureShape, Context.class);
+		return shapeService.getClosestBusinessObjectOfType(featureShape.getContainer(), Context.class);
 	}
 	
     @Override

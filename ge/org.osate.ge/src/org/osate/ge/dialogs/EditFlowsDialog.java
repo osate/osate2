@@ -9,7 +9,10 @@
 package org.osate.ge.dialogs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
@@ -61,6 +64,8 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.services.NamingService;
@@ -94,6 +99,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
     private org.eclipse.swt.widgets.List flowList;
     private Button addImplFlowBtn;
     private Button addETEFlowBtn;
+    private Button configureInModesBtn;
+    private Button deleteFlowBtn;    
     private Composite flowDetailsPane;
     private final List<Flow> flows = new ArrayList<Flow>();
     		
@@ -102,9 +109,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		this.ci = ci;
 		this.prototypeService = prototypeService;
 		this.namingService = namingService;
-		
-		populatePotentialFlowSegmentList();
-	    
+		this.setHelpAvailable(false);
+		populatePotentialFlowSegmentList();	    
 	}
 	
 	private void populatePotentialFlowSegmentList() {
@@ -119,6 +125,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			final ComponentClassifier scClassifier = prototypeService.getComponentClassifier(ci, sc);
 			if(scClassifier instanceof ComponentType) {
 				addElementsToPotentialFlowSegmentList(sc, ((ComponentType) scClassifier).getAllFlowSpecifications());
+			} else if(scClassifier instanceof ComponentImplementation && ((ComponentImplementation) scClassifier).getType() != null) {
+				addElementsToPotentialFlowSegmentList(sc, ((ComponentImplementation) scClassifier).getType().getAllFlowSpecifications());
 			}
 		}
 		
@@ -164,7 +172,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    flowList = new org.eclipse.swt.widgets.List(flowListPane, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
 	    final RowData flowListRowData = new RowData();
 	    flowListRowData.height = 300;
-	    flowListRowData.width = 200;
+	    flowListRowData.width = 300;
 	    flowList.setLayoutData(flowListRowData);
 
 	    final ListViewer flowListViewer = new ListViewer(flowList);
@@ -198,9 +206,13 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    addETEFlowBtn = new Button(listBtns, SWT.PUSH);
 	    addETEFlowBtn.setText("Create ETE...");
 	    addETEFlowBtn.setToolTipText("Create a new End-To-End flow");
+
+	    // Configure In Modes...
+	    configureInModesBtn = new Button(listBtns, SWT.PUSH);
+	    configureInModesBtn.setText("Modes...");	    
 	    
 	    // Delete
-	    final Button deleteFlowBtn = new Button(listBtns, SWT.PUSH);
+	    deleteFlowBtn = new Button(listBtns, SWT.PUSH);
 	    deleteFlowBtn.setText("Delete");	    
     
 	    // Flow Details Pane
@@ -313,6 +325,42 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			}
 	    });
 	    
+	    configureInModesBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				// Allow editing the modes of the current flow
+				if(currentFlow instanceof ModalPath) {					
+					final ModalPath mp = (ModalPath)currentFlow;					
+					final List<ModeFeature> localModeFeatures = new ArrayList<ModeFeature>(ci.getAllModes());
+					localModeFeatures.addAll(ci.getAllModeTransitions());
+
+					final Map<String, String> localToChildModeMap = new HashMap<String, String>();
+					for(final ModeFeature mf : mp.getInModeOrTransitions()) {
+						localToChildModeMap.put(mf.getName(), null);
+					}		
+								
+					final List<String> localModeFeatureNames = new ArrayList<String>();
+					for(final ModeFeature tmpMode : localModeFeatures) {
+						localModeFeatureNames.add(tmpMode.getName());
+					}
+					
+					// Show the dialog
+					final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(getShell(), localModeFeatureNames, null, localToChildModeMap);
+					if(dlg.open() == Dialog.CANCEL) {
+						return;
+					}
+					
+					mp.getInModeOrTransitions().clear();
+					for(final Entry<String, String> localToChildModeMapEntry : dlg.getLocalToChildModeMap().entrySet()) {
+						final ModeFeature localMode = findModeByName(localModeFeatures, localToChildModeMapEntry.getKey());
+						if(localMode != null) {
+							mp.getInModeOrTransitions().add(localMode);
+						}
+					}
+				}
+			}
+	    });
+	    
 	    deleteFlowBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -322,12 +370,24 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					flowListViewer.refresh();
 					flowListViewer.setSelection(null);
 							
-					refreshNavigationButtonState();
+					refreshWidgetEnabledStates();
 				}
 			}
 	    });
 	    
+	    refreshWidgetEnabledStates();
+	    
 	    return area;
+	}
+	
+	private ModeFeature findModeByName(final List<? extends ModeFeature> modeFeatures, final String name) {
+		for(final ModeFeature tmpModeFeature : modeFeatures) {
+			if(name.equalsIgnoreCase(tmpModeFeature.getName())) {
+				return tmpModeFeature;
+			}
+		}
+		
+		return null;
 	}
 	
 	private boolean isValid(final Flow flow) {
@@ -449,7 +509,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	private void updateFlowDetails(final Flow flow) {
 		// Set the current flow
 		currentFlow = flow;
-		refreshNavigationButtonState();
+		refreshWidgetEnabledStates();
 		
 		// Clear
 		for(Control child : flowDetailsPane.getChildren()) {
@@ -599,7 +659,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					}
 				}
 				
-				refreshNavigationButtonState();
+				refreshWidgetEnabledStates();
 			}	    	
 	    });
     	cmb.setContentProvider(new ArrayContentProvider());
@@ -645,15 +705,20 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		}
 	}
 		
-	private void refreshNavigationButtonState() {
+	private void refreshWidgetEnabledStates() {
 		setNavigationButtonsEnabled(currentFlow == null ? true : isValid(currentFlow));
+        configureInModesBtn.setEnabled(currentFlow != null);
+	    deleteFlowBtn.setEnabled(currentFlow != null); 
 	}
 	
     private void setNavigationButtonsEnabled(final boolean enabled) {
     	flowList.setEnabled(enabled);
         addImplFlowBtn.setEnabled(enabled);
         addETEFlowBtn.setEnabled(enabled);
-        getButton(IDialogConstants.OK_ID).setEnabled(enabled);;
+        final Button okBtn = getButton(IDialogConstants.OK_ID);
+        if(okBtn != null) {
+        	getButton(IDialogConstants.OK_ID).setEnabled(enabled);
+        }
     }
     	
 	private static class FlowSegmentInfo {
