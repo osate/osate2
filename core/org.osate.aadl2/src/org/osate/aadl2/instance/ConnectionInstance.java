@@ -283,8 +283,7 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * 				  Thrown if one of the underlying connection declarations
 	 * 				  does not accept the property.
 	 */
-	List<ModalPropertyValue> getConnectionPropertyValues(Property property)
-			throws InvalidModelException;
+	List<ModalPropertyValue> getConnectionPropertyValues(Property property) throws InvalidModelException;
 
 	/**
 	 * Get the feature instances that this semantic connection passes through
@@ -301,7 +300,7 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 */
 	List<InstanceObject> getThroughFeatureInstances();
 
-	ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt,
-			final ConnectionEnd connEndPoint, final Context connCtxt);
+	ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
+			final Context connCtxt);
 
 } // ConnectionInstance

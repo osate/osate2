@@ -113,7 +113,7 @@ public class ModeItemProvider extends ModeFeatureItemProvider implements IEditin
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Mode_derived_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_Mode_derived_feature", "_UI_Mode_type"),
-				Aadl2Package.eINSTANCE.getMode_Derived(), true, false, false,
+				Aadl2Package.eINSTANCE.getMode_Derived(), false, false, false,
 				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 

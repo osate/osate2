@@ -97,6 +97,7 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider implements IE
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getBusType_OwnedBusAccess());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getBusType_OwnedDataPort());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getBusType_OwnedEventDataPort());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getBusType_OwnedEventPort());
@@ -153,6 +154,7 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider implements IE
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(BusType.class)) {
+		case Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS:
 		case Aadl2Package.BUS_TYPE__OWNED_DATA_PORT:
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT:
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT:
@@ -172,6 +174,9 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider implements IE
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBusType_OwnedBusAccess(),
+				Aadl2Factory.eINSTANCE.createBusAccess()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getBusType_OwnedDataPort(),
 				Aadl2Factory.eINSTANCE.createDataPort()));

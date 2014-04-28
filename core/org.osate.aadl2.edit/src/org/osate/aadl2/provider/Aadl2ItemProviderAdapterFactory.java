@@ -448,72 +448,26 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.TriggerPort} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ModeTransitionTrigger} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TriggerPortItemProvider triggerPortItemProvider;
+	protected ModeTransitionTriggerItemProvider modeTransitionTriggerItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.TriggerPort}.
+	 * This creates an adapter for a {@link org.osate.aadl2.ModeTransitionTrigger}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createTriggerPortAdapter() {
-		if (triggerPortItemProvider == null) {
-			triggerPortItemProvider = new TriggerPortItemProvider(this);
+	public Adapter createModeTransitionTriggerAdapter() {
+		if (modeTransitionTriggerItemProvider == null) {
+			modeTransitionTriggerItemProvider = new ModeTransitionTriggerItemProvider(this);
 		}
 
-		return triggerPortItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorPort} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorPortItemProvider processorPortItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorPort}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorPortAdapter() {
-		if (processorPortItemProvider == null) {
-			processorPortItemProvider = new ProcessorPortItemProvider(this);
-		}
-
-		return processorPortItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.InternalEvent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected InternalEventItemProvider internalEventItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.InternalEvent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createInternalEventAdapter() {
-		if (internalEventItemProvider == null) {
-			internalEventItemProvider = new InternalEventItemProvider(this);
-		}
-
-		return internalEventItemProvider;
+		return modeTransitionTriggerItemProvider;
 	}
 
 	/**
@@ -1069,29 +1023,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ElementName} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ElementNameItemProvider elementNameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ElementName}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createElementNameAdapter() {
-		if (elementNameItemProvider == null) {
-			elementNameItemProvider = new ElementNameItemProvider(this);
-		}
-
-		return elementNameItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AccessConnection} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1207,26 +1138,95 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorSubprogram} instances.
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventSource} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ProcessorSubprogramItemProvider processorSubprogramItemProvider;
+	protected EventSourceItemProvider eventSourceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorSubprogram}.
+	 * This creates an adapter for a {@link org.osate.aadl2.EventSource}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createProcessorSubprogramAdapter() {
-		if (processorSubprogramItemProvider == null) {
-			processorSubprogramItemProvider = new ProcessorSubprogramItemProvider(this);
+	public Adapter createEventSourceAdapter() {
+		if (eventSourceItemProvider == null) {
+			eventSourceItemProvider = new EventSourceItemProvider(this);
 		}
 
-		return processorSubprogramItemProvider;
+		return eventSourceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventDataSource} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventDataSourceItemProvider eventDataSourceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EventDataSource}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventDataSourceAdapter() {
+		if (eventDataSourceItemProvider == null) {
+			eventDataSourceItemProvider = new EventDataSourceItemProvider(this);
+		}
+
+		return eventDataSourceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PortProxy} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PortProxyItemProvider portProxyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.PortProxy}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPortProxyAdapter() {
+		if (portProxyItemProvider == null) {
+			portProxyItemProvider = new PortProxyItemProvider(this);
+		}
+
+		return portProxyItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramProxy} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramProxyItemProvider subprogramProxyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramProxy}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramProxyAdapter() {
+		if (subprogramProxyItemProvider == null) {
+			subprogramProxyItemProvider = new SubprogramProxyItemProvider(this);
+		}
+
+		return subprogramProxyItemProvider;
 	}
 
 	/**
@@ -2932,29 +2932,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorCall} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorCallItemProvider processorCallItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorCall}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorCallAdapter() {
-		if (processorCallItemProvider == null) {
-			processorCallItemProvider = new ProcessorCallItemProvider(this);
-		}
-
-		return processorCallItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramCall} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3819,6 +3796,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			componentImplementationReferenceItemProvider.dispose();
 		if (modeTransitionItemProvider != null)
 			modeTransitionItemProvider.dispose();
+		if (modeTransitionTriggerItemProvider != null)
+			modeTransitionTriggerItemProvider.dispose();
 		if (flowSpecificationItemProvider != null)
 			flowSpecificationItemProvider.dispose();
 		if (flowEndItemProvider != null)
@@ -3859,6 +3838,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			flowImplementationItemProvider.dispose();
 		if (flowSegmentItemProvider != null)
 			flowSegmentItemProvider.dispose();
+		if (connectedElementItemProvider != null)
+			connectedElementItemProvider.dispose();
 		if (implementationExtensionItemProvider != null)
 			implementationExtensionItemProvider.dispose();
 		if (realizationItemProvider != null)
@@ -3879,16 +3860,18 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureConnectionItemProvider.dispose();
 		if (featureGroupConnectionItemProvider != null)
 			featureGroupConnectionItemProvider.dispose();
-		if (connectedElementItemProvider != null)
-			connectedElementItemProvider.dispose();
-		if (elementNameItemProvider != null)
-			elementNameItemProvider.dispose();
+		if (eventSourceItemProvider != null)
+			eventSourceItemProvider.dispose();
+		if (eventDataSourceItemProvider != null)
+			eventDataSourceItemProvider.dispose();
+		if (portProxyItemProvider != null)
+			portProxyItemProvider.dispose();
+		if (subprogramProxyItemProvider != null)
+			subprogramProxyItemProvider.dispose();
 		if (defaultAnnexLibraryItemProvider != null)
 			defaultAnnexLibraryItemProvider.dispose();
 		if (defaultAnnexSubclauseItemProvider != null)
 			defaultAnnexSubclauseItemProvider.dispose();
-		if (triggerPortItemProvider != null)
-			triggerPortItemProvider.dispose();
 		if (publicPackageSectionItemProvider != null)
 			publicPackageSectionItemProvider.dispose();
 		if (packageRenameItemProvider != null)
@@ -3919,8 +3902,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featurePrototypeReferenceItemProvider.dispose();
 		if (subprogramCallSequenceItemProvider != null)
 			subprogramCallSequenceItemProvider.dispose();
-		if (processorCallItemProvider != null)
-			processorCallItemProvider.dispose();
 		if (subprogramCallItemProvider != null)
 			subprogramCallItemProvider.dispose();
 		if (abstractTypeItemProvider != null)
@@ -4095,12 +4076,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			referenceTypeItemProvider.dispose();
 		if (listTypeItemProvider != null)
 			listTypeItemProvider.dispose();
-		if (processorPortItemProvider != null)
-			processorPortItemProvider.dispose();
-		if (internalEventItemProvider != null)
-			internalEventItemProvider.dispose();
-		if (processorSubprogramItemProvider != null)
-			processorSubprogramItemProvider.dispose();
 	}
 
 }

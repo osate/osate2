@@ -36,7 +36,6 @@
 package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,7 +45,7 @@ import org.eclipse.emf.ecore.EClass;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.SubprogramCallSequence#getOwnedCallSpecifications <em>Owned Call Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.SubprogramCallSequence#getOwnedSubprogramCalls <em>Owned Subprogram Call</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,30 +55,29 @@ import org.eclipse.emf.ecore.EClass;
  */
 public interface SubprogramCallSequence extends BehavioralFeature, ModalElement {
 	/**
-	 * Returns the value of the '<em><b>Owned Call Specification</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.CallSpecification}.
+	 * Returns the value of the '<em><b>Owned Subprogram Call</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.SubprogramCall}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Owned Call Specification</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Owned Subprogram Call</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Call Specification</em>' containment reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getSubprogramCallSequence_OwnedCallSpecification()
+	 * @return the value of the '<em>Owned Subprogram Call</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getSubprogramCallSequence_OwnedSubprogramCall()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<CallSpecification> getOwnedCallSpecifications();
+	EList<SubprogramCall> getOwnedSubprogramCalls();
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.CallSpecification} and appends it to the '<em><b>Owned Call Specification</b></em>' containment reference list.
+	 * Creates a new {@link org.osate.aadl2.SubprogramCall} and appends it to the '<em><b>Owned Subprogram Call</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the {@link org.osate.aadl2.CallSpecification} to create.
-	 * @return The new {@link org.osate.aadl2.CallSpecification}.
-	 * @see #getOwnedCallSpecifications()
+	 * @return The new {@link org.osate.aadl2.SubprogramCall}.
+	 * @see #getOwnedSubprogramCalls()
 	 * @generated
 	 */
-	CallSpecification createOwnedCallSpecification(EClass eClass);
+	SubprogramCall createOwnedSubprogramCall();
 
 } // SubprogramCallSequence

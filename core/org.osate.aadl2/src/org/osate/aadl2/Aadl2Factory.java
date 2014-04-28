@@ -189,31 +189,13 @@ public interface Aadl2Factory extends EFactory {
 	ModeTransition createModeTransition();
 
 	/**
-	 * Returns a new object of class '<em>Trigger Port</em>'.
+	 * Returns a new object of class '<em>Mode Transition Trigger</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Trigger Port</em>'.
+	 * @return a new object of class '<em>Mode Transition Trigger</em>'.
 	 * @generated
 	 */
-	TriggerPort createTriggerPort();
-
-	/**
-	 * Returns a new object of class '<em>Processor Port</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Processor Port</em>'.
-	 * @generated
-	 */
-	ProcessorPort createProcessorPort();
-
-	/**
-	 * Returns a new object of class '<em>Internal Event</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Internal Event</em>'.
-	 * @generated
-	 */
-	InternalEvent createInternalEvent();
+	ModeTransitionTrigger createModeTransitionTrigger();
 
 	/**
 	 * Returns a new object of class '<em>Flow Specification</em>'.
@@ -432,15 +414,6 @@ public interface Aadl2Factory extends EFactory {
 	AbstractSubcomponent createAbstractSubcomponent();
 
 	/**
-	 * Returns a new object of class '<em>Element Name</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Element Name</em>'.
-	 * @generated
-	 */
-	ElementName createElementName();
-
-	/**
 	 * Returns a new object of class '<em>Access Connection</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -486,13 +459,40 @@ public interface Aadl2Factory extends EFactory {
 	FeatureGroupConnection createFeatureGroupConnection();
 
 	/**
-	 * Returns a new object of class '<em>Processor Subprogram</em>'.
+	 * Returns a new object of class '<em>Event Source</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Processor Subprogram</em>'.
+	 * @return a new object of class '<em>Event Source</em>'.
 	 * @generated
 	 */
-	ProcessorSubprogram createProcessorSubprogram();
+	EventSource createEventSource();
+
+	/**
+	 * Returns a new object of class '<em>Event Data Source</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Data Source</em>'.
+	 * @generated
+	 */
+	EventDataSource createEventDataSource();
+
+	/**
+	 * Returns a new object of class '<em>Port Proxy</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Proxy</em>'.
+	 * @generated
+	 */
+	PortProxy createPortProxy();
+
+	/**
+	 * Returns a new object of class '<em>Subprogram Proxy</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Subprogram Proxy</em>'.
+	 * @generated
+	 */
+	SubprogramProxy createSubprogramProxy();
 
 	/**
 	 * Returns a new object of class '<em>Default Annex Library</em>'.
@@ -1159,15 +1159,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	FeaturePrototypeReference createFeaturePrototypeReference();
-
-	/**
-	 * Returns a new object of class '<em>Processor Call</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Processor Call</em>'.
-	 * @generated
-	 */
-	ProcessorCall createProcessorCall();
 
 	/**
 	 * Returns a new object of class '<em>Subprogram Call</em>'.

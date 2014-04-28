@@ -1,10 +1,9 @@
 package org.osate.xtext.aadl2.util;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.text.Region;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -14,12 +13,7 @@ import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.TextRegion;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.annexsupport.AnnexLinkingServiceRegistry;
-import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
@@ -48,7 +42,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 	 */
 	@Override
 	public EObject resolveElementAt(XtextResource resource, int offset) {
-		INode annexLeaf = findAnnexLeafNode(resource, offset);
+		INode annexLeaf = AnnexUtil.findAnnexLeafNode(resource, offset);
 		if (annexLeaf!= null){
 			EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 			if (textpositionresolverregistry == null) initTextPositionResolverRegistry();
@@ -58,8 +52,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 					// find the actual subclause or library instead of the default one found from the NodeModel
 					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
 						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+						EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 						if (atpr != null&& actualAnnexElement != null){
 							TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset);
 							return tpo.getModelObject();
@@ -68,7 +61,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 				}
 			}
 			// now try xtext based annexes via adapted ParseResult
-			annexLeaf = getAnnexLeaf((ILeafNode)annexLeaf, offset);
+			annexLeaf = getLeafInParsedAnnex((ILeafNode)annexLeaf, offset);
 			if (annexLeaf!=null){
 				return NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 			} else {
@@ -99,7 +92,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 	 */
 	@Override
 	public EObject resolveCrossReferencedElementAt(XtextResource resource, int offset) {
-		INode annexLeaf = findAnnexLeafNode(resource, offset);
+		INode annexLeaf = AnnexUtil.findAnnexLeafNode(resource, offset);
 		if (annexLeaf!= null){
 			if (textpositionresolverregistry == null) initTextPositionResolverRegistry();
 			if (textpositionresolverregistry != null){
@@ -109,8 +102,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 					// find the actual subclause or library instead of the default one found from the NodeModel
 					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
 						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+						EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 						if (atpr != null&& actualAnnexElement != null){
 							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset);
 							return tpo.getModelObject();
@@ -119,7 +111,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 				}
 			}
 			// now try xtext based annexes via adapted ParseResult
-			annexLeaf = getAnnexLeaf((ILeafNode)annexLeaf, offset);
+			annexLeaf = getLeafInParsedAnnex((ILeafNode)annexLeaf, offset);
 			annexLeaf = findCrossReferenceNode(annexLeaf);
 			if (annexLeaf!=null){
 				return getCrossReferencedElement(annexLeaf);
@@ -140,7 +132,9 @@ public class Aadl2EObjectAtOffsetHelper extends
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), region.getOffset());
 			// getAnnexleaf is the addition.
-			leaf = getAnnexLeaf(leaf, region.getOffset());
+			if (AnnexUtil.isAnnexLeaf(leaf)){
+				leaf = getLeafInParsedAnnex(leaf, region.getOffset());
+			}
 			INode crossRefNode = findCrossReferenceNode(leaf);
 			// if not a cross reference position and the cursor is at the beginning of a node try the previous one.
 			if (crossRefNode == null && leaf != null && region.getLength()==0 && leaf.getOffset() == region.getOffset()) {
@@ -163,7 +157,9 @@ public class Aadl2EObjectAtOffsetHelper extends
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
 			// we look up annex leaf in the annex specific parse tree
-			leaf = getAnnexLeaf(leaf, offset);
+			if (AnnexUtil.isAnnexLeaf(leaf)){
+				leaf = getLeafInParsedAnnex(leaf,  offset);
+			}
 			if (leaf != null && leaf.isHidden() && leaf.getOffset() == offset) {
 				leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset - 1);
 			}
@@ -174,50 +170,23 @@ public class Aadl2EObjectAtOffsetHelper extends
 		return null;
 	}
 
-/**
- * return the ILeafNode for the ANNEXTEXT if the offset points into an annex
- * @param resource
- * @param offset
- * @return
- */
-protected ILeafNode findAnnexLeafNode(XtextResource resource, int offset){
-	IParseResult parseResult = resource.getParseResult();
-	if (parseResult != null && parseResult.getRootNode() != null) {
-		ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
-		if (isAnnexLeaf(leaf)){
-			return leaf;
-		}
-	}
-	return null;
-}
-
-protected boolean isAnnexLeaf(ILeafNode leaf){
-	if (leaf == null) return false;
-	EObject ge = leaf.getGrammarElement();
-	if (ge instanceof RuleCall){
-		AbstractRule rule = ((RuleCall)ge).getRule();
-		if (rule.getName().equalsIgnoreCase("ANNEXTEXT")){
-			return true;
-		}
-	}
-return false;
-}
 
 /**
  * find the leaf node inside the annex using the Xtext annex produced parsetree
- * @param leaf INode
+ * @param leaf INode Original leaf
  * @param offset int
- * @return INode
+ * @return INode in parsed annex
  */
-protected ILeafNode getAnnexLeaf(ILeafNode leaf, int offset){
+protected ILeafNode getLeafInParsedAnnex(ILeafNode leaf, int offset){
 	if (leaf == null) return null;
 	EObject semobj = NodeModelUtils.findActualSemanticObjectFor(leaf);
 	if (semobj instanceof AnnexSubclause || semobj instanceof AnnexLibrary){
-		AnnexParseResult apr =AnnexUtil.getAnnexParseResult(semobj);
-		if (apr == null) return leaf;
-		IParseResult aParseResult = apr.getParseResult();
-		if (aParseResult != null && aParseResult.getRootNode() != null) {
-			leaf = NodeModelUtils.findLeafNodeAtOffset(aParseResult.getRootNode(), offset);
+		EObject parsedAnnex = AnnexUtil.getParsedAnnex(semobj);
+		if (parsedAnnex != null){
+			ICompositeNode pLeaf = NodeModelUtils.findActualNodeFor(parsedAnnex);
+			if (pLeaf != null){
+				leaf = NodeModelUtils.findLeafNodeAtOffset(pLeaf, offset);
+			}
 		}
 	}
 	return leaf;

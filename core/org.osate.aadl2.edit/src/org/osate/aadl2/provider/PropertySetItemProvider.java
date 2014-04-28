@@ -115,6 +115,9 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_OwnedProperty());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyConstant());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_OwnedAnnexSubclause());
 		}
 		return childrenFeatures;
@@ -169,6 +172,9 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(PropertySet.class)) {
+		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
+		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY:
+		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_CONSTANT:
 		case Aadl2Package.PROPERTY_SET__OWNED_ANNEX_SUBCLAUSE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -186,6 +192,45 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements IE
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createAadlBoolean()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createAadlString()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createAadlInteger()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createEnumerationType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createUnitsType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createAadlReal()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createClassifierType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createRangeType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createRecordType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createReferenceType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyType(),
+				Aadl2Factory.eINSTANCE.createListType()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedProperty(),
+				Aadl2Factory.eINSTANCE.createProperty()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedPropertyConstant(),
+				Aadl2Factory.eINSTANCE.createPropertyConstant()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedAnnexSubclause(),
 				Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause()));

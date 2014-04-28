@@ -44,7 +44,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -61,20 +60,13 @@ import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
-import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.internal.workspace.AadlWorkspace;
-import org.osate.workspace.IAadlProject;
-import org.osate.workspace.IAadlWorkspace;
-import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
@@ -1378,7 +1370,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (csl != null) {
 			usedNames.addAll(csl);
 			for (SubprogramCallSequence subprogramCallSequence : csl) {
-				usedNames.addAll(subprogramCallSequence.getOwnedCallSpecifications());
+				usedNames.addAll(subprogramCallSequence.getOwnedSubprogramCalls());
 			}
 		}
 
@@ -1388,19 +1380,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error(impl,
 						"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
 								+ impl.getQualifiedName() + "' or in type '" + impl.getTypeName() + "'");
-			}
-		}
-		EList<FlowImplementation> fimpllist = impl.getAllFlowImplementations();
-		final Set<String> seen = new HashSet<String>();
-		for (FlowImplementation flowImplementation : fimpllist) {
-			if (flowImplementation.getInModeOrTransitions().isEmpty()){
-				// check of previously declared
-				FlowSpecification spec = flowImplementation.getSpecification();
-				if (!Aadl2Util.isNull(spec)){
-					if (!seen.add(spec.getName())){
-						error(flowImplementation,"Flow implementation "+spec.getName()+" declared more than once.");
-					}
-				}
 			}
 		}
 	}
@@ -2851,7 +2830,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkRequiresAccessOnly(DataAccess dataAccess) {
 		Classifier cl = ((Feature)dataAccess).getContainingClassifier();
-		if ((cl instanceof Subprogram)) {
+		if ((cl instanceof SubprogramType)) {
 			if (dataAccess.getKind().equals(AccessType.PROVIDES)){
 				error(dataAccess, "Subprograms cannot have provides data access.");
 			}
@@ -2866,7 +2845,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkProvidesAccessOnly(SubprogramAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Processor || cl instanceof VirtualProcessor|| cl instanceof Device)) {
+		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)){
 				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram access.");
 			}
@@ -2875,7 +2854,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkProvidesAccessOnly(SubprogramGroupAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Processor || cl instanceof VirtualProcessor|| cl instanceof Device)) {
+		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)){
 				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram group access.");
 			}
@@ -2884,7 +2863,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkRequiresAccessOnly(SubprogramAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Subprogram)) {
+		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)){
 				error(spAccess, "Subprograms cannot have provides subprogram access.");
 			}
@@ -2893,7 +2872,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkRequiresAccessOnly(SubprogramGroupAccess spAccess) {
 		Classifier cl = ((Feature)spAccess).getContainingClassifier();
-		if ((cl instanceof Subprogram)) {
+		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)){
 				error(spAccess, "Subprograms cannot have provides subprogram group access.");
 			}
@@ -3180,8 +3159,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (((FeatureGroup) srcContext).isInverse()) {
 				srcDirection = srcDirection.getInverseDirection();
 			}
-			FeatureGroupType srcFGT = ((FeatureGroup) srcContext).getFeatureGroupType();
+			FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup) srcContext).getFeatureType());
 			FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
+			// FIXME LW this doesn't work if there's a prototype involved, also, we need to go up the containment hierarchy to the outermost fgt (I think)
 			if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
 				// feature group type has inverse and feature is defined in the inverse FGT
 				srcDirection = srcDirection.getInverseDirection();
@@ -3191,7 +3171,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (((FeatureGroup) dstContext).isInverse()) {
 				dstDirection = dstDirection.getInverseDirection();
 			}
-			FeatureGroupType dstFGT = ((FeatureGroup) dstContext).getFeatureGroupType();
+			FeatureGroupType dstFGT = getFGTforPrototype(((FeatureGroup) dstContext).getFeatureType());
 			FeatureGroupType contdstFGT = (FeatureGroupType) ((Feature) destination).getContainingClassifier();
 			if (dstFGT != contdstFGT && !Aadl2Util.isNull(dstFGT)  && dstFGT.getInverse() != null) {
 				dstDirection = dstDirection.getInverseDirection();
@@ -3241,6 +3221,34 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
+	/**
+	 * @param proto
+	 * @return the feature group type or null
+	 */
+	private FeatureGroupType getFGTforPrototype(org.osate.aadl2.FeatureType ft) {
+		if (Aadl2Util.isNull(ft)) {
+			return null;
+		}
+		
+		if (ft instanceof FeatureGroupType) {
+			return (FeatureGroupType) ft;
+		}
+		
+		FeatureGroupPrototype proto = (FeatureGroupPrototype) ft;	
+		ComponentImplementation impl = proto.getContainingComponentImpl();
+		
+		for (PrototypeBinding b : impl.getOwnedPrototypeBindings()) {
+			if (b.getFormal() == proto) {
+				FeatureGroupPrototypeActual actual = ((FeatureGroupPrototypeBinding) b).getActual();
+				if (!Aadl2Util.isNull(actual)) {
+					return getFGTforPrototype(actual.getFeatureType());
+				}
+			}
+		}
+		// no binding found
+		return null;
+	}
+	
 	/**
 	 * Check connection ends of port connections
 	 * Section 9.2 Legality rule L5
@@ -3371,8 +3379,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		ConnectionEnd source = (ConnectionEnd) connection.getAllSource();
 		AccessCategory sourceCategory = null;
-		if (Aadl2Util.isNull(source) && connection.getSource() instanceof ProcessorSubprogram)
-			sourceCategory = AccessCategory.SUBPROGRAM;
+// FIXME-lw: assign correct category
+//		if (Aadl2Util.isNull(source) && connection.getSource() instanceof ProcessorSubprogram)
+//			sourceCategory = AccessCategory.SUBPROGRAM;
 		if (source instanceof Access)
 			sourceCategory = ((Access) source).getCategory();
 		else if (source instanceof BusSubcomponent)
@@ -3386,8 +3395,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		ConnectionEnd destination = (ConnectionEnd) connection.getAllDestination();
 		AccessCategory destinationCategory = null;
-		if (Aadl2Util.isNull(destination) && connection.getDestination() instanceof ProcessorSubprogram)
-			destinationCategory = AccessCategory.SUBPROGRAM;
+// FIXME-lw: assign correct category
+//		if (Aadl2Util.isNull(destination) && connection.getDestination() instanceof ProcessorSubprogram)
+//			destinationCategory = AccessCategory.SUBPROGRAM;
 		if (destination instanceof Access)
 			destinationCategory = ((Access) destination).getCategory();
 		else if (destination instanceof BusSubcomponent)
@@ -3681,7 +3691,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 					}
 				}
-				String hi = "hi";
 				checkOutgoingFeatureDirection(outFeature, flow, oppositeDirection,true);
 			}
 		}
@@ -3836,10 +3845,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
 				if (appliesTo instanceof MetaclassReference&&((MetaclassReference) appliesTo).getAnnexName()!=null){
-					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-						if (((MetaclassReference) appliesTo).getMetaclass() != null) {
+//					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+					if (((MetaclassReference) appliesTo).getMetaclass() != null) {
+					}
 				}
-			}
 			} catch (IllegalArgumentException e) {
 //				e.printStackTrace();
 				String msg = e.getMessage();

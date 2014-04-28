@@ -73,8 +73,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class ModeInstanceImpl extends InstanceObjectImpl implements
-		ModeInstance {
+public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance {
 	/**
 	 * The cached value of the '{@link #getSrcModeTransitions() <em>Src Mode Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -182,8 +181,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 	public EList<ModeTransitionInstance> getSrcModeTransitions() {
 		if (srcModeTransitions == null) {
 			srcModeTransitions = new EObjectWithInverseResolvingEList<ModeTransitionInstance>(
-					ModeTransitionInstance.class, this,
-					InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
+					ModeTransitionInstance.class, this, InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE);
 		}
 		return srcModeTransitions;
@@ -197,8 +195,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 	public EList<ModeTransitionInstance> getDstModeTransitions() {
 		if (dstModeTransitions == null) {
 			dstModeTransitions = new EObjectWithInverseResolvingEList<ModeTransitionInstance>(
-					ModeTransitionInstance.class, this,
-					InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
+					ModeTransitionInstance.class, this, InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION);
 		}
 		return dstModeTransitions;
@@ -215,8 +212,8 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 			mode = (Mode) eResolveProxy(oldMode);
 			if (mode != oldMode) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.MODE_INSTANCE__MODE, oldMode, mode));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstancePackage.MODE_INSTANCE__MODE,
+							oldMode, mode));
 			}
 		}
 		return mode;
@@ -240,8 +237,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 		Mode oldMode = mode;
 		mode = newMode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.MODE_INSTANCE__MODE, oldMode, mode));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_INSTANCE__MODE, oldMode, mode));
 	}
 
 	/**
@@ -262,8 +258,8 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 		boolean oldDerived = derived;
 		derived = newDerived;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.MODE_INSTANCE__DERIVED, oldDerived, derived));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_INSTANCE__DERIVED, oldDerived,
+					derived));
 	}
 
 	/**
@@ -273,8 +269,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 	 */
 	public EList<ModeInstance> getParents() {
 		if (parents == null) {
-			parents = new EObjectResolvingEList<ModeInstance>(
-					ModeInstance.class, this,
+			parents = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
 					InstancePackage.MODE_INSTANCE__PARENT);
 		}
 		return parents;
@@ -287,15 +282,14 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSrcModeTransitions())
-					.basicAdd(otherEnd, msgs);
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSrcModeTransitions()).basicAdd(otherEnd,
+					msgs);
 		case InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstModeTransitions())
-					.basicAdd(otherEnd, msgs);
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstModeTransitions()).basicAdd(otherEnd,
+					msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -306,15 +300,12 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
-			return ((InternalEList<?>) getSrcModeTransitions()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getSrcModeTransitions()).basicRemove(otherEnd, msgs);
 		case InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION:
-			return ((InternalEList<?>) getDstModeTransitions()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getDstModeTransitions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -337,8 +328,8 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 		boolean oldInitial = initial;
 		initial = newInitial;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.MODE_INSTANCE__INITIAL, oldInitial, initial));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_INSTANCE__INITIAL, oldInitial,
+					initial));
 	}
 
 	/**
@@ -378,13 +369,11 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements
 		switch (featureID) {
 		case InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION:
 			getSrcModeTransitions().clear();
-			getSrcModeTransitions().addAll(
-					(Collection<? extends ModeTransitionInstance>) newValue);
+			getSrcModeTransitions().addAll((Collection<? extends ModeTransitionInstance>) newValue);
 			return;
 		case InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION:
 			getDstModeTransitions().clear();
-			getDstModeTransitions().addAll(
-					(Collection<? extends ModeTransitionInstance>) newValue);
+			getDstModeTransitions().addAll((Collection<? extends ModeTransitionInstance>) newValue);
 			return;
 		case InstancePackage.MODE_INSTANCE__INITIAL:
 			setInitial((Boolean) newValue);

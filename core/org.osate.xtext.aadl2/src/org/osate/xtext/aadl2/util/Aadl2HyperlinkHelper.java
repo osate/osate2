@@ -14,7 +14,6 @@ import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.util.TextRegion;
 import org.osate.aadl2.NamedElement;
-import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
@@ -43,13 +42,12 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 
 	@Override
 	public void createHyperlinksByOffset(XtextResource resource, int offset, IHyperlinkAcceptor acceptor) {
-		INode annexLeaf = findAnnexLeafNode(resource, offset);
+		INode annexLeaf = findAnnexTextLeafNode(resource, offset);
 		if (annexLeaf!= null){
 			// handle extensionpoint based text position
 			EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 			if (obj instanceof NamedElement){
-				AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-				EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+				EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
 				if (actualAnnexElement != null){
 					String annexName = ((NamedElement)obj).getName();
 					if (textpositionresolverregistry == null) initTextPositionResolverRegistry();
@@ -84,7 +82,7 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 	 * @param offset
 	 * @return
 	 */
-	protected ILeafNode findAnnexLeafNode(XtextResource resource, int offset){
+	protected ILeafNode findAnnexTextLeafNode(XtextResource resource, int offset){
 		IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);

@@ -45,9 +45,21 @@ public final class MemoryProperties {
 	public static final String WRITE_ONLY = "write_only";
 	public static final String READ_WRITE = "read_write";
 	public static final String BY_METHOD = "by_method";
-	public static final String SOURCE_DATA_SIZE = "Source_Data_Size";
-	public static final String SOURCE_CODE_SIZE = "Source_Code_Size";
-	public static final String SOURCE_STACK_SIZE = "Source_Stack_Size";
+	
+	public static final String DATA_SIZE = "Data_Size";
+	public static final String CODE_SIZE = "Code_Size";
+	public static final String STACK_SIZE = "Stack_Size";
+	
+	/**
+	 * Backward compatibility. The Source_* were removed.
+	 * So, the Source_Data_Size is now Data_Size. To ensure
+	 * plugin compatibility, we keep the following definitions.
+	 * The change has been discussed and approved during the
+	 * April 14 AADL committee meeting.
+	 */
+	public static final String SOURCE_DATA_SIZE = DATA_SIZE;
+	public static final String SOURCE_CODE_SIZE = CODE_SIZE;
+	public static final String SOURCE_STACK_SIZE = STACK_SIZE;
 	public static final String BYTE_COUNT = "Byte_Count";
 	
 

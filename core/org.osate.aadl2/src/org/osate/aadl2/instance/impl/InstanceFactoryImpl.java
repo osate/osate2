@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.osate.aadl2.instance.*;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionKind;
@@ -64,8 +63,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceFactoryImpl extends EFactoryImpl implements
-		InstanceFactory {
+public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
@@ -126,8 +124,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
 		case InstancePackage.INSTANCE_REFERENCE_VALUE:
 			return createInstanceReferenceValue();
 		default:
-			throw new IllegalArgumentException(
-					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -144,8 +141,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
 		case InstancePackage.FEATURE_CATEGORY:
 			return createFeatureCategoryFromString(eDataType, initialValue);
 		default:
-			throw new IllegalArgumentException(
-					"The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -162,8 +158,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
 		case InstancePackage.FEATURE_CATEGORY:
 			return convertFeatureCategoryToString(eDataType, instanceValue);
 		default:
-			throw new IllegalArgumentException(
-					"The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -282,8 +277,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConnectionKind createConnectionKindFromString(EDataType eDataType,
-			String initialValue) {
+	public ConnectionKind createConnectionKindFromString(EDataType eDataType, String initialValue) {
 		ConnectionKind result = ConnectionKind.get(initialValue);
 		if (result == null)
 			throw new IllegalArgumentException(
@@ -296,8 +290,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertConnectionKindToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertConnectionKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -306,8 +299,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureCategory createFeatureCategoryFromString(EDataType eDataType,
-			String initialValue) {
+	public FeatureCategory createFeatureCategoryFromString(EDataType eDataType, String initialValue) {
 		FeatureCategory result = FeatureCategory.get(initialValue);
 		if (result == null)
 			throw new IllegalArgumentException(
@@ -320,8 +312,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertFeatureCategoryToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertFeatureCategoryToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

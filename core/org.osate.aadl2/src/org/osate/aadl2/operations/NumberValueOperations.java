@@ -34,12 +34,11 @@
  */
 package org.osate.aadl2.operations;
 
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.UnitsType;
-
-import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 
 /**
  * <!-- begin-user-doc -->

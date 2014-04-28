@@ -38,16 +38,16 @@ property set Memory_Properties is
 		PerByte: Time_Range;)
 		applies to (memory);
 	
-	Source_Code_Size: Size
+	Code_Size: Size
 		applies to (data, thread, thread group, process, system, subprogram, processor, device);
 	
-	Source_Data_Size: Size
+	Data_Size: Size
 		applies to (data, data port, event data port, data access, subprogram, thread, thread group, process, system, processor, device);
 	
-	Source_Heap_Size: Size
+	Heap_Size: Size
 		applies to (thread, subprogram);
 	
-	Source_Stack_Size: Size
+	Stack_Size: Size
 		applies to (thread, subprogram, processor, device);
 	
 	Byte_Count: aadlinteger 0 .. Max_Byte_Count

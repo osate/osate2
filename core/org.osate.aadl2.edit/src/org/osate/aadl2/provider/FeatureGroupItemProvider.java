@@ -133,8 +133,8 @@ public class FeatureGroupItemProvider extends DirectedFeatureItemProvider implem
 				getResourceLocator(),
 				getString("_UI_FeatureGroup_featureGroupType_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroup_featureGroupType_feature",
-						"_UI_FeatureGroup_type"), Aadl2Package.eINSTANCE.getFeatureGroup_FeatureGroupType(), true,
-				false, true, null, null, null));
+						"_UI_FeatureGroup_type"), Aadl2Package.eINSTANCE.getFeatureGroup_FeatureGroupType(), false,
+				false, false, null, null, null));
 	}
 
 	/**

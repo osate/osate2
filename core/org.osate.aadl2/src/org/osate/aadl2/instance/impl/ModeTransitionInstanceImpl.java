@@ -66,8 +66,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
-		implements ModeTransitionInstance {
+public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implements ModeTransitionInstance {
 	/**
 	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -127,11 +126,8 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 			destination = (ModeInstance) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION,
-							oldDestination, destination));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION, oldDestination, destination));
 			}
 		}
 		return destination;
@@ -151,15 +147,12 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDestination(ModeInstance newDestination,
-			NotificationChain msgs) {
+	public NotificationChain basicSetDestination(ModeInstance newDestination, NotificationChain msgs) {
 		ModeInstance oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION,
-					oldDestination, newDestination);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION, oldDestination, newDestination);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -178,19 +171,16 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 			NotificationChain msgs = null;
 			if (destination != null)
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
-						InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
-						ModeInstance.class, msgs);
+						InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION, ModeInstance.class, msgs);
 			if (newDestination != null)
 				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
-						InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
-						ModeInstance.class, msgs);
+						InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION, ModeInstance.class, msgs);
 			msgs = basicSetDestination(newDestination, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION,
-					newDestination, newDestination));
+					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION, newDestination, newDestination));
 	}
 
 	/**
@@ -204,11 +194,9 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 			modeTransition = (ModeTransition) eResolveProxy(oldModeTransition);
 			if (modeTransition != oldModeTransition) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION,
-							oldModeTransition, modeTransition));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION, oldModeTransition,
+							modeTransition));
 			}
 		}
 		return modeTransition;
@@ -233,8 +221,7 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 		modeTransition = newModeTransition;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION,
-					oldModeTransition, modeTransition));
+					InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION, oldModeTransition, modeTransition));
 	}
 
 	/**
@@ -249,8 +236,7 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE,
-							oldSource, source));
+							InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE, oldSource, source));
 			}
 		}
 		return source;
@@ -270,15 +256,12 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSource(ModeInstance newSource,
-			NotificationChain msgs) {
+	public NotificationChain basicSetSource(ModeInstance newSource, NotificationChain msgs) {
 		ModeInstance oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE,
-					oldSource, newSource);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE, oldSource, newSource);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -297,18 +280,15 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 			NotificationChain msgs = null;
 			if (source != null)
 				msgs = ((InternalEObject) source).eInverseRemove(this,
-						InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
-						ModeInstance.class, msgs);
+						InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION, ModeInstance.class, msgs);
 			if (newSource != null)
 				msgs = ((InternalEObject) newSource).eInverseAdd(this,
-						InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
-						ModeInstance.class, msgs);
+						InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION, ModeInstance.class, msgs);
 			msgs = basicSetSource(newSource, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE,
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE,
 					newSource, newSource));
 	}
 
@@ -318,20 +298,17 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
 			if (destination != null)
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
-						InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
-						ModeInstance.class, msgs);
+						InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION, ModeInstance.class, msgs);
 			return basicSetDestination((ModeInstance) otherEnd, msgs);
 		case InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE:
 			if (source != null)
 				msgs = ((InternalEObject) source).eInverseRemove(this,
-						InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
-						ModeInstance.class, msgs);
+						InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION, ModeInstance.class, msgs);
 			return basicSetSource((ModeInstance) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -343,8 +320,7 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
 			return basicSetDestination(null, msgs);

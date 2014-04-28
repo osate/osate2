@@ -68,34 +68,55 @@ public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 	
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
-		if (Aadl2Package.eINSTANCE.getAnnexLibrary().isSuperTypeOf(semanticObject.eClass())){
+		if (semanticObject instanceof DefaultAnnexLibrary){
 			if(context == grammarAccess.getAnnexLibraryRule() ||
 					context == grammarAccess.getDefaultAnnexLibraryRule()) {
+				DefaultAnnexLibrary dal = (DefaultAnnexLibrary)semanticObject;
+				AnnexLibrary pal = dal.getParsedAnnexLibrary();
 				String annexName = ((NamedElement)semanticObject).getName();
 				AnnexUnparser atpr = getAnnexUnparserRegistry().getAnnexUnparser(annexName);
-				if (atpr != null){
-					String text = atpr.unparseAnnexLibrary((AnnexLibrary)semanticObject, "  ");
-					DefaultAnnexLibrary dal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
-					dal.setName(((NamedElement)semanticObject).getName());
-					dal.setSourceText("{**\n"+text+"\n**}");
-					sequence_DefaultAnnexLibrary(context, (DefaultAnnexLibrary) dal); 
-					return; 
+				String text = dal.getSourceText();
+				// serialize if there is an unparser and the annex has been parsed
+				//otherwise use the original annex text
+				if (pal != null&&atpr != null){
+					try {
+						text = atpr.unparseAnnexLibrary(pal, "  ");
+						DefaultAnnexLibrary tdal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
+						tdal.setName(dal.getName());
+						tdal.setSourceText(text);  
+						sequence_DefaultAnnexLibrary(context, tdal);
+					} catch (Exception e) {
+						sequence_DefaultAnnexLibrary(context, dal);
+					}
+				} else {
+					sequence_DefaultAnnexLibrary(context, dal);
 				}
+				return; 
 			}
 		}
 		if (Aadl2Package.eINSTANCE.getAnnexSubclause().isSuperTypeOf(semanticObject.eClass())){
 			if(context == grammarAccess.getAnnexSubclauseRule() ||
 					context == grammarAccess.getDefaultAnnexSubclauseRule()) {
+				DefaultAnnexSubclause dasc = (DefaultAnnexSubclause)semanticObject;
+				AnnexSubclause pasc = dasc.getParsedAnnexSubclause();
 				String annexName = ((NamedElement)semanticObject).getName();
 				AnnexUnparser atpr = getAnnexUnparserRegistry().getAnnexUnparser(annexName);
-				if (atpr != null){
-					String text = atpr.unparseAnnexSubclause((AnnexSubclause)semanticObject, "  ");
-					DefaultAnnexSubclause dasc = Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause();
-					dasc.setName(((NamedElement)semanticObject).getName());
-					dasc.setSourceText("{**\n"+text+"\n**}");
-					sequence_DefaultAnnexSubclause(context, (DefaultAnnexSubclause) dasc); 
-					return; 
+				String text = dasc.getSourceText();
+				// serialize if there is an unparser and the annex has been parsed
+				//otherwise use the original annex text
+				if (pasc != null&&atpr != null){
+					try {
+						text = atpr.unparseAnnexSubclause(pasc, "  ");
+						DefaultAnnexSubclause tdasc = Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause();
+						tdasc.setSourceText(text); 
+						sequence_DefaultAnnexSubclause(context, tdasc);
+					} catch (Exception e) {
+						sequence_DefaultAnnexSubclause(context, dasc);
+					} 
+				} else {
+					sequence_DefaultAnnexSubclause(context, dasc); 
 				}
+				return; 
 			}
 		}
 		super.createSequence(context, semanticObject);

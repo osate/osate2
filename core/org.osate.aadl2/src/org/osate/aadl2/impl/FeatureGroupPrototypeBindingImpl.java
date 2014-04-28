@@ -43,11 +43,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.Prototype;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
