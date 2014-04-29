@@ -3332,8 +3332,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         name=ID 
 	 *         (
 	 *             (context=[CallContext|PNAME] calledSubprogram=[CalledSubprogram|ID]) | 
-	 *             calledSubprogram=[SubprogramProxy|ID] | 
-	 *             calledSubprogram=[CalledSubprogram|PNAME]
+	 *             calledSubprogram=[CalledSubprogram|PNAME] | 
+	 *             calledSubprogram=[SubprogramProxy|ID]
 	 *         ) 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
