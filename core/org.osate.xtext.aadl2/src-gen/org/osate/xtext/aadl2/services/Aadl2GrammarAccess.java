@@ -13160,15 +13160,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cCalledSubprogramAssignment_4_0_2 = (Assignment)cGroup_4_0.eContents().get(2);
 		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_4_0_2_0 = (CrossReference)cCalledSubprogramAssignment_4_0_2.eContents().get(0);
 		private final RuleCall cCalledSubprogramCalledSubprogramIDTerminalRuleCall_4_0_2_0_1 = (RuleCall)cCalledSubprogramCalledSubprogramCrossReference_4_0_2_0.eContents().get(1);
-		private final Group cGroup_4_1 = (Group)cAlternatives_4.eContents().get(1);
-		private final Keyword cProcessorKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
-		private final Keyword cFullStopKeyword_4_1_1 = (Keyword)cGroup_4_1.eContents().get(1);
-		private final Assignment cCalledSubprogramAssignment_4_1_2 = (Assignment)cGroup_4_1.eContents().get(2);
-		private final CrossReference cCalledSubprogramSubprogramProxyCrossReference_4_1_2_0 = (CrossReference)cCalledSubprogramAssignment_4_1_2.eContents().get(0);
-		private final RuleCall cCalledSubprogramSubprogramProxyIDTerminalRuleCall_4_1_2_0_1 = (RuleCall)cCalledSubprogramSubprogramProxyCrossReference_4_1_2_0.eContents().get(1);
-		private final Assignment cCalledSubprogramAssignment_4_2 = (Assignment)cAlternatives_4.eContents().get(2);
-		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_4_2_0 = (CrossReference)cCalledSubprogramAssignment_4_2.eContents().get(0);
-		private final RuleCall cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_4_2_0_1 = (RuleCall)cCalledSubprogramCalledSubprogramCrossReference_4_2_0.eContents().get(1);
+		private final Assignment cCalledSubprogramAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
+		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_4_1_0 = (CrossReference)cCalledSubprogramAssignment_4_1.eContents().get(0);
+		private final RuleCall cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_4_1_0_1 = (RuleCall)cCalledSubprogramCalledSubprogramCrossReference_4_1_0.eContents().get(1);
+		private final Group cGroup_4_2 = (Group)cAlternatives_4.eContents().get(2);
+		private final Keyword cProcessorKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Keyword cFullStopKeyword_4_2_1 = (Keyword)cGroup_4_2.eContents().get(1);
+		private final Assignment cCalledSubprogramAssignment_4_2_2 = (Assignment)cGroup_4_2.eContents().get(2);
+		private final CrossReference cCalledSubprogramSubprogramProxyCrossReference_4_2_2_0 = (CrossReference)cCalledSubprogramAssignment_4_2_2.eContents().get(0);
+		private final RuleCall cCalledSubprogramSubprogramProxyIDTerminalRuleCall_4_2_2_0_1 = (RuleCall)cCalledSubprogramSubprogramProxyCrossReference_4_2_2_0.eContents().get(1);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cLeftCurlyBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -13181,7 +13181,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
 		//	// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
 		//	//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-		//	| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{"
+		//	| calledSubprogram=[aadl2::CalledSubprogram|PNAME] | "processor" "." calledSubprogram=[aadl2::SubprogramProxy]) ("{"
 		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
@@ -13189,7 +13189,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
 		//// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
 		////calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-		//| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{"
+		//| calledSubprogram=[aadl2::CalledSubprogram|PNAME] | "processor" "." calledSubprogram=[aadl2::SubprogramProxy]) ("{"
 		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
@@ -13211,7 +13211,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
 		//// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
 		////calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-		//| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]
+		//| calledSubprogram=[aadl2::CalledSubprogram|PNAME] | "processor" "." calledSubprogram=[aadl2::SubprogramProxy]
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
 		//context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram]
@@ -13238,32 +13238,32 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getCalledSubprogramCalledSubprogramIDTerminalRuleCall_4_0_2_0_1() { return cCalledSubprogramCalledSubprogramIDTerminalRuleCall_4_0_2_0_1; }
 
-		//"processor" "." calledSubprogram=[aadl2::SubprogramProxy]
-		public Group getGroup_4_1() { return cGroup_4_1; }
-
-		//"processor"
-		public Keyword getProcessorKeyword_4_1_0() { return cProcessorKeyword_4_1_0; }
-
-		//"."
-		public Keyword getFullStopKeyword_4_1_1() { return cFullStopKeyword_4_1_1; }
-
-		//calledSubprogram=[aadl2::SubprogramProxy]
-		public Assignment getCalledSubprogramAssignment_4_1_2() { return cCalledSubprogramAssignment_4_1_2; }
-
-		//[aadl2::SubprogramProxy]
-		public CrossReference getCalledSubprogramSubprogramProxyCrossReference_4_1_2_0() { return cCalledSubprogramSubprogramProxyCrossReference_4_1_2_0; }
-
-		//ID
-		public RuleCall getCalledSubprogramSubprogramProxyIDTerminalRuleCall_4_1_2_0_1() { return cCalledSubprogramSubprogramProxyIDTerminalRuleCall_4_1_2_0_1; }
-
 		//calledSubprogram=[aadl2::CalledSubprogram|PNAME]
-		public Assignment getCalledSubprogramAssignment_4_2() { return cCalledSubprogramAssignment_4_2; }
+		public Assignment getCalledSubprogramAssignment_4_1() { return cCalledSubprogramAssignment_4_1; }
 
 		//[aadl2::CalledSubprogram|PNAME]
-		public CrossReference getCalledSubprogramCalledSubprogramCrossReference_4_2_0() { return cCalledSubprogramCalledSubprogramCrossReference_4_2_0; }
+		public CrossReference getCalledSubprogramCalledSubprogramCrossReference_4_1_0() { return cCalledSubprogramCalledSubprogramCrossReference_4_1_0; }
 
 		//PNAME
-		public RuleCall getCalledSubprogramCalledSubprogramPNAMEParserRuleCall_4_2_0_1() { return cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_4_2_0_1; }
+		public RuleCall getCalledSubprogramCalledSubprogramPNAMEParserRuleCall_4_1_0_1() { return cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_4_1_0_1; }
+
+		//"processor" "." calledSubprogram=[aadl2::SubprogramProxy]
+		public Group getGroup_4_2() { return cGroup_4_2; }
+
+		//"processor"
+		public Keyword getProcessorKeyword_4_2_0() { return cProcessorKeyword_4_2_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_4_2_1() { return cFullStopKeyword_4_2_1; }
+
+		//calledSubprogram=[aadl2::SubprogramProxy]
+		public Assignment getCalledSubprogramAssignment_4_2_2() { return cCalledSubprogramAssignment_4_2_2; }
+
+		//[aadl2::SubprogramProxy]
+		public CrossReference getCalledSubprogramSubprogramProxyCrossReference_4_2_2_0() { return cCalledSubprogramSubprogramProxyCrossReference_4_2_2_0; }
+
+		//ID
+		public RuleCall getCalledSubprogramSubprogramProxyIDTerminalRuleCall_4_2_2_0_1() { return cCalledSubprogramSubprogramProxyIDTerminalRuleCall_4_2_2_0_1; }
 
 		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
@@ -26905,7 +26905,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	calledSubprogram=[aadl2::CalledSubprogram] // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
 	//	// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
 	//	//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
-	//	| "processor" "." calledSubprogram=[aadl2::SubprogramProxy] | calledSubprogram=[aadl2::CalledSubprogram|PNAME]) ("{"
+	//	| calledSubprogram=[aadl2::CalledSubprogram|PNAME] | "processor" "." calledSubprogram=[aadl2::SubprogramProxy]) ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public SubprogramCallElements getSubprogramCallAccess() {
 		return (pSubprogramCall != null) ? pSubprogramCall : (pSubprogramCall = new SubprogramCallElements());

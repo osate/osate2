@@ -874,7 +874,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramCallSequenceAccess().getGroup_6_3_1(), "rule__SubprogramCallSequence__Group_6_3_1__0");
 					put(grammarAccess.getSubprogramCallAccess().getGroup(), "rule__SubprogramCall__Group__0");
 					put(grammarAccess.getSubprogramCallAccess().getGroup_4_0(), "rule__SubprogramCall__Group_4_0__0");
-					put(grammarAccess.getSubprogramCallAccess().getGroup_4_1(), "rule__SubprogramCall__Group_4_1__0");
+					put(grammarAccess.getSubprogramCallAccess().getGroup_4_2(), "rule__SubprogramCall__Group_4_2__0");
 					put(grammarAccess.getSubprogramCallAccess().getGroup_5(), "rule__SubprogramCall__Group_5__0");
 					put(grammarAccess.getPrototypeAccess().getGroup(), "rule__Prototype__Group__0");
 					put(grammarAccess.getPrototypeAccess().getGroup_0_0(), "rule__Prototype__Group_0_0__0");
@@ -2172,8 +2172,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramCallAccess().getNameAssignment_1(), "rule__SubprogramCall__NameAssignment_1");
 					put(grammarAccess.getSubprogramCallAccess().getContextAssignment_4_0_0(), "rule__SubprogramCall__ContextAssignment_4_0_0");
 					put(grammarAccess.getSubprogramCallAccess().getCalledSubprogramAssignment_4_0_2(), "rule__SubprogramCall__CalledSubprogramAssignment_4_0_2");
-					put(grammarAccess.getSubprogramCallAccess().getCalledSubprogramAssignment_4_1_2(), "rule__SubprogramCall__CalledSubprogramAssignment_4_1_2");
-					put(grammarAccess.getSubprogramCallAccess().getCalledSubprogramAssignment_4_2(), "rule__SubprogramCall__CalledSubprogramAssignment_4_2");
+					put(grammarAccess.getSubprogramCallAccess().getCalledSubprogramAssignment_4_1(), "rule__SubprogramCall__CalledSubprogramAssignment_4_1");
+					put(grammarAccess.getSubprogramCallAccess().getCalledSubprogramAssignment_4_2_2(), "rule__SubprogramCall__CalledSubprogramAssignment_4_2_2");
 					put(grammarAccess.getSubprogramCallAccess().getOwnedPropertyAssociationAssignment_5_1(), "rule__SubprogramCall__OwnedPropertyAssociationAssignment_5_1");
 					put(grammarAccess.getPrototypeAccess().getConstrainingClassifierAssignment_0_0_1(), "rule__Prototype__ConstrainingClassifierAssignment_0_0_1");
 					put(grammarAccess.getPrototypeAccess().getArrayAssignment_0_0_2_0(), "rule__Prototype__ArrayAssignment_0_0_2_0");
