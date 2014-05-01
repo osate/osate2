@@ -85,34 +85,34 @@ public class CriticalityProperty {
 
 		if (criticalityProperty == null)
 		{
-			criticalityProperty = GetProperties.lookupPropertyDefinition (ph, ARINC653._NAME, ARINC653.CRITICALITY);
+			criticalityProperty = GetProperties.lookupPropertyDefinition (ph, ARINC653._NAME, ARINC653.DAL);
 		}
 		
 		
 		try
 		{
 			EnumerationLiteral el = PropertyUtils.getEnumLiteral(ph, criticalityProperty);
-			if (el.getName().equals(ARINC653.CRITICALITY_LEVEL_A))
+			if (el.getName().equals(ARINC653.DAL_LEVEL_A))
 			{
 				return LEVEL_A;
 			}
 			
-			if (el.getName().equals(ARINC653.CRITICALITY_LEVEL_B))
+			if (el.getName().equals(ARINC653.DAL_LEVEL_B))
 			{
 				return LEVEL_B;
 			}
 			
-			if (el.getName().equals(ARINC653.CRITICALITY_LEVEL_C))
+			if (el.getName().equals(ARINC653.DAL_LEVEL_C))
 			{
 				return LEVEL_C;
 			}
 			
-			if (el.getName().equals(ARINC653.CRITICALITY_LEVEL_D))
+			if (el.getName().equals(ARINC653.DAL_LEVEL_D))
 			{
 				return LEVEL_D;
 			}
 			
-			if (el.getName().equals(ARINC653.CRITICALITY_LEVEL_E))
+			if (el.getName().equals(ARINC653.DAL_LEVEL_E))
 			{
 				return LEVEL_E;
 			}
