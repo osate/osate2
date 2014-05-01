@@ -1121,8 +1121,8 @@ SubprogramCall returns aadl2::SubprogramCall:
      	//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
     	(
     		(context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID])
-    		| ('processor' '.' calledSubprogram=[aadl2::SubprogramProxy|ID])
      		| calledSubprogram=[aadl2::CalledSubprogram|PNAME]
+    		| ('processor' '.' calledSubprogram=[aadl2::SubprogramProxy|ID])
 		)
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'
