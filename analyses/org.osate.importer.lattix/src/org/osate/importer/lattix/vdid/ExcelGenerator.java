@@ -512,7 +512,7 @@ public class ExcelGenerator {
 		addCaption(sheet, 2, line, "Criticality");
 		addCaption(sheet, 3, line, "Criticality");
 		addCaption(sheet, 3, line, "# incoming connections");
-		addCaption(sheet, 3, line, "# outgoing connections");
+		addCaption(sheet, 4, line, "# outgoing connections");
 		addCaption(sheet, 5, line, "Primary connections");
 		line++;
 		
