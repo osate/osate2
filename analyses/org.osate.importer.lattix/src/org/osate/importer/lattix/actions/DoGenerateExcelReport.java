@@ -120,18 +120,25 @@ public final class DoGenerateExcelReport extends AaxlReadOnlyActionAsJob {
 
 
 		SystemInstance si;
+		si = null;
+		
 		if (obj instanceof InstanceObject)
+		{
 			si = ((InstanceObject)obj).getSystemInstance();
-		else
-			si = null;
-
+		}
+		
+		if (si == null)
+		{
+			Dialog.showInfo("Metrics Reports", "Please choose an instance system");	
+			return;
+		}
 
 		MetricsReporter metricsReporter = new MetricsReporter(monitor,getErrorManager());
-		metricsReporter.defaultTraversalAllDeclarativeModels();
-		
-		
+//		metricsReporter.defaultTraversalAllDeclarativeModels();
+//		
+//		
 		MatrixGenerator matrixGenerator = new MatrixGenerator(monitor,getErrorManager(), si);
-		matrixGenerator.defaultTraversalAllDeclarativeModels();
+//		matrixGenerator.defaultTraversalAllDeclarativeModels();
 		
 		
 		if (si != null) 

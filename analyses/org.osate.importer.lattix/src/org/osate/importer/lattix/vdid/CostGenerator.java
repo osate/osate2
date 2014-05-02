@@ -158,10 +158,10 @@ public class CostGenerator
 			componentName = Utils.getComponentName(component);
 			
 			impactReport = new CostImpactReport(componentName);
-			System.out.println ("Cost analysis for: " + componentName);
+//			System.out.println ("Cost analysis for: " + componentName);
 			for (int d = 0 ; d < depth ; d++)
 			{
-				System.out.println ("DEPTH=" + d);
+//				System.out.println ("DEPTH=" + d);
 				dsm = dsmGenerator.getDsm(d);
 
 				for (int dep = 0 ; dep < dsmGenerator.getComponents().size() ; dep++)
@@ -171,11 +171,11 @@ public class CostGenerator
 
 					slocs = SlocProperty.getSloc(depInstance);
 					crit  = CriticalityProperty.getCriticality(depInstance);
-					System.out.println ("   Looking for dep (depth="+d+"): " + depName + "(crit=" + crit + ";slocs=" + slocs + ";coeff="+ dsm[c][dep] +")");
+//					System.out.println ("   Looking for dep (depth="+d+"): " + depName + "(crit=" + crit + ";slocs=" + slocs + ";coeff="+ dsm[c][dep] +")");
 
 					if (dsm[dep][c] > 0)
 					{
-						System.out.println ("   Looking for dep (depth="+d+"): " + depName + "(crit=" + crit + ";slocs=" + slocs + ";coeff="+ dsm[c][dep] +")");
+//						System.out.println ("   Looking for dep (depth="+d+"): " + depName + "(crit=" + crit + ";slocs=" + slocs + ";coeff="+ dsm[c][dep] +")");
 						impactReport.addSlocs (slocs * dsm[dep][c], crit);
 					}
 				}

@@ -47,15 +47,23 @@ import java.util.List;
 import java.util.Locale;
 
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.impl.ProcessorImplementationImpl;
 import org.osate.aadl2.impl.SubprogramCallImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Preferences;
 import org.osate.importer.Utils;
 import org.osate.importer.properties.CriticalityProperty;
@@ -101,9 +109,9 @@ public class ExcelGenerator {
 						
 				if (sci.getCalledSubprogram() instanceof SubprogramClassifier)
 				{
-
-					System.out.println ("SPG " + sci.getCalledSubprogram());
-					System.out.println ("THR " + ci);
+//
+//					System.out.println ("SPG " + sci.getCalledSubprogram());
+//					System.out.println ("THR " + ci);
 
 					spgs.put(cs, ci);
 				}
@@ -138,8 +146,8 @@ public class ExcelGenerator {
 				if (sci.getCalledSubprogram() instanceof SubprogramClassifier)
 				{
 
-					System.out.println ("SPG " + sci.getCalledSubprogram());
-					System.out.println ("CPU " + cpu);
+//					System.out.println ("SPG " + sci.getCalledSubprogram());
+//					System.out.println ("CPU " + cpu);
 
 					spgs.put(cs, cpu);
 				}
@@ -159,7 +167,6 @@ public class ExcelGenerator {
 	{
 		for (ConnectionInstance ci : root.getAllEnclosingConnectionInstances())
 		{
-			System.out.println ("source=" + ci.getSource().getContainingComponentInstance());
 			if ((ci.getSource().getContainingComponentInstance() == thr1) &&
 			    (ci.getDestination().getContainingComponentInstance() == thr2))
 			{
@@ -275,7 +282,7 @@ public class ExcelGenerator {
 	
 	private static void createDsmMatrix(WritableSheet sheet, MatrixGenerator matrix, List<String> comps) throws WriteException {
 		addLabel (sheet, 0, 0, "DSM Matrix for level 0");
-		System.out.println ("max" + matrix.getMaxConnections());
+//		System.out.println ("max" + matrix.getMaxConnections());
 		int nbConnections;
 		int srcIndex;
 		int dstIndex;
@@ -330,7 +337,7 @@ public class ExcelGenerator {
 		
 		addLabel (sheet, 0, 0, "Impact on SLOCs");
 		
-		System.out.println ("max" + matrix.getMaxConnections());
+//		System.out.println ("max" + matrix.getMaxConnections());
 		
 		addLabel (sheet, 1, 1 , "Total");
 		addLabel (sheet, 2, 1 , "Level A");
@@ -345,7 +352,7 @@ public class ExcelGenerator {
 			CostImpactReport report = costGenerator.getReport (s);
 			if (report != null)
 			{
-				System.out.println ("comp (" + s + ", nslocs=" + matrix.getSlocs (s) + ")");
+//				System.out.println ("comp (" + s + ", nslocs=" + matrix.getSlocs (s) + ")");
 				addLabel (sheet, 0, line + 2, s);
 				addNumber (sheet, 1, line + 2, report.getTotalImpactedSlocs());
 				addNumber (sheet, 2, line + 2, report.getImpactedSlocs(CriticalityProperty.LEVEL_A));
@@ -490,6 +497,9 @@ public class ExcelGenerator {
 		}
 		
 		line = line + 2;
+		
+		
+		
 		/*
 		 * List of components 
 		 */
@@ -500,8 +510,13 @@ public class ExcelGenerator {
 		addCaption(sheet, 0, line, "Name");
 		addCaption(sheet, 1, line, "Lines of code");
 		addCaption(sheet, 2, line, "Criticality");
-		addCaption(sheet, 3, line, "Primary connections");
+		addCaption(sheet, 3, line, "Criticality");
+		addCaption(sheet, 3, line, "# incoming connections");
+		addCaption(sheet, 3, line, "# outgoing connections");
+		addCaption(sheet, 5, line, "Primary connections");
 		line++;
+		
+		
 		for (ComponentInstance componentTemp : componentsList)
 		{
 			StringBuffer tmp = new StringBuffer ();
@@ -509,25 +524,126 @@ public class ExcelGenerator {
 			addNumber(sheet, 1, line, SlocProperty.getSloc(componentTemp));
 			addCaption(sheet, 2, line, CriticalityProperty.toString(CriticalityProperty.getCriticality(componentTemp)), false);
 			compName = Utils.getComponentName(componentTemp);
+			
+			/**
+			 * # incoming connections
+			 */
+			int nbIncoming = 0;
+			for (Feature f : componentTemp.getComponentClassifier().getAllFeatures())
+			{
+				if (f instanceof Port)
+				{
+					Port p = (Port) f;
+					if ((p.getDirection() == DirectionType.IN) || (p.getDirection() == DirectionType.IN_OUT))
+					{
+						nbIncoming++;
+					}
+				}
+			}
+			addNumber(sheet, 3, line, nbIncoming);
+
+			/**
+			 * # outgoing connections
+			 */
+			int nbOutgoing = 0;
+			for (Feature f : componentTemp.getComponentClassifier().getAllFeatures())
+			{
+				if (f instanceof Port)
+				{
+					Port p = (Port) f;
+					if ((p.getDirection() == DirectionType.OUT) || (p.getDirection() == DirectionType.IN_OUT))
+					{
+						nbOutgoing++;
+					}
+				}
+			}
+			addNumber(sheet, 4, line, nbOutgoing);
+			
+			/**
+			 * Primary connections
+			 */
 			if (matrix.getMatrix().get(compName) != null)
 			{
 				for (String v : matrix.getMatrix().get(compName))
 				{
 					tmp.append(v + "|");
 				}
-				addCaption(sheet, 3, line, tmp.toString(), false);
+				addCaption(sheet, 5, line, tmp.toString(), false);
 			}
 			
 			
 			line++;
 		}
 		
-		
-		
-		addCaption(sheet, 0, line, "Total links");
-		addNumber(sheet, 1, line++, costGenerator.getTotal() );
 	
 		line = line + 3;
+		
+		/**
+		 * List all processors with information about number of partitions
+		 */
+		addCaption(sheet, 0, line++, "List of processors");
+		
+		addCaption(sheet, 0, line, "Name");
+		addCaption(sheet, 1, line, "Number of partitions");
+		line++;
+		
+		for (ComponentInstance componentTemp : componentsList)
+		{
+			if (componentTemp.getComponentClassifier().getCategory() == ComponentCategory.PROCESSOR)
+			{
+				int nbPartitions = 0;
+				addCaption(sheet, 0, line, Utils.getComponentName(componentTemp));
+			
+				if (componentTemp.getComponentClassifier() instanceof ProcessorImplementationImpl)
+				{
+					ProcessorImplementation pi = (ProcessorImplementation) componentTemp.getComponentClassifier();
+					for (Subcomponent s : pi.getAllSubcomponents())
+					{
+						if (s.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+						{
+							nbPartitions++;
+						}
+					}
+				}
+				addNumber(sheet, 3, line, nbPartitions);
+				line++;
+			}
+		}
+		
+		line = line + 3;
+		
+		/**
+		 * List all busses with associated connections
+		 */
+		addCaption(sheet, 0, line++, "List of buses");
+		
+		addCaption(sheet, 0, line, "Name");
+		addCaption(sheet, 1, line, "Number of connections");
+		line++;
+		
+		for (ComponentInstance componentTemp : componentsList)
+		{
+			if (componentTemp.getComponentClassifier().getCategory() == ComponentCategory.BUS)
+			{
+				int nbConnections = 0;
+				addCaption(sheet, 0, line, Utils.getComponentName(componentTemp));
+				for (ConnectionInstance ci : componentTemp.getSystemInstance().getAllConnectionInstances())
+				{
+					for (ComponentInstance boundComponent : GetProperties.getActualConnectionBinding(ci))
+					{
+						if (boundComponent == componentTemp)
+						{
+							nbConnections++;
+						}
+					}
+				}
+				addNumber(sheet, 3, line, nbConnections);
+				line++;
+			}	
+		}
+		
+		line = line + 3;
+		
 		
 		addCaption(sheet, 0, line++, "Cost Analysis using McCormack boolean method");
 		
