@@ -7,7 +7,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
@@ -29,7 +28,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	protected AbstractElementAlias match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q;
 	protected AbstractElementAlias match_SConditionTerm_LeftParenthesisKeyword_3_0_a;
 	protected AbstractElementAlias match_SConditionTerm_LeftParenthesisKeyword_3_0_p;
-	protected AbstractElementAlias match_TypeTokenOrNoError_LeftCurlyBracketKeyword_2_0_or_LeftParenthesisKeyword_1_0;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -44,7 +42,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 		match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPropagationKeyword_9_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPathsKeyword_9_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_9_4()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPathsKeyword_9_5()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_9_6()));
 		match_SConditionTerm_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_3_0());
 		match_SConditionTerm_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_3_0());
-		match_TypeTokenOrNoError_LeftCurlyBracketKeyword_2_0_or_LeftParenthesisKeyword_1_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getTypeTokenOrNoErrorAccess().getLeftCurlyBracketKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getTypeTokenOrNoErrorAccess().getLeftParenthesisKeyword_1_0()));
 	}
 	
 	@Override
@@ -79,8 +76,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 				emit_SConditionTerm_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SConditionTerm_LeftParenthesisKeyword_3_0_p.equals(syntax))
 				emit_SConditionTerm_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_TypeTokenOrNoError_LeftCurlyBracketKeyword_2_0_or_LeftParenthesisKeyword_1_0.equals(syntax))
-				emit_TypeTokenOrNoError_LeftCurlyBracketKeyword_2_0_or_LeftParenthesisKeyword_1_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -176,14 +171,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     '('+
 	 */
 	protected void emit_SConditionTerm_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
-	 *     '(' | '{'
-	 */
-	protected void emit_TypeTokenOrNoError_LeftCurlyBracketKeyword_2_0_or_LeftParenthesisKeyword_1_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

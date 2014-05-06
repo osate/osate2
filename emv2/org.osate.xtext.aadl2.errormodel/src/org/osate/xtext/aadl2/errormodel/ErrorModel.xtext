@@ -167,12 +167,13 @@ NoErrorTypeToken returns TypeToken:
 
 TypeToken returns TypeToken:
 	{TypeToken}
-     ('(' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* ')')
-     |('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+//     ('(' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* ')')
+     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
 ;
 
 TypeTokenOrNoError returns TypeToken:
-	TypeToken | '(' NoErrorTypeToken ')' | '{' NoErrorTypeToken '}'
+	TypeToken //| '(' NoErrorTypeToken ')' 
+	| '{' NoErrorTypeToken '}'
 ;
 
 TypeTokenConstraint returns TypeSet:
