@@ -40,6 +40,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -463,6 +464,8 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return isSetOwnedSubcomponents();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
@@ -473,6 +476,8 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 			return ownedThreadSubcomponents != null && !ownedThreadSubcomponents.isEmpty();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT:
 			return ownedThreadGroupSubcomponents != null && !ownedThreadGroupSubcomponents.isEmpty();
+		case Aadl2Package.PROCESS_IMPLEMENTATION__TYPE:
+			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

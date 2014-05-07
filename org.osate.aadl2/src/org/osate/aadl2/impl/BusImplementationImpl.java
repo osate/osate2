@@ -40,6 +40,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -268,8 +269,12 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return isSetOwnedSubcomponents();
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			return ownedVirtualBusSubcomponents != null && !ownedVirtualBusSubcomponents.isEmpty();
+		case Aadl2Package.BUS_IMPLEMENTATION__TYPE:
+			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

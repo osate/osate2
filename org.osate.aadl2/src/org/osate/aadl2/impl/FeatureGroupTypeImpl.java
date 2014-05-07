@@ -1002,6 +1002,14 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 			return isSetOwnedFeatures();
+		case Aadl2Package.FEATURE_GROUP_TYPE__CLASSIFIER_FEATURE:
+			return isSetClassifierFeatures();
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_MEMBER:
+			return isSetOwnedMembers();
+		case Aadl2Package.FEATURE_GROUP_TYPE__GENERAL:
+			return isSetGenerals();
+		case Aadl2Package.FEATURE_GROUP_TYPE__GENERALIZATION:
+			return isSetGeneralizations();
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
 			return basicGetExtended() != null;
 		case Aadl2Package.FEATURE_GROUP_TYPE__INVERSE:

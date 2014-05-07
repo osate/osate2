@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.osate.aadl2.instance.*;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionKind;
@@ -73,7 +74,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	public static InstanceFactory init() {
 		try {
 			InstanceFactory theInstanceFactory = (InstanceFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://aadl.info/AADL/2.0/instance"); //$NON-NLS-1$ 
+					.getEFactory(InstancePackage.eNS_URI);
 			if (theInstanceFactory != null) {
 				return theInstanceFactory;
 			}
