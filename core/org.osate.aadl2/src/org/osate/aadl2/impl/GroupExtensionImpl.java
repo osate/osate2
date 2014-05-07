@@ -209,6 +209,8 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.GROUP_EXTENSION__GENERAL:
+			return isSetGeneral();
 		case Aadl2Package.GROUP_EXTENSION__EXTENDED:
 			return extended != null;
 		}
