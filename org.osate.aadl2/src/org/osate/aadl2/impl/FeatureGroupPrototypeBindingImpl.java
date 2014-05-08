@@ -186,11 +186,11 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !(newFormal instanceof FeatureGroupPrototype)) {
+		if (newFormal != null && !((EObject)newFormal).eIsProxy() && !(newFormal instanceof FeatureGroupPrototype)) {
 			throw new IllegalArgumentException("newFormal must be an instance of FeatureGroupPrototype");
 		}
 		Prototype oldFormal = formal;

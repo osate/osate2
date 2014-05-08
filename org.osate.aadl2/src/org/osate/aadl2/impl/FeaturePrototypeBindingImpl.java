@@ -185,11 +185,11 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !(newFormal instanceof FeaturePrototype)) {
+		if (newFormal != null && !((EObject)newFormal).eIsProxy() && !(newFormal instanceof FeaturePrototype)) {
 			throw new IllegalArgumentException("newFormal must be an instance of FeaturePrototype");
 		}
 		Prototype oldFormal = formal;

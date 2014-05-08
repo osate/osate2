@@ -154,11 +154,11 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !(newFormal instanceof ComponentPrototype)) {
+		if (newFormal != null && !((EObject)newFormal).eIsProxy() && !(newFormal instanceof ComponentPrototype)) {
 			throw new IllegalArgumentException("newFormal must be an instance of ComponentPrototype");
 		}
 		Prototype oldFormal = formal;
