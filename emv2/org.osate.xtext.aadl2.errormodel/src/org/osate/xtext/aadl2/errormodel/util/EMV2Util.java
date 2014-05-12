@@ -531,6 +531,21 @@ public class EMV2Util {
 		return null;
 	}
 
+	/**
+	 * Find ConnectionErrorSource with given classifier by looking through all connection error sources
+	 * @param el the element whose classifier we're using
+	 * @param name the name of the element to search for
+	 * @return the specified element, or null, if either the element's classifier is null or no
+	 * ConnectionErrorSource by the specified name was found
+	 */
+	public static ConnectionErrorSource findConnectionErrorSource(Element el, String name){
+		Classifier cl = el.getContainingClassifier();
+		if(cl != null){
+			Collection<ConnectionErrorSource> ceslist = getAllConnectionErrorSources(cl);
+			return (ConnectionErrorSource) AadlUtil.findNamedElementInList(ceslist, name);
+		}
+		return null;
+	}
 	
 
 	/**

@@ -163,6 +163,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = EMV2Util.findOutgoingPropagationCondition(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
+					searchResult = EMV2Util.findConnectionErrorSource(cxtElement, name);
+					if (searchResult != null) return Collections.singletonList(searchResult);
 					if (cxtFGT != null){
 						// if previous element was feature group, look up next feature group in its type
 						// we do not want to return features as they should get resolved to an error propagation
