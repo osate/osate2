@@ -33,7 +33,8 @@ In both case, before selecting the menu, you have
 to select an <strong>empty directory</strong> in 
 your OSATE installation (see picture below).
  This directory will then contain
-the generated AADL model.
+the generated AADL model. Then, the tool
+will ask to select the Simulink or SCADE model to import.
 </p>
 
 <img src="osate-directory-selected.png"/>
@@ -48,7 +49,9 @@ and then, select the menu entry
 <strong>Import Simulink model</strong>
 under the <strong>Analyses</strong> menu.
 This is shown in the figure below in the 
-purple box.
+purple box. Please note that the importer
+support only Simulink models saved
+under the <strong>slx format</strong>.
 </p>
 
 
@@ -67,18 +70,76 @@ red box.
 
 
 <h2>Mapping Rules</h2>
-<h3>Simulink Mapping Rules</h3>
+<p>
+The following sections provide an overview
+of the mapping rules to transform a Simulink
+or SCADE model into an AADL model
+</p>
+<p>
+For both importers, the tool will create
+three files: 
+</p>
+<ol>
+	<li><em>functional.aadl</em> contains a functional view - system components
+	    without a runtime model (processor, etc.).
+	</li>
+	<li><em>runtime-generic.aadl</em></li> contains generic runtime components
+	used to deploy the imported architecture.
+	<li><em>runtime.aadl</em></li> contains the full system with all components
+	bound to a single processor.
+</ol>
 
+<h3>Simulink Mapping Rules</h3>
+<ul>
+	<li>Each component in the diagram is mapped into an AADL system component</li>
+	<li>Simulink component connections is mapped using AADL event data port connections</li>
+	<li>AADL event data port connections are using a generic type.</li>
+	<li>In the <em>runtime.aadl</em> model, all systems are bound to the same processor</li>
+	<li>State flow diagrams are translated into AADL behavior state machine
+		<ul>
+			<li>Inner state machines are embedded</li>
+			<li>Data shared across state machines are mapped using an AADL shared data component</li>
+		</ul>
+	</li>
+</ul>
 
 <h3>SCADE Mapping Rules</h3>
+<ul>
+	<li>Each component in the diagram is mapped into an AADL system component</li>
+	<li>SCADE component connections is mapped using AADL event data port connections</li>
+	<li>The importer tried to infer the data type and see
+	    if a numeric or boolean value is being used.
+	</li>
+	<li>In the <em>runtime.aadl</em> model, all systems are bound to the same processor</li>
+	<li>SCADE state machines are translated into AADL behavior state machine
+		<ul>
+			<li>Inner state machines are embedded</li>
+			<li>Data shared across state machines are mapped using an AADL shared data component</li>
+		</ul>
+	</li>
+</ul>
 
 
+<h2>Common Problems</h2>
+<ul>
+	<li><strong>I cannot select the importer function</strong>:
+		make sure you selected an empty directory in the file hierarchy.
+	</li>
+	<li><strong>Nothing happens after selecting my Simulink model:</strong>
+		make sure you selected a slx file format (not the older mdl format).
+	</li>
+	<li><strong>Only three files are generated, nothing is created</strong>:
+		make sure you left the root system name empty.
+	</li>
+</ul>
 
 <h2>Bug report</h2>
 <p>
 If you have any question or would like to report a bug,
 please do it on the 
-<a href="https://github.com/osate/osate2-plugins/issues?state=open">OSATE plug-in issue tracker on github</a>.
+<a target="_blank"  href="https://github.com/osate/osate2-plugins/issues?state=open">OSATE plug-in issue tracker on github</a>.
+You can also ask questions 
+<a target="_blank" href="https://wiki.sei.cmu.edu/aadl/index.php/Mailing_List"> on the AADL mailing-lists</a>.
 </p>
 
 </body>
