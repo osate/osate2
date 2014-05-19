@@ -82,7 +82,7 @@ PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 -- (Catastrophic, Hazardous, Major, Minor, NoEffect) (qualify with ARP4761::).
 
 Severity : inherit EMV2::SeverityRange applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
-	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
+	  {emv2}**error propagation, {emv2}**error event);
 	  
 SeverityRange: type aadlinteger 1 .. 5;
 
@@ -93,7 +93,7 @@ ProbabilityRange: type aadlreal 0.0 .. 1.0;
 -- ARP 4761 uses descriptive labels (Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable) (See property set ARP4761).
 
 Likelihood : inherit EMV2::LikelihoodLabels applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
-	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
+	  {emv2}**error propagation, {emv2}**error event);
 
 LikelihoodLabels: type enumeration (A, B, C, D, E);
 
