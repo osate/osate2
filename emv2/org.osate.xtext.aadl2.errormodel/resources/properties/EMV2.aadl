@@ -131,14 +131,14 @@ Hazards: list of record
    Comment : aadlstring; 
    )
      applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
-                 {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
+                 {emv2}**error propagation, {emv2}**error event);
 
 Description : aadlstring applies to (all); 
 
 HazardAllocation: record (
-AssumedProbability : aadlreal;
-ExposureTime : Time;
-Notes : aadlstring;
+	AssumedProbability : aadlreal;
+	ExposureTime : Time;
+	Notes : aadlstring;
 ) applies to (all);
 
 
