@@ -10,7 +10,7 @@ property set Programming_Properties is
 		applies to (thread, device);
 	
 	Activate_Entrypoint_Source_Text: aadlstring
-		applies to (thread, device);
+		applies to (thread, device, virtual processor, processor);
 	
 	Compute_Entrypoint: classifier (subprogram classifier)
 		applies to (thread, device, subprogram access, event port, event data port);

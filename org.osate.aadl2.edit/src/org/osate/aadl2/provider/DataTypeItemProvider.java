@@ -97,7 +97,9 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements I
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getDataType_OwnedSubprogramAccess());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getDataType_OwnedDataAccess());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getDataType_OwnedSubprogramGroupAccess());
 		}
 		return childrenFeatures;
 	}
@@ -151,7 +153,9 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements I
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DataType.class)) {
+		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
 		case Aadl2Package.DATA_TYPE__OWNED_DATA_ACCESS:
+		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -169,8 +173,14 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements I
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getDataType_OwnedSubprogramAccess(),
+				Aadl2Factory.eINSTANCE.createSubprogramAccess()));
+
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getDataType_OwnedDataAccess(),
 				Aadl2Factory.eINSTANCE.createDataAccess()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getDataType_OwnedSubprogramGroupAccess(),
+				Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
 	}
 
 }

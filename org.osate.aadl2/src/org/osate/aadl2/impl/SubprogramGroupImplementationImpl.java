@@ -40,7 +40,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -370,12 +369,16 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return isSetOwnedSubcomponents();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__TYPE:
+			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -48,7 +48,7 @@ import org.osate.aadl2.AnnexSubclause;
  *
  * @generated
  */
-public class AnnexSubclauseImpl extends ModalElementImpl implements AnnexSubclause {
+public abstract class AnnexSubclauseImpl extends ModalElementImpl implements AnnexSubclause {
 	private String annexContent;
 	private boolean bypassUnparser = false;
 
@@ -61,18 +61,30 @@ public class AnnexSubclauseImpl extends ModalElementImpl implements AnnexSubclau
 		super();
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public boolean bypassUnparser() {
 		return this.bypassUnparser;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public void bypassUnparser(boolean b) {
 		this.bypassUnparser = b;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public String getAnnexContent() {
 		return this.annexContent;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public void setAnnexContent(String s) {
 		this.annexContent = s;
 	}

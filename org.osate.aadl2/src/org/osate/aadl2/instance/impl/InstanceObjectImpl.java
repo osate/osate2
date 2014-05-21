@@ -36,20 +36,20 @@
 package org.osate.aadl2.instance.impl;
 
 import java.util.Collection;
-import org.eclipse.emf.common.notify.NotificationChain;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.ContainmentPathElement;
@@ -66,7 +66,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -80,8 +79,7 @@ import org.osate.aadl2.util.OsateDebug;
  *
  * @generated
  */
-public abstract class InstanceObjectImpl extends NamedElementImpl implements
-		InstanceObject {
+public abstract class InstanceObjectImpl extends NamedElementImpl implements InstanceObject {
 	/**
 	 * The cached value of the '{@link #getAnnexInstances() <em>Annex Instance</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -118,8 +116,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 	 */
 	public EList<AnnexInstance> getAnnexInstances() {
 		if (annexInstances == null) {
-			annexInstances = new EObjectContainmentEList<AnnexInstance>(
-					AnnexInstance.class, this,
+			annexInstances = new EObjectContainmentEList<AnnexInstance>(AnnexInstance.class, this,
 					InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE);
 		}
 		return annexInstances;
@@ -131,12 +128,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
-			return ((InternalEList<?>) getAnnexInstances()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getAnnexInstances()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -166,8 +161,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
 			getAnnexInstances().clear();
-			getAnnexInstances().addAll(
-					(Collection<? extends AnnexInstance>) newValue);
+			getAnnexInstances().addAll((Collection<? extends AnnexInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -249,8 +243,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 		if (this instanceof SystemInstance) {
 			return getName();
 		}
-		final String path = ((InstanceObject) eContainer)
-				.getInstanceObjectPath();
+		final String path = ((InstanceObject) eContainer).getInstanceObjectPath();
 		final String localname = getFullName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
@@ -265,16 +258,14 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 		if (this instanceof SystemInstance) {
 			return "";
 		}
-		final String path = ((InstanceObject) eContainer)
-				.getComponentInstancePath();
+		final String path = ((InstanceObject) eContainer).getComponentInstancePath();
 		final String localname = getFullName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
 	}
 
-	public final void getPropertyValueInternal(final Property property,
-			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
-			throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property property, final PropertyAcc pas,
+			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		/*
 		 * First see if the property is defined locally in the instance. Such
 		 * local property associations arise from component property
@@ -331,8 +322,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 	 *             retrieved because the model is incomplete or otherwise
 	 *             invalid.
 	 */
-	protected void getPropertyValueFromDeclarativeModel(
-			final Property property, final PropertyAcc pas)
+	protected void getPropertyValueFromDeclarativeModel(final Property property, final PropertyAcc pas)
 			throws InvalidModelException {
 		//apv.pushCurrentComponent(getContainingComponentInstanceOrSelf());
 		try {
@@ -400,10 +390,9 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 			public Iterator<ConnectionInstance> iterator() {
 				return new Iterator<ConnectionInstance>() {
 					ConnectionInstance next;
-					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
-							: target.getContainingComponentInstance();
-					Iterator<ConnectionInstance> iter = head
-							.getConnectionInstances().iterator();
+					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target : target
+							.getContainingComponentInstance();
+					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
 
 					private boolean advance() {
 						next = null;
@@ -464,17 +453,14 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 	/* (non-Javadoc)
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
-	public List<InstanceObject> findInstanceObjects(
-			EList<ContainmentPathElement> referencePath) {
+	public List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath) {
 		List<InstanceObject> result = new LinkedList<InstanceObject>();
 
 		findInstanceObjectsHelper(referencePath.listIterator(), result);
 		return result;
 	}
 
-	protected boolean findInstanceObjectsHelper(
-			ListIterator<ContainmentPathElement> pathIter,
-			List<InstanceObject> ios) {
+	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
 		boolean result = false;
 
 		if (!pathIter.hasNext()) {

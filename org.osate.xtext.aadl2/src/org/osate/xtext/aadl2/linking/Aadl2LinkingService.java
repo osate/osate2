@@ -50,13 +50,11 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
-import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
@@ -84,6 +82,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
@@ -106,7 +105,6 @@ import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 
@@ -230,6 +228,31 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			return Collections.<EObject> emptyList();
 
+		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
+			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
+			if (searchResult == null){
+				if (context instanceof ModeTransitionTrigger){
+					// we are a mode transition trigger
+					Context triggerContext = ((ModeTransitionTrigger)context).getContext();
+					Classifier ns = null;
+					if (triggerContext instanceof Subcomponent){
+						// look up the feature in the ComponentType
+						ComponentType ct = ((Subcomponent)triggerContext).getComponentType();
+						if (ct != null)
+							ns = ct;
+					}
+					if (triggerContext instanceof FeatureGroup){
+						// look up the feature in the FeaturegroupType
+						FeatureGroupType ct = ((FeatureGroup)triggerContext).getFeatureGroupType();
+						if (ct != null)
+							ns = ct;
+					}
+					if (ns != null){
+						searchResult = AadlUtil.findNamedElementInList(ns.getAllFeatures(), name);
+					}
+				}
+			}
+			return (searchResult instanceof TriggerPort) ? Collections.singletonList(searchResult) : Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getPort().isSuperTypeOf(requiredType)) {
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
@@ -240,21 +263,21 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				} else {
 					return Collections.emptyList();
 				}
-			} else if (context instanceof TriggerPort){
-				// we are a trigger port
-				Context TPContext = ((TriggerPort)context).getContext();
-				if (TPContext instanceof Subcomponent){
-					// look up the feature in the ComponentType
-					ComponentType ct = ((Subcomponent)TPContext).getComponentType();
-					if (ct != null)
-						ns = ct;
-				}
-				if (TPContext instanceof FeatureGroup){
-					// look up the feature in the FeaturegroupType
-					 FeatureGroupType ct = ((FeatureGroup)TPContext).getFeatureGroupType();
-					if (ct != null)
-						ns = ct;
-				}
+//			} else if (context instanceof ModeTransitionTrigger){
+//				// we are a mode transition trigger
+//				Context triggerContext = ((ModeTransitionTrigger)context).getContext();
+//				if (triggerContext instanceof Subcomponent){
+//					// look up the feature in the ComponentType
+//					ComponentType ct = ((Subcomponent)triggerContext).getComponentType();
+//					if (ct != null)
+//						ns = ct;
+//				}
+//				if (triggerContext instanceof FeatureGroup){
+//					// look up the feature in the FeaturegroupType
+//					 FeatureGroupType ct = ((FeatureGroup)triggerContext).getFeatureGroupType();
+//					if (ct != null)
+//						ns = ct;
+//				}
 			}
 			EObject searchResult = AadlUtil.findNamedElementInList(ns.getAllFeatures(), name);
 			if (searchResult != null && searchResult instanceof Port) {
@@ -288,7 +311,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 							|| searchResult instanceof Subcomponent || searchResult instanceof SubprogramCall
 							|| searchResult instanceof DataPort || searchResult instanceof EventDataPort)))
 					return Collections.singletonList((EObject) searchResult);
-			} else if (context instanceof TriggerPort
+			} else if (context instanceof ModeTransitionTrigger
 					|| context instanceof FlowEnd
 					|| context instanceof FlowSegment
 					|| context instanceof EndToEndFlowSegment) {

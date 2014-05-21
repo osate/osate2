@@ -231,7 +231,7 @@ public class AadlPropertyView extends ViewPart {
 		NamedElement element = null;
 		if (currentSelectionUri != null)
 		{
-			if (resourceSetFromModelListener == null)
+			if (xtextDocument == null || resourceSetFromModelListener == null)
 				element = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(currentSelectionUri, true);
 			else
 				element = (NamedElement)resourceSetFromModelListener.getEObject(currentSelectionUri, true);

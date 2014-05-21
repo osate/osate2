@@ -47,7 +47,6 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.Prototype;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -186,10 +185,13 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
+		if (newFormal != null && !((EObject)newFormal).eIsProxy() && !(newFormal instanceof FeaturePrototype)) {
+			throw new IllegalArgumentException("newFormal must be an instance of FeaturePrototype");
+		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
@@ -274,6 +276,8 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
 			return actual != null;
+		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL:
+			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

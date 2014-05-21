@@ -62,10 +62,9 @@ import org.osate.aadl2.instance.SystemInstance;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComponentInstanceItemProvider extends
-		ConnectionInstanceEndItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -104,14 +103,12 @@ public class ComponentInstanceItemProvider extends
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ComponentInstance_category_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_category_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.COMPONENT_INSTANCE__CATEGORY,
-						true, false, false,
+						InstancePackage.Literals.COMPONENT_INSTANCE__CATEGORY, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -123,15 +120,12 @@ public class ComponentInstanceItemProvider extends
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ComponentInstance_inMode_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_inMode_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.COMPONENT_INSTANCE__IN_MODE,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.COMPONENT_INSTANCE__IN_MODE, true, false, true, null, null, null));
 	}
 
 	/**
@@ -142,15 +136,12 @@ public class ComponentInstanceItemProvider extends
 	 */
 	protected void addSubcomponentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ComponentInstance_subcomponent_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_subcomponent_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.COMPONENT_INSTANCE__SUBCOMPONENT,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.COMPONENT_INSTANCE__SUBCOMPONENT, true, false, true, null, null, null));
 	}
 
 	/**
@@ -162,14 +153,12 @@ public class ComponentInstanceItemProvider extends
 	protected void addIndexPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ComponentInstance_index_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_index_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.COMPONENT_INSTANCE__INDEX,
-						true, false, false,
+						InstancePackage.Literals.COMPONENT_INSTANCE__INDEX, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
@@ -182,24 +171,16 @@ public class ComponentInstanceItemProvider extends
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures
-					.add(InstancePackage.Literals.COMPONENT_INSTANCE__FEATURE_INSTANCE);
-			childrenFeatures
-					.add(InstancePackage.Literals.COMPONENT_INSTANCE__COMPONENT_INSTANCE);
-			childrenFeatures
-					.add(InstancePackage.Literals.COMPONENT_INSTANCE__MODE_INSTANCE);
-			childrenFeatures
-					.add(InstancePackage.Literals.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
-			childrenFeatures
-					.add(InstancePackage.Literals.COMPONENT_INSTANCE__FLOW_SPECIFICATION);
-			childrenFeatures
-					.add(InstancePackage.Literals.COMPONENT_INSTANCE__END_TO_END_FLOW);
-			childrenFeatures
-					.add(InstancePackage.Literals.COMPONENT_INSTANCE__CONNECTION_INSTANCE);
+			childrenFeatures.add(InstancePackage.Literals.COMPONENT_INSTANCE__FEATURE_INSTANCE);
+			childrenFeatures.add(InstancePackage.Literals.COMPONENT_INSTANCE__COMPONENT_INSTANCE);
+			childrenFeatures.add(InstancePackage.Literals.COMPONENT_INSTANCE__MODE_INSTANCE);
+			childrenFeatures.add(InstancePackage.Literals.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
+			childrenFeatures.add(InstancePackage.Literals.COMPONENT_INSTANCE__FLOW_SPECIFICATION);
+			childrenFeatures.add(InstancePackage.Literals.COMPONENT_INSTANCE__END_TO_END_FLOW);
+			childrenFeatures.add(InstancePackage.Literals.COMPONENT_INSTANCE__CONNECTION_INSTANCE);
 		}
 		return childrenFeatures;
 	}
@@ -231,19 +212,16 @@ public class ComponentInstanceItemProvider extends
 			name = cat.getLiteral();
 			int idx = name.indexOf(" ");
 			if (idx < 0) {
-				name = name.substring(0, 1).toUpperCase()
-						+ name.substring(1).toLowerCase() + ".gif";
+				name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + ".gif";
 			} else {
-				name = name.substring(0, 1).toUpperCase()
-						+ name.substring(1, idx).toLowerCase()
-						+ name.substring(idx + 1, idx + 2).toUpperCase()
-						+ name.substring(idx + 2).toLowerCase() + ".gif";
+				name = name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
+						+ name.substring(idx + 1, idx + 2).toUpperCase() + name.substring(idx + 2).toLowerCase()
+						+ ".gif";
 			}
 		}
 		if (object instanceof SystemInstance)
 			name = "System";
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/" + name)); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/" + name)); //$NON-NLS-1$
 	}
 
 	/**
@@ -275,8 +253,7 @@ public class ComponentInstanceItemProvider extends
 		switch (notification.getFeatureID(ComponentInstance.class)) {
 		case InstancePackage.COMPONENT_INSTANCE__CATEGORY:
 		case InstancePackage.COMPONENT_INSTANCE__INDEX:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
 		case InstancePackage.COMPONENT_INSTANCE__COMPONENT_INSTANCE:
@@ -285,8 +262,7 @@ public class ComponentInstanceItemProvider extends
 		case InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION:
 		case InstancePackage.COMPONENT_INSTANCE__END_TO_END_FLOW:
 		case InstancePackage.COMPONENT_INSTANCE__CONNECTION_INSTANCE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);

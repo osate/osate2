@@ -8,6 +8,28 @@
 
 
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.m2e.logback.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.help.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.rcp.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.e4.rcp.feature.group" version="0.0.0"/>
+
+<unit id="org.eclipse.graphiti.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.graphiti.feature.tools.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.0.0"/>
+
+<unit id="org.eclipse.egf.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.egf.core.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gmf.runtime.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.m2m.atl.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.m2m.atl.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.team.svn.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.team.svn.mylyn.feature.group" version="0.0.0"/>
@@ -26,17 +48,19 @@
 
 <repository location="http://download.eclipse.org/releases/kepler"/>
 </location>
-<location includeAllPlatforms="false" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.2.0.v20130604-2046"/>
-<unit id="org.eclipse.help.feature.group" version="2.0.0.v20130605-2000"/>
-<unit id="org.eclipse.platform.feature.group" version="4.3.0.v20130605-2000"/>
-<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.0.v20130521-0416"/>
-<unit id="org.eclipse.rcp.feature.group" version="4.3.0.v20130605-2000"/>
-<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.2.0.v20130604-2046"/>
-<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20130604-2046"/>
-<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20130604-2046"/>
 
-<repository location="jar:file:/tmp/org.eclipse.platform-4.3.zip!/"/>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="net.certware.feature.cae.feature.group" version="0.0.0"/>
+<unit id="net.certware.feature.arm.feature.group" version="0.0.0"/>
+<unit id="net.certware.feature.gsn.feature.group" version="0.0.0"/>
+<unit id="net.certware.feature.aml.feature.group" version="0.0.0"/>
+<repository location="http://raw.github.com/nasa/CertWare/master/net.certware.feature.updatesite"/>
+</location>
+
+
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.m2m.atl.emftvm.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/mmt/atl/updates/releases/3.4"/>
 </location>
 
 </locations>

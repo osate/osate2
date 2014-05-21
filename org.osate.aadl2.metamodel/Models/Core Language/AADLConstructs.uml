@@ -1125,6 +1125,7 @@ For access features, the classifier specifies the type of the shared component.<
         <generalization xmi:id="Features-PortFeature-_generalization.1">
           <general xmi:type="uml:Class" href="AADLDetails.uml#Connections-PortConnectionEnd"/>
         </generalization>
+        <generalization xmi:id="Modes-TriggerPort-_generalization.0" general="Modes-TriggerPort"/>
         <ownedAttribute xmi:id="Features-PortFeature-category" name="category" type="Features-PortCategory" isReadOnly="true" isDerived="true">
           <ownedComment xmi:id="Features-PortFeature-category-_ownedComment.0">
             <body>Specifies the category of the port.</body>
@@ -1232,6 +1233,7 @@ For access features, the classifier specifies the type of the shared component.<
           <body>A generic feature.</body>
         </ownedComment>
         <generalization xmi:id="Features-AbstractFeature-_generalization.0" general="_r3p5SJyLEd64G8zRE2nwuA"/>
+        <generalization xmi:id="_UmqLIK6zEeOaq6uNJTRf4A" general="Modes-TriggerPort"/>
         <ownedAttribute xmi:id="_LYb6hG6nEeGGmbyPbDXL2g" name="featurePrototype" type="Templates-FeaturePrototype" association="_LYb6gG6nEeGGmbyPbDXL2g">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LYb6hW6nEeGGmbyPbDXL2g" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LYb6hm6nEeGGmbyPbDXL2g"/>
@@ -1644,6 +1646,10 @@ For access features, the classifier specifies the type of the shared component.<
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#String"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_Wfg_PqL3EeOAWuPRjbhNhg" name="parsedAnnexLibrary" type="Extensibility-AnnexLibrary" aggregation="composite" association="_Wfg_OqL3EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Wfg_P6L3EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Wfg_QKL3EeOAWuPRjbhNhg"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Extensibility-DefaultAnnexSubclause" name="DefaultAnnexSubclause">
         <ownedComment xmi:id="_nUU6sBxoEd6iQOXbgKnisg">
@@ -1655,6 +1661,10 @@ For access features, the classifier specifies the type of the shared component.<
             <body>Specifies the source text of this annex subclause.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_CTeHPqL4EeOAWuPRjbhNhg" name="parsedAnnexSubclause" type="Extensibility-AnnexSubclause" aggregation="composite" association="_CTeHOqL4EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CTeHP6L4EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CTeHQKL4EeOAWuPRjbhNhg"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Extensibility-A_classifier_ownedAnnexSubclause" name="A_classifier_ownedAnnexSubclause" memberEnd="Extensibility-A_classifier_ownedAnnexSubclause-owner Extensibility-Classifier-ownedAnnexSubclause">
@@ -1685,6 +1695,18 @@ For access features, the classifier specifies the type of the shared component.<
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_Wfg_OqL3EeOAWuPRjbhNhg" name="A_defaultAnnexLibrary_parsedAnnexLibrary" memberEnd="_Wfg_O6L3EeOAWuPRjbhNhg _Wfg_PqL3EeOAWuPRjbhNhg">
+        <ownedEnd xmi:id="_Wfg_O6L3EeOAWuPRjbhNhg" name="owner" type="Extensibility-DefaultAnnexLibrary" association="_Wfg_OqL3EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Wfg_PKL3EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Wfg_PaL3EeOAWuPRjbhNhg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_CTeHOqL4EeOAWuPRjbhNhg" name="A_defaultAnnexSubclause_parsedAnnexSubclause" memberEnd="_CTeHO6L4EeOAWuPRjbhNhg _CTeHPqL4EeOAWuPRjbhNhg">
+        <ownedEnd xmi:id="_CTeHO6L4EeOAWuPRjbhNhg" name="owner" type="Extensibility-DefaultAnnexSubclause" association="_CTeHOqL4EeOAWuPRjbhNhg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CTeHPKL4EeOAWuPRjbhNhg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CTeHPaL4EeOAWuPRjbhNhg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Connections" name="Connections">
       <ownedComment xmi:id="Connections-_ownedComment.0">
@@ -1699,14 +1721,14 @@ For access features, the classifier specifies the type of the shared component.<
         </generalization>
         <generalization xmi:id="Connections-Connection-_generalization.1" general="Flows-FlowElement"/>
         <generalization xmi:id="Connections-Connection-_generalization.2" general="Modes-ModalPath"/>
-        <ownedAttribute xmi:id="Connections-Connection-destination" name="destination" type="_iT__cKl3EeCfxLim1SVFOg" aggregation="composite" association="Connections-A_connection_destination">
+        <ownedAttribute xmi:id="Connections-Connection-destination" name="destination" type="_9cVjIKjREeCoIp43xtd66A" aggregation="composite" association="Connections-A_connection_destination">
           <ownedComment xmi:id="Connections-Connection-destination-_ownedComment.0">
             <body>Specifies the destination end of the connection. This is the end written on the right hand side of the connection symbol in textual AADL.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-Connection-destination-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-Connection-destination-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Connections-Connection-source" name="source" type="_iT__cKl3EeCfxLim1SVFOg" aggregation="composite" association="Connections-A_connection_source">
+        <ownedAttribute xmi:id="Connections-Connection-source" name="source" type="_9cVjIKjREeCoIp43xtd66A" aggregation="composite" association="Connections-A_connection_source">
           <ownedComment xmi:id="Connections-Connection-source-_ownedComment.0">
             <body>Specifies the source end of the connection. This is the end written on the left hand side of the connection symbol in textual AADL.</body>
           </ownedComment>
@@ -1773,7 +1795,6 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_7rzc0KjVEeCoIp43xtd66A">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-        <generalization xmi:id="_suSNAKl3EeCfxLim1SVFOg" general="_iT__cKl3EeCfxLim1SVFOg"/>
         <ownedAttribute xmi:id="_Hb8RxKjQEeCoIp43xtd66A" name="context" type="Connections-Context" association="_Hb8RwKjQEeCoIp43xtd66A">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hb8RxajQEeCoIp43xtd66A" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hb8RxqjQEeCoIp43xtd66A"/>
@@ -1789,16 +1810,6 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QWNzM6jSEeCoIp43xtd66A"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_z-dokKjTEeCoIp43xtd66A" name="ElementName">
-        <generalization xmi:id="_XVSMMKjUEeCoIp43xtd66A" general="Connections-ConnectionEnd"/>
-        <ownedAttribute xmi:id="_HHPQQKjUEeCoIp43xtd66A" name="kind" type="_6zTZcKjTEeCoIp43xtd66A"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Enumeration" xmi:id="_6zTZcKjTEeCoIp43xtd66A" name="ElementNameKind">
-        <ownedLiteral xmi:id="_-fIyAKjTEeCoIp43xtd66A" name="InternalEvent"/>
-        <ownedLiteral xmi:id="_--b9IKjTEeCoIp43xtd66A" name="ProcessorPort"/>
-        <ownedLiteral xmi:id="__eFGgKjTEeCoIp43xtd66A" name="ProcessorSubprogram"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_iT__cKl3EeCfxLim1SVFOg" name="AbstractConnectionEnd" isAbstract="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Flows" name="Flows">
       <ownedComment xmi:id="Flows-_ownedComment.0">
@@ -2111,13 +2122,27 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-A_modeTransition_destination-transition-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Modes-ModeTransitionTrigger" name="ModeTransitionTrigger" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Modes-ModeTransitionTrigger" name="ModeTransitionTrigger">
         <ownedComment xmi:id="Modes-ModeTransitionTrigger-_ownedComment.0">
           <body>Mode transition triggers can cause a mode transition.</body>
         </ownedComment>
         <generalization xmi:id="Modes-ModeTransitionTrigger-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
+        <ownedAttribute xmi:id="Modes-TriggerPort-context" name="context" type="Connections-Context" association="Modes-A_triggerPort_portContext">
+          <ownedComment xmi:id="Modes-TriggerPort-context-_ownedComment.0">
+            <body>Specifies which instance of the port feature is the trigger.</body>
+          </ownedComment>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-TriggerPort-context-_upperValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-TriggerPort-context-_lowerValue"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="Modes-TriggerPort-port" name="triggerPort" type="Modes-TriggerPort" association="Modes-A_triggerPort_port">
+          <ownedComment xmi:id="Modes-TriggerPort-port-_ownedComment.0">
+            <body>Specifies the port feature of this trigger.</body>
+          </ownedComment>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-TriggerPort-port-_upperValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-TriggerPort-port-_lowerValue" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_modalElement_inMode" name="A_modalElement_inMode" memberEnd="Modes-A_modalElement_inMode-modalElement Modes-ModalElement-inMode">
         <ownedEnd xmi:id="Modes-A_modalElement_inMode-modalElement" name="modalElement" type="Modes-ModalElement" association="Modes-A_modalElement_inMode">
@@ -2167,34 +2192,22 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-A_modalPath_inTransition-modalPath-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Modes-TriggerPort" name="TriggerPort">
+      <packagedElement xmi:type="uml:Class" xmi:id="Modes-TriggerPort" name="TriggerPort" isAbstract="true">
         <ownedComment xmi:id="Modes-TriggerPort-_ownedComment.0">
           <body>An instance of a port feature that may trigger a mode transition.</body>
         </ownedComment>
-        <generalization xmi:id="Modes-TriggerPort-_generalization.0" general="Modes-ModeTransitionTrigger"/>
-        <ownedAttribute xmi:id="Modes-TriggerPort-context" name="context" type="Connections-Context" association="Modes-A_triggerPort_portContext">
-          <ownedComment xmi:id="Modes-TriggerPort-context-_ownedComment.0">
-            <body>Specifies which instance of the port feature is the trigger.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-TriggerPort-context-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-TriggerPort-context-_lowerValue"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="Modes-TriggerPort-port" name="port" type="Features-PortFeature" association="Modes-A_triggerPort_port">
-          <ownedComment xmi:id="Modes-TriggerPort-port-_ownedComment.0">
-            <body>Specifies the port feature of this trigger.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-TriggerPort-port-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-TriggerPort-port-_lowerValue" value="1"/>
-        </ownedAttribute>
+        <generalization xmi:id="_Y6DNEJKSEeO5Lue1De_zsQ">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_triggerPort_portContext" name="A_triggerPort_portContext" memberEnd="Modes-A_triggerPort_portContext-triggerPort Modes-TriggerPort-context">
-        <ownedEnd xmi:id="Modes-A_triggerPort_portContext-triggerPort" name="triggerPort" type="Modes-TriggerPort" association="Modes-A_triggerPort_portContext">
+      <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_triggerPort_portContext" name="A_modeTransitionTrigger_context" memberEnd="Modes-A_triggerPort_portContext-triggerPort Modes-TriggerPort-context">
+        <ownedEnd xmi:id="Modes-A_triggerPort_portContext-triggerPort" name="triggerPort" type="Modes-ModeTransitionTrigger" association="Modes-A_triggerPort_portContext">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-A_triggerPort_portContext-triggerPort-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-A_triggerPort_portContext-triggerPort-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_triggerPort_port" name="A_triggerPort_port" memberEnd="Modes-A_triggerPort_port-triggerPort Modes-TriggerPort-port">
-        <ownedEnd xmi:id="Modes-A_triggerPort_port-triggerPort" name="triggerPort" type="Modes-TriggerPort" association="Modes-A_triggerPort_port">
+      <packagedElement xmi:type="uml:Association" xmi:id="Modes-A_triggerPort_port" name="A_nodeTransitionTrigger_triggerPort" memberEnd="Modes-A_triggerPort_port-triggerPort Modes-TriggerPort-port">
+        <ownedEnd xmi:id="Modes-A_triggerPort_port-triggerPort" name="modeTransitionTrigger" type="Modes-ModeTransitionTrigger" association="Modes-A_triggerPort_port">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Modes-A_triggerPort_port-triggerPort-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Modes-A_triggerPort_port-triggerPort-_lowerValue"/>
         </ownedEnd>

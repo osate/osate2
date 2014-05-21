@@ -45,7 +45,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.BehavioredImplementation#getCallSpecifications <em>Call Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.BehavioredImplementation#getSubprogramCalls <em>Subprogram Call</em>}</li>
  *   <li>{@link org.osate.aadl2.BehavioredImplementation#getOwnedSubprogramCallSequences <em>Owned Subprogram Call Sequence</em>}</li>
  * </ul>
  * </p>
@@ -56,8 +56,8 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface BehavioredImplementation extends ComponentImplementation {
 	/**
-	 * Returns the value of the '<em><b>Call Specification</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.CallSpecification}.
+	 * Returns the value of the '<em><b>Subprogram Call</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.SubprogramCall}.
 	 * <p>
 	 * This feature subsets the following features:
 	 * <ul>
@@ -66,16 +66,16 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Call Specification</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Subprogram Call</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Call Specification</em>' reference list.
-	 * @see org.osate.aadl2.Aadl2Package#getBehavioredImplementation_CallSpecification()
+	 * @return the value of the '<em>Subprogram Call</em>' reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getBehavioredImplementation_SubprogramCall()
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	EList<CallSpecification> getCallSpecifications();
+	EList<SubprogramCall> getSubprogramCalls();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Subprogram Call Sequence</b></em>' containment reference list.
@@ -119,6 +119,6 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * @model ordered="false"
 	 * @generated
 	 */
-	EList<CallSpecification> callSpecifications();
+	EList<SubprogramCall> subprogramCalls();
 
 } // BehavioredImplementation

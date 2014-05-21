@@ -78,9 +78,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -93,6 +94,8 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
@@ -109,7 +112,6 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.InternalEvent;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
@@ -121,9 +123,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessorPort;
 import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubprogram;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
@@ -146,6 +146,7 @@ import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.parsesupport.AObject;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
@@ -1873,22 +1874,14 @@ public final class AadlUtil {
 		return pt;
 	}
 
-	public static String getConnectionEndName(AbstractConnectionEnd end) {
-		if (end instanceof ConnectedElement) {
-			ConnectedElement ce = (ConnectedElement) end;
-			Context cxt = ce.getContext();
-			ConnectionEnd cend = ce.getConnectionEnd();
-			if (cxt != null) {
-				return cxt.getName() + '.' + cend.getName();
-			} else {
-				return cend.getName();
-			}
-		} else if (end instanceof ProcessorPort || end instanceof ProcessorSubprogram) {
-			return "processor." + ((NamedElement) end).getName();
-		} else if (end instanceof InternalEvent) {
-			return "self." + ((NamedElement) end).getName();
+	public static String getConnectionEndName(ConnectedElement ce) {
+		Context cxt = ce.getContext();
+		ConnectionEnd cend = ce.getConnectionEnd();
+		if (cxt != null) {
+			return cxt.getName() + '.' + cend.getName();
+		} else {
+			return cend.getName();
 		}
-		return "<?>";
 	}
 
 	public static String getFlowEndName(FlowEnd end) {
@@ -1922,21 +1915,13 @@ public final class AadlUtil {
 	}
 
 	public static String getModeTransitionTriggerName(ModeTransitionTrigger end) {
-		if (end instanceof TriggerPort) {
-			TriggerPort ce = (TriggerPort) end;
-			Context cxt = ce.getContext();
-			Port cend = ce.getPort();
-			if (cxt != null) {
-				return cxt.getName() + '.' + cend.getName();
-			} else {
-				return cend.getName();
-			}
-		} else if (end instanceof ProcessorPort) {
-			return "processor." + ((NamedElement) end).getName();
-		} else if (end instanceof InternalEvent) {
-			return "self." + ((NamedElement) end).getName();
+		Context cxt = end.getContext();
+		TriggerPort ce = end.getTriggerPort();
+		if (cxt != null) {
+			return cxt.getName() + '.' + ce.getName();
+		} else {
+			return ce.getName();
 		}
-		return "<?>";
 	}
 
 	public static NamedElement getContainingAnnex(EObject obj) {
@@ -2175,50 +2160,6 @@ public final class AadlUtil {
 		return false;
 	}
 
-	/*
-	 * retrieve all annex subclauses of a given name that belong to a Classifier.
-	 * The list contains the subclause (if any) of the classifier and the subclause of any classifier being extended.
-	 * Note that each classifier can only have one 
-	 */
-	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl, String annexName) {
-		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
-		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
-			final Classifier current = i.previous();
-			EList<AnnexSubclause> asclist = AadlUtil.findAnnexSubclause(current, annexName);
-			result.addAll(asclist);
-		}
-		return result;
-	}
-
-	@SuppressWarnings("unchecked")
-	/**
-	 * returns all subclauses whose names match. Note that a classifier can have multiple subclauses of the same annex if each subclause is mode specific.
-	 * @param annexName
-	 * @param c
-	 * @return EList<AnnexSubclause>
-	 */
-	public static EList<AnnexSubclause> findAnnexSubclause(Classifier c, String annexName) {
-		return (EList) findNamedElementsInList(c.getOwnedAnnexSubclauses(), annexName);
-	}
-
-	public static AnnexLibrary findPublicAnnexLibrary(AadlPackage p, String annexName) {
-		PackageSection ps = p.getOwnedPublicSection();
-		AnnexLibrary res = null;
-		if (ps != null) {
-			res = (AnnexLibrary) findNamedElementInList(ps.getOwnedAnnexLibraries(), annexName);
-		}
-		return res;
-	}
-
-	public static AnnexLibrary findPrivateAnnexLibrary(AadlPackage p, String annexName) {
-		PackageSection ps = p.getOwnedPrivateSection();
-		AnnexLibrary res = null;
-		if (ps != null) {
-			res = (AnnexLibrary) findNamedElementInList(ps.getOwnedAnnexLibraries(), annexName);
-		}
-		return res;
-	}
 
 	public static boolean isComplete(ConnectionInstance conni) {
 		ConnectionInstanceEnd srcEnd = conni.getSource();
@@ -2257,5 +2198,47 @@ public final class AadlUtil {
 		IPath path = OsateResourceUtil.getOsatePath(uri);
 		return path.removeLastSegments(1);
 	}
+	
+	/**
+	 * get the line number for a given model object in the core model
+	 * This method makes use of the Xtext parse tree.
+	 * @return line number or zero
+	 */
+	public static int getLineNumberFor(EObject obj)	{
+		if (obj == null) return 0;
+		if (obj instanceof AObject){
+			LocationReference locref = ((AObject)obj).getLocationReference();
+			if (locref != null){
+				return locref.getLine();
+			}
+		}
+		INode node = NodeModelUtils.findActualNodeFor(obj);
+		if (node != null){
+			return node.getStartLine();
+		} else {
+			EObject defaultannex = getContainingDefaultAnnex(obj);
+			if (defaultannex != null){
+				node = NodeModelUtils.findActualNodeFor(obj);
+				if (node != null){
+					return node.getStartLine();
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * find the enclosing default annex subclause of library, otherwise return null
+	 * @param obj
+	 * @return
+	 */
+	public static EObject getContainingDefaultAnnex(EObject obj){
+		EObject res = obj;
+		while (res != null && !(res instanceof DefaultAnnexSubclause) && !(res instanceof DefaultAnnexLibrary)) {
+			res = res.eContainer();
+		}
+		return res;
+	}
+
 
 }

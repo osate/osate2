@@ -116,7 +116,7 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedCallSpecification());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedSubprogramCall());
 		}
 		return childrenFeatures;
 	}
@@ -170,7 +170,7 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(SubprogramCallSequence.class)) {
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -189,11 +189,7 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedCallSpecification(),
-				Aadl2Factory.eINSTANCE.createProcessorCall()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedCallSpecification(),
+				Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedSubprogramCall(),
 				Aadl2Factory.eINSTANCE.createSubprogramCall()));
 	}
 

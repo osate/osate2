@@ -52,7 +52,6 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.Prototype;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -155,10 +154,13 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
+		if (newFormal != null && !((EObject)newFormal).eIsProxy() && !(newFormal instanceof ComponentPrototype)) {
+			throw new IllegalArgumentException("newFormal must be an instance of ComponentPrototype");
+		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
@@ -245,6 +247,8 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL:
 			return actuals != null && !actuals.isEmpty();
+		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__FORMAL:
+			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

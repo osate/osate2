@@ -36,14 +36,8 @@
  */
 package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.Port;
 import org.osate.aadl2.TriggerPort;
 
 /**
@@ -51,36 +45,11 @@ import org.osate.aadl2.TriggerPort;
  * An implementation of the model object '<em><b>Trigger Port</b></em>'.
  * <!-- end-user-doc -->
  * <p>
- * The following features are implemented:
- * <ul>
- *   <li>{@link org.osate.aadl2.impl.TriggerPortImpl#getContext <em>Context</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.TriggerPortImpl#getPort <em>Port</em>}</li>
- * </ul>
  * </p>
  *
  * @generated
  */
-public class TriggerPortImpl extends ModeTransitionTriggerImpl implements TriggerPort {
-	/**
-	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContext()
-	 * @generated
-	 * @ordered
-	 */
-	protected Context context;
-
-	/**
-	 * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPort()
-	 * @generated
-	 * @ordered
-	 */
-	protected Port port;
-
+public abstract class TriggerPortImpl extends NamedElementImpl implements TriggerPort {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -98,157 +67,6 @@ public class TriggerPortImpl extends ModeTransitionTriggerImpl implements Trigge
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getTriggerPort();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Context getContext() {
-		if (context != null && ((EObject) context).eIsProxy()) {
-			InternalEObject oldContext = (InternalEObject) context;
-			context = (Context) eResolveProxy(oldContext);
-			if (context != oldContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TRIGGER_PORT__CONTEXT,
-							oldContext, context));
-			}
-		}
-		return context;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Context basicGetContext() {
-		return context;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setContext(Context newContext) {
-		Context oldContext = context;
-		context = newContext;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TRIGGER_PORT__CONTEXT, oldContext,
-					context));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Port getPort() {
-		if (port != null && ((EObject) port).eIsProxy()) {
-			InternalEObject oldPort = (InternalEObject) port;
-			port = (Port) eResolveProxy(oldPort);
-			if (port != oldPort) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TRIGGER_PORT__PORT, oldPort,
-							port));
-			}
-		}
-		return port;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Port basicGetPort() {
-		return port;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPort(Port newPort) {
-		Port oldPort = port;
-		port = newPort;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TRIGGER_PORT__PORT, oldPort, port));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case Aadl2Package.TRIGGER_PORT__CONTEXT:
-			if (resolve)
-				return getContext();
-			return basicGetContext();
-		case Aadl2Package.TRIGGER_PORT__PORT:
-			if (resolve)
-				return getPort();
-			return basicGetPort();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case Aadl2Package.TRIGGER_PORT__CONTEXT:
-			setContext((Context) newValue);
-			return;
-		case Aadl2Package.TRIGGER_PORT__PORT:
-			setPort((Port) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.TRIGGER_PORT__CONTEXT:
-			setContext((Context) null);
-			return;
-		case Aadl2Package.TRIGGER_PORT__PORT:
-			setPort((Port) null);
-			return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.TRIGGER_PORT__CONTEXT:
-			return context != null;
-		case Aadl2Package.TRIGGER_PORT__PORT:
-			return port != null;
-		}
-		return super.eIsSet(featureID);
 	}
 
 } // TriggerPortImpl

@@ -47,8 +47,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.SubprogramAccess;
@@ -318,6 +318,8 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.DATA_TYPE__OWNED_FEATURE:
+			return isSetOwnedFeatures();
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
 			return ownedSubprogramAccesses != null && !ownedSubprogramAccesses.isEmpty();
 		case Aadl2Package.DATA_TYPE__OWNED_DATA_ACCESS:

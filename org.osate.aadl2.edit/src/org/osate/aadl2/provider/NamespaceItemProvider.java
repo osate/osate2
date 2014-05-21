@@ -79,9 +79,26 @@ public class NamespaceItemProvider extends NamedElementItemProvider implements I
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addOwnedMemberPropertyDescriptor(object);
 			addMemberPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Owned Member feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOwnedMemberPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_Namespace_ownedMember_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Namespace_ownedMember_feature",
+						"_UI_Namespace_type"), Aadl2Package.eINSTANCE.getNamespace_OwnedMember(), false, false, false,
+				null, null, null));
 	}
 
 	/**

@@ -64,8 +64,8 @@ import org.osate.aadl2.instance.util.InstanceAdapterFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
-		implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
+public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory implements ComposeableAdapterFactory,
+		IChangeNotifier, IDisposable {
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->
@@ -144,8 +144,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createConnectionInstanceAdapter() {
 		if (connectionInstanceItemProvider == null) {
-			connectionInstanceItemProvider = new ConnectionInstanceItemProvider(
-					this);
+			connectionInstanceItemProvider = new ConnectionInstanceItemProvider(this);
 		}
 
 		return connectionInstanceItemProvider;
@@ -168,8 +167,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createSystemOperationModeAdapter() {
 		if (systemOperationModeItemProvider == null) {
-			systemOperationModeItemProvider = new SystemOperationModeItemProvider(
-					this);
+			systemOperationModeItemProvider = new SystemOperationModeItemProvider(this);
 		}
 
 		return systemOperationModeItemProvider;
@@ -215,8 +213,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createModeTransitionInstanceAdapter() {
 		if (modeTransitionInstanceItemProvider == null) {
-			modeTransitionInstanceItemProvider = new ModeTransitionInstanceItemProvider(
-					this);
+			modeTransitionInstanceItemProvider = new ModeTransitionInstanceItemProvider(this);
 		}
 
 		return modeTransitionInstanceItemProvider;
@@ -239,8 +236,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createConnectionReferenceAdapter() {
 		if (connectionReferenceItemProvider == null) {
-			connectionReferenceItemProvider = new ConnectionReferenceItemProvider(
-					this);
+			connectionReferenceItemProvider = new ConnectionReferenceItemProvider(this);
 		}
 
 		return connectionReferenceItemProvider;
@@ -263,8 +259,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createComponentInstanceAdapter() {
 		if (componentInstanceItemProvider == null) {
-			componentInstanceItemProvider = new ComponentInstanceItemProvider(
-					this);
+			componentInstanceItemProvider = new ComponentInstanceItemProvider(this);
 		}
 
 		return componentInstanceItemProvider;
@@ -287,8 +282,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createFlowSpecificationInstanceAdapter() {
 		if (flowSpecificationInstanceItemProvider == null) {
-			flowSpecificationInstanceItemProvider = new FlowSpecificationInstanceItemProvider(
-					this);
+			flowSpecificationInstanceItemProvider = new FlowSpecificationInstanceItemProvider(this);
 		}
 
 		return flowSpecificationInstanceItemProvider;
@@ -311,8 +305,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createEndToEndFlowInstanceAdapter() {
 		if (endToEndFlowInstanceItemProvider == null) {
-			endToEndFlowInstanceItemProvider = new EndToEndFlowInstanceItemProvider(
-					this);
+			endToEndFlowInstanceItemProvider = new EndToEndFlowInstanceItemProvider(this);
 		}
 
 		return endToEndFlowInstanceItemProvider;
@@ -358,8 +351,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	@Override
 	public Adapter createInstanceReferenceValueAdapter() {
 		if (instanceReferenceValueItemProvider == null) {
-			instanceReferenceValueItemProvider = new InstanceReferenceValueItemProvider(
-					this);
+			instanceReferenceValueItemProvider = new InstanceReferenceValueItemProvider(this);
 		}
 
 		return instanceReferenceValueItemProvider;
@@ -372,8 +364,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * @generated
 	 */
 	public ComposeableAdapterFactory getRootAdapterFactory() {
-		return parentAdapterFactory == null ? this : parentAdapterFactory
-				.getRootAdapterFactory();
+		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
 	/**
@@ -382,8 +373,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParentAdapterFactory(
-			ComposedAdapterFactory parentAdapterFactory) {
+	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
 		this.parentAdapterFactory = parentAdapterFactory;
 	}
 
@@ -417,8 +407,7 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class<?>)
-					|| (((Class<?>) type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>) type).isInstance(adapter))) {
 				return adapter;
 			}
 		}

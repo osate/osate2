@@ -14,11 +14,11 @@ public final class ARINC653 {
 	
 	public static final String MODULE_MAJOR_FRAME = "Module_Major_Frame";
 	
-	public static final String CRITICALITY = "Criticality";
-	public static final String CRITICALITY_LEVEL_A = "LEVEL_A";
-	public static final String CRITICALITY_LEVEL_B = "LEVEL_B";
-	public static final String CRITICALITY_LEVEL_C = "LEVEL_C";
-	public static final String CRITICALITY_LEVEL_D = "LEVEL_D";
-	public static final String CRITICALITY_LEVEL_E = "LEVEL_E";
+	public static final String DAL = "DAL";
+	public static final String DAL_LEVEL_A = "LEVEL_A";
+	public static final String DAL_LEVEL_B = "LEVEL_B";
+	public static final String DAL_LEVEL_C = "LEVEL_C";
+	public static final String DAL_LEVEL_D = "LEVEL_D";
+	public static final String DAL_LEVEL_E = "LEVEL_E";
 
 }

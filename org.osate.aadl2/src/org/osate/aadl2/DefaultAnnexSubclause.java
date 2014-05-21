@@ -35,6 +35,8 @@
  */
 package org.osate.aadl2;
 
+import org.eclipse.emf.ecore.EClass;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Default Annex Subclause</b></em>'.
@@ -44,6 +46,7 @@ package org.osate.aadl2;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.DefaultAnnexSubclause#getSourceText <em>Source Text</em>}</li>
+ *   <li>{@link org.osate.aadl2.DefaultAnnexSubclause#getParsedAnnexSubclause <em>Parsed Annex Subclause</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +80,52 @@ public interface DefaultAnnexSubclause extends AnnexSubclause {
 	 * @generated
 	 */
 	void setSourceText(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Parsed Annex Subclause</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parsed Annex Subclause</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parsed Annex Subclause</em>' containment reference.
+	 * @see #setParsedAnnexSubclause(AnnexSubclause)
+	 * @see org.osate.aadl2.Aadl2Package#getDefaultAnnexSubclause_ParsedAnnexSubclause()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	AnnexSubclause getParsedAnnexSubclause();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.DefaultAnnexSubclause#getParsedAnnexSubclause <em>Parsed Annex Subclause</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parsed Annex Subclause</em>' containment reference.
+	 * @see #getParsedAnnexSubclause()
+	 * @generated
+	 */
+	void setParsedAnnexSubclause(AnnexSubclause value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.AnnexSubclause} and sets the '<em><b>Parsed Annex Subclause</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.AnnexSubclause} to create.
+	 * @return The new {@link org.osate.aadl2.AnnexSubclause}.
+	 * @see #getParsedAnnexSubclause()
+	 * @generated
+	 */
+	AnnexSubclause createParsedAnnexSubclause(EClass eClass);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.DefaultAnnexSubclause} and sets the '<em><b>Parsed Annex Subclause</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.DefaultAnnexSubclause}.
+	 * @see #getParsedAnnexSubclause()
+	 * @generated
+	 */
+	AnnexSubclause createParsedAnnexSubclause();
 
 } // DefaultAnnexSubclause

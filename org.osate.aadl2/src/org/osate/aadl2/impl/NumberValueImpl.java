@@ -43,9 +43,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.operations.NumberValueOperations;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.UnitsType;
 
 /**
  * <!-- begin-user-doc -->
