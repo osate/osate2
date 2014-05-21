@@ -8,5 +8,5 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
 public interface AnnexContentAssist {
-	public List<String> callAnnexContentAssist(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor);
+	public List<String> annexCompletionSuggestions(EObject defaultAnnex, int offset);
 }

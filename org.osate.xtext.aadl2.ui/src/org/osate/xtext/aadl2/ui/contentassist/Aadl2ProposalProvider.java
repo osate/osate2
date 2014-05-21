@@ -72,7 +72,7 @@ public class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 				if (annexContentAssistRegistry != null){
 					AnnexContentAssist contentAssist = annexContentAssistRegistry.getAnnexContentAssist(annexName);
 					if (contentAssist != null){
-						List<String> results = contentAssist.callAnnexContentAssist(model, assignment, context, acceptor);
+						List<String> results = contentAssist.annexCompletionSuggestions(model, context.getOffset());
 						super.completeDefaultAnnexLibrary_SourceText(model, assignment, context, acceptor);
 						String prefix = context.getPrefix();
 						

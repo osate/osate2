@@ -34,12 +34,10 @@ public class AnnexContentAssistProxy extends AnnexProxy implements
 	}
 
 	@Override
-	public List<String> callAnnexContentAssist(EObject model, Assignment assignment,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	public List<String> annexCompletionSuggestions(EObject defaultAnnex,
+			int offset) {
 		contentAssist = getContentAssist();
-		List<String> results = contentAssist.callAnnexContentAssist(model, assignment, context, acceptor);
-		
-		return results;
+		return contentAssist.annexCompletionSuggestions(defaultAnnex, offset);
 	}
 
 }
