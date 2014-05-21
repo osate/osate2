@@ -34,9 +34,46 @@
 */
 package org.osate.xtext.aadl2.ui.contentassist;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.annexsupport.AnnexContentAssist;
+import org.osate.annexsupport.AnnexContentAssistRegistry;
+import org.osate.annexsupport.AnnexRegistry;
+
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 public class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
+	
+	AnnexContentAssistRegistry annexContentAssistRegistry ;
+	
+	protected void initAnnexContentAssistRegistry(){
+		if (annexContentAssistRegistry == null){
+		annexContentAssistRegistry = (AnnexContentAssistRegistry) AnnexRegistry
+				.getRegistry(AnnexRegistry.ANNEX_CONTENT_ASSIST_EXT_ID);
+		}
+	}
+	
+	
+	@Override
+	public void completeDefaultAnnexLibrary_SourceText(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		NamedElement annex = AadlUtil.getContainingAnnex(model);
+		if (annex != null){
+			String annexName = annex.getName();
+			if (annexName != null ){ 
+				if (annexContentAssistRegistry == null) initAnnexContentAssistRegistry();
+				if (annexContentAssistRegistry != null){
+					AnnexContentAssist contentAssist = annexContentAssistRegistry.getAnnexContentAssist(annexName);
+					if (contentAssist != null){
+						contentAssist.callAnnexContentAssist(model, assignment, context, acceptor);
+					}
+				}
+			}
+		}
+	}
 
 }
