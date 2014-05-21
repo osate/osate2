@@ -34,7 +34,10 @@
 */
 package org.osate.xtext.aadl2.ui.contentassist;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
@@ -69,7 +72,15 @@ public class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 				if (annexContentAssistRegistry != null){
 					AnnexContentAssist contentAssist = annexContentAssistRegistry.getAnnexContentAssist(annexName);
 					if (contentAssist != null){
-						contentAssist.callAnnexContentAssist(model, assignment, context, acceptor);
+						List<String> results = contentAssist.callAnnexContentAssist(model, assignment, context, acceptor);
+						super.completeDefaultAnnexLibrary_SourceText(model, assignment, context, acceptor);
+						String prefix = context.getPrefix();
+						
+						for(String res : results){
+							StyledString display = new StyledString(res);
+							String replace = prefix + res;
+							acceptor.accept(createCompletionProposal(replace, display, null, context));
+						}
 					}
 				}
 			}

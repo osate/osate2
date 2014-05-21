@@ -1,5 +1,7 @@
 package org.osate.annexsupport;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.Assignment;
@@ -32,11 +34,12 @@ public class AnnexContentAssistProxy extends AnnexProxy implements
 	}
 
 	@Override
-	public void callAnnexContentAssist(EObject model, Assignment assignment,
+	public List<String> callAnnexContentAssist(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		contentAssist = getContentAssist();
-		contentAssist.callAnnexContentAssist(model, assignment, context, acceptor);
+		List<String> results = contentAssist.callAnnexContentAssist(model, assignment, context, acceptor);
 		
+		return results;
 	}
 
 }
