@@ -72,7 +72,7 @@ public class OsateResourceUtil {
 
 
 	private static boolean DEBUG = true;
-
+  public static boolean USES_GUI = true;
 	public static final String PLUGIN_RESOURCES_DIRECTORY_NAME = "Plugin_Resources";
 
     
@@ -93,7 +93,7 @@ public class OsateResourceUtil {
     		}
     	}
 //        PredeclaredProperties.initPluginContributedAadl();
-    	if(Platform.isRunning())
+    	if(USES_GUI)
     	{
     		if (fResourceSetProvider == null)
     			fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
