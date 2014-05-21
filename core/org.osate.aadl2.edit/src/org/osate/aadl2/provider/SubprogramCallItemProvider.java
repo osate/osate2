@@ -56,7 +56,7 @@ import org.osate.aadl2.SubprogramCall;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramCallItemProvider extends CallSpecificationItemProvider implements IEditingDomainItemProvider,
+public class SubprogramCallItemProvider extends BehavioralFeatureItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

@@ -49,7 +49,6 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.parsesupport.ParseUtil;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->

@@ -97,6 +97,7 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryType_OwnedBusAccess());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryType_OwnedDataPort());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryType_OwnedEventDataPort());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryType_OwnedEventPort());
@@ -153,6 +154,7 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(MemoryType.class)) {
+		case Aadl2Package.MEMORY_TYPE__OWNED_BUS_ACCESS:
 		case Aadl2Package.MEMORY_TYPE__OWNED_DATA_PORT:
 		case Aadl2Package.MEMORY_TYPE__OWNED_EVENT_DATA_PORT:
 		case Aadl2Package.MEMORY_TYPE__OWNED_EVENT_PORT:
@@ -172,6 +174,9 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryType_OwnedBusAccess(),
+				Aadl2Factory.eINSTANCE.createBusAccess()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryType_OwnedDataPort(),
 				Aadl2Factory.eINSTANCE.createDataPort()));

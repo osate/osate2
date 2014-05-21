@@ -35,279 +35,27 @@
  */
 package org.osate.aadl2.util;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EObjectValidator;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlBoolean;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AadlReal;
-import org.osate.aadl2.AadlString;
-import org.osate.aadl2.Abstract;
-import org.osate.aadl2.AbstractClassifier;
-import org.osate.aadl2.AbstractConnectionEnd;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractNamedValue;
-import org.osate.aadl2.AbstractPrototype;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.AbstractSubcomponentType;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessCategory;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessConnectionEnd;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.ArrayDimension;
-import org.osate.aadl2.ArrayRange;
-import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.ArraySizeProperty;
-import org.osate.aadl2.ArrayableElement;
-import org.osate.aadl2.BasicProperty;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.BehavioralFeature;
-import org.osate.aadl2.BehavioredImplementation;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.Bus;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusClassifier;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusPrototype;
-import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.BusSubcomponentType;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.CallContext;
-import org.osate.aadl2.CallSpecification;
-import org.osate.aadl2.CalledSubprogram;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
-import org.osate.aadl2.ClassifierType;
-import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.Comment;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentImplementationReference;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.Data;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataSubcomponentType;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Device;
-import org.osate.aadl2.DeviceClassifier;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DevicePrototype;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DeviceSubcomponentType;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.DirectedFeature;
-import org.osate.aadl2.DirectedRelationship;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.ElementName;
-import org.osate.aadl2.ElementNameKind;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowElement;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureClassifier;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureConnectionEnd;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupConnectionEnd;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeatureGroupTypeRename;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeActual;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.FeatureType;
-import org.osate.aadl2.Flow;
-import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowEnd;
-import org.osate.aadl2.FlowFeature;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.Generalization;
-import org.osate.aadl2.GlobalNamespace;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalEvent;
-import org.osate.aadl2.ListType;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.Memory;
-import org.osate.aadl2.MemoryClassifier;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemoryPrototype;
-import org.osate.aadl2.MemorySubcomponent;
-import org.osate.aadl2.MemorySubcomponentType;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.MetaclassReference;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.ModalPath;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeBinding;
-import org.osate.aadl2.ModeFeature;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.Namespace;
-import org.osate.aadl2.NonListType;
-import org.osate.aadl2.NumberType;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.NumericRange;
-import org.osate.aadl2.Operation;
-import org.osate.aadl2.OperationKind;
-import org.osate.aadl2.PackageRename;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.ParameterConnectionEnd;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.PortCategory;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortConnectionEnd;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.ProcessClassifier;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessPrototype;
-import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessSubcomponentType;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.Processor;
-import org.osate.aadl2.ProcessorCall;
-import org.osate.aadl2.ProcessorClassifier;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorPort;
-import org.osate.aadl2.ProcessorPrototype;
-import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubcomponentType;
-import org.osate.aadl2.ProcessorSubprogram;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.PropertyOwner;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.PropertyValue;
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeType;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.RecordField;
-import org.osate.aadl2.RecordType;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.ReferenceType;
-import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.Relationship;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.StructuralFeature;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentType;
-import org.osate.aadl2.Subprogram;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.SubprogramClassifier;
-import org.osate.aadl2.SubprogramGroup;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupClassifier;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupPrototype;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupSubcomponentType;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramSubcomponentType;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemClassifier;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemPrototype;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.SystemSubcomponentType;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadClassifier;
-import org.osate.aadl2.ThreadGroupClassifier;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupPrototype;
-import org.osate.aadl2.ThreadGroupSubcomponent;
-import org.osate.aadl2.ThreadGroupSubcomponentType;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadPrototype;
-import org.osate.aadl2.ThreadSubcomponent;
-import org.osate.aadl2.ThreadSubcomponentType;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.TypedElement;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.VirtualBus;
-import org.osate.aadl2.VirtualBusClassifier;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusPrototype;
-import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VirtualBusSubcomponentType;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessor;
-import org.osate.aadl2.VirtualProcessorClassifier;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorPrototype;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
-import org.osate.aadl2.VirtualProcessorSubcomponentType;
-import org.osate.aadl2.VirtualProcessorType;
+import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.osate.aadl2.*;
+import org.osate.aadl2.Process;
+import org.osate.aadl2.System;
+import org.osate.aadl2.Thread;
+import org.osate.aadl2.ThreadGroup;
 
 /**
  * <!-- begin-user-doc -->
@@ -533,6 +281,10 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateModeTransition((ModeTransition) value, diagnostics, context);
 		case Aadl2Package.MODE_TRANSITION_TRIGGER:
 			return validateModeTransitionTrigger((ModeTransitionTrigger) value, diagnostics, context);
+		case Aadl2Package.CONTEXT:
+			return validateContext((Context) value, diagnostics, context);
+		case Aadl2Package.TRIGGER_PORT:
+			return validateTriggerPort((TriggerPort) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_TYPE:
 			return validateComponentType((ComponentType) value, diagnostics, context);
 		case Aadl2Package.FEATURE:
@@ -557,8 +309,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateEndToEndFlowElement((EndToEndFlowElement) value, diagnostics, context);
 		case Aadl2Package.FLOW_END:
 			return validateFlowEnd((FlowEnd) value, diagnostics, context);
-		case Aadl2Package.CONTEXT:
-			return validateContext((Context) value, diagnostics, context);
 		case Aadl2Package.TYPE_EXTENSION:
 			return validateTypeExtension((TypeExtension) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP:
@@ -634,8 +384,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFlowSegment((FlowSegment) value, diagnostics, context);
 		case Aadl2Package.CONNECTION:
 			return validateConnection((Connection) value, diagnostics, context);
-		case Aadl2Package.ABSTRACT_CONNECTION_END:
-			return validateAbstractConnectionEnd((AbstractConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
 			return validateImplementationExtension((ImplementationExtension) value, diagnostics, context);
 		case Aadl2Package.REALIZATION:
@@ -660,18 +410,24 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFeatureConnection((FeatureConnection) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
 			return validateFeatureGroupConnection((FeatureGroupConnection) value, diagnostics, context);
-		case Aadl2Package.CONNECTED_ELEMENT:
-			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
-		case Aadl2Package.ELEMENT_NAME:
-			return validateElementName((ElementName) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_FEATURE:
+			return validateProcessorFeature((ProcessorFeature) value, diagnostics, context);
+		case Aadl2Package.INTERNAL_FEATURE:
+			return validateInternalFeature((InternalFeature) value, diagnostics, context);
+		case Aadl2Package.EVENT_SOURCE:
+			return validateEventSource((EventSource) value, diagnostics, context);
+		case Aadl2Package.EVENT_DATA_SOURCE:
+			return validateEventDataSource((EventDataSource) value, diagnostics, context);
+		case Aadl2Package.PORT_PROXY:
+			return validatePortProxy((PortProxy) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_PROXY:
+			return validateSubprogramProxy((SubprogramProxy) value, diagnostics, context);
 		case Aadl2Package.ANNEX_LIBRARY:
 			return validateAnnexLibrary((AnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return validateDefaultAnnexLibrary((DefaultAnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
 			return validateDefaultAnnexSubclause((DefaultAnnexSubclause) value, diagnostics, context);
-		case Aadl2Package.TRIGGER_PORT:
-			return validateTriggerPort((TriggerPort) value, diagnostics, context);
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
 			return validatePublicPackageSection((PublicPackageSection) value, diagnostics, context);
 		case Aadl2Package.PACKAGE_SECTION:
@@ -708,14 +464,10 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFeaturePrototypeReference((FeaturePrototypeReference) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
 			return validateSubprogramCallSequence((SubprogramCallSequence) value, diagnostics, context);
-		case Aadl2Package.CALL_SPECIFICATION:
-			return validateCallSpecification((CallSpecification) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_CALL:
-			return validateProcessorCall((ProcessorCall) value, diagnostics, context);
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION:
-			return validateBehavioredImplementation((BehavioredImplementation) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_CALL:
 			return validateSubprogramCall((SubprogramCall) value, diagnostics, context);
+		case Aadl2Package.BEHAVIORED_IMPLEMENTATION:
+			return validateBehavioredImplementation((BehavioredImplementation) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_TYPE:
 			return validateAbstractType((AbstractType) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_CLASSIFIER:
@@ -732,19 +484,19 @@ public class Aadl2Validator extends EObjectValidator {
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE:
 			return validateThreadGroupSubcomponentType((ThreadGroupSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.THREAD_GROUP:
-			return validateThreadGroup((org.osate.aadl2.ThreadGroup) value, diagnostics, context);
+			return validateThreadGroup((ThreadGroup) value, diagnostics, context);
 		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE:
 			return validateThreadSubcomponentType((ThreadSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.THREAD:
-			return validateThread((org.osate.aadl2.Thread) value, diagnostics, context);
+			return validateThread((Thread) value, diagnostics, context);
 		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE:
 			return validateSystemSubcomponentType((SystemSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.SYSTEM:
-			return validateSystem((org.osate.aadl2.System) value, diagnostics, context);
+			return validateSystem((System) value, diagnostics, context);
 		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE:
 			return validateProcessSubcomponentType((ProcessSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.PROCESS:
-			return validateProcess((org.osate.aadl2.Process) value, diagnostics, context);
+			return validateProcess((Process) value, diagnostics, context);
 		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE:
 			return validateMemorySubcomponentType((MemorySubcomponentType) value, diagnostics, context);
 		case Aadl2Package.MEMORY:
@@ -961,12 +713,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateReferenceType((ReferenceType) value, diagnostics, context);
 		case Aadl2Package.LIST_TYPE:
 			return validateListType((ListType) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_PORT:
-			return validateProcessorPort((ProcessorPort) value, diagnostics, context);
-		case Aadl2Package.INTERNAL_EVENT:
-			return validateInternalEvent((InternalEvent) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR_SUBPROGRAM:
-			return validateProcessorSubprogram((ProcessorSubprogram) value, diagnostics, context);
 		case Aadl2Package.FLOW_KIND:
 			return validateFlowKind((FlowKind) value, diagnostics, context);
 		case Aadl2Package.DIRECTION_TYPE:
@@ -979,8 +725,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePortCategory((PortCategory) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return validateComponentCategory((ComponentCategory) value, diagnostics, context);
-		case Aadl2Package.ELEMENT_NAME_KIND:
-			return validateElementNameKind((ElementNameKind) value, diagnostics, context);
 		case Aadl2Package.OPERATION_KIND:
 			return validateOperationKind((OperationKind) value, diagnostics, context);
 		case Aadl2Package.STRING:
@@ -1910,6 +1654,10 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateElement_not_own_self(triggerPort, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateElement_has_owner(triggerPort, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(triggerPort, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(triggerPort, diagnostics, context);
 		return result;
 	}
 
@@ -2970,16 +2718,6 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAbstractConnectionEnd(AbstractConnectionEnd abstractConnectionEnd,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractConnectionEnd, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateConnectedElement(ConnectedElement connectedElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) connectedElement, diagnostics, context))
@@ -3102,40 +2840,6 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateNamedElement_has_no_qualified_name(abstractSubcomponent, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateNamedElement_has_qualified_name(abstractSubcomponent, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateElementName(ElementName elementName, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) elementName, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_no_qualified_name(elementName, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_qualified_name(elementName, diagnostics, context);
 		return result;
 	}
 
@@ -4863,33 +4567,206 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateProcessorSubprogram(ProcessorSubprogram processorSubprogram, DiagnosticChain diagnostics,
+	public boolean validateProcessorFeature(ProcessorFeature processorFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorSubprogram, diagnostics, context))
+		if (!validate_NoCircularContainment((EObject) processorFeature, diagnostics, context))
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorSubprogram, diagnostics, context);
+		boolean result = validate_EveryMultiplicityConforms((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorSubprogram, diagnostics, context);
+			result &= validate_EveryDataValueConforms((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorSubprogram, diagnostics, context);
+			result &= validate_EveryReferenceIsContained((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorSubprogram, diagnostics, context);
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorSubprogram, diagnostics, context);
+			result &= validate_EveryProxyResolves((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorSubprogram, diagnostics, context);
+			result &= validate_UniqueID((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorSubprogram, diagnostics, context);
+			result &= validate_EveryKeyUnique((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorSubprogram, diagnostics, context);
+			result &= validate_EveryMapEntryUnique((EObject) processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(processorSubprogram, diagnostics, context);
+			result &= validateElement_not_own_self(processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validateElement_has_owner(processorSubprogram, diagnostics, context);
+			result &= validateElement_has_owner(processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validateNamedElement_has_no_qualified_name(processorSubprogram, diagnostics, context);
+			result &= validateNamedElement_has_no_qualified_name(processorFeature, diagnostics, context);
 		if (result || diagnostics != null)
-			result &= validateNamedElement_has_qualified_name(processorSubprogram, diagnostics, context);
+			result &= validateNamedElement_has_qualified_name(processorFeature, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateInternalFeature(InternalFeature internalFeature, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) internalFeature, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(internalFeature, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(internalFeature, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateEventSource(EventSource eventSource, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) eventSource, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(eventSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(eventSource, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateEventDataSource(EventDataSource eventDataSource, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) eventDataSource, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(eventDataSource, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(eventDataSource, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validatePortProxy(PortProxy portProxy, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) portProxy, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(portProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(portProxy, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSubprogramProxy(SubprogramProxy subprogramProxy, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment((EObject) subprogramProxy, diagnostics, context))
+			return false;
+		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryDataValueConforms((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryReferenceIsContained((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryProxyResolves((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_UniqueID((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryKeyUnique((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validate_EveryMapEntryUnique((EObject) subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_not_own_self(subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateElement_has_owner(subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_no_qualified_name(subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null)
+			result &= validateNamedElement_has_qualified_name(subprogramProxy, diagnostics, context);
 		return result;
 	}
 
@@ -6121,41 +5998,6 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateCallSpecification(CallSpecification callSpecification, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) callSpecification, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_no_qualified_name(callSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_qualified_name(callSpecification, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateDataSubcomponent(DataSubcomponent dataSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) dataSubcomponent, diagnostics, context))
@@ -6408,8 +6250,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateProcess(org.osate.aadl2.Process process, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean validateProcess(Process process, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) process, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) process, diagnostics, context);
@@ -6702,8 +6543,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateSystem(org.osate.aadl2.System system, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean validateSystem(System system, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) system, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) system, diagnostics, context);
@@ -6921,8 +6761,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateThread(org.osate.aadl2.Thread thread, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean validateThread(Thread thread, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) thread, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) thread, diagnostics, context);
@@ -7069,8 +6908,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateThreadGroup(org.osate.aadl2.ThreadGroup threadGroup, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean validateThreadGroup(ThreadGroup threadGroup, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) threadGroup, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroup, diagnostics, context);
@@ -7546,76 +7384,6 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateNamedElement_has_no_qualified_name(subprogramCall, diagnostics, context);
 		if (result || diagnostics != null)
 			result &= validateNamedElement_has_qualified_name(subprogramCall, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateProcessorPort(ProcessorPort processorPort, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorPort, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_no_qualified_name(processorPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_qualified_name(processorPort, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateInternalEvent(InternalEvent internalEvent, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) internalEvent, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_no_qualified_name(internalEvent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_qualified_name(internalEvent, diagnostics, context);
 		return result;
 	}
 
@@ -9060,41 +8828,6 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateProcessorCall(ProcessorCall processorCall, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorCall, diagnostics, context))
-			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_not_own_self(processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateElement_has_owner(processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_no_qualified_name(processorCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validateNamedElement_has_qualified_name(processorCall, diagnostics, context);
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateAbstractNamedValue(AbstractNamedValue abstractNamedValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject) abstractNamedValue, diagnostics, context);
@@ -10174,16 +9907,6 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateElementNameKind(ElementNameKind elementNameKind, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateAccessCategory(AccessCategory accessCategory, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		return true;
@@ -10276,6 +9999,157 @@ public class Aadl2Validator extends EObjectValidator {
 		// Specialize this to return a resource locator for messages specific to this validator.
 		// Ensure that you remove @generated or mark it @generated NOT
 		return super.getResourceLocator();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private String getRedefinitionDetail(EClass eClass, String featureName, String key) {
+		List<EClass> eClasses = new ArrayList<EClass>();
+		eClasses.add(eClass);
+		eClasses.addAll(eClass.getEAllSuperTypes());
+		String redefinitionDetail = null;
+		for (Iterator<EClass> eClassesIterator = eClasses.iterator(); redefinitionDetail == null
+				&& eClassesIterator.hasNext();) {
+			EAnnotation eAnnotation = eClassesIterator.next().getEAnnotation("duplicates");
+			if (eAnnotation != null) {
+				for (EObject eContents : eAnnotation.eContents()) {
+					if (eContents instanceof EAnnotation) {
+						EAnnotation nestedEAnnotation = (EAnnotation) eContents;
+						if (featureName.equals(nestedEAnnotation.getSource())) {
+							redefinitionDetail = nestedEAnnotation.getDetails().get(key);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return redefinitionDetail;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected int getLowerBound(EObject eObject, EStructuralFeature eStructuralFeature) {
+		try {
+			return Integer
+					.parseInt(getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "lowerBound"));
+		} catch (Exception e) {
+			return eStructuralFeature.getLowerBound();
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected int getUpperBound(EObject eObject, EStructuralFeature eStructuralFeature) {
+		try {
+			return Integer
+					.parseInt(getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "upperBound"));
+		} catch (Exception e) {
+			return eStructuralFeature.getUpperBound();
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected boolean isEcoreString(String key) {
+		return super.isEcoreString(key) || "_UI_FeatureHasTooFewValues_diagnostic".equals(key)
+				|| "_UI_FeatureHasTooManyValues_diagnostic".equals(key)
+				|| "_UI_RequiredFeatureMustBeSet_diagnostic".equals(key);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected boolean validate_MultiplicityConforms(EObject eObject, EStructuralFeature eStructuralFeature,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = true;
+		if (eStructuralFeature.isMany()) {
+			if (FeatureMapUtil.isFeatureMap(eStructuralFeature)
+					&& ExtendedMetaData.INSTANCE.isDocumentRoot(eObject.eClass())) {
+				result = super.validate_MultiplicityConforms(eObject, eStructuralFeature, diagnostics, context);
+			} else {
+				int lowerBound = getLowerBound(eObject, eStructuralFeature);
+				if (lowerBound > 0) {
+					int size = ((List<?>) eObject.eGet(eStructuralFeature)).size();
+					if (size < lowerBound) {
+						result = false;
+						if (diagnostics != null) {
+							diagnostics.add(createDiagnostic(
+									Diagnostic.ERROR,
+									EObjectValidator.DIAGNOSTIC_SOURCE,
+									EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
+									"_UI_FeatureHasTooFewValues_diagnostic",
+									new Object[] { getFeatureLabel(eStructuralFeature, context),
+											getObjectLabel(eObject, context), size, lowerBound }, new Object[] {
+											eObject, eStructuralFeature }, context));
+						}
+					}
+					int upperBound = getUpperBound(eObject, eStructuralFeature);
+					if (upperBound > 0 && size > upperBound) {
+						result = false;
+						if (diagnostics != null) {
+							diagnostics.add(createDiagnostic(
+									Diagnostic.ERROR,
+									EObjectValidator.DIAGNOSTIC_SOURCE,
+									EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
+									"_UI_FeatureHasTooManyValues_diagnostic",
+									new Object[] { getFeatureLabel(eStructuralFeature, context),
+											getObjectLabel(eObject, context), size, upperBound }, new Object[] {
+											eObject, eStructuralFeature }, context));
+						}
+					}
+				} else {
+					int upperBound = getUpperBound(eObject, eStructuralFeature);
+					if (upperBound > 0) {
+						int size = ((List<?>) eObject.eGet(eStructuralFeature)).size();
+						if (size > upperBound) {
+							result = false;
+							if (diagnostics != null) {
+								diagnostics.add(createDiagnostic(
+										Diagnostic.ERROR,
+										EObjectValidator.DIAGNOSTIC_SOURCE,
+										EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
+										"_UI_FeatureHasTooManyValues_diagnostic",
+										new Object[] { getFeatureLabel(eStructuralFeature, context),
+												getObjectLabel(eObject, context), size, upperBound }, new Object[] {
+												eObject, eStructuralFeature }, context));
+							}
+						}
+					}
+				}
+			}
+		} else if (getLowerBound(eObject, eStructuralFeature) >= 1) {
+			if (eStructuralFeature.isUnsettable() ? !eObject.eIsSet(eStructuralFeature) : eObject.eGet(
+					eStructuralFeature, false) == null) {
+				result = false;
+				if (diagnostics != null) {
+					diagnostics.add(createDiagnostic(
+							Diagnostic.ERROR,
+							EObjectValidator.DIAGNOSTIC_SOURCE,
+							EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
+							"_UI_RequiredFeatureMustBeSet_diagnostic",
+							new Object[] { getFeatureLabel(eStructuralFeature, context),
+									getObjectLabel(eObject, context) }, new Object[] { eObject, eStructuralFeature },
+							context));
+				}
+			}
+		}
+		return result;
 	}
 
 	/**

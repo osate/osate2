@@ -516,29 +516,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
 	}
 
-	public EList<AnnexSubclause> getAllAnnexSubclauses() {
-		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		final EList<Classifier> classifiers = getSelfPlusAllExtended();
-		for (Classifier classifier : classifiers) {
-			result.addAll(classifier.getOwnedAnnexSubclauses());
-		}
-		return result;
-	}
-
-	public EList<AnnexSubclause> getAllAnnexSubclauses(EClass eclass) {
-		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		final EList<Classifier> classifiers = getSelfPlusAllExtended();
-		for (Classifier classifier : classifiers) {
-			EList<AnnexSubclause> oas = classifier.getOwnedAnnexSubclauses();
-			for (AnnexSubclause annexSubclause : oas) {
-				if (annexSubclause.eClass().equals(eclass)) {
-					result.add(annexSubclause);
-				}
-			}
-		}
-		return result;
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -828,10 +805,16 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE:
 			return isSetClassifierFeatures();
+		case Aadl2Package.CLASSIFIER__MEMBER:
+			return isSetMembers();
 		case Aadl2Package.CLASSIFIER__GENERALIZATION:
 			return isSetGeneralizations();
+		case Aadl2Package.CLASSIFIER__OWNED_ELEMENT:
+			return isSetOwnedElements();
 		case Aadl2Package.CLASSIFIER__GENERAL:
 			return isSetGenerals();
+		case Aadl2Package.CLASSIFIER__OWNED_MEMBER:
+			return isSetOwnedMembers();
 		case Aadl2Package.CLASSIFIER__INHERITED_MEMBER:
 			return !getInheritedMembers().isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:

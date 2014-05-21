@@ -18,25 +18,25 @@ public
   data Integer_8 extends Integer
   properties
     Data_Model::Number_Representation => Signed;
-    Source_Data_Size => 1 Bytes;
+    Data_Size => 1 Bytes;
   end Integer_8;
 
   data Integer_16 extends Integer
   properties
     Data_Model::Number_Representation => Signed;
-    Source_Data_Size => 2 Bytes;
+    Data_Size => 2 Bytes;
   end Integer_16;
 
   data Integer_32 extends Integer
   properties
     Data_Model::Number_Representation => Signed;
-    Source_Data_Size => 4 Bytes;
+    Data_Size => 4 Bytes;
   end Integer_32;
 
   data Integer_64 extends Integer
   properties
     Data_Model::Number_Representation => Signed;
-    Source_Data_Size => 8 Bytes;
+    Data_Size => 8 Bytes;
   end Integer_64;
 
   -- Unsigned integer of various byte sizes
@@ -44,25 +44,25 @@ public
   data Unsigned_8 extends Integer
   properties
     Data_Model::Number_Representation => Unsigned;
-    Source_Data_Size => 1 Bytes;
+    Data_Size => 1 Bytes;
   end Unsigned_8;
 
   data Unsigned_16 extends Integer
   properties
     Data_Model::Number_Representation => Unsigned;
-    Source_Data_Size => 2 Bytes;
+    Data_Size => 2 Bytes;
   end Unsigned_16;
 
   data Unsigned_32 extends Integer
   properties
     Data_Model::Number_Representation => Unsigned;
-    Source_Data_Size => 4 Bytes;
+    Data_Size => 4 Bytes;
   end Unsigned_32;
 
   data Unsigned_64 extends Integer
   properties
     Data_Model::Number_Representation => Unsigned;
-    Source_Data_Size => 8 Bytes;
+    Data_Size => 8 Bytes;
   end Unsigned_64;
 
   data Natural extends Integer
@@ -78,13 +78,13 @@ public
   data Float_32 extends Float 
   properties 
     Data_Model::IEEE754_Precision => Simple; 
-    Source_Data_Size => 4 Bytes; 
+    Data_Size => 4 Bytes; 
   end Float_32; 
 
   data Float_64 extends Float 
   properties 
     Data_Model::IEEE754_Precision => Double; 
-    Source_Data_Size => 8 Bytes; 
+    Data_Size => 8 Bytes; 
   end Float_64;
 
   data Character

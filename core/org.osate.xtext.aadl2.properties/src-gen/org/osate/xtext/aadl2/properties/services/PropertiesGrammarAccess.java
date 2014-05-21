@@ -22,11 +22,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cContainedPropertyAssociationParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//PModel returns aadl2::Element: //| BasicPropertyAssociation | PropertyAssociation
-		// ContainedPropertyAssociation;
+		//	ContainedPropertyAssociation;
 		public ParserRule getRule() { return rule; }
 
 		////| BasicPropertyAssociation | PropertyAssociation
-		// ContainedPropertyAssociation
+		//ContainedPropertyAssociation
 		public RuleCall getContainedPropertyAssociationParserRuleCall() { return cContainedPropertyAssociationParserRuleCall; }
 	}
 
@@ -69,7 +69,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//// Properties
-		// ContainedPropertyAssociation returns aadl2::PropertyAssociation:
+		//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=OptionalModalPropertyValue
 		//	("," ownedValue+=OptionalModalPropertyValue)*) ("applies" "to" appliesTo+=ContainmentPath (","
 		//	appliesTo+=ContainmentPath)*)? ("in" "binding" "(" inBinding+=[aadl2::Classifier|QCREF] ")")? ";";
@@ -349,7 +349,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cContainmentPathElementContainmentPathElementParserRuleCall_2_1_0 = (RuleCall)cContainmentPathElementAssignment_2_1.eContents().get(0);
 		
 		////	( 'annex' containmentPathElement+=AnnexPath )?
-		// ContainmentPath returns aadl2::ContainedNamedElement:
+		//ContainmentPath returns aadl2::ContainedNamedElement:
 		//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
 		//	containmentPathElement+=ContainmentPathElement)*;
 		public ParserRule getRule() { return rule; }
@@ -399,8 +399,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		////AnnexPath returns aadl2::ContainmentPathElement:
-		// //	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
-		//
+		////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 		//ModalPropertyValue returns aadl2::ModalPropertyValue:
 		//	ownedValue=PropertyExpression "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
 		public ParserRule getRule() { return rule; }
@@ -472,12 +471,10 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 		//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-		//
 		//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
 		public ParserRule getRule() { return rule; }
 
 		//ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-		//
 		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
 		public Group getGroup() { return cGroup; }
 
@@ -533,7 +530,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedValuePropertyExpressionParserRuleCall_0 = (RuleCall)cOwnedValueAssignment.eContents().get(0);
 		
 		//// &&&&&&&&&& handling of in binding
-		// PropertyValue returns aadl2::ModalPropertyValue:
+		//PropertyValue returns aadl2::ModalPropertyValue:
 		//	ownedValue=PropertyExpression;
 		public ParserRule getRule() { return rule; }
 
@@ -560,18 +557,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cLiteralorReferenceTermParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		
 		//PropertyExpression returns aadl2::PropertyExpression: //	OldRecordTerm |
-		// RecordTerm | ReferenceTerm |
-		//	ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm |
-		//	BooleanLiteral | LiteralorReferenceTerm;
+		//	RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+		//	IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 		public ParserRule getRule() { return rule; }
 
 		////	OldRecordTerm |
-		// RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm
-		//| RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
+		//RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+		//IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		////	OldRecordTerm |
-		// RecordTerm
+		//RecordTerm
 		public RuleCall getRecordTermParserRuleCall_0() { return cRecordTermParserRuleCall_0; }
 
 		//ReferenceTerm
@@ -696,23 +692,19 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ReferenceTerm returns aadl2::ReferenceValue:
 		//	"reference" "(" (containmentPathElement+=QualifiedContainmentPathElement ".")?
-		//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
-		//	//	( 'annex' ID '{**' 
-		// //	containmentPathElement+=ContainmentPathElement
-		//
+		//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)* //	( 'annex' ID '{**' 
+		//	//	containmentPathElement+=ContainmentPathElement
 		//	//	( '.' containmentPathElement+=ContainmentPathElement)*
-		// //	'**}')?
-		// ")";
+		//	//	'**}')?
+		//	")";
 		public ParserRule getRule() { return rule; }
 
 		//"reference" "(" (containmentPathElement+=QualifiedContainmentPathElement ".")?
-		//containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
-		////	( 'annex' ID '{**' 
-		// //	containmentPathElement+=ContainmentPathElement
-		//
+		//containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)* //	( 'annex' ID '{**' 
+		////	containmentPathElement+=ContainmentPathElement
 		////	( '.' containmentPathElement+=ContainmentPathElement)*
-		// //	'**}')?
-		// ")"
+		////	'**}')?
+		//")"
 		public Group getGroup() { return cGroup; }
 
 		//"reference"
@@ -752,11 +744,10 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getContainmentPathElementContainmentPathElementParserRuleCall_4_1_0() { return cContainmentPathElementContainmentPathElementParserRuleCall_4_1_0; }
 
 		////	( 'annex' ID '{**' 
-		// //	containmentPathElement+=ContainmentPathElement
-		//
+		////	containmentPathElement+=ContainmentPathElement
 		////	( '.' containmentPathElement+=ContainmentPathElement)*
-		// //	'**}')?
-		// ")"
+		////	'**}')?
+		//")"
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
@@ -986,9 +977,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArrayRangeArrayRangeParserRuleCall_1_0 = (RuleCall)cArrayRangeAssignment_1.eContents().get(0);
 		
 		//// from AADL2
-		// // need to add annex path element
-		// //	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
-		//
+		//// need to add annex path element
+		////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 		//ContainmentPathElement returns aadl2::ContainmentPathElement:
 		//	namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?;
 		public ParserRule getRule() { return rule; }
@@ -1044,15 +1034,15 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ANNEXREF: // check what values are ok inside ** **
-		// "{" STAR STAR ID STAR STAR "}";
+		//	"{" STAR STAR ID STAR STAR "}";
 		public ParserRule getRule() { return rule; }
 
 		//// check what values are ok inside ** **
-		// "{" STAR STAR ID STAR STAR "}"
+		//"{" STAR STAR ID STAR STAR "}"
 		public Group getGroup() { return cGroup; }
 
 		//// check what values are ok inside ** **
-		// "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
 
 		//STAR
@@ -1115,11 +1105,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSTRINGTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//NoQuoteString: // remove quotes from string in ValueConverter
-		// STRING;
+		//	STRING;
 		public ParserRule getRule() { return rule; }
 
 		//// remove quotes from string in ValueConverter
-		// STRING
+		//STRING
 		public RuleCall getSTRINGTerminalRuleCall() { return cSTRINGTerminalRuleCall; }
 	}
 
@@ -1334,53 +1324,49 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//NumericRangeTerm returns aadl2::RangeValue:
 		//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		// NumAlt ".." maximum=
-		//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt ("delta" delta=
-		//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt)?;
+		//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//	NumAlt)?;
 		public ParserRule getRule() { return rule; }
 
 		//minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		// NumAlt ".." maximum=
-		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt ("delta" delta=
-		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt)?
+		//NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt)?
 		public Group getGroup() { return cGroup; }
 
 		//minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		// NumAlt
+		//NumAlt
 		public Assignment getMinimumAssignment_0() { return cMinimumAssignment_0; }
 
 		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		// NumAlt
+		//NumAlt
 		public RuleCall getMinimumNumAltParserRuleCall_0_0() { return cMinimumNumAltParserRuleCall_0_0; }
 
 		//".."
 		public Keyword getFullStopFullStopKeyword_1() { return cFullStopFullStopKeyword_1; }
 
 		//maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt
+		//NumAlt
 		public Assignment getMaximumAssignment_2() { return cMaximumAssignment_2; }
 
 		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt
+		//NumAlt
 		public RuleCall getMaximumNumAltParserRuleCall_2_0() { return cMaximumNumAltParserRuleCall_2_0; }
 
 		//("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt)?
+		//NumAlt)?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"delta"
 		public Keyword getDeltaKeyword_3_0() { return cDeltaKeyword_3_0; }
 
 		//delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt
+		//NumAlt
 		public Assignment getDeltaAssignment_3_1() { return cDeltaAssignment_3_1; }
 
 		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		// NumAlt
+		//NumAlt
 		public RuleCall getDeltaNumAltParserRuleCall_3_1_0() { return cDeltaNumAltParserRuleCall_3_1_0; }
 	}
 
@@ -1417,11 +1403,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cINTEGER_LITTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//INTVALUE returns aadl2::Integer: //NUMERAL 	
-		// INTEGER_LIT;
+		//	INTEGER_LIT;
 		public ParserRule getRule() { return rule; }
 
 		////NUMERAL 	
-		// INTEGER_LIT
+		//INTEGER_LIT
 		public RuleCall getINTEGER_LITTerminalRuleCall() { return cINTEGER_LITTerminalRuleCall; }
 	}
 
@@ -1576,7 +1562,6 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	private QPREFElements pQPREF;
 	private QCREFElements pQCREF;
 	private STARElements pSTAR;
-	private TerminalRule tANNEXTEXT;
 	private TerminalRule tSTRING;
 	private TerminalRule tID;
 	private TerminalRule tWS;
@@ -1612,7 +1597,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//PModel returns aadl2::Element: //| BasicPropertyAssociation | PropertyAssociation
-	// ContainedPropertyAssociation;
+	//	ContainedPropertyAssociation;
 	public PModelElements getPModelAccess() {
 		return (pPModel != null) ? pPModel : (pPModel = new PModelElements());
 	}
@@ -1622,7 +1607,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Properties
-	// ContainedPropertyAssociation returns aadl2::PropertyAssociation:
+	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=OptionalModalPropertyValue
 	//	("," ownedValue+=OptionalModalPropertyValue)*) ("applies" "to" appliesTo+=ContainmentPath (","
 	//	appliesTo+=ContainmentPath)*)? ("in" "binding" "(" inBinding+=[aadl2::Classifier|QCREF] ")")? ";";
@@ -1656,7 +1641,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////	( 'annex' containmentPathElement+=AnnexPath )?
-	// ContainmentPath returns aadl2::ContainedNamedElement:
+	//ContainmentPath returns aadl2::ContainedNamedElement:
 	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
 	//	containmentPathElement+=ContainmentPathElement)*;
 	public ContainmentPathElements getContainmentPathAccess() {
@@ -1668,8 +1653,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////AnnexPath returns aadl2::ContainmentPathElement:
-	// //	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
-	//
+	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
 	public ModalPropertyValueElements getModalPropertyValueAccess() {
@@ -1682,7 +1666,6 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-	//
 	//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
 	public OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
 		return (pOptionalModalPropertyValue != null) ? pOptionalModalPropertyValue : (pOptionalModalPropertyValue = new OptionalModalPropertyValueElements());
@@ -1693,7 +1676,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// &&&&&&&&&& handling of in binding
-	// PropertyValue returns aadl2::ModalPropertyValue:
+	//PropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression;
 	public PropertyValueElements getPropertyValueAccess() {
 		return (pPropertyValue != null) ? pPropertyValue : (pPropertyValue = new PropertyValueElements());
@@ -1704,9 +1687,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyExpression returns aadl2::PropertyExpression: //	OldRecordTerm |
-	// RecordTerm | ReferenceTerm |
-	//	ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm |
-	//	BooleanLiteral | LiteralorReferenceTerm;
+	//	RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+	//	IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
 		return (pPropertyExpression != null) ? pPropertyExpression : (pPropertyExpression = new PropertyExpressionElements());
 	}
@@ -1747,13 +1729,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
 	//	"reference" "(" (containmentPathElement+=QualifiedContainmentPathElement ".")?
-	//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
-	//	//	( 'annex' ID '{**' 
-	// //	containmentPathElement+=ContainmentPathElement
-	//
+	//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)* //	( 'annex' ID '{**' 
+	//	//	containmentPathElement+=ContainmentPathElement
 	//	//	( '.' containmentPathElement+=ContainmentPathElement)*
-	// //	'**}')?
-	// ")";
+	//	//	'**}')?
+	//	")";
 	public ReferenceTermElements getReferenceTermAccess() {
 		return (pReferenceTerm != null) ? pReferenceTerm : (pReferenceTerm = new ReferenceTermElements());
 	}
@@ -1823,9 +1803,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// from AADL2
-	// // need to add annex path element
-	// //	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
-	//
+	//// need to add annex path element
+	////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	//ContainmentPathElement returns aadl2::ContainmentPathElement:
 	//	namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?;
 	public ContainmentPathElementElements getContainmentPathElementAccess() {
@@ -1847,7 +1826,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ANNEXREF: // check what values are ok inside ** **
-	// "{" STAR STAR ID STAR STAR "}";
+	//	"{" STAR STAR ID STAR STAR "}";
 	public ANNEXREFElements getANNEXREFAccess() {
 		return (pANNEXREF != null) ? pANNEXREF : (pANNEXREF = new ANNEXREFElements());
 	}
@@ -1877,7 +1856,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NoQuoteString: // remove quotes from string in ValueConverter
-	// STRING;
+	//	STRING;
 	public NoQuoteStringElements getNoQuoteStringAccess() {
 		return (pNoQuoteString != null) ? pNoQuoteString : (pNoQuoteString = new NoQuoteStringElements());
 	}
@@ -1948,11 +1927,9 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NumericRangeTerm returns aadl2::RangeValue:
 	//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-	// NumAlt ".." maximum=
-	//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	// NumAlt ("delta" delta=
-	//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	// NumAlt)?;
+	//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt)?;
 	public NumericRangeTermElements getNumericRangeTermAccess() {
 		return (pNumericRangeTerm != null) ? pNumericRangeTerm : (pNumericRangeTerm = new NumericRangeTermElements());
 	}
@@ -1978,7 +1955,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//INTVALUE returns aadl2::Integer: //NUMERAL 	
-	// INTEGER_LIT;
+	//	INTEGER_LIT;
 	public INTVALUEElements getINTVALUEAccess() {
 		return (pINTVALUE != null) ? pINTVALUE : (pINTVALUE = new INTVALUEElements());
 	}
@@ -1988,10 +1965,9 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////terminal NUMERAL:
-	// //	(DIGIT)+('_' (DIGIT)+)*
-	// //;
-	// //terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
-	//
+	////	(DIGIT)+('_' (DIGIT)+)*
+	////;
+	////terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 	//terminal fragment EXPONENT:
 	//	("e" | "E") ("+" | "-")? DIGIT+;
 	public TerminalRule getEXPONENTRule() {
@@ -2074,13 +2050,6 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getSTARAccess().getRule();
 	}
 
-	////terminal IDANNEXTEXT: ID ANNEXTEXT;
-	// terminal ANNEXTEXT:
-	//	"{**"->"**}";
-	public TerminalRule getANNEXTEXTRule() {
-		return (tANNEXTEXT != null) ? tANNEXTEXT : (tANNEXTEXT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ANNEXTEXT"));
-	} 
-
 	//terminal STRING:
 	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" |
 	//	"n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\'"))* "\'";
@@ -2089,7 +2058,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	////terminal ID  		: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
-	// terminal ID:
+	//terminal ID:
 	//	("a".."z" | "A".."Z") ("_"? ("a".."z" | "A".."Z" | "0".."9"))*;
 	public TerminalRule getIDRule() {
 		return (tID != null) ? tID : (tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID"));

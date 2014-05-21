@@ -164,7 +164,22 @@ public class PropertyAssociationWizard extends Wizard {
 	private NamedElement getHolder() {
 		NamedElement aobj = null;
 		if (holderuri != null) {
-			aobj = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(holderuri, true);
+			aobj = null;
+
+			// If an xtext document has been provided, try to get the holder from it first. If the xtext document has not been serialized, it will not be available through the resource set
+			// provided by OsateResourceUtil.
+			if(xtextDocument != null) {
+				aobj = xtextDocument.readOnly(new IUnitOfWork<NamedElement, XtextResource>() {
+					@Override
+					public NamedElement exec(final XtextResource res) throws Exception {
+						return (NamedElement)res.getResourceSet().getEObject(holderuri, true);
+					}
+				});				
+			}
+			
+			if(aobj == null) {
+				aobj = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(holderuri, true);
+			}
 		}
 		return aobj;
 	}

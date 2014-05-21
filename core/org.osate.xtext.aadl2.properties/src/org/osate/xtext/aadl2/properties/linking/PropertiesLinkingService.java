@@ -60,7 +60,6 @@ import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessConnectionEnd;
-import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.CallContext;
@@ -72,7 +71,6 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -99,6 +97,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
@@ -117,6 +116,7 @@ import org.osate.aadl2.ParameterConnectionEnd;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortConnectionEnd;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
@@ -486,8 +486,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 								.findNamedElement(name);
 					}
 				} else {
-					res = AadlUtil.getContainingClassifier(context)
-							.findNamedElement(name);
+					if ((pa != null) && (pa.getOwner() instanceof Subcomponent)) {
+						res = ((Subcomponent) pa.getOwner()).getAllClassifier().findNamedElement(name);
+					} else {
+						res = AadlUtil.getContainingClassifier(context)
+								.findNamedElement(name);
+					}
 				}
 			}
 			if (res != null && res instanceof Mode) {
@@ -514,9 +518,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						if (res == null){
 							if (ne instanceof ThreadSubcomponent || ne instanceof SubprogramSubcomponent){
 								if (ns instanceof ThreadImplementation){
-									res = AadlUtil.findNamedElementInList(((ThreadImplementation)ns).callSpecifications(), name);
+									res = AadlUtil.findNamedElementInList(((ThreadImplementation)ns).subprogramCalls(), name);
 								} else if (ns instanceof SubprogramImplementation){
-									res = AadlUtil.findNamedElementInList(((SubprogramImplementation)ns).callSpecifications(), name);
+									res = AadlUtil.findNamedElementInList(((SubprogramImplementation)ns).subprogramCalls(), name);
 								}
 							}
 						}
@@ -948,10 +952,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		if (cxt == null) {
 			EObject searchResult = ((ComponentImplementation) AadlUtil.getContainingClassifier(conn))
 					.findNamedElement(portName);
-			if (searchResult instanceof Port
-					|| searchResult instanceof DataSubcomponent
-					|| searchResult instanceof DataAccess )
-				return ((PortConnectionEnd) searchResult);
+			if (searchResult instanceof PortConnectionEnd)
+				return (PortConnectionEnd) searchResult;
 		} else if (cxt instanceof Subcomponent) {
 			Subcomponent subcomponent = (Subcomponent) cxt;
 			while (subcomponent.getSubcomponentType() == null

@@ -137,8 +137,7 @@ public interface InstanceObject extends EObject, NamedElement {
 	 * @param referencePath the search path for contained instance objects
 	 * @return the list of matching instance objects
 	 */
-	List<InstanceObject> findInstanceObjects(
-			EList<ContainmentPathElement> referencePath);
+	List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath);
 
 	boolean matchesIndex(List<ArrayRange> ranges);
 

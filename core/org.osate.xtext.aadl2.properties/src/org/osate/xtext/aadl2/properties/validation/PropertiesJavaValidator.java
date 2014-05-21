@@ -62,6 +62,7 @@ import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -84,9 +85,11 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.MetaclassReferenceImpl;
+import org.osate.aadl2.impl.SubcomponentImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
@@ -129,9 +132,17 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		// type check value against type
 		Property pdef = pa.getProperty();
 		checkPropertySetElementReference(pdef, pa);
-		if (Aadl2Util.isNull(pdef)) return;
+		if (Aadl2Util.isNull(pdef))
+		{
+			return;
+		}
+		
 		PropertyType pt = pdef.getPropertyType();
-		if (Aadl2Util.isNull(pt)) return;
+		if (Aadl2Util.isNull(pt))
+		{
+			return;
+		}
+		
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) 
 		{
@@ -350,50 +361,18 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			if(!(pt instanceof ClassifierType))
 			{
 				error(pv, prefix+"Assigning incorrect Classifier value"+msg);
+				return;
 			}
-			
-			
 			ClassifierValue cv = (ClassifierValue) pv;
 			ClassifierType ct = (ClassifierType) pt;
-			
-			/*
-			 * JD: fix bug #68 by checking the type of the associated classifier.
-			 * TODO-JD: check if we can do better than comparing strings.
-			 */
-			
-			if (ct.getClassifierReferences().get(0) instanceof MetaclassReferenceImpl)
-			{
-				for (int k = 0 ; k < ct.getClassifierReferences().size() ; k++)
-				{
-					String typeName;
-					MetaclassReferenceImpl mcri;
-					
-					mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(k);
-					String classifierName = mcri.getMetaclass().getName().toLowerCase().replace("classifier", "");
-					
-					typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "");
-					if (typeName.equals(classifierName))
-					{
-						return;
-					}
-					
-					typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "").replace("implementation", "");
 
-					if (typeName.equals(classifierName))
-					{
-						return;
-					}
+			for (MetaclassReference mcri : ct.getClassifierReferences())
+			{
+				if(mcri.getMetaclass().isSuperTypeOf(cv.getClassifier().eClass())){
+					return;
 				}
-				
-				error(holder, prefix+"Assigning reference value with incorrect Classifier"+msg);
-
 			}
-			else
-			{
-				error(holder, prefix+"type '"+pt.eClass().getName()+"' cannot be found");
-
-			}
-			
+			error(holder, prefix+"Assigning classifier value with incorrect Classifier"+msg);
 		} else if (pv instanceof RecordValue){
 			if(!(pt instanceof RecordType )){
 				error(pv, prefix+"Assinging Record value"+msg);
@@ -401,8 +380,23 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				typeMatchRecordFields(((RecordValue)pv).getOwnedFieldValues(),holder,defName);
 			}
 		} else if (pv instanceof ReferenceValue ){
-			if(!(pt instanceof ReferenceType)){
-				error(holder, prefix+"Assigning incorrect reference value"+msg);
+			if(!(pt instanceof ReferenceType))
+			{
+							error(holder, prefix+"Assigning incorrect reference value"+msg);
+			}
+			else
+			{
+				ReferenceType ptrt = (ReferenceType)pt;
+				ReferenceValue pvrv = (ReferenceValue) pv;
+				EList<ContainmentPathElement> cpes = pvrv.getContainmentPathElements();
+				NamedElement ne = cpes.get(cpes.size()-1).getNamedElement();
+				for (MetaclassReference mcri : ptrt.getNamedElementReferences())
+				{
+					if(mcri.getMetaclass().isSuperTypeOf(ne.eClass())){
+						return;
+					}
+				}
+				error(holder, prefix+"Assigning reference value with incorrect Named Element class"+msg);
 			}
 		} else if (pv instanceof NamedValue ){
 			AbstractNamedValue nv = ((NamedValue)pv).getNamedValue();

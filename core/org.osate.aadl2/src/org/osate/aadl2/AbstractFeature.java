@@ -52,7 +52,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface AbstractFeature extends DirectedFeature {
+public interface AbstractFeature extends DirectedFeature, TriggerPort {
 	/**
 	 * Returns the value of the '<em><b>Feature Prototype</b></em>' reference.
 	 * <!-- begin-user-doc -->

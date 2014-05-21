@@ -3,8 +3,6 @@ package org.osate.aadl2.parsesupport;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osate.aadl2.util.OsateDebug;
-
 public class ParseUtil {
     
 	private static final char UNDERLINE = '_';

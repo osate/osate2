@@ -214,8 +214,9 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModeTransitionTrigger createOwnedTrigger(EClass eClass) {
-		ModeTransitionTrigger newOwnedTrigger = (ModeTransitionTrigger) create(eClass);
+	public ModeTransitionTrigger createOwnedTrigger() {
+		ModeTransitionTrigger newOwnedTrigger = (ModeTransitionTrigger) create(Aadl2Package.eINSTANCE
+				.getModeTransitionTrigger());
 		getOwnedTriggers().add(newOwnedTrigger);
 		return newOwnedTrigger;
 	}
