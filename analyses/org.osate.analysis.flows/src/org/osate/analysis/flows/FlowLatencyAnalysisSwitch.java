@@ -59,6 +59,7 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -110,7 +111,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				return DONE;
 			}
 
-			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef)  {
+			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef)  
+			{
 				if (etef.getFlowElements().isEmpty()) return DONE;
 				logInfoOnly(etef, "End to End Latency report\n");
 				final double totalLatency = doETEF(etef); 
@@ -167,7 +169,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return doETEF(etef, 0.0);
 	}
 
-	protected  double doETEF(final EndToEndFlowInstance etef, double incomingAdditiveLatency){
+	protected  double doETEF (final EndToEndFlowInstance etef, double incomingAdditiveLatency)
+	{
 		final EList<FlowElementInstance> fel = etef.getFlowElements();
 		if (fel.isEmpty()) return 0;
 
@@ -196,48 +199,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			logWarning(etef, "End to end flow has no latency requirement specified.");
 		}
 
-		fe = it.next();
-		ci = fe.getContainingComponentInstance();
-		// init the previous partition
-		previousPartition = enclosingPartition(ci);
-		double flowSpecificationLatency = 0;
-		double deadline = 0.0;
-		if (fe instanceof FlowSpecificationInstance){
-			// Get the latency from the flow specification
-			FlowSpecificationInstance fefs = (FlowSpecificationInstance)fe;
-			flowSpecificationLatency = GetProperties.getLatencyinMicroSec(fefs);
-			if (flowSpecificationLatency == 0){
-				logWarning(fefs, "Flow specification has no latency requirement specified.");
-			}
-			// Use deadline as latency if available, unless the specified latency is greater
-
-			additiveLatency = additiveLatency+adjustforDeadlineLatency(ci, flowSpecificationLatency);
-		} else if (fe instanceof ComponentInstance){
-			// we have a component instance
-			ComponentInstance feci = (ComponentInstance)fe;
-			logWarning(etef, feci.getCategory().getName()+" "+feci.getComponentInstancePath()+" has no flow specifcation.");
-			double lat = adjustforDeadlineLatency(feci, 0.0);
-			additiveLatency = additiveLatency+lat;
-		} else if (fe instanceof EndToEndFlowInstance){
-			EndToEndFlowInstance etefi = (EndToEndFlowInstance)fe;
-			double etefLatency = doETEF(etefi,additiveLatency);
-			if (etefLatency == additiveLatency){
-				logWarning(etefi, "End to end subflow has zero latency.");
-			} else {
-				additiveLatency = etefLatency;
-
-			}
-		}
-		if (InstanceModelUtil.isPeriodicThread(ci) || InstanceModelUtil.isPeriodicDevice(ci)){
-			// TODO a device may sample external state (e.g., temperature) which results in no sampling delay
-			// or it may observe an external event or state change by sampling the environment (e.g., switch up/down) which results in sampling delay
-			previousSamplingPeriod = GetProperties.getPeriodinMicroSec(ci);
-		}
-		// the partition period here is ignored
-		logLatencyinMicroSec(etef.getComponentInstancePath(),ci.getCategory().getName(),ci.getComponentInstancePath(),0,additiveLatency,flowSpecificationLatency,previousSamplingPeriod,0.0,deadline,myLatencyETE) ;
-
-		// remembers the deadline/conn latency added in. To be removed if immediate connection.
-		double previouslyAddedDelay = 0;
 
 		// Loop over the rest of the flow elements
 		while (it.hasNext()){
@@ -247,12 +208,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 * additiveLatency since the last sampling point.  
 				 */
 				conn = (ConnectionInstance)fe;
-				if (conn != null) {
+				if (conn != null) 
+				{
 					double conlat = getConnectionLatencyinMicroSec(conn);
-					additiveLatency = additiveLatency + conlat;
-					previouslyAddedDelay = previouslyAddedDelay + conlat;
-					logLatencyinMicroSec(etef.getComponentInstancePath(),"Connection",conn.getName(),0,additiveLatency,0.0,0.0,0.0,conlat,myLatencyETE);
+					totalLatency += conlat;
+					logLatencyinMicroSec(etef.getComponentInstancePath(),"Connection",conn.getName(),totalLatency,additiveLatency,0.0,0.0,0.0,conlat,myLatencyETE);
+					
 				}
+
 			} else if (fe instanceof EndToEndFlowInstance){
 				additiveLatency =  doETEF((EndToEndFlowInstance)fe, additiveLatency );
 			} else if (fe instanceof FlowSpecificationInstance||fe instanceof ComponentInstance){
@@ -301,9 +264,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 				// accounted for partitions
 
-				if (InstanceModelUtil.isThread(ci) || InstanceModelUtil.isDevice(ci)) {
+				if (InstanceModelUtil.isThread(ci) || InstanceModelUtil.isDevice(ci))
+				{
 					// take into account queuing delay
-					if (InstanceModelUtil.isEventConnection(conn)||InstanceModelUtil.isEventDataConnection(conn)){
+					if ((conn != null) && ((InstanceModelUtil.isEventConnection(conn))||(InstanceModelUtil.isEventDataConnection(conn))))
+					{
 						// take into account queuing delay on event and event data ports. for port groups assume worst case
 						queuingDelay = getQueueDelayinMicroSec(conn.getDestination(),ci,InstanceModelUtil.isPeriodicComponent(ci));
 
@@ -332,16 +297,19 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 									// while threads with an immediate connection are assumed to be on the same processor
 									|| (InstanceModelUtil.isImmediatePortConnection(conn)&&crossPartition)// deal with immediate going across partition boundary (should do warning)
 									|| !previousPeriodic);
-					if (isSampling) {
+					if (isSampling)
+					{
 						periodLatency = GetProperties.getPeriodinMicroSec(ci);
-						if (periodLatency > samplingLatency){
+						if ((samplingLatency != 0 ) && (periodLatency > samplingLatency))
+						{
 							// overwrite partition sampling latency if the thread latency is larger. Otherwise, the larger partition latency matters
 							samplingLatency = periodLatency;
 						}
 						if (periodLatency == 0) {
 							logInfo(ci,"Periodic subcomponent "+ci.getName()+" has no period. Handled as non-sampling.");
 						}
-					} 
+					}
+
 				}
 
 				/* If we have a sequence of periodic threads with immediate
@@ -352,11 +320,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 * accumulated latency to correct the situation.
 				 */
 				boolean doRoundUp = false;
-				if (InstanceModelUtil.isPeriodicComponent(ci)
-						&& InstanceModelUtil.isImmediatePortConnection(conn) && previousPeriodic) {
+				if (InstanceModelUtil.isPeriodicComponent(ci) && InstanceModelUtil.isImmediatePortConnection(conn) && previousPeriodic) {
 					if ((InstanceModelUtil.isPeriodicThread(ci))){  // &&isSynchronous for threads we always assume immediate
 						// we only remove it if it is an immediate thread connection and the thread is synchronous with the predecesssor
-						additiveLatency = additiveLatency - previouslyAddedDelay;
+						
 						doRoundUp = true;
 					}
 				}
@@ -381,11 +348,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						} else if (additiveLatency == 0){
 							frames = 1;
 						}
-						totalLatency = 0;
 						additiveLatency = 0;
 					} else {
 						// asynchronous case as well as synchronous case where we do not do the sampling round up optimization
-						totalLatency = 0;
 						additiveLatency = 0;
 					}
 					previousSamplingPeriod = samplingLatency;
@@ -423,21 +388,21 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 * recently added deadline so that we can remove it later
 				 * if we have to (see above).
 				 */
-				additiveLatency = additiveLatency + processingDelay+queuingDelay;
-				previouslyAddedDelay = processingDelay+queuingDelay;
+				totalLatency += additiveLatency + processingDelay + queuingDelay + samplingLatency;
 				logLatencyinMicroSec( etef.getComponentInstancePath(),ci.getCategory().getName(),ci.getComponentInstancePath()+((fe instanceof FlowSpecificationInstance)?(":"+fe.getName()):""),totalLatency,additiveLatency,fsLatency,samplingLatency,partitionLatency,processingDelay,myLatencyETE);
-			} else if (fe instanceof EndToEndFlowInstance){
+			} 
+			else if (fe instanceof EndToEndFlowInstance)
+			{
 				// process recursively
 				double eteflatency = doETEF((EndToEndFlowInstance)fe);
 				// TODO walk the etef recursively, pass in the existing additive latency
-				additiveLatency = additiveLatency + eteflatency;
+				totalLatency += additiveLatency + eteflatency;
 			} else if (fe instanceof ComponentInstance){
-
+				OsateDebug.osateDebug("[ETEF] doing something for component instance");
 			}
 		}
 
 		/* account for the last additive flow latency */
-		totalLatency = additiveLatency;
 		logLatencyinMicroSec( etef.getComponentInstancePath(),"Total","",totalLatency,0,0,0,0,0,myLatencyETE);
 		csvlog.addOutputNewline("");
 		return totalLatency;
