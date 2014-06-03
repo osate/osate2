@@ -9,6 +9,7 @@
    <extension-point id="textpositionresolver" name="Text Position Resolver" schema="schema/annextextpositionresolver.exsd"/>
    <extension-point id="instantiator" name="Annex Instantiator" schema="schema/annexinstantiator.exsd"/>
    <extension-point id="highlighter" name="Annex Highlighter" schema="schema/annexhighlighter.exsd"/>
+   <extension-point id="contentassist" name="Annex Content Assist" schema="schema/contentassist.exsd"/>
      <extension point="org.osate.annexsupport.parser">
       <parser
             annexName="*"
