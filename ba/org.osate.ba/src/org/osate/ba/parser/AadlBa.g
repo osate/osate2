@@ -1150,15 +1150,15 @@ parameter_label returns [ParameterLabel result]
 //   [ integer_value ]
 
 // data_component_reference ::=
-//   data_subcomponent_name { . data_element }*
-// | data_access_feature_name { . data_element }*
-// | local_variable_identifier { . data_element }* 
-// | data_access_feature_prototype_name { . data_element }*
+//   data_subcomponent_name { . data_field }*
+// | data_access_feature_name { . data_field }*
+// | local_variable_identifier { . data_field }* 
+// | data_access_feature_prototype_name { . data_field }*
 
 // subprogram_parameter ::=
-//   subprogram_parameter_name {. data_element }*
+//   subprogram_parameter_name {. data_field }*
 
-// data_element ::=
+// data_field ::=
 //   data_subcomponent_name
 // | data_access_name
 // | data_access_prototype_name
