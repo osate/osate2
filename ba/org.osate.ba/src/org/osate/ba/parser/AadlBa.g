@@ -933,8 +933,9 @@ assignment_action returns [AssignmentAction result]
 ;
 
 // target ::= 
-// | outgoing_port_name 
-// | outgoing_data_component_reference
+// | outgoing_port_name
+// | outgoing_subprogram_parameter 
+// | data_component_reference
 // | outgoing_port_prototype_name
 target returns [Target result]
   : reference 
@@ -1101,11 +1102,18 @@ parameter_label returns [ParameterLabel result]
 //   [ integer_value ]
 
 // data_component_reference ::=
-//   data_subcomponent_name { . data_subcomponent_name }*
-// | data_access_feature_name { . data_subcomponent_name }*
-// | local_variable_name { . data_subcomponent_name }*
-// | data_access_feature_prototype_name { . data_subcomponent_name }*
-// | subprogram_parameter_name { . data_subcomponent_name }*
+//   data_subcomponent_name { . data_element }*
+// | data_access_feature_name { . data_element }*
+// | local_variable_identifier { . data_element }* 
+// | data_access_feature_prototype_name { . data_element }*
+
+// subprogram_parameter ::=
+//   subprogram_parameter_name {. data_element }*
+
+// data_element ::=
+//   data_subcomponent_name
+// | data_access_name
+// | data_access_prototype_name
 
 reference returns [Reference result]
   :
@@ -1144,9 +1152,11 @@ array_identifier returns [ArrayableIdentifier result]
 // value_variable ::=
 //   incoming_port_name
 // | incoming_port_name ?
-// | incoming_port_data_component_reference
-// | port_name' count
-// | port_name' fresh
+// | incoming_subprogram_parameter
+// | incoming_port_prototype_name
+// | data_component_reference
+// | port_name ’ count
+// | port_name ’ fresh
 
 fact_value returns [Value result]
   : // Ambiguity between value variable (name without array index) and
@@ -1202,9 +1212,11 @@ value returns [Value result]
 // value_variable ::=
 //   incoming_port_name
 // | incoming_port_name ?
-// | incoming_port_data_component_reference
-// | port_name' count
-// | port_name' fresh
+// | incoming_subprogram_parameter
+// | incoming_port_prototype_name
+// | data_component_reference
+// | port_name ’ count
+// | port_name ’ fresh
 value_variable returns [ValueVariable result]
   : 
      reference
