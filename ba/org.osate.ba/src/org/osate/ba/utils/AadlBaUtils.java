@@ -626,8 +626,13 @@ public class AadlBaUtils {
     return getDataClassifier(v, null) ;
   }
   
-  // DOC ME
   public static DataClassifier getDataClassifier(Target t)
+  {
+    return getDataClassifier(t, null);
+  }
+  
+  // DOC ME
+  public static DataClassifier getDataClassifier(Target t, NamedElement parentContainer)
   {
     NamedElement result ;
     
@@ -664,17 +669,29 @@ public class AadlBaUtils {
     else if(result instanceof DataAccess)
     {
       DataAccess da = (DataAccess) result;
-      return (DataClassifier) da.getDataFeatureClassifier();
+      if(da.getDataFeatureClassifier() instanceof DataClassifier)
+        return (DataClassifier) da.getDataFeatureClassifier();
+      else if(da.getDataFeatureClassifier() instanceof Prototype)
+      {
+        return (DataClassifier) getClassifier(da.getDataFeatureClassifier(), (Classifier) parentContainer);
+      }
     }
     else if (result instanceof Parameter)
     {
       Parameter p = (Parameter) result;
-      return (DataClassifier) p.getDataFeatureClassifier();
+      if(p.getDataFeatureClassifier() instanceof DataClassifier)
+        return (DataClassifier) p.getDataFeatureClassifier();
+      else if(p.getDataFeatureClassifier() instanceof Prototype)
+      {
+        return (DataClassifier) getClassifier(p.getDataFeatureClassifier(), (Classifier) parentContainer);
+      }
     }
     else // Abstract components case.
     {
       return null ;
     }
+    // Prototype case
+    return null;
   }
   
   /**
@@ -1945,5 +1962,11 @@ public class AadlBaUtils {
     {
       return p ;
     }
+  }
+
+  public static Object getPrototype(Target target)
+  {
+    // TODO Auto-generated method stub
+    return null ;
   }
 }
