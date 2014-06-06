@@ -1529,6 +1529,14 @@ public class AadlBaUtils {
       return FeatureType.DATA_SUBCOMPONENT ;
     else if (el instanceof DataClassifier)
       return FeatureType.DATA_CLASSIFIER ;
+    else if (el instanceof ProcessorClassifier)
+    {
+      return FeatureType.PROCESSOR_CLASSIFIER ;
+    }
+    else if (el instanceof ProcessClassifier)
+    {
+      return FeatureType.PROCESS_CLASSIFIER ;
+    }
 
     String errorMsg = "getFeatureType : " + el.getClass().getSimpleName()+ 
         " is not supported yet at line " +

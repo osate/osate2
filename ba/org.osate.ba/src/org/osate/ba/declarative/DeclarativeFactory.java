@@ -40,8 +40,7 @@ public interface DeclarativeFactory extends EFactory
    * @generated
    */
   DeclarativeFactory eINSTANCE =
-        org.osate.ba.declarative.impl.DeclarativeFactoryImpl
-              .init() ;
+        org.osate.ba.declarative.impl.DeclarativeFactoryImpl.init() ;
 
   /**
    * Returns a new object of class '<em>Arrayable Identifier</em>'.

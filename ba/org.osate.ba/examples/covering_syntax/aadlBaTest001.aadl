@@ -24,6 +24,9 @@ package NamesResolutionTest
 public
    with AADL_Project, Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
+Processor p
+end p ;
+
 subprogram procedure
 end procedure ;
 
@@ -271,6 +274,7 @@ transitions
 
  a -[]-> a {computation (2hr)} ;
  a -[]-> a {computation (1min .. 300 sec)} ;
+ a -[]-> a {computation (100 ms) in binding (p, p)} ;
 
       -- Assignement actions tests --
 

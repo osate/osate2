@@ -21,8 +21,6 @@
 
 package org.osate.ba.declarative.util ;
 
-
-
 import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.emf.ecore.EPackage ;
 
@@ -38,6 +36,9 @@ import org.osate.aadl2.Element ;
 import org.osate.aadl2.FeatureClassifier ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.Processor ;
+import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.ProcessorSubcomponentType ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
 import org.osate.ba.aadlba.ActualPortHolder ;
@@ -266,6 +267,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseIntegerValueConstant(enumeration) ;
         if(result == null)
+          result = caseProcessorClassifier(enumeration) ;
+        if(result == null)
           result = caseComponentClassifier(enumeration) ;
         if(result == null)
           result = caseDataSubcomponentType(enumeration) ;
@@ -276,6 +279,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseIntegerValue(enumeration) ;
         if(result == null)
+          result = caseProcessorSubcomponentType(enumeration) ;
+        if(result == null)
           result = caseClassifier(enumeration) ;
         if(result == null)
           result = caseSubcomponentType(enumeration) ;
@@ -285,6 +290,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseData(enumeration) ;
         if(result == null)
           result = caseBehaviorElement(enumeration) ;
+        if(result == null)
+          result = caseProcessor(enumeration) ;
         if(result == null)
           result = caseNamespace(enumeration) ;
         if(result == null)
@@ -351,6 +358,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseIntegerValueConstant(qualifiedNamedElement) ;
         if(result == null)
+          result = caseProcessorClassifier(qualifiedNamedElement) ;
+        if(result == null)
           result = caseComponentClassifier(qualifiedNamedElement) ;
         if(result == null)
           result = caseDataSubcomponentType(qualifiedNamedElement) ;
@@ -361,6 +370,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseIntegerValue(qualifiedNamedElement) ;
         if(result == null)
+          result = caseProcessorSubcomponentType(qualifiedNamedElement) ;
+        if(result == null)
           result = caseClassifier(qualifiedNamedElement) ;
         if(result == null)
           result = caseSubcomponentType(qualifiedNamedElement) ;
@@ -370,6 +381,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseData(qualifiedNamedElement) ;
         if(result == null)
           result = caseBehaviorElement(qualifiedNamedElement) ;
+        if(result == null)
+          result = caseProcessor(qualifiedNamedElement) ;
         if(result == null)
           result = caseNamespace(qualifiedNamedElement) ;
         if(result == null)
@@ -1049,6 +1062,54 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseIntegerValueConstant(IntegerValueConstant object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Processor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Processor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseProcessor(Processor object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Processor Subcomponent Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Processor Subcomponent Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseProcessorSubcomponentType(ProcessorSubcomponentType object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Processor Classifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Processor Classifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseProcessorClassifier(ProcessorClassifier object)
   {
     return null ;
   }

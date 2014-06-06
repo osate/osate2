@@ -2540,6 +2540,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getTimedAction_ProcessorClassifier()
+  {
+    return (EReference)timedActionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getUnlockAction()
   {
     return unlockActionEClass;
@@ -3070,6 +3080,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     timedActionEClass = createEClass(TIMED_ACTION);
     createEReference(timedActionEClass, TIMED_ACTION__LOWER_TIME);
     createEReference(timedActionEClass, TIMED_ACTION__UPPER_TIME);
+    createEReference(timedActionEClass, TIMED_ACTION__PROCESSOR_CLASSIFIER);
 
     unlockActionEClass = createEClass(UNLOCK_ACTION);
 
@@ -3636,6 +3647,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEClass(timedActionEClass, TimedAction.class, "TimedAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTimedAction_LowerTime(), this.getBehaviorTime(), null, "lowerTime", null, 1, 1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTimedAction_UpperTime(), this.getBehaviorTime(), null, "upperTime", null, 0, 1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTimedAction_ProcessorClassifier(), theAadl2Package.getProcessorClassifier(), null, "processorClassifier", null, 0, -1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unlockActionEClass, UnlockAction.class, "UnlockAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3745,6 +3757,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     addEEnumLiteral(featureTypeEEnum, FeatureType.PROVIDES_BUS_ACCESS_PROTOTYPE);
     addEEnumLiteral(featureTypeEEnum, FeatureType.REQUIRES_BUS_ACCESS_PROTOTYPE);
     addEEnumLiteral(featureTypeEEnum, FeatureType.SYSTEM_SUBCOMPONENT);
+    addEEnumLiteral(featureTypeEEnum, FeatureType.PROCESSOR_CLASSIFIER);
+    addEEnumLiteral(featureTypeEEnum, FeatureType.PROCESS_CLASSIFIER);
 
     initEEnum(logicalOperatorEEnum, LogicalOperator.class, "LogicalOperator");
     addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.NONE);

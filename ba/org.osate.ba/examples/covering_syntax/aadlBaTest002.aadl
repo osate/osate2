@@ -24,6 +24,12 @@ package DataTypeCheckerTest
 public
    with Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
+processor proc
+end proc ;
+
+process p
+end p ;
+
 subprogram mystruct_addition
 
  features
@@ -252,7 +258,10 @@ transitions
  a -[]-> a {fixed1 := 1.1} ;
  a -[]-> a {fixed1 := 1234.0} ;
   
-      
+    -- Timed action tests --
+    
+ a -[]-> a {computation (100 ms) in binding (proc)} ;   
+        
     -- Subprogram call action tests --
    
  a -[]-> a {proto1 ! (int1, float1)} ;
@@ -586,6 +595,10 @@ transitions
  a -[]-> a {fixed1 := anOtherFixed} ; 
 -- a -[]-> a {fixed1 := 123456.0} ; [TODO] not implemented yet
 -- a -[]-> a {fixed1 := 0.123} ; [TODO] not implemented yet
+
+    -- Timed action tests --
+    
+ a -[]-> a {computation (100 ms) in binding (p)} ; 
    
     -- Subprogram call action tests --
    

@@ -61,7 +61,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType aadlba.ecore#//Boolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="QualifiedNamedElement" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier #//DeclarativeBehaviorElement aadlba.ecore#//ValueConstant aadlba.ecore#//IntegerValueConstant">
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedNamedElement" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier #//DeclarativeBehaviorElement aadlba.ecore#//ValueConstant aadlba.ecore#//IntegerValueConstant ../../org.osate.aadl2/model/aadl2.ecore#//ProcessorClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baNamespace" eType="#//Identifier"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baName" lowerBound="1"

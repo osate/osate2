@@ -21,7 +21,6 @@
 
 package org.osate.ba.declarative ;
 
-
 import org.eclipse.emf.ecore.EAttribute ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.EPackage ;
@@ -61,8 +60,7 @@ public interface DeclarativePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_URI =
-        "https://github.com/osate/osate2-ba.git/declarative" ;
+  String eNS_URI = "https://github.com/osate/osate2-ba.git/declarative" ;
 
   /**
    * The package namespace name.
@@ -79,8 +77,7 @@ public interface DeclarativePackage extends EPackage
    * @generated
    */
   DeclarativePackage eINSTANCE =
-        org.osate.ba.declarative.impl.DeclarativePackageImpl
-              .init() ;
+        org.osate.ba.declarative.impl.DeclarativePackageImpl.init() ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.IdentifierImpl <em>Identifier</em>}' class.
@@ -1070,6 +1067,16 @@ public interface DeclarativePackage extends EPackage
         Aadl2Package.DATA_CLASSIFIER__OWNED_MODE_TRANSITION ;
 
   /**
+   * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__DERIVED_MODES =
+        Aadl2Package.DATA_CLASSIFIER__DERIVED_MODES ;
+
+  /**
    * The feature id for the '<em><b>No Flows</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1324,6 +1331,15 @@ public interface DeclarativePackage extends EPackage
    */
   int ENUMERATION__OWNED_MODE_TRANSITION =
         QUALIFIED_NAMED_ELEMENT__OWNED_MODE_TRANSITION ;
+
+  /**
+   * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUMERATION__DERIVED_MODES = QUALIFIED_NAMED_ELEMENT__DERIVED_MODES ;
 
   /**
    * The feature id for the '<em><b>No Flows</b></em>' attribute.

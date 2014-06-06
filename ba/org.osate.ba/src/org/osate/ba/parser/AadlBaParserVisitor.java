@@ -29,6 +29,7 @@ import org.antlr.v4.runtime.misc.NotNull ;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor ;
 import org.antlr.v4.runtime.tree.TerminalNode ;
 import org.eclipse.emf.common.util.BasicEList ;
+import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
 import org.osate.ba.aadlba.Any ;
@@ -73,6 +74,7 @@ import org.osate.ba.parser.AadlBaParser.Binary_adding_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Dispatch_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Elsif_statementContext ;
 import org.osate.ba.parser.AadlBaParser.FactorContext ;
+import org.osate.ba.parser.AadlBaParser.In_bindingContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_value_constantContext ;
 import org.osate.ba.parser.AadlBaParser.Logical_operatorContext ;
@@ -82,6 +84,7 @@ import org.osate.ba.parser.AadlBaParser.Real_literalContext ;
 import org.osate.ba.parser.AadlBaParser.ReferenceContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
 import org.osate.ba.parser.AadlBaParser.TermContext ;
+import org.osate.ba.parser.AadlBaParser.Unique_component_classifier_referenceContext ;
 import org.osate.ba.parser.AadlBaParser.ValueContext ;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
@@ -1082,15 +1085,37 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   @Override
   public T visitTimed_action(@NotNull AadlBaParser.Timed_actionContext ctx)
   {
-    visitChildren(ctx) ;
-    
     ctx.result = _fact.createTimedAction() ;
     setLocationReference(ctx.result, ctx.COMPUTATION()) ;
+    
+    if(ctx.in_binding() != null)
+    {
+      ctx.in_binding().ta = ctx.result ;
+    }
+    
+    visitChildren(ctx) ;
+    
     ctx.result.setLowerTime(ctx.behavior_time(0).result) ;
     
     if(ctx.behavior_time().size() == 2)
     {
       ctx.result.setUpperTime(ctx.behavior_time(1).result);
+    }
+    
+    return null ;
+  }
+  
+  @Override
+  public T visitProcessor_parameter_list(@NotNull AadlBaParser.Processor_parameter_listContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    ctx.result = new BasicEList<ProcessorClassifier>() ;
+
+    for(Unique_component_classifier_referenceContext uccrc : ctx.unique_component_classifier_reference())
+    {
+      DeclarativeUtils.setEcontainer(_ba,uccrc.result) ;
+      ctx.result.add(uccrc.result) ;
     }
     
     return null ;
@@ -1891,6 +1916,14 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     tmp.setValue(str);
     setLocationReference(tmp, ctx.REAL_LIT());
     ctx.result = tmp ;
+    return null ;
+  }
+
+  @Override
+  public T visitIn_binding(In_bindingContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.ta.getProcessorClassifier().addAll(ctx.processor_parameter_list().result) ;
     return null ;
   }
 }

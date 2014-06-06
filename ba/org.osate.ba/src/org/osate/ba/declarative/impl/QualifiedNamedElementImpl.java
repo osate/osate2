@@ -34,6 +34,9 @@ import org.osate.aadl2.Element ;
 import org.osate.aadl2.Feature ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.ModeTransition ;
+import org.osate.aadl2.Processor ;
+import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.ProcessorSubcomponentType ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.impl.DataClassifierImpl ;
 import org.osate.ba.aadlba.BehaviorElement ;
@@ -46,7 +49,6 @@ import org.osate.ba.declarative.DeclarativePackage ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
 import org.osate.ba.utils.AadlBaLocationReference ;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -541,6 +543,30 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
           return -1 ;
       }
     }
+    if(baseClass == Processor.class)
+    {
+      switch ( derivedFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == ProcessorSubcomponentType.class)
+    {
+      switch ( derivedFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == ProcessorClassifier.class)
+    {
+      switch ( derivedFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass) ;
   }
 
@@ -598,6 +624,30 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       }
     }
     if(baseClass == IntegerValueConstant.class)
+    {
+      switch ( baseFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == Processor.class)
+    {
+      switch ( baseFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == ProcessorSubcomponentType.class)
+    {
+      switch ( baseFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == ProcessorClassifier.class)
     {
       switch ( baseFeatureID )
       {

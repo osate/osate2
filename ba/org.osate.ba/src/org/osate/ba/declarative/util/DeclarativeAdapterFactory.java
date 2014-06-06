@@ -21,8 +21,6 @@
 
 package org.osate.ba.declarative.util ;
 
-
-
 import org.eclipse.emf.common.notify.Adapter ;
 import org.eclipse.emf.common.notify.Notifier ;
 
@@ -40,6 +38,9 @@ import org.osate.aadl2.Element ;
 import org.osate.aadl2.FeatureClassifier ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.Processor ;
+import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.ProcessorSubcomponentType ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
 import org.osate.ba.aadlba.ActualPortHolder ;
@@ -366,6 +367,24 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           public Adapter caseIntegerValueConstant(IntegerValueConstant object)
           {
             return createIntegerValueConstantAdapter() ;
+          }
+
+          @Override
+          public Adapter caseProcessor(Processor object)
+          {
+            return createProcessorAdapter() ;
+          }
+
+          @Override
+          public Adapter caseProcessorSubcomponentType(ProcessorSubcomponentType object)
+          {
+            return createProcessorSubcomponentTypeAdapter() ;
+          }
+
+          @Override
+          public Adapter caseProcessorClassifier(ProcessorClassifier object)
+          {
+            return createProcessorClassifierAdapter() ;
           }
 
           @Override
@@ -1036,6 +1055,51 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createIntegerValueConstantAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Processor <em>Processor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Processor
+   * @generated
+   */
+  public Adapter createProcessorAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ProcessorSubcomponentType <em>Processor Subcomponent Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ProcessorSubcomponentType
+   * @generated
+   */
+  public Adapter createProcessorSubcomponentTypeAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ProcessorClassifier <em>Processor Classifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ProcessorClassifier
+   * @generated
+   */
+  public Adapter createProcessorClassifierAdapter()
   {
     return null ;
   }

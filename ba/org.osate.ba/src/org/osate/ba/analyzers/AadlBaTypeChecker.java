@@ -29,7 +29,6 @@ import java.util.ListIterator ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.common.util.Enumerator ;
 import org.eclipse.emf.ecore.InternalEObject ;
-
 import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.ArraySize ;
@@ -54,6 +53,7 @@ import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Parameter ;
 import org.osate.aadl2.Port ;
+import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyConstant ;
 import org.osate.aadl2.PropertyExpression ;
@@ -2093,7 +2093,41 @@ public class AadlBaTypeChecker
                                   resolvedTime);
       ta.setUpperTime(resolvedTime) ;
     }
-
+    
+    if(ta.isSetProcessorClassifier())
+    {
+      List<ProcessorClassifier> qnes = new ArrayList<ProcessorClassifier>
+                                          (ta.getProcessorClassifier().size()) ; 
+      qnes.addAll(ta.getProcessorClassifier())       ;
+      ta.unsetProcessorClassifier();
+      
+      QualifiedNamedElement qne ;
+      Classifier tmp ;
+      
+      for(int i = 0 ; i < qnes.size() ; i++)
+      {
+        qne = (QualifiedNamedElement) qnes.get(i) ;
+        tmp = uniqueComponentClassifierReferenceResolver(qne,
+                                                 TypeCheckRule.PROCESSOR_RULE) ;
+        if(tmp != null)
+        {
+          try
+          { 
+            ta.getProcessorClassifier().add((ProcessorClassifier) tmp) ;
+          }
+          catch(IllegalArgumentException e)
+          {
+            // if the user set the same more than once.
+            System.out.println("################") ;
+          }
+        }
+        else
+        {
+          result = false ;
+        }
+      }
+    }
+    
     return result ;
   }
 
@@ -3320,7 +3354,11 @@ public class AadlBaTypeChecker
     VV_STOP_RULE ("value variable stop rule", new Enum[]
           {TypeCheckRule.IN_PORT,
            TypeCheckRule.IN_PORT_PROTOTYPE
-          }) ;
+          }),
+          
+          
+    PROCESSOR_RULE("processor unique component classifier reference", new Enum[]
+          {FeatureType.PROCESSOR_CLASSIFIER}) ;
           
     String _literal ;
     Enum<?>[] _acceptableTypes ;

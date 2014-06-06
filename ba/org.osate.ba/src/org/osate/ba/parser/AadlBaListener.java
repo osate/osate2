@@ -21,10 +21,10 @@
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
   
-package org.osate.ba.parser;
+  package org.osate.ba.parser;
   
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
+  import org.antlr.v4.runtime.misc.NotNull ;
+import org.antlr.v4.runtime.tree.ParseTreeListener ;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
@@ -219,6 +219,17 @@ public interface AadlBaListener extends ParseTreeListener {
 	void exitBinary_adding_operator(@NotNull AadlBaParser.Binary_adding_operatorContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#processor_parameter_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcessor_parameter_list(@NotNull AadlBaParser.Processor_parameter_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#processor_parameter_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcessor_parameter_list(@NotNull AadlBaParser.Processor_parameter_listContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#behavior_action}.
 	 * @param ctx the parse tree
 	 */
@@ -230,17 +241,6 @@ public interface AadlBaListener extends ParseTreeListener {
 	void exitBehavior_action(@NotNull AadlBaParser.Behavior_actionContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link AadlBaParser#assignment_action}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AadlBaParser#assignment_action}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#logical_operator}.
 	 * @param ctx the parse tree
 	 */
@@ -250,6 +250,17 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLogical_operator(@NotNull AadlBaParser.Logical_operatorContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#assignment_action}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#assignment_action}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#communication_action}.
@@ -560,17 +571,6 @@ public interface AadlBaListener extends ParseTreeListener {
 	void exitBehavior_variable(@NotNull AadlBaParser.Behavior_variableContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link AadlBaParser#factor}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor(@NotNull AadlBaParser.FactorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AadlBaParser#factor}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor(@NotNull AadlBaParser.FactorContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#relational_operator}.
 	 * @param ctx the parse tree
 	 */
@@ -580,6 +580,17 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRelational_operator(@NotNull AadlBaParser.Relational_operatorContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactor(@NotNull AadlBaParser.FactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactor(@NotNull AadlBaParser.FactorContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#behavior_annex}.
@@ -745,4 +756,15 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBehavior_transition(@NotNull AadlBaParser.Behavior_transitionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#in_binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterIn_binding(@NotNull AadlBaParser.In_bindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#in_binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitIn_binding(@NotNull AadlBaParser.In_bindingContext ctx);
 }
