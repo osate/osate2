@@ -21,36 +21,52 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.osate.aadl2.instance.InstanceObject;
 
-public class ConsEnv extends Environment {
-	final private String key;
-	final private Val value;
-	final private Environment tail;
+public class RecordVal extends Val {
+	final Map<String,Val> values;
 	
-	
-	public Val getVal()
-	{
-		return this.value;
-	}
-	public ConsEnv(String key, Val value, Environment tail) {
+	public RecordVal() {
 		super();
-		this.key = key;
-		this.value = value;
-		this.tail = tail;
+		this.values = new HashMap<String,Val>();
+	}
+	
+	
+	public String getString() {
+		return this.values.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+
+		return false;
 	}
 
 	@Override
-	public Val lookup(String id) {
-		if (id.equalsIgnoreCase (key)) {
-			return value;
-		} else {
-			return tail.lookup (id);
-		}
+	public String toString() {
+		return this.values.toString();
 	}
+	
+	public List<InstanceObject> getRelatedComponents ()
+	{
+		ArrayList<InstanceObject> ret = new ArrayList<InstanceObject>();
 
-	@Override
-	public FunctionDefinition lookupFn(String id) {
-		return tail.lookupFn(id);
+		return ret;
 	}
+	
+	public Val getValue (String s)
+	{
+		return values.get(s);
+	}
+	
+	public void add (String s, Val v)
+	{
+		this.values.put(s, v);
+	}
+	
 }

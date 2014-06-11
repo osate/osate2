@@ -26,6 +26,8 @@ public class LuteConstants {
 	public static final String GET_FEATURE = "Get_Feature";
 	public static final String ASSOCIATED_DATA = "Associated_Data";
 	public static final String ASSOCIATED_CLASSIFIER = "Associated_Classifier";
+	
+	public static final String RECORD_VALUE = "record_value";
 	// Sets
 	public static final String CONNECTION_SET = "Connection_Set";
 	public static final String MEMBER = "Member";
@@ -131,8 +133,8 @@ public class LuteConstants {
 		LUTE_KEYWORDS = keyWords.toArray( new String[ keyWords.size() ] );
     }
 	
-    public static String luteSetName( 	final String p_categoryName ) {
-		return capitalizeName( p_categoryName, "_", "Set" );
+    public static String luteSetName (final String p_categoryName ) {
+		return capitalizeName( p_categoryName, "_", "set" );
 	}
 
 	public static String capitalizeName( 	final String p_categoryName,

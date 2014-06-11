@@ -62,7 +62,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -86,6 +89,7 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
@@ -102,6 +106,7 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.OsateDebug;
@@ -407,14 +412,28 @@ public class FnCallExpr extends Expr {
 
 			throw new LuteException("has_in_ports called on non-connection object");
 
-		} else if (fn.equalsIgnoreCase(LuteConstants.MEMBER)) {
+		} 
+		else if (fn.equalsIgnoreCase(LuteConstants.RECORD_VALUE))
+		{
+			expectArgs(2);
+			Val record = argValues.get(0);
+
+			Val member = argValues.get(1);
+			String memberString = ((StringVal)member).getString();
+			Val returned = ((RecordVal)record).getValue(memberString);
+			return returned; 
+			
+		} 
+		else if (fn.equalsIgnoreCase(LuteConstants.MEMBER))
+		{
 			expectArgs(2);
 			Val e = argValues.get(0);
 
 			Collection<Val> set = argValues.get(1).getSet();
 			return new BoolVal(set.contains(e));
 
-		} else if (fn.equalsIgnoreCase(LuteConstants.OWNER)) {
+		} 
+		else if (fn.equalsIgnoreCase(LuteConstants.OWNER)) {
 			expectArgs(1);
 			NamedElement e = (NamedElement) argValues.get(0).getAADL();
 			if (e.getOwner() instanceof NamedElement) {
@@ -994,14 +1013,12 @@ public class FnCallExpr extends Expr {
 	}
 
 
-	private Val getProperty(	final NamedElement p_aadlElement,
-			final String p_propertyName ) {
+	private Val getProperty	(final NamedElement p_aadlElement, final String p_propertyName)
+	{
 		return getProperty( p_aadlElement, p_propertyName, null );
 	}
 
-	private Val getProperty(	final NamedElement p_aadlElement,
-			final String p_propertyName,
-			final String p_unit ) {
+	private Val getProperty (final NamedElement p_aadlElement, final String p_propertyName, final String p_unit ) {
 		final Property propDef = getPropertyDefinition( p_aadlElement, p_propertyName );
 
 		try {
@@ -1021,6 +1038,10 @@ public class FnCallExpr extends Expr {
 		}
 		catch ( final PropertyNotPresentException p_ex ) {
 			return null;
+		}
+		catch (PropertyDoesNotApplyToHolderException applyException)
+		{ 
+			throw new LuteException ("Property " + p_propertyName + " does not apply on component" + p_aadlElement.getName());
 		}
 	}
 
@@ -1077,8 +1098,7 @@ public class FnCallExpr extends Expr {
 		return unitLit;
 	}
 
-	private Val AADLPropertyValueToValue(final NamedElement aadlElement,	final PropertyExpression p_expr,
-			final String p_unit ) {
+	private Val AADLPropertyValueToValue (final NamedElement aadlElement, final PropertyExpression p_expr, final String p_unit ) {
 		if ( p_expr == null ) {
 			return null;
 		} 
@@ -1190,8 +1210,22 @@ public class FnCallExpr extends Expr {
 			if (ret != null)
 			{
 				return new StringVal (ret);	
+			}		
+		}
+		
+		if (p_expr instanceof RecordValue)
+		{
+			RecordValue rv = (RecordValue) p_expr;
+			RecordVal returnedValue = new RecordVal();
+			
+			EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+			for (BasicPropertyAssociation propertyAssociation : fields) {
+				BasicProperty prop = propertyAssociation.getProperty();
+				String fieldnamename = prop.getName().toLowerCase();
+				returnedValue.add (fieldnamename, AADLPropertyValueToValue(aadlElement, propertyAssociation.getValue(),null));
 			}
 			
+			return 	returnedValue;
 		}
 		throw new LuteException( "Unknown AADL property value " + p_expr );
 	}
