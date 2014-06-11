@@ -35,28 +35,28 @@ public class LabelProvider implements ILabelProvider {
 	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
 		public void resourceChanged(final IResourceChangeEvent event) {
 			if(event.getType() == IResourceChangeEvent.POST_CHANGE) {
-				Display.getDefault().syncExec(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							event.getDelta().accept(new IResourceDeltaVisitor() {
-								@Override
-								public boolean visit(IResourceDelta delta) throws CoreException {
-									if(delta.getKind() == IResourceDelta.CHANGED && (delta.getFlags() & IResourceDelta.CONTENT) != 0) {
-										if(isApplicable(delta.getResource())) {
+				try {
+					event.getDelta().accept(new IResourceDeltaVisitor() {
+						@Override
+						public boolean visit(final IResourceDelta delta) throws CoreException {
+							if(delta.getKind() == IResourceDelta.CHANGED && (delta.getFlags() & IResourceDelta.CONTENT) != 0) {
+								if(isApplicable(delta.getResource())) {
+									Display.getDefault().asyncExec(new Runnable() {
+										@Override
+										public void run() {
 											notifyListeners(delta.getResource());
 										}
-									}
-									
-									return true;
+									});
 								}
-								 
-							 });
-						} catch (CoreException e) {
-							e.printStackTrace();
+							}
+							
+							return true;
 						}
-					}					
-				});				
+						 
+					 });
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
 	         }
 	      }
 	   };
