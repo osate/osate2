@@ -1,17 +1,13 @@
 package org.osate.aadl2.errormodel.analysis.fta;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -19,16 +15,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
@@ -37,701 +31,487 @@ public class FTAUtils
 {
 	private static AnalysisModel       currentAnalysisModel;
 	
-	
+	/**
+	 * Init the FTAUtils class for a particular
+	 * component instance.
+	 * @param root - the root system instance to be processed.
+	 */
 	public static void init (ComponentInstance root)
 	{
 		currentAnalysisModel = new AnalysisModel(root);
 	}
 	
-	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
+	
+	/**
+	 * Fill an Event with all the properties from the AADL model. Likely, all the related
+	 * values in the Hazard property from EMV2.
+	 * 
+	 * @param event					- the event related to the EMV2 artifact
+	 * @param component             - the component from the event
+	 * @param errorModelArtifact    - the EMV2 artifact (error event, error propagation, etc)
+	 * @param typeSet               - the type set (null if none)
+	 */
+	public static void fillProperties (Event event, ComponentInstance component, NamedElement errorModelArtifact, TypeSet typeSet)
 	{
-		for (ComponentInstance ci : instances)
+		String propertyDescription;
+		
+		propertyDescription = EMV2Properties.getDescription(errorModelArtifact, component);
+		if (propertyDescription != null)
 		{
-			if (ci.getName().equalsIgnoreCase(name))
-			{
-				return ci;
-			}
+			event.setDescription(propertyDescription);
 		}
-		OsateDebug.osateDebug("[FTAUtils] Did not find the instance " + name);
-		return null;
+		
+		event.setProbability(EMV2Properties.getProbability (component,errorModelArtifact,typeSet));
 	}
 	
 	
-	public static String getStateHash (ComponentInstance ci,ErrorBehaviorState ebs )
+	/**
+	 * For one incoming error propagation and one component, returns all the potential
+	 * errors contributors.
+	 * @param component         - the component that has the incoming error propagation
+	 * @param errorPropagation  - the error propagation
+	 * @return                  - a list of event that has all the error contributors
+	 */
+	public static List<Event> getAllEventsFromPropagationSource (ComponentInstance component, ErrorPropagation errorPropagation)
 	{
-		return ("##" + ci.getName() + ebs.getName()+ "##");
-	}
-	
-	
-	private static List<String> getInvolvedSubcomponents (final ConditionExpression cond,  final EList<ComponentInstance> componentInstances)
-	{
-		List<String> result = new ArrayList<String>();
-		if (cond instanceof SOrExpression)
+		List<PropagationPathEnd> 	propagationSources;
+		Event 						newEvent;
+		List<Event>					returnedEvents;
+		String						description;
+		
+		returnedEvents = new ArrayList<Event>();
+
+		propagationSources = currentAnalysisModel.getAllPropagationSourceEnds(component, errorPropagation);
+
+		for (PropagationPathEnd ppe : propagationSources)
 		{
-			SOrExpression sor = (SOrExpression) cond;
 			
-			for (ConditionExpression conditionExpression : sor.getOperands())
-			{
-				if (conditionExpression instanceof ConditionElement)
-				{
-					ConditionElement conditionElement;
-					
-					conditionElement = (ConditionElement) conditionExpression;
-					for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
-					{
-						Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-						//OsateDebug.osateDebug("cond = " + cond + "      subcomponent=" + subcomponent);
-						ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-						if (relatedInstance != null)
-						{
-							result.add (relatedInstance.getName());
-						}
-					}
-				}
-			}
-		}
-		if (cond instanceof SAndExpression)
-		{
-			SAndExpression sae = (SAndExpression) cond;
-	
-			for (ConditionExpression conditionExpression : sae.getOperands())
-			{
-				if (conditionExpression instanceof ConditionElement)
-				{
-					ConditionElement conditionElement;
-					
-					conditionElement = (ConditionElement) conditionExpression;
-					for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
-					{
-						Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-						//OsateDebug.osateDebug("cond = " + cond + "      subcomponent=" + subcomponent);
-						ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-						if (relatedInstance != null)
-						{
-							result.add (relatedInstance.getName());
-						}
-					}
-				}
-			}
-		}
-		return result;
-	}
-	
-
-	public static String buildHash (ComponentInstance instance, ErrorBehaviorState ebs)
-	{
-		return "##" + instance + "##" + instance.getComponentClassifier().getName() + "##" + ebs.getName() + "##";
-	}
-	
-	public static List<Event> findIncomingPropagations (ComponentInstance relatedInstance, ConditionElement conditionElement, EList<ComponentInstance> componentInstances)
-	{
-		List<Event> propagations;
-		Classifier cl;
-		
-		propagations = new ArrayList<Event>();
-		
-		
-		cl = relatedInstance.getComponentClassifier();
-	
-		if (EMV2Util.hasComponentErrorBehaviorTransitions(relatedInstance))
-		{
-			Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(cl);
-			for (ErrorBehaviorTransition t : transitions)
-			{
-//				OsateDebug.osateDebug( " trans = " + t + "|" + t.getName());
-//				OsateDebug.osateDebug("target="  + t.getTarget().getName());
-//				OsateDebug.osateDebug("condition="  + t.getCondition());
-				if (t.getCondition() instanceof ConditionElement)
-				{
-					ConditionElement ce = (ConditionElement) t.getCondition();
-					if (ce.getIncoming() != null)
-					{
-						
-						EventOrPropagation eop = ce.getIncoming();
-						if (eop instanceof ErrorPropagation)
-						{
-							
-							/*
-							 * Set the propagation name.
-							 */
-							String newEventName = null;
-							boolean handleSubcomponent = false;
-							ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
-							Event newEvent;
-							
-
-							//OsateDebug.osateDebug("relatedinstance=" + relatedInstance);
-							//OsateDebug.osateDebug("ep=" + ep);
-							for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(relatedInstance, ep))
-							{
-								//OsateDebug.osateDebug("ppe=" + ppe.getErrorPropagation().getFeatureorPPRefs());
-								ComponentInstance ciSource = ppe.getComponentInstance();
-								//OsateDebug.osateDebug("bla" + ciSource);
-								for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ciSource))
-								{
-									//OsateDebug.osateDebug("opc outgoing" + opc.getOutgoing());
-									//OsateDebug.osateDebug("ppe getprep " + ppe.getErrorPropagation());
-									if (opc.getOutgoing() == ppe.getErrorPropagation() &&
-//										((opc.getTypeToken().isNoError() == ep.getTypeSet().getTypeTokens().get(0).isNoError())&&
-										EM2TypeSetUtil.contains( ep.getTypeSet(),opc.getOutgoing().getTypeSet()))
-//									if ((opc.getOutgoing() == ppe.getErrorPropagation()) &&
-//										(EM2TypeSetUtil.contains(opc.getTypeTokenConstraint(), ppe.getErrorPropagation().getTypeSet())))
-									{
-//										(opc.getTypeToken().isNoError() && ppe.getErrorPropagation().getTypeSet().getTypeTokens().get(0).isNoError())
-//										OsateDebug.osateDebug("opc="+EMV2Util.getPrintName(opc.getTypeTokenConstraint()));
-//										OsateDebug.osateDebug("opc2="+EMV2Util.getPrintName(opc.getOutgoing().getTypeSet()));
-//										OsateDebug.osateDebug("ppe="+EMV2Util.getPrintName( ppe.getErrorPropagation().getTypeSet()));
-//										OsateDebug.osateDebug("opc2==ppe: "+EM2TypeSetUtil.contains(opc.getOutgoing().getTypeSet(), ppe.getErrorPropagation().getTypeSet()));
-										ErrorBehaviorState ebs = opc.getState();
-										
-										newEventName = "component " + ciSource.getName() + " in state " + ebs.getName();
-
-										
-										newEvent = new Event();
-										newEvent.setName (newEventName);
-										newEvent.setEventType(EventType.NORMAL);
-										
-										fillEventWithProperties (newEvent, relatedInstance, ebs);
-										//OsateDebug.osateDebug("ep="  + ep);
-										int nTransitions = 0;
-										for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(ciSource))
-										{
-											if (ebt.getTarget() == ebs)
-											{
-												nTransitions++;
-												Event subEvent = new Event();
-												subEvent.setName ("sub");
-												subEvent.setEventType(EventType.EVENT);
-												handleCondition (subEvent,ebs,ciSource,ebt.getCondition(),componentInstances, true);
-
-												newEvent.addSubEvent(subEvent);
-											}
-										}
-										if (nTransitions > 1)
-										{
-											newEvent.setEventType(EventType.OR);
-										}
-										
-										/**
-										 * If the new event (that result for a component to being
-										 * in a particular state) does not contain sub-events (due to
-										 * error propagations, error events, etc.), then, we declare
-										 * it as an Event so that OpenFTA will not complain about
-										 * validation issue/error.
-										 */
-										if (newEvent.getSubEvents().size() == 0)
-										{
-											newEvent.setEventType(EventType.EVENT);
-										}
-										propagations.add(newEvent);
-										
-									}
-								}
-							}
-							
-							if (handleSubcomponent == false)
-							{
-								/*
-								 * First, we try to put the type name as the propagation
-								 * name.
-								 */
-								TypeSet ts = ce.getConstraint();
-								if (ts != null)
-								{
-									for (TypeToken tt : ts.getTypeTokens())
-									{
-										//OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
-										
-										newEventName = tt.getType().get(0).getName();
-										newEvent = new Event();
-										if (ep.getFeatureorPPRefs().size() > 0)
-										{
-											FeatureorPPReference fppr = ep.getFeatureorPPRefs().get(0);
-											Feature f = (Feature) fppr.getFeatureorPP();
-											if (f != null)
-											{
-												newEventName += " on " + f.getName();
-											}
-										}
-										
-										newEvent.setName (newEventName);
-										newEvent.setEventType(EventType.EVENT);
-										propagations.add(newEvent);
-										fillEventWithProperties (newEvent, relatedInstance, ep,ts);
-//										OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations ep="  + ep);
-									}
-								}
-								
-								/*
-								 * Then, if we fail to get the type name, we retrieve
-								 * the associated feature name.
-								 */
-								List<FeatureorPPReference> features = ep.getFeatureorPPRefs();
-								for (FeatureorPPReference fe : features)
-								{
-									//OsateDebug.osateDebug("fe="  + fe.getFeatureorPP());
-									if (newEventName == null)
-									{
-										newEventName = fe.getFeatureorPP().getName();
-	
-										newEvent = new Event();
-										newEvent.setName (newEventName);
-										newEvent.setEventType(EventType.EVENT);
-										fillEventWithProperties (newEvent, relatedInstance, fe.getFeatureorPP());
-										propagations.add(newEvent);
-										//OsateDebug.osateDebug("ep="  + ep);
-									}
-								}
-							}
-
-						}
-						
-						if (eop instanceof ErrorEvent)
-						{
-							
-							ErrorEvent ev = (ErrorEvent) ce.getIncoming();
-							//OsateDebug.osateDebug("ev="  + ev);
-							Event newEvent;
-							/*
-							 * Set the propagation name.
-							 */
-							String newEventName = null;
-							
-							/*
-							 * First, we try to put the type name as the propagation
-							 * name.
-							 */
-							TypeSet ts = ev.getTypeSet();
-							if ((ts != null) && (ts.getTypeTokens() != null))
-							{
-								for (TypeToken tt : ts.getTypeTokens())
-								{
-									//OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
-									
-									newEventName = tt.getType().get(0).getName();
-									//OsateDebug.osateDebug("eventname="  + newEventName);
-
-									if (newEventName != null)
-									{
-										newEvent = new Event ();
-										newEvent.setName (newEventName);
-										newEvent.setEventType(EventType.EVENT);
-										propagations.add(newEvent);
-										fillEventWithProperties (newEvent, relatedInstance, eop);
-									}
-								}
-							}
-							
-
-							
-							/*
-							 * Then, if we fail to get the type name, we retrieve
-							 * the associated event name.
-							 */
-
-							if (newEventName == null)
-							{
-								newEvent = new Event ();
-								newEventName = ev.getName();
-								newEvent.setName (newEventName);
-								newEvent.setEventType(EventType.EVENT);
-								propagations.add(newEvent);
-								fillEventWithProperties (newEvent, relatedInstance, ev);
-								
-							}
-							
-
-						}
-
-					}
-				}
-			}
-		}
-		return propagations;
-	}
-
-	
-	public static void handleCondition (Event event, 
-			                            final ErrorBehaviorState resultingBehaviorState, 
-			                            final ComponentInstance relatedComponentInstance,
-			                            final ConditionExpression cond, 
-			                            final EList<ComponentInstance> componentInstances,
-			                            final boolean exploreRelativeCompositeStates)
-	{
-		
-		//OsateDebug.osateDebug("[FTAUtils] handleCondition on " + relatedComponentInstance.getName() +"/" + resultingBehaviorState.getName());
-		if (cond instanceof ConditionElement)
-		{
-			ConditionElement conditionElement;
+			newEvent = new Event();
+			description = "Error from component " + ppe.getComponentInstance().getName();
 			
-			conditionElement = (ConditionElement) cond;
-
-			ErrorBehaviorState behaviorState = conditionElement.getState();
-
-			/**
-			 * First, we see if the condition is bound to any other subcomponent
-			 * So, if it comes from an incoming propagation
-			 */
-			if (conditionElement.getSubcomponents().size() == 0)
+			if ( (ppe.getErrorPropagation().getFeatureorPPRefs() != null) && (ppe.getErrorPropagation().getFeatureorPPRefs().size() > 0))
 			{
+				description += " on " + ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP().getName();
+			}		
+			
+			if (ppe.getErrorPropagation().getTypeSet().getTypeTokens().size() > 0)
+			{
+				description += " with types " + EMV2Util.getPrintName(ppe.getErrorPropagation().getTypeSet());
+			}
+			
+			newEvent.setDescription(description);
+			newEvent.setEventType (EventType.EVENT);
+			
+			fillProperties (newEvent, component, errorPropagation, errorPropagation.getTypeSet());
+			
+			returnedEvents.add (newEvent);
+		}
+		
+		return returnedEvents;
+	}
+	
+	public static String getFeatureFromErrorPropagation (ErrorPropagation errorPropagation)
+	{
+		for (FeatureorPPReference fp : errorPropagation.getFeatureorPPRefs())
+		{
+			return fp.getFeatureorPP().getName();
+		}
+		return "unknown feature";
+	}
+	
+	/**
+	 * Process a condition, either from a component error behavior or
+	 * a composite error behavior.
+	 * @param component - the component that contains the condition
+	 * @param condition - the ConditionExpression to be analyzed
+	 * @return a list of events related to the condition
+	 */
+	public static List<Event> processCondition (ComponentInstance component, ConditionExpression condition)
+	{
+		List<Event>		returnedEvents;
+		List<Event> 	contributors;
+		
+		returnedEvents = new ArrayList<Event>();
+		
+//		OsateDebug.osateDebug("[FTAUtils] condition=" + condition);
+
+		/**
+		 * We have an AND expression, so, we create an EVENT to AND'
+		 * sub events.
+		 */
+		if (condition instanceof AndExpression)
+		{
+			AndExpression expression;
+			Event newEvent;
+			
+			newEvent = new Event();
+			newEvent.setEventType (EventType.AND);
+			newEvent.setDescription("Occurrence of all the following events");
+			
+			expression = (AndExpression) condition;
+			for (ConditionExpression ce : expression.getOperands())
+			{
+				for (Event tmp : processCondition (component, ce))
+				{
+					newEvent.addSubEvent(tmp);
+				}
+			}
+			returnedEvents.add(newEvent);
+		}
+		
+		if ((condition instanceof SAndExpression))
+		{
+			SAndExpression expression;
+			Event newEvent;
+			
+			newEvent = new Event();
+			newEvent.setEventType (EventType.AND);
+			newEvent.setDescription("Occurrence of all the following events");
+			
+			expression = (SAndExpression) condition;
+			for (ConditionExpression ce : expression.getOperands())
+			{
+				for (Event tmp : processCondition (component, ce))
+				{
+					newEvent.addSubEvent(tmp);
+				}
+			}
+			returnedEvents.add(newEvent);
+		}
+		
+		
+		/**
+		 * We have an OR expression, so, we create an EVENT to OR'd
+		 * sub events.
+		 */
+		if (condition instanceof OrExpression)
+		{
+			OrExpression expression;
+			Event newEvent;
+			
+			newEvent = new Event();
+			newEvent.setEventType (EventType.OR);
+			newEvent.setDescription("Occurrence of one of the following events");
+			
+			expression = (OrExpression) condition;
+			for (ConditionExpression ce : expression.getOperands())
+			{
+				for (Event tmp : processCondition (component, ce))
+				{
+					newEvent.addSubEvent(tmp);
+				}
+			}
+			returnedEvents.add(newEvent);
+		}
+		
+		
+		if (condition instanceof SOrExpression)
+		{
+			SOrExpression expression;
+			Event newEvent;
+			
+			newEvent = new Event();
+			newEvent.setEventType (EventType.OR);
+			newEvent.setDescription("Occurrence of one of the following events");
+			
+			expression = (SOrExpression) condition;
+			for (ConditionExpression ce : expression.getOperands())
+			{
+				for (Event tmp : processCondition (component, ce))
+				{
+					newEvent.addSubEvent(tmp);
+				}
+			}
+			returnedEvents.add(newEvent);
+		}
+		
+		
+		/**
+		 * Here, we have a single condition element.
+		 */
+		if (condition instanceof ConditionElement)
+		{
+			ConditionElement conditionElement = (ConditionElement) condition;
+			if (conditionElement.getIncoming() != null)
+			{
+//				OsateDebug.osateDebug("[FTAUtils] processCondition incoming=" + conditionElement.getIncoming());
+				
+				/**
+				 * Here, we have an error event. Likely, this is something we can get
+				 * when we are analyzing error component behavior.
+				 */
+				if (conditionElement.getIncoming() instanceof ErrorEvent)
+				{
+					ErrorEvent 	errorEvent;
+					Event 		newEvent;
+					
+					errorEvent = (ErrorEvent) conditionElement.getIncoming();
+					
+					newEvent = new Event();
+					newEvent.setDescription( "Error event " + errorEvent.getName() + "types " + EMV2Util.getPrintName(errorEvent.getTypeSet()));
+					newEvent.setEventType (EventType.EVENT);
+					
+					fillProperties (newEvent, component, errorEvent, errorEvent.getTypeSet());
+					
+					returnedEvents.add(newEvent);
+					
+				}
+				
+				
+				/**
+				 * Here, we have an error propagation. This is notified
+				 * with the in propagation within a composite error
+				 * model.
+				 */
 				if (conditionElement.getIncoming() instanceof ErrorPropagation)
 				{
-					List<Event> toAdd = new ArrayList<Event>();
-					Event tmpEvent;
+					ErrorPropagation 			errorPropagation;
+					Event 						newEvent;
+					FeatureorPPReference 		fpr;
+					String 						propagationPoint;
 					
-					ErrorPropagation ep = (ErrorPropagation) conditionElement.getIncoming();
+					errorPropagation 	= (ErrorPropagation) conditionElement.getIncoming();
 					
-					if (ep.getFeatureorPPRefs().size() == 0)
+					if ((errorPropagation.getFeatureorPPRefs() != null) && (errorPropagation.getFeatureorPPRefs().size() > 0))
 					{
-						EMV2Util.getPrintName(ep.getTypeSet());
-						event.setEventType(EventType.EVENT);
-						event.setName ("processor" + EMV2Util.getPrintName(ep.getTypeSet()));
-						event.setDescription("processor binding error, receive error type " + EMV2Util.getPrintName(conditionElement.getConstraint()));
+						fpr 				= errorPropagation.getFeatureorPPRefs().get(0);
 					}
 					else
 					{
-						for (FeatureorPPReference fppr : ep.getFeatureorPPRefs())
-						{
-								//OsateDebug.osateDebug("BLA" + fppr.getFeatureorPP());
-							tmpEvent = new Event();
-							tmpEvent.setEventType(EventType.EVENT);
-							tmpEvent.setName(fppr.getFeatureorPP().getName());
-//							OsateDebug.osateDebug("EVENT NAME5" + fppr.getFeatureorPP().getName());
-							fillEventWithProperties (tmpEvent, relatedComponentInstance, ep);
-	
-							toAdd.add(tmpEvent);
-						}
+						fpr = null;
 					}
+					propagationPoint 	= "unknown propagation point";
 					
-					if (exploreRelativeCompositeStates)
-					{
-						for (CompositeState cs : EMV2Util.getAllCompositeStates(relatedComponentInstance))
-						{
-							if (cs.getState() == resultingBehaviorState)
-							{
-								tmpEvent = new Event();
-	
-								handleCondition (tmpEvent, resultingBehaviorState, relatedComponentInstance, cs.getCondition(), componentInstances, true);
-								toAdd.add(tmpEvent);
-								
-								//OsateDebug.osateDebug("BLA2=" + cs.getState());
-	
-							}
-						}
-					}
-					
-					if (toAdd.size() > 1)
-					{
-						event.setEventType(EventType.OR);
-						for (Event e : toAdd)
-						{
-							event.addSubEvent(e);
-						}
-					}
-					if (toAdd.size() == 1)
-					{
-						event.setName(toAdd.get(0).getName());
-						event.setEventType(toAdd.get(0).getEventType());
-					}
-						
+//					OsateDebug.osateDebug("[FTAUtils] fpr=" + fpr.getFeatureorPP());
 
-				}
-				else if (conditionElement.getIncoming() instanceof ErrorEvent)
-				{
-					ErrorEvent ee = (ErrorEvent) conditionElement.getIncoming();
-					event.setEventType(EventType.EVENT);
-					fillEventWithProperties (event, relatedComponentInstance, ee,null);
-					
-//					OsateDebug.osateDebug("EVENT NAME5" +ee.getName());
-					event.setName(ee.getName());
-				}
-				else
-				{
-					OsateDebug.osateDebug("UNHANDLED");
-				}
-			}
-			else
-			{
-			/**
-			 * Here, the condition is associated to some subcomponent so we assume
-			 * it is associated with another composite error states. 
-			 */
-				for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
-				{
-					Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-					//OsateDebug.osateDebug("cond = " + cond + "      subcomponent=" + subcomponent);
-					ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-					
-					if (relatedInstance == null)
+					if ((fpr != null) && (fpr.getFeatureorPP() instanceof Port))
 					{
-						continue;
+						propagationPoint = ((Port)fpr.getFeatureorPP()).getName();
 					}
-					ErrorBehaviorState ebsTarget = conditionElement.getState();
-					String targetStateName = ebsTarget.getName();
-					if (conditionElement.getConstraint() != null)
-					{
-						
-						targetStateName += conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0).getName();
-					}
-//					OsateDebug.osateDebug("[FTAUtils] handleCondition targetStateName=" + targetStateName + " on " + relatedInstance.getName());
-					EList<CompositeState> emslist = EMV2Util.getAllCompositeStates(relatedInstance);
+
+//					for (PropagationPathRecord ppr : currentAnalysisModel.getAllReversePropagationPaths(component, errorPropagation))
+//					{
+//						OsateDebug.osateDebug("FTAUtils", "ppr ci      =" + ppr.getSrcCI());
+//						OsateDebug.osateDebug("FTAUtils", "ppr path end=" + ppr.getPathSrc().getComponentInstance());
+//					}
 					
-					if (!emslist.isEmpty())
+					
+					
+					contributors = getAllEventsFromPropagationSource (component,errorPropagation);
+	
+					/**
+					 * We found the contributors (it means that the error paths are defined in the model)
+					 */
+					if (contributors.size() > 0)
 					{
-						fillCompositeBehavior(event, emslist, targetStateName, relatedInstance, componentInstances);
-						//	public static void fillCompositeBehavior (Event ftaEvent, CompositeErrorBehavior compositeErrorBehavior, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
-						
-					}
-					else
-					{
-						if (behaviorState != null)
+						/**
+						 * If there is only one path, then, we add it as an event.
+						 * 
+						 */
+						if (contributors.size() == 1)
 						{
+							returnedEvents.add(contributors.get(0));	
+						}
+						else
+						{
+							/**
+							 * If we have multiple error path leading to this event, then, we created
+							 * an OR gate to OR'ed all the events.
+							 */
+							Event orEvent = new Event();
+							orEvent.setEventType(EventType.OR);
 							
-							if (event.getEventType() != EventType.NORMAL)
+							for (Event ev : contributors)
 							{
-								Event resultEvent = new Event();
-								resultEvent.setEventType(EventType.NORMAL);
-								fillEventWithProperties (resultEvent, relatedInstance, behaviorState);
-								fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
-								event.addSubEvent(resultEvent);
-								
+								orEvent.addSubEvent(ev);
 							}
-							else
-							{
-
-								fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
-								List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement, componentInstances);
-								
-								/**
-								 * Here, we do not find any other propagations,
-								 * so we set the error as an event.
-								 */
-								if (propagations.size() == 0)
-								{
-									event.setEventType(EventType.EVENT);
-								}
-								
-								if (propagations.size() > 1)
-								{
-									event.setEventType(EventType.OR);
-								}
-								for (Event tmpEvent : propagations)
-								{
-									event.addSubEvent(tmpEvent);
-								}
-							}
+							returnedEvents.add(orEvent);
 						}
+
 					}
-				}
-			}
-		}
-		
-		
-		if (cond instanceof SOrExpression)
-		{
-			SOrExpression sor = (SOrExpression)cond;
-			
-			if ((event.getEventType() != EventType.NORMAL) && (event.getEventType() != EventType.OR))
-			{
-				OsateDebug.osateDebug("[FTAUtils] Inconsistent composite behavior, expecting an OR condition");
-			}
-			event.setEventType(EventType.OR);
-			
-			String desc;
-			desc = "\"Component " + relatedComponentInstance.getName() + " in state " + resultingBehaviorState.getName() + " due to the occurrence (OR) of one event";
-			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
-			{
-				boolean first = true;
-				desc += " (from ";
-				for (String s : getInvolvedSubcomponents (cond, componentInstances))
-				{
+					else
+					{
+						/**
+						 * Here, we are not able to find the related sources and error path
+						 * We just add an event in the tree.
+						 */
+						newEvent = new Event();
+						newEvent.setDescription( "Error Propagation on " + propagationPoint + "types " + EMV2Util.getPrintName(errorPropagation.getTypeSet()));
+						newEvent.setEventType (EventType.EVENT);
+						returnedEvents.add(newEvent);	
+					}
 					
-					if (first == false)
-					{
-						desc += ", ";
-					}
-					desc += s;
-					first = false;
-				}
-				desc += ")";
-			}
-			desc += "\"";
-
-			event.setDescription(desc);
-						
-			for (ConditionExpression conditionExpression : sor.getOperands())
-			{
-				//OsateDebug.osateDebug("      operand=" + conditionExpression);
-				//result += handleCondition (conditionExpression, componentInstances);
-				Event resultEvent = new Event ();
-				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances, exploreRelativeCompositeStates);
-				
-//				if ( (resultEvent.getSubEvents().size()==0) && resultEvent.getEventType() == EventType.NORMAL)
-//				{
-//					OsateDebug.osateDebug("NAME=" + resultEvent.getName() + "|TYPE=" + resultEvent.getEventType());
-//				}
-				event.addSubEvent(resultEvent);
-			}
-		}
-		
-		if (cond instanceof SAndExpression)
-		{
-			SAndExpression sae = (SAndExpression) cond;
-			if ((event.getEventType() != EventType.NORMAL) && (event.getEventType() != EventType.AND))
-			{
-				OsateDebug.osateDebug("[FTAUtils] Inconsistent composite behavior, expecting an AND condition");
-			}
-			event.setEventType(EventType.AND);
-			String desc;
-			desc = "\"Component " + relatedComponentInstance.getName() + " in state " + resultingBehaviorState.getName() + " combination (AND) of events";
-			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
-			{
-				boolean first = true;
-				desc += " (from ";
-				for (String s : getInvolvedSubcomponents (cond, componentInstances))
-				{
 					
-					if (first == false)
+				}
+			}
+			
+			
+			/**
+			 * Here, we have a reference to a subcomponent and then, potentially
+			 * one of its state. This is what we find in a composite error
+			 * state machine.
+			 */
+			if (conditionElement.getSubcomponents().size() > 0)
+			{
+				/**
+				 * In the following, it seems that we reference another component.
+				 * This is typically the case when the condition is within
+				 * an composite error behavior.
+				 * 
+				 * So, we find the referenced component in the component hierarchy
+				 * and add all its contributors to the returned events. 
+				 */
+//				OsateDebug.osateDebug("[FTAUtils] processCondition subcomponents are present, size=" + conditionElement.getSubcomponents().size());
+				SubcomponentElement subcomponentElement = conditionElement.getSubcomponents().get(0);
+				Subcomponent subcomponent = subcomponentElement.getSubcomponent();
+				ComponentInstance referencedInstance;
+				ErrorTypes referencedErrorType;
+				referencedInstance = null;
+				referencedErrorType = null;
+//				OsateDebug.osateDebug("[FTAUtils] subcomponent=" + subcomponent);
+
+				for (ComponentInstance sub : component.getComponentInstances())
+				{
+//					OsateDebug.osateDebug("[FTAUtils] sub=" + sub.getSubcomponent());
+					if (sub.getSubcomponent().getName().equalsIgnoreCase(subcomponent.getName()))
 					{
-						desc += ", ";
+						referencedInstance = sub;
 					}
-					desc += s;
-					first = false;
-				}
-				desc += ")";
-			}
-			desc += "\"";
-			event.setDescription(desc);
-						
-			for (ConditionExpression conditionExpression : sae.getOperands())
-			{
-				Event resultEvent = new Event ();
-				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances, exploreRelativeCompositeStates);
-				if (conditionExpression instanceof SAndExpression)
-				{
-					for (Event e : resultEvent.getSubEvents())
-					{
-						event.addSubEvent(e);
-					}
-						
-				}
-				else
-				{
-					event.addSubEvent(resultEvent);
-				}
-			}
-		}
-	}
-	
-	
-	public static void fillCompositeBehavior (Event ftaEvent, EList<CompositeState> states, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
-	{
-		int nBranches = 0;
-		for (CompositeState state : states)
-		{
-			if (state.getState().getName().equalsIgnoreCase(stateName))
-			{
-				nBranches++;
-			}
-		}
-		
-		if (nBranches > 1)
-		{
-			String desc;
-			desc = "Switch to " + stateName + " due to the occurence of one of the following condition";
-			ftaEvent.setEventType(EventType.OR);
-			
-			ftaEvent.setName (stateName);
-			ftaEvent.setDescription(desc);
-			ftaEvent.setIdentifier (stateName);
-		}
-		
-		for (CompositeState state : states)
-		{
-			
-			String originalStateName = state.getState().getName();
-			if (state.getTypedToken() != null)
-			{
-				
-				originalStateName += state.getTypedToken().getType().get(0).getName();
-			}
-			
-//			OsateDebug.osateDebug("[FTAUtils] fillCompositeBehavior on " + relatedInstance.getName() +  " looking for="+ stateName +"|browsing state name=" + originalStateName);
-			
-			if (originalStateName.equalsIgnoreCase(stateName))
-			{
-				
-				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
-
-				Event targetEvent;
-				if (nBranches > 1)
-				{
-					targetEvent = new Event();
-				}
-				else
-				{
-					targetEvent = ftaEvent;
 				}
 				
-				fillEventWithProperties (targetEvent, relatedInstance, ebs);
-				
-				FTAUtils.fillFTAEventfromEventState (targetEvent, ebs, relatedInstance, componentInstances);
-
-				FTAUtils.handleCondition (targetEvent, ebs, relatedInstance, state.getCondition(), componentInstances, false);
-				if (nBranches > 1)
+				if ((conditionElement.getConstraint()!= null) && (conditionElement.getConstraint().getTypeTokens().size() > 0))
 				{
-					ftaEvent.addSubEvent(targetEvent);
+					referencedErrorType = conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0);
 				}
+				
+//				OsateDebug.osateDebug("[FTAUtils] referenced component instance=" + referencedInstance);
+//				OsateDebug.osateDebug("[FTAUtils] referenced type=" + referencedErrorType);
+				
+				returnedEvents.add(processErrorState(referencedInstance, conditionElement.getState(), referencedErrorType));
 			}
+		}
+		
+		
+		return returnedEvents;
+	}
+	
+	/**
+	 * Process a component error behavior, analyze its transition
+	 * and produces a list of all events that could then be
+	 * added in a fault-tree.
+	 * @param component - The component under analysis (the one that contains the error behavior)
+	 * @param state     - The target states of the transitions under analysis
+	 * @param type      - The type associated with the target state
+	 * @return          - list of events that are related to the target state in this component.
+	 */
+	public static List<Event> processComponentErrorBehavior (ComponentInstance component, ErrorBehaviorState state, ErrorTypes type)
+	{
+		/**
+		 * Depending on the condition, it returns either a single element, an AND or an OR.
+		 */
+		List<Event>		returnedEvents;
+		
+		returnedEvents = new ArrayList<Event>();
+		
+		for (ErrorBehaviorTransition transition : EMV2Util.getAllErrorBehaviorTransitions(component))
+		{
+			if (transition.getTarget() == state)
+			{
+				returnedEvents.addAll (processCondition (component, transition.getCondition()));
+			}
+		}
+		
+		return returnedEvents;
+	}
+	
+	
+	/**
+	 * Process a composite error behavior for a component and try to get
+	 * all related potential events to add in a FTA
+	 * @param component  - the component under analysis
+	 * @param state      - the target state under analysis
+	 * @param type       - the type associated to the target state (if any)
+	 * @return           - the list of all potential related FTA events
+	 */
+	public static List<Event> processCompositeErrorBehavior (ComponentInstance component, ErrorBehaviorState state, ErrorTypes type)
+	{
+		/**
+		 * Depending on the condition, it returns either a single element, an AND or an OR.
+		 */
+		List<Event>		returnedEvents;
+		
+		returnedEvents = new ArrayList<Event>();
+		
+		for (CompositeState cs : EMV2Util.getAllCompositeStates(component))
+		{
+			if (cs.getState() == state)
+			{
+				returnedEvents.addAll (processCondition (component, cs.getCondition()));
+			}
+		}
+		
+		return returnedEvents;
+	}
+	
+	
+	/**
+	 * Process a particular error behavior state and try to
+	 * get all potential error contributors, either from the
+	 * component error behavior or the composite error behavior.
+	 * 
+	 * @param component - the component under analysis
+ 	 * @param state     - the failure mode under analysis
+	 * @param type      - the type related to the failure mode (null if not useful)
+	 * @return          - a node that represents either the single failure state or
+	 *                    an AND- or OR- nodes if several.
+	 */
+	public static Event processErrorState (ComponentInstance component, ErrorBehaviorState state, ErrorTypes type)
+	{
+		List<Event> 	subEvents;
+		Event 			returnedEvent;
+		
+		
+		returnedEvent = new Event();
+		returnedEvent.setDescription ( "component " + component.getName() + " in state " + state.getName());
+		returnedEvent.setEventType(EventType.NORMAL);
+		
+		fillProperties (returnedEvent, component, state, state.getTypeSet());
+		
+		subEvents = new ArrayList<Event>();
+		
+		subEvents.addAll(processComponentErrorBehavior(component, state, type));
+		subEvents.addAll(processCompositeErrorBehavior(component, state, type));
+		
+		
+		/**
+		 * If we have only one subevent, we directly attach it
+		 * to the main event.
+		 */
+		if (subEvents.size() == 1)
+		{
+			returnedEvent.addSubEvent(subEvents.get(0));
+		}
+		
+		/**
+		 * If we have several intermediate subevents, we consider
+		 * that each one is independent. So, we make an OR gate
+		 * to connect all these events altogether.
+		 */
+		if (subEvents.size() > 1)
+		{
+//			OsateDebug.osateDebug("FTAUtils", "More than one event, needs to make an or");
+			Event intermediateEvent = new Event();
+			intermediateEvent.setEventType(EventType.OR);
+			intermediateEvent.setDescription("Occurrence of one of the following events");
 			
-
-		}
-	}
-	
-	public static void fillEventWithProperties (Event event, ComponentInstance ci, NamedElement ne)
-	{
-		fillEventWithProperties (event, ci, ne, null);
-	}
-	
-	public static void fillEventWithProperties (Event event, ComponentInstance ci, NamedElement ne, TypeSet ts)
-	{
-		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(ci,ne,ts);
-		
-		if (!PA.isEmpty()){
-			double prob = EMV2Properties.getOccurenceValue (PA.get(0));
-			event.setProbability(prob);
+			for (Event ev : subEvents)
+			{
+				intermediateEvent.addSubEvent(ev);
+			}
+			returnedEvent.addSubEvent(intermediateEvent);
 		}
 		
-		if (EMV2Properties.getDescription (ne, ci) != null)
-		{
-			event.setDescription("\"" + EMV2Properties.getDescription (ne, ci) + "\"");
-		}
-	}
-	
-	public static void fillFTAEventfromEventState (Event event, ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance, final EList<ComponentInstance> componentInstances)
-	{
-		String eventName;
-		if (event == null)
-		{
-			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
-			return;
-		}
+		return returnedEvent;
 		
-		if (behaviorState == null)
-		{
-			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
-			return;
-		}
-		
-		if (relatedComponentInstance == null)
-		{
-			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
-			return;
-		}
-		eventName = behaviorState.getName() + "/" + relatedComponentInstance.getName();
-		event.setDescription("Component " + relatedComponentInstance.getName() + " in state " + behaviorState.getName());
-		event.setName(eventName); 
-		fillEventWithProperties (event, relatedComponentInstance, behaviorState, behaviorState.getTypeSet());		
 	}
-	
 }

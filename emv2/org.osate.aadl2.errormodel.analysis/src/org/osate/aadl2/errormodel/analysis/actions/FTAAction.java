@@ -49,9 +49,13 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class FTAAction extends AaxlReadOnlyActionAsJob 
@@ -71,25 +75,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		return "FTA";
 	}
 
-	
-	public Event processRootSystem (SystemInstance systemInstance)
-	{
-		EList<ComponentInstance> 	componentInstances = new UniqueEList<ComponentInstance>();
 		
-		Event						result;
-		
-		result = null;
-		FTAUtils.init(systemInstance);
-		EList<CompositeState> eslist = EMV2Util.getAllCompositeStates(systemInstance);
-		
-		componentInstances.addAll(EMV2Util.getComponentInstancesWithComponentErrorBehaviorStates(systemInstance));
-		componentInstances.addAll(EMV2Util.getComponentInstancesWithErrorPropagations(systemInstance));
-		componentInstances.addAll(EMV2Util.getComponentInstancesWithCompositeErrorBehavior(systemInstance));
-		result = new Event ();
-		FTAUtils.fillCompositeBehavior (result, eslist, ERROR_STATE_NAME, systemInstance, componentInstances);
-		return result;
-	}
-	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		
@@ -123,7 +109,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
 				
-				InputDialog fd = new InputDialog(sh, "Error State name", "Please specify the name of the error state name", "failed", null);
+				InputDialog fd = new InputDialog(sh, "Error State name", "Please specify the name of the error state name\n(with the optional error type separated by a space)", "failed", null);
 				if (fd.open() == Window.OK)
 				{
 					ERROR_STATE_NAME = fd.getValue();
@@ -138,7 +124,63 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		
 		if (ERROR_STATE_NAME != null)
 		{
-			ftaEvent = processRootSystem (si);
+			String errorStateName;
+			String errorStateTypeName;
+			ErrorBehaviorState errorState;
+			ErrorTypes         errorType;
+			
+			/**
+			 * Init variables and environment
+			 */
+			errorStateName = null;
+			errorStateTypeName = null;
+			errorState = null;
+			errorType = null;
+			
+			FTAUtils.init (si);
+			
+			if (ERROR_STATE_NAME.contains (" "))
+			{
+				errorStateName = ERROR_STATE_NAME.substring(0, ERROR_STATE_NAME.indexOf(" "));
+				errorStateTypeName = ERROR_STATE_NAME.substring(ERROR_STATE_NAME.indexOf(" "), ERROR_STATE_NAME.length());
+			}
+			else
+			{
+				errorStateName = ERROR_STATE_NAME;
+			}
+			
+			OsateDebug.osateDebug("[FTAAction] error state=" + errorStateName + "|related type=" + errorStateTypeName);
+			
+			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(si))
+			{
+				if (ebs.getName().equalsIgnoreCase(errorStateName))
+				{
+					errorState = ebs;
+					
+					if (errorStateTypeName != null)
+					{
+						for (TypeToken tt : ebs.getTypeSet().getTypeTokens())
+						{
+							for (ErrorTypes et : tt.getType())
+							{
+								if (et.getName().equalsIgnoreCase(errorStateTypeName))
+								{
+									errorType = et;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			ftaEvent = null;
+			
+			if (errorState != null)
+			{
+				ftaEvent = FTAUtils.processErrorState (si, errorState, errorType);
+			}
+			
+	
 			if (ftaEvent != null)
 			{
 				this.xmlFile = new WriteToFile("FTA", si);

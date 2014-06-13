@@ -15,7 +15,7 @@ public class Event
 	private EventType 	type;
 	private static int 	generalId = 1;
 	private String		identifier;
-	
+	private Event		parent;
 	
 	public Event ()
 	{
@@ -25,10 +25,25 @@ public class Event
 		this.probability 		= 0.0;
 		this.showProbability 	= false;
 		this.type				= EventType.NORMAL;
+		this.parent             = null;
 		this.subEvents 			= new ArrayList<Event>();
 		generalId++;
 	}
 	
+	public Event getParent ()
+	{
+		return this.parent;
+	}
+	
+	public void setParent (Event ev)
+	{
+		this.parent = ev;
+	}
+	
+	public EventType getType ()
+	{
+		return this.type;
+	}
 	
 	public EventType getEventType ()
 	{
@@ -113,6 +128,7 @@ public class Event
 	
 	public void addSubEvent (Event e)
 	{
+		e.setParent(this);
 		this.subEvents.add (e);
 	}
 	
@@ -222,25 +238,32 @@ public class Event
 			return sb.toString();
 		}
 		
-		sb.append ("M " + this.identifier);
-		
-		if (this.type == EventType.NORMAL)
+		if ((this.type == EventType.NORMAL) ||
+			((this.parent != null) && (this.type == EventType.AND) && (this.parent.getType() == EventType.AND)) ||
+			((this.parent != null) && (this.type == EventType.AND) && (this.parent.getType() == EventType.OR)) ||
+			((this.parent != null) && (this.type == EventType.OR) && (this.parent.getType() == EventType.AND)) ||
+			((this.parent != null) && (this.type == EventType.OR) && (this.parent.getType() == EventType.OR)))
 		{
-			sb.append (" "+subEvents.size() +"\n");
+			sb.append ("M " + this.identifier);
+			
+			if (this.type == EventType.NORMAL)
+			{
+				sb.append (" "+subEvents.size() +"\n");
+			}
+			else
+			{
+				sb.append (" 1\n");
+			}
+			
+			title = this.name;
+			
+			if (this.getDescription() != null)
+			{
+				title = this.getDescription();
+			}
+			
+			sb.append ("" + title.length() + " " + title + "\n");
 		}
-		else
-		{
-			sb.append (" 1\n");
-		}
-		
-		title = this.name;
-		
-		if (this.getDescription() != null)
-		{
-			title = this.getDescription();
-		}
-		
-		sb.append ("" + title.length() + " " + title + "\n");
 		
 		switch (this.type)
 		{
