@@ -128,7 +128,7 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototype(Prototype prototype)
+  public void setPrototype(final Prototype prototype )
   {
     element = prototype ;
   }

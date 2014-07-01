@@ -38,6 +38,7 @@ import org.osate.ba.aadlba.ElementValues ;
 import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.ParameterLabel ;
+import org.osate.ba.aadlba.SubprogramHolderProxy;
 import org.osate.ba.aadlba.Target ;
 
 /**
@@ -125,7 +126,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVariable(BehaviorVariable variable)
+  public void setVariable(final BehaviorVariable variable )
   {
     element = variable ;
   }
@@ -261,6 +262,13 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
         default: return -1;
       }
     }
+    if (baseClass == SubprogramHolderProxy.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
   }
 
@@ -295,6 +303,13 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
       }
     }
     if (baseClass == ElementValues.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == SubprogramHolderProxy.class)
     {
       switch (baseFeatureID)
       {

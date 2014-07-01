@@ -30,7 +30,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues
+public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues, SubprogramHolderProxy
 {
   /**
    * <!-- begin-user-doc -->

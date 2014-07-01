@@ -125,7 +125,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues">
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues #//SubprogramHolderProxy">
     <eOperations name="setVariable" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = variable ;"/>
@@ -161,7 +161,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorActions" lowerBound="1"
         eType="#//BehaviorActions" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataAccessHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
+  <eClassifiers xsi:type="ecore:EClass" name="DataAccessHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues #//SubprogramHolderProxy">
     <eOperations name="setDataAccess" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = dataAccess ;"/>
@@ -206,7 +206,7 @@
     <eLiterals name="Struct" value="9" literal="structure"/>
     <eLiterals name="Union" value="10" literal="union"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
+  <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues #//SubprogramHolderProxy">
     <eOperations name="setDataSubcomponent" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = dataSubcomponent ;"/>
@@ -577,7 +577,7 @@
         eType="#//CalledSubprogramHolder" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameterLabels" upperBound="-1"
         eType="#//ParameterLabel" unsettable="true" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataAccess" eType="#//DataAccessHolder"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="proxy" eType="#//SubprogramHolderProxy"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramHolder" eSuperTypes="#//CalledSubprogramHolder">
@@ -593,6 +593,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramHolderProxy" eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototypeHolder" eSuperTypes="#//CalledSubprogramHolder #//PrototypeHolder #//GroupableElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Target" eSuperTypes="#//ParameterLabel #//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Term" eSuperTypes="#//BehaviorElement">

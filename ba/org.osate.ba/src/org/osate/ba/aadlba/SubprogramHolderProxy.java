@@ -19,36 +19,17 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.aadl2.DataAccess;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Data Access Holder</b></em>'.
+ * A representation of the model object '<em><b>Subprogram Holder Proxy</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getDataAccessHolder()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getSubprogramHolderProxy()
  * @model
  * @generated
  */
-public interface DataAccessHolder extends DataHolder, GroupableElement, IndexableElement, Target, ElementValues, SubprogramHolderProxy
+public interface SubprogramHolderProxy extends BehaviorElement
 {
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model dataAccessRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataAccess ;'"
-   * @generated
-   */
-  void setDataAccess(DataAccess dataAccess);
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataAccess) element;'"
-   * @generated
-   */
-  DataAccess getDataAccess();
-
-} // DataAccessHolder
+} // SubprogramHolderProxy

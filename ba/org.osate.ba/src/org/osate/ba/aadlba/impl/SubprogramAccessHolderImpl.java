@@ -231,7 +231,7 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSubprogramAccess(SubprogramAccess subprogramAccess)
+  public void setSubprogramAccess(final SubprogramAccess subprogramAccess )
   {
     element = subprogramAccess ;
   }

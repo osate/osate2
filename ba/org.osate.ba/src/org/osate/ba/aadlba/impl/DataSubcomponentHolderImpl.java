@@ -41,6 +41,7 @@ import org.osate.ba.aadlba.GroupableElement ;
 import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.ParameterLabel ;
+import org.osate.ba.aadlba.SubprogramHolderProxy;
 import org.osate.ba.aadlba.Target ;
 
 /**
@@ -173,7 +174,7 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDataSubcomponent(DataSubcomponent dataSubcomponent)
+  public void setDataSubcomponent(final DataSubcomponent dataSubcomponent )
   {
     element = dataSubcomponent ;
   }
@@ -330,6 +331,13 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
         default: return -1;
       }
     }
+    if (baseClass == SubprogramHolderProxy.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
   }
 
@@ -372,6 +380,13 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
       }
     }
     if (baseClass == ElementValues.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == SubprogramHolderProxy.class)
     {
       switch (baseFeatureID)
       {

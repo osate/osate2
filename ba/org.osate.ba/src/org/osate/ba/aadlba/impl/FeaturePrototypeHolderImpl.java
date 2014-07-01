@@ -233,7 +233,7 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototype(Prototype prototype)
+  public void setPrototype(final Prototype prototype )
   {
     element = prototype ;
   }

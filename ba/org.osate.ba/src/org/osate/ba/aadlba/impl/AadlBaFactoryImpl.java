@@ -142,6 +142,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER: return (EObject)createSubprogramAccessHolder();
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION: return (EObject)createSubprogramCallAction();
       case AadlBaPackage.SUBPROGRAM_HOLDER: return (EObject)createSubprogramHolder();
+      case AadlBaPackage.SUBPROGRAM_HOLDER_PROXY: return (EObject)createSubprogramHolderProxy();
       case AadlBaPackage.SUBPROGRAM_PROTOTYPE_HOLDER: return (EObject)createSubprogramPrototypeHolder();
       case AadlBaPackage.TARGET: return (EObject)createTarget();
       case AadlBaPackage.TERM: return (EObject)createTerm();
@@ -902,6 +903,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     SubprogramHolderImpl subprogramHolder = new SubprogramHolderImpl();
     return subprogramHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SubprogramHolderProxy createSubprogramHolderProxy()
+  {
+    SubprogramHolderProxyImpl subprogramHolderProxy = new SubprogramHolderProxyImpl();
+    return subprogramHolderProxy;
   }
 
   /**

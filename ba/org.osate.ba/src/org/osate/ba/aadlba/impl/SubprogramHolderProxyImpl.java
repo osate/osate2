@@ -19,30 +19,28 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
 import org.eclipse.emf.ecore.EClass;
 
-import org.osate.aadl2.EventPort;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.EventPortHolder ;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.SubprogramHolderProxy;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Event Port Holder</b></em>'.
+ * An implementation of the model object '<em><b>Subprogram Holder Proxy</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class EventPortHolderImpl extends ActualPortHolderImpl implements EventPortHolder
+public class SubprogramHolderProxyImpl extends BehaviorElementImpl implements SubprogramHolderProxy
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected EventPortHolderImpl()
+  protected SubprogramHolderProxyImpl()
   {
     super();
   }
@@ -55,27 +53,7 @@ public class EventPortHolderImpl extends ActualPortHolderImpl implements EventPo
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.EVENT_PORT_HOLDER;
+    return AadlBaPackage.Literals.SUBPROGRAM_HOLDER_PROXY;
   }
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setEventPort(final EventPort eventPort )
-  {
-    element = eventPort ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EventPort getEventPort()
-  {
-    return (EventPort) element;
-  }
-
-} //EventPortHolderImpl
+} //SubprogramHolderProxyImpl

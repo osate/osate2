@@ -550,6 +550,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createSubprogramHolderAdapter();
       }
       @Override
+      public Adapter caseSubprogramHolderProxy(SubprogramHolderProxy object)
+      {
+        return createSubprogramHolderProxyAdapter();
+      }
+      @Override
       public Adapter caseSubprogramPrototypeHolder(SubprogramPrototypeHolder object)
       {
         return createSubprogramPrototypeHolderAdapter();
@@ -2012,6 +2017,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSubprogramHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.SubprogramHolderProxy <em>Subprogram Holder Proxy</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.SubprogramHolderProxy
+   * @generated
+   */
+  public Adapter createSubprogramHolderProxyAdapter()
   {
     return null;
   }

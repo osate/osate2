@@ -63,7 +63,7 @@ public class SubprogramHolderImpl extends CalledSubprogramHolderImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSubprogram(Subprogram subprogram)
+  public void setSubprogram(final Subprogram subprogram )
   {
     element = subprogram ;
   }

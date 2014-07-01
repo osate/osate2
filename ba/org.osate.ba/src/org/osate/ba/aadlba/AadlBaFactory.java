@@ -580,6 +580,15 @@ public interface AadlBaFactory extends EFactory
   SubprogramHolder createSubprogramHolder();
 
   /**
+   * Returns a new object of class '<em>Subprogram Holder Proxy</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subprogram Holder Proxy</em>'.
+   * @generated
+   */
+  SubprogramHolderProxy createSubprogramHolderProxy();
+
+  /**
    * Returns a new object of class '<em>Subprogram Prototype Holder</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

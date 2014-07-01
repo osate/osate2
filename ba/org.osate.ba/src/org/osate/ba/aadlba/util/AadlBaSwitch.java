@@ -435,6 +435,7 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseIndexableElement(behaviorVariableHolder);
         if (result == null) result = caseTarget(behaviorVariableHolder);
         if (result == null) result = caseElementValues(behaviorVariableHolder);
+        if (result == null) result = caseSubprogramHolderProxy(behaviorVariableHolder);
         if (result == null) result = caseElementHolder(behaviorVariableHolder);
         if (result == null) result = caseIntegerValueVariable(behaviorVariableHolder);
         if (result == null) result = caseParameterLabel(behaviorVariableHolder);
@@ -502,6 +503,7 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseIndexableElement(dataAccessHolder);
         if (result == null) result = caseTarget(dataAccessHolder);
         if (result == null) result = caseElementValues(dataAccessHolder);
+        if (result == null) result = caseSubprogramHolderProxy(dataAccessHolder);
         if (result == null) result = caseElementHolder(dataAccessHolder);
         if (result == null) result = caseIntegerValueVariable(dataAccessHolder);
         if (result == null) result = caseParameterLabel(dataAccessHolder);
@@ -593,6 +595,7 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseIndexableElement(dataSubcomponentHolder);
         if (result == null) result = caseTarget(dataSubcomponentHolder);
         if (result == null) result = caseElementValues(dataSubcomponentHolder);
+        if (result == null) result = caseSubprogramHolderProxy(dataSubcomponentHolder);
         if (result == null) result = caseElementHolder(dataSubcomponentHolder);
         if (result == null) result = caseIntegerValueVariable(dataSubcomponentHolder);
         if (result == null) result = caseParameterLabel(dataSubcomponentHolder);
@@ -1273,6 +1276,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseGroupableElement(subprogramHolder);
         if (result == null) result = caseBehaviorElement(subprogramHolder);
         if (result == null) result = caseElement(subprogramHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.SUBPROGRAM_HOLDER_PROXY:
+      {
+        SubprogramHolderProxy subprogramHolderProxy = (SubprogramHolderProxy)theEObject;
+        T result = caseSubprogramHolderProxy(subprogramHolderProxy);
+        if (result == null) result = caseBehaviorElement(subprogramHolderProxy);
+        if (result == null) result = caseElement(subprogramHolderProxy);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -2814,6 +2826,22 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSubprogramHolder(SubprogramHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Subprogram Holder Proxy</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Subprogram Holder Proxy</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSubprogramHolderProxy(SubprogramHolderProxy object)
   {
     return null;
   }

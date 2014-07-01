@@ -173,7 +173,7 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setParameter(Parameter parameter)
+  public void setParameter(final Parameter parameter )
   {
     element = parameter ;
   }

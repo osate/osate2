@@ -99,7 +99,7 @@ public class SubprogramCallActionItemProvider
       super.getChildrenFeatures(object);
       childrenFeatures.add(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__SUBPROGRAM);
       childrenFeatures.add(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS);
-      childrenFeatures.add(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__DATA_ACCESS);
+      childrenFeatures.add(AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PROXY);
     }
     return childrenFeatures;
   }
@@ -158,7 +158,7 @@ public class SubprogramCallActionItemProvider
     {
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
+      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
@@ -274,7 +274,7 @@ public class SubprogramCallActionItemProvider
 
     newChildDescriptors.add
       (createChildParameter
-        (AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__DATA_ACCESS,
+        (AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PROXY,
          AadlBaFactory.eINSTANCE.createDataAccessHolder()));
   }
 
@@ -292,7 +292,7 @@ public class SubprogramCallActionItemProvider
 
     boolean qualify =
       childFeature == AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS ||
-      childFeature == AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__DATA_ACCESS;
+      childFeature == AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION__PROXY;
 
     if (qualify)
     {

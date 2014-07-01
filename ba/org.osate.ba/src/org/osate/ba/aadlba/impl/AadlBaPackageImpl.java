@@ -669,6 +669,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass subprogramHolderProxyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass subprogramPrototypeHolderEClass = null;
 
   /**
@@ -2440,7 +2447,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSubprogramCallAction_DataAccess()
+  public EReference getSubprogramCallAction_Proxy()
   {
     return (EReference)subprogramCallActionEClass.getEStructuralFeatures().get(2);
   }
@@ -2453,6 +2460,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EClass getSubprogramHolder()
   {
     return subprogramHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSubprogramHolderProxy()
+  {
+    return subprogramHolderProxyEClass;
   }
 
   /**
@@ -3065,9 +3082,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     subprogramCallActionEClass = createEClass(SUBPROGRAM_CALL_ACTION);
     createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__SUBPROGRAM);
     createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS);
-    createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__DATA_ACCESS);
+    createEReference(subprogramCallActionEClass, SUBPROGRAM_CALL_ACTION__PROXY);
 
     subprogramHolderEClass = createEClass(SUBPROGRAM_HOLDER);
+
+    subprogramHolderProxyEClass = createEClass(SUBPROGRAM_HOLDER_PROXY);
 
     subprogramPrototypeHolderEClass = createEClass(SUBPROGRAM_PROTOTYPE_HOLDER);
 
@@ -3189,6 +3208,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     behaviorVariableHolderEClass.getESuperTypes().add(this.getIndexableElement());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getTarget());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getElementValues());
+    behaviorVariableHolderEClass.getESuperTypes().add(this.getSubprogramHolderProxy());
     calledSubprogramHolderEClass.getESuperTypes().add(this.getElementHolder());
     calledSubprogramHolderEClass.getESuperTypes().add(this.getIndexableElement());
     calledSubprogramHolderEClass.getESuperTypes().add(this.getGroupableElement());
@@ -3201,6 +3221,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     dataAccessHolderEClass.getESuperTypes().add(this.getIndexableElement());
     dataAccessHolderEClass.getESuperTypes().add(this.getTarget());
     dataAccessHolderEClass.getESuperTypes().add(this.getElementValues());
+    dataAccessHolderEClass.getESuperTypes().add(this.getSubprogramHolderProxy());
     dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getDataHolder());
     dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
     dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getIndexableElement());
@@ -3221,6 +3242,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     dataSubcomponentHolderEClass.getESuperTypes().add(this.getIndexableElement());
     dataSubcomponentHolderEClass.getESuperTypes().add(this.getTarget());
     dataSubcomponentHolderEClass.getESuperTypes().add(this.getElementValues());
+    dataSubcomponentHolderEClass.getESuperTypes().add(this.getSubprogramHolderProxy());
     dispatchConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
     dispatchConjunctionEClass.getESuperTypes().add(this.getBehaviorElement());
     dispatchRelativeTimeoutEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
@@ -3305,6 +3327,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     subprogramAccessHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     subprogramCallActionEClass.getESuperTypes().add(this.getCommunicationAction());
     subprogramHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
+    subprogramHolderProxyEClass.getESuperTypes().add(this.getBehaviorElement());
     subprogramPrototypeHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     subprogramPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
     subprogramPrototypeHolderEClass.getESuperTypes().add(this.getGroupableElement());
@@ -3627,7 +3650,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEClass(subprogramCallActionEClass, SubprogramCallAction.class, "SubprogramCallAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSubprogramCallAction_Subprogram(), this.getCalledSubprogramHolder(), null, "subprogram", null, 1, 1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSubprogramCallAction_ParameterLabels(), this.getParameterLabel(), null, "parameterLabels", null, 0, -1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSubprogramCallAction_DataAccess(), this.getDataAccessHolder(), null, "dataAccess", null, 0, 1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSubprogramCallAction_Proxy(), this.getSubprogramHolderProxy(), null, "proxy", null, 0, 1, SubprogramCallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(subprogramHolderEClass, SubprogramHolder.class, "SubprogramHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3635,6 +3658,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     addEParameter(op, theAadl2Package.getSubprogram(), "subprogram", 1, 1, IS_UNIQUE, IS_ORDERED);
 
     addEOperation(subprogramHolderEClass, theAadl2Package.getSubprogram(), "getSubprogram", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+    initEClass(subprogramHolderProxyEClass, SubprogramHolderProxy.class, "SubprogramHolderProxy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(subprogramPrototypeHolderEClass, SubprogramPrototypeHolder.class, "SubprogramPrototypeHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
