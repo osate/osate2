@@ -153,46 +153,35 @@ public class IndependenceProvider implements IIndependenceSolver {
 			final String qualifiedName = segs[1];
 			final Element relevantElement = getNamedElementByQualifiedName(resourceSet, qualifiedName);
 			
-			switch(type) {
-			case "package":
-			case "classifier":
-			case "subcomponent":
-			case "feature":
-			case "flow_specification":
-			case "connection":
-			case "mode":
-			case "mode_transition":
-				aadlElement = relevantElement;
-				break;
-			
-			case "realization":
+			if(type.equals("package") ||
+				type.equals("classifier") ||
+				type.equals("subcomponent") ||
+				type.equals("feature") ||
+				type.equals("flow_specification") ||
+				type.equals("connection") ||
+				type.equals("mode") ||
+				type.equals("mode_transition")) {
+					aadlElement = relevantElement;
+			} else if(type.equals("realization")) {
 				if(relevantElement instanceof ComponentImplementation) {
 					aadlElement = ((ComponentImplementation)relevantElement).getOwnedRealization();
-				}	
-				break;
-				
-			case "type_extension":
+				}
+			} else if(type.equals("type_extension")) {
 				if(relevantElement instanceof ComponentType) {
 					aadlElement = ((ComponentType)relevantElement).getOwnedExtension();
 				}
-				break;
-			
-			case "implementation_extension":
+			} else if(type.equals("implementation_extension")) {
 				if(relevantElement instanceof ComponentImplementation) {
 					aadlElement = ((ComponentImplementation)relevantElement).getOwnedExtension();
 				}
-				break;
-				
-			case "group_extension":
+			} else if(type.equals("group_extension")) {
 				if(relevantElement instanceof FeatureGroupType) {
 					aadlElement = ((FeatureGroupType)relevantElement).getOwnedExtension();
 				}
-				break;
-				
-			default:
+			} else {
 				Log.error("Unhandled case: " + type);
 			}
-	
+
 			return aadlElement == null ? null : new AadlElementWrapper(aadlElement);
 		}
 	}

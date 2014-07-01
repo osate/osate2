@@ -206,7 +206,11 @@ public class NewPackageWizard extends Wizard implements INewWizard
 			if(project != null) {
 				try {
 					project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
-				} catch(CoreException | RuntimeException ex) {
+				} catch(CoreException ex) {
+					final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after creating a new AADL file.", ex);
+					StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+				}
+				catch(RuntimeException ex) {
 					final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after creating a new AADL file.", ex);
 					StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
 				}

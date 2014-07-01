@@ -669,7 +669,10 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 			final IProject project = SelectionHelper.getProject(resource);
 			try {
 				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
-			} catch(CoreException | RuntimeException ex) {
+			} catch(CoreException ex) {
+				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after a graphical modification.", ex);
+				StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
+			} catch(RuntimeException ex) {
 				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after a graphical modification.", ex);
 				StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
 			}
