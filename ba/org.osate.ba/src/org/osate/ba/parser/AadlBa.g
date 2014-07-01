@@ -971,12 +971,14 @@ qualified_named_element returns [QualifiedNamedElement result]
 //   subprogram_prototype_name ! [ ( subprogram_parameter_list ) ]
 // | required_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
 // | subprogram_classifier_name ! [ ( subprogram_parameter_list ) ]
-// | required_data_access_name.provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
 // | output_port_name ! [ ( value_expression ) ]
 // | input_port_name >>
 // | input_port_name ? [ ( target ) ]
 // | required_data_access_name !<
 // | required_data_access_name !>
+// | required_data_access_name . provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
+// | data_subcomponent_name . provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
+// | local_variable_name . provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
 // | *!<
 // | *!>
 communication_action returns [CommAction result]
