@@ -679,9 +679,9 @@ public class AadlBaUnparser
 
       public String caseSubprogramCallAction(SubprogramCallAction object)
       {
-        if(object.getDataAccess() != null)
+        if(object.getProxy() != null)
         {
-          process(object.getDataAccess()) ;
+          process(object.getProxy()) ;
           aadlbaText.addOutput(".") ;
         }
         

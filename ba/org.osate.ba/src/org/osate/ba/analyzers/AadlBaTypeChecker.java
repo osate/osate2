@@ -2354,7 +2354,7 @@ public class AadlBaTypeChecker
           secondHolder = resolvedRef.get(1) ;
         }
         
-        if(firstHolder instanceof DataAccessHolder) 
+        if(firstHolder instanceof SubprogramHolderProxy) 
         {
           // RefResolver can't detect that error. So do it.
           if(resolvedRef.size() != 2)
@@ -2368,7 +2368,7 @@ public class AadlBaTypeChecker
           }
           else
           {
-            result.setDataAccess((DataAccessHolder) firstHolder) ;
+            result.setProxy((SubprogramHolderProxy) firstHolder) ;
             result.setSubprogram((CalledSubprogramHolder) secondHolder) ;
           }
         }
@@ -3323,6 +3323,8 @@ public class AadlBaTypeChecker
            FeatureType.SUBPROGRAM_CLASSIFIER,
            FeatureType.REQUIRES_SUBPROGRAM_ACCESS,
            FeatureType.REQUIRES_DATA_ACCESS,
+           FeatureType.DATA_SUBCOMPONENT,
+           BehaviorFeatureType.BEHAVIOR_VARIABLE,
            TypeCheckRule.OUT_PORT}),
 
     SUBPROGRAM_CALL_ACTION_SD_NAME("subprogram call action", new Enum[]
