@@ -281,8 +281,12 @@ public class AadlBaUtils {
 
       if(el instanceof Feature)
       {
-        return getDataRepresentation((DataClassifier)((Feature) el).
-                    getClassifier()) ;
+        Classifier c = ((Feature) el).getClassifier() ;
+        
+        if(c instanceof DataClassifier)
+          return getDataRepresentation((DataClassifier) c) ;
+        else // Abstract type or anything else.
+          return DataRepresentation.UNKNOWN ;
       }
       else if(el instanceof DataSubcomponent)
       {
