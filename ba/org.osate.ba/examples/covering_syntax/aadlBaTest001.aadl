@@ -24,6 +24,9 @@ package NamesResolutionTest
 public
    with AADL_Project, Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
+abstract MyAbstractComponent
+end MyAbstractComponent ;
+
 Processor p
 end p ;
 
@@ -98,6 +101,9 @@ prototypes
   proto : subprogram multiplication ;
 
 features
+  
+  abstractPort : in event data port MyAbstractComponent ;
+  
   mul : requires subprogram access multiplication;
   mulProvided : provides subprogram access multiplication ;
   inPortA : in event data port Base_Types::Integer ;
@@ -180,6 +186,7 @@ transitions
  a2 -[on dispatch inPortA]-> a ;
  a2 -[on dispatch inPortA frozen inPortB]-> a ;
  a2 -[on dispatch mulProvided]-> a ;
+ a2 -[on dispatch abstractPort]-> a ;
 
  a2 -[on dispatch inPortA or inPortB]-> a ;
  a2 -[on dispatch inPortA and inPortB]-> a ;
