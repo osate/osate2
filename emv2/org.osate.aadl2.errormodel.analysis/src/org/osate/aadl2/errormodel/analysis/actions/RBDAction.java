@@ -97,22 +97,63 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		ErrorBehaviorState behaviorState = conditionElement.getState();
 
 		ComponentInstance relatedInstance = findInstance(root, conditionElement.getSubcomponents());
-		OsateDebug.osateDebug("         instance " + relatedInstance);
+//		OsateDebug.osateDebug("         instance " + relatedInstance);
 
 		if (relatedInstance != null && ! this.componentsNames.contains(relatedInstance))
 		{
 			this.componentsNames.add (relatedInstance);
 		}
-
+		
 		if (behaviorState != null)
 		{
+			double resultSubcomponents;
+			double resultProperty;
+			
+			resultProperty = 0;
+			resultSubcomponents = 0;
+			
+			/*
+			 * Let's try to recursively compute the value
+			 */
+			resultSubcomponents = processComponent(relatedInstance, behaviorState.getName());
+
+			/**
+			 * If it does not work, try the property mechanism.
+			 */
+
 			//OsateDebug.osateDebug("         behaviorState " + behaviorState);
 			EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,behaviorState,null);
 			//OsateDebug.osateDebug("         PA " + PA);
 			if (!PA.isEmpty()){
 				// XXX TODO handle values on subtypes (list > 1)
-				result = EMV2Properties.getOccurenceValue (PA.get(0));
+				resultProperty = EMV2Properties.getOccurenceValue (PA.get(0));
 			}
+			
+			/**
+			 * We take the result that is the worst case occurrence.
+			 */
+			if (resultSubcomponents == 0)
+			{
+				result = resultProperty;
+			}
+			else
+			{
+				result = resultSubcomponents;
+//				if ((resultProperty > 0) && (resultProperty < resultSubcomponents))
+//				{
+//					result = resultSubcomponents;
+//					
+//					warning(relatedInstance, "Probability from property ("+resultProperty+") and from analysis ("+resultSubcomponents+") differs, taking analysis result");
+//				}
+//				
+//				if ((resultProperty > 0) && (resultSubcomponents < resultProperty))
+//				{
+//					result = resultProperty;
+//					
+//					warning(relatedInstance, "Probability from property ("+resultProperty+") and from analysis ("+resultSubcomponents+") differs, taking property result");
+//				}
+			}
+			
 		}
 
 		return result;
@@ -159,22 +200,23 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		return result;
 	}
 	
-	public void processRootSystem (SystemInstance systemInstance)
+	public double processComponent (ComponentInstance component, String errorStateName)
 	{
 		double						probabilityTemp;
 		double 						toRemove;
+		double                      result;
 
-		EList<CompositeState> states = EMV2Util.getAllCompositeStates(systemInstance);
-		
+		EList<CompositeState> states = EMV2Util.getAllCompositeStates(component);
+		result  		 = 0;
 		probabilityTemp  = 0;
 		toRemove		 = 0;
 		for (CompositeState state : states)
 		{
-			if (state.getState().getName().equalsIgnoreCase(ERROR_STATE_NAME))
+			if (state.getState().getName().equalsIgnoreCase(errorStateName))
 			{
-				probabilityTemp = handleCondition (state.getCondition(), systemInstance);
+				probabilityTemp = handleCondition (state.getCondition(), component);
 			//	OsateDebug.osateDebug("temp=" + probabilityTemp);
-				finalResult = finalResult + probabilityTemp;
+				result = result + probabilityTemp;
 				if (toRemove == 0)
 				{
 					toRemove = probabilityTemp;
@@ -187,11 +229,15 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			}
 		}
 		// seems to reset the fa
-		if (finalResult > toRemove)
+		if (result > toRemove)
 		{
-			finalResult = finalResult - toRemove;
+			result = result - toRemove;
 		}
+		
+		return result;
 	}
+	
+
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
@@ -245,7 +291,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		
 		if (ERROR_STATE_NAME != null)
 		{
-			processRootSystem (si);
+			this.finalResult = processComponent (si, ERROR_STATE_NAME);
 			message  = "Failure probability: " + this.finalResult + "\n";
 			message += "Components involved:\n"; 
 			for (ComponentInstance ci : this.componentsNames)
