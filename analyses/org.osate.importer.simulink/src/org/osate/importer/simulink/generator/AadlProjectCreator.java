@@ -49,6 +49,7 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Preferences;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Model;
+import org.osate.importer.model.Component.ComponentType;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;
 import org.osate.importer.model.sm.Transition;
@@ -265,7 +266,7 @@ public class AadlProjectCreator
 				//									||
 				//									(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
 
-				if (e.hasIncomingDependencies() || e.hasOutgoingDependencies())
+				if (e.hasInterfaces())
 				{
 					out.write ("features\n");
 				}
@@ -273,20 +274,37 @@ public class AadlProjectCreator
 				{
 					out.write ("   from_"+e2.getAadlName()+" : in event data port generictype;\n");
 				}
+				
 				for (Component e2 : e.getOutgoingDependencies())
 				{
 					out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
 				}
+				
+				for (Component e2 : e.getSubcomponents(ComponentType.EXTERNAL_OUTPORT))
+				{
+					out.write ("   " + e2.getAadlName()+" : out event data port generictype;\n");
+				}
+				
+				for (Component e2 : e.getSubcomponents(ComponentType.EXTERNAL_INPORT))
+				{
+					out.write ("   " + e2.getAadlName()+" : in event data port generictype;\n");
+				}
+				
 				out.write ("end s_"+ e.getAadlName() + ";\n\n");
 
 				out.write ("system implementation s_"+e.getAadlName()+".i\n");
 
 				int connectionId = 0;
 
+				/**
+				 * Add all the subcomponents of the current component.
+				 * We consider subcomponents are sub-entities that have 
+				 * the type "block".
+				 */
 				if (e.hasSubcomponents())
 				{
 					out.write ("subcomponents\n");
-					for (Component c : e.getSubcomponents())
+					for (Component c : e.getSubcomponents(ComponentType.BLOCK))
 					{
 						out.write ("   " + c.getAadlName() + " : system s_" + c.getAadlName() + ".i;\n");
 					}

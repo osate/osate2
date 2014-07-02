@@ -71,6 +71,36 @@ public class Component implements Comparable {
 		this.type 				= ComponentType.UNKNOWN;
 	}
 	
+	/**
+	 * get a list of sub components having the type given
+	 * in parameter.
+	 * @param type - the expected type of the subcomponent
+	 * @return a list of all subcomponents having the type passed as parameter.
+	 */
+	public List<Component> getSubcomponents(ComponentType type)
+	{
+		List<Component> result;
+		
+		result = new ArrayList<Component> ();
+		for (Component c : this.subEntities)
+		{
+			if (c.getType() == type)
+			{
+				result.add (c);
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	/**
+	 * returns a value is the component has any interface
+	 * with another system - either through a port
+	 * or using dependencies.
+	 * @return - a boolean that indicates if the component
+	 *           has any dependency or not.
+	 */
 	public boolean hasInterfaces ()
 	{
 		if (this.getIncomingDependencies().size() > 0)
@@ -95,6 +125,12 @@ public class Component implements Comparable {
 	}
 	
 	
+	/**
+	 * indicate if the current component has block
+	 * subcomponents.
+	 * 
+	 * @return - true if the components has subcomponents that are block. false otherwise
+	 */
 	public boolean hasSubcomponents ()
 	{
 		for (Component c : subEntities)
@@ -356,18 +392,6 @@ public class Component implements Comparable {
 		return this.compareTo(arg0)==0;
 	}
 	
-	public List<Component> getSubcomponents ()
-	{
-		ArrayList<Component> result;
-		
-		result = new ArrayList<Component>();
-		for (Component c : this.subEntities)
-		{
-			result.add (c);
-		}
-		
-		return result;
-	}
 	
 	public Component getSubEntity (String name)
 	{

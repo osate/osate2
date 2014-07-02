@@ -135,11 +135,27 @@ public class ImportModel {
 				if (blockType.equalsIgnoreCase("inport"))
 				{
 					newComponent.setType(ComponentType.EXTERNAL_INPORT);
+					if (currentComponent != null)
+					{
+						OsateDebug.osateDebug("ImportModel", "Add the component as an inport of " + currentComponent.getName());
+						currentComponent.addSubsystem(newComponent);
+						newComponent.setParent(currentComponent);
+					}
 				}
+				
+				
 				if (blockType.equalsIgnoreCase("outport"))
 				{
 					newComponent.setType(ComponentType.EXTERNAL_OUTPORT);
+					if (currentComponent != null)
+					{
+						OsateDebug.osateDebug("ImportModel", "Add the component as an outport of " + currentComponent.getName());
+						currentComponent.addSubsystem(newComponent);
+						newComponent.setParent(currentComponent);
+					}
 				}
+				
+				
 				if (blockType.equalsIgnoreCase("reference"))
 				{
 					newComponent.setType(ComponentType.BLOCK);
@@ -167,6 +183,7 @@ public class ImportModel {
 					{
 						OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getName());
 						currentComponent.addSubsystem(newComponent);
+						newComponent.setParent(currentComponent);
 					}
 					
 					/**
@@ -186,7 +203,6 @@ public class ImportModel {
 					if (! model.containsComponent (blockName))
 					{
 						model.addComponent(newComponent);
-						newComponent.setParent(currentComponent);
 					}
 					
 				}
