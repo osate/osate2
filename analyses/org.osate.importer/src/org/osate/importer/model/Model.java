@@ -3,6 +3,7 @@ package org.osate.importer.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.sm.StateMachine;
 
 public class Model
@@ -37,7 +38,26 @@ public class Model
 		return this.packageName;
 	}
 	
-	
+	/**
+	 * Check is a component with the name passed
+	 * as parameter already exists or not.
+	 * @param name  - the name of the component
+	 * @return      - true if it exists
+	 */
+	public boolean containsComponent (String name)
+	{
+		OsateDebug.osateDebug("Model" , "Try to find a component with the name " + name);
+		for (Component c : components)
+		{
+			OsateDebug.osateDebug("Model" , "   already have " + c.getName());
+			if (c.getName().equalsIgnoreCase(name))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	public void addStateMachine (StateMachine sm)
 	{

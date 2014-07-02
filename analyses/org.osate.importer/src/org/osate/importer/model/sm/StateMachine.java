@@ -178,7 +178,7 @@ public class StateMachine {
 				return;
 			}
 		}
-		OsateDebug.osateDebug("[StateMachine] add state " + s.getName() + " in state machine " + s.getParentStateMachine().getName());
+		//OsateDebug.osateDebug("[StateMachine] add state " + s.getName() + " in state machine " + s.getParentStateMachine().getName());
 		this.states.add (s);
 	}
 	

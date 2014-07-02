@@ -62,7 +62,7 @@ public class Component implements Comparable {
 	
 	public Component (String n)
 	{
-		this.name = n;
+		this.name 				= n;
 		this.connections 		= new ArrayList<Connection>();
 		this.subEntities  		= new ArrayList<Component>();
 		this.stateMachines  	= new ArrayList<StateMachine>();
@@ -108,6 +108,16 @@ public class Component implements Comparable {
 		return false;
 	}
 	
+	
+	public boolean hasIncomingDependencies ()
+	{
+		return (this.getIncomingDependencies().size() > 0);
+	}
+
+	public boolean hasOutgoingDependencies ()
+	{
+		return (this.getOutgoingDependencies().size() > 0);
+	}	
 	
 	public void setPortType (PortType pt)
 	{
@@ -253,6 +263,11 @@ public class Component implements Comparable {
 		result = result.replaceAll("/", "_");
 		result = result.toLowerCase();
 		
+		if (result.substring(result.length() - 1, result.length()).equalsIgnoreCase("_"))
+		{
+			result = result.substring(0, result.length() - 1);
+		}
+		
 		/**
 		 * Check for some reserved keywords in AADL.
 		 */
@@ -339,6 +354,19 @@ public class Component implements Comparable {
 
 	public boolean equalsTo(Object arg0) {
 		return this.compareTo(arg0)==0;
+	}
+	
+	public List<Component> getSubcomponents ()
+	{
+		ArrayList<Component> result;
+		
+		result = new ArrayList<Component>();
+		for (Component c : this.subEntities)
+		{
+			result.add (c);
+		}
+		
+		return result;
 	}
 	
 	public Component getSubEntity (String name)
