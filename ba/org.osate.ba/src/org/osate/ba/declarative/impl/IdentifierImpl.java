@@ -21,9 +21,6 @@
 
 package org.osate.ba.declarative.impl ;
 
-
-
-
 import org.eclipse.emf.common.notify.Notification ;
 
 import org.eclipse.emf.ecore.EClass ;
@@ -34,6 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 
 import org.osate.aadl2.Element ;
 import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.impl.BehaviorStateImpl ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativePackage ;
@@ -345,6 +343,14 @@ public class IdentifierImpl extends BehaviorStateImpl implements Identifier
           return -1 ;
       }
     }
+    if(baseClass == PropertyField.class)
+    {
+      switch ( derivedFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass) ;
   }
 
@@ -365,6 +371,14 @@ public class IdentifierImpl extends BehaviorStateImpl implements Identifier
           return DeclarativePackage.IDENTIFIER__OSATE_REF ;
         case DeclarativePackage.DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF :
           return DeclarativePackage.IDENTIFIER__BA_REF ;
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == PropertyField.class)
+    {
+      switch ( baseFeatureID )
+      {
         default :
           return -1 ;
       }

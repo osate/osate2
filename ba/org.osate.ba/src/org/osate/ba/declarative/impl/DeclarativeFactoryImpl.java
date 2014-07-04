@@ -93,10 +93,12 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeArrayDimension() ;
       case DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION :
         return createDeclarativeBehaviorTransition() ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME :
+        return createDeclarativePropertyName() ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE :
+        return createDeclarativePropertyReference() ;
       case DeclarativePackage.DECLARATIVE_TIME :
         return createDeclarativeTime() ;
-      case DeclarativePackage.ENUMERATION :
-        return createEnumeration() ;
       case DeclarativePackage.IDENTIFIER :
         return createIdentifier() ;
       case DeclarativePackage.NAMED_VALUE :
@@ -162,10 +164,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public DeclarativeTime createDeclarativeTime()
+  public DeclarativePropertyName createDeclarativePropertyName()
   {
-    DeclarativeTimeImpl declarativeTime = new DeclarativeTimeImpl() ;
-    return declarativeTime ;
+    DeclarativePropertyNameImpl declarativePropertyName =
+          new DeclarativePropertyNameImpl() ;
+    return declarativePropertyName ;
   }
 
   /**
@@ -173,10 +176,22 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public Enumeration createEnumeration()
+  public DeclarativePropertyReference createDeclarativePropertyReference()
   {
-    EnumerationImpl enumeration = new EnumerationImpl() ;
-    return enumeration ;
+    DeclarativePropertyReferenceImpl declarativePropertyReference =
+          new DeclarativePropertyReferenceImpl() ;
+    return declarativePropertyReference ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DeclarativeTime createDeclarativeTime()
+  {
+    DeclarativeTimeImpl declarativeTime = new DeclarativeTimeImpl() ;
+    return declarativeTime ;
   }
 
   /**

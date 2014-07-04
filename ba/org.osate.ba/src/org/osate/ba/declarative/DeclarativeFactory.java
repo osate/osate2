@@ -79,6 +79,24 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeBehaviorTransition createDeclarativeBehaviorTransition() ;
 
   /**
+   * Returns a new object of class '<em>Property Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Name</em>'.
+   * @generated
+   */
+  DeclarativePropertyName createDeclarativePropertyName() ;
+
+  /**
+   * Returns a new object of class '<em>Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Reference</em>'.
+   * @generated
+   */
+  DeclarativePropertyReference createDeclarativePropertyReference() ;
+
+  /**
    * Returns a new object of class '<em>Time</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -86,15 +104,6 @@ public interface DeclarativeFactory extends EFactory
    * @generated
    */
   DeclarativeTime createDeclarativeTime() ;
-
-  /**
-   * Returns a new object of class '<em>Enumeration</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Enumeration</em>'.
-   * @generated
-   */
-  Enumeration createEnumeration() ;
 
   /**
    * Returns a new object of class '<em>Identifier</em>'.

@@ -40,15 +40,25 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="destState" lowerBound="1"
         eType="#//Identifier" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativePropertyName" eSuperTypes="#//DeclarativeBehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass aadlba.ecore#//PropertyField"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyName" lowerBound="1"
+        eType="#//Identifier" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativePropertyReference" eSuperTypes="#//DeclarativeBehaviorElement aadlba.ecore#//IntegerValueConstant aadlba.ecore#//ValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualifiedName" eType="#//QualifiedNamedElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//Reference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyNames" lowerBound="1"
+        upperBound="-1" eType="#//DeclarativePropertyName" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeTime" eSuperTypes="aadlba.ecore#//BehaviorTime aadlba.ecore#//CompletionRelativeTimeout #//DeclarativeBehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="unitId" lowerBound="1"
         eType="#//Identifier" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Enumeration" eSuperTypes="#//QualifiedNamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="literal" lowerBound="1"
-        eType="#//Identifier" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Identifier" eSuperTypes="aadlba.ecore#//BehaviorState #//DeclarativeBehaviorElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Identifier" eSuperTypes="aadlba.ecore#//BehaviorState #//DeclarativeBehaviorElement aadlba.ecore#//PropertyField">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType aadlba.ecore#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedValue" eSuperTypes="aadlba.ecore#//IntegerValueVariable aadlba.ecore#//ValueVariable #//DeclarativeBehaviorElement">

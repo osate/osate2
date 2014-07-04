@@ -21,9 +21,6 @@
 
 package org.osate.ba.declarative.impl ;
 
-
-
-
 import java.util.Collection ;
 
 import org.eclipse.emf.common.notify.Notification ;
