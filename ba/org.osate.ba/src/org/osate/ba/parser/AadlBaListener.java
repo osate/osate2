@@ -23,8 +23,30 @@
   
   package org.osate.ba.parser;
   
-  import org.antlr.v4.runtime.misc.NotNull ;
-import org.antlr.v4.runtime.tree.ParseTreeListener ;
+  import org.eclipse.emf.common.util.BasicEList ;
+
+  import org.eclipse.emf.common.util.EList;
+
+  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;  
+  
+  import org.osate.aadl2.parsesupport.AObject;
+  import org.osate.aadl2.parsesupport.LocationReference;
+  
+  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
+  
+  import org.osate.ba.aadlba.*;
+  import org.osate.ba.declarative.* ;
+  import org.osate.ba.analyzers.DeclarativeUtils ;
+  
+  import org.osate.ba.utils.AadlBaLocationReference ;
+  
+  import org.osate.aadl2.Element ;
+  import org.osate.aadl2.ProcessorClassifier ;
+  import org.osate.aadl2.Aadl2Package ;
+  import org.osate.aadl2.parsesupport.ParseUtil ;
+
+import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
@@ -63,17 +85,6 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDispatch_condition(@NotNull AadlBaParser.Dispatch_conditionContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link AadlBaParser#behavior_enumeration_literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterBehavior_enumeration_literal(@NotNull AadlBaParser.Behavior_enumeration_literalContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AadlBaParser#behavior_enumeration_literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitBehavior_enumeration_literal(@NotNull AadlBaParser.Behavior_enumeration_literalContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#dispatch_conjunction}.
@@ -151,17 +162,6 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRelation(@NotNull AadlBaParser.RelationContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link AadlBaParser#property}.
-	 * @param ctx the parse tree
-	 */
-	void enterProperty(@NotNull AadlBaParser.PropertyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AadlBaParser#property}.
-	 * @param ctx the parse tree
-	 */
-	void exitProperty(@NotNull AadlBaParser.PropertyContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#binary_numeric_operator}.
@@ -329,6 +329,17 @@ public interface AadlBaListener extends ParseTreeListener {
 	void exitString_literal(@NotNull AadlBaParser.String_literalContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#property_reference}.
+	 * @param ctx the parse tree
+	 */
+	void enterProperty_reference(@NotNull AadlBaParser.Property_referenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#property_reference}.
+	 * @param ctx the parse tree
+	 */
+	void exitProperty_reference(@NotNull AadlBaParser.Property_referenceContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#unary_numeric_operator}.
 	 * @param ctx the parse tree
 	 */
@@ -404,6 +415,17 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf_statement(@NotNull AadlBaParser.If_statementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#value_constant}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue_constant(@NotNull AadlBaParser.Value_constantContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#value_constant}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue_constant(@NotNull AadlBaParser.Value_constantContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#while_statement}.
@@ -549,6 +571,17 @@ public interface AadlBaListener extends ParseTreeListener {
 	void exitBehavior_condition(@NotNull AadlBaParser.Behavior_conditionContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#property_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterProperty_name(@NotNull AadlBaParser.Property_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#property_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitProperty_name(@NotNull AadlBaParser.Property_nameContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#elsif_statement}.
 	 * @param ctx the parse tree
 	 */
@@ -679,17 +712,6 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInteger_value_constant(@NotNull AadlBaParser.Integer_value_constantContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link AadlBaParser#fact_value}.
-	 * @param ctx the parse tree
-	 */
-	void enterFact_value(@NotNull AadlBaParser.Fact_valueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AadlBaParser#fact_value}.
-	 * @param ctx the parse tree
-	 */
-	void exitFact_value(@NotNull AadlBaParser.Fact_valueContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#term}.

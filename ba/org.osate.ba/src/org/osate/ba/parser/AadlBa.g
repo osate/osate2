@@ -313,7 +313,7 @@ behavior_variable returns [BehaviorVariable result]
     IDENT ( LBRACK integer_value_constant RBRACK )*
 ;
 
-// qualified_named_element ::= 
+// qualifiable_named_element ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
 qualifiable_named_element [QualifiedNamedElement result] locals[String id1, String id2]
@@ -531,7 +531,7 @@ integer_value_constant returns [IntegerValueConstant result]
      integer_literal
    |
      // Ambiguous case.
-     property  
+     property_reference  
 ;
 
 //---------------------------------------------------------
@@ -942,6 +942,9 @@ target returns [Target result]
   : reference 
 ;
 
+// qualified_named_element ::= 
+//   { package_identifier :: }+ component_type_identifier
+//   [ . component_implementation_identifier ]
 qualified_named_element returns [QualifiedNamedElement result]
                         locals [String namespaceId, String nameId]
 @init
@@ -1187,52 +1190,25 @@ array_identifier returns [ArrayableIdentifier result]
 // BEGIN : ANNEX D.7 Behavior Expression Language
 //---------------------------------------------------------
 
-// fact_value ::=
-//   value_constant
-// | value_variable
-
 // value_constant ::= 
 //   boolean_literal
 // | numeric_literal 
 // | string_literal
-// | enumeration_literal 
 // | property_constant
-// | property_value
-
-// value_variable ::=
-//   incoming_port_name
-// | incoming_port_name ?
-// | incoming_subprogram_parameter
-// | incoming_port_prototype_name
-// | data_component_reference
-// | port_name ’ count
-// | port_name ’ fresh
-
-fact_value returns [Value result]
-  : // Ambiguity between value variable (name without array index) and
-    // unqualified propertyset constant or unqualified propertyset value.
-    // unqualified propertyset constants and unqualified propertyset values are
-    // parsed as reference (see value variable). 
+// | property_reference
+value_constant returns [ValueConstant result]
+  : // Ambiguity between qualified or unqualified  property constant and
+    // qualified or unqualified property reference with only one property name and
+    // no property field. so property constants are parsed as property references
+    // (see property reference). 
    
-       // Case of qualified property constant or value.
-       IDENT DOUBLECOLON IDENT
-     | 
-     
-       // Value variables and unqualified propertyset constants and unqualified
-       // propertyset values cases.
-       value_variable
-
-     | 
-     
-     // Cases from value constant category.
-        
-       boolean_literal
-     |
        numeric_literal
      |
        string_literal
      |
-       behavior_enumeration_literal    
+       boolean_literal
+     |
+       property_reference
 ;
 
 /** 
@@ -1249,7 +1225,9 @@ fact_value returns [Value result]
 // | ( value_expression )
 value returns [Value result]
   :
-     fact_value
+     value_variable
+   |  
+     value_constant 
    |
      LPAREN value_expression RPAREN
    |
@@ -1410,9 +1388,10 @@ integer_range returns [IntegerRange result]
 //   integer_value_variable 
 // | integer_value_constant
 integer_value returns [IntegerValue result]
-  : // Ambiguity between integer value variable with one name and unqualified
-    // propertyset constant or value from value constant. See fact_value. 
-   fact_value              
+  : 
+     value_constant
+   |
+     value_variable              
 ;
 
 // behavior_time ::= integer_value unit_identifier
@@ -1422,30 +1401,59 @@ behavior_time returns [DeclarativeTime result]
 ;
 
 // property_constant ::=
-//   [ property_set_identifier :: ] property_constant_identifier
+//   # [ property_set_identifier :: ] property_constant_identifier
 
-// property_value ::=
-//   [ property_set_identifier :: ] property_value_identifier
+// property_reference ::=
+//   # [ property_set_identifier :: ] property_value_name
+// | own_component_element_reference # property_name { . field_record_property_name }*
+// | unique_component_classifier_reference # property_name { . field_record_property_name }*
 
-// property constants and property values ambiguity : they are parsed as 
-// a generic property.
+// component_element_reference ::=
+//   subcomponent_name
+// | local_variable_name
+// | binded_prototype_name
+// | feature_name
 
-// property ::=
-//   property_constant
-// | property_value
+// Ambiguity between qualified or unqualified  property constant and
+// qualified or unqualified property reference with only one property name and
+// no property field. so property constants are parsed as property references
+// (see property reference).
 
-property returns [QualifiedNamedElement result]
+// Ambiguity between a unique component classifier reference without namespace
+// and a component element reference.
+
+property_reference returns [DeclarativePropertyReference result]
   :
-    (id1=IDENT DOUBLECOLON)? id2=IDENT
-;
+    (   qualified_named_element
+      |
+        reference
+    )?
+    
+    HASH property_name (DOT property_name)*
+;  
+    
+// property_name ::=
+//   property_identifier [ property_field ]
 
-// enumeration_literal ::= 
-//   { package_identifier :: }* component_type_identifier
-//   [ . component_implementation_identifier ]
-//   # enumeration_literal_identifier
-behavior_enumeration_literal returns [Enumeration result]
+// property_field ::=
+//   [ integer_value ]
+// | . item_list_identifier
+// | . upper_bound
+// | . lower_bound
+
+property_name returns [DeclarativePropertyName result]
   :
-    qualifiable_named_element[$result] HASH IDENT
+    IDENT (   ( LBRACK integer_value RBRACK )
+            |
+              DOT
+              (
+                  IDENT
+                |
+                  UPPER_BOUND
+                |
+                  LOWER_BOUND
+              )
+          )?  
 ;
 
 // numeric_literal ::= <refer to [AS5506A 15.4]>
@@ -1515,6 +1523,7 @@ FROZEN         : 'frozen';
 IF             : 'if';
 IN             : 'in';
 INITIAL        : 'initial';
+LOWER_BOUND    : 'lower_bound' ;
 MOD            : 'mod';
 NOT            : 'not';
 ON             : 'on';
@@ -1529,6 +1538,7 @@ TIMEOUT        : 'timeout';
 TRANSITIONS    : 'transitions';
 TRUE           : 'true';
 UNTIL          : 'until';
+UPPER_BOUND    : 'upper_bound' ;
 WHILE          : 'while';
 XOR            : 'xor';
 
