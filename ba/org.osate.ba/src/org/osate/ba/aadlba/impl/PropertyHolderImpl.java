@@ -19,8 +19,8 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -29,23 +29,26 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.Property;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BehaviorPropertyValue ;
+
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.PropertyField;
+import org.osate.ba.aadlba.PropertyHolder;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Behavior Property Value</b></em>'.
+ * An implementation of the model object '<em><b>Property Holder</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.BehaviorPropertyValueImpl#getProperty <em>Property</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.PropertyHolderImpl#getProperty <em>Property</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.PropertyHolderImpl#getField <em>Field</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements BehaviorPropertyValue
+public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyHolder
 {
   /**
    * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
@@ -58,11 +61,21 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
   protected Property property;
 
   /**
+   * The cached value of the '{@link #getField() <em>Field</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getField()
+   * @generated
+   * @ordered
+   */
+  protected PropertyField field;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected BehaviorPropertyValueImpl()
+  protected PropertyHolderImpl()
   {
     super();
   }
@@ -75,7 +88,7 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_PROPERTY_VALUE;
+    return AadlBaPackage.Literals.PROPERTY_HOLDER;
   }
 
   /**
@@ -92,7 +105,7 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
       if (property != oldProperty)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_PROPERTY_VALUE__PROPERTY, oldProperty, property));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.PROPERTY_HOLDER__PROPERTY, oldProperty, property));
       }
     }
     return property;
@@ -118,7 +131,71 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
     Property oldProperty = property;
     property = newProperty;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_PROPERTY_VALUE__PROPERTY, oldProperty, property));
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_HOLDER__PROPERTY, oldProperty, property));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyField getField()
+  {
+    return field;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetField(PropertyField newField, NotificationChain msgs)
+  {
+    PropertyField oldField = field;
+    field = newField;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_HOLDER__FIELD, oldField, newField);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setField(PropertyField newField)
+  {
+    if (newField != field)
+    {
+      NotificationChain msgs = null;
+      if (field != null)
+        msgs = ((InternalEObject)field).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.PROPERTY_HOLDER__FIELD, null, msgs);
+      if (newField != null)
+        msgs = ((InternalEObject)newField).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.PROPERTY_HOLDER__FIELD, null, msgs);
+      msgs = basicSetField(newField, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_HOLDER__FIELD, newField, newField));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
+        return basicSetField(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -131,9 +208,11 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE__PROPERTY:
+      case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         if (resolve) return getProperty();
         return basicGetProperty();
+      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
+        return getField();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -148,8 +227,11 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE__PROPERTY:
+      case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         setProperty((Property)newValue);
+        return;
+      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
+        setField((PropertyField)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -165,8 +247,11 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE__PROPERTY:
+      case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         setProperty((Property)null);
+        return;
+      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
+        setField((PropertyField)null);
         return;
     }
     super.eUnset(featureID);
@@ -182,10 +267,12 @@ public class BehaviorPropertyValueImpl extends BehaviorPropertyImpl implements B
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE__PROPERTY:
+      case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         return property != null;
+      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
+        return field != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //BehaviorPropertyValueImpl
+} //PropertyHolderImpl

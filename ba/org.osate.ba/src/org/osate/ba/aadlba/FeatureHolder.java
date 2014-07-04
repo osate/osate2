@@ -19,35 +19,36 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.aadl2.Feature;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Behavior Variable Holder</b></em>'.
+ * A representation of the model object '<em><b>Feature Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariableHolder()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getFeatureHolder()
  * @model
  * @generated
  */
-public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues, SubprogramHolderProxy, ComponentElementHolder
+public interface FeatureHolder extends ComponentElementHolder, IndexableElement, GroupableElement
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model variableRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = variable ;'"
+   * @model featureRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = feature ;'"
    * @generated
    */
-  void setVariable(BehaviorVariable variable);
+  void setFeature(Feature feature);
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (BehaviorVariable) element;'"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Feature) element;'"
    * @generated
    */
-  BehaviorVariable getBehaviorVariable();
+  Feature getFeature();
 
-} // BehaviorVariableHolder
+} // FeatureHolder

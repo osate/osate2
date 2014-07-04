@@ -17,37 +17,43 @@
  * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-package org.osate.ba.aadlba;
+package org.osate.ba.aadlba.impl;
 
+import org.eclipse.emf.ecore.EClass;
+
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.LowerBound;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Behavior Variable Holder</b></em>'.
+ * An implementation of the model object '<em><b>Lower Bound</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * </p>
  *
- *
- * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariableHolder()
- * @model
  * @generated
  */
-public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues, SubprogramHolderProxy, ComponentElementHolder
+public class LowerBoundImpl extends BehaviorElementImpl implements LowerBound
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model variableRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = variable ;'"
    * @generated
    */
-  void setVariable(BehaviorVariable variable);
+  protected LowerBoundImpl()
+  {
+    super();
+  }
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (BehaviorVariable) element;'"
    * @generated
    */
-  BehaviorVariable getBehaviorVariable();
+  @Override
+  protected EClass eStaticClass()
+  {
+    return AadlBaPackage.Literals.LOWER_BOUND;
+  }
 
-} // BehaviorVariableHolder
+} //LowerBoundImpl

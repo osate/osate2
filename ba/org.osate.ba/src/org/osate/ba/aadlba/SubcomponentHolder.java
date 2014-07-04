@@ -19,35 +19,36 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.aadl2.Subcomponent;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Behavior Variable Holder</b></em>'.
+ * A representation of the model object '<em><b>Subcomponent Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariableHolder()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getSubcomponentHolder()
  * @model
  * @generated
  */
-public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues, SubprogramHolderProxy, ComponentElementHolder
+public interface SubcomponentHolder extends ComponentElementHolder, IndexableElement
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model variableRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = variable ;'"
+   * @model subcomponentRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = subcomponent ;'"
    * @generated
    */
-  void setVariable(BehaviorVariable variable);
+  void setSubcomponent(Subcomponent subcomponent);
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (BehaviorVariable) element;'"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Subcomponent) element;'"
    * @generated
    */
-  BehaviorVariable getBehaviorVariable();
+  Subcomponent getSubcomponent();
 
-} // BehaviorVariableHolder
+} // SubcomponentHolder

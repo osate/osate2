@@ -19,7 +19,6 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -28,41 +27,42 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.PropertySet;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BehaviorProperty ;
+import org.osate.aadl2.Classifier;
+
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.ClassifierPropertyReference;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Behavior Property</b></em>'.
+ * An implementation of the model object '<em><b>Classifier Property Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.BehaviorPropertyImpl#getPropertySet <em>Property Set</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.ClassifierPropertyReferenceImpl#getClassifier <em>Classifier</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implements BehaviorProperty
+public class ClassifierPropertyReferenceImpl extends PropertyReferenceImpl implements ClassifierPropertyReference
 {
   /**
-   * The cached value of the '{@link #getPropertySet() <em>Property Set</em>}' reference.
+   * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPropertySet()
+   * @see #getClassifier()
    * @generated
    * @ordered
    */
-  protected PropertySet propertySet;
+  protected Classifier classifier;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected BehaviorPropertyImpl()
+  protected ClassifierPropertyReferenceImpl()
   {
     super();
   }
@@ -75,7 +75,7 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_PROPERTY;
+    return AadlBaPackage.Literals.CLASSIFIER_PROPERTY_REFERENCE;
   }
 
   /**
@@ -83,19 +83,19 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertySet getPropertySet()
+  public Classifier getClassifier()
   {
-    if (propertySet != null && ((EObject)propertySet).eIsProxy())
+    if (classifier != null && ((EObject)classifier).eIsProxy())
     {
-      InternalEObject oldPropertySet = (InternalEObject)propertySet;
-      propertySet = (PropertySet)eResolveProxy(oldPropertySet);
-      if (propertySet != oldPropertySet)
+      InternalEObject oldClassifier = (InternalEObject)classifier;
+      classifier = (Classifier)eResolveProxy(oldClassifier);
+      if (classifier != oldClassifier)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET, oldPropertySet, propertySet));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER, oldClassifier, classifier));
       }
     }
-    return propertySet;
+    return classifier;
   }
 
   /**
@@ -103,9 +103,9 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertySet basicGetPropertySet()
+  public Classifier basicGetClassifier()
   {
-    return propertySet;
+    return classifier;
   }
 
   /**
@@ -113,12 +113,12 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPropertySet(PropertySet newPropertySet)
+  public void setClassifier(Classifier newClassifier)
   {
-    PropertySet oldPropertySet = propertySet;
-    propertySet = newPropertySet;
+    Classifier oldClassifier = classifier;
+    classifier = newClassifier;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET, oldPropertySet, propertySet));
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER, oldClassifier, classifier));
   }
 
   /**
@@ -131,9 +131,9 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        if (resolve) return getPropertySet();
-        return basicGetPropertySet();
+      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER:
+        if (resolve) return getClassifier();
+        return basicGetClassifier();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -148,8 +148,8 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        setPropertySet((PropertySet)newValue);
+      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER:
+        setClassifier((Classifier)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -165,8 +165,8 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        setPropertySet((PropertySet)null);
+      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER:
+        setClassifier((Classifier)null);
         return;
     }
     super.eUnset(featureID);
@@ -182,10 +182,10 @@ public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implement
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        return propertySet != null;
+      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER:
+        return classifier != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //BehaviorPropertyImpl
+} //ClassifierPropertyReferenceImpl

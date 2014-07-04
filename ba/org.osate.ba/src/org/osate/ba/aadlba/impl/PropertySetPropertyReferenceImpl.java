@@ -19,7 +19,6 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -28,43 +27,42 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PrototypeBinding;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.GroupPrototypeHolder ;
-import org.osate.ba.aadlba.PrototypeHolder ;
+import org.osate.aadl2.PropertySet;
+
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.PropertySetPropertyReference;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Group Prototype Holder</b></em>'.
+ * An implementation of the model object '<em><b>Property Set Property Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.GroupPrototypeHolderImpl#getPrototypeBinding <em>Prototype Binding</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.PropertySetPropertyReferenceImpl#getPropertySet <em>Property Set</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPrototypeHolder
+public class PropertySetPropertyReferenceImpl extends PropertyReferenceImpl implements PropertySetPropertyReference
 {
   /**
-   * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
+   * The cached value of the '{@link #getPropertySet() <em>Property Set</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPrototypeBinding()
+   * @see #getPropertySet()
    * @generated
    * @ordered
    */
-  protected PrototypeBinding prototypeBinding;
+  protected PropertySet propertySet;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected GroupPrototypeHolderImpl()
+  protected PropertySetPropertyReferenceImpl()
   {
     super();
   }
@@ -77,7 +75,7 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.GROUP_PROTOTYPE_HOLDER;
+    return AadlBaPackage.Literals.PROPERTY_SET_PROPERTY_REFERENCE;
   }
 
   /**
@@ -85,19 +83,19 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
-  public PrototypeBinding getPrototypeBinding()
+  public PropertySet getPropertySet()
   {
-    if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy())
+    if (propertySet != null && ((EObject)propertySet).eIsProxy())
     {
-      InternalEObject oldPrototypeBinding = (InternalEObject)prototypeBinding;
-      prototypeBinding = (PrototypeBinding)eResolveProxy(oldPrototypeBinding);
-      if (prototypeBinding != oldPrototypeBinding)
+      InternalEObject oldPropertySet = (InternalEObject)propertySet;
+      propertySet = (PropertySet)eResolveProxy(oldPropertySet);
+      if (propertySet != oldPropertySet)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET, oldPropertySet, propertySet));
       }
     }
-    return prototypeBinding;
+    return propertySet;
   }
 
   /**
@@ -105,9 +103,9 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
-  public PrototypeBinding basicGetPrototypeBinding()
+  public PropertySet basicGetPropertySet()
   {
-    return prototypeBinding;
+    return propertySet;
   }
 
   /**
@@ -115,32 +113,12 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototypeBinding(PrototypeBinding newPrototypeBinding)
+  public void setPropertySet(PropertySet newPropertySet)
   {
-    PrototypeBinding oldPrototypeBinding = prototypeBinding;
-    prototypeBinding = newPrototypeBinding;
+    PropertySet oldPropertySet = propertySet;
+    propertySet = newPropertySet;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPrototype(final Prototype prototype )
-  {
-    element = prototype ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Prototype getPrototype()
-  {
-    return (Prototype) element;
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET, oldPropertySet, propertySet));
   }
 
   /**
@@ -153,9 +131,9 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
   {
     switch (featureID)
     {
-      case AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        if (resolve) return getPrototypeBinding();
-        return basicGetPrototypeBinding();
+      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET:
+        if (resolve) return getPropertySet();
+        return basicGetPropertySet();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -170,8 +148,8 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
   {
     switch (featureID)
     {
-      case AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)newValue);
+      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET:
+        setPropertySet((PropertySet)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -187,8 +165,8 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
   {
     switch (featureID)
     {
-      case AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)null);
+      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET:
+        setPropertySet((PropertySet)null);
         return;
     }
     super.eUnset(featureID);
@@ -204,10 +182,10 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
   {
     switch (featureID)
     {
-      case AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        return prototypeBinding != null;
+      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET:
+        return propertySet != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //GroupPrototypeHolderImpl
+} //PropertySetPropertyReferenceImpl

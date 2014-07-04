@@ -22,14 +22,14 @@ package org.osate.ba.aadlba;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Integer Value</b></em>'.
+ * A representation of the model object '<em><b>Component Element Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getIntegerValue()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getComponentElementHolder()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface IntegerValue extends BehaviorElement, PropertyField
+public interface ComponentElementHolder extends ElementHolder
 {
-} // IntegerValue
+} // ComponentElementHolder

@@ -30,6 +30,6 @@ package org.osate.ba.aadlba;
  * @model abstract="true"
  * @generated
  */
-public interface PortHolder extends IndexableElement, ElementHolder, GroupableElement, ValueVariable, IntegerValueVariable
+public interface PortHolder extends ValueVariable, IntegerValueVariable, FeatureHolder
 {
 } // PortHolder

@@ -30,6 +30,6 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface DataAccessPrototypeHolder extends DataHolder, PrototypeHolder, IndexableElement, Target, ElementValues, GroupableElement
+public interface DataAccessPrototypeHolder extends DataHolder, PrototypeHolder, Target, ElementValues
 {
 } // DataAccessPrototypeHolder

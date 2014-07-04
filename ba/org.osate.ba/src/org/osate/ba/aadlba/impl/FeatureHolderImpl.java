@@ -19,7 +19,6 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -36,37 +35,43 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PrototypeBinding;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ComponentElementHolder;
-import org.osate.ba.aadlba.ElementValues ;
-import org.osate.ba.aadlba.FeaturePrototypeHolder ;
-import org.osate.ba.aadlba.GroupHolder ;
-import org.osate.ba.aadlba.GroupableElement ;
-import org.osate.ba.aadlba.IndexableElement ;
-import org.osate.ba.aadlba.IntegerValue ;
-import org.osate.ba.aadlba.ParameterLabel ;
-import org.osate.ba.aadlba.PrototypeHolder ;
-import org.osate.ba.aadlba.Target ;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
+
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.FeatureHolder;
+import org.osate.ba.aadlba.GroupHolder;
+import org.osate.ba.aadlba.GroupableElement;
+import org.osate.ba.aadlba.IndexableElement;
+import org.osate.ba.aadlba.IntegerValue;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature Prototype Holder</b></em>'.
+ * An implementation of the model object '<em><b>Feature Holder</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.FeaturePrototypeHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
- *   <li>{@link org.osate.ba.aadlba.impl.FeaturePrototypeHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
- *   <li>{@link org.osate.ba.aadlba.impl.FeaturePrototypeHolderImpl#getPrototypeBinding <em>Prototype Binding</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.FeatureHolderImpl#getElement <em>Element</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.FeatureHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.FeatureHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FeaturePrototypeHolderImpl extends DataHolderImpl implements FeaturePrototypeHolder
+public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHolder
 {
+  /**
+   * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getElement()
+   * @generated
+   * @ordered
+   */
+  protected NamedElement element;
+
   /**
    * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -88,21 +93,11 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   protected EList<GroupHolder> groupHolders;
 
   /**
-   * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPrototypeBinding()
-   * @generated
-   * @ordered
-   */
-  protected PrototypeBinding prototypeBinding;
-
-  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FeaturePrototypeHolderImpl()
+  protected FeatureHolderImpl()
   {
     super();
   }
@@ -115,7 +110,7 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.FEATURE_PROTOTYPE_HOLDER;
+    return AadlBaPackage.Literals.FEATURE_HOLDER;
   }
 
   /**
@@ -123,19 +118,19 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
    * <!-- end-user-doc -->
    * @generated
    */
-  public PrototypeBinding getPrototypeBinding()
+  public NamedElement getElement()
   {
-    if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy())
+    if (element != null && ((EObject)element).eIsProxy())
     {
-      InternalEObject oldPrototypeBinding = (InternalEObject)prototypeBinding;
-      prototypeBinding = (PrototypeBinding)eResolveProxy(oldPrototypeBinding);
-      if (prototypeBinding != oldPrototypeBinding)
+      InternalEObject oldElement = (InternalEObject)element;
+      element = (NamedElement)eResolveProxy(oldElement);
+      if (element != oldElement)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.FEATURE_HOLDER__ELEMENT, oldElement, element));
       }
     }
-    return prototypeBinding;
+    return element;
   }
 
   /**
@@ -143,9 +138,9 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
    * <!-- end-user-doc -->
    * @generated
    */
-  public PrototypeBinding basicGetPrototypeBinding()
+  public NamedElement basicGetElement()
   {
-    return prototypeBinding;
+    return element;
   }
 
   /**
@@ -153,12 +148,12 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototypeBinding(PrototypeBinding newPrototypeBinding)
+  public void setElement(NamedElement newElement)
   {
-    PrototypeBinding oldPrototypeBinding = prototypeBinding;
-    prototypeBinding = newPrototypeBinding;
+    NamedElement oldElement = element;
+    element = newElement;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FEATURE_HOLDER__ELEMENT, oldElement, element));
   }
 
   /**
@@ -170,7 +165,7 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   {
     if (arrayIndexes == null)
     {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES);
+      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES);
     }
     return arrayIndexes;
   }
@@ -204,7 +199,7 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   {
     if (groupHolders == null)
     {
-      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS);
+      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS);
     }
     return groupHolders;
   }
@@ -234,9 +229,9 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototype(final Prototype prototype )
+  public void setFeature(final Feature feature)
   {
-    element = prototype ;
+    element = feature ;
   }
 
   /**
@@ -244,9 +239,9 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
    * <!-- end-user-doc -->
    * @generated
    */
-  public Prototype getPrototype()
+  public Feature getFeature()
   {
-    return (Prototype) element;
+    return (Feature) element;
   }
 
   /**
@@ -259,9 +254,9 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   {
     switch (featureID)
     {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES:
         return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+      case AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS:
         return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -277,13 +272,13 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   {
     switch (featureID)
     {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.FEATURE_HOLDER__ELEMENT:
+        if (resolve) return getElement();
+        return basicGetElement();
+      case AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES:
         return getArrayIndexes();
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+      case AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS:
         return getGroupHolders();
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        if (resolve) return getPrototypeBinding();
-        return basicGetPrototypeBinding();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -299,16 +294,16 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   {
     switch (featureID)
     {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.FEATURE_HOLDER__ELEMENT:
+        setElement((NamedElement)newValue);
+        return;
+      case AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES:
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
         return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+      case AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS:
         getGroupHolders().clear();
         getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
-        return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -324,14 +319,14 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   {
     switch (featureID)
     {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.FEATURE_HOLDER__ELEMENT:
+        setElement((NamedElement)null);
+        return;
+      case AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES:
         unsetArrayIndexes();
         return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+      case AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS:
         unsetGroupHolders();
-        return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)null);
         return;
     }
     super.eUnset(featureID);
@@ -347,12 +342,12 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
   {
     switch (featureID)
     {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.FEATURE_HOLDER__ELEMENT:
+        return element != null;
+      case AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES:
         return isSetArrayIndexes();
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+      case AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS:
         return isSetGroupHolders();
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        return prototypeBinding != null;
     }
     return super.eIsSet(featureID);
   }
@@ -369,7 +364,7 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
     {
       switch (derivedFeatureID)
       {
-        case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+        case AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
         default: return -1;
       }
     }
@@ -377,43 +372,7 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
     {
       switch (derivedFeatureID)
       {
-        case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    if (baseClass == ComponentElementHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (derivedFeatureID)
-      {
+        case AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
         default: return -1;
       }
     }
@@ -432,7 +391,7 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
     {
       switch (baseFeatureID)
       {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES;
+        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.FEATURE_HOLDER__ARRAY_INDEXES;
         default: return -1;
       }
     }
@@ -440,47 +399,11 @@ public class FeaturePrototypeHolderImpl extends DataHolderImpl implements Featur
     {
       switch (baseFeatureID)
       {
-        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    if (baseClass == ComponentElementHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (baseFeatureID)
-      {
+        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.FEATURE_HOLDER__GROUP_HOLDERS;
         default: return -1;
       }
     }
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
   }
 
-} //FeaturePrototypeHolderImpl
+} //FeatureHolderImpl

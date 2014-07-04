@@ -31,7 +31,7 @@ import org.osate.aadl2.Parameter;
  * @model
  * @generated
  */
-public interface ParameterHolder extends DataHolder, GroupableElement, IndexableElement, Target, ElementValues
+public interface ParameterHolder extends DataHolder, Target, ElementValues, FeatureHolder
 {
   /**
    * <!-- begin-user-doc -->

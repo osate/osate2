@@ -89,10 +89,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.BEHAVIOR_ACTION_SET: return (EObject)createBehaviorActionSet();
       case AadlBaPackage.BEHAVIOR_ANNEX: return (EObject)createBehaviorAnnex();
       case AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL: return (EObject)createBehaviorBooleanLiteral();
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL: return (EObject)createBehaviorEnumerationLiteral();
       case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL: return (EObject)createBehaviorIntegerLiteral();
       case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT: return (EObject)createBehaviorPropertyConstant();
-      case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE: return (EObject)createBehaviorPropertyValue();
       case AadlBaPackage.BEHAVIOR_REAL_LITERAL: return (EObject)createBehaviorRealLiteral();
       case AadlBaPackage.BEHAVIOR_STATE: return (EObject)createBehaviorState();
       case AadlBaPackage.BEHAVIOR_STRING_LITERAL: return (EObject)createBehaviorStringLiteral();
@@ -150,6 +148,16 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.UNLOCK_ACTION: return (EObject)createUnlockAction();
       case AadlBaPackage.VALUE_EXPRESSION: return (EObject)createValueExpression();
       case AadlBaPackage.WHILE_OR_DO_UNTIL_STATEMENT: return (EObject)createWhileOrDoUntilStatement();
+      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE: return (EObject)createPropertySetPropertyReference();
+      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE: return (EObject)createComponentElementPropertyReference();
+      case AadlBaPackage.SUBCOMPONENT_HOLDER: return (EObject)createSubcomponentHolder();
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER: return (EObject)createSubprogramSubcomponentHolder();
+      case AadlBaPackage.FEATURE_HOLDER: return (EObject)createFeatureHolder();
+      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE: return (EObject)createClassifierPropertyReference();
+      case AadlBaPackage.PROPERTY_HOLDER: return (EObject)createPropertyHolder();
+      case AadlBaPackage.UPPER_BOUND: return (EObject)createUpperBound();
+      case AadlBaPackage.LOWER_BOUND: return (EObject)createLowerBound();
+      case AadlBaPackage.PROPERTY_LITERAL: return (EObject)createPropertyLiteral();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -327,17 +335,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public BehaviorEnumerationLiteral createBehaviorEnumerationLiteral()
-  {
-    BehaviorEnumerationLiteralImpl behaviorEnumerationLiteral = new BehaviorEnumerationLiteralImpl();
-    return behaviorEnumerationLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public BehaviorIntegerLiteral createBehaviorIntegerLiteral()
   {
     BehaviorIntegerLiteralImpl behaviorIntegerLiteral = new BehaviorIntegerLiteralImpl();
@@ -353,17 +350,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     BehaviorPropertyConstantImpl behaviorPropertyConstant = new BehaviorPropertyConstantImpl();
     return behaviorPropertyConstant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public BehaviorPropertyValue createBehaviorPropertyValue()
-  {
-    BehaviorPropertyValueImpl behaviorPropertyValue = new BehaviorPropertyValueImpl();
-    return behaviorPropertyValue;
   }
 
   /**
@@ -991,6 +977,116 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     WhileOrDoUntilStatementImpl whileOrDoUntilStatement = new WhileOrDoUntilStatementImpl();
     return whileOrDoUntilStatement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertySetPropertyReference createPropertySetPropertyReference()
+  {
+    PropertySetPropertyReferenceImpl propertySetPropertyReference = new PropertySetPropertyReferenceImpl();
+    return propertySetPropertyReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComponentElementPropertyReference createComponentElementPropertyReference()
+  {
+    ComponentElementPropertyReferenceImpl componentElementPropertyReference = new ComponentElementPropertyReferenceImpl();
+    return componentElementPropertyReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SubcomponentHolder createSubcomponentHolder()
+  {
+    SubcomponentHolderImpl subcomponentHolder = new SubcomponentHolderImpl();
+    return subcomponentHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SubprogramSubcomponentHolder createSubprogramSubcomponentHolder()
+  {
+    SubprogramSubcomponentHolderImpl subprogramSubcomponentHolder = new SubprogramSubcomponentHolderImpl();
+    return subprogramSubcomponentHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FeatureHolder createFeatureHolder()
+  {
+    FeatureHolderImpl featureHolder = new FeatureHolderImpl();
+    return featureHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierPropertyReference createClassifierPropertyReference()
+  {
+    ClassifierPropertyReferenceImpl classifierPropertyReference = new ClassifierPropertyReferenceImpl();
+    return classifierPropertyReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyHolder createPropertyHolder()
+  {
+    PropertyHolderImpl propertyHolder = new PropertyHolderImpl();
+    return propertyHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UpperBound createUpperBound()
+  {
+    UpperBoundImpl upperBound = new UpperBoundImpl();
+    return upperBound;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public LowerBound createLowerBound()
+  {
+    LowerBoundImpl lowerBound = new LowerBoundImpl();
+    return lowerBound;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyLiteral createPropertyLiteral()
+  {
+    PropertyLiteralImpl propertyLiteral = new PropertyLiteralImpl();
+    return propertyLiteral;
   }
 
   /**

@@ -19,27 +19,26 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.Property;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Behavior Property Constant</b></em>'.
+ * A representation of the model object '<em><b>Property Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getProperty <em>Property</em>}</li>
- *   <li>{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getPropertySet <em>Property Set</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.PropertyHolder#getProperty <em>Property</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.PropertyHolder#getField <em>Field</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorPropertyConstant()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyHolder()
  * @model
  * @generated
  */
-public interface BehaviorPropertyConstant extends ValueConstant, IntegerValueConstant
+public interface PropertyHolder extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Property</b></em>' reference.
@@ -50,47 +49,47 @@ public interface BehaviorPropertyConstant extends ValueConstant, IntegerValueCon
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Property</em>' reference.
-   * @see #setProperty(PropertyConstant)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorPropertyConstant_Property()
+   * @see #setProperty(Property)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyHolder_Property()
    * @model required="true"
    * @generated
    */
-  PropertyConstant getProperty();
+  Property getProperty();
 
   /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getProperty <em>Property</em>}' reference.
+   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyHolder#getProperty <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Property</em>' reference.
    * @see #getProperty()
    * @generated
    */
-  void setProperty(PropertyConstant value);
+  void setProperty(Property value);
 
   /**
-   * Returns the value of the '<em><b>Property Set</b></em>' reference.
+   * Returns the value of the '<em><b>Field</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Property Set</em>' reference isn't clear,
+   * If the meaning of the '<em>Field</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Property Set</em>' reference.
-   * @see #setPropertySet(PropertySet)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorPropertyConstant_PropertySet()
-   * @model
+   * @return the value of the '<em>Field</em>' containment reference.
+   * @see #setField(PropertyField)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyHolder_Field()
+   * @model containment="true"
    * @generated
    */
-  PropertySet getPropertySet();
+  PropertyField getField();
 
   /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getPropertySet <em>Property Set</em>}' reference.
+   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyHolder#getField <em>Field</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property Set</em>' reference.
-   * @see #getPropertySet()
+   * @param value the new value of the '<em>Field</em>' containment reference.
+   * @see #getField()
    * @generated
    */
-  void setPropertySet(PropertySet value);
+  void setField(PropertyField value);
 
-} // BehaviorPropertyConstant
+} // PropertyHolder

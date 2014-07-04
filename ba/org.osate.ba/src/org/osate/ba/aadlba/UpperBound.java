@@ -22,32 +22,14 @@ package org.osate.ba.aadlba;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Behavior Variable Holder</b></em>'.
+ * A representation of the model object '<em><b>Upper Bound</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariableHolder()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getUpperBound()
  * @model
  * @generated
  */
-public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues, SubprogramHolderProxy, ComponentElementHolder
+public interface UpperBound extends PropertyField
 {
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model variableRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = variable ;'"
-   * @generated
-   */
-  void setVariable(BehaviorVariable variable);
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (BehaviorVariable) element;'"
-   * @generated
-   */
-  BehaviorVariable getBehaviorVariable();
-
-} // BehaviorVariableHolder
+} // UpperBound

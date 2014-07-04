@@ -36,11 +36,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.CalledSubprogramHolder ;
+import org.osate.ba.aadlba.ComponentElementHolder;
 import org.osate.ba.aadlba.ElementHolder ;
+import org.osate.ba.aadlba.FeatureHolder;
 import org.osate.ba.aadlba.GroupHolder ;
 import org.osate.ba.aadlba.GroupableElement ;
 import org.osate.ba.aadlba.IndexableElement ;
@@ -251,6 +254,26 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
    * <!-- end-user-doc -->
    * @generated
    */
+  public void setFeature(final Feature feature)
+  {
+    element = feature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Feature getFeature()
+  {
+    return (Feature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -393,6 +416,20 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
         default: return -1;
       }
     }
+    if (baseClass == ComponentElementHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == FeatureHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
   }
 
@@ -429,6 +466,20 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
       }
     }
     if (baseClass == CalledSubprogramHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ComponentElementHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == FeatureHolder.class)
     {
       switch (baseFeatureID)
       {

@@ -103,15 +103,6 @@ public interface AadlBaFactory extends EFactory
   BehaviorBooleanLiteral createBehaviorBooleanLiteral();
 
   /**
-   * Returns a new object of class '<em>Behavior Enumeration Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Behavior Enumeration Literal</em>'.
-   * @generated
-   */
-  BehaviorEnumerationLiteral createBehaviorEnumerationLiteral();
-
-  /**
    * Returns a new object of class '<em>Behavior Integer Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -128,15 +119,6 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   BehaviorPropertyConstant createBehaviorPropertyConstant();
-
-  /**
-   * Returns a new object of class '<em>Behavior Property Value</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Behavior Property Value</em>'.
-   * @generated
-   */
-  BehaviorPropertyValue createBehaviorPropertyValue();
 
   /**
    * Returns a new object of class '<em>Behavior Real Literal</em>'.
@@ -650,6 +632,96 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   WhileOrDoUntilStatement createWhileOrDoUntilStatement();
+
+  /**
+   * Returns a new object of class '<em>Property Set Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Set Property Reference</em>'.
+   * @generated
+   */
+  PropertySetPropertyReference createPropertySetPropertyReference();
+
+  /**
+   * Returns a new object of class '<em>Component Element Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Component Element Property Reference</em>'.
+   * @generated
+   */
+  ComponentElementPropertyReference createComponentElementPropertyReference();
+
+  /**
+   * Returns a new object of class '<em>Subcomponent Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subcomponent Holder</em>'.
+   * @generated
+   */
+  SubcomponentHolder createSubcomponentHolder();
+
+  /**
+   * Returns a new object of class '<em>Subprogram Subcomponent Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subprogram Subcomponent Holder</em>'.
+   * @generated
+   */
+  SubprogramSubcomponentHolder createSubprogramSubcomponentHolder();
+
+  /**
+   * Returns a new object of class '<em>Feature Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Feature Holder</em>'.
+   * @generated
+   */
+  FeatureHolder createFeatureHolder();
+
+  /**
+   * Returns a new object of class '<em>Classifier Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Classifier Property Reference</em>'.
+   * @generated
+   */
+  ClassifierPropertyReference createClassifierPropertyReference();
+
+  /**
+   * Returns a new object of class '<em>Property Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Holder</em>'.
+   * @generated
+   */
+  PropertyHolder createPropertyHolder();
+
+  /**
+   * Returns a new object of class '<em>Upper Bound</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Upper Bound</em>'.
+   * @generated
+   */
+  UpperBound createUpperBound();
+
+  /**
+   * Returns a new object of class '<em>Lower Bound</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Lower Bound</em>'.
+   * @generated
+   */
+  LowerBound createLowerBound();
+
+  /**
+   * Returns a new object of class '<em>Property Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Literal</em>'.
+   * @generated
+   */
+  PropertyLiteral createPropertyLiteral();
 
   /**
    * Returns the package supported by this factory.

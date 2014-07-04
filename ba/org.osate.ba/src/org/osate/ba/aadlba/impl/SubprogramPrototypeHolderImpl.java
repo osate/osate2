@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.ComponentElementHolder;
 import org.osate.ba.aadlba.PrototypeHolder ;
 import org.osate.ba.aadlba.SubprogramPrototypeHolder ;
 
@@ -218,6 +219,13 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
+    if (baseClass == ComponentElementHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     if (baseClass == PrototypeHolder.class)
     {
       switch (derivedFeatureID)
@@ -237,6 +245,13 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
+    if (baseClass == ComponentElementHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
     if (baseClass == PrototypeHolder.class)
     {
       switch (baseFeatureID)

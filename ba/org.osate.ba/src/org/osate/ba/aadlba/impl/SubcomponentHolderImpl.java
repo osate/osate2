@@ -19,49 +19,56 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ComponentElementHolder;
-import org.osate.ba.aadlba.DataSubcomponentHolder ;
-import org.osate.ba.aadlba.ElementValues ;
-import org.osate.ba.aadlba.GroupHolder ;
-import org.osate.ba.aadlba.GroupableElement ;
-import org.osate.ba.aadlba.IndexableElement ;
-import org.osate.ba.aadlba.IntegerValue ;
-import org.osate.ba.aadlba.ParameterLabel ;
+
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.IndexableElement;
+import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.SubcomponentHolder;
-import org.osate.ba.aadlba.SubprogramHolderProxy;
-import org.osate.ba.aadlba.Target ;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Data Subcomponent Holder</b></em>'.
+ * An implementation of the model object '<em><b>Subcomponent Holder</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.DataSubcomponentHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getElement <em>Element</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSubcomponentHolder
+public class SubcomponentHolderImpl extends BehaviorElementImpl implements SubcomponentHolder
 {
+  /**
+   * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getElement()
+   * @generated
+   * @ordered
+   */
+  protected NamedElement element;
+
   /**
    * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -77,7 +84,7 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
    * <!-- end-user-doc -->
    * @generated
    */
-  protected DataSubcomponentHolderImpl()
+  protected SubcomponentHolderImpl()
   {
     super();
   }
@@ -90,7 +97,50 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.DATA_SUBCOMPONENT_HOLDER;
+    return AadlBaPackage.Literals.SUBCOMPONENT_HOLDER;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement getElement()
+  {
+    if (element != null && ((EObject)element).eIsProxy())
+    {
+      InternalEObject oldElement = (InternalEObject)element;
+      element = (NamedElement)eResolveProxy(oldElement);
+      if (element != oldElement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.SUBCOMPONENT_HOLDER__ELEMENT, oldElement, element));
+      }
+    }
+    return element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement basicGetElement()
+  {
+    return element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setElement(NamedElement newElement)
+  {
+    NamedElement oldElement = element;
+    element = newElement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBCOMPONENT_HOLDER__ELEMENT, oldElement, element));
   }
 
   /**
@@ -102,7 +152,7 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   {
     if (arrayIndexes == null)
     {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES);
+      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES);
     }
     return arrayIndexes;
   }
@@ -125,26 +175,6 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDataSubcomponent(final DataSubcomponent dataSubcomponent )
-  {
-    element = dataSubcomponent ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DataSubcomponent getDataSubcomponent()
-  {
-    return (DataSubcomponent) element;
   }
 
   /**
@@ -177,7 +207,7 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -193,7 +223,10 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ELEMENT:
+        if (resolve) return getElement();
+        return basicGetElement();
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return getArrayIndexes();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -210,7 +243,10 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ELEMENT:
+        setElement((NamedElement)newValue);
+        return;
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
         return;
@@ -228,7 +264,10 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ELEMENT:
+        setElement((NamedElement)null);
+        return;
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         unsetArrayIndexes();
         return;
     }
@@ -245,7 +284,9 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ELEMENT:
+        return element != null;
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return isSetArrayIndexes();
     }
     return super.eIsSet(featureID);
@@ -259,53 +300,11 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == SubprogramHolderProxy.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ComponentElementHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
     if (baseClass == IndexableElement.class)
     {
       switch (derivedFeatureID)
       {
-        case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == SubcomponentHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
+        case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
         default: return -1;
       }
     }
@@ -320,57 +319,15 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == SubprogramHolderProxy.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ComponentElementHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
     if (baseClass == IndexableElement.class)
     {
       switch (baseFeatureID)
       {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == SubcomponentHolder.class)
-    {
-      switch (baseFeatureID)
-      {
+        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES;
         default: return -1;
       }
     }
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
   }
 
-} //DataSubcomponentHolderImpl
+} //SubcomponentHolderImpl

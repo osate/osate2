@@ -19,7 +19,6 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -31,48 +30,46 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BehaviorVariable ;
-import org.osate.ba.aadlba.BehaviorVariableHolder ;
-import org.osate.ba.aadlba.ComponentElementHolder;
-import org.osate.ba.aadlba.ElementValues ;
-import org.osate.ba.aadlba.IndexableElement ;
-import org.osate.ba.aadlba.IntegerValue ;
-import org.osate.ba.aadlba.ParameterLabel ;
-import org.osate.ba.aadlba.SubprogramHolderProxy;
-import org.osate.ba.aadlba.Target ;
+
+import org.osate.aadl2.SubprogramSubcomponent;
+
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.CalledSubprogramHolder;
+import org.osate.ba.aadlba.GroupHolder;
+import org.osate.ba.aadlba.GroupableElement;
+import org.osate.ba.aadlba.SubprogramSubcomponentHolder;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Behavior Variable Holder</b></em>'.
+ * An implementation of the model object '<em><b>Subprogram Subcomponent Holder</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.BehaviorVariableHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.SubprogramSubcomponentHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BehaviorVariableHolderImpl extends DataHolderImpl implements BehaviorVariableHolder
+public class SubprogramSubcomponentHolderImpl extends SubcomponentHolderImpl implements SubprogramSubcomponentHolder
 {
   /**
-   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getArrayIndexes()
+   * @see #getGroupHolders()
    * @generated
    * @ordered
    */
-  protected EList<IntegerValue> arrayIndexes;
+  protected EList<GroupHolder> groupHolders;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected BehaviorVariableHolderImpl()
+  protected SubprogramSubcomponentHolderImpl()
   {
     super();
   }
@@ -85,7 +82,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_VARIABLE_HOLDER;
+    return AadlBaPackage.Literals.SUBPROGRAM_SUBCOMPONENT_HOLDER;
   }
 
   /**
@@ -93,13 +90,13 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<IntegerValue> getArrayIndexes()
+  public EList<GroupHolder> getGroupHolders()
   {
-    if (arrayIndexes == null)
+    if (groupHolders == null)
     {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES);
+      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS);
     }
-    return arrayIndexes;
+    return groupHolders;
   }
 
   /**
@@ -107,9 +104,9 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
-  public void unsetArrayIndexes()
+  public void unsetGroupHolders()
   {
-    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+    if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
   }
 
   /**
@@ -117,9 +114,9 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isSetArrayIndexes()
+  public boolean isSetGroupHolders()
   {
-    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+    return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
   }
 
   /**
@@ -127,9 +124,9 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVariable(final BehaviorVariable variable )
+  public void setSubprogramSubcomponent(final SubprogramSubcomponent subprogramSubcomponent)
   {
-    element = variable ;
+    element = subprogramSubcomponent ;
   }
 
   /**
@@ -137,9 +134,9 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
-  public BehaviorVariable getBehaviorVariable()
+  public SubprogramSubcomponent getSubprogramSubcomponent()
   {
-    return (BehaviorVariable) element;
+    return (SubprogramSubcomponent) element;
   }
 
   /**
@@ -152,8 +149,8 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
-        return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -168,8 +165,8 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
-        return getArrayIndexes();
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return getGroupHolders();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -185,9 +182,9 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
-        getArrayIndexes().clear();
-        getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        getGroupHolders().clear();
+        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -203,8 +200,8 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
-        unsetArrayIndexes();
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        unsetGroupHolders();
         return;
     }
     super.eUnset(featureID);
@@ -220,8 +217,8 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
-        return isSetArrayIndexes();
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return isSetGroupHolders();
     }
     return super.eIsSet(featureID);
   }
@@ -234,43 +231,15 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
+    if (baseClass == GroupableElement.class)
     {
       switch (derivedFeatureID)
       {
-        case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+        case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
         default: return -1;
       }
     }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == SubprogramHolderProxy.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == CalledSubprogramHolder.class)
     {
       switch (derivedFeatureID)
       {
@@ -288,43 +257,15 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
+    if (baseClass == GroupableElement.class)
     {
       switch (baseFeatureID)
       {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES;
+        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS;
         default: return -1;
       }
     }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == SubprogramHolderProxy.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == CalledSubprogramHolder.class)
     {
       switch (baseFeatureID)
       {
@@ -334,4 +275,4 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
   }
 
-} //BehaviorVariableHolderImpl
+} //SubprogramSubcomponentHolderImpl

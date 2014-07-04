@@ -175,11 +175,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createBehaviorElementAdapter();
       }
       @Override
-      public Adapter caseBehaviorEnumerationLiteral(BehaviorEnumerationLiteral object)
-      {
-        return createBehaviorEnumerationLiteralAdapter();
-      }
-      @Override
       public Adapter caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object)
       {
         return createBehaviorIntegerLiteralAdapter();
@@ -190,19 +185,9 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createBehaviorNamedElementAdapter();
       }
       @Override
-      public Adapter caseBehaviorProperty(BehaviorProperty object)
-      {
-        return createBehaviorPropertyAdapter();
-      }
-      @Override
       public Adapter caseBehaviorPropertyConstant(BehaviorPropertyConstant object)
       {
         return createBehaviorPropertyConstantAdapter();
-      }
-      @Override
-      public Adapter caseBehaviorPropertyValue(BehaviorPropertyValue object)
-      {
-        return createBehaviorPropertyValueAdapter();
       }
       @Override
       public Adapter caseBehaviorRealLiteral(BehaviorRealLiteral object)
@@ -605,6 +590,71 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createWhileOrDoUntilStatementAdapter();
       }
       @Override
+      public Adapter casePropertySetPropertyReference(PropertySetPropertyReference object)
+      {
+        return createPropertySetPropertyReferenceAdapter();
+      }
+      @Override
+      public Adapter caseComponentElementPropertyReference(ComponentElementPropertyReference object)
+      {
+        return createComponentElementPropertyReferenceAdapter();
+      }
+      @Override
+      public Adapter caseComponentElementHolder(ComponentElementHolder object)
+      {
+        return createComponentElementHolderAdapter();
+      }
+      @Override
+      public Adapter caseSubcomponentHolder(SubcomponentHolder object)
+      {
+        return createSubcomponentHolderAdapter();
+      }
+      @Override
+      public Adapter caseSubprogramSubcomponentHolder(SubprogramSubcomponentHolder object)
+      {
+        return createSubprogramSubcomponentHolderAdapter();
+      }
+      @Override
+      public Adapter caseFeatureHolder(FeatureHolder object)
+      {
+        return createFeatureHolderAdapter();
+      }
+      @Override
+      public Adapter caseClassifierPropertyReference(ClassifierPropertyReference object)
+      {
+        return createClassifierPropertyReferenceAdapter();
+      }
+      @Override
+      public Adapter casePropertyReference(PropertyReference object)
+      {
+        return createPropertyReferenceAdapter();
+      }
+      @Override
+      public Adapter casePropertyField(PropertyField object)
+      {
+        return createPropertyFieldAdapter();
+      }
+      @Override
+      public Adapter casePropertyHolder(PropertyHolder object)
+      {
+        return createPropertyHolderAdapter();
+      }
+      @Override
+      public Adapter caseUpperBound(UpperBound object)
+      {
+        return createUpperBoundAdapter();
+      }
+      @Override
+      public Adapter caseLowerBound(LowerBound object)
+      {
+        return createLowerBoundAdapter();
+      }
+      @Override
+      public Adapter casePropertyLiteral(PropertyLiteral object)
+      {
+        return createPropertyLiteralAdapter();
+      }
+      @Override
       public Adapter caseElement(Element object)
       {
         return createElementAdapter();
@@ -897,21 +947,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorEnumerationLiteral <em>Behavior Enumeration Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.BehaviorEnumerationLiteral
-   * @generated
-   */
-  public Adapter createBehaviorEnumerationLiteralAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorIntegerLiteral <em>Behavior Integer Literal</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -942,21 +977,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorProperty <em>Behavior Property</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.BehaviorProperty
-   * @generated
-   */
-  public Adapter createBehaviorPropertyAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorPropertyConstant <em>Behavior Property Constant</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -967,21 +987,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBehaviorPropertyConstantAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorPropertyValue <em>Behavior Property Value</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.BehaviorPropertyValue
-   * @generated
-   */
-  public Adapter createBehaviorPropertyValueAdapter()
   {
     return null;
   }
@@ -2182,6 +2187,201 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createWhileOrDoUntilStatementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertySetPropertyReference <em>Property Set Property Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertySetPropertyReference
+   * @generated
+   */
+  public Adapter createPropertySetPropertyReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ComponentElementPropertyReference <em>Component Element Property Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ComponentElementPropertyReference
+   * @generated
+   */
+  public Adapter createComponentElementPropertyReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ComponentElementHolder <em>Component Element Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ComponentElementHolder
+   * @generated
+   */
+  public Adapter createComponentElementHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.SubcomponentHolder <em>Subcomponent Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.SubcomponentHolder
+   * @generated
+   */
+  public Adapter createSubcomponentHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.SubprogramSubcomponentHolder <em>Subprogram Subcomponent Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.SubprogramSubcomponentHolder
+   * @generated
+   */
+  public Adapter createSubprogramSubcomponentHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.FeatureHolder <em>Feature Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.FeatureHolder
+   * @generated
+   */
+  public Adapter createFeatureHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ClassifierPropertyReference <em>Classifier Property Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ClassifierPropertyReference
+   * @generated
+   */
+  public Adapter createClassifierPropertyReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyReference <em>Property Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyReference
+   * @generated
+   */
+  public Adapter createPropertyReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyField <em>Property Field</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyField
+   * @generated
+   */
+  public Adapter createPropertyFieldAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyHolder <em>Property Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyHolder
+   * @generated
+   */
+  public Adapter createPropertyHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.UpperBound <em>Upper Bound</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.UpperBound
+   * @generated
+   */
+  public Adapter createUpperBoundAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.LowerBound <em>Lower Bound</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.LowerBound
+   * @generated
+   */
+  public Adapter createLowerBoundAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyLiteral <em>Property Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyLiteral
+   * @generated
+   */
+  public Adapter createPropertyLiteralAdapter()
   {
     return null;
   }

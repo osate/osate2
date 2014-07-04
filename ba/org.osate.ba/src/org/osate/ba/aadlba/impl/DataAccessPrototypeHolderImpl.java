@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.ComponentElementHolder;
 import org.osate.ba.aadlba.DataAccessPrototypeHolder ;
 import org.osate.ba.aadlba.ElementValues ;
 import org.osate.ba.aadlba.GroupHolder ;
@@ -56,9 +57,9 @@ import org.osate.ba.aadlba.Target ;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl#getPrototypeBinding <em>Prototype Binding</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl#getPrototypeBinding <em>Prototype Binding</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,16 +67,6 @@ import org.osate.ba.aadlba.Target ;
  */
 public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements DataAccessPrototypeHolder
 {
-  /**
-   * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPrototypeBinding()
-   * @generated
-   * @ordered
-   */
-  protected PrototypeBinding prototypeBinding;
-
   /**
    * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -95,6 +86,16 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * @ordered
    */
   protected EList<GroupHolder> groupHolders;
+
+  /**
+   * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrototypeBinding()
+   * @generated
+   * @ordered
+   */
+  protected PrototypeBinding prototypeBinding;
 
   /**
    * <!-- begin-user-doc -->
@@ -276,13 +277,13 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        if (resolve) return getPrototypeBinding();
-        return basicGetPrototypeBinding();
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES:
         return getArrayIndexes();
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS:
         return getGroupHolders();
+      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        if (resolve) return getPrototypeBinding();
+        return basicGetPrototypeBinding();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -298,9 +299,6 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)newValue);
-        return;
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES:
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
@@ -308,6 +306,9 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS:
         getGroupHolders().clear();
         getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
+        return;
+      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        setPrototypeBinding((PrototypeBinding)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -323,14 +324,14 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)null);
-        return;
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES:
         unsetArrayIndexes();
         return;
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS:
         unsetGroupHolders();
+        return;
+      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        setPrototypeBinding((PrototypeBinding)null);
         return;
     }
     super.eUnset(featureID);
@@ -346,12 +347,12 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        return prototypeBinding != null;
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES:
         return isSetArrayIndexes();
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS:
         return isSetGroupHolders();
+      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        return prototypeBinding != null;
     }
     return super.eIsSet(featureID);
   }
@@ -364,19 +365,34 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
     if (baseClass == IndexableElement.class)
     {
       switch (derivedFeatureID)
       {
         case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
+        default: return -1;
+      }
+    }
+    if (baseClass == ComponentElementHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == PrototypeHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
         default: return -1;
       }
     }
@@ -398,14 +414,6 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
     {
       switch (derivedFeatureID)
       {
-        default: return -1;
-      }
-    }
-    if (baseClass == GroupableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
         default: return -1;
       }
     }
@@ -420,19 +428,34 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
     if (baseClass == IndexableElement.class)
     {
       switch (baseFeatureID)
       {
         case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS;
+        default: return -1;
+      }
+    }
+    if (baseClass == ComponentElementHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == PrototypeHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
         default: return -1;
       }
     }
@@ -454,14 +477,6 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
     {
       switch (baseFeatureID)
       {
-        default: return -1;
-      }
-    }
-    if (baseClass == GroupableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER__GROUP_HOLDERS;
         default: return -1;
       }
     }
