@@ -53,6 +53,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyNames" lowerBound="1"
         upperBound="-1" eType="#//DeclarativePropertyName" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertySet" eType="ecore:EDataType aadlba.ecore#//Boolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeTime" eSuperTypes="aadlba.ecore#//BehaviorTime aadlba.ecore#//CompletionRelativeTimeout #//DeclarativeBehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="unitId" lowerBound="1"

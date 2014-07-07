@@ -942,6 +942,16 @@ public interface DeclarativePackage extends EPackage
         DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 2 ;
 
   /**
+   * The feature id for the '<em><b>Property Set</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET =
+        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 3 ;
+
+  /**
    * The number of structural features of the '<em>Property Reference</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -949,7 +959,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE_FEATURE_COUNT =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 3 ;
+        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 4 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.
@@ -1791,6 +1801,17 @@ public interface DeclarativePackage extends EPackage
   EReference getDeclarativePropertyReference_PropertyNames() ;
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.ba.declarative.DeclarativePropertyReference#isPropertySet <em>Property Set</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Property Set</em>'.
+   * @see org.osate.ba.declarative.DeclarativePropertyReference#isPropertySet()
+   * @see #getDeclarativePropertyReference()
+   * @generated
+   */
+  EAttribute getDeclarativePropertyReference_PropertySet() ;
+
+  /**
    * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeTime <em>Time</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2200,6 +2221,15 @@ public interface DeclarativePackage extends EPackage
      */
     EReference DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES = eINSTANCE
           .getDeclarativePropertyReference_PropertyNames() ;
+
+    /**
+     * The meta object literal for the '<em><b>Property Set</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET = eINSTANCE
+          .getDeclarativePropertyReference_PropertySet() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.

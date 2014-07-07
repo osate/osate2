@@ -35,6 +35,7 @@ import org.osate.ba.aadlba.ValueConstant ;
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#getQualifiedName <em>Qualified Name</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#getReference <em>Reference</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#getPropertyNames <em>Property Names</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#isPropertySet <em>Property Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -114,5 +115,32 @@ public interface DeclarativePropertyReference extends
    * @generated
    */
   EList<DeclarativePropertyName> getPropertyNames() ;
+
+  /**
+   * Returns the value of the '<em><b>Property Set</b></em>' attribute.
+   * The default value is <code>"false"</code>.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Property Set</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Property Set</em>' attribute.
+   * @see #setPropertySet(boolean)
+   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyReference_PropertySet()
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
+   * @generated
+   */
+  boolean isPropertySet() ;
+
+  /**
+   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyReference#isPropertySet <em>Property Set</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Property Set</em>' attribute.
+   * @see #isPropertySet()
+   * @generated
+   */
+  void setPropertySet(boolean value) ;
 
 } // DeclarativePropertyReference

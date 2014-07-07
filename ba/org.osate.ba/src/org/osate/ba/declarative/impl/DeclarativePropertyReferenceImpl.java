@@ -50,6 +50,7 @@ import org.osate.ba.declarative.Reference ;
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#getQualifiedName <em>Qualified Name</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#getReference <em>Reference</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#getPropertyNames <em>Property Names</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#isPropertySet <em>Property Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,6 +90,26 @@ public class DeclarativePropertyReferenceImpl extends
    * @ordered
    */
   protected EList<DeclarativePropertyName> propertyNames ;
+
+  /**
+   * The default value of the '{@link #isPropertySet() <em>Property Set</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isPropertySet()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean PROPERTY_SET_EDEFAULT = false ;
+
+  /**
+   * The cached value of the '{@link #isPropertySet() <em>Property Set</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isPropertySet()
+   * @generated
+   * @ordered
+   */
+  protected boolean propertySet = PROPERTY_SET_EDEFAULT ;
 
   /**
    * <!-- begin-user-doc -->
@@ -272,6 +293,31 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isPropertySet()
+  {
+    return propertySet ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPropertySet(boolean newPropertySet)
+  {
+    boolean oldPropertySet = propertySet ;
+    propertySet = newPropertySet ;
+    if(eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+            DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET,
+            oldPropertySet, propertySet)) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
                                           int featureID,
@@ -308,6 +354,8 @@ public class DeclarativePropertyReferenceImpl extends
         return getReference() ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES :
         return getPropertyNames() ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET :
+        return isPropertySet() ;
     }
     return super.eGet(featureID, resolve, coreType) ;
   }
@@ -335,6 +383,9 @@ public class DeclarativePropertyReferenceImpl extends
         getPropertyNames()
               .addAll((Collection<? extends DeclarativePropertyName>) newValue) ;
         return ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET :
+        setPropertySet((Boolean) newValue) ;
+        return ;
     }
     super.eSet(featureID, newValue) ;
   }
@@ -358,6 +409,9 @@ public class DeclarativePropertyReferenceImpl extends
       case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES :
         getPropertyNames().clear() ;
         return ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET :
+        setPropertySet(PROPERTY_SET_EDEFAULT) ;
+        return ;
     }
     super.eUnset(featureID) ;
   }
@@ -378,8 +432,28 @@ public class DeclarativePropertyReferenceImpl extends
         return reference != null ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES :
         return propertyNames != null && !propertyNames.isEmpty() ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET :
+        return propertySet != PROPERTY_SET_EDEFAULT ;
     }
     return super.eIsSet(featureID) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if(eIsProxy())
+      return super.toString() ;
+
+    StringBuffer result = new StringBuffer(super.toString()) ;
+    result.append(" (propertySet: ") ;
+    result.append(propertySet) ;
+    result.append(')') ;
+    return result.toString() ;
   }
 
 } //DeclarativePropertyReferenceImpl

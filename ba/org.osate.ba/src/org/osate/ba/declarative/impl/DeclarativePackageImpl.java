@@ -487,6 +487,17 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getDeclarativePropertyReference_PropertySet()
+  {
+    return (EAttribute) declarativePropertyReferenceEClass
+          .getEStructuralFeatures().get(3) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getDeclarativeTime()
   {
     return declarativeTimeEClass ;
@@ -701,6 +712,8 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                      DECLARATIVE_PROPERTY_REFERENCE__REFERENCE) ;
     createEReference(declarativePropertyReferenceEClass,
                      DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES) ;
+    createEAttribute(declarativePropertyReferenceEClass,
+                     DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET) ;
 
     declarativeTimeEClass = createEClass(DECLARATIVE_TIME) ;
     createEReference(declarativeTimeEClass, DECLARATIVE_TIME__UNIT_ID) ;
@@ -947,6 +960,11 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                    !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
                    !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                    IS_ORDERED) ;
+    initEAttribute(getDeclarativePropertyReference_PropertySet(),
+                   theAadlBaPackage.getBoolean(), "propertySet", "false", 0, 1,
+                   DeclarativePropertyReference.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                   IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
 
     initEClass(declarativeTimeEClass, DeclarativeTime.class, "DeclarativeTime",
                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS) ;
