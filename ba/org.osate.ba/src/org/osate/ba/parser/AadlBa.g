@@ -1389,7 +1389,7 @@ integer_range returns [IntegerRange result]
 // | integer_value_constant
 integer_value returns [IntegerValue result]
   : 
-     value_constant
+     integer_value_constant
    |
      value_variable              
 ;
@@ -1404,7 +1404,7 @@ behavior_time returns [DeclarativeTime result]
 //   # [ property_set_identifier :: ] property_constant_identifier
 
 // property_reference ::=
-//   # [ property_set_identifier :: ] property_value_name
+//   # [ property_set_identifier :: ] property_value_name { . field_record_property_name }*
 // | own_component_element_reference # property_name { . field_record_property_name }*
 // | unique_component_classifier_reference # property_name { . field_record_property_name }*
 
@@ -1424,12 +1424,19 @@ behavior_time returns [DeclarativeTime result]
 
 property_reference returns [DeclarativePropertyReference result]
   :
-    (   qualified_named_element
-      |
-        reference
-    )?
+    (   
+        ( h1=HASH (IDENT DOUBLECOLON)? )
+      | 
+        ( 
+          (   qualified_named_element
+            | 
+              reference
+          )
+          h2=HASH
+        )
+    )
     
-    HASH property_name (DOT property_name)*
+    property_name (DOT property_name)*
 ;  
     
 // property_name ::=
@@ -1443,11 +1450,11 @@ property_reference returns [DeclarativePropertyReference result]
 
 property_name returns [DeclarativePropertyName result]
   :
-    IDENT (   ( LBRACK integer_value RBRACK )
+    id1=IDENT (   ( LBRACK integer_value RBRACK )
             |
               DOT
               (
-                  IDENT
+                  id2=IDENT
                 |
                   UPPER_BOUND
                 |

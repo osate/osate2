@@ -23,8 +23,30 @@
   
   package org.osate.ba.parser;
   
-  import org.antlr.v4.runtime.misc.NotNull ;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor ;
+  import org.eclipse.emf.common.util.BasicEList ;
+
+  import org.eclipse.emf.common.util.EList;
+
+  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;  
+  
+  import org.osate.aadl2.parsesupport.AObject;
+  import org.osate.aadl2.parsesupport.LocationReference;
+  
+  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
+  
+  import org.osate.ba.aadlba.*;
+  import org.osate.ba.declarative.* ;
+  import org.osate.ba.analyzers.DeclarativeUtils ;
+  
+  import org.osate.ba.utils.AadlBaLocationReference ;
+  
+  import org.osate.aadl2.Element ;
+  import org.osate.aadl2.ProcessorClassifier ;
+  import org.osate.aadl2.Aadl2Package ;
+  import org.osate.aadl2.parsesupport.ParseUtil ;
+
+import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
@@ -54,13 +76,6 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDispatch_condition(@NotNull AadlBaParser.Dispatch_conditionContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link AadlBaParser#behavior_enumeration_literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBehavior_enumeration_literal(@NotNull AadlBaParser.Behavior_enumeration_literalContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#dispatch_conjunction}.
@@ -110,13 +125,6 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRelation(@NotNull AadlBaParser.RelationContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link AadlBaParser#property}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProperty(@NotNull AadlBaParser.PropertyContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#binary_numeric_operator}.
@@ -224,6 +232,13 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	T visitString_literal(@NotNull AadlBaParser.String_literalContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#property_reference}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProperty_reference(@NotNull AadlBaParser.Property_referenceContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#unary_numeric_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -271,6 +286,13 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIf_statement(@NotNull AadlBaParser.If_statementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#value_constant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue_constant(@NotNull AadlBaParser.Value_constantContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#while_statement}.
@@ -364,6 +386,13 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBehavior_condition(@NotNull AadlBaParser.Behavior_conditionContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#property_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProperty_name(@NotNull AadlBaParser.Property_nameContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#elsif_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -446,13 +475,6 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInteger_value_constant(@NotNull AadlBaParser.Integer_value_constantContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link AadlBaParser#fact_value}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFact_value(@NotNull AadlBaParser.Fact_valueContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#term}.
