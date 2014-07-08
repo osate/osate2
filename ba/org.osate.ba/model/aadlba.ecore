@@ -141,9 +141,19 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalledSubprogramHolder" eSuperTypes="#//ElementHolder #//IndexableElement #//GroupableElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassifierPropertyReference" eSuperTypes="#//PropertyReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" abstract="true"
       interface="true" eSuperTypes="#//BasicAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeout" eSuperTypes="#//BehaviorTime #//DispatchRelativeTimeout"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentElementHolder" abstract="true"
+      interface="true" eSuperTypes="#//ElementHolder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentElementPropertyReference" eSuperTypes="#//PropertyReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="#//ComponentElementHolder" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CondStatement" abstract="true" interface="true"
       eSuperTypes="#//BehaviorAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorActions" lowerBound="1"
@@ -275,6 +285,19 @@
         eType="#//UnaryNumericOperator" unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unaryBooleanOperator" unique="false"
         eType="#//UnaryBooleanOperator" unsettable="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureHolder" eSuperTypes="#//ComponentElementHolder #//IndexableElement #//GroupableElement">
+    <eOperations name="setFeature" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = feature ;"/>
+      </eAnnotations>
+      <eParameters name="feature" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Feature"/>
+    </eOperations>
+    <eOperations name="getFeature" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Feature">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (Feature) element;"/>
+      </eAnnotations>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder #//Target #//ElementValues"/>
   <eClassifiers xsi:type="ecore:EEnum" name="FeatureType">
@@ -446,6 +469,7 @@
     <eLiterals name="Xor" value="3" literal="xor"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LoopStatement" abstract="true" eSuperTypes="#//CondStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LowerBound" eSuperTypes="#//PropertyField"/>
   <eClassifiers xsi:type="ecore:EEnum" name="MultiplyingOperator">
     <eLiterals name="None" literal=""/>
     <eLiterals name="Multiply" value="1" literal="*"/>
@@ -488,6 +512,23 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" eType="#//ValueExpression"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyField" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyHolder" eSuperTypes="#//BehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
+        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="#//PropertyField"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyLiteral" eSuperTypes="#//BehaviorNamedElement #//PropertyField"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" abstract="true" eSuperTypes="#//ValueConstant #//IntegerValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" lowerBound="1"
+        upperBound="-1" eType="#//PropertyHolder" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertySetPropertyReference" eSuperTypes="#//PropertyReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertySet" unique="false"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertySet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrototypeHolder" abstract="true" interface="true"
       eSuperTypes="#//IndexableElement #//GroupableElement #//ComponentElementHolder">
@@ -561,6 +602,19 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubcomponentHolder" eSuperTypes="#//ComponentElementHolder #//IndexableElement">
+    <eOperations name="setSubcomponent" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = subcomponent ;"/>
+      </eAnnotations>
+      <eParameters name="subcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
+    </eOperations>
+    <eOperations name="getSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (Subcomponent) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccessHolder" eSuperTypes="#//DispatchTriggerCondition #//CalledSubprogramHolder #//FeatureHolder">
     <eOperations name="setSubprogramAccess" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -597,6 +651,19 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramHolderProxy" eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototypeHolder" eSuperTypes="#//CalledSubprogramHolder #//PrototypeHolder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentHolder" eSuperTypes="#//SubcomponentHolder #//CalledSubprogramHolder">
+    <eOperations name="setSubprogramSubcomponent" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = subprogramSubcomponent ;"/>
+      </eAnnotations>
+      <eParameters name="subprogramSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramSubcomponent"/>
+    </eOperations>
+    <eOperations name="getSubprogramSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramSubcomponent">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (SubprogramSubcomponent) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Target" eSuperTypes="#//ParameterLabel #//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Term" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="factors" lowerBound="1"
@@ -631,6 +698,7 @@
       <details key="documentation" value="A null data name means that all shared data are unlocked at the end of the critical section"/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UpperBound" eSuperTypes="#//PropertyField"/>
   <eClassifiers xsi:type="ecore:EClass" name="Value" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ValueConstant" abstract="true" interface="true"
@@ -649,72 +717,4 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="doUntil" eType="#//Boolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertySetPropertyReference" eSuperTypes="#//PropertyReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertySet" unique="false"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertySet"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentElementPropertyReference" eSuperTypes="#//PropertyReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
-        eType="#//ComponentElementHolder" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentElementHolder" abstract="true"
-      interface="true" eSuperTypes="#//ElementHolder"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubcomponentHolder" eSuperTypes="#//ComponentElementHolder #//IndexableElement">
-    <eOperations name="setSubcomponent" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = subcomponent ;"/>
-      </eAnnotations>
-      <eParameters name="subcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
-    </eOperations>
-    <eOperations name="getSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (Subcomponent) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentHolder" eSuperTypes="#//SubcomponentHolder #//CalledSubprogramHolder">
-    <eOperations name="setSubprogramSubcomponent" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = subprogramSubcomponent ;"/>
-      </eAnnotations>
-      <eParameters name="subprogramSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramSubcomponent"/>
-    </eOperations>
-    <eOperations name="getSubprogramSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramSubcomponent">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (SubprogramSubcomponent) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureHolder" eSuperTypes="#//ComponentElementHolder #//IndexableElement #//GroupableElement">
-    <eOperations name="setFeature" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = feature ;"/>
-      </eAnnotations>
-      <eParameters name="feature" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Feature"/>
-    </eOperations>
-    <eOperations name="getFeature" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Feature">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (Feature) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassifierPropertyReference" eSuperTypes="#//PropertyReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" abstract="true" eSuperTypes="#//ValueConstant #//IntegerValueConstant">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" lowerBound="1"
-        upperBound="-1" eType="#//PropertyHolder" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyField" abstract="true" interface="true"
-      eSuperTypes="#//BehaviorElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyHolder" eSuperTypes="#//BehaviorElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Property"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="#//PropertyField"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UpperBound" eSuperTypes="#//PropertyField"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LowerBound" eSuperTypes="#//PropertyField"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyLiteral" eSuperTypes="#//BehaviorNamedElement #//PropertyField"/>
 </ecore:EPackage>
