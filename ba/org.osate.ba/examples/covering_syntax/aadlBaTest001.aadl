@@ -145,7 +145,7 @@ variables
  tmp, tmp0 : MyInteger ;
  tab[10] : MyInteger ;
  squareTab[10][10] : MyInteger ;
- tab2[AadlBaTestPropertySet::aConstant] : MyInteger ;
+ tab2[# AadlBaTestPropertySet::aConstant] : MyInteger ;
  tmp1 : Base_Types::Integer ;
  tmp2 : AadlBaTest::Types::Opaque ;
  tmp3 : AadlBaTest::Types::Opaque.v1 ;
@@ -170,7 +170,7 @@ transitions
  a -[]-> a ;
  a -[]-> a {tmp := 1} timeout 20 ms ;
  a -[]-> a {tmp := 1} timeout x ms ;
- a -[]-> a {tmp := 1} timeout AadlBaTestPropertySet::aConstant ms ;
+ a -[]-> a {tmp := 1} timeout #AadlBaTestPropertySet::aConstant ms ;
  regular1: a -[]-> a ;
  regular2 [1] : a -[]-> a ;
  regular3 [1_2] : a -[]-> a ;
@@ -195,7 +195,7 @@ transitions
  a2 -[on dispatch timeout]-> a ;
  a2 -[on dispatch timeout 10 min]-> a ;
  a2 -[on dispatch timeout tab[x] min]-> a ;
- a2 -[on dispatch timeout AadlBaTestPropertySet::aConstant min]-> a ;
+ a2 -[on dispatch timeout #AadlBaTestPropertySet::aConstant min]-> a ;
 
  -- Execute condition tests --
  
@@ -218,8 +218,8 @@ transitions
  a -[1+x > 0]-> a ;
  a -[+x * 0 = 0]-> a ;
  a -[1 /x > 0]-> a ;
- a -[AadlBaTestPropertySet::aConstant mod x > 0 or true]-> a ;
- a -[AadlBaTestPropertySet::aValue > 0 or bool1]-> a ;
+ a -[#AadlBaTestPropertySet::aConstant mod x > 0 or true]-> a ;
+ a -[#AadlBaTestPropertySet::aValue > 0 or bool1]-> a ;
  a -[+y rem x > 0]-> a ;
  a -[x < -y + 3 and bool1 or bool2]-> a ;
  a -[abs x > 2]-> a ;-- Remember a numeric_literal can't be negative. So "abs -1" and "abs +1" are aadl behavior annex syntax errors.
@@ -238,7 +238,7 @@ transitions
  a -[]-> a {tmp := 1 & x := 1 & y := 1} ;
  a -[]-> a {tmp := 1 ; x := 1 ; y := 1} timeout 100 ms;
  a -[]-> a {tmp := 1 & x := 1 & y := 1} timeout x ms; 
- a -[]-> c {tmp := 1} timeout AadlBaTestPropertySet::aValue ms; 
+ a -[]-> c {tmp := 1} timeout #AadlBaTestPropertySet::aValue ms; 
    
    -- Basic action variations tests --
    
