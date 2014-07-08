@@ -48,18 +48,23 @@ import org.osate.ba.aadlba.IfStatement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IterativeVariable ;
 import org.osate.ba.aadlba.LogicalOperator ;
+import org.osate.ba.aadlba.LowerBound ;
 import org.osate.ba.aadlba.MultiplyingOperator ;
 import org.osate.ba.aadlba.ParameterLabel ;
+import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.Relation ;
 import org.osate.ba.aadlba.RelationalOperator ;
 import org.osate.ba.aadlba.Term ;
 import org.osate.ba.aadlba.UnaryAddingOperator ;
 import org.osate.ba.aadlba.UnaryBooleanOperator ;
 import org.osate.ba.aadlba.UnaryNumericOperator ;
+import org.osate.ba.aadlba.UpperBound ;
 import org.osate.ba.aadlba.Value ;
 import org.osate.ba.analyzers.DeclarativeUtils ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeFactory ;
+import org.osate.ba.declarative.DeclarativePropertyName ;
+import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
@@ -80,12 +85,15 @@ import org.osate.ba.parser.AadlBaParser.Integer_value_constantContext ;
 import org.osate.ba.parser.AadlBaParser.Logical_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Multiplying_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Parameter_labelContext ;
+import org.osate.ba.parser.AadlBaParser.Property_nameContext ;
+import org.osate.ba.parser.AadlBaParser.Property_referenceContext ;
 import org.osate.ba.parser.AadlBaParser.Real_literalContext ;
 import org.osate.ba.parser.AadlBaParser.ReferenceContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
 import org.osate.ba.parser.AadlBaParser.TermContext ;
 import org.osate.ba.parser.AadlBaParser.Unique_component_classifier_referenceContext ;
 import org.osate.ba.parser.AadlBaParser.ValueContext ;
+import org.osate.ba.parser.AadlBaParser.Value_constantContext ;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
 
@@ -217,26 +225,6 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
    * {@link #visitChildren} on {@code ctx}.
    */
   @Override
-  public T visitBehavior_enumeration_literal(@NotNull AadlBaParser.Behavior_enumeration_literalContext ctx)
-  {
-    ctx.result = _decl.createEnumeration() ;
-    ctx.qualifiable_named_element().result = ctx.result ;
-    visitChildren(ctx) ;
-    Identifier lit = _decl.createIdentifier() ;
-    lit.setId(ctx.IDENT().getText()) ;
-    setLocationReference(lit, ctx.IDENT()) ;
-    ctx.result.setLiteral(lit) ;
-    // enumeration's location reference is already set, see qualifiable_named_element.
-    return null ;
-  }
-
-  /**
-   * {@inheritDoc}
-   * <p/>
-   * The default implementation returns the result of calling
-   * {@link #visitChildren} on {@code ctx}.
-   */
-  @Override
   public T visitDispatch_conjunction(@NotNull AadlBaParser.Dispatch_conjunctionContext ctx)
   {
     visitChildren(ctx) ;
@@ -289,9 +277,13 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    if(ctx.fact_value() != null)
+    if(ctx.value_constant() != null)
     {
-      ctx.result = ctx.fact_value().result ;
+      ctx.result = ctx.value_constant().result ;
+    }
+    else if(ctx.value_variable() != null)
+    {
+      ctx.result = ctx.value_variable().result ;
     }
     else
     {
@@ -376,41 +368,6 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result.setRelationalOperator(ctx.relational_operator().result) ;
       ctx.result.setSecondExpression(ctx.simple_expression(1).result) ;
-    }
-
-    return null ;
-  }
-
-  /**
-   * {@inheritDoc}
-   * <p/>
-   * The default implementation returns the result of calling
-   * {@link #visitChildren} on {@code ctx}.
-   */
-  @Override
-  public T visitProperty(@NotNull AadlBaParser.PropertyContext ctx)
-  {
-    visitChildren(ctx) ;
-    
-    ctx.result = _decl.createQualifiedNamedElement() ;
-
-    if(ctx.id1 != null)
-    {
-      Identifier nameSpaceId = _decl.createIdentifier() ;
-      nameSpaceId.setId(ctx.id1.getText()) ;
-      setLocationReference(nameSpaceId, ctx.id1) ;
-      ctx.result.setBaNamespace(nameSpaceId) ;
-      setLocationReference(ctx.result, ctx.id1) ;
-    }
-
-    Identifier nameId = _decl.createIdentifier() ;
-    nameId.setId(ctx.id2.getText()) ;
-    setLocationReference(nameId, ctx.id2) ;
-    ctx.result.setBaName(nameId) ;
-
-    if(ctx.result.getLocationReference() == null)
-    {
-      setLocationReference(ctx.result, ctx.id2) ;
     }
 
     return null ;
@@ -1599,7 +1556,20 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitInteger_value(@NotNull AadlBaParser.Integer_valueContext ctx)
   {
     visitChildren(ctx) ;
-    ctx.result = (IntegerValue) ctx.fact_value().result ;
+    
+    Value result = null ;
+    
+    if(ctx.integer_value_constant() != null)
+    {
+      result = ctx.integer_value_constant().result ;
+    }
+    else
+    {
+      result = ctx.value_variable().result ;
+    }
+    
+    ctx.result = (IntegerValue) result ;
+    
     return null ;
   }
 
@@ -1638,59 +1608,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     }
     else
     {
-      ctx.result = ctx.property().result ;
-    }
-    
-    return null ;
-  }
-
-  /**
-   * {@inheritDoc}
-   * <p/>
-   * The default implementation returns the result of calling
-   * {@link #visitChildren} on {@code ctx}.
-   */
-  @Override
-  public T visitFact_value(@NotNull AadlBaParser.Fact_valueContext ctx)
-  {
-    visitChildren(ctx) ;
-    
-    if(ctx.value_variable() != null)
-    {
-      ctx.result = ctx.value_variable().result ;
-    }
-    else if(ctx.numeric_literal() != null)
-    {
-      ctx.result = ctx.numeric_literal().result ;
-    }
-    else if(ctx.boolean_literal() != null)
-    {
-      ctx.result = ctx.boolean_literal().result ;
-    }
-    else if(ctx.DOUBLECOLON() != null)
-    {
-      QualifiedNamedElement property = _decl.createQualifiedNamedElement();
-
-      Identifier nameSpaceId = _decl.createIdentifier();
-      nameSpaceId.setId(ctx.IDENT(0).getText());
-      setLocationReference(nameSpaceId, ctx.IDENT(0));
-      property.setBaNamespace(nameSpaceId);
-      setLocationReference(property, ctx.IDENT(0)) ;
-
-      Identifier nameId = _decl.createIdentifier();
-      nameId.setId(ctx.IDENT(1).getText());
-      setLocationReference(nameId, ctx.IDENT(1));
-      property.setBaName(nameId);
-      
-      ctx.result = property ;
-    }
-    else if(ctx.string_literal() != null)
-    {
-      ctx.result = ctx.string_literal().result ; 
-    }
-    else
-    {
-      ctx.result = ctx.behavior_enumeration_literal().result ;
+      ctx.result = ctx.property_reference().result ;
     }
     
     return null ;
@@ -1924,6 +1842,126 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     ctx.ta.getProcessorClassifier().addAll(ctx.processor_parameter_list().result) ;
+    return null ;
+  }
+
+  @Override
+  public T visitProperty_reference(Property_referenceContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    DeclarativePropertyReference result = _decl.createDeclarativePropertyReference() ;
+    
+    if(ctx.h1 != null)
+    {
+      result.setPropertySet(true);
+      
+      if(ctx.IDENT() != null)
+      {
+        Identifier nameSpaceId = _decl.createIdentifier() ;
+        nameSpaceId.setId(ctx.IDENT().getText()) ;
+        setLocationReference(nameSpaceId, ctx.IDENT()) ;
+        
+        QualifiedNamedElement qne = _decl.createQualifiedNamedElement() ;
+        qne.setBaNamespace(nameSpaceId);
+        qne.setBaName(nameSpaceId); // Dummy !
+        qne.setLocationReference(nameSpaceId.getLocationReference());
+        
+        result.setQualifiedName(qne);
+      }
+    }
+    else
+    {
+      if(ctx.reference() != null)
+      {
+        result.setReference(ctx.reference().result);
+        result.setLocationReference(ctx.reference().result.getLocationReference());
+      }
+      else
+      {
+        result.setQualifiedName(ctx.qualified_named_element().result) ;
+        result.setLocationReference(ctx.qualified_named_element().result.getLocationReference());
+      }
+    }
+    
+    for(Property_nameContext pnc : ctx.property_name())
+    {
+      result.getPropertyNames().add(pnc.result) ;
+    }
+    
+    ctx.result = result ;
+    
+    return null ;
+  }
+
+  @Override
+  public T visitValue_constant(Value_constantContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    if(ctx.numeric_literal() != null)
+    {
+      ctx.result = ctx.numeric_literal().result ;
+    }
+    else if(ctx.string_literal() != null)
+    {
+      ctx.result = ctx.string_literal().result ; 
+    }
+    else if(ctx.boolean_literal() != null)
+    {
+      ctx.result = ctx.boolean_literal().result ;
+    }
+    else
+    {
+      ctx.result = ctx.property_reference().result ;
+    }
+    
+    return null ;
+  }
+
+  @Override
+  public T visitProperty_name(Property_nameContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    DeclarativePropertyName result = _decl.createDeclarativePropertyName() ;
+    setLocationReference(result, ctx.id1);
+    
+    Identifier propertyName = _decl.createIdentifier() ;
+    setLocationReference(propertyName, ctx.id1);
+    propertyName.setId(ctx.id1.getText());
+    result.setPropertyName(propertyName);
+    
+    PropertyField field = null ;
+    
+    if(ctx.integer_value() != null)
+    {
+      field = ctx.integer_value().result ;
+    }
+    else if(ctx.id2 != null)
+    {
+      Identifier idField = _decl.createIdentifier() ;
+      setLocationReference(idField, ctx.id2);
+      idField.setId(ctx.id2.getText());
+      field = idField ;
+    }
+    else if(ctx.UPPER_BOUND() != null)
+    {
+      UpperBound upField = _fact.createUpperBound() ;
+      setLocationReference(upField, ctx.UPPER_BOUND()) ;
+      field = upField ;
+    }
+    else if(ctx.LOWER_BOUND() != null)
+    {
+      LowerBound lowerField = _fact.createLowerBound() ;
+      setLocationReference(lowerField, ctx.LOWER_BOUND()) ;
+      field = lowerField ;
+    }
+    
+    result.setField(field);
+    
+    ctx.result = result ;
+    
     return null ;
   }
 }
