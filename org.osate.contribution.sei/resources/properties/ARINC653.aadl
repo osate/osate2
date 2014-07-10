@@ -1,13 +1,5 @@
 property set ARINC653 is 
 
---The Partition_Slots property specifies time slot duration for each partition scheduled.
-Partition_Slots : list of Time applies to ( processor, virtual processor, system);
-
---The Slots_Allocation property specifies the allocation of each slot (which partition is executed in
---each time slot). This property must be used with the ARINC653::Partition_Slots property and the
---order of slot allocation is the same than slots description.
-Slots_Allocation : list of reference (virtual processor) applies to ( processor, virtual processor);
-
 --The Module_Major_Frame property specifies the major frame for the ARINC653 module (AADL
 --processor component).
 Module_Major_Frame : Time applies to ( processor, virtual processor );
@@ -38,13 +30,6 @@ Supported_DAL_Type : type enumeration (LEVEL_A, LEVEL_B, LEVEL_C, LEVEL_D, LEVEL
 --The Criticality property defines the Design Assurance Level of a partition. It is associated to the
 --runtime of each partition (an AADL virtual processor component).
 DAL : ARINC653::Supported_DAL_Type applies to (virtual processor, system, abstract);
-
---The System_Overhead_Time property specifies the time needed for a module or a partition to switch
---from one partition or process to another. This time may represent the context switch overhead during a
---process switch inside a partition or the time to clean the hardware while the ARINC653 module switches
---from one partition to another (perform input/output before releasing the processor, cache flush, etc.). This
---property is not defined in the ARINC653 and has been defined for analysis purposes.
-System_Overhead_Time : Time applies to (processor, virtual processor );
 
 --Module version description.
 Module_Version : aadlstring applies to (processor);
@@ -129,5 +114,31 @@ Queueing_Discipline_Type: type enumeration (Fifo, By_Priority);
 -- on port.
 --
 Queueing_Discipline: ARINC653::Queueing_Discipline_Type applies to (port, data access);
+
+--
+--  The Schedule_Window type represents a record to specify a time
+--  slot/frame associated to a partition
+--
+Schedule_Window : type record (
+   Partition : reference (virtual processor, processor);
+   Duration  : time;
+   Periodic_Processing_Start : aadlboolean;);
+
+--
+--  Module_Schedule represents all the schedule windows for the module
+--
+Module_Schedule : list of ARINC653::Schedule_Window applies to ( processor, virtual processor );
+
+--
+--  Time_Capacity represents the time capacity associated
+--  to an ARINC653 process.
+--
+Time_Capacity : Time applies to ( thread );
+
+--
+--  The Deadline_Type captures the type of a deadline
+--  for a thread/ARINC653 process.
+--
+Deadline_Type : enumeration (soft, hard) applies to ( thread );
 
 end ARINC653;
