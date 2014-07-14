@@ -195,6 +195,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.PROTOTYPE__REFINED_ELEMENT:
+			return isSetRefinedElement();
 		case Aadl2Package.PROTOTYPE__REFINED:
 			return refined != null;
 		}

@@ -101,13 +101,13 @@ public enum ConnectionKind implements Enumerator {
 	 * @ordered
 	 */
 	MODE_TRANSITION_CONNECTION(4, "modeTransitionConnection", "modeTransitionConnection"), /**
-																							 * The '<em><b>Feature Group Connection</b></em>' literal object.
-																							 * <!-- begin-user-doc -->
+																							* The '<em><b>Feature Group Connection</b></em>' literal object.
+																							* <!-- begin-user-doc -->
 																							 * <!-- end-user-doc -->
-																							 * @see #FEATURE_GROUP_CONNECTION_VALUE
-																							 * @generated
-																							 * @ordered
-																							 */
+																							* @see #FEATURE_GROUP_CONNECTION_VALUE
+																							* @generated
+																							* @ordered
+																							*/
 	FEATURE_GROUP_CONNECTION(5, "featureGroupConnection", "featureGroupConnection"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**

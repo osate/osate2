@@ -60,29 +60,29 @@ public enum FeatureCategory implements Enumerator {
 	 * @ordered
 	 */
 	DATA_PORT(0, "dataPort", "dataPort"), /**
-											 * The '<em><b>Event Port</b></em>' literal object.
-											 * <!-- begin-user-doc -->
+											* The '<em><b>Event Port</b></em>' literal object.
+											* <!-- begin-user-doc -->
 											 * <!-- end-user-doc -->
-											 * @see #EVENT_PORT_VALUE
-											 * @generated
-											 * @ordered
-											 */
+											* @see #EVENT_PORT_VALUE
+											* @generated
+											* @ordered
+											*/
 	EVENT_PORT(1, "eventPort", "eventPort"), /**
-												 * The '<em><b>Event Data Port</b></em>' literal object.
-												 * <!-- begin-user-doc -->
+												* The '<em><b>Event Data Port</b></em>' literal object.
+												* <!-- begin-user-doc -->
 												 * <!-- end-user-doc -->
-												 * @see #EVENT_DATA_PORT_VALUE
-												 * @generated
-												 * @ordered
-												 */
+												* @see #EVENT_DATA_PORT_VALUE
+												* @generated
+												* @ordered
+												*/
 	EVENT_DATA_PORT(2, "eventDataPort", "eventDataPort"), /**
-															 * The '<em><b>Parameter</b></em>' literal object.
-															 * <!-- begin-user-doc -->
+															* The '<em><b>Parameter</b></em>' literal object.
+															* <!-- begin-user-doc -->
 															 * <!-- end-user-doc -->
-															 * @see #PARAMETER_VALUE
-															 * @generated
-															 * @ordered
-															 */
+															* @see #PARAMETER_VALUE
+															* @generated
+															* @ordered
+															*/
 	PARAMETER(3, "parameter", "parameter"),
 
 	/**
@@ -94,45 +94,45 @@ public enum FeatureCategory implements Enumerator {
 	 * @ordered
 	 */
 	BUS_ACCESS(4, "busAccess", "busAccess"), /**
-												 * The '<em><b>Data Access</b></em>' literal object.
-												 * <!-- begin-user-doc -->
+												* The '<em><b>Data Access</b></em>' literal object.
+												* <!-- begin-user-doc -->
 												 * <!-- end-user-doc -->
-												 * @see #DATA_ACCESS_VALUE
-												 * @generated
-												 * @ordered
-												 */
+												* @see #DATA_ACCESS_VALUE
+												* @generated
+												* @ordered
+												*/
 	DATA_ACCESS(5, "dataAccess", "dataAccess"), /**
-												 * The '<em><b>Subprogram Access</b></em>' literal object.
-												 * <!-- begin-user-doc -->
+												* The '<em><b>Subprogram Access</b></em>' literal object.
+												* <!-- begin-user-doc -->
 												 * <!-- end-user-doc -->
-												 * @see #SUBPROGRAM_ACCESS_VALUE
-												 * @generated
-												 * @ordered
-												 */
+												* @see #SUBPROGRAM_ACCESS_VALUE
+												* @generated
+												* @ordered
+												*/
 	SUBPROGRAM_ACCESS(6, "subprogramAccess", "subprogramAccess"), /**
-																	 * The '<em><b>Subprogram Group Access</b></em>' literal object.
-																	 * <!-- begin-user-doc -->
+																	* The '<em><b>Subprogram Group Access</b></em>' literal object.
+																	* <!-- begin-user-doc -->
 																	 * <!-- end-user-doc -->
-																	 * @see #SUBPROGRAM_GROUP_ACCESS_VALUE
-																	 * @generated
-																	 * @ordered
-																	 */
+																	* @see #SUBPROGRAM_GROUP_ACCESS_VALUE
+																	* @generated
+																	* @ordered
+																	*/
 	SUBPROGRAM_GROUP_ACCESS(7, "subprogramGroupAccess", "subprogramGroupAccess"), /**
-																					 * The '<em><b>Feature Group</b></em>' literal object.
-																					 * <!-- begin-user-doc -->
+																					* The '<em><b>Feature Group</b></em>' literal object.
+																					* <!-- begin-user-doc -->
 																					 * <!-- end-user-doc -->
-																					 * @see #FEATURE_GROUP_VALUE
-																					 * @generated
-																					 * @ordered
-																					 */
+																					* @see #FEATURE_GROUP_VALUE
+																					* @generated
+																					* @ordered
+																					*/
 	FEATURE_GROUP(8, "featureGroup", "featureGroup"), /**
-														 * The '<em><b>Abstract Feature</b></em>' literal object.
-														 * <!-- begin-user-doc -->
+														* The '<em><b>Abstract Feature</b></em>' literal object.
+														* <!-- begin-user-doc -->
 														 * <!-- end-user-doc -->
-														 * @see #ABSTRACT_FEATURE_VALUE
-														 * @generated
-														 * @ordered
-														 */
+														* @see #ABSTRACT_FEATURE_VALUE
+														* @generated
+														* @ordered
+														*/
 	ABSTRACT_FEATURE(9, "abstractFeature", "abstractFeature");
 
 	/**

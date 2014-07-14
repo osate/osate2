@@ -341,6 +341,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			return arrayDimensions != null && !arrayDimensions.isEmpty();
 		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
 			return isSetFeatureClassifier();
+		case Aadl2Package.FEATURE__REFINED_ELEMENT:
+			return isSetRefinedElement();
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			return basicGetPrototype() != null;
 		case Aadl2Package.FEATURE__REFINED:

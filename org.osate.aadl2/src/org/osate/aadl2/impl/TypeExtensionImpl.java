@@ -208,6 +208,8 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.TYPE_EXTENSION__GENERAL:
+			return isSetGeneral();
 		case Aadl2Package.TYPE_EXTENSION__EXTENDED:
 			return extended != null;
 		}
