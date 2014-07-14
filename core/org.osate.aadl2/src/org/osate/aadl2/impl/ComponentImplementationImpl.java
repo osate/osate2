@@ -1477,10 +1477,18 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL:
+			return isSetGenerals();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 			return isSetOwnedSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE:
+			return isSetClassifierFeatures();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MEMBER:
+			return isSetOwnedMembers();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
 			return isSetOwnedConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__GENERALIZATION:
+			return isSetGeneralizations();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE:
 			return isSetOwnedProcessorFeatures();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE:
@@ -1951,7 +1959,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		if (this.getType() != null) {
 			this.getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall);
 		} else {
-//	XXX we have an unresolved implementation or alias		throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
+			//	XXX we have an unresolved implementation or alias		throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
 		}
 	}
 

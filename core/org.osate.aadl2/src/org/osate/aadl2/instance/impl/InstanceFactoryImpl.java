@@ -73,7 +73,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	public static InstanceFactory init() {
 		try {
 			InstanceFactory theInstanceFactory = (InstanceFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://aadl.info/AADL/2.0/instance"); //$NON-NLS-1$ 
+					.getEFactory(InstancePackage.eNS_URI);
 			if (theInstanceFactory != null) {
 				return theInstanceFactory;
 			}

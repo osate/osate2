@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.Prototype;
@@ -185,10 +186,13 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
+		if (newFormal != null && !((EObject)newFormal).eIsProxy() && !(newFormal instanceof FeatureGroupPrototype)) {
+			throw new IllegalArgumentException("newFormal must be an instance of FeatureGroupPrototype");
+		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
@@ -273,6 +277,8 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
 			return actual != null;
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL:
+			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

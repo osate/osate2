@@ -366,12 +366,16 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return isSetOwnedSubcomponents();
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
+		case Aadl2Package.THREAD_IMPLEMENTATION__TYPE:
+			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
