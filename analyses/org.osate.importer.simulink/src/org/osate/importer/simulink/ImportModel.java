@@ -24,22 +24,9 @@ import org.w3c.dom.NodeList;
 
 public class ImportModel {
 
-//	public static void processModel (Node model, Model produced, String rootName)
-//	{
-//		NodeList nList = model.getChildNodes();
-//
-//
-//		for (int temp = 0; temp < nList.getLength(); temp++) 
-//		{
-//			Node nNode = nList.item(temp);
-//			if (nNode.getNodeName().equalsIgnoreCase("system"))
-//			{
-//				processNode (nNode, produced, null, rootName);
-//			}
-//		}
-//	}
 
-	public static void processNode (Node node, Model model, Component currentComponent, String rootName)
+
+	public static void processNodeComponents (Node node, Model model, Component currentComponent, String rootName)
 	{
 		Node 			attrName;
 		String 			blockName;
@@ -65,6 +52,12 @@ public class ImportModel {
 
 		nList = node.getChildNodes();
 
+		
+		/**
+		 * First of all, we handle the sub-components declared
+		 * in the block/system. Later (see below), we handle
+		 * the connections.
+		 */
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
 			nNode = nList.item(temp);
@@ -74,7 +67,7 @@ public class ImportModel {
 			 */
 			if (nNode.getNodeName().equalsIgnoreCase("system"))
 			{
-				processNode(nNode, model, currentComponent, rootName);
+				processNodeComponents (nNode, model, currentComponent, rootName);
 			}
 			
 			if (nNode.getNodeName().equalsIgnoreCase("block"))
@@ -127,11 +120,22 @@ public class ImportModel {
 				 */
 				
 				newComponent = new Component(blockName);
-				
-				OsateDebug.osateDebug("ImportModel", "Create a new component with name " + blockName);
-				
 				newComponent.setIdentifier (sidValue);
+				
+				OsateDebug.osateDebug("ImportModel", "Create a new component with (name,sid)=(" + blockName +","+sidValue+")");
+				
 
+				if (blockType.equalsIgnoreCase("from"))
+				{
+					newComponent.setType(ComponentType.EXTERNAL_INPORT);
+					if (currentComponent != null)
+					{
+						OsateDebug.osateDebug("ImportModel", "Add the component as an inport of " + currentComponent.getName());
+						currentComponent.addSubsystem(newComponent);
+						newComponent.setParent(currentComponent);
+					}
+				}
+				
 				if (blockType.equalsIgnoreCase("inport"))
 				{
 					newComponent.setType(ComponentType.EXTERNAL_INPORT);
@@ -159,6 +163,13 @@ public class ImportModel {
 				if (blockType.equalsIgnoreCase("reference"))
 				{
 					newComponent.setType(ComponentType.BLOCK);
+					if (currentComponent != null)
+					{
+						OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getName());
+						currentComponent.addSubsystem(newComponent);
+						newComponent.setParent(currentComponent);
+					}
+					
 					if (blockName.equalsIgnoreCase(rootName))
 					{
 						String referenceSource = Utils.getSourceBlock (nNode);
@@ -189,7 +200,7 @@ public class ImportModel {
 					/**
 					 * Try to find recursively new systems.
 					 */
-					processNode (nNode, model, newComponent, rootName);
+					processNodeComponents (nNode, model, newComponent, rootName);
 				}
 
 				/**
@@ -209,23 +220,40 @@ public class ImportModel {
 
 			}
 		}
+	}
+	
+	
+	
+	public static void processNodeConnections (Node node, Model model)
+	{
+		Node 			attrName;
+		String 			direction;
+		NodeList 		nList;
+		Node 			nNode;
+		Node 			tmpNode;
+		attrName 		= null;
+		tmpNode  		= null;
+		nNode 			= null;
+		nList 			= null;
+		direction 		= null;
 
+		nList = node.getChildNodes();
 
+		
+
+		/**
+		 * Now, we handle the connection between the sub-components.
+		 */
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
 			String srcString;
 			String dstString;
-			int srcBlockIndex;
-			int dstBlockIndex;
-			int srcPortIndex;
-			int dstPortIndex;
-
-
-
-			srcBlockIndex = -1;
-			dstBlockIndex = -1;
 
 			nNode = nList.item(temp);
+			
+			processNodeConnections (nNode, model);
+
+			
 			if (nNode.getNodeName().equalsIgnoreCase("Line"))
 			{
 				srcString = null;
@@ -272,13 +300,14 @@ public class ImportModel {
 								{
 									continue;
 								}
+								
+								
 								String direction2 = attrName2.getNodeValue().toString();
 								//								OsateDebug.osateDebug("direction="+direction);
 								if (direction2.equalsIgnoreCase("src"))
 								{
 									srcString = tmpNode4.getTextContent();
 									//									OsateDebug.osateDebug("srcString="+srcString);
-									srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
 									addConnection (srcString, dstString, model);
 								}
 
@@ -286,7 +315,6 @@ public class ImportModel {
 								{
 									dstString = tmpNode4.getTextContent();
 									//									OsateDebug.osateDebug("dstString="+dstString);
-									dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
 									addConnection (srcString, dstString, model);
 								}
 							}
@@ -301,13 +329,47 @@ public class ImportModel {
 	{
 		if ((dstString != null) && (srcString != null))
 		{
-			int srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-			int dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
+			int srcBlockIndex;
+			int dstBlockIndex;
+			int dstInterfaceIndex;
+			int srcInterfaceIndex;
+			
+			srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
+			dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
+			srcInterfaceIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_PORT_INDEX);
+			dstInterfaceIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_PORT_INDEX);
 
-			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
+//			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
+//			OsateDebug.osateDebug("[FileImport] connection srcBlockIndex=" + srcBlockIndex +"|dstBlockIndex="+dstBlockIndex);
+//			OsateDebug.osateDebug("[FileImport] connection srcInterfaceIndex=" + srcInterfaceIndex +"|dstInterfaceIndex="+dstInterfaceIndex);
+
+			
 			Component srcComponent = model.findComponentById(srcBlockIndex);
 			Component dstComponent = model.findComponentById(dstBlockIndex);
 
+			if (dstString.contains("372") || srcString.contains("372"))
+			{
+				OsateDebug.osateDebug("FileImport" , "372 (srcIndex=" + srcBlockIndex + ";dstIndex="+dstBlockIndex+")");
+
+			}
+			
+			if ((srcComponent == null) || (dstComponent == null))
+			{
+				OsateDebug.osateDebug("FileImport" , "null components (srcIndex=" + srcBlockIndex + ";dstIndex="+dstBlockIndex+")");
+
+				return false;
+			}
+			
+			if ((srcComponent.getType() == ComponentType.BLOCK) && (srcInterfaceIndex > 0))
+			{
+				srcComponent = srcComponent.getOutPort(srcInterfaceIndex - 1);
+			}
+			
+			if ((dstComponent.getType() == ComponentType.BLOCK) && (dstInterfaceIndex > 0))
+			{
+				dstComponent = dstComponent.getInPort(dstInterfaceIndex - 1);
+			}
+			
 			if ((srcComponent != null) && (dstComponent != null))
 			{
 				Connection c = new Connection(srcComponent, dstComponent);
@@ -315,6 +377,11 @@ public class ImportModel {
 				dstComponent.addConnection(c);
 				model.addConnection(c);
 				return true;
+			}
+			else
+			{
+				OsateDebug.osateDebug("FileImport" , "Not adding a connection, null component");
+
 			}
 		}
 		return false;

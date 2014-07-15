@@ -93,7 +93,7 @@ public class Utils {
 	
 	public static void writeBehaviorAnnex (StateMachine sm, BufferedWriter out) throws IOException
 	{
-		OsateDebug.osateDebug("WE GOT TWO !");
+//		OsateDebug.osateDebug("WE GOT TWO !");
 		out.write ("annex behavior_specification {**\n");
 
 		if (sm.getStates().size() > 0)

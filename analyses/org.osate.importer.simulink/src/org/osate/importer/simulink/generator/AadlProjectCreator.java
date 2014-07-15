@@ -48,6 +48,7 @@ import javax.imageio.stream.FileImageInputStream;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Preferences;
 import org.osate.importer.model.Component;
+import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
 import org.osate.importer.model.Component.ComponentType;
 import org.osate.importer.model.sm.State;
@@ -294,7 +295,7 @@ public class AadlProjectCreator
 
 				out.write ("system implementation s_"+e.getAadlName()+".i\n");
 
-				int connectionId = 0;
+			
 
 				/**
 				 * Add all the subcomponents of the current component.
@@ -309,6 +310,70 @@ public class AadlProjectCreator
 						out.write ("   " + c.getAadlName() + " : system s_" + c.getAadlName() + ".i;\n");
 					}
 				}
+				
+				int connectionId = 0;
+				connectionPreamble = false;
+				/**
+				 * Here, we try to catch all connections with our external features.
+				 */
+
+					for (Connection conn : genericModel.getConnections())
+					{
+						/**
+						 * Case of an IN port connected to a subcomponent.
+						 */
+						if ((conn.getSource().getParent() != null) && 
+							(conn.getSource().getParent() == e) &&
+						    (conn.getDestination().getParent() != null) &&
+						    (conn.getDestination().getParent().getParent() != null) &&
+						    (conn.getDestination().getParent().getParent() == e))
+						{
+							if (!connectionPreamble)
+							{
+								connectionPreamble = true;
+								out.write("connections\n");
+							}
+							out.write("   cin" + connectionId++ +"  : port " + conn.getSource().getAadlName() + "->" +  conn.getDestination().getParent().getAadlName() + "." + conn.getDestination().getAadlName() +";\n");
+
+						}
+						
+						
+						/**
+						 * Case of an OUT port connected to a subcomponent.
+						 */
+						if ((conn.getDestination().getParent() != null) && 
+							(conn.getDestination().getParent() == e) &&
+						    (conn.getSource().getParent() != null) &&
+						    (conn.getSource().getParent().getParent() != null) &&
+						    (conn.getSource().getParent().getParent() == e))
+						{
+							if (!connectionPreamble)
+							{
+								connectionPreamble = true;
+								out.write("connections\n");
+							}
+							out.write("   cout" + connectionId++ +" : port " + conn.getSource().getParent().getAadlName() + "." + conn.getSource().getAadlName() + "->" +  conn.getDestination().getAadlName() +";\n");
+
+						}
+					}
+				
+//				
+//				for (Component subco : e.getSubcomponents(ComponentType.EXTERNAL_OUTPORT))
+//				{
+//					for (Connection conn : genericModel.getConnections())
+//					{
+//						if (conn.getDestination() == subco) 
+//						{
+//							if (!connectionPreamble)
+//							{
+//								connectionPreamble = true;
+//								out.write("connections\n");
+//							}
+//							out.write("   c" + connectionId++ +" : port " +  conn.getDestination().getParent().getAadlName() + "." + conn.getDestination().getAadlName() + " -> " + subco.getAadlName() + ";\n");
+//
+//						}
+//					}
+//				}
 
 
 				if (sm != null)
@@ -443,8 +508,14 @@ public class AadlProjectCreator
 			boolean featuresDeclared = false;
 			for (Component e : genericModel.getComponents())
 			{
+				if (e.getParent() != null)
+				{
+					continue;
+				}
+				
 				if (e.getType() == Component.ComponentType.EXTERNAL_INPORT)
 				{
+					
 					if (! featuresDeclared)
 					{
 						out.write("features\n");
@@ -487,12 +558,17 @@ public class AadlProjectCreator
 			}
 
 			int connectionId = 0;
+			
+			/**
+			 * Here, we try to catch all connections with our external features.
+			 */
 			for (Component e : genericModel.getComponents())
 			{
 				if (e.getParent() != null)
 				{
 					continue;
 				}
+				
 				for (Component e2 : e.getOutgoingDependencies())
 				{
 					if (!connectionPreamble)
@@ -512,6 +588,30 @@ public class AadlProjectCreator
 					{
 						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() +";\n");
 					}
+				}
+			}
+			
+			/**
+			 * Here, we try to catch all potential connections
+			 * between subcomponents
+			 */
+			for (Connection c : genericModel.getConnections())
+			{
+				if ( (c.getSource().getType() == ComponentType.EXTERNAL_OUTPORT) &&
+					 (c.getSource().getParent() != null) &&
+					 (c.getSource().getParent().getParent() == null) &&
+					 (c.getDestination().getType() == ComponentType.EXTERNAL_INPORT) &&
+					 (c.getDestination().getParent() != null) &&
+					 (c.getDestination().getParent().getParent() == null)
+				   )
+				{
+					if (!connectionPreamble)
+					{
+						connectionPreamble = true;
+						out.write("connections\n");
+					}
+					out.write("   c" + connectionId++ +" : port " + c.getSource().getParent().getAadlName() + "." + c.getSource().getAadlName() + "->" +  c.getDestination().getParent().getAadlName() + "." + c.getDestination().getAadlName() +";\n");
+
 				}
 			}
 

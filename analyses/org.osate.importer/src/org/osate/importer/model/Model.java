@@ -71,6 +71,7 @@ public class Model
 	
 	public void addConnection (Connection c)
 	{
+		OsateDebug.osateDebug("Model" , "Add connection between src=" + c.getSource().getName() + ";dst=" + c.getDestination().getName());
 		this.connections.add(c);
 	}
 	
@@ -115,11 +116,18 @@ public class Model
 	
 	public Component findComponentById (int id)
 	{
+		Component sub;
 		for (Component c : this.components)
 		{
 			if (c.getIdentifier() == id)
 			{
 				return c;
+			}
+			
+			sub = c.findSubcomponent (id);
+			if (sub != null)
+			{
+				return sub;
 			}
 		}
 		return null;

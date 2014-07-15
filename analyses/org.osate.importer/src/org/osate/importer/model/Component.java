@@ -35,6 +35,7 @@ import org.osate.importer.Utils;
 import org.osate.importer.model.sm.StateMachine;
 
 public class Component implements Comparable {
+	
 
 	public enum ComponentType {
 		EXTERNAL_INPORT, EXTERNAL_OUTPORT, BLOCK, UNKNOWN
@@ -53,6 +54,13 @@ public class Component implements Comparable {
 	private List<StateMachine>	stateMachines;
 	private PortType			portType;
 	
+	/**
+	 * These two lists are here to keep track of the order of the
+	 * ports.
+	 */
+	public List<Component> 		inports;
+	public List<Component> 		outports;
+	
 	public final int COMPONENT_TYPE_EXTERNAL_INPORT  	= 1;
 	public final int COMPONENT_TYPE_EXTERNAL_OUTPORT 	= 2;
 	public final int COMPONENT_TYPE_BLOCK	 			= 3;
@@ -65,6 +73,8 @@ public class Component implements Comparable {
 		this.name 				= n;
 		this.connections 		= new ArrayList<Connection>();
 		this.subEntities  		= new ArrayList<Component>();
+		this.inports  			= new ArrayList<Component>();
+		this.outports  			= new ArrayList<Component>();
 		this.stateMachines  	= new ArrayList<StateMachine>();
 		this.parent 			= null;
 		this.identifier 		= Utils.INVALID_ID;
@@ -192,6 +202,27 @@ public class Component implements Comparable {
 		return null;
 	}
 	
+	public Component findSubcomponent (int id)
+	{
+		Component tmp;
+		
+		for (Component c : subEntities)
+		{
+			if (c.getIdentifier() == id)
+			{
+				return c;
+			}
+		
+			tmp = c.findSubcomponent(id);
+			
+			if (tmp != null)
+			{
+				return tmp;
+			}
+		}
+		return null;
+	}
+	
 	public void setType (ComponentType t)
 	{
 		this.type = t;
@@ -254,8 +285,71 @@ public class Component implements Comparable {
 				return;
 			}
 		}
+		
+		if (s.getType() == ComponentType.EXTERNAL_INPORT)
+		{
+			this.inports.add(s);
+		}
+		
+		if (s.getType() == ComponentType.EXTERNAL_OUTPORT)
+		{
+			this.outports.add(s);
+		}
+		
 		this.subEntities.add(s);
 	}
+	
+	public Component getInPort (int i)
+	{
+		if (i >= this.inports.size())
+		{
+			return null;
+		}
+		
+		return this.inports.get(i);
+	}
+	
+	public Component getOutPort (int i)
+	{
+		if (i >= this.outports.size())
+		{
+			return null;
+		}
+		
+		return this.outports.get(i);
+	}
+	
+	public int getInportIndex (Component s)
+	{
+		int index = 0;
+	
+		for (int i = 0 ; i < this.inports.size() ; i++)
+		{
+			if (this.inports.get(i) == s)
+			{
+				index = i;
+			}
+		}
+		
+		return index;
+	}
+	
+	
+	public int getOutportIndex (Component s)
+	{
+		int index = 0;
+	
+		for (int i = 0 ; i < this.outports.size() ; i++)
+		{
+			if (this.outports.get(i) == s)
+			{
+				index = i;
+			}
+		}
+		
+		return index;
+	}
+	
 	
 	public boolean equalsTo (Component e)
 	{
@@ -364,7 +458,7 @@ public class Component implements Comparable {
 			if ((c.getSource().getName() == ec.getSource().getName()) &&
 				(c.getDestination().getName() == ec.getDestination().getName()))
 			{
-//				OsateDebug.osateDebug("[Component] not adding the connection");
+				OsateDebug.osateDebug("[Component] not adding the connection");
 				return;
 			}
 		}

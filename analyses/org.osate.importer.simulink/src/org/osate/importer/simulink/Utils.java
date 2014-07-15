@@ -46,7 +46,7 @@ public class Utils {
 	
 	public static final int CONNECTION_FIELD_PORT_IN 		= 1;
 	public static final int CONNECTION_FIELD_PORT_OUT 		= 2;
-	
+	public static final int CONNECTION_FIELD_INVALID 		= -1;
 	
 	public static String getTagValue(String sTag, Element eElement)
 	{
@@ -281,40 +281,70 @@ public class Utils {
 			String portDirection;
 			String portIndex;
 			
+			portDirection = null;
+			portIndex     = null;
+			
 			try
 			{
 				idx1 = connection.indexOf("#");
 				idx2 = connection.indexOf(":");
-//				OsateDebug.osateDebug("conn=" + connection);
-//				OsateDebug.osateDebug("idx1=" + idx1);
-//				OsateDebug.osateDebug("idx2=" + idx2);
+				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] conn=" + connection);
+				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] idx1=" + idx1);
+				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] idx2=" + idx2);
+				
 				blockIndex = connection.substring(0, idx1);
-				portDirection = connection.substring(idx1+1, idx2);
-				portIndex = connection.substring(idx2+1);
+				
+				if (idx2 > idx1)
+				{
+					portDirection = connection.substring(idx1+1, idx2);
+					portIndex = connection.substring(idx2+1);
+				}
 			}
 			catch (Exception e)
 			{
-				OsateDebug.osateDebug("[Utils] invalid string");
+				e.printStackTrace();
+				OsateDebug.osateDebug("[Utils] getConnectionPointInformation - invalid string: " + connection);
 				return 0;
 			}
+			
+			
 			switch (field)
 			{
 				case CONNECTION_FIELD_BLOCK_INDEX:
 				{
+					
+					if (blockIndex.contains("::"))
+					{
+						blockIndex = blockIndex.substring(blockIndex.lastIndexOf("::") + 2, blockIndex.length());
+						
+						OsateDebug.osateDebug("Utils", "blockIndex=" + blockIndex);
+					}
 					return Integer.parseInt(blockIndex);
 				}
 	
 				case CONNECTION_FIELD_PORT_DIRECTION:
 				{
+					if (portDirection == null)
+					{
+						return CONNECTION_FIELD_INVALID;
+					}
+					 
 					if (portDirection.equalsIgnoreCase("out"))
 					{
 						return CONNECTION_FIELD_PORT_OUT;
 					}
-					return CONNECTION_FIELD_PORT_IN;
+					else
+					{
+						return CONNECTION_FIELD_PORT_IN;
+					}
 				}			
 				
 				case CONNECTION_FIELD_PORT_INDEX:
 				{
+					if (portIndex == null)
+					{
+						return CONNECTION_FIELD_INVALID;
+					}
 					return Integer.parseInt(portIndex);
 				}
 				

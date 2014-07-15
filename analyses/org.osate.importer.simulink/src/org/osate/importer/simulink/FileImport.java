@@ -161,7 +161,8 @@ public class FileImport {
 					Node tmp = children.item(s2);
 					if (tmp.getNodeName().toString().equalsIgnoreCase("system"))
 					{
-						ImportModel.processNode (tmp, producedModel, null, rootName);
+						ImportModel.processNodeComponents (tmp, producedModel, null, rootName);
+						ImportModel.processNodeConnections(tmp, producedModel);
 					}
 				}
 				DoImportModel.setFilterSystem(true);
@@ -238,7 +239,8 @@ public class FileImport {
 					 */
 					if (tNode.getNodeName().equalsIgnoreCase("model"))
 					{
-						ImportModel.processNode (tNode, producedModel, null, rootName);
+						ImportModel.processNodeComponents (tNode, producedModel, null, rootName);
+						ImportModel.processNodeConnections(tNode, producedModel);
 					}
 
 				}
