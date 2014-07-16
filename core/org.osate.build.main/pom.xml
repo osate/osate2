@@ -125,7 +125,7 @@
               <groupId>org.osate</groupId>
               <artifactId>org.osate.build.target</artifactId>
               <version>2.0.0-SNAPSHOT</version>
-              <classifier>kepler</classifier>
+              <classifier>luna</classifier>
             </artifact>
           </target>
           <ignoreTychoRepositories>true</ignoreTychoRepositories>
