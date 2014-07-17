@@ -55,12 +55,16 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+
+
+
 /**
  * The main plugin class to be used in the desktop.
  */
 public class OsateUiPlugin extends AbstractUIPlugin {
-
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	public static final String PLUGIN_ID = "org.osate.ui";
+	
+	public static final String copyright = "Copyright 2014 by Carnegie Mellon University, all rights reserved";
 
 	//The shared instance.
 	private static volatile OsateUiPlugin plugin;

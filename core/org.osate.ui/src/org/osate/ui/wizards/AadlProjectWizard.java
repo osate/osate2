@@ -39,7 +39,6 @@ package org.osate.ui.wizards;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -60,7 +59,6 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferenceStore;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -121,7 +119,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 
 	/**
 	 */
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	public static final String copyright = "Copyright 2012 by Carnegie Mellon University, all rights reserved";
 
 	/**
 	 * The config element which declares this wizard.
