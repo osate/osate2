@@ -32,7 +32,6 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.GroupPrototypeHolder ;
-import org.osate.ba.aadlba.PrototypeHolder ;
 
 /**
  * <!-- begin-user-doc -->

@@ -47,12 +47,12 @@ public interface ComponentElementPropertyReference extends PropertyReference
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Component</em>' containment reference.
-   * @see #setComponent(ComponentElementHolder)
+   * @see #setComponent(ClassifierFeatureHolder)
    * @see org.osate.ba.aadlba.AadlBaPackage#getComponentElementPropertyReference_Component()
    * @model containment="true" required="true"
    * @generated
    */
-  ComponentElementHolder getComponent();
+  ClassifierFeatureHolder getComponent();
 
   /**
    * Sets the value of the '{@link org.osate.ba.aadlba.ComponentElementPropertyReference#getComponent <em>Component</em>}' containment reference.
@@ -62,6 +62,6 @@ public interface ComponentElementPropertyReference extends PropertyReference
    * @see #getComponent()
    * @generated
    */
-  void setComponent(ComponentElementHolder value);
+  void setComponent(ClassifierFeatureHolder value);
 
 } // ComponentElementPropertyReference

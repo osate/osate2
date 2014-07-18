@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.CalledSubprogramHolder ;
-import org.osate.ba.aadlba.DataAccessHolder ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.SubprogramCallAction ;
 import org.osate.ba.aadlba.SubprogramHolderProxy;

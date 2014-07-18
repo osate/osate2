@@ -22,14 +22,14 @@ package org.osate.ba.aadlba;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Property Literal</b></em>'.
+ * A representation of the model object '<em><b>Property Literal Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyLiteral()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyLiteralHolder()
  * @model
  * @generated
  */
-public interface PropertyLiteral extends BehaviorNamedElement, PropertyField
+public interface PropertyLiteralHolder extends PropertyField, ElementHolder
 {
-} // PropertyLiteral
+} // PropertyLiteralHolder

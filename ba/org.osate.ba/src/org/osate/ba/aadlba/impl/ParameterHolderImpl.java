@@ -32,10 +32,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Parameter;
 import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ComponentElementHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.ElementValues ;
 import org.osate.ba.aadlba.FeatureHolder;
 import org.osate.ba.aadlba.GroupHolder ;
@@ -216,6 +217,26 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
    * <!-- end-user-doc -->
    * @generated
    */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -337,7 +358,7 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
         default: return -1;
       }
     }
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == ClassifierFeatureHolder.class)
     {
       switch (derivedFeatureID)
       {
@@ -399,7 +420,7 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
         default: return -1;
       }
     }
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == ClassifierFeatureHolder.class)
     {
       switch (baseFeatureID)
       {

@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 
@@ -242,6 +243,26 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
   public Feature getFeature()
   {
     return (Feature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
   }
 
   /**

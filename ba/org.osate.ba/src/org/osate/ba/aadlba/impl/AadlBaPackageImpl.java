@@ -221,6 +221,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass classifierFeatureHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass communicationActionEClass = null;
 
   /**
@@ -739,13 +746,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass componentElementHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass subcomponentHolderEClass = null;
 
   /**
@@ -795,6 +795,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass propertyLiteralHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass upperBoundEClass = null;
 
   /**
@@ -803,13 +810,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   private EClass lowerBoundEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass propertyLiteralEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1470,6 +1470,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EClass getCalledSubprogramHolder()
   {
     return calledSubprogramHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getClassifierFeatureHolder()
+  {
+    return classifierFeatureHolderEClass;
   }
 
   /**
@@ -2727,16 +2737,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getComponentElementHolder()
-  {
-    return componentElementHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getSubcomponentHolder()
   {
     return subcomponentHolderEClass;
@@ -2847,6 +2847,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPropertyLiteralHolder()
+  {
+    return propertyLiteralHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getUpperBound()
   {
     return upperBoundEClass;
@@ -2860,16 +2870,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EClass getLowerBound()
   {
     return lowerBoundEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPropertyLiteral()
-  {
-    return propertyLiteralEClass;
   }
 
   /**
@@ -3126,9 +3126,17 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     calledSubprogramHolderEClass = createEClass(CALLED_SUBPROGRAM_HOLDER);
 
+    classifierFeatureHolderEClass = createEClass(CLASSIFIER_FEATURE_HOLDER);
+
+    classifierPropertyReferenceEClass = createEClass(CLASSIFIER_PROPERTY_REFERENCE);
+    createEReference(classifierPropertyReferenceEClass, CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER);
+
     communicationActionEClass = createEClass(COMMUNICATION_ACTION);
 
     completionRelativeTimeoutEClass = createEClass(COMPLETION_RELATIVE_TIMEOUT);
+
+    componentElementPropertyReferenceEClass = createEClass(COMPONENT_ELEMENT_PROPERTY_REFERENCE);
+    createEReference(componentElementPropertyReferenceEClass, COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT);
 
     condStatementEClass = createEClass(COND_STATEMENT);
     createEReference(condStatementEClass, COND_STATEMENT__BEHAVIOR_ACTIONS);
@@ -3186,6 +3194,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     createEAttribute(factorEClass, FACTOR__UNARY_NUMERIC_OPERATOR);
     createEAttribute(factorEClass, FACTOR__UNARY_BOOLEAN_OPERATOR);
 
+    featureHolderEClass = createEClass(FEATURE_HOLDER);
+
     featurePrototypeHolderEClass = createEClass(FEATURE_PROTOTYPE_HOLDER);
 
     forOrForAllStatementEClass = createEClass(FOR_OR_FOR_ALL_STATEMENT);
@@ -3230,6 +3240,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     loopStatementEClass = createEClass(LOOP_STATEMENT);
 
+    lowerBoundEClass = createEClass(LOWER_BOUND);
+
     numericLiteralEClass = createEClass(NUMERIC_LITERAL);
 
     otherwiseEClass = createEClass(OTHERWISE);
@@ -3258,6 +3270,20 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     createEReference(portSendActionEClass, PORT_SEND_ACTION__PORT);
     createEReference(portSendActionEClass, PORT_SEND_ACTION__VALUE_EXPRESSION);
 
+    propertyFieldEClass = createEClass(PROPERTY_FIELD);
+
+    propertyHolderEClass = createEClass(PROPERTY_HOLDER);
+    createEReference(propertyHolderEClass, PROPERTY_HOLDER__PROPERTY);
+    createEReference(propertyHolderEClass, PROPERTY_HOLDER__FIELD);
+
+    propertyLiteralHolderEClass = createEClass(PROPERTY_LITERAL_HOLDER);
+
+    propertyReferenceEClass = createEClass(PROPERTY_REFERENCE);
+    createEReference(propertyReferenceEClass, PROPERTY_REFERENCE__PROPERTIES);
+
+    propertySetPropertyReferenceEClass = createEClass(PROPERTY_SET_PROPERTY_REFERENCE);
+    createEReference(propertySetPropertyReferenceEClass, PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET);
+
     prototypeHolderEClass = createEClass(PROTOTYPE_HOLDER);
     createEReference(prototypeHolderEClass, PROTOTYPE_HOLDER__PROTOTYPE_BINDING);
 
@@ -3279,6 +3305,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     structUnionElementHolderEClass = createEClass(STRUCT_UNION_ELEMENT_HOLDER);
 
+    subcomponentHolderEClass = createEClass(SUBCOMPONENT_HOLDER);
+
     subprogramAccessHolderEClass = createEClass(SUBPROGRAM_ACCESS_HOLDER);
 
     subprogramCallActionEClass = createEClass(SUBPROGRAM_CALL_ACTION);
@@ -3291,6 +3319,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     subprogramHolderProxyEClass = createEClass(SUBPROGRAM_HOLDER_PROXY);
 
     subprogramPrototypeHolderEClass = createEClass(SUBPROGRAM_PROTOTYPE_HOLDER);
+
+    subprogramSubcomponentHolderEClass = createEClass(SUBPROGRAM_SUBCOMPONENT_HOLDER);
 
     targetEClass = createEClass(TARGET);
 
@@ -3305,6 +3335,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     unlockActionEClass = createEClass(UNLOCK_ACTION);
 
+    upperBoundEClass = createEClass(UPPER_BOUND);
+
     valueEClass = createEClass(VALUE);
 
     valueConstantEClass = createEClass(VALUE_CONSTANT);
@@ -3318,38 +3350,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     whileOrDoUntilStatementEClass = createEClass(WHILE_OR_DO_UNTIL_STATEMENT);
     createEReference(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__LOGICAL_VALUE_EXPRESSION);
     createEAttribute(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__DO_UNTIL);
-
-    propertySetPropertyReferenceEClass = createEClass(PROPERTY_SET_PROPERTY_REFERENCE);
-    createEReference(propertySetPropertyReferenceEClass, PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET);
-
-    componentElementPropertyReferenceEClass = createEClass(COMPONENT_ELEMENT_PROPERTY_REFERENCE);
-    createEReference(componentElementPropertyReferenceEClass, COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT);
-
-    componentElementHolderEClass = createEClass(COMPONENT_ELEMENT_HOLDER);
-
-    subcomponentHolderEClass = createEClass(SUBCOMPONENT_HOLDER);
-
-    subprogramSubcomponentHolderEClass = createEClass(SUBPROGRAM_SUBCOMPONENT_HOLDER);
-
-    featureHolderEClass = createEClass(FEATURE_HOLDER);
-
-    classifierPropertyReferenceEClass = createEClass(CLASSIFIER_PROPERTY_REFERENCE);
-    createEReference(classifierPropertyReferenceEClass, CLASSIFIER_PROPERTY_REFERENCE__CLASSIFIER);
-
-    propertyReferenceEClass = createEClass(PROPERTY_REFERENCE);
-    createEReference(propertyReferenceEClass, PROPERTY_REFERENCE__PROPERTIES);
-
-    propertyFieldEClass = createEClass(PROPERTY_FIELD);
-
-    propertyHolderEClass = createEClass(PROPERTY_HOLDER);
-    createEReference(propertyHolderEClass, PROPERTY_HOLDER__PROPERTY);
-    createEReference(propertyHolderEClass, PROPERTY_HOLDER__FIELD);
-
-    upperBoundEClass = createEClass(UPPER_BOUND);
-
-    lowerBoundEClass = createEClass(LOWER_BOUND);
-
-    propertyLiteralEClass = createEClass(PROPERTY_LITERAL);
 
     // Create enums
     behaviorFeatureTypeEEnum = createEEnum(BEHAVIOR_FEATURE_TYPE);
@@ -3440,13 +3440,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     behaviorVariableHolderEClass.getESuperTypes().add(this.getTarget());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getElementValues());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getSubprogramHolderProxy());
-    behaviorVariableHolderEClass.getESuperTypes().add(this.getComponentElementHolder());
+    behaviorVariableHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
     calledSubprogramHolderEClass.getESuperTypes().add(this.getElementHolder());
     calledSubprogramHolderEClass.getESuperTypes().add(this.getIndexableElement());
     calledSubprogramHolderEClass.getESuperTypes().add(this.getGroupableElement());
+    classifierFeatureHolderEClass.getESuperTypes().add(this.getElementHolder());
+    classifierPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
     communicationActionEClass.getESuperTypes().add(this.getBasicAction());
     completionRelativeTimeoutEClass.getESuperTypes().add(this.getBehaviorTime());
     completionRelativeTimeoutEClass.getESuperTypes().add(this.getDispatchRelativeTimeout());
+    componentElementPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
     condStatementEClass.getESuperTypes().add(this.getBehaviorAction());
     dataAccessHolderEClass.getESuperTypes().add(this.getDataHolder());
     dataAccessHolderEClass.getESuperTypes().add(this.getTarget());
@@ -3491,6 +3494,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     executeConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
     executionTimeoutCatchEClass.getESuperTypes().add(this.getExecuteCondition());
     factorEClass.getESuperTypes().add(this.getBehaviorElement());
+    featureHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
+    featureHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    featureHolderEClass.getESuperTypes().add(this.getGroupableElement());
     featurePrototypeHolderEClass.getESuperTypes().add(this.getDataHolder());
     featurePrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
     featurePrototypeHolderEClass.getESuperTypes().add(this.getTarget());
@@ -3516,6 +3522,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     literalEClass.getESuperTypes().add(this.getIntegerValueConstant());
     lockActionEClass.getESuperTypes().add(this.getSharedDataAction());
     loopStatementEClass.getESuperTypes().add(this.getCondStatement());
+    lowerBoundEClass.getESuperTypes().add(this.getPropertyField());
     numericLiteralEClass.getESuperTypes().add(theAadl2Package.getNumberValue());
     numericLiteralEClass.getESuperTypes().add(this.getLiteral());
     otherwiseEClass.getESuperTypes().add(this.getExecuteCondition());
@@ -3537,9 +3544,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     portPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
     portPrototypeHolderEClass.getESuperTypes().add(this.getTarget());
     portSendActionEClass.getESuperTypes().add(this.getCommunicationAction());
+    propertyFieldEClass.getESuperTypes().add(this.getBehaviorElement());
+    propertyHolderEClass.getESuperTypes().add(this.getBehaviorElement());
+    propertyLiteralHolderEClass.getESuperTypes().add(this.getPropertyField());
+    propertyLiteralHolderEClass.getESuperTypes().add(this.getElementHolder());
+    propertyReferenceEClass.getESuperTypes().add(this.getValueConstant());
+    propertyReferenceEClass.getESuperTypes().add(this.getIntegerValueConstant());
+    propertySetPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
     prototypeHolderEClass.getESuperTypes().add(this.getIndexableElement());
     prototypeHolderEClass.getESuperTypes().add(this.getGroupableElement());
-    prototypeHolderEClass.getESuperTypes().add(this.getComponentElementHolder());
+    prototypeHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
     relationEClass.getESuperTypes().add(this.getBehaviorElement());
     sharedDataActionEClass.getESuperTypes().add(this.getCommunicationAction());
     simpleExpressionEClass.getESuperTypes().add(this.getBehaviorElement());
@@ -3548,6 +3562,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     structUnionElementHolderEClass.getESuperTypes().add(this.getIndexableElement());
     structUnionElementHolderEClass.getESuperTypes().add(this.getTarget());
     structUnionElementHolderEClass.getESuperTypes().add(this.getElementValues());
+    subcomponentHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
+    subcomponentHolderEClass.getESuperTypes().add(this.getIndexableElement());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getFeatureHolder());
@@ -3556,11 +3572,14 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     subprogramHolderProxyEClass.getESuperTypes().add(this.getBehaviorElement());
     subprogramPrototypeHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     subprogramPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
+    subprogramSubcomponentHolderEClass.getESuperTypes().add(this.getSubcomponentHolder());
+    subprogramSubcomponentHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     targetEClass.getESuperTypes().add(this.getParameterLabel());
     targetEClass.getESuperTypes().add(this.getBehaviorElement());
     termEClass.getESuperTypes().add(this.getBehaviorElement());
     timedActionEClass.getESuperTypes().add(this.getBasicAction());
     unlockActionEClass.getESuperTypes().add(this.getSharedDataAction());
+    upperBoundEClass.getESuperTypes().add(this.getPropertyField());
     valueEClass.getESuperTypes().add(this.getBehaviorElement());
     valueConstantEClass.getESuperTypes().add(this.getValue());
     valueExpressionEClass.getESuperTypes().add(this.getValue());
@@ -3568,25 +3587,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     valueExpressionEClass.getESuperTypes().add(this.getExecuteCondition());
     valueVariableEClass.getESuperTypes().add(this.getValue());
     whileOrDoUntilStatementEClass.getESuperTypes().add(this.getLoopStatement());
-    propertySetPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
-    componentElementPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
-    componentElementHolderEClass.getESuperTypes().add(this.getElementHolder());
-    subcomponentHolderEClass.getESuperTypes().add(this.getComponentElementHolder());
-    subcomponentHolderEClass.getESuperTypes().add(this.getIndexableElement());
-    subprogramSubcomponentHolderEClass.getESuperTypes().add(this.getSubcomponentHolder());
-    subprogramSubcomponentHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
-    featureHolderEClass.getESuperTypes().add(this.getComponentElementHolder());
-    featureHolderEClass.getESuperTypes().add(this.getIndexableElement());
-    featureHolderEClass.getESuperTypes().add(this.getGroupableElement());
-    classifierPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
-    propertyReferenceEClass.getESuperTypes().add(this.getValueConstant());
-    propertyReferenceEClass.getESuperTypes().add(this.getIntegerValueConstant());
-    propertyFieldEClass.getESuperTypes().add(this.getBehaviorElement());
-    propertyHolderEClass.getESuperTypes().add(this.getBehaviorElement());
-    upperBoundEClass.getESuperTypes().add(this.getPropertyField());
-    lowerBoundEClass.getESuperTypes().add(this.getPropertyField());
-    propertyLiteralEClass.getESuperTypes().add(this.getBehaviorNamedElement());
-    propertyLiteralEClass.getESuperTypes().add(this.getPropertyField());
 
     // Initialize classes and features; add operations and parameters
     initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3673,9 +3673,22 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     initEClass(calledSubprogramHolderEClass, CalledSubprogramHolder.class, "CalledSubprogramHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(classifierFeatureHolderEClass, ClassifierFeatureHolder.class, "ClassifierFeatureHolder", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    op = addEOperation(classifierFeatureHolderEClass, null, "setClassifierFeature", 1, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, theAadl2Package.getClassifierFeature(), "classifierFeature", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+    addEOperation(classifierFeatureHolderEClass, theAadl2Package.getClassifierFeature(), "getClassifierFeature", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+    initEClass(classifierPropertyReferenceEClass, ClassifierPropertyReference.class, "ClassifierPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getClassifierPropertyReference_Classifier(), theAadl2Package.getClassifier(), null, "classifier", null, 1, 1, ClassifierPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(communicationActionEClass, CommunicationAction.class, "CommunicationAction", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(completionRelativeTimeoutEClass, CompletionRelativeTimeout.class, "CompletionRelativeTimeout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(componentElementPropertyReferenceEClass, ComponentElementPropertyReference.class, "ComponentElementPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getComponentElementPropertyReference_Component(), this.getClassifierFeatureHolder(), null, "component", null, 1, 1, ComponentElementPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(condStatementEClass, CondStatement.class, "CondStatement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCondStatement_BehaviorActions(), this.getBehaviorActions(), null, "behaviorActions", null, 1, 1, CondStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3758,6 +3771,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEAttribute(getFactor_UnaryNumericOperator(), this.getUnaryNumericOperator(), "unaryNumericOperator", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFactor_UnaryBooleanOperator(), this.getUnaryBooleanOperator(), "unaryBooleanOperator", null, 0, 1, Factor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(featureHolderEClass, FeatureHolder.class, "FeatureHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    op = addEOperation(featureHolderEClass, null, "setFeature", 1, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, theAadl2Package.getFeature(), "feature", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+    addEOperation(featureHolderEClass, theAadl2Package.getFeature(), "getFeature", 1, 1, IS_UNIQUE, IS_ORDERED);
+
     initEClass(featurePrototypeHolderEClass, FeaturePrototypeHolder.class, "FeaturePrototypeHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(forOrForAllStatementEClass, ForOrForAllStatement.class, "ForOrForAllStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3817,6 +3837,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     initEClass(loopStatementEClass, LoopStatement.class, "LoopStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(lowerBoundEClass, LowerBound.class, "LowerBound", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     initEClass(numericLiteralEClass, NumericLiteral.class, "NumericLiteral", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(otherwiseEClass, Otherwise.class, "Otherwise", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3850,6 +3872,20 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEReference(getPortSendAction_Port(), this.getActualPortHolder(), null, "port", null, 0, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPortSendAction_ValueExpression(), this.getValueExpression(), null, "valueExpression", null, 0, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(propertyFieldEClass, PropertyField.class, "PropertyField", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(propertyHolderEClass, PropertyHolder.class, "PropertyHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyHolder_Property(), theAadl2Package.getProperty(), null, "property", null, 1, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyHolder_Field(), this.getPropertyField(), null, "field", null, 0, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertyLiteralHolderEClass, PropertyLiteralHolder.class, "PropertyLiteralHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(propertyReferenceEClass, PropertyReference.class, "PropertyReference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyReference_Properties(), this.getPropertyHolder(), null, "properties", null, 1, -1, PropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertySetPropertyReferenceEClass, PropertySetPropertyReference.class, "PropertySetPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertySetPropertyReference_PropertySet(), theAadl2Package.getPropertySet(), null, "propertySet", null, 0, 1, PropertySetPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(prototypeHolderEClass, PrototypeHolder.class, "PrototypeHolder", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPrototypeHolder_PrototypeBinding(), theAadl2Package.getPrototypeBinding(), null, "prototypeBinding", null, 0, 1, PrototypeHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3881,6 +3917,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     addEOperation(structUnionElementHolderEClass, this.getStructUnionElement(), "getStructUnionElement", 1, 1, IS_UNIQUE, IS_ORDERED);
 
+    initEClass(subcomponentHolderEClass, SubcomponentHolder.class, "SubcomponentHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    op = addEOperation(subcomponentHolderEClass, null, "setSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, theAadl2Package.getSubcomponent(), "subcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+    addEOperation(subcomponentHolderEClass, theAadl2Package.getSubcomponent(), "getSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
+
     initEClass(subprogramAccessHolderEClass, SubprogramAccessHolder.class, "SubprogramAccessHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     op = addEOperation(subprogramAccessHolderEClass, null, "setSubprogramAccess", 1, 1, IS_UNIQUE, IS_ORDERED);
@@ -3904,6 +3947,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     initEClass(subprogramPrototypeHolderEClass, SubprogramPrototypeHolder.class, "SubprogramPrototypeHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(subprogramSubcomponentHolderEClass, SubprogramSubcomponentHolder.class, "SubprogramSubcomponentHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    op = addEOperation(subprogramSubcomponentHolderEClass, null, "setSubprogramSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, theAadl2Package.getSubprogramSubcomponent(), "subprogramSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+    addEOperation(subprogramSubcomponentHolderEClass, theAadl2Package.getSubprogramSubcomponent(), "getSubprogramSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
+
     initEClass(targetEClass, Target.class, "Target", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(termEClass, Term.class, "Term", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3916,6 +3966,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEReference(getTimedAction_ProcessorClassifier(), theAadl2Package.getProcessorClassifier(), null, "processorClassifier", null, 0, -1, TimedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unlockActionEClass, UnlockAction.class, "UnlockAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(upperBoundEClass, UpperBound.class, "UpperBound", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(valueEClass, Value.class, "Value", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3930,53 +3982,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEClass(whileOrDoUntilStatementEClass, WhileOrDoUntilStatement.class, "WhileOrDoUntilStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getWhileOrDoUntilStatement_LogicalValueExpression(), this.getValueExpression(), null, "logicalValueExpression", null, 1, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getWhileOrDoUntilStatement_DoUntil(), this.getBoolean(), "doUntil", "false", 0, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propertySetPropertyReferenceEClass, PropertySetPropertyReference.class, "PropertySetPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropertySetPropertyReference_PropertySet(), theAadl2Package.getPropertySet(), null, "propertySet", null, 0, 1, PropertySetPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(componentElementPropertyReferenceEClass, ComponentElementPropertyReference.class, "ComponentElementPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getComponentElementPropertyReference_Component(), this.getComponentElementHolder(), null, "component", null, 1, 1, ComponentElementPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(componentElementHolderEClass, ComponentElementHolder.class, "ComponentElementHolder", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(subcomponentHolderEClass, SubcomponentHolder.class, "SubcomponentHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    op = addEOperation(subcomponentHolderEClass, null, "setSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-    addEParameter(op, theAadl2Package.getSubcomponent(), "subcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-    addEOperation(subcomponentHolderEClass, theAadl2Package.getSubcomponent(), "getSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-    initEClass(subprogramSubcomponentHolderEClass, SubprogramSubcomponentHolder.class, "SubprogramSubcomponentHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    op = addEOperation(subprogramSubcomponentHolderEClass, null, "setSubprogramSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-    addEParameter(op, theAadl2Package.getSubprogramSubcomponent(), "subprogramSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-    addEOperation(subprogramSubcomponentHolderEClass, theAadl2Package.getSubprogramSubcomponent(), "getSubprogramSubcomponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-    initEClass(featureHolderEClass, FeatureHolder.class, "FeatureHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    op = addEOperation(featureHolderEClass, null, "setFeature", 1, 1, IS_UNIQUE, IS_ORDERED);
-    addEParameter(op, theAadl2Package.getFeature(), "feature", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-    addEOperation(featureHolderEClass, theAadl2Package.getFeature(), "getFeature", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-    initEClass(classifierPropertyReferenceEClass, ClassifierPropertyReference.class, "ClassifierPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getClassifierPropertyReference_Classifier(), theAadl2Package.getClassifier(), null, "classifier", null, 1, 1, ClassifierPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propertyReferenceEClass, PropertyReference.class, "PropertyReference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropertyReference_Properties(), this.getPropertyHolder(), null, "properties", null, 1, -1, PropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propertyFieldEClass, PropertyField.class, "PropertyField", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(propertyHolderEClass, PropertyHolder.class, "PropertyHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropertyHolder_Property(), theAadl2Package.getProperty(), null, "property", null, 1, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPropertyHolder_Field(), this.getPropertyField(), null, "field", null, 0, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(upperBoundEClass, UpperBound.class, "UpperBound", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(lowerBoundEClass, LowerBound.class, "LowerBound", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(propertyLiteralEClass, PropertyLiteral.class, "PropertyLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Initialize enums and add enum literals
     initEEnum(behaviorFeatureTypeEEnum, BehaviorFeatureType.class, "BehaviorFeatureType");
@@ -4141,7 +4146,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
        new String[] 
        {
        "documentation", "A Boolean type is used for logical expression, consisting of the predefined values true and false."
-       });																
+       });																				
     addAnnotation
       (integerEDataType, 
        source, 
@@ -4162,7 +4167,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
        new String[] 
        {
        "documentation", "A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."
-       });													
+       });											
   }
 
   /**
@@ -4173,14 +4178,14 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentation_1Annotations()
   {
-    String source = "Documentation";																										
+    String source = "Documentation";																														
     addAnnotation
       (lockActionEClass, 
        source, 
        new String[] 
        {
        "documentation", "A null data name means that all shared data are locked while in the critical section"
-       });																			
+       });																	
   }
 
   /**
@@ -4191,14 +4196,14 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentation_2Annotations()
   {
-    String source = "documentation";																																							
+    String source = "documentation";																																															
     addAnnotation
       (unlockActionEClass, 
        source, 
        new String[] 
        {
        "documentation", "A null data name means that all shared data are unlocked at the end of the critical section"
-       });						
+       });
   }
 
 } //AadlBaPackageImpl

@@ -36,10 +36,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ComponentElementHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.ElementHolder ;
 import org.osate.ba.aadlba.FeatureHolder;
 import org.osate.ba.aadlba.GroupHolder ;
@@ -49,8 +50,6 @@ import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.PortHolder ;
 import org.osate.ba.aadlba.PropertyField;
-import org.osate.ba.aadlba.Value ;
-import org.osate.ba.aadlba.ValueVariable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -256,6 +255,26 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -396,7 +415,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
         default: return -1;
       }
     }
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == ClassifierFeatureHolder.class)
     {
       switch (derivedFeatureID)
       {
@@ -466,7 +485,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
         default: return -1;
       }
     }
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == ClassifierFeatureHolder.class)
     {
       switch (baseFeatureID)
       {

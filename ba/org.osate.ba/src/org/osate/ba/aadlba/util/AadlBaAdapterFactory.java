@@ -230,6 +230,16 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createCalledSubprogramHolderAdapter();
       }
       @Override
+      public Adapter caseClassifierFeatureHolder(ClassifierFeatureHolder object)
+      {
+        return createClassifierFeatureHolderAdapter();
+      }
+      @Override
+      public Adapter caseClassifierPropertyReference(ClassifierPropertyReference object)
+      {
+        return createClassifierPropertyReferenceAdapter();
+      }
+      @Override
       public Adapter caseCommunicationAction(CommunicationAction object)
       {
         return createCommunicationActionAdapter();
@@ -238,6 +248,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseCompletionRelativeTimeout(CompletionRelativeTimeout object)
       {
         return createCompletionRelativeTimeoutAdapter();
+      }
+      @Override
+      public Adapter caseComponentElementPropertyReference(ComponentElementPropertyReference object)
+      {
+        return createComponentElementPropertyReferenceAdapter();
       }
       @Override
       public Adapter caseCondStatement(CondStatement object)
@@ -350,6 +365,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createFactorAdapter();
       }
       @Override
+      public Adapter caseFeatureHolder(FeatureHolder object)
+      {
+        return createFeatureHolderAdapter();
+      }
+      @Override
       public Adapter caseFeaturePrototypeHolder(FeaturePrototypeHolder object)
       {
         return createFeaturePrototypeHolderAdapter();
@@ -430,6 +450,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createLoopStatementAdapter();
       }
       @Override
+      public Adapter caseLowerBound(LowerBound object)
+      {
+        return createLowerBoundAdapter();
+      }
+      @Override
       public Adapter caseNumericLiteral(NumericLiteral object)
       {
         return createNumericLiteralAdapter();
@@ -490,6 +515,31 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createPortSendActionAdapter();
       }
       @Override
+      public Adapter casePropertyField(PropertyField object)
+      {
+        return createPropertyFieldAdapter();
+      }
+      @Override
+      public Adapter casePropertyHolder(PropertyHolder object)
+      {
+        return createPropertyHolderAdapter();
+      }
+      @Override
+      public Adapter casePropertyLiteralHolder(PropertyLiteralHolder object)
+      {
+        return createPropertyLiteralHolderAdapter();
+      }
+      @Override
+      public Adapter casePropertyReference(PropertyReference object)
+      {
+        return createPropertyReferenceAdapter();
+      }
+      @Override
+      public Adapter casePropertySetPropertyReference(PropertySetPropertyReference object)
+      {
+        return createPropertySetPropertyReferenceAdapter();
+      }
+      @Override
       public Adapter casePrototypeHolder(PrototypeHolder object)
       {
         return createPrototypeHolderAdapter();
@@ -520,6 +570,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createStructUnionElementHolderAdapter();
       }
       @Override
+      public Adapter caseSubcomponentHolder(SubcomponentHolder object)
+      {
+        return createSubcomponentHolderAdapter();
+      }
+      @Override
       public Adapter caseSubprogramAccessHolder(SubprogramAccessHolder object)
       {
         return createSubprogramAccessHolderAdapter();
@@ -545,6 +600,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createSubprogramPrototypeHolderAdapter();
       }
       @Override
+      public Adapter caseSubprogramSubcomponentHolder(SubprogramSubcomponentHolder object)
+      {
+        return createSubprogramSubcomponentHolderAdapter();
+      }
+      @Override
       public Adapter caseTarget(Target object)
       {
         return createTargetAdapter();
@@ -563,6 +623,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseUnlockAction(UnlockAction object)
       {
         return createUnlockActionAdapter();
+      }
+      @Override
+      public Adapter caseUpperBound(UpperBound object)
+      {
+        return createUpperBoundAdapter();
       }
       @Override
       public Adapter caseValue(Value object)
@@ -588,71 +653,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseWhileOrDoUntilStatement(WhileOrDoUntilStatement object)
       {
         return createWhileOrDoUntilStatementAdapter();
-      }
-      @Override
-      public Adapter casePropertySetPropertyReference(PropertySetPropertyReference object)
-      {
-        return createPropertySetPropertyReferenceAdapter();
-      }
-      @Override
-      public Adapter caseComponentElementPropertyReference(ComponentElementPropertyReference object)
-      {
-        return createComponentElementPropertyReferenceAdapter();
-      }
-      @Override
-      public Adapter caseComponentElementHolder(ComponentElementHolder object)
-      {
-        return createComponentElementHolderAdapter();
-      }
-      @Override
-      public Adapter caseSubcomponentHolder(SubcomponentHolder object)
-      {
-        return createSubcomponentHolderAdapter();
-      }
-      @Override
-      public Adapter caseSubprogramSubcomponentHolder(SubprogramSubcomponentHolder object)
-      {
-        return createSubprogramSubcomponentHolderAdapter();
-      }
-      @Override
-      public Adapter caseFeatureHolder(FeatureHolder object)
-      {
-        return createFeatureHolderAdapter();
-      }
-      @Override
-      public Adapter caseClassifierPropertyReference(ClassifierPropertyReference object)
-      {
-        return createClassifierPropertyReferenceAdapter();
-      }
-      @Override
-      public Adapter casePropertyReference(PropertyReference object)
-      {
-        return createPropertyReferenceAdapter();
-      }
-      @Override
-      public Adapter casePropertyField(PropertyField object)
-      {
-        return createPropertyFieldAdapter();
-      }
-      @Override
-      public Adapter casePropertyHolder(PropertyHolder object)
-      {
-        return createPropertyHolderAdapter();
-      }
-      @Override
-      public Adapter caseUpperBound(UpperBound object)
-      {
-        return createUpperBoundAdapter();
-      }
-      @Override
-      public Adapter caseLowerBound(LowerBound object)
-      {
-        return createLowerBoundAdapter();
-      }
-      @Override
-      public Adapter casePropertyLiteral(PropertyLiteral object)
-      {
-        return createPropertyLiteralAdapter();
       }
       @Override
       public Adapter caseElement(Element object)
@@ -1107,6 +1107,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCalledSubprogramHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ClassifierFeatureHolder <em>Classifier Feature Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ClassifierFeatureHolder
+   * @generated
+   */
+  public Adapter createClassifierFeatureHolderAdapter()
   {
     return null;
   }
@@ -2222,21 +2237,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ComponentElementHolder <em>Component Element Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.ComponentElementHolder
-   * @generated
-   */
-  public Adapter createComponentElementHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.SubcomponentHolder <em>Subcomponent Holder</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -2342,6 +2342,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyLiteralHolder <em>Property Literal Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyLiteralHolder
+   * @generated
+   */
+  public Adapter createPropertyLiteralHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.UpperBound <em>Upper Bound</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -2367,21 +2382,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createLowerBoundAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyLiteral <em>Property Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyLiteral
-   * @generated
-   */
-  public Adapter createPropertyLiteralAdapter()
   {
     return null;
   }

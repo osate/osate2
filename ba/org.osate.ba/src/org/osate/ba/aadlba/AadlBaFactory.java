@@ -697,6 +697,15 @@ public interface AadlBaFactory extends EFactory
   PropertyHolder createPropertyHolder();
 
   /**
+   * Returns a new object of class '<em>Property Literal Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Literal Holder</em>'.
+   * @generated
+   */
+  PropertyLiteralHolder createPropertyLiteralHolder();
+
+  /**
    * Returns a new object of class '<em>Upper Bound</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -713,15 +722,6 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   LowerBound createLowerBound();
-
-  /**
-   * Returns a new object of class '<em>Property Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property Literal</em>'.
-   * @generated
-   */
-  PropertyLiteral createPropertyLiteral();
 
   /**
    * Returns the package supported by this factory.

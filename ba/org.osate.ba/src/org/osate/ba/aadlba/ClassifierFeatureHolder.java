@@ -17,49 +17,38 @@
  * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-package org.osate.ba.aadlba.impl;
+package org.osate.ba.aadlba;
 
-import org.eclipse.emf.ecore.EClass;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.PropertyLiteral;
-import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.aadl2.ClassifierFeature;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Property Literal</b></em>'.
+ * A representation of the model object '<em><b>Classifier Feature Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
+ *
+ * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierFeatureHolder()
+ * @model interface="true" abstract="true"
  * @generated
  */
-public class PropertyLiteralImpl extends BehaviorNamedElementImpl implements PropertyLiteral
+public interface ClassifierFeatureHolder extends ElementHolder
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @model classifierFeatureRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = classifierFeature ;'"
    * @generated
    */
-  protected PropertyLiteralImpl()
-  {
-    super();
-  }
+  void setClassifierFeature(ClassifierFeature classifierFeature);
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (ClassifierFeature) element;'"
    * @generated
    */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.PROPERTY_LITERAL;
-  }
-  
-  @Override
-  public AadlBaLocationReference getAadlBaLocationReference()
-  {
-    return (AadlBaLocationReference) this.getLocationReference() ;
-  }
+  ClassifierFeature getClassifierFeature();
 
-} //PropertyLiteralImpl
+} // ClassifierFeatureHolder

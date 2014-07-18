@@ -28,10 +28,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ComponentElementHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.PrototypeHolder ;
 import org.osate.ba.aadlba.SubprogramPrototypeHolder ;
 
@@ -149,6 +150,26 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
    * <!-- end-user-doc -->
    * @generated
    */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -219,7 +240,7 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == ClassifierFeatureHolder.class)
     {
       switch (derivedFeatureID)
       {
@@ -245,7 +266,7 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == ComponentElementHolder.class)
+    if (baseClass == ClassifierFeatureHolder.class)
     {
       switch (baseFeatureID)
       {

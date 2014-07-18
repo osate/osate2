@@ -99,7 +99,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
       case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER: return (EObject)createBehaviorVariableHolder();
       case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER: return (EObject)createCalledSubprogramHolder();
+      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE: return (EObject)createClassifierPropertyReference();
       case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT: return (EObject)createCompletionRelativeTimeout();
+      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE: return (EObject)createComponentElementPropertyReference();
       case AadlBaPackage.DATA_ACCESS_HOLDER: return (EObject)createDataAccessHolder();
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER: return (EObject)createDataAccessPrototypeHolder();
       case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
@@ -115,6 +117,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.EVENT_PORT_HOLDER: return (EObject)createEventPortHolder();
       case AadlBaPackage.EXECUTION_TIMEOUT_CATCH: return (EObject)createExecutionTimeoutCatch();
       case AadlBaPackage.FACTOR: return (EObject)createFactor();
+      case AadlBaPackage.FEATURE_HOLDER: return (EObject)createFeatureHolder();
       case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER: return (EObject)createFeaturePrototypeHolder();
       case AadlBaPackage.FOR_OR_FOR_ALL_STATEMENT: return (EObject)createForOrForAllStatement();
       case AadlBaPackage.GROUP_HOLDER: return (EObject)createGroupHolder();
@@ -124,6 +127,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.ITERATIVE_VARIABLE: return (EObject)createIterativeVariable();
       case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER: return (EObject)createIterativeVariableHolder();
       case AadlBaPackage.LOCK_ACTION: return (EObject)createLockAction();
+      case AadlBaPackage.LOWER_BOUND: return (EObject)createLowerBound();
       case AadlBaPackage.OTHERWISE: return (EObject)createOtherwise();
       case AadlBaPackage.PARAMETER_HOLDER: return (EObject)createParameterHolder();
       case AadlBaPackage.PORT_COUNT_VALUE: return (EObject)createPortCountValue();
@@ -133,31 +137,27 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.PORT_FRESH_VALUE: return (EObject)createPortFreshValue();
       case AadlBaPackage.PORT_PROTOTYPE_HOLDER: return (EObject)createPortPrototypeHolder();
       case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
+      case AadlBaPackage.PROPERTY_HOLDER: return (EObject)createPropertyHolder();
+      case AadlBaPackage.PROPERTY_LITERAL_HOLDER: return (EObject)createPropertyLiteralHolder();
+      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE: return (EObject)createPropertySetPropertyReference();
       case AadlBaPackage.RELATION: return (EObject)createRelation();
       case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
       case AadlBaPackage.STRUCT_UNION_ELEMENT: return (EObject)createStructUnionElement();
       case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER: return (EObject)createStructUnionElementHolder();
+      case AadlBaPackage.SUBCOMPONENT_HOLDER: return (EObject)createSubcomponentHolder();
       case AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER: return (EObject)createSubprogramAccessHolder();
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION: return (EObject)createSubprogramCallAction();
       case AadlBaPackage.SUBPROGRAM_HOLDER: return (EObject)createSubprogramHolder();
       case AadlBaPackage.SUBPROGRAM_HOLDER_PROXY: return (EObject)createSubprogramHolderProxy();
       case AadlBaPackage.SUBPROGRAM_PROTOTYPE_HOLDER: return (EObject)createSubprogramPrototypeHolder();
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER: return (EObject)createSubprogramSubcomponentHolder();
       case AadlBaPackage.TARGET: return (EObject)createTarget();
       case AadlBaPackage.TERM: return (EObject)createTerm();
       case AadlBaPackage.TIMED_ACTION: return (EObject)createTimedAction();
       case AadlBaPackage.UNLOCK_ACTION: return (EObject)createUnlockAction();
+      case AadlBaPackage.UPPER_BOUND: return (EObject)createUpperBound();
       case AadlBaPackage.VALUE_EXPRESSION: return (EObject)createValueExpression();
       case AadlBaPackage.WHILE_OR_DO_UNTIL_STATEMENT: return (EObject)createWhileOrDoUntilStatement();
-      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE: return (EObject)createPropertySetPropertyReference();
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE: return (EObject)createComponentElementPropertyReference();
-      case AadlBaPackage.SUBCOMPONENT_HOLDER: return (EObject)createSubcomponentHolder();
-      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER: return (EObject)createSubprogramSubcomponentHolder();
-      case AadlBaPackage.FEATURE_HOLDER: return (EObject)createFeatureHolder();
-      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE: return (EObject)createClassifierPropertyReference();
-      case AadlBaPackage.PROPERTY_HOLDER: return (EObject)createPropertyHolder();
-      case AadlBaPackage.UPPER_BOUND: return (EObject)createUpperBound();
-      case AadlBaPackage.LOWER_BOUND: return (EObject)createLowerBound();
-      case AadlBaPackage.PROPERTY_LITERAL: return (EObject)createPropertyLiteral();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -1061,6 +1061,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public PropertyLiteralHolder createPropertyLiteralHolder()
+  {
+    PropertyLiteralHolderImpl propertyLiteralHolder = new PropertyLiteralHolderImpl();
+    return propertyLiteralHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public UpperBound createUpperBound()
   {
     UpperBoundImpl upperBound = new UpperBoundImpl();
@@ -1076,17 +1087,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     LowerBoundImpl lowerBound = new LowerBoundImpl();
     return lowerBound;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyLiteral createPropertyLiteral()
-  {
-    PropertyLiteralImpl propertyLiteral = new PropertyLiteralImpl();
-    return propertyLiteral;
   }
 
   /**

@@ -31,7 +31,7 @@ import org.osate.aadl2.Feature;
  * @model
  * @generated
  */
-public interface FeatureHolder extends ComponentElementHolder, IndexableElement, GroupableElement
+public interface FeatureHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement
 {
   /**
    * <!-- begin-user-doc -->

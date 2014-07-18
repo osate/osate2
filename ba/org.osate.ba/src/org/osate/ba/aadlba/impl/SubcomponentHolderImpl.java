@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
@@ -195,6 +196,26 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
   public Subcomponent getSubcomponent()
   {
     return (Subcomponent) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
   }
 
   /**

@@ -54,7 +54,6 @@ import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.BehaviorTransition ;
 import org.osate.ba.aadlba.CommunicationAction ;
 import org.osate.ba.aadlba.CompletionRelativeTimeout ;
-import org.osate.ba.aadlba.ComponentElementHolder ;
 import org.osate.ba.aadlba.DispatchRelativeTimeout ;
 import org.osate.ba.aadlba.DispatchTrigger ;
 import org.osate.ba.aadlba.DispatchTriggerCondition ;
@@ -418,12 +417,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           public Adapter caseElementHolder(ElementHolder object)
           {
             return createElementHolderAdapter() ;
-          }
-
-          @Override
-          public Adapter caseComponentElementHolder(ComponentElementHolder object)
-          {
-            return createComponentElementHolderAdapter() ;
           }
 
           @Override

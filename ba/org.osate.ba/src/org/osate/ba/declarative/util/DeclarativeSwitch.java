@@ -52,7 +52,6 @@ import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.BehaviorTransition ;
 import org.osate.ba.aadlba.CommunicationAction ;
 import org.osate.ba.aadlba.CompletionRelativeTimeout ;
-import org.osate.ba.aadlba.ComponentElementHolder ;
 import org.osate.ba.aadlba.DispatchRelativeTimeout ;
 import org.osate.ba.aadlba.DispatchTrigger ;
 import org.osate.ba.aadlba.DispatchTriggerCondition ;
@@ -427,8 +426,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseValue(reference) ;
         if(result == null)
           result = caseIntegerValue(reference) ;
-        if(result == null)
-          result = caseComponentElementHolder(reference) ;
         if(result == null)
           result = caseIndexableElement(reference) ;
         if(result == null)
@@ -1214,22 +1211,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseElementHolder(ElementHolder object)
-  {
-    return null ;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Component Element Holder</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Component Element Holder</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseComponentElementHolder(ComponentElementHolder object)
   {
     return null ;
   }

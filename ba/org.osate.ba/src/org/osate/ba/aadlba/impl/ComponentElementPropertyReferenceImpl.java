@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.ComponentElementHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.ComponentElementPropertyReference;
 
 /**
@@ -54,7 +54,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
    * @generated
    * @ordered
    */
-  protected ComponentElementHolder component;
+  protected ClassifierFeatureHolder component;
 
   /**
    * <!-- begin-user-doc -->
@@ -82,7 +82,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentElementHolder getComponent()
+  public ClassifierFeatureHolder getComponent()
   {
     return component;
   }
@@ -92,9 +92,9 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetComponent(ComponentElementHolder newComponent, NotificationChain msgs)
+  public NotificationChain basicSetComponent(ClassifierFeatureHolder newComponent, NotificationChain msgs)
   {
-    ComponentElementHolder oldComponent = component;
+    ClassifierFeatureHolder oldComponent = component;
     component = newComponent;
     if (eNotificationRequired())
     {
@@ -109,7 +109,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setComponent(ComponentElementHolder newComponent)
+  public void setComponent(ClassifierFeatureHolder newComponent)
   {
     if (newComponent != component)
     {
@@ -168,7 +168,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
     switch (featureID)
     {
       case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT:
-        setComponent((ComponentElementHolder)newValue);
+        setComponent((ClassifierFeatureHolder)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -185,7 +185,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
     switch (featureID)
     {
       case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT:
-        setComponent((ComponentElementHolder)null);
+        setComponent((ClassifierFeatureHolder)null);
         return;
     }
     super.eUnset(featureID);
