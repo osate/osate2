@@ -1421,6 +1421,7 @@ behavior_time returns [DeclarativeTime result]
 
 // Ambiguity between a unique component classifier reference without namespace
 // and a component element reference.
+// Ambiguity between a property literal and a property name without field.
 
 property_reference returns [DeclarativePropertyReference result]
   :
@@ -1447,15 +1448,13 @@ property_reference returns [DeclarativePropertyReference result]
 // | . item_list_identifier
 // | . upper_bound
 // | . lower_bound
-
+// Ambiguity between a property literal and a property name without field.
 property_name returns [DeclarativePropertyName result]
   :
-    id1=IDENT (   ( LBRACK integer_value RBRACK )
+    IDENT (   ( LBRACK integer_value RBRACK )
             |
               DOT
               (
-                  id2=IDENT
-                |
                   UPPER_BOUND
                 |
                   LOWER_BOUND

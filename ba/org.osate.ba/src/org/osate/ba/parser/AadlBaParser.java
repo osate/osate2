@@ -5883,8 +5883,6 @@ public class AadlBaParser extends Parser {
 
 	public static class Property_nameContext extends ParserRuleContext {
 		public DeclarativePropertyName result;
-		public Token id1;
-		public Token id2;
 		public TerminalNode UPPER_BOUND() { return getToken(AadlBaParser.UPPER_BOUND, 0); }
 		public TerminalNode RBRACK() { return getToken(AadlBaParser.RBRACK, 0); }
 		public TerminalNode DOT() { return getToken(AadlBaParser.DOT, 0); }
@@ -5892,10 +5890,7 @@ public class AadlBaParser extends Parser {
 		public Integer_valueContext integer_value() {
 			return getRuleContext(Integer_valueContext.class,0);
 		}
-		public List<TerminalNode> IDENT() { return getTokens(AadlBaParser.IDENT); }
-		public TerminalNode IDENT(int i) {
-			return getToken(AadlBaParser.IDENT, i);
-		}
+		public TerminalNode IDENT() { return getToken(AadlBaParser.IDENT, 0); }
 		public TerminalNode LBRACK() { return getToken(AadlBaParser.LBRACK, 0); }
 		public Property_nameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -5919,12 +5914,13 @@ public class AadlBaParser extends Parser {
 	public final Property_nameContext property_name() throws RecognitionException {
 		Property_nameContext _localctx = new Property_nameContext(_ctx, getState());
 		enterRule(_localctx, 122, RULE_property_name);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(982); ((Property_nameContext)_localctx).id1 = match(IDENT);
-			setState(993);
-			switch ( getInterpreter().adaptivePredict(_input,133,_ctx) ) {
+			setState(982); match(IDENT);
+			setState(989);
+			switch ( getInterpreter().adaptivePredict(_input,132,_ctx) ) {
 			case 1:
 				{
 				{
@@ -5938,26 +5934,12 @@ public class AadlBaParser extends Parser {
 			case 2:
 				{
 				setState(987); match(DOT);
-				setState(991);
-				switch (_input.LA(1)) {
-				case IDENT:
-					{
-					setState(988); ((Property_nameContext)_localctx).id2 = match(IDENT);
-					}
-					break;
-				case UPPER_BOUND:
-					{
-					setState(989); match(UPPER_BOUND);
-					}
-					break;
-				case LOWER_BOUND:
-					{
-					setState(990); match(LOWER_BOUND);
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				setState(988);
+				_la = _input.LA(1);
+				if ( !(_la==LOWER_BOUND || _la==UPPER_BOUND) ) {
+				_errHandler.recoverInline(this);
 				}
+				consume();
 				}
 				break;
 			}
@@ -6005,18 +5987,18 @@ public class AadlBaParser extends Parser {
 		Numeric_literalContext _localctx = new Numeric_literalContext(_ctx, getState());
 		enterRule(_localctx, 124, RULE_numeric_literal);
 		try {
-			setState(997);
+			setState(993);
 			switch (_input.LA(1)) {
 			case INTEGER_LIT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(995); integer_literal();
+				setState(991); integer_literal();
 				}
 				break;
 			case REAL_LIT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(996); real_literal();
+				setState(992); real_literal();
 				}
 				break;
 			default:
@@ -6062,7 +6044,7 @@ public class AadlBaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(999); match(REAL_LIT);
+			setState(995); match(REAL_LIT);
 
 			      realLiteralChecker(_localctx.REAL_LIT()) ;
 			    
@@ -6107,7 +6089,7 @@ public class AadlBaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1002); match(INTEGER_LIT);
+			setState(998); match(INTEGER_LIT);
 
 			      integerLiteralChecker(_localctx.INTEGER_LIT());
 			    
@@ -6152,7 +6134,7 @@ public class AadlBaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1005); match(STRING_LITERAL);
+			setState(1001); match(STRING_LITERAL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -6194,7 +6176,7 @@ public class AadlBaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1007); match(INTEGER_LIT);
+			setState(1003); match(INTEGER_LIT);
 
 			      integerLiteralChecker(_localctx.INTEGER_LIT());
 			    
@@ -6212,7 +6194,7 @@ public class AadlBaParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3T\u03f5\4\2\t\2\4"+
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3T\u03f1\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -6288,13 +6270,13 @@ public class AadlBaParser extends Parser {
 		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\5\63\u03a9\n\63\3\64\3\64\3\65"+
 		"\3\65\3\66\3\66\3\67\3\67\38\38\39\39\3:\3:\3;\3;\3;\3;\3<\3<\5<\u03bf"+
 		"\n<\3=\3=\3=\3>\3>\3>\5>\u03c7\n>\3>\3>\5>\u03cb\n>\3>\3>\5>\u03cf\n>"+
-		"\3>\3>\3>\7>\u03d4\n>\f>\16>\u03d7\13>\3?\3?\3?\3?\3?\3?\3?\3?\3?\5?\u03e2"+
-		"\n?\5?\u03e4\n?\3@\3@\5@\u03e8\n@\3A\3A\3A\3B\3B\3B\3C\3C\3D\3D\3D\3D"+
-		"\2E\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@B"+
-		"DFHJLNPRTVXZ\\^`bdfhjlnprtvxz|~\u0080\u0082\u0084\u0086\2\n\4\2\r\rNN"+
-		"\4\2\65\65==\3\29:\4\2\t\t\23\23\5\2\4\4\34\34))\3\2CD\5\2\31\31\37\37"+
-		"EF\4\2\17\17%%\u0455\2\u008e\3\2\2\2\4\u00a0\3\2\2\2\6\u00b4\3\2\2\2\b"+
-		"\u00c3\3\2\2\2\n\u00cd\3\2\2\2\f\u00cf\3\2\2\2\16\u00f3\3\2\2\2\20\u010d"+
+		"\3>\3>\3>\7>\u03d4\n>\f>\16>\u03d7\13>\3?\3?\3?\3?\3?\3?\3?\5?\u03e0\n"+
+		"?\3@\3@\5@\u03e4\n@\3A\3A\3A\3B\3B\3B\3C\3C\3D\3D\3D\3D\2E\2\4\6\b\n\f"+
+		"\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^"+
+		"`bdfhjlnprtvxz|~\u0080\u0082\u0084\u0086\2\13\4\2\r\rNN\4\2\65\65==\3"+
+		"\29:\4\2\t\t\23\23\5\2\4\4\34\34))\3\2CD\5\2\31\31\37\37EF\4\2\17\17%"+
+		"%\4\2\30\30\'\'\u044f\2\u008e\3\2\2\2\4\u00a0\3\2\2\2\6\u00b4\3\2\2\2"+
+		"\b\u00c3\3\2\2\2\n\u00cd\3\2\2\2\f\u00cf\3\2\2\2\16\u00f3\3\2\2\2\20\u010d"+
 		"\3\2\2\2\22\u0123\3\2\2\2\24\u012a\3\2\2\2\26\u012f\3\2\2\2\30\u0133\3"+
 		"\2\2\2\32\u0135\3\2\2\2\34\u014f\3\2\2\2\36\u0151\3\2\2\2 \u0159\3\2\2"+
 		"\2\"\u0161\3\2\2\2$\u018a\3\2\2\2&\u01bc\3\2\2\2(\u01be\3\2\2\2*\u01e0"+
@@ -6307,8 +6289,8 @@ public class AadlBaParser extends Parser {
 		"b\u039e\3\2\2\2d\u03a8\3\2\2\2f\u03aa\3\2\2\2h\u03ac\3\2\2\2j\u03ae\3"+
 		"\2\2\2l\u03b0\3\2\2\2n\u03b2\3\2\2\2p\u03b4\3\2\2\2r\u03b6\3\2\2\2t\u03b8"+
 		"\3\2\2\2v\u03be\3\2\2\2x\u03c0\3\2\2\2z\u03ce\3\2\2\2|\u03d8\3\2\2\2~"+
-		"\u03e7\3\2\2\2\u0080\u03e9\3\2\2\2\u0082\u03ec\3\2\2\2\u0084\u03ef\3\2"+
-		"\2\2\u0086\u03f1\3\2\2\2\u0088\u008a\7\36\2\2\u0089\u008b\5\4\3\2\u008a"+
+		"\u03e3\3\2\2\2\u0080\u03e5\3\2\2\2\u0082\u03e8\3\2\2\2\u0084\u03eb\3\2"+
+		"\2\2\u0086\u03ed\3\2\2\2\u0088\u008a\7\36\2\2\u0089\u008b\5\4\3\2\u008a"+
 		"\u0089\3\2\2\2\u008b\u008c\3\2\2\2\u008c\u008a\3\2\2\2\u008c\u008d\3\2"+
 		"\2\2\u008d\u008f\3\2\2\2\u008e\u0088\3\2\2\2\u008e\u008f\3\2\2\2\u008f"+
 		"\u0096\3\2\2\2\u0090\u0092\7!\2\2\u0091\u0093\5\f\7\2\u0092\u0091\3\2"+
@@ -6587,28 +6569,26 @@ public class AadlBaParser extends Parser {
 		"\7K\2\2\u03cd\u03cf\3\2\2\2\u03ce\u03c3\3\2\2\2\u03ce\u03ca\3\2\2\2\u03cf"+
 		"\u03d0\3\2\2\2\u03d0\u03d5\5|?\2\u03d1\u03d2\7;\2\2\u03d2\u03d4\5|?\2"+
 		"\u03d3\u03d1\3\2\2\2\u03d4\u03d7\3\2\2\2\u03d5\u03d3\3\2\2\2\u03d5\u03d6"+
-		"\3\2\2\2\u03d6{\3\2\2\2\u03d7\u03d5\3\2\2\2\u03d8\u03e3\7O\2\2\u03d9\u03da"+
-		"\7*\2\2\u03da\u03db\5v<\2\u03db\u03dc\7+\2\2\u03dc\u03e4\3\2\2\2\u03dd"+
-		"\u03e1\7;\2\2\u03de\u03e2\7O\2\2\u03df\u03e2\7\'\2\2\u03e0\u03e2\7\30"+
-		"\2\2\u03e1\u03de\3\2\2\2\u03e1\u03df\3\2\2\2\u03e1\u03e0\3\2\2\2\u03e2"+
-		"\u03e4\3\2\2\2\u03e3\u03d9\3\2\2\2\u03e3\u03dd\3\2\2\2\u03e3\u03e4\3\2"+
-		"\2\2\u03e4}\3\2\2\2\u03e5\u03e8\5\u0082B\2\u03e6\u03e8\5\u0080A\2\u03e7"+
-		"\u03e5\3\2\2\2\u03e7\u03e6\3\2\2\2\u03e8\177\3\2\2\2\u03e9\u03ea\7Q\2"+
-		"\2\u03ea\u03eb\bA\1\2\u03eb\u0081\3\2\2\2\u03ec\u03ed\7R\2\2\u03ed\u03ee"+
-		"\bB\1\2\u03ee\u0083\3\2\2\2\u03ef\u03f0\7P\2\2\u03f0\u0085\3\2\2\2\u03f1"+
-		"\u03f2\7R\2\2\u03f2\u03f3\bD\1\2\u03f3\u0087\3\2\2\2\u0089\u008c\u008e"+
-		"\u0094\u0096\u009c\u009e\u00a3\u00aa\u00b0\u00bb\u00c3\u00cb\u00d2\u00d8"+
-		"\u00dd\u00e0\u00e3\u00e7\u00f0\u00f3\u00f8\u00fe\u0106\u0109\u0110\u0119"+
-		"\u011f\u0123\u0128\u012a\u012f\u0133\u0137\u013d\u0144\u0147\u014c\u014f"+
-		"\u0156\u015e\u0164\u016b\u016f\u0173\u017a\u017e\u0181\u018a\u0194\u0199"+
-		"\u01a2\u01a8\u01ae\u01b3\u01b8\u01bc\u01c2\u01c8\u01d6\u01dc\u01e0\u01ef"+
-		"\u01f9\u01fd\u0208\u020e\u0212\u0221\u022b\u022f\u023a\u0240\u0244\u024f"+
-		"\u0255\u0259\u0268\u026e\u0272\u0276\u027b\u0281\u028c\u0293\u029b\u02a3"+
-		"\u02ad\u02b3\u02b9\u02bb\u02c2\u02c8\u02ca\u02cd\u02d6\u02dc\u02de\u02e2"+
-		"\u02e9\u02ed\u02f3\u02f8\u02fd\u0300\u0304\u0311\u0317\u031b\u0320\u0327"+
-		"\u032d\u0334\u033e\u0348\u034f\u035a\u0360\u0364\u036a\u0372\u0379\u037c"+
-		"\u0384\u038d\u0394\u039c\u03a8\u03be\u03c6\u03ca\u03ce\u03d5\u03e1\u03e3"+
-		"\u03e7";
+		"\3\2\2\2\u03d6{\3\2\2\2\u03d7\u03d5\3\2\2\2\u03d8\u03df\7O\2\2\u03d9\u03da"+
+		"\7*\2\2\u03da\u03db\5v<\2\u03db\u03dc\7+\2\2\u03dc\u03e0\3\2\2\2\u03dd"+
+		"\u03de\7;\2\2\u03de\u03e0\t\n\2\2\u03df\u03d9\3\2\2\2\u03df\u03dd\3\2"+
+		"\2\2\u03df\u03e0\3\2\2\2\u03e0}\3\2\2\2\u03e1\u03e4\5\u0082B\2\u03e2\u03e4"+
+		"\5\u0080A\2\u03e3\u03e1\3\2\2\2\u03e3\u03e2\3\2\2\2\u03e4\177\3\2\2\2"+
+		"\u03e5\u03e6\7Q\2\2\u03e6\u03e7\bA\1\2\u03e7\u0081\3\2\2\2\u03e8\u03e9"+
+		"\7R\2\2\u03e9\u03ea\bB\1\2\u03ea\u0083\3\2\2\2\u03eb\u03ec\7P\2\2\u03ec"+
+		"\u0085\3\2\2\2\u03ed\u03ee\7R\2\2\u03ee\u03ef\bD\1\2\u03ef\u0087\3\2\2"+
+		"\2\u0088\u008c\u008e\u0094\u0096\u009c\u009e\u00a3\u00aa\u00b0\u00bb\u00c3"+
+		"\u00cb\u00d2\u00d8\u00dd\u00e0\u00e3\u00e7\u00f0\u00f3\u00f8\u00fe\u0106"+
+		"\u0109\u0110\u0119\u011f\u0123\u0128\u012a\u012f\u0133\u0137\u013d\u0144"+
+		"\u0147\u014c\u014f\u0156\u015e\u0164\u016b\u016f\u0173\u017a\u017e\u0181"+
+		"\u018a\u0194\u0199\u01a2\u01a8\u01ae\u01b3\u01b8\u01bc\u01c2\u01c8\u01d6"+
+		"\u01dc\u01e0\u01ef\u01f9\u01fd\u0208\u020e\u0212\u0221\u022b\u022f\u023a"+
+		"\u0240\u0244\u024f\u0255\u0259\u0268\u026e\u0272\u0276\u027b\u0281\u028c"+
+		"\u0293\u029b\u02a3\u02ad\u02b3\u02b9\u02bb\u02c2\u02c8\u02ca\u02cd\u02d6"+
+		"\u02dc\u02de\u02e2\u02e9\u02ed\u02f3\u02f8\u02fd\u0300\u0304\u0311\u0317"+
+		"\u031b\u0320\u0327\u032d\u0334\u033e\u0348\u034f\u035a\u0360\u0364\u036a"+
+		"\u0372\u0379\u037c\u0384\u038d\u0394\u039c\u03a8\u03be\u03c6\u03ca\u03ce"+
+		"\u03d5\u03df\u03e3";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

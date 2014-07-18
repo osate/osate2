@@ -1862,9 +1862,12 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
         nameSpaceId.setId(ctx.IDENT().getText()) ;
         setLocationReference(nameSpaceId, ctx.IDENT()) ;
         
+        Identifier dummy = _decl.createIdentifier() ;
+        dummy.setId("");
+        
         QualifiedNamedElement qne = _decl.createQualifiedNamedElement() ;
         qne.setBaNamespace(nameSpaceId);
-        qne.setBaName(nameSpaceId); // Dummy !
+        qne.setBaName(dummy); // Dummy. Do not use !
         qne.setLocationReference(nameSpaceId.getLocationReference());
         
         result.setQualifiedName(qne);
@@ -1925,11 +1928,11 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     visitChildren(ctx) ;
     
     DeclarativePropertyName result = _decl.createDeclarativePropertyName() ;
-    setLocationReference(result, ctx.id1);
+    setLocationReference(result, ctx.IDENT());
     
     Identifier propertyName = _decl.createIdentifier() ;
-    setLocationReference(propertyName, ctx.id1);
-    propertyName.setId(ctx.id1.getText());
+    setLocationReference(propertyName, ctx.IDENT());
+    propertyName.setId(ctx.IDENT().getText());
     result.setPropertyName(propertyName);
     
     PropertyField field = null ;
@@ -1937,13 +1940,6 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     if(ctx.integer_value() != null)
     {
       field = ctx.integer_value().result ;
-    }
-    else if(ctx.id2 != null)
-    {
-      Identifier idField = _decl.createIdentifier() ;
-      setLocationReference(idField, ctx.id2);
-      idField.setId(ctx.id2.getText());
-      field = idField ;
     }
     else if(ctx.UPPER_BOUND() != null)
     {
