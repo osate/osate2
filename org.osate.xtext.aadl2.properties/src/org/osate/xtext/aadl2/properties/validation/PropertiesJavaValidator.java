@@ -41,6 +41,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
@@ -98,7 +99,7 @@ import org.osate.aadl2.util.OsateDebug;
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
-	public static final String INVALID_NAME = "xtext.workshop.advanced.quickfix.InvalidTypeName";
+	public static final String INVALID_ASSIGNMENT = "edu.cmu.sei.invalid.assignment";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -326,7 +327,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 		} else 	if (pv instanceof StringLiteral){
 			if (!( pt instanceof AadlString)){
-				error(holder, prefix+"Assigning String value"+msg);
+				error(prefix+"Assigning String value"+msg, holder, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, Diagnostic.LINKING_DIAGNOSTIC);
+		
+				
 			}
 		} else if (pv instanceof EnumerationLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof EnumerationLiteral) ){
 			if (!(pt instanceof EnumerationType)){
