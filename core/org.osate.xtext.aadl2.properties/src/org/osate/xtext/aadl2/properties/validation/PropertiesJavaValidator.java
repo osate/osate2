@@ -98,6 +98,7 @@ import org.osate.aadl2.util.OsateDebug;
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
+	public static final String INVALID_NAME = "xtext.workshop.advanced.quickfix.InvalidTypeName";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
