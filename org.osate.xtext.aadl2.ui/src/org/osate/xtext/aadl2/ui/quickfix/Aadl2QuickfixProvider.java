@@ -57,53 +57,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class Aadl2QuickfixProvider extends DefaultQuickfixProvider {
-//	@Inject
-//	private Provider<IssueResolutionAcceptor> issueResolutionAcceptorProvider;
-//	@Inject
-//	private IssueModificationContext.Factory modificationContextFactory;
-//	static final Pattern sideIssuePattern = Pattern.compile("^Couldn't resolve reference to SideDefinition '([a-zA-Z0-9_\\-]+)'\\.$");
-//
-//	@Override
-//	public List<IssueResolution> getResolutionsForLinkingIssue(final Issue issue) {
-//		final IssueResolutionAcceptor issueResolutionAcceptor = issueResolutionAcceptorProvider.get();
-//		final IModificationContext modificationContext = modificationContextFactory.createModificationContext(issue);
-//		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
-//
-//		List<IssueResolution> originalResolutions = super.getResolutionsForLinkingIssue(issue);
-//		List<IssueResolution> finalResolutions = new ArrayList<IssueResolution>();
-//		
-//		// Hack - we are checking the contents of the issue message to determine
-//		// if it is the issue we are interested in:
-//		final Pattern changeToResolutionPattern = Pattern.compile("^Change to '([a-zA-Z0-9_\\-]+)'$");
-//		Matcher issueMatcher = sideIssuePattern.matcher(issue.getMessage());
-//		if (issueMatcher.find())
-//		{
-//			for (IssueResolution resolution : originalResolutions)
-//			{
-//				Matcher resolutionMatcher = changeToResolutionPattern.matcher(resolution.getDescription());
-//				if (resolutionMatcher.find())
-//				{
-//					try
-//					{
-//						// Create a new resolution, equivalent to the one we removed, except
-//						// that the replacement string is surrounded by double-quotes:
-//						String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
-//						
-//						String replacement = "\"" + resolutionMatcher.group(1) + "\"";
-//						String replaceLabel = fixCrossReferenceLabel(issueString, replacement);
-//						issueResolutionAcceptor.accept(issue, replaceLabel, replaceLabel, fixCrossReferenceImage(
-//								issueString, replacement), new ReplaceModification(issue, replacement));
-//					} catch (BadLocationException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-//				else finalResolutions.add(resolution);
-//			}
-//		}
-//		finalResolutions.addAll(issueResolutionAcceptor.getIssueResolutions());
-//		return finalResolutions;
-//	}
+
 	
 	
 	@Fix("org.eclipse.xtext.diagnostics.Diagnostic.Syntax")
@@ -128,15 +82,16 @@ public class Aadl2QuickfixProvider extends DefaultQuickfixProvider {
 		});
 	}
 	
-//	@Fix(Aadl2JavaValidator.INVALID_NAME)
-//	public void capitalizeName(final Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, "Capitalize name", "Capitalize the name.", "upcase.png", new IModification() {
-//			public void apply(IModificationContext context) throws BadLocationException {
-//				IXtextDocument xtextDocument = context.getXtextDocument();
-//				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-//			}
-//		});
-//	}
+	@Fix("edu.cmu.sei.invalid.assignment")
+	public void fixassignment(final Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "bad assignment", "Capitalize the name.", "upcase.png", new IModification() {
+			public void apply(IModificationContext context) throws BadLocationException {
+				IXtextDocument xtextDocument = context.getXtextDocument();
+				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
+				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
+			}
+		});
+	}
+	
 
 }
