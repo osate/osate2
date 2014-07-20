@@ -41,6 +41,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
@@ -51,71 +52,37 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolution;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.ui.editor.quickfix.ReplaceModification;
 import org.eclipse.xtext.validation.Issue;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
-//
-//	@Inject
-//	private Provider<IssueResolutionAcceptor> issueResolutionAcceptorProvider;
-//	@Inject
-//	private IssueModificationContext.Factory modificationContextFactory;
-//	static final Pattern sideIssuePattern = Pattern.compile("^Couldn't resolve reference to SideDefinition '([a-zA-Z0-9_\\-]+)'\\.$");
-//
-//	@Override
-//	public List<IssueResolution> getResolutionsForLinkingIssue(final Issue issue) {
-//		final IssueResolutionAcceptor issueResolutionAcceptor = issueResolutionAcceptorProvider.get();
-//		final IModificationContext modificationContext = modificationContextFactory.createModificationContext(issue);
-//		final IXtextDocument xtextDocument = modificationContext.getXtextDocument();
-//
-//		List<IssueResolution> originalResolutions = super.getResolutionsForLinkingIssue(issue);
-//		List<IssueResolution> finalResolutions = new ArrayList<IssueResolution>();
-//		
-//		// Hack - we are checking the contents of the issue message to determine
-//		// if it is the issue we are interested in:
-//		final Pattern changeToResolutionPattern = Pattern.compile("^Change to '([a-zA-Z0-9_\\-]+)'$");
-//		Matcher issueMatcher = sideIssuePattern.matcher(issue.getMessage());
-//		if (issueMatcher.find())
-//		{
-//			for (IssueResolution resolution : originalResolutions)
-//			{
-//				Matcher resolutionMatcher = changeToResolutionPattern.matcher(resolution.getDescription());
-//				if (resolutionMatcher.find())
-//				{
-//					try
-//					{
-//						// Create a new resolution, equivalent to the one we removed, except
-//						// that the replacement string is surrounded by double-quotes:
-//						String issueString = xtextDocument.get(issue.getOffset(), issue.getLength());
-//						
-//						String replacement = "\"" + resolutionMatcher.group(1) + "\"";
-//						String replaceLabel = fixCrossReferenceLabel(issueString, replacement);
-//						issueResolutionAcceptor.accept(issue, replaceLabel, replaceLabel, fixCrossReferenceImage(
-//								issueString, replacement), new ReplaceModification(issue, replacement));
-//					} catch (BadLocationException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-//				else finalResolutions.add(resolution);
-//			}
-//		}
-//		finalResolutions.addAll(issueResolutionAcceptor.getIssueResolutions());
-//		return finalResolutions;
-//	}
-//	
-//	
-//	@Fix(PropertiesJavaValidator.INVALID_NAME)
-//	public void capitalizeName(final Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, "Capitalize name", "Capitalize the name.", "upcase.png", new IModification() {
-//			public void apply(IModificationContext context) throws BadLocationException {
-//				IXtextDocument xtextDocument = context.getXtextDocument();
-//				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-//			}
-//		});
-//	}
+
+
+	@Fix(Diagnostic.LINKING_DIAGNOSTIC)
+	public void fixlinking(final Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "bad assignment", "Capitalize the name.", "upcase.png", new IModification() {
+			public void apply(IModificationContext context) throws BadLocationException {
+				IXtextDocument xtextDocument = context.getXtextDocument();
+				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
+				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
+			}
+		});
+	}
+	
+	@Fix("edu.cmu.sei.invalid.assignment")
+	public void fixassign(final Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "bad assignment", "Capitalize the name.", "upcase.png", new IModification() {
+			public void apply(IModificationContext context) throws BadLocationException {
+				IXtextDocument xtextDocument = context.getXtextDocument();
+				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
+				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
+			}
+		});
+	}
+	
+
 
 }
