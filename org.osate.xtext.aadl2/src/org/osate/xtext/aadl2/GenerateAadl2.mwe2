@@ -161,7 +161,7 @@ Workflow {
 			fragment = outline.OutlineTreeProviderFragment {}
 			fragment = outline.QuickOutlineFragment {}
 			// quickfix API 
-			fragment = quickfix.QuickfixProviderFragment {}
+			fragment = quickfix.QuickfixProviderFragment auto-inject {}
 
 
 			// java-based API for content assistance 

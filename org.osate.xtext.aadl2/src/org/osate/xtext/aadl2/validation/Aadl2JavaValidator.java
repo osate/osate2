@@ -77,6 +77,7 @@ import com.google.inject.Inject;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
+
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
 		checkComponentImplementationUniqueNames(componentImplementation);
