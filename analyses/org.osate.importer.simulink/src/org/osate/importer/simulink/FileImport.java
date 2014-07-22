@@ -2,7 +2,7 @@
 
 
 /*
- * Copyright 2013 Carnegie Mellon University
+ * Copyright 2013-2014 Carnegie Mellon University
  * 
  * The AADL/DSM Bridge (org.osate.importer.lattix ) (the �Content� or �Material�) 
  * is based upon work funded and supported by the Department of Defense under 
@@ -49,15 +49,19 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.importer.model.Component;
 import org.osate.importer.model.Model;
-import org.osate.importer.simulink.actions.DoImportModel;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class FileImport {
+	
+	public static List<Model> models;
+	
+	public static void init ()
+	{
+		models = new ArrayList<Model>();
+	}
 
 	private static String SIMULINK_ENTRYFILE = "simulink/blockdiagram.xml";
 	
@@ -96,7 +100,7 @@ public class FileImport {
 		
 		try 
 		{
-			OsateDebug.osateDebug("[FileImport] Try to load " + inputFile);
+//			OsateDebug.osateDebug("[FileImport] Try to load " + inputFile);
 			/*
 			 * In fact, the simulink model (slx file) is a zip file
 			 * like openfocument file. We parse the zip and extract
@@ -127,99 +131,60 @@ public class FileImport {
 		catch (Exception e)
 		{
 //			OsateDebug.osateDebug("[FileImport] Exception in loadXMLZip()");
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return null;
 	}
 
-	private static void loadComponentFromLibraryBrowseLibrary (Node n, Model producedModel, String rootName)
+	
+	public static Model getModel (String n)
 	{
-		NodeList list = n.getChildNodes();
-		for (int s = 0 ; s < list.getLength() ; s++)
+		for (Model m : models)
 		{
-			Node child = list.item (s);
-			if (child.getNodeName().toString().equalsIgnoreCase("block"))
+			if (m.getName().equalsIgnoreCase(n))
 			{
-				Node attrName = Utils.getAttribute(child, "Name");
-				
-				if (attrName == null)
-				{
-					continue;
-				}
-				
-				String blockName = attrName.getNodeValue().toString();
-				
-				if (! blockName.equalsIgnoreCase(rootName))
-				{
-					continue;
-				}
-				DoImportModel.setFilterSystem(false);
-				NodeList children = child.getChildNodes();
-				for (int s2 = 0 ; s2 < children.getLength() ; s2++)
-				{
-//					OsateDebug.osateDebug("[FileImport] Import from library block " + blockName);
-					Node tmp = children.item(s2);
-					if (tmp.getNodeName().toString().equalsIgnoreCase("system"))
-					{
-						ImportModel.processNodeComponents (tmp, producedModel, null, rootName);
-						ImportModel.processNodeConnections(tmp, producedModel);
-					}
-				}
-				DoImportModel.setFilterSystem(true);
-			}
-			else
-			{
-				loadComponentFromLibraryBrowseLibrary(child, producedModel, rootName);
+				return m;
 			}
 		}
+		return null;
 	}
-	
-	
-	public static void loadComponentFromLibrary (Component component, Model model, String file, String componentName)
-	{
 
-		Document doc = loadXMLZip (file);
-		if (doc == null)
-		{
-			OsateDebug.osateDebug("[FileImport] null doc when trying to load " + file);
-			return;
-		}
-		doc.getDocumentElement().normalize();			
-
-		NodeList modelInformationNodes = doc.getElementsByTagName("ModelInformation");
-		for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
-		{
-			Node nNode = modelInformationNodes.item(s);
-			NodeList children = nNode.getChildNodes();
-			
-			for (int t = 0 ; t < children.getLength() ; t++)
-			{
-				Node tNode = children.item (t);
-				
-				/**
-				 * The model node contains the structure of the
-				 * simulink model (the block diagrams). We parse
-				 * it to map it into an AADL architecture model.
-				 */
-				if (tNode.getNodeName().equalsIgnoreCase("library"))
-				{
-					FileImport.loadComponentFromLibraryBrowseLibrary (tNode, model, componentName);
-				}
-
-			}
-		}
-	}
 	
-	
-	public static Model loadFile (String inputFile, Model producedModel, String rootName)
+	/**
+	 * Load a file, either a model or a library. Return a generic model.
+	 * If we are not able to load the file, it just returns null.
+	 * 
+	 * @param file      		- the file that contains the model or library
+	 */	
+	public static Model loadFile (String inputFile)
 	{
 		Node 		nNode;
+		Model		producedModel;
 		
-		stateFlowInstances = new ArrayList<StateFlowInstance> ();
+		producedModel 		= getModel (inputFile);
+		
+		if (producedModel != null)
+		{
+			return producedModel;
+		}
+		
+		producedModel = new Model (Utils.getModelName (inputFile));
+		models.add (producedModel);
+		stateFlowInstances 	= new ArrayList<StateFlowInstance> ();
 		
 		try 
 		{
 			Document doc = loadXMLZip (inputFile);
+			
+			/**
+			 * if doc is null, it means (most of the case) that the
+			 * file does not exist.
+			 */
+			if (doc == null)
+			{
+				return null;
+			}
+			
 			doc.getDocumentElement().normalize();			
 
 			NodeList modelInformationNodes = doc.getElementsByTagName("ModelInformation");
@@ -239,7 +204,40 @@ public class FileImport {
 					 */
 					if (tNode.getNodeName().equalsIgnoreCase("model"))
 					{
-						ImportModel.processNodeComponents (tNode, producedModel, null, rootName);
+						ImportModel.processComponents (tNode, producedModel, null);
+					}
+					
+					if (tNode.getNodeName().equalsIgnoreCase("library"))
+					{
+						ImportModel.processComponents (tNode, producedModel, null);
+					}
+
+				}
+			}
+			
+	
+			
+			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
+			{
+				nNode = modelInformationNodes.item(s);
+				NodeList children = nNode.getChildNodes();
+				
+				for (int t = 0 ; t < children.getLength() ; t++)
+				{
+					Node tNode = children.item (t);
+					
+					/**
+					 * The model node contains the structure of the
+					 * simulink model (the block diagrams). We parse
+					 * it to map it into an AADL architecture model.
+					 */
+					if (tNode.getNodeName().equalsIgnoreCase("model"))
+					{
+						ImportModel.processNodeConnections(tNode, producedModel);
+					}
+					
+					if (tNode.getNodeName().equalsIgnoreCase("library"))
+					{
 						ImportModel.processNodeConnections(tNode, producedModel);
 					}
 

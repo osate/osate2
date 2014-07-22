@@ -33,7 +33,6 @@ package org.osate.importer.simulink;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osate.aadl2.util.OsateDebug;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -86,10 +85,10 @@ public class Utils {
 			if (nNode.getNodeName().equalsIgnoreCase("p"))
 			{
 				Node attrName = Utils.getAttribute(nNode, "Name");
-				if (attrName != null)
-				{
-				OsateDebug.osateDebug("name=" + attrName.getNodeValue().toString());
-				}
+//				if (attrName != null)
+//				{
+//				OsateDebug.osateDebug("name=" + attrName.getNodeValue().toString());
+//				}
 				if ((attrName != null ) && (attrName.getNodeValue().toString().equalsIgnoreCase("sourceblock")))
 				{
 					return nNode.getTextContent();
@@ -288,9 +287,9 @@ public class Utils {
 			{
 				idx1 = connection.indexOf("#");
 				idx2 = connection.indexOf(":");
-				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] conn=" + connection);
-				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] idx1=" + idx1);
-				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] idx2=" + idx2);
+//				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] conn=" + connection);
+//				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] idx1=" + idx1);
+//				OsateDebug.osateDebug("Utils", "[getConnectionPointInformation] idx2=" + idx2);
 				
 				blockIndex = connection.substring(0, idx1);
 				
@@ -303,7 +302,7 @@ public class Utils {
 			catch (Exception e)
 			{
 				e.printStackTrace();
-				OsateDebug.osateDebug("[Utils] getConnectionPointInformation - invalid string: " + connection);
+//				OsateDebug.osateDebug("[Utils] getConnectionPointInformation - invalid string: " + connection);
 				return 0;
 			}
 			
@@ -317,7 +316,7 @@ public class Utils {
 					{
 						blockIndex = blockIndex.substring(blockIndex.lastIndexOf("::") + 2, blockIndex.length());
 						
-						OsateDebug.osateDebug("Utils", "blockIndex=" + blockIndex);
+//						OsateDebug.osateDebug("Utils", "blockIndex=" + blockIndex);
 					}
 					return Integer.parseInt(blockIndex);
 				}
@@ -353,5 +352,23 @@ public class Utils {
 					return 0;
 				}
 			}
+		}
+	
+	
+		/**
+		 * Return the name of the model based on the filename.
+		 * The Simulink fileName is like C:\dir1\dir2\model.slx
+		 * We then just return the "model" string
+		 * @param fileName the filename that contains the model.
+		 * @return the name of the model
+		 */
+		public static String getModelName (String fileName)
+		{
+			int idx1;
+			int idx2;
+			
+			idx1 = fileName.lastIndexOf("\\");
+			idx2 = fileName.lastIndexOf('.');
+			return fileName.substring(idx1 + 1, idx2);
 		}
 }

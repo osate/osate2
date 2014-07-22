@@ -13,13 +13,26 @@ public class Model
 	private List<Connection> 	connections;
 	private List<StateMachine> 	stateMachines; 
 	public static final String  DEFAULT_NAME = "unknown";
+	private String				name;
 	
 	public Model ()
 	{
+		this.name           = null;
 		this.packageName	= DEFAULT_NAME;
 		this.components 	= new ArrayList<Component>();
 		this.connections 	= new ArrayList<Connection>();
 		this.stateMachines	= new ArrayList<StateMachine>();
+	}
+	
+	public Model (String p_name)
+	{
+		this ();
+		this.name = p_name;
+	}
+	
+	public String getName ()
+	{
+		return this.name;
 	}
 	
 	public void setPackageName (String s)
@@ -46,10 +59,10 @@ public class Model
 	 */
 	public boolean containsComponent (String name)
 	{
-		OsateDebug.osateDebug("Model" , "Try to find a component with the name " + name);
+//		OsateDebug.osateDebug("Model" , "Try to find a component with the name " + name);
 		for (Component c : components)
 		{
-			OsateDebug.osateDebug("Model" , "   already have " + c.getName());
+//			OsateDebug.osateDebug("Model" , "   already have " + c.getName());
 			if (c.getName().equalsIgnoreCase(name))
 			{
 				return true;
@@ -71,7 +84,7 @@ public class Model
 	
 	public void addConnection (Connection c)
 	{
-		OsateDebug.osateDebug("Model" , "Add connection between src=" + c.getSource().getName() + ";dst=" + c.getDestination().getName());
+//		OsateDebug.osateDebug("Model" , "Add connection between src=" + c.getSource().getName() + ";dst=" + c.getDestination().getName());
 		this.connections.add(c);
 	}
 	
@@ -117,14 +130,33 @@ public class Model
 	public Component findComponentById (int id)
 	{
 		Component sub;
-		for (Component c : this.components)
+		for (Component c : this.getComponents())
 		{
 			if (c.getIdentifier() == id)
 			{
 				return c;
 			}
 			
-			sub = c.findSubcomponent (id);
+			sub = c.findSubcomponentById (id);
+			if (sub != null)
+			{
+				return sub;
+			}
+		}
+		return null;
+	}
+	
+	public Component findComponentByName (String n)
+	{
+		Component sub;
+		for (Component c : this.getComponents())
+		{
+			if (c.getName().equalsIgnoreCase(n))
+			{
+				return c;
+			}
+			
+			sub = c.findSubcomponentByName (n);
 			if (sub != null)
 			{
 				return sub;

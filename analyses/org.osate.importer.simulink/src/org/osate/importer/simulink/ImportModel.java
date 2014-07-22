@@ -1,24 +1,13 @@
 package org.osate.importer.simulink;
 
 import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.ZipFile;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.ComponentType;
 import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
-import org.osate.importer.model.sm.State;
-import org.osate.importer.model.sm.StateMachine;
-import org.osate.importer.model.sm.Transition;
 import org.osate.importer.simulink.actions.DoImportModel;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -26,28 +15,24 @@ public class ImportModel {
 
 
 
-	public static void processNodeComponents (Node node, Model model, Component currentComponent, String rootName)
+	public static void processComponents (Node node, Model model, Component currentComponent)
 	{
 		Node 			attrName;
 		String 			blockName;
-		String 			direction;
 		NodeList 		nList;
 		Node 			nNode;
 		String 			sidStr;
 		Component 		newComponent;
 		String 			blockType;
 		int 			sidValue;
-		Node 			tmpNode;
 
 		attrName 		= null;
-		tmpNode  		= null;
 		sidValue 		= 0;
 		blockType 		= null;
 		newComponent 	= null;
 		sidStr 			= null;
 		nNode 			= null;
 		nList 			= null;
-		direction 		= null;
 		blockName 		= null;
 
 		nList = node.getChildNodes();
@@ -67,7 +52,7 @@ public class ImportModel {
 			 */
 			if (nNode.getNodeName().equalsIgnoreCase("system"))
 			{
-				processNodeComponents (nNode, model, currentComponent, rootName);
+				processComponents (nNode, model, currentComponent);
 			}
 			
 			if (nNode.getNodeName().equalsIgnoreCase("block"))
@@ -122,7 +107,7 @@ public class ImportModel {
 				newComponent = new Component(blockName);
 				newComponent.setIdentifier (sidValue);
 				
-				OsateDebug.osateDebug("ImportModel", "Create a new component with (name,sid)=(" + blockName +","+sidValue+")");
+//				OsateDebug.osateDebug("ImportModel", "Create a new component with (name,sid)=(" + blockName +","+sidValue+")");
 				
 
 				if (blockType.equalsIgnoreCase("from"))
@@ -130,7 +115,7 @@ public class ImportModel {
 					newComponent.setType(ComponentType.EXTERNAL_INPORT);
 					if (currentComponent != null)
 					{
-						OsateDebug.osateDebug("ImportModel", "Add the component as an inport of " + currentComponent.getName());
+//						OsateDebug.osateDebug("ImportModel", "Add the component as an inport of " + currentComponent.getName());
 						currentComponent.addSubsystem(newComponent);
 						newComponent.setParent(currentComponent);
 					}
@@ -141,7 +126,7 @@ public class ImportModel {
 					newComponent.setType(ComponentType.EXTERNAL_INPORT);
 					if (currentComponent != null)
 					{
-						OsateDebug.osateDebug("ImportModel", "Add the component as an inport of " + currentComponent.getName());
+//						OsateDebug.osateDebug("ImportModel", "Add the component as an inport of " + currentComponent.getName());
 						currentComponent.addSubsystem(newComponent);
 						newComponent.setParent(currentComponent);
 					}
@@ -153,46 +138,19 @@ public class ImportModel {
 					newComponent.setType(ComponentType.EXTERNAL_OUTPORT);
 					if (currentComponent != null)
 					{
-						OsateDebug.osateDebug("ImportModel", "Add the component as an outport of " + currentComponent.getName());
+//						OsateDebug.osateDebug("ImportModel", "Add the component as an outport of " + currentComponent.getName());
 						currentComponent.addSubsystem(newComponent);
 						newComponent.setParent(currentComponent);
 					}
 				}
-				
-				
-				if (blockType.equalsIgnoreCase("reference"))
-				{
-					newComponent.setType(ComponentType.BLOCK);
-					if (currentComponent != null)
-					{
-						OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getName());
-						currentComponent.addSubsystem(newComponent);
-						newComponent.setParent(currentComponent);
-					}
-					
-					if (blockName.equalsIgnoreCase(rootName))
-					{
-						String referenceSource = Utils.getSourceBlock (nNode);
-						OsateDebug.osateDebug(referenceSource);
-						if (referenceSource != null)
-						{
-							String[] strs = referenceSource.split("/");
-							String sourceFile = strs[0];
-							String sourceBlock = strs[1];
-							//								OsateDebug.osateDebug("file=" + sourceFile);
-							//								OsateDebug.osateDebug("block=" + sourceBlock);
-							newComponent.setType(ComponentType.BLOCK);
-							FileImport.loadComponentFromLibrary (newComponent, model, DoImportModel.getWorkingDirectory() + File.separator +  sourceFile + ".slx", sourceBlock);
-						}
-					}
-				}
+	
 				if (blockType.equalsIgnoreCase("subsystem"))
 				{
 					newComponent.setType(ComponentType.BLOCK);
 					
 					if (currentComponent != null)
 					{
-						OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getName());
+//						OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getName());
 						currentComponent.addSubsystem(newComponent);
 						newComponent.setParent(currentComponent);
 					}
@@ -200,13 +158,49 @@ public class ImportModel {
 					/**
 					 * Try to find recursively new systems.
 					 */
-					processNodeComponents (nNode, model, newComponent, rootName);
+					processComponents (nNode, model, newComponent);
+				}
+				
+				if (blockType.equalsIgnoreCase("reference"))
+				{
+
+					String referenceSource = Utils.getSourceBlock (nNode);
+					//						OsateDebug.osateDebug(referenceSource);
+					if (referenceSource != null)
+					{
+						String[] strs = referenceSource.split("/");
+						String sourceFile = strs[0];
+						String sourceBlock = strs[1];
+														OsateDebug.osateDebug("file=" + sourceFile);
+														OsateDebug.osateDebug("block=" + sourceBlock);
+						newComponent.setType(ComponentType.REFERENCE);
+						newComponent.setReferencedModel (sourceFile);
+						newComponent.setReferencedComponent (sourceBlock);
+						
+						/**
+						 * If we reference a simulink basic block, we do not include it
+						 */
+						if (sourceFile.equalsIgnoreCase("simulink"))
+						{
+							newComponent = null;
+						}
+						else
+						{
+							if (currentComponent != null)
+							{
+								OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getAadlName() + "reference=" + sourceBlock + " package " + sourceFile);
+								currentComponent.addSubsystem(newComponent);
+								newComponent.setParent(currentComponent);
+							}
+						}
+
+					}
 				}
 
 				/**
 				 * Finally, we add the component to the model.
 				 */
-				if ((newComponent.getType() != ComponentType.UNKNOWN) && (DoImportModel.filterSystem() == false))
+				if ((newComponent != null) && (newComponent.getType() != ComponentType.UNKNOWN))
 				{
 					/**
 					 * Check if the component has already been added.
@@ -347,15 +341,15 @@ public class ImportModel {
 			Component srcComponent = model.findComponentById(srcBlockIndex);
 			Component dstComponent = model.findComponentById(dstBlockIndex);
 
-			if (dstString.contains("372") || srcString.contains("372"))
-			{
-				OsateDebug.osateDebug("FileImport" , "372 (srcIndex=" + srcBlockIndex + ";dstIndex="+dstBlockIndex+")");
-
-			}
+//			if (dstString.contains("372") || srcString.contains("372"))
+//			{
+//				OsateDebug.osateDebug("FileImport" , "372 (srcIndex=" + srcBlockIndex + ";dstIndex="+dstBlockIndex+")");
+//
+//			}
 			
 			if ((srcComponent == null) || (dstComponent == null))
 			{
-				OsateDebug.osateDebug("FileImport" , "null components (srcIndex=" + srcBlockIndex + ";dstIndex="+dstBlockIndex+")");
+//				OsateDebug.osateDebug("ImportModel" , "null components (srcIndex=" + srcBlockIndex + ";dstIndex="+dstBlockIndex+")");
 
 				return false;
 			}
@@ -380,7 +374,7 @@ public class ImportModel {
 			}
 			else
 			{
-				OsateDebug.osateDebug("FileImport" , "Not adding a connection, null component");
+//				OsateDebug.osateDebug("FileImport" , "Not adding a connection, null component");
 
 			}
 		}

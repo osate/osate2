@@ -38,7 +38,7 @@ public class Component implements Comparable {
 	
 
 	public enum ComponentType {
-		EXTERNAL_INPORT, EXTERNAL_OUTPORT, BLOCK, UNKNOWN
+		EXTERNAL_INPORT, EXTERNAL_OUTPORT, BLOCK, REFERENCE, UNKNOWN
 	};
 	
 	public enum PortType {
@@ -53,6 +53,8 @@ public class Component implements Comparable {
 	private Component 			parent;
 	private List<StateMachine>	stateMachines;
 	private PortType			portType;
+	private String				referencedModel;
+	private String				referencedComponent;
 	
 	/**
 	 * These two lists are here to keep track of the order of the
@@ -66,19 +68,72 @@ public class Component implements Comparable {
 	public final int COMPONENT_TYPE_BLOCK	 			= 3;
 	
 
-	
+	public Component copy()
+	{
+		Component instance = new Component (this.name);
+		instance.setIdentifier(this.identifier);
+		instance.setParent(this.parent);
+		instance.setPortType(this.getPortType());
+		instance.setType(this.type);
+		
+		for (Connection c : this.connections)
+		{
+			instance.addConnection(c);
+		}
+		for (Component c : this.subEntities)
+		{
+			instance.addSubsystem(c);
+		}
+		for (StateMachine sm : this.stateMachines)
+		{
+			instance.addStateMachine(sm);
+		}
+		return instance;
+	}
 	
 	public Component (String n)
 	{
-		this.name 				= n;
-		this.connections 		= new ArrayList<Connection>();
-		this.subEntities  		= new ArrayList<Component>();
-		this.inports  			= new ArrayList<Component>();
-		this.outports  			= new ArrayList<Component>();
-		this.stateMachines  	= new ArrayList<StateMachine>();
-		this.parent 			= null;
-		this.identifier 		= Utils.INVALID_ID;
-		this.type 				= ComponentType.UNKNOWN;
+		this.name 					= n;
+		this.connections 			= new ArrayList<Connection>();
+		this.subEntities  			= new ArrayList<Component>();
+		this.inports  				= new ArrayList<Component>();
+		this.outports  				= new ArrayList<Component>();
+		this.stateMachines  		= new ArrayList<StateMachine>();
+		this.parent 				= null;
+		this.identifier 			= Utils.INVALID_ID;
+		this.type 					= ComponentType.UNKNOWN;
+		this.referencedComponent 	= null;
+		this.referencedModel     	= null;
+	}
+	
+	public String getReferencedComponent ()
+	{
+		return this.referencedComponent;
+	}
+	
+	public String getReferencedModel ()
+	{
+		return this.referencedModel;
+	}
+	
+	public String getAadlReferencedModel ()
+	{
+		return Utils.toAadl (this.referencedModel);
+	}
+	
+	public String getAadlReferencedComponent ()
+	{
+		return Utils.toAadl (this.referencedComponent);
+	}
+	
+	public void setReferencedModel (String m)
+	{
+		this.referencedModel = m;
+	}
+	
+	public void setReferencedComponent (String c)
+	{
+		this.referencedComponent = c;
 	}
 	
 	/**
@@ -145,7 +200,7 @@ public class Component implements Comparable {
 	{
 		for (Component c : subEntities)
 		{
-			if (c.getType() == ComponentType.BLOCK)
+			if ( (c.getType() == ComponentType.BLOCK) || (c.getType() == ComponentType.REFERENCE))
 			{
 				return true;
 			}
@@ -202,7 +257,7 @@ public class Component implements Comparable {
 		return null;
 	}
 	
-	public Component findSubcomponent (int id)
+	public Component findSubcomponentById (int id)
 	{
 		Component tmp;
 		
@@ -213,7 +268,28 @@ public class Component implements Comparable {
 				return c;
 			}
 		
-			tmp = c.findSubcomponent(id);
+			tmp = c.findSubcomponentById(id);
+			
+			if (tmp != null)
+			{
+				return tmp;
+			}
+		}
+		return null;
+	}
+	
+	public Component findSubcomponentByName (String n)
+	{
+		Component tmp;
+		
+		for (Component c : subEntities)
+		{
+			if (c.getName().equalsIgnoreCase(n))
+			{
+				return c;
+			}
+		
+			tmp = c.findSubcomponentByName(n);
 			
 			if (tmp != null)
 			{
@@ -280,7 +356,7 @@ public class Component implements Comparable {
 	{
 		for (Component e : subEntities)
 		{
-			if (e.getName().equals(s.getName()))
+			if ( (e.getName().equals(s.getName())) && s.getType() == e.getType())
 			{
 				return;
 			}
@@ -367,45 +443,7 @@ public class Component implements Comparable {
 	
 	public String getAadlName()
 	{
-		String result;
-
-		if (this.name.equalsIgnoreCase("set"))
-		{
-			return "set_t";
-		}
-		
-		result = this.name.replaceAll("root", "");
-		if (result.contains("::"))
-		{
-			result = result.substring(result.indexOf("::") + 2);
-		}
-		
-		if (result.charAt(0) == '_')
-		{
-			result = "v" + result;
-		}
-		
-		result = result.replace('\n', '_');
-		result = result.replace('$', ' ');
-		result = result.replace('.', ' ');
-		result = result.replace("__", "_");
-		result = result.replaceAll(" ", "");
-		result = result.replaceAll("/", "_");
-		result = result.toLowerCase();
-		
-		if (result.substring(result.length() - 1, result.length()).equalsIgnoreCase("_"))
-		{
-			result = result.substring(0, result.length() - 1);
-		}
-		
-		/**
-		 * Check for some reserved keywords in AADL.
-		 */
-		if (result.equalsIgnoreCase("constant"))
-		{
-			return "cconstant";
-		}
-		return result;
+		return Utils.toAadl (this.name);
 	}
 	
 	public List<Component> getIncomingDependencies ()

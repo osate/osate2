@@ -42,6 +42,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.stream.FileImageInputStream;
 
@@ -119,7 +120,7 @@ public class AadlProjectCreator
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write ("package "+Preferences.getPackagePrefix()+"imported::functions\n");
+			out.write ("package "+ genericModel.getName() +"::imported::functions\n");
 
 			out.write ("public\n");
 
@@ -151,7 +152,7 @@ public class AadlProjectCreator
 				}
 			}
 
-			out.write ("end "+Preferences.getPackagePrefix()+"imported::functions;\n");
+			out.write ("end "+genericModel.getName() +"::imported::functions;\n");
 
 			out.close();
 			fstream.close();
@@ -183,14 +184,45 @@ public class AadlProjectCreator
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write ("package "+Preferences.getPackagePrefix()+"imported::runtime\n");
+			out.write ("package "+genericModel.getName() +"::imported::runtime\n");
 
 			out.write ("public\n");
-			out.write ("with "+Preferences.getPackagePrefix()+"runtime::common;\n");
-			out.write ("with "+Preferences.getPackagePrefix()+"imported::functions;\n");
+			out.write ("with "+genericModel.getName() +"::runtime::common;\n");
+			out.write ("with "+genericModel.getName() +"::imported::functions;\n");
 			out.write ("with SEI;\n");
 			out.write ("with Data_Model;\n");
-			out.write ("with ARINC653;\n\n\n");
+			out.write ("with ARINC653;\n");
+			
+			List<String> importedPackages = new ArrayList<String>();
+			
+			/**
+			 * We import all the packages that are used by referenced components
+			 */
+			for (Component c : genericModel.getComponents())
+			{
+				if (c.getType() == ComponentType.REFERENCE)
+				{
+					String pkgName = c.getAadlReferencedModel();
+					boolean found = false;
+					
+					for (String pkgTmp : importedPackages)
+					{
+						OsateDebug.osateDebug("AadlProjectCreator", "pkg=" + pkgTmp);
+						if (pkgTmp.equalsIgnoreCase(pkgName))
+						{
+							found = true;
+						}
+					}
+					
+					if ( ! found)
+					{
+						out.write ("with "+ pkgName +"::imported::runtime;\n");						
+						importedPackages.add(pkgName);
+					}
+				}
+			}
+			
+			out.write("\n\n");
 
 			out.write ("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
 
@@ -308,6 +340,10 @@ public class AadlProjectCreator
 					for (Component c : e.getSubcomponents(ComponentType.BLOCK))
 					{
 						out.write ("   " + c.getAadlName() + " : system s_" + c.getAadlName() + ".i;\n");
+					}
+					for (Component c : e.getSubcomponents(ComponentType.REFERENCE))
+					{
+						out.write ("   " + c.getAadlName() + " : system "+c.getAadlReferencedModel()+"::imported::runtime::s_" + c.getAadlReferencedComponent() + ".i;\n");
 					}
 				}
 				
@@ -434,7 +470,7 @@ public class AadlProjectCreator
 			 */
 
 
-			out.write ("processor module extends "+Preferences.getPackagePrefix()+"runtime::common::module\n");
+			out.write ("processor module extends "+genericModel.getName() +"::runtime::common::module\n");
 			out.write ("end module;\n");
 
 			out.write ("processor implementation module.i\n");
@@ -485,7 +521,7 @@ public class AadlProjectCreator
 			}
 			out.write ("end module.i;\n");
 
-			out.write ("memory ram extends "+Preferences.getPackagePrefix()+"runtime::common::ram\n");
+			out.write ("memory ram extends "+genericModel.getName() +"::runtime::common::ram\n");
 			out.write ("end ram;\n");
 
 			out.write ("memory implementation ram.i\n");
@@ -548,8 +584,8 @@ public class AadlProjectCreator
 
 			if (Preferences.useArinc())
 			{
-				out.write("	module : processor module.i;\n");
-				out.write("	ram    : memory ram.i;\n");
+				out.write("	module : processor "+genericModel.getName() +"::module.i;\n");
+				out.write("	ram    : memory "+genericModel.getName() +"::ram.i;\n");
 			}
 			else
 			{
@@ -640,7 +676,7 @@ public class AadlProjectCreator
 			out.write("end mainsystem.i; \n");
 
 
-			out.write("end "+Preferences.getPackagePrefix()+"imported::runtime; \n");
+			out.write("end "+genericModel.getName() +"::imported::runtime; \n");
 
 			out.close();
 			fstream.close();
@@ -656,7 +692,7 @@ public class AadlProjectCreator
 
 	}
 
-	public static void createGenericRuntime (String outputFile)
+	public static void createGenericRuntime (String outputFile, Model genericModel)
 	{
 		FileWriter fstream;
 		BufferedWriter out;
@@ -667,7 +703,7 @@ public class AadlProjectCreator
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write("package "+Preferences.getPackagePrefix()+"runtime::common\n");
+			out.write("package "+genericModel.getName() +"::runtime::common\n");
 
 			out.write("public\n");
 
@@ -693,7 +729,7 @@ public class AadlProjectCreator
 			out.write("memory implementation segment.i\n");
 			out.write("end segment.i;\n");
 
-			out.write("end "+Preferences.getPackagePrefix()+"runtime::common;\n");
+			out.write("end "+genericModel.getName() +"::runtime::common;\n");
 
 			out.close();
 			fstream.close();
@@ -726,7 +762,7 @@ public class AadlProjectCreator
 		createDirectories(outputPath);
 
 		OsateDebug.osateDebug ("Create Generic Runtime in " + outputFileGenericRuntime);
-		createGenericRuntime (outputFileGenericRuntime);
+		createGenericRuntime (outputFileGenericRuntime, genericModel);
 
 		OsateDebug.osateDebug ("Create AADL functional project in " + outputFileFunctional);
 		createAadlFunctions (outputFileFunctional, genericModel);

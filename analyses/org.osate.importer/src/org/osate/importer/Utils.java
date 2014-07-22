@@ -45,6 +45,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.properties.InspectProperty;
 
 
@@ -52,6 +53,50 @@ public class Utils
 {
 
 	public static final int INVALID_ID = -99;	
+	
+	public static String toAadl(String s)
+	{
+		String result;
+
+		if (s.equalsIgnoreCase("set"))
+		{
+			return "set_t";
+		}
+		
+		result = s.replaceAll("root", "");
+		if (result.contains("::"))
+		{
+			result = result.substring(result.indexOf("::") + 2);
+		}
+		
+		if (result.charAt(0) == '_')
+		{
+			result = "v" + result;
+		}
+		
+		result = result.replace('\n', '_');
+		result = result.replace('$', ' ');
+		result = result.replace('.', ' ');
+		result = result.replace("__", "_");
+		result = result.replaceAll(" ", "");
+		result = result.replaceAll("/", "_");
+		result = result.toLowerCase();
+		
+		if (result.substring(result.length() - 1, result.length()).equalsIgnoreCase("_"))
+		{
+			result = result.substring(0, result.length() - 1);
+		}
+		
+		/**
+		 * Check for some reserved keywords in AADL.
+		 */
+		if (result.equalsIgnoreCase("constant"))
+		{
+			return "cconstant";
+		}
+		
+		return result;
+	}
 	
 	/**
 	 * Refresh the complete Workspace. Useful when adding
