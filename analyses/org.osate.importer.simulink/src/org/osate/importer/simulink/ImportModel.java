@@ -171,8 +171,8 @@ public class ImportModel {
 						String[] strs = referenceSource.split("/");
 						String sourceFile = strs[0];
 						String sourceBlock = strs[1];
-														OsateDebug.osateDebug("file=" + sourceFile);
-														OsateDebug.osateDebug("block=" + sourceBlock);
+//						OsateDebug.osateDebug("ImportModel", "file=" + sourceFile);
+//						OsateDebug.osateDebug("ImportModel", "block=" + sourceBlock);
 						newComponent.setType(ComponentType.REFERENCE);
 						newComponent.setReferencedModel (sourceFile);
 						newComponent.setReferencedComponent (sourceBlock);
@@ -188,7 +188,7 @@ public class ImportModel {
 						{
 							if (currentComponent != null)
 							{
-								OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getAadlName() + "reference=" + sourceBlock + " package " + sourceFile);
+//								OsateDebug.osateDebug("ImportModel", "Add the component as a sub-component of " + currentComponent.getAadlName() + "reference=" + sourceBlock + " package " + sourceFile);
 								currentComponent.addSubsystem(newComponent);
 								newComponent.setParent(currentComponent);
 							}

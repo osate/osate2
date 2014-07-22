@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.importer.model.Component;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;
 import org.osate.importer.model.sm.Transition;
@@ -50,8 +51,9 @@ public class Utils {
 
 	
 	public static void writeSubprogramSubcomponents
-		(StateMachine sm, BufferedWriter out, List<String> existingSubcomponents) throws IOException
+		(StateMachine sm, Component associatedComponent, BufferedWriter out, List<String> existingSubcomponents) throws IOException
 	{
+		boolean preambleWritten = false;
 		
 		if (sm.getVariables().size() > 0)
 		{
@@ -60,6 +62,17 @@ public class Utils {
 				if (existingSubcomponents.contains(var))
 				{
 					continue;
+				}
+				
+				if ((associatedComponent != null) && (associatedComponent.getSubEntity(var) != null))
+				{
+					continue;
+				}
+				
+				if (! preambleWritten)
+				{
+					out.write ("subcomponents\n");
+					preambleWritten = true;
 				}
 				
 				existingSubcomponents.add (var);
@@ -85,7 +98,7 @@ public class Utils {
 		{
 			for (State s : sm.getStates())
 			{
-				writeSubprogramSubcomponents (s.getInternalStateMachine(), out, existingSubcomponents);
+				writeSubprogramSubcomponents (s.getInternalStateMachine(), null, out, existingSubcomponents);
 			}
 		}
 	}

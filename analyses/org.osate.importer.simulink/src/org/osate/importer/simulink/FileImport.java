@@ -82,7 +82,7 @@ public class FileImport {
 	{
 		for (StateFlowInstance sfi : stateFlowInstances)
 		{
-			if (sfi.getName().equalsIgnoreCase(s))
+			if (org.osate.importer.Utils.toAadl(sfi.getName()).equalsIgnoreCase(s))
 			{
 				return sfi;
 			}

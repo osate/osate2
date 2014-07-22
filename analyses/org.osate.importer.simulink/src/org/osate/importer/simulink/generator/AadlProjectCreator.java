@@ -245,6 +245,7 @@ public class AadlProjectCreator
 
 				if (sfi != null) 
 				{
+					OsateDebug.osateDebug("AadlProjectCreator", "machine-id=" + sfi.getMachineId());
 					sm = genericModel.getStateMachine (sfi.getMachineId());
 				}
 
@@ -415,13 +416,7 @@ public class AadlProjectCreator
 				if (sm != null)
 				{
 
-
-					if (sm.hasVariables() || sm.nestedStateMachinehasVariables() || sm.hasNestedStateMachines())
-					{
-						out.write ("subcomponents\n");
-					}
-
-					Utils.writeSubprogramSubcomponents (sm, out, new ArrayList<String>());
+					Utils.writeSubprogramSubcomponents (sm, e, out, new ArrayList<String>());
 
 					/**
 					 * Let's call the other subprogram that contains
@@ -462,6 +457,10 @@ public class AadlProjectCreator
 							}
 						}
 					}
+				}
+				if (sm != null)
+				{
+					Utils.writeBehaviorAnnex (sm, out);					
 				}
 				out.write ("end s_"+ e.getAadlName() + ".i;\n\n");
 			}

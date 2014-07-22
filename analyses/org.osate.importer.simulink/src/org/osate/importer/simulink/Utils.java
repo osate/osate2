@@ -33,6 +33,7 @@ package org.osate.importer.simulink;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.util.OsateDebug;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -120,6 +121,9 @@ public class Utils {
 			result = result + " := true";
 		}
 		
+
+		result = result.replaceAll("int32", " ");
+		OsateDebug.osateDebug("Utils" , "result=" + result);
 		return result;
 	}
 	
@@ -137,6 +141,7 @@ public class Utils {
 		if (result.contains("entry:"))
 		{
 			result = result.substring(result.indexOf("entry:") + 6);
+			result = result.replaceAll ("int32" , "");
 			return result;
 		}
 		return null;
@@ -154,6 +159,10 @@ public class Utils {
 		{
 			result = result.substring(result.indexOf('[') + 1, result.indexOf(']'));
 		}
+		result = result.replaceAll("&&", "and");
+		result = result.replaceAll("\\|\\|", "or");
+		result = result.replaceAll("\\~", " not ");
+		result = result.replaceAll("==", "=");
 		return result;
 	}
 	

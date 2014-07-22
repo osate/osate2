@@ -227,8 +227,10 @@ public class ImportStateFlow {
 			String			attrValue;
 			NodeList 		nList;
 			State			newState;
+			String			stateType;
 			
 			newState = new State();
+			stateType = "";
 	//		OsateDebug.osateDebug("[FileImport] Parsing state");
 			
 			/**
@@ -240,7 +242,7 @@ public class ImportStateFlow {
 			
 	//		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
 			
-			
+
 			/**
 			 * Process all the nodes.
 			 */
@@ -285,11 +287,16 @@ public class ImportStateFlow {
 						newState.setEntrypoint(Utils.getStatementsFromStateLabelString(label));
 					}
 					
+					if (attrValue.equalsIgnoreCase("type"))
+					{
+						stateType = nNode.getTextContent();
+					}
+					
 					
 				}
 			}
 			
-			if (newState != null)
+			if ((newState != null) && (! stateType.equalsIgnoreCase("group_state")))
 			{
 				sm.addState(newState);
 			}

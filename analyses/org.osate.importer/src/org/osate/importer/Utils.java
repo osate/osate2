@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Carnegie Mellon University
+ * Copyright 2013-2014 Carnegie Mellon University
 
  * Any opinions, findings and conclusions or recommendations expressed in this 
  * Material are those of the author(s) and do not necessarily reflect the 
