@@ -26,13 +26,17 @@ import java.util.List ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EObject ;
 import org.osate.aadl2.Aadl2Factory ;
+import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.AadlInteger ;
+import org.osate.aadl2.BasicPropertyAssociation ;
 import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ClassifierValue ;
 import org.osate.aadl2.ComponentImplementation ;
 import org.osate.aadl2.ComponentType ;
+import org.osate.aadl2.ComputedValue ;
 import org.osate.aadl2.ContainedNamedElement ;
 import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.aadl2.EnumerationLiteral ;
@@ -942,7 +946,7 @@ public class PropertyUtils {
 	
 	 /**
    * Returns the list of property expressions (PropertyExpression) associated
-   * to a given property name within a given component and its ancestor if the
+   * to a given property name within a given component and its ancestors if the
    * given component is a component implementation. The returned list'size 
    * is > 1 when the given component associated to the given classifier has
    * refined the given property. The list may be empty.
@@ -977,51 +981,26 @@ public class PropertyUtils {
   
   /**
    * Returns the property association which match
-   * the given propertyName if it is defined. May return null.
-   * 
-   * @param cc a given component classifier
-   * @param propertyName a given property name
-   * @return the property association or null
-   */
-  public static PropertyAssociation getPropertyAssociation(Classifier cc,
-                                                           String propertyName)
-  {
-    Property p = null ;
-
-    // FIXME : TODO : improve function, get properties from component type
-    // too
-    if(!cc.isNoProperties())
-    {
-      for(PropertyAssociation pa : cc.getAllPropertyAssociations())
-      {
-        p = pa.getProperty() ;
-        if(p.getName().equalsIgnoreCase(propertyName))
-        {
-          return pa ;
-        }
-      }
-    }
-    return null ;
-  }
-  
-  /**
-   * TODO: DOC ME !
+   * the given propertyName if it is defined within the given named element
+   * but not within its ancestors ! May return null.
    * 
    * May return null.
    * 
-   * @param c
-   * @param propertyName
-   * @return
+   * @param ne the given named element
+   * @param propertyName the given property name
+   * @return the property association that match the given property name or
+   * {@code null}
    */
-  public static PropertyAssociation getPropertyAssociation(NamedElement c,
+  public static PropertyAssociation getPropertyAssociation(NamedElement ne,
 		  												                             String propertyName)
   {
 	  Property p = null ;
 	  
-    for(PropertyAssociation pa : c.getOwnedPropertyAssociations())
+    for(PropertyAssociation pa : ne.getOwnedPropertyAssociations())
     {
       p = pa.getProperty();
-      if(p.getName().equalsIgnoreCase(propertyName))
+      // Sometime, properties don't have name.
+      if(p.getName() != null && p.getName().equalsIgnoreCase(propertyName))
       {
         return pa ;
       }
@@ -1030,14 +1009,25 @@ public class PropertyUtils {
   }
 
   /**
-   * Returns the list of property association which match
-   * the given propertyName if several property association
-   * is defined. The list may be empty.
+   * Returns the list of property associations which match
+   * the given propertyName for a given component classifier and its ancestors.
+   * 
+   * Property association order is as follow: the last property association
+   * represents the latest definition of the given property.
+   * 
+   * First: the property associations of the component ancestors then 
+   * those of the given component.
+   * 
+   * if the given component classifier is a component implementation, the 
+   * property associations of the component type (and its ancestors) are before
+   * the property associations of the component implementation ancestors.
+   *  
+   * The list may be empty.
    * 
    * @param cc a given component classifier
    * @param propertyName a given property name
-   * @return the list of property association which match
-   * the given propertyName. The list may be empty.
+   * @return the list of property associations which match
+   * the given propertyName or an empty list.
    */
   public static EList<PropertyAssociation> getPropertyAssociations(
                                                                   Classifier cc,
@@ -1049,24 +1039,27 @@ public class PropertyUtils {
     EList<PropertyAssociation> lparesult = 
                                    new BasicEList<PropertyAssociation>() ;
     
-    // FIXME : TODO : improve function, get properties from component type
-    // too
     if(cc != null && !cc.isNoProperties())
     {
+      if(cc instanceof ComponentImplementation)
+      {
+        ComponentImplementation ci = (ComponentImplementation) cc ;
+        
+        lparesult.addAll(getPropertyAssociations(ci.getType(),
+                                                 propertyName));
+      }
+      
       lpa = cc.getAllPropertyAssociations() ;
 
       for(PropertyAssociation pa : lpa)
       {
         p = pa.getProperty() ;
         // Sometime, properties don't have name.
-        if(p.getName() != null && p.getName().
-                                     equalsIgnoreCase(propertyName))
+        if(p.getName() != null && p.getName().equalsIgnoreCase(propertyName))
         {
           lparesult.add(pa) ;
         }
       }
-      if(lparesult.isEmpty() && cc.getExtended() != null)
-      	lparesult.addAll(getPropertyAssociations(cc.getExtended(), propertyName));
     }
     return lparesult ;
   }
@@ -1092,5 +1085,148 @@ public class PropertyUtils {
       result.add(mpv.getOwnedValue());
     }
     return result ;
+  }
+
+  /**
+   * Returns the first property expression that matches to the given String object
+   * within the given ProperyExpression object. If the property expression doesn't
+   * exist, it returns {@code null}. 
+   * 
+   * @param pe the given ProperyExpression object
+   * @param toBeMatched the given String object
+   * @return the first matching property expression or {@code null}
+   * 
+   * @throws UnsupportedOperationException other property values than:
+   *   _ StringLiteral
+   *   _ ListValue (recursion supported)
+   *   _ ClassifierValue
+   *   _ InstanceReferenceValue
+   *   _ ComputedValue
+   *   _ RecordValue (based on field matching)
+   */
+  public static PropertyExpression getValue(PropertyExpression pe,
+                                            String toBeMatched)
+  {
+    PropertyExpression tmp = null ;
+    int id = pe.eClass().getClassifierID() ;
+    
+    switch(id)
+    {
+      case Aadl2Package.STRING_LITERAL:
+      {
+        StringLiteral sl = (StringLiteral) pe ;
+        if(sl.getValue().equalsIgnoreCase(toBeMatched))
+        {
+          return sl ;
+        }
+        
+        return null ;
+      }
+      
+      case Aadl2Package.LIST_VALUE:
+      {
+        ListValue lv = (ListValue) pe ;
+        
+        EList<PropertyExpression> pel = lv.getOwnedListElements() ;
+        for(PropertyExpression ownedPe : pel)
+        {
+          tmp = getValue(ownedPe, toBeMatched) ;
+          
+          if(tmp != null)
+          {
+            return tmp ;
+          }
+        }
+        
+        return null ;
+      }
+      
+      case Aadl2Package.RECORD_VALUE:
+      {
+        RecordValue rv = (RecordValue) pe ;
+        for (BasicPropertyAssociation bpa : rv.getOwnedFieldValues())
+        {
+          if(bpa.getProperty().getName().equalsIgnoreCase(toBeMatched))
+          {
+            return bpa.getValue() ;
+          }
+        }
+        
+        return null ;
+      }
+      
+      case Aadl2Package.CLASSIFIER_VALUE:
+      {
+        ClassifierValue cv = (ClassifierValue) pe ;
+        if(cv.getClassifier().getName().equalsIgnoreCase(toBeMatched))
+        {
+          return cv ;
+        }
+        else
+        {
+          return null ;
+        }
+      }
+      
+      case Aadl2Package.REFERENCE_VALUE:
+      {
+        InstanceReferenceValue irv = (InstanceReferenceValue) pe ;
+        if(irv.getReferencedInstanceObject().getName().
+                                                  equalsIgnoreCase(toBeMatched))
+        {
+          return irv ;
+        }
+        else
+        {
+          return null ;
+        }
+      }
+      
+      case Aadl2Package.COMPUTED_VALUE:
+      {
+        ComputedValue cv = (ComputedValue) pe ;
+        if(cv.getFunction().equalsIgnoreCase(toBeMatched))
+        {
+          return  cv ;
+        }
+        else
+        {
+          return null ;
+        }
+      }
+      
+      default:
+      {
+        String msg = pe.getClass().getSimpleName() + " is not supported" ;
+        System.err.println(msg) ;
+        throw new UnsupportedOperationException(msg) ;
+      }
+    }
+  }
+  
+  /**
+   * Returns the Property object that the given PropertyExpression object belongs.
+   * 
+   * @param pe the given PropertyExpression object
+   * @return the Property object that contains the given PropertyExpression object
+   */
+  public static Property getType(PropertyExpression pe)
+  {
+    EObject tmp = pe.eContainer() ;
+    
+    while(Aadl2Package.PROPERTY_ASSOCIATION == tmp.eClass().getClassifierID() ||
+          Aadl2Package.PROPERTY == tmp.eClass().getClassifierID())
+    {
+      tmp = tmp.eContainer() ;
+    }
+    
+    if(Aadl2Package.PROPERTY_ASSOCIATION == tmp.eClass().getClassifierID())
+    {
+      return ((PropertyAssociation)tmp).getProperty() ;
+    }
+    else
+    {
+      return ((Property)tmp) ;
+    }
   }
 }

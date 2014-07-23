@@ -20,11 +20,18 @@
 property set AadlBaTestPropertySet is
 
 aConstant : constant aadlinteger => 28 ;
-aValue : aadlinteger applies to (subprogram) ;
+aValue : aadlinteger => 28 applies to (data, subprogram, thread, system) ;
 aIntegerConstant : constant aadlinteger => 42 ;
 aNegativeIntegerConstant : constant aadlinteger => -42 ;
 aFloatConstant : constant aadlreal => 42.1 ;
 aStringConstant : constant aadlstring => "hello world" ;
 aBooleanConstant : constant aadlboolean => true ;
+recordType : type record ( bool : aadlboolean ;
+                      int : aadlinteger ;
+                      enum : Supported_Dispatch_Protocols ;)  ;
+aRecord : AadlBaTestPropertySet::recordType => [bool => false ; int => 50 ; enum => Aperiodic ;]
+            applies to (data, subprogram, thread, system) ;
+            
+aList : list of aadlstring => ("hello", "hi", "good day") applies to (data, subprogram, thread, system) ;
 
 end AadlBaTestPropertySet;

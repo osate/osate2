@@ -26,25 +26,37 @@ import java.util.ListIterator ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EObject ;
+import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.ArrayDimension ;
+import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.Classifier ;
+import org.osate.aadl2.ClassifierFeature ;
 import org.osate.aadl2.ClassifierValue ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.Data ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
+import org.osate.aadl2.EnumerationType ;
 import org.osate.aadl2.Feature ;
+import org.osate.aadl2.ListType ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.Property ;
+import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.PropertyType ;
+import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
+import org.osate.aadl2.RecordType ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.Any ;
 import org.osate.ba.aadlba.AssignmentAction ;
 import org.osate.ba.aadlba.BasicAction ;
@@ -75,6 +87,7 @@ import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.IterativeVariable ;
 import org.osate.ba.aadlba.ParameterLabel ;
+import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.Relation ;
 import org.osate.ba.aadlba.SimpleExpression ;
 import org.osate.ba.aadlba.Target ;
@@ -88,10 +101,12 @@ import org.osate.ba.aadlba.WhileOrDoUntilStatement ;
 import org.osate.ba.declarative.ArrayableIdentifier ;
 import org.osate.ba.declarative.CommAction ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
+import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativeFactory ;
+import org.osate.ba.declarative.DeclarativePropertyName ;
+import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.DeclarativeTime ;
-import org.osate.ba.declarative.Enumeration ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
@@ -855,7 +870,7 @@ public class AadlBaNameResolver
    // Resolves identifier within the behavior variables and iterative variables.
    private boolean identifierBaResolver(Identifier id, boolean hasToReport)
    {
-	    // First try to resolve within ba's variables names but 
+      // First try to resolve within ba's variables names but 
       // don't report any error.
       if(baVariableResolver(id, false))
       {
@@ -870,13 +885,13 @@ public class AadlBaNameResolver
          }
          else
          {
-       	     // Report error.
-        	 if (hasToReport)
+             // Report error.
+           if (hasToReport)
              {
                 reportNameError(id, id.getId());
              }
-        	  
-        	 return false ;
+            
+           return false ;
          }
       }
    }
@@ -884,51 +899,51 @@ public class AadlBaNameResolver
    // Resolves identifiers within the prototypes, features and subcomponent of
    // the given component.
    private boolean identifierComponentResolver(Identifier id,                                 
-		    								                         Classifier component,
-		    								                         boolean hasToReport)
+                                               Classifier component,
+                                               boolean hasToReport)
    {
-	  // Resolves within the given component features names.
-	  if(featureResolver(component, id, false))
-	  {
-	     return true ;  
-	  }
-	  else
-	  {
-	     // Resolves within the given component subcomponent names.
-	     if(subcomponentIdResolver(id,component, false))
-	     {
-	   	     return true ;
-	     }
-	     else
-	     {
-	        //Resolves within the given component feature prototypes.
-	    	 if(featurePrototypeResolver(id, component, false))
-	    	 {
-	    		 return true ;
-	    	 }
-	    	 else
-	    	 {
-	    		 // At last try to resolve within the 
-	    		 // property Data_Model::Element Names
-	    		 if (component instanceof DataClassifier)
-	    		 {
-	    			 return structOrUnionOrArrayIdResolver(id,
-	    					                        (DataClassifier) component,
-	    					                        true) ;
-	    		 }
-	    		 else
-	    		 {
-	    			 // Report error.
-	           if (hasToReport)
-	           {
-	             reportNameError(id, id.getId());
-	           }
-	            	  
-	           return false ;
-	    		 }
-	    	 }
-	     }
-	  }
+    // Resolves within the given component features names.
+    if(featureResolver(component, id, false))
+    {
+       return true ;  
+    }
+    else
+    {
+       // Resolves within the given component subcomponent names.
+       if(subcomponentIdResolver(id,component, false))
+       {
+           return true ;
+       }
+       else
+       {
+          //Resolves within the given component feature prototypes.
+         if(featurePrototypeResolver(id, component, false))
+         {
+           return true ;
+         }
+         else
+         {
+           // At last try to resolve within the 
+           // property Data_Model::Element Names
+           if (component instanceof DataClassifier)
+           {
+             return structOrUnionOrArrayIdResolver(id,
+                                        (DataClassifier) component,
+                                        true) ;
+           }
+           else
+           {
+             // Report error.
+             if (hasToReport)
+             {
+               reportNameError(id, id.getId());
+             }
+                  
+             return false ;
+           }
+         }
+       }
+    }
    }
    
    // Resolves the given identifier within the property Data_Model::Element 
@@ -936,92 +951,92 @@ public class AadlBaNameResolver
    // set). If the given component is not declared as a struct or union, it 
    // returns false and reports error according to the hasToReport flag.
    private boolean structOrUnionOrArrayIdResolver(Identifier id,
-		                                   DataClassifier component,
-		                                   boolean hasToReport)
+                                       DataClassifier component,
+                                       boolean hasToReport)
    {
-	  boolean result = false ;
-	  
-	  DataRepresentation rep = AadlBaUtils.getDataRepresentation(component);
-	  
-	  if(rep == DataRepresentation.STRUCT || rep == DataRepresentation.UNION)
-	  {
-		  EList<PropertyExpression> lpv = 
-		                              PropertyUtils.getPropertyExpression(component,
-             		                            DataModelProperties.ELEMENT_NAMES) ;
-		  ListValue lv = null ;
-		  StringLiteral sl = null ;
-		  int index1 = 0 ;
-		  int index2 = 0 ;
-		  
-		  for1:
-		  for(PropertyExpression pe : lpv)
-		  {
-			  lv = (ListValue) pe ;
-			  
-			  for(PropertyExpression pex : lv.getOwnedListElements())
-			  {
-				  sl = (StringLiteral) pex ;
-				  
-				  if(id.getId().equalsIgnoreCase(sl.getValue()))
-				  {
-					  result = true ;
-					  break for1 ;
-				  }
-				  
-				  index2++ ;
-			  }
-			  
-			  index1++ ;
-		  }
-		  
-		  // Binds the element name's base type.
-		  if (result)
-		  {
-			  EList<PropertyExpression> lpv2 = 
-			                            PropertyUtils.getPropertyExpression(component,
-   		                                          DataModelProperties.BASE_TYPE) ;
-			  
-			  ClassifierValue cv ;
-			  
-			  cv = (ClassifierValue ) ((ListValue) lpv2.get(index1)).
-			                               getOwnedListElements().get(index2) ;
-			  
-			  id.setOsateRef(cv) ;
-		  }
-	  }
-	  else if (rep == DataRepresentation.ARRAY)
-	  {
-	    EList<PropertyExpression> lpv =
-	       PropertyUtils.getPropertyExpression(component,
+    boolean result = false ;
+    
+    DataRepresentation rep = AadlBaUtils.getDataRepresentation(component);
+    
+    if(rep == DataRepresentation.STRUCT || rep == DataRepresentation.UNION)
+    {
+      EList<PropertyExpression> lpv = 
+                                  PropertyUtils.getPropertyExpression(component,
+                                            DataModelProperties.ELEMENT_NAMES) ;
+      ListValue lv = null ;
+      StringLiteral sl = null ;
+      int index1 = 0 ;
+      int index2 = 0 ;
+      
+      for1:
+      for(PropertyExpression pe : lpv)
+      {
+        lv = (ListValue) pe ;
+        
+        for(PropertyExpression pex : lv.getOwnedListElements())
+        {
+          sl = (StringLiteral) pex ;
+          
+          if(id.getId().equalsIgnoreCase(sl.getValue()))
+          {
+            result = true ;
+            break for1 ;
+          }
+          
+          index2++ ;
+        }
+        
+        index1++ ;
+      }
+      
+      // Binds the element name's base type.
+      if (result)
+      {
+        EList<PropertyExpression> lpv2 = 
+                                  PropertyUtils.getPropertyExpression(component,
+                                                DataModelProperties.BASE_TYPE) ;
+        
+        ClassifierValue cv ;
+        
+        cv = (ClassifierValue ) ((ListValue) lpv2.get(index1)).
+                                     getOwnedListElements().get(index2) ;
+        
+        id.setOsateRef(cv) ;
+      }
+    }
+    else if (rep == DataRepresentation.ARRAY)
+    {
+      EList<PropertyExpression> lpv =
+         PropertyUtils.getPropertyExpression(component,
                                           DataModelProperties.BASE_TYPE) ;
-	    
-	    if(lpv.isEmpty() == false)
-	    {
-	      ClassifierValue cv ;
-	      
-	      cv = (ClassifierValue ) ((ListValue) lpv.get(0)).
-	                                   getOwnedListElements().get(0) ;
-	      
-	      result = identifierComponentResolver(id, cv.getClassifier(),
-	                                           hasToReport) ;
-	    }
-	    else
-	    {
-	      result = false ;
-	    }
-	  }
-	  
-	  if(! result && hasToReport)
-	  {
-		  reportNameError(id, id.getId()) ;
-	  }
-	  
-	  return result ;
+      
+      if(lpv.isEmpty() == false)
+      {
+        ClassifierValue cv ;
+        
+        cv = (ClassifierValue ) ((ListValue) lpv.get(0)).
+                                     getOwnedListElements().get(0) ;
+        
+        result = identifierComponentResolver(id, cv.getClassifier(),
+                                             hasToReport) ;
+      }
+      else
+      {
+        result = false ;
+      }
+    }
+    
+    if(! result && hasToReport)
+    {
+      reportNameError(id, id.getId()) ;
+    }
+    
+    return result ;
    }
 
    private boolean featurePrototypeResolver(Identifier id,
-		                             		        Classifier component,
-		                             		        boolean hasToReport)
+                                            Classifier component,
+                                            boolean hasToReport)
    {
       String nameToFind = id.getId() ;
 
@@ -1118,7 +1133,7 @@ public class AadlBaNameResolver
    // within parent component's features ones and ba's variables ones and
    // for/forall's iterative variable scope handler.
    private boolean refResolver(Classifier parentContainer,
-                                 Reference ref)
+                               Reference ref)
    {
       boolean result = true ;
       boolean currentIdResult = false ;
@@ -1306,8 +1321,8 @@ public class AadlBaNameResolver
    }
 
    private boolean subcomponentIdResolver(Identifier id,
-		                                      Classifier parentComponent,
-		                                      boolean hasToReport)
+                                          Classifier parentComponent,
+                                          boolean hasToReport)
    {
       String nameToFind = id.getId() ;
       
@@ -1409,82 +1424,127 @@ public class AadlBaNameResolver
    }
 
    private boolean qualifiedNamedElementResolver(QualifiedNamedElement qne,
-		                                             boolean hasToReport)
+                                                 boolean hasToReport)
    {
-	   String packageName = null ;
-	   EObject ne ;
-	   boolean hasNamespace = qne.getBaNamespace() != null ; 
-	      
-	   if(hasNamespace)
-	   {
-	      packageName = qne.getBaNamespace().getId() ;
-	   }
+     String packageName = null ;
+     EObject ne ;
+     boolean hasNamespace = qne.getBaNamespace() != null ; 
+        
+     if(hasNamespace)
+     {
+        packageName = qne.getBaNamespace().getId() ;
+     }
 
-	   // Now check the type in each current package's sections.
-	   for(PackageSection context: _contextsTab)
-	   {
-	      ne = Aadl2Visitors.findElementInPackage(qne.getBaName().getId(),
-	                                              packageName, context) ;
-	      
-	      if(ne == null)
-	      {
-	        ne = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
-	                                                packageName, context) ;
-	      }
+     // Now check the type in each current package's sections.
+     for(PackageSection context: _contextsTab)
+     {
+        ne = Aadl2Visitors.findElementInPackage(qne.getBaName().getId(),
+                                                packageName, context) ;
+        
+        if(ne == null)
+        {
+          ne = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
+                                                  packageName, context) ;
+        }
 
-	      // An element is found.
-	      if(ne != null && ne instanceof NamedElement)
-	      {
-	        // Links unique component classifier reference with named element found.
-	    	  qne.setOsateRef((Element) ne) ;
-	    	  qne.getBaName().setOsateRef((Element) ne);
-	        
-	    	  if(hasNamespace)
+        // An element is found.
+        if(ne != null && ne instanceof NamedElement)
+        {
+          // Links unique component classifier reference with named element found.
+          qne.setOsateRef((Element) ne) ;
+          qne.getBaName().setOsateRef((Element) ne);
+          
+          if(hasNamespace)
           {
            qne.getBaNamespace().setOsateRef(((NamedElement) ne).getNamespace());
           }
                               
           return true ;
-	      }
-	   }
-	      
-	   // The element is not found.
-	   if(hasToReport)
-	   {
-	     StringBuilder qualifiedName = new StringBuilder() ; 
-	     
-	     if(hasNamespace)
-	     {
-	       qualifiedName.append(qne.getBaNamespace().getId()) ;
-	       qualifiedName.append("::") ;
-	     }
-	     
-	     qualifiedName.append(qne.getBaName().getId()) ;
-	     
-	     reportNameError(qne, qualifiedName.toString()) ;
-	   }
-	      
-	   return false ;
+        }
+     }
+        
+     // The element is not found.
+     if(hasToReport)
+     {
+       StringBuilder qualifiedName = new StringBuilder() ; 
+       
+       if(hasNamespace)
+       {
+         qualifiedName.append(qne.getBaNamespace().getId()) ;
+         qualifiedName.append("::") ;
+       }
+       
+       qualifiedName.append(qne.getBaName().getId()) ;
+       
+       reportNameError(qne, qualifiedName.toString()) ;
+     }
+        
+     return false ;
    }
    
    // Check constant value names means to check names
-   // within behavior property set value ones or property set constant ones.
+   // within behavior property reference ones or property set constant ones.
    /* value_constant ::=
            boolean_literal
          | numeric_literal
          | string_literal
          | property_constant
-         | property_value */
+         | property_reference */
    private boolean valueConstantResolver(ValueConstant value)
    {
-     if(value instanceof Enumeration)
+     if(value instanceof DeclarativePropertyReference)
      {
-       return behaviorEnumLiteralResolver((Enumeration) value);
-     }
-     else if(value instanceof QualifiedNamedElement)
-     {
-       return qualifiedNamedElementResolver((QualifiedNamedElement) value,
-                                             true);
+       //DEBUG
+       boolean result = propertyReferenceResolver((DeclarativePropertyReference) value) ; 
+       
+       if(result)
+       {
+         System.out.println("*****") ;
+         
+         DeclarativePropertyReference dpr = (DeclarativePropertyReference) value ;
+         
+         if(dpr.isPropertySet())
+         {
+           System.out.println("dpr comes from a property set") ;
+         }
+         
+         if(dpr.getQualifiedName() != null)
+         {
+           System.out.println("qualified name : " + dpr.getQualifiedName().getOsateRef()) ;
+         }
+         
+         if(dpr.getReference() != null)
+         {
+           if(dpr.getReference().getOsateRef() != null)
+           {
+             System.out.println("reference osate : " + dpr.getReference().getOsateRef()) ;
+           } 
+           else
+           {
+             System.out.println("reference ba : " + dpr.getReference().getBaRef()) ;
+           }
+         }
+         
+         if(dpr.getPropertyNames().isEmpty() == false)
+         {
+           for(DeclarativePropertyName dpn : dpr.getPropertyNames())
+           {
+             System.out.println("  property name : " + dpn.getOsateRef()) ;
+             
+             System.out.println("  property name id \'" + dpn.getPropertyName().getId() +
+                                "\' : " + dpn.getPropertyName().getOsateRef()) ;
+             if(dpn.getField() != null)
+             {
+               System.out.println("  field : " + dpn.getField()) ;
+             }
+           }
+         }
+         
+         System.out.println("*****") ;
+       }
+             
+             
+       return result ;
      }
      else // Other literals : they don't contain any name.
      {
@@ -1492,57 +1552,553 @@ public class AadlBaNameResolver
      }
    }
 
-   private boolean behaviorEnumLiteralResolver(Enumeration enu)
+   private boolean propertyReferenceResolver(DeclarativePropertyReference ref)
    {
-	   boolean result = qualifiedNamedElementResolver(enu, true) ;
-	  
-	   if(result)
-	   {
-		   Classifier c = (Classifier) enu.getOsateRef() ;
-		  
-		   String propertyName = "enumerators" ; // Waiting for a property value 
-		                                          // generic referencing syntax.
-		  
-		   EList<PropertyExpression> pel = 
-		               PropertyUtils.getPropertyExpression(c, propertyName);
-		  
-		   String wrongId = null ;
-		  
-		   if(! pel.isEmpty())
-		   {
-			   ListValue lv = (ListValue) pel.get(0) ;
-			   			  
-			   StringLiteral sl ;
-			   Identifier enumLiteral = enu.getLiteral();
-			  
-			   for(PropertyExpression pe : lv.getOwnedListElements())
-			   {
-				   sl = (StringLiteral) pe ;
-				   if(sl.getValue().equalsIgnoreCase(enumLiteral.getId()))
-				   {
-					   enumLiteral.setOsateRef(sl) ;
-					   enu.setOsateRef(sl) ;
-					   return true ;
-				   }
-			   }
-			  
-			   // Matching has failed. Set report variables.
-			   wrongId = enumLiteral.getId() ;
-		   }
-		   else // Property enumerators is not found.
-		   {
-			   wrongId= propertyName ;
-		   }
-		  
-		   // At this point, resolution has failed. Reports error and returns
-		   // false.
-		   reportNameError(enu, wrongId) ;
-		   result = false ;
-	   }
+     if(ref.isPropertySet())
+     {
+       // Property reference or property constant from a property set.
+       System.out.println("&&&& isPropertySet") ;
+       return propertySetpropertyReferenceResolver(ref) ;
+     }
+     else if(ref.getQualifiedName() != null) 
+     {
+       // Property reference from a qualified classifier.
+       System.out.println("### classifier") ;
+       return classifierPropertyReferenceResolver(ref, true) == 0 ;
+     }
+     else
+     {
+       EList<ArrayableIdentifier> ids = ref.getReference().getIds() ;
+       
+       if(ids.size() > 2)
+       {
+         // Unqualified classifier reference cannot have more then two identifiers
+         // so the Reference object is true classifier feature.
+         System.out.println("$$$ component") ;
+         return componentPropertyReferenceResolver(ref) ;
+       }
+       else
+       {
+         // Ambiguous case: between an unqualified classifier and a classifier
+         // feature.
+         
+         // First try as an unqualified classifier
+         // Instantiate a QualifiedNamedElement from Reference's identifiers.
+         
+         QualifiedNamedElement qne = DeclarativeFactory.eINSTANCE.
+                                                 createQualifiedNamedElement() ;
+         
+         Identifier nameId = DeclarativeFactory.eINSTANCE.createIdentifier() ;
+         
+         String name = ids.get(0).getId() ;
+         
+         if(ids.size() == 2)
+         {
+           name += '.' + ids.get(1).getId() ;
+         }
+         
+         nameId.setId(name);
+         nameId.setLocationReference(ids.get(0).getLocationReference());
+         
+         qne.setBaName(nameId);
+         qne.setLocationReference(nameId.getLocationReference());
+         
+         ref.setQualifiedName(qne);
+         System.out.println("£££ try classifier") ;
+         short classifierResult = 
+                                classifierPropertyReferenceResolver(ref, false);
+         
+         switch(classifierResult)
+         {
+           case 0: {
+                     ref.setReference(null); // Unset reference.
+                     return true ;
+                   }
+           
+           // Second try as a classifier feature.
+           case 1: { 
+                     System.out.println("%%% finnaly try component") ;
+                     if(componentPropertyReferenceResolver(ref))
+                     {
+                       ref.setQualifiedName(null);
+                       return true ;
+                     }
+                     else
+                     {
+                       return  false ;
+                     }
+                   }
+           
+           case 2: // The classifier has been found but one or more property 
+                   // names are not found. Errors have already been reported.
+           default: {System.out.println("xxx classifier found but property names not") ; return false ; }
+         }
+       }
+     }
+   }
+   
+  private boolean componentPropertyReferenceResolver(
+                                               DeclarativePropertyReference ref)
+  {
+    Reference component = ref.getReference() ;
+    
+    if(refResolver(component))
+    {
+      PropertyAssociation pa = null ;
+      Classifier type = null ;
+      Identifier propertyNameId =  ref.getPropertyNames().get(0).
+                                                              getPropertyName();
+      Element el = (component.getOsateRef() != null) ? component.getOsateRef() :
+                                                       component.getBaRef();
+      if(el instanceof PrototypeBinding)
+      {
+        PrototypeBinding pb = (PrototypeBinding) el ;
+        type = AadlBaUtils.getClassifier(pb, pb.getContainingClassifier());
+      }
+      else if(el instanceof ClassifierFeature)
+      {
+        ClassifierFeature cf = (ClassifierFeature) el ;
+        
+        // Fetch the own property association of the classifier feature. 
+        pa = PropertyUtils.getPropertyAssociation(cf, propertyNameId.getId());
+        
+        if(pa == null)
+        {
+          type = AadlBaUtils.getClassifier(cf,
+                                           cf.getContainingClassifier()) ; 
+        }
+      }
+      else if(el instanceof BehaviorVariable)
+      {
+        BehaviorVariable bv = (BehaviorVariable) el ;
+        DeclarativeBehaviorElement de = (DeclarativeBehaviorElement)
+                                                        bv.getDataClassifier() ;
+        if(de.getOsateRef() instanceof Classifier)
+        {
+          type = (Classifier) de.getOsateRef() ;
+        }
+      }
+      else // Cannot resolve or unimplemented cases.
+      {
+        String msg = "the type of \'" + ((NamedElement)el).getName() +
+                     "\' cannot be resolved" ;
+        _errManager.error(el, msg);
+      }
+      
+      // If the property is not found within the classifier feature definition,
+      // search within its type.
+      if(pa == null && type != null)
+      {
+        EList<PropertyAssociation> pal = PropertyUtils.
+                                           getPropertyAssociations(type,
+                                                        propertyNameId.getId());
+        if(false == pal.isEmpty())
+        {
+          pa = pal.get(pal.size() - 1 ) ;
+        }
+      }
+      
+      if(pa != null)
+      {
+        ref.getPropertyNames().get(0).setOsateRef(pa);
+        propertyNameId.setOsateRef(pa);
+        
+        return propertyNameResolver(ref.getPropertyNames()) ;
+      }
+      else
+      {
+        reportNameError(propertyNameId, propertyNameId.getId()) ;
+        return false ;
+      }
+    }
+    else
+    { 
+      return false ; // refResolver has already reported the error.
+    }
+  }
 
-	   return result ;
+  // return result code:
+  // 0 : resolution has passed.
+  // 1 : classifier is not found.
+  // 2 : classifier has been found but one or more property names are not found.
+  private short classifierPropertyReferenceResolver(
+                                               DeclarativePropertyReference ref,
+                                               boolean hasToReport)
+  {
+    if(qualifiedNamedElementResolver(ref.getQualifiedName(), hasToReport))
+    {
+      Classifier klass = (Classifier) ref.getQualifiedName().getOsateRef() ;
+      Identifier propertyNameId =  ref.getPropertyNames().get(0).getPropertyName();
+      
+      EList<PropertyAssociation> pal =  PropertyUtils.
+                                     getPropertyAssociations(klass,
+                                                       propertyNameId.getId()) ;
+      if(false == pal.isEmpty())
+      {
+        PropertyAssociation pa = pal.get(pal.size()-1) ;
+        
+        ref.getPropertyNames().get(0).setOsateRef(pa);
+        propertyNameId.setOsateRef(pa);
+        
+        return (short) ((propertyNameResolver(ref.getPropertyNames())) ? 0 : 2) ;
+      }
+      else
+      {
+        reportNameError(propertyNameId, propertyNameId.getId()) ;
+        return 2 ;
+      }
+    }
+    else
+    {
+      return 1 ;
+    }
+  }
+
+   private boolean propertySetpropertyReferenceResolver
+                                              (DeclarativePropertyReference ref)
+   {
+     Identifier propertyNameId =  ref.getPropertyNames().get(0).getPropertyName();
+     String packageName = null ;
+     
+     if(ref.getQualifiedName() != null)
+     {
+       packageName = ref.getQualifiedName().getBaNamespace().getId() ;
+     }
+     
+     NamedElement ne = null ;
+     
+     // Now check the type in each current package's sections.
+     for(PackageSection context: _contextsTab)
+     {
+       ne = Aadl2Visitors.findElementInPropertySet(propertyNameId.getId(),
+                                                   packageName, context) ;
+       if(ne != null)
+       {
+         propertyNameId.setOsateRef(ne);
+         ref.getPropertyNames().get(0).setOsateRef(ne);
+         
+         if(packageName != null)
+         {
+           ref.getQualifiedName().getBaNamespace().setOsateRef(ne.getNamespace());
+           ref.getQualifiedName().setOsateRef(ne.getNamespace());
+         }
+         
+         if(ne instanceof Property)
+         {
+           return propertyNameResolver(ref.getPropertyNames()) ;
+         }
+         else // Property constant case.
+         {
+           if(ref.getPropertyNames().size() > 1)
+           {
+             // Property constants haven't any sub property.
+             String msg = "property names are not supported for property constant";
+             _errManager.error(ref.getPropertyNames().get(1).getPropertyName(),
+                               msg);
+             return false ;
+           }
+           else if (ref.getPropertyNames().get(0).getField() != null)
+           {
+             // Property constants haven't any property field.
+             String msg = "property fields are not supported for property constant" ;
+             _errManager.error(ref.getPropertyNames().get(0).getField(), msg);
+             return false ;
+           }
+           else
+           {
+             return true ;
+           }
+         }
+       }
+     }
+     
+     reportNameError(propertyNameId, propertyNameId.getId()) ;
+     
+     return false ;
+   }
+   
+   private boolean propertyNameResolver(EList<DeclarativePropertyName> propertyNames)
+   {
+     // Ambiguity between a property literal and a property name without field.
+     // So the next property name is evaluated.
+     
+     // The first property name has already been resolved, excepted its field. 
+     ListIterator<DeclarativePropertyName> it = propertyNames.listIterator() ;
+     
+     DeclarativePropertyName currentName = it.next() ;
+     PropertyField currentField = currentName.getField() ;
+     
+     Element previousContainer = null ;
+     
+     // Then resolve the property field.
+     if(false == propertyFieldResolution(currentField, currentName))
+     {
+       return false ;
+     }
+          
+     while(it.hasNext())
+     {
+       previousContainer = currentName.getOsateRef() ;
+       currentName = it.next() ;
+       currentField = currentName.getField() ;
+       
+       // First, resolve the record field or the property literal.
+       
+       if(Aadl2Package.PROPERTY_ASSOCIATION == previousContainer.eClass().
+                                                              getClassifierID())
+       {
+         PropertyAssociation pa =
+              (PropertyAssociation) previousContainer ;
+
+         if(propertyAssociationResolver(pa, currentName) &&
+            propertyFieldResolution(currentField, currentName))
+         {
+           continue ;
+         }
+         else
+         {
+           previousContainer = pa.getProperty() ;
+         }
+       }
+       
+       if(previousContainer instanceof PropertyValue)
+       {
+         previousContainer = PropertyUtils.getType((PropertyValue) 
+                                                           previousContainer) ;
+       }
+       
+       if(Aadl2Package.PROPERTY == previousContainer.eClass().getClassifierID())
+       {
+         Property p = (Property) previousContainer ;
+         
+         if(propertyDeclarationResolver(p, currentName) &&
+            propertyFieldResolution(currentField, currentName))
+         {
+           continue ;
+         }
+         else if(propertyTypeResolver(p.getPropertyType(), currentName) &&
+                 propertyFieldResolution(currentField, currentName))
+         {
+           continue ;
+         }
+         else
+         {
+           // propertyTypeResolver and propertyFieldResolution report any error.
+           return false ;
+         }
+       }
+     } // End of while.
+     
+     return true ;
    }
 
+  private boolean propertyTypeResolver(PropertyType type,
+                                       DeclarativePropertyName declPropertyName)
+  {
+    int typeId = type.eClass().getClassifierID() ;
+    String name = declPropertyName.getPropertyName().getId() ;
+    
+    switch(typeId)
+    {
+      case Aadl2Package.ENUMERATION_TYPE:
+      {
+        EnumerationType enumType = (EnumerationType) type ;
+        for(EnumerationLiteral literal : enumType.getOwnedLiterals())
+        {
+          if(literal.getName().equalsIgnoreCase(name))
+          {
+            declPropertyName.setOsateRef(literal);
+            declPropertyName.getPropertyName().setOsateRef(literal);
+            return true ;
+          }
+        }
+        
+        return false ;
+      }
+      
+      case Aadl2Package.RECORD_TYPE:
+      {
+        RecordType recordType = (RecordType) type ;
+        for(BasicProperty bp : recordType.getOwnedFields())
+        {
+          if(bp.getName().equalsIgnoreCase(name))
+          {
+            declPropertyName.setOsateRef(bp);
+            declPropertyName.getPropertyName().setOsateRef(bp);
+            return true ;
+          }
+        }
+        
+        return false ;
+      }
+      
+      case Aadl2Package.LIST_TYPE: // Type of ListType is ListType and not its 
+                                   // owned element type.
+      {
+        reportNameError(declPropertyName, name);
+        return false ;
+      }
+      default:
+      {
+        String msg = "property literals are only supported for enumeration and"+
+                     " record property type";
+        _errManager.error(declPropertyName, msg);
+        return false ;
+      }
+    }
+  }
+
+  private boolean propertyDeclarationResolver(Property property,
+                                            DeclarativePropertyName declProName)
+  {
+    PropertyExpression pe = property.getDefaultValue() ;
+    String name = declProName.getPropertyName().getId() ;
+    if(pe != null)
+    {
+      try
+      {
+        PropertyExpression found = PropertyUtils.getValue(pe, name);
+        if(found != null)
+        {
+          declProName.setOsateRef(found);
+          declProName.getPropertyName().setOsateRef(found);
+          return true ;
+        }
+        else
+        {
+          return false ;
+        }
+      }
+      catch (UnsupportedOperationException e)
+      {
+        return false ;
+      }
+    }
+    else
+    {
+      return false ;
+    }
+  }
+
+  private boolean propertyAssociationResolver(PropertyAssociation pa,
+                                            DeclarativePropertyName declProName)
+  {
+    EList<PropertyExpression> pel = PropertyUtils.getPropertyExpression(pa) ;
+    PropertyExpression pe = pel.get(pel.size() -1) ;
+    String name = declProName.getPropertyName().getId() ;
+    
+    try
+    {
+      PropertyExpression tmp = PropertyUtils.getValue(pe, name);
+      
+      if(tmp != null)
+      {
+        declProName.setOsateRef(tmp);
+        declProName.getPropertyName().setOsateRef(tmp);
+        return true ;
+      }
+      else
+      {
+        return false ;
+      }
+    }
+    catch (UnsupportedOperationException e)
+    {
+      return false ;
+    }
+  }
+
+  private Property getPropertyType(Element el)
+  {
+    if(Aadl2Package.PROPERTY_ASSOCIATION == el.eClass().getClassifierID())
+    {
+      return ((PropertyAssociation)el).getProperty() ;
+    }
+    else if(Aadl2Package.PROPERTY == el.eClass().getClassifierID())
+    {
+      return (Property) el ;
+    }
+    else if(el instanceof PropertyExpression)
+    {
+      return PropertyUtils.getType((PropertyExpression) el) ;
+    }
+    else
+    {
+      String msg = el.getClass().getSimpleName() + " is not supported" ;
+      System.err.println(msg) ;
+      throw new UnsupportedOperationException(msg) ;
+    }
+  }
+  
+  // Field can be null (it will return true).
+   private boolean propertyFieldResolution(PropertyField field,
+                                           DeclarativePropertyName declProName)
+   {
+     if(field != null)
+     {
+       int fieldId = field.eClass().getClassifierID() ;
+       Element el = declProName.getOsateRef() ;
+       PropertyType type = getPropertyType(el).getPropertyType() ;
+       int nameTypeId = type.eClass().getClassifierID() ; 
+       
+       switch(fieldId)
+       {
+         case AadlBaPackage.UPPER_BOUND:
+         case AadlBaPackage.LOWER_BOUND:
+         {
+           // Upper and lower bound fields are only supported for range property
+           // type.
+           if(nameTypeId == Aadl2Package.RANGE_TYPE)
+           {
+             return true ;
+           }
+           else
+           {
+             String msg = "upper or lower bound keyword are only supported for"+
+                          " range property type" ;
+             _errManager.error(field, msg);
+             return false ;
+           }
+         }
+         
+         default : // Integer value case.
+         {
+           // [ integer value ] is only supported for the enumeration and list
+           // types.
+           if(nameTypeId == Aadl2Package.ENUMERATION_TYPE ||
+              nameTypeId == Aadl2Package.LIST_TYPE)
+           {
+             if(integerValueResolver((IntegerValue) field))
+             {
+               if(nameTypeId == Aadl2Package.LIST_TYPE)
+               {
+                 ListType lt = (ListType) type ;
+                 declProName.setOsateRef(lt.getElementType()); 
+               }
+               
+               return true ;
+             }
+             else
+             {
+               return false ;
+             }
+           }
+           else
+           {
+             String msg = "integer index is only supported for enumeration and"+
+                          " list property type" ;
+             _errManager.error(field, msg);
+             return false ;
+           }
+         }
+       }
+     }
+     else
+     {
+       return true ;
+     }
+   }
+   
    private boolean valueExpressionResolver(ValueExpression expr)
    {
       boolean result = true ;

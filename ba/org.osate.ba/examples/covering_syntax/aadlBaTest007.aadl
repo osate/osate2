@@ -106,23 +106,25 @@ transitions
    a -[]-> a {int := #AadlBaTestPropertySet::aRecord.int }; -- a property set record
    a -[]-> a {int := sublist#Dimension[0]}; -- a subcomponent
    a -[]-> a {int := portMyInteger#Integer_Range.upper_bound}; -- a feature
-   a -[]-> a {int := portPrototypeMyInteger#Data_Representation.lower_bound}; -- a binded feature
+   a -[]-> a {int := portPrototypeMyInteger#Integer_Range.lower_bound}; -- a binded feature
    a -[]-> a {int := localMyEnum#Representation[0]}; -- local variable
    a -[]-> a {int := PropertyReferenceTest::MyThread.impl#aRecord.int }; -- a classifier
+   a -[]-> a {int := MyThread.impl#aRecord.int }; -- a classifier
+   a -[]-> a {int := #AadlBaTestPropertySet::aList.hello }; -- a property set list with default values 
    
    -- Enumerations
    
    a -[]-> a {
                localMyEnum := MyEnum#Enumerators.monday;
-               localDay := AadlBaTest::Types::Days.v1#Enumerators.monday
+               localDays := AadlBaTest::Types::Days.v1#Enumerators.monday
              };
            
    -- Real life examples
    
    a -[]-> a {
-               localDay := AadlBaTest::Types::Days.v1#Enumerators.monday;
-               -- localDay has been modified ...
-               if(localDay = AadlBaTest::Types::Days.v1#Enumerators.tuesday)
+               localDays := AadlBaTest::Types::Days.v1#Enumerators.monday;
+               -- localDays has been modified ...
+               if(localDays = AadlBaTest::Types::Days.v1#Enumerators.thuesday)
                  int := 1
                else
                  int := 0
