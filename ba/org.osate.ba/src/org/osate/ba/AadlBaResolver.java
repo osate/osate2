@@ -68,6 +68,7 @@ public class AadlBaResolver implements AnnexResolver
         // failed. 
         if (result)
         {
+           /*
            typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
                                                    errManager) ;
            AadlBaHyperlink hyperlinker ;
@@ -111,6 +112,8 @@ public class AadlBaResolver implements AnnexResolver
            
            // DEBUG
 //           System.out.println("### nb errors : " + errManager.getNumErrors()) ;
+ * 
+ */
         }
      }
    }

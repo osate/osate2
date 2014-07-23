@@ -525,6 +525,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" eType="#//ValueExpression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyEnumLiteral" eSuperTypes="#//PropertyField">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="literal" lowerBound="1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EnumerationLiteral"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyField" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyHolder" eSuperTypes="#//BehaviorElement">
@@ -533,7 +537,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="#//PropertyField"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyLiteralHolder" eSuperTypes="#//PropertyField #//ElementHolder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyListValue" eSuperTypes="#//PropertyField">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//ListValue"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyRecordField" eSuperTypes="#//PropertyField">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" lowerBound="1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//BasicProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" abstract="true" eSuperTypes="#//ValueConstant #//IntegerValueConstant">
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" lowerBound="1"
         upperBound="-1" eType="#//PropertyHolder" containment="true"/>

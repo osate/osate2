@@ -515,6 +515,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createPortSendActionAdapter();
       }
       @Override
+      public Adapter casePropertyEnumLiteral(PropertyEnumLiteral object)
+      {
+        return createPropertyEnumLiteralAdapter();
+      }
+      @Override
       public Adapter casePropertyField(PropertyField object)
       {
         return createPropertyFieldAdapter();
@@ -525,9 +530,14 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createPropertyHolderAdapter();
       }
       @Override
-      public Adapter casePropertyLiteralHolder(PropertyLiteralHolder object)
+      public Adapter casePropertyListValue(PropertyListValue object)
       {
-        return createPropertyLiteralHolderAdapter();
+        return createPropertyListValueAdapter();
+      }
+      @Override
+      public Adapter casePropertyRecordField(PropertyRecordField object)
+      {
+        return createPropertyRecordFieldAdapter();
       }
       @Override
       public Adapter casePropertyReference(PropertyReference object)
@@ -1907,6 +1917,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyEnumLiteral <em>Property Enum Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyEnumLiteral
+   * @generated
+   */
+  public Adapter createPropertyEnumLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PrototypeHolder <em>Prototype Holder</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -2342,16 +2367,31 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyLiteralHolder <em>Property Literal Holder</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyListValue <em>Property List Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyLiteralHolder
+   * @see org.osate.ba.aadlba.PropertyListValue
    * @generated
    */
-  public Adapter createPropertyLiteralHolderAdapter()
+  public Adapter createPropertyListValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyRecordField <em>Property Record Field</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyRecordField
+   * @generated
+   */
+  public Adapter createPropertyRecordFieldAdapter()
   {
     return null;
   }

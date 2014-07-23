@@ -27,43 +27,42 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.ListValue;
 
 import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.ElementHolder;
-import org.osate.ba.aadlba.PropertyLiteralHolder;
+import org.osate.ba.aadlba.PropertyListValue;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Property Literal Holder</b></em>'.
+ * An implementation of the model object '<em><b>Property List Value</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.PropertyLiteralHolderImpl#getElement <em>Element</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.PropertyListValueImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements PropertyLiteralHolder
+public class PropertyListValueImpl extends BehaviorElementImpl implements PropertyListValue
 {
   /**
-   * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
+   * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getElement()
+   * @see #getValue()
    * @generated
    * @ordered
    */
-  protected NamedElement element;
+  protected ListValue value;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected PropertyLiteralHolderImpl()
+  protected PropertyListValueImpl()
   {
     super();
   }
@@ -76,7 +75,7 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.PROPERTY_LITERAL_HOLDER;
+    return AadlBaPackage.Literals.PROPERTY_LIST_VALUE;
   }
 
   /**
@@ -84,19 +83,19 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement getElement()
+  public ListValue getValue()
   {
-    if (element != null && ((EObject)element).eIsProxy())
+    if (value != null && ((EObject)value).eIsProxy())
     {
-      InternalEObject oldElement = (InternalEObject)element;
-      element = (NamedElement)eResolveProxy(oldElement);
-      if (element != oldElement)
+      InternalEObject oldValue = (InternalEObject)value;
+      value = (ListValue)eResolveProxy(oldValue);
+      if (value != oldValue)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT, oldElement, element));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.PROPERTY_LIST_VALUE__VALUE, oldValue, value));
       }
     }
-    return element;
+    return value;
   }
 
   /**
@@ -104,9 +103,9 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement basicGetElement()
+  public ListValue basicGetValue()
   {
-    return element;
+    return value;
   }
 
   /**
@@ -114,12 +113,12 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setElement(NamedElement newElement)
+  public void setValue(ListValue newValue)
   {
-    NamedElement oldElement = element;
-    element = newElement;
+    ListValue oldValue = value;
+    value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT, oldElement, element));
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_LIST_VALUE__VALUE, oldValue, value));
   }
 
   /**
@@ -132,9 +131,9 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
   {
     switch (featureID)
     {
-      case AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT:
-        if (resolve) return getElement();
-        return basicGetElement();
+      case AadlBaPackage.PROPERTY_LIST_VALUE__VALUE:
+        if (resolve) return getValue();
+        return basicGetValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -149,8 +148,8 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
   {
     switch (featureID)
     {
-      case AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT:
-        setElement((NamedElement)newValue);
+      case AadlBaPackage.PROPERTY_LIST_VALUE__VALUE:
+        setValue((ListValue)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -166,8 +165,8 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
   {
     switch (featureID)
     {
-      case AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT:
-        setElement((NamedElement)null);
+      case AadlBaPackage.PROPERTY_LIST_VALUE__VALUE:
+        setValue((ListValue)null);
         return;
     }
     super.eUnset(featureID);
@@ -183,48 +182,10 @@ public class PropertyLiteralHolderImpl extends BehaviorElementImpl implements Pr
   {
     switch (featureID)
     {
-      case AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT:
-        return element != null;
+      case AadlBaPackage.PROPERTY_LIST_VALUE__VALUE:
+        return value != null;
     }
     return super.eIsSet(featureID);
   }
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == ElementHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT: return AadlBaPackage.ELEMENT_HOLDER__ELEMENT;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == ElementHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.ELEMENT_HOLDER__ELEMENT: return AadlBaPackage.PROPERTY_LITERAL_HOLDER__ELEMENT;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
-
-} //PropertyLiteralHolderImpl
+} //PropertyListValueImpl

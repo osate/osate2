@@ -592,6 +592,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass propertyEnumLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass prototypeHolderEClass = null;
 
   /**
@@ -795,7 +802,14 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass propertyLiteralHolderEClass = null;
+  private EClass propertyListValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyRecordFieldEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2287,6 +2301,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPropertyEnumLiteral()
+  {
+    return propertyEnumLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyEnumLiteral_Literal()
+  {
+    return (EReference)propertyEnumLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPrototypeHolder()
   {
     return prototypeHolderEClass;
@@ -2847,9 +2881,49 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getPropertyLiteralHolder()
+  public EClass getPropertyListValue()
   {
-    return propertyLiteralHolderEClass;
+    return propertyListValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyListValue_Value()
+  {
+    return (EReference)propertyListValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyRecordField()
+  {
+    return propertyRecordFieldEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyRecordField_Property()
+  {
+    return (EReference)propertyRecordFieldEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyRecordField_Value()
+  {
+    return (EReference)propertyRecordFieldEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -3270,13 +3344,21 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     createEReference(portSendActionEClass, PORT_SEND_ACTION__PORT);
     createEReference(portSendActionEClass, PORT_SEND_ACTION__VALUE_EXPRESSION);
 
+    propertyEnumLiteralEClass = createEClass(PROPERTY_ENUM_LITERAL);
+    createEReference(propertyEnumLiteralEClass, PROPERTY_ENUM_LITERAL__LITERAL);
+
     propertyFieldEClass = createEClass(PROPERTY_FIELD);
 
     propertyHolderEClass = createEClass(PROPERTY_HOLDER);
     createEReference(propertyHolderEClass, PROPERTY_HOLDER__PROPERTY);
     createEReference(propertyHolderEClass, PROPERTY_HOLDER__FIELD);
 
-    propertyLiteralHolderEClass = createEClass(PROPERTY_LITERAL_HOLDER);
+    propertyListValueEClass = createEClass(PROPERTY_LIST_VALUE);
+    createEReference(propertyListValueEClass, PROPERTY_LIST_VALUE__VALUE);
+
+    propertyRecordFieldEClass = createEClass(PROPERTY_RECORD_FIELD);
+    createEReference(propertyRecordFieldEClass, PROPERTY_RECORD_FIELD__PROPERTY);
+    createEReference(propertyRecordFieldEClass, PROPERTY_RECORD_FIELD__VALUE);
 
     propertyReferenceEClass = createEClass(PROPERTY_REFERENCE);
     createEReference(propertyReferenceEClass, PROPERTY_REFERENCE__PROPERTIES);
@@ -3544,10 +3626,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     portPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
     portPrototypeHolderEClass.getESuperTypes().add(this.getTarget());
     portSendActionEClass.getESuperTypes().add(this.getCommunicationAction());
+    propertyEnumLiteralEClass.getESuperTypes().add(this.getPropertyField());
     propertyFieldEClass.getESuperTypes().add(this.getBehaviorElement());
     propertyHolderEClass.getESuperTypes().add(this.getBehaviorElement());
-    propertyLiteralHolderEClass.getESuperTypes().add(this.getPropertyField());
-    propertyLiteralHolderEClass.getESuperTypes().add(this.getElementHolder());
+    propertyListValueEClass.getESuperTypes().add(this.getPropertyField());
+    propertyRecordFieldEClass.getESuperTypes().add(this.getPropertyField());
     propertyReferenceEClass.getESuperTypes().add(this.getValueConstant());
     propertyReferenceEClass.getESuperTypes().add(this.getIntegerValueConstant());
     propertySetPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
@@ -3872,13 +3955,21 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEReference(getPortSendAction_Port(), this.getActualPortHolder(), null, "port", null, 0, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPortSendAction_ValueExpression(), this.getValueExpression(), null, "valueExpression", null, 0, 1, PortSendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(propertyEnumLiteralEClass, PropertyEnumLiteral.class, "PropertyEnumLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyEnumLiteral_Literal(), theAadl2Package.getEnumerationLiteral(), null, "literal", null, 1, 1, PropertyEnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(propertyFieldEClass, PropertyField.class, "PropertyField", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(propertyHolderEClass, PropertyHolder.class, "PropertyHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPropertyHolder_Property(), theAadl2Package.getProperty(), null, "property", null, 1, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPropertyHolder_Field(), this.getPropertyField(), null, "field", null, 0, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(propertyLiteralHolderEClass, PropertyLiteralHolder.class, "PropertyLiteralHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(propertyListValueEClass, PropertyListValue.class, "PropertyListValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyListValue_Value(), theAadl2Package.getListValue(), null, "value", null, 1, 1, PropertyListValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertyRecordFieldEClass, PropertyRecordField.class, "PropertyRecordField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyRecordField_Property(), theAadl2Package.getBasicProperty(), null, "property", null, 1, 1, PropertyRecordField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyRecordField_Value(), theAadl2Package.getPropertyExpression(), null, "value", null, 0, 1, PropertyRecordField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyReferenceEClass, PropertyReference.class, "PropertyReference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPropertyReference_Properties(), this.getPropertyHolder(), null, "properties", null, 1, -1, PropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

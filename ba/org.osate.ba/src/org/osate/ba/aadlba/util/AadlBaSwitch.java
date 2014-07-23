@@ -1246,6 +1246,16 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.PROPERTY_ENUM_LITERAL:
+      {
+        PropertyEnumLiteral propertyEnumLiteral = (PropertyEnumLiteral)theEObject;
+        T result = casePropertyEnumLiteral(propertyEnumLiteral);
+        if (result == null) result = casePropertyField(propertyEnumLiteral);
+        if (result == null) result = caseBehaviorElement(propertyEnumLiteral);
+        if (result == null) result = caseElement(propertyEnumLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.PROPERTY_FIELD:
       {
         PropertyField propertyField = (PropertyField)theEObject;
@@ -1264,14 +1274,23 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AadlBaPackage.PROPERTY_LITERAL_HOLDER:
+      case AadlBaPackage.PROPERTY_LIST_VALUE:
       {
-        PropertyLiteralHolder propertyLiteralHolder = (PropertyLiteralHolder)theEObject;
-        T result = casePropertyLiteralHolder(propertyLiteralHolder);
-        if (result == null) result = casePropertyField(propertyLiteralHolder);
-        if (result == null) result = caseElementHolder(propertyLiteralHolder);
-        if (result == null) result = caseBehaviorElement(propertyLiteralHolder);
-        if (result == null) result = caseElement(propertyLiteralHolder);
+        PropertyListValue propertyListValue = (PropertyListValue)theEObject;
+        T result = casePropertyListValue(propertyListValue);
+        if (result == null) result = casePropertyField(propertyListValue);
+        if (result == null) result = caseBehaviorElement(propertyListValue);
+        if (result == null) result = caseElement(propertyListValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_RECORD_FIELD:
+      {
+        PropertyRecordField propertyRecordField = (PropertyRecordField)theEObject;
+        T result = casePropertyRecordField(propertyRecordField);
+        if (result == null) result = casePropertyField(propertyRecordField);
+        if (result == null) result = caseBehaviorElement(propertyRecordField);
+        if (result == null) result = caseElement(propertyRecordField);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -2835,6 +2854,22 @@ public class AadlBaSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Enum Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Enum Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyEnumLiteral(PropertyEnumLiteral object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Prototype Holder</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -3299,17 +3334,33 @@ public class AadlBaSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Property Literal Holder</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Property List Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Property Literal Holder</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Property List Value</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePropertyLiteralHolder(PropertyLiteralHolder object)
+  public T casePropertyListValue(PropertyListValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Record Field</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Record Field</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyRecordField(PropertyRecordField object)
   {
     return null;
   }

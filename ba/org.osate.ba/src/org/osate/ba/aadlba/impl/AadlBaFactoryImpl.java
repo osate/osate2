@@ -137,8 +137,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.PORT_FRESH_VALUE: return (EObject)createPortFreshValue();
       case AadlBaPackage.PORT_PROTOTYPE_HOLDER: return (EObject)createPortPrototypeHolder();
       case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
+      case AadlBaPackage.PROPERTY_ENUM_LITERAL: return (EObject)createPropertyEnumLiteral();
       case AadlBaPackage.PROPERTY_HOLDER: return (EObject)createPropertyHolder();
-      case AadlBaPackage.PROPERTY_LITERAL_HOLDER: return (EObject)createPropertyLiteralHolder();
+      case AadlBaPackage.PROPERTY_LIST_VALUE: return (EObject)createPropertyListValue();
+      case AadlBaPackage.PROPERTY_RECORD_FIELD: return (EObject)createPropertyRecordField();
       case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE: return (EObject)createPropertySetPropertyReference();
       case AadlBaPackage.RELATION: return (EObject)createRelation();
       case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
@@ -819,6 +821,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public PropertyEnumLiteral createPropertyEnumLiteral()
+  {
+    PropertyEnumLiteralImpl propertyEnumLiteral = new PropertyEnumLiteralImpl();
+    return propertyEnumLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Relation createRelation()
   {
     RelationImpl relation = new RelationImpl();
@@ -1061,10 +1074,21 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyLiteralHolder createPropertyLiteralHolder()
+  public PropertyListValue createPropertyListValue()
   {
-    PropertyLiteralHolderImpl propertyLiteralHolder = new PropertyLiteralHolderImpl();
-    return propertyLiteralHolder;
+    PropertyListValueImpl propertyListValue = new PropertyListValueImpl();
+    return propertyListValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyRecordField createPropertyRecordField()
+  {
+    PropertyRecordFieldImpl propertyRecordField = new PropertyRecordFieldImpl();
+    return propertyRecordField;
   }
 
   /**
