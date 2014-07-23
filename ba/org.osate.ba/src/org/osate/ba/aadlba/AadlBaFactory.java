@@ -499,6 +499,15 @@ public interface AadlBaFactory extends EFactory
   PortSendAction createPortSendAction();
 
   /**
+   * Returns a new object of class '<em>Property Enum Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Enum Literal</em>'.
+   * @generated
+   */
+  PropertyEnumLiteral createPropertyEnumLiteral();
+
+  /**
    * Returns a new object of class '<em>Relation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -697,13 +706,22 @@ public interface AadlBaFactory extends EFactory
   PropertyHolder createPropertyHolder();
 
   /**
-   * Returns a new object of class '<em>Property Literal Holder</em>'.
+   * Returns a new object of class '<em>Property List Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property Literal Holder</em>'.
+   * @return a new object of class '<em>Property List Value</em>'.
    * @generated
    */
-  PropertyLiteralHolder createPropertyLiteralHolder();
+  PropertyListValue createPropertyListValue();
+
+  /**
+   * Returns a new object of class '<em>Property Record Field</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Record Field</em>'.
+   * @generated
+   */
+  PropertyRecordField createPropertyRecordField();
 
   /**
    * Returns a new object of class '<em>Upper Bound</em>'.
