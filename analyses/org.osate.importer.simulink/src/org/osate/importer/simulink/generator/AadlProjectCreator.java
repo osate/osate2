@@ -175,10 +175,11 @@ public class AadlProjectCreator
 		BufferedWriter out;
 		int tmp;
 		boolean connectionPreamble;
+		boolean subComponentsPreambleWritten;
 		StateMachine sm;
 		StateFlowInstance sfi;
 		connectionPreamble = false;
-
+		subComponentsPreambleWritten = false;
 		try
 		{	 
 			fstream = new FileWriter(outputFile);
@@ -338,6 +339,7 @@ public class AadlProjectCreator
 				if (e.hasSubcomponents())
 				{
 					out.write ("subcomponents\n");
+					subComponentsPreambleWritten = true;
 					for (Component c : e.getSubcomponents(ComponentType.BLOCK))
 					{
 						out.write ("   " + c.getAadlName() + " : system s_" + c.getAadlName() + ".i;\n");
@@ -416,7 +418,7 @@ public class AadlProjectCreator
 				if (sm != null)
 				{
 
-					Utils.writeSubprogramSubcomponents (sm, e, out, new ArrayList<String>());
+					Utils.writeSubprogramSubcomponents (sm, e, out, new ArrayList<String>(), subComponentsPreambleWritten);
 
 					/**
 					 * Let's call the other subprogram that contains
@@ -452,8 +454,14 @@ public class AadlProjectCreator
 						{
 							for (String var : state.getInternalStateMachine().getVariables())
 							{
-								out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
-
+								/**
+								 * Generate the data access if there is a data (in other words,
+								 * if we do not have an existing feature that represent the data).
+								 */
+								if (e.getSubEntity(var.toLowerCase()) == null)
+								{
+									out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
+								}
 							}
 						}
 					}
@@ -619,10 +627,7 @@ public class AadlProjectCreator
 					{
 						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
 					}
-					if ((e.getType() == Component.ComponentType.BLOCK) && (e2.getType() == Component.ComponentType.EXTERNAL_OUTPORT))
-					{
-						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() +";\n");
-					}
+
 				}
 			}
 			

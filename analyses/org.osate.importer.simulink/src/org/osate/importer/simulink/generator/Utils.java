@@ -51,9 +51,9 @@ public class Utils {
 
 	
 	public static void writeSubprogramSubcomponents
-		(StateMachine sm, Component associatedComponent, BufferedWriter out, List<String> existingSubcomponents) throws IOException
+		(StateMachine sm, Component associatedComponent, BufferedWriter out, List<String> existingSubcomponents, boolean subComponentsPreambleWritten) throws IOException
 	{
-		boolean preambleWritten = false;
+
 		
 		if (sm.getVariables().size() > 0)
 		{
@@ -69,10 +69,19 @@ public class Utils {
 					continue;
 				}
 				
-				if (! preambleWritten)
+				if (! subComponentsPreambleWritten)
 				{
 					out.write ("subcomponents\n");
-					preambleWritten = true;
+					subComponentsPreambleWritten = true;
+				}
+				
+				/**
+				 * Generate the data access if there is a data (in other words,
+				 * if we do not have an existing feature that represent the data).
+				 */
+				if ((associatedComponent != null) && (associatedComponent.getSubEntity(var.toLowerCase()) != null))
+				{
+					continue;
 				}
 				
 				existingSubcomponents.add (var);
@@ -98,7 +107,7 @@ public class Utils {
 		{
 			for (State s : sm.getStates())
 			{
-				writeSubprogramSubcomponents (s.getInternalStateMachine(), null, out, existingSubcomponents);
+				writeSubprogramSubcomponents (s.getInternalStateMachine(), associatedComponent, out, existingSubcomponents, subComponentsPreambleWritten);
 			}
 		}
 	}
