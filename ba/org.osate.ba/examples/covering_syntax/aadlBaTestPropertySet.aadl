@@ -26,12 +26,43 @@ aNegativeIntegerConstant : constant aadlinteger => -42 ;
 aFloatConstant : constant aadlreal => 42.1 ;
 aStringConstant : constant aadlstring => "hello world" ;
 aBooleanConstant : constant aadlboolean => true ;
-recordType : type record ( bool : aadlboolean ;
-                      int : aadlinteger ;
-                      enum : Supported_Dispatch_Protocols ;)  ;
-aRecord : AadlBaTestPropertySet::recordType => [bool => false ; int => 50 ; enum => Aperiodic ;]
-            applies to (data, subprogram, thread, system) ;
+
+aSimpleValue : aadlinteger applies to (data, subprogram, thread, system) ;
+aSimpleValueDefined : aadlinteger => 99 applies to (data, subprogram, thread, system) ;
+
+rangeType : type range of aadlinteger units Time_Units ;
+aRange : AadlBaTestPropertySet::rangeType applies to (data, subprogram, thread, system) ;
+aRangeDefined : AadlBaTestPropertySet::rangeType => 0 sec .. 99 sec applies to (data, subprogram, thread, system) ;
+
+enumType : type enumeration (zero, one, two , three, four, five, six, seven, eight, nine) ;
+aEnum : AadlBaTestPropertySet::enumType applies to (data, subprogram, thread, system) ;
+aEnumDefined : AadlBaTestPropertySet::enumType => nine applies to (data, subprogram, thread, system) ;
+
+aSimpleList : list of aadlstring applies to (data, subprogram, thread, system) ;
+aSimpleListDefined : list of aadlstring => ("hello", "hi", "good day") applies to (data, subprogram, thread, system) ;
+
+simpleRecordType : type record ( bool : aadlboolean ;
+                                 int : aadlinteger ;
+                                 enum : Supported_Dispatch_Protocols ;)  ;
+aSimpleRecord : AadlBaTestPropertySet::simpleRecordType applies to (data, subprogram, thread, system) ;
+aSimpleRecordDefined : AadlBaTestPropertySet::simpleRecordType => [bool => true ; int => 50 ; enum => Aperiodic ;]
+                       applies to (data, subprogram, thread, system) ;
             
-aList : list of aadlstring => ("hello", "hi", "good day") applies to (data, subprogram, thread, system) ;
+complexRecordType : type record ( bool : aadlboolean ;
+                                int : aadlinteger ;
+                                rec : AadlBaTestPropertySet::simpleRecordType ;
+                                listRec : list of AadlBaTestPropertySet::simpleRecordType ; ) ;
+aComplexRecord : AadlBaTestPropertySet::complexRecordType applies to (data, subprogram, thread, system) ;
+aComplexRecordDefined : AadlBaTestPropertySet::complexRecordType => [bool => true ;
+                                                                   int => 50 ;
+                                                                   rec => AadlBaTestPropertySet::aSimpleRecordDefined ;
+                                                                   listRec => (AadlBaTestPropertySet::aSimpleRecordDefined);] 
+                        applies to (data, subprogram, thread, system) ;
+
+aComplexList : list of AadlBaTestPropertySet::complexRecordType applies to (data, subprogram, thread, system) ;
+aComplexListDefined : list of AadlBaTestPropertySet::complexRecordType => (AadlBaTestPropertySet::aComplexRecordDefined) applies to (data, subprogram, thread, system) ;
+
+aComplexListOfList : list of list of AadlBaTestPropertySet::complexRecordType applies to (data, subprogram, thread, system) ;
+aComplexListOfListDefined : list of list of AadlBaTestPropertySet::complexRecordType => ((AadlBaTestPropertySet::aComplexRecordDefined)) applies to (data, subprogram, thread, system) ;
 
 end AadlBaTestPropertySet;

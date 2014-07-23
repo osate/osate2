@@ -18,6 +18,89 @@
 -- http://www.eclipse.org/org/documents/epl-v10.php
 
 -- Behavior Annex property reference tests.
+-- Tests pattern :
+
+--- Property Set ( )
+
+--> predeclared property set value
+--> with namespace
+--> commun tests
+    --> with default property value
+    --> without default property value (if possible)
+    
+--- Classifier properties ( )
+
+--> classifier name without namespace nor implementation
+--> classifier name with namespace
+--> classifier name with implementation
+--> classifier name with both namespace and implementation
+
+--> commun tests
+    --> classifier defines the property value
+    --> classifier doesn't define the property value
+    --> classifier redefines the property value
+
+--- Local variable ( )
+
+--> commun tests
+    --> local variable type defines the property value
+    --> local variable type redefines the property value
+    --> local variable type doesn't define the property value
+
+--- Binded prototype ( )
+
+--> commun tests
+    --> prototype into a prototype group
+    --> prototype into a nested prototype group
+    --> prototype type defines the property value
+    --> prototype type redefines the property value
+    --> prototype type doesn't define the property value
+    
+--- Subcomponent ( ) ; Feature ( )
+
+--> commun tests
+    --> classifier feature into a prototype group
+    --> classifier feature into a nested prototype group
+    --> classifier feature defines the property value
+    --> classifier feature type defines the property value
+    --> classifier feature type redefines the property value
+    --> classifier feature type doesn't define the property value
+    
+--- Commun tests
+
+--> Property constant (aadlinteger)
+
+--> Simple property value (aadlboolean)
+      --> with and without default value : aadlboolean changes
+     
+--> Range (aadlinteger)
+      --> with and without default value
+    --> with property field upper_bound
+    --> with property field lower_bound
+    
+--> Enumeration
+      --> with and without default value
+    --> dot used to access the enumeration literal
+    --> [ ] used to access the enumeration literal
+
+--> Simple list of aadlstring 
+    --> dot used to access the string literal
+    --> [ ] used to access the string literal
+
+--> Simple Record (aadlboolean ; aadlinteger ; enum ; ) 
+      --> with and without default value
+      
+--> Complex record (aadlboolean ; aadlinteger ; simple record ; list of simple record)
+      --> with and without default value
+      
+--> List of complex record
+      --> with and without default value
+
+--> List of list of complex record
+      --> with and without default value
+    --> only use dot
+    --> only use [ ]
+    --> use alternatively dot and [ ] 
 
 package PropertyReferenceTest
 public
