@@ -126,7 +126,7 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 				inputFile = fd.open();
 				String parentDirectory = new File(inputFile).getParent();
 				workingDirectory = parentDirectory;
-				OsateDebug.osateDebug("parent=" + parentDirectory);
+//				OsateDebug.osateDebug("parent=" + parentDirectory);
 				/**
 				 * Then, we open a new window 
 				 * to choose the module to be included
