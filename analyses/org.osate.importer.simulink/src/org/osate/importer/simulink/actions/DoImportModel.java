@@ -37,52 +37,22 @@
 
 package org.osate.importer.simulink.actions;
 
-
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.IMessageProvider;
-import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeSelection;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TreePath;
-import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
 import org.osate.importer.model.Model;
 import org.osate.importer.simulink.Activator;
@@ -90,30 +60,26 @@ import org.osate.importer.simulink.FileImport;
 import org.osate.importer.simulink.generator.AadlProjectCreator;
 import org.osgi.framework.Bundle;
 
+public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 
-public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
-	
 	private String inputFile;
 	private String outputDirectory;
 	List<String> selectedModules;
-	  private static String workingDirectory;
-	  private static boolean filterSystem = false;
-	  
-	  public static boolean filterSystem ()
-	  {
-		  return filterSystem;
-	  }
-	  
-	  public static void setFilterSystem (boolean f)
-	  {
-		  filterSystem = f;
-	  }
-	  
-	  public static String getWorkingDirectory ()
-	  {
-		  return workingDirectory;
-	  }
-	  
+	private static String workingDirectory;
+	private static boolean filterSystem = false;
+
+	public static boolean filterSystem() {
+		return filterSystem;
+	}
+
+	public static void setFilterSystem(boolean f) {
+		filterSystem = f;
+	}
+
+	public static String getWorkingDirectory() {
+		return workingDirectory;
+	}
+
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
@@ -125,41 +91,34 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 	protected String getActionName() {
 		return "Simulink Importer";
 	}
-	
 
-	
-	public void run(IAction action) 
-	{
-		
-		
+	public void run(IAction action) {
+
 		outputDirectory = Utils.getSelectedDirectory();
-		
-       
-        if (outputDirectory == null)
-        {
-        	System.out.println("Selection is not a directory" + outputDirectory );
-        	return;
-        }
-		
-		
-		final Display d = PlatformUI.getWorkbench().getDisplay();
-		
 
-		
-		d.syncExec(new Runnable(){
+		if (outputDirectory == null) {
+			org.osate.ui.dialogs.Dialog.showInfo("Simulink Importer",
+					"Please select a directory where the model will be created");
+
+//			System.out.println("Selection is not a directory" + outputDirectory);
+			return;
+		}
+
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+
+		d.syncExec(new Runnable() {
 
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
-				
+
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
-				
+
 				FileDialog fd = new FileDialog(sh, SWT.OPEN);
 				inputFile = fd.open();
 				String parentDirectory = new File(inputFile).getParent();
 				workingDirectory = parentDirectory;
-				OsateDebug.osateDebug("parent=" + parentDirectory);
 				/**
 				 * Then, we open a new window 
 				 * to choose the module to be included
@@ -168,46 +127,38 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 				 * then reused by the generator to filter the
 				 * used nodules.
 				 */
+			}
+		});
 
-				
-					
-			}});
-		
-
-		
 		Job aadlGenerator = new Job("SIMULINK2AADL") {
-			  protected IStatus run(IProgressMonitor monitor) {
+			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Generating AADL files from Simulink model", 100);
-				
+
 				/**
 				 * Initialize global structures.
 				 */
 				FileImport.init();
-				Model genericModel = FileImport.loadFile (inputFile);
-			    AadlProjectCreator.createProject (outputDirectory, genericModel);
-				
+				Model genericModel = FileImport.loadFile(inputFile);
+				AadlProjectCreator.createProject(outputDirectory, genericModel);
+
 				Utils.refreshWorkspace(monitor);
 				monitor.done();
-			    return Status.OK_STATUS;
-			  }
-			};
-	  aadlGenerator.schedule();
+				return Status.OK_STATUS;
+			}
+		};
+		aadlGenerator.schedule();
 
-		
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	public void dispose() {
 
-	public void dispose() 
-	{
-		
 	}
 
-	public void init(IWorkbenchWindow window)
-	{
+	public void init(IWorkbenchWindow window) {
 	}
 }

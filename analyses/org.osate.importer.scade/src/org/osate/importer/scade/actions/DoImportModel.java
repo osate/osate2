@@ -30,10 +30,9 @@
 
 package org.osate.importer.scade.actions;
 
-
 import java.io.File;
 import java.util.List;
-import org.osgi.framework.Bundle;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -47,38 +46,33 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
 import org.osate.importer.model.Model;
 import org.osate.importer.scade.Activator;
 import org.osate.importer.scade.FileImport;
 import org.osate.importer.scade.generator.AadlProjectCreator;
+import org.osgi.framework.Bundle;
 
+public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 
-
-public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
-	
 	private String inputFile;
 	private String outputDirectory;
 	List<String> selectedModules;
-	  private static String workingDirectory;
-	  private static boolean filterSystem = false;
-	  
-	  public static boolean filterSystem ()
-	  {
-		  return filterSystem;
-	  }
-	  
-	  public static void setFilterSystem (boolean f)
-	  {
-		  filterSystem = f;
-	  }
-	  
-	  public static String getWorkingDirectory ()
-	  {
-		  return workingDirectory;
-	  }
-	  
+	private static String workingDirectory;
+	private static boolean filterSystem = false;
+
+	public static boolean filterSystem() {
+		return filterSystem;
+	}
+
+	public static void setFilterSystem(boolean f) {
+		filterSystem = f;
+	}
+
+	public static String getWorkingDirectory() {
+		return workingDirectory;
+	}
+
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
@@ -90,42 +84,37 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 	protected String getActionName() {
 		return "Simulink Importer";
 	}
-	
 
-	
-	public void run(IAction action) 
-	{
-		
-		
+	public void run(IAction action) {
+
 		outputDirectory = Utils.getSelectedDirectory();
-		
-       
-        if (outputDirectory == null)
-        {
-        	System.out.println("Selection is not a directory" + outputDirectory );
-        	return;
-        }
-		
-		
-		final Display d = PlatformUI.getWorkbench().getDisplay();
-		
 
-		
-		d.syncExec(new Runnable(){
+		if (outputDirectory == null) {
+			org.osate.ui.dialogs.Dialog.showInfo("SCADE Importer",
+					"Please select a directory where the model will be created");
+
+			return;
+		}
+
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+
+		d.syncExec(new Runnable() {
 
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
 				List<String> modulesList;
-				
 
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
-				
+
 				FileDialog fd = new FileDialog(sh, SWT.OPEN);
 				inputFile = fd.open();
 				String parentDirectory = new File(inputFile).getParent();
-				workingDirectory = parentDirectory;
+
+				if (parentDirectory != null) {
+					workingDirectory = parentDirectory;
+				}
 //				OsateDebug.osateDebug("parent=" + parentDirectory);
 				/**
 				 * Then, we open a new window 
@@ -136,40 +125,34 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 				 * used nodules.
 				 */
 
-				
-					
-			}});
-		
-			Job aadlGenerator = new Job("SCADE2AADL") {
-				  protected IStatus run(IProgressMonitor monitor) {
-					monitor.beginTask("Generating AADL files from LDM", 100);
-					Model genericModel = new Model();
-					FileImport.loadFile (inputFile, genericModel);
-				    AadlProjectCreator.createProject (outputDirectory, genericModel);
-					
-					Utils.refreshWorkspace(monitor);
-					monitor.done();
-				    return Status.OK_STATUS;
-				  }
-				};
-		  aadlGenerator.schedule();
-		 
+			}
+		});
 
-		
+		Job aadlGenerator = new Job("SCADE2AADL") {
+			protected IStatus run(IProgressMonitor monitor) {
+				monitor.beginTask("Generating AADL files from LDM", 100);
+				Model genericModel = new Model();
+				FileImport.loadFile(inputFile, genericModel);
+				AadlProjectCreator.createProject(outputDirectory, genericModel);
+
+				Utils.refreshWorkspace(monitor);
+				monitor.done();
+				return Status.OK_STATUS;
+			}
+		};
+		aadlGenerator.schedule();
+
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	public void dispose() {
 
-	public void dispose() 
-	{
-		
 	}
 
-	public void init(IWorkbenchWindow window)
-	{
+	public void init(IWorkbenchWindow window) {
 	}
 }

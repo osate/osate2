@@ -19,7 +19,7 @@
  * distribution except as restricted below. 
  * 
  * This Material is provided to you under the terms and conditions of the 
- * Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is 
+ * Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is  
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
@@ -38,8 +38,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.osate.importer.model.Model;
 import org.w3c.dom.Document;
 
-public class FileImport 
-{
+public class FileImport {
 
 	/**
 	 * Load the SCADE file and fill the Model producedModel passed
@@ -48,30 +47,25 @@ public class FileImport
 	 * @param producedModel - the model supposed to be produced
 	 * @return              - the model that is completed. Similar at the second parameter.
 	 */
-	public static Model loadFile (String inputFile, Model producedModel)
-	{
-		
-		try 
-		{
+	public static Model loadFile(String inputFile, Model producedModel) {
+
+		try {
 			/**
 			 * Instantiate the XML file.
 			 */
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(new FileInputStream (inputFile));
+			Document doc = dBuilder.parse(new FileInputStream(inputFile));
 			doc.getDocumentElement().normalize();
-			
+
 			/**
 			 * Recursively parse the model and fill the main SCADE model.
 			 */
-			ImportModel.process (doc, producedModel);
-		} 
-		catch (Exception e) 
-		{
+			ImportModel.process(doc, producedModel);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return producedModel;
 	}
-	
 
 }
