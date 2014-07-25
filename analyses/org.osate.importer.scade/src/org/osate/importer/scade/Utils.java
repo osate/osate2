@@ -438,4 +438,26 @@ public class Utils {
 		}
 		}
 	}
+
+	public static String getModelName(String fileName) {
+		String name;
+		int idx1;
+		int idx2;
+
+		idx1 = fileName.lastIndexOf("\\") + 1;
+
+		if (idx1 == 0) {
+			idx1 = fileName.lastIndexOf('/');
+		}
+
+		if (idx1 == -1) {
+			idx1 = 0;
+		} else {
+			idx1 = idx1 + 1;
+		}
+
+		idx2 = fileName.lastIndexOf(".");
+
+		return fileName.substring(idx1, idx2);
+	}
 }

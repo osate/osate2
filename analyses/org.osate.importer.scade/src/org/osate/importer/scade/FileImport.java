@@ -30,13 +30,19 @@
 
 package org.osate.importer.scade;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Model;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class FileImport {
 
@@ -47,8 +53,10 @@ public class FileImport {
 	 * @param producedModel - the model supposed to be produced
 	 * @return              - the model that is completed. Similar at the second parameter.
 	 */
-	public static Model loadFile(String inputFile, Model producedModel) {
-
+	public static Model loadXscadeFile(String inputFile, Model producedModel) {
+		OsateDebug.osateDebug("FileImport", "Try to load XSCADE file " + inputFile);
+		producedModel.setName(Utils.getModelName(inputFile));
+		producedModel.setPackageName(Utils.getModelName(inputFile));
 		try {
 			/**
 			 * Instantiate the XML file.
@@ -68,4 +76,72 @@ public class FileImport {
 		return producedModel;
 	}
 
+	/**
+	 * Load all the models referenced in a project file and
+	 * return them.
+	 * @param inputFile - the project that contains all the models
+	 * @return - list of all the models
+	 */
+	public static List<Model> loadProjectFile(String inputFile, String workingDirectory) {
+		List<Model> allModels = new ArrayList<Model>();
+		List<String> modelFileNames = new ArrayList<String>();
+
+		OsateDebug.osateDebug("FileImport", "Try to load ETP file " + inputFile);
+
+		try {
+			/**
+			 * Instantiate the XML file.
+			 */
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(new FileInputStream(inputFile));
+			doc.getDocumentElement().normalize();
+
+			/**
+			 * Recursively parse the model and fill the main SCADE model.
+			 */
+
+			getProjectFiles(doc, modelFileNames);
+
+			for (String s : modelFileNames) {
+				Model newModel = new Model();
+				loadXscadeFile(workingDirectory + File.separator + s, newModel);
+
+				if (newModel != null) {
+					allModels.add(newModel);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return allModels;
+	}
+
+	public static void getProjectFiles(Node node, List<String> modelFilesNames) {
+		String extension;
+		if (node.getNodeName().equalsIgnoreCase("fileref")) {
+			Node attrName = null;
+			attrName = Utils.getAttribute(node, "persistAs");
+
+			if (attrName != null) {
+				String attrStr = attrName.getNodeValue().toString();
+				OsateDebug.osateDebug("FileImport", "attr=" + attrStr);
+
+				if (attrStr.contains(".")) {
+					extension = attrStr.substring(attrStr.lastIndexOf(".") + 1);
+					if (extension.equalsIgnoreCase("xscade")) {
+						modelFilesNames.add(attrStr);
+					}
+				}
+
+			}
+		}
+
+		NodeList nList = node.getChildNodes();
+
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+			getProjectFiles(nList.item(temp), modelFilesNames);
+		}
+	}
 }

@@ -134,21 +134,52 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 			fileSuffix = inputFile.substring(inputFile.lastIndexOf('.') + 1, inputFile.length());
 		}
 
-		if (fileSuffix.equalsIgnoreCase("xscade")) {
-			Job aadlGenerator = new Job("SCADE2AADL") {
-				protected IStatus run(IProgressMonitor monitor) {
-					monitor.beginTask("Generating AADL files from SCADE", 100);
+		if (fileSuffix.equalsIgnoreCase("xscade") || fileSuffix.equalsIgnoreCase("etp")) {
+			Job aadlGenerator;
 
-					Model genericModel = new Model();
-					FileImport.loadFile(inputFile, genericModel);
-					AadlProjectCreator.createProject(outputDirectory, genericModel);
+			aadlGenerator = null;
 
-					Utils.refreshWorkspace(monitor);
-					monitor.done();
-					return Status.OK_STATUS;
-				}
-			};
-			aadlGenerator.schedule();
+			if (fileSuffix.equalsIgnoreCase("xscade")) {
+				aadlGenerator = new Job("SCADE2AADL") {
+					protected IStatus run(IProgressMonitor monitor) {
+						monitor.beginTask("Generating AADL files from SCADE", 100);
+
+						Model genericModel = new Model();
+						FileImport.loadXscadeFile(inputFile, genericModel);
+						AadlProjectCreator.createProject(outputDirectory, genericModel);
+
+						Utils.refreshWorkspace(monitor);
+						monitor.done();
+						return Status.OK_STATUS;
+					}
+				};
+			}
+
+			if (fileSuffix.equalsIgnoreCase("etp")) {
+				aadlGenerator = new Job("SCADE2AADL") {
+					protected IStatus run(IProgressMonitor monitor) {
+						List<Model> projectModels;
+
+						monitor.beginTask("Generating AADL files from SCADE", 100);
+
+						Model genericModel = new Model();
+						projectModels = FileImport.loadProjectFile(inputFile, workingDirectory);
+
+						for (Model m : projectModels) {
+							AadlProjectCreator.createProject(outputDirectory, m);
+						}
+
+						Utils.refreshWorkspace(monitor);
+						monitor.done();
+						return Status.OK_STATUS;
+					}
+				};
+			}
+
+			if (aadlGenerator != null) {
+				aadlGenerator.schedule();
+			}
+
 		} else {
 			org.osate.ui.dialogs.Dialog.showInfo("SCADE Importer",
 					"Please select a file with the xscade extension. Found suffix: " + fileSuffix);
