@@ -196,8 +196,12 @@ Workflow {
 			// generates the required bindings only if the grammar inherits from Xbase
 //			fragment = xbase.XbaseGeneratorFragment {}
 
-// provides a preference page for template proposals
-//fragment = templates.CodetemplatesGeneratorFragment {}			
+			// provides a preference page for template proposals
+			fragment = tasks.TaskTagPreferencePageFragment {}			
+
+			// provides a preference page for task tags
+			fragment = templates.CodetemplatesGeneratorFragment {}			
+
 			// rename refactoring  
 			fragment = refactoring.RefactorElementNameFragment {}
 //			// Code generator

@@ -159,4 +159,9 @@ public abstract class AbstractAadl2RuntimeModule extends DefaultRuntimeModule {
 		return org.osate.xtext.aadl2.formatting.Aadl2Formatter.class;
 	}
 
+	// contributed by org.eclipse.xtext.generator.tasks.TaskTagPreferencePageFragment
+	public Class<? extends org.eclipse.xtext.tasks.ITaskTagProvider> bindITaskTagProvider() {
+		return org.eclipse.xtext.tasks.PreferenceTaskTagProvider.class;
+	}
+
 }
