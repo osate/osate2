@@ -655,13 +655,13 @@ public class AadlProjectCreator {
 
 		createDirectories(outputPath);
 
-		OsateDebug.osateDebug("Create Generic Runtime in " + outputFileGenericRuntime);
+//		OsateDebug.osateDebug("Create Generic Runtime in " + outputFileGenericRuntime);
 		createGenericRuntime(outputFileGenericRuntime);
 
-		OsateDebug.osateDebug("Create AADL functional project in " + outputFileFunctional);
+//		OsateDebug.osateDebug("Create AADL functional project in " + outputFileFunctional);
 		createAadlFunctions(outputFileFunctional, genericModel);
 
-		OsateDebug.osateDebug("Create AADL runtime  project in " + outputFileRuntime);
+//		OsateDebug.osateDebug("Create AADL runtime  project in " + outputFileRuntime);
 		createAadlRuntime(outputFileRuntime, genericModel);
 
 	}
