@@ -34,9 +34,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.stream.FileImageInputStream;
 
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Preferences;
@@ -47,11 +44,8 @@ import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;
-import org.osate.importer.model.sm.Transition;
 
-
-public class AadlProjectCreator
-{
+public class AadlProjectCreator {
 
 	/**
 	 * Create all directories required to store the model
@@ -59,8 +53,7 @@ public class AadlProjectCreator
 	 * @param outputPath the path that will contain all the model
 	 * and related resources.
 	 */
-	public static void createDirectories (String outputPath)
-	{
+	public static void createDirectories(String outputPath) {
 		String outputPathFunctional;
 		String outputPathRuntime;
 		File ftmp;
@@ -68,157 +61,123 @@ public class AadlProjectCreator
 		outputPathFunctional = outputPath + File.separatorChar + "functional";
 		outputPathRuntime = outputPath + File.separatorChar + "runtime";
 
-		ftmp = new File (outputPathFunctional);
+		ftmp = new File(outputPathFunctional);
 
-		if (ftmp.exists() && ftmp.isFile())
-		{
-			OsateDebug.osateDebug ("Error, the following path is a file" + outputPathFunctional);
+		if (ftmp.exists() && ftmp.isFile()) {
+			OsateDebug.osateDebug("Error, the following path is a file" + outputPathFunctional);
 		}
 
-		if (! ftmp.exists())
-		{
+		if (!ftmp.exists()) {
 			ftmp.mkdir();
 		}
 
+		ftmp = new File(outputPathRuntime);
 
-		ftmp = new File (outputPathRuntime);
-
-		if (ftmp.exists() && ftmp.isFile())
-		{
-			OsateDebug.osateDebug ("Error, the following path is a file" + outputPathRuntime);
+		if (ftmp.exists() && ftmp.isFile()) {
+			OsateDebug.osateDebug("Error, the following path is a file" + outputPathRuntime);
 		}
 
-		if (! ftmp.exists())
-		{
+		if (!ftmp.exists()) {
 			ftmp.mkdir();
 		}
 	}
 
-	public static void createAadlFunctions (String outputFile, Model genericModel)
-	{
+	public static void createAadlFunctions(String outputFile, Model genericModel) {
 		FileWriter fstream;
 		BufferedWriter out;
 		String aadlPackagePrefix;
 
 		aadlPackagePrefix = "";
 
-		if (genericModel.getPackageName() != null)
-		{
-			aadlPackagePrefix = genericModel.getPackageName()+"::";
+		if (genericModel.getPackageName() != null) {
+			aadlPackagePrefix = genericModel.getPackageName() + "::";
 		}
 
-		try
-		{	 
+		try {
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write ("package "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::functions\n");
+			out.write("package " + Preferences.getPackagePrefix() + aadlPackagePrefix + "imported::functions\n");
 
-			out.write ("public\n");
+			out.write("public\n");
 
-			out.write ("with SEI;\n");
-			out.write ("with ARINC653;\n");
+			out.write("with SEI;\n");
+			out.write("with ARINC653;\n");
 
-
-			for (Component e : genericModel.getComponents())
-			{
-				if (e.getType() == Component.ComponentType.BLOCK)
-				{
-					out.write ("abstract "+e.getAadlName()+"\n");
-					if (e.hasInterfaces())
-					{
-						out.write ("features\n");
-						for (Component e2 : e.getSubEntities())
-						{
-							if (e2.getType() == ComponentType.EXTERNAL_INPORT)
-							{
-								out.write ("   " + e2.getAadlName() + " : in event port;\n");
+			for (Component e : genericModel.getComponents()) {
+				if (e.getType() == Component.ComponentType.BLOCK) {
+					out.write("abstract " + e.getAadlName() + "\n");
+					if (e.hasInterfaces()) {
+						out.write("features\n");
+						for (Component e2 : e.getSubEntities()) {
+							if (e2.getType() == ComponentType.EXTERNAL_INPORT) {
+								out.write("   " + e2.getAadlName() + " : in event port;\n");
 							}
-							if (e2.getType() == ComponentType.EXTERNAL_OUTPORT)
-							{
-								out.write ("   " + e2.getAadlName() + " : out event port;\n");
+							if (e2.getType() == ComponentType.EXTERNAL_OUTPORT) {
+								out.write("   " + e2.getAadlName() + " : out event port;\n");
 							}
 						}
-						for (Component e2 : e.getIncomingDependencies())
-						{
-							out.write ("   from_"+e2.getAadlName()+" : in event port;\n");
+						for (Component e2 : e.getIncomingDependencies()) {
+							out.write("   from_" + e2.getAadlName() + " : in event port;\n");
 						}
-						for (Component e2 : e.getOutgoingDependencies())
-						{
-							out.write ("   to_" + e2.getAadlName()+" : out event port;\n");
+						for (Component e2 : e.getOutgoingDependencies()) {
+							out.write("   to_" + e2.getAadlName() + " : out event port;\n");
 						}
 					}
-					out.write ("properties\n");
-					out.write ("   SEI::nsloc => 100;\n");
-					out.write ("end "+ e.getAadlName() + ";\n");
+					out.write("properties\n");
+					out.write("   SEI::nsloc => 100;\n");
+					out.write("end " + e.getAadlName() + ";\n");
 				}
 			}
 
-			out.write ("end "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::functions;\n");
+			out.write("end " + Preferences.getPackagePrefix() + aadlPackagePrefix + "imported::functions;\n");
 
 			out.close();
 			fstream.close();
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			OsateDebug.osateDebug("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
+	public static void writeInnerStateMachine(StateMachine sm, BufferedWriter out) throws IOException {
 
-	public static void writeInnerStateMachine (StateMachine sm, BufferedWriter out) throws IOException
-	{
-
-		for (State s : sm.getStates())
-		{
-			if (! s.getInternalStateMachine().isEmpty())
-			{
-				out.write ("system "+s.getName()+"\n");
-				if (s.getInternalStateMachine().hasVariables())
-				{
+		for (State s : sm.getStates()) {
+			if (!s.getInternalStateMachine().isEmpty()) {
+				out.write("system " + s.getName() + "\n");
+				if (s.getInternalStateMachine().hasVariables()) {
 					out.write("features\n");
-					for (String var : s.getInternalStateMachine().getVariables())
-					{
+					for (String var : s.getInternalStateMachine().getVariables()) {
 						out.write("   ");
 						out.write(var);
 						out.write(" : in event data port ");
-						if (s.getInternalStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
-						{
+						if (s.getInternalStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL) {
 							out.write("generictype_boolean");
-						}
-						else
-						{
+						} else {
 							out.write("generictype");
 						}
 						out.write(";\n");
 					}
 				}
-				out.write ("end " + s.getName() + ";\n\n\n");
+				out.write("end " + s.getName() + ";\n\n\n");
 
-
-				out.write ("system implementation "+s.getName()+".i\n");
-				if (! s.getInternalStateMachine().isEmpty())
-				{
+				out.write("system implementation " + s.getName() + ".i\n");
+				if (!s.getInternalStateMachine().isEmpty()) {
 					boolean subcomponentSectionWritten = false;
 
-					for (State s2 : s.getInternalStateMachine().getStates())
-					{
-						if (! s2.getInternalStateMachine().isEmpty())
-						{
-							if (! subcomponentSectionWritten)
-							{
-								out.write ("subcomponents\n");
+					for (State s2 : s.getInternalStateMachine().getStates()) {
+						if (!s2.getInternalStateMachine().isEmpty()) {
+							if (!subcomponentSectionWritten) {
+								out.write("subcomponents\n");
 								subcomponentSectionWritten = true;
 							}
-							out.write ("   " + s2.getName() + " : system "+s2.getName()+".i;\n");
+							out.write("   " + s2.getName() + " : system " + s2.getName() + ".i;\n");
 						}
 					}
 				}
-				Utils.writeBehaviorAnnex (s.getInternalStateMachine(), out);
-				out.write ("end " + s.getName() + ".i;\n\n\n");
-
+				Utils.writeBehaviorAnnex(s.getInternalStateMachine(), out);
+				out.write("end " + s.getName() + ".i;\n\n\n");
 
 				writeInnerStateMachine(s.getInternalStateMachine(), out);
 
@@ -227,8 +186,7 @@ public class AadlProjectCreator
 
 	}
 
-	public static void createAadlRuntime (String outputFile, Model genericModel)
-	{
+	public static void createAadlRuntime(String outputFile, Model genericModel) {
 		FileWriter fstream;
 		BufferedWriter out;
 		int tmp;
@@ -236,41 +194,35 @@ public class AadlProjectCreator
 		boolean connectionPreamble;
 		connectionPreamble = false;
 		aadlPackagePrefix = "";
-		try
-		{	 
+		try {
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			if (genericModel.getPackageName() != null)
-			{
-				aadlPackagePrefix = genericModel.getPackageName()+"::";
+			if (genericModel.getPackageName() != null) {
+				aadlPackagePrefix = genericModel.getPackageName() + "::";
 			}
 
-			out.write ("package "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::runtime\n");
+			out.write("package " + Preferences.getPackagePrefix() + aadlPackagePrefix + "imported::runtime\n");
 
-			out.write ("public\n");
-			out.write ("with "+Preferences.getPackagePrefix()+"runtime::common;\n");
-			out.write ("with "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::functions;\n");
-			out.write ("with SEI;\n");
-			out.write ("with Data_Model;\n");
-			out.write ("with ARINC653;\n\n\n");
+			out.write("public\n");
+			out.write("with " + Preferences.getPackagePrefix() + "runtime::common;\n");
+			out.write("with " + Preferences.getPackagePrefix() + aadlPackagePrefix + "imported::functions;\n");
+			out.write("with SEI;\n");
+			out.write("with Data_Model;\n");
+			out.write("with ARINC653;\n\n\n");
 
-			out.write ("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
+			out.write("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
 
-			out.write ("data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
+			out.write("data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
 
-
-			for (Component e : genericModel.getComponents())
-			{
+			for (Component e : genericModel.getComponents()) {
 				StateMachine stateMachine = null;
 
-				if (e.getStateMachines().size() > 0)
-				{
+				if (e.getStateMachines().size() > 0) {
 					stateMachine = e.getStateMachines().get(0);
 				}
 
-				if (e.getType() != Component.ComponentType.BLOCK)
-				{
+				if (e.getType() != Component.ComponentType.BLOCK) {
 					continue;
 				}
 
@@ -279,113 +231,92 @@ public class AadlProjectCreator
 				 * for this component.
 				 */
 
-
 				/**
 				 * Let's generate the subprogram for the nested state
 				 * machines of the current component.
 				 */
-				StateMachine sm = e.getStateMachines().get(0);
-				if (sm != null)
-				{
-					writeInnerStateMachine (sm, out);
+				if (e.getStateMachines().size() > 0) {
+					StateMachine sm = e.getStateMachines().get(0);
+					if (sm != null) {
+						writeInnerStateMachine(sm, out);
+					}
 				}
 
-
-
-
-				if (e.getParent() == null)
-				{
-					out.write ("system s_"+e.getAadlName()+"\n");
-					if ( (e.hasInterfaces())||
-							((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
-									||
-									(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
-					{
-						out.write ("features\n");
+				if (e.getParent() == null) {
+					out.write("system s_" + e.getAadlName() + "\n");
+					if ((e.hasInterfaces())
+							|| ((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0)
+									.getIncomingDependencies().size() > 0) || (e.getSubEntities().get(0)
+									.getOutgoingDependencies().size() > 0))))) {
+						out.write("features\n");
 					}
-					for (Component e2 : e.getSubEntities())
-					{
+					for (Component e2 : e.getSubEntities()) {
 						String direction = "";
 						String type = "generictype";
-						if ((e2.getType() == ComponentType.EXTERNAL_INPORT) || (e2.getType() == ComponentType.EXTERNAL_OUTPORT))
-						{
-							if (e2.getType() == ComponentType.EXTERNAL_INPORT)
-							{
+						if ((e2.getType() == ComponentType.EXTERNAL_INPORT)
+								|| (e2.getType() == ComponentType.EXTERNAL_OUTPORT)) {
+							if (e2.getType() == ComponentType.EXTERNAL_INPORT) {
 								direction = " in ";
 							}
-							if (e2.getType() == ComponentType.EXTERNAL_OUTPORT)
-							{
+							if (e2.getType() == ComponentType.EXTERNAL_OUTPORT) {
 								direction = " out ";
 							}
-							if (e2.getPortType() == PortType.BOOL)
-							{
+							if (e2.getPortType() == PortType.BOOL) {
 								type = "generictype_boolean";
 							}
 
-							out.write ("   "+e2.getAadlName()+" : "+direction+" event data port "+type+";\n");
+							out.write("   " + e2.getAadlName() + " : " + direction + " event data port " + type + ";\n");
 						}
 					}
-					for (Component e2 : e.getIncomingDependencies())
-					{
-						out.write ("   from_"+e2.getAadlName()+" : in event data port generictype;\n");
+					for (Component e2 : e.getIncomingDependencies()) {
+						out.write("   from_" + e2.getAadlName() + " : in event data port generictype;\n");
 					}
-					for (Component e2 : e.getOutgoingDependencies())
-					{
-						out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
+					for (Component e2 : e.getOutgoingDependencies()) {
+						out.write("   to_" + e2.getAadlName() + " : out event data port generictype;\n");
 					}
 
+					out.write("end s_" + e.getAadlName() + ";\n\n");
 
-					out.write ("end s_"+ e.getAadlName() + ";\n\n");
-
-					out.write ("system implementation s_"+e.getAadlName()+".i\n");
+					out.write("system implementation s_" + e.getAadlName() + ".i\n");
 
 					int connectionId = 0;
-					if ( ((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
-							||
-							(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
-					{
-						out.write ("connections\n");
+					if (((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies()
+							.size() > 0) || (e.getSubEntities().get(0).getOutgoingDependencies().size() > 0))))) {
+						out.write("connections\n");
 					}
-					//						for (Component e2 : e.getIncomingDependencies())
-					//						{
-					//							out.write ("   c" + connectionId++ +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
-					//						}
-					//						for (Component e2 : e.getOutgoingDependencies())
-					//						{
-					//							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+					// for (Component e2 : e.getIncomingDependencies())
+					// {
+					// out.write ("   c" + connectionId++
+// +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
+					// }
+					// for (Component e2 : e.getOutgoingDependencies())
+					// {
+					// out.write ("   c" + connectionId++
+// +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
 					//
-					//						}
+					// }
 					boolean subcomponentSectionWritten = false;
-					if (e.hasSubcomponents())
-					{ 
-						if (! subcomponentSectionWritten)
-						{
-							out.write ("subcomponents\n");
+					if (e.hasSubcomponents()) {
+						if (!subcomponentSectionWritten) {
+							out.write("subcomponents\n");
 							subcomponentSectionWritten = true;
 						}
-						for (Component ctmp : e.getSubEntities())
-						{
-							if (ctmp.getType() == ComponentType.BLOCK)
-							{
-								out.write ("   " + ctmp.getAadlName() + " : system s_" + ctmp.getAadlName() + ";\n");
+						for (Component ctmp : e.getSubEntities()) {
+							if (ctmp.getType() == ComponentType.BLOCK) {
+								out.write("   " + ctmp.getAadlName() + " : system s_" + ctmp.getAadlName() + ";\n");
 							}
 						}
 					}
 
-					if (stateMachine != null)
-					{
-						for (State s : stateMachine.getStates())
-						{
-							if (! s.getInternalStateMachine().isEmpty())
-							{
+					if (stateMachine != null) {
+						for (State s : stateMachine.getStates()) {
+							if (!s.getInternalStateMachine().isEmpty()) {
 
-
-								if (! subcomponentSectionWritten)
-								{
-									out.write ("subcomponents\n");
+								if (!subcomponentSectionWritten) {
+									out.write("subcomponents\n");
 									subcomponentSectionWritten = true;
 								}
-								out.write ("   " + s.getName() + " : system "+s.getName()+".i;\n");
+								out.write("   " + s.getName() + " : system " + s.getName() + ".i;\n");
 
 							}
 						}
@@ -393,81 +324,78 @@ public class AadlProjectCreator
 
 					boolean connectionsSectionWritten = false;
 					int connIdentifier = 0;
-					if (e.getConnections().size() > 0)
-					{
-						out.write ("connections\n");
+					if (e.getConnections().size() > 0) {
+						out.write("connections\n");
 						connectionsSectionWritten = true;
 
-						for (Connection conn : e.getConnections())
-						{
+						for (Connection conn : e.getConnections()) {
 
 							/**
 							 * Connection between sub-components.
 							 */
-							if ( (conn.getSource().getType() == ComponentType.EXTERNAL_OUTPORT) &&
-									(conn.getDestination().getType() == ComponentType.EXTERNAL_INPORT))
-							{
-								out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getParent().getAadlName() +"."+conn.getSource().getAadlName() + " -> "+conn.getDestination().getParent().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+							if ((conn.getSource().getType() == ComponentType.EXTERNAL_OUTPORT)
+									&& (conn.getDestination().getType() == ComponentType.EXTERNAL_INPORT)) {
+								out.write("   conn" + connIdentifier + " : port "
+										+ conn.getSource().getParent().getAadlName() + "."
+										+ conn.getSource().getAadlName() + " -> "
+										+ conn.getDestination().getParent().getAadlName() + "."
+										+ conn.getSource().getAadlName() + ";\n");
 							}
 
 							/**
 							 * Connection from external interfaces to internal sub-components.
 							 */
-							if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT)
-							{
-								out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + "." + conn.getDestination().getAadlName() +" -> "+conn.getDestination().getAadlName()+";\n");
+							if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT) {
+								out.write("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName()
+										+ "." + conn.getDestination().getAadlName() + " -> "
+										+ conn.getDestination().getAadlName() + ";\n");
 							}
 
 							/**
 							 * Connection from internal sub-components to external interfaces.
 							 */
-							if (conn.getSource().getType() == ComponentType.EXTERNAL_INPORT)
-							{
-								out.write ("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + " -> "+conn.getDestination().getAadlName()+"."+conn.getSource().getAadlName()+";\n");
+							if (conn.getSource().getType() == ComponentType.EXTERNAL_INPORT) {
+								out.write("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName()
+										+ " -> " + conn.getDestination().getAadlName() + "."
+										+ conn.getSource().getAadlName() + ";\n");
 							}
 
 							connIdentifier++;
 						}
 					}
 
-					if (stateMachine != null)
-					{
-						for (State s : stateMachine.getStates())
-						{
-							if (! s.getInternalStateMachine().isEmpty())
-							{
-									for (Component subComponent : e.getSubEntities())
-									{
-										String varName = subComponent.getAadlName();
-										if (Utils.needConnection( s.getInternalStateMachine(), varName))
-										{
-											if (! connectionsSectionWritten)
-											{
-												out.write ("connections\n");
-												connectionsSectionWritten = true;
-											}
-
-											out.write ("   conn" + connIdentifier + " : port " + varName + " -> "+s.getName()+"."+varName+";\n");
-											connIdentifier++;
+					if (stateMachine != null) {
+						for (State s : stateMachine.getStates()) {
+							if (!s.getInternalStateMachine().isEmpty()) {
+								for (Component subComponent : e.getSubEntities()) {
+									String varName = subComponent.getAadlName();
+									if (Utils.needConnection(s.getInternalStateMachine(), varName)) {
+										if (!connectionsSectionWritten) {
+											out.write("connections\n");
+											connectionsSectionWritten = true;
 										}
+
+										out.write("   conn" + connIdentifier + " : port " + varName + " -> "
+												+ s.getName() + "." + varName + ";\n");
+										connIdentifier++;
 									}
-								
-															}
+								}
+
+							}
 						}
 					}
 
+					if (stateMachine != null) {
+						Utils.writeBehaviorAnnex(stateMachine, out);
 
-					if (stateMachine != null)
-					{
-						Utils.writeBehaviorAnnex (stateMachine, out);
-
-						//							if (stateMachine.hasVariables() || stateMachine.nestedStateMachinehasVariables() || stateMachine.hasNestedStateMachines())
-						//							{
-						//								out.write ("subcomponents\n");
-						//							}
-						//							
-						//							Utils.writeSubprogramSubcomponents (stateMachine, out, new ArrayList<String>());
-						//							
+						// if (stateMachine.hasVariables() || stateMachine.nestedStateMachinehasVariables() ||
+// stateMachine.hasNestedStateMachines())
+						// {
+						// out.write ("subcomponents\n");
+						// }
+						//
+						// Utils.writeSubprogramSubcomponents (stateMachine, out, new ArrayList<String>());
+						//
 						/**
 						 * Let's call the other subprogram that contains
 						 * the sub state machines. Then, if these
@@ -475,243 +403,207 @@ public class AadlProjectCreator
 						 * add data components and connect them. 
 						 */
 
-						//							if (sm.hasNestedStateMachines())
-						//							{
+						// if (sm.hasNestedStateMachines())
+						// {
 						//
-						//								for (State s : sm.getStates())
-						//								{
-						//									if (! s.getStateMachine().isEmpty())
-						//									{
-						//										out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
+						// for (State s : sm.getStates())
+						// {
+						// if (! s.getStateMachine().isEmpty())
+						// {
+						// out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
 						//
-						//									}
-						//								}
-						//							}
-
+						// }
+						// }
+						// }
 
 						/**
 						 * 
 						 * Connect the data components shared among the different subprograms
 						 * using data access connections.
 						 */
-						//							if (sm.nestedStateMachinehasVariables())
-						//							{
+						// if (sm.nestedStateMachinehasVariables())
+						// {
 						//
-						//								out.write ("connections\n");
-						//								for (State state : sm.getStates())
-						//								{
-						//									for (String var : state.getStateMachine().getVariables())
-						//									{
-						//										out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
+						// out.write ("connections\n");
+						// for (State state : sm.getStates())
+						// {
+						// for (String var : state.getStateMachine().getVariables())
+						// {
+						// out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"."
+// + var + ";\n");
 						//
-						//									}
-						//								}
-						//							}
+						// }
+						// }
+						// }
 					}
-					out.write ("end s_"+ e.getAadlName() + ".i;\n\n");
+					out.write("end s_" + e.getAadlName() + ".i;\n\n");
 				}
 			}
 
+			out.write("processor module extends " + Preferences.getPackagePrefix() + "runtime::common::module\n");
+			out.write("end module;\n");
 
-			out.write ("processor module extends "+Preferences.getPackagePrefix()+"runtime::common::module\n");
-			out.write ("end module;\n");
-
-			out.write ("processor implementation module.i\n");
-			if (Preferences.useArinc())
-			{
-				out.write ("subcomponents\n");
-				for (Component e : genericModel.getComponents())
-				{
-					if (e.getParent() == null)
-					{
-						out.write ("	"+e.getAadlName()+" : virtual processor runtime::common::partition.i {ARINC653::Criticality => LEVEL_C;};\n");
+			out.write("processor implementation module.i\n");
+			if (Preferences.useArinc()) {
+				out.write("subcomponents\n");
+				for (Component e : genericModel.getComponents()) {
+					if (e.getParent() == null) {
+						out.write("	"
+								+ e.getAadlName()
+								+ " : virtual processor runtime::common::partition.i {ARINC653::Criticality => LEVEL_C;};\n");
 					}
 				}
-				out.write ("properties\n");
-				out.write ("	ARINC653::Module_Major_Frame => "+genericModel.getComponents() + 100+"ms;\n");
-				out.write ("	ARINC653::Partition_Slots => (");
+				out.write("properties\n");
+				out.write("	ARINC653::Module_Major_Frame => " + genericModel.getComponents() + 100 + "ms;\n");
+				out.write("	ARINC653::Partition_Slots => (");
 				boolean firstWritten = false;
-				for (Component e : genericModel.getComponents())
-				{
+				for (Component e : genericModel.getComponents()) {
 
-					if (e.getParent() == null)
-					{
-						if (firstWritten)
-						{
-							out.write (",");
+					if (e.getParent() == null) {
+						if (firstWritten) {
+							out.write(",");
 						}
-						out.write ("100ms");
+						out.write("100ms");
 						firstWritten = true;
 					}
 				}
-				out.write (");\n");
-				out.write ("	ARINC653::Slots_Allocation => (");
+				out.write(");\n");
+				out.write("	ARINC653::Slots_Allocation => (");
 
 				tmp = 0;
-				for (Component e : genericModel.getComponents())
-				{
-					if (e.getParent() == null)
-					{
-						if (tmp > 0)
-						{
-							out.write (",");
+				for (Component e : genericModel.getComponents()) {
+					if (e.getParent() == null) {
+						if (tmp > 0) {
+							out.write(",");
 						}
-						out.write ("reference("+ e.getAadlName() +")");
+						out.write("reference(" + e.getAadlName() + ")");
 						tmp++;
 					}
 				}
-				out.write (");\n");
+				out.write(");\n");
 			}
-			out.write ("end module.i;\n");
+			out.write("end module.i;\n");
 
-			out.write ("memory ram extends "+Preferences.getPackagePrefix()+"runtime::common::ram\n");
-			out.write ("end ram;\n");
+			out.write("memory ram extends " + Preferences.getPackagePrefix() + "runtime::common::ram\n");
+			out.write("end ram;\n");
 
-			out.write ("memory implementation ram.i\n");
-			if (Preferences.useArinc())
-			{
-				out.write ("subcomponents\n");
-				for (Component e : genericModel.getComponents())
-				{
-					if (e.getParent() == null)
-					{
-						out.write ("   "+e.getAadlName()+" : memory runtime::common::segment.i;\n");
+			out.write("memory implementation ram.i\n");
+			if (Preferences.useArinc()) {
+				out.write("subcomponents\n");
+				for (Component e : genericModel.getComponents()) {
+					if (e.getParent() == null) {
+						out.write("   " + e.getAadlName() + " : memory runtime::common::segment.i;\n");
 
 					}
 				}
 			}
-			out.write ("end ram.i;\n");
-
+			out.write("end ram.i;\n");
 
 			out.write("system mainsystem\n");
 			boolean featuresDeclared = false;
-			for (Component e : genericModel.getComponents())
-			{
-				if (e.getType() == Component.ComponentType.EXTERNAL_INPORT)
-				{
-					if (! featuresDeclared)
-					{
+			for (Component e : genericModel.getComponents()) {
+				if (e.getType() == Component.ComponentType.EXTERNAL_INPORT) {
+					if (!featuresDeclared) {
 						out.write("features\n");
 						featuresDeclared = true;
 					}
-					out.write ("   "+e.getAadlName()+" : in event data port generictype;\n");
+					out.write("   " + e.getAadlName() + " : in event data port generictype;\n");
 				}
-				if (e.getType() == Component.ComponentType.EXTERNAL_OUTPORT)
-				{
-					if (! featuresDeclared)
-					{
+				if (e.getType() == Component.ComponentType.EXTERNAL_OUTPORT) {
+					if (!featuresDeclared) {
 						out.write("features\n");
 						featuresDeclared = true;
 					}
-					out.write ("   "+e.getAadlName()+" : out event data port generictype;\n");
+					out.write("   " + e.getAadlName() + " : out event data port generictype;\n");
 				}
 			}
 			out.write("end mainsystem;\n\n\n");
 
 			out.write("system implementation mainsystem.i\n");
 			out.write("subcomponents\n");
-			for (Component e : genericModel.getComponents())
-			{
-				if ((e.getParent() == null) && (e.getType() == Component.ComponentType.BLOCK))
-				{
-					out.write ("   "+e.getAadlName()+" : system s_"+e.getAadlName()+".i;\n");
+			for (Component e : genericModel.getComponents()) {
+				if ((e.getParent() == null) && (e.getType() == Component.ComponentType.BLOCK)) {
+					out.write("   " + e.getAadlName() + " : system s_" + e.getAadlName() + ".i;\n");
 
 				}
 			}
 
-			if (Preferences.useArinc())
-			{
+			if (Preferences.useArinc()) {
 				out.write("	module : processor module.i;\n");
 				out.write("	ram    : memory ram.i;\n");
-			}
-			else
-			{
+			} else {
 				out.write("	cpu : processor module.i;\n");
 				out.write("	ram    : memory ram.i;\n");
 			}
 
 			int connectionId = 0;
-			for (Component e : genericModel.getComponents())
-			{
-				if (e.getParent() != null)
-				{
+			for (Component e : genericModel.getComponents()) {
+				if (e.getParent() != null) {
 					continue;
 				}
-				for (Component e2 : e.getOutgoingDependencies())
-				{
-					if (!connectionPreamble)
-					{
+				for (Component e2 : e.getOutgoingDependencies()) {
+					if (!connectionPreamble) {
 						connectionPreamble = true;
 						out.write("connections\n");
 					}
-					if ((e.getType() == Component.ComponentType.BLOCK) && (e2.getType() == Component.ComponentType.BLOCK))
-					{
-						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					if ((e.getType() == Component.ComponentType.BLOCK)
+							&& (e2.getType() == Component.ComponentType.BLOCK)) {
+						out.write("   c" + connectionId++ + " : port " + e.getAadlName() + ".to_" + e2.getAadlName()
+								+ "->" + e2.getAadlName() + ".from_" + e.getAadlName() + ";\n");
 					}
-					if ((e.getType() == Component.ComponentType.EXTERNAL_INPORT) && (e2.getType() == Component.ComponentType.BLOCK))
-					{
-						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					if ((e.getType() == Component.ComponentType.EXTERNAL_INPORT)
+							&& (e2.getType() == Component.ComponentType.BLOCK)) {
+						out.write("   c" + connectionId++ + " : port " + e.getAadlName() + "->" + e2.getAadlName()
+								+ ".from_" + e.getAadlName() + ";\n");
 					}
-					if ((e.getType() == Component.ComponentType.BLOCK) && (e2.getType() == Component.ComponentType.EXTERNAL_OUTPORT))
-					{
-						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() +";\n");
+					if ((e.getType() == Component.ComponentType.BLOCK)
+							&& (e2.getType() == Component.ComponentType.EXTERNAL_OUTPORT)) {
+						out.write("   c" + connectionId++ + " : port " + e.getAadlName() + ".to_" + e2.getAadlName()
+								+ "->" + e2.getAadlName() + ";\n");
 					}
 				}
 			}
 
 			out.write("properties\n");
-			for (Component e : genericModel.getComponents())
-			{
-				if((e.getParent() != null) || (e.getType() != Component.ComponentType.BLOCK))
-				{
+			for (Component e : genericModel.getComponents()) {
+				if ((e.getParent() != null) || (e.getType() != Component.ComponentType.BLOCK)) {
 					continue;
 				}
 
-				if (Preferences.useArinc()) 
-				{
-					out.write("	Actual_Processor_Binding => (reference (module."+e.getAadlName()+")) applies to "+e.getAadlName()+";\n");
-					out.write("	Actual_Memory_Binding    => (reference (ram."+e.getAadlName()+")) applies to "+e.getAadlName()+";\n");
-				}
-				else
-				{
-					out.write("	Actual_Processor_Binding => (reference (cpu)) applies to "+e.getAadlName()+";\n");
-					out.write("	Actual_Memory_Binding    => (reference (ram)) applies to "+e.getAadlName()+";\n");
+				if (Preferences.useArinc()) {
+					out.write("	Actual_Processor_Binding => (reference (module." + e.getAadlName() + ")) applies to "
+							+ e.getAadlName() + ";\n");
+					out.write("	Actual_Memory_Binding    => (reference (ram." + e.getAadlName() + ")) applies to "
+							+ e.getAadlName() + ";\n");
+				} else {
+					out.write("	Actual_Processor_Binding => (reference (cpu)) applies to " + e.getAadlName() + ";\n");
+					out.write("	Actual_Memory_Binding    => (reference (ram)) applies to " + e.getAadlName() + ";\n");
 				}
 			}
 
-
-
 			out.write("end mainsystem.i; \n");
 
-
-			out.write("end "+Preferences.getPackagePrefix()+aadlPackagePrefix+"imported::runtime; \n");
+			out.write("end " + Preferences.getPackagePrefix() + aadlPackagePrefix + "imported::runtime; \n");
 
 			out.close();
 			fstream.close();
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 
-
-
 	}
 
-	public static void createGenericRuntime (String outputFile)
-	{
+	public static void createGenericRuntime(String outputFile) {
 		FileWriter fstream;
 		BufferedWriter out;
 
-
-		try
-		{	 
+		try {
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write("package "+Preferences.getPackagePrefix()+"runtime::common\n");
+			out.write("package " + Preferences.getPackagePrefix() + "runtime::common\n");
 
 			out.write("public\n");
 
@@ -727,7 +619,6 @@ public class AadlProjectCreator
 			out.write("processor module\n");
 			out.write("end module;\n");
 
-
 			out.write("memory ram\n");
 			out.write("end ram;\n");
 
@@ -737,24 +628,18 @@ public class AadlProjectCreator
 			out.write("memory implementation segment.i\n");
 			out.write("end segment.i;\n");
 
-			out.write("end "+Preferences.getPackagePrefix()+"runtime::common;\n");
+			out.write("end " + Preferences.getPackagePrefix() + "runtime::common;\n");
 
 			out.close();
 			fstream.close();
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
 
-
-
 	}
 
-
-	public static void createProject (String outputPath, Model genericModel)
-	{
+	public static void createProject(String outputPath, Model genericModel) {
 		String outputPathFunctional;
 		String outputPathRuntime;
 		String outputFileFunctional;
@@ -762,22 +647,22 @@ public class AadlProjectCreator
 		String outputFileGenericRuntime;
 		String prefix = "";
 		prefix = genericModel.getPackageName() + "-";
-		outputPathFunctional = outputPath + File.separatorChar +"functional";
+		outputPathFunctional = outputPath + File.separatorChar + "functional";
 		outputPathRuntime = outputPath + File.separatorChar + "runtime";
-		outputFileFunctional = outputPathFunctional + File.separatorChar +  prefix + "functional.aadl";
-		outputFileRuntime    = outputPathRuntime + File.separatorChar +  prefix + "runtime.aadl";
+		outputFileFunctional = outputPathFunctional + File.separatorChar + prefix + "functional.aadl";
+		outputFileRuntime = outputPathRuntime + File.separatorChar + prefix + "runtime.aadl";
 		outputFileGenericRuntime = outputPathRuntime + File.separatorChar + "runtime-generic.aadl";
 
 		createDirectories(outputPath);
 
-		OsateDebug.osateDebug ("Create Generic Runtime in " + outputFileGenericRuntime);
-		createGenericRuntime (outputFileGenericRuntime);
+		OsateDebug.osateDebug("Create Generic Runtime in " + outputFileGenericRuntime);
+		createGenericRuntime(outputFileGenericRuntime);
 
-		OsateDebug.osateDebug ("Create AADL functional project in " + outputFileFunctional);
-		createAadlFunctions (outputFileFunctional, genericModel);
+		OsateDebug.osateDebug("Create AADL functional project in " + outputFileFunctional);
+		createAadlFunctions(outputFileFunctional, genericModel);
 
-		OsateDebug.osateDebug ("Create AADL runtime  project in " + outputFileRuntime);
-		createAadlRuntime (outputFileRuntime,genericModel);
+		OsateDebug.osateDebug("Create AADL runtime  project in " + outputFileRuntime);
+		createAadlRuntime(outputFileRuntime, genericModel);
 
 	}
 

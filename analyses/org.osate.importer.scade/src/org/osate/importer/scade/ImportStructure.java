@@ -51,8 +51,15 @@ public class ImportStructure {
 	 */
 	public static void processCallReturns(Node currentNode, Node operator, Component mainComponent,
 			Component calledComponent) {
-		NodeList nList = currentNode.getChildNodes();
-		Node attrName = null;
+		NodeList nList;
+		Node attrName;
+
+		if (currentNode == null) {
+			return;
+		}
+
+		nList = currentNode.getChildNodes();
+		attrName = null;
 
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
@@ -200,7 +207,14 @@ public class ImportStructure {
 	 */
 	public static void processCallParameters(Node currentNode, Node operator, Component mainComponent,
 			Component calledComponent) {
-		NodeList nList = currentNode.getChildNodes();
+
+		NodeList nList;
+
+		if (currentNode == null) {
+			return;
+		}
+
+		nList = currentNode.getChildNodes();
 
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
@@ -336,8 +350,15 @@ public class ImportStructure {
 	 * @return true if the equation contains a variable with such a name
 	 */
 	public static boolean equationContains(Node node, String var) {
-		Node attrName = null;
-		NodeList nList = node.getChildNodes();
+		Node attrName;
+		NodeList nList;
+
+		if (node == null) {
+			return false;
+		}
+
+		attrName = null;
+		nList = node.getChildNodes();
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeName().equalsIgnoreCase("variableref")) {

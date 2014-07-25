@@ -87,6 +87,10 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
 
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+		String fileSuffix;
+
+		fileSuffix = "unknown";
 		outputDirectory = Utils.getSelectedDirectory();
 
 		if (outputDirectory == null) {
@@ -95,8 +99,6 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 
 			return;
 		}
-
-		final Display d = PlatformUI.getWorkbench().getDisplay();
 
 		d.syncExec(new Runnable() {
 
@@ -128,20 +130,30 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 			}
 		});
 
-		Job aadlGenerator = new Job("SCADE2AADL") {
-			protected IStatus run(IProgressMonitor monitor) {
-				monitor.beginTask("Generating AADL files from LDM", 100);
-				Model genericModel = new Model();
-				FileImport.loadFile(inputFile, genericModel);
-				AadlProjectCreator.createProject(outputDirectory, genericModel);
+		if ((inputFile.length() > 5) && inputFile.contains(".")) {
+			fileSuffix = inputFile.substring(inputFile.lastIndexOf('.') + 1, inputFile.length());
+		}
 
-				Utils.refreshWorkspace(monitor);
-				monitor.done();
-				return Status.OK_STATUS;
-			}
-		};
-		aadlGenerator.schedule();
+		if (fileSuffix.equalsIgnoreCase("xscade")) {
+			Job aadlGenerator = new Job("SCADE2AADL") {
+				protected IStatus run(IProgressMonitor monitor) {
+					monitor.beginTask("Generating AADL files from SCADE", 100);
 
+					Model genericModel = new Model();
+					FileImport.loadFile(inputFile, genericModel);
+					AadlProjectCreator.createProject(outputDirectory, genericModel);
+
+					Utils.refreshWorkspace(monitor);
+					monitor.done();
+					return Status.OK_STATUS;
+				}
+			};
+			aadlGenerator.schedule();
+		} else {
+			org.osate.ui.dialogs.Dialog.showInfo("SCADE Importer",
+					"Please select a file with the xscade extension. Found suffix: " + fileSuffix);
+			return;
+		}
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
