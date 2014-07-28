@@ -30,9 +30,9 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.imv.model.ElementInhibitStatus;
 import org.osate.imv.ui.util.EmulatedNativeCheckBoxLabelProvider;
-
 
 public class FilterPanel extends Composite {
 
@@ -40,7 +40,6 @@ public class FilterPanel extends Composite {
 
 	private Font labelFont;
 	private Color enabledLabelColor;
-
 
 	public FilterPanel(Composite parent, int style, String title) {
 		super(parent, style);
@@ -55,7 +54,8 @@ public class FilterPanel extends Composite {
 	}
 
 	protected TableViewer createTableViewer(Composite parent, String title) {
-		final TableViewer viewer = new TableViewer(parent, SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
+		final TableViewer viewer = new TableViewer(parent, SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL
+				| SWT.FULL_SELECTION);
 
 		// Configure table.
 		final Table table = viewer.getTable();
@@ -67,14 +67,14 @@ public class FilterPanel extends Composite {
 		parent.setLayout(columnLayout);
 
 		// Set foreground color based on feature inhibit status.
-		viewer.getTable().addListener(SWT.EraseItem, new Listener(){
+		viewer.getTable().addListener(SWT.EraseItem, new Listener() {
 
 			@Override
 			public void handleEvent(Event event) {
-				TableItem item = (TableItem)event.item;
-				ElementInhibitStatus status = (ElementInhibitStatus)item.getData();
-				if(status != null){
-					if(status.isInhibited())
+				TableItem item = (TableItem) event.item;
+				ElementInhibitStatus status = (ElementInhibitStatus) item.getData();
+				if (status != null) {
+					if (status.isInhibited())
 						item.setForeground(ColorConstants.red);
 					else
 						item.setForeground(enabledLabelColor);
@@ -85,24 +85,24 @@ public class FilterPanel extends Composite {
 		// The first column contains a check box used for setting the feature category inhibit status.
 		TableViewerColumn col = createTableViewerColumn(title, 0, 100, viewer, columnLayout);
 		// The first column contains a check box used for setting the feature category inhibit status.
-		col.setLabelProvider(new EmulatedNativeCheckBoxLabelProvider(col.getViewer()){
+		col.setLabelProvider(new EmulatedNativeCheckBoxLabelProvider(col.getViewer()) {
 
 			@Override
 			protected boolean isChecked(Object element) {
-				return !((ElementInhibitStatus)element).isInhibited();
+				return !((ElementInhibitStatus) element).isInhibited();
 			}
 
 			public String getText(Object element) {
 				String label = "";
-				if(element instanceof ElementInhibitStatus)
-					label = ((ElementInhibitStatus)element).toString();
+				if (element instanceof ElementInhibitStatus)
+					label = ((ElementInhibitStatus) element).toString();
 
 				return label;
 			}
 
 		});
 
-		col.setEditingSupport(new EditingSupport(viewer){
+		col.setEditingSupport(new EditingSupport(viewer) {
 
 			@Override
 			protected CellEditor getCellEditor(Object element) {
@@ -116,13 +116,14 @@ public class FilterPanel extends Composite {
 
 			@Override
 			protected Object getValue(Object element) {
-				return !((ElementInhibitStatus)element).isInhibited();
+				return !((ElementInhibitStatus) element).isInhibited();
 			}
 
 			@Override
 			protected void setValue(Object element, Object value) {
-				((ElementInhibitStatus)element).setInhibited(!((Boolean)value).booleanValue());
-				System.out.println("Checkbox changed state");
+				((ElementInhibitStatus) element).setInhibited(!((Boolean) value).booleanValue());
+//				System.out.println("Checkbox changed state");
+				OsateDebug.osateDebug("FilterPanel", "Checkbox changed state");
 				viewer.refresh();
 			}
 
@@ -131,9 +132,9 @@ public class FilterPanel extends Composite {
 		return viewer;
 	}
 
-	protected TableViewerColumn createTableViewerColumn(String title, final int columnNumber, int weight, TableViewer viewer, TableColumnLayout columnLayout){
-		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
-				SWT.NONE);
+	protected TableViewerColumn createTableViewerColumn(String title, final int columnNumber, int weight,
+			TableViewer viewer, TableColumnLayout columnLayout) {
+		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
 		final TableColumn column = viewerColumn.getColumn();
 		columnLayout.setColumnData(column, new ColumnWeightData(weight));
 		column.setMoveable(false);
@@ -151,10 +152,10 @@ public class FilterPanel extends Composite {
 	@Override
 	public void dispose() {
 		/* Release OS resources */
-		if(labelFont != null)
+		if (labelFont != null)
 			labelFont.dispose();
 
-		if(enabledLabelColor != null)
+		if (enabledLabelColor != null)
 			enabledLabelColor.dispose();
 
 		super.dispose();
