@@ -52,6 +52,7 @@ import org.osate.aadl2.PropertyType ;
 import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
+import org.osate.aadl2.RecordField ;
 import org.osate.aadl2.RecordType ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
@@ -67,6 +68,7 @@ import org.osate.ba.aadlba.BehaviorActions ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.aadlba.BehaviorCondition ;
 import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorTransition ;
 import org.osate.ba.aadlba.BehaviorVariable ;
@@ -1499,50 +1501,8 @@ public class AadlBaNameResolver
        
        if(result)
        {
-         System.out.println("*****") ;
-         
-         DeclarativePropertyReference dpr = (DeclarativePropertyReference) value ;
-         
-         if(dpr.isPropertySet())
-         {
-           System.out.println("dpr comes from a property set") ;
-         }
-         
-         if(dpr.getQualifiedName() != null)
-         {
-           System.out.println("qualified name : " + dpr.getQualifiedName().getOsateRef()) ;
-         }
-         
-         if(dpr.getReference() != null)
-         {
-           if(dpr.getReference().getOsateRef() != null)
-           {
-             System.out.println("reference osate : " + dpr.getReference().getOsateRef()) ;
-           } 
-           else
-           {
-             System.out.println("reference ba : " + dpr.getReference().getBaRef()) ;
-           }
-         }
-         
-         if(dpr.getPropertyNames().isEmpty() == false)
-         {
-           for(DeclarativePropertyName dpn : dpr.getPropertyNames())
-           {
-             System.out.println("  property name : " + dpn.getOsateRef()) ;
-             
-             System.out.println("  property name id \'" + dpn.getPropertyName().getId() +
-                                "\' : " + dpn.getPropertyName().getOsateRef()) ;
-             if(dpn.getField() != null)
-             {
-               System.out.println("  field : " + dpn.getField()) ;
-             }
-           }
-         }
-         
-         System.out.println("*****") ;
+         DeclarativeUtils.printDeclarativePropertyReference((DeclarativePropertyReference) value);
        }
-             
              
        return result ;
      }
@@ -1785,6 +1745,16 @@ public class AadlBaNameResolver
          
          if(ne instanceof Property)
          {
+           Property p = (Property) ne ;
+           
+           // First search within the default values.
+           if(p.getDefaultValue() != null)
+           {
+             PropertyExpression pe = p.getDefaultValue() ;
+             propertyNameId.setOsateRef(pe);
+             ref.getPropertyNames().get(0).setOsateRef(pe);
+           }
+           
            return propertyNameResolver(ref.getPropertyNames()) ;
          }
          else // Property constant case.
@@ -1829,6 +1799,7 @@ public class AadlBaNameResolver
      PropertyField currentField = currentName.getField() ;
      
      Element previousContainer = null ;
+     int previousContainerId = -1 ;
      
      // Then resolve the property field.
      if(false == propertyFieldResolution(currentField, currentName))
@@ -1839,13 +1810,14 @@ public class AadlBaNameResolver
      while(it.hasNext())
      {
        previousContainer = currentName.getOsateRef() ;
+       previousContainerId = previousContainer.eClass().getClassifierID() ;
        currentName = it.next() ;
+       // DEBUG
+       String name = currentName.getPropertyName().getId() ;
        currentField = currentName.getField() ;
        
-       // First, resolve the record field or the property literal.
-       
-       if(Aadl2Package.PROPERTY_ASSOCIATION == previousContainer.eClass().
-                                                              getClassifierID())
+       // Case of properties defined by a property association.
+       if(Aadl2Package.PROPERTY_ASSOCIATION == previousContainerId)
        {
          PropertyAssociation pa =
               (PropertyAssociation) previousContainer ;
@@ -1855,19 +1827,34 @@ public class AadlBaNameResolver
          {
            continue ;
          }
-         else
+         else // Property association may exist but doesn't define the 
+              // property that interests us. So search within the property
+              // definition.
          {
            previousContainer = pa.getProperty() ;
          }
        }
        
-       if(previousContainer instanceof PropertyValue)
+       // The sub property is defined within a property expression. 
+       if(previousContainer instanceof PropertyExpression)
        {
-         previousContainer = PropertyUtils.getType((PropertyValue) 
-                                                           previousContainer) ;
+         if(propertyValueResolver((PropertyExpression) previousContainer,
+                                                                 currentName) &&
+           propertyFieldResolution(currentField, currentName))
+         {
+           continue ;
+         }
+         else // Try with the property expression type definition.
+         {
+           previousContainer = PropertyUtils.getType((PropertyExpression) 
+                                                     previousContainer) ;
+         }
        }
        
-       if(Aadl2Package.PROPERTY == previousContainer.eClass().getClassifierID())
+       previousContainerId = previousContainer.eClass().getClassifierID() ;
+       
+       // Try to resolve the property name within the property declaration.
+       if(Aadl2Package.PROPERTY == previousContainerId)
        {
          Property p = (Property) previousContainer ;
          
@@ -1875,7 +1862,7 @@ public class AadlBaNameResolver
             propertyFieldResolution(currentField, currentName))
          {
            continue ;
-         }
+         } // Then the property type definition.
          else if(propertyTypeResolver(p.getPropertyType(), currentName) &&
                  propertyFieldResolution(currentField, currentName))
          {
@@ -1886,11 +1873,83 @@ public class AadlBaNameResolver
            // propertyTypeResolver and propertyFieldResolution report any error.
            return false ;
          }
+       }    //BasciProperty EMF identifier == Aadl2Package.LIST_VALUE, why ???? 
+       else if(previousContainer instanceof BasicProperty) // Use instanceof instead.
+       {
+         // The sub property is defined within a Record field (basic property).
+         BasicProperty bp = (BasicProperty) previousContainer ;
+         
+         if(propertyTypeResolver(bp.getPropertyType(), currentName) &&
+            propertyFieldResolution(currentField, currentName))
+         {
+           continue ;
+         }
+         else
+         {
+           // propertyTypeResolver and propertyFieldResolution report any error.
+           return false ;
+         }
+       } // The property is defined within the type of a record.
+       else if (Aadl2Package.RECORD_TYPE == previousContainerId)
+       {
+         RecordType rt = (RecordType) previousContainer ;
+         
+         if(recordFieldResolver(rt, currentName) &&
+            propertyFieldResolution(currentField, currentName))
+         {
+           continue ;
+         }
+         else
+         {
+           return false ;
+         }
        }
      } // End of while.
      
      return true ;
    }
+   
+  private boolean recordFieldResolver(RecordType rt,
+                                      DeclarativePropertyName declPropertyName)
+  {
+    String name = declPropertyName.getPropertyName().getId() ;
+    
+    for(BasicProperty bp : rt.getOwnedFields())
+    {
+      if(bp.getName().equalsIgnoreCase(name))
+      {
+        declPropertyName.setOsateRef(bp);
+        declPropertyName.getPropertyName().setOsateRef(bp);
+        return true ;
+      }
+    }
+    
+    return false ;
+  }
+
+  private boolean propertyValueResolver(PropertyExpression pe,
+                                        DeclarativePropertyName currentName)
+  {
+    String name = currentName.getPropertyName().getId() ;
+    try
+    {
+      Element found = PropertyUtils.getValue(pe, name) ;
+      if(found != null)
+      {
+        currentName.setOsateRef(found);
+        currentName.getPropertyName().setOsateRef(found);
+        return true ;
+      }
+      else
+      {
+        return false ;
+      }
+    }
+    catch(UnsupportedOperationException e)
+    {
+      return false ;
+    }
+  }
 
   private boolean propertyTypeResolver(PropertyType type,
                                        DeclarativePropertyName declPropertyName)
@@ -1957,7 +2016,7 @@ public class AadlBaNameResolver
     {
       try
       {
-        PropertyExpression found = PropertyUtils.getValue(pe, name);
+        Element found = PropertyUtils.getValue(pe, name);
         if(found != null)
         {
           declProName.setOsateRef(found);
@@ -1989,7 +2048,7 @@ public class AadlBaNameResolver
     
     try
     {
-      PropertyExpression tmp = PropertyUtils.getValue(pe, name);
+      Element tmp = PropertyUtils.getValue(pe, name);
       
       if(tmp != null)
       {
@@ -2008,7 +2067,7 @@ public class AadlBaNameResolver
     }
   }
 
-  private Property getPropertyType(Element el)
+  private BasicProperty getPropertyDeclaration(Element el)
   {
     if(Aadl2Package.PROPERTY_ASSOCIATION == el.eClass().getClassifierID())
     {
@@ -2021,6 +2080,11 @@ public class AadlBaNameResolver
     else if(el instanceof PropertyExpression)
     {
       return PropertyUtils.getType((PropertyExpression) el) ;
+    }
+    //BasciProperty EMF identifier == Aadl2Package.LIST_VALUE, why ???? 
+    else if(el instanceof BasicProperty)
+    {
+      return (BasicProperty) el ;
     }
     else
     {
@@ -2038,8 +2102,15 @@ public class AadlBaNameResolver
      {
        int fieldId = field.eClass().getClassifierID() ;
        Element el = declProName.getOsateRef() ;
-       PropertyType type = getPropertyType(el).getPropertyType() ;
-       int nameTypeId = type.eClass().getClassifierID() ; 
+       
+       if(Aadl2Package.LIST_VALUE == el.eClass().getClassifierID())
+       {
+         return propertyListValueResolver(field, el, declProName) ;
+       }
+       // else:
+       
+       BasicProperty bProperty = getPropertyDeclaration(el) ;
+       int nameTypeId = bProperty.getPropertyType().eClass().getClassifierID() ; 
        
        switch(fieldId)
        {
@@ -2072,8 +2143,17 @@ public class AadlBaNameResolver
              {
                if(nameTypeId == Aadl2Package.LIST_TYPE)
                {
-                 ListType lt = (ListType) type ;
-                 declProName.setOsateRef(lt.getElementType()); 
+                 // Link to the default value, if it exists.
+                 if(Aadl2Package.LIST_VALUE == el.eClass().getClassifierID() &&
+                    propertyListValueResolver(field, el, declProName))
+                 {
+                   return true ;
+                 }
+                 // the else statements: link with the property type.
+                 
+                 ListType lt = (ListType) bProperty.getPropertyType() ;
+                 declProName.setOsateRef(lt.getElementType()) ;
+                 return true ;
                }
                
                return true ;
@@ -2099,6 +2179,58 @@ public class AadlBaNameResolver
      }
    }
    
+  private boolean propertyListValueResolver(PropertyField field,
+                                            Element el,
+                                            DeclarativePropertyName declProName)
+  {
+    if(AadlBaPackage.BEHAVIOR_INTEGER_LITERAL == field.eClass().getClassifierID())
+    {
+      ListValue lv = (ListValue) el ;
+      // DEBUG
+      BehaviorIntegerLiteral bil = (BehaviorIntegerLiteral) field ;
+      Long index = bil.getValue() ;
+      return propertyListIndexResolver(index.intValue(), lv, declProName) ;
+    }
+    else
+    // As field is an integer value variable, the integer 
+    // value cannot be evaluated at compile time. So raise
+    // a warning
+    {
+      // TODO: to be implemented.
+      // DEBUG
+      System.err.println("warning") ;
+      return false ;
+    }
+  }
+
+   private boolean propertyListIndexResolver(int index,
+                                             ListValue lv,
+                                             DeclarativePropertyName declProName)
+   {
+     if(index >= 0)
+     {
+       // Check list bound:
+       EList<PropertyExpression> values = lv.getOwnedListElements() ;
+       if(values.size() < index)
+       {
+         // Report out of bounds error.
+         // TODO: to be implemented.
+         return false ;
+       }
+       else
+       {
+         declProName.setOsateRef(values.get(index));
+         return true ;
+       }
+     }
+     else
+     {
+       // Report out of bounds error.
+       // TODO: to be implemented.
+       return false ;
+     }
+   }
+
    private boolean valueExpressionResolver(ValueExpression expr)
    {
       boolean result = true ;

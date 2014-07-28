@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.EObject ;
 import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.AadlInteger ;
+import org.osate.aadl2.AbstractNamedValue ;
+import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.BasicPropertyAssociation ;
 import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.Classifier ;
@@ -39,6 +41,7 @@ import org.osate.aadl2.ComponentType ;
 import org.osate.aadl2.ComputedValue ;
 import org.osate.aadl2.ContainedNamedElement ;
 import org.osate.aadl2.ContainmentPathElement ;
+import org.osate.aadl2.Element ;
 import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.IntegerLiteral ;
 import org.osate.aadl2.ListValue ;
@@ -1088,13 +1091,15 @@ public class PropertyUtils {
   }
 
   /**
-   * Returns the first property expression that matches to the given String object
-   * within the given ProperyExpression object. If the property expression doesn't
-   * exist, it returns {@code null}. 
+   * Returns the first property expression or abstract named element (
+   * EnumerationLiteral, Property, PropertyConstant, UnitLiteral) that matches
+   * to the given String object within the given ProperyExpression object.
+   * If the property expression doesn't exist, it returns {@code null}. 
    * 
    * @param pe the given ProperyExpression object
    * @param toBeMatched the given String object
-   * @return the first matching property expression or {@code null}
+   * @return the first matching property expression or abstract named element.
+   * otherwise return {@code null}
    * 
    * @throws UnsupportedOperationException other property values than:
    *   _ StringLiteral
@@ -1103,11 +1108,12 @@ public class PropertyUtils {
    *   _ InstanceReferenceValue
    *   _ ComputedValue
    *   _ RecordValue (based on field matching)
+   *   _ NamedValue (returns abstract named element)
    */
-  public static PropertyExpression getValue(PropertyExpression pe,
-                                            String toBeMatched)
+  public static Element getValue(PropertyExpression pe,
+                                 String toBeMatched)
   {
-    PropertyExpression tmp = null ;
+    Element tmp = null ;
     int id = pe.eClass().getClassifierID() ;
     
     switch(id)
@@ -1195,6 +1201,40 @@ public class PropertyUtils {
         }
       }
       
+      case Aadl2Package.NAMED_VALUE:
+      {
+        NamedValue nv = (NamedValue) pe ;
+        AbstractNamedValue anv = nv.getNamedValue() ;
+        if(anv instanceof NamedElement)
+        {
+          NamedElement ne = (NamedElement) anv ;
+          String name = ((NamedElement)anv).getName() ;
+          
+          // Consider as a final node.
+          if(name.equalsIgnoreCase(toBeMatched))
+          {
+            return ne ;
+          }
+          else if(ne instanceof Property) // Or a structure.
+          {
+            Property p = (Property) ne ;
+            if(p.getDefaultValue() != null)
+            {
+              tmp = getValue(p.getDefaultValue(), toBeMatched) ;
+              return tmp ;
+            }
+          }
+        }
+        else
+        {
+          String msg = anv.getClass().getSimpleName() + " is not supported" ;
+          System.err.println(msg) ;
+          throw new UnsupportedOperationException(msg) ;
+        }
+        
+        return null ;
+      }
+      
       default:
       {
         String msg = pe.getClass().getSimpleName() + " is not supported" ;
@@ -1205,24 +1245,32 @@ public class PropertyUtils {
   }
   
   /**
-   * Returns the Property object that the given PropertyExpression object belongs.
+   * Returns the BasicProperty (Property or RecordField) object that the given
+   * PropertyExpression object belongs.
    * 
    * @param pe the given PropertyExpression object
-   * @return the Property object that contains the given PropertyExpression object
+   * @return the BasicProperty object that contains the given PropertyExpression object
    */
-  public static Property getType(PropertyExpression pe)
+  public static BasicProperty getType(PropertyExpression pe)
   {
     EObject tmp = pe.eContainer() ;
+    int classId = tmp.eClass().getClassifierID() ;
     
-    while(Aadl2Package.PROPERTY_ASSOCIATION == tmp.eClass().getClassifierID() ||
-          Aadl2Package.PROPERTY == tmp.eClass().getClassifierID())
+    while(false == (Aadl2Package.PROPERTY_ASSOCIATION == classId ||
+                    Aadl2Package.PROPERTY == classId))
     {
       tmp = tmp.eContainer() ;
+      classId = tmp.eClass().getClassifierID() ;
     }
     
-    if(Aadl2Package.PROPERTY_ASSOCIATION == tmp.eClass().getClassifierID())
+    if(Aadl2Package.PROPERTY_ASSOCIATION == classId)
     {
       return ((PropertyAssociation)tmp).getProperty() ;
+    }
+    else if(Aadl2Package.BASIC_PROPERTY_ASSOCIATION == classId)
+    {
+      BasicPropertyAssociation bpa = (BasicPropertyAssociation) tmp ;
+      return bpa.getProperty() ;
     }
     else
     {

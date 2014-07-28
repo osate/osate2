@@ -26,12 +26,16 @@ import java.util.List ;
 
 import org.eclipse.emf.ecore.InternalEObject ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.NamedElement ;
 import org.osate.ba.aadlba.AadlBaFactory ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
+import org.osate.ba.declarative.DeclarativePropertyName ;
+import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.texteditor.AadlBaHyperlink ;
 import org.osate.ba.utils.AadlBaVisitors ;
@@ -104,5 +108,73 @@ public class DeclarativeUtils
     InternalEObject iChild = (InternalEObject) child ;
     InternalEObject iBa = (InternalEObject) ba ;
     iChild.eBasicSetContainer(iBa, AadlBaPackage.BEHAVIOR_ANNEX, null) ;
+  }
+  
+  /**
+   * Print on the standard output, the data of the given DeclarativePropertyReference
+   * object.
+   * 
+   * @param dpr the given DeclarativePropertyReference object
+   */
+  public static void printDeclarativePropertyReference(
+                                               DeclarativePropertyReference dpr)
+  {
+    System.out.println("*****") ;
+    
+    if(dpr.isPropertySet())
+    {
+      System.out.println("dpr comes from a property set") ;
+    }
+    
+    if(dpr.getQualifiedName() != null)
+    {
+      System.out.println("qualified name : " + dpr.getQualifiedName().getOsateRef()) ;
+    }
+    
+    if(dpr.getReference() != null)
+    {
+      if(dpr.getReference().getOsateRef() != null)
+      {
+        System.out.println("reference osate : " + dpr.getReference().getOsateRef()) ;
+      } 
+      else
+      {
+        System.out.println("reference ba : " + dpr.getReference().getBaRef()) ;
+      }
+    }
+    
+    if(dpr.getPropertyNames().isEmpty() == false)
+    {
+      for(DeclarativePropertyName dpn : dpr.getPropertyNames())
+      {
+        System.out.println("  property name : " + dpn.getOsateRef()) ;
+        
+        System.out.println("  property name id \'" + dpn.getPropertyName().getId() +
+                           "\' : " + dpn.getPropertyName().getOsateRef()) ;
+        if(dpn.getField() != null)
+        {
+          System.out.println("  field : " + dpn.getField()) ;
+        }
+      }
+    }
+    
+    System.out.println("*****") ;
+  }
+  
+  public static void printElement(Element el)
+  {
+    if(el instanceof NamedElement)
+    {
+      //TODO: to be implemented.
+    }
+    else
+    {
+      //TODO: to be implemented.
+    }
+  }
+  
+  public static void printPropertyField(PropertyField field)
+  {
+    //TODO: to be implemented.
   }
 }

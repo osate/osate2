@@ -74,12 +74,10 @@
       --> with and without default value : aadlboolean changes
      
 --> Range (aadlinteger)
-      --> with and without default value
     --> with property field upper_bound
     --> with property field lower_bound
     
 --> Enumeration
-      --> with and without default value
     --> dot used to access the enumeration literal
     --> [ ] used to access the enumeration literal
 
@@ -87,17 +85,17 @@
     --> dot used to access the string literal
     --> [ ] used to access the string literal
 
---> Simple Record (aadlboolean ; aadlinteger ; enum ; ) 
-      --> with and without default value
+--> Simple Record (aadlinteger ; aadlstring ; aadlboolean) 
+      --> with and without default value : values change
       
---> Complex record (aadlboolean ; aadlinteger ; simple record ; list of simple record)
-      --> with and without default value
+--> Complex record (aadlboolean ; simple record ; list of simple record)
+      --> with and without default value : values change
       
 --> List of complex record
-      --> with and without default value
+      --> with and without default value : values change
 
 --> List of list of complex record
-      --> with and without default value
+      --> with and without default value : values change
     --> only use dot
     --> only use [ ]
     --> use alternatively dot and [ ] 
@@ -159,7 +157,6 @@ thread implementation MyThread.impl
  properties
   Dispatch_Protocol => Periodic;
   Period => 1 sec;
-  AadlBaTestPropertySet::aRecord => [bool => true ; int => 100 ; enum => Periodic ;] ;
   
  annex behavior_specification {**
 
@@ -168,6 +165,7 @@ thread implementation MyThread.impl
 variables
 
  int : Base_Types::Integer ;
+ str : Base_Types::String ;
  ratio : Base_Types::Integer ;
  localMyEnum : MyEnum ;
  localDays : AadlBaTest::Types::Days.v1 ;
@@ -183,43 +181,41 @@ transitions
 
  -- Valid tests
  
-   -- Property value from: 
+   -- Property Set
    
-   a -[]-> a {int := #AadlBaTestPropertySet::aValue }; -- a property set value
-   a -[]-> a {int := #AadlBaTestPropertySet::aRecord.int }; -- a property set record
-   a -[]-> a {int := sublist#Dimension[0]}; -- a subcomponent
-   a -[]-> a {int := portMyInteger#Integer_Range.upper_bound}; -- a feature
-   a -[]-> a {int := portPrototypeMyInteger#Integer_Range.lower_bound}; -- a binded feature
-   a -[]-> a {int := localMyEnum#Representation[0]}; -- local variable
-   a -[]-> a {int := PropertyReferenceTest::MyThread.impl#aRecord.int }; -- a classifier
-   a -[]-> a {int := MyThread.impl#aRecord.int }; -- a classifier
-   a -[]-> a {int := #AadlBaTestPropertySet::aList.hello }; -- a property set list with default values 
+     -- from a predeclared property set.
+     
+    a -[]-> a {int := Max_Queue_Size} ;  
+    a -[]-> a {int := Criticality} ; 
+      
+     -- with default value defined
    
-   -- Enumerations
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleValueDefined} ;
    
-   a -[]-> a {
-               localMyEnum := MyEnum#Enumerators.monday;
-               localDays := AadlBaTest::Types::Days.v1#Enumerators.monday
-             };
-           
-   -- Real life examples
+    a -[]-> a {int := #AadlBaTestPropertySet::aRangeDefined.upper_bound} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aRangeDefined.lower_bound} ;
    
-   a -[]-> a {
-               localDays := AadlBaTest::Types::Days.v1#Enumerators.monday;
-               -- localDays has been modified ...
-               if(localDays = AadlBaTest::Types::Days.v1#Enumerators.thuesday)
-                 int := 1
-               else
-                 int := 0
-               end if
-             };
-            
-   a -[]-> a { 
-               for(index : MyInteger in 0 .. subList#Dimension)
-               {
-               subList[index] := 0
-             }
-           };
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnumDefined = #AadlBaTestPropertySet::aEnumDefined.two) int := 1 end if} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnumDefined = #AadlBaTestPropertySet::aEnumDefined[1]) int := 1 end if} ;
+   
+    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleListDefined[0]} ;
+    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleListDefined.hello} ;
+   
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleRecordDefined.int} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aSimpleRecordDefined.bool) int := 1 end if} ;
+   
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ; 
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.listRec[0].int} ;
+   
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+   
+   -- a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec[0].int} ; -- Not implemented yet
+   -- a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec.aSimpleRecordDefined.int} ; -- Not implemented yet
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
 **};  
 
 end MyThread.impl ;

@@ -42,10 +42,9 @@ aSimpleList : list of aadlstring applies to (data, subprogram, thread, system) ;
 aSimpleListDefined : list of aadlstring => ("hello", "hi", "good day") applies to (data, subprogram, thread, system) ;
 
 simpleRecordType : type record ( bool : aadlboolean ;
-                                 int : aadlinteger ;
-                                 enum : Supported_Dispatch_Protocols ;)  ;
+                                 int : aadlinteger ;)  ;
 aSimpleRecord : AadlBaTestPropertySet::simpleRecordType applies to (data, subprogram, thread, system) ;
-aSimpleRecordDefined : AadlBaTestPropertySet::simpleRecordType => [bool => true ; int => 50 ; enum => Aperiodic ;]
+aSimpleRecordDefined : AadlBaTestPropertySet::simpleRecordType => [bool => true ; int => 50 ;]
                        applies to (data, subprogram, thread, system) ;
             
 complexRecordType : type record ( bool : aadlboolean ;
