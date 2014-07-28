@@ -41,12 +41,14 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
@@ -86,20 +88,17 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.impl.MetaclassReferenceImpl;
-import org.osate.aadl2.impl.SubcomponentImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
 
 
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	public static final String INVALID_ASSIGNMENT = "edu.cmu.sei.invalid.assignment";
+	public static final String MISSING_WITH = "org.osate.xtext.aadl2.properties.missing_with";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -452,9 +451,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
 		PackageSection referenceNS = (PackageSection)AadlUtil.getContainingTopLevelNamespace(cl);
 		if (contextNS != referenceNS){
-			if (!AadlUtil.isImportedPackage(AadlUtil.getContainingPackage(referenceNS), contextNS)){
-				error(context, "The referenced package '" + AadlUtil.getContainingPackage(referenceNS).getName() +
-						"' of classifier '"+ cl.getName() +"' is not listed in a with clause.");
+			AadlPackage referencePackage = AadlUtil.getContainingPackage(referenceNS);
+			if (!AadlUtil.isImportedPackage(referencePackage, contextNS)){
+				error("The referenced package '" + referencePackage.getName() + "' of classifier '"+ cl.getName() +"' is not listed in a with clause.",
+						context, null, MISSING_WITH, referencePackage.getName(), EcoreUtil.getURI(referencePackage).toString(), EcoreUtil.getURI(contextNS).toString());
 			}
 		}
 	}
@@ -466,9 +466,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		PropertySet referenceNS = (PropertySet) AadlUtil.getContainingTopLevelNamespace(pse);
 		if (contextNS != referenceNS){
 			if (!AadlUtil.isImportedPropertySet(referenceNS, contextNS)){
-				error(context, "The referenced property set '" + referenceNS.getName() +
+				error("The referenced property set '" + referenceNS.getName() +
 						"' of "+ (pse instanceof Property ? "property '":(pse instanceof PropertyType? "property type '":"property constant '" ))
-						+ pse.getName() +"' is not listed in a with clause.");
+						+ pse.getName() +"' is not listed in a with clause.", context, null, MISSING_WITH, referenceNS.getName(),
+						EcoreUtil.getURI(referenceNS).toString(), EcoreUtil.getURI(contextNS).toString());
 			}
 		}
 	}
