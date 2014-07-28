@@ -35,31 +35,17 @@
 
 package org.osate.xtext.aadl2.ui.quickfix;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
-import org.eclipse.xtext.ui.editor.model.edit.IssueModificationContext;
-import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
-import org.eclipse.xtext.ui.editor.quickfix.IssueResolution;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
-import org.eclipse.xtext.ui.editor.quickfix.ReplaceModification;
 import org.eclipse.xtext.validation.Issue;
-import org.osate.xtext.aadl2.validation.Aadl2JavaValidator;
+import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 
-public class Aadl2QuickfixProvider extends DefaultQuickfixProvider {
-
-	
-	
 	@Fix("org.eclipse.xtext.diagnostics.Diagnostic.Syntax")
 	public void fixsyntax(final Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "syntax name", "Capitalize the name.", "upcase.png", new IModification() {
