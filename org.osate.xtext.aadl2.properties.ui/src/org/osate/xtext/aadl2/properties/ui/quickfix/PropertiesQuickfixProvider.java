@@ -39,10 +39,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.xtext.diagnostics.Diagnostic;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
@@ -56,30 +52,6 @@ import org.osate.aadl2.PropertySet;
 import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator;
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
-
-
-	@Fix(Diagnostic.LINKING_DIAGNOSTIC)
-	public void fixlinking(final Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "bad assignment", "Capitalize the name.", "upcase.png", new IModification() {
-			public void apply(IModificationContext context) throws BadLocationException {
-				IXtextDocument xtextDocument = context.getXtextDocument();
-				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-			}
-		});
-	}
-	
-	@Fix("edu.cmu.sei.invalid.assignment")
-	public void fixassign(final Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "bad assignment", "Capitalize the name.", "upcase.png", new IModification() {
-			public void apply(IModificationContext context) throws BadLocationException {
-				IXtextDocument xtextDocument = context.getXtextDocument();
-				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-			}
-		});
-	}
-
 	/**
 	 * QuickFix for adding a required with statement for a referenced package or property set.
 	 * The issue data array is expected to have three elements:
