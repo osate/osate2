@@ -53,6 +53,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static  boolean isPortConnection(final ConnectionInstance conn){
+		if (conn == null) return false;
 		return conn.getKind() == ConnectionKind.PORT_CONNECTION;
 	}
 	
@@ -62,6 +63,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isDelayedPortConnection(final ConnectionInstance conn){
+		if (conn == null) return false;
 		if (isPortConnection(conn)) {
 			EList<ConnectionReference> cl = conn.getConnectionReferences();
 			for (ConnectionReference cr : cl){
@@ -82,6 +84,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isSampledPortConnection(final ConnectionInstance conn){
+		if (conn == null) return false;
 		if (isPortConnection(conn)) {
 			EList<ConnectionReference> cl = conn.getConnectionReferences();
 			for (ConnectionReference cr : cl){
@@ -102,6 +105,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isImmediatePortConnection(final ConnectionInstance conn){
+		if (conn == null) return false;
 		if (isPortConnection(conn)) {
 			EList<ConnectionReference> cl = conn.getConnectionReferences();
 			for (ConnectionReference cr : cl){
@@ -123,6 +127,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public  static  boolean isEventDataConnection(final ConnectionInstance conn){
+		if (conn == null) return false;
 			ConnectionInstanceEnd cie = conn.getDestination();
 			if (cie instanceof FeatureInstance){
 				return   ((FeatureInstance)cie).getCategory() == FeatureCategory.EVENT_DATA_PORT;
@@ -136,6 +141,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 		public  static boolean isEventConnection(final ConnectionInstance conn){
+			if (conn == null) return false;
 			ConnectionInstanceEnd cie = conn.getDestination();
 			if (cie instanceof FeatureInstance){
 				return   ((FeatureInstance)cie).getCategory() == FeatureCategory.EVENT_PORT;
