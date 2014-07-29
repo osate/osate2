@@ -35,63 +35,37 @@
 
 package org.osate.xtext.aadl2.ui.quickfix;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
-import org.eclipse.xtext.ui.editor.model.edit.IssueModificationContext;
-import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
-import org.eclipse.xtext.ui.editor.quickfix.IssueResolution;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
-import org.eclipse.xtext.ui.editor.quickfix.ReplaceModification;
 import org.eclipse.xtext.validation.Issue;
+import org.osate.aadl2.NamedElement;
+import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider;
 import org.osate.xtext.aadl2.validation.Aadl2JavaValidator;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-
-public class Aadl2QuickfixProvider extends DefaultQuickfixProvider {
-
-	
-	
-	@Fix("org.eclipse.xtext.diagnostics.Diagnostic.Syntax")
-	public void fixsyntax(final Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "syntax name", "Capitalize the name.", "upcase.png", new IModification() {
-			public void apply(IModificationContext context) throws BadLocationException {
+public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
+	@Fix(Aadl2JavaValidator.MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS)
+	public void fixMismatchedBeginningAndEndingIdentifiers(final Issue issue, IssueResolutionAcceptor acceptor) {
+		final String beginningName = issue.getData()[0];
+		final String endingName = issue.getData()[1];
+		acceptor.accept(issue, "Change defining identifier to '" + endingName + "'", null, null, new ISemanticModification() {
+			@Override
+			public void apply(EObject element, IModificationContext context) throws Exception {
+				((NamedElement)element).setName(endingName);
+			}
+		});
+		acceptor.accept(issue, "Change ending identifier to '" + beginningName + "'", null, null, new IModification() {
+			@Override
+			public void apply(IModificationContext context) throws Exception {
 				IXtextDocument xtextDocument = context.getXtextDocument();
-				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
+				String modelUnitOrClassifierText = xtextDocument.get(issue.getOffset(), issue.getLength());
+				int endingIdentifierOffset = issue.getOffset() + modelUnitOrClassifierText.lastIndexOf(endingName);
+				xtextDocument.replace(endingIdentifierOffset, endingName.length(), beginningName);
 			}
 		});
 	}
-
-	@Fix("org.eclipse.xtext.diagnostics.Diagnostic.Linking")
-	public void fixlinking(final Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "linking name", "Capitalize the name.", "upcase.png", new IModification() {
-			public void apply(IModificationContext context) throws BadLocationException {
-				IXtextDocument xtextDocument = context.getXtextDocument();
-				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-			}
-		});
-	}
-	
-	@Fix("edu.cmu.sei.invalid.assignment")
-	public void fixassignment(final Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, "bad assignment", "Capitalize the name.", "upcase.png", new IModification() {
-			public void apply(IModificationContext context) throws BadLocationException {
-				IXtextDocument xtextDocument = context.getXtextDocument();
-				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-			}
-		});
-	}
-	
-
 }
