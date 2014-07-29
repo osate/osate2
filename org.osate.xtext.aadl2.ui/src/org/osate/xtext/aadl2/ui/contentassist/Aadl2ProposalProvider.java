@@ -90,31 +90,6 @@ public class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 	}
 	
 	@Override
-	public void completeDefaultAnnexLibrary_SourceText(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		NamedElement annex = AadlUtil.getContainingAnnex(model);
-		if (annex != null){
-			String annexName = annex.getName();
-			if (annexName != null ){ 
-				if (annexContentAssistRegistry == null) initAnnexContentAssistRegistry();
-				if (annexContentAssistRegistry != null){
-					AnnexContentAssist contentAssist = annexContentAssistRegistry.getAnnexContentAssist(annexName);
-					if (contentAssist != null){
-						List<String> results = contentAssist.annexCompletionSuggestions(model, context.getOffset());
-						super.completeDefaultAnnexLibrary_SourceText(model, assignment, context, acceptor);
-						String prefix = context.getPrefix();
-						
-						for(String res : results){
-							StyledString display = new StyledString(res);
-							String replace = prefix + res;
-							acceptor.accept(createCompletionProposal(replace, display, null, context));
-						}
-					}
-				}
-			}
-		}
-	}
-
-	@Override
 	public void completeDefaultAnnexLibrary_SourceText(EObject model, Assignment assignment,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeDefaultAnnexSubclause_SourceText(model, assignment, context, acceptor);
