@@ -1767,11 +1767,11 @@ public class AadlBaNameResolver
                                msg);
              return false ;
            }
-           else if (ref.getPropertyNames().get(0).getField() != null)
+           else if (ref.getPropertyNames().get(0).isSetFields())
            {
              // Property constants haven't any property field.
              String msg = "property fields are not supported for property constant" ;
-             _errManager.error(ref.getPropertyNames().get(0).getField(), msg);
+             _errManager.error(ref.getPropertyNames().get(0).getFields().get(0), msg);
              return false ;
            }
            else
@@ -1794,15 +1794,13 @@ public class AadlBaNameResolver
      
      // The first property name has already been resolved, excepted its field. 
      ListIterator<DeclarativePropertyName> it = propertyNames.listIterator() ;
-     
      DeclarativePropertyName currentName = it.next() ;
-     PropertyField currentField = currentName.getField() ;
      
      Element previousContainer = null ;
      int previousContainerId = -1 ;
      
      // Then resolve the property field.
-     if(false == propertyFieldResolution(currentField, currentName))
+     if(false == propertyFieldResolution(currentName))
      {
        return false ;
      }
@@ -1814,7 +1812,6 @@ public class AadlBaNameResolver
        currentName = it.next() ;
        // DEBUG
        String name = currentName.getPropertyName().getId() ;
-       currentField = currentName.getField() ;
        
        // Case of properties defined by a property association.
        if(Aadl2Package.PROPERTY_ASSOCIATION == previousContainerId)
@@ -1823,7 +1820,7 @@ public class AadlBaNameResolver
               (PropertyAssociation) previousContainer ;
 
          if(propertyAssociationResolver(pa, currentName) &&
-            propertyFieldResolution(currentField, currentName))
+            propertyFieldResolution(currentName))
          {
            continue ;
          }
@@ -1840,7 +1837,7 @@ public class AadlBaNameResolver
        {
          if(propertyValueResolver((PropertyExpression) previousContainer,
                                                                  currentName) &&
-           propertyFieldResolution(currentField, currentName))
+            propertyFieldResolution(currentName))
          {
            continue ;
          }
@@ -1859,12 +1856,12 @@ public class AadlBaNameResolver
          Property p = (Property) previousContainer ;
          
          if(propertyDeclarationResolver(p, currentName) &&
-            propertyFieldResolution(currentField, currentName))
+            propertyFieldResolution(currentName))
          {
            continue ;
          } // Then the property type definition.
          else if(propertyTypeResolver(p.getPropertyType(), currentName) &&
-                 propertyFieldResolution(currentField, currentName))
+                 propertyFieldResolution(currentName))
          {
            continue ;
          }
@@ -1880,7 +1877,7 @@ public class AadlBaNameResolver
          BasicProperty bp = (BasicProperty) previousContainer ;
          
          if(propertyTypeResolver(bp.getPropertyType(), currentName) &&
-            propertyFieldResolution(currentField, currentName))
+            propertyFieldResolution(currentName))
          {
            continue ;
          }
@@ -1895,7 +1892,7 @@ public class AadlBaNameResolver
          RecordType rt = (RecordType) previousContainer ;
          
          if(recordFieldResolver(rt, currentName) &&
-            propertyFieldResolution(currentField, currentName))
+            propertyFieldResolution(currentName))
          {
            continue ;
          }
@@ -2094,92 +2091,134 @@ public class AadlBaNameResolver
     }
   }
   
-  // Field can be null (it will return true).
-   private boolean propertyFieldResolution(PropertyField field,
-                                           DeclarativePropertyName declProName)
-   {
-     if(field != null)
-     {
-       int fieldId = field.eClass().getClassifierID() ;
-       Element el = declProName.getOsateRef() ;
-       
-       if(Aadl2Package.LIST_VALUE == el.eClass().getClassifierID())
-       {
-         return propertyListValueResolver(field, el, declProName) ;
-       }
-       // else:
-       
-       BasicProperty bProperty = getPropertyDeclaration(el) ;
-       int nameTypeId = bProperty.getPropertyType().eClass().getClassifierID() ; 
-       
-       switch(fieldId)
-       {
-         case AadlBaPackage.UPPER_BOUND:
-         case AadlBaPackage.LOWER_BOUND:
-         {
-           // Upper and lower bound fields are only supported for range property
-           // type.
-           if(nameTypeId == Aadl2Package.RANGE_TYPE)
-           {
-             return true ;
-           }
-           else
-           {
-             String msg = "upper or lower bound keyword are only supported for"+
-                          " range property type" ;
-             _errManager.error(field, msg);
-             return false ;
-           }
-         }
-         
-         default : // Integer value case.
-         {
-           // [ integer value ] is only supported for the enumeration and list
-           // types.
-           if(nameTypeId == Aadl2Package.ENUMERATION_TYPE ||
-              nameTypeId == Aadl2Package.LIST_TYPE)
-           {
-             if(integerValueResolver((IntegerValue) field))
-             {
-               if(nameTypeId == Aadl2Package.LIST_TYPE)
-               {
-                 // Link to the default value, if it exists.
-                 if(Aadl2Package.LIST_VALUE == el.eClass().getClassifierID() &&
-                    propertyListValueResolver(field, el, declProName))
-                 {
-                   return true ;
-                 }
-                 // the else statements: link with the property type.
-                 
-                 ListType lt = (ListType) bProperty.getPropertyType() ;
-                 declProName.setOsateRef(lt.getElementType()) ;
-                 return true ;
-               }
-               
-               return true ;
-             }
-             else
-             {
-               return false ;
-             }
-           }
-           else
-           {
-             String msg = "integer index is only supported for enumeration and"+
-                          " list property type" ;
-             _errManager.error(field, msg);
-             return false ;
-           }
-         }
-       }
-     }
-     else
-     {
-       return true ;
-     }
-   }
+  private boolean propertyFieldResolution(DeclarativePropertyName declProName)
+  {
+    if(declProName.isSetFields())
+    {
+      Element el = declProName.getOsateRef() ;
+      EList<PropertyField> fields = declProName.getFields() ;
+      BasicProperty bProperty = getPropertyDeclaration(el) ;
+      int nameTypeId = bProperty.getPropertyType().eClass().getClassifierID() ;
+
+      if(fields.size() == 1)
+      {
+        PropertyField field = fields.get(0) ;
+        int fieldId = field.eClass().getClassifierID() ;
+
+        switch ( fieldId )
+        {
+          case AadlBaPackage.UPPER_BOUND :
+          case AadlBaPackage.LOWER_BOUND :
+          {
+            // Upper and lower bound fields are only supported for range property
+            // type.
+            if(nameTypeId == Aadl2Package.RANGE_TYPE)
+            {
+              return true ;
+            }
+            else
+            {
+              String msg =
+                    "upper or lower bound keyword are only supported for"
+                          + " range property type" ;
+              _errManager.error(field, msg) ;
+              return false ;
+            }
+          }
+          
+          default : // Integer value case.
+          {
+            if(nameTypeId == Aadl2Package.ENUMERATION_TYPE)
+            {
+              return integerValueResolver((IntegerValue) field) ;
+            }
+            else
+            {
+              return propertyFieldIntegerResolver(el, nameTypeId,
+                                                  bProperty, declProName) ;
+            }
+          }
+        }
+      }// end if(fields.size() == 1)
+      else // Integer value case.
+      {
+        if(nameTypeId == Aadl2Package.ENUMERATION_TYPE)
+        {
+          String msg =
+                "multiple integer index is only supported for list of properties" ;
+          _errManager.error(declProName.getFields().get(2), msg) ;
+          return false ;
+        }
+        else
+        {
+          return propertyFieldIntegerResolver(el, nameTypeId,
+                                              bProperty, declProName) ;
+        }
+      }
+    }
+    else
+    {
+      return true ;
+    }
+  }
    
-  private boolean propertyListValueResolver(PropertyField field,
+  private boolean propertyFieldIntegerResolver(Element el,
+                                               int nameTypeId,
+                                               BasicProperty bProperty,
+                                               DeclarativePropertyName declProName)
+  {
+    if(nameTypeId == Aadl2Package.LIST_TYPE ||
+       Aadl2Package.LIST_VALUE == el.eClass().getClassifierID())
+    {
+      for(PropertyField pf : declProName.getFields())
+      {
+        if(propertyFieldIndexResolver(el, (IntegerValue) pf,
+                                      bProperty, declProName))
+        {
+          continue ;
+        }
+        else
+        {
+          return false ;
+        }
+      }
+      
+      return true ;
+    }
+    else
+    {
+      String msg =
+            "multiple integer index is only supported for list of properties" ;
+      _errManager.error(declProName.getFields().get(0), msg) ;
+      return false ;
+    }
+  }
+  
+  private boolean propertyFieldIndexResolver(Element el, IntegerValue field,
+                                             BasicProperty bProperty,
+                                            DeclarativePropertyName declProName)
+  {
+    if(integerValueResolver(field))
+    {
+      // Link to the default value, if it exists.
+      if(Aadl2Package.LIST_VALUE == el.eClass().getClassifierID() &&
+         propertyFieldListValueResolver(field, el, declProName))
+      {
+        return true ;
+      }
+      // the else statements: link with the property type.
+      
+      ListType lt = (ListType) bProperty.getPropertyType() ;
+      declProName.setOsateRef(lt.getElementType()) ;
+      return true ;
+    }
+    else
+    {
+      return false ;
+    }
+  }
+
+  private boolean propertyFieldListValueResolver(IntegerValue field,
                                             Element el,
                                             DeclarativePropertyName declProName)
   {
@@ -2189,7 +2228,7 @@ public class AadlBaNameResolver
       // DEBUG
       BehaviorIntegerLiteral bil = (BehaviorIntegerLiteral) field ;
       Long index = bil.getValue() ;
-      return propertyListIndexResolver(index.intValue(), lv, declProName) ;
+      return propertyFieldListIndexResolver(index.intValue(), lv, declProName) ;
     }
     else
     // As field is an integer value variable, the integer 
@@ -2203,9 +2242,9 @@ public class AadlBaNameResolver
     }
   }
 
-   private boolean propertyListIndexResolver(int index,
-                                             ListValue lv,
-                                             DeclarativePropertyName declProName)
+   private boolean propertyFieldListIndexResolver(int index,
+                                                  ListValue lv,
+                                            DeclarativePropertyName declProName)
    {
      if(index >= 0)
      {

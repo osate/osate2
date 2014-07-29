@@ -20,7 +20,7 @@
 -- Behavior Annex property reference tests.
 -- Tests pattern :
 
---- Property Set ( )
+--- Property Set (X)
 
 --> predeclared property set value
 --> with namespace
@@ -204,16 +204,21 @@ transitions
     a -[]-> a {int := #AadlBaTestPropertySet::aSimpleRecordDefined.int} ;
     a -[]-> a {if(#AadlBaTestPropertySet::aSimpleRecordDefined.bool) int := 1 end if} ;
    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.int};
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ; 
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecordDefined.listRec[0].int} ;
    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].int} ;
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].listRec[0].int} ;
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.int};
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
    
-   -- a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec[0].int} ; -- Not implemented yet
-   -- a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec.aSimpleRecordDefined.int} ; -- Not implemented yet
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].int};
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec[0].int} ; -- Not implemented yet
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec.aSimpleRecordDefined.int} ; -- Not implemented yet
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.int};
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
 **};  

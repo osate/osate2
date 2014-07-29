@@ -44,7 +44,7 @@ aSimpleListDefined : list of aadlstring => ("hello", "hi", "good day") applies t
 simpleRecordType : type record ( bool : aadlboolean ;
                                  int : aadlinteger ;)  ;
 aSimpleRecord : AadlBaTestPropertySet::simpleRecordType applies to (data, subprogram, thread, system) ;
-aSimpleRecordDefined : AadlBaTestPropertySet::simpleRecordType => [bool => true ; int => 50 ;]
+aSimpleRecordDefined : AadlBaTestPropertySet::simpleRecordType => [bool => true ; int => 10 ;]
                        applies to (data, subprogram, thread, system) ;
             
 complexRecordType : type record ( bool : aadlboolean ;

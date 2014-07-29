@@ -151,9 +151,10 @@ public class DeclarativeUtils
         
         System.out.println("  property name id \'" + dpn.getPropertyName().getId() +
                            "\' : " + dpn.getPropertyName().getOsateRef()) ;
-        if(dpn.getField() != null)
+        
+        for(PropertyField field : dpn.getFields())
         {
-          System.out.println("  field : " + dpn.getField()) ;
+          System.out.println("  field : " + field) ;
         }
       }
     }
