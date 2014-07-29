@@ -49,10 +49,8 @@ import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyType ;
-import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
-import org.osate.aadl2.RecordField ;
 import org.osate.aadl2.RecordType ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
@@ -1810,8 +1808,6 @@ public class AadlBaNameResolver
        previousContainer = currentName.getOsateRef() ;
        previousContainerId = previousContainer.eClass().getClassifierID() ;
        currentName = it.next() ;
-       // DEBUG
-       String name = currentName.getPropertyName().getId() ;
        
        // Case of properties defined by a property association.
        if(Aadl2Package.PROPERTY_ASSOCIATION == previousContainerId)
@@ -2170,10 +2166,14 @@ public class AadlBaNameResolver
     if(nameTypeId == Aadl2Package.LIST_TYPE ||
        Aadl2Package.LIST_VALUE == el.eClass().getClassifierID())
     {
-      for(PropertyField pf : declProName.getFields())
+      EList<PropertyField> fields = declProName.getFields() ;
+      
+      for(int fieldIndex=0 ; fieldIndex < fields.size() ; fieldIndex++)
       {
+        PropertyField pf = fields.get(fieldIndex) ;
+        
         if(propertyFieldIndexResolver(el, (IntegerValue) pf,
-                                      bProperty, declProName))
+                                      bProperty, fieldIndex, declProName))
         {
           continue ;
         }
@@ -2196,13 +2196,14 @@ public class AadlBaNameResolver
   
   private boolean propertyFieldIndexResolver(Element el, IntegerValue field,
                                              BasicProperty bProperty,
+                                             int fieldIndex,
                                             DeclarativePropertyName declProName)
   {
     if(integerValueResolver(field))
     {
       // Link to the default value, if it exists.
       if(Aadl2Package.LIST_VALUE == el.eClass().getClassifierID() &&
-         propertyFieldListValueResolver(field, el, declProName))
+         propertyFieldListValueResolver(field, el, fieldIndex, declProName))
       {
         return true ;
       }
@@ -2220,30 +2221,32 @@ public class AadlBaNameResolver
 
   private boolean propertyFieldListValueResolver(IntegerValue field,
                                             Element el,
+                                            int fieldIndex,
                                             DeclarativePropertyName declProName)
   {
     if(AadlBaPackage.BEHAVIOR_INTEGER_LITERAL == field.eClass().getClassifierID())
     {
       ListValue lv = (ListValue) el ;
-      // DEBUG
       BehaviorIntegerLiteral bil = (BehaviorIntegerLiteral) field ;
       Long index = bil.getValue() ;
-      return propertyFieldListIndexResolver(index.intValue(), lv, declProName) ;
+      return propertyFieldListIndexResolver(index.intValue(), lv, fieldIndex,
+                                            declProName) ;
     }
     else
     // As field is an integer value variable, the integer 
     // value cannot be evaluated at compile time. So raise
     // a warning
     {
-      // TODO: to be implemented.
-      // DEBUG
-      System.err.println("warning") ;
+      String msg = "Use the property type. Default value is not evaluated as " +
+                   "the value of the integer variable is not known.";
+      _errManager.warning(declProName.getFields().get(fieldIndex), msg) ;
       return false ;
     }
   }
 
    private boolean propertyFieldListIndexResolver(int index,
                                                   ListValue lv,
+                                                  int fieldIndex,
                                             DeclarativePropertyName declProName)
    {
      if(index >= 0)
@@ -2253,7 +2256,8 @@ public class AadlBaNameResolver
        if(values.size() < index)
        {
          // Report out of bounds error.
-         // TODO: to be implemented.
+         String msg = "array out of bound, size is: " + values.size();
+         _errManager.error(declProName.getFields().get(fieldIndex), msg) ;
          return false ;
        }
        else
@@ -2265,7 +2269,8 @@ public class AadlBaNameResolver
      else
      {
        // Report out of bounds error.
-       // TODO: to be implemented.
+       String msg = "negative array bound";
+       _errManager.error(declProName.getFields().get(fieldIndex), msg) ;
        return false ;
      }
    }
