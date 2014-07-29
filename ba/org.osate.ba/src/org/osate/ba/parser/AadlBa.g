@@ -19,7 +19,7 @@
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
  
-grammar AadlBa;
+grammar AadlBa; /* COMPLIANCE : ANTLR 4.4 */
 
 options
 {
@@ -1444,22 +1444,25 @@ property_reference returns [DeclarativePropertyReference result]
 //   property_identifier [ property_field ]
 
 // property_field ::=
-//   [ integer_value ]
-// | . item_list_identifier
-// | . upper_bound
-// | . lower_bound
+//   [ integer_value ]* (enumeration and list properties supported only)
+// | . item_list_identifier (enumeration and list properties supported only)
+// | . upper_bound (range properties supported only)
+// | . lower_bound (range properties supported only)
 // Ambiguity between a property literal and a property name without field.
 property_name returns [DeclarativePropertyName result]
   :
-    IDENT (   ( LBRACK integer_value RBRACK )
-            |
-              DOT
-              (
-                  UPPER_BOUND
-                |
-                  LOWER_BOUND
-              )
-          )?  
+IDENT  (   
+           ( LBRACK integer_value RBRACK )+
+         |
+           ( 
+             DOT
+             (
+                 UPPER_BOUND
+               |
+                 LOWER_BOUND
+             )
+           )
+       )?  
 ;
 
 // numeric_literal ::= <refer to [AS5506A 15.4]>

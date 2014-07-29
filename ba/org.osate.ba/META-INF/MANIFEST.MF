@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.ba;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
- resources/libs/antlr-runtime-4.1.jar
+ resources/libs/antlr-runtime-4.4.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -31,11 +31,11 @@ Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
- org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.aadl2;bundle-version="1.0.0";visibility:=reexport,
  org.osate.ba;visibility:=reexport,
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.annexsupport;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
  org.osate.ui;bundle-version="1.0.0",
- org.osate.utils;visibility:=reexport;bundle-version="1.0.0"
+ org.osate.utils;bundle-version="1.0.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy

@@ -29,6 +29,7 @@ import org.antlr.v4.runtime.misc.NotNull ;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor ;
 import org.antlr.v4.runtime.tree.TerminalNode ;
 import org.eclipse.emf.common.util.BasicEList ;
+import org.eclipse.emf.common.util.EList ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
@@ -1935,26 +1936,27 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     propertyName.setId(ctx.IDENT().getText());
     result.setPropertyName(propertyName);
     
-    PropertyField field = null ;
+    EList<PropertyField> fields = result.getFields() ;
     
-    if(ctx.integer_value() != null)
-    {
-      field = ctx.integer_value().result ;
-    }
-    else if(ctx.UPPER_BOUND() != null)
+    if(ctx.UPPER_BOUND() != null)
     {
       UpperBound upField = _fact.createUpperBound() ;
       setLocationReference(upField, ctx.UPPER_BOUND()) ;
-      field = upField ;
+      fields.add(upField) ;
     }
     else if(ctx.LOWER_BOUND() != null)
     {
       LowerBound lowerField = _fact.createLowerBound() ;
       setLocationReference(lowerField, ctx.LOWER_BOUND()) ;
-      field = lowerField ;
+      fields.add(lowerField) ;
     }
-    
-    result.setField(field);
+    else
+    {
+      for(Integer_valueContext ivc : ctx.integer_value())
+      {
+        fields.add(ivc.result) ;
+      }
+    }
     
     ctx.result = result ;
     
