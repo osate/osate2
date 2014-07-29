@@ -367,6 +367,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkForChainedInverseFeatureGroupTypes(featureGroupType);
 		checkFeatureGroupTypeUniqueNames(featureGroupType);
 		checkEndId(featureGroupType);
+		checkClassifierReferenceInWith(featureGroupType.getInverse(), featureGroupType);
 	}
 
 	@Check(CheckType.FAST)
