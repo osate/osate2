@@ -1,5 +1,5 @@
 /*
-* /**
+ * /**
  * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
@@ -31,7 +31,7 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
-*/
+ */
 package org.osate.xtext.aadl2.ui.contentassist;
 
 import java.util.List;
@@ -48,7 +48,9 @@ import org.osate.annexsupport.AnnexContentAssistRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 
 /**
- * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
+ * see
+ * http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on
+ * how to customize content assistant
  */
 public class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 	
@@ -112,4 +114,9 @@ public class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		}
 	}
 
+	@Override
+	public void completeDefaultAnnexLibrary_SourceText(EObject model, Assignment assignment,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeDefaultAnnexSubclause_SourceText(model, assignment, context, acceptor);
+	}
 }
