@@ -534,8 +534,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="PropertyHolder" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Property"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="#//PropertyField"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
+        eType="#//PropertyField" unsettable="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyListValue" eSuperTypes="#//PropertyField">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//ListValue"/>

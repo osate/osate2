@@ -5093,13 +5093,13 @@ public interface AadlBaPackage extends EPackage
   int PROPERTY_HOLDER__PROPERTY = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Field</b></em>' containment reference.
+   * The feature id for the '<em><b>Fields</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY_HOLDER__FIELD = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+  int PROPERTY_HOLDER__FIELDS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Property Holder</em>' class.
@@ -8227,15 +8227,15 @@ public interface AadlBaPackage extends EPackage
   EReference getPropertyHolder_Property();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.PropertyHolder#getField <em>Field</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.PropertyHolder#getFields <em>Fields</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Field</em>'.
-   * @see org.osate.ba.aadlba.PropertyHolder#getField()
+   * @return the meta object for the containment reference list '<em>Fields</em>'.
+   * @see org.osate.ba.aadlba.PropertyHolder#getFields()
    * @see #getPropertyHolder()
    * @generated
    */
-  EReference getPropertyHolder_Field();
+  EReference getPropertyHolder_Fields();
 
   /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.PropertyListValue <em>Property List Value</em>}'.
@@ -10201,12 +10201,12 @@ public interface AadlBaPackage extends EPackage
     EReference PROPERTY_HOLDER__PROPERTY = eINSTANCE.getPropertyHolder_Property();
 
     /**
-     * The meta object literal for the '<em><b>Field</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROPERTY_HOLDER__FIELD = eINSTANCE.getPropertyHolder_Field();
+    EReference PROPERTY_HOLDER__FIELDS = eINSTANCE.getPropertyHolder_Fields();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.PropertyListValueImpl <em>Property List Value</em>}' class.

@@ -832,16 +832,6 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_PROPERTY_NAME__BA_REF = DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF ;
 
   /**
-   * The feature id for the '<em><b>Field</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DECLARATIVE_PROPERTY_NAME__FIELD =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 0 ;
-
-  /**
    * The feature id for the '<em><b>Property Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -849,6 +839,16 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME =
+        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 0 ;
+
+  /**
+   * The feature id for the '<em><b>Fields</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_NAME__FIELDS =
         DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 1 ;
 
   /**
@@ -1736,17 +1736,6 @@ public interface DeclarativePackage extends EPackage
   EClass getDeclarativePropertyName() ;
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Field</em>'.
-   * @see org.osate.ba.declarative.DeclarativePropertyName#getField()
-   * @see #getDeclarativePropertyName()
-   * @generated
-   */
-  EReference getDeclarativePropertyName_Field() ;
-
-  /**
    * Returns the meta object for the containment reference '{@link org.osate.ba.declarative.DeclarativePropertyName#getPropertyName <em>Property Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1756,6 +1745,17 @@ public interface DeclarativePackage extends EPackage
    * @generated
    */
   EReference getDeclarativePropertyName_PropertyName() ;
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.declarative.DeclarativePropertyName#getFields <em>Fields</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Fields</em>'.
+   * @see org.osate.ba.declarative.DeclarativePropertyName#getFields()
+   * @see #getDeclarativePropertyName()
+   * @generated
+   */
+  EReference getDeclarativePropertyName_Fields() ;
 
   /**
    * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativePropertyReference <em>Property Reference</em>}'.
@@ -2167,15 +2167,6 @@ public interface DeclarativePackage extends EPackage
     EClass DECLARATIVE_PROPERTY_NAME = eINSTANCE.getDeclarativePropertyName() ;
 
     /**
-     * The meta object literal for the '<em><b>Field</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DECLARATIVE_PROPERTY_NAME__FIELD = eINSTANCE
-          .getDeclarativePropertyName_Field() ;
-
-    /**
      * The meta object literal for the '<em><b>Property Name</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2183,6 +2174,15 @@ public interface DeclarativePackage extends EPackage
      */
     EReference DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME = eINSTANCE
           .getDeclarativePropertyName_PropertyName() ;
+
+    /**
+     * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DECLARATIVE_PROPERTY_NAME__FIELDS = eINSTANCE
+          .getDeclarativePropertyName_Fields() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl <em>Property Reference</em>}' class.

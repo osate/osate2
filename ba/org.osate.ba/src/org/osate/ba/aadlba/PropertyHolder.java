@@ -19,6 +19,7 @@
  */
 package org.osate.ba.aadlba;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Property;
 
 /**
@@ -30,7 +31,7 @@ import org.osate.aadl2.Property;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.PropertyHolder#getProperty <em>Property</em>}</li>
- *   <li>{@link org.osate.ba.aadlba.PropertyHolder#getField <em>Field</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.PropertyHolder#getFields <em>Fields</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,29 +68,42 @@ public interface PropertyHolder extends BehaviorElement
   void setProperty(Property value);
 
   /**
-   * Returns the value of the '<em><b>Field</b></em>' containment reference.
+   * Returns the value of the '<em><b>Fields</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.ba.aadlba.PropertyField}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Field</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Fields</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Field</em>' containment reference.
-   * @see #setField(PropertyField)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyHolder_Field()
-   * @model containment="true"
+   * @return the value of the '<em>Fields</em>' containment reference list.
+   * @see #isSetFields()
+   * @see #unsetFields()
+   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyHolder_Fields()
+   * @model containment="true" unsettable="true"
    * @generated
    */
-  PropertyField getField();
+  EList<PropertyField> getFields();
 
   /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyHolder#getField <em>Field</em>}' containment reference.
+   * Unsets the value of the '{@link org.osate.ba.aadlba.PropertyHolder#getFields <em>Fields</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Field</em>' containment reference.
-   * @see #getField()
+   * @see #isSetFields()
+   * @see #getFields()
    * @generated
    */
-  void setField(PropertyField value);
+  void unsetFields();
+
+  /**
+   * Returns whether the value of the '{@link org.osate.ba.aadlba.PropertyHolder#getFields <em>Fields</em>}' containment reference list is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Fields</em>' containment reference list is set.
+   * @see #unsetFields()
+   * @see #getFields()
+   * @generated
+   */
+  boolean isSetFields();
 
 } // PropertyHolder

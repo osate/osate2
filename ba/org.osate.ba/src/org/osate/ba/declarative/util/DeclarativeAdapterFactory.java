@@ -52,6 +52,7 @@ import org.osate.ba.aadlba.BehaviorNamedElement ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder ;
 import org.osate.ba.aadlba.CommunicationAction ;
 import org.osate.ba.aadlba.CompletionRelativeTimeout ;
 import org.osate.ba.aadlba.DispatchRelativeTimeout ;
@@ -417,6 +418,12 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           public Adapter caseElementHolder(ElementHolder object)
           {
             return createElementHolderAdapter() ;
+          }
+
+          @Override
+          public Adapter caseClassifierFeatureHolder(ClassifierFeatureHolder object)
+          {
+            return createClassifierFeatureHolderAdapter() ;
           }
 
           @Override
@@ -1215,16 +1222,16 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ComponentElementHolder <em>Component Element Holder</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ClassifierFeatureHolder <em>Classifier Feature Holder</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.ba.aadlba.ComponentElementHolder
+   * @see org.osate.ba.aadlba.ClassifierFeatureHolder
    * @generated
    */
-  public Adapter createComponentElementHolderAdapter()
+  public Adapter createClassifierFeatureHolderAdapter()
   {
     return null ;
   }

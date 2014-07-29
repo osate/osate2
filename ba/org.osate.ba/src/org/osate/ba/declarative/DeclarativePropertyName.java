@@ -19,6 +19,8 @@
  */
 package org.osate.ba.declarative ;
 
+import org.eclipse.emf.common.util.EList ;
+import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.PropertyField ;
 
 /**
@@ -29,8 +31,8 @@ import org.osate.ba.aadlba.PropertyField ;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getPropertyName <em>Property Name</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getFields <em>Fields</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,32 +42,6 @@ import org.osate.ba.aadlba.PropertyField ;
  */
 public interface DeclarativePropertyName extends DeclarativeBehaviorElement
 {
-  /**
-   * Returns the value of the '<em><b>Field</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Field</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Field</em>' containment reference.
-   * @see #setField(PropertyField)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Field()
-   * @model containment="true"
-   * @generated
-   */
-  PropertyField getField() ;
-
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Field</em>' containment reference.
-   * @see #getField()
-   * @generated
-   */
-  void setField(PropertyField value) ;
-
   /**
    * Returns the value of the '<em><b>Property Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
@@ -91,5 +67,44 @@ public interface DeclarativePropertyName extends DeclarativeBehaviorElement
    * @generated
    */
   void setPropertyName(Identifier value) ;
+
+  /**
+   * Returns the value of the '<em><b>Fields</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.ba.aadlba.PropertyField}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Fields</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Fields</em>' containment reference list.
+   * @see #isSetFields()
+   * @see #unsetFields()
+   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Fields()
+   * @model containment="true" unsettable="true"
+   * @generated
+   */
+  EList<PropertyField> getFields() ;
+
+  /**
+   * Unsets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getFields <em>Fields</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSetFields()
+   * @see #getFields()
+   * @generated
+   */
+  void unsetFields() ;
+
+  /**
+   * Returns whether the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getFields <em>Fields</em>}' containment reference list is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Fields</em>' containment reference list is set.
+   * @see #unsetFields()
+   * @see #getFields()
+   * @generated
+   */
+  boolean isSetFields() ;
 
 } // DeclarativePropertyName

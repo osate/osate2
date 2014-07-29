@@ -19,15 +19,19 @@
  */
 package org.osate.ba.aadlba.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Property;
 
 import org.osate.ba.aadlba.AadlBaPackage;
@@ -42,7 +46,7 @@ import org.osate.ba.aadlba.PropertyHolder;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.PropertyHolderImpl#getProperty <em>Property</em>}</li>
- *   <li>{@link org.osate.ba.aadlba.impl.PropertyHolderImpl#getField <em>Field</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.PropertyHolderImpl#getFields <em>Fields</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,14 +65,14 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
   protected Property property;
 
   /**
-   * The cached value of the '{@link #getField() <em>Field</em>}' containment reference.
+   * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getField()
+   * @see #getFields()
    * @generated
    * @ordered
    */
-  protected PropertyField field;
+  protected EList<PropertyField> fields;
 
   /**
    * <!-- begin-user-doc -->
@@ -139,9 +143,13 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyField getField()
+  public EList<PropertyField> getFields()
   {
-    return field;
+    if (fields == null)
+    {
+      fields = new EObjectContainmentEList.Unsettable<PropertyField>(PropertyField.class, this, AadlBaPackage.PROPERTY_HOLDER__FIELDS);
+    }
+    return fields;
   }
 
   /**
@@ -149,16 +157,9 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetField(PropertyField newField, NotificationChain msgs)
+  public void unsetFields()
   {
-    PropertyField oldField = field;
-    field = newField;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_HOLDER__FIELD, oldField, newField);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+    if (fields != null) ((InternalEList.Unsettable<?>)fields).unset();
   }
 
   /**
@@ -166,20 +167,9 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setField(PropertyField newField)
+  public boolean isSetFields()
   {
-    if (newField != field)
-    {
-      NotificationChain msgs = null;
-      if (field != null)
-        msgs = ((InternalEObject)field).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.PROPERTY_HOLDER__FIELD, null, msgs);
-      if (newField != null)
-        msgs = ((InternalEObject)newField).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.PROPERTY_HOLDER__FIELD, null, msgs);
-      msgs = basicSetField(newField, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_HOLDER__FIELD, newField, newField));
+    return fields != null && ((InternalEList.Unsettable<?>)fields).isSet();
   }
 
   /**
@@ -192,8 +182,8 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
   {
     switch (featureID)
     {
-      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
-        return basicSetField(null, msgs);
+      case AadlBaPackage.PROPERTY_HOLDER__FIELDS:
+        return ((InternalEList<?>)getFields()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -211,8 +201,8 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
       case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         if (resolve) return getProperty();
         return basicGetProperty();
-      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
-        return getField();
+      case AadlBaPackage.PROPERTY_HOLDER__FIELDS:
+        return getFields();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -222,6 +212,7 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -230,8 +221,9 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
       case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         setProperty((Property)newValue);
         return;
-      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
-        setField((PropertyField)newValue);
+      case AadlBaPackage.PROPERTY_HOLDER__FIELDS:
+        getFields().clear();
+        getFields().addAll((Collection<? extends PropertyField>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -250,8 +242,8 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
       case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         setProperty((Property)null);
         return;
-      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
-        setField((PropertyField)null);
+      case AadlBaPackage.PROPERTY_HOLDER__FIELDS:
+        unsetFields();
         return;
     }
     super.eUnset(featureID);
@@ -269,8 +261,8 @@ public class PropertyHolderImpl extends BehaviorElementImpl implements PropertyH
     {
       case AadlBaPackage.PROPERTY_HOLDER__PROPERTY:
         return property != null;
-      case AadlBaPackage.PROPERTY_HOLDER__FIELD:
-        return field != null;
+      case AadlBaPackage.PROPERTY_HOLDER__FIELDS:
+        return isSetFields();
     }
     return super.eIsSet(featureID);
   }

@@ -421,7 +421,7 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDeclarativePropertyName_Field()
+  public EReference getDeclarativePropertyName_PropertyName()
   {
     return (EReference) declarativePropertyNameEClass.getEStructuralFeatures()
           .get(0) ;
@@ -432,7 +432,7 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDeclarativePropertyName_PropertyName()
+  public EReference getDeclarativePropertyName_Fields()
   {
     return (EReference) declarativePropertyNameEClass.getEStructuralFeatures()
           .get(1) ;
@@ -699,9 +699,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
 
     declarativePropertyNameEClass = createEClass(DECLARATIVE_PROPERTY_NAME) ;
     createEReference(declarativePropertyNameEClass,
-                     DECLARATIVE_PROPERTY_NAME__FIELD) ;
-    createEReference(declarativePropertyNameEClass,
                      DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME) ;
+    createEReference(declarativePropertyNameEClass,
+                     DECLARATIVE_PROPERTY_NAME__FIELDS) ;
 
     declarativePropertyReferenceEClass =
           createEClass(DECLARATIVE_PROPERTY_REFERENCE) ;
@@ -926,16 +926,16 @@ public class DeclarativePackageImpl extends EPackageImpl implements
     initEClass(declarativePropertyNameEClass, DeclarativePropertyName.class,
                "DeclarativePropertyName", !IS_ABSTRACT, !IS_INTERFACE,
                IS_GENERATED_INSTANCE_CLASS) ;
-    initEReference(getDeclarativePropertyName_Field(), theAadlBaPackage
-                         .getPropertyField(), null, "field", null, 0, 1,
-                   DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
-                   IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-                   !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
     initEReference(getDeclarativePropertyName_PropertyName(), this
                          .getIdentifier(), null, "propertyName", null, 1, 1,
                    DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
                    IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                    !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
+    initEReference(getDeclarativePropertyName_Fields(), theAadlBaPackage
+                         .getPropertyField(), null, "fields", null, 0, -1,
+                   DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                   IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
 
     initEClass(declarativePropertyReferenceEClass,
                DeclarativePropertyReference.class,

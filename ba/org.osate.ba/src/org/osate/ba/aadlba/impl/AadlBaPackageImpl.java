@@ -31,6 +31,131 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.osate.aadl2.Aadl2Package;
+import org.osate.ba.aadlba.AadlBaFactory;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.ActualPortHolder;
+import org.osate.ba.aadlba.Any;
+import org.osate.ba.aadlba.AssignmentAction;
+import org.osate.ba.aadlba.BasicAction;
+import org.osate.ba.aadlba.BehaviorAction;
+import org.osate.ba.aadlba.BehaviorActionBlock;
+import org.osate.ba.aadlba.BehaviorActionCollection;
+import org.osate.ba.aadlba.BehaviorActionSequence;
+import org.osate.ba.aadlba.BehaviorActionSet;
+import org.osate.ba.aadlba.BehaviorActions;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral;
+import org.osate.ba.aadlba.BehaviorCondition;
+import org.osate.ba.aadlba.BehaviorElement;
+import org.osate.ba.aadlba.BehaviorFeatureType;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral;
+import org.osate.ba.aadlba.BehaviorNamedElement;
+import org.osate.ba.aadlba.BehaviorPropertyConstant;
+import org.osate.ba.aadlba.BehaviorRealLiteral;
+import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.aadlba.BehaviorStringLiteral;
+import org.osate.ba.aadlba.BehaviorTime;
+import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.aadlba.BehaviorVariable;
+import org.osate.ba.aadlba.BehaviorVariableHolder;
+import org.osate.ba.aadlba.BinaryAddingOperator;
+import org.osate.ba.aadlba.BinaryNumericOperator;
+import org.osate.ba.aadlba.CalledSubprogramHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
+import org.osate.ba.aadlba.ClassifierPropertyReference;
+import org.osate.ba.aadlba.CommunicationAction;
+import org.osate.ba.aadlba.CompletionRelativeTimeout;
+import org.osate.ba.aadlba.ComponentElementPropertyReference;
+import org.osate.ba.aadlba.CondStatement;
+import org.osate.ba.aadlba.DataAccessHolder;
+import org.osate.ba.aadlba.DataAccessPrototypeHolder;
+import org.osate.ba.aadlba.DataComponentReference;
+import org.osate.ba.aadlba.DataHolder;
+import org.osate.ba.aadlba.DataPortHolder;
+import org.osate.ba.aadlba.DataRepresentation;
+import org.osate.ba.aadlba.DataSubcomponentHolder;
+import org.osate.ba.aadlba.DispatchCondition;
+import org.osate.ba.aadlba.DispatchConjunction;
+import org.osate.ba.aadlba.DispatchRelativeTimeout;
+import org.osate.ba.aadlba.DispatchTrigger;
+import org.osate.ba.aadlba.DispatchTriggerCondition;
+import org.osate.ba.aadlba.DispatchTriggerConditionStop;
+import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
+import org.osate.ba.aadlba.ElementHolder;
+import org.osate.ba.aadlba.ElementValues;
+import org.osate.ba.aadlba.ElseStatement;
+import org.osate.ba.aadlba.EventDataPortHolder;
+import org.osate.ba.aadlba.EventPortHolder;
+import org.osate.ba.aadlba.ExecuteCondition;
+import org.osate.ba.aadlba.ExecutionTimeoutCatch;
+import org.osate.ba.aadlba.Factor;
+import org.osate.ba.aadlba.FeatureHolder;
+import org.osate.ba.aadlba.FeaturePrototypeHolder;
+import org.osate.ba.aadlba.FeatureType;
+import org.osate.ba.aadlba.ForOrForAllStatement;
+import org.osate.ba.aadlba.GroupHolder;
+import org.osate.ba.aadlba.GroupPrototypeHolder;
+import org.osate.ba.aadlba.GroupableElement;
+import org.osate.ba.aadlba.IfStatement;
+import org.osate.ba.aadlba.IndexableElement;
+import org.osate.ba.aadlba.IntegerRange;
+import org.osate.ba.aadlba.IntegerValue;
+import org.osate.ba.aadlba.IntegerValueConstant;
+import org.osate.ba.aadlba.IntegerValueVariable;
+import org.osate.ba.aadlba.IterativeVariable;
+import org.osate.ba.aadlba.IterativeVariableHolder;
+import org.osate.ba.aadlba.Literal;
+import org.osate.ba.aadlba.LockAction;
+import org.osate.ba.aadlba.LogicalOperator;
+import org.osate.ba.aadlba.LoopStatement;
+import org.osate.ba.aadlba.LowerBound;
+import org.osate.ba.aadlba.MultiplyingOperator;
+import org.osate.ba.aadlba.NumericLiteral;
+import org.osate.ba.aadlba.Otherwise;
+import org.osate.ba.aadlba.ParameterHolder;
+import org.osate.ba.aadlba.ParameterLabel;
+import org.osate.ba.aadlba.PortCountValue;
+import org.osate.ba.aadlba.PortDequeueAction;
+import org.osate.ba.aadlba.PortDequeueValue;
+import org.osate.ba.aadlba.PortFreezeAction;
+import org.osate.ba.aadlba.PortFreshValue;
+import org.osate.ba.aadlba.PortHolder;
+import org.osate.ba.aadlba.PortPrototypeHolder;
+import org.osate.ba.aadlba.PortSendAction;
+import org.osate.ba.aadlba.PropertyEnumLiteral;
+import org.osate.ba.aadlba.PropertyField;
+import org.osate.ba.aadlba.PropertyHolder;
+import org.osate.ba.aadlba.PropertyListValue;
+import org.osate.ba.aadlba.PropertyRecordField;
+import org.osate.ba.aadlba.PropertyReference;
+import org.osate.ba.aadlba.PropertySetPropertyReference;
+import org.osate.ba.aadlba.PrototypeHolder;
+import org.osate.ba.aadlba.Relation;
+import org.osate.ba.aadlba.RelationalOperator;
+import org.osate.ba.aadlba.SharedDataAction;
+import org.osate.ba.aadlba.SimpleExpression;
+import org.osate.ba.aadlba.StructUnionElement;
+import org.osate.ba.aadlba.StructUnionElementHolder;
+import org.osate.ba.aadlba.SubcomponentHolder;
+import org.osate.ba.aadlba.SubprogramAccessHolder;
+import org.osate.ba.aadlba.SubprogramCallAction;
+import org.osate.ba.aadlba.SubprogramHolder;
+import org.osate.ba.aadlba.SubprogramHolderProxy;
+import org.osate.ba.aadlba.SubprogramPrototypeHolder;
+import org.osate.ba.aadlba.SubprogramSubcomponentHolder;
+import org.osate.ba.aadlba.Target;
+import org.osate.ba.aadlba.Term;
+import org.osate.ba.aadlba.TimedAction;
+import org.osate.ba.aadlba.UnaryAddingOperator;
+import org.osate.ba.aadlba.UnaryBooleanOperator;
+import org.osate.ba.aadlba.UnaryNumericOperator;
+import org.osate.ba.aadlba.UnlockAction;
+import org.osate.ba.aadlba.UpperBound;
+import org.osate.ba.aadlba.Value;
+import org.osate.ba.aadlba.ValueConstant;
+import org.osate.ba.aadlba.ValueExpression;
+import org.osate.ba.aadlba.ValueVariable;
+import org.osate.ba.aadlba.WhileOrDoUntilStatement;
 import org.osate.ba.aadlba.* ;
 
 /**
@@ -2871,7 +2996,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPropertyHolder_Field()
+  public EReference getPropertyHolder_Fields()
   {
     return (EReference)propertyHolderEClass.getEStructuralFeatures().get(1);
   }
@@ -3351,7 +3476,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     propertyHolderEClass = createEClass(PROPERTY_HOLDER);
     createEReference(propertyHolderEClass, PROPERTY_HOLDER__PROPERTY);
-    createEReference(propertyHolderEClass, PROPERTY_HOLDER__FIELD);
+    createEReference(propertyHolderEClass, PROPERTY_HOLDER__FIELDS);
 
     propertyListValueEClass = createEClass(PROPERTY_LIST_VALUE);
     createEReference(propertyListValueEClass, PROPERTY_LIST_VALUE__VALUE);
@@ -3962,7 +4087,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     initEClass(propertyHolderEClass, PropertyHolder.class, "PropertyHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPropertyHolder_Property(), theAadl2Package.getProperty(), null, "property", null, 1, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPropertyHolder_Field(), this.getPropertyField(), null, "field", null, 0, 1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyHolder_Fields(), this.getPropertyField(), null, "fields", null, 0, -1, PropertyHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyListValueEClass, PropertyListValue.class, "PropertyListValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPropertyListValue_Value(), theAadl2Package.getListValue(), null, "value", null, 1, 1, PropertyListValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4230,35 +4355,35 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentationAnnotations()
   {
-    String source = "http://www.topcased.org/documentation";								
+    String source = "http://www.topcased.org/documentation";	
     addAnnotation
       (booleanEDataType, 
        source, 
        new String[] 
        {
        "documentation", "A Boolean type is used for logical expression, consisting of the predefined values true and false."
-       });																				
+       });	
     addAnnotation
       (integerEDataType, 
        source, 
        new String[] 
        {
        "documentation", "An integer is a primitive type representing integer values."
-       });									
+       });	
     addAnnotation
       (realEDataType, 
        source, 
        new String[] 
        {
        "documentation", "A real is a primitive type representing real numeric values."
-       });		
+       });	
     addAnnotation
       (stringEDataType, 
        source, 
        new String[] 
        {
        "documentation", "A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."
-       });											
+       });
   }
 
   /**
@@ -4269,14 +4394,14 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentation_1Annotations()
   {
-    String source = "Documentation";																														
+    String source = "Documentation";	
     addAnnotation
       (lockActionEClass, 
        source, 
        new String[] 
        {
        "documentation", "A null data name means that all shared data are locked while in the critical section"
-       });																	
+       });
   }
 
   /**
@@ -4287,7 +4412,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentation_2Annotations()
   {
-    String source = "documentation";																																															
+    String source = "documentation";	
     addAnnotation
       (unlockActionEClass, 
        source, 

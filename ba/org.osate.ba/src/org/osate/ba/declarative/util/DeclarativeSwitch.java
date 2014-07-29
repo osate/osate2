@@ -50,6 +50,7 @@ import org.osate.ba.aadlba.BehaviorNamedElement ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder ;
 import org.osate.ba.aadlba.CommunicationAction ;
 import org.osate.ba.aadlba.CompletionRelativeTimeout ;
 import org.osate.ba.aadlba.DispatchRelativeTimeout ;
@@ -426,6 +427,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseValue(reference) ;
         if(result == null)
           result = caseIntegerValue(reference) ;
+        if(result == null)
+          result = caseClassifierFeatureHolder(reference) ;
         if(result == null)
           result = caseIndexableElement(reference) ;
         if(result == null)
@@ -1211,6 +1214,22 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseElementHolder(ElementHolder object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Classifier Feature Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Classifier Feature Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassifierFeatureHolder(ClassifierFeatureHolder object)
   {
     return null ;
   }

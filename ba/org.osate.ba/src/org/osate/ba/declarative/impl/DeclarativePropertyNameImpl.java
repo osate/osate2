@@ -19,14 +19,19 @@
  */
 package org.osate.ba.declarative.impl ;
 
+import java.util.Collection ;
 import org.eclipse.emf.common.notify.Notification ;
 import org.eclipse.emf.common.notify.NotificationChain ;
 
+import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.InternalEObject ;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.PropertyField ;
 
 import org.osate.ba.declarative.DeclarativePackage ;
@@ -40,8 +45,8 @@ import org.osate.ba.declarative.Identifier ;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyNameImpl#getField <em>Field</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyNameImpl#getPropertyName <em>Property Name</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyNameImpl#getFields <em>Fields</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,16 +57,6 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
                                                                                DeclarativePropertyName
 {
   /**
-   * The cached value of the '{@link #getField() <em>Field</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getField()
-   * @generated
-   * @ordered
-   */
-  protected PropertyField field ;
-
-  /**
    * The cached value of the '{@link #getPropertyName() <em>Property Name</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -70,6 +65,16 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
    * @ordered
    */
   protected Identifier propertyName ;
+
+  /**
+   * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFields()
+   * @generated
+   * @ordered
+   */
+  protected EList<PropertyField> fields ;
 
   /**
    * <!-- begin-user-doc -->
@@ -90,74 +95,6 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
   protected EClass eStaticClass()
   {
     return DeclarativePackage.Literals.DECLARATIVE_PROPERTY_NAME ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyField getField()
-  {
-    return field ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetField(PropertyField newField,
-                                         NotificationChain msgs)
-  {
-    PropertyField oldField = field ;
-    field = newField ;
-    if(eNotificationRequired())
-    {
-      ENotificationImpl notification =
-            new ENotificationImpl(this, Notification.SET,
-                  DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD,
-                  oldField, newField) ;
-      if(msgs == null)
-        msgs = notification ;
-      else
-        msgs.add(notification) ;
-    }
-    return msgs ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setField(PropertyField newField)
-  {
-    if(newField != field)
-    {
-      NotificationChain msgs = null ;
-      if(field != null)
-        msgs =
-              ((InternalEObject) field)
-                    .eInverseRemove(this,
-                                    EOPPOSITE_FEATURE_BASE -
-                                          DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD,
-                                    null, msgs) ;
-      if(newField != null)
-        msgs =
-              ((InternalEObject) newField)
-                    .eInverseAdd(this,
-                                 EOPPOSITE_FEATURE_BASE -
-                                       DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD,
-                                 null, msgs) ;
-      msgs = basicSetField(newField, msgs) ;
-      if(msgs != null)
-        msgs.dispatch() ;
-    }
-    else if(eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD, newField,
-            newField)) ;
   }
 
   /**
@@ -233,6 +170,44 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<PropertyField> getFields()
+  {
+    if(fields == null)
+    {
+      fields =
+            new EObjectContainmentEList.Unsettable<PropertyField>(
+                  PropertyField.class, this,
+                  DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELDS) ;
+    }
+    return fields ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetFields()
+  {
+    if(fields != null)
+      ((InternalEList.Unsettable<?>) fields).unset() ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetFields()
+  {
+    return fields != null && ((InternalEList.Unsettable<?>) fields).isSet() ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
                                           int featureID,
@@ -240,10 +215,10 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
   {
     switch ( featureID )
     {
-      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD :
-        return basicSetField(null, msgs) ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME :
         return basicSetPropertyName(null, msgs) ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELDS :
+        return ((InternalEList<?>) getFields()).basicRemove(otherEnd, msgs) ;
     }
     return super.eInverseRemove(otherEnd, featureID, msgs) ;
   }
@@ -260,10 +235,10 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
   {
     switch ( featureID )
     {
-      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD :
-        return getField() ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME :
         return getPropertyName() ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELDS :
+        return getFields() ;
     }
     return super.eGet(featureID, resolve, coreType) ;
   }
@@ -273,17 +248,19 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID,
                    Object newValue)
   {
     switch ( featureID )
     {
-      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD :
-        setField((PropertyField) newValue) ;
-        return ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME :
         setPropertyName((Identifier) newValue) ;
+        return ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELDS :
+        getFields().clear() ;
+        getFields().addAll((Collection<? extends PropertyField>) newValue) ;
         return ;
     }
     super.eSet(featureID, newValue) ;
@@ -299,11 +276,11 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
   {
     switch ( featureID )
     {
-      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD :
-        setField((PropertyField) null) ;
-        return ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME :
         setPropertyName((Identifier) null) ;
+        return ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELDS :
+        unsetFields() ;
         return ;
     }
     super.eUnset(featureID) ;
@@ -319,10 +296,10 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
   {
     switch ( featureID )
     {
-      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD :
-        return field != null ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME :
         return propertyName != null ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELDS :
+        return isSetFields() ;
     }
     return super.eIsSet(featureID) ;
   }
