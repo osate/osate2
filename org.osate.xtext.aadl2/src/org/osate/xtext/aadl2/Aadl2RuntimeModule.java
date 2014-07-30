@@ -36,10 +36,11 @@ package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.resource.IFragmentProvider;
+import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
+import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
-import org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer;
 
 
 /**
@@ -115,5 +116,10 @@ public Class<? extends org.eclipse.xtext.resource.DefaultLocationInFileProvider>
 	@Override
 	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
 		return org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider.class;
+	}
+	
+	@Override
+	public Class<? extends IConcreteSyntaxValidator> bindConcreteSyntaxValidator() {
+		return Aadl2ConcreteSyntaxValidator.class;
 	}
 }
