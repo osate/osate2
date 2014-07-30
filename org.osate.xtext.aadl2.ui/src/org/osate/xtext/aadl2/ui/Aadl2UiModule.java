@@ -38,6 +38,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.osate.xtext.aadl2.ui.editor.findrefs.Aadl2ReferenceFinder;
+import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
 
 /**
@@ -74,6 +75,10 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	@SuppressWarnings("restriction")
 	public Class<? extends org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder> bindIReferenceFinder() {
 		return Aadl2ReferenceFinder.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.ui.editor.occurrences.IOccurrenceComputer> bindIOccurrenceComputer() {
+		return Aadl2OccurrenceComputer.class;
 	}
 
 }
