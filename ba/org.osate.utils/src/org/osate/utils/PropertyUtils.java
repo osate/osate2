@@ -111,22 +111,24 @@ public class PropertyUtils {
 			}
 		} else if (owner instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) owner;
-			if(impl.getOwnedExtension() == null)
-			  return null;
-			ComponentImplementation extendedImpl = impl.getOwnedExtension().getExtended();
-			PropertyAssociation extendedPA = findProperty(propertyName, extendedImpl);
-			if(extendedPA!=null)
-			  return extendedPA;
+			if(impl.getOwnedExtension() != null)
+			{
+			  ComponentImplementation extendedImpl = impl.getOwnedExtension().getExtended();
+			  PropertyAssociation extendedPA = findProperty(propertyName, extendedImpl);
+			  if(extendedPA!=null)
+			    return extendedPA;
+			}
 			ComponentType type = impl.getType();
 			return findProperty(propertyName, type);
 		}
 		else if(owner instanceof ComponentType)
 		{
 		  ComponentType type = (ComponentType) owner;
-		  if(type.getOwnedExtension() == null)
-		    return null;
-		  ComponentType extendedType = type.getOwnedExtension().getExtended();
-		  return findProperty(propertyName, extendedType);
+		  if(type.getOwnedExtension() != null)
+		  {
+		    ComponentType extendedType = type.getOwnedExtension().getExtended();
+		    return findProperty(propertyName, extendedType);
+		  }
 		}
 
 		return null;
