@@ -565,7 +565,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (lln == null) return;
 		String ss = lln.getText().replaceAll("--.*(\\r|\\n)", "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
 		if (!ss.equalsIgnoreCase(cl.getName())) {
-			error("Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'", cl, null, MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS, cl.getName(), ss);
+			warning("Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'", cl, null, MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS, cl.getName(), ss);
 // XXX TODO
 //	        IXtextDocument xtextDocument = context.getXtextDocument();
 //	         String firstLetter = xtextDocument.get(issue.getOffset(), 1);
@@ -585,7 +585,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //		}
 //		ss = ss.replaceAll(" ", "");
 		if (!ss.equalsIgnoreCase(mu.getName())) {
-			error("Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'", mu, null, MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS, mu.getName(), ss);
+			warning("Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'", mu, null, MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS, mu.getName(), ss);
 		}
 	}
 
