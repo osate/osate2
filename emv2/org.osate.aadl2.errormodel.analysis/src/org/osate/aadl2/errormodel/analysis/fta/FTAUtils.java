@@ -8,7 +8,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -138,7 +137,7 @@ public class FTAUtils {
 			 * the flows from the component and see the internal error paths
 			 * and call recursively the same method.
 			 */
-			OsateDebug.osateDebug("FTAUtils", "remote component=" + remoteComponent.getName());
+//			OsateDebug.osateDebug("FTAUtils", "remote component=" + remoteComponent.getName());
 			Collection<ErrorFlow> errorFlows = EMV2Util.getAllErrorFlows(remoteComponent);
 
 			for (ErrorFlow ef : errorFlows) {
@@ -168,13 +167,18 @@ public class FTAUtils {
 			fillProperties(newEvent, remoteComponent, remotePropagation, reportedTypeSet);
 
 			if (subEvents.size() > 0) {
-				newEvent.setEventType(EventType.NORMAL);
-				Event orEvent = new Event();
-				orEvent.setEventType(EventType.OR);
-				for (Event ev : subEvents) {
-					orEvent.addSubEvent(ev);
+				if (subEvents.size() == 1) {
+					return subEvents;
+				} else {
+					newEvent.setEventType(EventType.NORMAL);
+					Event orEvent = new Event();
+					orEvent.setEventType(EventType.OR);
+					for (Event ev : subEvents) {
+						orEvent.addSubEvent(ev);
+					}
+					newEvent.addSubEvent(orEvent);
+
 				}
-				newEvent.addSubEvent(orEvent);
 			} else {
 				newEvent.setEventType(EventType.EVENT);
 
