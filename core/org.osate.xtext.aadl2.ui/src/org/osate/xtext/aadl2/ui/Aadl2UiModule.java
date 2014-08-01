@@ -40,6 +40,7 @@ import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.osate.xtext.aadl2.ui.editor.findrefs.Aadl2ReferenceFinder;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
+import org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2RenameStrategy;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -79,6 +80,12 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 
 	public Class<? extends org.eclipse.xtext.ui.editor.occurrences.IOccurrenceComputer> bindIOccurrenceComputer() {
 		return Aadl2OccurrenceComputer.class;
+	}
+
+	@SuppressWarnings("restriction")
+	@Override
+	public Class<? extends org.eclipse.xtext.ui.refactoring.IRenameStrategy> bindIRenameStrategy() {
+		return Aadl2RenameStrategy.class;
 	}
 
 }
