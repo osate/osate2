@@ -59,7 +59,6 @@ public class Aadl2RenameStrategy extends DefaultRenameStrategy {
 			ComponentType ct = ci.getType();
 			newName = ct.getName() + "." + newName;
 			ci.setName(newName);
-			System.out.println(ci.getName());
 		}
 		return targetElement;
 	}
