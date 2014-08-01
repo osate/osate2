@@ -36,7 +36,6 @@
 package org.osate.xtext.aadl2.ui.quickfix;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
@@ -48,10 +47,19 @@ import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider;
 import org.osate.xtext.aadl2.validation.Aadl2JavaValidator;
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
+	/**
+	 * QuickFix for matching the defining and ending identifiers of classifiers, packages, and property sets.
+	 * The issue data array is expected to have three elements:
+	 * 
+	 * issue.getData()[0]: The defining identifier of the classifier or model unit.
+	 * issue.getData()[1]: The ending identifier of the classifier or model unit.
+	 * issue.getData()[2]: The offset of the ending identifier within the Xtext document.
+	 */
 	@Fix(Aadl2JavaValidator.MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS)
 	public void fixMismatchedBeginningAndEndingIdentifiers(final Issue issue, IssueResolutionAcceptor acceptor) {
 		final String beginningName = issue.getData()[0];
 		final String endingName = issue.getData()[1];
+		final int endingIdentifierOffset = Integer.parseInt(issue.getData()[2]);
 		acceptor.accept(issue, "Change defining identifier to '" + endingName + "'", null, null, new ISemanticModification() {
 			@Override
 			public void apply(EObject element, IModificationContext context) throws Exception {
@@ -61,10 +69,7 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 		acceptor.accept(issue, "Change ending identifier to '" + beginningName + "'", null, null, new IModification() {
 			@Override
 			public void apply(IModificationContext context) throws Exception {
-				IXtextDocument xtextDocument = context.getXtextDocument();
-				String modelUnitOrClassifierText = xtextDocument.get(issue.getOffset(), issue.getLength());
-				int endingIdentifierOffset = issue.getOffset() + modelUnitOrClassifierText.lastIndexOf(endingName);
-				xtextDocument.replace(endingIdentifierOffset, endingName.length(), beginningName);
+				context.getXtextDocument().replace(endingIdentifierOffset, endingName.length(), beginningName);
 			}
 		});
 	}
