@@ -565,7 +565,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (lln == null) return;
 		String ss = lln.getText().replaceAll("--.*(\\r|\\n)", "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
 		if (!ss.equalsIgnoreCase(cl.getName())) {
-			warning("Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'", cl, null, MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS, cl.getName(), ss);
+			int endingIdentifierOffset = lln.getTotalOffset() + lln.getText().indexOf(ss);
+			warning("Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'", cl, Aadl2Package.eINSTANCE.getNamedElement_Name(), MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS,
+					cl.getName(), ss, Integer.toString(endingIdentifierOffset));
 // XXX TODO
 //	        IXtextDocument xtextDocument = context.getXtextDocument();
 //	         String firstLetter = xtextDocument.get(issue.getOffset(), 1);
@@ -585,7 +587,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //		}
 //		ss = ss.replaceAll(" ", "");
 		if (!ss.equalsIgnoreCase(mu.getName())) {
-			warning("Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'", mu, null, MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS, mu.getName(), ss);
+			int endingIdentifierOffset = lln.getTotalOffset() + lln.getText().indexOf(ss);
+			warning("Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'", mu, Aadl2Package.eINSTANCE.getNamedElement_Name(), MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS,
+					mu.getName(), ss, Integer.toString(endingIdentifierOffset));
 		}
 	}
 
