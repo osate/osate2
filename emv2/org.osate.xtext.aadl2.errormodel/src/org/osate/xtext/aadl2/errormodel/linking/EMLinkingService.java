@@ -26,6 +26,7 @@ import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
@@ -206,7 +207,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 				if (cl != null){
 					NamedElement ne = cl.findNamedElement(name);
-					if (ne instanceof Feature){
+					if (ne instanceof Feature || ne instanceof InternalFeature){
 						searchResult = ne; 
 					} else {
 						// find propagation point
