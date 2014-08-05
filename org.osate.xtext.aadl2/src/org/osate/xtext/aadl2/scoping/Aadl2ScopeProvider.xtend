@@ -34,7 +34,7 @@
  */
 package org.osate.xtext.aadl2.scoping;
 
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 /**
  * This class contains custom scoping description.
@@ -43,6 +43,5 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
  * on how and when to use it
  *
  */
-public class Aadl2ScopeProvider extends AbstractDeclarativeScopeProvider {
-
+public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 }
