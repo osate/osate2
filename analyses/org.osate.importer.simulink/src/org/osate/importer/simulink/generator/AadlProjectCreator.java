@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.importer.Preferences;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.ComponentType;
 import org.osate.importer.model.Connection;
@@ -118,8 +117,6 @@ public class AadlProjectCreator {
 							out.write("   to_" + e2.getAadlName() + " : out event port;\n");
 						}
 					}
-					out.write("properties\n");
-					out.write("   SEI::nsloc => 100;\n");
 					out.write("end " + e.getAadlName() + ";\n");
 				}
 			}
@@ -153,11 +150,9 @@ public class AadlProjectCreator {
 			out.write("package " + genericModel.getName() + "::imported::runtime\n");
 
 			out.write("public\n");
-			out.write("with " + genericModel.getName() + "::runtime::common;\n");
 			out.write("with " + genericModel.getName() + "::imported::functions;\n");
 			out.write("with SEI;\n");
 			out.write("with Data_Model;\n");
-			out.write("with ARINC653;\n");
 
 			List<String> importedPackages = new ArrayList<String>();
 
@@ -401,65 +396,6 @@ public class AadlProjectCreator {
 			 * End of generating the main system component.
 			 */
 
-			out.write("processor module extends " + genericModel.getName() + "::runtime::common::module\n");
-			out.write("end module;\n");
-
-			out.write("processor implementation module.i\n");
-			if (Preferences.useArinc()) {
-				out.write("subcomponents\n");
-				for (Component e : genericModel.getComponents()) {
-					if (e.getParent() == null) {
-						out.write("	"
-								+ e.getAadlName()
-								+ " : virtual processor runtime::common::partition.i {ARINC653::Criticality => LEVEL_C;};\n");
-					}
-				}
-				out.write("properties\n");
-				out.write("	ARINC653::Module_Major_Frame => " + genericModel.getComponents() + 100 + "ms;\n");
-				out.write("	ARINC653::Partition_Slots => (");
-				boolean firstWritten = false;
-				for (Component e : genericModel.getComponents()) {
-
-					if (e.getParent() == null) {
-						if (firstWritten) {
-							out.write(",");
-						}
-						out.write("100ms");
-						firstWritten = true;
-					}
-				}
-				out.write(");\n");
-				out.write("	ARINC653::Slots_Allocation => (");
-
-				tmp = 0;
-				for (Component e : genericModel.getComponents()) {
-					if (e.getParent() == null) {
-						if (tmp > 0) {
-							out.write(",");
-						}
-						out.write("reference(" + e.getAadlName() + ")");
-						tmp++;
-					}
-				}
-				out.write(");\n");
-			}
-			out.write("end module.i;\n");
-
-			out.write("memory ram extends " + genericModel.getName() + "::runtime::common::ram\n");
-			out.write("end ram;\n");
-
-			out.write("memory implementation ram.i\n");
-			if (Preferences.useArinc()) {
-				out.write("subcomponents\n");
-				for (Component e : genericModel.getComponents()) {
-					if (e.getParent() == null) {
-						out.write("   " + e.getAadlName() + " : memory runtime::common::segment.i;\n");
-
-					}
-				}
-			}
-			out.write("end ram.i;\n");
-
 			out.write("system mainsystem\n");
 			boolean featuresDeclared = false;
 			for (Component e : genericModel.getComponents()) {
@@ -492,14 +428,6 @@ public class AadlProjectCreator {
 					out.write("   " + e.getAadlName() + " : system s_" + e.getAadlName() + ".i;\n");
 
 				}
-			}
-
-			if (Preferences.useArinc()) {
-				out.write("	module : processor " + genericModel.getName() + "::module.i;\n");
-				out.write("	ram    : memory " + genericModel.getName() + "::ram.i;\n");
-			} else {
-				out.write("	cpu : processor module.i;\n");
-				out.write("	ram    : memory ram.i;\n");
 			}
 
 			int connectionId = 0;
@@ -552,23 +480,6 @@ public class AadlProjectCreator {
 				}
 			}
 
-			out.write("properties\n");
-			for (Component e : genericModel.getComponents()) {
-				if ((e.getParent() != null) || (e.getType() != Component.ComponentType.BLOCK)) {
-					continue;
-				}
-
-				if (Preferences.useArinc()) {
-					out.write("	Actual_Processor_Binding => (reference (module." + e.getAadlName() + ")) applies to "
-							+ e.getAadlName() + ";\n");
-					out.write("	Actual_Memory_Binding    => (reference (ram." + e.getAadlName() + ")) applies to "
-							+ e.getAadlName() + ";\n");
-				} else {
-					out.write("	Actual_Processor_Binding => (reference (cpu)) applies to " + e.getAadlName() + ";\n");
-					out.write("	Actual_Memory_Binding    => (reference (ram)) applies to " + e.getAadlName() + ";\n");
-				}
-			}
-
 			out.write("end mainsystem.i; \n");
 
 			out.write("end " + genericModel.getName() + "::imported::runtime; \n");
@@ -579,50 +490,6 @@ public class AadlProjectCreator {
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 			e.printStackTrace();
-		}
-
-	}
-
-	public static void createGenericRuntime(String outputFile, Model genericModel) {
-		FileWriter fstream;
-		BufferedWriter out;
-
-		try {
-			fstream = new FileWriter(outputFile);
-			out = new BufferedWriter(fstream);
-
-			out.write("package " + genericModel.getName() + "::runtime::common\n");
-
-			out.write("public\n");
-
-			out.write("with ARINC653;\n");
-			out.write("with SEI;\n");
-
-			out.write("virtual processor partition\n");
-			out.write("end partition;\n");
-
-			out.write("virtual processor implementation partition.i\n");
-			out.write("end partition.i;\n");
-
-			out.write("processor module\n");
-			out.write("end module;\n");
-
-			out.write("memory ram\n");
-			out.write("end ram;\n");
-
-			out.write("memory segment\n");
-			out.write("end segment;\n");
-
-			out.write("memory implementation segment.i\n");
-			out.write("end segment.i;\n");
-
-			out.write("end " + genericModel.getName() + "::runtime::common;\n");
-
-			out.close();
-			fstream.close();
-
-		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
 		}
 
 	}
@@ -638,12 +505,8 @@ public class AadlProjectCreator {
 		outputPathRuntime = outputPath + File.separatorChar + "runtime";
 		outputFileFunctional = outputPathFunctional + File.separatorChar + "functional.aadl";
 		outputFileRuntime = outputPathRuntime + File.separatorChar + "runtime.aadl";
-		outputFileGenericRuntime = outputPathRuntime + File.separatorChar + "runtime-generic.aadl";
 
 		createDirectories(outputPath);
-
-//		OsateDebug.osateDebug ("Create Generic Runtime in " + outputFileGenericRuntime);
-		createGenericRuntime(outputFileGenericRuntime, genericModel);
 
 //		OsateDebug.osateDebug ("Create AADL functional project in " + outputFileFunctional);
 		createAadlFunctions(outputFileFunctional, genericModel);

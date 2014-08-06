@@ -37,80 +37,32 @@
 
 package org.osate.importer.lattix.ldmimporter;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-
-import org.osate.aadl2.util.OsateDebug;
-import org.osate.importer.Preferences;
-import org.osate.importer.lattix.common.Matrix;
-import org.osate.importer.model.Component;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.osate.importer.lattix.common.Matrix;
+import org.osate.importer.model.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class LdmImporter {
 
-	private static String getTagValue(String sTag, Element eElement)
-	{
-		NodeList nlList;
-		Node nValue;
-
-		try
-		{
-			nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-
-			nValue = (Node) nlList.item(0);
-
-			return nValue.getNodeValue();
-		}
-		catch (NullPointerException npe)
-		{
-			return null;
-		}
-	}
-
-	private static String cleanPartitionName (String s)
-	{
-		String r;
-		//System.out.println ("str1=" + s);
-		r = s.replaceAll("root", "");
-		r = r.replace('$', '/');
-		
-		if (r.contains ("/"))
-		{
-			String[] substrs = r.split("/");
-			r = substrs[substrs.length - 1];
-		}
-		//System.out.println ("str2=" + r);
-
-
-		return r;
-	}
-	private static Node getAttribute (Node node, String attr)
-	{
+	private static Node getAttribute(Node node, String attr) {
 		return node.getAttributes().getNamedItem(attr);
 	}
 
-	public static Matrix loadFile (String inputFile)
-	{
+	public static Matrix loadFile(String inputFile) {
 		return loadFile(inputFile, null);
 	}
 
-	
-	public static Matrix loadFile (String inputFile, List<String> modulesList)
-	{
+	public static Matrix loadFile(String inputFile, List<String> modulesList) {
 		Matrix matrix;
 		Node nNode;
 		Node attrName;
@@ -119,59 +71,47 @@ public class LdmImporter {
 		NodeList nList;
 		String systemName;
 		String fileName;
-		Component currentModule;
 		String depNameString;
 		InputStream in;
 		ZipFile zipFile;
 		int strength;
-		
+
 		zipFile = null;
-		
-		matrix = new Matrix ("unknown");
-		try 
-		{
-			if (inputFile.contains(".ldz"))
-			{
+
+		matrix = new Matrix("unknown");
+		try {
+			if (inputFile.contains(".ldz")) {
 				fileName = inputFile.replace(".ldz", ".ldm");
-				if (fileName.contains("\\"))	
-				{
+				if (fileName.contains("\\")) {
 					int idx = fileName.lastIndexOf('\\');
 					fileName = fileName.substring(idx + 1);
 				}
 				new File(inputFile);
 				zipFile = new ZipFile(inputFile);
-	
+
 				in = zipFile.getInputStream(zipFile.getEntry(fileName));
+			} else {
+				in = new FileInputStream(inputFile);
 			}
-			else
-			{
-				in = new FileInputStream (inputFile);
-			}
-			
+
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(in);
 			doc.getDocumentElement().normalize();
-			
-			if (zipFile != null)
-			{
+
+			if (zipFile != null) {
 				zipFile.close();
 			}
 			in.close();
-			
-			
-			nList = doc.getElementsByTagName("base");
-			 
 
-			for (int temp = 0; temp < nList.getLength(); temp++) 
-			{
+			nList = doc.getElementsByTagName("base");
+
+			for (int temp = 0; temp < nList.getLength(); temp++) {
 				nNode = nList.item(temp);
-				
 
 				attrName = getAttribute(nNode, "name");
-				
-				if (attrName == null)
-				{
+
+				if (attrName == null) {
 					continue;
 				}
 				systemName = attrName.getNodeValue().toString();
@@ -180,81 +120,64 @@ public class LdmImporter {
 				 * If only a subset of module must be included,
 				 * then, we filter the name of the module.
 				 */
-				if ((modulesList != null) && ( ! modulesList.contains(systemName)))
-				{
+				if ((modulesList != null) && (!modulesList.contains(systemName))) {
 					continue;
 				}
-				currentModule = matrix.addModule(new Component (systemName));	
-				
+
 				/**
 				 * We generate the dependency information
 				 * from the DSM matrix. We extract that using
 				 * the uses tag in the XML document.
 				 */
-				for (int childIndex = 0 ; childIndex < nNode.getChildNodes().getLength() ; childIndex++)
-				{
-					if (nNode.getChildNodes().item(childIndex).getNodeName().equals("uses"))
-					{
+				for (int childIndex = 0; childIndex < nNode.getChildNodes().getLength(); childIndex++) {
+					if (nNode.getChildNodes().item(childIndex).getNodeName().equals("uses")) {
 						Node child = nNode.getChildNodes().item(childIndex);
 						depName = getAttribute(child, "name");
 
 						depNameString = depName.getNodeValue().toString();
-						
+
 						depStrength = getAttribute(child, "strength");
 
 						strength = 1;
-						try
-						{
+						try {
 							strength = Integer.parseInt(depStrength.getNodeValue().toString());
-						}
-						catch (Exception e)
-						{
+						} catch (Exception e) {
 							strength = 1;
 						}
-						
+
 						/**
 						 * If only a subset of module must be included,
 						 * then, we filter the name of the module.
 						 */
-						if ((modulesList != null) && ( ! modulesList.contains(depNameString)))
-						{
+						if ((modulesList != null) && (!modulesList.contains(depNameString))) {
 							continue;
 						}
-						matrix.addModule(new Component (depNameString));
-						
+						matrix.addModule(new Component(depNameString));
+
 						matrix.getModule(systemName).addOutgoingDependency(matrix.getModule(depNameString), strength);
 						matrix.getModule(depNameString).addIncomingDependency(matrix.getModule(systemName), strength);
 					}
 				}
 			}
-			
-		} 
-		catch (Exception e) 
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 		return matrix;
 	}
-	
-	
-	public static void convert (String inputFile, String outputDirectory, List<String> modules)
-	{
-		try
-		{ 
+
+	public static void convert(String inputFile, String outputDirectory, List<String> modules) {
+		try {
 			/**
 			 * We create the matrix with the modules names
 			 * listed in the modules arguments.
 			 */
-			Matrix matrix = loadFile (inputFile, modules);
-			AadlProjectCreator.createProject (outputDirectory, matrix);
-		} 
-		catch (Exception e) 
-		{
+			Matrix matrix = loadFile(inputFile, modules);
+			AadlProjectCreator.createProject(outputDirectory, matrix);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
 	}
 }
-
