@@ -43,7 +43,7 @@
                class="org.osate.analysis.resource.budgets.actions.DoResourceBudget"
                enablesFor="1"
                icon="icons/budget.gif"
-               label="&amp;Analyze Resource Budgets"
+               label="&amp;Analyze Resource Budgets (not bound)"
                menubarPath="menu.analyses/menu.arch/stuff.grp"
                toolbarPath="arch.toolbar"
                tooltip="Analyze Resource Budget Totals for Processors and Memories">
@@ -67,7 +67,7 @@
                class="org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis"
                enablesFor="1"
                icon="icons/budgetB.gif"
-               label="&amp;Analyze Resource Allocations"
+               label="&amp;Analyze Resource Allocations (bound)"
                menubarPath="menu.analyses/menu.arch/stuff.grp"
                toolbarPath="arch.toolbar"
                tooltip="Analyze Resource Allocations for Processors and Memories">
@@ -95,30 +95,6 @@
                menubarPath="menu.analyses/menu.arch/stuff.grp"
                toolbarPath="arch.toolbar"
                tooltip="Analyze Power Draw on Buses">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass
-                           name="org.eclipse.core.resources.IFile">
-                     </objectClass>
-                     <objectState
-                           name="extension"
-                           value="aaxl2">
-                     </objectState>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-         <action
-               id="org.osate.analysis.resource.budgets.actions.DoSwitchBandWidthAnalysis"
-               class="org.osate.analysis.resource.budgets.actions.DoSwitchBandWidthAnalysis"
-               enablesFor="1"
-               icon="icons/switch.gif"
-               label="&amp;Analyze Bus Load"
-               menubarPath="menu.analyses/menu.arch/stuff.grp"
-               toolbarPath="arch.toolbar"
-               tooltip="Analyze Bandwidth Load Totals on Buses">
             <enablement>
                <or>
                   <and>
@@ -177,13 +153,6 @@
       <persistent value="true"/>
    </extension>
 
-   <extension
-         id="BandwidthAnalysisMarker"
-         name="Bandwidth Analysis Marker"
-         point="org.eclipse.core.resources.markers">
-      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
-      <persistent value="true"/>
-   </extension>
 
    <extension
          id="BoundBandwidthAnalysisMarker"
@@ -227,12 +196,7 @@
             name="Analyze Resource Allocations of Bound Application Components">
          <instanceModel selectRootObject="true"/>
       </analysis>
-      <analysis
-            class="org.osate.analysis.resource.budgets.autoanalyses.DoSwitchBandWidthAutoAnalysis"
-            id="org.osate.analysis.resource.budgets.switchbandwidth.analysis"
-            name="Analyze Load on Switch for All Cross-Processor Connections and Loopback">
-         <instanceModel selectRootObject="true"/>
-      </analysis>
+
       <analysis
             class="org.osate.analysis.resource.budgets.autoanalyses.DoBoundSwitchBandWidthAutoAnalysis"
             id="org.osate.analysis.resource.budgets.boundswitchbandwidth.analysis"
