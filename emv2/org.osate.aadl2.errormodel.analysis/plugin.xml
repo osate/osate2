@@ -119,35 +119,7 @@
             </enablement>
          </action>         
 
-         <action
-               id="org.osate.aadl2.errormodel.analysis.actions.PRISM.action"
-               label="%PRISM.label"
-               tooltip="%PRISM.toolTip"
-               icon="%PRISM.icon"
-               class="org.osate.aadl2.errormodel.analysis.actions.PRISMAction"
-               menubarPath="menu.analyses/menu.fault/stuff.grp"
-               toolbarPath="fault.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
-               </or>
-            </enablement>
-         </action>      
-         <action
-               id="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferences.action"
-               label="%Preferences.label"
-               tooltip="%Preferences.toolTip"
-               icon="icons/prefs.png"
-               class="org.osate.aadl2.errormodel.analysis.actions.PreferencesAction"
-               menubarPath="menu.analyses/menu.fault/stuff.grp"
-               toolbarPath="fault.toolbar"
-               enablesFor="1">
-         </action>  
+
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.FaultImpact.action"
                label="%FaultImpact.label"
@@ -207,25 +179,7 @@
             </enablement>
          </action> 
          
-         <action
-               id="org.osate.aadl2.errormodel.analysis.actions.ContextTable.action"
-               label="%ContextTable.label"
-               tooltip="%ContextTable.toolTip"
-               icon="icons/contexttable.gif"
-               class="org.osate.aadl2.errormodel.analysis.actions.ContextTableAction"
-               menubarPath="menu.analyses/menu.fault/stuff.grp"
-               toolbarPath="fault.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
-               </or>
-            </enablement>
-         </action> 
+
          
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.Consistency.action"
@@ -346,22 +300,8 @@
                class="org.osate.aadl2.errormodel.analysis.actions.FTAAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
-         <action
-               id="org.osate.aadl2.errormodel.analysis.actions.PRISM.popupAction"
-               label="%PRISM.label"
-               tooltip="%PRISM.toolTip"
-               icon="%PRISM.icon"
-               class="org.osate.aadl2.errormodel.analysis.actions.PRISMAction"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
-               enablesFor="1"/>
-         <action
-               id="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferences.popupAction"
-               label="%PRISMPreferences.label"
-               tooltip="%PRISMPreferences.toolTip"
-               icon="icons/prefs.png"
-               class="org.osate.aadl2.errormodel.analysis.actions.PreferencesAction"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
-               enablesFor="1"/>               
+
+              
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.FaultImpact.popupAction"
                label="%FaultImpact.label"
@@ -379,14 +319,6 @@
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
 
-         <action
-               id="org.osate.aadl2.errormodel.analysis.actions.ContextTable.popupAction"
-               label="%ContextTable.label"
-               tooltip="%ContextTable.toolTip"
-               icon="icons/contexttable.gif"
-               class="org.osate.aadl2.errormodel.analysis.actions.ContextTableAction"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
-               enablesFor="1"/>  
                
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.ImplementationCompliance.popupAction"
