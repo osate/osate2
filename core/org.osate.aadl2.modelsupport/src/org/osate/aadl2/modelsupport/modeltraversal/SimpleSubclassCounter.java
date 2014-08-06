@@ -41,21 +41,18 @@ import org.osate.aadl2.Element;
 public final class SimpleSubclassCounter extends ForAllElement {
 	private int count;
 	private final Class clazz;
-	
-	
-	
+
 	public SimpleSubclassCounter(final Class clazz) {
 		super(PROCESS_PRE_ORDER_ALL);
 		this.clazz = clazz;
-		this.count = 0;
+		count = 0;
 	}
 
-	
-	
 	public int getCount() {
 		return count;
 	}
-	
+
+	@Override
 	public void process(final Element obj) {
 		if (clazz.isInstance(obj)) {
 			count += 1;

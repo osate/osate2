@@ -9,27 +9,30 @@ package org.osate.aadl2.modelsupport.errorreporting;
  * and {@link #internalError(String)} increment the error count and then
  * delegate to the abstract methods {@link #internalErrorImpl(Exception)}
  * and {@link #internalErrorImpl(String)}}, respectively.
- * 
+ *
  * @author aarong
  */
 public abstract class AbstractInternalErrorReporter implements InternalErrorReporter {
 	private int numErrs;
-	
+
 	public AbstractInternalErrorReporter() {
 		numErrs = 0;
 	}
-	
+
+	@Override
 	public final void internalError(final String message) {
 		numErrs += 1;
 		internalErrorImpl(message);
-		
+
 	}
-	
+
+	@Override
 	public void internalError(final Exception e) {
 		numErrs += 1;
 		internalErrorImpl(e);
 	}
 
+	@Override
 	public final int getNumInternalErrors() {
 		return numErrs;
 	}

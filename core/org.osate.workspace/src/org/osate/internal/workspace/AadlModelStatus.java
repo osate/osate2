@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright (c) 2000, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Carnegie Mellon University - adapted for use in OSATE
@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.osate.workspace.IAadlElement;
 import org.osate.workspace.IAadlModelStatus;
-
 
 /**
  * @author lwrage TODO To change the template for this generated type comment go
@@ -32,9 +31,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see edu.cmu.sei.osate.core.IAadlModelStatus#getElements()
 	 */
+	@Override
 	public IAadlElement[] getElements() {
 		// TODO Auto-generated method stub
 		return null;
@@ -42,9 +42,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.resources.IResourceStatus#getPath()
 	 */
+	@Override
 	public IPath getPath() {
 		// TODO Auto-generated method stub
 		return null;
@@ -52,9 +53,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see edu.cmu.sei.osate.core.IAadlModelStatus#getString()
 	 */
+	@Override
 	public String getString() {
 		// TODO Auto-generated method stub
 		return null;
@@ -62,9 +64,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see edu.cmu.sei.osate.core.IAadlModelStatus#isDoesNotExist()
 	 */
+	@Override
 	public boolean isDoesNotExist() {
 		// TODO Auto-generated method stub
 		return false;
@@ -72,9 +75,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#getChildren()
 	 */
+	@Override
 	public IStatus[] getChildren() {
 		// TODO Auto-generated method stub
 		return null;
@@ -82,9 +86,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#getCode()
 	 */
+	@Override
 	public int getCode() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -92,9 +97,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#getException()
 	 */
+	@Override
 	public Throwable getException() {
 		// TODO Auto-generated method stub
 		return null;
@@ -102,18 +108,20 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#getMessage()
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#getPlugin()
 	 */
+	@Override
 	public String getPlugin() {
 		// TODO Auto-generated method stub
 		return null;
@@ -121,9 +129,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#getSeverity()
 	 */
+	@Override
 	public int getSeverity() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -131,9 +140,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#isMultiStatus()
 	 */
+	@Override
 	public boolean isMultiStatus() {
 		// TODO Auto-generated method stub
 		return false;
@@ -141,9 +151,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#isOK()
 	 */
+	@Override
 	public boolean isOK() {
 		// TODO Auto-generated method stub
 		return false;
@@ -151,9 +162,10 @@ public class AadlModelStatus implements IAadlModelStatus, IResourceStatus {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IStatus#matches(int)
 	 */
+	@Override
 	public boolean matches(int severityMask) {
 		// TODO Auto-generated method stub
 		return false;

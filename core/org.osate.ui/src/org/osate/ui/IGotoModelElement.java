@@ -11,7 +11,7 @@ import org.osate.aadl2.Element;
  * so that it understands <code>GotoModel Element.class</code>.  THis allows views
  * to trigger editors to focus on particular Model Elements without having to know
  * what kind of editor the current editor is.
- * 
+ *
  * @author aarong
  */
 public interface IGotoModelElement {

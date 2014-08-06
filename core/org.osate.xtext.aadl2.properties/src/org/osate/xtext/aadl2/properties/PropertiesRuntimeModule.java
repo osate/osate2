@@ -33,6 +33,7 @@
  * </copyright>
  */
 package org.osate.xtext.aadl2.properties;
+
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
@@ -42,8 +43,9 @@ import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter
 public class PropertiesRuntimeModule extends org.osate.xtext.aadl2.properties.AbstractPropertiesRuntimeModule {
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
-	  return PropertiesValueConverter.class;
+		return PropertiesValueConverter.class;
 	}
+
 //	@Override
 //	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
 //		return org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService.class;

@@ -42,18 +42,15 @@ import java.util.Map;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
@@ -74,136 +71,138 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.workspace.WorkspacePlugin;
-import org.osate.xtext.aadl2.unparsing.AadlUnparser;
 
 import com.google.inject.Inject;
 
 public class SaveAsXMIHandler extends AbstractHandler {
 
-
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		IWorkbenchPage page = win.getActivePage();
 		IWorkbenchPart part = page.getActivePart();
 		IEditorPart activeEditor = page.getActiveEditor();
-		if (activeEditor == null)
+		if (activeEditor == null) {
 			return null;
+		}
 		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
 		final ISelection selection;
 		if (xtextEditor != null) {
 			if (part instanceof ContentOutline) {
 				selection = ((ContentOutline) part).getSelection();
 			} else {
-				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
+				selection = xtextEditor.getSelectionProvider().getSelection();
 			}
 
 			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 
-			xtextEditor.getDocument().readOnly(
-					new IUnitOfWork<EObject, XtextResource>() {
-						public EObject exec(final XtextResource resource)
-								throws Exception {
-							// Resolve references such that HREFs use symbolic
-							// XMI links rather than XText links
-							EcoreUtil.resolveAll(resource);
-							EList<EObject> content = resource.getContents();
-							if (!content.isEmpty()) {
-								// add comments into the model
-							    for (EObject eObject : content)
-							    {
-							    	if (eObject instanceof Element)
-							    			processComment((Element)eObject);
-							        for (Iterator<EObject> i = eObject.eAllContents(); i.hasNext(); ){
-							        	Object o = i.next();
-								    	if (o instanceof Element)
-							    			processComment((Element)o);
-							        }
-							    }
-								
-								final ResourceSet rss = resource.getResourceSet();
-								final EObject eobject = content.get(0);
-								// save XMI
-								final URI xtxturi = resource.getURI();
-								// We execute this command on the command stack because otherwise, we will not
-								//  have write permissions on the editing domain.
-								domain.getCommandStack().execute(new RecordingCommand(domain) {
-									protected void doExecute() {
-
-										URI xmiuri = xtxturi.trimFileExtension()
-												.appendFileExtension(
-														WorkspacePlugin.MODEL_FILE_EXT);
-										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-										Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
-												.createResource(xmiuri);
-										aaxlresource.getContents().add(eobject);
-										rss.getResources().add(aaxlresource);
-										try {
-											Preferences prefs = WorkspacePlugin.getDefault().getPluginPreferences();
-											Boolean expandFlag = prefs.getBoolean(WorkspacePlugin.EXPAND_DEFAULT_FLAG);
-											Map options = new HashMap();
-											options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-											options.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-											if (expandFlag) {
-												options.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE);
-											}
-											aaxlresource.save(options);
-//											aaxlresource.save(null);
-										} catch (IOException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-										// put the root object back into the original resource
-										resource.getContents().add(eobject);
-										rss.getResources().remove(aaxlresource);
-									}
-								});
+			xtextEditor.getDocument().readOnly(new IUnitOfWork<EObject, XtextResource>() {
+				@Override
+				public EObject exec(final XtextResource resource) throws Exception {
+					// Resolve references such that HREFs use symbolic
+					// XMI links rather than XText links
+					EcoreUtil.resolveAll(resource);
+					EList<EObject> content = resource.getContents();
+					if (!content.isEmpty()) {
+						// add comments into the model
+						for (EObject eObject : content) {
+							if (eObject instanceof Element) {
+								processComment((Element) eObject);
 							}
-							return null;
-							// }
-							// return null;
+							for (Iterator<EObject> i = eObject.eAllContents(); i.hasNext();) {
+								Object o = i.next();
+								if (o instanceof Element) {
+									processComment((Element) o);
+								}
+							}
 						}
-					});
+
+						final ResourceSet rss = resource.getResourceSet();
+						final EObject eobject = content.get(0);
+						// save XMI
+						final URI xtxturi = resource.getURI();
+						// We execute this command on the command stack because otherwise, we will not
+						// have write permissions on the editing domain.
+						domain.getCommandStack().execute(new RecordingCommand(domain) {
+							@Override
+							protected void doExecute() {
+
+								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension(
+										WorkspacePlugin.MODEL_FILE_EXT);
+								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
+								aaxlresource.getContents().add(eobject);
+								rss.getResources().add(aaxlresource);
+								try {
+									Preferences prefs = WorkspacePlugin.getDefault().getPluginPreferences();
+									Boolean expandFlag = prefs.getBoolean(WorkspacePlugin.EXPAND_DEFAULT_FLAG);
+									Map options = new HashMap();
+									options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+									options.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
+									if (expandFlag) {
+										options.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE);
+									}
+									aaxlresource.save(options);
+//											aaxlresource.save(null);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								// put the root object back into the original resource
+								resource.getContents().add(eobject);
+								rss.getResources().remove(aaxlresource);
+							}
+						});
+					}
+					return null;
+					// }
+					// return null;
+				}
+			});
 		}
 		return null;
 	}
-	
-	public void processComment(Element o){
-		if (o instanceof Comment) return;
-		INode node = NodeModelUtils.findActualNodeFor(o);
-		if (node == null) 
+
+	public void processComment(Element o) {
+		if (o instanceof Comment) {
 			return;
+		}
+		INode node = NodeModelUtils.findActualNodeFor(o);
+		if (node == null) {
+			return;
+		}
 		BidiTreeIterator<INode> ti = node.getAsTreeIterable().iterator();
 		while (ti.hasNext()) {
 			INode next = ti.next();
-			if (isCommentNode(next)){
+			if (isCommentNode(next)) {
 				EObject eo = NodeModelUtils.findActualSemanticObjectFor(next);
-				if (eo==o){
-				Comment com = Aadl2Factory.eINSTANCE.createComment();
-				com.setBody(next.getText().replaceAll("\r\n", ""));
-				o.getOwnedComments().add(com);
+				if (eo == o) {
+					Comment com = Aadl2Factory.eINSTANCE.createComment();
+					com.setBody(next.getText().replaceAll("\r\n", ""));
+					o.getOwnedComments().add(com);
 				}
 			}
 		}
 	}
-	
+
 	public boolean isCommentNode(INode node) {
 		if (node instanceof ILeafNode && ((ILeafNode) node).isHidden()
-				&& node.getGrammarElement() instanceof AbstractRule)
+				&& node.getGrammarElement() instanceof AbstractRule) {
 			return isComment((AbstractRule) node.getGrammarElement());
+		}
 		return false;
 	}
 
 	public boolean isComment(AbstractRule rule) {
-		return rule != null && ( "SL_COMMENT".equals(rule.getName()));
+		return rule != null && ("SL_COMMENT".equals(rule.getName()));
 	}
 
 }

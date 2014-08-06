@@ -45,49 +45,46 @@ import org.eclipse.core.resources.IResource;
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} instances
  * across a set of AADL text file resources. The manager indexes error reportrs
  * using the OS specific path name of the file.
- * 
+ *
  * <P>
  * The manager is supplied with a
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterFactory}
  * instance that is used to create the error reporters.
- * 
+ *
  * <p>
  * Primary purpose of this class is to serve as a cache of parse error reporters
  * that ensures each reporter is "cleared" only the first time it is retreived.
  * Also coordinates errors counts across a set of parsed files. This class used
  * to have more functionality that is now rolled into
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisToParseErrorReporterAdapter}.
- * 
+ *
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterFactory
- * 
+ *
  * @author aarong
  */
 public final class ParseErrorReporterManager extends AbstractErrorReporterManager {
 	/** The factory to use. */
 	private final ParseErrorReporterFactory factory;
-	
+
 	/** The mapping from Resources to error reporters. */
 	private final Map<IResource, ParseErrorReporter> reportersMap;
-	
+
 	/**
 	 * A list of all the reporters. Replicates {@link #reportersMap}, but it's
 	 * simpler and faster to traverse this list than mess with the hashtable.
 	 */
 	private final List<ParseErrorReporter> reportersList;
-	
-	
-	
+
 	public ParseErrorReporterManager(final ParseErrorReporterFactory fact) {
 		super();
 		factory = fact;
 		reportersMap = new HashMap<IResource, ParseErrorReporter>();
 		reportersList = new LinkedList<ParseErrorReporter>();
 	}
-	
+
 	@Deprecated
-	public ParseErrorReporterManager(
-			final InternalErrorReporter ier, final ParseErrorReporterFactory fact) {
+	public ParseErrorReporterManager(final InternalErrorReporter ier, final ParseErrorReporterFactory fact) {
 		super(ier);
 		factory = fact;
 		reportersMap = new HashMap<IResource, ParseErrorReporter>();
@@ -97,7 +94,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 	/**
 	 * Get the error reporter that is associated with AADL Text file named by
 	 * the given filename.
-	 * 
+	 *
 	 * @param aadlRsrc
 	 *            The IResource associated with the AADL text file to get an
 	 *            error reporter for. This may be <code>null</code> if the
@@ -107,13 +104,12 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 	 *            {@link ParseErrorReporterFactory} regarding <code>null</code>.
 	 */
 	public final ParseErrorReporter getReporter(final IResource aadlRsrc) {
-		ParseErrorReporter errReporter = (ParseErrorReporter) reportersMap.get(aadlRsrc);
+		ParseErrorReporter errReporter = reportersMap.get(aadlRsrc);
 		if (errReporter == null) {
 			// don't have it, make a new one and clear it
 			errReporter = factory.getReporterFor(aadlRsrc);
 			if (errReporter == null) {
-				throw new IllegalArgumentException(
-					"Could not find error reporter for the file.");
+				throw new IllegalArgumentException("Could not find error reporter for the file.");
 			}
 			reportersMap.put(aadlRsrc, errReporter);
 			reportersList.add(errReporter);
@@ -121,7 +117,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 		}
 		return errReporter;
 	}
-	
+
 	/**
 	 * Get the total number of errors across all the error reporters being
 	 * managed.
@@ -133,7 +129,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 		}
 		return numErr;
 	}
-	
+
 	/**
 	 * Get the total number of warnings across all the error reporters being
 	 * managed.
@@ -145,7 +141,7 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 		}
 		return numErr;
 	}
-	
+
 	/**
 	 * Get the total number of information messages across all the error
 	 * reporters being managed.
@@ -157,11 +153,12 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 		}
 		return numErr;
 	}
-	
+
 	/**
 	 * Get the total number of errors and warnings across all the error reports
 	 * being managed.
 	 */
+	@Override
 	public final int getNumMessages() {
 		int numErr = 0;
 		for (final ParseErrorReporter err : reportersList) {

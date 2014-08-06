@@ -36,9 +36,9 @@ package org.osate.aadl2.modelsupport.errorreporting;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
- * Defines the interface for factories that create instances of 
+ * Defines the interface for factories that create instances of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporter}.
- * 
+ *
  * @see edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporter
  * @see edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporterManager
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter
@@ -51,7 +51,7 @@ public interface AnalysisErrorReporterFactory {
 	 * an AADL Object model.  This method
 	 * must never return <code>null</code>. If no factory can be
 	 * found/created then it must throw a {@link IllegalArgumentException}.
-	 * 
+	 *
 	 * @param rsrc
 	 *            The EMF Resource representing the AAXL object model
 	 * @return The error reporter to be used for the file. Must not be

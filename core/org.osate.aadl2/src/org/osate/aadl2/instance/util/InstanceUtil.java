@@ -277,7 +277,8 @@ public class InstanceUtil {
 							ic = new InstantiatedClassifier((ComponentClassifier) cpa.getSubcomponentType(),
 									cpa.getBindings());
 						} else {
-							ic = new InstantiatedClassifier(((ComponentPrototype) prototype).getConstrainingClassifier(), noBindings);
+							ic = new InstantiatedClassifier(
+									((ComponentPrototype) prototype).getConstrainingClassifier(), noBindings);
 						}
 					} else if (prototype instanceof FeatureGroupPrototype) {
 						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj, classifierCache);
@@ -285,7 +286,8 @@ public class InstanceUtil {
 						if (fpa != null) {
 							ic = new InstantiatedClassifier((FeatureGroupType) fpa.getFeatureType(), fpa.getBindings());
 						} else {
-							ic = new InstantiatedClassifier(((FeatureGroupPrototype) prototype).getConstrainingFeatureGroupType(), noBindings);
+							ic = new InstantiatedClassifier(
+									((FeatureGroupPrototype) prototype).getConstrainingFeatureGroupType(), noBindings);
 						}
 					}
 				}

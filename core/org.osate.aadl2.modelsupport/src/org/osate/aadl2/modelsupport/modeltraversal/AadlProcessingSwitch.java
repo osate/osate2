@@ -49,13 +49,12 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.util.Aadl2Switch;
 
-
 /**
  * This class implements the traversal over an AADL model and the invoaction of
  * a case method for each of the classes in the AADL Meta model based on the EMF generated doSwitch.
  * It handles the fact that the AADL Meta model consists of multiple Meta model packages, thus, multiple switches
  * @author phf
- * 
+ *
  */
 public abstract class AadlProcessingSwitch extends ForAllElement {
 	public static final String copyright = "Copyright 2004-2013 by Carnegie Mellon University, all rights reserved";
@@ -65,6 +64,7 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 	public static final String NOT_DONE = null;
 
 	public static AadlProcessingSwitch INSTANCE = new AadlProcessingSwitch(false) {
+		@Override
 		protected final void initSwitches() {
 			// do nothing
 		}
@@ -73,40 +73,36 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 	/* here we are creating the various meta model package switches */
 
 	protected Aadl2Switch<String> aadl2Switch = new Aadl2Switch<String>();
-	
+
 	protected InstanceSwitch<String> instanceSwitch = new InstanceSwitch<String>();
 
 	// Constructors
 
-	public AadlProcessingSwitch(final int defTraversal,
-			final AnalysisErrorReporterManager errMgr) {
+	public AadlProcessingSwitch(final int defTraversal, final AnalysisErrorReporterManager errMgr) {
 		super(defTraversal, errMgr);
 		// Create the switches
 		initSwitches();
 	}
-	
-	public AadlProcessingSwitch(final int defTraversal) 
-	{
+
+	public AadlProcessingSwitch(final int defTraversal) {
 		this(defTraversal, AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
 	}
-	
+
 	/**
 	 * Create an Aadl switch that delages to the given error manager.
 	 */
-	public AadlProcessingSwitch(final AnalysisErrorReporterManager errMgr) 
-	{
+	public AadlProcessingSwitch(final AnalysisErrorReporterManager errMgr) {
 		this(DEFAULT_DEFAULT_TRAVERSAL, errMgr);
 	}
-	
+
 	/**
 	 * Create an Aadl switch that uses
 	 * {@link AnalysisErrorReporterManager#NULL_ERROR_MANANGER}.
 	 */
-	public AadlProcessingSwitch() 
-	{
+	public AadlProcessingSwitch() {
 		this(AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
 	}
-	
+
 	/**
 	 * Private constructor to create the prototype {@link #INSTANCE}. This
 	 * special version does not invoke initSelfReference() because to do so can
@@ -116,7 +112,7 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 	 * class ends up being <code>null</code>. The initialization is instead
 	 * performed by the process() method which checks to see if {@link #self}is
 	 * <code>null</code>.
-	 * 
+	 *
 	 * @param flag
 	 *                 Useless parameter used to distinguish this constructor from
 	 *                 the public one.
@@ -140,48 +136,42 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 
 	/**
 	 * get Aadl2Switch
-	 * 
+	 *
 	 * @return Aadl2Switch
 	 */
-	
-	public final Aadl2Switch<String> getAadl2Switch() 
-	{
+
+	public final Aadl2Switch<String> getAadl2Switch() {
 		return aadl2Switch;
 	}
-	
+
 	/**
 	 * get InstanceSwitch
-	 * 
+	 *
 	 * @return InstanceSwitch
 	 */
-	public final InstanceSwitch<String> getInstanceSwitch()
-	{
+	public final InstanceSwitch<String> getInstanceSwitch() {
 		return instanceSwitch;
 	}
 
 	/**
 	 * Calls the package-specific switch
 	 */
-	public final void process(final Element theElement)
-	{
+	@Override
+	public final void process(final Element theElement) {
 		final EClass theEClass;
 		/**
 		 * This checks to make sure we only invoke doSwitch with non-null
 		 * objects This is necessary as some feature retrieval methods may
 		 * return null
 		 */
-		if (theElement == null)
-		{
+		if (theElement == null) {
 			return;
 		}
 		theEClass = theElement.eClass();
-		if (aadl2Switch != null && (theEClass.eContainer() == Aadl2Package.eINSTANCE||
-									theElement instanceof AnnexLibrary || theElement instanceof AnnexSubclause))
-		{
+		if (aadl2Switch != null
+				&& (theEClass.eContainer() == Aadl2Package.eINSTANCE || theElement instanceof AnnexLibrary || theElement instanceof AnnexSubclause)) {
 			aadl2Switch.doSwitch(theElement);
-		}
-		else if (instanceSwitch != null && theEClass.eContainer() == InstancePackage.eINSTANCE)
-		{
+		} else if (instanceSwitch != null && theEClass.eContainer() == InstancePackage.eINSTANCE) {
 			instanceSwitch.doSwitch(theElement);
 		}
 	}

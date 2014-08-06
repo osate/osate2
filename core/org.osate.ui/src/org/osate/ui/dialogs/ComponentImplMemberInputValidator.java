@@ -5,14 +5,14 @@ import java.util.Set;
 
 import org.osate.aadl2.ComponentImplementation;
 
-
 public class ComponentImplMemberInputValidator extends AadlIdentifierInputValidator {
 	private final ComponentImplementation compImpl;
-	
+
 	public ComponentImplMemberInputValidator(final ComponentImplementation ci) {
 		compImpl = ci;
 	}
 
+	@Override
 	protected Set<String> getForbiddenNames() {
 		final Set<String> names = new HashSet<String>();
 		addNames(names, compImpl.getAllFeatures());
@@ -23,8 +23,9 @@ public class ComponentImplMemberInputValidator extends AadlIdentifierInputValida
 		addNames(names, compImpl.getAllEndToEndFlows());
 		return names;
 	}
-	
+
+	@Override
 	protected String getForbiddenErrorMessage(final String newText) {
-		return "Component implementation " + compImpl.getQualifiedName() + " already has a member \"" + newText +"\"";
+		return "Component implementation " + compImpl.getQualifiedName() + " already has a member \"" + newText + "\"";
 	}
 }

@@ -52,10 +52,10 @@ public class AnnexHighlighterProxy extends AnnexProxy implements AnnexHighlighte
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.osate.annexsupport.AnnexHighlighter#highlightAnnexLibrary(AnnexLibrary library,	IHighlightedPositionAcceptor acceptor)
+	 * @see org.osate.annexsupport.AnnexHighlighter#highlightAnnexLibrary(AnnexLibrary library, IHighlightedPositionAcceptor acceptor)
 	 */
 	@Override
-	public void highlightAnnexLibrary(AnnexLibrary library,	AnnexHighlighterPositionAcceptor acceptor) {
+	public void highlightAnnexLibrary(AnnexLibrary library, AnnexHighlighterPositionAcceptor acceptor) {
 		AnnexHighlighter highlighter = getHighlighter();
 
 		if (highlighter != null) {
@@ -65,7 +65,7 @@ public class AnnexHighlighterProxy extends AnnexProxy implements AnnexHighlighte
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.annexsupport.AnnexHighlighter#highlightAnnexSubclause(AnnexSubclause subclause, IHighlightedPositionAcceptor acceptor)
 	 */
 	@Override

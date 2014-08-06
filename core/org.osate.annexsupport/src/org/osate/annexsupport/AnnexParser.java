@@ -40,7 +40,6 @@ import org.osate.aadl2.parsesupport.LocationReference;
 
 import antlr.RecognitionException;
 
-
 /**
  * Annex parsers must implement this interface. Each time the AADL parser finds
  * either an annex library or an annex subclause it calls the corresponding
@@ -51,7 +50,7 @@ import antlr.RecognitionException;
  * Each annex parser will be called for annexes for which it provides an
  * extension as specified in the annexName attribute in the extension point
  * org.osate.annexsupport.parser.
- * 
+ *
  * @author lwrage
  * @version $Id: AnnexParser.java,v 1.9 2008-01-23 21:34:21 jseibel Exp $
  */
@@ -59,7 +58,7 @@ public interface AnnexParser {
 	/**
 	 * Parse the content of an annex library element found in an AADL
 	 * specification or package section.
-	 * 
+	 *
 	 * @param annexName
 	 *            the name of the annex.
 	 * @param source
@@ -87,7 +86,7 @@ public interface AnnexParser {
 	/**
 	 * Parse the content of an annex subclause element found in an AADL
 	 * classifier.
-	 * 
+	 *
 	 * @param annexName
 	 *            the name of the annex.
 	 * @param source

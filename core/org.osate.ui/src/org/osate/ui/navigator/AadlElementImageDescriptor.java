@@ -44,79 +44,66 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.osate.ui.OsateUiPlugin;
 
+public class AadlElementImageDescriptor extends CompositeImageDescriptor {
+	public enum ModificationFlag {
+		NO_MODIFICATION, ADD_ERROR, ADD_WARNING, INVALID
+	};
 
-public class AadlElementImageDescriptor extends CompositeImageDescriptor
-{
-	public enum ModificationFlag { NO_MODIFICATION, ADD_ERROR, ADD_WARNING, INVALID };
-	
 	private static final ImageDescriptor ERROR_IMAGE_DESCRIPTOR = create("error_co.gif");
 	private static final ImageDescriptor WARNING_IMAGE_DESCRIPTOR = create("warning_co.gif");
 	private static final ImageDescriptor STOP_IMAGE_DESCRIPTOR = create("stop_co.gif");
-	
+
 	private final ImageDescriptor baseImage;
 	private final ModificationFlag modification;
 	private final Point size;
-	
-	public AadlElementImageDescriptor(ImageDescriptor baseImage, ModificationFlag modification, Point size)
-	{
+
+	public AadlElementImageDescriptor(ImageDescriptor baseImage, ModificationFlag modification, Point size) {
 		this.baseImage = baseImage;
 		this.modification = modification;
 		this.size = size;
 	}
-	
-	protected void drawCompositeImage(int width, int height)
-	{
+
+	@Override
+	protected void drawCompositeImage(int width, int height) {
 		ImageData bg = getImageData(baseImage);
 		drawImage(bg, 0, 0);
 		drawBottomLeft();
 	}
-	
-	private void drawBottomLeft()
-	{
+
+	private void drawBottomLeft() {
 		Point size = getSize();
-		if (modification.equals(ModificationFlag.ADD_ERROR))
-		{
+		if (modification.equals(ModificationFlag.ADD_ERROR)) {
 			ImageData data = getImageData(ERROR_IMAGE_DESCRIPTOR);
 			drawImage(data, 0, size.y - data.height);
-		}
-		else if (modification.equals(ModificationFlag.ADD_WARNING))
-		{
+		} else if (modification.equals(ModificationFlag.ADD_WARNING)) {
 			ImageData data = getImageData(WARNING_IMAGE_DESCRIPTOR);
 			drawImage(data, 0, size.y - data.height);
-		}
-		else if (modification.equals(ModificationFlag.INVALID))
-		{
+		} else if (modification.equals(ModificationFlag.INVALID)) {
 			ImageData data = getImageData(STOP_IMAGE_DESCRIPTOR);
 			drawImage(data, 0, size.y - data.height);
 		}
 	}
-	
-	private ImageData getImageData(ImageDescriptor descriptor)
-	{
+
+	private ImageData getImageData(ImageDescriptor descriptor) {
 		ImageData data = descriptor.getImageData();
-		if (data == null)
-		{
-			data = new ImageData(6, 6, 1, new PaletteData(new RGB[] {new RGB(255, 0, 0)}));
+		if (data == null) {
+			data = new ImageData(6, 6, 1, new PaletteData(new RGB[] { new RGB(255, 0, 0) }));
 			OsateUiPlugin.logErrorMessage("Image data not available: " + descriptor.toString());
 		}
 		return data;
 	}
-	
-	protected Point getSize()
-	{
+
+	@Override
+	protected Point getSize() {
 		return size;
 	}
-	
-	private static ImageDescriptor create(String name)
-	{
-		try
-		{
+
+	private static ImageDescriptor create(String name) {
+		try {
 			URL baseURL = OsateUiPlugin.getDefault().getBundle().getEntry("/icons/");
 			URL iconURL = new URL(baseURL, name);
 			return ImageDescriptor.createFromURL(iconURL);
-		}
-		catch (MalformedURLException e)
-		{
+		} catch (MalformedURLException e) {
 			return ImageDescriptor.getMissingImageDescriptor();
 		}
 	}

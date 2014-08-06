@@ -7,11 +7,11 @@ public class TextPositionInfo {
 	private EObject modelObject;
 	private int offset;
 	private int length;
-	
+
 	public TextPositionInfo(EObject modelObject, int offset, int length) {
-		this.setModelObject(modelObject);
-		this.setOffset(offset);
-		this.setLength(length);
+		setModelObject(modelObject);
+		setOffset(offset);
+		setLength(length);
 	}
 
 	public EObject getModelObject() {
@@ -37,5 +37,5 @@ public class TextPositionInfo {
 	public void setLength(int length) {
 		this.length = length;
 	}
-	
+
 }

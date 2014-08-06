@@ -658,7 +658,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		return getContainingComponentInstance().isActive(som);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -670,7 +672,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		return getName() + array;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override
@@ -690,4 +694,4 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		return false;
 	}
 
-} //FeatureInstanceImpl
+} // FeatureInstanceImpl

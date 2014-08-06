@@ -36,9 +36,9 @@ package org.osate.aadl2.modelsupport.errorreporting;
 import org.eclipse.core.resources.IResource;
 
 /**
- * Defines the interface for factories that create instances of 
+ * Defines the interface for factories that create instances of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter}.
- * 
+ *
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterManager
  *
@@ -50,13 +50,13 @@ public interface ParseErrorReporterFactory {
 	 * the given {@link org.eclipse.core.resources.IResource}. This method must
 	 * never return <code>null</code>. If no factory can be found/created
 	 * then it must throw a {@link IllegalArgumentException}.
-	 * 
+	 *
 	 * <p>
 	 * The given <code>IResource</code> may be <code>null</code>, but an
 	 * implementation may throw an IllegalArgumentException if it cannot produce
 	 * a sensible error reporter for <code>null</code>. An implementation
 	 * must document its behavoir for <code>null</code> inputs.
-	 * 
+	 *
 	 * <p>
 	 * (At one point a considerable effort was made to avoid having this
 	 * interface use {@link org.eclipse.core.resources.IResource}, on the
@@ -64,7 +64,7 @@ public interface ParseErrorReporterFactory {
 	 * of Eclipse. But there is now so much entanglement between the model and
 	 * Eclipse, that it doesn't seem worth the effort to attempt the separation
 	 * here.)
-	 * 
+	 *
 	 * @param aadlRsrc
 	 *            The <code>IResource</code> of the aadl text file for which
 	 *            an error reporter should be generated. May be

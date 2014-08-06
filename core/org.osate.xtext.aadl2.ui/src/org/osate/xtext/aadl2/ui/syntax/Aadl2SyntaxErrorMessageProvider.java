@@ -44,39 +44,38 @@ import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
 import org.eclipse.xtext.parser.antlr.SyntaxErrorMessageProvider;
 import org.osate.aadl2.AadlPackage;
 
-public class Aadl2SyntaxErrorMessageProvider extends SyntaxErrorMessageProvider{
+public class Aadl2SyntaxErrorMessageProvider extends SyntaxErrorMessageProvider {
 
 	@Override
-
 	public SyntaxErrorMessage getSyntaxErrorMessage(IParserErrorContext context) {
 		EObject contextobj = context.getCurrentContext();
 		RecognitionException ex = context.getRecognitionException();
 		String msg = context.getDefaultMessage();
-		 if (ex == null){
-			 if( msg.endsWith("'_'")){
-				 msg = "Illegal identifier";
-			 } else if (msg.startsWith("mismatched ch")){
-				 msg = "Identifier cannot end with '_'";
-			 }
-		 }
-		 if (ex instanceof MissingTokenException){
-			 msg = msg.replaceFirst("RULE_ID at", "identifier before");
-		 }
-		 if (ex instanceof MismatchedTokenException){
-			 // mismatched input 'xxx' expecting 'end'
-			 msg = msg.replaceFirst("mismatched input", "Not allowed: ");
-		 }
-		 if (ex instanceof NoViableAltException){
-			 // no viable alternative at input 'xxx'
-			 msg = msg.replaceFirst("no viable alternative at input", "Not allowed: ")+". Missing defining identifier or earlier keyword may be out of place.";
-		 }
-		if (contextobj == null){
+		if (ex == null) {
+			if (msg.endsWith("'_'")) {
+				msg = "Illegal identifier";
+			} else if (msg.startsWith("mismatched ch")) {
+				msg = "Identifier cannot end with '_'";
+			}
+		}
+		if (ex instanceof MissingTokenException) {
+			msg = msg.replaceFirst("RULE_ID at", "identifier before");
+		}
+		if (ex instanceof MismatchedTokenException) {
+			// mismatched input 'xxx' expecting 'end'
+			msg = msg.replaceFirst("mismatched input", "Not allowed: ");
+		}
+		if (ex instanceof NoViableAltException) {
+			// no viable alternative at input 'xxx'
+			msg = msg.replaceFirst("no viable alternative at input", "Not allowed: ")
+					+ ". Missing defining identifier or earlier keyword may be out of place.";
+		}
+		if (contextobj == null) {
 			msg = "Incomplete package or property set declaration";
-		} else 
-		if (contextobj instanceof AadlPackage){
-			String packname = ((AadlPackage)contextobj).getName()!=null?((AadlPackage)contextobj).getName():"";
-			if (ex instanceof NoViableAltException){
-				msg = "Missing public or private in package "+packname;
+		} else if (contextobj instanceof AadlPackage) {
+			String packname = ((AadlPackage) contextobj).getName() != null ? ((AadlPackage) contextobj).getName() : "";
+			if (ex instanceof NoViableAltException) {
+				msg = "Missing public or private in package " + packname;
 			}
 		}
 		return new SyntaxErrorMessage(msg, Diagnostic.SYNTAX_DIAGNOSTIC);

@@ -48,12 +48,12 @@ public class InvalidModelException extends PropertyLookupException {
 	private static final long serialVersionUID = 1L;
 	/** The model element that caused the problem. */
 	private Element where;
-	
+
 	public InvalidModelException(final Element src, final String msg) {
 		super(msg);
 		where = src;
 	}
-	
+
 	/**
 	 * Get the model element that triggered the exception.
 	 */

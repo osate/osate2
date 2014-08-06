@@ -4,17 +4,12 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.Assignment;
-import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
-import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 
-public class AnnexContentAssistProxy extends AnnexProxy implements
-		AnnexContentAssist {
+public class AnnexContentAssistProxy extends AnnexProxy implements AnnexContentAssist {
 
-	
 	/** The annex resolver instance. */
 	private AnnexContentAssist contentAssist = null;
-	
+
 	protected AnnexContentAssistProxy(IConfigurationElement configElem) {
 		super(configElem);
 		// TODO Auto-generated constructor stub
@@ -27,15 +22,14 @@ public class AnnexContentAssistProxy extends AnnexProxy implements
 		try {
 			contentAssist = (AnnexContentAssist) configElem.createExecutableExtension(ATT_CLASS);
 		} catch (Exception e) {
-			AnnexPlugin.logError("Failed to instantiate " + annexName + " content assist " + className + " in type: " + id
-					+ " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
+			AnnexPlugin.logError("Failed to instantiate " + annexName + " content assist " + className + " in type: "
+					+ id + " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
 		}
 		return contentAssist;
 	}
 
 	@Override
-	public List<String> annexCompletionSuggestions(EObject defaultAnnex,
-			int offset) {
+	public List<String> annexCompletionSuggestions(EObject defaultAnnex, int offset) {
 		contentAssist = getContentAssist();
 		return contentAssist.annexCompletionSuggestions(defaultAnnex, offset);
 	}

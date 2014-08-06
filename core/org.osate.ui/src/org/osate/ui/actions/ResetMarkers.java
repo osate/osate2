@@ -57,8 +57,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.ui.OsateUiPlugin;
 
-
-
 /**
  * ResetMarkers implements workbench action delegate.
  * The action proxy will be created by the workbench and
@@ -75,19 +73,20 @@ public class ResetMarkers implements IWorkbenchWindowActionDelegate, IObjectActi
 	 */
 	private Set currentSelection = Collections.EMPTY_SET;
 	private IWorkbenchWindow window;
-	
+
 	/**
 	 * The constructor.
 	 */
 	public ResetMarkers() {
 	}
 
-    /**
-     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-     */
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-    	this.window = targetPart.getSite().getWorkbenchWindow();
-    }
+	/**
+	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
+	 */
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		window = targetPart.getSite().getWorkbenchWindow();
+	}
 
 	/**
 	 * The action has been activated. The argument of the
@@ -95,10 +94,10 @@ public class ResetMarkers implements IWorkbenchWindowActionDelegate, IObjectActi
 	 * in the workbench UI.
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		if (currentSelection.isEmpty()) {
-			MessageDialog.openError(getShell(), "Reset Markers Errror",
-					"No resource(s) selected.");
+			MessageDialog.openError(getShell(), "Reset Markers Errror", "No resource(s) selected.");
 			return;
 		}
 		for (final Iterator rsrcs = currentSelection.iterator(); rsrcs.hasNext();) {
@@ -110,13 +109,15 @@ public class ResetMarkers implements IWorkbenchWindowActionDelegate, IObjectActi
 			}
 		}
 	}
-/**
-	 * Selection in the workbench has been changed. We
-	 * can change the state of the 'real' action here
-	 * if we want, but this can only happen after
-	 * the delegate has been created.
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-	 */
+
+	/**
+		 * Selection in the workbench has been changed. We
+		 * can change the state of the 'real' action here
+		 * if we want, but this can only happen after
+		 * the delegate has been created.
+		 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+		 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
 			currentSelection = new HashSet();
@@ -134,6 +135,7 @@ public class ResetMarkers implements IWorkbenchWindowActionDelegate, IObjectActi
 	 * resources we previously allocated.
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
+	@Override
 	public void dispose() {
 	}
 
@@ -142,11 +144,12 @@ public class ResetMarkers implements IWorkbenchWindowActionDelegate, IObjectActi
 	 * be able to provide parent shell for the message dialog.
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 		this.window = window;
 	}
 
 	private final Shell getShell() {
-		return this.window.getShell();
+		return window.getShell();
 	}
 }

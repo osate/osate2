@@ -9,9 +9,9 @@ import org.osgi.framework.BundleContext;
  */
 public class WizardsPlugin extends AbstractUIPlugin {
 
-	//The shared instance.
+	// The shared instance.
 	private static WizardsPlugin plugin;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -22,6 +22,7 @@ public class WizardsPlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -29,6 +30,7 @@ public class WizardsPlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;

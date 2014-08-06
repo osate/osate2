@@ -38,11 +38,9 @@ import org.osate.ui.wizards.NewModelWizard;
 /**
  * This class is based on edu.cmu.sei.aadl.model.core.presentation.NewPackageWizardAction from OSATE 1.
  */
-public class NewPackageWizardAction extends NewModelWizardLauncherAction
-{
+public class NewPackageWizardAction extends NewModelWizardLauncherAction {
 	@Override
-	protected void setInitialObjectType(NewModelWizard wizard)
-	{
+	protected void setInitialObjectType(NewModelWizard wizard) {
 		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PACKAGE);
 	}
 }

@@ -333,4 +333,4 @@ public class InstanceDerivedUnionAdapter extends AdapterImpl {
 		}
 	}
 
-} //InstanceDerivedUnionAdapter
+} // InstanceDerivedUnionAdapter

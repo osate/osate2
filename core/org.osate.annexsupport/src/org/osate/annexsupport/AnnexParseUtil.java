@@ -20,20 +20,21 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 public class AnnexParseUtil {
 
-	public static EObject parse(AbstractAntlrParser parser,String editString, ParserRule parserRule, String filename,int line, int offset, ParseErrorReporter err) {
-		
+	public static EObject parse(AbstractAntlrParser parser, String editString, ParserRule parserRule, String filename,
+			int line, int offset, ParseErrorReporter err) {
+
 		try {
-			editString = genWhitespace(offset)+editString+"\n\r";
+			editString = genWhitespace(offset) + editString + "\n\r";
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
-			
+
 			EObject result = null;
 			if (isValidParseResult(parseResult)) {
 				result = parseResult.getRootASTElement();
 				return result;
 			} else {
-				createDiagnostics(parseResult,filename,err);
+				createDiagnostics(parseResult, filename, err);
 				result = parseResult.getRootASTElement();
-				if (result != null){
+				if (result != null) {
 					return result;
 				} else {
 					return null;
@@ -43,45 +44,45 @@ public class AnnexParseUtil {
 			return null;
 		}
 	}
-	
-	
-	public static String genWhitespace(int length){
-		char [] array = new char[length];
-		Arrays.fill(array,' ');
+
+	public static String genWhitespace(int length) {
+		char[] array = new char[length];
+		Arrays.fill(array, ' ');
 		return new String(array);
 	}
-	
 
 	public static boolean isValidParseResult(IParseResult parseResult) {
 		EObject rootASTElement = parseResult.getRootASTElement();
-		if (rootASTElement != null  && !parseResult.hasSyntaxErrors()){
+		if (rootASTElement != null && !parseResult.hasSyntaxErrors()) {
 			return true;
 		}
 		return false;
 	}
+
 	/**
 	 * Creates {@link Diagnostic diagnostics} from {@link SyntaxError syntax errors} in {@link ParseResult}.
 	 * No diagnostics will be created if {@link #isValidationDisabled() validation is disabled} for this
 	 * resource.
-	 * 
+	 *
 	 * @param parseResult the parse result that provides the syntax errors.
 	 * @return list of {@link Diagnostic}. Never <code>null</code>.
 	 */
-	public static void createDiagnostics(IParseResult parseResult,String filename,ParseErrorReporter err) {
-		if (err instanceof MarkerParseErrorReporter){
+	public static void createDiagnostics(IParseResult parseResult, String filename, ParseErrorReporter err) {
+		if (err instanceof MarkerParseErrorReporter) {
 			List<Diagnostic> diagnostics = new ArrayList<Diagnostic>();
-			Resource res = ((MarkerParseErrorReporter)err).getContextResource();
+			Resource res = ((MarkerParseErrorReporter) err).getContextResource();
 			for (INode error : parseResult.getSyntaxErrors()) {
-				if (res == null){
-				SyntaxErrorMessage errormsg = error.getSyntaxErrorMessage();
-				String msg = errormsg.getMessage();
-				err.error(filename, error.getStartLine(), msg);
+				if (res == null) {
+					SyntaxErrorMessage errormsg = error.getSyntaxErrorMessage();
+					String msg = errormsg.getMessage();
+					err.error(filename, error.getStartLine(), msg);
 				} else {
-				diagnostics.add(new XtextSyntaxDiagnostic(error));
+					diagnostics.add(new XtextSyntaxDiagnostic(error));
 				}
 			}
-			if (res != null)
-			res.getErrors().addAll(diagnostics);
+			if (res != null) {
+				res.getErrors().addAll(diagnostics);
+			}
 		} else {
 			for (INode error : parseResult.getSyntaxErrors()) {
 				SyntaxErrorMessage errormsg = error.getSyntaxErrorMessage();

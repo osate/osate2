@@ -52,114 +52,113 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
 		Aadl2GrammarAccess f = (Aadl2GrammarAccess) getGrammarAccess();
-	    c.setAutoLinewrap(120);
+		c.setAutoLinewrap(120);
 
-	    // find common keywords an specify formatting for them
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("(", ")")) {
-		      c.setNoSpace().after(pair.getFirst());
-		      c.setNoSpace().before(pair.getSecond());
-		    }
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("[", "]")) {
-		      c.setNoSpace().after(pair.getFirst());
-		      c.setNoSpace().before(pair.getSecond());
-		    }
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{**", "**}")) {
-		      c.setIndentationIncrement().after(pair.getFirst());
-		      c.setLinewrap().after(pair.getFirst());
-		      c.setIndentationDecrement().before(pair.getSecond());
-		      c.setLinewrap().before(pair.getSecond());
-		    }
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
-		      c.setIndentationIncrement().after(pair.getFirst());
-		      c.setLinewrap().after(pair.getFirst());
-		      c.setIndentationDecrement().before(pair.getSecond());
-		      c.setLinewrap().before(pair.getSecond());
-		    }
-	    for (Keyword comma : f.findKeywords(",")) {
-		      c.setNoSpace().before(comma);
-		    }
-	    for (Keyword semi : f.findKeywords(";")) {
-		      c.setNoSpace().before(semi);
-		      c.setLinewrap().after(semi);
-		    }
-	    for (Keyword dot : f.findKeywords(".")) {
-		      c.setNoSpace().around(dot);
-		    }
-	    for (Keyword doublecolon : f.findKeywords("::")) {
-		      c.setNoSpace().around(doublecolon);
-		    }
-	    for (Keyword fea : f.findKeywords("features")) {
-		      c.setLinewrap().around(fea);
-		      c.setIndentationDecrement().before(fea);
-		      c.setIndentationIncrement().after(fea);
-		    }
-	    for (Keyword sub : f.findKeywords("subcomponents")) {
-		      c.setLinewrap().around(sub);
-		      c.setIndentationDecrement().before(sub);
-		      c.setIndentationIncrement().after(sub);
-		    }
-	    for (Keyword conns : f.findKeywords("connections")) {
-		      c.setLinewrap().around(conns);
-		      c.setIndentationDecrement().before(conns);
-		      c.setIndentationIncrement().after(conns);
-		    }
-	    for (Keyword proto : f.findKeywords("prototypes")) {
-		      c.setLinewrap().around(proto);
-		      c.setIndentationDecrement().before(proto);
-		      c.setIndentationIncrement().after(proto);
-		    }
-	    for (Keyword flows : f.findKeywords("flows")) {
-		      c.setLinewrap().around(flows);
-		      c.setIndentationDecrement().before(flows);
-		      c.setIndentationIncrement().after(flows);
-		    }
-	    for (Keyword calls : f.findKeywords("calls")) {
-		      c.setLinewrap().around(calls);
-		      c.setIndentationDecrement().before(calls);
-		      c.setIndentationIncrement().after(calls);
-		    }
-	    for (Keyword prop : f.findKeywords("properties")) {
-		      c.setLinewrap().around(prop);
-		      c.setIndentationDecrement().before(prop);
-		      c.setIndentationIncrement().after(prop);
-		    }
-	    for (Keyword end : f.findKeywords("end")) {
-		      c.setLinewrap().before(end);
-		      c.setIndentationDecrement().before(end);
-		    }
-	    for (Keyword is : f.findKeywords("is")) {
-		      c.setIndentationIncrement().after(is);
-		      c.setLinewrap().after(is);
-		    }
-	    for (Keyword applies : f.findKeywords("applies")) {
-		      c.setIndentationIncrement().before(applies);
-		      c.setLinewrap().before(applies);
-		      c.setIndentationDecrement().after(applies);
-		    }
-	    for (Keyword requires : f.findKeywords("requires")) {
-		      c.setIndentationDecrement().before(requires);
-		      c.setLinewrap().before(requires);
-		      c.setLinewrap(0,0,0).after(requires);
-		      c.setIndentationIncrement().after(requires);
-		    }
-	    for (Keyword modes : f.findKeywords("modes")) {
-		      c.setIndentationDecrement().before(modes);
-		      c.setLinewrap().before(modes);
-		      c.setLinewrap().after(modes);
-		      c.setIndentationIncrement().after(modes);
-		    }
-	    for (Keyword in : f.findKeywords("in")) {
-		      c.setLinewrap(0,0,0).after(in);
-		    }
+		// find common keywords an specify formatting for them
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("(", ")")) {
+			c.setNoSpace().after(pair.getFirst());
+			c.setNoSpace().before(pair.getSecond());
+		}
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("[", "]")) {
+			c.setNoSpace().after(pair.getFirst());
+			c.setNoSpace().before(pair.getSecond());
+		}
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{**", "**}")) {
+			c.setIndentationIncrement().after(pair.getFirst());
+			c.setLinewrap().after(pair.getFirst());
+			c.setIndentationDecrement().before(pair.getSecond());
+			c.setLinewrap().before(pair.getSecond());
+		}
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
+			c.setIndentationIncrement().after(pair.getFirst());
+			c.setLinewrap().after(pair.getFirst());
+			c.setIndentationDecrement().before(pair.getSecond());
+			c.setLinewrap().before(pair.getSecond());
+		}
+		for (Keyword comma : f.findKeywords(",")) {
+			c.setNoSpace().before(comma);
+		}
+		for (Keyword semi : f.findKeywords(";")) {
+			c.setNoSpace().before(semi);
+			c.setLinewrap().after(semi);
+		}
+		for (Keyword dot : f.findKeywords(".")) {
+			c.setNoSpace().around(dot);
+		}
+		for (Keyword doublecolon : f.findKeywords("::")) {
+			c.setNoSpace().around(doublecolon);
+		}
+		for (Keyword fea : f.findKeywords("features")) {
+			c.setLinewrap().around(fea);
+			c.setIndentationDecrement().before(fea);
+			c.setIndentationIncrement().after(fea);
+		}
+		for (Keyword sub : f.findKeywords("subcomponents")) {
+			c.setLinewrap().around(sub);
+			c.setIndentationDecrement().before(sub);
+			c.setIndentationIncrement().after(sub);
+		}
+		for (Keyword conns : f.findKeywords("connections")) {
+			c.setLinewrap().around(conns);
+			c.setIndentationDecrement().before(conns);
+			c.setIndentationIncrement().after(conns);
+		}
+		for (Keyword proto : f.findKeywords("prototypes")) {
+			c.setLinewrap().around(proto);
+			c.setIndentationDecrement().before(proto);
+			c.setIndentationIncrement().after(proto);
+		}
+		for (Keyword flows : f.findKeywords("flows")) {
+			c.setLinewrap().around(flows);
+			c.setIndentationDecrement().before(flows);
+			c.setIndentationIncrement().after(flows);
+		}
+		for (Keyword calls : f.findKeywords("calls")) {
+			c.setLinewrap().around(calls);
+			c.setIndentationDecrement().before(calls);
+			c.setIndentationIncrement().after(calls);
+		}
+		for (Keyword prop : f.findKeywords("properties")) {
+			c.setLinewrap().around(prop);
+			c.setIndentationDecrement().before(prop);
+			c.setIndentationIncrement().after(prop);
+		}
+		for (Keyword end : f.findKeywords("end")) {
+			c.setLinewrap().before(end);
+			c.setIndentationDecrement().before(end);
+		}
+		for (Keyword is : f.findKeywords("is")) {
+			c.setIndentationIncrement().after(is);
+			c.setLinewrap().after(is);
+		}
+		for (Keyword applies : f.findKeywords("applies")) {
+			c.setIndentationIncrement().before(applies);
+			c.setLinewrap().before(applies);
+			c.setIndentationDecrement().after(applies);
+		}
+		for (Keyword requires : f.findKeywords("requires")) {
+			c.setIndentationDecrement().before(requires);
+			c.setLinewrap().before(requires);
+			c.setLinewrap(0, 0, 0).after(requires);
+			c.setIndentationIncrement().after(requires);
+		}
+		for (Keyword modes : f.findKeywords("modes")) {
+			c.setIndentationDecrement().before(modes);
+			c.setLinewrap().before(modes);
+			c.setLinewrap().after(modes);
+			c.setIndentationIncrement().after(modes);
+		}
+		for (Keyword in : f.findKeywords("in")) {
+			c.setLinewrap(0, 0, 0).after(in);
+		}
 
-	      c.setLinewrap().around(f.getPublicPackageSectionAccess().getPublicKeyword_1());
-	      c.setLinewrap().around(f.getPrivatePackageSectionAccess().getPrivateKeyword_1());
+		c.setLinewrap().around(f.getPublicPackageSectionAccess().getPublicKeyword_1());
+		c.setLinewrap().around(f.getPrivatePackageSectionAccess().getPrivateKeyword_1());
 
-	      c.setLinewrap().before(f.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
+		c.setLinewrap().before(f.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
 
-
-	      // WE NEED IT THIS WAY BECAUSE "IN MODES" should not have new lines
-	      // modes, requires modes and in modes
+		// WE NEED IT THIS WAY BECAUSE "IN MODES" should not have new lines
+		// modes, requires modes and in modes
 //	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getModesKeyword_3_0());
 //	      c.setLinewrap().around(f.getComponentTypeAccess().getModesKeyword_3_0());
 //	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_3_0());
@@ -174,68 +173,66 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 //	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getRequiresKeyword_2_0());
 //	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_2_1());
 
-	      // component types and implementations
-	      c.setIndentationIncrement().before(f.getClassifierRule());
-	      c.setIndentationDecrement().after(f.getClassifierRule());
-	      c.setLinewrap(2).after(f.getClassifierRule());
+		// component types and implementations
+		c.setIndentationIncrement().before(f.getClassifierRule());
+		c.setIndentationDecrement().after(f.getClassifierRule());
+		c.setLinewrap(2).after(f.getClassifierRule());
 //
 //	      c.setIndentationIncrement().before(f.getComponentImplementationRule());
 //	      c.setIndentationDecrement().after(f.getComponentImplementationRule());
 //	      c.setLinewrap(2).after(f.getComponentImplementationRule());
 
-
-	      c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
-	      c.setIndentationIncrement().after(f.getSystemImplementationAccess().getImplementationKeyword_1());
+		c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
+		c.setIndentationIncrement().after(f.getSystemImplementationAccess().getImplementationKeyword_1());
 //	      c.setLinewrap().after(f.getSystemImplementationRule());
 
-	      // Need to leave category specific rules in those cases where the rule is not part of the Component Type/Impl rule
-	      // This is the case for categories that have special rules for the common subclause sections
+		// Need to leave category specific rules in those cases where the rule is not part of the Component Type/Impl rule
+		// This is the case for categories that have special rules for the common subclause sections
 
-	      c.setIndentationIncrement().after(f.getAbstractTypeAccess().getAbstractKeyword_0());
-	      c.setIndentationIncrement().after(f.getAbstractImplementationAccess().getAbstractKeyword_0());
+		c.setIndentationIncrement().after(f.getAbstractTypeAccess().getAbstractKeyword_0());
+		c.setIndentationIncrement().after(f.getAbstractImplementationAccess().getAbstractKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getProcessTypeAccess().getProcessKeyword_0());
-	      c.setIndentationIncrement().after(f.getProcessImplementationAccess().getProcessKeyword_0());
+		c.setIndentationIncrement().after(f.getProcessTypeAccess().getProcessKeyword_0());
+		c.setIndentationIncrement().after(f.getProcessImplementationAccess().getProcessKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getThreadGroupTypeAccess().getThreadKeyword_0());
-	      c.setIndentationIncrement().after(f.getThreadGroupImplementationAccess().getThreadKeyword_0());
+		c.setIndentationIncrement().after(f.getThreadGroupTypeAccess().getThreadKeyword_0());
+		c.setIndentationIncrement().after(f.getThreadGroupImplementationAccess().getThreadKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getThreadTypeAccess().getThreadKeyword_0());
-	      c.setIndentationIncrement().after(f.getThreadImplementationAccess().getThreadKeyword_0());
+		c.setIndentationIncrement().after(f.getThreadTypeAccess().getThreadKeyword_0());
+		c.setIndentationIncrement().after(f.getThreadImplementationAccess().getThreadKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getDataTypeAccess().getDataKeyword_0());
-	      c.setIndentationIncrement().after(f.getDataImplementationAccess().getDataKeyword_1());
+		c.setIndentationIncrement().after(f.getDataTypeAccess().getDataKeyword_0());
+		c.setIndentationIncrement().after(f.getDataImplementationAccess().getDataKeyword_1());
 
-	      c.setIndentationIncrement().after(f.getSubprogramTypeAccess().getSubprogramKeyword_0());
-	      c.setIndentationIncrement().after(f.getSubprogramImplementationAccess().getSubprogramKeyword_0());
+		c.setIndentationIncrement().after(f.getSubprogramTypeAccess().getSubprogramKeyword_0());
+		c.setIndentationIncrement().after(f.getSubprogramImplementationAccess().getSubprogramKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getSubprogramGroupTypeAccess().getSubprogramKeyword_0());
-	      c.setIndentationIncrement().after(f.getSubprogramGroupImplementationAccess().getSubprogramKeyword_0());
+		c.setIndentationIncrement().after(f.getSubprogramGroupTypeAccess().getSubprogramKeyword_0());
+		c.setIndentationIncrement().after(f.getSubprogramGroupImplementationAccess().getSubprogramKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getProcessorTypeAccess().getProcessorKeyword_0());
-	      c.setIndentationIncrement().after(f.getProcessorImplementationAccess().getProcessorKeyword_0());
+		c.setIndentationIncrement().after(f.getProcessorTypeAccess().getProcessorKeyword_0());
+		c.setIndentationIncrement().after(f.getProcessorImplementationAccess().getProcessorKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getMemoryTypeAccess().getMemoryKeyword_0());
-	      c.setIndentationIncrement().after(f.getMemoryImplementationAccess().getMemoryKeyword_0());
+		c.setIndentationIncrement().after(f.getMemoryTypeAccess().getMemoryKeyword_0());
+		c.setIndentationIncrement().after(f.getMemoryImplementationAccess().getMemoryKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getBusTypeAccess().getBusKeyword_0());
-	      c.setIndentationIncrement().after(f.getBusImplementationAccess().getBusKeyword_0());
+		c.setIndentationIncrement().after(f.getBusTypeAccess().getBusKeyword_0());
+		c.setIndentationIncrement().after(f.getBusImplementationAccess().getBusKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getDeviceTypeAccess().getDeviceKeyword_0());
-	      c.setIndentationIncrement().after(f.getDeviceImplementationAccess().getDeviceKeyword_0());
+		c.setIndentationIncrement().after(f.getDeviceTypeAccess().getDeviceKeyword_0());
+		c.setIndentationIncrement().after(f.getDeviceImplementationAccess().getDeviceKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getVirtualProcessorTypeAccess().getVirtualKeyword_0());
-	      c.setIndentationIncrement().after(f.getVirtualProcessorImplementationAccess().getVirtualKeyword_0());
+		c.setIndentationIncrement().after(f.getVirtualProcessorTypeAccess().getVirtualKeyword_0());
+		c.setIndentationIncrement().after(f.getVirtualProcessorImplementationAccess().getVirtualKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getVirtualBusTypeAccess().getVirtualKeyword_0());
-	      c.setIndentationIncrement().after(f.getVirtualBusImplementationAccess().getVirtualKeyword_0());
+		c.setIndentationIncrement().after(f.getVirtualBusTypeAccess().getVirtualKeyword_0());
+		c.setIndentationIncrement().after(f.getVirtualBusImplementationAccess().getVirtualKeyword_0());
 
-	      c.setIndentationIncrement().after(f.getFeatureGroupTypeAccess().getFeatureKeyword_0());
-
+		c.setIndentationIncrement().after(f.getFeatureGroupTypeAccess().getFeatureKeyword_0());
 
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
-			c.setLinewrap(0, 1, 2).before(f.getSL_COMMENTRule());
+		c.setLinewrap(0, 1, 2).before(f.getSL_COMMENTRule());
 //			c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
 //			c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
 

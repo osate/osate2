@@ -328,4 +328,4 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 		return result.toString();
 	}
 
-} //InternalFeatureImpl
+} // InternalFeatureImpl

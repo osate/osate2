@@ -212,8 +212,9 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	}
 
 	public String toString() {
-		/* Don't return a string with spaces in it becase this is used to 
-		 * create a name for the object, and we cannot have spaces in our 
+		/*
+		 * Don't return a string with spaces in it becase this is used to
+		 * create a name for the object, and we cannot have spaces in our
 		 * name, or else it messes up the XML/XMI processing.
 		 */
 		final StringBuffer name = new StringBuffer();
@@ -233,4 +234,4 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		return name.toString();
 	}
 
-} //SystemOperationModeImpl
+} // SystemOperationModeImpl

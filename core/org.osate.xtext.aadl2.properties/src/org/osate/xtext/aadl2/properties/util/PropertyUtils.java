@@ -42,7 +42,6 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
@@ -59,7 +58,6 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.ClassifierValueImpl;
@@ -79,10 +77,10 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
  * errors in the specification being analyzed because they cannot distinguish
  * between a property value being not present and a property value being modal
  * or list-valued.
- * 
+ *
  * @author aarong
  */
-// FIXME-LW: Range min, max, delta - evaluate signed constant; sign currently ignored 
+// FIXME-LW: Range min, max, delta - evaluate signed constant; sign currently ignored
 public class PropertyUtils {
 	/*
 	 * Private constructor: prevent instantiation of this class.
@@ -94,7 +92,7 @@ public class PropertyUtils {
 	 * Get a non-modal integer property value with no units. Returns a given
 	 * default value if no property value exists. Throws an exception if an
 	 * error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param defaultVal The value to return if the property has no value.
@@ -112,7 +110,7 @@ public class PropertyUtils {
 	/**
 	 * Get a non-modal integer property value with no units. Throws an exception
 	 * if no property value exists or an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @return The integer value of the property.
@@ -135,8 +133,7 @@ public class PropertyUtils {
 			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
 			PropertyDoesNotApplyToHolderException, PropertyIsListException, ClassCastException {
 		final PropertyExpression pv = getSimplePropertyValue(ph, pd);
-		if (pv == null)
-		{
+		if (pv == null) {
 			throw new PropertyNotPresentException(ph, pd, "cannot find the property");
 		}
 		return ((IntegerLiteral) pv).getValue();
@@ -146,15 +143,16 @@ public class PropertyUtils {
 	 * Get a non-modal real property value with no units. Returns a given
 	 * default value if no property value exists. Throws an exception if an
 	 * error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param defaultVal The value to return if the property has no value.
 	 * @return The real value of the property.
 	 */
 	public static double getRealValue(final NamedElement ph, final Property pd, final double defaultVal) {
-		if (pd == null)
+		if (pd == null) {
 			return defaultVal;
+		}
 		try {
 			final PropertyExpression pv = getSimplePropertyValue(ph, pd);
 			return ((RealLiteral) pv).getValue();
@@ -166,7 +164,7 @@ public class PropertyUtils {
 	/**
 	 * Get a non-modal real property with no units Throws an exception if no
 	 * property value exists or an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @return The real value of the property.
@@ -195,7 +193,7 @@ public class PropertyUtils {
 	/**
 	 * Get a non-modal string property value. Throws an exception if no property
 	 * value exists or an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @return The string value of the property.
@@ -222,12 +220,11 @@ public class PropertyUtils {
 			return "";
 		}
 	}
-	
+
 	public static PropertyExpression getRecordFieldValue(final RecordValue rv, final String fieldName) {
 		final EList<BasicPropertyAssociation> pvl = rv.getOwnedFieldValues();
-		for (BasicPropertyAssociation ba : pvl){
-			if (ba.getProperty().getName().equalsIgnoreCase(fieldName))
-			{
+		for (BasicPropertyAssociation ba : pvl) {
+			if (ba.getProperty().getName().equalsIgnoreCase(fieldName)) {
 				return ba.getValue();
 			}
 		}
@@ -237,7 +234,7 @@ public class PropertyUtils {
 	/**
 	 * Get a non-modal boolean property value. Returns a given default value if
 	 * no property value exists. Throws an exception if an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param defaultVal The value to return if the property has no value.
@@ -256,7 +253,7 @@ public class PropertyUtils {
 	/**
 	 * Get a non-modal boolean property value. Throws an exception if no
 	 * property value exists or an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @return The boolean value of the property.
@@ -285,7 +282,7 @@ public class PropertyUtils {
 	/**
 	 * Get a non-modal enumeration property value. Throws an exception if no
 	 * property value exists or an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @return The enumeration literal of the property.
@@ -310,14 +307,14 @@ public class PropertyUtils {
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException,
 			ClassCastException {
 		final PropertyExpression pv = getSimplePropertyValue(ph, pd);
-		return (EnumerationLiteral)((NamedValue) pv).getNamedValue();
+		return (EnumerationLiteral) ((NamedValue) pv).getNamedValue();
 	}
 
 	/**
 	 * Get a non-modal numeric property value scaled to the given unit. Returns
 	 * a given default value if no property value exists. Throws an exception if
 	 * an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -337,7 +334,7 @@ public class PropertyUtils {
 	/**
 	 * Get a non-modal numeric property value scaled to the given unit. Throws
 	 * an exception is no property value exists or an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -370,7 +367,7 @@ public class PropertyUtils {
 	 * Return the maximum value of a non-modal range property value scaled to a
 	 * given unit. Returns a given default value if no property value exists.
 	 * Throws an exception if an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -383,7 +380,7 @@ public class PropertyUtils {
 			final PropertyExpression pv = checkUnitsAndGetSimplePropertyValue(ne, pd, unit);
 			final RangeValue rv = (RangeValue) pv;
 			PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
-			
+
 			if (maximum instanceof NumberValue) {
 				return ((NumberValue) maximum).getScaledValue(unit);
 			} else {
@@ -398,7 +395,7 @@ public class PropertyUtils {
 	 * Return the maximum value of a non-modal range property value scaled to a
 	 * given unit. Throws an exception if no property value exists or an error
 	 * occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -433,12 +430,12 @@ public class PropertyUtils {
 		throw new InvalidModelException(maximum, "Cannot evaluate upper range limit");
 	}
 
-	//TODO-LW: treat minimum same as maximum
+	// TODO-LW: treat minimum same as maximum
 	/**
 	 * Return the minimum value of a non-modal range property value scaled to a
 	 * given unit. Returns a given default value if no property value exists.
 	 * Throws an exception if an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -460,7 +457,7 @@ public class PropertyUtils {
 	 * Return the minimum value of a non-modal range property value scaled to a
 	 * given unit. Throws an exception if no property value exists or an error
 	 * occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -494,7 +491,7 @@ public class PropertyUtils {
 	 * Return the delta value of a non-modal range property value scaled to a
 	 * given unit. Returns a given default value if no property value exists.
 	 * Throws an exception if an error occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -516,7 +513,7 @@ public class PropertyUtils {
 	 * Return the delta value of a non-modal range property value scaled to a
 	 * given unit. Throws an exception if no property value exists or an error
 	 * occurs.
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The unit to scale the value to.
@@ -549,7 +546,7 @@ public class PropertyUtils {
 	/**
 	 * Get an InstanceObject from an instance reference value. Throws an
 	 * exception if no property value exists or an error occurs.
-	 * 
+	 *
 	 * @param io The instance object from which to retrieve the property value.
 	 *            (We don't use a property holder because we can only get an
 	 *            instance reference value as a property value from an instance
@@ -595,12 +592,13 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for an aadlinteger with units.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if unit is null.
 	 */
 	public static IntegerLiteral createIntegerValue(long intValue, UnitLiteral unit) throws IllegalArgumentException {
-		if (unit == null)
+		if (unit == null) {
 			throw new IllegalArgumentException("UnitLiteral unit cannot be null.");
+		}
 		IntegerLiteral newPropertyValue = createIntegerValue(intValue);
 		newPropertyValue.setUnit(unit);
 		return newPropertyValue;
@@ -608,12 +606,13 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlinteger.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if min is greater than max.
 	 */
 	public static RangeValue createIntegerRangeValue(long min, long max) throws IllegalArgumentException {
-		if (min > max)
+		if (min > max) {
 			throw new IllegalArgumentException("min cannot be greater than max.");
+		}
 		RangeValue newPropertyValue = Aadl2Factory.eINSTANCE.createRangeValue();
 		newPropertyValue.setMinimum(createIntegerValue(min));
 		newPropertyValue.setMaximum(createIntegerValue(max));
@@ -622,24 +621,28 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlinteger with units.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if minUnits or maxUnits is null,
 	 *             if minUnits and maxUnits are not of the same UnitType, or if
 	 *             min is greater than max.
 	 */
-	public static RangeValue createIntegerRangeValue(long min, UnitLiteral minUnits, long max,
-			UnitLiteral maxUnits) throws IllegalArgumentException {
-		if (minUnits == null)
+	public static RangeValue createIntegerRangeValue(long min, UnitLiteral minUnits, long max, UnitLiteral maxUnits)
+			throws IllegalArgumentException {
+		if (minUnits == null) {
 			throw new IllegalArgumentException("minUnits cannot be null.");
-		if (maxUnits == null)
+		}
+		if (maxUnits == null) {
 			throw new IllegalArgumentException("maxUnits cannot be null.");
-		if (!minUnits.eContainer().equals(maxUnits.eContainer()))
+		}
+		if (!minUnits.eContainer().equals(maxUnits.eContainer())) {
 			throw new IllegalArgumentException("minUnits and maxUnits are not of the same type.");
+		}
 
 		IntegerLiteral minimumValue = createIntegerValue(min, minUnits);
 		IntegerLiteral maximumValue = createIntegerValue(max, maxUnits);
-		if (minimumValue.getScaledValue() > maximumValue.getScaledValue())
+		if (minimumValue.getScaledValue() > maximumValue.getScaledValue()) {
 			throw new IllegalArgumentException("min cannot be greater than max.");
+		}
 
 		RangeValue newPropertyValue = Aadl2Factory.eINSTANCE.createRangeValue();
 		newPropertyValue.setMinimum(minimumValue);
@@ -649,11 +652,10 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlinteger.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if min is greater than max.
 	 */
-	public static RangeValue createIntegerRangeValue(long min, long max, long delta)
-			throws IllegalArgumentException {
+	public static RangeValue createIntegerRangeValue(long min, long max, long delta) throws IllegalArgumentException {
 		RangeValue newPropertyValue = createIntegerRangeValue(min, max);
 		newPropertyValue.setDelta(createIntegerValue(delta));
 		return newPropertyValue;
@@ -661,19 +663,21 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlinteger with units.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if minUnits, maxUnits, or
 	 *             deltaUnits is null, if minUnits, maxUnits, and deltaUnits are
 	 *             not of the same UnitType, or if min is greater than max.
 	 */
-	public static RangeValue createIntegerRangeValue(long min, UnitLiteral minUnits, long max,
-			UnitLiteral maxUnits, long delta, UnitLiteral deltaUnits) throws IllegalArgumentException {
+	public static RangeValue createIntegerRangeValue(long min, UnitLiteral minUnits, long max, UnitLiteral maxUnits,
+			long delta, UnitLiteral deltaUnits) throws IllegalArgumentException {
 		RangeValue newPropertyValue = createIntegerRangeValue(min, minUnits, max, maxUnits);
 
-		if (deltaUnits == null)
+		if (deltaUnits == null) {
 			throw new IllegalArgumentException("deltaUnits cannot be null.");
-		if (!minUnits.eContainer().equals(deltaUnits.eContainer()))
+		}
+		if (!minUnits.eContainer().equals(deltaUnits.eContainer())) {
 			throw new IllegalArgumentException("minUnits, maxUnits, and deltaUnits are not of the same type.");
+		}
 
 		newPropertyValue.setDelta(createIntegerValue(delta, deltaUnits));
 		return newPropertyValue;
@@ -690,12 +694,13 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for an aadlreal with units.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if unit is null.
 	 */
 	public static RealLiteral createRealValue(double realValue, UnitLiteral unit) throws IllegalArgumentException {
-		if (unit == null)
+		if (unit == null) {
 			throw new IllegalArgumentException("UnitLiteral unit cannot be null.");
+		}
 		RealLiteral newPropertyValue = createRealValue(realValue);
 		newPropertyValue.setUnit(unit);
 		return newPropertyValue;
@@ -703,12 +708,13 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlreal.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if min is greater than max.
 	 */
 	public static RangeValue createRealRangeValue(double min, double max) throws IllegalArgumentException {
-		if (min > max)
+		if (min > max) {
 			throw new IllegalArgumentException("min cannot be greater than max.");
+		}
 		RangeValue newPropertyValue = Aadl2Factory.eINSTANCE.createRangeValue();
 		newPropertyValue.setMinimum(createRealValue(min));
 		newPropertyValue.setMaximum(createRealValue(max));
@@ -717,24 +723,28 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlreal with units.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if minUnits or maxUnits is null,
 	 *             if minUnits and maxUnits are not of the same UnitType, or if
 	 *             min is greater than max.
 	 */
 	public static RangeValue createRealRangeValue(double min, UnitLiteral minUnits, double max, UnitLiteral maxUnits)
 			throws IllegalArgumentException {
-		if (minUnits == null)
+		if (minUnits == null) {
 			throw new IllegalArgumentException("minUnits cannot be null.");
-		if (maxUnits == null)
+		}
+		if (maxUnits == null) {
 			throw new IllegalArgumentException("maxUnits cannot be null.");
-		if (!minUnits.eContainer().equals(maxUnits.eContainer()))
+		}
+		if (!minUnits.eContainer().equals(maxUnits.eContainer())) {
 			throw new IllegalArgumentException("minUnits and maxUnits are not of the same type.");
+		}
 
 		RealLiteral minimumValue = createRealValue(min, minUnits);
 		RealLiteral maximumValue = createRealValue(max, maxUnits);
-		if (minimumValue.getScaledValue() > maximumValue.getScaledValue())
+		if (minimumValue.getScaledValue() > maximumValue.getScaledValue()) {
 			throw new IllegalArgumentException("min cannot be greater than max.");
+		}
 
 		RangeValue newPropertyValue = Aadl2Factory.eINSTANCE.createRangeValue();
 		newPropertyValue.setMinimum(minimumValue);
@@ -744,11 +754,10 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlreal.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if min is greater than max.
 	 */
-	public static RangeValue createRealRangeValue(double min, double max, double delta)
-			throws IllegalArgumentException {
+	public static RangeValue createRealRangeValue(double min, double max, double delta) throws IllegalArgumentException {
 		RangeValue newPropertyValue = createRealRangeValue(min, max);
 		newPropertyValue.setDelta(createRealValue(delta));
 		return newPropertyValue;
@@ -756,19 +765,21 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a range of aadlreal with units.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if minUnits, maxUnits, or
 	 *             deltaUnits is null, if minUnits, maxUnits, and deltaUnits are
 	 *             not of the same UnitType, or if min is greater than max.
 	 */
-	public static RangeValue createRealRangeValue(double min, UnitLiteral minUnits, double max,
-			UnitLiteral maxUnits, double delta, UnitLiteral deltaUnits) throws IllegalArgumentException {
+	public static RangeValue createRealRangeValue(double min, UnitLiteral minUnits, double max, UnitLiteral maxUnits,
+			double delta, UnitLiteral deltaUnits) throws IllegalArgumentException {
 		RangeValue newPropertyValue = createRealRangeValue(min, minUnits, max, maxUnits);
 
-		if (deltaUnits == null)
+		if (deltaUnits == null) {
 			throw new IllegalArgumentException("deltaUnits cannot be null.");
-		if (!minUnits.eContainer().equals(deltaUnits.eContainer()))
+		}
+		if (!minUnits.eContainer().equals(deltaUnits.eContainer())) {
 			throw new IllegalArgumentException("minUnits, maxUnits, and deltaUnits are not of the same type.");
+		}
 
 		newPropertyValue.setDelta(createRealValue(delta, deltaUnits));
 		return newPropertyValue;
@@ -776,12 +787,13 @@ public class PropertyUtils {
 
 	/**
 	 * Creates a PropertyValue for a string.
-	 * 
+	 *
 	 * @throws IllegalArgumentException Thrown if stringValue is null.
 	 */
 	public static StringLiteral createStringValue(String stringValue) throws IllegalArgumentException {
-		if (stringValue == null)
+		if (stringValue == null) {
 			throw new IllegalArgumentException("stringValue cannot be null.");
+		}
 		StringLiteral newPropertyValue = Aadl2Factory.eINSTANCE.createStringLiteral();
 		newPropertyValue.setValue(stringValue);
 		return newPropertyValue;
@@ -798,7 +810,7 @@ public class PropertyUtils {
 
 	/**
 	 * Create a enumeration value from an enumeration literal.
-	 * 
+	 *
 	 * @param literal The enumeration literal
 	 * @return An enumeration value for the given literal
 	 * @throws IllegalArgumentException Thrown if literal is null
@@ -815,7 +827,7 @@ public class PropertyUtils {
 	/**
 	 * Check that ph is not null and returns the property value by calling
 	 * ph.getSimplePropertyValue(pd)
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @return The retrieved property value.
@@ -835,56 +847,53 @@ public class PropertyUtils {
 	public static PropertyExpression getSimplePropertyValue(final NamedElement ph, final Property pd)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
- 		if (ph == null) {
+		if (ph == null) {
 			throw new IllegalArgumentException("NamedElement ph cannot be null.");
 		}
- 		if (pd == null)
- 		{
- 			throw new PropertyNotPresentException (ph, pd, "Property not defined for " + ph.getQualifiedName());
- 		}
+		if (pd == null) {
+			throw new PropertyNotPresentException(ph, pd, "Property not defined for " + ph.getQualifiedName());
+		}
 		PropertyExpression res = ph.getSimplePropertyValue(pd);
-		if (res instanceof NamedValue){
-			AbstractNamedValue nv = ((NamedValue)res).getNamedValue();
-			if (nv instanceof Property){
-				res = ph.getSimplePropertyValue((Property)nv);
-			} else if (nv instanceof PropertyConstant){
-				res = ((PropertyConstant)nv).getConstantValue();
-			} 
+		if (res instanceof NamedValue) {
+			AbstractNamedValue nv = ((NamedValue) res).getNamedValue();
+			if (nv instanceof Property) {
+				res = ph.getSimplePropertyValue((Property) nv);
+			} else if (nv instanceof PropertyConstant) {
+				res = ((PropertyConstant) nv).getConstantValue();
+			}
 		}
 		return res;
 	}
-	
-	
+
 	/**
-	 * get non-model proeprty list value  
+	 * get non-model proeprty list value
 	 */
-	 public static PropertyExpression getSimplePropertyListValue(final NamedElement ph, final Property pd)
+	public static PropertyExpression getSimplePropertyListValue(final NamedElement ph, final Property pd)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
- 		
-		 PropertyExpression res;
-		 if (ph == null) {
+
+		PropertyExpression res;
+		if (ph == null) {
 			throw new IllegalArgumentException("NamedElement ph cannot be null.");
 		}
 
 		res = ph.getSimplePropertyValue(pd);
-	
-		if (res instanceof NamedValue){
-			AbstractNamedValue nv = ((NamedValue)res).getNamedValue();
-			if (nv instanceof Property){
-				res = ph.getSimplePropertyValue((Property)nv);
-			} else if (nv instanceof PropertyConstant){
-				res = ((PropertyConstant)nv).getConstantValue();
-			} 
+
+		if (res instanceof NamedValue) {
+			AbstractNamedValue nv = ((NamedValue) res).getNamedValue();
+			if (nv instanceof Property) {
+				res = ph.getSimplePropertyValue((Property) nv);
+			} else if (nv instanceof PropertyConstant) {
+				res = ((PropertyConstant) nv).getConstantValue();
+			}
 		}
 		return res;
 	}
 
-
 	/**
 	 * Check that UnitLiteral unit is part of Property pd's UnitsType and
 	 * returns the property value by calling ph.getSimplePropertyValue(pd)
-	 * 
+	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
 	 * @param unit The literal to test against pd's units type.
@@ -924,12 +933,12 @@ public class PropertyUtils {
 		}
 		return pv;
 	}
-	
+
 	/**
 	 * get a property association from the properties section of the containing classifier if the context.
 	 * This method has been designed to work with end points of connections, i.e., consisting of a target and a context.
 	 * The context must be a NamedElement in its containing classifier, i.e., a feature, feature group, subcomponent.
-	 * The property holder is assumed to be contained in the context object, e.g., a feature in afeature group or a data subcomponent in a port, or feature in a subcomponent. 
+	 * The property holder is assumed to be contained in the context object, e.g., a feature in afeature group or a data subcomponent in a port, or feature in a subcomponent.
 	 * The association must match the property definition.
 	 * if the context is null then the containing classifier of the target is used and the path must be one or no path.
 	 * The applies to clause of the property association must be of size 2 if the context is set and point to the context and then the property holder.
@@ -939,37 +948,40 @@ public class PropertyUtils {
 	 * @param pd Property the property definition
 	 * @return
 	 */
-	public static PropertyExpression getContainedSimplePropertyValue(final NamedElement context,final NamedElement target, final Property pd){
-		if (context == null) return target.getNonModalPropertyValue(pd);
+	public static PropertyExpression getContainedSimplePropertyValue(final NamedElement context,
+			final NamedElement target, final Property pd) {
+		if (context == null) {
+			return target.getNonModalPropertyValue(pd);
+		}
 		Classifier cl = AadlUtil.getContainingClassifier(context);
 		EList<PropertyAssociation> props = cl.getAllPropertyAssociations();
 		for (PropertyAssociation propertyAssociation : props) {
-			if (propertyAssociation.getProperty().equals(pd)){
+			if (propertyAssociation.getProperty().equals(pd)) {
 				// we found a property with the corect type
 				// now we need to check whether the applies to points to the holder
 				EList<ContainedNamedElement> appliestos = propertyAssociation.getAppliesTos();
 				for (ContainedNamedElement containedNamedElement : appliestos) {
 					EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
-					if (cpes.size() == 2){
+					if (cpes.size() == 2) {
 						NamedElement pathcxt = cpes.get(0).getNamedElement();
-					 NamedElement pathelement = cpes.get(1).getNamedElement();
-					if (context.equals(pathcxt)&& target.equals(pathelement)){
-						EList<ModalPropertyValue> vallist = propertyAssociation.getOwnedValues();
-						if (!vallist.isEmpty()){
-							ModalPropertyValue elem = vallist.get(0);
-							PropertyExpression res = elem.getOwnedValue();
-							if (res instanceof NamedValue){
-								AbstractNamedValue nv = ((NamedValue)res).getNamedValue();
-								if (nv instanceof Property){
-									res = target.getNonModalPropertyValue((Property)nv);
-								} else if (nv instanceof PropertyConstant){
-									res = ((PropertyConstant)nv).getConstantValue();
-								} 
-							}
+						NamedElement pathelement = cpes.get(1).getNamedElement();
+						if (context.equals(pathcxt) && target.equals(pathelement)) {
+							EList<ModalPropertyValue> vallist = propertyAssociation.getOwnedValues();
+							if (!vallist.isEmpty()) {
+								ModalPropertyValue elem = vallist.get(0);
+								PropertyExpression res = elem.getOwnedValue();
+								if (res instanceof NamedValue) {
+									AbstractNamedValue nv = ((NamedValue) res).getNamedValue();
+									if (nv instanceof Property) {
+										res = target.getNonModalPropertyValue((Property) nv);
+									} else if (nv instanceof PropertyConstant) {
+										res = ((PropertyConstant) nv).getConstantValue();
+									}
+								}
 
-							return res;
+								return res;
+							}
 						}
-					}
 					}
 				}
 			}

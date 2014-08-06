@@ -50,7 +50,7 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
 	 * QuickFix for matching the defining and ending identifiers of classifiers, packages, and property sets.
 	 * The issue data array is expected to have three elements:
-	 * 
+	 *
 	 * issue.getData()[0]: The defining identifier of the classifier or model unit.
 	 * issue.getData()[1]: The ending identifier of the classifier or model unit.
 	 * issue.getData()[2]: The offset of the ending identifier within the Xtext document.
@@ -60,12 +60,13 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 		final String beginningName = issue.getData()[0];
 		final String endingName = issue.getData()[1];
 		final int endingIdentifierOffset = Integer.parseInt(issue.getData()[2]);
-		acceptor.accept(issue, "Change defining identifier to '" + endingName + "'", null, null, new ISemanticModification() {
-			@Override
-			public void apply(EObject element, IModificationContext context) throws Exception {
-				((NamedElement)element).setName(endingName);
-			}
-		});
+		acceptor.accept(issue, "Change defining identifier to '" + endingName + "'", null, null,
+				new ISemanticModification() {
+					@Override
+					public void apply(EObject element, IModificationContext context) throws Exception {
+						((NamedElement) element).setName(endingName);
+					}
+				});
 		acceptor.accept(issue, "Change ending identifier to '" + beginningName + "'", null, null, new IModification() {
 			@Override
 			public void apply(IModificationContext context) throws Exception {

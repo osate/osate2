@@ -38,6 +38,7 @@ public class Aadl2InstanceUtil {
 		}
 		return result;
 	}
+
 	/**
 	 * get outgoing connection instances from the component instance or any contained component instance
 	 * @param ci component instance
@@ -45,7 +46,7 @@ public class Aadl2InstanceUtil {
 	 */
 	public static EList<ConnectionReference> getOutgoingConnectionReferences(ComponentInstance ci) {
 		EList<ConnectionReference> result = new BasicEList<ConnectionReference>();
-		Iterable<ConnectionInstance> it = ci.getSystemInstance().getAllConnectionInstances();// allEnclosingConnectionInstances(); 
+		Iterable<ConnectionInstance> it = ci.getSystemInstance().getAllConnectionInstances();// allEnclosingConnectionInstances();
 		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ConnectionInstanceEnd dst = connectionInstance.getDestination();
@@ -90,7 +91,7 @@ public class Aadl2InstanceUtil {
 		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ConnectionInstanceEnd dst = connectionInstance.getDestination();
-			if ((!containedIn(src, ci)|| src.getContainingComponentInstance() == ci )&& containedIn(dst, ci)) {
+			if ((!containedIn(src, ci) || src.getContainingComponentInstance() == ci) && containedIn(dst, ci)) {
 				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
 				for (ConnectionReference connectionReference : connreflist) {
 					ComponentInstance pci = connectionReference.getContext();
@@ -121,7 +122,7 @@ public class Aadl2InstanceUtil {
 					ComponentInstance pci = connectionReference.getContext();
 					Connection conn = connectionReference.getConnection();
 					ConnectionEnd ce = conn.getAllSource();
-					if (pci == ci.getContainingComponentInstance() && ce == f){
+					if (pci == ci.getContainingComponentInstance() && ce == f) {
 						// add connection if it goes through feature instance
 						result.add(connectionInstance);
 					}
@@ -182,96 +183,98 @@ public class Aadl2InstanceUtil {
 		}
 		return false;
 	}
-	
-	public static ConnectionReference getTopConnectionReference(ConnectionInstance conni){
+
+	public static ConnectionReference getTopConnectionReference(ConnectionInstance conni) {
 		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
 		for (ConnectionReference connectionReference : connrefs) {
 			ComponentInstance cxt = connectionReference.getContext();
 			if (cxt != connectionReference.getSource().getComponentInstance()
-					&& cxt != connectionReference.getDestination().getComponentInstance()){
+					&& cxt != connectionReference.getDestination().getComponentInstance()) {
 				// going across
 				return connectionReference;
 			}
 		}
 		ConnectionReference connectionReference = connrefs.get(0);
 		ComponentInstance cxt = connectionReference.getContext();
-		if (cxt == connectionReference.getSource().getComponentInstance()){
+		if (cxt == connectionReference.getSource().getComponentInstance()) {
 			// incoming top conn ref
 			return connectionReference;
 		}
-		connectionReference = connrefs.get(connrefs.size()-1);
+		connectionReference = connrefs.get(connrefs.size() - 1);
 		cxt = connectionReference.getContext();
-		if (cxt == connectionReference.getDestination().getComponentInstance()){
+		if (cxt == connectionReference.getDestination().getComponentInstance()) {
 			// outgoing top conn ref
 			return connectionReference;
 		}
 		return null;
 	}
-	
-	public static ConnectionReference getNextConnectionReference(ConnectionInstance conni, ConnectionReference connref){
+
+	public static ConnectionReference getNextConnectionReference(ConnectionInstance conni, ConnectionReference connref) {
 		EList<ConnectionReference> crlist = conni.getConnectionReferences();
 		int idx = crlist.indexOf(connref);
-		if (idx < crlist.size()-1){
-			return crlist.get(crlist.indexOf(connref)+1);
-		}
-		return null;
-	}
-	
-	public static ConnectionReference getPreviousConnectionReference(ConnectionInstance conni, ConnectionReference connref){
-		EList<ConnectionReference> crlist = conni.getConnectionReferences();
-		int idx = crlist.indexOf(connref);
-		if (idx >0){
-			return crlist.get(crlist.indexOf(connref)-1);
+		if (idx < crlist.size() - 1) {
+			return crlist.get(crlist.indexOf(connref) + 1);
 		}
 		return null;
 	}
 
-	
-	public static int getFeatureIndex(FeatureInstance fi){
+	public static ConnectionReference getPreviousConnectionReference(ConnectionInstance conni,
+			ConnectionReference connref) {
+		EList<ConnectionReference> crlist = conni.getConnectionReferences();
+		int idx = crlist.indexOf(connref);
+		if (idx > 0) {
+			return crlist.get(crlist.indexOf(connref) - 1);
+		}
+		return null;
+	}
+
+	public static int getFeatureIndex(FeatureInstance fi) {
 		Element fgi = fi.getOwner();
-		if (fgi instanceof FeatureInstance){
+		if (fgi instanceof FeatureInstance) {
 			EList<FeatureInstance> flist = ((FeatureInstance) fgi).getFeatureInstances();
 			return flist.indexOf(fi);
 		}
 		return -1;
 	}
-	
-	public static boolean isSame(FeatureInstance up, FeatureInstance down){
-		if (up.getName().equalsIgnoreCase(down.getName())){
+
+	public static boolean isSame(FeatureInstance up, FeatureInstance down) {
+		if (up.getName().equalsIgnoreCase(down.getName())) {
 			return true;
 		}
-		FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)up.getOwner()).getFeature()).getFeatureGroupType();
-		FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance)down.getOwner()).getFeature()).getFeatureGroupType();
-		if (upfgt == null || downfgt == null) return false;
-		if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
-			return (getFeatureIndex(up)==getFeatureIndex(down));
+		FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) up.getOwner()).getFeature()).getFeatureGroupType();
+		FeatureGroupType downfgt = ((FeatureGroup) ((FeatureInstance) down.getOwner()).getFeature())
+				.getFeatureGroupType();
+		if (upfgt == null || downfgt == null)
+			return false;
+		if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
+			return (getFeatureIndex(up) == getFeatureIndex(down));
 		}
 		return false;
 	}
-	
-	public static Collection<ConnectionInstance> getBidirectionalConnectionInstances(Collection<ConnectionInstance> connList){
+
+	public static Collection<ConnectionInstance> getBidirectionalConnectionInstances(
+			Collection<ConnectionInstance> connList) {
 		Collection<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 		for (ConnectionInstance connectionInstance : connList) {
-			if (connectionInstance.isBidirectional()){
+			if (connectionInstance.isBidirectional()) {
 				result.add(connectionInstance);
 			}
 		}
 		return result;
 	}
-	
-	public static boolean inOnly(ConnectionInstance conni){
+
+	public static boolean inOnly(ConnectionInstance conni) {
 		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
 		ConnectionReference first = connrefs.get(0);
 		return (first.getSource().getComponentInstance() == first.getContext());
 	}
-	
-	public static boolean outOnly(ConnectionInstance conni){
+
+	public static boolean outOnly(ConnectionInstance conni) {
 		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
-		ConnectionReference last = connrefs.get(connrefs.size()-1);
+		ConnectionReference last = connrefs.get(connrefs.size() - 1);
 		return (last.getDestination().getComponentInstance() == last.getContext());
 
 	}
-	
 
 	public static boolean isOpposite(ConnectionInstance conni) {
 		ConnectionReference topref = getTopConnectionReference(conni);
@@ -282,6 +285,5 @@ public class Aadl2InstanceUtil {
 		Context srcelem = conn.getAllSourceContext();
 		return srcSub != srcelem;
 	}
-
 
 }
