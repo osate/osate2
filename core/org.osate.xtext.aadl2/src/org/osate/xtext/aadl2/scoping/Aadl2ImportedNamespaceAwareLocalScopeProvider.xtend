@@ -1,7 +1,7 @@
 /*
- * /**
+ *
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2014 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -32,77 +32,19 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties.scoping;
+package org.osate.xtext.aadl2.scoping
 
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
-import org.osate.aadl2.BasicPropertyAssociation
-import org.osate.aadl2.ListValue
-import org.osate.aadl2.ModalPropertyValue
-import org.osate.aadl2.NumberType
-import org.osate.aadl2.NumberValue
-import org.osate.aadl2.NumericRange
-import org.osate.aadl2.Property
-import org.osate.aadl2.PropertyAssociation
-import org.osate.aadl2.PropertyConstant
-import org.osate.aadl2.PropertyType
-import org.osate.aadl2.RangeType
-import org.osate.aadl2.RangeValue
-import org.osate.aadl2.UnitsType
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.impl.ImportNormalizer
+import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
 import org.osate.aadl2.modelsupport.util.AadlUtil
 
-/**
- * This class contains custom scoping description.
- *
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
- * on how and when to use it
- *
- */
-public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
-	//Reference is from IntegerTerm and RealTerm in Properties.xtext
-	def scope_NumberValue_unit(NumberValue context, EReference reference) {
-		var UnitsType unitsType = null
-		var owner = context.owner
-		while (owner instanceof ListValue) {
-			owner = owner.owner
-		}
-		if (owner instanceof NumericRange) {
-			// Lower bound or upper bound values of a number property type.
-			unitsType = (owner.owner as NumberType).unitsType
-		} else {
-			if (owner instanceof RangeValue || owner instanceof ListValue) {
-				owner = owner.owner
-			}
-			var PropertyType propertyType = null
-			switch owner {
-				// Value of the property constant.
-				PropertyConstant:
-					propertyType = owner.propertyType
-				// Default value of a property definition.
-				Property:
-					propertyType = owner.propertyType
-				// Value of an association.
-				ModalPropertyValue case owner.owner instanceof PropertyAssociation:
-					propertyType = (owner.owner as PropertyAssociation).property.propertyType
-				// Inner value of a record value.
-				BasicPropertyAssociation:
-					propertyType = owner.property.propertyType 
-				
-			}
-			propertyType = AadlUtil::getBasePropertyType(propertyType)
-			switch propertyType {
-				NumberType:
-					unitsType = propertyType.unitsType
-				RangeType:
-					unitsType = propertyType.numberType.unitsType
-			}
-		}
-		if (unitsType != null) {
-			Scopes::scopeFor(unitsType.ownedLiterals)
-		} else {
-			IScope::NULLSCOPE
-		}
+class Aadl2ImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
+	override protected getImplicitImports(boolean ignoreCase) {
+		val importNormalizers = newArrayList
+		AadlUtil.getPredeclaredPropertySetNames.forEach[
+			importNormalizers.add(new ImportNormalizer(QualifiedName::create(it), true, ignoreCase))
+		]
+		importNormalizers
 	}
 }
