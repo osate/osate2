@@ -41,25 +41,6 @@
          </menu>
 
          
-         <action
-               id="org.osate.analysis.architecture.actions.CheckRequiredConnection.action"
-               label="%CheckRequiredConnection.label"
-               tooltip="%CheckRequiredConnection.toolTip"
-               icon="%CheckRequiredConnection.icon"
-               class="org.osate.analysis.architecture.actions.CheckRequiredConnection"
-               menubarPath="menu.analyses/menu.semantic/stuff.grp"
-               toolbarPath="arch.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
          
           
          <action
@@ -237,14 +218,6 @@
             <groupMarker name="anal.grp"/>
          </menu>
          
-         <action
-               id="org.osate.analysis.architecture.actions.CheckRequiredConnection.popupAction"
-               label="%CheckRequiredConnection.label"
-               tooltip="%CheckRequiredConnection.toolTip"
-               icon="%CheckRequiredConnection.icon"
-               class="org.osate.analysis.architecture.actions.CheckRequiredConnection"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Semantic/anal.grp"
-               enablesFor="1"/>
          
          <action
                id="org.osate.analysis.architecture.actions.CheckInterModelConsistency.popupAction"
@@ -311,14 +284,6 @@
       <persistent value="true"/>
    </extension>
 
-   
-   <extension
-         id="RequiredConnectionObjectMarker"
-         name="Required Connection Marker"
-         point="org.eclipse.core.resources.markers">
-      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
-      <persistent value="true"/>
-   </extension>
    
    <extension
          id="ConnectionBindingConsistencyObjectMarker"

@@ -39,43 +39,29 @@
  */
 package org.osate.analysis.architecture.actions;
 
-import java.text.MessageFormat;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AbstractNamedValue;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionKind;
-import org.osate.aadl2.instance.FeatureCategory;
-import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.architecture.ArchitecturePlugin;
-import org.osate.analysis.architecture.RequiredConnectionSwitch;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osgi.framework.Bundle;
-
 
 public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
@@ -103,10 +89,9 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 //		}
 //		monitor.done();
 //	}
-	
-	protected void analyzeDeclarativeModel( final IProgressMonitor monitor,
-											final AnalysisErrorReporterManager errManager, 
-											final Element declarativeObject) {
+
+	protected void analyzeDeclarativeModel(final IProgressMonitor monitor,
+			final AnalysisErrorReporterManager errManager, final Element declarativeObject) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		monitor.done();
 	}
@@ -114,93 +99,89 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 	protected void analyzeInstanceModel(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		
+
 		final StringBuffer resoluteString = new StringBuffer();
 		final StringBuffer maintheorem = new StringBuffer();
-		
-		
+
 		resoluteString.append("package consistency_check\npublic\nannex resolute\n{**\n");
-		
-		maintheorem.append("consistency_check_"+root.getName().toLowerCase()+" (root : component) <= \n  ** \"Check that all models are consistent\" **\n");
+
+		maintheorem.append("consistency_check_" + root.getName().toLowerCase()
+				+ " (root : component) <= \n  ** \"Check that all models are consistent\" **\n");
 
 		final List<Element> features = new ForAllElement() {
 			int cid = 0;
 			boolean firstTheoremGenerated = false;
+
 			@Override
 			protected boolean suchThat(final Element obj) {
 				return !monitor.isCanceled() && (obj instanceof ComponentInstance);
 			}
 
 			@Override
-			protected void action(final Element obj)
-			{
-				
-				if (obj instanceof ComponentInstance)
-				{
+			protected void action(final Element obj) {
+
+				if (obj instanceof ComponentInstance) {
 					boolean firstPassed = false;
 					ComponentInstance ci = (ComponentInstance) obj;
-					if (ci == root)
-					{
+					if (ci == root) {
 						return;
 					}
-					
 
-					String componentTheorem = "consistency_check_"+ci.getName().toLowerCase()+" (c : component) <= \n  ** \"Check that component "+ci.getName()+" is consistent\" **\n";
+					String componentTheorem = "consistency_check_" + ci.getName().toLowerCase()
+							+ " (c : component) <= \n  ** \"Check that component " + ci.getName()
+							+ " is consistent\" **\n";
 
-					List<? extends PropertyExpression> values = GetProperties.getModelReferences (ci);
-					for (PropertyExpression pe : values)
-					{
+					List<? extends PropertyExpression> values = GetProperties.getModelReferences(ci);
+					for (PropertyExpression pe : values) {
 //						OsateDebug.osateDebug("[CheckInterModelConsistency] ci=" + ci + ";pe=" + pe);
 						RecordValue rv = (RecordValue) pe;
-						PropertyExpression filenamePE = PropertyUtils.getRecordFieldValue (rv, "filename");
-						PropertyExpression modelTypePE = PropertyUtils.getRecordFieldValue (rv, "model_type");
-						PropertyExpression kindPE = PropertyUtils.getRecordFieldValue (rv, "kind");
-						PropertyExpression artifactPE = PropertyUtils.getRecordFieldValue (rv, "artifact");
-						
-				
-						
+						PropertyExpression filenamePE = PropertyUtils.getRecordFieldValue(rv, "filename");
+						PropertyExpression modelTypePE = PropertyUtils.getRecordFieldValue(rv, "model_type");
+						PropertyExpression kindPE = PropertyUtils.getRecordFieldValue(rv, "kind");
+						PropertyExpression artifactPE = PropertyUtils.getRecordFieldValue(rv, "artifact");
+
 						String filename = ((StringLiteral) filenamePE).getValue().toString();
 						String artifact = ((StringLiteral) artifactPE).getValue().toString();
-						
-						AbstractNamedValue kindNV = ((NamedValue)kindPE).getNamedValue();
-						String kind = ((EnumerationLiteral)kindNV).getName();
-						
-						AbstractNamedValue modelTypeNV = ((NamedValue)modelTypePE).getNamedValue();
-						String modelType = ((EnumerationLiteral)modelTypeNV).getName();
-						String theorem = "consistency_check_"+ci.getName().toLowerCase()+"_"+modelType+" (c : component) <= \n  ** \"Check that component "+ci.getName()+" is consistent for the model "+modelType+"\" **\n";
-						
-						if (firstPassed)
-						{
+
+						AbstractNamedValue kindNV = ((NamedValue) kindPE).getNamedValue();
+						String kind = ((EnumerationLiteral) kindNV).getName();
+
+						AbstractNamedValue modelTypeNV = ((NamedValue) modelTypePE).getNamedValue();
+						String modelType = ((EnumerationLiteral) modelTypeNV).getName();
+						String theorem = "consistency_check_" + ci.getName().toLowerCase() + "_" + modelType
+								+ " (c : component) <= \n  ** \"Check that component " + ci.getName()
+								+ " is consistent for the model " + modelType + "\" **\n";
+
+						if (firstPassed) {
 							componentTheorem += " and ";
 						}
-						
-						
-						theorem += ("  analysis(\"consistency\", c ,\""+modelType+"\"," + "\""+kind +"\",\""+artifact+"\"," + "\""+filename+"\")\n" );
-						resoluteString.append (theorem + "\n\n");
-						componentTheorem += "consistency_check_"+ci.getName().toLowerCase()+"_"+modelType+"(c)";
+
+						theorem += ("  analysis(\"consistency\", c ,\"" + modelType + "\"," + "\"" + kind + "\",\""
+								+ artifact + "\"," + "\"" + filename + "\")\n");
+						resoluteString.append(theorem + "\n\n");
+						componentTheorem += "consistency_check_" + ci.getName().toLowerCase() + "_" + modelType + "(c)";
 						firstPassed = true;
 					}
-					
-					if (firstPassed)
-					{
-						if(cid > 0)
-						{
+
+					if (firstPassed) {
+						if (cid > 0) {
 							maintheorem.append("\n  and\n  ");
 						}
-						maintheorem.append ("(exists (s"+cid+" : component) . name (s"+cid+",\""+ci.getName().toLowerCase()+"\") and subcomponent_of( s"+cid+",root) and consistency_check_" + ci.getName().toLowerCase()+"(s"+cid+"))");
+						maintheorem.append("(exists (s" + cid + " : component) . name (s" + cid + ",\""
+								+ ci.getName().toLowerCase() + "\") and subcomponent_of( s" + cid
+								+ ",root) and consistency_check_" + ci.getName().toLowerCase() + "(s" + cid + "))");
 						cid++;
 					}
 					firstTheoremGenerated = true;
-					
-					if (firstPassed)
-					{
-						resoluteString.append (componentTheorem + "\n\n");
+
+					if (firstPassed) {
+						resoluteString.append(componentTheorem + "\n\n");
 					}
 				}
 
 			}
 		}.processPreOrderAll(root);
-		
+
 		resoluteString.append(maintheorem.toString());
 		resoluteString.append("**};\nend consistency_check;\n");
 		WriteToFile report = new WriteToFile("consistency", root);
