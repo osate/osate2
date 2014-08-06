@@ -102,26 +102,6 @@
                </or>
             </enablement>
          </action>
-
-         <action
-               id="org.osate.analysis.architecture.actions.CheckInterModelConsistency.action"
-               label="%CheckInterModelConsistency.label"
-               tooltip="%CheckInterModelConsistency.toolTip"
-               icon="%CheckInterModelConsistency.icon"
-               class="org.osate.analysis.architecture.actions.CheckInterModelConsistency"
-               menubarPath="menu.analyses/menu.arch/stuff.grp"
-               toolbarPath="arch.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
         
          <action
                id="org.osate.analysis.architecture.actions.DoModelStatistics.action"
@@ -217,16 +197,6 @@
                path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
          </menu>
-         
-         
-         <action
-               id="org.osate.analysis.architecture.actions.CheckInterModelConsistency.popupAction"
-               label="%CheckInterModelConsistency.label"
-               tooltip="%CheckInterModelConsistency.toolTip"
-               icon="%CheckInterModelConsistency.icon"
-               class="org.osate.analysis.architecture.actions.CheckInterModelConsistency"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Arch/anal.grp"
-               enablesFor="1"/>
         
          <action
                id="org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency.popupAction"
