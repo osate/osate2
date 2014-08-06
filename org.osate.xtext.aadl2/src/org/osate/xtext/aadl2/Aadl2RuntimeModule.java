@@ -36,8 +36,10 @@ package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.resource.IFragmentProvider;
+import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
+import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
@@ -69,7 +71,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	 * // It has some problems. It recurses on the package in the outline view
 	 * DB: Fixing the reference problem. Reviewed getName() on PublicPackageSection to fix the recurses problem.
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
 	 */
 	@Override
@@ -112,5 +114,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	@Override
 	public Class<? extends IConcreteSyntaxValidator> bindConcreteSyntaxValidator() {
 		return Aadl2ConcreteSyntaxValidator.class;
+	}
+
+	@Override
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return Aadl2ScopeProvider.class;
 	}
 }
