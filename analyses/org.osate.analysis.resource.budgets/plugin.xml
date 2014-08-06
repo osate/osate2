@@ -115,10 +115,10 @@
                class="org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis"
                enablesFor="1"
                icon="icons/switchB.gif"
-               label="&amp;Analyze Bound Bus Load"
+               label="&amp;Analyze Bus Load (bound connections)"
                menubarPath="menu.analyses/menu.arch/stuff.grp"
                toolbarPath="arch.toolbar"
-               tooltip="Analyze Bandwidth Load for Bound Connections">
+               tooltip="Analyze Bandwidth Load for Bound according to their bound connections">
             <enablement>
                <or>
                   <and>
