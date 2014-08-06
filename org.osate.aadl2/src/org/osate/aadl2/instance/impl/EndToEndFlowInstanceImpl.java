@@ -147,7 +147,9 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 					InstancePackage.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT) {
 				private static final long serialVersionUID = 1L;
 
-				/* (non-Javadoc)
+				/*
+				 * (non-Javadoc)
+				 * 
 				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
 				 */
 				@Override
@@ -331,10 +333,10 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		if (inModes == null || inModes.isEmpty()) {
 			return null;
 		} else {
-			//			TODO this code can be used to determine the SOM
-			//			/* inModes is a list of ModeInstances.  We want all the SOMs that contain
-			//			 * these mode instances.
-			//			 */
+			// TODO this code can be used to determine the SOM
+			// /* inModes is a list of ModeInstances. We want all the SOMs that contain
+			// * these mode instances.
+			// */
 			List<SystemOperationMode> processedModes = new ArrayList<SystemOperationMode>();
 			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
 				for (ModeInstance mi : som.getCurrentModes()) {
@@ -345,7 +347,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 				}
 			}
 			return processedModes;
-			//			return inModes;
+			// return inModes;
 		}
 	}
 
@@ -360,4 +362,4 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		return false;
 	}
 
-} //EndToEndFlowInstanceImpl
+} // EndToEndFlowInstanceImpl

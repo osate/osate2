@@ -59,7 +59,6 @@ import org.osgi.framework.BundleContext;
 
 import com.google.inject.Injector;
 
-
 /**
  * The main plugin class to be used in the desktop.
  */
@@ -68,29 +67,28 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
 
 	/**
-	 * ID of the AADL core plugin (value <code>"org.osate.core"</code>) 
+	 * ID of the AADL core plugin (value <code>"org.osate.core"</code>)
 	 */
 	public static final String PLUGIN_ID = "org.osate.core";
 
 	private static final String RESOURCE_NAME = PLUGIN_ID + ".messages";
 
-	//The shared instance.
+	// The shared instance.
 	private static OsateCorePlugin plugin;
 
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
 
-	private Map<String,Injector> injectors = new HashMap<String,Injector>();
+	private Map<String, Injector> injectors = new HashMap<String, Injector>();
 
 	public Injector getInjector(String languageName) {
 		return injectors.get(languageName);
 	}
-	
+
 	public void registerInjectorFor(String language, Injector inject) throws Exception {
 		injectors.put(language, inject);
 	}
 
-	
 	public void registerResourceSetProvider(String language, Injector inject) throws Exception {
 		injectors.put(language, inject);
 	}
@@ -111,6 +109,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -118,6 +117,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		injectors.clear();
 		super.stop(context);
@@ -186,18 +186,18 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	}
 
 	public static void log(Throwable t) {
-		log(new Status(IStatus.ERROR, getPluginId(), Status.OK, getMessage("OsateCorePlugin.internal_error"), t));
+		log(new Status(IStatus.ERROR, getPluginId(), IStatus.OK, getMessage("OsateCorePlugin.internal_error"), t));
 	}
 
 	public static void logErrorMessage(String message) {
-		log(new Status(IStatus.ERROR, getPluginId(), Status.OK, message, null));
+		log(new Status(IStatus.ERROR, getPluginId(), IStatus.OK, message, null));
 	}
 
 	public static void logErrorStatus(String message, IStatus status) {
 		if (status == null) {
 			logErrorMessage(message);
 		} else {
-			MultiStatus multi = new MultiStatus(getPluginId(), Status.OK, message, null);
+			MultiStatus multi = new MultiStatus(getPluginId(), IStatus.OK, message, null);
 			multi.add(status);
 			log(multi);
 		}
@@ -239,6 +239,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	}
 
 	public static String getFormattedMessage(String key, String[] args) {
-		return MessageFormat.format(getMessage(key), (Object[])args);
+		return MessageFormat.format(getMessage(key), (Object[]) args);
 	}
 }

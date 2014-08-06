@@ -40,62 +40,53 @@ import java.util.List;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Element;
 
-
-
 /**
  * An implementation of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} that reports
  * errors by storing them in a queue that can be retreived by calling
  * {@link #getErrors}.
- * 
+ *
  * <p>Messages are stored as {@link QueuingAnalysisErrorReporter.Message} objects.
- * 
+ *
  * @author aarong
  */
 public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorReporter {
 	public static final String ERROR = "Error";
 	public static final String WARNING = "Warning";
 	public static final String INFO = "INFO";
-	
+
 	/** Singleton factory reference. */
 	public static final Factory factory = new Factory();
-	
+
 	/** The list of messages */
 	private final List<Message> queue;
-	
-	
-	
+
 	public QueuingAnalysisErrorReporter(final Resource rsrc) {
 		super(rsrc);
 		queue = new LinkedList<Message>();
 	}
 
-	
-	
-	private void queueMessage(
-			final Element where, final String kind, final String message,
-			final String[] attrs, final Object[] values) {
+	private void queueMessage(final Element where, final String kind, final String message, final String[] attrs,
+			final Object[] values) {
 		queue.add(new Message(where, kind, message, attrs, values));
 	}
 
 	@Override
-	protected void errorImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void errorImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		queueMessage(where, ERROR, message, attrs, values);
 	}
 
 	@Override
-	protected void warningImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void warningImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		queueMessage(where, WARNING, message, attrs, values);
 	}
 
 	@Override
-	protected void infoImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void infoImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		queueMessage(where, INFO, message, attrs, values);
 	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		queue.clear();
 	}
@@ -107,18 +98,15 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 	public List<Message> getErrors() {
 		return new ArrayList<Message>(queue);
 	}
-	
-	
-	
+
 	private static final class Factory implements AnalysisErrorReporterFactory {
+		@Override
 		public AnalysisErrorReporter getReporterFor(final Resource rsrc) {
 			return new QueuingAnalysisErrorReporter(rsrc);
 		}
-		
+
 	}
-	
-	
-	
+
 	/**
 	 * Record of a reported error message/warning. Contains the
 	 * {@link #where Element} on which the message is located, the
@@ -128,7 +116,7 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 	 * {@link QueuingAnalysisErrorReporter#ERROR},
 	 * {@link QueuingAnalysisErrorReporter#WARNING}, and
 	 * {@link QueuingAnalysisErrorReporter#INFO}.
-	 * 
+	 *
 	 * @author aarong
 	 */
 	public static final class Message {
@@ -137,9 +125,8 @@ public final class QueuingAnalysisErrorReporter extends AbstractAnalysisErrorRep
 		public final String message;
 		public final String[] attributes;
 		public final Object[] values;
-		
-		public Message(final Element loc, final String k, final String msg,
-				final String[] attrs, final Object[] vals) {
+
+		public Message(final Element loc, final String k, final String msg, final String[] attrs, final Object[] vals) {
 			where = loc;
 			kind = k;
 			message = msg;

@@ -51,9 +51,8 @@ public final class DeploymentProperties {
 	public static final String ALLOWED_SUBPROGRAM_CALL = "Allowed_Subprogram_Call";
 	public static final String ACTUAL_SUBPROGRAM_CALL_BINDING = "Actual_Subprogram_Call_Binding";
 	public static final String ACTUAL_SUBPROGRAM_CALL = "Actual_Subprogram_Call";
-	
-	public static final String ACTUAL_FUNCTION_BINDING = "Actual_Function_Binding";
 
+	public static final String ACTUAL_FUNCTION_BINDING = "Actual_Function_Binding";
 
 	public static final String NOT_COLLOCATED = "Not_Collocated";
 	public static final String SCHEDULING_PROTOCOL = "Scheduling_Protocol";

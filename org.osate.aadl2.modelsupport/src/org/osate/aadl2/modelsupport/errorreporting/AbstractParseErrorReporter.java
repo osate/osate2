@@ -41,56 +41,51 @@ import org.osate.aadl2.parsesupport.LocationReference;
  * {@link #errorImpl(String, int, String)},
  * {@link #warning(String, int, String)}, and
  * {@link #infoImpl(String, int, String)}.
- * 
+ *
  * @author aarong
  */
-public abstract class AbstractParseErrorReporter 
-extends AbstractErrorReporter
-implements ParseErrorReporter {
+public abstract class AbstractParseErrorReporter extends AbstractErrorReporter implements ParseErrorReporter {
 
 	protected AbstractParseErrorReporter() {
 		super();
 	}
-	
-	
-	
+
+	@Override
 	public final void error(final LocationReference loc, final String message) {
 		errorImpl(loc.getFilename(), loc.getLine(), message);
 		incError();
 	}
-	
-	public final void error(
-			final String filename, final int line, final String message) {
+
+	@Override
+	public final void error(final String filename, final int line, final String message) {
 		errorImpl(filename, line, message);
 		incError();
 	}
 
 	protected abstract void errorImpl(String filename, int line, String message);
-	
-	
-	
+
+	@Override
 	public final void warning(final LocationReference loc, final String message) {
 		warningImpl(loc.getFilename(), loc.getLine(), message);
 		incWarning();
 	}
 
-	public final void warning(
-			final String filename, final int line, final String message) {
+	@Override
+	public final void warning(final String filename, final int line, final String message) {
 		warningImpl(filename, line, message);
 		incWarning();
 	}
-	
+
 	protected abstract void warningImpl(String filename, int line, String message);
-	
-	
-	
+
+	@Override
 	public final void info(final LocationReference loc, final String message) {
 		infoImpl(loc.getFilename(), loc.getLine(), message);
 		incInfo();
 	}
 
-	public final void info(
-			final String filename, final int line, final String message) {
+	@Override
+	public final void info(final String filename, final int line, final String message) {
 		infoImpl(filename, line, message);
 		incInfo();
 	}

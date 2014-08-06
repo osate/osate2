@@ -44,58 +44,52 @@ import org.osgi.framework.Bundle;
  * An implementation of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} that reports
  * errors to the Eclipse "error" log.
- * 
+ *
  * <p>
  * The class defines a nested class {@link LogParseErrorReporter.Factory}
  * that implements a factory.
- * 
+ *
  * @author aarong
  */
 public final class LogParseErrorReporter extends AbstractParseErrorReporter {
 	private final Bundle bundle;
 	private final ILog log;
 
-	
-	
 	public LogParseErrorReporter(final Bundle bundle) {
 		super();
 		this.bundle = bundle;
 		log = Platform.getLog(bundle);
 	}
 
-	
-	
-	private void logMessage(final String filename, final int line,
-			final int type, final String message) {
+	private void logMessage(final String filename, final int line, final int type, final String message) {
 		final String fullMessage = message + " (" + filename + ":" + line + ")";
-		final IStatus status = new Status(
-				type, bundle.getSymbolicName(), Status.OK, fullMessage, null);
+		final IStatus status = new Status(type, bundle.getSymbolicName(), IStatus.OK, fullMessage, null);
 		log.log(status);
 	}
 
-	protected void errorImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void errorImpl(final String filename, final int line, final String message) {
 		logMessage(filename, line, IStatus.ERROR, message);
 	}
 
-	protected void warningImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void warningImpl(final String filename, final int line, final String message) {
 		logMessage(filename, line, IStatus.WARNING, message);
 	}
 
-	protected void infoImpl(
-			final String filename, final int line, final String message) {
-		logMessage(filename, line, IStatus.INFO, message);	}
+	@Override
+	protected void infoImpl(final String filename, final int line, final String message) {
+		logMessage(filename, line, IStatus.INFO, message);
+	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		// Nothing to do because we don't do anything with messages
 	}
 
-	
-	
 	public static final class Factory implements ParseErrorReporterFactory {
 		private final LogParseErrorReporter reporterPrototype;
-		
+
 		public Factory(final Bundle bundle) {
 			reporterPrototype = new LogParseErrorReporter(bundle);
 		}
@@ -103,12 +97,13 @@ public final class LogParseErrorReporter extends AbstractParseErrorReporter {
 		/**
 		 * The given AADL IResource is allowed to be <code>null</code>.
 		 */
+		@Override
 		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
 			return reporterPrototype;
 		}
 	}
-	
-//	
+
+//
 //	/**
 //	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
 //	 */

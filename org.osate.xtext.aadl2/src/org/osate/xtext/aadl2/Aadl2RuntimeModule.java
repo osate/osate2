@@ -69,7 +69,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	 * // It has some problems. It recurses on the package in the outline view
 	 * DB: Fixing the reference problem. Reviewed getName() on PublicPackageSection to fix the recurses problem.
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
 	 */
 	@Override

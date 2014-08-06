@@ -285,7 +285,9 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 		return super.eIsSet(featureID);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.BasicPropertyAssociation#getValue()
 	 */
 	public PropertyExpression getValue() {

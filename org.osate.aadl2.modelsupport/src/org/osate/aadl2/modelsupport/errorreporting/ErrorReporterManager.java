@@ -8,7 +8,7 @@ package org.osate.aadl2.modelsupport.errorreporting;
  * commonalities of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterManager} and
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporterManager}.
- * 
+ *
  * @author aarong
  */
 public interface ErrorReporterManager extends InternalErrorReporter {
@@ -17,7 +17,7 @@ public interface ErrorReporterManager extends InternalErrorReporter {
 	 * on the items managed by this error manager.  Does not include
 	 * internal errors reported with {@link #internalError(Exception)} and
 	 * {@link #internalError(String)}.
-	 * 
+	 *
 	 * @see #getNumInternalErrors()
 	 */
 	public int getNumMessages();

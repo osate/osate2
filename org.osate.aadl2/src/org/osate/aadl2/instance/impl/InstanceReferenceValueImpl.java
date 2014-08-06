@@ -220,4 +220,4 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 				&& ((InstanceReferenceValue) other).getReferencedInstanceObject() == referencedInstanceObject;
 	}
 
-} //InstanceReferenceValueImpl
+} // InstanceReferenceValueImpl

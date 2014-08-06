@@ -39,57 +39,52 @@ import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 
-
 /**
  * An implementation of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} that reports
  * errors by storing them in a queue that can be retreived by calling
  * {@link #getErrors}.
- * 
+ *
  * <p>Messages are stored as {@link QueuingParserErrorReporter.Message} objects.
- * 
+ *
  * @author aarong
  */
 public final class QueuingParserErrorReporter extends AbstractParseErrorReporter {
 	public static final String ERROR = "Error";
 	public static final String WARNING = "Warning";
 	public static final String INFO = "INFO";
-	
+
 	/** Singleton factory reference. */
 	public static final Factory factory = new Factory();
-	
+
 	/** The list of messages */
 	private final List<Message> queue;
-	
-	
-	
+
 	public QueuingParserErrorReporter() {
 		super();
 		queue = new LinkedList<Message>();
 	}
 
-	
-	
-	private void queueMessage(final String fname, final int line,
-			final String kind, final String message) {
+	private void queueMessage(final String fname, final int line, final String kind, final String message) {
 		queue.add(new Message(fname, line, kind, message));
 	}
 
-	protected void errorImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void errorImpl(final String filename, final int line, final String message) {
 		queueMessage(filename, line, ERROR, message);
 	}
 
-	protected void warningImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void warningImpl(final String filename, final int line, final String message) {
 		queueMessage(filename, line, WARNING, message);
 	}
 
-	protected void infoImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void infoImpl(final String filename, final int line, final String message) {
 		queueMessage(filename, line, INFO, message);
 	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		queue.clear();
 	}
@@ -101,21 +96,18 @@ public final class QueuingParserErrorReporter extends AbstractParseErrorReporter
 	public List<Message> getErrors() {
 		return new ArrayList<Message>(queue);
 	}
-	
-	
-	
+
 	private static final class Factory implements ParseErrorReporterFactory {
 		/**
 		 * The given AADL IResource is allowed to be <code>null</code>.
 		 */
+		@Override
 		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
 			return new QueuingParserErrorReporter();
 		}
-		
+
 	}
-	
-	
-	
+
 	/**
 	 * Record of a reported error message/warning. Contains the
 	 * {@link #filename name of the file} in which the message is located, the
@@ -126,7 +118,7 @@ public final class QueuingParserErrorReporter extends AbstractParseErrorReporter
 	 * {@link QueuingParserErrorReporter#ERROR},
 	 * {@link QueuingParserErrorReporter#WARNING}, and
 	 * {@link QueuingParserErrorReporter#INFO}.
-	 * 
+	 *
 	 * @author aarong
 	 */
 	public static final class Message {
@@ -134,7 +126,7 @@ public final class QueuingParserErrorReporter extends AbstractParseErrorReporter
 		public final int line;
 		public final String kind;
 		public final String message;
-		
+
 		public Message(final String fn, final int ln, final String k, final String msg) {
 			filename = fn;
 			line = ln;

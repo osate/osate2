@@ -35,7 +35,6 @@ package org.osate.annexsupport;
 
 import org.eclipse.emf.ecore.EObject;
 
-
 public interface AnnexTextPositionResolver {
 	TextPositionInfo resolveElementAt(EObject annexRoot, int offset);
 

@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright (c) 2000, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Carnegie Mellon University - adapted for use in OSATE
@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.PlatformObject;
 import org.osate.workspace.AadlModelException;
 import org.osate.workspace.IAadlElement;
 import org.osate.workspace.IAadlProject;
-
 
 /**
  * @author lwrage TODO To change the template for this generated type comment go
@@ -40,7 +39,7 @@ public class AadlElement extends PlatformObject implements IAadlElement {
 	/**
 	 * Constructs a handle for an AADL element with the given parent element and
 	 * name.
-	 * 
+	 *
 	 * @param parent The parent of this AADL element
 	 * @param name The name of this AADL element
 	 * @exception IllegalArgumentException if the type is not one of the valid
@@ -61,6 +60,7 @@ public class AadlElement extends PlatformObject implements IAadlElement {
 	/**
 	 * @return Returns the parent.
 	 */
+	@Override
 	public IAadlElement getParent() {
 		return parent;
 	}
@@ -68,11 +68,13 @@ public class AadlElement extends PlatformObject implements IAadlElement {
 	/**
 	 * @see IAadlElement
 	 */
+	@Override
 	public IAadlProject getAadlProject() {
 		IAadlElement current = this;
 		do {
-			if (current instanceof IAadlProject)
+			if (current instanceof IAadlProject) {
 				return (IAadlProject) current;
+			}
 		} while ((current = current.getParent()) != null);
 		return null;
 	}

@@ -67,4 +67,4 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 		return Aadl2Package.eINSTANCE.getEventDataSource();
 	}
 
-} //EventDataSourceImpl
+} // EventDataSourceImpl

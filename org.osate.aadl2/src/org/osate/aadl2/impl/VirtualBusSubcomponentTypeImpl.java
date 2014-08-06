@@ -67,4 +67,4 @@ public abstract class VirtualBusSubcomponentTypeImpl extends SubcomponentTypeImp
 		return Aadl2Package.eINSTANCE.getVirtualBusSubcomponentType();
 	}
 
-} //VirtualBusSubcomponentTypeImpl
+} // VirtualBusSubcomponentTypeImpl

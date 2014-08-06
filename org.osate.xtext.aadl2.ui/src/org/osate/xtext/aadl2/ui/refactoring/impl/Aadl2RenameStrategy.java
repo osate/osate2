@@ -49,6 +49,7 @@ public class Aadl2RenameStrategy extends DefaultRenameStrategy {
 		return new ReplaceEdit(secondaryNameRegion.getOffset(), secondaryNameRegion.getLength(), text);
 	}
 
+	@Override
 	protected EObject setName(URI targetElementURI, String newName, ResourceSet resourceSet) {
 		EObject targetElement = super.setName(targetElementURI, newName, resourceSet);
 		if (targetElement == null) {

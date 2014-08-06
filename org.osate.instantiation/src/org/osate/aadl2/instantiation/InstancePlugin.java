@@ -12,11 +12,11 @@ import org.osgi.framework.BundleContext;
  * The main plugin class to be used in the desktop.
  */
 public class InstancePlugin extends AbstractUIPlugin {
-	//The shared instance.
+	// The shared instance.
 	private static InstancePlugin plugin;
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -33,6 +33,7 @@ public class InstancePlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -40,6 +41,7 @@ public class InstancePlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
@@ -72,7 +74,7 @@ public class InstancePlugin extends AbstractUIPlugin {
 	}
 
 	public static void logErrorMessage(String message) {
-		log(new Status(IStatus.ERROR, getPluginId(), Status.OK, message, null));
+		log(new Status(IStatus.ERROR, getPluginId(), IStatus.OK, message, null));
 	}
 
 	public static void log(IStatus status) {

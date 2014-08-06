@@ -51,36 +51,46 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 
 	@Inject
 	private IReferenceFinder referenceFinder;
-	
+
+	@Override
 	public Map<Annotation, Position> createAnnotationMap(XtextEditor editor, final ITextSelection selection,
 			final SubMonitor monitor) {
 		final IXtextDocument document = editor.getDocument();
-		if(document != null) {
+		if (document != null) {
 			return document.readOnly(new IUnitOfWork<Map<Annotation, Position>, XtextResource>() {
+				@Override
 				public Map<Annotation, Position> exec(final XtextResource resource) throws Exception {
-					if(resource != null) {
+					if (resource != null) {
 						EObject target = eObjectAtOffsetHelper.resolveElementAt(resource, (selection).getOffset());
-						if (target != null && ! target.eIsProxy()) {
+						if (target != null && !target.eIsProxy()) {
 							monitor.setWorkRemaining(100);
 							final List<IReferenceDescription> references = newArrayList();
 							IAcceptor<IReferenceDescription> acceptor = new IAcceptor<IReferenceDescription>() {
+								@Override
 								public void accept(IReferenceDescription reference) {
 									references.add(reference);
 								}
 							};
-							SimpleLocalResourceAccess localResourceAccess = new SimpleLocalResourceAccess(resource.getResourceSet());
-							referenceFinder.findReferences(getTargetURIs(target), 
-									singleton(resource.getURI()), localResourceAccess, acceptor, monitor.newChild(40));
-							if (monitor.isCanceled())
+							SimpleLocalResourceAccess localResourceAccess = new SimpleLocalResourceAccess(resource
+									.getResourceSet());
+							referenceFinder.findReferences(getTargetURIs(target), singleton(resource.getURI()),
+									localResourceAccess, acceptor, monitor.newChild(40));
+							if (monitor.isCanceled()) {
 								return emptyMap();
+							}
 							Map<Annotation, Position> result = newHashMapWithExpectedSize(references.size() + 1);
 							if (target.eResource() == resource) {
 								if (!references.isEmpty() || canBeReferencedLocally(target)) {
-									ITextRegion declarationRegion = locationInFileProvider.getSignificantTextRegion(target);
-									addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document, declarationRegion, result);
-									declarationRegion = ((Aadl2LocationInFile) locationInFileProvider).getSecondaryTextRegion(target, !(target instanceof ComponentImplementation));
+									ITextRegion declarationRegion = locationInFileProvider
+											.getSignificantTextRegion(target);
+									addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document, declarationRegion,
+											result);
+									declarationRegion = ((Aadl2LocationInFile) locationInFileProvider)
+											.getSecondaryTextRegion(target,
+													!(target instanceof ComponentImplementation));
 									if (declarationRegion != null) {
-										addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document, declarationRegion, result);
+										addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document,
+												declarationRegion, result);
 									}
 								}
 							}
@@ -89,11 +99,12 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 								try {
 									EObject source = resource.getEObject(reference.getSourceEObjectUri().fragment());
 									if (source != null && reference.getEReference() != null) { // prevent exception for outdated data
-										ITextRegion textRegion = locationInFileProvider.getSignificantTextRegion(source,
-												reference.getEReference(), reference.getIndexInList());
-										addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document, textRegion, result);
+										ITextRegion textRegion = locationInFileProvider.getSignificantTextRegion(
+												source, reference.getEReference(), reference.getIndexInList());
+										addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document, textRegion,
+												result);
 									}
-								} catch(Exception exc) {
+								} catch (Exception exc) {
 									// outdated index information. Ignore
 								}
 							}

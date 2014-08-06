@@ -41,19 +41,18 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Element;
 
-
 /**
  * An implementation of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporter} that outputs
  * the messages to a Java {@link java.io.Writer}. Includes a
  * {@link #SYSTEM_OUT_FACTORY prototype reference to a factory that creates
  * reporters that print to the system out}.
- * 
+ *
  * <p>
  * The class defines a nested class
  * {@link edu.cmu.sei.aadl.model.pluginsupport.WriterAnalysisErrorReporter.Factory}
  * that implements a factory.
- * 
+ *
  * @author aarong
  */
 public final class WriterAnalysisErrorReporter extends AbstractAnalysisErrorReporter {
@@ -61,29 +60,26 @@ public final class WriterAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 	 * Singleton reference to a factory that creates reporters that send the
 	 * messages to {@link System#out}.
 	 */
-	public static final Factory SYSTEM_OUT_FACTORY = 
-		new Factory(new OutputStreamWriter(System.out));
-	
+	public static final Factory SYSTEM_OUT_FACTORY = new Factory(new OutputStreamWriter(System.out));
+
 	/**
 	 * Singleton reference to a factory that creates reporters that send the
 	 * messages to {@link System#err}.
 	 */
-	public static final Factory SYSTEM_ERR_FACTORY =
-		new Factory(new OutputStreamWriter(System.err));
+	public static final Factory SYSTEM_ERR_FACTORY = new Factory(new OutputStreamWriter(System.err));
 
 	/** The system end-of-line character */
 	private static final String END_OF_LINE = System.getProperty("line.separator");
-	
+
 	/** The writer. */
 	private final Writer writer;
-	
-	
+
 	/**
 	 * Create a new error reporter that writes the error messages to the given
 	 * {@link Writer} object. The caller is responsible for providing any
 	 * buffering, i.e., the writer will be used as provided and is not further
 	 * wrapped.
-	 * 
+	 *
 	 * @param writer
 	 *            The writer to use.
 	 * @exception IllegalArgumentException
@@ -97,10 +93,8 @@ public final class WriterAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 		this.writer = writer;
 	}
 
-
-	
-	private void writeMessage(final Element where, final String type,
-			final String message, final String[] attrs, final Object[] values) {
+	private void writeMessage(final Element where, final String type, final String message, final String[] attrs,
+			final Object[] values) {
 		try {
 			final String loc = EcoreUtil.getURI(where).toString();
 			writer.write(type);
@@ -110,7 +104,7 @@ public final class WriterAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 			writer.write(loc);
 			writer.write(END_OF_LINE);
 			writer.flush();
-			
+
 			for (int i = 0; i < attrs.length; i++) {
 				writer.write("  ");
 				writer.write(attrs[i]);
@@ -125,39 +119,36 @@ public final class WriterAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 	}
 
 	@Override
-	protected void errorImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void errorImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		writeMessage(where, "ERROR", message, attrs, values);
 	}
 
 	@Override
-	protected void warningImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void warningImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		writeMessage(where, "WARNING", message, attrs, values);
 	}
 
 	@Override
-	protected void infoImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void infoImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		writeMessage(where, "INFO", message, attrs, values);
 	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		// Nothing to do because we cannot undo writing
 	}
 
-	
-	
 	public static final class Factory implements AnalysisErrorReporterFactory {
 		final Writer writer;
-		
+
 		public Factory(final Writer writer) {
 			this.writer = writer;
 		}
-		
+
 		/**
 		 * The given AADL IResource is allowed to be <code>null</code>.
 		 */
+		@Override
 		public AnalysisErrorReporter getReporterFor(final Resource rsrc) {
 			return new WriterAnalysisErrorReporter(rsrc, writer);
 		}

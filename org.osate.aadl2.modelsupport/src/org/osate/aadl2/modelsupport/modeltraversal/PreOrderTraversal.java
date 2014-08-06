@@ -36,33 +36,28 @@
  */
 package org.osate.aadl2.modelsupport.modeltraversal;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 
-
 /**
  * Describes how to perfrom a prefix order traversal.
- * 
+ *
  * @author aarong
  */
 final class PreOrderTraversal extends AbstractSimpleTraversal {
 	public PreOrderTraversal(final IProcessingMethod pm) {
 		super(pm);
 	}
-	
-	public void visitRoot(final Element root) 
-	{
-		if (root != null) 
-		{
+
+	@Override
+	public void visitRoot(final Element root) {
+		if (root != null) {
 			processingMethod.processObject(root);
 			EList<Element> kids = root.getChildren();
 			final int nChildren = kids.size();
-			
-			for (int i = 0 ; (processingMethod.notCancelled()) && (i < nChildren) ; i++)
-			{
-				this.visitRoot(kids.get(i));
+
+			for (int i = 0; (processingMethod.notCancelled()) && (i < nChildren); i++) {
+				visitRoot(kids.get(i));
 			}
 		}
 	}

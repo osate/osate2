@@ -40,14 +40,13 @@ package org.osate.aadl2.modelsupport.modeltraversal;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 
-
 /**
- * Interface for defining methods that operate of model elements.  
- * 
+ * Interface for defining methods that operate of model elements.
+ *
  * <p>This is an internal interface used to coordinate
  * {@link edu.cmu.sei.aadl.model.util.ForAllElement} with its helper
  * instances of {@link edu.cmu.sei.aadl.model.util.AbstractTraversal}.
- * 
+ *
  * @author aarong
  */
 interface IProcessingMethod {
@@ -56,16 +55,17 @@ interface IProcessingMethod {
 	 * @param obj The element to process.
 	 */
 	public void processObject(Element obj);
-	
+
 	/**
 	 * Has the processing been cancelled?
 	 */
 	public boolean notCancelled();
-	public boolean cancelled() ;
-	
+
+	public boolean cancelled();
+
 	/**
 	 * Get the result of the processing.
 	 */
-	//TODO: [AADL2] The generics of this EList may need to be rethought.
+	// TODO: [AADL2] The generics of this EList may need to be rethought.
 	public EList<Element> getResultList();
 }

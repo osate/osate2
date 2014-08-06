@@ -344,4 +344,4 @@ public enum ConnectionKind implements Enumerator {
 		return literal;
 	}
 
-} //ConnectionKind
+} // ConnectionKind

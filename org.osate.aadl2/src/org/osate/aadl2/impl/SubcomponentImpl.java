@@ -196,7 +196,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public EList<Mode> getInModes() {
 		// DONE: implement this method to return the 'In Mode' reference list
-		//		EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
+		// EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
 		// DB This should be an EStructuralFeature.Setting
 		EList<Mode> inModes = new NonNotifyingEObjectEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
 		// XXX the resolving EList was notifying the Thread subcomponent of a
@@ -445,7 +445,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		Subcomponent oldRefined = refined;
 		refined = newRefined;
 
-		// DB: Avoid having a non null name to refined elements (causes a validation error during serialization 
+		// DB: Avoid having a non null name to refined elements (causes a validation error during serialization
 		// when both the name and refined element are set).
 		if (refined != null) {
 			setName(null);

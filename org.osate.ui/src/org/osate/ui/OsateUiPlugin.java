@@ -55,23 +55,20 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-
-
-
 /**
  * The main plugin class to be used in the desktop.
  */
 public class OsateUiPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.osate.ui";
-	
+
 	public static final String copyright = "Copyright 2014 by Carnegie Mellon University, all rights reserved";
 
-	//The shared instance.
+	// The shared instance.
 	private static volatile OsateUiPlugin plugin;
-	
-	//Resource bundle.
+
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -88,6 +85,7 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -95,6 +93,7 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
@@ -133,13 +132,13 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	private static class Reference {
 		public Object value = null;
 	}
-	
+
 	public static Shell getActiveWorkbenchShell() {
 		final Reference result = new Reference();
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
-				final IWorkbenchWindow window = 
-					getDefault().getWorkbench().getActiveWorkbenchWindow();
+				final IWorkbenchWindow window = getDefault().getWorkbench().getActiveWorkbenchWindow();
 				result.value = (window != null ? window.getShell() : null);
 			}
 		});
@@ -149,9 +148,9 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {
 		final Reference result = new Reference();
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
-				result.value = 
-					getDefault().getWorkbench().getActiveWorkbenchWindow();
+				result.value = getDefault().getWorkbench().getActiveWorkbenchWindow();
 			}
 		});
 		return (IWorkbenchWindow) result.value;
@@ -160,9 +159,9 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	public static IWorkbenchPage getActiveWorkbenchPage() {
 		final Reference result = new Reference();
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
-				result.value = 
-					getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				result.value = getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			}
 		});
 		return (IWorkbenchPage) result.value;
@@ -187,41 +186,37 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	public static void log(IStatus aStatus) {
 		getDefault().getLog().log(aStatus);
 	}
-	
+
 	public static void log(Throwable aThrowable) {
-		log(new Status(IStatus.ERROR, getPluginId(), Status.OK,
-						getMessage("Plugin.internal_error"),
-						aThrowable));
+		log(new Status(IStatus.ERROR, getPluginId(), IStatus.OK, getMessage("Plugin.internal_error"), aThrowable));
 	}
-	
+
 	public static void logErrorMessage(String aMessage) {
-		log(new Status(IStatus.ERROR, getPluginId(), Status.OK, aMessage,
-			null));
+		log(new Status(IStatus.ERROR, getPluginId(), IStatus.OK, aMessage, null));
 	}
 
 	public static void logErrorStatus(String aMessage, IStatus aStatus) {
 		if (aStatus == null) {
 			logErrorMessage(aMessage);
 		} else {
-			MultiStatus multi = new MultiStatus(getPluginId(), Status.OK,
-											    aMessage, null);
+			MultiStatus multi = new MultiStatus(getPluginId(), IStatus.OK, aMessage, null);
 			multi.add(aStatus);
 			log(multi);
 		}
 	}
-	
+
 	public static boolean isDebug() {
 		return getDefault().isDebugging();
 	}
 
 	public static String getMessage(String aKey) {
-	    String bundleString;
+		String bundleString;
 		ResourceBundle bundle = getDefault().getResourceBundle();
 		if (bundle != null) {
 			try {
 				bundleString = bundle.getString(aKey);
 			} catch (MissingResourceException e) {
-			    log(e);
+				log(e);
 				bundleString = "!" + aKey + "!";
 			}
 		} else {
@@ -235,9 +230,9 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	}
 
 	public static String getFormattedMessage(String aKey, String[] anArgs) {
-		return MessageFormat.format(getMessage(aKey), (Object[])anArgs);
+		return MessageFormat.format(getMessage(aKey), (Object[]) anArgs);
 	}
-	
+
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.osate.ui", path);
 	}

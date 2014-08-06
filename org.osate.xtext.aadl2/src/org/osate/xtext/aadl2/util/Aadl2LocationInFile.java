@@ -22,7 +22,7 @@ public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
 	@Override
 	protected ITextRegion getTextRegion(EObject obj, boolean isSignificant) {
 		ICompositeNode node = NodeModelUtils.findActualNodeFor(obj);
-		
+
 		/**
 		 * This is an old code that was initially removed but
 		 * added again to fix some bugs.
@@ -30,36 +30,37 @@ public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
 		 */
 		if (node == null) {
 			// it may be in annex
-			if (obj instanceof AObject){
-				LocationReference locref = ((AObject)obj).getLocationReference();
-				if (locref != null){
+			if (obj instanceof AObject) {
+				LocationReference locref = ((AObject) obj).getLocationReference();
+				if (locref != null) {
 					return new TextRegion(locref.getOffset(), locref.getLength());
 				} else {
-					//try AnnexSource adapter
+					// try AnnexSource adapter
 				}
 			}
-			if (obj.eContainer() == null)
+			if (obj.eContainer() == null) {
 				return ITextRegion.EMPTY_REGION;
+			}
 			return getTextRegion(obj.eContainer(), isSignificant);
 		}
 		/**
 		 * end of handling error with the behavior annex
 		 */
-		
+
 		List<INode> nodes = null;
-		if (isSignificant)
+		if (isSignificant) {
 			nodes = getLocationNodes(obj);
-		if (nodes == null || nodes.isEmpty())
-			nodes = Collections.<INode>singletonList(node);
+		}
+		if (nodes == null || nodes.isEmpty()) {
+			nodes = Collections.<INode> singletonList(node);
+		}
 		return createRegion(nodes);
 	}
-	
-	public static LocationReference getLocationReference(Element obj) 
-	{
-		if (obj.getLocationReference() == null)
-		{
+
+	public static LocationReference getLocationReference(Element obj) {
+		if (obj.getLocationReference() == null) {
 			ICompositeNode node = NodeModelUtils.findActualNodeFor(obj);
-			
+
 			LocationReference locref = new LocationReference();
 			locref.setLine(node.getTotalStartLine());
 			locref.setFilename(obj.eResource().getURI().toString());
@@ -92,10 +93,10 @@ public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
 					}
 				}
 			}
-			return createRegion(Collections.<INode>singletonList(endID));
+			return createRegion(Collections.<INode> singletonList(endID));
 		} else {
 			return null;
 		}
 	}
-	
+
 }

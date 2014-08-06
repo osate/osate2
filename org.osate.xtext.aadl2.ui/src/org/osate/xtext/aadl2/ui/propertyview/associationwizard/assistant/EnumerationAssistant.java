@@ -16,51 +16,48 @@ import org.osate.aadl2.EnumerationType;
 
 public class EnumerationAssistant extends AbstractAssistant {
 	private final EnumerationType type;
-	
+
 	private ComboViewer enumLiteralViewer = null;
-	
+
 	public EnumerationAssistant(Composite parent, EnumerationType type, AssistantValueChangedListener listener) {
 		super(parent, listener);
 		this.type = type;
 		layoutComponents();
 	}
-	
+
 	private void layoutComponents() {
 		setLayout(new GridLayout(1, false));
-		
+
 		enumLiteralViewer = new ComboViewer(this, SWT.DROP_DOWN | SWT.READ_ONLY);
 		enumLiteralViewer.setContentProvider(new ArrayContentProvider());
-		enumLiteralViewer.setLabelProvider(new LabelProvider()
-		{
+		enumLiteralViewer.setLabelProvider(new LabelProvider() {
 			@Override
-			public String getText(Object element)
-			{
-				return ((EnumerationLiteral)element).getName();
+			public String getText(Object element) {
+				return ((EnumerationLiteral) element).getName();
 			}
 		});
 		enumLiteralViewer.setInput(type.getOwnedLiterals());
 		enumLiteralViewer.setSelection(new StructuredSelection(type.getOwnedLiterals().get(0)));
-		enumLiteralViewer.addSelectionChangedListener(new ISelectionChangedListener()
-		{
+		enumLiteralViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
-			public void selectionChanged(SelectionChangedEvent event)
-			{
+			public void selectionChanged(SelectionChangedEvent event) {
 				requestUpdate();
 			}
 		});
 		enumLiteralViewer.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 	}
-	
+
 	@Override
 	public String getValueText() {
-		return ((EnumerationLiteral)((IStructuredSelection)enumLiteralViewer.getSelection()).getFirstElement()).getName();
+		return ((EnumerationLiteral) ((IStructuredSelection) enumLiteralViewer.getSelection()).getFirstElement())
+				.getName();
 	}
-	
+
 	@Override
 	public boolean isComplete() {
 		return true;
 	}
-	
+
 	@Override
 	public void setAssistantEnabled(boolean enabled) {
 		enumLiteralViewer.getCombo().setEnabled(enabled);

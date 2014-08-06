@@ -36,44 +36,39 @@ package org.osate.aadl2.modelsupport.modeltraversal;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
-
 /**
  * An extension of {@link AadlProcessingSwitch} that includes a field
  * for referencing an {@link org.eclipse.core.runtime.IProgressMonitor}.
  * In addition, it adds a new method {@link #checkIfCancelled} that checks
  * to see if the monitor has been set to cancelled and, if so, cancels
  * the traversal via {@link ForAllElement#cancelTraversal}.
- * 
+ *
  * @author aarong
  */
 public abstract class AadlProcessingSwitchWithProgress extends AadlProcessingSwitch {
 	/** The progress monitor */
 	protected final IProgressMonitor monitor;
-	
-	protected AadlProcessingSwitchWithProgress(final IProgressMonitor pm,
-			final int defTraversal, final AnalysisErrorReporterManager errMgr) {
+
+	protected AadlProcessingSwitchWithProgress(final IProgressMonitor pm, final int defTraversal,
+			final AnalysisErrorReporterManager errMgr) {
 		super(defTraversal, errMgr);
 		monitor = pm;
 	}
-	
-	protected AadlProcessingSwitchWithProgress(final IProgressMonitor pm,
-			final int defTraversal) {
+
+	protected AadlProcessingSwitchWithProgress(final IProgressMonitor pm, final int defTraversal) {
 		super(defTraversal);
 		monitor = pm;
 	}
-	
-	protected AadlProcessingSwitchWithProgress(final IProgressMonitor pm,
-			final AnalysisErrorReporterManager errMgr) {
+
+	protected AadlProcessingSwitchWithProgress(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
 		super(errMgr);
 		monitor = pm;
 	}
-	
+
 	protected AadlProcessingSwitchWithProgress(final IProgressMonitor pm) {
 		monitor = pm;
 	}
-	
-	
-	
+
 	/**
 	 * Check the progress monitor to see if the user has requested a
 	 * cancellation.  Cancel the traversal if so.

@@ -538,4 +538,4 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //InstanceAdapterFactory
+} // InstanceAdapterFactory

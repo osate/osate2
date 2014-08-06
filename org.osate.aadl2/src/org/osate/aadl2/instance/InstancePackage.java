@@ -3280,4 +3280,4 @@ public interface InstancePackage extends EPackage {
 
 	}
 
-} //InstancePackage
+} // InstancePackage

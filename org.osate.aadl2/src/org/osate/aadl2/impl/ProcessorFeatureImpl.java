@@ -205,4 +205,4 @@ public abstract class ProcessorFeatureImpl extends StructuralFeatureImpl impleme
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
-} //ProcessorFeatureImpl
+} // ProcessorFeatureImpl

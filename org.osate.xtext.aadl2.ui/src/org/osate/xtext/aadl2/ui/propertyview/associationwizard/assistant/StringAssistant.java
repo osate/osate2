@@ -12,19 +12,19 @@ import org.eclipse.swt.widgets.Text;
 public class StringAssistant extends AbstractAssistant {
 	private Label fieldLabel = null;
 	private Text stringValueField = null;
-	
+
 	public StringAssistant(Composite parent, AssistantValueChangedListener listener) {
 		super(parent, listener);
 		layoutComponents();
 	}
-	
+
 	private void layoutComponents() {
 		setLayout(new GridLayout(1, false));
-		
+
 		fieldLabel = new Label(this, SWT.NONE);
 		fieldLabel.setText("En&ter string value without quotes.");
 		fieldLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		stringValueField = new Text(this, SWT.BORDER);
 		stringValueField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		stringValueField.addModifyListener(new ModifyListener() {
@@ -34,17 +34,17 @@ public class StringAssistant extends AbstractAssistant {
 			}
 		});
 	}
-	
+
 	@Override
 	public String getValueText() {
 		return '\"' + stringValueField.getText() + '\"';
 	}
-	
+
 	@Override
 	public boolean isComplete() {
 		return true;
 	}
-	
+
 	@Override
 	public void setAssistantEnabled(boolean enabled) {
 		fieldLabel.setEnabled(enabled);

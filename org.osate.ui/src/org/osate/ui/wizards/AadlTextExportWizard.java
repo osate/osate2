@@ -33,16 +33,15 @@
  */
 package org.osate.ui.wizards;
 
-
 /*
  * XXX: Commented out entire class to remove error markers.  Not currently used in Aadl 2 beta.
  * Need to check if this should be used after implementing the Xtext parser.
  */
-public class AadlTextExportWizard/* extends Wizard implements IExportWizard*/
+public class AadlTextExportWizard/* extends Wizard implements IExportWizard */
 {
 //	private IResource selectedResource = null;
 //	private AadlTextExportWizardPage modelChooserPage = null;
-//	
+//
 //	public boolean performFinish()
 //	{
 //		File file = new File(modelChooserPage.getDestinationFileName());
@@ -63,7 +62,7 @@ public class AadlTextExportWizard/* extends Wizard implements IExportWizard*/
 //			selectedResource = (IResource)selection.getFirstElement();
 //		}
 //	}
-//	
+//
 //	public void addPages()
 //	{
 //		modelChooserPage = new AadlTextExportWizardPage(selectedResource);

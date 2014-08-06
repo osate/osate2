@@ -41,7 +41,6 @@ import java.util.Stack;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 
-
 /**
  * Traversal implementation that visits all the Component Implementations used in
  * the subtree rooted at the given node in a prefix order. That is, given a component implementation, it
@@ -51,9 +50,9 @@ import org.osate.aadl2.Subcomponent;
  *       recursively visits the component implementation of the subcomponent,
  *       if the full component implementation is given.
  * </ol>
- * 
+ *
  * <p>A particular component implementation may be visited more than once.
- * 
+ *
  * @author aarong
  */
 final class TopDownComponentImplTraversal extends AbstractTopDownComponentTraversal {
@@ -62,10 +61,12 @@ final class TopDownComponentImplTraversal extends AbstractTopDownComponentTraver
 		super(pm);
 	}
 
+	@Override
 	protected void visitComponentImpl(final ComponentImplementation cimpl) {
 		processingMethod.processObject(cimpl);
 	}
 
+	@Override
 	protected void visitSubcomponent(final Subcomponent sc, final Stack visited) {
 		final ComponentImplementation ci = sc.getComponentImplementation();
 		if (ci != null) {

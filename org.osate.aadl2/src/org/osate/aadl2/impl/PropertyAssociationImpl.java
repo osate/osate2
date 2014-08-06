@@ -500,7 +500,9 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.PropertyAssociation#valueInMode(org.osate.aadl2.Mode)
 	 */
 	@Override

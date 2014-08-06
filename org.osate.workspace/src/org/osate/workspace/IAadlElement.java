@@ -62,7 +62,7 @@ public interface IAadlElement {
 	 * Returns the Aadl project this element is contained in, or
 	 * <code>null</code> if this element is not contained in any Aadl project
 	 * This is a handle-only method.
-	 * 
+	 *
 	 * @return the containing Aadl project, or <code>null</code> if this element
 	 *         is not contained in an Aadl project
 	 */
@@ -72,7 +72,7 @@ public interface IAadlElement {
 	 * Returns the element directly containing this element, or
 	 * <code>null</code> if this element has no parent. This is a handle-only
 	 * method.
-	 * 
+	 *
 	 * @return the parent element, or <code>null</code> if this element has no
 	 *         parent
 	 */

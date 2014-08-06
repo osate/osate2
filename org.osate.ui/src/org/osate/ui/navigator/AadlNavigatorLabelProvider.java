@@ -48,79 +48,70 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
-
-public class AadlNavigatorLabelProvider extends DecoratingLabelProvider
-{
-	public AadlNavigatorLabelProvider(ILabelProvider provider, ILabelDecorator decorator)
-	{
+public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
+	public AadlNavigatorLabelProvider(ILabelProvider provider, ILabelDecorator decorator) {
 		super(provider, decorator);
 	}
-	
-	public String getText(Object element)
-	{
+
+	@Override
+	public String getText(Object element) {
 		StringBuilder text = new StringBuilder(super.getText(element));
-		if (element instanceof IFile)
-		{
-			IFile file = (IFile)element;
-			if (file.getProject().getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME) &&
-					!file.getResourceAttributes().isReadOnly())
-			{
+		if (element instanceof IFile) {
+			IFile file = (IFile) element;
+			if (file.getProject().getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)
+					&& !file.getResourceAttributes().isReadOnly()) {
 				text.append(" (Modified)");
 			}
 		}
 		return text.toString();
 	}
 
-	public Image getImage(Object element)
-	{
+	@Override
+	public Image getImage(Object element) {
 		Image image;
-		if (element instanceof IProject && ((IProject)element).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
+		if (element instanceof IProject
+				&& ((IProject) element).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
 			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
-		else
+		} else {
 			image = super.getImage(element);
+		}
 		return decorateImage(image, element);
 	}
-	
-	private Image decorateImage(Image image, Object obj)
-	{
-		if (obj instanceof IResource)
-		{
-			ModificationFlag modification = getModification((IResource)obj);
-			if (!modification.equals(ModificationFlag.NO_MODIFICATION))
-			{
+
+	private Image decorateImage(Image image, Object obj) {
+		if (obj instanceof IResource) {
+			ModificationFlag modification = getModification((IResource) obj);
+			if (!modification.equals(ModificationFlag.NO_MODIFICATION)) {
 				ImageImageDescriptor baseImage = new ImageImageDescriptor(image);
 				Rectangle bounds = image.getBounds();
-				return new AadlElementImageDescriptor(baseImage, modification, new Point(bounds.width, bounds.height)).createImage();
-			}
-			else
+				return new AadlElementImageDescriptor(baseImage, modification, new Point(bounds.width, bounds.height))
+						.createImage();
+			} else {
 				return image;
-		}
-		else
+			}
+		} else {
 			return image;
+		}
 	}
-	
-	public static ModificationFlag getModification(IResource res)
-	{
-		if (res == null || !res.isAccessible())
+
+	public static ModificationFlag getModification(IResource res) {
+		if (res == null || !res.isAccessible()) {
 			return ModificationFlag.NO_MODIFICATION;
+		}
 		ModificationFlag modification = ModificationFlag.NO_MODIFICATION;
 		IMarker[] markers = null;
-		try
-		{
+		try {
 			markers = res.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_INFINITE);
-		}
-		catch (CoreException e)
-		{
+		} catch (CoreException e) {
 			OsateUiPlugin.log(e);
 		}
-		if (markers != null)
-		{
-			for (int i = 0; i < markers.length && !modification.equals(ModificationFlag.ADD_ERROR); i++)
-			{
-				if (markers[i].getAttribute(IMarker.SEVERITY, -1) == IMarker.SEVERITY_WARNING)
+		if (markers != null) {
+			for (int i = 0; i < markers.length && !modification.equals(ModificationFlag.ADD_ERROR); i++) {
+				if (markers[i].getAttribute(IMarker.SEVERITY, -1) == IMarker.SEVERITY_WARNING) {
 					modification = ModificationFlag.ADD_WARNING;
-				else if (markers[i].getAttribute(IMarker.SEVERITY, -1) == IMarker.SEVERITY_ERROR)
+				} else if (markers[i].getAttribute(IMarker.SEVERITY, -1) == IMarker.SEVERITY_ERROR) {
 					modification = ModificationFlag.ADD_ERROR;
+				}
 			}
 		}
 		return modification;

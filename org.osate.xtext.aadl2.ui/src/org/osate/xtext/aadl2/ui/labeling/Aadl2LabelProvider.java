@@ -1,5 +1,5 @@
 /*
-* /**
+ * /**
  * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
@@ -31,7 +31,7 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
-*/
+ */
 package org.osate.xtext.aadl2.ui.labeling;
 
 import org.eclipse.emf.common.util.EList;
@@ -111,223 +111,269 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		super(delegate);
 	}
 
-
-	//Labels and icons can be computed like this:
+	// Labels and icons can be computed like this:
 
 	String text(AadlPackage ele) {
-		  return "Package "+ele.getName();
-		}
+		return "Package " + ele.getName();
+	}
+
 	String text(PublicPackageSection ele) {
-		  return "Package Public "+ele.getName();
-		}
+		return "Package Public " + ele.getName();
+	}
+
 	String text(PrivatePackageSection ele) {
-		  return "Package Private "+ele.getName();
-		}
+		return "Package Private " + ele.getName();
+	}
+
 	String text(SystemType ele) {
-		  return "System "+ele.getName();
-		}
+		return "System " + ele.getName();
+	}
+
 	String text(ProcessorType ele) {
-		  return "Processor "+ele.getName();
-		}
+		return "Processor " + ele.getName();
+	}
+
 	String text(DataType ele) {
-		  return "Data "+ele.getName();
-		}
+		return "Data " + ele.getName();
+	}
+
 	String text(ProcessType ele) {
-		  return "Process "+ele.getName();
-		}
+		return "Process " + ele.getName();
+	}
+
 	String text(ThreadGroupType ele) {
-		  return "Thread Group "+ele.getName();
-		}
+		return "Thread Group " + ele.getName();
+	}
+
 	String text(ThreadType ele) {
-		  return "Thread "+ele.getName();
-		}
+		return "Thread " + ele.getName();
+	}
+
 	String text(SubprogramType ele) {
-		  return "Subprogram "+ele.getName();
-		}
+		return "Subprogram " + ele.getName();
+	}
+
 	String text(SubprogramGroupType ele) {
-		  return "Subprogram Group "+ele.getName();
-		}
+		return "Subprogram Group " + ele.getName();
+	}
+
 	String text(AbstractType ele) {
-		  return "Abstract "+ele.getName();
-		}
+		return "Abstract " + ele.getName();
+	}
+
 	String text(BusType ele) {
-		  return "Bus "+ele.getName();
-		}
+		return "Bus " + ele.getName();
+	}
+
 	String text(MemoryType ele) {
-		  return "Memory "+ele.getName();
-		}
+		return "Memory " + ele.getName();
+	}
+
 	String text(DeviceType ele) {
-		  return "Device "+ele.getName();
-		}
+		return "Device " + ele.getName();
+	}
+
 	String text(VirtualBusType ele) {
-		  return "Virtual Bus "+ele.getName();
-		}
+		return "Virtual Bus " + ele.getName();
+	}
+
 	String text(VirtualProcessorType ele) {
-		  return "Virtual Processor "+ele.getName();
-		}
+		return "Virtual Processor " + ele.getName();
+	}
+
 	String text(SystemImplementation ele) {
-		  return "System Impl "+ele.getName();
-		}
+		return "System Impl " + ele.getName();
+	}
+
 	String text(DataImplementation ele) {
-		  return "Data Impl "+ele.getName();
-		}
+		return "Data Impl " + ele.getName();
+	}
+
 	String text(ProcessorImplementation ele) {
-		  return "Processor Impl "+ele.getName();
-		}
+		return "Processor Impl " + ele.getName();
+	}
+
 	String text(ProcessImplementation ele) {
-		  return "Process Impl "+ele.getName();
-		}
+		return "Process Impl " + ele.getName();
+	}
+
 	String text(ThreadGroupImplementation ele) {
-		  return "Thread Group Impl "+ele.getName();
-		}
+		return "Thread Group Impl " + ele.getName();
+	}
+
 	String text(ThreadImplementation ele) {
-		  return "Thread Impl "+ele.getName();
-		}
+		return "Thread Impl " + ele.getName();
+	}
+
 	String text(SubprogramImplementation ele) {
-		  return "Subprogram Impl "+ele.getName();
-		}
+		return "Subprogram Impl " + ele.getName();
+	}
+
 	String text(SubprogramGroupImplementation ele) {
-		  return "Subprogram Group Impl "+ele.getName();
-		}
+		return "Subprogram Group Impl " + ele.getName();
+	}
+
 	String text(AbstractImplementation ele) {
-		  return "Abstract Impl "+ele.getName();
-		}
+		return "Abstract Impl " + ele.getName();
+	}
+
 	String text(BusImplementation ele) {
-		  return "Bus Impl "+ele.getName();
-		}
+		return "Bus Impl " + ele.getName();
+	}
+
 	String text(MemoryImplementation ele) {
-		  return "Memory Impl "+ele.getName();
-		}
+		return "Memory Impl " + ele.getName();
+	}
+
 	String text(DeviceImplementation ele) {
-		  return "Device Impl "+ele.getName();
-		}
+		return "Device Impl " + ele.getName();
+	}
+
 	String text(VirtualBusImplementation ele) {
-		  return "Virtual Bus Impl "+ele.getName();
-		}
+		return "Virtual Bus Impl " + ele.getName();
+	}
+
 	String text(VirtualProcessorImplementation ele) {
-		  return "Virtual Processor Impl "+ele.getName();
-		}
+		return "Virtual Processor Impl " + ele.getName();
+	}
 
 	// Property set and properties
 	String text(PropertySet ele) {
-		  return "Propertyset "+ele.getName();
-		}
+		return "Propertyset " + ele.getName();
+	}
 
 	String text(PropertyType ele) {
-		if (ele.getName()==null) return "Unnamed Property Type";
-		  return "Property Type  "+ele.getName();
+		if (ele.getName() == null) {
+			return "Unnamed Property Type";
+		}
+		return "Property Type  " + ele.getName();
 	}
 
 	String text(PropertyConstant ele) {
-		  return "Property Constant "+ele.getName();
-		}
+		return "Property Constant " + ele.getName();
+	}
 
 	String text(Property ele) {
-		  return "Property "+ele.getName();
-		}
+		return "Property " + ele.getName();
+	}
 
 	String text(PropertyAssociation ele) {
-		if (ele.getProperty()!= null)
-		  return "Property "+ele.getProperty().getName()+" =>";
-		return "Property =>";
+		if (ele.getProperty() != null) {
+			return "Property " + ele.getProperty().getName() + " =>";
 		}
+		return "Property =>";
+	}
 
 	String text(ModalPropertyValue ele) {
 		EList<Mode> ml = ele.getInModes();
-		if (ml.isEmpty())
-		  return "Property value ";
-		String modes = "";
-		for (Mode m : ml)
-			modes = modes + " "+m.getName();
-		return "Modal property value ("+modes+")";
+		if (ml.isEmpty()) {
+			return "Property value ";
 		}
-
+		String modes = "";
+		for (Mode m : ml) {
+			modes = modes + " " + m.getName();
+		}
+		return "Modal property value (" + modes + ")";
+	}
 
 	// these next ones we need only if we go deeper than classifiers
 	String text(SystemSubcomponent ele) {
-		  return "System Subcomponent "+ele.getName();
-		}
+		return "System Subcomponent " + ele.getName();
+	}
+
 	String text(DataSubcomponent ele) {
-		  return "Data Subcomponent "+ele.getName();
-		}
+		return "Data Subcomponent " + ele.getName();
+	}
+
 	String text(EventPort ele) {
-		  return "Event Port "+ele.getName();
-		}
+		return "Event Port " + ele.getName();
+	}
+
 	String text(DataPort ele) {
-		  return "Data Port "+ele.getName();
-		}
+		return "Data Port " + ele.getName();
+	}
+
 	String text(EventDataPort ele) {
-		  return "Event Data Port "+ele.getName();
-		}
+		return "Event Data Port " + ele.getName();
+	}
+
 	String text(FeatureGroup ele) {
-		  return "Feature Group "+ele.getName();
-		}
+		return "Feature Group " + ele.getName();
+	}
+
 	String text(Feature ele) {
-		  return "Feature "+ele.getName();
-		}
+		return "Feature " + ele.getName();
+	}
+
 	String text(BusAccess ele) {
-		  return ele.getKind().getName()+" Bus Access "+ele.getName();
-		}
+		return ele.getKind().getName() + " Bus Access " + ele.getName();
+	}
+
 	String text(DataAccess ele) {
-		  return ele.getKind().getName()+" Data Access "+ele.getName();
-		}
+		return ele.getKind().getName() + " Data Access " + ele.getName();
+	}
+
 	String text(SubprogramAccess ele) {
-		  return ele.getKind().getName()+" Subprogram Access "+ele.getName();
-		}
+		return ele.getKind().getName() + " Subprogram Access " + ele.getName();
+	}
+
 	String text(Mode ele) {
-		  return "Mode "+ele.getName();
-		}
+		return "Mode " + ele.getName();
+	}
+
 	String text(ModeTransition ele) {
-		  return "Mode Transition "+ele.getSource().getName()+" -> "+ele.getDestination().getName();
-		}
+		return "Mode Transition " + ele.getSource().getName() + " -> " + ele.getDestination().getName();
+	}
 
 	String text(NamedValue ele) {
-		  return "NamedValue: "+ele.getNamedValue();
+		return "NamedValue: " + ele.getNamedValue();
 	}
-
 
 	String text(IntegerLiteral ele) {
-		  return "int "+ele.getValue();
-	}
-	String text(RealLiteral ele) {
-		  return "real "+ele.getValue();
+		return "int " + ele.getValue();
 	}
 
+	String text(RealLiteral ele) {
+		return "real " + ele.getValue();
+	}
 
 	String text(ListValue ele) {
-		  return "()";
-		}
+		return "()";
+	}
+
 	String text(AadlInteger ele) {
-		  return "aadlinteger";
-		}
+		return "aadlinteger";
+	}
+
 	String text(AadlReal ele) {
-		  return "aadlreal";
+		return "aadlreal";
+	}
+
+	String image(NamedElement ele) {
+		return ele.eClass().getName() + ".gif";
+	}
+
+	String image(PropertyType ele) {
+		return "PropertyType.gif";
+	}
+
+	String image(ComponentInstance ele) {
+		ComponentCategory cat = ele.getCategory();
+		if (cat != null) {
+			String name = cat.getLiteral();
+			int idx = name.indexOf(" ");
+			if (idx < 0) {
+				return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + ".gif";
+			} else {
+				return name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
+						+ name.substring(idx + 1, idx + 2).toUpperCase() + name.substring(idx + 2).toLowerCase()
+						+ ".gif";
+			}
 		}
-
-
-    String image(NamedElement ele) {
-        return ele.eClass().getName() + ".gif";
-      }
-
-    String image(PropertyType ele) {
-        return "PropertyType.gif";
-      }
-
-    String image(ComponentInstance ele) {
-        ComponentCategory cat =((ComponentInstance)ele).getCategory();
-        if (cat != null){
-        	String name = cat.getLiteral();
-        	int idx = name.indexOf(" ");
-        	if (idx < 0){
-               return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase()+".gif";
-        	} else {
-        		return name.substring(0, 1).toUpperCase() + name.substring(1,idx).toLowerCase()
-        		+ name.substring(idx+1, idx+2).toUpperCase()+ name.substring(idx+2).toLowerCase()+".gif";
-        	}
-        }
-        if (ele instanceof SystemInstance)
-        	return "System.gif";
-    	return ele.eClass().getName() + ".gif";
-      }
+		if (ele instanceof SystemInstance) {
+			return "System.gif";
+		}
+		return ele.eClass().getName() + ".gif";
+	}
 
 }

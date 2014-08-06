@@ -37,27 +37,25 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 
-public class ImageImageDescriptor extends ImageDescriptor
-{
+public class ImageImageDescriptor extends ImageDescriptor {
 	private final Image image;
-	
-	public ImageImageDescriptor(Image image)
-	{
+
+	public ImageImageDescriptor(Image image) {
 		this.image = image;
 	}
-	
-	public ImageData getImageData()
-	{
+
+	@Override
+	public ImageData getImageData() {
 		return image.getImageData();
 	}
-	
-	public boolean equals(Object obj)
-	{
-		return (obj != null) && getClass().equals(obj.getClass()) && image.equals(((ImageImageDescriptor)obj).image);
+
+	@Override
+	public boolean equals(Object obj) {
+		return (obj != null) && getClass().equals(obj.getClass()) && image.equals(((ImageImageDescriptor) obj).image);
 	}
-	
-	public int hashCode()
-	{
+
+	@Override
+	public int hashCode() {
 		return image.hashCode();
 	}
 }

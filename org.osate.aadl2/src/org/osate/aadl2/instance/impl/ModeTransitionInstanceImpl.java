@@ -429,4 +429,4 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 		return getContainingComponentInstance().isActive(som);
 	}
 
-} //ModeTransitionInstanceImpl
+} // ModeTransitionInstanceImpl

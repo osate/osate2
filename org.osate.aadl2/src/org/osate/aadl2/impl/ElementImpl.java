@@ -348,7 +348,9 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		return list;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Element#getContainingClassifier()
 	 */
 	public Classifier getContainingClassifier() {
@@ -358,7 +360,9 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		return (Classifier) obj;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Element#getContainingComponentImpl()
 	 */
 	public ComponentImplementation getContainingComponentImpl() {
