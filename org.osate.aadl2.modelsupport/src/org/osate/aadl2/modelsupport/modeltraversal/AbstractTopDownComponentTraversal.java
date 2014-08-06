@@ -43,8 +43,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
-
-
 /**
  * Traversal implementation that visits all the Component Implementations used in
  * the subtree rooted at the given node in a prefix order. That is, given a component implementation, it
@@ -54,34 +52,37 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  * 		 recursively visits the component implementation of the subcomponent,
  * 		 if the full component implementation is given.
  * </ol>
- * 
+ *
  * <p>A particular component implementation may be visited more than once.
- * 
+ *
  * @author aarong
  */
 abstract class AbstractTopDownComponentTraversal extends AbstractTraversal {
-	
+
 	protected AbstractTopDownComponentTraversal(final IProcessingMethod pm) {
 		super(pm);
 	}
-	
+
+	@Override
 	public final void visitRoot(Element root) {
 		if (root instanceof ComponentImplementation) {
 			final Stack<ComponentImplementation> visited = new Stack<ComponentImplementation>();
-			processDown((ComponentImplementation)root, visited);
+			processDown((ComponentImplementation) root, visited);
 		} else {
-			throw new IllegalArgumentException(
-					"Root node must be a ComponentImplementation");
+			throw new IllegalArgumentException("Root node must be a ComponentImplementation");
 		}
 	}
-	
+
+	@Override
 	public final EList visitWorkspace() {
 		return visitWorkspaceDeclarativeModels();
 	}
-	
+
+	@Override
 	public final EList visitWorkspaceDeclarativeModels() {
 		final Stack<ComponentImplementation> visited = new Stack<ComponentImplementation>();
-		/* Our roots will be those component implementations that are not
+		/*
+		 * Our roots will be those component implementations that are not
 		 * referenced by anything, e.g., top-level systems.
 		 */
 		final EList<ComponentImplementation> cil = AadlUtil.getAllComponentImpl();
@@ -93,47 +94,47 @@ abstract class AbstractTopDownComponentTraversal extends AbstractTraversal {
 		}
 		return processingMethod.getResultList();
 	}
-	
+
+	@Override
 	public final EList visitWorkspaceInstanceModels() {
-		throw new UnsupportedOperationException(
-				"Visit all the instance models in the workspace not supported.");
+		throw new UnsupportedOperationException("Visit all the instance models in the workspace not supported.");
 	}
-	
+
 	protected final void processDown(final ComponentImplementation cimpl, final Stack<ComponentImplementation> visited) {
-		/* Avoid loops in subcomponent nesting.  This only happens in
+		/*
+		 * Avoid loops in subcomponent nesting. This only happens in
 		 * badly formed models, but we generally try to avoid it because
 		 * we may be running as part of the analysis that detects bad
 		 * models.
 		 */
 		if (!visited.contains(cimpl)) {
 			visited.push(cimpl);
-			
+
 			/*
 			 * Visit the current component impl, and then process all the
 			 * subcomponents.
 			 */
 			visitComponentImpl(cimpl);
-			
+
 			final EList<Subcomponent> scl = cimpl.getAllSubcomponents();
 			visitSubcomponents(scl, visited);
-			
+
 			visited.pop();
 		}
 	}
-	
+
 	private void visitSubcomponents(final EList<Subcomponent> scl, final Stack<ComponentImplementation> visited) {
 		for (Iterator<Subcomponent> all = scl.iterator(); processingMethod.notCancelled() && all.hasNext();) {
 			final Subcomponent sc = all.next();
 			visitSubcomponent(sc, visited);
 		}
 	}
-	
+
 	protected abstract void visitComponentImpl(ComponentImplementation ci);
-	
+
 	protected abstract void visitSubcomponent(Subcomponent sc, Stack<ComponentImplementation> visited);
-	
-	private boolean hasUsageReferences(
-			final ComponentClassifier aobj, final EList<ComponentImplementation> allci) {
+
+	private boolean hasUsageReferences(final ComponentClassifier aobj, final EList<ComponentImplementation> allci) {
 		for (Iterator<ComponentImplementation> all = allci.iterator(); processingMethod.notCancelled() && all.hasNext();) {
 			ComponentImplementation ci = all.next();
 			EList<Subcomponent> sublist = ci.getAllSubcomponents();

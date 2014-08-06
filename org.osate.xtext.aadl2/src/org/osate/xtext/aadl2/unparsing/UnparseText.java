@@ -36,10 +36,9 @@ package org.osate.xtext.aadl2.unparsing;
 
 import org.osate.aadl2.modelsupport.AadlConstants;
 
-
 /**
  * This class provides a text buffer into which text can be placed that is formatted with indentation.
- * Appropriate methods are provided for increasing and decreasing indentation. 
+ * Appropriate methods are provided for increasing and decreasing indentation.
  * Indentation is automatically taken into account by the addOutput and addOutputNewline methods.
  */
 public class UnparseText {
@@ -57,16 +56,16 @@ public class UnparseText {
 	private static final String indentIncrement = "  ";
 
 	private StringBuffer textOutput;
-	
+
 	private int lineCount = 1;
-	
+
 	private boolean countOnly = false;
 
 	/**
 	 * constructor for an UnparseText object
 	 *
 	 */
-	public UnparseText (){
+	public UnparseText() {
 		indentCount = 0;
 		indentString = "";
 		textOutput = new StringBuffer();
@@ -79,7 +78,7 @@ public class UnparseText {
 	 * The doCount parameter indicates whether to only keep track of line numbers or actually build up a string buffer
 	 * @param doCountOnly boolean
 	 */
-	public UnparseText (boolean doCountOnly){
+	public UnparseText(boolean doCountOnly) {
 		indentCount = 0;
 		indentString = "";
 		textOutput = new StringBuffer();
@@ -92,7 +91,7 @@ public class UnparseText {
 	 * The doCount parameter indicates whether to only keep track of line numbers or actually build up a string buffer
 	 * @param tab initial white space
 	 */
-	public UnparseText (String tab){
+	public UnparseText(String tab) {
 		indentCount = 0;
 		indentString = tab;
 		textOutput = new StringBuffer();
@@ -111,7 +110,7 @@ public class UnparseText {
 	/**
 	 * increment indentation
 	 */
-	public void incrementIndent(){
+	public void incrementIndent() {
 		indentCount++;
 		indentString = indentString + indentIncrement;
 	}
@@ -119,10 +118,10 @@ public class UnparseText {
 	/**
 	 * decrement indentation
 	 */
-	public void decrementIndent(){
-		if ( indentCount > 0) {
+	public void decrementIndent() {
+		if (indentCount > 0) {
 			indentCount--;
-			indentString = indentString.substring(0, indentString.length()-indentIncrement.length());
+			indentString = indentString.substring(0, indentString.length() - indentIncrement.length());
 		}
 	}
 
@@ -137,15 +136,15 @@ public class UnparseText {
 	 * returns the generated unparse string
 	 * @return String
 	 */
-	public String getParseOutput(){
+	public String getParseOutput() {
 		return textOutput.toString();
 	}
-	
+
 	/**
 	 * return the line count
 	 * @return int
 	 */
-	public int getLineCount(){
+	public int getLineCount() {
 		return lineCount;
 	}
 
@@ -153,31 +152,41 @@ public class UnparseText {
 	 * add a string to the current line of the output
 	 * @param more String to be added
 	 */
-	public void addOutput(String more){
-		if (more == null || countOnly) return;
-		if ( ! didIndent ) {
+	public void addOutput(String more) {
+		if (more == null || countOnly) {
+			return;
+		}
+		if (!didIndent) {
 			textOutput.append(indentString + more);
 			didIndent = true;
 		} else {
 			textOutput.append(more);
 		}
-		if (DEBUG) System.out.println(more);
+		if (DEBUG) {
+			System.out.println(more);
+		}
 	}
 
 	/**
 	 * Add string to output and end with a new line
 	 * @param more String to be added
 	 */
-	public void addOutputNewline(String more){
-		if (more == null ) return;
+	public void addOutputNewline(String more) {
+		if (more == null) {
+			return;
+		}
 		lineCount++;
-		if (countOnly) return;
-		if ( ! didIndent ) {
+		if (countOnly) {
+			return;
+		}
+		if (!didIndent) {
 			textOutput.append(indentString);
 		}
 		textOutput = textOutput.append(more + AadlConstants.newlineChar);
 		didIndent = false;
-		if (DEBUG) System.out.println(more);
+		if (DEBUG) {
+			System.out.println(more);
+		}
 	}
 
 }

@@ -32,11 +32,11 @@
  * </copyright>
  */
 package org.osate.annexsupport;
+
 import java.util.List;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.osate.aadl2.instance.ComponentInstance;
-
 
 /**
  * @author lwrage
@@ -54,9 +54,12 @@ public class AnnexInstantiatorProxy extends AnnexProxy implements AnnexInstantia
 		super(configElem);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.cmu.sei.aadl.parser.annex.AnnexInstantiator#instantiateAnnex(java.lang.String, java.util.List)
 	 */
+	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName, List annexElements) {
 		AnnexInstantiator instantiator = getInstantiator();
 

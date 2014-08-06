@@ -7,7 +7,7 @@ package org.osate.aadl2.modelsupport.errorreporting;
  * abstract the commonalities of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} and
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporter}.
- * 
+ *
  * @author aarong
  */
 public interface ErrorReporter {

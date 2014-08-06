@@ -32,6 +32,7 @@
  * </copyright>
  */
 package org.osate.annexsupport;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 
 /**
@@ -39,18 +40,21 @@ import org.eclipse.core.runtime.IConfigurationElement;
  * @version $Id: AnnexInstantiatorRegistry.java,v 1.3 2007-07-10 20:41:44 jseibel Exp $
  */
 public class AnnexInstantiatorRegistry extends AnnexRegistry {
-	
+
 	protected AnnexInstantiatorRegistry() {
 		initialize(ANNEX_INSTANTIATOR_EXT_ID);
 	}
-	
+
 	public AnnexInstantiator getAnnexInstantiator(String annexName) {
 		return (AnnexInstantiator) extensions.get(annexName.toLowerCase());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.cmu.sei.aadl.parser.annex.AnnexRegistry#createProxy(org.eclipse.core.runtime.IConfigurationElement)
 	 */
+	@Override
 	protected AnnexProxy createProxy(IConfigurationElement configElem) {
 		return new AnnexInstantiatorProxy(configElem);
 	}

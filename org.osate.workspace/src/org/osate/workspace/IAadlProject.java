@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright (c) 2000, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Carnegie Mellon University - adapted for use in OSATE
@@ -34,7 +34,7 @@ public interface IAadlProject extends IAadlElement {
 
 	/**
 	 * Look up a package or property set by name in this project
-	 * 
+	 *
 	 * @param name the name of the package to find
 	 * @return the file resource for the source, an .aadl file, or null if the
 	 *         file cannot be found.
@@ -44,7 +44,7 @@ public interface IAadlProject extends IAadlElement {
 	/**
 	 * Look up a package or property set XML model by name in all projects in
 	 * the workspace. The lookup uses the projects' aadlpaths.
-	 * 
+	 *
 	 * @param name the name of the package to find
 	 * @return the file resource for the model, an .aaxl file, or null if the
 	 *         file cannot be found.
@@ -54,7 +54,7 @@ public interface IAadlProject extends IAadlElement {
 	/**
 	 * Create the path of the XML ouput file for a given AADL source file in
 	 * this project.
-	 * 
+	 *
 	 * @param aadlFile the AADL source file
 	 * @return the path of the corresponding model file
 	 */
@@ -63,7 +63,7 @@ public interface IAadlProject extends IAadlElement {
 	/**
 	 * return the path to the AADL text file that corresponds to the specified
 	 * aaxl model file
-	 * 
+	 *
 	 * @param file
 	 * @return IPath path
 	 */
@@ -72,7 +72,7 @@ public interface IAadlProject extends IAadlElement {
 	/**
 	 * return recent aaxl file. return null if there are syntax errors, or the
 	 * aaxl filedoes not exist or is out of date
-	 * 
+	 *
 	 * @param file IFile aadl text file
 	 * @return IFile aaxl file
 	 */
@@ -90,7 +90,7 @@ public interface IAadlProject extends IAadlElement {
 
 	/**
 	 * get the output (model) file for the specified file, or null
-	 * 
+	 *
 	 * @param aadlFile
 	 * @return model file or null
 	 */
@@ -98,7 +98,7 @@ public interface IAadlProject extends IAadlElement {
 
 	/**
 	 * get the aadl file for the aaxl file, or null
-	 * 
+	 *
 	 * @param aaxlFile XML aadl file
 	 * @return model file or null
 	 */
@@ -106,7 +106,7 @@ public interface IAadlProject extends IAadlElement {
 
 	/**
 	 * return the Aadl folder corresponding to the aaxl folder
-	 * 
+	 *
 	 * @param folder
 	 */
 	IFolder getComplementFolder(IFolder folder);
@@ -128,6 +128,6 @@ public interface IAadlProject extends IAadlElement {
 
 	/** Get all the model files in the project, both declarative and instance. */
 	EList<IFile> getAllModelFiles();
-	
-	public String getAadlProjectFile ();
+
+	public String getAadlProjectFile();
 }

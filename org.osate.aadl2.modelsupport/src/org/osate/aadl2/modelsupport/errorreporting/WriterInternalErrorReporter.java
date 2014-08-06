@@ -10,7 +10,7 @@ import java.io.Writer;
  * An internal error reporter to sends internal error messages to the given
  * Writer. Includes a {@link #SYSTEM_OUT prototype reference} to an instance
  * that sends the errors to {@link System#out}.
- * 
+ *
  * @author aarong
  */
 public final class WriterInternalErrorReporter extends AbstractInternalErrorReporter {
@@ -18,16 +18,16 @@ public final class WriterInternalErrorReporter extends AbstractInternalErrorRepo
 	private static final String END_OF_LINE = System.getProperty("line.separator");
 
 	/** Prototype reference that writes to the standard out. */
-	public static final WriterInternalErrorReporter SYSTEM_OUT =
-		new WriterInternalErrorReporter(new OutputStreamWriter(System.out));
-	
+	public static final WriterInternalErrorReporter SYSTEM_OUT = new WriterInternalErrorReporter(
+			new OutputStreamWriter(System.out));
+
 	/** Prototype reference that writes to the standard err. */
-	public static final WriterInternalErrorReporter SYSTEM_ERR =
-		new WriterInternalErrorReporter(new OutputStreamWriter(System.err));
-	
+	public static final WriterInternalErrorReporter SYSTEM_ERR = new WriterInternalErrorReporter(
+			new OutputStreamWriter(System.err));
+
 	/** The writer to use. */
 	private final Writer writer;
-	
+
 	public WriterInternalErrorReporter(final Writer w) {
 		writer = w;
 	}
@@ -41,11 +41,13 @@ public final class WriterInternalErrorReporter extends AbstractInternalErrorRepo
 			throw new RuntimeException("Problem using writer", e);
 		}
 	}
-	
+
+	@Override
 	public void internalErrorImpl(final String message) {
 		writeMessage("** INTERNAL ERROR: " + message);
 	}
 
+	@Override
 	public void internalErrorImpl(final Exception e) {
 		writeMessage("** INTERNAL ERROR: Exception \"" + e.getMessage() + "\"");
 	}

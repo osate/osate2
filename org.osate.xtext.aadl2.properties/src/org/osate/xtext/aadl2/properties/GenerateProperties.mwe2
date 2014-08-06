@@ -155,7 +155,7 @@ Workflow {
 			fragment = outline.QuickOutlineFragment {}
 
 			// quickfix API 
-			fragment = quickfix.QuickfixProviderFragment {}
+			fragment = quickfix.QuickfixProviderFragment auto-inject {}
 
 			// content assist API  
 			fragment = contentAssist.JavaBasedContentAssistFragment {}

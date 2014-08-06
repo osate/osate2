@@ -733,12 +733,12 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 	public boolean acceptsProperty(Property property) {
-		//OsateDebug.osateDebug("[CompnentInstanceImpl] property=" + property);
+		// OsateDebug.osateDebug("[CompnentInstanceImpl] property=" + property);
 
 		for (final PropertyOwner propOwner : property.getAppliesTos()) {
 
 			if (propOwner instanceof MetaclassReference) {
-				//OsateDebug.osateDebug("[CompnentInstanceImpl]   property owner=" + propOwner);
+				// OsateDebug.osateDebug("[CompnentInstanceImpl]   property owner=" + propOwner);
 				if ((((MetaclassReference) propOwner).getMetaclassNames().size() > 0)
 						&& ((MetaclassReference) propOwner).getMetaclassNames().get(0).equals("all")) {
 					return true;
@@ -771,7 +771,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 				if (getCategory().equals(categ)) {
 					return true;
 				}
-				//OsateDebug.osateDebug("   catLitteral =" + catLitteral);
+				// OsateDebug.osateDebug("   catLitteral =" + catLitteral);
 
 			}
 		}
@@ -991,7 +991,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 			if (som.getCurrentModes().contains(m)) {
 				return true;
-				//return getContainingComponentInstance().isActive(som);
+				// return getContainingComponentInstance().isActive(som);
 			}
 		}
 		return false;
@@ -1004,7 +1004,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return sub.getClassifier();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -1017,7 +1019,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return getName() + array;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
 	@Override
@@ -1038,7 +1042,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override
@@ -1062,4 +1068,4 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-} //ComponentInstanceImpl
+} // ComponentInstanceImpl

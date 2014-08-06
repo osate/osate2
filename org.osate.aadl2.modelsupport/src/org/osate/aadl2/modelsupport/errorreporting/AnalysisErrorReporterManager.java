@@ -42,10 +42,9 @@ import java.util.Map;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Element;
 
-
 /**
  * TODO: Fix this
- * 
+ *
  * This class manages the creation and use of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporter} instances
  * across a set of AADL text file resources. The manager keeps track of EMF
@@ -56,86 +55,80 @@ import org.osate.aadl2.Element;
  * found when using {@link Element} instances, but
  * the errors reported on the AADL text file. This class solves the problem of
  * mapping from the Element to the text file.
- * 
+ *
  * <p>
  * It's probably redundant to have the methods take the filename as a parameter
  * as they do, because the error reporters could already have the filename
  * information, but the parser is already written to work that way. Also, I
  * suppose we could have the situation where many files are used to create a
  * single resource, in which case the filename would not be redundant.
- * 
+ *
  * <P>
  * The manager is supplied with a
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterFactory}
  * instance that is used to create the error reporters.
- * 
+ *
  * <p>
  * <em>This class purposely only depends on EMF, and not on Eclipse</em>.
  * That is, while it would be convienent to make explicit use of IResources
  * here, we have chosen not to. Specific {@link ParseErrorReporter} may, of
  * course, have whatever dependencies they like.
- * 
+ *
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterFactory
- * 
+ *
  * @author aarong
  */
 public final class AnalysisErrorReporterManager extends AbstractErrorReporterManager {
 	private static final String[] emptyAttributes = new String[0];
 	private static final Object[] emptyValues = new Object[0];
-	
-	
-	
+
 	/** Singleton reference to an error manager that ignores all messages. */
-	public static final AnalysisErrorReporterManager NULL_ERROR_MANANGER =
-		new AnalysisErrorReporterManager(
-				NullAnalysisErrorReporter.factory);
-	
+	public static final AnalysisErrorReporterManager NULL_ERROR_MANANGER = new AnalysisErrorReporterManager(
+			NullAnalysisErrorReporter.factory);
+
 	/** The factory to use. */
 	private final AnalysisErrorReporterFactory factory;
-	
+
 	/** The mapping from Resources to error reporters. */
 	private final Map reportersMap;
-	
+
 	/**
 	 * A list of all the reporters. Replicates {@link #reportersMap}, but it's
 	 * simpler and faster to traverse this list than mess with the hashtable.
 	 */
 	private final List reportersList;
-	
+
 	/**
-	 * The prefix to append to the beginning of each message.  This is 
+	 * The prefix to append to the beginning of each message.  This is
 	 * derived from the stack of prefixes {@link #prefixStack}.
 	 */
 	private String thePrefix = "";
-	
+
 	/**
 	 * That stack of prefixes.  The actual prefix is the inorder concatination
 	 * of the contents of this list.
 	 */
 	private LinkedList prefixStack = new LinkedList();
-	
-	
-	
-	public AnalysisErrorReporterManager( final AnalysisErrorReporterFactory fact) {
+
+	public AnalysisErrorReporterManager(final AnalysisErrorReporterFactory fact) {
 		super();
 		factory = fact;
 		reportersMap = new HashMap();
 		reportersList = new LinkedList();
 	}
-	
+
 	@Deprecated
-	public AnalysisErrorReporterManager(
-			final InternalErrorReporter ier, final AnalysisErrorReporterFactory fact) {
+	public AnalysisErrorReporterManager(final InternalErrorReporter ier, final AnalysisErrorReporterFactory fact) {
 		super(ier);
 		factory = fact;
 		reportersMap = new HashMap();
 		reportersList = new LinkedList();
 	}
-	
+
 	/**
 	 * Stop managing the given Resource.
-	 * @param rsrc The resource to forget about.  
+	 * @param rsrc The resource to forget about.
 	 */
 	public final void removeResource(final Resource rsrc) {
 		reportersList.remove(reportersMap.remove(rsrc));
@@ -146,7 +139,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 	 * If the manager has not yet used the error reporter for the given
 	 * resource, the {@link ErrorReporter#deleteMessages()} method is called on
 	 * the reporter.
-	 * 
+	 *
 	 * @exception IllegalArgumentException
 	 *                Thrown if a reporter cannot be found or created for the
 	 *                given Resource.
@@ -163,8 +156,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 			// don't have it, make a new one and clear it
 			errReporter = factory.getReporterFor(rsrc);
 			if (errReporter == null) {
-				throw new IllegalArgumentException(
-					"Could not find error reporter for the resource.");
+				throw new IllegalArgumentException("Could not find error reporter for the resource.");
 			}
 			reportersMap.put(rsrc, errReporter);
 			reportersList.add(errReporter);
@@ -172,7 +164,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		}
 		return errReporter;
 	}
-	
+
 	/**
 	 * Get the total number of errors reported across all the error reporters
 	 * being managed.
@@ -185,7 +177,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		}
 		return numErr;
 	}
-	
+
 	/**
 	 * Get the total number of warnings reported across all the error reporters
 	 * being managed.
@@ -198,7 +190,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		}
 		return numWarn;
 	}
-	
+
 	/**
 	 * Get the total number of errors reported across all the error reporters
 	 * being managed.
@@ -211,11 +203,12 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		}
 		return numInfo;
 	}
-	
+
 	/**
 	 * Get the total number of errors and warnings across all the error reports
 	 * being managed.
 	 */
+	@Override
 	public final int getNumMessages() {
 		int numMsg = 0;
 		for (final Iterator i = reportersList.iterator(); i.hasNext();) {
@@ -232,17 +225,17 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 //			addPrefix("");
 //		}
 //	}
-	
+
 	public final void addPrefix(final String pre) {
 		prefixStack.addFirst(pre);
 		recomputePrefix();
 	}
-	
+
 	public final void removePrefix() {
 		prefixStack.removeFirst();
 		recomputePrefix();
 	}
-	
+
 	private void recomputePrefix() {
 		final StringBuffer sb = new StringBuffer();
 		for (final Iterator i = prefixStack.iterator(); i.hasNext();) {
@@ -250,11 +243,11 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		}
 		thePrefix = sb.toString();
 	}
-	
+
 	/**
 	 * Report an error on an Element (AADL object model object) using the error
 	 * reporter associated with that object's {@link Resource}.
-	 * 
+	 *
 	 * @param obj
 	 *            the object to which the marker is pointing
 	 * @param msg
@@ -265,16 +258,15 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		errReporter.error(obj, thePrefix + msg, emptyAttributes, emptyValues);
 	}
 
-	public void error(final Element obj, final String msg,
-			final String[] attrs, final Object[] values) {
+	public void error(final Element obj, final String msg, final String[] attrs, final Object[] values) {
 		final AnalysisErrorReporter errReporter = getReporter(obj.eResource());
 		errReporter.error(obj, thePrefix + msg, attrs, values);
 	}
-	
+
 	/**
 	 * Report a warning on an Element (AADL object model object) using the error
 	 * reporter associated with that object's {@link Resource}.
-	 * 
+	 *
 	 * @param obj
 	 *            the object to which the marker is pointing
 	 * @param msg
@@ -285,8 +277,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		errReporter.warning(obj, thePrefix + msg, emptyAttributes, emptyValues);
 	}
 
-	public void warning(final Element obj, final String msg,
-			final String[] attrs, final Object[] values) {
+	public void warning(final Element obj, final String msg, final String[] attrs, final Object[] values) {
 		final AnalysisErrorReporter errReporter = getReporter(obj.eResource());
 		errReporter.warning(obj, thePrefix + msg, attrs, values);
 	}
@@ -294,7 +285,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 	/**
 	 * Report an information message on an Element (AADL object model object)
 	 * using the error reporter associated with that object's {@link Resource}.
-	 * 
+	 *
 	 * @param obj
 	 *            the object to which the marker is pointing
 	 * @param msg
@@ -305,8 +296,7 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		errReporter.info(obj, thePrefix + msg, emptyAttributes, emptyValues);
 	}
 
-	public void info(final Element obj, final String msg,
-			final String[] attrs, final Object[] values) {
+	public void info(final Element obj, final String msg, final String[] attrs, final Object[] values) {
 		final AnalysisErrorReporter errReporter = getReporter(obj.eResource());
 		errReporter.info(obj, thePrefix + msg, attrs, values);
 	}

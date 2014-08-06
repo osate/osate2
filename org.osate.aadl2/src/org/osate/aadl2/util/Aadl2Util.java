@@ -25,7 +25,6 @@ public class Aadl2Util {
 	 */
 	public static IPropertyService propertyService = null;
 
-	
 	/**
 	 * The getUseTunedEqualsMethods() is used to change a configuration
 	 * flag that indicate if the equals() method from the AADL properties
@@ -37,8 +36,7 @@ public class Aadl2Util {
 	 * and https://bugs.eclipse.org/bugs/show_bug.cgi?id=412999
 	 * @return a boolean value indicated if the the behavior of equals of overriden or not
 	 */
-	public static boolean getUseTunedEqualsMethods ()
-	{
+	public static boolean getUseTunedEqualsMethods() {
 		return _useTunedEqualsMethods;
 	}
 
@@ -48,11 +46,10 @@ public class Aadl2Util {
 	 * equals methods of the EObject class related to AADL properties.
 	 * @param b the new value
 	 */
-	public static void setUseTunedEqualsMethods (boolean b)
-	{
+	public static void setUseTunedEqualsMethods(boolean b) {
 		_useTunedEqualsMethods = b;
-	}	
-	
+	}
+
 	/**
 	 * Xtext resolver leaves unresolved proxy when reference cannot be resolved.
 	 * @param eo
@@ -68,7 +65,7 @@ public class Aadl2Util {
 	 * @return
 	 */
 	public static boolean isUnresolved(EObject eo) {
-		return  eo.eIsProxy();
+		return eo.eIsProxy();
 	}
 
 	/**
@@ -85,12 +82,13 @@ public class Aadl2Util {
 		boolean sameName = p1Name.equalsIgnoreCase(p2Name);
 		return sameName;
 	}
-	
-	public static String getName(NamedElement ne){
-		if (ne.hasName()) return ne.getName();
+
+	public static String getName(NamedElement ne) {
+		if (ne.hasName())
+			return ne.getName();
 		return getRefinedName(ne, ne);
 	}
-	
+
 	/**
 	 * refined Elements do not have an assigned name, but they have a reference to the Element they refine.
 	 * One of them is the original with an actually assigned name
@@ -98,18 +96,20 @@ public class Aadl2Util {
 	 * @param root The start of the search. Used to detect cycles
 	 * @return
 	 */
-	public static String getRefinedName(NamedElement ne, NamedElement root){
-		if (ne instanceof RefinableElement){
-			RefinableElement re = (RefinableElement)ne;
+	public static String getRefinedName(NamedElement ne, NamedElement root) {
+		if (ne instanceof RefinableElement) {
+			RefinableElement re = (RefinableElement) ne;
 			RefinableElement ref = re.getRefinedElement();
-			if (ref == root) return null; // terminate on cycle
-			if (ref != null) return getRefinedName(ref, root);
+			if (ref == root)
+				return null; // terminate on cycle
+			if (ref != null)
+				return getRefinedName(ref, root);
 			// no additional reference pointer, return name
 			return ne.getName();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Find owned named elements. In the case of a thread implementation or subprogram implementation
 	 * also look up subprogram calls.
@@ -117,43 +117,33 @@ public class Aadl2Util {
 	 * @param name name of Element to be found
 	 * @return NamedElement or null
 	 */
-	public static NamedElement findOwnedNamedElement(Classifier owner, String name)
-	{
-		for (Element e : owner.getOwnedElements())
-		{ 
-			if (! (e instanceof NamedElement))
+	public static NamedElement findOwnedNamedElement(Classifier owner, String name) {
+		for (Element e : owner.getOwnedElements()) {
+			if (!(e instanceof NamedElement))
 				continue;
-			NamedElement ne = (NamedElement)e;
+			NamedElement ne = (NamedElement) e;
 			String neName = Aadl2Util.getName(ne);
 			if (neName != null && neName.equalsIgnoreCase(name))
 				return ne;
 		}
-		if (owner instanceof ThreadImplementation)
-		{
+		if (owner instanceof ThreadImplementation) {
 			ThreadImplementation ti = (ThreadImplementation) owner;
-			for (SubprogramCall sc : ti.getSubprogramCalls())
-			{
-				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name))
-				{
+			for (SubprogramCall sc : ti.getSubprogramCalls()) {
+				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name)) {
 					return sc;
 				}
 			}
-		} else
-		if (owner instanceof SubprogramImplementation)
-		{
+		} else if (owner instanceof SubprogramImplementation) {
 			SubprogramImplementation si = (SubprogramImplementation) owner;
-			for (SubprogramCall sc : si.getSubprogramCalls())
-			{
-				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name))
-				{
+			for (SubprogramCall sc : si.getSubprogramCalls()) {
+				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name)) {
 					return sc;
 				}
 			}
 		}
-		
+
 		return null;
 	}
-
 
 	/**
 	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
@@ -163,35 +153,33 @@ public class Aadl2Util {
 	 * @param name String Property Definition name
 	 * @return Property or null
 	 */
-	public static Property lookupPropertyDefinition(	final EObject context,
-														final String propSetName,
-														final String propName ) {
-		if ( propertyService != null ) {
-			return propertyService.lookupPropertyDefinition(context,propSetName, propName );
+	public static Property lookupPropertyDefinition(final EObject context, final String propSetName,
+			final String propName) {
+		if (propertyService != null) {
+			return propertyService.lookupPropertyDefinition(context, propSetName, propName);
 		}
 
 		// When no property service is provided, search through the resources of the resource set.
-		for ( final Resource res : context.eResource().getResourceSet().getResources() ) {
-			if ( !res.getContents().isEmpty() ) {
-				final EObject root = res.getContents().get( 0 );
-				
-				if ( root instanceof PropertySet ) {
+		for (final Resource res : context.eResource().getResourceSet().getResources()) {
+			if (!res.getContents().isEmpty()) {
+				final EObject root = res.getContents().get(0);
+
+				if (root instanceof PropertySet) {
 					final PropertySet propSet = (PropertySet) root;
-					
-					if ( propSetName.equals( propSet.getName() ) ) {
-						final NamedElement property = propSet.findNamedElement( propName );
-						
-						if ( property instanceof Property ) {
+
+					if (propSetName.equals(propSet.getName())) {
+						final NamedElement property = propSet.findNamedElement(propName);
+
+						if (property instanceof Property) {
 							return (Property) property;
 						}
 					}
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
 
 	public static String getPrintableSOMName(SystemOperationMode som) {
 		String somName = som.getName();
@@ -205,18 +193,17 @@ public class Aadl2Util {
 		String pathname = "";
 		EList<ContainmentPathElement> pathelements = path.getContainmentPathElements();
 		for (ContainmentPathElement containmentPathElement : pathelements) {
-			pathname = pathname + (pathname.isEmpty()?"":".")+containmentPathElement.getNamedElement().getName();
+			pathname = pathname + (pathname.isEmpty() ? "" : ".") + containmentPathElement.getNamedElement().getName();
 		}
 		return pathname;
 	}
-	
-	
+
 	/**
 	 * extract the item name from a qualified name, the identifier after the last ::
 	 * @param qualname String Qualified name
 	 * @return String item name 
 	 */
-	public static String getItemNameWithoutQualification(String qualname){
+	public static String getItemNameWithoutQualification(String qualname) {
 		final int idx = qualname.lastIndexOf("::");
 		if (idx != -1) {
 			return qualname.substring(idx + 2);
@@ -224,19 +211,17 @@ public class Aadl2Util {
 		return qualname;
 	}
 
-
 	/**
 	 * extract the package name of a qualified name, everything up to the last :: or null
 	 * @param qualname
 	 * @return String
 	 */
-	public static String getPackageName(String qualname){
+	public static String getPackageName(String qualname) {
 		final int idx = qualname.lastIndexOf("::");
 		if (idx != -1) {
 			return qualname.substring(0, idx);
 		}
 		return null;
 	}
-
 
 }

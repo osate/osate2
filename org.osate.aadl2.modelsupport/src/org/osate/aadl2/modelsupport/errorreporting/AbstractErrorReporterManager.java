@@ -18,29 +18,32 @@ import org.osate.core.OsateCorePlugin;
  * it is likely that in any given environment they will want to share the
  * implementation of the internal error reporter (e.g., to log events to the
  * Eclipse "error" view).
- * 
+ *
  * @author aarong
  */
 public abstract class AbstractErrorReporterManager implements ErrorReporterManager {
-	private static  InternalErrorReporter internalErrDelegate = Platform.isRunning()?new LogInternalErrorReporter(OsateCorePlugin.getDefault().getBundle()):WriterInternalErrorReporter.SYSTEM_ERR;
-	
-	
+	private static InternalErrorReporter internalErrDelegate = Platform.isRunning() ? new LogInternalErrorReporter(
+			OsateCorePlugin.getDefault().getBundle()) : WriterInternalErrorReporter.SYSTEM_ERR;
+
 	protected AbstractErrorReporterManager() {
 	}
-	
+
 	@Deprecated
 	protected AbstractErrorReporterManager(final InternalErrorReporter ier) {
 		internalErrDelegate = ier;
 	}
 
+	@Override
 	public void internalError(final String message) {
 		internalErrDelegate.internalError(message);
 	}
 
+	@Override
 	public void internalError(final Exception e) {
 		internalErrDelegate.internalError(e);
 	}
 
+	@Override
 	public int getNumInternalErrors() {
 		return internalErrDelegate.getNumInternalErrors();
 	}

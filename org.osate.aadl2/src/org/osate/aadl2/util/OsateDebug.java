@@ -9,4 +9,8 @@ public class OsateDebug {
 			System.out.println(str);
 		}
 	}
+
+	public static void osateDebug(String severity, String details) {
+		osateDebug("[" + severity + "]" + " " + details);
+	}
 }

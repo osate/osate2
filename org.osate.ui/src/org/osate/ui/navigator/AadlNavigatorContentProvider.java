@@ -38,25 +38,18 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-
-public class AadlNavigatorContentProvider extends WorkbenchContentProvider
-{
-	public Object[] getChildren(Object element)
-	{
-		if (element instanceof IProject)
-		{
-			IProject project = (IProject)element;
-			if (project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
-			{
-				try
-				{
+public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
+	@Override
+	public Object[] getChildren(Object element) {
+		if (element instanceof IProject) {
+			IProject project = (IProject) element;
+			if (project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+				try {
 					// DB: Fix
 					return project.members();
-					//return project.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR).members();
-				}
-				catch (CoreException e)
-				{
-					//Do Nothing.
+					// return project.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR).members();
+				} catch (CoreException e) {
+					// Do Nothing.
 				}
 			}
 		}

@@ -116,7 +116,7 @@ public abstract class AbstractAadl2RuntimeModule extends DefaultRuntimeModule {
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
 	public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
-		return org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider.class;
+		return org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
@@ -154,14 +154,14 @@ public abstract class AbstractAadl2RuntimeModule extends DefaultRuntimeModule {
 		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class).to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
 	}
 
-	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
-	public void configureIResourceDescriptionsBuilderScope(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider.NAMED_BUILDER_SCOPE)).to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
-	}
-
 	// contributed by org.eclipse.xtext.generator.formatting.FormatterFragment
 	public Class<? extends org.eclipse.xtext.formatting.IFormatter> bindIFormatter() {
 		return org.osate.xtext.aadl2.formatting.Aadl2Formatter.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.tasks.TaskTagPreferencePageFragment
+	public Class<? extends org.eclipse.xtext.tasks.ITaskTagProvider> bindITaskTagProvider() {
+		return org.eclipse.xtext.tasks.PreferenceTaskTagProvider.class;
 	}
 
 }

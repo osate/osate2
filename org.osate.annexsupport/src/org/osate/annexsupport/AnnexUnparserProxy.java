@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 
-
 /**
  * @author lwrage
  * @version $Id: AnnexUnparserProxy.java,v 1.3 2009-10-09 18:49:32 lwrage Exp $
@@ -58,8 +57,9 @@ public class AnnexUnparserProxy extends AnnexProxy implements AnnexUnparser {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.osate.annexsupport.AnnexUnparser#unparseAnnexLibrary(
-	 *         edu.cmu.sei.aadl.model.core.AnnexLibrary, java.lang.String)
+	 * edu.cmu.sei.aadl.model.core.AnnexLibrary, java.lang.String)
 	 */
+	@Override
 	public String unparseAnnexLibrary(AnnexLibrary library, String indent) {
 		AnnexUnparser unparser = getUnparser();
 
@@ -73,8 +73,9 @@ public class AnnexUnparserProxy extends AnnexProxy implements AnnexUnparser {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.osate.annexsupport.AnnexUnparser#unparseAnnexSubclause(
-	 *         edu.cmu.sei.aadl.model.core.AnnexSubclause, java.lang.String)
+	 * edu.cmu.sei.aadl.model.core.AnnexSubclause, java.lang.String)
 	 */
+	@Override
 	public String unparseAnnexSubclause(AnnexSubclause subclause, String indent) {
 		AnnexUnparser unparser = getUnparser();
 

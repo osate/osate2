@@ -15,7 +15,7 @@ import org.osate.aadl2.NumberType;
 public class NumberTypeRangeAssistant extends AbstractAssistant {
 	private final NumberType numType;
 	private final ISerializer serializer;
-	
+
 	private Label typeLabel = null;
 	private Label lowerLabel = null;
 	private Text lowerField = null;
@@ -23,17 +23,18 @@ public class NumberTypeRangeAssistant extends AbstractAssistant {
 	private Text upperField = null;
 	private Label deltaLabel = null;
 	private Text deltaField = null;
-	
-	public NumberTypeRangeAssistant(Composite parent, NumberType numType, ISerializer serializer, AssistantValueChangedListener listener) {
+
+	public NumberTypeRangeAssistant(Composite parent, NumberType numType, ISerializer serializer,
+			AssistantValueChangedListener listener) {
 		super(parent, listener);
 		this.numType = numType;
 		this.serializer = serializer;
 		layoutComponents();
 	}
-	
+
 	private void layoutComponents() {
 		setLayout(new GridLayout(2, false));
-		
+
 		typeLabel = new Label(this, SWT.NONE);
 		StringBuilder labelText = new StringBuilder("Enter ");
 		labelText.append(numType instanceof AadlInteger ? "integer" : "real");
@@ -47,32 +48,32 @@ public class NumberTypeRangeAssistant extends AbstractAssistant {
 		labelText.append(".");
 		typeLabel.setText(labelText.toString());
 		typeLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
-		
+
 		lowerLabel = new Label(this, SWT.NONE);
 		lowerLabel.setText("Lower bound:");
 		lowerLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		lowerField = new Text(this, SWT.BORDER);
 		lowerField.setFocus();
 		lowerField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		upperLabel = new Label(this, SWT.NONE);
 		upperLabel.setText("Upper bound:");
 		upperLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		upperField = new Text(this, SWT.BORDER);
 		upperField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		deltaLabel = new Label(this, SWT.NONE);
 		deltaLabel.setText("Delta (Optional)");
 		deltaLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		deltaField = new Text(this, SWT.BORDER);
 		deltaField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		addListeners();
 	}
-	
+
 	private void addListeners() {
 		lowerField.addModifyListener(new ModifyListener() {
 			@Override
@@ -93,7 +94,7 @@ public class NumberTypeRangeAssistant extends AbstractAssistant {
 			}
 		});
 	}
-	
+
 	@Override
 	public String getValueText() {
 		StringBuilder valueText = new StringBuilder(lowerField.getText());
@@ -105,12 +106,12 @@ public class NumberTypeRangeAssistant extends AbstractAssistant {
 		}
 		return valueText.toString();
 	}
-	
+
 	@Override
 	public boolean isComplete() {
 		return lowerField.getText().length() != 0 && upperField.getText().length() != 0;
 	}
-	
+
 	@Override
 	public void setAssistantEnabled(boolean enabled) {
 		typeLabel.setEnabled(enabled);

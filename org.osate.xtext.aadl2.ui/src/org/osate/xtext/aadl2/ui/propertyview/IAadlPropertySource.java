@@ -14,7 +14,7 @@ public interface IAadlPropertySource {
 	 * @return the named element
 	 */
 	NamedElement getNamedElement();
-	
+
 	/**
 	 * Returns the Xtext document that contains the element
 	 * @return the Xtext document

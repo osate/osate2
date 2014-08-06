@@ -1,5 +1,5 @@
 /*
-* /**
+ * /**
  * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
@@ -31,7 +31,7 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
-*/
+ */
 package org.osate.xtext.aadl2.properties.ui.labeling;
 
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
@@ -43,16 +43,16 @@ import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
  */
 public class PropertiesDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 
-/*
-	//Labels and icons can be computed like this:
-
-	String text(IEObjectDescription ele) {
-	  return "my "+ele.getName();
-	}
-
-    String image(IEObjectDescription ele) {
-      return ele.getEClass().getName() + ".gif";
-    }
-*/
+	/*
+	 * //Labels and icons can be computed like this:
+	 * 
+	 * String text(IEObjectDescription ele) {
+	 * return "my "+ele.getName();
+	 * }
+	 * 
+	 * String image(IEObjectDescription ele) {
+	 * return ele.getEClass().getName() + ".gif";
+	 * }
+	 */
 
 }

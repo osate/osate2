@@ -68,4 +68,4 @@ public abstract class FlowElementInstanceImpl extends InstanceObjectImpl impleme
 		return InstancePackage.Literals.FLOW_ELEMENT_INSTANCE;
 	}
 
-} //FlowElementInstanceImpl
+} // FlowElementInstanceImpl

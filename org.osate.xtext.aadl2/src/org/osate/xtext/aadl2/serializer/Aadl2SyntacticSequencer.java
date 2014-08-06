@@ -49,53 +49,61 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 
 	@Override
 	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof Classifier)
-			return ((Classifier)semanticObject).getName();
-		if(semanticObject instanceof AadlPackage)
-			return ((AadlPackage)semanticObject).getName();
+		if (semanticObject instanceof Classifier) {
+			return ((Classifier) semanticObject).getName();
+		}
+		if (semanticObject instanceof AadlPackage) {
+			return ((AadlPackage) semanticObject).getName();
+		}
 		return super.getIDToken(semanticObject, ruleCall, node);
 	}
-	
+
 	@Override
 	protected String getFULLINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof ComponentImplementation)
- 			return ((ComponentImplementation)semanticObject).getName();
+		if (semanticObject instanceof ComponentImplementation) {
+			return ((ComponentImplementation) semanticObject).getName();
+		}
 		return super.getFULLINAMEToken(semanticObject, ruleCall, node);
 	}
-// TODO phf: if we use PNAME at the end we need to fix the 	
+
+// TODO phf: if we use PNAME at the end we need to fix the
 	@Override
 	protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof AadlPackage)
- 			return ((AadlPackage)semanticObject).getName();
+		if (semanticObject instanceof AadlPackage) {
+			return ((AadlPackage) semanticObject).getName();
+		}
 		return super.getPNAMEToken(semanticObject, ruleCall, node);
 	}
-	
+
 	@Override
 	protected String getFLOWOUTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof FlowImplementation){
-			FlowEnd outend = ((FlowImplementation)semanticObject).getSpecification().getOutEnd();
-			FlowEnd inend = ((FlowImplementation)semanticObject).getSpecification().getInEnd();
-			
-			// For some reason this can be called when handling Flow Sink Implementations. In that case, return the name of the in end unless there actually is an out end set.
-			if(((FlowImplementation)semanticObject).getKind() == FlowKind.SINK) {
-				if(outend == null && inend != null) {
+		if (semanticObject instanceof FlowImplementation) {
+			FlowEnd outend = ((FlowImplementation) semanticObject).getSpecification().getOutEnd();
+			FlowEnd inend = ((FlowImplementation) semanticObject).getSpecification().getInEnd();
+
+			// For some reason this can be called when handling Flow Sink Implementations. In that case, return the name of the in end unless there actually is
+// an out end set.
+			if (((FlowImplementation) semanticObject).getKind() == FlowKind.SINK) {
+				if (outend == null && inend != null) {
 					return AadlUtil.getFlowEndName(inend);
 				}
 				return AadlUtil.getFlowEndName(outend);
 			}
-			String head = (((FlowImplementation)semanticObject).getKind() == FlowKind.PATH && ((FlowImplementation)semanticObject).getOwnedFlowSegments().isEmpty()?AadlUtil.getFlowEndName(inend)+" -> ":"");
- 			return head+AadlUtil.getFlowEndName(outend);
+			String head = (((FlowImplementation) semanticObject).getKind() == FlowKind.PATH
+					&& ((FlowImplementation) semanticObject).getOwnedFlowSegments().isEmpty() ? AadlUtil
+					.getFlowEndName(inend) + " -> " : "");
+			return head + AadlUtil.getFlowEndName(outend);
 		}
 		return super.getFLOWOUTToken(semanticObject, ruleCall, node);
 	}
-	
+
 	@Override
 	protected String getFLOWINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof FlowImplementation){
-			FlowEnd inend = ((FlowImplementation)semanticObject).getSpecification().getInEnd();
+		if (semanticObject instanceof FlowImplementation) {
+			FlowEnd inend = ((FlowImplementation) semanticObject).getSpecification().getInEnd();
 //			FlowEnd outend = ((FlowImplementation)semanticObject).getSpecification().getOutEnd();
 //			String tail = (((FlowImplementation)semanticObject).getKind() == FlowKind.PATH && ((FlowImplementation)semanticObject).getOwnedFlowSegments().isEmpty()?" -> "+AadlUtil.getFlowEndName(outend):"");
- 			return AadlUtil.getFlowEndName(inend);
+			return AadlUtil.getFlowEndName(inend);
 		}
 		return super.getFLOWINToken(semanticObject, ruleCall, node);
 	}

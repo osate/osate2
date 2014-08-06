@@ -42,7 +42,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
 
-
 /**
  * Traversal implementation that visits all the Component Classifiers used in
  * the model in a prefix order. That is, given a component implementation, it
@@ -56,9 +55,9 @@ import org.osate.aadl2.Subcomponent;
  *       <li>visits the component type of the subcomponent, if given
  *     </ul>
  * </ol>
- * 
+ *
  * <p>A particular classifier may be visited more than once.
- * 
+ *
  * @author aarong
  */
 final class TopDownComponentClassifierTravseral extends AbstractTopDownComponentTraversal {
@@ -67,11 +66,13 @@ final class TopDownComponentClassifierTravseral extends AbstractTopDownComponent
 		super(pm);
 	}
 
+	@Override
 	protected void visitComponentImpl(final ComponentImplementation cimpl) {
 		processingMethod.processObject(cimpl);
 		processingMethod.processObject(cimpl.getType());
 	}
 
+	@Override
 	protected void visitSubcomponent(final Subcomponent sc, final Stack<ComponentImplementation> visited) {
 		final ComponentImplementation ci = sc.getComponentImplementation();
 		if (ci != null) {

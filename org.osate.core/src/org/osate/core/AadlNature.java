@@ -43,7 +43,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.xtext.builder.nature.XtextNature;
 
-public class AadlNature extends XtextNature implements IProjectNature{
+public class AadlNature extends XtextNature implements IProjectNature {
 
 	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
 
@@ -62,6 +62,7 @@ public class AadlNature extends XtextNature implements IProjectNature{
 	/**
 	 * @see IProjectNature#getProject()
 	 */
+	@Override
 	public IProject getProject() {
 		return project;
 	}
@@ -69,6 +70,7 @@ public class AadlNature extends XtextNature implements IProjectNature{
 	/**
 	 * @see IProjectNature#setProject(IProject)
 	 */
+	@Override
 	public void setProject(IProject project) {
 		this.project = project;
 	}
@@ -76,16 +78,17 @@ public class AadlNature extends XtextNature implements IProjectNature{
 	/**
 	 * @see IProjectNature#configure()
 	 */
+	@Override
 	public void configure() throws CoreException {
 		if (DEBUG) {
 			System.out.println("configuring AADL nature");
 		}
 		IProjectDescription desc = getProject().getDescription();
-		
+
 //		ICommand command = desc.newCommand();
 //		command.setBuilderName("edu.cmu.sei.osate.autoanalysis.autoanalysisbuilder");
 //		setBuilderCommand(desc, command);
-		
+
 //		ICommand command = desc.newCommand();
 //		command.setBuilderName(AadlBuilder.BUILDER_ID);
 //		setBuilderCommand(desc, command);
@@ -94,6 +97,7 @@ public class AadlNature extends XtextNature implements IProjectNature{
 	/**
 	 * @see IProjectNature#deconfigure()
 	 */
+	@Override
 	public void deconfigure() throws CoreException {
 		if (DEBUG) {
 			System.out.println("deconfiguring AADL nature");
@@ -168,7 +172,9 @@ public class AadlNature extends XtextNature implements IProjectNature{
 	 */
 	public static boolean hasNature(IProject project) {
 		boolean hasNature;
-		if (!project.isOpen()) return false;
+		if (!project.isOpen()) {
+			return false;
+		}
 		try {
 			hasNature = project.hasNature(ID);
 		} catch (CoreException e) {

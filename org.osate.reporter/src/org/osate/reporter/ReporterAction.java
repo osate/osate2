@@ -45,7 +45,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.ui.OsateUiPlugin;
 
-
 /**
  * @author phf
  *
@@ -58,19 +57,20 @@ public class ReporterAction implements IWorkbenchWindowActionDelegate, IObjectAc
 	 */
 	private IResource currentSelection = null;
 	private IWorkbenchWindow workbenchWindow = null;
-	
+
 	/**
 	 * The constructor.
 	 */
 	public ReporterAction() {
 	}
 
-   /**
-    * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-    */
-   public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-	   this.workbenchWindow = targetPart.getSite().getWorkbenchWindow();
-   }
+	/**
+	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
+	 */
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		workbenchWindow = targetPart.getSite().getWorkbenchWindow();
+	}
 
 	/**
 	 * The action has been activated. The argument of the
@@ -78,30 +78,31 @@ public class ReporterAction implements IWorkbenchWindowActionDelegate, IObjectAc
 	 * in the workbench UI.
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		if (currentSelection == null) {
-			MessageDialog.openError(null, "Reporter Errror",
-					"No resource selected.");
+			MessageDialog.openError(null, "Reporter Errror", "No resource selected.");
 			return;
 		}
-		try 
-		{
+		try {
 			Reporter.report(currentSelection, workbenchWindow);
 		} catch (CoreException e1) {
 			OsateUiPlugin.log(e1);
 		}
 	}
-/**
-	 * Selection in the workbench has been changed. We
-	 * can change the state of the 'real' action here
-	 * if we want, but this can only happen after
-	 * the delegate has been created.
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-	 */
+
+	/**
+		 * Selection in the workbench has been changed. We
+		 * can change the state of the 'real' action here
+		 * if we want, but this can only happen after
+		 * the delegate has been created.
+		 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+		 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {
-			Object object = ((IStructuredSelection)selection).getFirstElement();
-			if ( object != null && object instanceof IResource ){
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			Object object = ((IStructuredSelection) selection).getFirstElement();
+			if (object != null && object instanceof IResource) {
 				currentSelection = (IResource) object;
 			}
 		}
@@ -112,6 +113,7 @@ public class ReporterAction implements IWorkbenchWindowActionDelegate, IObjectAc
 	 * resources we previously allocated.
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
+	@Override
 	public void dispose() {
 	}
 
@@ -120,8 +122,8 @@ public class ReporterAction implements IWorkbenchWindowActionDelegate, IObjectAc
 	 * be able to provide parent shell for the message dialog.
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
-	public void init(IWorkbenchWindow window)
-	{
+	@Override
+	public void init(IWorkbenchWindow window) {
 		workbenchWindow = window;
 	}
 }

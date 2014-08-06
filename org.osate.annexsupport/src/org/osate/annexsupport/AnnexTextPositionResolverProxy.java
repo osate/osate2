@@ -33,15 +33,8 @@
  */
 package org.osate.annexsupport;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.resource.XtextResource;
-
 
 public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexTextPositionResolver {
 
@@ -55,10 +48,10 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 		super(configElem);
 	}
 
-	
 	// mechanism to resolve individual offsets
-	public TextPositionInfo resolveElementAt(EObject annexRoot, int offset){
-	AnnexTextPositionResolver resolver = getResolverService();
+	@Override
+	public TextPositionInfo resolveElementAt(EObject annexRoot, int offset) {
+		AnnexTextPositionResolver resolver = getResolverService();
 
 		if (resolver == null) {
 			return null;
@@ -73,8 +66,9 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 	}
 
 	// mechanism to resolve individual offsets
-	public TextPositionInfo resolveCrossReferencedElementAt( EObject annexRoot, int offset){
-	AnnexTextPositionResolver resolver = getResolverService();
+	@Override
+	public TextPositionInfo resolveCrossReferencedElementAt(EObject annexRoot, int offset) {
+		AnnexTextPositionResolver resolver = getResolverService();
 
 		if (resolver == null) {
 			return null;
@@ -95,8 +89,9 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 		try {
 			textpositionresolver = (AnnexTextPositionResolver) configElem.createExecutableExtension(ATT_CLASS);
 		} catch (Exception e) {
-			AnnexPlugin.logError("Failed to instantiate " + annexName + " text position resolver " + className + " in type: " + id
-					+ " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
+			AnnexPlugin.logError(
+					"Failed to instantiate " + annexName + " text position resolver " + className + " in type: " + id
+							+ " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
 		}
 		return textpositionresolver;
 	}

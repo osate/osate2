@@ -190,4 +190,4 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 		return result.toString();
 	}
 
-} //PortProxyImpl
+} // PortProxyImpl

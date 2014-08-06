@@ -41,10 +41,10 @@ import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 
 public class UpdatePredeclaredPropertiesHandler extends AbstractHandler {
 
-
-		public Object execute(ExecutionEvent event) throws ExecutionException {
-			PredeclaredProperties.updatePluginContributedAadl();
-			return null;
-		}
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		PredeclaredProperties.updatePluginContributedAadl();
+		return null;
+	}
 
 }

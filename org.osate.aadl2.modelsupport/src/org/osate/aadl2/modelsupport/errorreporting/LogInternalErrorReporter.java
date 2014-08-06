@@ -11,15 +11,13 @@ import org.osgi.framework.Bundle;
 /**
  * An internal error reporter to sends internal error messages to the
  * Eclipse "Error" view/log.
- * 
+ *
  * @author aarong
  */
 public final class LogInternalErrorReporter extends AbstractInternalErrorReporter {
 	private final Bundle bundle;
 	private final ILog log;
-	
 
-	
 	/**
 	 * Private constructor to enforce singleton pattern.
 	 */
@@ -27,12 +25,13 @@ public final class LogInternalErrorReporter extends AbstractInternalErrorReporte
 		this.bundle = bundle;
 		log = Platform.getLog(bundle);
 	}
-	
+
+	@Override
 	public void internalErrorImpl(final String message) {
-		log.log(new Status(IStatus.ERROR, bundle.getSymbolicName(), 
-				Status.OK, message, null));
+		log.log(new Status(IStatus.ERROR, bundle.getSymbolicName(), IStatus.OK, message, null));
 	}
 
+	@Override
 	public void internalErrorImpl(final Exception e) {
 		final String msg = e.getMessage();
 		final String logMsg;
@@ -41,11 +40,10 @@ public final class LogInternalErrorReporter extends AbstractInternalErrorReporte
 		} else {
 			logMsg = "Exception " + e.getClass().getName();
 		}
-		log.log(new Status(IStatus.ERROR, bundle.getSymbolicName(),
-				Status.OK, logMsg, e));
+		log.log(new Status(IStatus.ERROR, bundle.getSymbolicName(), IStatus.OK, logMsg, e));
 
 	}
-	
+
 //	/**
 //	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
 //	 */

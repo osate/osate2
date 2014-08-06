@@ -39,7 +39,6 @@ package org.osate.ui.wizards;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -60,13 +59,11 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferenceStore;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
-import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.xtext.ui.XtextProjectHelper;
@@ -75,19 +72,16 @@ import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.WorkspacePlugin;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * This is a simple wizard for creating a new Aadl project.
  */
 public class AadlProjectWizard extends BasicNewResourceWizard implements IExecutableExtension {
 
-	
-	public WizardNewProjectReferencePage getReferencePage ()
-	{
-		return (this.referencePage);
+	public WizardNewProjectReferencePage getReferencePage() {
+		return (referencePage);
 	}
-	
+
 	protected WizardNewProjectReferencePage referencePage;
 
 	/**
@@ -108,31 +102,30 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		/**
 		 * The framework calls this to see if the project is correct.
 		 */
+		@Override
 		protected boolean validatePage() {
 			if (getProjectName().indexOf(' ') != -1) {
 				setErrorMessage("The space is an invalid character in project name " + getProjectName() + '.');
 				return false;
-			} else
+			} else {
 				return super.validatePage();
+			}
 		}
 
-		
 	}
 
 	/**
 	 */
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	public static final String copyright = "Copyright 2012 by Carnegie Mellon University, all rights reserved";
 
 	/**
 	 * The config element which declares this wizard.
 	 */
 	private IConfigurationElement configElement;
 
-	//cache of newly-created project
+	// cache of newly-created project
 	protected IProject newProject;
 
-
-	
 	/**
 	 * This is the project creation page.
 	 */
@@ -141,7 +134,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	/**
 	 * Remember the workbench during initialization. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected IWorkbench workbench;
@@ -154,27 +147,29 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	public AadlProjectWizard() {
 		IDialogSettings workbenchSettings = OsateUiPlugin.getDefault().getDialogSettings();
 		IDialogSettings section = workbenchSettings.getSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
-		if (section == null)
+		if (section == null) {
 			section = workbenchSettings.addNewSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
+		}
 		setDialogSettings(section);
 	}
 
 	/*
 	 * (non-Javadoc) Method declared on IWizard.
 	 */
+	@Override
 	public void addPages() {
 		super.addPages();
 
 		newProjectCreationPage = new WizardNewAadlProjectCreationPage("basicNewProjectPage");//$NON-NLS-1$
 		newProjectCreationPage.setTitle("Aadl Project"); //$NON-NLS-1$
 		newProjectCreationPage.setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
-		this.addPage(newProjectCreationPage);
+		addPage(newProjectCreationPage);
 
 		referencePage = new AadlWizardReferencePage("projectReferencePage");
 		referencePage.setTitle("AADL Settings");
 		referencePage.setDescription("Define the AADL Settings");
 
-		this.addPage(referencePage);
+		addPage(referencePage);
 
 	}
 
@@ -190,28 +185,30 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	 * successfully created; subsequent invocations of this method will answer
 	 * the same project resource without attempting to create it again.
 	 * </p>
-	 * 
+	 *
 	 * @return the created project resource, or <code>null</code> if the
 	 *         project was not created
 	 */
 	private IProject createNewProject() {
-		if (newProject != null)
+		if (newProject != null) {
 			return newProject;
+		}
 
 		// get a project handle
 		final IProject newProjectHandle = newProjectCreationPage.getProjectHandle();
 
 		// get a project descriptor
 		IPath newPath = null;
-		if (!newProjectCreationPage.useDefaults())
+		if (!newProjectCreationPage.useDefaults()) {
 			newPath = newProjectCreationPage.getLocationPath();
+		}
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		final IProjectDescription description = workspace.newProjectDescription(newProjectHandle.getName());
 		description.setLocation(newPath);
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IProject plugins = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
-		if (plugins == null){
+		if (plugins == null) {
 			PredeclaredProperties.initPluginContributedAadl();
 			plugins = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
 		}
@@ -219,27 +216,30 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 			IProject[] refProjects = referencePage.getReferencedProjects();
 			if (refProjects.length > 0) {
 				boolean foundPlugins = false;
-				if (plugins != null){
+				if (plugins != null) {
 					for (int i = 0; i < refProjects.length; i++) {
-						if (plugins == refProjects[i]) foundPlugins = true;
+						if (plugins == refProjects[i]) {
+							foundPlugins = true;
+						}
 					}
-					if (!foundPlugins){
-						IProject[] newlist = new IProject[refProjects.length+1];
+					if (!foundPlugins) {
+						IProject[] newlist = new IProject[refProjects.length + 1];
 						System.arraycopy(refProjects, 0, newlist, 0, refProjects.length);
 						newlist[refProjects.length] = plugins;
 						refProjects = newlist;
 					}
 				}
 				description.setReferencedProjects(refProjects);
-		} else if (plugins != null){
-			refProjects = new IProject[1];
-			refProjects[0] = plugins;
-			description.setReferencedProjects(refProjects);
-		}
+			} else if (plugins != null) {
+				refProjects = new IProject[1];
+				refProjects[0] = plugins;
+				description.setReferencedProjects(refProjects);
+			}
 		}
 
 		// create the new project operation
 		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
+			@Override
 			protected void execute(IProgressMonitor monitor) throws CoreException {
 				createProject(description, newProjectHandle, monitor);
 			}
@@ -283,14 +283,14 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 
 	/**
 	 * Creates a project resource given the project handle and description.
-	 * 
+	 *
 	 * @param description
 	 *            the project description to create a project resource for
 	 * @param projectHandle
 	 *            the project handle to create a project resource for
 	 * @param monitor
 	 *            the progress monitor to show visual progress with
-	 * 
+	 *
 	 * @exception CoreException
 	 *                if the operation fails
 	 * @exception OperationCanceledException
@@ -303,8 +303,9 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 
 			projectHandle.create(description, new SubProgressMonitor(monitor, 1000));
 
-			if (monitor.isCanceled())
+			if (monitor.isCanceled()) {
 				throw new OperationCanceledException();
+			}
 
 			projectHandle.open(new SubProgressMonitor(monitor, 1000));
 
@@ -315,7 +316,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 
 	/**
 	 * Returns the newly created project.
-	 * 
+	 *
 	 * @return the created project, or <code>null</code> if project not
 	 *         created
 	 */
@@ -326,9 +327,10 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	/**
 	 * This just records the information. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
 		this.workbench = workbench;
@@ -338,13 +340,15 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	/**
 	 * Do the work after everything is specified. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated NOT
 	 */
+	@Override
 	public boolean performFinish() {
 		createNewProject();
-		if (newProject == null)
+		if (newProject == null) {
 			return false;
+		}
 		updatePerspective();
 		selectAndReveal(newProject);
 		final IProject p = getNewProject();
@@ -357,22 +361,20 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		try {
 			ps.save();
 		} catch (IOException e1) {
-			MessageDialog
-			.openError(getShell(),
-					"Save Problem", //$NON-NLS-1$
-					MessageFormat
-							.format("Problem saving Preference Store", e1.getStackTrace().toString() ));
+			MessageDialog.openError(getShell(), "Save Problem", //$NON-NLS-1$
+					MessageFormat.format("Problem saving Preference Store", e1.getStackTrace().toString()));
 		}
 		try {
 			p.refreshLocal(1, null);
 		} catch (CoreException e2) {
 			MessageDialog
-			.openError(getShell(),
-					"Refresh Problems Problems", //$NON-NLS-1$
-					MessageFormat
-							.format("Resource changes are disallowed during certain types of resource change event notification", e2.getStackTrace().toString() ));
+					.openError(getShell(),
+							"Refresh Problems Problems", //$NON-NLS-1$
+							MessageFormat
+									.format("Resource changes are disallowed during certain types of resource change event notification",
+											e2.getStackTrace().toString()));
 		}
-		try {	
+		try {
 			if (!p.hasNature(XtextProjectHelper.NATURE_ID)) {
 				IProjectDescription desc = p.getDescription();
 				String[] oldNatures = desc.getNatureIds();
@@ -393,6 +395,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	 * Stores the configuration element for the wizard. The config element will
 	 * be used in <code>performFinish</code> to set the result perspective.
 	 */
+	@Override
 	public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
 		configElement = cfig;
 	}

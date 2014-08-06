@@ -361,4 +361,15 @@
       </page>
    </extension>
    -->
+     <extension
+        point="org.eclipse.ui.newWizards">
+     <wizard
+           category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
+           class="org.osate.ui.wizards.AadlExamplesWizard"
+           icon="icons/aadl.gif"
+           id="org.osate.wizard.examples"
+           name="AADL examples"
+           project="true">
+     </wizard>
+     </extension>
 </plugin>

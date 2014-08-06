@@ -205,7 +205,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		setValue(ParseUtil.parseAadlReal(s));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	public NumberValue cloneAndInvert() {
@@ -218,7 +220,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	public final NumberValue cloneNumber() {
@@ -230,28 +234,32 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#getScaledValue()
 	 * DB: Moved to NumberValueOperations
 	 */
-	//	public final double getScaledValue() {
-	//		final double value = getValue();
-	//		final UnitLiteral unit = getUnit();
-	//		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
-	//		return value * factor;
-	//	}
+	// public final double getScaledValue() {
+	// final double value = getValue();
+	// final UnitLiteral unit = getUnit();
+	// final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
+	// return value * factor;
+	// }
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
 	 * DB: Moved to NumberValueOperations
 	 */
-	//	public double getScaledValue(UnitLiteral target) {
-	//		final double value = getValue();
-	//		final UnitLiteral unit = getUnit();
-	//		final double factor = (unit == null) ? 1.0 : unit
-	//				.getAbsoluteFactor(target);
-	//		return value * factor;
-	//	}
+	// public double getScaledValue(UnitLiteral target) {
+	// final double value = getValue();
+	// final UnitLiteral unit = getUnit();
+	// final double factor = (unit == null) ? 1.0 : unit
+	// .getAbsoluteFactor(target);
+	// return value * factor;
+	// }
 
 	@Override
 	public boolean equals(Object obj) {

@@ -35,13 +35,11 @@ package org.osate.reporter;
 
 /**
  * Thrown to indicate that a selected <code>IResource</code> contains no <code>IMarkers</code>
- * 
+ *
  * @author Joe Seibel
  */
-public class NoMarkersException extends Exception
-{
-	public NoMarkersException(String message)
-	{
+public class NoMarkersException extends Exception {
+	public NoMarkersException(String message) {
 		super(message);
 	}
 }

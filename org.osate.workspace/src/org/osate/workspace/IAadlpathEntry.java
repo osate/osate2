@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright (c) 2000, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Carnegie Mellon University - adapted for use in OSATE
@@ -138,7 +138,7 @@ public interface IAadlpathEntry {
 	/**
 	 * Entry kind constant describing a aadlpath entry representing a name
 	 * aadlpath container.
-	 * 
+	 *
 	 * @since 2.0
 	 */
 	int CPE_CONTAINER = 5;
@@ -146,7 +146,7 @@ public interface IAadlpathEntry {
 	/**
 	 * Returns the kind of files found in the package fragments identified by
 	 * this aadlpath entry.
-	 * 
+	 *
 	 * @return <code>IPackageFragmentRoot.K_SOURCE</code> for files containing
 	 *         source code, and <code>IPackageFragmentRoot.K_BINARY</code> for
 	 *         binary class files. There is no specified value for an entry
@@ -157,7 +157,7 @@ public interface IAadlpathEntry {
 
 	/**
 	 * Returns the kind of this aadlpath entry.
-	 * 
+	 *
 	 * @return one of:
 	 *         <ul>
 	 *         <li><code>CPE_SOURCE</code> - this entry describes a source root
@@ -245,7 +245,7 @@ public interface IAadlpathEntry {
 	 * <code>tests</code>).</li>
 	 * </ul>
 	 * </p>
-	 * 
+	 *
 	 * @return the possibly empty list of resource exclusion patterns associated
 	 *         with this source entry, and <code>null</code> for other kinds of
 	 *         aadlpath entries
@@ -289,7 +289,7 @@ public interface IAadlpathEntry {
 	 * <code>Foo.java</code>.</li>
 	 * </ul>
 	 * </p>
-	 * 
+	 *
 	 * @return the possibly empty list of resource inclusion patterns associated
 	 *         with this source entry, and <code>null</code> for other kinds of
 	 *         aadlpath entries
@@ -311,7 +311,7 @@ public interface IAadlpathEntry {
 	 * NOTE: A specific output location cannot coincidate with another
 	 * source/library entry.
 	 * </p>
-	 * 
+	 *
 	 * @return the full path to the specific location where the builder writes
 	 *         <code>.class</code> files for this source entry, or
 	 *         <code>null</code> if using default output folder
@@ -343,7 +343,7 @@ public interface IAadlpathEntry {
 	 * segments that can be used as additional hints for resolving this
 	 * container reference (also see <code>IAadlpathContainer</code>).</li>
 	 * </ul>
-	 * 
+	 *
 	 * @return the path of this aadlpath entry
 	 */
 	IPath getPath();
@@ -361,7 +361,7 @@ public interface IAadlpathEntry {
 	 * as the variable path, namely the first segment is the name of a aadlpath
 	 * variable.
 	 * </p>
-	 * 
+	 *
 	 * @return the path to the source archive or folder, or <code>null</code> if
 	 *         none
 	 */
@@ -374,7 +374,7 @@ public interface IAadlpathEntry {
 	 * <code>null</code> value if and only if
 	 * <code>getSourceAttachmentPath</code> returns a non-<code>null</code>
 	 * value.
-	 * 
+	 *
 	 * @return the path within the source archive or folder, or
 	 *         <code>null</code> if not applicable
 	 */
@@ -384,7 +384,7 @@ public interface IAadlpathEntry {
 	 * Returns whether this entry is exported to dependent projects. Always
 	 * returns <code>false</code> for source entries (kind
 	 * <code>CPE_SOURCE</code>), which cannot be exported.
-	 * 
+	 *
 	 * @return <code>true</code> if exported, and <code>false</code> otherwise
 	 * @since 2.0
 	 */

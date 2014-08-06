@@ -48,43 +48,44 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.wizards.NewModelWizard;
 
-
 /**
  * Launches a "new Aadl model wizard" when the user clicks on
  * one of the two "new Aadl model" buttons on the toolbar.
  * This class is based on edu.cmu.sei.aadl.model.core.presentation.WizardLauncherAction from OSATE 1.
- * 
+ *
  * @author jseibel
  */
-public abstract class NewModelWizardLauncherAction implements IWorkbenchWindowActionDelegate
-{
-	//workbench and selection required for instantiating the wizard.
+public abstract class NewModelWizardLauncherAction implements IWorkbenchWindowActionDelegate {
+	// workbench and selection required for instantiating the wizard.
 	private IWorkbench workbench = null;
 	private IStructuredSelection selection = null;
-	
+
 //	@Override
-	public void dispose()
-	{
+	@Override
+	public void dispose() {
 	}
 
 //	@Override
-	public void init(IWorkbenchWindow window)
-	{
+	@Override
+	public void init(IWorkbenchWindow window) {
 		workbench = window.getWorkbench();
 	}
 
 //	@Override
-	public void run(IAction action)
-	{
+	@Override
+	public void run(IAction action) {
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		ArrayList<IProject> openProjects = new ArrayList<IProject>();
-		for (int i = 0; i < projects.length; i++)
-			if (projects[i].isOpen() && !projects[i].getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
+		for (int i = 0; i < projects.length; i++) {
+			if (projects[i].isOpen()
+					&& !projects[i].getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
 				openProjects.add(projects[i]);
-		if (openProjects.size() == 0)
-			MessageDialog.openWarning(null, "Cannot Create New Spec", "There are no open projects to create a new spec in.");
-		else
-		{
+			}
+		}
+		if (openProjects.size() == 0) {
+			MessageDialog.openWarning(null, "Cannot Create New Spec",
+					"There are no open projects to create a new spec in.");
+		} else {
 			NewModelWizard wizard = new NewModelWizard();
 			wizard.init(workbench, selection);
 			setInitialObjectType(wizard);
@@ -92,13 +93,14 @@ public abstract class NewModelWizardLauncherAction implements IWorkbenchWindowAc
 			dialog.open();
 		}
 	}
-	
+
 	protected abstract void setInitialObjectType(NewModelWizard wizard);
 
 //	@Override
-	public void selectionChanged(IAction action, ISelection selection)
-	{
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1)
-			this.selection = (IStructuredSelection)selection;
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			this.selection = (IStructuredSelection) selection;
+		}
 	}
 }

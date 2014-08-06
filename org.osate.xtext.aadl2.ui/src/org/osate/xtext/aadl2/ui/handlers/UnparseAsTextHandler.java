@@ -56,29 +56,30 @@ import org.osate.xtext.aadl2.unparsing.AadlUnparser;
 
 public class UnparseAsTextHandler extends AbstractHandler {
 
-
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		IWorkbenchPage page = win.getActivePage();
-		ISelection selection= page.getSelection();
-		if (selection instanceof TreeSelection){
+		ISelection selection = page.getSelection();
+		if (selection instanceof TreeSelection) {
 			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
-			for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
-				final Object f = (Object) iterator.next();
-				if (f instanceof IResource){
-					if (WorkspacePlugin.MODEL_FILE_EXT.equalsIgnoreCase(((IResource)f).getFileExtension())){
-						// you could use the adapter:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
+			for (Iterator iterator = ((TreeSelection) selection).iterator(); iterator.hasNext();) {
+				final Object f = iterator.next();
+				if (f instanceof IResource) {
+					if (WorkspacePlugin.MODEL_FILE_EXT.equalsIgnoreCase(((IResource) f).getFileExtension())) {
+						// you could use the adapter: ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
 						// instead of the next two statements
 						// We execute this command on the command stack because otherwise, we will not
-						//  have write permissions on the editing domain.
+						// have write permissions on the editing domain.
 						domain.getCommandStack().execute(new RecordingCommand(domain) {
+							@Override
 							protected void doExecute() {
 
-								Resource res = OsateResourceUtil.getResource((IResource)f);
-								if (res.getContents() != null && !res.getContents().isEmpty()){
-									Element target = (Element)res.getContents().get(0);
+								Resource res = OsateResourceUtil.getResource((IResource) f);
+								if (res.getContents() != null && !res.getContents().isEmpty()) {
+									Element target = (Element) res.getContents().get(0);
 									AadlUnparser.getAadlUnparser().doUnparseToFile(target);
 									res.getResourceSet().getResources().remove(res);
 								}

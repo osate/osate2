@@ -51,63 +51,65 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
-public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider{
+public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider {
 
 	@Override
 	public DiagnosticMessage getUnresolvedProxyMessage(ILinkingDiagnosticContext context) {
 		EClass referenceType = context.getReference().getEReferenceType();
 		String targetName = null;
-		if (Aadl2Package.eINSTANCE.getAbstractNamedValue() == referenceType){
+		if (Aadl2Package.eINSTANCE.getAbstractNamedValue() == referenceType) {
 			targetName = "Property Constant, Property Definition, Enumeration or Unit literal";
-			String msg = "Couldn't resolve reference to " + targetName + " '" + context.getLinkText() + "'." + " For classifier references use classifier( <ref> ).";
+			String msg = "Couldn't resolve reference to " + targetName + " '" + context.getLinkText() + "'."
+					+ " For classifier references use classifier( <ref> ).";
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		if (Aadl2Package.eINSTANCE.getProperty() == referenceType){
-			String msg = "Couldn't resolve reference to property definition '" + context.getLinkText() + "'."+
-		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+		if (Aadl2Package.eINSTANCE.getProperty() == referenceType) {
+			String msg = "Couldn't resolve reference to property definition '" + context.getLinkText() + "'."
+					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		if (Aadl2Package.eINSTANCE.getPropertyType() == referenceType){
-			String msg = "Couldn't resolve reference to property type '" + context.getLinkText() + "'."+
-		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+		if (Aadl2Package.eINSTANCE.getPropertyType() == referenceType) {
+			String msg = "Couldn't resolve reference to property type '" + context.getLinkText() + "'."
+					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		if (Aadl2Package.eINSTANCE.getPropertyConstant() == referenceType){
-			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."+
-		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+		if (Aadl2Package.eINSTANCE.getPropertyConstant() == referenceType) {
+			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."
+					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		if (Aadl2Package.eINSTANCE.getNamedElement() == referenceType){
+		if (Aadl2Package.eINSTANCE.getNamedElement() == referenceType) {
 			EObject obj = context.getContext();
-			if (obj instanceof ContainmentPathElement){
+			if (obj instanceof ContainmentPathElement) {
 				Subcomponent sub = AadlUtil.getContainingSubcomponent(obj);
 				ContainedNamedElement cne = (ContainedNamedElement) ((ContainmentPathElement) obj).getOwner();
 				INode node = NodeModelUtils.findActualNodeFor(obj);
 				String name = NodeModelUtils.getTokenText(node);
-				if (sub!=null && !cne.getContainmentPathElements().isEmpty()&& cne.getContainmentPathElements().get(0) == obj) {
-					String msg = "Could not find path element " +name+" in subcomponent "+ sub.getName();
+				if (sub != null && !cne.getContainmentPathElements().isEmpty()
+						&& cne.getContainmentPathElements().get(0) == obj) {
+					String msg = "Could not find path element " + name + " in subcomponent " + sub.getName();
 					return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 				}
 			}
-			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."+
-		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."
+					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		if (Aadl2Package.eINSTANCE.getConnectionEnd() == referenceType){
+		if (Aadl2Package.eINSTANCE.getConnectionEnd() == referenceType) {
 			String msg = "Couldn't resolve feature '" + context.getLinkText() + "'. It may not match connection type.";
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		if (Aadl2Package.eINSTANCE.getMode() == referenceType){
+		if (Aadl2Package.eINSTANCE.getMode() == referenceType) {
 			EObject cxt = context.getContext();
 			PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(cxt);
-			boolean iscontainedPA = (pa != null &&!pa.getAppliesTos().isEmpty());
+			boolean iscontainedPA = (pa != null && !pa.getAppliesTos().isEmpty());
 			String msg = "Couldn't resolve reference to mode '" + context.getLinkText() + "'";
-			if (iscontainedPA){
+			if (iscontainedPA) {
 				EList<ContainedNamedElement> appl = pa.getAppliesTos();
-				ContainedNamedElement path = appl.get(appl.size()-1);
-				msg = msg + " in applies to '"+Aadl2Util.getPrintablePathName(path)+"'.";
+				ContainedNamedElement path = appl.get(appl.size() - 1);
+				msg = msg + " in applies to '" + Aadl2Util.getPrintablePathName(path) + "'.";
 			} else {
-				msg = msg+".";
+				msg = msg + ".";
 			}
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}

@@ -88,6 +88,7 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //		//dispatchProtocolPD = OsateResourceManager.findProperty(ThreadProperties.DISPATCH_PROTOCOL);
 //	}
 
+	@Override
 	protected final void initSwitches() {
 		instanceSwitch = new InstanceSwitch<String>() {
 //			private boolean containsMemory = false;
@@ -113,7 +114,7 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //			public String caseComponentInstance(final ComponentInstance ci) {
 //				final ComponentCategory cc = ci.getCategory();
 //
-//				// Update data for executable application system check 
+//				// Update data for executable application system check
 //				if (cc.equals(ComponentCategory.THREAD))
 //					containsThread = true;
 //				if (cc.equals(ComponentCategory.MEMORY))
@@ -127,8 +128,9 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //				return DONE;
 //			}
 //
+			@Override
 			public String caseConnectionInstance(ConnectionInstance conni) {
-				//checkDelayedConnectionEndPoints(conni);
+				// checkDelayedConnectionEndPoints(conni);
 				checkPropertyConsistency(conni);
 				return NOT_DONE;
 			}
@@ -159,7 +161,7 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //				}
 //			} else if (AadlProject.PERIODIC_LITERAL.equalsIgnoreCase(dispatch.getName())
 //					|| AadlProject.BACKGROUND_LITERAL.equalsIgnoreCase(dispatch.getName())) {
-//				// TODO: Check dispatch port on periodic/background threads    		
+//				// TODO: Check dispatch port on periodic/background threads
 //			}
 //		} catch (PropertyNotPresentException e) {
 //			//Do nothing.
@@ -228,7 +230,7 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //					 * 'values' array, we check whether a contained property
 //					 * association applied a value to the semantic connection by
 //					 * naming the particular connection declaration.
-//					 * 
+//					 *
 //					 * If '!consistent' then the value of 'badIndex' is the
 //					 * location of the first inconsistent connection.
 //					 */

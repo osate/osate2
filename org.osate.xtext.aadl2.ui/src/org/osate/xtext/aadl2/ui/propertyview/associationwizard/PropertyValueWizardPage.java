@@ -40,7 +40,7 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser;
-import org.osate.xtext.aadl2.ui.MyAadl2Activator;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant.AbstractAssistant;
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant.AssistantFactory;
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant.AssistantValueChangedListener;
@@ -54,7 +54,7 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 	private final ILinker linker;
 	private Property definition = null;
 	private PropertyExpression propertyExpression = null;
-	
+
 	private Label typeLabel = null;
 	private Button useAssistant = null;
 	private Group assistantGroup = null;
@@ -65,51 +65,53 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 	private Button assign = null;
 	private Button append = null;
 	private Button constant = null;
-	
+
 	private AbstractAssistant assistant = null;
-	
-	public PropertyValueWizardPage(IXtextDocument xtextDocument, NamedElement holder, ISerializer serializer, Aadl2Parser aadl2Parser, ILinker linker) {
+
+	public PropertyValueWizardPage(IXtextDocument xtextDocument, NamedElement holder, ISerializer serializer,
+			Aadl2Parser aadl2Parser, ILinker linker) {
 		super("Property Value Wizard Page");
 		this.xtextDocument = xtextDocument;
 		this.holder = holder;
 		this.serializer = serializer;
 		this.aadl2Parser = aadl2Parser;
 		this.linker = linker;
-		internalErrorLogger = new LogInternalErrorReporter(MyAadl2Activator.getInstance().getBundle());
+		internalErrorLogger = new LogInternalErrorReporter(Aadl2Activator.getInstance().getBundle());
 		setPageComplete(false);
 	}
-	
+
 	@Override
 	public PropertyExpression getPropertyExpression() {
 		return propertyExpression;
 	}
-	
+
 	@Override
 	public boolean isAppendSelected() {
 		return append.getSelection();
 	}
-	
+
 	@Override
 	public boolean isConstantSelected() {
 		return constant.getSelection();
 	}
-	
+
 	@Override
 	protected void setDefinitionImpl(Property definition) {
 		this.definition = definition;
-		typeLabel.setText("Enter value with the type " + AssociationWizardUtil.unparse(serializer, definition.getPropertyType()));
+		typeLabel.setText("Enter value with the type "
+				+ AssociationWizardUtil.unparse(serializer, definition.getPropertyType()));
 		if (definition.isList()) {
 			assign.setEnabled(true);
 			append.setEnabled(true);
-		}
-		else {
+		} else {
 			assign.setSelection(true);
 			append.setSelection(false);
 			assign.setEnabled(false);
 			append.setEnabled(false);
 		}
-		if (assistantGroup.getChildren().length == 1)
+		if (assistantGroup.getChildren().length == 1) {
 			assistantGroup.getChildren()[0].dispose();
+		}
 		AssistantValueChangedListener listener = new AssistantValueChangedListener() {
 			@Override
 			public void assistantValueChanged() {
@@ -119,25 +121,25 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 //		if (definition.isList())
 //			assistant = new ListAssistant(assistantGroup, definition.getPropertyType(), holder, listener);
 //		else
-			assistant = AssistantFactory.getAssistantForType(assistantGroup, definition.getPropertyType(), serializer, holder, listener);
+		assistant = AssistantFactory.getAssistantForType(assistantGroup, definition.getPropertyType(), serializer,
+				holder, listener);
 		if (assistant != null) {
 			useAssistant.setEnabled(true);
 			enterTextualValue.setEnabled(true);
 			assistant.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-			/* true - enterTextualValue
+			/*
+			 * true - enterTextualValue
 			 * false - useAssistant
-			 * DialogSettings.getBoolean() returns false if no value has been set.  The default case is to use the assistant.
+			 * DialogSettings.getBoolean() returns false if no value has been set. The default case is to use the assistant.
 			 */
-			if (MyAadl2Activator.getInstance().getDialogSettings().getBoolean(assistant.getClass().getName())) {
+			if (Aadl2Activator.getInstance().getDialogSettings().getBoolean(assistant.getClass().getName())) {
 				enterTextualValue.setSelection(true);
 				useAssistant.setSelection(false);
-			}
-			else {
+			} else {
 				useAssistant.setSelection(true);
 				enterTextualValue.setSelection(false);
 			}
-		}
-		else {
+		} else {
 			useAssistant.setSelection(false);
 			enterTextualValue.setSelection(true);
 			useAssistant.setEnabled(false);
@@ -147,20 +149,20 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 		updatePageComplete();
 		getShell().layout(true, true);
 	}
-	
+
 	@Override
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
-		
+
 		typeLabel = new Label(composite, SWT.WRAP);
 		typeLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		useAssistant = new Button(composite, SWT.RADIO);
 		useAssistant.setText("Use Ass&istant");
 		useAssistant.setSelection(true);
 		useAssistant.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		assistantGroup = new Group(composite, SWT.NONE);
 		assistantGroup.setText("Assistant");
 		assistantGroup.setLayout(new GridLayout(1, false));
@@ -169,55 +171,59 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 		layoutData.widthHint = 900;
 		layoutData.heightHint = 300;
 		assistantGroup.setLayoutData(layoutData);
-		
+
 		enterTextualValue = new Button(composite, SWT.RADIO);
-		enterTextualValue.setText("&Enter Value as Text (This behaves as if the property were being typed into a .aadl file)");
+		enterTextualValue
+				.setText("&Enter Value as Text (This behaves as if the property were being typed into a .aadl file)");
 		enterTextualValue.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		valueTextFieldGroup = new Group(composite, SWT.NONE);
 		valueTextFieldGroup.setText("Textual Entry");
 		valueTextFieldGroup.setLayout(new GridLayout(2, false));
 		layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
 		layoutData.horizontalIndent = 20;
 		valueTextFieldGroup.setLayoutData(layoutData);
-		
+
 		valueLabel = new Label(valueTextFieldGroup, SWT.NONE);
 		valueLabel.setText("&Value in AADL syntax:");
 		valueLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		value = new Text(valueTextFieldGroup, SWT.BORDER);
 		value.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		Composite buttonComposite = new Composite(composite, SWT.NONE);
 		buttonComposite.setLayout(new GridLayout(3, false));
 		buttonComposite.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		assign = new Button(buttonComposite, SWT.RADIO);
 		assign.setText("A&ssign =>");
 		assign.setSelection(true);
 		assign.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		append = new Button(buttonComposite, SWT.RADIO);
 		append.setText("A&ppend +=>");
 		append.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		constant = new Button(buttonComposite, SWT.CHECK);
 		constant.setText("&Constant");
 		constant.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		addListeners();
-		
+
 		setControl(composite);
 	}
-	
+
 	public void recordDialogSettings() {
-		/* true - enterTextualValue
+		/*
+		 * true - enterTextualValue
 		 * false - useAssistant
 		 */
-		if (assistant != null)
-			MyAadl2Activator.getInstance().getDialogSettings().put(assistant.getClass().getName(), enterTextualValue.getSelection());
+		if (assistant != null) {
+			Aadl2Activator.getInstance().getDialogSettings()
+					.put(assistant.getClass().getName(), enterTextualValue.getSelection());
+		}
 	}
-	
+
 	private void addListeners() {
 		value.addModifyListener(new ModifyListener() {
 			@Override
@@ -240,99 +246,100 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 			}
 		});
 	}
-	
+
 	private void updatePageComplete() {
 		if (useAssistant.getSelection()) {
-			if (assistant.isComplete())
+			if (assistant.isComplete()) {
 				attemptToParseValueText(assistant.getValueText());
-			else {
+			} else {
 				setErrorMessage(null);
 				setPageComplete(false);
 			}
-		}
-		else
+		} else {
 			attemptToParseValueText(value.getText());
+		}
 	}
-	
-	//TODO: Deal with instance model
+
+	// TODO: Deal with instance model
 	private void attemptToParseValueText(String valueText) {
 		if (valueText == null || valueText.isEmpty()) {
 			setErrorMessage(null);
 			setPageComplete(false);
 			return;
 		}
-		final IParseResult parseResult = aadl2Parser.parse(aadl2Parser.getGrammarAccess().getPropertyExpressionRule(), new StringReader(valueText));
+		final IParseResult parseResult = aadl2Parser.parse(aadl2Parser.getGrammarAccess().getPropertyExpressionRule(),
+				new StringReader(valueText));
 		if (parseResult.hasSyntaxErrors()) {
 			setErrorMessage(parseResult.getSyntaxErrors().iterator().next().getSyntaxErrorMessage().getMessage());
 			setPageComplete(false);
-		}
-		else {
+		} else {
 			if (xtextDocument != null) {
 				xtextDocument.modify(new IUnitOfWork.Void<XtextResource>() {
 					@Override
 					public void process(XtextResource state) throws Exception {
-						attachToModelAndRunLinker((PropertyExpression)parseResult.getRootASTElement());
+						attachToModelAndRunLinker((PropertyExpression) parseResult.getRootASTElement());
 					}
 				});
-			}
-			else {
-				attachToModelAndRunLinker((PropertyExpression)parseResult.getRootASTElement());
+			} else {
+				attachToModelAndRunLinker((PropertyExpression) parseResult.getRootASTElement());
 			}
 		}
 	}
-	
+
 	private void attachToModelAndRunLinker(PropertyExpression propertyExpression) {
 		PropertyAssociation parsedAssociation = holder.createOwnedPropertyAssociation();
 		parsedAssociation.setProperty(definition);
 		parsedAssociation.createOwnedValue().setOwnedValue(propertyExpression);
-		
+
 		boolean addedWithClause = false;
-		PropertySet propertySet = (PropertySet)definition.getElementRoot();
+		PropertySet propertySet = (PropertySet) definition.getElementRoot();
 		EList<ModelUnit> importedUnits = null;
 		if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
 			addedWithClause = true;
 			Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
-			if (context instanceof PropertySet)
-				importedUnits = ((PropertySet)context).getImportedUnits();
-			else
-				importedUnits = ((PackageSection)context).getImportedUnits();
+			if (context instanceof PropertySet) {
+				importedUnits = ((PropertySet) context).getImportedUnits();
+			} else {
+				importedUnits = ((PackageSection) context).getImportedUnits();
+			}
 			importedUnits.add(propertySet);
 		}
-		
+
 		ListBasedDiagnosticConsumer diagnosticsConsumer = new ListBasedDiagnosticConsumer();
 		linker.linkModel(propertyExpression, diagnosticsConsumer);
 		List<Diagnostic> diagnostics = diagnosticsConsumer.getResult(Severity.ERROR);
 		if (!diagnostics.isEmpty()) {
 			setErrorMessage(diagnostics.get(0).getMessage());
 			setPageComplete(false);
-		}
-		else {
-			ArrayList<Resource.Diagnostic> errorsBeforeProxyResolution = new ArrayList<Resource.Diagnostic>(holder.eResource().getErrors());
+		} else {
+			ArrayList<Resource.Diagnostic> errorsBeforeProxyResolution = new ArrayList<Resource.Diagnostic>(holder
+					.eResource().getErrors());
 			EcoreUtil.resolveAll(propertyExpression);
-			ArrayList<Resource.Diagnostic> errorsAfterProxyResolution = new ArrayList<Resource.Diagnostic>(holder.eResource().getErrors());
+			ArrayList<Resource.Diagnostic> errorsAfterProxyResolution = new ArrayList<Resource.Diagnostic>(holder
+					.eResource().getErrors());
 			errorsAfterProxyResolution.removeAll(errorsBeforeProxyResolution);
 			if (!errorsAfterProxyResolution.isEmpty()) {
 				setErrorMessage(errorsAfterProxyResolution.get(0).getMessage());
 				setPageComplete(false);
-			}
-			else {
-				org.eclipse.emf.common.util.Diagnostic validatorDiagnostic = Diagnostician.INSTANCE.validate(parsedAssociation);
+			} else {
+				org.eclipse.emf.common.util.Diagnostic validatorDiagnostic = Diagnostician.INSTANCE
+						.validate(parsedAssociation);
 				if (validatorDiagnostic.getSeverity() == org.eclipse.emf.common.util.Diagnostic.ERROR) {
 					setErrorMessage(validatorDiagnostic.getChildren().get(0).getMessage());
 					setPageComplete(false);
-				}
-				else {
+				} else {
 					this.propertyExpression = propertyExpression;
 					setErrorMessage(null);
 					setPageComplete(true);
 				}
 			}
 		}
-		if (addedWithClause)
+		if (addedWithClause) {
 			importedUnits.remove(propertySet);
+		}
 		holder.getOwnedPropertyAssociations().remove(parsedAssociation);
 	}
-	
+
 	private void updateAssistantAndValueFieldEnabled() {
 		if (useAssistant.getSelection()) {
 			assistantGroup.setEnabled(true);
@@ -340,11 +347,11 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 			valueTextFieldGroup.setEnabled(false);
 			valueLabel.setEnabled(false);
 			value.setEnabled(false);
-		}
-		else {
+		} else {
 			assistantGroup.setEnabled(false);
-			if (assistant != null)
+			if (assistant != null) {
 				assistant.setAssistantEnabled(false);
+			}
 			valueTextFieldGroup.setEnabled(true);
 			valueLabel.setEnabled(true);
 			value.setEnabled(true);

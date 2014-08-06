@@ -35,30 +35,28 @@ package org.osate.aadl2.modelsupport.errorreporting;
 
 import org.eclipse.core.resources.IResource;
 
-
 /**
  * An implementation of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} that silently
  * discards all reported errors.
- * 
+ *
  * <p>
  * Contains singleton references to {@link #prototype a canonical null reporter}
  * and to {@link #factory a factory object}.
- * 
+ *
  * @author aarong
  */
 public final class NullParseErrorReporter extends AbstractParseErrorReporter {
 	/**
 	 * Singleton reference to the unique instance.
 	 */
-	public static final NullParseErrorReporter prototype = 
-		new NullParseErrorReporter();
-	
+	public static final NullParseErrorReporter prototype = new NullParseErrorReporter();
+
 	/**
 	 * Singleton reference to the factory.
 	 */
 	public static final Factory factory = new Factory();
-	
+
 	/**
 	 * Private constructor to enforce singleton pattern.  Use the
 	 * {@link #prototype singleton reference} instead.
@@ -67,29 +65,26 @@ public final class NullParseErrorReporter extends AbstractParseErrorReporter {
 		super();
 	}
 
-	
-	
-	protected void errorImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void errorImpl(final String filename, final int line, final String message) {
 		// do nothing
 	}
 
-	protected void warningImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void warningImpl(final String filename, final int line, final String message) {
 		// do nothing
 	}
 
-	protected void infoImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void infoImpl(final String filename, final int line, final String message) {
 		// do nothing
 	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		// Nothing to do because we don't do anything with messages
 	}
 
-	
-	
 	private static final class Factory implements ParseErrorReporterFactory {
 		public Factory() {
 			// do nothing;
@@ -98,6 +93,7 @@ public final class NullParseErrorReporter extends AbstractParseErrorReporter {
 		/**
 		 * The given AADL IResource is allowed to be <code>null</code>.
 		 */
+		@Override
 		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
 			return NullParseErrorReporter.prototype;
 		}

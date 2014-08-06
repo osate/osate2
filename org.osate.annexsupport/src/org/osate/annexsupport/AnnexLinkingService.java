@@ -40,8 +40,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 
-
 public interface AnnexLinkingService {
-	List<EObject> resolveAnnexReference(String annexName, EObject context,EReference reference, INode node);
-	QualifiedName getFullyQualifiedName(final EObject obj) ;
+	List<EObject> resolveAnnexReference(String annexName, EObject context, EReference reference, INode node);
+
+	QualifiedName getFullyQualifiedName(final EObject obj);
 }

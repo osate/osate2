@@ -76,7 +76,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
@@ -113,7 +112,6 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.impl.AadlIntegerImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -146,7 +144,7 @@ import org.osate.workspace.WorkspacePlugin;
  * constraints that must be satisfied for certain analyes on instance models.
  * Although there is a method that invokes these checks, it is best for each
  * analysis method to invoke those checks that are relevant for its processing.
- * 
+ *
  * @author phf
  */
 public class InstantiateModel {
@@ -178,34 +176,32 @@ public class InstantiateModel {
 	 * is raised.
 	 */
 	private static String errorMessage = null;
-	
+
 	/*
 	 * To keep under control the error messages and ease
 	 * debug, we encapsulate the error message string
 	 * and access it only through methods (setters and getters).
 	 */
-	public static void setErrorMessage (String s)
-	{
+	public static void setErrorMessage(String s) {
 		errorMessage = s;
 	}
-	public static String getErrorMessage()
-	{
+
+	public static String getErrorMessage() {
 		return errorMessage;
 	}
-	
+
 	// Constructors
 
 	/*
 	 * Create an instantiate object. Tracks who to report errors to - the
 	 * resource that contains si. It also holds on to the property definition
 	 * filter to be used for caching properties in the instance model
-	 * 
+	 *
 	 * @param pm
-	 * 
+	 *
 	 * @param errMgr
-	 */ 
-	public InstantiateModel(final IProgressMonitor pm)
-	{
+	 */
+	public InstantiateModel(final IProgressMonitor pm) {
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
@@ -213,8 +209,7 @@ public class InstantiateModel {
 		monitor = pm;
 	}
 
-	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) 
-	{
+	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = errMgr;
@@ -229,29 +224,28 @@ public class InstantiateModel {
 	 * well. The Osate resource set is the shared resource set maintained by
 	 * OsateResourceUtil. THe operation is performed in a transactional editing
 	 * domain
-	 * 
+	 *
 	 * @param si system implementation
-	 * 
+	 *
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) throws Exception 
-	{
+	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		SystemImplementation isi = si;
 		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(si);
-		if (eobj instanceof SystemImplementation)
+		if (eobj instanceof SystemImplementation) {
 			isi = (SystemImplementation) eobj;
+		}
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(isi);
-		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);//,si);
+		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
-		if (root == null)
-		{
+		if (root == null) {
 			errorMessage = InstantiateModel.getErrorMessage();
 		}
 		return root;
@@ -262,9 +256,9 @@ public class InstantiateModel {
 	 * its root object The method will make sure the declarative models are up
 	 * to date. The Osate resource set is the shared resource set maintained by
 	 * OsateResourceUtil
-	 * 
+	 *
 	 * @param si system implementation
-	 * 
+	 *
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
@@ -292,7 +286,7 @@ public class InstantiateModel {
 		List<URI> instanceRoots = new ArrayList<URI>();
 		List<IResource> instanceIResources = new ArrayList<IResource>();
 		for (IFile iFile : files) {
-			IResource ires = (IResource) iFile;
+			IResource ires = iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 			Resource res = OsateResourceUtil.getResource(ires);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
@@ -304,7 +298,8 @@ public class InstantiateModel {
 		}
 		OsateResourceUtil.refreshResourceSet();
 		for (int i = 0; i < instanceRoots.size(); i++) {
-			SystemImplementation si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(instanceRoots.get(i), true);
+			SystemImplementation si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(
+					instanceRoots.get(i), true);
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 							AadlConstants.INSTANTIATION_OBJECT_MARKER)));
@@ -319,47 +314,49 @@ public class InstantiateModel {
 	 * @param si
 	 * @param aadlResource
 	 * @return
-	 * @throws RollbackException 
-	 * @throws InterruptedException 
+	 * @throws RollbackException
+	 * @throws InterruptedException
 	 */
 	@SuppressWarnings("unchecked")
-	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) throws Exception
-	{
+	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource)
+			throws Exception {
 		List<SystemInstance> resultList;
 		SystemInstance result;
-		
+
 		result = null;
-		
+
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 		// We execute this command on the command stack because otherwise, we will not
-		//  have write permissions on the editing domain.
+		// have write permissions on the editing domain.
 		Command cmd = new RecordingCommand(domain) {
 			public SystemInstance instance;
 
+			@Override
 			protected void doExecute() {
 				instance = createSystemInstanceInt(si, aadlResource);
 			}
 
+			@Override
 			public List<SystemInstance> getResult() {
 				return Collections.singletonList(instance);
 			}
 		};
 
 		((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-		resultList = (List<SystemInstance>)cmd.getResult();
-		result = resultList.get(0);	
+		resultList = (List<SystemInstance>) cmd.getResult();
+		result = resultList.get(0);
 
 		return result;
 	}
 
 	/*
 	 * instantiate SystemImpl as root of instance tree and save the model
-	 * 
+	 *
 	 * @param si SystemImpl the root of the system instance
-	 * 
+	 *
 	 * @param aadlResource the Resource to store the instance model in
-	 * 
+	 *
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
 	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
@@ -373,40 +370,33 @@ public class InstantiateModel {
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
-		try 
-		{
+		try {
 			aadlResource.save(null);
 
 			try {
 				fillSystemInstance(root);
 			} catch (Exception e) {
-				InstantiateModel.setErrorMessage (e.getMessage());
+				InstantiateModel.setErrorMessage(e.getMessage());
 				e.printStackTrace();
 				return null;
 			}
 			// We're done: Save the model.
 			// We don't respond to a cancel at this point
 
-			monitor.subTask ("Saving instance model");
+			monitor.subTask("Saving instance model");
 
 			aadlResource.save(null);
-		} 
-		catch (IOException e) 
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
-			setErrorMessage( e.getMessage() );
+			setErrorMessage(e.getMessage());
 			return null;
-		}
-		catch (NullPointerException npe)
-		{
+		} catch (NullPointerException npe) {
 			npe.printStackTrace();
-			setErrorMessage( npe.getMessage() );
+			setErrorMessage(npe.getMessage());
 
 			npe.getMessage();
 			return null;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			errorMessage = e.getMessage();
 
@@ -416,18 +406,18 @@ public class InstantiateModel {
 		return root;
 	}
 
-	/** 
+	/**
 	 * Will in fill instance model under system instance but not save it
 	 * @param root
 	 */
 	public void fillSystemInstance(SystemInstance root) {
-		this.populateComponentInstance(root, 0);
+		populateComponentInstance(root, 0);
 		if (monitor.isCanceled()) {
 			return;
 		}
 
 		monitor.subTask("Creating system operation modes");
-		this.createSystemOperationModes(root);
+		createSystemOperationModes(root);
 		if (monitor.isCanceled()) {
 			return;
 		}
@@ -476,13 +466,8 @@ public class InstantiateModel {
 			return;
 		}
 
-		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch
-				(monitor, 
-				 errManager, 
-				 propertyDefinitionList, 
-				 classifierCache, 
-				 scProps, 
-				 mode2som);
+		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager,
+				propertyDefinitionList, classifierCache, scProps, mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
 			return;
@@ -517,8 +502,9 @@ public class InstantiateModel {
 	protected void populateComponentInstance(ComponentInstance ci, int index) {
 		ComponentImplementation impl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 		ComponentType type = InstanceUtil.getComponentType(ci, 0, classifierCache);
-		if (ci.getContainingComponentInstance() instanceof SystemInstance)
+		if (ci.getContainingComponentInstance() instanceof SystemInstance) {
 			monitor.subTask("Creating instances in " + ci.getName());
+		}
 
 		/*
 		 * add modes & transitions. Must do this before adding subcomponents
@@ -542,7 +528,7 @@ public class InstantiateModel {
 			// EList callseqlist = compimpl.getXAllCallSequence();
 			// for (Iterator it = callseqlist.iterator(); it.hasNext();) {
 			// CallSequence cseq = (CallSequence) it.next();
-			//				
+			//
 			// EList calllist = cseq.getCall();
 			// for (Iterator iit = calllist.iterator(); iit.hasNext();) {
 			// final SubprogramSubcomponent call =
@@ -618,7 +604,7 @@ public class InstantiateModel {
 
 	/*
 	 * @param ci
-	 * 
+	 *
 	 * @param impl
 	 */
 	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl) {
@@ -638,7 +624,7 @@ public class InstantiateModel {
 						void process(int dim, Stack<Long> indexStack) {
 							// index starts with one
 							ArraySize arraySize = dims.get(dim).getSize();
-							long count = getElementCount(arraySize,ci);
+							long count = getElementCount(arraySize, ci);
 
 							for (int i = 1; i <= count; i++) {
 								if (dim + 1 < dimensions) {
@@ -668,8 +654,9 @@ public class InstantiateModel {
 		ComponentInstance parent = ci;
 		while (parent != null && !(parent instanceof SystemInstance)) {
 			Subcomponent psc = parent.getSubcomponent();
-			if (psc == sub)
+			if (psc == sub) {
 				return true;
+			}
 			parent = (ComponentInstance) parent.eContainer();
 		}
 		return false;
@@ -739,14 +726,16 @@ public class InstantiateModel {
 				Context srcpg = inend.getContext();
 				if (srcpg == null) {
 					FeatureInstance fi = ci.findFeatureInstance(srcfp);
-					if (fi != null)
+					if (fi != null) {
 						speci.setSource(fi);
+					}
 				} else if (srcpg instanceof FeatureGroup) {
 					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
 					if (pgi != null) {
 						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
-						if (fi != null)
+						if (fi != null) {
 							speci.setSource(fi);
+						}
 					}
 				}
 			}
@@ -756,14 +745,16 @@ public class InstantiateModel {
 				Context dstpg = outend.getContext();
 				if (dstpg == null) {
 					FeatureInstance fi = ci.findFeatureInstance(dstfp);
-					if (fi != null)
+					if (fi != null) {
 						speci.setDestination(fi);
+					}
 				} else if (dstpg instanceof FeatureGroup) {
 					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
 					if (pgi != null) {
 						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
-						if (fi != null)
+						if (fi != null) {
 							speci.setDestination(fi);
+						}
 					}
 				}
 			}
@@ -798,7 +789,7 @@ public class InstantiateModel {
 				class ArrayInstantiator {
 					void process(int dim) {
 						ArraySize arraySize = dims.get(dim).getSize();
-						long count = getElementCount(arraySize,ci);
+						long count = getElementCount(arraySize, ci);
 
 						for (int i = 1; i <= count; i++) {
 							fillFeatureInstance(ci, feature, false, i);
@@ -812,16 +803,13 @@ public class InstantiateModel {
 
 	protected void fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index) {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
-		fi.setName(feature.getName() );
+		fi.setName(feature.getName());
 		fi.setFeature(feature);
 		// must add before prototype resolution in fillFeatureInstance
 		ci.getFeatureInstances().add(fi);
-		if (feature instanceof DirectedFeature) 
-		{
+		if (feature instanceof DirectedFeature) {
 			fi.setDirection(((DirectedFeature) feature).getDirection());
-		}
-		else 
-		{
+		} else {
 			fi.setDirection(DirectionType.IN_OUT);
 		}
 		filloutFeatureInstance(fi, feature, inverse, index);
@@ -924,15 +912,17 @@ public class InstantiateModel {
 
 	/*
 	 * expand out feature instances for elements of a port group
-	 * 
+	 *
 	 * @param fi Feature Instance that is a port group
 	 */
 	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse) {
 		if (feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup) feature;
 			FeatureType ft = ((FeatureGroup) feature).getFeatureType();
-			if (Aadl2Util.isNull(ft)) return;
-			
+			if (Aadl2Util.isNull(ft)) {
+				return;
+			}
+
 			inverse ^= fg.isInverse();
 
 			while (ft instanceof FeatureGroupPrototype) {
@@ -1005,7 +995,7 @@ public class InstantiateModel {
 				class ArrayInstantiator {
 					void process(int dim) {
 						ArraySize arraySize = dims.get(dim).getSize();
-						long count = getElementCount(arraySize,fgi.getContainingComponentInstance());
+						long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
 
 						for (int i = 0; i < count; i++) {
 							fillFeatureInstance(fgi, feature, inverse, i + 1);
@@ -1028,13 +1018,12 @@ public class InstantiateModel {
 		for (ConnectionInstance conni : connilist) {
 			// track all component instances that contain connection instances
 			replicateConns.add(conni.getComponentInstance());
-			
+
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
 
-			if (setPA == null && patternPA == null)
-			{
-				//OsateDebug.osateDebug("[InstantiateModel] processConnections");
+			if (setPA == null && patternPA == null) {
+				// OsateDebug.osateDebug("[InstantiateModel] processConnections");
 
 				LinkedList<Integer> srcDims = new LinkedList<Integer>();
 				LinkedList<Integer> dstDims = new LinkedList<Integer>();
@@ -1047,7 +1036,7 @@ public class InstantiateModel {
 				for (int d : srcDims) {
 					if (d != 0) {
 						done = true;
-						if (interpretConnectionPatterns(conni, false,null, 0, srcSizes, 0, dstSizes, 0,
+						if (interpretConnectionPatterns(conni, false, null, 0, srcSizes, 0, dstSizes, 0,
 								new ArrayList<Long>(), new ArrayList<Long>())) {
 							toRemove.add(conni);
 						}
@@ -1058,7 +1047,7 @@ public class InstantiateModel {
 					for (int d : dstDims) {
 						if (d != 0) {
 							done = true;
-							if (interpretConnectionPatterns(conni, false,null, 0, srcSizes, 0, dstSizes, 0,
+							if (interpretConnectionPatterns(conni, false, null, 0, srcSizes, 0, dstSizes, 0,
 									new ArrayList<Long>(), new ArrayList<Long>())) {
 								toRemove.add(conni);
 							}
@@ -1082,13 +1071,13 @@ public class InstantiateModel {
 						errManager.warning(conni,
 								"Connection pattern specified for connection that does not connect array elements.");
 					} else {
-						if (interpretConnectionPatterns(conni, isOpposite,pattern, 0, srcSizes, 0, dstSizes, 0,
+						if (interpretConnectionPatterns(conni, isOpposite, pattern, 0, srcSizes, 0, dstSizes, 0,
 								new ArrayList<Long>(), new ArrayList<Long>())) {
 							toRemove.add(conni);
 						}
 					}
 				}
-			} 
+			}
 			// no else as we want both the pattern and the connection set evaluated
 			if (setPA != null) {
 				EcoreUtil.remove(setPA);
@@ -1101,9 +1090,9 @@ public class InstantiateModel {
 
 					srcIndices = getIndices(rv, "src");
 					dstIndices = getIndices(rv, "dst");
-					if (Aadl2InstanceUtil.isOpposite(conni)){
+					if (Aadl2InstanceUtil.isOpposite(conni)) {
 						// flip indices since we are going in the opposite direction
-						createNewConnection(conni, dstIndices,srcIndices);
+						createNewConnection(conni, dstIndices, srcIndices);
 					} else {
 						createNewConnection(conni, srcIndices, dstIndices);
 					}
@@ -1116,59 +1105,60 @@ public class InstantiateModel {
 		}
 		replicateConnections(replicateConns);
 	}
-	
-	private void replicateConnections(EList<ComponentInstance> replicateConns){
-		for (ComponentInstance ci : replicateConns){
-			if (isInArray(ci)){
+
+	private void replicateConnections(EList<ComponentInstance> replicateConns) {
+		for (ComponentInstance ci : replicateConns) {
+			if (isInArray(ci)) {
 				doReplicateConnections(ci);
 			}
 		}
 	}
-	
-	private boolean isInArray(ComponentInstance ci){
-		while (!(ci instanceof SystemInstance)){
-			if (!ci.getIndices().isEmpty())
+
+	private boolean isInArray(ComponentInstance ci) {
+		while (!(ci instanceof SystemInstance)) {
+			if (!ci.getIndices().isEmpty()) {
 				return true;
+			}
 			ci = ci.getContainingComponentInstance();
 		}
 		return false;
 	}
-	
-	private ComponentInstance outermostArray(ComponentInstance ci){
+
+	private ComponentInstance outermostArray(ComponentInstance ci) {
 		ComponentInstance res = null;
-		while (!(ci instanceof SystemInstance)){
-			if (!ci.getIndices().isEmpty())
+		while (!(ci instanceof SystemInstance)) {
+			if (!ci.getIndices().isEmpty()) {
 				res = ci;
+			}
 			ci = ci.getContainingComponentInstance();
 		}
 		return res;
 	}
-	
-	
-	private void doReplicateConnections(ComponentInstance ci){
+
+	private void doReplicateConnections(ComponentInstance ci) {
 		String origPath = getComponentInstanceNamePath(ci);
 		ComponentInstance outermostParent = outermostArray(ci).getContainingComponentInstance();
 		doReplicateConnections(ci, origPath, outermostParent);
 	}
-	
-	private void doReplicateConnections(ComponentInstance ci, String origPath, ComponentInstance targetParent){
-		for (ComponentInstance targetci : targetParent.getComponentInstances()){
+
+	private void doReplicateConnections(ComponentInstance ci, String origPath, ComponentInstance targetParent) {
+		for (ComponentInstance targetci : targetParent.getComponentInstances()) {
 			// do it only for sibling components. Misses out on enclosing arrays
-			if (targetci.getConnectionInstances().isEmpty()){
+			if (targetci.getConnectionInstances().isEmpty()) {
 				// only if it does not yet have connection instances
 				String targetpath = getComponentInstanceNamePath(targetci);
 				// compare paths without indices
-				if (origPath.equalsIgnoreCase(targetpath)){
-					for (ConnectionInstance conni : ci.getConnectionInstances()){
+				if (origPath.equalsIgnoreCase(targetpath)) {
+					for (ConnectionInstance conni : ci.getConnectionInstances()) {
 						createNewConnection(conni, targetci);
 					}
-				} else if (origPath.startsWith(targetpath)){
-					doReplicateConnections(ci, origPath,targetci);
+				} else if (origPath.startsWith(targetpath)) {
+					doReplicateConnections(ci, origPath, targetci);
 				}
 			}
 		}
 	}
-	
+
 	private String getComponentInstanceNamePath(ComponentInstance ci) {
 		if (ci instanceof SystemInstance) {
 			return ci.getName();
@@ -1179,11 +1169,9 @@ public class InstantiateModel {
 		return path + "." + localname;
 	}
 
-	
-
-	private boolean interpretConnectionPatterns(ConnectionInstance conni, boolean isOpposite, List<PropertyExpression> patterns,
-			int offset, List<Integer> srcSizes, int srcOffset, List<Integer> dstSizes, int dstOffset,
-			List<Long> srcIndices, List<Long> dstIndices) {
+	private boolean interpretConnectionPatterns(ConnectionInstance conni, boolean isOpposite,
+			List<PropertyExpression> patterns, int offset, List<Integer> srcSizes, int srcOffset,
+			List<Integer> dstSizes, int dstOffset, List<Long> srcIndices, List<Long> dstIndices) {
 		boolean result = true;
 		if (patterns != null ? offset >= patterns.size() : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
@@ -1192,37 +1180,38 @@ public class InstantiateModel {
 		String patternName = "One_to_One";
 		if (patterns == null) {
 			// default one-to-one pattern
-			if (!conni.isComplete()){
+			if (!conni.isComplete()) {
 				// outgoing or incoming only
 				InstanceObject io = conni.getSource();
-				if (io instanceof FeatureInstance &&
-						io.getContainingComponentInstance() instanceof SystemInstance){
-					if (srcSizes.isEmpty())
-						patternName = isOpposite?"All_to_One":"One_To_All";
+				if (io instanceof FeatureInstance && io.getContainingComponentInstance() instanceof SystemInstance) {
+					if (srcSizes.isEmpty()) {
+						patternName = isOpposite ? "All_to_One" : "One_To_All";
+					}
 				} else {
-					if (dstSizes.isEmpty())
-						patternName = isOpposite?"One_To_All":"All_to_One";
+					if (dstSizes.isEmpty()) {
+						patternName = isOpposite ? "One_To_All" : "All_to_One";
+					}
 				}
-			}	
+			}
 		} else {
 			NamedValue nv = (NamedValue) patterns.get(offset);
 			EnumerationLiteral pattern = (EnumerationLiteral) nv.getNamedValue();
 			patternName = pattern.getName();
 		}
 
-		if (!isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
+		if (!isOpposite && !patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
 			errManager.error(conni, "Too few indices for connection source");
 			return false;
 		}
-		if (!isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
+		if (!isOpposite && !patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
 			errManager.error(conni, "Too few indices for connection destination");
 			return false;
 		}
-		if (isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
+		if (isOpposite && !patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
 			errManager.error(conni, "Too few indices for connection source");
 			return false;
 		}
-		if (isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
+		if (isOpposite && !patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
 			errManager.error(conni, "Too few indices for connection destination");
 			return false;
 		}
@@ -1231,23 +1220,25 @@ public class InstantiateModel {
 				srcIndices.add(i);
 				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 					dstIndices.add(j);
-					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-							dstSizes, dstOffset + 1, srcIndices, dstIndices);
+					result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+							srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 					dstIndices.remove(dstOffset);
 				}
 				srcIndices.remove(srcOffset);
 			}
-		} else if ((!isOpposite&&patternName.equalsIgnoreCase("One_To_All"))||(isOpposite&&patternName.equalsIgnoreCase("All_To_One"))) {
+		} else if ((!isOpposite && patternName.equalsIgnoreCase("One_To_All"))
+				|| (isOpposite && patternName.equalsIgnoreCase("All_To_One"))) {
 			for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 				dstIndices.add(j);
-				result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset, dstSizes,
-						dstOffset + 1, srcIndices, dstIndices);
+				result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes, srcOffset,
+						dstSizes, dstOffset + 1, srcIndices, dstIndices);
 				dstIndices.remove(dstOffset);
 			}
-		} else if ((!isOpposite&&patternName.equalsIgnoreCase("All_To_One"))||(isOpposite&&patternName.equalsIgnoreCase("One_To_All"))) {
+		} else if ((!isOpposite && patternName.equalsIgnoreCase("All_To_One"))
+				|| (isOpposite && patternName.equalsIgnoreCase("One_To_All"))) {
 			for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 				srcIndices.add(i);
-				result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+				result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes, srcOffset + 1,
 						dstSizes, dstOffset, srcIndices, dstIndices);
 				srcIndices.remove(srcOffset);
 			}
@@ -1261,8 +1252,8 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices.add(i);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						srcIndices.remove(srcOffset);
 						dstIndices.remove(dstOffset);
 					}
@@ -1270,8 +1261,8 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
 						srcIndices.add(i);
 						dstIndices.add(i + 1);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
@@ -1279,8 +1270,8 @@ public class InstantiateModel {
 					for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices.add(i - 1);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
@@ -1288,8 +1279,8 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
@@ -1297,8 +1288,8 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
@@ -1306,8 +1297,8 @@ public class InstantiateModel {
 					for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
 						srcIndices.add(i);
 						dstIndices.add(i + 2);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
@@ -1315,44 +1306,46 @@ public class InstantiateModel {
 					for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
 						dstIndices.add(i - 2);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
 				} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
-						dstIndices.add(i == srcSizes.get(srcOffset) ? 2 :(i == srcSizes.get(srcOffset)-1 ? 1 : i + 1));
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.add(i == srcSizes.get(srcOffset) ? 2
+								: (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
 				} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
-						dstIndices.add(i == 2 ? srcSizes.get(srcOffset) :(i==1?srcSizes.get(srcOffset)-1: i - 1));
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.add(i == 2 ? srcSizes.get(srcOffset)
+								: (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
 				} else if (patternName.equalsIgnoreCase("Even_To_Even")) {
-					for (long i = 2; i <= srcSizes.get(srcOffset); i=i+2) {
+					for (long i = 2; i <= srcSizes.get(srcOffset); i = i + 2) {
 						srcIndices.add(i);
 						dstIndices.add(i);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
 				} else if (patternName.equalsIgnoreCase("Odd_To_Odd")) {
-					for (long i = 1; i <= srcSizes.get(srcOffset); i=i+2) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i = i + 2) {
 						srcIndices.add(i);
 						dstIndices.add(i);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
+								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 						srcIndices.remove(srcOffset);
 					}
@@ -1370,7 +1363,7 @@ public class InstantiateModel {
 				EList<PropertyExpression> vlist = lv.getOwnedListElements();
 //				for (int i = vlist.size()-1; i >=0; i--){
 //				PropertyExpression elem = vlist.get(i);
-				for (PropertyExpression elem:vlist){
+				for (PropertyExpression elem : vlist) {
 					indices.add(((IntegerLiteral) elem).getValue());
 				}
 			}
@@ -1395,8 +1388,7 @@ public class InstantiateModel {
 				if (pa.getProperty().getName().equalsIgnoreCase("Index_Offset")
 						&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
 								"Communication_Properties")) {
-					return ((ListValue) pa.getOwnedValues().get(0).getOwnedValue())
-							.getOwnedListElements();
+					return ((ListValue) pa.getOwnedValues().get(0).getOwnedValue()).getOwnedListElements();
 				}
 			}
 		}
@@ -1409,7 +1401,7 @@ public class InstantiateModel {
 		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
 			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
 				PropertyExpression pe = pa.getOwnedValues().get(0).getOwnedValue();
-				if (pe instanceof IntegerLiteral){
+				if (pe instanceof IntegerLiteral) {
 					return ((IntegerLiteral) pe).getValue();
 				}
 			}
@@ -1426,7 +1418,7 @@ public class InstantiateModel {
 			if (names != null) {
 				names.add(current.getName());
 			}
-			
+
 			if (current instanceof ComponentInstance) {
 				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
 			} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
@@ -1442,21 +1434,20 @@ public class InstantiateModel {
 					for (ArrayDimension ad : s.getArrayDimensions()) {
 						ArraySize as = ad.getSize();
 
-						sizes.add((int) getElementCount(as,(ComponentInstance)current.getContainingComponentInstance()));
+						sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 					}
 
 				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
 					Feature f = ((FeatureInstance) current).getFeature();
 					ArraySize as = f.getArrayDimensions().get(0).getSize();
 
-					sizes.add((int) getElementCount(as,current.getContainingComponentInstance()));
+					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 				}
 			}
 			current = (InstanceObject) current.getOwner();
 		}
 	}
 
-	
 	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes, LinkedList<Long> indices) {
 		InstanceObject current = end;
@@ -1466,12 +1457,16 @@ public class InstantiateModel {
 			if (names != null) {
 				names.add(current.getName());
 			}
-			if (current instanceof ComponentInstance){
+			if (current instanceof ComponentInstance) {
 				EList<Long> idx = ((ComponentInstance) current).getIndices();
-				if (!idx.isEmpty()) indices.addAll(((ComponentInstance) current).getIndices());
-			} else if (current instanceof FeatureInstance){
-				long idx = ((FeatureInstance) current).getIndex();	
-				if (idx != 0) indices.add(idx);
+				if (!idx.isEmpty()) {
+					indices.addAll(((ComponentInstance) current).getIndices());
+				}
+			} else if (current instanceof FeatureInstance) {
+				long idx = ((FeatureInstance) current).getIndex();
+				if (idx != 0) {
+					indices.add(idx);
+				}
 			}
 			if (current instanceof ComponentInstance) {
 				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
@@ -1488,14 +1483,14 @@ public class InstantiateModel {
 					for (ArrayDimension ad : s.getArrayDimensions()) {
 						ArraySize as = ad.getSize();
 
-						sizes.add((int) getElementCount(as,(ComponentInstance)current.getContainingComponentInstance()));
+						sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 					}
 
 				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
 					Feature f = ((FeatureInstance) current).getFeature();
 					ArraySize as = f.getArrayDimensions().get(0).getSize();
 
-					sizes.add((int) getElementCount(as,current.getContainingComponentInstance()));
+					sizes.add((int) getElementCount(as, current.getContainingComponentInstance()));
 				}
 			}
 			current = (InstanceObject) current.getOwner();
@@ -1516,24 +1511,24 @@ public class InstantiateModel {
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
-		if (srcIndices.size()!= sizes.size()&& 
-				// filter out one side being an element without index (array of 1) (many to one mapping)
-				!(sizes.size() == 0 && dstIndices.size() == 1 )){
-			errManager.error(newConn, "Source indices "+srcIndices+" do not match source dimension "+sizes.size());
-		} 
-		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
-				srcIndices, true);
+		if (srcIndices.size() != sizes.size() &&
+		// filter out one side being an element without index (array of 1) (many to one mapping)
+				!(sizes.size() == 0 && dstIndices.size() == 1)) {
+			errManager
+					.error(newConn, "Source indices " + srcIndices + " do not match source dimension " + sizes.size());
+		}
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, srcIndices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
-		if (dstIndices.size()!= sizes.size() &&
-				// filter out one side being an element without index (array of 1) (many to one mapping)
-				!(sizes.size() == 0 && dstIndices.size() == 1 )){
-			errManager.error(newConn, "Destination indices "+dstIndices+" do not match destination dimension "+sizes.size());
-		} 
-		InstanceObject	dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
-				dstIndices,false);
+		if (dstIndices.size() != sizes.size() &&
+		// filter out one side being an element without index (array of 1) (many to one mapping)
+				!(sizes.size() == 0 && dstIndices.size() == 1)) {
+			errManager.error(newConn, "Destination indices " + dstIndices + " do not match destination dimension "
+					+ sizes.size());
+		}
+		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, dstIndices, false);
 		if (src == null) {
 			errManager.error(newConn, "Connection source not found");
 		}
@@ -1562,12 +1557,13 @@ public class InstantiateModel {
 		newConn.setName(sb.toString());
 
 	}
+
 	/**
 	 * create a copy of the connection instance with the specified indices for the source and the destination
 	 * @param conni
 	 * @param srcIndices
 	 * @param dstIndices
-	 * @return 
+	 * @return
 	 */
 	private void createNewConnection(ConnectionInstance conni, ComponentInstance targetComponent) {
 		LinkedList<Long> indices = new LinkedList<Long>();
@@ -1578,15 +1574,13 @@ public class InstantiateModel {
 		targetComponent.getConnectionInstances().add(newConn);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes, indices);
-		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
-				indices, true);
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, indices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		indices.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes, indices);
-		InstanceObject	dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
-				indices,false);
+		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, indices, false);
 		if (src == null) {
 			errManager.error(newConn, "Connection source not found");
 		}
@@ -1611,7 +1605,6 @@ public class InstantiateModel {
 
 	}
 
-	
 	/**
 	 * resolve downgoing source or destination of the connection reference.
 	 * we do so by re-retrieving the feature instance based on the existing connection instance end name.
@@ -1621,86 +1614,96 @@ public class InstantiateModel {
 	 * @param name
 	 * @param doSource
 	 */
-	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef, ConnectionReference outerConnRef, ComponentInstance target,  boolean doSource, 
-			long idx, long fgidx ){
+	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef,
+			ConnectionReference outerConnRef, ComponentInstance target, boolean doSource, long idx, long fgidx) {
 		ConnectionInstanceEnd src = targetConnRef.getSource();
 		ConnectionInstanceEnd dst = targetConnRef.getDestination();
-		if (doSource){
-			if (target.getName().equalsIgnoreCase(src.getName())){
+		if (doSource) {
+			if (target.getName().equalsIgnoreCase(src.getName())) {
 				// we point to a component instance, such as a bus or data component in an access connection
 				targetConnRef.setSource(target);
-			} else if (src instanceof FeatureInstance){
-				// re-resolve the source feature 
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), src.getName(),idx); 
+			} else if (src instanceof FeatureInstance) {
+				// re-resolve the source feature
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
+						target.getFeatureInstances(), src.getName(), idx);
 				if (found == null) {
-					 Element parent = src.getOwner();
-					 if (parent instanceof FeatureInstance){
-							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
-					 }
+					Element parent = src.getOwner();
+					if (parent instanceof FeatureInstance) {
+						found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
+								((FeatureInstance) parent).getName(), fgidx);
+					}
 				}
 				if (found != null) {
 					targetConnRef.setSource(found);
 				}
 
-			} 
+			}
 			// now we need to resolve the upper end (destination)
-			if (targetConnRef != outerConnRef){
-				// we need to fix the context of the connection reference 
+			if (targetConnRef != outerConnRef) {
+				// we need to fix the context of the connection reference
 				ConnectionInstanceEnd outerSrc = outerConnRef.getSource();
 				targetConnRef.setContext(outerSrc.getComponentInstance());
 				// we are not at the top so we fix up the upper end of the connection reference
-				if ((dst.getOwner() instanceof ComponentInstance) && dst.getName().equalsIgnoreCase(outerSrc.getName())){
+				if ((dst.getOwner() instanceof ComponentInstance) && dst.getName().equalsIgnoreCase(outerSrc.getName())) {
 					targetConnRef.setDestination(outerSrc);
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
-					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerSrc).getFeatureInstances(), dst.getName(),idx); 
+					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
+							((FeatureInstance) outerSrc).getFeatureInstances(), dst.getName(), idx);
 					if (found == null) {
-						 Element parent = dst.getOwner();
-						 if (parent instanceof FeatureInstance){
-								found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
-						 }
+						Element parent = dst.getOwner();
+						if (parent instanceof FeatureInstance) {
+							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
+									target.getFeatureInstances(), ((FeatureInstance) parent).getName(), fgidx);
+						}
 					}
-					if (found != null) 
+					if (found != null) {
 						targetConnRef.setDestination(found);
+					}
 				}
 			}
 			return targetConnRef.getSource();
-		}else {
-			if (target.getName().equalsIgnoreCase(dst.getName())){
+		} else {
+			if (target.getName().equalsIgnoreCase(dst.getName())) {
 				// we point to a component instance, such as a bus or data component in an access connection
 				targetConnRef.setDestination(target);
-			} else if (dst instanceof FeatureInstance){
-				// re-resolve the source feature 
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), dst.getName(),idx); 
+			} else if (dst instanceof FeatureInstance) {
+				// re-resolve the source feature
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
+						target.getFeatureInstances(), dst.getName(), idx);
 				if (found == null) {
-					 Element parent = dst.getOwner();
-					 if (parent instanceof FeatureInstance){
-							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
-					 }
+					Element parent = dst.getOwner();
+					if (parent instanceof FeatureInstance) {
+						found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(),
+								((FeatureInstance) parent).getName(), fgidx);
+					}
 				}
-				if (found != null) 
+				if (found != null) {
 					targetConnRef.setDestination(found);
+				}
 			}
 			// now we need to resolve the upper end (source)
-			if ((outerConnRef != null) && (targetConnRef != outerConnRef))
-			{
-				// we need to fix the context of the connection reference 
+			if ((outerConnRef != null) && (targetConnRef != outerConnRef)) {
+				// we need to fix the context of the connection reference
 				ConnectionInstanceEnd outerDst = outerConnRef.getDestination();
 				targetConnRef.setContext(outerDst.getComponentInstance());
 				// we are not at the top so we fix up the upper end of the connection reference
-				if ((src.getOwner() instanceof ComponentInstance) && src.getName().equalsIgnoreCase(outerDst.getName())){
+				if ((src.getOwner() instanceof ComponentInstance) && src.getName().equalsIgnoreCase(outerDst.getName())) {
 					targetConnRef.setSource(outerDst);
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
-					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerDst).getFeatureInstances(), src.getName(),idx); 
+					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
+							((FeatureInstance) outerDst).getFeatureInstances(), src.getName(), idx);
 					if (found == null) {
-						 Element parent = src.getOwner();
-						 if (parent instanceof FeatureInstance){
-								found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
-						 }
+						Element parent = src.getOwner();
+						if (parent instanceof FeatureInstance) {
+							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
+									target.getFeatureInstances(), ((FeatureInstance) parent).getName(), fgidx);
+						}
 					}
-					if (found != null) 
+					if (found != null) {
 						targetConnRef.setSource(found);
+					}
 				}
 			}
 			return targetConnRef.getDestination();
@@ -1718,18 +1721,18 @@ public class InstantiateModel {
 	 * @param doSource Go down the source path or the destination path
 	 * @return ConnectionInstanceEnd the ultimate source/destination object (feature instance or component instance)
 	 */
-	private ConnectionInstanceEnd resolveConnectionInstancePath(ConnectionInstance newconn, ConnectionReference topref, List<String> names,
-			List<Integer> dims, List<Integer> sizes, List<Long> indices, boolean doSource) {
+	private ConnectionInstanceEnd resolveConnectionInstancePath(ConnectionInstance newconn, ConnectionReference topref,
+			List<String> names, List<Integer> dims, List<Integer> sizes, List<Long> indices, boolean doSource) {
 		// the connection reference to be resolved
 		ConnectionReference targetConnRef = topref;
 		ConnectionReference outerConnRef = topref;
 		ConnectionInstanceEnd resolutionContext = newconn.getContainingComponentInstance();
 		// we have to process the indices backwards since we go top down
 		// offset starts with the last element of the indices array
-		int offset = indices.size()-1;
-		int count = dims.size()-1;
+		int offset = indices.size() - 1;
+		int count = dims.size() - 1;
 		ConnectionInstanceEnd result = null;
-		for (int nameidx = names.size()-1; nameidx>=0;nameidx--) {
+		for (int nameidx = names.size() - 1; nameidx >= 0; nameidx--) {
 			String name = names.get(nameidx);
 			List<InstanceObject> owned = new ArrayList<InstanceObject>();
 			int dim = dims.get(count);
@@ -1757,20 +1760,21 @@ public class InstantiateModel {
 						try {
 							if (io instanceof ComponentInstance) {
 								// we need to deal with possibly more than one index
-								int d = dim-1;
+								int d = dim - 1;
 								for (long i : ((ComponentInstance) io).getIndices()) {
-									if (i != indices.get(offset - d))
+									if (i != indices.get(offset - d)) {
 										continue outer;
+									}
 									d--;
 								}
 							} else {
 								// we have a feature that may have an index or zero index
-								if (((FeatureInstance) io).getIndex() != indices.get(offset))
+								if (((FeatureInstance) io).getIndex() != indices.get(offset)) {
 									continue outer;
+								}
 							}
 						} catch (IndexOutOfBoundsException e) {
-							errManager.warning(newconn,
-									"Too few indices for connection end, using fist array element");
+							errManager.warning(newconn, "Too few indices for connection end, using fist array element");
 						}
 						resolutionContext = (ConnectionInstanceEnd) io;
 						break;
@@ -1781,24 +1785,27 @@ public class InstantiateModel {
 				return null;
 			}
 			// resolve the connref
-			if (targetConnRef != null&& resolutionContext instanceof ComponentInstance){			
+			if (targetConnRef != null && resolutionContext instanceof ComponentInstance) {
 				int dimfeature = dims.get(0);
 				int dimfg = 0;
-				if (dims.size() > 1) dimfg = dims.get(1);
-				result = resolveConnectionReference(targetConnRef, outerConnRef,(ComponentInstance)resolutionContext, doSource,dimfeature==0?0:indices.get(0),
-						dimfg == 0?0:(dimfeature==0?indices.get(0):indices.get(1))) ;
+				if (dims.size() > 1) {
+					dimfg = dims.get(1);
+				}
+				result = resolveConnectionReference(targetConnRef, outerConnRef, (ComponentInstance) resolutionContext,
+						doSource, dimfeature == 0 ? 0 : indices.get(0),
+						dimfg == 0 ? 0 : (dimfeature == 0 ? indices.get(0) : indices.get(1)));
 			} else {
 				// the resolved feature has been found
 				result = resolutionContext;
 			}
-			if (doSource){
-				if (targetConnRef != null&&result instanceof FeatureInstance){
+			if (doSource) {
+				if (targetConnRef != null && result instanceof FeatureInstance) {
 					targetConnRef.setSource(result);
 				}
 				outerConnRef = targetConnRef;
 				targetConnRef = Aadl2InstanceUtil.getPreviousConnectionReference(newconn, outerConnRef);
 			} else {
-				if (targetConnRef != null&&result instanceof FeatureInstance){
+				if (targetConnRef != null && result instanceof FeatureInstance) {
 					targetConnRef.setDestination(result);
 				}
 				outerConnRef = targetConnRef;
@@ -1825,7 +1832,6 @@ public class InstantiateModel {
 	// Methods related to arrays
 	// --------------------------------------------------------------------------------------------
 
-
 	private long getElementCount(ArraySize as, ComponentInstance ci) {
 		long result = 0L;
 		if (as == null) {
@@ -1841,7 +1847,7 @@ public class InstantiateModel {
 				if (cv instanceof IntegerLiteral) {
 					result = ((IntegerLiteral) cv).getValue();
 				}
-			} else if (asp instanceof Property){
+			} else if (asp instanceof Property) {
 				Property pd = (Property) asp;
 				result = getArraySizeValue(ci, pd);
 			}
@@ -1857,7 +1863,7 @@ public class InstantiateModel {
 	 * Get all property definitions that are used in the Aadl model. This
 	 * includes the predeclared properties and any property definitions in user
 	 * declared property sets.
-	 * 
+	 *
 	 * @param si System Implementation
 	 * @return property definitions
 	 */
@@ -1867,16 +1873,15 @@ public class InstantiateModel {
 		addUsedProperties(root.getSystemImplementation(), result);
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		// collect topdown component impl. do it and its type to find PA
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			Element elem = it.next();
 
-			if (elem instanceof ComponentInstance)
-			{
+			if (elem instanceof ComponentInstance) {
 				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
 						classifierCache);
-				if (ic != null)
+				if (ic != null) {
 					addUsedProperties(ic.classifier, result);
+				}
 			} else if (elem instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) elem;
 				if (fi.getFeature() instanceof FeatureGroup) {
@@ -1884,16 +1889,14 @@ public class InstantiateModel {
 					addUsedProperties(fgt, result);
 				} else {
 					Classifier c = fi.getFeature().getClassifier();
-					
+
 					addUsedProperties(c, result);
 				}
-			}
-			else if (elem instanceof ConnectionInstance) {
+			} else if (elem instanceof ConnectionInstance) {
 				ConnectionInstance ci = (ConnectionInstance) elem;
 				addUsedPropertyDefinitions(ci.getContainingClassifier(), result);
 
-				for (ConnectionReference cr : ci.getConnectionReferences())
-				{
+				for (ConnectionReference cr : ci.getConnectionReferences()) {
 					addUsedPropertyDefinitions(cr.getConnection(), result);
 				}
 			}
@@ -1901,8 +1904,7 @@ public class InstantiateModel {
 		return result;
 	}
 
-	private void addUsedProperties(Classifier cc, EList<Property> result) 
-	{
+	private void addUsedProperties(Classifier cc, EList<Property> result) {
 
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) cc;
@@ -1913,19 +1915,17 @@ public class InstantiateModel {
 			}
 			cc = ((ComponentImplementation) cc).getType();
 		}
-		while (cc != null)
-		{
+		while (cc != null) {
 			addUsedPropertyDefinitions(cc, result);
-			cc = (Classifier) cc.getExtended();
+			cc = cc.getExtended();
 		}
-		
-			
+
 	}
 
 	/**
 	 * find all property associations and add its property definition to the
 	 * results
-	 * 
+	 *
 	 * @param root Element whose subtree is being searched
 	 * @param result EList holding the used property definitions
 	 * @return List holding the used property definitions
@@ -1936,13 +1936,13 @@ public class InstantiateModel {
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		while (it.hasNext()) {
 			EObject ao = it.next();
-			//OsateDebug.osateDebug ("[InstantiateModel]    ao=" + ao);
+			// OsateDebug.osateDebug ("[InstantiateModel]    ao=" + ao);
 
 			if (ao instanceof PropertyAssociation) {
-			//	OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
+				// OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
 
 				Property pd = ((PropertyAssociation) ao).getProperty();
-				//OsateDebug.osateDebug ("[InstantiateModel]    pd=" + pd);
+				// OsateDebug.osateDebug ("[InstantiateModel]    pd=" + pd);
 
 				if (pd != null) {
 //					OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
@@ -1963,6 +1963,7 @@ public class InstantiateModel {
 	private static final class ModeSearch extends ForAllElement {
 		public boolean hasModalComponents = false;
 
+		@Override
 		protected void action(final Element o) {
 			final List<ModeInstance> modes = ((ComponentInstance) o).getModeInstances();
 			if (!modes.isEmpty() && !modes.get(0).isDerived()) {
@@ -1983,7 +1984,7 @@ public class InstantiateModel {
 		final ModeSearch modeSearch = new ModeSearch();
 		final List<Element> allInstances = modeSearch.processPreOrderComponentInstance(root);
 		if (modeSearch.hasModalComponents) {
-			final ComponentInstance[] instances = (ComponentInstance[]) allInstances.toArray(new ComponentInstance[0]);
+			final ComponentInstance[] instances = allInstances.toArray(new ComponentInstance[0]);
 			enumerateSystemOperationModes(root, instances);
 		} else {
 			/*
@@ -2000,15 +2001,15 @@ public class InstantiateModel {
 	 * Recursively enumerate all the system operation modes given an array of
 	 * component instances that are modal. The system operation mode objects are
 	 * created and added to the given system instance object.
-	 * 
+	 *
 	 * @param root The system instance object to which the SOMs are attached.
-	 * 
+	 *
 	 * @param instances An array of component instances that should be all the
 	 * modal components in <code>root</code>.
-	 * 
+	 *
 	 * @param currentInstance The index of the component instance in
 	 * <code>instances</code> that is to have its modes enumerated
-	 * 
+	 *
 	 * @param modeState A list used as a dynamic workspace by the method. Should
 	 * initially be empty. When <code>currentInstance</code> equals the lenght
 	 * of <code>instances</code>, this list holds the modal instances that
@@ -2044,15 +2045,15 @@ public class InstantiateModel {
 	 * Recursively enumerate all the system operation modes given an array of
 	 * component instances that are modal. The system operation mode objects are
 	 * created and added to the given system instance object.
-	 * 
+	 *
 	 * @param root The system instance object to which the SOMs are attached.
-	 * 
+	 *
 	 * @param instances An array of component instances that should be all the
 	 * modal components in <code>root</code>.
-	 * 
+	 *
 	 * @param currentInstance The index of the component instance in
 	 * <code>instances</code> that is to have its modes enumerated
-	 * 
+	 *
 	 * @param modeState A list used as a dynamic workspace by the method. Should
 	 * initially be empty. When <code>currentInstance</code> equals the lenght
 	 * of <code>instances</code>, this list holds the modal instances that
@@ -2122,13 +2123,11 @@ public class InstantiateModel {
 	 */
 	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances) {
 		final SystemOperationMode som;
-		
+
 		som = InstanceFactory.eINSTANCE.createSystemOperationMode();
-		for (ModeInstance mi : modeInstances) 
-		{
+		for (ModeInstance mi : modeInstances) {
 			List<SystemOperationMode> soms = mode2som.get(mi);
-			if (soms == null) 
-			{
+			if (soms == null) {
 				soms = new ArrayList<SystemOperationMode>();
 				mode2som.put(mi, soms);
 			}

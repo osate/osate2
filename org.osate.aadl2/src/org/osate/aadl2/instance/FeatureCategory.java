@@ -438,4 +438,4 @@ public enum FeatureCategory implements Enumerator {
 		return literal;
 	}
 
-} //FeatureCategory
+} // FeatureCategory

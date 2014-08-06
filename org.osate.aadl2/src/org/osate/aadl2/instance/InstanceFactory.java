@@ -162,4 +162,4 @@ public interface InstanceFactory extends EFactory {
 	 */
 	InstancePackage getInstancePackage();
 
-} //InstanceFactory
+} // InstanceFactory
