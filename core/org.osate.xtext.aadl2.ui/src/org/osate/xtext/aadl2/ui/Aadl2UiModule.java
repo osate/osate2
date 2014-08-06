@@ -88,4 +88,16 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		return Aadl2RenameStrategy.class;
 	}
 
+	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper> bindHyperlinkHelper() {
+		return org.osate.xtext.aadl2.util.Aadl2HyperlinkHelper.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.AbstractWordAwareDoubleClickStrategy> bindLexerTokenAndCharacterPairAwareStrategy() {
+		return org.osate.xtext.aadl2.parsing.Aadl2TokenStrategy.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.DoubleClickStrategyProvider> bindDoubleClickStrategyProvider() {
+		return org.osate.xtext.aadl2.parsing.Aadl2DoubleClickStrategyProvider.class;
+	}
+
 }
