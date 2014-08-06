@@ -91,10 +91,10 @@
                class="org.osate.analysis.resource.budgets.actions.DoPowerAnalysis"
                enablesFor="1"
                icon="icons/power.gif"
-               label="&amp;Analyze Bus Power Draw"
+               label="&amp;Analyze Power Requirements"
                menubarPath="menu.analyses/menu.arch/stuff.grp"
                toolbarPath="arch.toolbar"
-               tooltip="Analyze Power Draw on Buses">
+               tooltip="Make sure the system has enough power to operate">
             <enablement>
                <or>
                   <and>
@@ -187,7 +187,7 @@
       <analysis
             class="org.osate.analysis.resource.budgets.autoanalyses.DoPowerAutoAnalysis"
             id="org.osate.analysis.resource.budgets.poweranalysis.analysis"
-            name="Analyze Power Draw on Buses">
+            name="Analyze Power Requirements">
          <instanceModel selectRootObject="true"/>
       </analysis>
       <analysis
