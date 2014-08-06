@@ -76,9 +76,9 @@ public class OsateResourceUtil {
 	public static final String PLUGIN_RESOURCES_DIRECTORY_NAME = "Plugin_Resources";
 
     
-    private static Injector injector = OsateCorePlugin
-            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
-
+//    private static Injector injector = OsateCorePlugin
+//            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
+    private static Injector injector;
     private static IResourceSetProvider fResourceSetProvider;
     
     private static XtextResourceSet resourceSet;
@@ -219,14 +219,17 @@ public class OsateResourceUtil {
 		// Is it a "plaform:" uri?
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
 				.getRoot();
-		if (resourceURI.scheme() != null
-				&& resourceURI.scheme().equalsIgnoreCase("platform")) 
+		if (resourceURI.isPlatform())
 		{
 			// FIXME JD
 			// Fixes bug 162, see https://github.com/osate/osate2-core/issues/162
 			return myWorkspaceRoot.getFile(new Path(null, resourceURI.toPlatformString(true)));
 		} else if (resourceURI.isFile()) {
-			return  myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); //ForLocation
+			try {
+				return  myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); //ForLocation
+			} catch (IllegalArgumentException e) {
+				return null;
+			}
 		} else {
 			throw new IllegalArgumentException("Cannot decode URI protocol: "
 					+ resourceURI.scheme());
