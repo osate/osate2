@@ -44,7 +44,6 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorTypesAccess().getAlternatives(), "rule__ErrorTypes__Alternatives");
 					put(grammarAccess.getTypeDefinitionAccess().getAlternatives_1(), "rule__TypeDefinition__Alternatives_1");
 					put(grammarAccess.getTypeSetDefinitionAccess().getAlternatives_1(), "rule__TypeSetDefinition__Alternatives_1");
-					put(grammarAccess.getTypeTokenAccess().getAlternatives(), "rule__TypeToken__Alternatives");
 					put(grammarAccess.getTypeTokenOrNoErrorAccess().getAlternatives(), "rule__TypeTokenOrNoError__Alternatives");
 					put(grammarAccess.getTypeTokenConstraintNoErrorAccess().getAlternatives(), "rule__TypeTokenConstraintNoError__Alternatives");
 					put(grammarAccess.getTypeTransformationAccess().getAlternatives_0(), "rule__TypeTransformation__Alternatives_0");
@@ -127,13 +126,10 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeSetElementAccess().getGroup_1(), "rule__TypeSetElement__Group_1__0");
 					put(grammarAccess.getNoErrorTypeSetAccess().getGroup(), "rule__NoErrorTypeSet__Group__0");
 					put(grammarAccess.getNoErrorTypeTokenAccess().getGroup(), "rule__NoErrorTypeToken__Group__0");
-					put(grammarAccess.getTypeTokenAccess().getGroup_0(), "rule__TypeToken__Group_0__0");
-					put(grammarAccess.getTypeTokenAccess().getGroup_0_1(), "rule__TypeToken__Group_0_1__0");
-					put(grammarAccess.getTypeTokenAccess().getGroup_0_1_2(), "rule__TypeToken__Group_0_1_2__0");
+					put(grammarAccess.getTypeTokenAccess().getGroup(), "rule__TypeToken__Group__0");
 					put(grammarAccess.getTypeTokenAccess().getGroup_1(), "rule__TypeToken__Group_1__0");
 					put(grammarAccess.getTypeTokenAccess().getGroup_1_2(), "rule__TypeToken__Group_1_2__0");
 					put(grammarAccess.getTypeTokenOrNoErrorAccess().getGroup_1(), "rule__TypeTokenOrNoError__Group_1__0");
-					put(grammarAccess.getTypeTokenOrNoErrorAccess().getGroup_2(), "rule__TypeTokenOrNoError__Group_2__0");
 					put(grammarAccess.getTypeTransformationSetAccess().getGroup(), "rule__TypeTransformationSet__Group__0");
 					put(grammarAccess.getTypeTransformationSetAccess().getGroup_3(), "rule__TypeTransformationSet__Group_3__0");
 					put(grammarAccess.getTypeTransformationSetAccess().getGroup_3_3(), "rule__TypeTransformationSet__Group_3_3__0");
@@ -314,8 +310,6 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeSetElementAccess().getTypeAssignment_1_1(), "rule__TypeSetElement__TypeAssignment_1_1");
 					put(grammarAccess.getNoErrorTypeSetAccess().getTypeTokensAssignment_2(), "rule__NoErrorTypeSet__TypeTokensAssignment_2");
 					put(grammarAccess.getNoErrorTypeTokenAccess().getNoErrorAssignment_1(), "rule__NoErrorTypeToken__NoErrorAssignment_1");
-					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_0_1_1(), "rule__TypeToken__TypeAssignment_0_1_1");
-					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_0_1_2_1(), "rule__TypeToken__TypeAssignment_0_1_2_1");
 					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_1_1(), "rule__TypeToken__TypeAssignment_1_1");
 					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_1_2_1(), "rule__TypeToken__TypeAssignment_1_2_1");
 					put(grammarAccess.getTypeTransformationSetAccess().getNameAssignment_2(), "rule__TypeTransformationSet__NameAssignment_2");
