@@ -59,6 +59,7 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.util.AadlUtil
+import org.osate.aadl2.Element
 
 /**
  * This class contains custom scoping description.
@@ -68,8 +69,8 @@ import org.osate.aadl2.modelsupport.util.AadlUtil
  *
  */
 public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
-	//Reference is from ContainedPropertyAssociation and PropertyAssociation in Properties.xtext
-	def scope_PropertyAssociation_inBinding(PropertyAssociation context, EReference reference) {
+	//Adds scope with renames for all references to Classifiers.
+	def scope_Classifier(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
 		val renameScopeElements = new LinkedHashMap
 		val packageSection = EcoreUtil2::getContainerOfType(context, typeof(PackageSection))
