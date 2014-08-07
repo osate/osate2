@@ -34,7 +34,10 @@
  */
 package org.osate.xtext.aadl2.properties.scoping;
 
+import java.util.LinkedHashMap
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
@@ -44,6 +47,7 @@ import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.NumericRange
+import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyConstant
@@ -61,6 +65,43 @@ import org.osate.aadl2.modelsupport.util.AadlUtil
  *
  */
 public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
+	//Reference is from ContainedPropertyAssociation and PropertyAssociation in Properties.xtext
+	def scope_PropertyAssociation_inBinding(PropertyAssociation context, EReference reference) {
+		var scope = delegateGetScope(context, reference)
+		val renameScopeElements = new LinkedHashMap
+		val packageSection = EcoreUtil2::getContainerOfType(context, typeof(PackageSection))
+		if (packageSection != null) {
+			packageSection.ownedComponentTypeRenames.forEach[
+				if (name == null) {
+					renameScopeElements.put(renamedComponentType, QualifiedName::create(renamedComponentType.name))
+				} else {
+					renameScopeElements.put(renamedComponentType, QualifiedName::create(name))
+				}
+			]
+			packageSection.ownedFeatureGroupTypeRenames.forEach[
+				if (name == null) {
+					renameScopeElements.put(renamedFeatureGroupType, QualifiedName::create(renamedFeatureGroupType.name))
+				} else {
+					renameScopeElements.put(renamedFeatureGroupType, QualifiedName::create(name))
+				}
+			]
+			packageSection.ownedPackageRenames.forEach[
+				if (renameAll) {
+					renamedPackage.publicSection.ownedClassifiers.forEach[
+						renameScopeElements.put(it, QualifiedName::create(name))
+					]
+				} else {
+					val newPackageName = name
+					renamedPackage.publicSection.ownedClassifiers.forEach[
+						renameScopeElements.put(it, QualifiedName::create(newPackageName, name))
+					]
+				}
+			]
+			scope = Scopes::scopeFor(renameScopeElements.keySet, [renameScopeElements.get(it)], scope)
+		}
+		scope
+	}
+	
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
 	def scope_NumberValue_unit(NumberValue context, EReference reference) {
 		var UnitsType unitsType = null
