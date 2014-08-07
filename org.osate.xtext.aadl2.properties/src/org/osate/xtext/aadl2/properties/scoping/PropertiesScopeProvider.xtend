@@ -42,7 +42,9 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.osate.aadl2.BasicPropertyAssociation
+import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ListValue
+import org.osate.aadl2.ModalElement
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.NumberValue
@@ -54,6 +56,7 @@ import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
 import org.osate.aadl2.RangeValue
+import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.util.AadlUtil
 
@@ -98,6 +101,34 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				}
 			]
 			scope = Scopes::scopeFor(renameScopeElements.keySet, [renameScopeElements.get(it)], scope)
+		}
+		scope
+	}
+	
+	/*
+	 * Reference is from ModalPropertyValue and OptionalModalPropertyValue in Properties.xtext
+	 * and SubprogramCallSequence, InternalFeature, ProcessorFeature, and DefaultAnnexSubclause in Aadl2.xtext
+	 */
+	def scope_ModalElement_inMode(ModalElement context, EReference reference) {
+		var scope = IScope::NULLSCOPE
+		val containingPropertyAssociation = EcoreUtil2::getContainerOfType(context, typeof(PropertyAssociation))
+		if (containingPropertyAssociation != null) {
+			if (!containingPropertyAssociation.appliesTos.empty) {
+				val path = containingPropertyAssociation.appliesTos.get(0)
+				val cpelist = path.containmentPathElements
+				val cpecl = (cpelist.findLast[namedElement instanceof Subcomponent].namedElement as Subcomponent)?.classifier
+				if (cpecl != null) {
+					scope = Scopes::scopeFor(cpecl.allModes)
+				}
+			} else if (containingPropertyAssociation.owner instanceof Subcomponent) {
+				val subcomponentClassifier = (containingPropertyAssociation.owner as Subcomponent).allClassifier
+				if (subcomponentClassifier != null) {
+					scope = Scopes::scopeFor(subcomponentClassifier.allModes)
+				}
+			}
+		}
+		if (scope == IScope::NULLSCOPE) {
+			scope = Scopes::scopeFor(EcoreUtil2::getContainerOfType(context, typeof(ComponentClassifier)).allModes)
 		}
 		scope
 	}
