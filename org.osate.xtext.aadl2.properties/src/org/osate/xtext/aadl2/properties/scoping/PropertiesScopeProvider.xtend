@@ -43,6 +43,8 @@ import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.Element
+import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.ListValue
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.ModalPropertyValue
@@ -59,7 +61,6 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.util.AadlUtil
-import org.osate.aadl2.Element
 
 /**
  * This class contains custom scoping description.
@@ -133,6 +134,43 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 		scope
 	}
+	
+	/*
+	 * Reference is from LiteralorReferenceTerm in Properties.xtext
+	 */
+	def scope_NamedValue_namedValue(Element context, EReference reference) {
+		var scope = delegateGetScope(context, reference)
+		var PropertyType propertyType = null;
+		//Inner value of a record value.
+		propertyType = EcoreUtil2::getContainerOfType(context, typeof(BasicPropertyAssociation))?.property?.propertyType
+		if (propertyType == null) {
+			//Value of the property constant.
+			propertyType = EcoreUtil2::getContainerOfType(context, typeof(PropertyConstant))?.propertyType
+		}
+		if (propertyType == null) {
+			//Default value of a property definition.
+			propertyType = EcoreUtil2::getContainerOfType(context, typeof(Property))?.propertyType
+		}
+		if (propertyType == null) {
+			//Value of an association.
+			propertyType = EcoreUtil2::getContainerOfType(context, typeof(PropertyAssociation))?.property?.propertyType
+		}
+		propertyType = AadlUtil::getBasePropertyType(propertyType)
+		switch (propertyType) {
+			EnumerationType:
+				scope = Scopes::scopeFor(propertyType.ownedLiterals, scope)
+		}
+		scope
+	}
+	
+//	override getScope(EObject context, EReference reference) {
+//		println('''
+//		other scope
+//			«context»
+//			«reference»
+//		''')
+//		super.getScope(context, reference)
+//	}
 	
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
 	def scope_NumberValue_unit(NumberValue context, EReference reference) {
