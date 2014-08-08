@@ -52,6 +52,7 @@ import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
+import org.osate.aadl2.RecordType
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.util.AadlUtil
@@ -129,9 +130,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		scope
 	}
 	
-	/*
-	 * Reference is from LiteralorReferenceTerm in Properties.xtext
-	 */
+	//Reference is from LiteralorReferenceTerm in Properties.xtext
 	def scope_NamedValue_namedValue(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
 		var PropertyType propertyType = null;
@@ -157,11 +156,42 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		scope
 	}
 	
+	//Reference is from FieldPropertyAssociation in Properties.xtext
+	def scope_BasicPropertyAssociation_property(Element context, EReference reference) {
+		var parent = switch context {
+			BasicPropertyAssociation case context.property.propertyType == null:
+				context.owner
+			default:
+				context
+		}
+		while (parent != null && !(parent instanceof BasicPropertyAssociation || parent instanceof PropertyAssociation || parent instanceof Property || parent instanceof PropertyConstant)) {
+			parent = parent.owner
+		}
+		var PropertyType propertyType = null
+		switch parent {
+			BasicPropertyAssociation:
+				propertyType = parent.property?.propertyType
+			PropertyAssociation:
+				propertyType = parent.property?.propertyType
+			Property:
+				propertyType = parent.propertyType
+			PropertyConstant:
+				propertyType = parent.propertyType
+		}
+		propertyType = AadlUtil::getBasePropertyType(propertyType)
+		switch (propertyType) {
+			RecordType:
+				return Scopes::scopeFor(propertyType.ownedFields)
+		}
+		IScope::NULLSCOPE
+	}
+	
 //	override getScope(EObject context, EReference reference) {
 //		println('''
 //		other scope
 //			«context»
 //			«reference»
+//			«reference.EReferenceType»
 //		''')
 //		super.getScope(context, reference)
 //	}
