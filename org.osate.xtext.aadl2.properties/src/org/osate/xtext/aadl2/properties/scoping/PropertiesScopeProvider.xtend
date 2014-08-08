@@ -45,19 +45,13 @@ import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.Element
 import org.osate.aadl2.EnumerationType
-import org.osate.aadl2.ListValue
-import org.osate.aadl2.ModalElement
-import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.NumberType
-import org.osate.aadl2.NumberValue
-import org.osate.aadl2.NumericRange
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
-import org.osate.aadl2.RangeValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.util.AadlUtil
@@ -111,7 +105,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	 * Reference is from ModalPropertyValue and OptionalModalPropertyValue in Properties.xtext
 	 * and SubprogramCallSequence, InternalFeature, ProcessorFeature, and DefaultAnnexSubclause in Aadl2.xtext
 	 */
-	def scope_ModalElement_inMode(ModalElement context, EReference reference) {
+	def scope_ModalElement_inMode(Element context, EReference reference) {
 		var scope = IScope::NULLSCOPE
 		val containingPropertyAssociation = EcoreUtil2::getContainerOfType(context, typeof(PropertyAssociation))
 		if (containingPropertyAssociation != null) {
@@ -173,42 +167,48 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 //	}
 	
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
-	def scope_NumberValue_unit(NumberValue context, EReference reference) {
-		var UnitsType unitsType = null
-		var owner = context.owner
-		while (owner instanceof ListValue) {
-			owner = owner.owner
-		}
-		if (owner instanceof NumericRange) {
-			// Lower bound or upper bound values of a number property type.
-			unitsType = (owner.owner as NumberType).unitsType
+	def scope_NumberValue_unit(NumberType context, EReference reference) {
+		//Lower bound or upper bound values of a number property type.
+		val unitsType = context.unitsType
+		if (unitsType != null) {
+			Scopes::scopeFor(unitsType.ownedLiterals)
 		} else {
-			if (owner instanceof RangeValue || owner instanceof ListValue) {
-				owner = owner.owner
-			}
-			var PropertyType propertyType = null
-			switch owner {
-				// Value of the property constant.
-				PropertyConstant:
-					propertyType = owner.propertyType
-				// Default value of a property definition.
-				Property:
-					propertyType = owner.propertyType
-				// Value of an association.
-				ModalPropertyValue case owner.owner instanceof PropertyAssociation:
-					propertyType = (owner.owner as PropertyAssociation).property.propertyType
-				// Inner value of a record value.
-				BasicPropertyAssociation:
-					propertyType = owner.property.propertyType 
-				
-			}
-			propertyType = AadlUtil::getBasePropertyType(propertyType)
-			switch propertyType {
-				NumberType:
-					unitsType = propertyType.unitsType
-				RangeType:
-					unitsType = propertyType.numberType.unitsType
-			}
+			IScope::NULLSCOPE
+		}
+	}
+	
+	//Reference is from IntegerTerm and RealTerm in Properties.xtext
+	def scope_NumberValue_unit(PropertyConstant context, EReference reference) {
+		//Value of the property constant.
+		createUnitLiteralsScopeFromPropertyType(context.propertyType)
+	}
+	
+	//Reference is from IntegerTerm and RealTerm in Properties.xtext
+	def scope_NumberValue_unit(Property context, EReference reference) {
+		//Default value of a property definition.
+		createUnitLiteralsScopeFromPropertyType(context.propertyType)
+	}
+	
+	//Reference is from IntegerTerm and RealTerm in Properties.xtext
+	def scope_NumberValue_unit(PropertyAssociation context, EReference reference) {
+		//Value of an association.
+		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
+	}
+	
+	//Reference is from IntegerTerm and RealTerm in Properties.xtext
+	def scope_NumberValue_unit(BasicPropertyAssociation context, EReference reference) {
+		//Inner value of a record value.
+		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
+	}
+	
+	def private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
+		val baseType = AadlUtil::getBasePropertyType(type)
+		var UnitsType unitsType = null
+		switch baseType {
+			NumberType:
+				unitsType = baseType.unitsType
+			RangeType:
+				unitsType = baseType.numberType.unitsType
 		}
 		if (unitsType != null) {
 			Scopes::scopeFor(unitsType.ownedLiterals)
