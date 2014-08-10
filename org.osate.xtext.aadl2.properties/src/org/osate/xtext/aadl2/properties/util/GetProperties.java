@@ -976,7 +976,7 @@ public class GetProperties {
 		}
 	}
 
-	public static EnumerationLiteral getConnectionTiming(final PortConnection pc) {
+	public static EnumerationLiteral getConnectionTiming(final NamedElement pc) {
 		try {
 			Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
 				return PropertyUtils.getEnumLiteral(pc, timing);
@@ -984,15 +984,15 @@ public class GetProperties {
 			return null;
 		}
 	}
-	public static EnumerationLiteral getDelayedUnitLiteral(PortConnection pc){
+	public static EnumerationLiteral getDelayedUnitLiteral(NamedElement pc){
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.DELAYED);
 	}
-	public static EnumerationLiteral getImmediateUnitLiteral(PortConnection pc){
+	public static EnumerationLiteral getImmediateUnitLiteral(NamedElement pc){
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
-	public static EnumerationLiteral getSampledUnitLiteral(PortConnection pc){
+	public static EnumerationLiteral getSampledUnitLiteral(NamedElement pc){
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.SAMPLED);
 	}
