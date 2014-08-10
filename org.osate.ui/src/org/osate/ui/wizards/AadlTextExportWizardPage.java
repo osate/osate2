@@ -33,21 +33,20 @@
  */
 package org.osate.ui.wizards;
 
-
 /*
  * XXX: Commented out entire class to remove error markers.  Not currently used in Aadl 2 beta.
  * Need to check if this should be used after implementing the Xtext parser.
  */
-public class AadlTextExportWizardPage/* extends WizardPage*/
+public class AadlTextExportWizardPage/* extends WizardPage */
 {
 //	private IResource selectedResource = null;
 //	private boolean modelChoosen = false;
 //	private boolean destinationFileValid = false;
-//	
+//
 //	private TreeViewer modelChooser = null;
 //	private Text destinationFile = null;
 //	private Button browse = null;
-//	
+//
 //	public AadlTextExportWizardPage(IResource selectedResource)
 //	{
 //		super("selectionPage");
@@ -56,42 +55,42 @@ public class AadlTextExportWizardPage/* extends WizardPage*/
 //		this.selectedResource = selectedResource;
 //		setPageComplete(false);
 //	}
-//	
+//
 //	public void createControl(Composite parent)
 //	{
 //		//Control initialization:
 //		Composite composite = new Composite(parent, SWT.NONE);
 //		composite.setLayout(new FormLayout());
-//		
+//
 //		Label browseLabel = new Label(composite, SWT.NONE);
 //		browseLabel.setText("&Choose a model to export:");
-//		
+//
 //		modelChooser = new TreeViewer(composite, SWT.BORDER);
 //		configureAObjectsTreeViewer();
-//		
+//
 //		Label destinationLabel = new Label(composite, SWT.NONE);
 //		destinationLabel.setText("&To text file: ");
-//		
+//
 //		destinationFile = new Text(composite, SWT.BORDER | SWT.SINGLE);
-//		
+//
 //		browse = new Button(composite, SWT.PUSH);
 //		browse.setText("&Browse...");
-//		
+//
 //		//Layout:
-//		
-//		//browseLabel		
+//
+//		//browseLabel
 //		FormData layoutData = new FormData();
 //		layoutData.top = new FormAttachment(0, 5);
 //		layoutData.left = new FormAttachment(0, 5);
 //		browseLabel.setLayoutData(layoutData);
-//		
+//
 //		//browse
 //		layoutData = new FormData();
 //		layoutData.right = new FormAttachment(100, -5);
 //		layoutData.bottom = new FormAttachment(100, -5);
 //		layoutData.width = getButtonPixelWidth(browse);
 //		browse.setLayoutData(layoutData);
-//		
+//
 //		//modelChooser
 //		layoutData = new FormData();
 //		layoutData.top = new FormAttachment(browseLabel, 5);
@@ -99,35 +98,35 @@ public class AadlTextExportWizardPage/* extends WizardPage*/
 //		layoutData.right = new FormAttachment(100, -5);
 //		layoutData.bottom = new FormAttachment(browse, -5);
 //		modelChooser.getControl().setLayoutData(layoutData);
-//		
+//
 //		int extraSpaceForDestinationFile = 0;
 //		if (destinationFile.computeSize(SWT.DEFAULT, SWT.DEFAULT).y < browse.computeSize(SWT.DEFAULT, SWT.DEFAULT).y)
 //			extraSpaceForDestinationFile = (browse.computeSize(SWT.DEFAULT, SWT.DEFAULT).y - destinationFile.computeSize(SWT.DEFAULT, SWT.DEFAULT).y) / 2;
 //		int extraSpaceForDestinationLabel = 0;
 //		if (destinationLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT).y < destinationFile.computeSize(SWT.DEFAULT, SWT.DEFAULT).y)
 //			extraSpaceForDestinationLabel = (destinationFile.computeSize(SWT.DEFAULT, SWT.DEFAULT).y - destinationLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT).y) / 2 + extraSpaceForDestinationFile;
-//		
+//
 //		//destinationLabel
 //		layoutData = new FormData();
 //		layoutData.left = new FormAttachment(0, 5);
 //		layoutData.top = new FormAttachment(modelChooser.getControl(), 5 + extraSpaceForDestinationLabel);
-//		destinationLabel.setLayoutData(layoutData);		
-//		
+//		destinationLabel.setLayoutData(layoutData);
+//
 //		//destinationFile
 //		layoutData = new FormData();
 //		layoutData.left = new FormAttachment(destinationLabel, 5);
 //		layoutData.right = new FormAttachment(browse, -5);
 //		layoutData.top = new FormAttachment(modelChooser.getControl(), 5 + extraSpaceForDestinationFile);
 //		destinationFile.setLayoutData(layoutData);
-//		
+//
 //		addListeners();
-//		
+//
 //		if (selectedResource != null)
 //			modelChooser.setSelection(new StructuredSelection(selectedResource), true);
-//		
+//
 //		setControl(composite);
 //	}
-//	
+//
 //	private void configureAObjectsTreeViewer()
 //	{
 //		modelChooser.setContentProvider(new WorkbenchContentProvider());
@@ -163,7 +162,7 @@ public class AadlTextExportWizardPage/* extends WizardPage*/
 //						else
 //							return false;
 //					}
-//					
+//
 //					private boolean containerHasModel(IContainer element)
 //					{
 //						IResource[] members = null;
@@ -196,7 +195,7 @@ public class AadlTextExportWizardPage/* extends WizardPage*/
 //		modelChooser.setComparator(new ResourceComparator(ResourceComparator.TYPE));
 //		modelChooser.setInput(ResourcesPlugin.getWorkspace().getRoot());
 //	}
-//	
+//
 //	private void addListeners()
 //	{
 //		modelChooser.addSelectionChangedListener(
@@ -246,29 +245,29 @@ public class AadlTextExportWizardPage/* extends WizardPage*/
 //					}
 //				});
 //	}
-//	
+//
 //	private void setModelChoosen(boolean choosen)
 //	{
 //		modelChoosen = choosen;
 //		setPageComplete(modelChoosen && destinationFileValid);
 //	}
-//	
+//
 //	private void setDestinationFileValid(boolean fileValid)
 //	{
 //		destinationFileValid = fileValid;
 //		setPageComplete(modelChoosen && destinationFileValid);
 //	}
-//	
+//
 //	public String getDestinationFileName()
 //	{
 //		return destinationFile.getText().trim();
 //	}
-//	
+//
 //	public Element getChoosenModel()
 //	{
 //		return AadlUtil.getAObject(((IStructuredSelection)modelChooser.getSelection()).getFirstElement());
 //	}
-//	
+//
 //	//This method ensures that buttons are not too small.  This logic is copied from
 //	//org.eclipse.jface.dialogs.Dialog.setButtonLayoutData(Button).
 //	private static int getButtonPixelWidth(Button button)

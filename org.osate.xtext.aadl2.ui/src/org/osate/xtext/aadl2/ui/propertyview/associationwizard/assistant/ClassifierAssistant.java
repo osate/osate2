@@ -29,16 +29,16 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.UiUtil;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
-public class ClassifierAssistant extends AbstractAssistant
-{
+public class ClassifierAssistant extends AbstractAssistant {
 	private final ClassifierType type;
 	private final NamedElement holder;
 	private final HashMap<AadlPackage, HashSet<Classifier>> validClassifiers;
-	
+
 	private Label noClassifiersLabel = null;
 	private TreeViewer classifierViewer = null;
-	
-	public ClassifierAssistant(Composite parent, ClassifierType type, NamedElement holder, AssistantValueChangedListener listener) {
+
+	public ClassifierAssistant(Composite parent, ClassifierType type, NamedElement holder,
+			AssistantValueChangedListener listener) {
 		super(parent, listener);
 		this.type = type;
 		this.holder = holder;
@@ -46,45 +46,46 @@ public class ClassifierAssistant extends AbstractAssistant
 		fillValidClassifiers();
 		layoutComponents();
 	}
-	
+
 	private void fillValidClassifiers() {
 		for (IEObjectDescription packageDescription : EMFIndexRetrieval.getAllPackagesInWorkspace(holder)) {
-			AadlPackage currentPackage = (AadlPackage)OsateResourceUtil.getResourceSet().getEObject(packageDescription.getEObjectURI(), true);
+			AadlPackage currentPackage = (AadlPackage) OsateResourceUtil.getResourceSet().getEObject(
+					packageDescription.getEObjectURI(), true);
 			addAllToValidClassifiers(currentPackage, currentPackage.getPublicSection().getOwnedClassifiers());
 		}
 		NamedElement holderRoot = holder.getElementRoot();
-		if (holderRoot instanceof AadlPackage && ((AadlPackage)holderRoot).getPrivateSection() != null) {
-			addAllToValidClassifiers((AadlPackage)holderRoot, ((AadlPackage)holderRoot).getPrivateSection().getOwnedClassifiers());
+		if (holderRoot instanceof AadlPackage && ((AadlPackage) holderRoot).getPrivateSection() != null) {
+			addAllToValidClassifiers((AadlPackage) holderRoot, ((AadlPackage) holderRoot).getPrivateSection()
+					.getOwnedClassifiers());
 		}
 	}
-	
+
 	private void addAllToValidClassifiers(AadlPackage aadlPackage, EList<Classifier> classifiers) {
 		for (Classifier classifier : classifiers) {
-			if (type.getClassifierReferences().size() == 0 || isValidMetaclass(classifier.eClass()))
+			if (type.getClassifierReferences().size() == 0 || isValidMetaclass(classifier.eClass())) {
 				addToValidClassifiers(aadlPackage, classifier);
+			}
 		}
 	}
-	
-	private boolean isValidMetaclass(EClass classifierMetaclass)
-	{
-		for (MetaclassReference metaclassReference : type.getClassifierReferences())
-		{
+
+	private boolean isValidMetaclass(EClass classifierMetaclass) {
+		for (MetaclassReference metaclassReference : type.getClassifierReferences()) {
 			EClass acceptableMetaclass = metaclassReference.getMetaclass();
-			if (acceptableMetaclass.isSuperTypeOf(classifierMetaclass) && checkAbstract(acceptableMetaclass, classifierMetaclass))
+			if (acceptableMetaclass.isSuperTypeOf(classifierMetaclass)
+					&& checkAbstract(acceptableMetaclass, classifierMetaclass)) {
 				return true;
+			}
 		}
 		return false;
 	}
-	
-	private boolean checkAbstract(EClass acceptableMetaclass, EClass classifierMetaclass)
-	{
-		if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(classifierMetaclass))
-		{
+
+	private boolean checkAbstract(EClass acceptableMetaclass, EClass classifierMetaclass) {
+		if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(classifierMetaclass)) {
 			return Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(acceptableMetaclass);
 		}
 		return true;
 	}
-	
+
 	private void addToValidClassifiers(AadlPackage aadlPackage, Classifier classifier) {
 		HashSet<Classifier> setForCurrentPackage = validClassifiers.get(aadlPackage);
 		if (setForCurrentPackage == null) {
@@ -93,63 +94,63 @@ public class ClassifierAssistant extends AbstractAssistant
 		}
 		setForCurrentPackage.add(classifier);
 	}
-	
+
 	private void layoutComponents() {
 		setLayout(new GridLayout(1, false));
-		
+
 		if (validClassifiers.size() == 0) {
 			noClassifiersLabel = new Label(this, SWT.WRAP);
 			noClassifiersLabel.setText("There are no valid classifiers within scope of the selected property holder.");
 			noClassifiersLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		}
-		else {
+		} else {
 			classifierViewer = new TreeViewer(this, SWT.BORDER | SWT.SINGLE);
-			classifierViewer.setContentProvider(new ITreeContentProvider()
-			{
+			classifierViewer.setContentProvider(new ITreeContentProvider() {
 				@Override
 				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				}
-				
+
 				@Override
 				public void dispose() {
 				}
-				
+
 				@Override
 				public Object[] getElements(Object inputElement) {
 					return getChildren(inputElement);
 				}
-				
+
 				@Override
 				public boolean hasChildren(Object element) {
 					Object[] children = getChildren(element);
 					return children != null && children.length > 0;
 				}
-				
+
 				@Override
 				public Object getParent(Object element) {
-					if (element instanceof HashMap)
+					if (element instanceof HashMap) {
 						return null;
-					else if (element instanceof AadlPackage)
+					} else if (element instanceof AadlPackage) {
 						return validClassifiers;
-					else if (element instanceof Classifier) {
+					} else if (element instanceof Classifier) {
 						for (Entry<AadlPackage, HashSet<Classifier>> currentEntry : validClassifiers.entrySet()) {
-							if (currentEntry.getValue().contains(element))
+							if (currentEntry.getValue().contains(element)) {
 								return currentEntry.getKey();
+							}
 						}
 						return null;
-					}
-					else
+					} else {
 						return null;
+					}
 				}
-				
+
 				@Override
 				public Object[] getChildren(Object parentElement) {
-					if (parentElement instanceof HashMap)
+					if (parentElement instanceof HashMap) {
 						return validClassifiers.keySet().toArray();
-					else if (parentElement instanceof AadlPackage)
+					} else if (parentElement instanceof AadlPackage) {
 						return validClassifiers.get(parentElement).toArray();
-					else
+					} else {
 						return null;
+					}
 				}
 			});
 			classifierViewer.setInput(validClassifiers);
@@ -164,34 +165,38 @@ public class ClassifierAssistant extends AbstractAssistant
 			});
 		}
 	}
-	
+
 	@Override
 	public String getValueText() {
-		Classifier classifier = (Classifier)((IStructuredSelection)classifierViewer.getSelection()).getFirstElement();
+		Classifier classifier = (Classifier) ((IStructuredSelection) classifierViewer.getSelection()).getFirstElement();
 		StringBuilder valueText = new StringBuilder("classifier (");
 		NamedElement holderRoot = holder.getElementRoot();
 		NamedElement classifierRoot = classifier.getElementRoot();
-		if (holderRoot instanceof AadlPackage && classifierRoot instanceof AadlPackage && holderRoot.equals(classifierRoot))
+		if (holderRoot instanceof AadlPackage && classifierRoot instanceof AadlPackage
+				&& holderRoot.equals(classifierRoot)) {
 			valueText.append(classifier.getName());
-		else
+		} else {
 			valueText.append(classifier.getQualifiedName());
+		}
 		valueText.append(")");
 		return valueText.toString();
 	}
-	
+
 	@Override
 	public boolean isComplete() {
-		if (validClassifiers.size() == 0)
+		if (validClassifiers.size() == 0) {
 			return false;
-		else
-			return ((IStructuredSelection)classifierViewer.getSelection()).getFirstElement() instanceof Classifier;
+		} else {
+			return ((IStructuredSelection) classifierViewer.getSelection()).getFirstElement() instanceof Classifier;
+		}
 	}
 
 	@Override
 	public void setAssistantEnabled(boolean enabled) {
-		if (validClassifiers.size() == 0)
+		if (validClassifiers.size() == 0) {
 			noClassifiersLabel.setEnabled(enabled);
-		else
+		} else {
 			classifierViewer.getTree().setEnabled(enabled);
+		}
 	}
 }

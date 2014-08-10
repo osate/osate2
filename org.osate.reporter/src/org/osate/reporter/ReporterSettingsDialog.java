@@ -67,16 +67,14 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-
 /**
  * Displays a Dialog that allows the user to set prefferences for the report generator.
  * The prefferences are saved in the project directory as .reporterSettings.  If it exists
  * the file is loaded before the frame is displayed.
- * 
+ *
  * @author Joe Seibel
  */
-public class ReporterSettingsDialog extends Dialog
-{	
+public class ReporterSettingsDialog extends Dialog {
 	private static final String SETTINGS_FILE_NAME = ".reporterSettings";
 	private static final String COMBO_ITEM_NONE = "None";
 	private static final String COMBO_ITEM_SEVERITY = "Severity";
@@ -84,9 +82,9 @@ public class ReporterSettingsDialog extends Dialog
 	private static final String COMBO_ITEM_LOCATION = "Location";
 	private static final String COMBO_ITEM_MARKER_TYPE = "Marker Type";
 	private static final String COMBO_ITEM_FILE_NAME = "File Name";
-	
+
 	private final IProject affectedProject;
-	
+
 	private Button groupByFiles = null;
 	private Button groupByTypes = null;
 	private Button sortGroupsByFileName = null;
@@ -102,35 +100,34 @@ public class ReporterSettingsDialog extends Dialog
 	private Table markerTable = null;
 	private Button selectAll = null;
 	private Button selectNone = null;
-	
-	//true when groupByFiles is selected.
+
+	// true when groupByFiles is selected.
 	private boolean showingSortGroups = true;
-	
+
 	/**
 	 * Creates and displays a new <code>ReporterSettingsDialog</code>.  If a .reporterSettings is already
 	 * assosiated with the <code>IProject affectedProject</code>, the settings file is loaded before the
 	 * frame is displayed.  When the user clicks on the frame's ok button, the settings will
 	 * be saved to .reporterSettings within affectedProject.
-	 * 
+	 *
 	 * @param affectedProject .reporterSettings will be saved and loaded from this project.
 	 */
-	public ReporterSettingsDialog(Shell parent, IProject affectedProject)
-	{
+	public ReporterSettingsDialog(Shell parent, IProject affectedProject) {
 		super(parent);
 		int flags = getShellStyle();
 		flags |= SWT.RESIZE;
 		setShellStyle(flags);
 		this.affectedProject = affectedProject;
 	}
-	
-	protected Control createDialogArea(Composite parent)
-	{
-		Composite composite = (Composite)super.createDialogArea(parent);
+
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite composite = (Composite) super.createDialogArea(parent);
 		composite.getShell().setText("Reporter Generator Settings For " + affectedProject.getName());
-		
+
 		TabFolder mainTabFolder = new TabFolder(composite, SWT.NONE);
 		mainTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+
 		TabItem sortAndSummaryTabItem = new TabItem(mainTabFolder, SWT.NONE);
 		sortAndSummaryTabItem.setText("&Sort and Summary");
 		sortAndSummaryTabItem.setControl(createSortAndSummaryComposite(mainTabFolder));
@@ -139,409 +136,404 @@ public class ReporterSettingsDialog extends Dialog
 		layoutData.widthHint = currentSize.x;
 		layoutData.heightHint = currentSize.y;
 		composite.setLayoutData(layoutData);
-		
+
 		TabItem filterTabItem = new TabItem(mainTabFolder, SWT.NONE);
 		filterTabItem.setText("&Filter");
 		filterTabItem.setControl(createFilterComposite(mainTabFolder));
-		
+
 		loadSettings();
 		changeSortGroupsEnabledAndSelections(0);
 		addListeners();
-		
+
 		return composite;
 	}
-	
-	protected Point getInitialSize()
-	{
+
+	@Override
+	protected Point getInitialSize() {
 		return super.getInitialSize();
 	}
-	
-	protected void okPressed()
-	{
-		//Following lines generate a ReporterSettings object and saves it.
+
+	@Override
+	protected void okPressed() {
+		// Following lines generate a ReporterSettings object and saves it.
 		int[] groupAndSortSettings = new int[6];
-		groupAndSortSettings[ReporterSettings.GROUP_BY_FIELD] = groupByFiles.getSelection() ? ReporterSettings.GROUP_BY_FILE : ReporterSettings.GROUP_BY_TYPE;
-		groupAndSortSettings[ReporterSettings.SORT_GROUPS_BY_FIELD] = sortGroupsByFileName.getSelection() ? ReporterSettings.SORT_BY_FILE_NAME : ReporterSettings.SORT_BY_FILE_TYPE;
-		for (int i = 0; i < sortMarkers.length; i++)
-		{
+		groupAndSortSettings[ReporterSettings.GROUP_BY_FIELD] = groupByFiles.getSelection() ? ReporterSettings.GROUP_BY_FILE
+				: ReporterSettings.GROUP_BY_TYPE;
+		groupAndSortSettings[ReporterSettings.SORT_GROUPS_BY_FIELD] = sortGroupsByFileName.getSelection() ? ReporterSettings.SORT_BY_FILE_NAME
+				: ReporterSettings.SORT_BY_FILE_TYPE;
+		for (int i = 0; i < sortMarkers.length; i++) {
 			int sortSetting = ReporterSettings.DEFAULT;
 			String selectedValue = sortMarkers[i].getItem(sortMarkers[i].getSelectionIndex());
-			if (selectedValue.equals(COMBO_ITEM_SEVERITY))
+			if (selectedValue.equals(COMBO_ITEM_SEVERITY)) {
 				sortSetting = ReporterSettings.SORT_BY_SEVERITY;
-			else if (selectedValue.equals(COMBO_ITEM_MESSAGE))
+			} else if (selectedValue.equals(COMBO_ITEM_MESSAGE)) {
 				sortSetting = ReporterSettings.SORT_BY_MESSAGE;
-			else if (selectedValue.equals(COMBO_ITEM_LOCATION))
+			} else if (selectedValue.equals(COMBO_ITEM_LOCATION)) {
 				sortSetting = ReporterSettings.SORT_BY_LOCATION;
-			else if (selectedValue.equals(COMBO_ITEM_MARKER_TYPE))
+			} else if (selectedValue.equals(COMBO_ITEM_MARKER_TYPE)) {
 				sortSetting = ReporterSettings.SORT_BY_MARKER_TYPE;
-			else if (selectedValue.equals(COMBO_ITEM_FILE_NAME))
+			} else if (selectedValue.equals(COMBO_ITEM_FILE_NAME)) {
 				sortSetting = ReporterSettings.SORT_BY_FILE_NAME;
+			}
 			groupAndSortSettings[ReporterSettings.SORT_MARKERS_BY_FIRST + i] = sortSetting;
 		}
 		boolean[] summarySettings = new boolean[7];
 		summarySettings[ReporterSettings.SHOW_SEVERITY_FIELD] = showSeverity.getSelection();
-		summarySettings[ReporterSettings.SHOW_NUM_OF_TEXT_AND_OBJECT_FILES] = showNumOfTextAndObjectFiles.getSelection();
+		summarySettings[ReporterSettings.SHOW_NUM_OF_TEXT_AND_OBJECT_FILES] = showNumOfTextAndObjectFiles
+				.getSelection();
 		summarySettings[ReporterSettings.SHOW_NUM_OF_FILES] = showNumOfFiles.getSelection();
 		summarySettings[ReporterSettings.SHOW_NUM_OF_TYPES] = showNumOfTypes.getSelection();
 		summarySettings[ReporterSettings.SHOW_NUM_OF_MARKERS_PER_FILES] = showNumOfMarkersPerFile.getSelection();
 		summarySettings[ReporterSettings.SHOW_NUM_OF_MARKERS_PER_TYPE] = showNumOfMarkersPerType.getSelection();
 		summarySettings[ReporterSettings.SHOW_TOTAL_NUM_OF_MARKERS] = showTotalMarkers.getSelection();
 		HashSet markersToExclude = new HashSet();
-		for (int i = 0; i < markerTable.getItemCount(); i++)
-			if (!markerTable.getItem(i).getChecked())
+		for (int i = 0; i < markerTable.getItemCount(); i++) {
+			if (!markerTable.getItem(i).getChecked()) {
 				markersToExclude.add(markerTable.getItem(i).getData());
-		ReporterSettings settings = new ReporterSettings(groupAndSortSettings, summarySettings, markersToExclude.isEmpty() ? null : markersToExclude);
-		try
-		{
-			FileOutputStream fout = new FileOutputStream(affectedProject.getLocation().toOSString() + File.separator + SETTINGS_FILE_NAME);
+			}
+		}
+		ReporterSettings settings = new ReporterSettings(groupAndSortSettings, summarySettings,
+				markersToExclude.isEmpty() ? null : markersToExclude);
+		try {
+			FileOutputStream fout = new FileOutputStream(affectedProject.getLocation().toOSString() + File.separator
+					+ SETTINGS_FILE_NAME);
 			ObjectOutputStream oout = new ObjectOutputStream(fout);
 			oout.writeObject(settings);
 			oout.close();
 			fout.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			MessageDialog.openError(getShell(), "Error Saving Settings", "Could not save reporter settings.");
 		}
 		super.okPressed();
 	}
-	
-	private Composite createSortAndSummaryComposite(TabFolder folder)
-	{
+
+	private Composite createSortAndSummaryComposite(TabFolder folder) {
 		Composite sortAndSummaryComposite = new Composite(folder, SWT.NONE);
 		sortAndSummaryComposite.setLayout(new GridLayout(1, true));
-		
+
 		Group groupMarkersGroup = new Group(sortAndSummaryComposite, SWT.NONE);
 		groupMarkersGroup.setText("Group markers by:");
 		groupMarkersGroup.setLayout(new GridLayout(1, true));
 		groupMarkersGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		groupByFiles = new Button(groupMarkersGroup, SWT.RADIO);
 		groupByFiles.setText("Fi&les");
 		groupByFiles.setSelection(true);
 		groupByFiles.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		groupByTypes = new Button(groupMarkersGroup, SWT.RADIO);
 		groupByTypes.setText("&Marker types");
 		groupByTypes.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		Group sortGroupsGroup = new Group(sortAndSummaryComposite, SWT.NONE);
 		sortGroupsGroup.setText("Sort groups by:");
 		sortGroupsGroup.setLayout(new GridLayout(1, true));
 		sortGroupsGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		sortGroupsByFileName = new Button(sortGroupsGroup, SWT.RADIO);
 		sortGroupsByFileName.setText("File &name");
 		sortGroupsByFileName.setSelection(true);
 		sortGroupsByFileName.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		sortGroupsByFileType = new Button(sortGroupsGroup, SWT.RADIO);
 		sortGroupsByFileType.setText("File &type");
 		sortGroupsByFileType.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		Group sortMarkersGroup = new Group(sortAndSummaryComposite, SWT.NONE);
 		sortMarkersGroup.setText("Sort markers by:");
 		sortMarkersGroup.setLayout(new GridLayout(4, false));
 		sortMarkersGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
-		for (int i = 0; i < sortMarkers.length; i++)
-		{
+
+		for (int i = 0; i < sortMarkers.length; i++) {
 			Label sortMarkersLabel = new Label(sortMarkersGroup, SWT.NONE);
 			sortMarkersLabel.setText("&" + (i + 1) + '.');
 			sortMarkersLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-			
+
 			sortMarkers[i] = new Combo(sortMarkersGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
-			sortMarkers[i].setItems(new String[]{COMBO_ITEM_NONE, COMBO_ITEM_SEVERITY, COMBO_ITEM_MESSAGE, COMBO_ITEM_LOCATION, COMBO_ITEM_MARKER_TYPE});
+			sortMarkers[i].setItems(new String[] { COMBO_ITEM_NONE, COMBO_ITEM_SEVERITY, COMBO_ITEM_MESSAGE,
+					COMBO_ITEM_LOCATION, COMBO_ITEM_MARKER_TYPE });
 			sortMarkers[i].select(i + 1);
 			sortMarkers[i].setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		}
-		
+
 		Group summarySelectionGroup = new Group(sortAndSummaryComposite, SWT.NONE);
 		summarySelectionGroup.setText("Display totals in summary for:");
 		summarySelectionGroup.setLayout(new GridLayout(2, true));
 		summarySelectionGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		showSeverity = new Button(summarySelectionGroup, SWT.CHECK);
 		showSeverity.setText("Se&verity");
 		showSeverity.setSelection(true);
-		
+
 		showNumOfTextAndObjectFiles = new Button(summarySelectionGroup, SWT.CHECK);
 		showNumOfTextAndObjectFiles.setText("Number of text and &object files");
 		showNumOfTextAndObjectFiles.setSelection(true);
-		
+
 		showNumOfFiles = new Button(summarySelectionGroup, SWT.CHECK);
 		showNumOfFiles.setText("Tot&al number of files");
 		showNumOfFiles.setSelection(true);
-		
+
 		showNumOfTypes = new Button(summarySelectionGroup, SWT.CHECK);
 		showNumOfTypes.setText("Total n&umber of marker types");
 		showNumOfTypes.setSelection(true);
-		
+
 		showNumOfMarkersPerFile = new Button(summarySelectionGroup, SWT.CHECK);
 		showNumOfMarkersPerFile.setText("Num&ber of markers in each file");
 		showNumOfMarkersPerFile.setSelection(true);
-		
+
 		showNumOfMarkersPerType = new Button(summarySelectionGroup, SWT.CHECK);
 		showNumOfMarkersPerType.setText("Numb&er of markers from each marker type");
 		showNumOfMarkersPerType.setSelection(true);
-		
+
 		showTotalMarkers = new Button(summarySelectionGroup, SWT.CHECK);
 		showTotalMarkers.setText("Total markers in &report");
 		showTotalMarkers.setSelection(true);
-		
+
 		return sortAndSummaryComposite;
 	}
-	
-	private Composite createFilterComposite(TabFolder folder)
-	{
+
+	private Composite createFilterComposite(TabFolder folder) {
 		Composite filterComposite = new Composite(folder, SWT.NONE);
 		filterComposite.setLayout(new GridLayout(2, false));
-		
+
 		Label tableLabel = new Label(filterComposite, SWT.NONE);
 		tableLabel.setText("Show &markers of type:");
 		tableLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
-		
+
 		markerTable = new Table(filterComposite, SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION);
 		markerTable.setLinesVisible(true);
 		markerTable.setHeaderVisible(true);
 		markerTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		
+
 		TableColumn column = new TableColumn(markerTable, SWT.LEFT);
 		column.setText("Marker Type");
-		
+
 		column = new TableColumn(markerTable, SWT.LEFT);
 		column.setText("Parent Type");
-		
-		IExtensionPoint markerExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint("org.eclipse.core.resources.markers");
+
+		IExtensionPoint markerExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(
+				"org.eclipse.core.resources.markers");
 		IExtension[] markerExtensions = markerExtensionPoint.getExtensions();
 		TableItem item;
-		for (int i = 0; i < markerExtensions.length; i++)
-			if (extendsFromProblemMarker(markerExtensions[i]))
-			{
+		for (int i = 0; i < markerExtensions.length; i++) {
+			if (extendsFromProblemMarker(markerExtensions[i])) {
 				item = new TableItem(markerTable, SWT.NONE);
-				item.setText(new String[]{markerExtensions[i].getLabel(), Platform.getExtensionRegistry().getExtension(markerExtensions[i].getConfigurationElements()[0].getAttribute("type")).getLabel()});
+				item.setText(new String[] {
+						markerExtensions[i].getLabel(),
+						Platform.getExtensionRegistry()
+								.getExtension(markerExtensions[i].getConfigurationElements()[0].getAttribute("type"))
+								.getLabel() });
 				item.setData(markerExtensions[i].getUniqueIdentifier());
 				item.setChecked(true);
 			}
-		
+		}
+
 		TableColumn[] columns = markerTable.getColumns();
-		for (int i = 0; i < columns.length; i++)
+		for (int i = 0; i < columns.length; i++) {
 			columns[i].pack();
-		
+		}
+
 		selectAll = new Button(filterComposite, SWT.PUSH);
 		selectAll.setText("Select &All");
 		selectAll.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		selectNone = new Button(filterComposite, SWT.PUSH);
 		selectNone.setText("Select &None");
 		selectNone.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		return filterComposite;
 	}
-	
-	//if a .reporterSettings file exists, change the widgets to reflect the settings in the file.
-	private void loadSettings()
-	{
+
+	// if a .reporterSettings file exists, change the widgets to reflect the settings in the file.
+	private void loadSettings() {
 		File settingsFile = new File(affectedProject.getLocation().toOSString() + File.separator + SETTINGS_FILE_NAME);
-		if (settingsFile.exists())
-		{
-			try
-			{
+		if (settingsFile.exists()) {
+			try {
 				FileInputStream fin = new FileInputStream(settingsFile);
 				ObjectInputStream oin = new ObjectInputStream(fin);
-				ReporterSettings settings = (ReporterSettings)oin.readObject();
-				//following statements change the selection states of the widgets according to settings.
-				if (settings.getGroupByAndSortBy(ReporterSettings.GROUP_BY_FIELD) == ReporterSettings.GROUP_BY_TYPE)
-				{
+				ReporterSettings settings = (ReporterSettings) oin.readObject();
+				// following statements change the selection states of the widgets according to settings.
+				if (settings.getGroupByAndSortBy(ReporterSettings.GROUP_BY_FIELD) == ReporterSettings.GROUP_BY_TYPE) {
 					groupByTypes.setSelection(true);
 					groupByFiles.setSelection(false);
 					changeSortGroupsSelections();
 				}
-				if (settings.getGroupByAndSortBy(ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE)
-				{
+				if (settings.getGroupByAndSortBy(ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE) {
 					sortGroupsByFileType.setSelection(true);
 					sortGroupsByFileName.setSelection(false);
 				}
-				for (int i = 0; i < sortMarkers.length; i++)
-					switch (settings.getGroupByAndSortBy(ReporterSettings.SORT_MARKERS_BY_FIRST + i))
-					{
-						case ReporterSettings.SORT_BY_SEVERITY:
-							sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_SEVERITY));
-							break;
-						case ReporterSettings.SORT_BY_MESSAGE:
-							sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_MESSAGE));
-							break;
-						case ReporterSettings.SORT_BY_LOCATION:
-							sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_LOCATION));
-							break;
-						case ReporterSettings.SORT_BY_MARKER_TYPE:
-							sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_MARKER_TYPE));
-							break;
-						case ReporterSettings.SORT_BY_FILE_NAME:
-							sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_FILE_NAME));
-							break;
-						default:
-							sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_NONE));
+				for (int i = 0; i < sortMarkers.length; i++) {
+					switch (settings.getGroupByAndSortBy(ReporterSettings.SORT_MARKERS_BY_FIRST + i)) {
+					case ReporterSettings.SORT_BY_SEVERITY:
+						sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_SEVERITY));
+						break;
+					case ReporterSettings.SORT_BY_MESSAGE:
+						sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_MESSAGE));
+						break;
+					case ReporterSettings.SORT_BY_LOCATION:
+						sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_LOCATION));
+						break;
+					case ReporterSettings.SORT_BY_MARKER_TYPE:
+						sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_MARKER_TYPE));
+						break;
+					case ReporterSettings.SORT_BY_FILE_NAME:
+						sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_FILE_NAME));
+						break;
+					default:
+						sortMarkers[i].select(sortMarkers[i].indexOf(COMBO_ITEM_NONE));
 					}
+				}
 				showSeverity.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_SEVERITY_FIELD));
-				showNumOfTextAndObjectFiles.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_TEXT_AND_OBJECT_FILES));
+				showNumOfTextAndObjectFiles.setSelection(settings
+						.getShowInSummary(ReporterSettings.SHOW_NUM_OF_TEXT_AND_OBJECT_FILES));
 				showNumOfFiles.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_FILES));
 				showNumOfTypes.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_TYPES));
-				showNumOfMarkersPerFile.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_FILES));
-				showNumOfMarkersPerType.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_TYPE));
+				showNumOfMarkersPerFile.setSelection(settings
+						.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_FILES));
+				showNumOfMarkersPerType.setSelection(settings
+						.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_TYPE));
 				showTotalMarkers.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_TOTAL_NUM_OF_MARKERS));
-				if (settings.getProblemMarkersToExclude() != null)
-					for (int i = 0; i < markerTable.getItemCount(); i++)
-						if (settings.getProblemMarkersToExclude().contains(markerTable.getItem(i).getData()))
+				if (settings.getProblemMarkersToExclude() != null) {
+					for (int i = 0; i < markerTable.getItemCount(); i++) {
+						if (settings.getProblemMarkersToExclude().contains(markerTable.getItem(i).getData())) {
 							markerTable.getItem(i).setChecked(false);
+						}
+					}
+				}
 				oin.close();
 				fin.close();
-			}
-			catch (IOException e)
-			{
-				//Use default settings.
-			}
-			catch (ClassNotFoundException e)
-			{
-				//Use default settings.
+			} catch (IOException e) {
+				// Use default settings.
+			} catch (ClassNotFoundException e) {
+				// Use default settings.
 			}
 		}
 	}
-	
-	//If groupByFiles is selected, the sortGroupsBy radio buttons are enabled and "Marker Type" is added as an option in the combo boxes.
-	//If groupByTypes is selected, the sortGroupsBy radio buttons are disabled and "File Name" is added as an option in the combo boxes.
-	private void changeSortGroupsSelections()
-	{
+
+	// If groupByFiles is selected, the sortGroupsBy radio buttons are enabled and "Marker Type" is added as an option in the combo boxes.
+	// If groupByTypes is selected, the sortGroupsBy radio buttons are disabled and "File Name" is added as an option in the combo boxes.
+	private void changeSortGroupsSelections() {
 		showingSortGroups = !showingSortGroups;
 		sortGroupsByFileName.setEnabled(showingSortGroups);
 		sortGroupsByFileType.setEnabled(showingSortGroups);
 		String toRemove = COMBO_ITEM_MARKER_TYPE;
 		String toAdd = COMBO_ITEM_FILE_NAME;
-		if (showingSortGroups)
-		{
+		if (showingSortGroups) {
 			String temp = toRemove;
 			toRemove = toAdd;
 			toAdd = temp;
 		}
-		for (int i = 0; i < sortMarkers.length; i++)
-		{
-			for (int j = 0; j < sortMarkers[i].getItemCount(); j++)
-				if (sortMarkers[i].getItem(j).equals(toRemove))
-				{
+		for (int i = 0; i < sortMarkers.length; i++) {
+			for (int j = 0; j < sortMarkers[i].getItemCount(); j++) {
+				if (sortMarkers[i].getItem(j).equals(toRemove)) {
 					sortMarkers[i].remove(toRemove);
 					break;
 				}
+			}
 			sortMarkers[i].add(toAdd);
-			if (sortMarkers[i].getSelectionIndex() == -1)
+			if (sortMarkers[i].getSelectionIndex() == -1) {
 				sortMarkers[i].select(sortMarkers[i].indexOf(toAdd));
+			}
 		}
 	}
-	
-	//Enforces logical selection patterns in the combo boxes.  When the user selects "None" for one of the combo boxes,
-	//all of the following combo boxes are set to "None" and disabled.  When the user selects an option except for
-	//"None" in one of the combo boxes, that selection is removed from all of the following combo boxes.  This method only
-	//affects combo boxes after changedComboBox in sortMarkers.
-	private void changeSortGroupsEnabledAndSelections(int changedComboBox)
-	{
+
+	// Enforces logical selection patterns in the combo boxes. When the user selects "None" for one of the combo boxes,
+	// all of the following combo boxes are set to "None" and disabled. When the user selects an option except for
+	// "None" in one of the combo boxes, that selection is removed from all of the following combo boxes. This method only
+	// affects combo boxes after changedComboBox in sortMarkers.
+	private void changeSortGroupsEnabledAndSelections(int changedComboBox) {
 		ArrayList<String> items = new ArrayList<String>();
-		//Puts into items the possible selections from the first combo box.
-		for (int i = 0; i < sortMarkers[changedComboBox].getItemCount(); i++)
+		// Puts into items the possible selections from the first combo box.
+		for (int i = 0; i < sortMarkers[changedComboBox].getItemCount(); i++) {
 			items.add(sortMarkers[changedComboBox].getItem(i));
+		}
 		items.remove(sortMarkers[changedComboBox].getItem(sortMarkers[changedComboBox].getSelectionIndex()));
-		for (int i = changedComboBox + 1; i < sortMarkers.length; i++)
-		{
-			if (sortMarkers[i - 1].getItem(sortMarkers[i - 1].getSelectionIndex()).equals(COMBO_ITEM_NONE))
-			{
+		for (int i = changedComboBox + 1; i < sortMarkers.length; i++) {
+			if (sortMarkers[i - 1].getItem(sortMarkers[i - 1].getSelectionIndex()).equals(COMBO_ITEM_NONE)) {
 				sortMarkers[i].setText(COMBO_ITEM_NONE);
 				sortMarkers[i].setEnabled(false);
-			}
-			else
-			{
+			} else {
 				String selectedItem = sortMarkers[i].getItem(sortMarkers[i].getSelectionIndex());
 				sortMarkers[i].removeAll();
-				//At this point items doesn't contain the selected item from the last combo box.
-				for (int j = 0; j < items.size(); j++)
+				// At this point items doesn't contain the selected item from the last combo box.
+				for (int j = 0; j < items.size(); j++) {
 					sortMarkers[i].add(items.get(j));
-				if (items.contains(selectedItem))
+				}
+				if (items.contains(selectedItem)) {
 					sortMarkers[i].setText(selectedItem);
-				else
-					//Ensures that "None" is not selected automatically.
+				} else {
+					// Ensures that "None" is not selected automatically.
 					sortMarkers[i].select(1);
+				}
 				items.remove(sortMarkers[i].getItem(sortMarkers[i].getSelectionIndex()));
 				sortMarkers[i].setEnabled(true);
 			}
 		}
 	}
-	
-	private void addListeners()
-	{
+
+	private void addListeners() {
 		/*
 		 * for (int i = 0; i < sortMarkers.length; i++)
-		 * 		sortMarkers[i]
+		 * sortMarkers[i]
 		 */
-		
-		groupByFiles.addSelectionListener(
-				new SelectionAdapter()
-				{				
-					public void widgetSelected(SelectionEvent arg0)
-					{
-						if (!showingSortGroups)
-							changeSortGroupsSelections();
-					}				
-				});
-		groupByTypes.addSelectionListener(
-				new SelectionAdapter()
-				{				
-					public void widgetSelected(SelectionEvent arg0)
-					{
-						if (showingSortGroups)
-							changeSortGroupsSelections();
-					}				
-				});
-		selectAll.addSelectionListener(
-				new SelectionAdapter()
-				{				
-					public void widgetSelected(SelectionEvent arg0)
-					{
-						for (int i = 0; i < markerTable.getItemCount(); i++)
-							markerTable.getItem(i).setChecked(true);
-					}				
-				});
-		selectNone.addSelectionListener(
-				new SelectionAdapter()
-				{				
-					public void widgetSelected(SelectionEvent arg0)
-					{
-						for (int i = 0; i < markerTable.getItemCount(); i++)
-							markerTable.getItem(i).setChecked(false);
-					}				
-				});
-		SelectionAdapter selectionListenerForComboBoxes =
-			new SelectionAdapter()
-			{
-				public void widgetSelected(SelectionEvent e)
-				{
-					for (int i = 0; i < sortMarkers.length; i++)
-						if (e.getSource().equals(sortMarkers[i]))
-						{
-							changeSortGroupsEnabledAndSelections(i);
-							break;
-						}
+
+		groupByFiles.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				if (!showingSortGroups) {
+					changeSortGroupsSelections();
 				}
-			};
-		for (int i = 0; i < sortMarkers.length; i++)
+			}
+		});
+		groupByTypes.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				if (showingSortGroups) {
+					changeSortGroupsSelections();
+				}
+			}
+		});
+		selectAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				for (int i = 0; i < markerTable.getItemCount(); i++) {
+					markerTable.getItem(i).setChecked(true);
+				}
+			}
+		});
+		selectNone.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				for (int i = 0; i < markerTable.getItemCount(); i++) {
+					markerTable.getItem(i).setChecked(false);
+				}
+			}
+		});
+		SelectionAdapter selectionListenerForComboBoxes = new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				for (int i = 0; i < sortMarkers.length; i++) {
+					if (e.getSource().equals(sortMarkers[i])) {
+						changeSortGroupsEnabledAndSelections(i);
+						break;
+					}
+				}
+			}
+		};
+		for (int i = 0; i < sortMarkers.length; i++) {
 			sortMarkers[i].addSelectionListener(selectionListenerForComboBoxes);
-		
+		}
+
 	}
-	
-	private static boolean extendsFromProblemMarker(IExtension markerExtension)
-	{
+
+	private static boolean extendsFromProblemMarker(IExtension markerExtension) {
 		String superType = markerExtension.getConfigurationElements()[0].getAttribute("type");
-		if (superType == null)
+		if (superType == null) {
 			return false;
-		else if (superType.equals("org.eclipse.core.resources.problemmarker"))
+		} else if (superType.equals("org.eclipse.core.resources.problemmarker")) {
 			return true;
-		else
+		} else {
 			return extendsFromProblemMarker(Platform.getExtensionRegistry().getExtension(superType));
+		}
 	}
 }

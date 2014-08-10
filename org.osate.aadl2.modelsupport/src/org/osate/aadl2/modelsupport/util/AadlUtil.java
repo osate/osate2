@@ -55,7 +55,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -67,9 +66,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -124,7 +121,6 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
@@ -141,8 +137,6 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -153,7 +147,7 @@ import org.osate.workspace.WorkspacePlugin;
 
 /**
  * Static utility methods for processing AADL meta model objects.
- * 
+ *
  * @author phf
  */
 public final class AadlUtil {
@@ -190,8 +184,9 @@ public final class AadlUtil {
 
 	public static boolean isPredeclaredPropertySet(String psname) {
 		for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
-			if (psname.equalsIgnoreCase(predeclaredPSName))
+			if (psname.equalsIgnoreCase(predeclaredPSName)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -199,7 +194,7 @@ public final class AadlUtil {
 	/**
 	 * find (first) Named Element matching name in the Elist; any elements that
 	 * are not NamedElements are skipped.
-	 * 
+	 *
 	 * @param el Collection of NamedElements
 	 * @param name String
 	 * @return NamedElement
@@ -222,10 +217,11 @@ public final class AadlUtil {
 		}
 		return null;
 	}
+
 	/**
 	 * find (first) Named Element matching name in the Elist; any elements that
 	 * are not NamedElements are skipped.
-	 * 
+	 *
 	 * @param el Collection of NamedElements
 	 * @param name String
 	 * @return NamedElement
@@ -241,8 +237,10 @@ public final class AadlUtil {
 					String n = ((NamedElement) o).getName();
 
 					if (n != null && n.length() > 0 && name.equalsIgnoreCase(n)) {
-						if (o instanceof FeatureInstance){
-							if(((FeatureInstance)o).getIndex() == 0 || ((FeatureInstance)o).getIndex() ==idx) return (NamedElement) o;
+						if (o instanceof FeatureInstance) {
+							if (((FeatureInstance) o).getIndex() == 0 || ((FeatureInstance) o).getIndex() == idx) {
+								return (NamedElement) o;
+							}
 						} else {
 							return (NamedElement) o;
 						}
@@ -256,7 +254,7 @@ public final class AadlUtil {
 	/**
 	 * find all Named Elements matching name in the Elist; any elements that are
 	 * not NamedElements are skipped.
-	 * 
+	 *
 	 * @param el Elist of NamedElements
 	 * @param name String
 	 * @return EList of NamedElements that match the name
@@ -284,7 +282,7 @@ public final class AadlUtil {
 	 * Check to see if all NamedElements in the Elist have a unique name. The
 	 * list can contain object that are not NamedElements. This implementation
 	 * utilizes List Iterators.
-	 * 
+	 *
 	 * @param el EList or NamedElements or other objects
 	 * @return EList of NameElements that are defining a previously defined name
 	 */
@@ -297,7 +295,7 @@ public final class AadlUtil {
 				final Object obj = i.next();
 				if (obj instanceof NamedElement) {
 					final NamedElement lit = (NamedElement) obj;
-					 String name = lit.getName();
+					String name = lit.getName();
 					if (name != null && !name.isEmpty()) {
 						name = name.toLowerCase();
 						if (!seen.add(name)) {
@@ -312,7 +310,7 @@ public final class AadlUtil {
 
 	/**
 	 * Compare the EClass of the two EObjects
-	 * 
+	 *
 	 * @param c1 EObject
 	 * @param c2 EObject
 	 * @return true if their EClasses are the same
@@ -323,7 +321,7 @@ public final class AadlUtil {
 
 	/**
 	 * Check to ensure that there is at most one list element per mode
-	 * 
+	 *
 	 * @param list list of ModeMembers
 	 * @return true if at most one element per mode
 	 */
@@ -647,7 +645,7 @@ public final class AadlUtil {
 	/**
 	 * Check whether the flow specification and flow implementation are both
 	 * flow paths, flow sources, or flow sinks
-	 * 
+	 *
 	 * @param fi flow implementation
 	 * @param fs flow specification
 	 * @return true if the both are paths, or both sources, or both sinks
@@ -663,7 +661,7 @@ public final class AadlUtil {
 	/**
 	 * Check to see that a component type and a component implementation have
 	 * the same category
-	 * 
+	 *
 	 * @param impl ComponentImplementation
 	 * @param type ComponentType
 	 * @return true if their categories match
@@ -678,7 +676,7 @@ public final class AadlUtil {
 
 	/**
 	 * Check to see if the category of the subcomponent and the classifier match
-	 * 
+	 *
 	 * @param sub Subcomponent
 	 * @param c ComponentClassifier
 	 * @return true if the categories match
@@ -856,7 +854,7 @@ public final class AadlUtil {
 	 * implementations must be the same, types must be the same; if the source
 	 * is an implementation and the destination is a type their types must match
 	 * In case of the feature group the feature group types must match
-	 * 
+	 *
 	 * @param source Classifier
 	 * @param dest Classifier
 	 * @return true if their classifiers match
@@ -867,14 +865,16 @@ public final class AadlUtil {
 		 * there is zero or one implementation It may be desirable to allow the
 		 * desintation to be a type while the source specifies an implementation
 		 * indicating that the recipient can handle any implementation
-		 * 
+		 *
 		 * Currently we do match type only if one of the two side has a type
 		 * only
 		 */
-		if (source instanceof ComponentImplementation && dest instanceof ComponentType)
+		if (source instanceof ComponentImplementation && dest instanceof ComponentType) {
 			source = ((ComponentImplementation) source).getType();
-		if (dest instanceof ComponentImplementation && source instanceof ComponentType)
+		}
+		if (dest instanceof ComponentImplementation && source instanceof ComponentType) {
 			dest = ((ComponentImplementation) dest).getType();
+		}
 		return source == dest;
 	}
 
@@ -892,44 +892,45 @@ public final class AadlUtil {
 	 * @param replacement Classifier
 	 * @return true if the classifier can be substituted
 	 */
-	public static boolean isokClassifierSubstitutionMatch(Classifier origin,
-			Classifier replacement) {
-		if (origin == null || replacement == null) return true;
-		if (replacement instanceof FeatureGroupType && origin instanceof
-				FeatureGroupType) {
-			/* Don't have to refine, could leave the type alone. Refinement
+	public static boolean isokClassifierSubstitutionMatch(Classifier origin, Classifier replacement) {
+		if (origin == null || replacement == null) {
+			return true;
+		}
+		if (replacement instanceof FeatureGroupType && origin instanceof FeatureGroupType) {
+			/*
+			 * Don't have to refine, could leave the type alone. Refinement
 			 * statement might be changing property values or modes.
 			 */
 			// ??? Do we allow replacement to be a subtype??
-			return isokTypeClassifierMatch((FeatureGroupType) origin, (FeatureGroupType)
-					replacement);
+			return isokTypeClassifierMatch((FeatureGroupType) origin, (FeatureGroupType) replacement);
 
 		}
-		if (replacement instanceof ComponentType && origin instanceof
-				ComponentType) {
-			/* Don't have to refine, could leave the type alone. Refinement
+		if (replacement instanceof ComponentType && origin instanceof ComponentType) {
+			/*
+			 * Don't have to refine, could leave the type alone. Refinement
 			 * statement might be changing property values or modes.
 			 */
 			// ??? Do we allow replacement to be a subtype??
-			return isokTypeClassifierMatch((ComponentType) origin, (ComponentType)
-					replacement);
+			return isokTypeClassifierMatch((ComponentType) origin, (ComponentType) replacement);
 
 		}
-		if (replacement instanceof ComponentImplementation && origin instanceof
-				ComponentType){
-			ComponentType reptype = ((ComponentImplementation)replacement).getType();
+		if (replacement instanceof ComponentImplementation && origin instanceof ComponentType) {
+			ComponentType reptype = ((ComponentImplementation) replacement).getType();
 			// an implementation has been added to a type
-			if (isokTypeClassifierMatch((ComponentType)origin,reptype)) return true;
-		} else if (replacement instanceof ComponentImplementation && origin
-				instanceof ComponentImplementation){
+			if (isokTypeClassifierMatch((ComponentType) origin, reptype)) {
+				return true;
+			}
+		} else if (replacement instanceof ComponentImplementation && origin instanceof ComponentImplementation) {
 			// implementations must be for the same type
-			ComponentType origtype = ((ComponentImplementation)origin).getType();
-			ComponentType reptype = ((ComponentImplementation)replacement).getType();
-			if( isokTypeClassifierMatch(origtype,reptype) ) return true;
+			ComponentType origtype = ((ComponentImplementation) origin).getType();
+			ComponentType reptype = ((ComponentImplementation) replacement).getType();
+			if (isokTypeClassifierMatch(origtype, reptype)) {
+				return true;
+			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * checks for legal classifier substitution.
 	 * The standard allows a type to be refined into one of its
@@ -944,42 +945,38 @@ public final class AadlUtil {
 	 * @param replacement Classifier
 	 * @return true if the classifier can be substituted
 	 */
-	public static boolean isokClassifierSubstitutionTypeExtension(Classifier origin,
-			Classifier replacement) {
-		if (origin == null || replacement == null) return true;
-		if (replacement instanceof FeatureGroupType && origin instanceof
-				FeatureGroupType) {
-			/* Don't have to refine, could leave the type alone. Refinement
+	public static boolean isokClassifierSubstitutionTypeExtension(Classifier origin, Classifier replacement) {
+		if (origin == null || replacement == null) {
+			return true;
+		}
+		if (replacement instanceof FeatureGroupType && origin instanceof FeatureGroupType) {
+			/*
+			 * Don't have to refine, could leave the type alone. Refinement
 			 * statement might be changing property values or modes.
 			 */
-			return isSameOrExtends((FeatureGroupType) origin, (FeatureGroupType)
-					replacement);
+			return isSameOrExtends(origin, replacement);
 
 		}
-		if (replacement instanceof ComponentType && origin instanceof
-				ComponentType) {
-			/* Don't have to refine, could leave the type alone. Refinement
+		if (replacement instanceof ComponentType && origin instanceof ComponentType) {
+			/*
+			 * Don't have to refine, could leave the type alone. Refinement
 			 * statement might be changing property values or modes.
 			 */
-			return isSameOrExtends((ComponentType) origin, (ComponentType)
-					replacement);
+			return isSameOrExtends(origin, replacement);
 
 		}
-		if (replacement instanceof ComponentImplementation && origin instanceof
-				ComponentType){
-			ComponentType reptype = ((ComponentImplementation)replacement).getType();
+		if (replacement instanceof ComponentImplementation && origin instanceof ComponentType) {
+			ComponentType reptype = ((ComponentImplementation) replacement).getType();
 			// an implementation has been added to a type
-			return isSameOrExtends((ComponentType)origin,reptype);
-		} else if (replacement instanceof ComponentImplementation && origin
-				instanceof ComponentImplementation){
+			return isSameOrExtends(origin, reptype);
+		} else if (replacement instanceof ComponentImplementation && origin instanceof ComponentImplementation) {
 			// implementations must be for the same type
-			ComponentType origtype = ((ComponentImplementation)origin).getType();
-			ComponentType reptype = ((ComponentImplementation)replacement).getType();
-			return isSameOrExtends(origtype,reptype) ;
+			ComponentType origtype = ((ComponentImplementation) origin).getType();
+			ComponentType reptype = ((ComponentImplementation) replacement).getType();
+			return isSameOrExtends(origtype, reptype);
 		}
 		return false;
 	}
-
 
 	/**
 	 * checks for legal type substitution.
@@ -992,27 +989,32 @@ public final class AadlUtil {
 	 * @param reptype type Component type
 	 * @return true if the Component type can be substituted
 	 */
-	public static boolean isokTypeClassifierMatch(ComponentType origin,
-			ComponentType reptype) {
-		if (reptype == origin|| reptype == null) return true;
+	public static boolean isokTypeClassifierMatch(ComponentType origin, ComponentType reptype) {
+		if (reptype == origin || reptype == null) {
+			return true;
+		}
 		// an extension for the purpose of making name visible in another package
-		//or refinement with only property associations
-		ComponentType repancestor = (ComponentType) reptype.getExtended();
-		if (repancestor == origin){
-			if (reptype.getOwnedFeatures() == null ||
-					reptype.getOwnedFeatures().isEmpty()) return true;
+		// or refinement with only property associations
+		ComponentType repancestor = reptype.getExtended();
+		if (repancestor == origin) {
+			if (reptype.getOwnedFeatures() == null || reptype.getOwnedFeatures().isEmpty()) {
+				return true;
+			}
 		}
 		return false;
 	}
-	public static boolean isokTypeClassifierMatch(FeatureGroupType origin,
-			FeatureGroupType reptype) {
-		if (reptype == origin|| reptype == null) return true;
+
+	public static boolean isokTypeClassifierMatch(FeatureGroupType origin, FeatureGroupType reptype) {
+		if (reptype == origin || reptype == null) {
+			return true;
+		}
 		// an extension for the purpose of making name visible in another package
-		//or refinement with only property associations
-		FeatureGroupType repancestor = (FeatureGroupType) reptype.getExtended();
-		if (repancestor == origin){
-			if (reptype.getOwnedFeatures() == null ||
-					reptype.getOwnedFeatures().isEmpty()) return true;
+		// or refinement with only property associations
+		FeatureGroupType repancestor = reptype.getExtended();
+		if (repancestor == origin) {
+			if (reptype.getOwnedFeatures() == null || reptype.getOwnedFeatures().isEmpty()) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -1024,27 +1026,26 @@ public final class AadlUtil {
 	 * @param extension Classifier
 	 * @return boolean true if repl is an extension of origin
 	 */
-	public static boolean isSameOrExtends(Classifier origin, Classifier extension){
-		
+	public static boolean isSameOrExtends(Classifier origin, Classifier extension) {
+
 		/**
 		 * If we have a feature group that is inverse, we have no clue to find
 		 * if this is an extension because we cannot "extends" another
 		 * type. So, we try to find the extension by using the inverse type.
 		 */
-		if ( (origin instanceof FeatureGroupType) && (((FeatureGroupType)origin).getInverse() != null))
-		{
-			origin = ((FeatureGroupType)origin).getInverse();
+		if ((origin instanceof FeatureGroupType) && (((FeatureGroupType) origin).getInverse() != null)) {
+			origin = ((FeatureGroupType) origin).getInverse();
 		}
-		
-		if ( (extension instanceof FeatureGroupType) && (((FeatureGroupType)extension).getInverse() != null))
-		{
-			extension = ((FeatureGroupType)origin).getInverse();
+
+		if ((extension instanceof FeatureGroupType) && (((FeatureGroupType) extension).getInverse() != null)) {
+			extension = ((FeatureGroupType) origin).getInverse();
 		}
-		
-		
+
 		while (origin != extension) {
 			extension = extension.getExtended();
-			if (extension == null) return false;
+			if (extension == null) {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -1056,10 +1057,12 @@ public final class AadlUtil {
 	 * @param refinement Feature
 	 * @return boolean true if repl is an extension of origin
 	 */
-	public static boolean isSameOrRefines(Feature origin, Feature refinement){
+	public static boolean isSameOrRefines(Feature origin, Feature refinement) {
 		while (origin != refinement) {
 			refinement = refinement.getRefined();
-			if (refinement == null) return false;
+			if (refinement == null) {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -1071,17 +1074,19 @@ public final class AadlUtil {
 	 * @param refinement Subcomponent
 	 * @return boolean true if repl is an extension of origin
 	 */
-	public static boolean isSameOrRefines(Subcomponent origin, Subcomponent refinement){
+	public static boolean isSameOrRefines(Subcomponent origin, Subcomponent refinement) {
 		while (origin != refinement) {
 			refinement = refinement.getRefined();
-			if (refinement == null) return false;
+			if (refinement == null) {
+				return false;
+			}
 		}
 		return true;
 	}
 
 	/**
 	 * extract the set of feature group connections from the list of connections
-	 * 
+	 *
 	 * @param portconn list of port connections
 	 * @return list of feature group connections
 	 */
@@ -1099,7 +1104,7 @@ public final class AadlUtil {
 	/**
 	 * Returns a list of the self-contained copies of each {@link EObject} in
 	 * the given list.
-	 * 
+	 *
 	 * @param list the list of objects to copy.
 	 * @return the list of copies.
 	 * @see EcoreUtil#copy(org.eclipse.emf.ecore.EObject)
@@ -1333,7 +1338,7 @@ public final class AadlUtil {
 	 * If the object is an Element, it is returned. Otherwise, the method tries
 	 * to adapt the object to an Element. The Object could be an Element, IAdaptable, an instance model resource,
 	 * or a TreeSelection of a IFile in the Navigator
-	 * 
+	 *
 	 * @param object The object to get an Element from.
 	 * @return The Element, or <code>null</code> if no Element can be obtained
 	 *         from the given object.
@@ -1343,54 +1348,55 @@ public final class AadlUtil {
 		// Is it an Element?
 		if (object instanceof Element) {
 			theElement = (Element) object;
-			if (theElement != null)
+			if (theElement != null) {
 				return theElement;
+			}
 		}
 		if (object instanceof IAdaptable) {
 			theElement = (Element) ((IAdaptable) object).getAdapter(Element.class);
-			if (theElement != null)
+			if (theElement != null) {
 				return theElement;
+			}
 		}
 		if (object instanceof IFile
 				&& WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
 			Resource res = OsateResourceUtil.getResource((IResource) object);
 			EList<EObject> rl = res.getContents();
-			if (!rl.isEmpty() && rl.get(0) instanceof Element)
+			if (!rl.isEmpty() && rl.get(0) instanceof Element) {
 				return (Element) rl.get(0);
+			}
 		}
 		if (object instanceof IFile
 				&& WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
 			Resource res = OsateResourceUtil.getResource((IResource) object);
 			EList<EObject> rl = res.getContents();
-			
-			if (!rl.isEmpty() && rl.get(0) instanceof LazyLinkingResource)
-			{
-				if ( (((LazyLinkingResource) rl.get(0)).getContents().size() > 0) && 
-					 (((LazyLinkingResource) rl.get(0)).getContents().get(0) instanceof Element))
-				{
+
+			if (!rl.isEmpty() && rl.get(0) instanceof LazyLinkingResource) {
+				if ((((LazyLinkingResource) rl.get(0)).getContents().size() > 0)
+						&& (((LazyLinkingResource) rl.get(0)).getContents().get(0) instanceof Element)) {
 					theElement = (Element) ((LazyLinkingResource) rl.get(0)).getContents().get(0);
-					
+
 					return theElement;
 				}
-		
+
 			}
-			if (!rl.isEmpty() && rl.get(0) instanceof Element)
-			{
-		
-					theElement = (Element) rl.get(0);
-					
-					return theElement;
-				
+			if (!rl.isEmpty() && rl.get(0) instanceof Element) {
+
+				theElement = (Element) rl.get(0);
+
+				return theElement;
+
 			}
 		}
 		if (object instanceof TreeSelection) {
 			for (Iterator iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {
-				Object f = (Object) iterator.next();
+				Object f = iterator.next();
 				if (f instanceof IResource) {
 					Resource res = OsateResourceUtil.getResource((IResource) f);
 					EList<EObject> rl = res.getContents();
-					if (rl.isEmpty() && rl.get(0) instanceof Element)
+					if (rl.isEmpty() && rl.get(0) instanceof Element) {
 						return (Element) rl.get(0);
+					}
 				}
 			}
 			return null;
@@ -1400,7 +1406,7 @@ public final class AadlUtil {
 
 	/**
 	 * find Meta model class in meta model packages
-	 * 
+	 *
 	 * @param classname the class name to be qualified with the package name
 	 * @return String qualified class name
 	 */
@@ -1420,7 +1426,7 @@ public final class AadlUtil {
 
 	/**
 	 * find Meta model class object in meta model packages
-	 * 
+	 *
 	 * @param classname the class name to be found
 	 * @return EClass classs object
 	 */
@@ -1439,8 +1445,9 @@ public final class AadlUtil {
 	}
 
 	public static String getFeaturePrototypeName(FeaturePrototype ft, Element context) {
-		if (Aadl2Util.isNull(ft))
+		if (Aadl2Util.isNull(ft)) {
 			return "";
+		}
 		return ((NamedElement) ft).getName();
 	}
 
@@ -1450,12 +1457,13 @@ public final class AadlUtil {
 	 * If null or proxy return empty string
 	 */
 	public static String getClassifierOrLocalName(NamedElement ne, Element context) {
-		if (Aadl2Util.isNull(ne))
+		if (Aadl2Util.isNull(ne)) {
 			return "";
+		}
 		if (ne instanceof Classifier) {
 			return getClassifierName((Classifier) ne, context);
 		} else {
-			return ((NamedElement) ne).getName();
+			return ne.getName();
 		}
 	}
 
@@ -1468,8 +1476,9 @@ public final class AadlUtil {
 	}
 
 	public static String getClassifierName(Classifier cl, Element context) {
-		if (Aadl2Util.isNull(cl))
+		if (Aadl2Util.isNull(cl)) {
 			return "";
+		}
 		if (context instanceof Realization) {
 			// get the name from the stored name in implementation
 			ComponentImplementation ci = (ComponentImplementation) context.getOwner();
@@ -1499,7 +1508,7 @@ public final class AadlUtil {
 
 //	/**
 //	 * Find the Element whose location reference is close to the line number.
-//	 * 
+//	 *
 //	 * @param modelelement The model element used as root of the search
 //	 * @param location line number
 //	 * @return Element
@@ -1514,7 +1523,7 @@ public final class AadlUtil {
 //	 * elements of the object model are visited in unparse order. Therefore we
 //	 * search the whole containment tree for the closest element whose location
 //	 * reference is less or equal to the desired location.
-//	 * 
+//	 *
 //	 * @param modelelement The model element and its sub elements to be visited
 //	 * @param location The location as line whose Element equivalent we are
 //	 *            trying to find
@@ -1556,7 +1565,6 @@ public final class AadlUtil {
 //	private static final String PropertySetLabel = "propertySet[@name=";
 //	private static final String PackageLabel = "aadlPackage[@name=";
 
-
 	public static Element getInstanceOrigin(InstanceObject io) {
 		List<? extends NamedElement> el = io.getInstantiatedObjects();
 		Element target = null;
@@ -1583,7 +1591,6 @@ public final class AadlUtil {
 		return target;
 	}
 
-
 	/*
 	 * ================================================================ Methods
 	 * for counting elements in models
@@ -1594,11 +1601,11 @@ public final class AadlUtil {
 	* For the subtree rooted at the given node, count the number of model
 	* elements whose class extends from the given model element type. For
 	* example,
-	* 
+	*
 	* <pre>
 	* int numSubs = AadlUtil.countElementsBySubclass(root, Subcomponent.class);
 	* </pre>
-	* 
+	*
 	* @param root
 	*            The root of the subtree.
 	* @param clazz
@@ -1614,7 +1621,7 @@ public final class AadlUtil {
 
 	/**
 	 * determine whether a component instance has subcomponents with ports
-	 * 
+	 *
 	 * @param subcompinstances list of sub component instances
 	 */
 	public static boolean hasPortComponents(ComponentImplementation compimpl) {
@@ -1622,8 +1629,9 @@ public final class AadlUtil {
 			return false;
 		}
 		EList<Subcomponent> sl = compimpl.getAllSubcomponents();
-		if (sl == null)
+		if (sl == null) {
 			return false;
+		}
 		for (Iterator<Subcomponent> it = sl.iterator(); it.hasNext();) {
 			Subcomponent o = it.next();
 			if (o instanceof SystemSubcomponent || o instanceof ProcessSubcomponent
@@ -1638,13 +1646,14 @@ public final class AadlUtil {
 	/**
 	 * make sure the parent folders exist. If not they will be created. The
 	 * final/last element is not tested
-	 * 
+	 *
 	 * @param path
 	 */
 	public static void makeSureFoldersExist(IPath path) {
 		path = path.removeLastSegments(1);
-		if (path.segmentCount() <= 1)
+		if (path.segmentCount() <= 1) {
 			return;
+		}
 		IPath folderpath = path.removeFirstSegments(1);
 		IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getProject(path.segment(0)).getFolder(folderpath);
 		if (!folder.exists()) {
@@ -1655,12 +1664,11 @@ public final class AadlUtil {
 			}
 		}
 	}
-	
 
 	/**
 	 * determine whether a component instance has subcomponents that can have
 	 * outgoing connections
-	 * 
+	 *
 	 * @param subcompinstances list of sub component instances
 	 */
 	public static boolean hasOutgoingPortSubcomponents(EList<? extends ComponentInstance> subcompinstances) {
@@ -1681,20 +1689,22 @@ public final class AadlUtil {
 	/**
 	 * determine whether a feature instance has outgoing features
 	 * will examine feature groups recursively
-	 * 
+	 *
 	 * @param fi FeatureInstance of a feature or feature group
 	 */
 	public static boolean hasOutgoingFeatures(FeatureInstance fi) {
 		EList<FeatureInstance> filist = fi.getFeatureInstances();
-		if (filist.isEmpty()){
+		if (filist.isEmpty()) {
 			// feature or feature group without features
-			if (!fi.getDirection().equals(DirectionType.IN))
+			if (!fi.getDirection().equals(DirectionType.IN)) {
 				return true;
+			}
 		} else {
 			for (Iterator<FeatureInstance> fit = filist.iterator(); fit.hasNext();) {
 				FeatureInstance subfi = fit.next();
-				if (hasOutgoingFeatures(subfi))
+				if (hasOutgoingFeatures(subfi)) {
 					return true;
+				}
 			}
 		}
 		return false;
@@ -1703,7 +1713,7 @@ public final class AadlUtil {
 	/**
 	 * get ingoing connections to subcomponents from a specified feature of the
 	 * component impl
-	 * 
+	 *
 	 * @param feature component impl feature that is the source of a connection
 	 * @param context the outer feature (feature group) or null
 	 * @return EList connections with feature as source
@@ -1727,7 +1737,7 @@ public final class AadlUtil {
 
 	/**
 	 * determine whether the feature is an outgoing port or feature group
-	 * 
+	 *
 	 * @param f Feature
 	 * @return boolean true if outgoing
 	 */
@@ -1738,7 +1748,7 @@ public final class AadlUtil {
 	/**
 	 * determine whether a component instance has subcomponents that can have
 	 * outgoing connections
-	 * 
+	 *
 	 * @param subcompinstances list of sub component instances
 	 */
 	public static boolean hasOutgoingFeatureSubcomponents(EList<? extends ComponentInstance> subcompinstances) {
@@ -1763,29 +1773,29 @@ public final class AadlUtil {
 
 	/**
 	 * determine whether the feature is an outgoing port or feature group
-	 * 
+	 *
 	 * @param f Feature
 	 * @return boolean true if outgoing
 	 */
 	public static boolean isOutgoingFeature(Feature f) {
-		return (f instanceof Port && ((Port) f).getDirection().outgoing()) || (f instanceof Access)//&& ((Access) f).getKind() == AccessType.REQUIRED)
+		return (f instanceof Port && ((Port) f).getDirection().outgoing()) || (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
 				|| (f instanceof FeatureGroup);
 	}
-	
+
 	/**
 	 * determine whether the feature is an outgoing port or feature group
-	 * 
+	 *
 	 * @param f Feature
 	 * @return boolean true if incoming
 	 */
 	public static boolean isIncomingFeature(Feature f) {
-		return (f instanceof Port && ((Port) f).getDirection().incoming()) || (f instanceof Access)//&& ((Access) f).getKind() == AccessType.REQUIRED)
+		return (f instanceof Port && ((Port) f).getDirection().incoming()) || (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
 				|| (f instanceof FeatureGroup);
 	}
 
 	/**
 	 * extract the set of feature group connections from the list of connections
-	 * 
+	 *
 	 * @param portconn list of port connections
 	 * @return list of feature group connections
 	 */
@@ -1803,7 +1813,7 @@ public final class AadlUtil {
 	/**
 	 * find the connection instance with src as its source and dst as its
 	 * destination
-	 * 
+	 *
 	 * @param src InstanceObject
 	 * @param dst InstanceObject
 	 * @return ConnectionInstance or null if not found
@@ -1821,7 +1831,7 @@ public final class AadlUtil {
 	/**
 	 * Get all component implementations; in all anon. name spaces and from all
 	 * packages (public and private parts)
-	 * 
+	 *
 	 * @return EList of component impl
 	 */
 	public static EList<ComponentImplementation> getAllComponentImpl() {
@@ -1841,7 +1851,7 @@ public final class AadlUtil {
 	/**
 	 * Get all component implementation; in anon. name space and from all
 	 * packages
-	 * 
+	 *
 	 * @param o AadlPackage
 	 * @return EList of component impl
 	 */
@@ -1850,15 +1860,17 @@ public final class AadlUtil {
 		PackageSection psec = o.getOwnedPublicSection();
 		if (psec != null) {
 			for (EObject oo : psec.getOwnedElements()) {
-				if (oo instanceof ComponentImplementation)
+				if (oo instanceof ComponentImplementation) {
 					result.add((ComponentImplementation) oo);
+				}
 			}
 		}
 		psec = o.getPrivateSection();
 		if (psec != null) {
 			for (EObject oo : psec.getOwnedElements()) {
-				if (oo instanceof ComponentImplementation)
+				if (oo instanceof ComponentImplementation) {
 					result.add((ComponentImplementation) oo);
+				}
 			}
 		}
 		return result;
@@ -1926,8 +1938,9 @@ public final class AadlUtil {
 
 	public static NamedElement getContainingAnnex(EObject obj) {
 		while (obj != null) {
-			if (obj instanceof AnnexLibrary || obj instanceof AnnexSubclause)
+			if (obj instanceof AnnexLibrary || obj instanceof AnnexSubclause) {
 				return (NamedElement) obj;
+			}
 			obj = obj.eContainer();
 		}
 		return null;
@@ -1940,8 +1953,9 @@ public final class AadlUtil {
 	 */
 	public static Classifier getContainingClassifier(EObject element) {
 		EObject container = element;
-		while (container != null && !(container instanceof Classifier))
+		while (container != null && !(container instanceof Classifier)) {
 			container = container.eContainer();
+		}
 		return (Classifier) container;
 	}
 
@@ -2013,22 +2027,25 @@ public final class AadlUtil {
 
 	public static PackageSection getContainingPackageSection(EObject element) {
 		EObject container = element;
-		while (container != null && !(container instanceof PackageSection))
+		while (container != null && !(container instanceof PackageSection)) {
 			container = container.eContainer();
+		}
 		return (PackageSection) container;
 	}
 
 	public static AadlPackage getContainingPackage(EObject element) {
 		EObject container = element;
-		while (container != null && !(container instanceof AadlPackage))
+		while (container != null && !(container instanceof AadlPackage)) {
 			container = container.eContainer();
+		}
 		return (AadlPackage) container;
 	}
 
 	public static PropertySet getContainingPropertySet(EObject element) {
 		EObject container = element;
-		while (container != null && !(container instanceof PropertySet))
+		while (container != null && !(container instanceof PropertySet)) {
 			container = container.eContainer();
+		}
 		return (PropertySet) container;
 	}
 
@@ -2040,13 +2057,15 @@ public final class AadlUtil {
 	 */
 	public static Namespace getContainingTopLevelNamespace(EObject element) {
 		if (element.eContainer() == null) {
-			if (element instanceof Namespace)
+			if (element instanceof Namespace) {
 				return (Namespace) element;
+			}
 			return null;
 		}
 		EObject container = element;
-		while (container != null && !(container instanceof PackageSection) && !(container instanceof PropertySet))
+		while (container != null && !(container instanceof PackageSection) && !(container instanceof PropertySet)) {
 			container = container.eContainer();
+		}
 		return (Namespace) container;
 	}
 
@@ -2058,25 +2077,31 @@ public final class AadlUtil {
 	 */
 	public static AadlPackage findImportedPackage(String name, Namespace context) {
 		EList<ModelUnit> imports;
-		if (name == null)
+		if (name == null) {
 			return null;
-		if (context instanceof PropertySet)
+		}
+		if (context instanceof PropertySet) {
 			imports = ((PropertySet) context).getImportedUnits();
-		else
+		} else {
 			imports = ((PackageSection) context).getImportedUnits();
+		}
 		for (ModelUnit imported : imports) {
 			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
 				String n = ((AadlPackage) imported).getName();
-				if (name.equalsIgnoreCase(n))
+				if (name.equalsIgnoreCase(n)) {
 					return (AadlPackage) imported;
+				}
 			}
 		}
 		if (context instanceof PrivatePackageSection
-				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
-			for (ModelUnit imported : ((AadlPackage) context.eContainer()).getOwnedPublicSection().getImportedUnits())
+				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null) {
+			for (ModelUnit imported : ((AadlPackage) context.eContainer()).getOwnedPublicSection().getImportedUnits()) {
 				if (imported instanceof AadlPackage && !imported.eIsProxy()
-						&& name.equalsIgnoreCase(((AadlPackage) imported).getName()))
+						&& name.equalsIgnoreCase(((AadlPackage) imported).getName())) {
 					return (AadlPackage) imported;
+				}
+			}
+		}
 		// TODO need to handle public section declared in a separate package
 		// declaration
 		return null;
@@ -2084,30 +2109,36 @@ public final class AadlUtil {
 
 	/**
 	 * check whether package is in the with clause of the containing top level name space (PackageSection or Property set) of the context.
-	 * @param pack Aadl Package 
+	 * @param pack Aadl Package
 	 * @param context location at which package reference is encountered
 	 * @return ture if found
 	 */
 	public static boolean isImportedPackage(AadlPackage pack, Namespace context) {
 		EList<ModelUnit> imports;
-		if (pack == null)
+		if (pack == null) {
 			return false;
-		if (context instanceof PropertySet)
+		}
+		if (context instanceof PropertySet) {
 			imports = ((PropertySet) context).getImportedUnits();
-		else
+		} else {
 			imports = ((PackageSection) context).getImportedUnits();
+		}
 		for (ModelUnit imported : imports) {
 			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
-				if (imported.getName().equalsIgnoreCase(pack.getName()))
+				if (imported.getName().equalsIgnoreCase(pack.getName())) {
 					return true;
+				}
 			}
 		}
 		if (context instanceof PrivatePackageSection
-				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
-			for (ModelUnit imported : ((AadlPackage) context.eContainer()).getOwnedPublicSection().getImportedUnits())
+				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null) {
+			for (ModelUnit imported : ((AadlPackage) context.eContainer()).getOwnedPublicSection().getImportedUnits()) {
 				if (imported instanceof AadlPackage && !imported.eIsProxy()
-						&& imported.getName().equalsIgnoreCase(pack.getName()))
+						&& imported.getName().equalsIgnoreCase(pack.getName())) {
 					return true;
+				}
+			}
+		}
 		// TODO need to handle public section declared in a separate package
 		// declaration
 		return false;
@@ -2121,45 +2152,55 @@ public final class AadlUtil {
 	 */
 	public static PropertySet findImportedPropertySet(String name, EObject context) {
 		EList<ModelUnit> importedPropertySets;
-		if (name == null)
+		if (name == null) {
 			return null;
+		}
 		context = AadlUtil.getContainingTopLevelNamespace(context);
-		if (context instanceof PropertySet)
+		if (context instanceof PropertySet) {
 			importedPropertySets = ((PropertySet) context).getImportedUnits();
-		else
+		} else {
 			importedPropertySets = ((PackageSection) context).getImportedUnits();
-		for (ModelUnit importedPropertySet : importedPropertySets)
+		}
+		for (ModelUnit importedPropertySet : importedPropertySets) {
 			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
-					&& name.equalsIgnoreCase(((PropertySet) importedPropertySet).getName()))
+					&& name.equalsIgnoreCase(((PropertySet) importedPropertySet).getName())) {
 				return (PropertySet) importedPropertySet;
+			}
+		}
 		return null;
 	}
 
 	/**
 	 * check whether property set is in the with clause of the containing top level name space (PackageSection or Property set) of the context.
-	 * @param ps Property set 
+	 * @param ps Property set
 	 * @param context location at which property set reference is encountered
 	 * @return aadl property set or null if not in import list
 	 */
 	public static boolean isImportedPropertySet(PropertySet ps, EObject context) {
 		EList<ModelUnit> importedPropertySets;
-		if (ps == null)
+		if (ps == null) {
 			return false;
-		if (isPredeclaredPropertySet(ps.getName()))
+		}
+		if (isPredeclaredPropertySet(ps.getName())) {
 			return true;
+		}
 		context = AadlUtil.getContainingTopLevelNamespace(context);
-		if (context instanceof PropertySet)
+		if (context instanceof PropertySet) {
 			importedPropertySets = ((PropertySet) context).getImportedUnits();
-		else
+		} else {
 			importedPropertySets = ((PackageSection) context).getImportedUnits();
-		
-		for (ModelUnit importedPropertySet : importedPropertySets)
-			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
-					&& (importedPropertySet == ps || (ps.getQualifiedName().equalsIgnoreCase(importedPropertySet.getQualifiedName()))))
+		}
+
+		for (ModelUnit importedPropertySet : importedPropertySets) {
+			if (importedPropertySet instanceof PropertySet
+					&& !importedPropertySet.eIsProxy()
+					&& (importedPropertySet == ps || (ps.getQualifiedName().equalsIgnoreCase(importedPropertySet
+							.getQualifiedName())))) {
 				return true;
+			}
+		}
 		return false;
 	}
-
 
 	public static boolean isComplete(ConnectionInstance conni) {
 		ConnectionInstanceEnd srcEnd = conni.getSource();
@@ -2184,61 +2225,62 @@ public final class AadlUtil {
 
 	public static boolean containedIn(InstanceObject element, ComponentInstance parent) {
 		while (element != null) {
-			if (element == parent)
+			if (element == parent) {
 				return true;
+			}
 			element = (InstanceObject) element.getOwner();
 		}
 		return false;
 	}
-	
-	public static IPath getResourcePath (NamedElement component)
-	{
+
+	public static IPath getResourcePath(NamedElement component) {
 		Resource res = component.eResource();
 		URI uri = res.getURI();
 		IPath path = OsateResourceUtil.getOsatePath(uri);
 		return path.removeLastSegments(1);
 	}
-	
+
 	/**
 	 * get the line number for a given model object in the core model
 	 * This method makes use of the Xtext parse tree.
 	 * @return line number or zero
 	 */
-	public static int getLineNumberFor(EObject obj)	{
-		if (obj == null) return 0;
-		if (obj instanceof AObject){
-			LocationReference locref = ((AObject)obj).getLocationReference();
-			if (locref != null){
+	public static int getLineNumberFor(EObject obj) {
+		if (obj == null) {
+			return 0;
+		}
+		if (obj instanceof AObject) {
+			LocationReference locref = ((AObject) obj).getLocationReference();
+			if (locref != null) {
 				return locref.getLine();
 			}
 		}
 		INode node = NodeModelUtils.findActualNodeFor(obj);
-		if (node != null){
+		if (node != null) {
 			return node.getStartLine();
 		} else {
 			EObject defaultannex = getContainingDefaultAnnex(obj);
-			if (defaultannex != null){
+			if (defaultannex != null) {
 				node = NodeModelUtils.findActualNodeFor(obj);
-				if (node != null){
+				if (node != null) {
 					return node.getStartLine();
 				}
 			}
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * find the enclosing default annex subclause of library, otherwise return null
 	 * @param obj
 	 * @return
 	 */
-	public static EObject getContainingDefaultAnnex(EObject obj){
+	public static EObject getContainingDefaultAnnex(EObject obj) {
 		EObject res = obj;
 		while (res != null && !(res instanceof DefaultAnnexSubclause) && !(res instanceof DefaultAnnexLibrary)) {
 			res = res.eContainer();
 		}
 		return res;
 	}
-
 
 }

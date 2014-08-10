@@ -40,30 +40,27 @@ import org.eclipse.core.runtime.CoreException;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.ui.OsateUiPlugin;
 
-
 /**
  * Comparator used to compare two <code>IMarkers</code> based on an instance of <code>{@link org.osate.reporter.reporterSettings.ReporterSettings ReporterSettings}</code>
- * 
+ *
  * @author Joe Seibel
  */
-public class AadlMarkerComparator implements Comparator<IMarker>
-{
+public class AadlMarkerComparator implements Comparator<IMarker> {
 	private ReporterSettings settings = null;
-	
+
 	/**
 	 * Creates a new <code>AadlMarkerComparator</code> with the specified <code>ReporterSettings</code>.
-	 *  
+	 *
 	 * @param settings Used to compare two <code>IMarkers</code>.
 	 */
-	public AadlMarkerComparator(ReporterSettings settings)
-	{
+	public AadlMarkerComparator(ReporterSettings settings) {
 		this.settings = settings;
 	}
 
 	/**
 	 * Compares two AadlMarkers based on the <code>ReporterSettings</code> that an object of this class
 	 * is constructed with.
-	 * 
+	 *
 	 * @param marker1 The first AadlMarker to be compared.
 	 * @param marker2 The second AadlMarker to be compared.
 	 * @return a negative integer, zero, or a positive integer as the first marker is less than, equal to, or greater than the second.
@@ -72,54 +69,57 @@ public class AadlMarkerComparator implements Comparator<IMarker>
 	 * <li> This marker does not exist.</li>
 	 * </ul>
 	 */
-	public int compare(IMarker marker1, IMarker marker2)
-	{
-		try
-		{
+	@Override
+	public int compare(IMarker marker1, IMarker marker2) {
+		try {
 			int compareResult = 0;
-			if (settings.getGroupByAndSortBy(ReporterSettings.GROUP_BY_FIELD) == ReporterSettings.GROUP_BY_FILE)
-			{
-				if (settings.getGroupByAndSortBy(ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE)
-				{
+			if (settings.getGroupByAndSortBy(ReporterSettings.GROUP_BY_FIELD) == ReporterSettings.GROUP_BY_FILE) {
+				if (settings.getGroupByAndSortBy(ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE) {
 					boolean marker1IsAadl = marker1.getResource().getName().endsWith(".aadl");
 					boolean marker2IsAadl = marker2.getResource().getName().endsWith(".aadl");
-					if (marker1IsAadl != marker2IsAadl)
-						compareResult = (marker1IsAadl)? -1: 1;
+					if (marker1IsAadl != marker2IsAadl) {
+						compareResult = (marker1IsAadl) ? -1 : 1;
+					}
 				}
-				if (compareResult ==0)
+				if (compareResult == 0) {
 					compareResult = marker1.getResource().getName().compareTo(marker2.getResource().getName());
-			}
-			//group by type
-			else
-				compareResult = marker1.getType().compareTo(marker2.getType());
-			for (int i = ReporterSettings.SORT_MARKERS_BY_FIRST; (i <= ReporterSettings.SORT_MARKERS_BY_FOURTH) && (compareResult == 0); i++)
-				switch (settings.getGroupByAndSortBy(i))
-				{
-					case ReporterSettings.SORT_BY_SEVERITY:
-						int marker1Severity = ((Integer)marker1.getAttribute(IMarker.SEVERITY)).intValue();
-						int marker2Severity = ((Integer)marker2.getAttribute(IMarker.SEVERITY)).intValue();
-						if (marker1Severity != marker2Severity)
-							compareResult = (marker1Severity > marker2Severity)? -1: 1;
-						break;
-					case ReporterSettings.SORT_BY_MESSAGE:
-						compareResult = marker1.getAttribute(IMarker.MESSAGE).toString().compareTo(marker2.getAttribute(IMarker.MESSAGE).toString());
-						break;
-					case ReporterSettings.SORT_BY_LOCATION:
-						String marker1Location = (marker1.getType().endsWith("AadlTextMarker"))? marker1.getAttribute(IMarker.LINE_NUMBER).toString(): marker1.getAttribute(AadlConstants.AADLURI).toString();
-						String marker2Location = (marker2.getType().endsWith("AadlTextMarker"))? marker2.getAttribute(IMarker.LINE_NUMBER).toString(): marker2.getAttribute(AadlConstants.AADLURI).toString();
-						compareResult = marker1Location.compareTo(marker2Location);
-						break;
-					case ReporterSettings.SORT_BY_FILE_NAME:
-						compareResult = marker1.getResource().getName().compareTo(marker2.getResource().getName());
-						break;
-					case ReporterSettings.SORT_BY_MARKER_TYPE:
-						compareResult = marker1.getType().compareTo(marker2.getType());
-						break;
 				}
+			}
+			// group by type
+			else {
+				compareResult = marker1.getType().compareTo(marker2.getType());
+			}
+			for (int i = ReporterSettings.SORT_MARKERS_BY_FIRST; (i <= ReporterSettings.SORT_MARKERS_BY_FOURTH)
+					&& (compareResult == 0); i++) {
+				switch (settings.getGroupByAndSortBy(i)) {
+				case ReporterSettings.SORT_BY_SEVERITY:
+					int marker1Severity = ((Integer) marker1.getAttribute(IMarker.SEVERITY)).intValue();
+					int marker2Severity = ((Integer) marker2.getAttribute(IMarker.SEVERITY)).intValue();
+					if (marker1Severity != marker2Severity) {
+						compareResult = (marker1Severity > marker2Severity) ? -1 : 1;
+					}
+					break;
+				case ReporterSettings.SORT_BY_MESSAGE:
+					compareResult = marker1.getAttribute(IMarker.MESSAGE).toString()
+							.compareTo(marker2.getAttribute(IMarker.MESSAGE).toString());
+					break;
+				case ReporterSettings.SORT_BY_LOCATION:
+					String marker1Location = (marker1.getType().endsWith("AadlTextMarker")) ? marker1.getAttribute(
+							IMarker.LINE_NUMBER).toString() : marker1.getAttribute(AadlConstants.AADLURI).toString();
+					String marker2Location = (marker2.getType().endsWith("AadlTextMarker")) ? marker2.getAttribute(
+							IMarker.LINE_NUMBER).toString() : marker2.getAttribute(AadlConstants.AADLURI).toString();
+					compareResult = marker1Location.compareTo(marker2Location);
+					break;
+				case ReporterSettings.SORT_BY_FILE_NAME:
+					compareResult = marker1.getResource().getName().compareTo(marker2.getResource().getName());
+					break;
+				case ReporterSettings.SORT_BY_MARKER_TYPE:
+					compareResult = marker1.getType().compareTo(marker2.getType());
+					break;
+				}
+			}
 			return compareResult;
-		}
-		catch (CoreException e)
-		{
+		} catch (CoreException e) {
 			OsateUiPlugin.log(e);
 			return 0;
 		}

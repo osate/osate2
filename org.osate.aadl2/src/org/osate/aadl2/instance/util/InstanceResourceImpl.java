@@ -28,4 +28,4 @@ public class InstanceResourceImpl extends XMIResourceImpl {
 		super(uri);
 	}
 
-} //InstanceResourceImpl
+} // InstanceResourceImpl

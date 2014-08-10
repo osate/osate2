@@ -1,7 +1,7 @@
 /*
- * 
+ *
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2014 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -32,17 +32,67 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.scoping;
-
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
-
-/**
- * This class contains custom scoping description.
- *
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
- * on how and when to use it
- *
- */
-public class Aadl2ScopeProvider extends AbstractDeclarativeScopeProvider {
-
-}
+//package org.osate.xtext.aadl2.tests
+//
+//import com.google.inject.Inject
+//import org.eclipse.core.resources.IncrementalProjectBuilder
+//import org.eclipse.core.resources.ResourcesPlugin
+//import org.eclipse.core.runtime.CoreException
+//import org.eclipse.core.runtime.NullProgressMonitor
+//import org.eclipse.emf.ecore.EObject
+//import org.eclipse.emf.ecore.EReference
+//import org.eclipse.xtext.junit4.InjectWith
+//import org.eclipse.xtext.junit4.XtextRunner
+//import org.eclipse.xtext.junit4.util.ParseHelper
+//import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+//import org.eclipse.xtext.scoping.IScopeProvider
+//import org.junit.Assert
+//import org.junit.Before
+//import org.junit.Test
+//import org.junit.runner.RunWith
+//import org.osate.aadl2.Aadl2Package
+//import org.osate.aadl2.AadlPackage
+//import org.osate.aadl2.ModelUnit
+//import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
+//
+//import static extension org.junit.Assert.*
+//
+//@RunWith(typeof(XtextRunner))
+//@InjectWith(typeof(Aadl2UiInjectorProvider))
+//class PropertiesScopeProviderTests {
+//	@Inject extension ParseHelper<ModelUnit>
+//	@Inject extension ValidationTestHelper
+//	@Inject extension IScopeProvider
+//	
+//	@Before
+//	def setUp() {
+//		val workspaceRoot = ResourcesPlugin::getWorkspace().root
+//		val project = workspaceRoot.getProject("Plugin_Resources")
+//		Assert::assertTrue(project.exists)
+//		try {
+//			project.build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor)
+//		} catch (CoreException e) {
+//			e.printStackTrace
+//		}
+//	}
+//	
+//	@Test
+//	def void testScope_NumberValue_unit() {
+//		('''
+//			package pack
+//			public
+//			  thread t
+//			    properties
+//			      Timing_Properties::Activate_Deadline => 5 ns;
+//			  end t;
+//			end pack;
+//		'''.parse as AadlPackage).publicSection.ownedClassifiers.get(0).ownedPropertyAssociations.get(0) => [
+//			assertScope(Aadl2Package::eINSTANCE.numberValue_Unit, "ps, ns, us, ms, sec, min, hr")
+//		]
+//	}
+//	
+//	def private assertScope(EObject context, EReference reference, CharSequence expected) {
+//		context.assertNoErrors
+//		expected.toString.assertEquals(context.getScope(reference).allElements.map[name].join(", "))
+//	}
+//}

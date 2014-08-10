@@ -67,4 +67,4 @@ public class SubprogramProxyImpl extends ProcessorFeatureImpl implements Subprog
 		return Aadl2Package.eINSTANCE.getSubprogramProxy();
 	}
 
-} //SubprogramProxyImpl
+} // SubprogramProxyImpl

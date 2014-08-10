@@ -139,7 +139,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated NOT
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
-		//BasicEList<Classifier> list = new BasicEList<Classifier>();
+		// BasicEList<Classifier> list = new BasicEList<Classifier>();
 		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
 				Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER);
 		list.add(getContainingClassifier());

@@ -41,4 +41,4 @@ public class InstanceResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //InstanceResourceFactoryImpl
+} // InstanceResourceFactoryImpl

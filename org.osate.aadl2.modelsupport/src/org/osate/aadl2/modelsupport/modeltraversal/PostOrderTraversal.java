@@ -41,23 +41,23 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 
-
 /**
  * Describes how to perfrom a prefix order traversal.
- * 
+ *
  * @author aarong
  */
 final class PostOrderTraversal extends AbstractSimpleTraversal {
 	public PostOrderTraversal(final IProcessingMethod pm) {
 		super(pm);
 	}
-	
+
+	@Override
 	public void visitRoot(final Element root) {
 		if (root != null) {
 			final EList<Element> list = root.getChildren();
 			for (Iterator<Element> it = list.iterator(); processingMethod.notCancelled() && it.hasNext();) {
 				final Element child = it.next();
-				this.visitRoot(child);
+				visitRoot(child);
 			}
 			if (processingMethod.notCancelled()) {
 				processingMethod.processObject(root);

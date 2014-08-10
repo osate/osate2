@@ -656,4 +656,4 @@ public class InstanceSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //InstanceSwitch
+} // InstanceSwitch

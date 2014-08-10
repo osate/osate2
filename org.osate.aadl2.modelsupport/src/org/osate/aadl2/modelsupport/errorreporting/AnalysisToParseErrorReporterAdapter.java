@@ -42,23 +42,16 @@ import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
 
-
 /**
  * @author aarong
  */
 public final class AnalysisToParseErrorReporterAdapter extends AbstractAnalysisErrorReporter {
-	private static final LocationReference MISSING_LOCATION =
-		new LocationReference("Missing location reference!", 0);
-	
-	
-	
+	private static final LocationReference MISSING_LOCATION = new LocationReference("Missing location reference!", 0);
+
 	/** The parse error reporter to delegate to. */
 	private final ParseErrorReporter parseErrReporter;
-	
-	
-	
-	private AnalysisToParseErrorReporterAdapter(
-			final Resource rsrc, final ParseErrorReporter delegate) {
+
+	private AnalysisToParseErrorReporterAdapter(final Resource rsrc, final ParseErrorReporter delegate) {
 		super(rsrc);
 		parseErrReporter = delegate;
 	}
@@ -69,65 +62,56 @@ public final class AnalysisToParseErrorReporterAdapter extends AbstractAnalysisE
 	}
 
 	@Override
-	protected void errorImpl(Element where, String message,
-			final String[] attrs, final Object[] values) {
+	protected void errorImpl(Element where, String message, final String[] attrs, final Object[] values) {
 		parseErrReporter.error(getLocationReference(where), message);
 	}
 
-
-
 	@Override
-	protected void warningImpl(Element where, String message,
-			final String[] attrs, final Object[] values) {
+	protected void warningImpl(Element where, String message, final String[] attrs, final Object[] values) {
 		parseErrReporter.warning(getLocationReference(where), message);
 	}
 
-
 	@Override
-	protected void infoImpl(Element where, String message,
-			final String[] attrs, final Object[] values) {
+	protected void infoImpl(Element where, String message, final String[] attrs, final Object[] values) {
 		parseErrReporter.info(getLocationReference(where), message);
 	}
 
-
-
+	@Override
 	protected void deleteMessagesImpl() {
 		parseErrReporter.deleteMessages();
 	}
-	
-	
-	
-	
+
 	/**
-	 * It is required the provided {@link ParseErrorReporterFactory} be able 
-	 * to handle <code>null</code> IResources.  This is so that 
+	 * It is required the provided {@link ParseErrorReporterFactory} be able
+	 * to handle <code>null</code> IResources.  This is so that
 	 * Resources associated with standard property sets may be handled.  These
-	 * files do not exist in the Eclipse workspace, and thus it is impossible 
-	 * to get IResources for them. 
+	 * files do not exist in the Eclipse workspace, and thus it is impossible
+	 * to get IResources for them.
 	 */
 	public static final class Factory implements AnalysisErrorReporterFactory {
 		/** Factory for creating parse error reporter delegate objects. */
 		private final ParseErrorReporterFactory perFactory;
 
-		
-		
 		public Factory(final ParseErrorReporterFactory fact) {
 			perFactory = fact;
 		}
-		
+
+		@Override
 		public AnalysisErrorReporter getReporterFor(final Resource rsrc) {
 			if (rsrc == null) {
-				throw new IllegalArgumentException("Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
+				throw new IllegalArgumentException(
+						"Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
 			} else {
 				final IResource aaxlFile = OsateResourceUtil.convertToIResource(rsrc);
 				IResource aadlFile = null;
 				if (aaxlFile != null) {
 					final IAadlProject proj = AadlWorkspace.getAadlWorkspace().getAadlProject(aaxlFile);
-					if (proj != null) aadlFile = proj.getAadlFile((IFile) aaxlFile);
+					if (proj != null) {
+						aadlFile = proj.getAadlFile((IFile) aaxlFile);
+					}
 				}
-				
-				return new AnalysisToParseErrorReporterAdapter(
-						rsrc, perFactory.getReporterFor(aadlFile));
+
+				return new AnalysisToParseErrorReporterAdapter(rsrc, perFactory.getReporterFor(aadlFile));
 			}
 		}
 	}

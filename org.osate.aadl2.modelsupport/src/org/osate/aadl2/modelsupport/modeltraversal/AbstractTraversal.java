@@ -37,81 +37,71 @@
  */
 package org.osate.aadl2.modelsupport.modeltraversal;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 
-
 /**
  * TODO
- * 
+ *
  * @author aarong
  */
 abstract class AbstractTraversal {
 	/**
-	 * The processing object that defines what to do with a given 
+	 * The processing object that defines what to do with a given
 	 * model element.
 	 */
 	protected final IProcessingMethod processingMethod;
-	
-	
-	
+
 	/**
 	 * Create a new traversal helper that uses the given processing method.
 	 */
 	protected AbstractTraversal(final IProcessingMethod pm) {
 		processingMethod = pm;
 	}
-	
-	
-	
+
 	/**
 	 * Process the model starting at the given root node.
 	 */
 	public abstract void visitRoot(Element root);
-	
-	
-	
+
 	/**
 	 * Execute the traversal algorithm using the given list of root
 	 * objects. The traversal is run on each root node in the order they appear
 	 * in the list.
-	 * 
+	 *
 	 * <p>
 	 * This method checks whether the processing has been cancelled after
 	 * visiting each element, and terminates the processing if the traversal has
 	 * been cancelled.
-	 * 
+	 *
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
-	public final EList<Element> visitList(final List<? extends Element> roots)
-	{
+	public final EList<Element> visitList(final List<? extends Element> roots) {
 		int i;
 		final int listSize;
-		
-		
+
 		listSize = roots.size();
-		for (i = 0; (processingMethod.notCancelled())  && i < listSize ; i++) {
+		for (i = 0; (processingMethod.notCancelled()) && i < listSize; i++) {
 			visitRoot(roots.get(i));
 		}
 		return processingMethod.getResultList();
 	}
-	
+
 	/**
 	 * Process all AADL models in the AadlWorkspace. This is an optional
 	 * operation.
-	 * 
+	 *
 	 * <p>
 	 * This method checks whether the processing has been cancelled after
 	 * visiting each element, and terminates the processing if the traversal has
 	 * been cancelled.
-	 * 
+	 *
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
-	 * 
+	 *
 	 * @exception UnsupportedOperationException
 	 *                Thrown if this operation is not supported.
 	 */
@@ -120,32 +110,32 @@ abstract class AbstractTraversal {
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace. This is an
 	 * optional operation.
-	 * 
+	 *
 	 * <p>
 	 * This method checks whether the processing has been cancelled after
 	 * visiting each element, and terminates the processing if the traversal has
 	 * been cancelled.
-	 * 
+	 *
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
-	 * 
+	 *
 	 * @exception UnsupportedOperationException
 	 *                Thrown if this operation is not supported.
 	 */
 	public abstract EList visitWorkspaceDeclarativeModels();
-	
+
 	/**
 	 * Process all AADL instance models in the AadlWorkspace. This is an
 	 * optional operation.
-	 * 
+	 *
 	 * <p>
 	 * This method checks whether the processing has been cancelled after
 	 * visiting each element, and terminates the processing if the traversal has
 	 * been cancelled.
-	 * 
+	 *
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
-	 * 
+	 *
 	 * @exception UnsupportedOperationException
 	 *                Thrown if this operation is not supported.
 	 */

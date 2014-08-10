@@ -116,7 +116,7 @@ public abstract class AbstractAadl2RuntimeModule extends DefaultRuntimeModule {
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
 	public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
-		return org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider.class;
+		return org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment

@@ -42,21 +42,21 @@ import org.osate.aadl2.parsesupport.LocationReference;
  * methods in this interface that are appropriate for reporting errors on an
  * object model; for that use
  * {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporter}.
- * 
+ *
  * <p>
  * In general, objects of classes that implement this interface are meant to be
  * obtained using implementations of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterFactory}.
- * 
+ *
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterFactory
  * @see edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporterManager
- * 
+ *
  * @author aarong
  */
 public interface ParseErrorReporter extends ErrorReporter {
 	/**
 	 * Report an error.
-	 * 
+	 *
 	 * @param loc
 	 *            The location on which the warning is located.
 	 * @param message
@@ -66,7 +66,7 @@ public interface ParseErrorReporter extends ErrorReporter {
 
 	/**
 	 * Report an error.
-	 * 
+	 *
 	 * @param filename
 	 *            The file in which the error is located.
 	 * @param line
@@ -78,7 +78,7 @@ public interface ParseErrorReporter extends ErrorReporter {
 
 	/**
 	 * Report a warning about an AADL text file.
-	 * 
+	 *
 	 * @param loc
 	 *            The location on which the warning is located.
 	 * @param message
@@ -88,7 +88,7 @@ public interface ParseErrorReporter extends ErrorReporter {
 
 	/**
 	 * Report a warning about an AADL text file..
-	 * 
+	 *
 	 * @param filename
 	 *            The file in which the warning is located.
 	 * @param line
@@ -100,7 +100,7 @@ public interface ParseErrorReporter extends ErrorReporter {
 
 	/**
 	 * Report information about an AADL text file.
-	 * 
+	 *
 	 * @param loc
 	 *            The location on which the information is located.
 	 * @param message
@@ -110,7 +110,7 @@ public interface ParseErrorReporter extends ErrorReporter {
 
 	/**
 	 * Report information about an AADL text file..
-	 * 
+	 *
 	 * @param filename
 	 *            The file in which the information is located.
 	 * @param line

@@ -49,17 +49,19 @@ public class ProjectDirectoryFieldEditor extends DirectoryFieldEditor {
 
 	private IPath projectDir = null;
 
-	public ProjectDirectoryFieldEditor(IProject project, String errorMsg, String name, String labelText, Composite parent) {
+	public ProjectDirectoryFieldEditor(IProject project, String errorMsg, String name, String labelText,
+			Composite parent) {
 		super(name, labelText, parent);
-		setErrorMessage(errorMsg);//$NON-NLS-1$
+		setErrorMessage(errorMsg);
 		projectDir = project.getLocation();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.preference.StringFieldEditor#doCheckState()
 	 */
+	@Override
 	protected boolean doCheckState() {
 		if (getTextControl() != null) {
 			if (!super.doCheckState()) {
@@ -74,19 +76,20 @@ public class ProjectDirectoryFieldEditor extends DirectoryFieldEditor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.preference.FieldEditor#doLoad()
 	 */
+	@Override
 	protected void doLoad() {
 		Text textField = getTextControl();
-		
+
 		if (textField != null) {
-			/* Preference file stores paths in IPath canonical form with "/"
+			/*
+			 * Preference file stores paths in IPath canonical form with "/"
 			 * as the separator character.
 			 */
-			final IPath pathValue = projectDir.append(
-					getPreferenceStore().getString(getPreferenceName()));
-			
+			final IPath pathValue = projectDir.append(getPreferenceStore().getString(getPreferenceName()));
+
 			/* The editor uses the OS-specific form of the path. */
 			textField.setText(pathValue.toOSString());
 		}
@@ -94,19 +97,20 @@ public class ProjectDirectoryFieldEditor extends DirectoryFieldEditor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.preference.FieldEditor#doLoadDefault()
 	 */
+	@Override
 	protected void doLoadDefault() {
 		Text textField = getTextControl();
-		
+
 		if (textField != null) {
-			/* Preference file stores paths in IPath canonical form with "/"
+			/*
+			 * Preference file stores paths in IPath canonical form with "/"
 			 * as the separator character.
 			 */
-			final IPath pathValue = projectDir.append(
-					getPreferenceStore().getDefaultString(getPreferenceName()));
-			
+			final IPath pathValue = projectDir.append(getPreferenceStore().getDefaultString(getPreferenceName()));
+
 			/* The editor uses the OS-specific form of the path. */
 			textField.setText(pathValue.toOSString());
 		}
@@ -115,19 +119,21 @@ public class ProjectDirectoryFieldEditor extends DirectoryFieldEditor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.preference.FieldEditor#doStore()
 	 */
+	@Override
 	protected void doStore() {
-		/* Value in text field is OS-specific.  We must convert it to the
+		/*
+		 * Value in text field is OS-specific. We must convert it to the
 		 * IPath canoncial form ("/" as separator) before storing it.
 		 */
 		final String value = getTextControl().getText();
 		final IPath pathValue = new Path(value);
-		
+
 		if (projectDir.isPrefixOf(pathValue)) {
-			final String newValue =
-				pathValue.removeFirstSegments(projectDir.segmentCount()).makeAbsolute().setDevice(null).toString();
+			final String newValue = pathValue.removeFirstSegments(projectDir.segmentCount()).makeAbsolute()
+					.setDevice(null).toString();
 			getPreferenceStore().setValue(getPreferenceName(), newValue);
 		}
 	}

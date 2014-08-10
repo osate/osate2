@@ -55,74 +55,78 @@ import org.osate.annexsupport.AnnexUtil;
 public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
 	private final String ANNEXTEXTKEYWORD = "annex";
 	private final String SEMICOLONKEYWORD = ";";
+
 	@Override
 	public void provideHighlightingFor(XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
-		if (resource == null) return;
-		final AnnexHighlighterRegistry registry = (AnnexHighlighterRegistry)AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_HIGHLIGHTER_EXT_ID);
-		
-		for(EObject obj : resource.getContents()) {
-			for(DefaultAnnexSubclause subclause : EcoreUtil2.eAllOfType(obj, DefaultAnnexSubclause.class)) {				
+		if (resource == null) {
+			return;
+		}
+		final AnnexHighlighterRegistry registry = (AnnexHighlighterRegistry) AnnexRegistry
+				.getRegistry(AnnexRegistry.ANNEX_HIGHLIGHTER_EXT_ID);
+
+		for (EObject obj : resource.getContents()) {
+			for (DefaultAnnexSubclause subclause : EcoreUtil2.eAllOfType(obj, DefaultAnnexSubclause.class)) {
 				AnnexHighlighterPositionAcceptor annexAcceptor = createAcceptor(subclause, acceptor);
 
-				if(annexAcceptor != null) {
+				if (annexAcceptor != null) {
 					AnnexHighlighter highlighter = registry.getAnnexHighlighter(subclause.getName());
-					if(highlighter != null)    {
-					    highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
-					}
-					else
-					{
-					   addHighlight(subclause, annexAcceptor);
+					if (highlighter != null) {
+						highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
+					} else {
+						addHighlight(subclause, annexAcceptor);
 					}
 				}
 			}
 
-			for(AnnexLibrary library : EcoreUtil2.eAllOfType(obj, AnnexLibrary.class)) {
+			for (AnnexLibrary library : EcoreUtil2.eAllOfType(obj, AnnexLibrary.class)) {
 				AnnexHighlighterPositionAcceptor annexAcceptor = createAcceptor(library, acceptor);
-				
-				if(annexAcceptor != null) {
+
+				if (annexAcceptor != null) {
 					AnnexHighlighter highlighter = registry.getAnnexHighlighter(library.getName());
-					if(highlighter != null)	{
+					if (highlighter != null) {
 						highlighter.highlightAnnexLibrary(library, annexAcceptor);
 					} else {
-							addHighlight(library, annexAcceptor);
+						addHighlight(library, annexAcceptor);
 					}
 				}
 			}
 		}
 	}
-	
+
 	/**
-	 * Creates an AnnexHighlighterPositionAcceptor specific to a annex source block 
+	 * Creates an AnnexHighlighterPositionAcceptor specific to a annex source block
 	 * @param semanticObj the AnnexLibrary or AnnexSubclause to build the acceptor for
 	 * @param acceptor the xtext Acceptor that is wraps
 	 * @return the new AnnexHighlighterPositionAcceptor or null if one could not be created
 	 */
-	private AnnexHighlighterPositionAcceptor createAcceptor(EObject semanticObj, final IHighlightedPositionAcceptor acceptor) {
+	private AnnexHighlighterPositionAcceptor createAcceptor(EObject semanticObj,
+			final IHighlightedPositionAcceptor acceptor) {
 		final int annexTextLength = AnnexUtil.getSourceText(semanticObj).length();
 		final int annexTextOffset = AnnexUtil.getAnnexOffset(semanticObj);
 
 		return new AnnexHighlighterPositionAcceptor() {
 			@Override
 			public void addPosition(int offset, int length, String... id) {
-				if(offset < 0) {
-					return;//throw new RuntimeException("Offset is less than 0");
+				if (offset < 0) {
+					return;// throw new RuntimeException("Offset is less than 0");
 				}
-				
-				if(offset > annexTextLength) {
-					return;//throw new RuntimeException("Offset is greater than source text length");
+
+				if (offset > annexTextLength) {
+					return;// throw new RuntimeException("Offset is greater than source text length");
 				}
-				
+
 				// Calculate the absolute offset
 				int absOffset = annexTextOffset + offset;
 				acceptor.addPosition(absOffset, length, id);
 			}
 		};
 	}
-	
-	
-	private void addHighlight(EObject annexObject, AnnexHighlighterPositionAcceptor acceptor){
+
+	private void addHighlight(EObject annexObject, AnnexHighlighterPositionAcceptor acceptor) {
 		EObject parsedAnnexObject = AnnexUtil.getParsedAnnex(annexObject);
-		if (parsedAnnexObject == null) return ;
+		if (parsedAnnexObject == null) {
+			return;
+		}
 		INode annexnode = NodeModelUtils.getNode(parsedAnnexObject);
 		if (annexnode == null) {
 			return;
@@ -135,29 +139,29 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 			if (ge instanceof RuleCall) {
 				ge = ((RuleCall) ge).getRule();
 			}
-			
-			if (ge instanceof Keyword)
-			{
+
+			if (ge instanceof Keyword) {
 				String keywordValue = ((Keyword) ge).getValue();
-				int offset = node.getOffset()-annexTextOffset;
-				if(offset < 0 && keywordValue.equalsIgnoreCase(ANNEXTEXTKEYWORD))
+				int offset = node.getOffset() - annexTextOffset;
+				if (offset < 0 && keywordValue.equalsIgnoreCase(ANNEXTEXTKEYWORD)) {
 					continue;
-				if(offset > annexTextLength && keywordValue.equalsIgnoreCase(SEMICOLONKEYWORD))
+				}
+				if (offset > annexTextLength && keywordValue.equalsIgnoreCase(SEMICOLONKEYWORD)) {
 					continue;
+				}
 				// adjust for added whitespace in front of annex text
-				acceptor.addPosition(offset, node.getLength(), 
-							AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+				acceptor.addPosition(offset, node.getLength(), AnnexHighlighterPositionAcceptor.KEYWORD_ID);
 			} else if (ge instanceof TerminalRule) {
-				if (((TerminalRule)ge).getName().equalsIgnoreCase("SL_COMMENT")){
+				if (((TerminalRule) ge).getName().equalsIgnoreCase("SL_COMMENT")) {
 					// adjust for added whitespace in front of annex text
-					acceptor.addPosition(node.getOffset()-annexTextOffset, node.getLength(), 
+					acceptor.addPosition(node.getOffset() - annexTextOffset, node.getLength(),
 							AnnexHighlighterPositionAcceptor.COMMENT_ID);
-				} else if (((TerminalRule)ge).getName().equalsIgnoreCase("STRING")){
+				} else if (((TerminalRule) ge).getName().equalsIgnoreCase("STRING")) {
 					// adjust for added whitespace in front of annex text
-					acceptor.addPosition(node.getOffset()-annexTextOffset, node.getLength(), 
+					acceptor.addPosition(node.getOffset() - annexTextOffset, node.getLength(),
 							AnnexHighlighterPositionAcceptor.STRING_ID);
 				}
-			} 
+			}
 		}
 	}
 }

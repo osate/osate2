@@ -27,7 +27,6 @@ import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * This class represents intermediate states during the creation of a
@@ -94,8 +93,8 @@ class ConnectionInfo {
 	 * @return if the new segment is a valid continuation of the connection
 	 *         instance
 	 */
-	public boolean addSegment(final Connection newSeg, final ConnectionInstanceEnd srcFi, final ConnectionInstanceEnd dstFi,
-			final ComponentInstance ci, boolean opposite) {
+	public boolean addSegment(final Connection newSeg, final ConnectionInstanceEnd srcFi,
+			final ConnectionInstanceEnd dstFi, final ComponentInstance ci, boolean opposite) {
 		boolean valid = true;
 		final Context srcCtx = opposite ? newSeg.getAllDestinationContext() : newSeg.getAllSourceContext();
 		final Context dstCtx = opposite ? newSeg.getAllSourceContext() : newSeg.getAllDestinationContext();
@@ -107,8 +106,8 @@ class ConnectionInfo {
 
 		if (srcFi != null) {
 			sources.add(srcFi);
-			if (srcFi instanceof FeatureInstance){
-				DirectionType dir = ((FeatureInstance)srcFi).getDirection();
+			if (srcFi instanceof FeatureInstance) {
+				DirectionType dir = ((FeatureInstance) srcFi).getDirection();
 
 				bidirectional &= (dir == DirectionType.IN_OUT);
 				if (goingUp) {
@@ -123,8 +122,8 @@ class ConnectionInfo {
 		bidirectional &= newSeg.isBidirectional();
 		if (dstFi != null) {
 			destinations.add(dstFi);
-			if (dstFi instanceof FeatureInstance){
-				DirectionType dir = ((FeatureInstance)dstFi).getDirection();
+			if (dstFi instanceof FeatureInstance) {
+				DirectionType dir = ((FeatureInstance) dstFi).getDirection();
 
 				bidirectional &= (dir == DirectionType.IN_OUT);
 				if (goingUp) {
@@ -167,7 +166,7 @@ class ConnectionInfo {
 //		if (!across) {
 //			return null;
 //		}
-		//OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
+		// OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
 //		destinations.add(dst);
@@ -179,8 +178,7 @@ class ConnectionInfo {
 		Iterator<ConnectionInstanceEnd> dstIter = destinations.iterator();
 		ConnectionInstanceEnd dosrc = src;
 		ConnectionInstanceEnd dodst = null;
-		while (connIter.hasNext() && dstIter.hasNext()) 
-		{
+		while (connIter.hasNext() && dstIter.hasNext()) {
 			ConnectionReference connRef = conni.createConnectionReference();
 
 			connRef.setConnection(connIter.next());
@@ -197,25 +195,29 @@ class ConnectionInfo {
 		conni.setKind(kind);
 		return conni;
 	}
-	
-	public ConnectionInstanceEnd resolveFeatureInstance(ConnectionInstanceEnd origCIE, ConnectionInstanceEnd rootCIE){
-		if (origCIE instanceof ComponentInstance||rootCIE instanceof ComponentInstance) return rootCIE;
-		FeatureInstance rootFI = (FeatureInstance)rootCIE;
-		if (rootFI.getFeatureInstances().isEmpty()) return rootCIE;
+
+	public ConnectionInstanceEnd resolveFeatureInstance(ConnectionInstanceEnd origCIE, ConnectionInstanceEnd rootCIE) {
+		if (origCIE instanceof ComponentInstance || rootCIE instanceof ComponentInstance) {
+			return rootCIE;
+		}
+		FeatureInstance rootFI = (FeatureInstance) rootCIE;
+		if (rootFI.getFeatureInstances().isEmpty()) {
+			return rootCIE;
+		}
 		ConnectionInstanceEnd parentFI = rootFI;
 		FeatureInstance origFI = (FeatureInstance) origCIE;
 		Element origParent = origFI.getOwner();
-		if (origParent instanceof FeatureInstance){
-			FeatureInstance origParentFI = (FeatureInstance)origParent;
-			if (origParentFI.getOwner() instanceof FeatureInstance){
-				ConnectionInstanceEnd resFI = resolveFeatureInstance((ConnectionInstanceEnd) origParentFI, rootFI);
-				if (resFI != null){
+		if (origParent instanceof FeatureInstance) {
+			FeatureInstance origParentFI = (FeatureInstance) origParent;
+			if (origParentFI.getOwner() instanceof FeatureInstance) {
+				ConnectionInstanceEnd resFI = resolveFeatureInstance(origParentFI, rootFI);
+				if (resFI != null) {
 					parentFI = resFI;
 				}
 			}
-			EList<FeatureInstance> filist = ((FeatureInstance)parentFI).getFeatureInstances();
+			EList<FeatureInstance> filist = ((FeatureInstance) parentFI).getFeatureInstances();
 			for (FeatureInstance featureInstance : filist) {
-				if (Aadl2InstanceUtil.isSame(origFI, featureInstance)){
+				if (Aadl2InstanceUtil.isSame(origFI, featureInstance)) {
 					return featureInstance;
 				}
 			}

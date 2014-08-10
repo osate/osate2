@@ -41,7 +41,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
- * 
+ *
  * @author lwrage
  * @version $Id: PluginSupportPlugin.java,v 1.4 2007-06-04 17:03:01 lwrage Exp $
  */
@@ -53,9 +53,9 @@ public class PluginSupportPlugin extends Plugin {
 
 	public static final String AADL_CONTRIBUTION_EXTENSION_ID = "aadlcontribution";
 
-	//The shared instance.
+	// The shared instance.
 	private static PluginSupportPlugin plugin;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -66,6 +66,7 @@ public class PluginSupportPlugin extends Plugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -73,6 +74,7 @@ public class PluginSupportPlugin extends Plugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
@@ -90,7 +92,7 @@ public class PluginSupportPlugin extends Plugin {
 	}
 
 	// Logging methods
-	
+
 	/**
 	 * Log the specified information.
 	 * @param message a log message.
@@ -144,7 +146,7 @@ public class PluginSupportPlugin extends Plugin {
 
 	/**
 	 * Create a status object representing the specified information.
-	 * 
+	 *
 	 * @param severity
 	 *                the severity; one of the following: <code>IStatus.OK</code>,
 	 *                <code>IStatus.ERROR</code>,<code>IStatus.INFO</code>,
@@ -165,7 +167,7 @@ public class PluginSupportPlugin extends Plugin {
 
 	/**
 	 * Log the given status.
-	 * 
+	 *
 	 * @param status
 	 *                the status to log.
 	 */

@@ -40,30 +40,29 @@ import java.util.HashSet;
  * Each instance of this class contains user preferences as to how the report generator
  * should group, sort, and filter markers.  It also specifies what should be displayed in the summary.
  * Objects of this class are instanciated by an int array, a boolean array, and a HashSet of Strings.
- * 
+ *
  * <p>The int array should consist of 6 elements specifying the grouping and sorting prefferences.
  * When filling the array use the constants <code>GROUP_BY_FIELD</code>, <code>SORT_GROUPS_BY_FIELD</code>, <code>SORT_MARKERS_BY_FIRST</code>,
  * <code>SORT_MARKERS_BY_SECOND</code>, <code>SORT_MARKERS_BY_THIRD</code>, and <code>SORT_MARKERS_BY_FOURTH</code> to specify the cell of the
  * array and set it with one of the constants <code>DEFAULT</code>, <code>GROUP_BY_FILE</code>, <code>GROUP_BY_TYPE</code>, <code>SORT_BY_SEVERITY</code>,
  * <code>SORT_BY_MESSAGE</code>, <code>SORT_BY_LOCATION</code>, <code>SORT_BY_MARKER_TYPE</code>, <code>SORT_BY_FILE_NAME</code>, <code>SORT_BY_FILE_TYPE</code>.
- * 
+ *
  * <p>The boolean array should consist of 7 elements specifying what should be shown in the summary.
  * When filling the array use the constants <code>SHOW_SEVERITY_FIELD</code>, <code>SHOW_NUM_OF_TEXT_AND_OBJECT_FILES</code>,
  * <code>SHOW_NUM_OF_FILES</code>, <code>SHOW_NUM_OF_TYPES</code>, <code>SHOW_NUM_OF_MARKERS_PER_FILES</code>, <code>SHOW_NUM_OF_MARKERS_PER_TYPE</code>,
  * and <code>SHOW_TOTAL_NUM_OF_MARKERS</code> to specify the cell of the array and set it with true or false
  * depending on whether you want to show the specific element in the summary.
- * 
+ *
  * The HashSet should contain all the problem marker types that are to be excluded from the report.  The marker types are to be specified by
  * their unique identifier.  For example: to exclude the Java Problem Marker, include in the set the String "org.eclipse.jdt.core.marker".
  * To display all marker types in the report, pass null to the constructor instead of a HashSet.
- * 
+ *
  * <p>The class is Serializable so that it can be saved to disk by <code>ReporterSettingsFrame</code> and read by
  * <code>{@link org.osate.reporter.Reporter Reporter}</code>.
- * 
+ *
  * @author Joe Seibel
  */
-public class ReporterSettings implements Serializable
-{
+public class ReporterSettings implements Serializable {
 	/**
 	 * Unspecified grouping or no sorting.  Used as a value for any of the cells in the int array.  The default
 	 * for <code>GROUP_BY_FIELD</code> is <code>GROUP_BY_FILES</code>.
@@ -110,7 +109,7 @@ public class ReporterSettings implements Serializable
 	 * when grouping by file.
 	 */
 	public static final int SORT_BY_FILE_TYPE = 8;
-	
+
 	/**
 	 * Specifies the cell in the int array that controls whether markers are to be grouped by file or marker type.
 	 * Set this cell with <code>GROUP_BY_FILE</code> or <code>GROUP_BY_TYPE</code>.
@@ -145,7 +144,7 @@ public class ReporterSettings implements Serializable
 	 * used and when grouping by marker type, <code>SORT_BY_FILE_NAME</code> can be used.
 	 */
 	public static final int SORT_MARKERS_BY_FOURTH = 5;
-	
+
 	/**
 	 * Specifies the cell in the boolean array that controls whether or not to display the total number of errors,
 	 * warinings, and info.
@@ -179,7 +178,7 @@ public class ReporterSettings implements Serializable
 	 * the report.
 	 */
 	public static final int SHOW_TOTAL_NUM_OF_MARKERS = 6;
-	
+
 	/*
 	 * 0: groupBy
 	 * 1: sortGroupsBy
@@ -188,8 +187,8 @@ public class ReporterSettings implements Serializable
 	 * 4: sortMarkersByThird
 	 * 5: sortMarkersByFourth
 	 */
-	private int[] groupByAndSortBy = new int[]{GROUP_BY_FILE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT};
-	
+	private int[] groupByAndSortBy = new int[] { GROUP_BY_FILE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT };
+
 	/*
 	 * 0: severity
 	 * 1: numOfTextAndObjectFiles
@@ -199,90 +198,89 @@ public class ReporterSettings implements Serializable
 	 * 5: numOfMarkersPerType
 	 * 6: totalMarkers
 	 */
-	private boolean[] showInSummary = new boolean[]{true, true, true, true, true, true, true};
-	
-	//HashSet of String.  Contains the unique identifiers of the problem markers to exclude
-	//in the report.
+	private boolean[] showInSummary = new boolean[] { true, true, true, true, true, true, true };
+
+	// HashSet of String. Contains the unique identifiers of the problem markers to exclude
+	// in the report.
 	private HashSet problemMarkersToExclude = new HashSet();
-	
+
 	/**
 	 * Creates a new <code>ReporterSettings</code> object with the default settings.
 	 *
 	 */
-	public ReporterSettings()
-	{
+	public ReporterSettings() {
 	}
-	
+
 	/**
 	 * Creates a new <code>ReporterSettings</code> object with custom settings specified by the two arrays and the HashSet.
-	 * 
+	 *
 	 * @param groupByAndSortBy 6 elements specifying how the markers should be grouped by, how the
 	 * groups should be sorted, and how the markers should be sorted.
 	 * @param showInSummary 7 elements specifying what should be shown in the report's summary.
 	 * @param problemMarkersToExclude Set of Strings.  Unique identifiers of the problem markers to exclude in the report.
 	 * For example: to exclude the Java Problem, include the String "org.eclipse.jdt.core.problem" in the set.
 	 * To include all problem markers in the report, pass null to this constructor.
-	 * 
+	 *
 	 */
-	public ReporterSettings(int[] groupByAndSortBy, boolean[] showInSummary, HashSet problemMarkersToExclude)
-	{
-		for (int i = 0; i < Math.min(groupByAndSortBy.length, this.groupByAndSortBy.length); i++)
+	public ReporterSettings(int[] groupByAndSortBy, boolean[] showInSummary, HashSet problemMarkersToExclude) {
+		for (int i = 0; i < Math.min(groupByAndSortBy.length, this.groupByAndSortBy.length); i++) {
 			this.groupByAndSortBy[i] = groupByAndSortBy[i];
-		for (int i = 0; i < Math.min(showInSummary.length, this.showInSummary.length); i++)
+		}
+		for (int i = 0; i < Math.min(showInSummary.length, this.showInSummary.length); i++) {
 			this.showInSummary[i] = showInSummary[i];
-		if (this.groupByAndSortBy[0] == DEFAULT)
+		}
+		if (this.groupByAndSortBy[0] == DEFAULT) {
 			this.groupByAndSortBy[0] = GROUP_BY_FILE;
+		}
 		this.problemMarkersToExclude = problemMarkersToExclude;
 	}
-	
+
 	/**
 	 * Gets the grouping or sorting setting for the field specified.
-	 * 
+	 *
 	 * @param field Specifies the element in the int array.  Use <code>GROUP_BY_FIELD</code>, <code>SORT_GROUPS_BY_FIELD</code>,
 	 * <code>SORT_MARKERS_BY_FIRST</code>, <code>SORT_MARKERS_BY_SECOND</code>, <code>SORT_MARKERS_BY_THIRD</code>, or <code>SORT_MARKERS_BY_FOURTH</code>.
 	 * @return The grouping or sorting settings specified by the field.  The value returned will be <code>DEFAULT</code>,
 	 * <code>GROUP_BY_FILE</code>, <code>GROUP_BY_TYPE</code>, <code>SORT_BY_SEVERITY</code>, <code>SORT_BY_MESSAGE</code>, <code>SORT_BY_LOCATION</code>, <code>SORT_BY_MARKER_TYPE</code>,
 	 * <code>SORT_BY_FILE_NAME</code>, or <code>SORT_BY_FILE_TYPE</code>.
 	 */
-	public int getGroupByAndSortBy(int field)
-	{
+	public int getGroupByAndSortBy(int field) {
 		return groupByAndSortBy[field];
 	}
-	
+
 	/**
 	 * Gets the summary setting for the field specified.
-	 * 
+	 *
 	 * @param field Specifies the element in the boolean array.  Use <code>SHOW_SEVERITY_FIELD</code>, <code>SHOW_NUM_OF_TEXT_AND_OBJECT_FILES</code>,
 	 * <code>SHOW_NUM_OF_FILES</code>, <code>SHOW_NUM_OF_TYPES</code>, <code>SHOW_NUM_OF_MARKERS_PER_FILES</code>, <code>SHOW_NUM_OF_MARKERS_PER_TYPE</code>, or
 	 * <code>SHOW_TOTAL_NUM_OF_MARKERS</code>.
 	 * @return true if the specified field is to be shown in the summary.
 	 */
-	public boolean getShowInSummary(int field)
-	{
+	public boolean getShowInSummary(int field) {
 		return showInSummary[field];
 	}
-	
+
 	/**
 	 * Determines whether or not to show a summary  by searching for true elements in the boolean array.
-	 * 
+	 *
 	 * @return true is a summary to be shown.
 	 */
-	public boolean showSummary()
-	{
-		for (int i = 0; i < showInSummary.length; i++)
-			if (showInSummary[i])
+	public boolean showSummary() {
+		for (int i = 0; i < showInSummary.length; i++) {
+			if (showInSummary[i]) {
 				return true;
+			}
+		}
 		return false;
 	}
-	
+
 	/**
 	 * Gets all the unique identifiers of problem markers to exclude from the report.
 	 * If null is returned, all problem markers are to be displayed.
-	 * 
+	 *
 	 * @return HashSet of Strings of unique identifiers.
 	 */
-	public HashSet getProblemMarkersToExclude()
-	{
+	public HashSet getProblemMarkersToExclude() {
 		return problemMarkersToExclude;
 	}
 }

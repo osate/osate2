@@ -40,7 +40,6 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 import antlr.RecognitionException;
 
-
 /**
  * @author lwrage
  * @version $Id: AnnexParserProxy.java,v 1.7 2008-01-23 21:34:21 jseibel Exp $
@@ -60,9 +59,9 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.cmu.sei.aadl.parser.AnnexParser#parseAnnexLibrary(java.lang.String,
-	 *      java.lang.String)
+	 * @see edu.cmu.sei.aadl.parser.AnnexParser#parseAnnexLibrary(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public AnnexLibrary parseAnnexLibrary(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) throws RecognitionException {
 		AnnexParser parser = getParser();
@@ -76,9 +75,9 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.cmu.sei.aadl.parser.AnnexParser#parseAnnexSubclause(java.lang.String,
-	 *      java.lang.String)
+	 * @see edu.cmu.sei.aadl.parser.AnnexParser#parseAnnexSubclause(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public AnnexSubclause parseAnnexSubclause(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) throws RecognitionException {
 		AnnexParser parser = getParser();
@@ -101,12 +100,12 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 		}
 		return parser;
 	}
-	
-	private String getAnnexNSURI(){
+
+	private String getAnnexNSURI() {
 		try {
 			String value = configElem.getAttribute(ATT_ANNEXNSURI);
 			return value;
-			} catch (Exception e) {
+		} catch (Exception e) {
 		}
 		return null;
 	}

@@ -51,7 +51,7 @@ public class Aadl2OutlinePage extends OutlinePage {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.xtext.ui.editor.outline.impl.OutlinePage#createC
 	 * ontrol(org.eclipse.swt.widgets.Composite)
 	 */
@@ -62,10 +62,12 @@ public class Aadl2OutlinePage extends OutlinePage {
 		configureContextMenu();
 	}
 
+	@Override
 	protected void configureContextMenu() {
 		MenuManager manager = new MenuManager(contextMenuID, contextMenuID);
 		manager.setRemoveAllWhenShown(true);
 		manager.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager manager) {
 				fillContextMenu(manager);
 			}
@@ -74,8 +76,7 @@ public class Aadl2OutlinePage extends OutlinePage {
 		getTreeViewer().getTree().setMenu(contextMenu);
 
 		IPageSite site = getSite();
-		site.registerContextMenu(
-				"org.osate.xtext.aadl2.ui.outline", manager, getTreeViewer()); //$NON-NLS-1$
+		site.registerContextMenu("org.osate.xtext.aadl2.ui.outline", manager, getTreeViewer()); //$NON-NLS-1$
 	}
 
 	protected void fillContextMenu(IMenuManager menu) {
@@ -84,7 +85,7 @@ public class Aadl2OutlinePage extends OutlinePage {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.xtext.ui.editor.outline.impl.OutlinePage#getDefa
 	 * ultExpansionLevel()
 	 */

@@ -20,7 +20,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  * notify the editor that unsaved changes have been made.  This command only executes the
  * final step in creating a PropertyAssociation, calling the setPropertyValue method.
  * The parser and linker must be used before using this command.
- * 
+ *
  * @author jseibel
  *
  */
@@ -30,30 +30,32 @@ public class CreatePropertyAssociationCommand extends AbstractCommand {
 	private PropertyExpression propertyExpression = null;
 	private List<Mode> modes = null;
 	private PropertyAssociation newAssociation = null;
-	
+
 	/**
 	 * Used to create a non-modal PropertyAssociation.
-	 * 
+	 *
 	 * @param holder The NamedElement that will contain the new PropertyAssociation.
 	 * @param definition The Property for the new PropertyAssociation.
 	 * @param propertyExpression The value for the new PropertyAssociation.
 	 */
-	public CreatePropertyAssociationCommand(NamedElement holder, Property definition, PropertyExpression propertyExpression) {
+	public CreatePropertyAssociationCommand(NamedElement holder, Property definition,
+			PropertyExpression propertyExpression) {
 		this.holder = holder;
 		this.definition = definition;
 		this.propertyExpression = propertyExpression;
 	}
-	
-	public CreatePropertyAssociationCommand(NamedElement holder, Property definition, PropertyExpression propertyExpression, List<Mode> modes) {
+
+	public CreatePropertyAssociationCommand(NamedElement holder, Property definition,
+			PropertyExpression propertyExpression, List<Mode> modes) {
 		this(holder, definition, propertyExpression);
 		this.modes = modes;
 	}
-	
+
 	@Override
 	protected boolean prepare() {
 		return true;
 	}
-	
+
 	@Override
 	public void execute() {
 		newAssociation = holder.createOwnedPropertyAssociation();
@@ -63,21 +65,22 @@ public class CreatePropertyAssociationCommand extends AbstractCommand {
 		if (modes != null) {
 			mpv.getInModes().addAll(modes);
 		}
-		PropertySet propertySet = (PropertySet)definition.getElementRoot();
+		PropertySet propertySet = (PropertySet) definition.getElementRoot();
 		if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
 			Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
-			if (context instanceof PropertySet)
-				((PropertySet)context).getImportedUnits().add(propertySet);
-			else
-				((PackageSection)context).getImportedUnits().add(propertySet);
+			if (context instanceof PropertySet) {
+				((PropertySet) context).getImportedUnits().add(propertySet);
+			} else {
+				((PackageSection) context).getImportedUnits().add(propertySet);
+			}
 		}
 	}
-	
+
 	@Override
 	public String getLabel() {
 		return "Create property association";
 	}
-	
+
 	@Override
 	public boolean canUndo() {
 		return false;
@@ -86,7 +89,7 @@ public class CreatePropertyAssociationCommand extends AbstractCommand {
 	@Override
 	public void redo() {
 	}
-	
+
 	public PropertyAssociation getNewAssociation() {
 		return newAssociation;
 	}

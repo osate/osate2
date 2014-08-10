@@ -392,7 +392,9 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		return ((ConnectionInstance) getOwner()).isActive(som);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
 	 */
 	@Override
@@ -400,7 +402,9 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		return getConnection().getName();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#setName(java.lang.String)
 	 */
 	@Override
@@ -408,34 +412,38 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		throw new UnsupportedOperationException();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty(org.osate.aadl2.Property)
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
 		final boolean result;
 		for (final PropertyOwner propOwner : property.getAppliesTos()) {
-			//OsateDebug.osateDebug("[ConnectionReferenceImpl]   property owner=" + propOwner);
+			// OsateDebug.osateDebug("[ConnectionReferenceImpl]   property owner=" + propOwner);
 
 			if (propOwner instanceof MetaclassReference) {
 				if ((((MetaclassReference) propOwner).getMetaclassNames().size() > 0)
 						&& ((MetaclassReference) propOwner).getMetaclassNames().get(0).equals("all")) {
-					//		OsateDebug.osateDebug("[ConnectionReferenceImpl]   accept property");
+					// OsateDebug.osateDebug("[ConnectionReferenceImpl]   accept property");
 
 					return true;
 				}
 
 			}
 		}
-		//		OsateDebug.osateDebug("[ConnectionReferenceImpl] acceptsProperty" + property);
-		//	OsateDebug.osateDebug("[ConnectionReferenceImpl] getConnection()=" + getConnection());
+		// OsateDebug.osateDebug("[ConnectionReferenceImpl] acceptsProperty" + property);
+		// OsateDebug.osateDebug("[ConnectionReferenceImpl] getConnection()=" + getConnection());
 
 		result = getConnection().acceptsProperty(property);
-		//OsateDebug.osateDebug("[ConnectionReferenceImpl] result=" + result);
+		// OsateDebug.osateDebug("[ConnectionReferenceImpl] result=" + result);
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getInstantiatedObjects()
 	 */
 	@Override
@@ -443,4 +451,4 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		return Collections.singletonList(getConnection());
 	}
 
-} //ConnectionReferenceImpl
+} // ConnectionReferenceImpl

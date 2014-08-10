@@ -22,7 +22,7 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.1.0";resolution:=o
  org.osate.annexsupport;bundle-version="1.0.0",
  org.osate.workspace;bundle-version="1.0.0",
  org.osate.core;bundle-version="1.0.0",
- org.eclipse.uml2.codegen.ecore;bundle-version="1.9.100"  
+ org.eclipse.uml2.codegen.ecore;bundle-version="1.9.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.formatting,
