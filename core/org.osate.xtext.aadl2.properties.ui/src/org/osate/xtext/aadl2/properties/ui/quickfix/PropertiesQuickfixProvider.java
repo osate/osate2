@@ -55,7 +55,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for adding a required with statement for a referenced package or property set.
 	 * The issue data array is expected to have three elements:
-	 * 
+	 *
 	 * issue.getData()[0]: The name of the package or property set
 	 * issue.getData()[1]: The URI String of the referenced AadlPackage or PropertySet.
 	 * issue.getData()[2]: The URI String of the Namespace where the with statement should be inserted.

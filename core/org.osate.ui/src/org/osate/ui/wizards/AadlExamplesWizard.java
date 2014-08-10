@@ -86,6 +86,7 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 		public class TreeContentProvider implements ITreeContentProvider {
 			Map<String, List<Integer>> _treeContent;
 
+			@Override
 			public void dispose() {
 				// Nothing to do.
 			}
@@ -205,8 +206,8 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 			labelRight.setText("Examples selected:");
 			labelRight.setFont(inheritePanel.getFont());
 
-			final TreeViewer pickTree = this.createTree(panelChoice);
-			final TreeViewer selectionTree = this.createTree(panelChoice);
+			final TreeViewer pickTree = createTree(panelChoice);
+			final TreeViewer selectionTree = createTree(panelChoice);
 
 			pickTree.setSorter(new ViewerSorter());
 			selectionTree.setSorter(new ViewerSorter());
@@ -255,7 +256,7 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 				reportError("examples not found", e);
 			}
 
-			this.setControl(inheritePanel);
+			setControl(inheritePanel);
 		}
 
 		public void initAlreadySelectedItem(Map<String, List<Integer>> itemList, Map<String, List<Integer>> selectedItem) {
@@ -402,8 +403,8 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 
 	@Override
 	public void addPages() {
-		this.addPage(newProjectCreationPage);
-		this.addPage(referencePage);
+		addPage(newProjectCreationPage);
+		addPage(referencePage);
 	}
 
 	@Override
@@ -412,16 +413,16 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 
 		if (result) {
 			try {
-				List<File> selectedExamples = this.fetchSelectedExamples(_SelectedExamplesTreeContent);
+				List<File> selectedExamples = fetchSelectedExamples(_SelectedExamplesTreeContent);
 				if (!selectedExamples.isEmpty()) {
-					IPath projectPath = this.newProject.getLocation();
+					IPath projectPath = newProject.getLocation();
 
 					File destFolder = new File(projectPath.toString() + IPath.SEPARATOR + _EXAMPLE_ROOT_PATH);
 					destFolder.mkdir();
 
 					FileUtils.copyFiles(selectedExamples, destFolder, _EXCLUDED_DIRECTORIES);
 
-					this.newProject.refreshLocal(2, null);
+					newProject.refreshLocal(2, null);
 				}
 			} catch (Exception e) {
 				result = false;

@@ -496,7 +496,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		List<EvaluatedProperty> vals = new LinkedList<EvaluatedProperty>();
 
 		for (PropertyAssociation pa : pas) {
-			//			OsateDebug.osateDebug("pa" + pa);
+			// OsateDebug.osateDebug("pa" + pa);
 			vals.add(pa.evaluate(ctx));
 
 			if ((!(ctx.getInstanceObject() instanceof ConnectionReference)) && (!pa.isAppend())) {
@@ -517,7 +517,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public final void getPropertyValueInternal(EvaluationContext ctx, final PropertyAcc paa)
 			throws InvalidModelException {
 		InstanceObject io = ctx.getInstanceObject();
-		//		OsateDebug.osateDebug("here1 " + io + paa);
+		// OsateDebug.osateDebug("here1 " + io + paa);
 
 		/*
 		 * Only relevant for connection instances
@@ -566,7 +566,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		InstanceObject io = ctx.getInstanceObject();
 		List<? extends NamedElement> compDecls = io.getInstantiatedObjects();
 		// FIXME: compDecls == null for connection instances
-		//OsateDebug.osateDebug("[PropertyImpl] getPropertyValueFromDeclarativeModel" + compDecls);
+		// OsateDebug.osateDebug("[PropertyImpl] getPropertyValueFromDeclarativeModel" + compDecls);
 
 		if (compDecls == null) {
 		}
@@ -578,7 +578,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			}
 			InstantiatedClassifier ic = ctx.getClassifierCache().get(io);
 			Classifier cl = (ic == null) ? null : ic.classifier;
-			//			OsateDebug.osateDebug("compDecls" + compDecl);
+			// OsateDebug.osateDebug("compDecls" + compDecl);
 
 			if (compDecl instanceof Subcomponent) {
 				((SubcomponentImpl) compDecl).getPropertyValue(this, pas, cl);

@@ -32,6 +32,7 @@
  * </copyright>
  */
 package org.osate.annexsupport;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 
 /**
@@ -39,7 +40,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
  * @version $Id: AnnexResolverRegistry.java,v 1.3 2007-07-10 20:41:44 jseibel Exp $
  */
 public class AnnexResolverRegistry extends AnnexRegistry {
-	
+
 	protected AnnexResolverRegistry() {
 		initialize(ANNEX_RESOLVER_EXT_ID);
 	}
@@ -48,9 +49,12 @@ public class AnnexResolverRegistry extends AnnexRegistry {
 		return (AnnexResolver) extensions.get(annexName.toLowerCase());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.cmu.sei.aadl.parser.annex.AnnexRegistry#createProxy(org.eclipse.core.runtime.IConfigurationElement)
 	 */
+	@Override
 	protected AnnexProxy createProxy(IConfigurationElement configElem) {
 		return new AnnexResolverProxy(configElem);
 	}

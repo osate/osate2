@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright (c) 2000, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Carnegie Mellon University - adapted for use in OSATE
@@ -27,7 +27,6 @@ import org.osate.workspace.IAadlElement;
 import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
-
 
 /**
  * @author lwrage
@@ -53,11 +52,12 @@ public class AadlProject extends AadlElement implements IAadlProject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * edu.cmu.sei.osate.core.IAadlProject#findElement(org.eclipse.core.runtime
 	 * .IPath)
 	 */
+	@Override
 	public IAadlElement findElement(IPath element) {
 		return null;
 	}
@@ -73,9 +73,10 @@ public class AadlProject extends AadlElement implements IAadlProject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see edu.cmu.sei.osate.core.IAadlProject#getProject()
 	 */
+	@Override
 	public IProject getProject() {
 		return project;
 	}
@@ -84,11 +85,12 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 * Find Aadl source file in file system, i.e., a file with the extension
 	 * aadl. Search in the project source folder. Search for file according type
 	 * by looking in packages or propertysets as necessary.
-	 * 
+	 *
 	 * @param name name of AadlSpec, AadlPackage, or propertyset. Package name
 	 *            may have "::" as separator.
 	 * @return IFile the file
 	 */
+	@Override
 	public IFile findAadlSourceFile(String name) {
 		IFile f = null;
 		String filename;
@@ -110,11 +112,12 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 * Find Aadl model file in file system, i.e., a file with the extension
 	 * aaxl. Search in the project model folder. Search for file according type
 	 * by looking in packages or propertysets as necessary
-	 * 
+	 *
 	 * @param name name of AadlSpec, AadlPackage, or propertyset. Package name
 	 *            may have "::" as separator.
 	 * @return IFile the file
 	 */
+	@Override
 	public IFile findAadlModelFile(String name) {
 
 		PreferenceStore projectProperties = WorkspacePlugin.getPreferenceStore(project);
@@ -142,7 +145,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 
 	/**
 	 * find file in specified folder.
-	 * 
+	 *
 	 * @param path The folder in which to look for the file
 	 * @param filename Filename with extension
 	 */
@@ -150,7 +153,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 * Does preorder processing of containment hierarchy The default
 	 * implementation applies the suchThat condition and if true adds the
 	 * element to the result list
-	 * 
+	 *
 	 * @param obj root object
 	 * @return EList result list of IFile
 	 */
@@ -189,7 +192,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	/**
 	 * Returns true if the given project is accessible and it has a Aadl nature,
 	 * otherwise false.
-	 * 
+	 *
 	 * @param project IProject
 	 * @return boolean
 	 */
@@ -205,10 +208,11 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	/**
 	 * return the path to the AAXL file that corresponds to the specified aadl
 	 * file
-	 * 
+	 *
 	 * @param file
 	 * @return IPath path
 	 */
+	@Override
 	public IPath getAaxlPath(IFile file) {
 		IPath p = file.getProjectRelativePath();
 		IPath result = null;
@@ -231,29 +235,32 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	/**
 	 * return the path to the AADL text file that corresponds to the specified
 	 * aaxl model file
-	 * 
+	 *
 	 * @param file
 	 * @return IPath path
 	 */
+	@Override
 	public IPath getAadlPath(IFile file) {
 		IPath p = file.getProjectRelativePath();
 		IPath result = new Path("/" + project.getName());
 		result = result.append(p);
-		String fileExtension = result.getFileExtension() ;
-		char version = fileExtension.charAt(fileExtension.length()- 1) ;
-		fileExtension = WorkspacePlugin.SOURCE_FILE_EXT ;
-		if (Character.isDigit(version))
-		   fileExtension += version ;
+		String fileExtension = result.getFileExtension();
+		char version = fileExtension.charAt(fileExtension.length() - 1);
+		fileExtension = WorkspacePlugin.SOURCE_FILE_EXT;
+		if (Character.isDigit(version)) {
+			fileExtension += version;
+		}
 		result = result.removeFileExtension().addFileExtension(fileExtension);
 		return result;
 	}
 
 	/**
 	 * return the Aadl folder corresponding to the aaxl folder
-	 * 
+	 *
 	 * @param folder
 	 * @return
 	 */
+	@Override
 	public IFolder getComplementFolder(IFolder folder) {
 		IPath p = folder.getProjectRelativePath();
 
@@ -276,10 +283,11 @@ public class AadlProject extends AadlElement implements IAadlProject {
 
 	/**
 	 * get the output (model) file for the specified file, or null
-	 * 
+	 *
 	 * @param aadlFile textual aadl file
 	 * @return model file or null
 	 */
+	@Override
 	public IFile getAaxlFile(IFile aadlFile) {
 		IPath p = getAaxlPath(aadlFile);
 		IFile outFile = getProject().getFile(p.removeFirstSegments(1));
@@ -288,10 +296,11 @@ public class AadlProject extends AadlElement implements IAadlProject {
 
 	/**
 	 * get the aadl file for the aaxl file, or null
-	 * 
+	 *
 	 * @param aaxlFile XML aadl file
 	 * @return model file or null
 	 */
+	@Override
 	public IFile getAadlFile(IFile aaxlFile) {
 		IPath p = getAadlPath(aaxlFile);
 		IFile outFile = getProject().getFile(p.removeFirstSegments(1));
@@ -301,10 +310,11 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	/**
 	 * return recent aaxl file. return null if there are syntax errors, or the
 	 * aaxl filedoes note xist or is out of date
-	 * 
+	 *
 	 * @param file IFile aadl text file
 	 * @return IFile aaxl file
 	 */
+	@Override
 	public IFile getRecentAaxlFile(IFile file) {
 		IFile aaxlFile = getAaxlFile(file);
 		if (!aaxlFile.exists() || IResourceUtility.isModelTaggedWithSyntaxErrors(aaxlFile)) {
@@ -331,6 +341,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 * marking them as having syntax errors which will cause the compile to
 	 * occur
 	 */
+	@Override
 	public void cleanAllDeclarativeModelFiles(final IProgressMonitor monitor) {
 		IPath path = null;
 		IContainer folder = null;
@@ -346,6 +357,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		if (folder.exists()) {
 			new ForAllIFile() {
+				@Override
 				protected void process(IFile theFile) {
 					String filename = theFile.getName();
 					if (filename.endsWith(WorkspacePlugin.MODEL_FILE_EXT) && !filename.endsWith(instanceEnd)) {
@@ -361,6 +373,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 * In the new scheme of things text filees are always up to date with XML
 	 * models thus can be used to do a clean build
 	 */
+	@Override
 	@Deprecated
 	public void cleanAllAADLTextFiles(final IProgressMonitor monitor) {
 		IPath path = null;
@@ -377,9 +390,11 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		if (folder.exists()) {
 			new ForAllIFile() {
+				@Override
 				protected void process(IFile theFile) {
 					String filename = theFile.getName();
-					if (filename.endsWith(WorkspacePlugin.SOURCE_FILE_EXT)||filename.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2)) {
+					if (filename.endsWith(WorkspacePlugin.SOURCE_FILE_EXT)
+							|| filename.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2)) {
 						try {
 							theFile.setDerived(false);
 						} catch (CoreException e) {
@@ -394,6 +409,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	/**
 	 * get all instance model files
 	 */
+	@Override
 	public EList<IFile> getAllInstanceModelFiles(final IProgressMonitor monitor) {
 		IPath path = null;
 		IContainer folder = null;
@@ -409,6 +425,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		if (folder.exists()) {
 			EList<IFile> result = new ForAllIFile() {
+				@Override
 				protected boolean suchThat(IFile obj) {
 					String filename = obj.getName();
 					return filename.endsWith(instanceEnd);
@@ -424,6 +441,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 * contain instance models. The file is recognized by the filename ending in
 	 * "_instance.aaxl"
 	 */
+	@Override
 	public void deleteAllInstanceModelFiles(final IProgressMonitor monitor) {
 		IPath path = null;
 		IContainer folder = null;
@@ -439,6 +457,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		if (folder.exists()) {
 			new ForAllIFile() {
+				@Override
 				protected void process(IFile theFile) {
 					String name = theFile.getName();
 					if (name.endsWith(instanceEnd)) {
@@ -456,6 +475,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	/**
 	 * add all source files to be processed
 	 */
+	@Override
 	public EList<IFile> getAllSourceFiles() {
 		IPath path = null;
 		IContainer folder = null;
@@ -471,9 +491,11 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		if (folder.exists()) {
 			EList<IFile> result = new ForAllIFile() {
+				@Override
 				protected boolean suchThat(IFile obj) {
 					String name = obj.getName();
-					return (name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT)||name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2));
+					return (name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT) || name
+							.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2));
 				}
 			}.traverse(folder);
 			return result;
@@ -484,6 +506,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	/**
 	 * Get all the model files (declarative and instance) in the Aadl Project.
 	 */
+	@Override
 	public EList<IFile> getAllModelFiles() {
 		IPath path = null;
 		IContainer folder = null;
@@ -499,6 +522,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		if (folder.exists()) {
 			EList<IFile> result = new ForAllIFile() {
+				@Override
 				protected boolean suchThat(IFile obj) {
 					String name = obj.getName();
 					return name.endsWith(WorkspacePlugin.MODEL_FILE_EXT);
@@ -508,19 +532,15 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		return new BasicEList<IFile>();
 	}
-	
-	public String getAadlProjectFile ()
-	{
-		String customFile = 
-				WorkspacePlugin.getPreferenceStore(project).getString(WorkspacePlugin.AADL_PROJECT_FILE);
-		
-		if (project.getFile(customFile).exists())
-		{
+
+	@Override
+	public String getAadlProjectFile() {
+		String customFile = WorkspacePlugin.getPreferenceStore(project).getString(WorkspacePlugin.AADL_PROJECT_FILE);
+
+		if (project.getFile(customFile).exists()) {
 			return customFile;
 		}
 		return null;
 	}
-	
-
 
 }

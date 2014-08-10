@@ -480,4 +480,4 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 		return getContainingComponentInstance().isActive(som);
 	}
 
-} //ModeInstanceImpl
+} // ModeInstanceImpl

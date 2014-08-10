@@ -529,4 +529,4 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		return false;
 	}
 
-} //FlowSpecificationInstanceImpl
+} // FlowSpecificationInstanceImpl

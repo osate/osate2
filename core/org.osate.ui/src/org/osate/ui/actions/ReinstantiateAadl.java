@@ -64,36 +64,34 @@ import org.osate.core.AadlNature;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.workspace.IResourceUtility;
 
-
-
 /**
- * Scans the workspace for AADL system instances and rebuilds them, or 
+ * Scans the workspace for AADL system instances and rebuilds them, or
  * removes them if the instantiated system component no longer exists.
  */
 public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
-	
-	/** Set of currently selected instance models as IResources.  
-	 *   If the set is empty then the action will run on 
+
+	/** Set of currently selected instance models as IResources.
+	 *   If the set is empty then the action will run on
 	 * all instance models in open AADL projects in the workspace.
 	 */
 	private Set currentSelection = Collections.EMPTY_SET;
 
-
-	
 	/**
 	 * The constructor.
 	 */
 	public ReinstantiateAadl() {
 	}
 
-    /**
-     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-     */
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-    }
+	/**
+	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
+	 */
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+	}
 
+	@Override
 	public void run(final IAction action) {
-		
+
 		final Job job = new ReinstantiateJob(currentSelection);
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.setUser(true); // important!
@@ -102,15 +100,15 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 
 	private final class ReinstantiateJob extends WorkspaceJob {
 		private final Set selection;
-		
+
 		public ReinstantiateJob(final Set selection) {
 			super("Reinstantiate models");
 			this.selection = selection;
 		}
-		
+
+		@Override
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-			monitor.beginTask("Reinstantiate all instance models",
-					IProgressMonitor.UNKNOWN);
+			monitor.beginTask("Reinstantiate all instance models", IProgressMonitor.UNKNOWN);
 //			IWorkbench wb = PlatformUI.getWorkbench();
 //			IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 //			IWorkbenchPage page = win.getActivePage();
@@ -127,23 +125,20 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 //				}
 //			}
 //			}
-			try
-			{
-				if (!selection.isEmpty()){
+			try {
+				if (!selection.isEmpty()) {
 					Iterator selit = selection.iterator();
-					for (Iterator iterator = selection.iterator(); iterator
-							.hasNext();) {
+					for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
 						Object obj = iterator.next();
-						if (obj instanceof IResource){
-							InstantiateModel.rebuildInstanceModelFile((IResource)obj);
+						if (obj instanceof IResource) {
+							InstantiateModel.rebuildInstanceModelFile((IResource) obj);
 						}
 					}
-				} else {;
-				InstantiateModel.rebuildAllInstanceModelFiles();
+				} else {
+					;
+					InstantiateModel.rebuildAllInstanceModelFiles();
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				Dialog.showError("Model Instantiate", "Error while re-instantiating the model: " + e.getMessage());
 
 			}
@@ -152,6 +147,7 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 		}
 	}
 
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
 			currentSelection = new HashSet();
@@ -164,8 +160,7 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 					} else if (object instanceof IAdaptable) {
 						p = (IResource) ((IAdaptable) object).getAdapter(IResource.class);
 					}
-					if (p != null && IResourceUtility.isInstanceFile(p) 
-							&& AadlNature.hasNature(p.getProject()) ) {
+					if (p != null && IResourceUtility.isInstanceFile(p) && AadlNature.hasNature(p.getProject())) {
 						currentSelection.add(p);
 					}
 				}
@@ -178,6 +173,7 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 	 * resources we previously allocated.
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
+	@Override
 	public void dispose() {
 	}
 
@@ -186,6 +182,7 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 	 * be able to provide parent shell for the message dialog.
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 	}
 }

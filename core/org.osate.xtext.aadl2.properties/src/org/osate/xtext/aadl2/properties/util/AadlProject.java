@@ -92,7 +92,7 @@ public final class AadlProject {
 	public static final String ADA95_LITERAL = "Ada95";
 	public static final String C_LITERAL = "C";
 	public static final String SIMULINK_6_5_LITERAL = "Simulink_6_5";
-	
+
 	public static final String SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES = "Supported_Classifier_Equivalence_Matches";
 	public static final String SUPPORTED_CLASSIFIER_SUBSET_MATCHES = "Supported_Classifier_Subset_Matches";
 	public static final String SUPPORTED_TYPE_CONVERSIONS = "Supported_Type_Conversions";
@@ -115,9 +115,9 @@ public final class AadlProject {
 	public static final String KB_LITERAL = "KByte";
 	public static final String MB_LITERAL = "MByte";
 	public static final String GB_LITERAL = "GByte";
-	
+
 	public static final String DATA_RATE_UNITS = "Data_Rate_Units";
-	
+
 	public static final String DATA_VOLUME_UNITS = "Data_Volume_Units";
 	public static final String BITSPS_LITERAL = "bitsps";
 	public static final String BPS_LITERAL = "Bytesps";
@@ -128,7 +128,7 @@ public final class AadlProject {
 	public static final String KBYTESPS_LITERAL = "KBytesps";
 	public static final String MBYTESPS_LITERAL = "MBytesps";
 	public static final String GBYTESPS_LITERAL = "GBytesps";
-	
+
 	public static final String TIME_UNITS = "Time_Units";
 	public static final String PS_LITERAL = "ps";
 	public static final String NS_LITERAL = "Ns";

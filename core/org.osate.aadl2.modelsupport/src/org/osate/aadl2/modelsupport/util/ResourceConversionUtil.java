@@ -43,37 +43,36 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.workspace.WorkspacePlugin;
 
-
-
 /**
  * static utility methods for handling models as persistent resources
- * 
+ *
  * @author phf
  * @version $Id: OsateResourceManager.java,v 1.17 2009-07-09 19:23:11 jseibel
  *          Exp $
  */
 public class ResourceConversionUtil {
 
-
 	/**
 	 * converts Resource into corresponding IResource without use of registry.
-	 * 
+	 *
 	 * @param res
 	 *            Resource
 	 * @return IResource
 	 */
 	public static IResource convertToIResource(Resource res) {
-		if (res == null)
+		if (res == null) {
 			return null;
+		}
 		URI uri = res.getURI();
 		if (uri != null) {
 			return getOsateIFile(uri);
 		}
 		return null;
 	}
+
 	/**
 	 * return the IPath for the path. Strips the leading "resource" as necessary
-	 * 
+	 *
 	 * @param resourceURI
 	 *            The URI of the Resource
 	 * @return IPath to the file identified by the URI
@@ -88,15 +87,13 @@ public class ResourceConversionUtil {
 		 * "platform:/resource/xxx/yyy/zzz" and return the Eclipse IPath to the
 		 * file for that Resource. This seems to involve removing the
 		 * "/resource/" part.
-		 * 
+		 *
 		 * --aarong
 		 */
 
 		// Is it a "plaform:" uri?
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
-				.getRoot();
-		if (resourceURI.scheme() != null
-				&& resourceURI.scheme().equalsIgnoreCase("platform")) {
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		if (resourceURI.scheme() != null && resourceURI.scheme().equalsIgnoreCase("platform")) {
 			// Get the segments. See if the first is "resource"
 			final String[] segments = resourceURI.segments();
 			final StringBuffer path = new StringBuffer();
@@ -108,23 +105,23 @@ public class ResourceConversionUtil {
 					path.append(segments[i]);
 					path.append('/');
 				}
-				if (lastIdx >= 0)
+				if (lastIdx >= 0) {
 					path.append(segments[lastIdx]);
+				}
 			}
 			return myWorkspaceRoot.getFile(new Path(null, path.toString()));
 		} else if (resourceURI.isFile()) {
-			return  myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); //ForLocation
+			return myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); // ForLocation
 		} else {
-			throw new IllegalArgumentException("Cannot decode URI protocol: "
-					+ resourceURI.scheme());
+			throw new IllegalArgumentException("Cannot decode URI protocol: " + resourceURI.scheme());
 		}
 	}
 
 	/*
 	 * returns the instance model URI for a given system implementation
-	 * 
+	 *
 	 * @param si
-	 * 
+	 *
 	 * @return URI for instance model file
 	 */
 	public static URI getInstanceModelURI(SystemImplementation si) {
@@ -133,15 +130,13 @@ public class ResourceConversionUtil {
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = modeluri.trimSegments(1);
-		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)){
+		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
 			path = path.trimSegments(1);
 		}
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
-				.appendSegment(
-				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() );
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(
+				filename + "_" + si.getTypeName() + "_" + si.getImplementationName());
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
-
 
 }

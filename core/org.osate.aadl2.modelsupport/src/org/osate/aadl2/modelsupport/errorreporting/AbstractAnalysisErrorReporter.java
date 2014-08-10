@@ -36,7 +36,6 @@ package org.osate.aadl2.modelsupport.errorreporting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Element;
 
-
 /**
  * Base implementation that makes sure messages counts are updated. Also makes
  * sure that that Elements used for reporting all come from the same Resource.
@@ -44,30 +43,25 @@ import org.osate.aadl2.Element;
  * {@link #errorImpl(Element, String, String[], Object[])},
  * {@link #warningImpl(Element, String, String[], Object[])},
  * and {@link #infoImpl(Element, String, String[], Object[])}.
- * 
+ *
  * @author aarong
  */
-public abstract class AbstractAnalysisErrorReporter
-extends AbstractErrorReporter
-implements AnalysisErrorReporter {
+public abstract class AbstractAnalysisErrorReporter extends AbstractErrorReporter implements AnalysisErrorReporter {
 	/** The EMF Resource of the object model. */
 	protected final Resource resource;
-	
+
 	protected AbstractAnalysisErrorReporter(final Resource rsrc) {
 		super();
 		resource = rsrc;
 	}
-	
 
-	
 	private void checkResource(final Element where) {
 		if (where.eResource() != resource) {
 			throw new IllegalArgumentException("Object is not from the error reporter's resource");
 		}
 	}
 
-	private final void checkAttributes(
-			final String[] attrs, final Object[] values) {
+	private final void checkAttributes(final String[] attrs, final Object[] values) {
 		if (attrs == null) {
 			throw new IllegalArgumentException("Attributes list is null");
 		}
@@ -79,9 +73,8 @@ implements AnalysisErrorReporter {
 		}
 	}
 
-	
-	public final void error(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	@Override
+	public final void error(final Element where, final String message, final String[] attrs, final Object[] values) {
 		checkResource(where);
 		checkAttributes(attrs, values);
 		errorImpl(where, message, attrs, values);
@@ -96,11 +89,10 @@ implements AnalysisErrorReporter {
 	 * <li><code>values</code> is non-<code>null</code>
 	 * <li>the lengths of <code>attrs</code> and <code>values</code> are equal
 	 */
-	protected abstract void errorImpl(Element where, String message,
-			String[] attrs, Object[] values);
-	
-	public final void warning(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected abstract void errorImpl(Element where, String message, String[] attrs, Object[] values);
+
+	@Override
+	public final void warning(final Element where, final String message, final String[] attrs, final Object[] values) {
 		checkResource(where);
 		checkAttributes(attrs, values);
 		warningImpl(where, message, attrs, values);
@@ -115,11 +107,10 @@ implements AnalysisErrorReporter {
 	 * <li><code>values</code> is non-<code>null</code>
 	 * <li>the lengths of <code>attrs</code> and <code>values</code> are equal
 	 */
-	protected abstract void warningImpl(Element where, String message,
-			String[] attrs, Object[] values);
-	
-	public final void info(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected abstract void warningImpl(Element where, String message, String[] attrs, Object[] values);
+
+	@Override
+	public final void info(final Element where, final String message, final String[] attrs, final Object[] values) {
 		checkResource(where);
 		checkAttributes(attrs, values);
 		infoImpl(where, message, attrs, values);
@@ -134,6 +125,5 @@ implements AnalysisErrorReporter {
 	 * <li><code>values</code> is non-<code>null</code>
 	 * <li>the lengths of <code>attrs</code> and <code>values</code> are equal
 	 */
-	protected abstract void infoImpl(Element where, String message,
-			String[] attrs, Object[] values);
+	protected abstract void infoImpl(Element where, String message, String[] attrs, Object[] values);
 }

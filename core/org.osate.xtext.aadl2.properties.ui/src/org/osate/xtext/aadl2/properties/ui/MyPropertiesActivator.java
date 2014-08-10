@@ -51,62 +51,55 @@ import org.osgi.framework.BundleContext;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class MyPropertiesActivator extends PropertiesActivator implements org.eclipse.ui.IStartup{
+public class MyPropertiesActivator extends PropertiesActivator implements org.eclipse.ui.IStartup {
 
-
-
-    public void earlyStartup(){
-    	new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
+	@Override
+	public void earlyStartup() {
+		new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
 		PredeclaredProperties.initPluginContributedAadl();
-    };
-    
+	};
 
 	@Inject
-	private ResourceDescriptionsProvider rdp ; 
-	 
-	@Inject 
-	 private IResourceServiceProvider.Registry rspr;
+	private ResourceDescriptionsProvider rdp;
+
+	@Inject
+	private IResourceServiceProvider.Registry rspr;
 
 	// if inject does not work
-//	private IResourceServiceProvider.Registry rspr = 
-//			   IResourceServiceProvider.Registry.INSTANCE; 
+//	private IResourceServiceProvider.Registry rspr =
+//			   IResourceServiceProvider.Registry.INSTANCE;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		try {
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
-			
+
 			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
 
-			// DB bug #147  Added to provide property lookup service to meta-modem using GetProperties.
+			// DB bug #147 Added to provide property lookup service to meta-modem using GetProperties.
 			Aadl2Util.propertyService = new IPropertyService() {
-				
+
 				@Override
-				public Property lookupPropertyDefinition(	EObject context,
-															String propertySetName,
-															String propertyName ) {
+				public Property lookupPropertyDefinition(EObject context, String propertySetName, String propertyName) {
 					// TODO Auto-generated method stub
-					return GetProperties.lookupPropertyDefinition( context, propertySetName, propertyName );
+					return GetProperties.lookupPropertyDefinition(context, propertySetName, propertyName);
 				}
 			};
-			
+
 		} catch (Exception e) {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
 			throw e;
 		}
 	}
 
-	
 	@Override
 	public Injector getInjector(String languageName) {
 		return OsateCorePlugin.getDefault().getInjector(languageName);
 	}
-	
+
 	protected void registerInjectorFor(String language) throws Exception {
-		OsateCorePlugin.getDefault().registerInjectorFor(language, 
-				createInjector(
-						language));
+		OsateCorePlugin.getDefault().registerInjectorFor(language, createInjector(language));
 //		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 

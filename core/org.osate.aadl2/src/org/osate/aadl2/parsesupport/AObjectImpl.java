@@ -74,7 +74,7 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 	}
 
 	public final Object getAdapter(final Class adapter) {
-		//defer to the platform
+		// defer to the platform
 		return Platform.getAdapterManager().getAdapter(this, adapter);
 	}
 
@@ -106,5 +106,5 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 	public void setLocationReference(LocationReference lr) {
 		this.locationReference = lr;
 	}
-	
-} //AObjectImpl
+
+} // AObjectImpl

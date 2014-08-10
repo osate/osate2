@@ -21,60 +21,63 @@ import com.google.inject.Inject;
 @SuppressWarnings("restriction")
 public class Aadl2ReferenceFinder extends DefaultReferenceFinder {
 
-	@Inject 
+	@Inject
 	public Aadl2ReferenceFinder(IResourceDescriptions indexData, Registry serviceProviderRegistry) {
 		super(indexData, serviceProviderRegistry);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
-	protected void findLocalReferencesFromElement(
-			final Set<URI> targetURISet, 
-			EObject sourceCandidate,
-			Resource localResource,
-			final IAcceptor<IReferenceDescription> acceptor, 
-			URI currentExportedContainerURI, 
+	protected void findLocalReferencesFromElement(final Set<URI> targetURISet, EObject sourceCandidate,
+			Resource localResource, final IAcceptor<IReferenceDescription> acceptor, URI currentExportedContainerURI,
 			Map<EObject, URI> exportedElementsMap) {
-		URI sourceURI = null; 
-		if(exportedElementsMap.containsKey(sourceCandidate)) { 
+		URI sourceURI = null;
+		if (exportedElementsMap.containsKey(sourceCandidate)) {
 			currentExportedContainerURI = exportedElementsMap.get(sourceCandidate);
 			sourceURI = currentExportedContainerURI;
 		}
-		for(EReference ref: sourceCandidate.eClass().getEAllReferences()) {
-			if(!ref.isDerived() && sourceCandidate.eIsSet(ref)) {
-				if(ref.isContainment()) {
+		for (EReference ref : sourceCandidate.eClass().getEAllReferences()) {
+			if (!ref.isDerived() && sourceCandidate.eIsSet(ref)) {
+				if (ref.isContainment()) {
 					Object content = sourceCandidate.eGet(ref, false);
-					if(ref.isMany()) {
+					if (ref.isMany()) {
 						InternalEList<EObject> contentList = (InternalEList<EObject>) content;
-						for(int i=0; i<contentList.size(); ++i) {
+						for (int i = 0; i < contentList.size(); ++i) {
 							EObject childElement = contentList.basicGet(i);
-							if(!childElement.eIsProxy())
-								findLocalReferencesFromElement(targetURISet, childElement, localResource, acceptor, currentExportedContainerURI, exportedElementsMap);
+							if (!childElement.eIsProxy()) {
+								findLocalReferencesFromElement(targetURISet, childElement, localResource, acceptor,
+										currentExportedContainerURI, exportedElementsMap);
+							}
 						}
 					} else {
 						EObject childElement = (EObject) content;
-						if(!childElement.eIsProxy())
-							findLocalReferencesFromElement(targetURISet, childElement, localResource, acceptor, currentExportedContainerURI, exportedElementsMap);
+						if (!childElement.eIsProxy()) {
+							findLocalReferencesFromElement(targetURISet, childElement, localResource, acceptor,
+									currentExportedContainerURI, exportedElementsMap);
+						}
 					}
 				} else if (!ref.isContainer()) {
 					Object value = sourceCandidate.eGet(ref, false);
-					if(ref.isMany()) {
+					if (ref.isMany()) {
 						InternalEList<EObject> values = (InternalEList<EObject>) value;
-						for(int i=0; i< values.size(); ++i) {
+						for (int i = 0; i < values.size(); ++i) {
 							EObject refElement = resolveInternalProxy(values.basicGet(i), localResource);
-							URI refURI= EcoreUtil2.getPlatformResourceOrNormalizedURI(refElement);
-							if(targetURISet.contains(refURI)) {
-								sourceURI = (sourceURI == null) ? EcoreUtil2.getPlatformResourceOrNormalizedURI(sourceCandidate) : sourceURI;
-								acceptor.accept(new DefaultReferenceDescription(
-										sourceURI, refURI, ref, i, currentExportedContainerURI));
+							URI refURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(refElement);
+							if (targetURISet.contains(refURI)) {
+								sourceURI = (sourceURI == null) ? EcoreUtil2
+										.getPlatformResourceOrNormalizedURI(sourceCandidate) : sourceURI;
+								acceptor.accept(new DefaultReferenceDescription(sourceURI, refURI, ref, i,
+										currentExportedContainerURI));
 							}
 						}
 					} else {
 						EObject refElement = resolveInternalProxy((EObject) value, localResource);
-						URI refURI= EcoreUtil2.getPlatformResourceOrNormalizedURI(refElement);
-						if(targetURISet.contains(refURI)) {
-							sourceURI = (sourceURI == null) ? EcoreUtil2.getPlatformResourceOrNormalizedURI(sourceCandidate) : sourceURI;
-							acceptor.accept(new DefaultReferenceDescription(
-									sourceURI, refURI, ref, -1, currentExportedContainerURI));
+						URI refURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(refElement);
+						if (targetURISet.contains(refURI)) {
+							sourceURI = (sourceURI == null) ? EcoreUtil2
+									.getPlatformResourceOrNormalizedURI(sourceCandidate) : sourceURI;
+							acceptor.accept(new DefaultReferenceDescription(sourceURI, refURI, ref, -1,
+									currentExportedContainerURI));
 						}
 					}
 				}

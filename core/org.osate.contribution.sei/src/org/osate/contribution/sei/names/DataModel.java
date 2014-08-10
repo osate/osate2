@@ -7,7 +7,7 @@ package org.osate.contribution.sei.names;
 public final class DataModel {
 	/** The name of the property set itself. */
 	public static final String _NAME = "Data_Model";
-	
+
 	public static final String MEASUREMENT_UNIT = "Measurement_Unit";
 	public static final String BASE_TYPE = "Base_Type";
 	public static final String CODE_SET = "Code_Set";

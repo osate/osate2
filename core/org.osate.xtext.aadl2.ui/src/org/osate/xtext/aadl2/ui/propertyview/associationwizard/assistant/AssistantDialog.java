@@ -22,17 +22,15 @@ import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.ReferenceType;
 
-public class AssistantDialog extends Dialog
-{
+public class AssistantDialog extends Dialog {
 	private final PropertyType type;
 	private final ISerializer serializer;
 	private final NamedElement holder;
-	
+
 	private AbstractAssistant assistant = null;
 	private String valueText = null;
-	
-	public AssistantDialog(Shell parent, PropertyType type, ISerializer serializer, NamedElement holder)
-	{
+
+	public AssistantDialog(Shell parent, PropertyType type, ISerializer serializer, NamedElement holder) {
 		super(parent);
 		this.type = type;
 		this.serializer = serializer;
@@ -41,78 +39,76 @@ public class AssistantDialog extends Dialog
 		flags |= SWT.RESIZE;
 		setShellStyle(flags);
 	}
-	
-	public String getValueText()
-	{
-		if (valueText == null)
-			throw new IllegalStateException("Method called out of order.  Only call this method when open() has returned Dialog.OK");
-		else
+
+	public String getValueText() {
+		if (valueText == null) {
+			throw new IllegalStateException(
+					"Method called out of order.  Only call this method when open() has returned Dialog.OK");
+		} else {
 			return valueText;
+		}
 	}
-	
+
 	@Override
-	protected Control createDialogArea(Composite parent)
-	{
-		Composite composite = (Composite)super.createDialogArea(parent);
-		if (type instanceof ListType)
+	protected Control createDialogArea(Composite parent) {
+		Composite composite = (Composite) super.createDialogArea(parent);
+		if (type instanceof ListType) {
 			composite.getShell().setText("New List Item");
-		else if (type instanceof AadlBoolean)
+		} else if (type instanceof AadlBoolean) {
 			composite.getShell().setText("New Boolean Item");
-		else if (type instanceof AadlString)
+		} else if (type instanceof AadlString) {
 			composite.getShell().setText("New String Item");
-		else if (type instanceof ClassifierType)
+		} else if (type instanceof ClassifierType) {
 			composite.getShell().setText("New Classifier Item");
-		else if (type instanceof EnumerationType)
+		} else if (type instanceof EnumerationType) {
 			composite.getShell().setText("New Enumeration Item");
-		else if (type instanceof AadlInteger)
+		} else if (type instanceof AadlInteger) {
 			composite.getShell().setText("New Integer Item");
-		else if (type instanceof AadlReal)
+		} else if (type instanceof AadlReal) {
 			composite.getShell().setText("New Real Item");
-		else if (type instanceof RangeType)
+		} else if (type instanceof RangeType) {
 			composite.getShell().setText("New Range Item");
-		else if (type instanceof RecordType)
+		} else if (type instanceof RecordType) {
 			composite.getShell().setText("New Record Item");
-		else if (type instanceof ReferenceType)
+		} else if (type instanceof ReferenceType) {
 			composite.getShell().setText("New Reference Item");
-		else
+		} else {
 			composite.getShell().setText("New List Item");
-		
-		assistant = AssistantFactory.getAssistantForType(composite, type, serializer, holder, new AssistantValueChangedListener()
-		{
-			@Override
-			public void assistantValueChanged()
-			{
-				getButton(IDialogConstants.OK_ID).setEnabled(assistant.isComplete());
-			}
-		});
+		}
+
+		assistant = AssistantFactory.getAssistantForType(composite, type, serializer, holder,
+				new AssistantValueChangedListener() {
+					@Override
+					public void assistantValueChanged() {
+						getButton(IDialogConstants.OK_ID).setEnabled(assistant.isComplete());
+					}
+				});
 		assistant.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+
 		return composite;
 	}
-	
+
 	@Override
-	protected Control createContents(Composite parent)
-	{
+	protected Control createContents(Composite parent) {
 		Control control = super.createContents(parent);
 		getButton(IDialogConstants.OK_ID).setEnabled(assistant.isComplete());
 		return control;
 	}
-	
+
 	@Override
-	protected void okPressed()
-	{
+	protected void okPressed() {
 		valueText = assistant.getValueText();
 		super.okPressed();
 	}
-	
+
 	@Override
-	protected Point getInitialSize()
-	{
-		if (type instanceof ClassifierType || type instanceof ReferenceType)
+	protected Point getInitialSize() {
+		if (type instanceof ClassifierType || type instanceof ReferenceType) {
 			return new Point(600, 600);
-		else if (type instanceof ListType)
+		} else if (type instanceof ListType) {
 			return new Point(600, 400);
-		else
+		} else {
 			return super.getInitialSize();
+		}
 	}
 }

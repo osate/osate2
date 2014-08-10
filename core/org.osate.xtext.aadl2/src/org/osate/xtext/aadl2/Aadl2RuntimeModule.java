@@ -36,12 +36,18 @@ package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.resource.IFragmentProvider;
+import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
+import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
+import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
 
+import com.google.inject.Binder;
+import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -51,19 +57,26 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
 		return org.osate.xtext.aadl2.linking.Aadl2LinkingService.class;
 	}
+
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
-	  return Aadl2ValueConverter.class;
+		return Aadl2ValueConverter.class;
 	}
-	
+
 	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameProvider.class;
 	}
-	
-	/* // It has some problems. It recurses on the package in the outline view
+
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameConverter.class;
+	}
+
+	/*
+	 * // It has some problems. It recurses on the package in the outline view
 	 * DB: Fixing the reference problem. Reviewed getName() on PublicPackageSection to fix the recurses problem.
 	 * (non-Javadoc)
+	 *
 	 * @see org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
 	 */
 	@Override
@@ -79,7 +92,8 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return org.osate.xtext.aadl2.serializer.Aadl2CrossReferenceSerializer.class;
 	}
- //we are not using it for unassigned values. We use token like PNAME instead
+
+	// we are not using it for unassigned values. We use token like PNAME instead
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer> bindITokenSerializer$IValueSerializer() {
 		return org.osate.xtext.aadl2.serializing.Aadl2ValueSerializer.class;
 	}
@@ -89,37 +103,32 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return org.osate.xtext.aadl2.serializing.Aadl2TransientValueService.class;
 	}
 
-
-//		@Override
 	public Class<? extends org.eclipse.xtext.resource.EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
 		return org.osate.xtext.aadl2.util.Aadl2EObjectAtOffsetHelper.class;
 	}
-	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper> bindHyperlinkHelper() {
-		return org.osate.xtext.aadl2.util.Aadl2HyperlinkHelper.class;
-	}
 
-//	@Override
-public Class<? extends org.eclipse.xtext.resource.DefaultLocationInFileProvider> bindDefaultLocationInFileProvider() {
-	return org.osate.xtext.aadl2.util.Aadl2LocationInFile.class;
-}
-	
-//	@Override
-	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.AbstractWordAwareDoubleClickStrategy> bindLexerTokenAndCharacterPairAwareStrategy() {
-		return org.osate.xtext.aadl2.parsing.Aadl2TokenStrategy.class;
+	public Class<? extends org.eclipse.xtext.resource.DefaultLocationInFileProvider> bindDefaultLocationInFileProvider() {
+		return org.osate.xtext.aadl2.util.Aadl2LocationInFile.class;
 	}
-	
-	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.DoubleClickStrategyProvider> bindDoubleClickStrategyProvider() {
-		return org.osate.xtext.aadl2.parsing.Aadl2DoubleClickStrategyProvider.class;
-	}
-
 
 	@Override
 	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
 		return org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider.class;
 	}
-	
+
 	@Override
 	public Class<? extends IConcreteSyntaxValidator> bindConcreteSyntaxValidator() {
 		return Aadl2ConcreteSyntaxValidator.class;
+	}
+
+	@Override
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return Aadl2ScopeProvider.class;
+	}
+
+	@Override
+	public void configureIScopeProviderDelegate(Binder binder) {
+		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
+				.to(Aadl2ImportedNamespaceAwareLocalScopeProvider.class);
 	}
 }

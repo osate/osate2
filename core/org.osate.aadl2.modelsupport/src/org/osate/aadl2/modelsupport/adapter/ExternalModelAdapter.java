@@ -41,7 +41,7 @@ package org.osate.aadl2.modelsupport.adapter;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 
 /**
- * 
+ *
  * This adapter can be attached to Aadl Object Models Its role is to keep a
  * reference to a Java object of a model that is external to the AADL model. This
  * can be used to create an external model (e.g., a timing model) from an AADL
@@ -55,7 +55,7 @@ public class ExternalModelAdapter extends AdapterImpl {
 	 * external model adapters, as long as they have different types.
 	 */
 	private final Object myType;
-	
+
 	/** The payload */
 	private Object externalModelObject;
 
@@ -69,12 +69,13 @@ public class ExternalModelAdapter extends AdapterImpl {
 		myType = type;
 		externalModelObject = object;
 	}
-	
+
 	/**
 	 * Returns <code>false</code>
 	 * @param type the type.
 	 * @return <code>false</code>
 	 */
+	@Override
 	public boolean isAdapterForType(Object type) {
 		return myType == type;
 	}
@@ -82,7 +83,7 @@ public class ExternalModelAdapter extends AdapterImpl {
 	/**
 	 * get External Model Object - an object of the external model attached to
 	 * the AADL instance model
-	 * 
+	 *
 	 * @return Object External Model Object
 	 */
 	public Object getExternalModelObject() {

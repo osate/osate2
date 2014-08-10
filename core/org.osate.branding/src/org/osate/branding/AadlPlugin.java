@@ -10,11 +10,11 @@ import org.osgi.framework.BundleContext;
  * The main plugin class to be used in the desktop.
  */
 public class AadlPlugin extends AbstractUIPlugin {
-	//The shared instance.
+	// The shared instance.
 	private static AadlPlugin plugin;
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+
 	/**
 	 * The constructor.
 	 */

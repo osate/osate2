@@ -44,11 +44,10 @@ public class AnnexUnparserRegistry extends AnnexRegistry {
 	protected AnnexUnparserRegistry() {
 		initialize(ANNEX_UNPARSER_EXT_ID);
 	}
-	
-	public AnnexUnparser getAnnexUnparser(String annexName)
-	{
+
+	public AnnexUnparser getAnnexUnparser(String annexName) {
 		AnnexUnparser unparser = (AnnexUnparser) extensions.get(annexName.toLowerCase());
-		
+
 //		if (unparser == null) {
 //			unparser = (AnnexUnparser) extensions.get("*");
 //		}
@@ -59,6 +58,7 @@ public class AnnexUnparserRegistry extends AnnexRegistry {
 	 * Factory method for annex unparser proxies.
 	 * @param configElem
 	 */
+	@Override
 	protected AnnexProxy createProxy(IConfigurationElement configElem) {
 		return new AnnexUnparserProxy(configElem);
 	}

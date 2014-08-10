@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,21 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- * 
+ *
  *
  * $Id: Aadl2ActionBarContributor.java,v 1.3 2009-12-01 15:31:10 lwrage Exp $
  */
@@ -77,10 +77,8 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ui.UiUtil;
-
 
 /**
  * This is the action bar contributor for the Instance model editor.
@@ -88,8 +86,7 @@ import org.osate.ui.UiUtil;
  * <!-- end-user-doc -->
  * @generated
  */
-public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor implements
-		ISelectionChangedListener {
+public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor implements ISelectionChangedListener {
 	/**
 	 * This keeps track of the active editor.
 	 * <!-- begin-user-doc -->
@@ -112,8 +109,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IAction showPropertiesViewAction = new Action(Aadl2EditorPlugin.INSTANCE
-			.getString("_UI_ShowPropertiesView_menu_item")) //$NON-NLS-1$
+	protected IAction showPropertiesViewAction = new Action(
+			Aadl2EditorPlugin.INSTANCE.getString("_UI_ShowPropertiesView_menu_item")) //$NON-NLS-1$
 	{
 		@Override
 		public void run() {
@@ -132,8 +129,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IAction refreshViewerAction = new Action(Aadl2EditorPlugin.INSTANCE
-			.getString("_UI_RefreshViewer_menu_item")) //$NON-NLS-1$
+	protected IAction refreshViewerAction = new Action(
+			Aadl2EditorPlugin.INSTANCE.getString("_UI_RefreshViewer_menu_item")) //$NON-NLS-1$
 	{
 		@Override
 		public boolean isEnabled() {
@@ -150,18 +147,16 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 			}
 		}
 	};
-	protected IAction gotoSrcTextAction =
-		new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
+	protected IAction gotoSrcTextAction = new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
+		@Override
 		public void run() {
 			if (currentSelection instanceof InstanceObject) {
 				if (activeEditorPart instanceof Aadl2ModelEditor) {
-					if (((Aadl2ModelEditor)activeEditorPart).isDirty()){
-						((Aadl2ModelEditor)activeEditorPart).doSave(null);
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
 					}
-					if (currentSelection instanceof InstanceObject){
-					UiUtil.gotoInstanceObjectSource(
-							activeEditorPart.getSite().getPage(),
-							(InstanceObject)currentSelection);
+					if (currentSelection instanceof InstanceObject) {
+						UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(), currentSelection);
 					}
 				}
 			}
@@ -218,7 +213,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 */
 	protected IMenuManager createSiblingMenuManager;
 
-    protected InstanceObject currentSelection = null;
+	protected InstanceObject currentSelection = null;
 
 	/**
 	 * This creates an instance of the contributor.
@@ -243,7 +238,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 
 		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
 
-		//.CUSTOM: override the superclass implementation of these actions
+		// .CUSTOM: override the superclass implementation of these actions
 		undoAction = new UndoActionWrapper();
 		undoAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO));
 		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
@@ -276,8 +271,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	public void contributeToMenu(IMenuManager menuManager) {
 		super.contributeToMenu(menuManager);
 
-		IMenuManager submenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE
-				.getString("_UI_InstanceEditor_menu"), "org.osate.aadl2.instanceMenuID"); //$NON-NLS-1$ //$NON-NLS-2$
+		IMenuManager submenuManager = new MenuManager(
+				Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceEditor_menu"), "org.osate.aadl2.instanceMenuID"); //$NON-NLS-1$ //$NON-NLS-2$
 		menuManager.insertAfter("additions", submenuManager); //$NON-NLS-1$
 		submenuManager.add(new Separator("settings")); //$NON-NLS-1$
 		submenuManager.add(new Separator("actions")); //$NON-NLS-1$
@@ -291,13 +286,13 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 
 		// Prepare for CreateSibling item addition or removal.
 		//
-		createSiblingMenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE
-				.getString("_UI_CreateSibling_menu_item")); //$NON-NLS-1$
+		createSiblingMenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE.getString("_UI_CreateSibling_menu_item")); //$NON-NLS-1$
 		submenuManager.insertBefore("additions", createSiblingMenuManager); //$NON-NLS-1$
 
 		// Force an update because Eclipse hides empty menus now.
 		//
 		submenuManager.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager menuManager) {
 				menuManager.updateAll(true);
 			}
@@ -344,6 +339,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		// Remove any menu items for old selection.
 		//
@@ -364,8 +360,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			Object object = ((IStructuredSelection) selection).getFirstElement();
-			if (object instanceof InstanceObject){
-				this.currentSelection = (InstanceObject)object;
+			if (object instanceof InstanceObject) {
+				currentSelection = (InstanceObject) object;
 			}
 			EditingDomain domain = ((IEditingDomainProvider) activeEditorPart).getEditingDomain();
 

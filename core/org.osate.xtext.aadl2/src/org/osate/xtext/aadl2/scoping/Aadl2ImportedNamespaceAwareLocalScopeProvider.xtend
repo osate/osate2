@@ -1,7 +1,7 @@
 /*
- * /**
+ *
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2014 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -32,17 +32,19 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties.scoping;
+package org.osate.xtext.aadl2.scoping
 
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.impl.ImportNormalizer
+import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
+import org.osate.aadl2.modelsupport.util.AadlUtil
 
-/**
- * This class contains custom scoping description.
- *
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
- * on how and when to use it
- *
- */
-public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
-
+class Aadl2ImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
+	override protected getImplicitImports(boolean ignoreCase) {
+		val importNormalizers = newArrayList
+		AadlUtil.getPredeclaredPropertySetNames.forEach[
+			importNormalizers.add(new ImportNormalizer(QualifiedName::create(it), true, ignoreCase))
+		]
+		importNormalizers
+	}
 }

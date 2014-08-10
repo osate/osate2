@@ -52,7 +52,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 
-
 /**
  * @author lwrage
  * @version $Id: AnnexResolverController.java,v 1.12 2010-03-17 20:49:13 jseibel Exp $
@@ -70,21 +69,22 @@ public class AnnexResolverController extends ForAllElement {
 
 	public void resolveAllAnnexes(Set<Resource> resources) {
 		Iterator<Entry<String, List<Element>>> iter;
-		
+
 		AnnexResolverRegistry registry = (AnnexResolverRegistry) AnnexRegistry
 				.getRegistry(AnnexRegistry.ANNEX_RESOLVER_EXT_ID);
 		for (Resource res : resources) {
 			EList<EObject> rc = res.getContents();
 			if (!rc.isEmpty()) {
 				Element o = (Element) res.getContents().get(0);
-				if (o instanceof AadlPackage)
+				if (o instanceof AadlPackage) {
 					processPreOrderAll(o);
+				}
 			}
 		}
 
 		iter = allLists.entrySet().iterator();
 		while (iter.hasNext()) {
-			Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iter.next();
+			Map.Entry<?, ?> entry = iter.next();
 			String annexName = (String) entry.getKey();
 			List<?> annexElements = (List<?>) entry.getValue();
 			AnnexResolver resolver = registry.getAnnexResolver(annexName);
@@ -97,7 +97,6 @@ public class AnnexResolverController extends ForAllElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 */
 	@Override
 	protected void action(Element obj) {
@@ -113,7 +112,6 @@ public class AnnexResolverController extends ForAllElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 */
 	@Override
 	protected boolean suchThat(Element obj) {

@@ -50,5 +50,5 @@ public final class CommunicationProperties {
 	public static final String OUTPUT_RATE = "Output_Rate";
 	public static final String INPUT_RATE = "Input_Rate";
 	public static final String OVERFLOW_HANDLING_PROTOCOL = "Overflow_Handling_Protocol";
-	
+
 }

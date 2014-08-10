@@ -36,17 +36,15 @@ package org.osate.internal.ui.preferences;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbenchPropertyPage;
 import org.osate.workspace.WorkspacePlugin;
 
-
 /**
  * Property page for configuring the project directories
- * 
+ *
  * @author jdelange
  */
 public class ProjectPropertyPage extends FieldEditorPreferencePage implements IWorkbenchPropertyPage {
@@ -79,46 +77,46 @@ public class ProjectPropertyPage extends FieldEditorPreferencePage implements IW
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
 	 */
-	protected void createFieldEditors() 
-	{
+	@Override
+	protected void createFieldEditors() {
 		projectProperties = WorkspacePlugin.getPreferenceStore(getProject());
 		setPreferenceStore(projectProperties);
-		StringFieldEditor fe = new StringFieldEditor 
-				(WorkspacePlugin.AADL_PROJECT_FILE,
-				"AADL_Project File",
+		StringFieldEditor fe = new StringFieldEditor(WorkspacePlugin.AADL_PROJECT_FILE, "AADL_Project File",
 				getFieldEditorParent());
-		addField (fe);
-		
+		addField(fe);
+
 		/*
-		projectProperties = WorkspacePlugin.getPreferenceStore(getProject());
-		setPreferenceStore(projectProperties);
-		DirectoryFieldEditor de = new ProjectDirectoryFieldEditor(getProject(),
-				"AADL text folder must exist in current project", WorkspacePlugin.PROJECT_SOURCE_DIR, "Aadl text folder:",
-				getFieldEditorParent());
-		addField(de);
-		de = new ProjectDirectoryFieldEditor(getProject(), "XML model folder must exist in current project",
-				WorkspacePlugin.PROJECT_MODEL_DIR, "XML model folder:", getFieldEditorParent());
-		addField(de);
-		*/
+		 * projectProperties = WorkspacePlugin.getPreferenceStore(getProject());
+		 * setPreferenceStore(projectProperties);
+		 * DirectoryFieldEditor de = new ProjectDirectoryFieldEditor(getProject(),
+		 * "AADL text folder must exist in current project", WorkspacePlugin.PROJECT_SOURCE_DIR, "Aadl text folder:",
+		 * getFieldEditorParent());
+		 * addField(de);
+		 * de = new ProjectDirectoryFieldEditor(getProject(), "XML model folder must exist in current project",
+		 * WorkspacePlugin.PROJECT_MODEL_DIR, "XML model folder:", getFieldEditorParent());
+		 * addField(de);
+		 */
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IWorkbenchPropertyPage#getElement()
 	 */
+	@Override
 	public IAdaptable getElement() {
 		return element;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime.IAdaptable)
 	 */
+	@Override
 	public void setElement(IAdaptable element) {
 		this.element = element;
 	}

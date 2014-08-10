@@ -43,7 +43,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
@@ -53,8 +52,6 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
@@ -62,7 +59,6 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -74,7 +70,6 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * TODO: Add comment
@@ -97,6 +92,7 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 		this.scProps = scProps;
 	}
 
+	@Override
 	protected final void initSwitches() {
 		instanceSwitch = new InstanceSwitch<String>() {
 			@Override
@@ -124,80 +120,81 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				if (cimpl != null) {
 					processContainedPropertyAssociations(ci, ci, cimpl.getAllPropertyAssociations());
 				}
-				
+
 				processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, ci.getSubcomponent()
 						.getOwnedPropertyAssociations());
 				return DONE;
 			}
-			
+
 			/*
 			 * 
 			 * FIXME: old code by JD to try to handle reference instance
-			public String caseConnectionInstance(final ConnectionInstance conn) 
-			{
-				ComponentInstance ci;
-				EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
-				
-				ci = conn.getContainingComponentInstance();
-				OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
-				for (ConnectionReference ref : conn.getConnectionReferences())
-				{
-					OsateDebug.osateDebug("connection ref" + ref);
-					for (PropertyAssociation pa : ref.getOwnedPropertyAssociations())
-					{
-						OsateDebug.osateDebug("connection pa" + pa);
-						Property prop = pa.getProperty();
-						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-
-						newPA.setProperty(prop);
-						newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-
-
-						for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-								.hasNext();) {
-							Element elem = content.next();
-							if (elem instanceof ModalPropertyValue)
-							{
-								ModalPropertyValue mpv = (ModalPropertyValue)elem;
-								if (mpv.getOwnedValue() instanceof ListValue)
-								{
-									ListValue lv = (ListValue)mpv.getOwnedValue();
-									for (Element e : lv.getOwnedListElements())
-									{
-										if (e instanceof ReferenceValue) {
-											PropertyExpression irv = ((ReferenceValue) e).instantiate(ci);
-											EcoreUtil.replace(e, irv);
-											//ref.removePropertyAssociations(prop);
-											ref.getOwnedPropertyAssociations().add(newPA);
-										}
-									}
-								}
-							}
-							if (elem instanceof ReferenceValue) {
-								PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
-								EcoreUtil.replace(elem, irv);
-
-								ref.removePropertyAssociations(prop);
-								ref.getOwnedPropertyAssociations().add(newPA);
-							}
-						}
-
-						
-						
-					}
-				}
-				processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
-
-				return DONE;
-			}
-			*/
+			 * public String caseConnectionInstance(final ConnectionInstance conn)
+			 * {
+			 * ComponentInstance ci;
+			 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
+			 * 
+			 * ci = conn.getContainingComponentInstance();
+			 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
+			 * for (ConnectionReference ref : conn.getConnectionReferences())
+			 * {
+			 * OsateDebug.osateDebug("connection ref" + ref);
+			 * for (PropertyAssociation pa : ref.getOwnedPropertyAssociations())
+			 * {
+			 * OsateDebug.osateDebug("connection pa" + pa);
+			 * Property prop = pa.getProperty();
+			 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+			 * 
+			 * newPA.setProperty(prop);
+			 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
+			 * 
+			 * 
+			 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
+			 * .hasNext();) {
+			 * Element elem = content.next();
+			 * if (elem instanceof ModalPropertyValue)
+			 * {
+			 * ModalPropertyValue mpv = (ModalPropertyValue)elem;
+			 * if (mpv.getOwnedValue() instanceof ListValue)
+			 * {
+			 * ListValue lv = (ListValue)mpv.getOwnedValue();
+			 * for (Element e : lv.getOwnedListElements())
+			 * {
+			 * if (e instanceof ReferenceValue) {
+			 * PropertyExpression irv = ((ReferenceValue) e).instantiate(ci);
+			 * EcoreUtil.replace(e, irv);
+			 * //ref.removePropertyAssociations(prop);
+			 * ref.getOwnedPropertyAssociations().add(newPA);
+			 * }
+			 * }
+			 * }
+			 * }
+			 * if (elem instanceof ReferenceValue) {
+			 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
+			 * EcoreUtil.replace(elem, irv);
+			 * 
+			 * ref.removePropertyAssociations(prop);
+			 * ref.getOwnedPropertyAssociations().add(newPA);
+			 * }
+			 * }
+			 * 
+			 * 
+			 * 
+			 * }
+			 * }
+			 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
+			 * 
+			 * return DONE;
+			 * }
+			 */
 
 			@Override
 			public String caseFeatureInstance(final FeatureInstance fi) {
 				if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
-					if (fgType != null)
+					if (fgType != null) {
 						processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
+					}
 					processContainedPropertyAssociations(fi, fi.getFeature().getOwnedPropertyAssociations());
 				}
 				return DONE;
@@ -205,8 +202,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 		};
 	}
 
-	protected void processContainedPropertyAssociations
-		(final FeatureInstance fi, final EList<PropertyAssociation> propertyAssociations) {
+	protected void processContainedPropertyAssociations(final FeatureInstance fi,
+			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
 			Property prop = pa.getProperty();
 			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
@@ -254,7 +251,7 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 * Copy contained property associations to the instance model.
 	 * Don't fully evaluate the property expression. Just replace reference values with
 	 * a reference to the referenced instance object.
-	 *  
+	 *
 	 * @param modeContext
 	 * @param ci
 	 * @param propertyAssociations
@@ -262,25 +259,25 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	private void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
-			//OsateDebug.osateDebug  ("[CacheContainedProperty] Process contained property association: " + pa.getProperty().getName());
+			// OsateDebug.osateDebug ("[CacheContainedProperty] Process contained property association: " + pa.getProperty().getName());
 			Property prop = pa.getProperty();
 			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
 				// PA is missing the prop def, skip to the next one
-			//	OsateDebug.osateDebug  ("   skip");
+				// OsateDebug.osateDebug ("   skip");
 
 				continue;
 			}
-			//OsateDebug.osateDebug  ("   appliesto=" + pa.getAppliesTos());
+			// OsateDebug.osateDebug ("   appliesto=" + pa.getAppliesTos());
 
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
-			//	OsateDebug.osateDebug ("   cpes=" + cpes);
+				// OsateDebug.osateDebug ("   cpes=" + cpes);
 
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
 					for (InstanceObject io : ios) {
-				//		OsateDebug.osateDebug ("   io=" + io);
+						// OsateDebug.osateDebug ("   io=" + io);
 
 						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 

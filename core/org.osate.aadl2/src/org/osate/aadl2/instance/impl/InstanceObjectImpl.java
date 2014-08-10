@@ -324,7 +324,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 */
 	protected void getPropertyValueFromDeclarativeModel(final Property property, final PropertyAcc pas)
 			throws InvalidModelException {
-		//apv.pushCurrentComponent(getContainingComponentInstanceOrSelf());
+		// apv.pushCurrentComponent(getContainingComponentInstanceOrSelf());
 		try {
 			final List<? extends NamedElement> compDecls = getInstantiatedObjects();
 			// Here we assume compDecls is empty or has only one element
@@ -335,11 +335,13 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 				compDecl.getPropertyValueInternal(property, pas, true);
 			}
 		} finally {
-			//apv.popCurrentComponent();
+			// apv.popCurrentComponent();
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstance()
 	 */
 	public ComponentInstance getComponentInstance() {
@@ -372,7 +374,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
-		//OsateDebug.osateDebug ("[InstanceObjectImpl] property=" + property);
+		// OsateDebug.osateDebug ("[InstanceObjectImpl] property=" + property);
 
 		for (NamedElement ne : getInstantiatedObjects()) {
 			if (!ne.acceptsProperty(property))
@@ -450,7 +452,9 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
 	public List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath) {
@@ -489,7 +493,9 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

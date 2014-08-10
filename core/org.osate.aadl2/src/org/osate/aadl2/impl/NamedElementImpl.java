@@ -429,16 +429,17 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		 * no reason for not retrieving non-list values here.
 		 */
 
-		/* 
+		/*
 		 * if (!property.isList()) {
-			return getNonModalPropertyValue(property);
-		} else {
-			throw new PropertyIsListException(this, property,
-					"A simple property lookup method was called for a list property."
-							+ "  This occurred when looking up Property "
-							+ property.getName() + " on NamedElement "
-							+ getName() + ".");
-		}*/
+		 * return getNonModalPropertyValue(property);
+		 * } else {
+		 * throw new PropertyIsListException(this, property,
+		 * "A simple property lookup method was called for a list property."
+		 * + "  This occurred when looking up Property "
+		 * + property.getName() + " on NamedElement "
+		 * + getName() + ".");
+		 * }
+		 */
 	}
 
 	/**
@@ -736,8 +737,10 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		return pa;
 	}
 
-	/* DB: Added for OCL to call this method instead of reimplementing the property lookup algo.
+	/*
+	 * DB: Added for OCL to call this method instead of reimplementing the property lookup algo.
 	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
 	 */
 	public EList<PropertyExpression> getPropertyValues(final String propertySetName, final String propertyName)
@@ -748,10 +751,11 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 
 	public boolean equals(Object arg0) {
 		/*
-		if (arg0 instanceof DataPortImpl)
-		{
-			System.out.println ("equals on " +  arg0);
-		}*/
+		 * if (arg0 instanceof DataPortImpl)
+		 * {
+		 * System.out.println ("equals on " + arg0);
+		 * }
+		 */
 		return (this == arg0);
 	}
 } // NamedElementImpl

@@ -7780,4 +7780,4 @@ public class Aadl2DerivedUnionAdapter extends AdapterImpl {
 		}
 	}
 
-} //Aadl2DerivedUnionAdapter
+} // Aadl2DerivedUnionAdapter

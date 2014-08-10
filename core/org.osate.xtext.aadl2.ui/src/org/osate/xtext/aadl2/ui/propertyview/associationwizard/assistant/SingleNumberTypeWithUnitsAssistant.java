@@ -25,22 +25,23 @@ public class SingleNumberTypeWithUnitsAssistant extends AbstractAssistant {
 	private final NumberType type;
 	private final UnitsType units;
 	private final ISerializer serializer;
-	
+
 	private Label fieldLabel = null;
 	private Text valueField = null;
 	private ComboViewer unitsViewer = null;
-	
-	public SingleNumberTypeWithUnitsAssistant(Composite parent, NumberType type, ISerializer serializer, AssistantValueChangedListener listener) {
+
+	public SingleNumberTypeWithUnitsAssistant(Composite parent, NumberType type, ISerializer serializer,
+			AssistantValueChangedListener listener) {
 		super(parent, listener);
 		this.type = type;
 		this.serializer = serializer;
 		units = type.getUnitsType();
 		layoutComponents();
 	}
-	
+
 	private void layoutComponents() {
 		setLayout(new GridLayout(3, false));
-		
+
 		fieldLabel = new Label(this, SWT.NONE);
 		StringBuilder labelText = new StringBuilder("En&ter ");
 		labelText.append(type instanceof AadlInteger ? "integer" : "real");
@@ -54,26 +55,26 @@ public class SingleNumberTypeWithUnitsAssistant extends AbstractAssistant {
 		labelText.append(":");
 		fieldLabel.setText(labelText.toString());
 		fieldLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		valueField = new Text(this, SWT.BORDER);
 		valueField.setFocus();
 		valueField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		unitsViewer = new ComboViewer(this, SWT.DROP_DOWN | SWT.READ_ONLY);
 		unitsViewer.setContentProvider(new ArrayContentProvider());
 		unitsViewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return ((UnitLiteral)element).getName();
+				return ((UnitLiteral) element).getName();
 			}
 		});
 		unitsViewer.setInput(units.getOwnedLiterals());
 		unitsViewer.setSelection(new StructuredSelection(units.getOwnedLiterals().get(0)));
 		unitsViewer.getCombo().setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
-		
+
 		addListeners();
 	}
-	
+
 	private void addListeners() {
 		valueField.addModifyListener(new ModifyListener() {
 			@Override
@@ -88,20 +89,21 @@ public class SingleNumberTypeWithUnitsAssistant extends AbstractAssistant {
 			}
 		});
 	}
-	
+
 	@Override
 	public String getValueText() {
 		StringBuilder valueText = new StringBuilder(valueField.getText());
 		valueText.append(' ');
-		valueText.append(((UnitLiteral)((IStructuredSelection)unitsViewer.getSelection()).getFirstElement()).getName());
+		valueText.append(((UnitLiteral) ((IStructuredSelection) unitsViewer.getSelection()).getFirstElement())
+				.getName());
 		return valueText.toString();
 	}
-	
+
 	@Override
 	public boolean isComplete() {
 		return valueField.getText().length() != 0;
 	}
-	
+
 	@Override
 	public void setAssistantEnabled(boolean enabled) {
 		fieldLabel.setEnabled(enabled);

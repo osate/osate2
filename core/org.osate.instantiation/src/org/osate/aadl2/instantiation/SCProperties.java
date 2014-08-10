@@ -44,9 +44,9 @@ import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
  * Very crude encapsulation of the multi-level map used to cache contained
- * property associations that apply to semantic connections. 
+ * property associations that apply to semantic connections.
  * in {@link org.osate.aadl2.instantiation.CheckInstanceSemanticsSwitch#checkPropertyConsistency(ConnectionInstance)}.
- * 
+ *
  * @author aarong
  */
 class SCProperties {
@@ -66,12 +66,11 @@ class SCProperties {
 		return val;
 	}
 
-	public void recordSCProperty( ConnectionInstance conni,  Property prop,  Connection conn,
-			 PropertyAssociation pa) {
+	public void recordSCProperty(ConnectionInstance conni, Property prop, Connection conn, PropertyAssociation pa) {
 		get(get(scProps, conni), prop).put(conn, pa);
 	}
 
-	public PropertyAssociation retrieveSCProperty( ConnectionInstance conni,  Property prop,  Connection conn) {
+	public PropertyAssociation retrieveSCProperty(ConnectionInstance conni, Property prop, Connection conn) {
 		return get(get(scProps, conni), prop).get(conn);
 	}
 

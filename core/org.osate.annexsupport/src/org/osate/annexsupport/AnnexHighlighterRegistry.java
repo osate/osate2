@@ -40,10 +40,10 @@ public class AnnexHighlighterRegistry extends AnnexRegistry {
 	protected AnnexHighlighterRegistry() {
 		initialize(ANNEX_HIGHLIGHTER_EXT_ID);
 	}
-	
+
 	public AnnexHighlighter getAnnexHighlighter(String annexName) {
 		AnnexHighlighter highlighter = (AnnexHighlighter) extensions.get(annexName.toLowerCase());
-		
+
 		return highlighter;
 	}
 
@@ -51,6 +51,7 @@ public class AnnexHighlighterRegistry extends AnnexRegistry {
 	 * Factory method for annex highlighter proxies.
 	 * @param configElem
 	 */
+	@Override
 	protected AnnexProxy createProxy(IConfigurationElement configElem) {
 		return new AnnexHighlighterProxy(configElem);
 	}

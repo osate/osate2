@@ -38,31 +38,30 @@ import java.util.Iterator;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 
-
 /**
- * 
+ *
  * This iterator allows a user to iterate through different mode combinations of a modal system
  * @author phf
  */
 public class SOMIterator implements Iterator<SystemOperationMode> {
 	/** The system instance whose SOMS we are enumerating. */
 	private final SystemInstance root;
-	
+
 	/** The current SOM */
 	private SystemOperationMode currentSOM;
-	
+
 	/**
 	 * The iterator we are wrapping up.  This comes from
 	 * <code>root.getSystemOperationModes().iterator()</code>.
 	 */
 	private final Iterator<SystemOperationMode> modesIterator;
-	
+
 	/**
 	 * Should we clear the modal adapter states on the next call to
 	 * {@link #hasNext()}?
 	 */
 	private boolean clearOnNextHasNext = false;
-	
+
 	/**
 	 * Create a new iterator over the system operation modes of the given
 	 * system instance.
@@ -72,7 +71,8 @@ public class SOMIterator implements Iterator<SystemOperationMode> {
 		modesIterator = root.getSystemOperationModes().iterator();
 		currentSOM = null;
 	}
-	
+
+	@Override
 	public boolean hasNext() {
 		if (clearOnNextHasNext) {
 			root.clearCurrentSystemOperationMode();
@@ -86,16 +86,18 @@ public class SOMIterator implements Iterator<SystemOperationMode> {
 	 * to refer to it.
 	 * @return The next system operation mode
 	 */
+	@Override
 	public SystemOperationMode next() {
 		currentSOM = modesIterator.next();
-		/* If we just got the last element of the iterator, then we want to
+		/*
+		 * If we just got the last element of the iterator, then we want to
 		 * clear the mode state the next time out hasNext() method is called.
 		 */
 		clearOnNextHasNext = !modesIterator.hasNext();
 		root.setCurrentSystemOperationMode(currentSOM);
 		return currentSOM;
 	}
-	
+
 	/**
 	 * Get the next system operation mode and update the modal adapters
 	 * to refer to it.
@@ -104,10 +106,11 @@ public class SOMIterator implements Iterator<SystemOperationMode> {
 	public SystemOperationMode nextSOM() {
 		return next();
 	}
-	
+
 	/**
 	 * Remove is not supported.
 	 */
+	@Override
 	public void remove() {
 		throw new UnsupportedOperationException("remove is not supported");
 	}

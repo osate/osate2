@@ -4,33 +4,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParseUtil {
-    
+
 	private static final char UNDERLINE = '_';
 	private static final char HASHMARK = '#';
 	private static final char EXPONENT = 'E';
 	private static final char PLUS = '+';
 	private static final char MINUS = '-';
 
-	private static Map<String,String> annexNS = new HashMap<String,String>();
-	
+	private static Map<String, String> annexNS = new HashMap<String, String>();
+
 	/**
 	 * Trick to get rid of an additional dependency to annexsupport
 	 * @param annexName
 	 * @param annexNSName
 	 */
-	public static void setAnnexNS(String annexName, String annexNSName)
-	{
-		if ((annexName != null)&&(annexNSName != null))
-		{
+	public static void setAnnexNS(String annexName, String annexNSName) {
+		if ((annexName != null) && (annexNSName != null)) {
 //			OsateDebug.osateDebug("called setAnnexNSURI with " + annexName + annexNSName);
 			annexName = annexName.toLowerCase();
 			if (annexNS.get(annexName) == null)
-			annexNS.put(annexName, annexNSName);
-		}	
+				annexNS.put(annexName, annexNSName);
+		}
 	}
-	
-	public static String getAnnexNS(String annexName)
-	{
+
+	public static String getAnnexNS(String annexName) {
 		String ns;
 		annexName = annexName.toLowerCase();
 		ns = annexNS.get(annexName);
@@ -40,7 +37,7 @@ public class ParseUtil {
 //		}
 		return ns;
 	}
-	
+
 	/**
 	 * Parse a string representation of an aadlinteger.
 	 * @param stringValue The string to parse.
@@ -50,7 +47,8 @@ public class ParseUtil {
 	 * parsing error.
 	 */
 	public static long[] parseAadlInteger(final String stringValue) {
-		/* First remove '_', convert to upper case, get as char[]. We assume
+		/*
+		 * First remove '_', convert to upper case, get as char[]. We assume
 		 * the result still has at least one 1 character in it. (Should have
 		 * at least one digit in it and have no '.' in it; otherwise the
 		 * parser/lexer failed us).
@@ -69,7 +67,7 @@ public class ParseUtil {
 		} else {
 			isNegative = false;
 		}
-		
+
 		// Process as base 10 until we hit end of string, 'E' or '#'
 		long value = 0L;
 		for (; currentIdx < valueAsChars.length; currentIdx++) {
@@ -82,13 +80,12 @@ public class ParseUtil {
 					throw new IllegalArgumentException("Integer value is not representable");
 				}
 			} else {
-				throw new IllegalArgumentException("Unexpected character '" +
-						c + "' at string index " + currentIdx);
+				throw new IllegalArgumentException("Unexpected character '" + c + "' at string index " + currentIdx);
 			}
 		}
-		
+
 		final int base;
-		if (currentIdx == valueAsChars.length)  {
+		if (currentIdx == valueAsChars.length) {
 			// Hit end of string, it's a simple decimal integer
 			base = 10;
 		} else {
@@ -99,42 +96,38 @@ public class ParseUtil {
 				// based_integer
 				base = (int) value;
 				if (base < 2 || base > 16) { // base is bad
-					throw new IllegalArgumentException(
-							"Base not between 2 and 16: " + base);
+					throw new IllegalArgumentException("Base not between 2 and 16: " + base);
 				} else { // base is good
 					value = 0L;
 					char c = valueAsChars[++currentIdx];
 					while (c != HASHMARK) {
 						final int digit = Character.digit(c, base);
 						if (digit == -1) {
-							throw new IllegalArgumentException(
-									"'" + c + "' at string index " + currentIdx +
-									" is not an extended digit in base " + base);
+							throw new IllegalArgumentException("'" + c + "' at string index " + currentIdx
+									+ " is not an extended digit in base " + base);
 						} else {
 							value = (value * base) + digit;
 							if (value < 0) {
-								throw new IllegalArgumentException(
-										"Integer value is not representable");
+								throw new IllegalArgumentException("Integer value is not representable");
 							}
 						}
 						c = valueAsChars[++currentIdx];
 					}
 					// eat hashmark
 					currentIdx += 1;
-				}			
+				}
 			}
-			
+
 			// eat the 'e'; based integers don't have to have an exponent
 			if (++currentIdx < valueAsChars.length) {
 				// deal with sign
 				char c = valueAsChars[currentIdx];
 				if (c == MINUS) {
-					throw new IllegalArgumentException(
-							"Integers cannot have a negative exponent");
+					throw new IllegalArgumentException("Integers cannot have a negative exponent");
 				} else if (c == PLUS) {
 					currentIdx += 1;
 				}
-				
+
 				int exponent = 0;
 				while (currentIdx < valueAsChars.length) {
 					c = valueAsChars[currentIdx++];
@@ -142,29 +135,29 @@ public class ParseUtil {
 						exponent = (exponent * 10) + Character.digit(c, 10);
 						if (exponent < 0) {
 							throw new IllegalArgumentException(
-								"Integer value is not representable: cannot represent exponent");
+									"Integer value is not representable: cannot represent exponent");
 						}
 					} else {
-						throw new IllegalArgumentException("Unexpected character '" +
-								c + "' at string index " + currentIdx);
+						throw new IllegalArgumentException("Unexpected character '" + c + "' at string index "
+								+ currentIdx);
 					}
 				}
-				
+
 				for (int i = 0; i < exponent; i++) {
 					value *= base;
 					if (value < 0) {
-						throw new IllegalArgumentException(
-								"Integer value is not representable");
+						throw new IllegalArgumentException("Integer value is not representable");
 					}
 				}
 			}
 		}
-		
-		if (isNegative) value = -value;
+
+		if (isNegative)
+			value = -value;
 
 		return new long[] { base, value };
 	}
-	
+
 	/**
 	 * Parse a string representation of an aadlreal.
 	 * 
@@ -177,12 +170,10 @@ public class ParseUtil {
 	public static double parseAadlReal(final String stringValue) {
 		try {
 			return Double.parseDouble(stringValue);
-		} catch(final NumberFormatException e) {
-			throw new IllegalArgumentException(
-					"Couldn't resolve literal: " + e.getMessage());
+		} catch (final NumberFormatException e) {
+			throw new IllegalArgumentException("Couldn't resolve literal: " + e.getMessage());
 		}
 	}
-
 
 	/**
 	 * Remove the underlines, &ldquo; <code>_</code>,&rdquo; from the numeric
@@ -204,7 +195,7 @@ public class ParseUtil {
 			// already found the first underscore...
 			do {
 				working.append(value.substring(lastUnderlineLoc, nextUnderlineLoc).toUpperCase());
-				lastUnderlineLoc = nextUnderlineLoc+1;
+				lastUnderlineLoc = nextUnderlineLoc + 1;
 				nextUnderlineLoc = value.indexOf(UNDERLINE, lastUnderlineLoc);
 			} while (nextUnderlineLoc != -1);
 			// append the last portion of the string

@@ -42,11 +42,10 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 import antlr.RecognitionException;
 
-
 /**
  * This class is the default annex parser. It is called if no specialized parser
  * for an annex library or annex subclause is present.
- * 
+ *
  * @author lwrage
  * @version $Id: DefaultAnnexParser.java,v 1.7 2008-01-25 18:10:54 dionisio_deniz Exp $
  */
@@ -56,8 +55,9 @@ public class DefaultAnnexParser implements AnnexParser {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.osate.annexsupport.AnnexParser#parseAnnexLibrary(java.lang.String,
-	 *      java.lang.String, java.lang.String, int, int, ParseErrorReporter)
+	 * java.lang.String, java.lang.String, int, int, ParseErrorReporter)
 	 */
+	@Override
 	public AnnexLibrary parseAnnexLibrary(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) throws RecognitionException {
 		DefaultAnnexLibrary al = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
@@ -70,8 +70,9 @@ public class DefaultAnnexParser implements AnnexParser {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.osate.annexsupport.AnnexParser#parseAnnexSubclause(java.lang.String,
-	 *      java.lang.String, java.lang.String, int, int, ParseErrorReporter)
+	 * java.lang.String, java.lang.String, int, int, ParseErrorReporter)
 	 */
+	@Override
 	public AnnexSubclause parseAnnexSubclause(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) throws RecognitionException {
 		DefaultAnnexSubclause as = Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause();

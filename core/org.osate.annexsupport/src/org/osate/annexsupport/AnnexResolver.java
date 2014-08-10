@@ -37,7 +37,6 @@ import java.util.List;
 
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
-
 /**
  * @author lwrage
  * @version $Id: AnnexResolver.java,v 1.6 2009-10-09 18:49:32 lwrage Exp $
