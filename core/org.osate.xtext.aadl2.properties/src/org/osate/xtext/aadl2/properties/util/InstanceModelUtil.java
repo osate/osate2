@@ -65,15 +65,17 @@ public class InstanceModelUtil {
 	public static boolean isDelayedPortConnection(final ConnectionInstance conn){
 		if (conn == null) return false;
 		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl){
-				Connection c = cr.getConnection();
-				if ( c instanceof PortConnection){
-					PortConnection pc =(PortConnection)c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == GetProperties.getDelayedUnitLiteral(pc);
-				}
-			}
+			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+			return el == GetProperties.getDelayedUnitLiteral(conn);
+//			EList<ConnectionReference> cl = conn.getConnectionReferences();
+//			for (ConnectionReference cr : cl){
+//				Connection c = cr.getConnection();
+//				if ( c instanceof PortConnection){
+//					PortConnection pc =(PortConnection)c;
+//					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
+//					return el == GetProperties.getDelayedUnitLiteral(pc);
+//				}
+//			}
 		}
 		return false;
 	}
@@ -86,15 +88,17 @@ public class InstanceModelUtil {
 	public static boolean isSampledPortConnection(final ConnectionInstance conn){
 		if (conn == null) return false;
 		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl){
-				Connection c = cr.getConnection();
-				if ( c instanceof PortConnection){
-					PortConnection pc =(PortConnection)c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == null || el == GetProperties.getSampledUnitLiteral(pc);
-				}
-			}
+			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+			return el == GetProperties.getSampledUnitLiteral(conn);
+//			EList<ConnectionReference> cl = conn.getConnectionReferences();
+//			for (ConnectionReference cr : cl){
+//				Connection c = cr.getConnection();
+//				if ( c instanceof PortConnection){
+//					PortConnection pc =(PortConnection)c;
+//					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
+//					return el == null || el == GetProperties.getSampledUnitLiteral(pc);
+//				}
+//			}
 		}
 		return false;
 	}
@@ -107,15 +111,18 @@ public class InstanceModelUtil {
 	public static boolean isImmediatePortConnection(final ConnectionInstance conn){
 		if (conn == null) return false;
 		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl){
-				Connection c = cr.getConnection();
-				if ( c instanceof PortConnection){
-					PortConnection pc =(PortConnection)c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == GetProperties.getImmediateUnitLiteral(pc);
-				}
-			}
+			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+			return el == GetProperties.getImmediateUnitLiteral(conn);
+//			
+//			EList<ConnectionReference> cl = conn.getConnectionReferences();
+//			for (ConnectionReference cr : cl){
+//				Connection c = cr.getConnection();
+//				if ( c instanceof PortConnection){
+//					PortConnection pc =(PortConnection)c;
+//					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
+//					return el == GetProperties.getImmediateUnitLiteral(pc);
+//				}
+//			}
 		}
 		return false;
 	}
