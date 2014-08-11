@@ -46,6 +46,8 @@ import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.analysis.flows.model.LatencyReport;
+import org.osate.analysis.flows.model.ReportEntry;
 import org.osate.ui.actions.AbstractAaxlAction;
 
 /**
@@ -57,10 +59,12 @@ import org.osate.ui.actions.AbstractAaxlAction;
 public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 
 	AbstractAaxlAction action;
+	LatencyReport report;
 
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, AbstractAaxlAction a) {
 		super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL);
 		this.action = a;
+		this.report = new LatencyReport();
 	}
 
 	protected final void initSwitches() {
@@ -72,20 +76,28 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 */
 			public String caseComponentInstance(final ComponentInstance ci) {
 				monitor.subTask("Checking flows in " + ci.getName());
-				processEList(ci.getEndToEndFlows());
+//				processEList(ci.getEndToEndFlows());
 				monitor.worked(1);
 				return DONE;
 			}
 
 			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef) {
-				if (etef.getFlowElements().isEmpty())
+				ReportEntry entry;
+
+				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
-
-				OsateDebug.osateDebug("FlowLatencyAnalysisSwitch", "Analyzing " + etef.getName());
-				for (FlowElementInstance fei : etef.getFlowElements()) {
-					OsateDebug.osateDebug("FlowLatencyAnalysisSwitch", "fei=" + fei.getName());
-
 				}
+
+				entry = new ReportEntry(etef);
+
+				OsateDebug.osateDebug("FlowLatencyAnalysisSwitch", "Analyzing flow " + "|" + etef + "|"
+						+ FlowLatencyUtil.getEndToEndFlowString(etef));
+
+				for (FlowElementInstance fei : etef.getFlowElements()) {
+
+					entry.addContributor(FlowLatencyUtil.mapFlowElementInstance(fei));
+				}
+				report.addEntry(entry);
 				return DONE;
 			}
 		};

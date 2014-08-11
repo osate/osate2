@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.analysis.flows.reporting.model.Line;
 
 public class LatencyContributor {
 	private double minValue;
@@ -48,6 +49,13 @@ public class LatencyContributor {
 
 	public void setElement(NamedElement ne) {
 		this.relatedElement = ne;
+	}
+
+	public List<Line> export() {
+		List<Line> lines;
+		lines = new ArrayList<Line>();
+
+		return lines;
 	}
 
 }
