@@ -55,7 +55,6 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -196,6 +195,15 @@ public class GetProperties {
 
 	public static Property getActualProcessorBindingProperty(final ComponentInstance io) {
 		return lookupPropertyDefinition(io, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
+	}
+
+	public static ComponentInstance getBoundBus(final ConnectionInstance connection) {
+		List<ComponentInstance> ret = getActualConnectionBinding(connection);
+		ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
+		if (ci != null) {
+			return ci;
+		}
+		return null;
 	}
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
@@ -996,16 +1004,19 @@ public class GetProperties {
 			return null;
 		}
 	}
-	public static EnumerationLiteral getDelayedUnitLiteral(NamedElement pc){
-		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
+
+	public static EnumerationLiteral getDelayedUnitLiteral(NamedElement pc) {
+		Property timing = lookupPropertyDefinition(pc, CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.DELAYED);
 	}
-	public static EnumerationLiteral getImmediateUnitLiteral(NamedElement pc){
-		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
+
+	public static EnumerationLiteral getImmediateUnitLiteral(NamedElement pc) {
+		Property timing = lookupPropertyDefinition(pc, CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
-	public static EnumerationLiteral getSampledUnitLiteral(NamedElement pc){
-		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
+
+	public static EnumerationLiteral getSampledUnitLiteral(NamedElement pc) {
+		Property timing = lookupPropertyDefinition(pc, CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.SAMPLED);
 	}
 
