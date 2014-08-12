@@ -925,10 +925,16 @@ public class GetProperties {
 		}
 	}
 
-	public static double getLatencyinMilliSec(final NamedElement ne) {
+	public static double getMaximumLatencyinMilliSec(final NamedElement ne) {
 		Property Latency = lookupPropertyDefinition(ne, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
 		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(ne, Latency, milliSecond, 0.0);
+	}
+
+	public static double getMinimumLatencyinMilliSec(final NamedElement ne) {
+		Property Latency = lookupPropertyDefinition(ne, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
+		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledRangeMinimum(ne, Latency, milliSecond, 0.0);
 	}
 
 	public static double getLatencyinMicroSec(final NamedElement ne) {
