@@ -63,33 +63,25 @@ import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 import org.osate.analysis.arinc653.utils.Preferences;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-
 public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress {
 
 	List<ConnectionLatencyReport> reports;
-	
-	public ConnectionLatencyAnalysis(final IProgressMonitor monitor) 
-	{
+
+	public ConnectionLatencyAnalysis(final IProgressMonitor monitor) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
-		reports = new ArrayList<ConnectionLatencyReport> ();
+		reports = new ArrayList<ConnectionLatencyReport>();
 	}
 
-	public ConnectionLatencyAnalysis(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) 
-	{
+	public ConnectionLatencyAnalysis(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) {
 		super(monitor, PROCESS_PRE_ORDER_ALL, errmgr);
-		reports = new ArrayList<ConnectionLatencyReport> ();
+		reports = new ArrayList<ConnectionLatencyReport>();
 	}
 
-	
-	public List<ConnectionLatencyReport> getReports ()
-	{
+	public List<ConnectionLatencyReport> getReports() {
 		return this.reports;
 	}
 
-	
-	
 	protected final void initSwitches() {
-
 
 		aadl2Switch = new Aadl2Switch<String>() {
 
@@ -102,7 +94,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 
 				return DONE;
 			}
-			
+
 			public String caseFlowSpecification(FlowSpecification obj) {
 
 				return DONE;
@@ -114,14 +106,10 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 			}
 		};
 
-
-		
 		instanceSwitch = new InstanceSwitch<String>() {
 			public String caseComponentInstance(ComponentInstance obj) {
-			
-				
-				switch (obj.getCategory()) 
-				{
+
+				switch (obj.getCategory()) {
 				case THREAD:
 					return DONE;
 				case PROCESS:
@@ -142,22 +130,21 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				return DONE;
 			}
 
-			public String caseConnectionInstance(ConnectionInstance ci) throws UnsupportedOperationException
-			{
-				
-				List<ConnectionReference> 	refs;
-				ComponentInstance 			compSource;
-				ComponentInstance 			compDest;
-				ComponentInstance 			processorSource;
-				ComponentInstance 			processorDest;
-				ComponentInstance 			partitionSource;
-				ComponentInstance 			partitionDest;
-				ConnectionLatencyReport 	report;
-				ComponentInstance 			deviceSource;
-				ComponentInstance 			deviceDestination;
-				String						connectionBusName;
-				ComponentInstance			connectionBus;
-				
+			public String caseConnectionInstance(ConnectionInstance ci) throws UnsupportedOperationException {
+
+				List<ConnectionReference> refs;
+				ComponentInstance compSource;
+				ComponentInstance compDest;
+				ComponentInstance processorSource;
+				ComponentInstance processorDest;
+				ComponentInstance partitionSource;
+				ComponentInstance partitionDest;
+				ConnectionLatencyReport report;
+				ComponentInstance deviceSource;
+				ComponentInstance deviceDestination;
+				String connectionBusName;
+				ComponentInstance connectionBus;
+
 				boolean partitionsOnSameProcessor;
 				List<PropertyExpression> slots;
 				int schedulingSourceIndex;
@@ -166,173 +153,143 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				double busLatency;
 				long senderLatency;
 				long receiverLatency;
-				
-				
-				busLatency 				= 0;
-				latency 				= 0;
-				schedulingSourceIndex 	= 0;
-				schedulingDestIndex 	= 0;
-				processorSource 		= null;
-				processorDest 			= null;
-				deviceSource 			= null;
-				deviceDestination 		= null;
-				partitionSource 		= null;
-				partitionDest			= null;
-				senderLatency 			= 0;
-				receiverLatency			= 0;
-				latency     			= 0;
 
-				OsateDebug.osateDebug ("[ConnectionLatency] connection detected" + ci + "|" + ci.getSource().getContainingComponentInstance() + "|" + ci.getDestination().getContainingComponentInstance());
+				busLatency = 0;
+				latency = 0;
+				schedulingSourceIndex = 0;
+				schedulingDestIndex = 0;
+				processorSource = null;
+				processorDest = null;
+				deviceSource = null;
+				deviceDestination = null;
+				partitionSource = null;
+				partitionDest = null;
+				senderLatency = 0;
+				receiverLatency = 0;
+				latency = 0;
 
-				if (ci.getKind() != ConnectionKind.PORT_CONNECTION)
-				{
-					OsateDebug.osateDebug ("[ConnectionLatency] connection not a port");
+				OsateDebug.osateDebug("[ConnectionLatency] connection detected" + ci + "|"
+						+ ci.getSource().getContainingComponentInstance() + "|"
+						+ ci.getDestination().getContainingComponentInstance());
+
+				if (ci.getKind() != ConnectionKind.PORT_CONNECTION) {
+					OsateDebug.osateDebug("[ConnectionLatency] connection not a port");
 
 					return DONE;
 				}
-				
+
 				refs = ci.getConnectionReferences();
-				
-				for (ConnectionReference ref : refs)
-				{
-					compSource 	= ref.getSource().getContainingComponentInstance();
-					compDest 	= ref.getDestination().getContainingComponentInstance();
- 
-					//OsateDebug.osateDebug ("[ConnectionLatency] source=" + compSource);
-					//OsateDebug.osateDebug ("[ConnectionLatency] dest  =" + compDest);
 
-					if ((compSource == null) || (compDest == null))
-					{
+				for (ConnectionReference ref : refs) {
+					compSource = ref.getSource().getContainingComponentInstance();
+					compDest = ref.getDestination().getContainingComponentInstance();
+
+					// OsateDebug.osateDebug ("[ConnectionLatency] source=" + compSource);
+					// OsateDebug.osateDebug ("[ConnectionLatency] dest  =" + compDest);
+
+					if ((compSource == null) || (compDest == null)) {
 						continue;
 					}
-					if ((compSource == null) || (compDest == null))
-					{
+					if ((compSource == null) || (compDest == null)) {
 						continue;
 					}
-					
-					
-					if (((compSource.getCategory() != ComponentCategory.PROCESS) ||
-						(compDest.getCategory() != ComponentCategory.PROCESS) 	) &&
-						((compSource.getCategory() != ComponentCategory.SYSTEM) ||
-						 (compDest.getCategory() != ComponentCategory.SYSTEM) 	)) 
-					{
+
+					if (((compSource.getCategory() != ComponentCategory.PROCESS) || (compDest.getCategory() != ComponentCategory.PROCESS))
+							&& ((compSource.getCategory() != ComponentCategory.SYSTEM) || (compDest.getCategory() != ComponentCategory.SYSTEM))) {
 						continue;
 					}
-					
+
 					partitionSource = compSource;
-						partitionDest = compDest;
+					partitionDest = compDest;
 
-					
 				}
-	
-				
-				if ( (partitionSource == null) || (partitionDest == null))
-				{
-					OsateDebug.osateDebug ("[ConnectionLatency] connection " + ci + " : source and/or destination partitions not found");
+
+				if ((partitionSource == null) || (partitionDest == null)) {
+					OsateDebug.osateDebug("[ConnectionLatency] connection " + ci
+							+ " : source and/or destination partitions not found");
 
 					return DONE;
 				}
 
-				OsateDebug.osateDebug ("[ConnectionLatency] connection between " + partitionSource + " and " + partitionDest);
-				try
-				{
+				OsateDebug.osateDebug("[ConnectionLatency] connection between " + partitionSource + " and "
+						+ partitionDest);
+				try {
 					partitionsOnSameProcessor = DeploymentHelper.sameProcessor(partitionSource, partitionDest);
-				}
-				catch (Exception e)
-				{
-					throw new UnsupportedOperationException ("partition must be bound to one virtual processor");
+				} catch (Exception e) {
+					throw new UnsupportedOperationException("partition must be bound to one virtual processor");
 				}
 
+				// System.out.println ("[ConnectionLatency] local inter-partition= " + partitionsOnSameProcessor);
+				if (partitionsOnSameProcessor) {
+					System.out.println("[ConnectionLatency] Partitions are on the same processor");
 
-				//					System.out.println ("[ConnectionLatency] local inter-partition= " + partitionsOnSameProcessor);
-				if (partitionsOnSameProcessor)
-				{
-					System.out.println ("[ConnectionLatency] Partitions are on the same processor");
-
-					processorSource = DeploymentHelper.getModule (partitionSource);
+					processorSource = DeploymentHelper.getModule(partitionSource);
 					slots = SchedulingSlotsHelper.getSlots(processorSource);
 					schedulingSourceIndex = DeploymentHelper.schedulingOrder(processorSource, partitionSource);
 					schedulingDestIndex = DeploymentHelper.schedulingOrder(processorSource, partitionDest);
 
-
-					if (! Preferences.getInstance().useMajorFrameDelayedCommunication())
-					{
+					if (!Preferences.getInstance().useMajorFrameDelayedCommunication()) {
 						/*
 						 * Here, in the preferences, the user specified that communications
 						 * are flushed only at the major frame.
 						 */
-						if (schedulingSourceIndex < schedulingDestIndex)
-						{
-							for (int tmp = schedulingSourceIndex ; tmp < schedulingDestIndex ; tmp++)
-							{
+						if (schedulingSourceIndex < schedulingDestIndex) {
+							for (int tmp = schedulingSourceIndex; tmp < schedulingDestIndex; tmp++) {
 								Element e = slots.get(tmp);
 
-								if (e instanceof IntegerLiteral)
-								{
+								if (e instanceof IntegerLiteral) {
 									IntegerLiteral il = (IntegerLiteral) e;
 									latency = latency + il.getValue();
-								}					
+								}
+							}
+						} else {
+							for (int tmp = schedulingSourceIndex; tmp < DeploymentHelper
+									.schedulingListSize(processorSource); tmp++) {
+								Element e = slots.get(tmp);
+
+								if (e instanceof IntegerLiteral) {
+									IntegerLiteral il = (IntegerLiteral) e;
+									latency = latency + il.getValue();
+								}
+							}
+							for (int tmp = 0; tmp < schedulingDestIndex; tmp++) {
+								Element e = slots.get(tmp);
+
+								if (e instanceof IntegerLiteral) {
+									IntegerLiteral il = (IntegerLiteral) e;
+									latency = latency + il.getValue();
+								}
 							}
 						}
-						else
-						{
-							for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
-							{
-								Element e = slots.get(tmp);
-
-								if (e instanceof IntegerLiteral)
-								{
-									IntegerLiteral il = (IntegerLiteral) e;
-									latency = latency + il.getValue();
-								}					
-							}
-							for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
-							{
-								Element e = slots.get(tmp);
-
-								if (e instanceof IntegerLiteral)
-								{
-									IntegerLiteral il = (IntegerLiteral) e;
-									latency = latency + il.getValue();
-								}					
-							}
-						}
-					}
-					else
-					{
+					} else {
 						/*
 						 * Here, in the preferences, the user specified that communications
 						 * are flushed as soon as they are sent. We do not care
 						 * about the major frame at all.
 						 */
-						for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
-						{
+						for (int tmp = schedulingSourceIndex; tmp < DeploymentHelper
+								.schedulingListSize(processorSource); tmp++) {
 							Element e = slots.get(tmp);
 
-							if (e instanceof IntegerLiteral)
-							{
+							if (e instanceof IntegerLiteral) {
 								IntegerLiteral il = (IntegerLiteral) e;
 								latency = latency + il.getValue();
-								//System.out.println ("Add value" + il.getValue ());
+								// System.out.println ("Add value" + il.getValue ());
 
-							}					
+							}
 						}
-						for (int tmp = 0 ; tmp <= schedulingDestIndex ; tmp++)
-						{
+						for (int tmp = 0; tmp <= schedulingDestIndex; tmp++) {
 							Element e = slots.get(tmp);
 
-							if (e instanceof IntegerLiteral)
-							{
+							if (e instanceof IntegerLiteral) {
 								IntegerLiteral il = (IntegerLiteral) e;
 								latency = latency + il.getValue();
-								//				System.out.println ("Add value" + il.getValue ());
-							}					
+								// System.out.println ("Add value" + il.getValue ());
+							}
 						}
 					}
-				}
-				else
-				{
-					OsateDebug.osateDebug ("[ConnectionLatency] Partitions are on a different processor");
+				} else {
+					OsateDebug.osateDebug("[ConnectionLatency] Partitions are on a different processor");
 
 					/*
 					 * Suite of the if/else : connection is separated
@@ -340,240 +297,196 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 					 * the data, on which bus and if the devices
 					 * get the data only when the major frame is flushed.
 					 */
-					processorSource = DeploymentHelper.getModule (partitionSource);
-					processorDest   = DeploymentHelper.getModule (partitionDest);
+					processorSource = DeploymentHelper.getModule(partitionSource);
+					processorDest = DeploymentHelper.getModule(partitionDest);
 
-					if (processorSource.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)
-					{
-						OsateDebug.osateDebug ("[ConnectionLatency] Processor source is not a virtual processor");
+					if (processorSource.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR) {
+						OsateDebug.osateDebug("[ConnectionLatency] Processor source is not a virtual processor");
 						return DONE;
 					}
-					
-					if (processorDest.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)
-					{
-						OsateDebug.osateDebug ("[ConnectionLatency] Processor dest is not a virtual processor");
+
+					if (processorDest.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR) {
+						OsateDebug.osateDebug("[ConnectionLatency] Processor dest is not a virtual processor");
 						return DONE;
 					}
-					
-					try
-					{
-						//	System.out.println ("get="+ GetProperties.getActualConnectionBinding (ci).get(0));
-						ReferenceValueImpl busref = (ReferenceValueImpl)GetProperties.getActualConnectionBinding (ci).get(0);
 
-						if (busref.getContainmentPathElements().get(0).getNamedElement() instanceof BusSubcomponent)
-						{
-							BusSubcomponent busSub = (BusSubcomponent) busref.getContainmentPathElements().get(0).getNamedElement();
-							//		System.out.println ("bussub=" + busSub.getImplementationReferences());
+					try {
+						// System.out.println ("get="+ GetProperties.getActualConnectionBinding (ci).get(0));
+						ReferenceValueImpl busref = (ReferenceValueImpl) GetProperties.getActualConnectionBinding(ci)
+								.get(0);
+
+						if (busref.getContainmentPathElements().get(0).getNamedElement() instanceof BusSubcomponent) {
+							BusSubcomponent busSub = (BusSubcomponent) busref.getContainmentPathElements().get(0)
+									.getNamedElement();
+							// System.out.println ("bussub=" + busSub.getImplementationReferences());
 							connectionBusName = busSub.getName();
-						}
-						else
-						{
+						} else {
 							connectionBusName = "invalid bus";
 						}
-						
-						
-						OsateDebug.osateDebug ("[ConnectionLatency] Bus name " + connectionBusName);
-						OsateDebug.osateDebug ("[ConnectionLatency] PART src " + partitionSource);
-						OsateDebug.osateDebug ("[ConnectionLatency] PART dst " + partitionDest);
-						OsateDebug.osateDebug ("[ConnectionLatency] CPU src " + processorSource);
-						OsateDebug.osateDebug ("[ConnectionLatency] CPU dst " + processorDest);
-						deviceSource = DeploymentHelper.getDeviceConnected (processorSource, connectionBusName);
-						deviceDestination = DeploymentHelper.getDeviceConnected (processorDest, connectionBusName);
-						
-							OsateDebug.osateDebug ("[ConnectionLatency] Device source " + deviceSource);
-							OsateDebug.osateDebug ("[ConnectionLatency] Device dest " + deviceDestination);
 
-						connectionBus = DeploymentHelper.getConnectedBus (deviceSource);
-						busLatency = GetProperties.getLatencyinMilliSec (connectionBus);
-					}
-					catch (Exception e)
-					{
+						OsateDebug.osateDebug("[ConnectionLatency] Bus name " + connectionBusName);
+						OsateDebug.osateDebug("[ConnectionLatency] PART src " + partitionSource);
+						OsateDebug.osateDebug("[ConnectionLatency] PART dst " + partitionDest);
+						OsateDebug.osateDebug("[ConnectionLatency] CPU src " + processorSource);
+						OsateDebug.osateDebug("[ConnectionLatency] CPU dst " + processorDest);
+						deviceSource = DeploymentHelper.getDeviceConnected(processorSource, connectionBusName);
+						deviceDestination = DeploymentHelper.getDeviceConnected(processorDest, connectionBusName);
+
+						OsateDebug.osateDebug("[ConnectionLatency] Device source " + deviceSource);
+						OsateDebug.osateDebug("[ConnectionLatency] Device dest " + deviceDestination);
+
+						connectionBus = DeploymentHelper.getConnectedBus(deviceSource);
+						busLatency = GetProperties.getMaximumLatencyinMilliSec(connectionBus);
+					} catch (Exception e) {
 						deviceSource = null;
 						deviceDestination = null;
 						busLatency = 0;
-						OsateDebug.osateDebug ("[ConnectionLatency] Exception while trying to get informations about devices/buses" );
+						OsateDebug
+								.osateDebug("[ConnectionLatency] Exception while trying to get informations about devices/buses");
 						e.printStackTrace();
 
 					}
-					if (! Preferences.getInstance().useMajorFrameDelayedCommunication())
-					{
+					if (!Preferences.getInstance().useMajorFrameDelayedCommunication()) {
 						/*
 						 * Case when we are in a distributed system and the connections
 						 * are immediate : passed directly to the device. In that
 						 * case, we must wait the first activation slot of the device
 						 */
 
-
-
 						/*
 						 * First, compute the sender latency
 						 */
 						schedulingSourceIndex = DeploymentHelper.schedulingOrder(processorSource, partitionSource);
 						schedulingDestIndex = DeploymentHelper.schedulingOrder(processorSource, deviceSource);
-						if (schedulingSourceIndex < schedulingDestIndex)
-						{
-							for (int tmp = schedulingSourceIndex ; tmp < schedulingDestIndex ; tmp++)
-							{
+						if (schedulingSourceIndex < schedulingDestIndex) {
+							for (int tmp = schedulingSourceIndex; tmp < schedulingDestIndex; tmp++) {
 								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
-								if (e instanceof IntegerLiteral)
-								{
+								if (e instanceof IntegerLiteral) {
 									IntegerLiteral il = (IntegerLiteral) e;
 									senderLatency = senderLatency + il.getValue();
-								}					
+								}
+							}
+						} else {
+							for (int tmp = schedulingSourceIndex; tmp < DeploymentHelper
+									.schedulingListSize(processorSource); tmp++) {
+								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
+
+								if (e instanceof IntegerLiteral) {
+									IntegerLiteral il = (IntegerLiteral) e;
+									senderLatency = senderLatency + il.getValue();
+								}
+							}
+							for (int tmp = 0; tmp < schedulingDestIndex; tmp++) {
+								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
+
+								if (e instanceof IntegerLiteral) {
+									IntegerLiteral il = (IntegerLiteral) e;
+									senderLatency = senderLatency + il.getValue();
+								}
 							}
 						}
-						else
-						{
-							for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
-							{
-								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
-
-								if (e instanceof IntegerLiteral)
-								{
-									IntegerLiteral il = (IntegerLiteral) e;
-									senderLatency = senderLatency + il.getValue();
-								}					
-							}
-							for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
-							{
-								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
-
-								if (e instanceof IntegerLiteral)
-								{
-									IntegerLiteral il = (IntegerLiteral) e;
-									senderLatency = senderLatency + il.getValue();
-								}					
-							}
-						}
-
-
 
 						/*
 						 * And then, the receiver latency
 						 */
 						schedulingSourceIndex = DeploymentHelper.schedulingOrder(processorDest, partitionDest);
 						schedulingDestIndex = DeploymentHelper.schedulingOrder(processorDest, deviceDestination);
-						if (schedulingSourceIndex < schedulingDestIndex)
-						{
-							for (int tmp = schedulingSourceIndex ; tmp <= schedulingDestIndex ; tmp++)
-							{
+						if (schedulingSourceIndex < schedulingDestIndex) {
+							for (int tmp = schedulingSourceIndex; tmp <= schedulingDestIndex; tmp++) {
 								Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
-								if (e instanceof IntegerLiteral)
-								{
+								if (e instanceof IntegerLiteral) {
 									IntegerLiteral il = (IntegerLiteral) e;
 									senderLatency = senderLatency + il.getValue();
-								}					
+								}
 							}
-						}
-						else
-						{
-							for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorDest) ; tmp++)
-							{
+						} else {
+							for (int tmp = schedulingSourceIndex; tmp < DeploymentHelper
+									.schedulingListSize(processorDest); tmp++) {
 								Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
-								if (e instanceof IntegerLiteral)
-								{
+								if (e instanceof IntegerLiteral) {
 									IntegerLiteral il = (IntegerLiteral) e;
 									receiverLatency = receiverLatency + il.getValue();
-								}					
+								}
 							}
-							for (int tmp = 0 ; tmp <= schedulingDestIndex ; tmp++)
-							{
+							for (int tmp = 0; tmp <= schedulingDestIndex; tmp++) {
 								Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
-								if (e instanceof IntegerLiteral)
-								{
+								if (e instanceof IntegerLiteral) {
 									IntegerLiteral il = (IntegerLiteral) e;
 									receiverLatency = receiverLatency + il.getValue();
-								}					
+								}
 							}
 						}
 
-
-					}
-					else
-					{
+					} else {
 						/*
 						 * Case when we are in a distributed system and the connections
 						 * are delayed by the major frame. In that case, we have to wait
 						 * for the major frame at sending and receiving time.
 						 */
 
-
 						/*
 						 * First, sender side
 						 */
 						schedulingSourceIndex = DeploymentHelper.schedulingOrder(processorSource, partitionSource);
 						schedulingDestIndex = DeploymentHelper.schedulingOrder(processorSource, deviceSource);
-						for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
-						{
+						for (int tmp = schedulingSourceIndex; tmp < DeploymentHelper
+								.schedulingListSize(processorSource); tmp++) {
 							Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
-							if (e instanceof IntegerLiteral)
-							{
+							if (e instanceof IntegerLiteral) {
 								IntegerLiteral il = (IntegerLiteral) e;
 								senderLatency = senderLatency + il.getValue();
-								//	System.out.println ("Add value" + il.getValue ());
+								// System.out.println ("Add value" + il.getValue ());
 
-							}					
+							}
 						}
-						for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
-						{
+						for (int tmp = 0; tmp < schedulingDestIndex; tmp++) {
 							Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
-							if (e instanceof IntegerLiteral)
-							{
+							if (e instanceof IntegerLiteral) {
 								IntegerLiteral il = (IntegerLiteral) e;
 								senderLatency = senderLatency + il.getValue();
-								//		System.out.println ("Add value" + il.getValue ());
-							}					
+								// System.out.println ("Add value" + il.getValue ());
+							}
 						}
-
-
 
 						/*
 						 * Then, receiver side
 						 */
 						schedulingSourceIndex = DeploymentHelper.schedulingOrder(processorDest, partitionDest);
 						schedulingDestIndex = DeploymentHelper.schedulingOrder(processorDest, deviceDestination);
-						for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorDest) ; tmp++)
-						{
+						for (int tmp = schedulingSourceIndex; tmp < DeploymentHelper.schedulingListSize(processorDest); tmp++) {
 							Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
-							if (e instanceof IntegerLiteral)
-							{
+							if (e instanceof IntegerLiteral) {
 								IntegerLiteral il = (IntegerLiteral) e;
 								receiverLatency = receiverLatency + il.getValue();
-								//			System.out.println ("Add value" + il.getValue ());
+								// System.out.println ("Add value" + il.getValue ());
 
-							}					
+							}
 						}
-						for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
-						{
+						for (int tmp = 0; tmp < schedulingDestIndex; tmp++) {
 							Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
-							if (e instanceof IntegerLiteral)
-							{
+							if (e instanceof IntegerLiteral) {
 								IntegerLiteral il = (IntegerLiteral) e;
 								receiverLatency = receiverLatency + il.getValue();
-								//System.out.println ("Add value" + il.getValue ());
-							}					
+								// System.out.println ("Add value" + il.getValue ());
+							}
 						}
 
 					}
 
-
-					latency = (long)busLatency + senderLatency + receiverLatency;
+					latency = (long) busLatency + senderLatency + receiverLatency;
 				}
-				report = new ConnectionLatencyReport (partitionSource, partitionDest, latency);
+				report = new ConnectionLatencyReport(partitionSource, partitionDest, latency);
 				reports.add(report);
-				//System.out.println ("[ConnectionLatency] latency= " + latency);
-				//System.out.println ("[ConnectionLatency] buslatency= " + busLatency);
-
-
-
+				// System.out.println ("[ConnectionLatency] latency= " + latency);
+				// System.out.println ("[ConnectionLatency] buslatency= " + busLatency);
 
 				return DONE;
 			}
@@ -584,7 +497,5 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 		};
 
 	}
-	
-	
-	
+
 }
