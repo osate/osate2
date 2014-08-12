@@ -6,12 +6,21 @@ import java.util.List;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
 
+/**
+ * The LatencyReport class represents the generic class
+ * produced by the latency analysis. It contains several
+ * LatencyReportEntry, each one representing
+ * an end to end flow latency.
+ * 
+ * @author julien
+ *
+ */
 public class LatencyReport {
-	private List<ReportEntry> entries;
+	private List<LatencyReportEntry> entries;
 	private String name;
 
 	public LatencyReport() {
-		this.entries = new ArrayList<ReportEntry>();
+		this.entries = new ArrayList<LatencyReportEntry>();
 		this.name = "latencyreport";
 	}
 
@@ -23,11 +32,11 @@ public class LatencyReport {
 		this.name = n;
 	}
 
-	public List<ReportEntry> getEntries() {
+	public List<LatencyReportEntry> getEntries() {
 		return this.entries;
 	}
 
-	public void addEntry(ReportEntry entry) {
+	public void addEntry(LatencyReportEntry entry) {
 		this.entries.add(entry);
 	}
 
@@ -36,7 +45,7 @@ public class LatencyReport {
 
 		genericReport = new Report("latency", ReportType.TABLE);
 
-		for (ReportEntry re : entries) {
+		for (LatencyReportEntry re : entries) {
 			genericReport.addSection(re.export());
 		}
 

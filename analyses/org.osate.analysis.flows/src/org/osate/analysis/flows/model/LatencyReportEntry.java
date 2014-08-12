@@ -13,16 +13,16 @@ import org.osate.analysis.flows.reporting.model.Section;
  * We should have one report entry for each end to end flow
  */
 
-public class ReportEntry {
+public class LatencyReportEntry {
 
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
 
-	public ReportEntry() {
+	public LatencyReportEntry() {
 		this.contributors = new ArrayList<LatencyContributor>();
 	}
 
-	public ReportEntry(EndToEndFlowInstance etef) {
+	public LatencyReportEntry(EndToEndFlowInstance etef) {
 		this();
 		this.relatedEndToEndFlow = etef;
 	}

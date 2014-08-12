@@ -47,7 +47,7 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.model.ReportEntry;
+import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.ui.actions.AbstractAaxlAction;
 
 /**
@@ -67,6 +67,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		this.report = new LatencyReport();
 	}
 
+	public LatencyReport getReport() {
+		return this.report;
+	}
+
 	protected final void initSwitches() {
 		/* here we are creating the connection checking switches */
 
@@ -82,13 +86,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			}
 
 			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef) {
-				ReportEntry entry;
+				LatencyReportEntry entry;
 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
 
-				entry = new ReportEntry(etef);
+				entry = new LatencyReportEntry(etef);
 
 				OsateDebug.osateDebug("FlowLatencyAnalysisSwitch", "Analyzing flow " + "|" + etef + "|"
 						+ FlowLatencyUtil.getEndToEndFlowString(etef));
