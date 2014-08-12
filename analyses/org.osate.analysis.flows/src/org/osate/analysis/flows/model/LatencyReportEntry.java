@@ -59,7 +59,8 @@ public class LatencyReportEntry {
 
 		line = new Line();
 		section = new Section();
-		line.addContent("Latency report for flow " + this.relatedEndToEndFlow.getName());
+		line.addContent("Latency report for flow " + this.relatedEndToEndFlow.getName() + "\n");
+		line.addContent("Contributor, Min value, Method, Max Value, Method\n");
 
 		section.addLine(line);
 

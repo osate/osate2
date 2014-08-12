@@ -7,6 +7,8 @@ import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.LatencyContributor;
+import org.osate.analysis.flows.model.LatencyContributorComponent;
+import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FlowLatencyUtil {
@@ -30,8 +32,7 @@ public class FlowLatencyUtil {
 	}
 
 	public static LatencyContributor mapFlowElementInstance(FlowElementInstance flowElementInstance) {
-		LatencyContributor latencyContributor;
-		latencyContributor = new LatencyContributor();
+
 		OsateDebug.osateDebug("FlowLatencyUtil", "fei = " + flowElementInstance);
 		OsateDebug.osateDebug("FlowLatencyUtil", "fei= name" + flowElementInstance.getName());
 
@@ -48,11 +49,11 @@ public class FlowLatencyUtil {
 			return mapConnectionInstance(flowElementInstance);
 		}
 
-		return latencyContributor;
+		return null;
 	}
 
-	public static LatencyContributor mapComponentInstance(FlowElementInstance flowElementInstance) {
-		LatencyContributor latencyContributor;
+	public static LatencyContributorComponent mapComponentInstance(FlowElementInstance flowElementInstance) {
+		LatencyContributorComponent latencyContributor;
 		FlowSpecificationInstance flowSpecification;
 		ComponentInstance componentInstance;
 		double period;
@@ -69,12 +70,10 @@ public class FlowLatencyUtil {
 		worstCaseValue = 0.0;
 		bestCaseValue = 0.0;
 
-		latencyContributor = new LatencyContributor();
-
 		flowSpecification = (FlowSpecificationInstance) flowElementInstance;
 		componentInstance = (ComponentInstance) flowElementInstance.getComponentInstance();
 
-		latencyContributor.setElement(componentInstance);
+		latencyContributor = new LatencyContributorComponent(componentInstance);
 
 		/**
 		 * Get all the relevant properties.
@@ -127,9 +126,8 @@ public class FlowLatencyUtil {
 		ConnectionInstance connectionInstance;
 		ComponentInstance boundBus;
 
-		latencyContributor = new LatencyContributor();
 		connectionInstance = (ConnectionInstance) flowElementInstance;
-		latencyContributor.setElement(connectionInstance);
+		latencyContributor = new LatencyContributorConnection(connectionInstance);
 
 		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
 

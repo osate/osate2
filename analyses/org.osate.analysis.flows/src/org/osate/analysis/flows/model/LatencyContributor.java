@@ -3,7 +3,6 @@ package org.osate.analysis.flows.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osate.aadl2.NamedElement;
 import org.osate.analysis.flows.reporting.model.Line;
 
 /**
@@ -16,7 +15,11 @@ import org.osate.analysis.flows.reporting.model.Line;
  * @author julien
  *
  */
-public class LatencyContributor {
+public abstract class LatencyContributor {
+
+	public enum LatencyContributorMethod {
+		DEADLINE, PERIOD, WCET, UNKNOWN
+	};
 
 	/**
 	 * This represents the max and min value of the latency
@@ -26,11 +29,11 @@ public class LatencyContributor {
 	private double maxValue;
 
 	/**
-	 * The relatedElement represents the AADL element that
-	 * is related to this latency contributor. Mostly, it is
-	 * a component or a connection.
+	 * methods represent what is the model elements used
+	 * to compute the min or max value
 	 */
-	private NamedElement relatedElement;
+	private LatencyContributorMethod worstCaseMethod;
+	private LatencyContributorMethod bestCaseMethod;
 
 	/**
 	 * The sub contributors are basically what are the other
@@ -43,10 +46,23 @@ public class LatencyContributor {
 	private List<LatencyContributor> subContributors;
 
 	public LatencyContributor() {
+		this.worstCaseMethod = LatencyContributorMethod.UNKNOWN;
+		this.bestCaseMethod = LatencyContributorMethod.UNKNOWN;
 		this.minValue = 0.0;
 		this.maxValue = 0.0;
-		this.relatedElement = null;
 		this.subContributors = new ArrayList<LatencyContributor>();
+	}
+
+	public String mapMethodToString(LatencyContributorMethod method) {
+		switch (method) {
+		case DEADLINE:
+			return "deadline";
+		case WCET:
+			return "execution time";
+		case PERIOD:
+			return "period";
+		}
+		return "unknown";
 	}
 
 	public List<LatencyContributor> getSubContributors() {
@@ -73,13 +89,7 @@ public class LatencyContributor {
 		return this.maxValue;
 	}
 
-	public NamedElement getElement() {
-		return this.relatedElement;
-	}
-
-	public void setElement(NamedElement ne) {
-		this.relatedElement = ne;
-	}
+	protected abstract String getContributorName();
 
 	public List<Line> export() {
 		List<Line> lines;
@@ -89,7 +99,7 @@ public class LatencyContributor {
 
 		myLine = new Line();
 
-		myLine.addContent("Latency Contributor " + this.relatedElement.getName());
+		myLine.addContent("Latency Contributor " + this.getContributorName());
 		myLine.addContent(this.minValue + "ms");
 		myLine.addContent(this.maxValue + "ms");
 

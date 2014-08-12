@@ -43,6 +43,4 @@ public class ReportUtils {
 		return path;
 	}
 
-//	public static getContributorType (NamedElement element)
-
 }
