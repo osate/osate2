@@ -563,7 +563,7 @@ public class GetProperties {
 		double mips = getThreadExecutionIPDinMIPS(threadinstance);
 		if (mips == 0) {
 			double period = getPeriodInSeconds(threadinstance, 0.0);
-			double exectimeval = getSpecifiedComputeExecutionTimeinSec(threadinstance);
+			double exectimeval = getMaximumComputeExecutionTimeinSec(threadinstance);
 			if (exectimeval > 0 && period > 0) {
 				double mipspersec = getReferenceMIPS(threadinstance);
 				double time = exectimeval / period;
@@ -639,15 +639,58 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time as specified - not adjusted for different processor speeds
+	 * get execution time as specified in sec - the upper bound
+	 * not adjusted for different processor speeds
 	 * @param ne thread component instance
 	 * @return specified time or 0.0
 	 */
-	public static double getSpecifiedComputeExecutionTimeinSec(final NamedElement ne) {
+	public static double getMaximumComputeExecutionTimeinSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in sec - the lower bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMinimumComputeExecutionTimeinSec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
+		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, second, 0.0);
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in ms - the upper bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMaximumComputeExecutionTimeinMs(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in ms - the lower bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMinimumComputeExecutionTimeinMs(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, second, 0.0);
 		return time;
 	}
 
