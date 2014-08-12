@@ -54,12 +54,68 @@ public class FlowLatencyUtil {
 	public static LatencyContributor mapComponentInstance(FlowElementInstance flowElementInstance) {
 		LatencyContributor latencyContributor;
 		FlowSpecificationInstance flowSpecification;
-
 		ComponentInstance componentInstance;
+		double period;
+		double deadline;
+		double executionTimeLower;
+		double executionTimeHigher;
+		double worstCaseValue;
+		double bestCaseValue;
+
+		period = 0.0;
+		deadline = 0.0;
+		executionTimeHigher = 0.0;
+		executionTimeLower = 0.0;
+		worstCaseValue = 0.0;
+		bestCaseValue = 0.0;
 
 		latencyContributor = new LatencyContributor();
+
 		flowSpecification = (FlowSpecificationInstance) flowElementInstance;
 		componentInstance = (ComponentInstance) flowElementInstance.getComponentInstance();
+
+		latencyContributor.setElement(componentInstance);
+
+		/**
+		 * Get all the relevant properties.
+		 */
+		period = GetProperties.getPeriodinMS(componentInstance);
+		deadline = GetProperties.getDeadlineinMilliSec(componentInstance);
+		executionTimeLower = GetProperties.getMinimumComputeExecutionTimeinMs(componentInstance);
+		executionTimeHigher = GetProperties.getMaximumComputeExecutionTimeinMs(componentInstance);
+
+		/**
+		 * Selection of the worst case value;
+		 */
+		if (executionTimeHigher != 0.0) {
+			worstCaseValue = executionTimeHigher;
+		}
+
+		if (period != 0.0) {
+			worstCaseValue = period;
+		}
+
+		if (deadline != 0.0) {
+			worstCaseValue = deadline;
+		}
+
+		/**
+		 * Selection of the best case value;
+		 */
+		if (deadline != 0.0) {
+			bestCaseValue = deadline;
+		}
+
+		if (period != 0.0) {
+			bestCaseValue = period;
+		}
+
+		if (executionTimeLower != 0.0) {
+			bestCaseValue = executionTimeLower;
+		}
+
+		latencyContributor.setMaximum(worstCaseValue);
+		latencyContributor.setMinimum(bestCaseValue);
 
 		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification component=" + componentInstance.getName());
 
