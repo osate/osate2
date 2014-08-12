@@ -1,4 +1,4 @@
-package org.osate.analysis.flows.reporting.util;
+package org.osate.analysis.flows.reporting.utils;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;

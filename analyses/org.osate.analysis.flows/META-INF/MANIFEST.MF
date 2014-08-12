@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.analysis.flows;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
 Bundle-Activator: org.osate.analysis.flows.FlowanalysisPlugin
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
+Bundle-ClassPath: ., lib/jxl.jar
 Export-Package: org.osate.analysis.flows,
  org.osate.analysis.flows.actions
 Require-Bundle: org.osate.aadl2,

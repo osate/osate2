@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.OsateDebug;
@@ -61,10 +62,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	AbstractAaxlAction action;
 	LatencyReport report;
 
-	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, AbstractAaxlAction a) {
+	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, AbstractAaxlAction a) {
 		super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL);
 		this.action = a;
-		this.report = new LatencyReport();
+		this.report = new LatencyReport(si);
 	}
 
 	public LatencyReport getReport() {

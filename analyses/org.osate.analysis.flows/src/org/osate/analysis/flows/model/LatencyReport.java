@@ -3,6 +3,7 @@ package org.osate.analysis.flows.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
 
@@ -18,8 +19,10 @@ import org.osate.analysis.flows.reporting.model.Report.ReportType;
 public class LatencyReport {
 	private List<LatencyReportEntry> entries;
 	private String name;
+	private SystemInstance relatedInstance;
 
-	public LatencyReport() {
+	public LatencyReport(SystemInstance si) {
+		this.relatedInstance = si;
 		this.entries = new ArrayList<LatencyReportEntry>();
 		this.name = "latencyreport";
 	}
@@ -43,7 +46,7 @@ public class LatencyReport {
 	public Report export() {
 		Report genericReport;
 
-		genericReport = new Report("latency", ReportType.TABLE);
+		genericReport = new Report(this.relatedInstance, "latency", ReportType.TABLE);
 
 		for (LatencyReportEntry re : entries) {
 			genericReport.addSection(re.export());

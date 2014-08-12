@@ -1,4 +1,4 @@
-package org.osate.analysis.flows.reporting.util;
+package org.osate.analysis.flows.reporting.exporters;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -6,7 +6,6 @@ import java.io.InputStream;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
@@ -14,15 +13,12 @@ import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Section;
 
-public class CsvExport {
-	private Report report;
-	private IPath path;
+public class CsvExport extends GenericExport {
 
 	public CsvExport(Report r) {
-		this.report = r;
+		super(r);
+		this.fileExtension = "csv";
 	}
-
-	// public static IPath getReportPath(EObject root, String subDirectory, String reportType, String fileSuffix,
 
 	public StringBuffer getFileContent() {
 		StringBuffer result;
@@ -45,23 +41,21 @@ public class CsvExport {
 	}
 
 	public void save(EObject relatedObject) {
-		IPath path;
 		IFile file;
 		InputStream input;
 		StringBuffer reportContent;
 
-		path = ReportUtils.getReportPath(relatedObject, "latency", "latency", "latency", "csv");
 		reportContent = this.getFileContent();
 
-		if (path != null) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+		if (this.getPath() != null) {
+			file = ResourcesPlugin.getWorkspace().getRoot().getFile(this.getPath());
 			if (file != null) {
 				input = new ByteArrayInputStream(reportContent.toString().getBytes());
 				try {
 					if (file.exists()) {
 						file.setContents(input, true, true, null);
 					} else {
-						AadlUtil.makeSureFoldersExist(path);
+						AadlUtil.makeSureFoldersExist(this.getPath());
 						file.create(input, true, null);
 					}
 				} catch (final CoreException e) {

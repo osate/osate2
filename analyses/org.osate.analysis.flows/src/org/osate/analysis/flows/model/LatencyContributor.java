@@ -29,6 +29,17 @@ public abstract class LatencyContributor {
 	private double maxValue;
 
 	/**
+	 * The expected minimum and maximum latency values.
+	 */
+	private double expectedMin;
+	private double expectedMax;
+
+	/**
+	 * Some comments we would like to add in the report.
+	 */
+	private String comments;
+
+	/**
 	 * methods represent what is the model elements used
 	 * to compute the min or max value
 	 */
@@ -50,10 +61,28 @@ public abstract class LatencyContributor {
 		this.bestCaseMethod = LatencyContributorMethod.UNKNOWN;
 		this.minValue = 0.0;
 		this.maxValue = 0.0;
+		this.expectedMax = 0.0;
+		this.expectedMin = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
 	}
 
-	public String mapMethodToString(LatencyContributorMethod method) {
+	public String getComments() {
+		return this.comments;
+	}
+
+	public void setComments(String c) {
+		this.comments = c;
+	}
+
+	public void setExpectedMaximum(double d) {
+		this.expectedMax = d;
+	}
+
+	public void setExpectedMinimum(double d) {
+		this.expectedMin = d;
+	}
+
+	public static String mapMethodToString(LatencyContributorMethod method) {
 		switch (method) {
 		case DEADLINE:
 			return "deadline";
@@ -63,6 +92,14 @@ public abstract class LatencyContributor {
 			return "period";
 		}
 		return "unknown";
+	}
+
+	public void setWorstCaseMethod(LatencyContributorMethod m) {
+		this.worstCaseMethod = m;
+	}
+
+	public void setBestCaseMethod(LatencyContributorMethod m) {
+		this.bestCaseMethod = m;
 	}
 
 	public List<LatencyContributor> getSubContributors() {
@@ -99,10 +136,21 @@ public abstract class LatencyContributor {
 
 		myLine = new Line();
 
-		myLine.addContent("Latency Contributor " + this.getContributorName());
+		myLine.addContent(this.getContributorName());
+		if (this.expectedMin != 0.0) {
+			myLine.addContent(this.expectedMin + "ms");
+		} else {
+			myLine.addContent(""); // the min expected value
+		}
 		myLine.addContent(this.minValue + "ms");
+		myLine.addContent(mapMethodToString(bestCaseMethod));
+		if (this.expectedMax != 0.0) {
+			myLine.addContent(this.expectedMax + "ms");
+		} else {
+			myLine.addContent(""); // the min expected value
+		}
 		myLine.addContent(this.maxValue + "ms");
-
+		myLine.addContent(mapMethodToString(worstCaseMethod));
 		lines.add(myLine);
 
 		/**

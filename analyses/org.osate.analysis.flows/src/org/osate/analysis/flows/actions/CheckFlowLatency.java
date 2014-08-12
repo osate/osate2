@@ -47,7 +47,9 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowanalysisPlugin;
-import org.osate.analysis.flows.reporting.util.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.ExcelExport;
+import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
@@ -84,13 +86,18 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 
 		}
 		OsateDebug.osateDebug("CheckFlowAnalysis", "analyzeInstanceModel in rework");
-		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, this);
+		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, this);
 
 		flas.processPreOrderAll(root);
 
 		if (flas.getReport() != null) {
-			CsvExport csvExport = new CsvExport(flas.getReport().export());
+			Report report = flas.getReport().export();
+
+			CsvExport csvExport = new CsvExport(report);
 			csvExport.save(root);
+
+			ExcelExport excelExport = new ExcelExport(report);
+			excelExport.save(root);
 		}
 
 		monitor.done();

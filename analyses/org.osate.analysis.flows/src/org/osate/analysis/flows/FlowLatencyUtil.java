@@ -7,6 +7,7 @@ import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.LatencyContributor;
+import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -56,12 +57,16 @@ public class FlowLatencyUtil {
 		LatencyContributorComponent latencyContributor;
 		FlowSpecificationInstance flowSpecification;
 		ComponentInstance componentInstance;
+		LatencyContributorMethod method;
+
 		double period;
 		double deadline;
 		double executionTimeLower;
 		double executionTimeHigher;
 		double worstCaseValue;
 		double bestCaseValue;
+		double expectedMin;
+		double expectedMax;
 
 		period = 0.0;
 		deadline = 0.0;
@@ -69,11 +74,16 @@ public class FlowLatencyUtil {
 		executionTimeLower = 0.0;
 		worstCaseValue = 0.0;
 		bestCaseValue = 0.0;
+		expectedMax = 0.0;
+		expectedMin = 0.0;
 
 		flowSpecification = (FlowSpecificationInstance) flowElementInstance;
 		componentInstance = (ComponentInstance) flowElementInstance.getComponentInstance();
 
 		latencyContributor = new LatencyContributorComponent(componentInstance);
+
+		expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
+		expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
 
 		/**
 		 * Get all the relevant properties.
@@ -86,35 +96,50 @@ public class FlowLatencyUtil {
 		/**
 		 * Selection of the worst case value;
 		 */
+		method = LatencyContributorMethod.UNKNOWN;
+
 		if (executionTimeHigher != 0.0) {
 			worstCaseValue = executionTimeHigher;
+			method = LatencyContributorMethod.WCET;
 		}
 
-		if (period != 0.0) {
-			worstCaseValue = period;
-		}
-
-		if (deadline != 0.0) {
+		if ((worstCaseValue == 0.0) && (deadline != 0.0)) {
 			worstCaseValue = deadline;
+			method = LatencyContributorMethod.DEADLINE;
 		}
+
+		if ((worstCaseValue == 0.0) && (period != 0.0)) {
+			worstCaseValue = period;
+			method = LatencyContributorMethod.PERIOD;
+		}
+
+		latencyContributor.setWorstCaseMethod(method);
 
 		/**
 		 * Selection of the best case value;
 		 */
-		if (deadline != 0.0) {
-			bestCaseValue = deadline;
-		}
-
-		if (period != 0.0) {
-			bestCaseValue = period;
-		}
-
+		method = LatencyContributorMethod.UNKNOWN;
 		if (executionTimeLower != 0.0) {
 			bestCaseValue = executionTimeLower;
+			method = LatencyContributorMethod.WCET;
 		}
+
+		if ((bestCaseValue == 0.0) && (deadline != 0.0)) {
+			bestCaseValue = deadline;
+			method = LatencyContributorMethod.DEADLINE;
+		}
+
+		if ((bestCaseValue == 0.0) && (period != 0.0)) {
+			bestCaseValue = period;
+			method = LatencyContributorMethod.PERIOD;
+		}
+
+		latencyContributor.setBestCaseMethod(method);
 
 		latencyContributor.setMaximum(worstCaseValue);
 		latencyContributor.setMinimum(bestCaseValue);
+		latencyContributor.setExpectedMaximum(expectedMax);
+		latencyContributor.setExpectedMinimum(expectedMin);
 
 		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification component=" + componentInstance.getName());
 

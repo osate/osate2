@@ -3,6 +3,8 @@ package org.osate.analysis.flows.reporting.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.NamedElement;
+
 /**
  * The Report class represent a generic Report. It
  * can be a text report or a table report.
@@ -19,13 +21,15 @@ public class Report {
 	private List<Section> sections;
 	private StringBuffer textContent;
 	private ReportType type;
+	private NamedElement relatedObject;
 
 	public enum ReportType {
 		TABLE, TEXT
 	}
 
-	public Report(String name, ReportType rt) {
+	public Report(NamedElement ne, String name, ReportType rt) {
 		this.type = rt;
+		this.relatedObject = ne;
 		this.textContent = new StringBuffer();
 		this.sections = new ArrayList<Section>();
 	}
@@ -48,6 +52,10 @@ public class Report {
 
 	public String getTextContent() {
 		return this.textContent.toString();
+	}
+
+	public NamedElement getRelatedObject() {
+		return this.relatedObject;
 	}
 
 }
