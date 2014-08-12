@@ -128,8 +128,8 @@ public class FlowLatencyUtil {
 		ComponentInstance boundBus;
 
 		latencyContributor = new LatencyContributor();
-
 		connectionInstance = (ConnectionInstance) flowElementInstance;
+		latencyContributor.setElement(connectionInstance);
 
 		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
 

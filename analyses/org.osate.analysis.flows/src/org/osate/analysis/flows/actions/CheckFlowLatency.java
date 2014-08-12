@@ -85,11 +85,14 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		}
 		OsateDebug.osateDebug("CheckFlowAnalysis", "analyzeInstanceModel in rework");
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, this);
+
+		flas.processPreOrderAll(root);
+
 		if (flas.getReport() != null) {
 			CsvExport csvExport = new CsvExport(flas.getReport().export());
 			csvExport.save(root);
 		}
-		flas.processPreOrderAll(root);
+
 		monitor.done();
 	}
 

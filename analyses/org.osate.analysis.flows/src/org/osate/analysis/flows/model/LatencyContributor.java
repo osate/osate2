@@ -88,7 +88,12 @@ public class LatencyContributor {
 		lines = new ArrayList<Line>();
 
 		myLine = new Line();
-		myLine.addContent("Latency Contributor" + this.relatedElement.getName());
+		
+		if
+		
+		myLine.addContent("Latency Contributor " + this.relatedElement.getName());
+		myLine.addContent(this.minValue + "ms");
+		myLine.addContent(this.maxValue + "ms");
 
 		lines.add(myLine);
 
@@ -100,5 +105,4 @@ public class LatencyContributor {
 		}
 		return lines;
 	}
-
 }

@@ -28,7 +28,7 @@ public class CsvExport {
 		StringBuffer result;
 		result = new StringBuffer();
 
-		result.append("Latency Analysis Report");
+		result.append("Latency Analysis Report\n\n");
 
 		for (Section section : this.report.getSections()) {
 

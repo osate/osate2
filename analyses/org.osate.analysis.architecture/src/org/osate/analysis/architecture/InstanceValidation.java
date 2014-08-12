@@ -16,8 +16,8 @@ public class InstanceValidation {
 	public InstanceValidation(final AbstractAaxlAction action) {
 		this.action = action;
 	}
-	
-	public boolean checkReferenceProcessor(SystemInstance root){
+
+	public boolean checkReferenceProcessor(SystemInstance root) {
 		isOK = true;
 		ForAllElement mal = new ForAllElement() {
 			@Override
@@ -28,21 +28,21 @@ public class InstanceValidation {
 		mal.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 		return isOK;
 	}
-	
-	protected void checkForReferenceProcessor(Element obj){
-		if (obj instanceof ComponentInstance){
+
+	protected void checkForReferenceProcessor(Element obj) {
+		if (obj instanceof ComponentInstance) {
 			ComponentInstance ci = (ComponentInstance) obj;
-			double et = GetProperties.getSpecifiedComputeExecutionTimeinSec(ci);
-			if (et != 0){
+			double et = GetProperties.getMaximumComputeExecutionTimeinSec(ci);
+			if (et != 0) {
 				ComponentClassifier refproc = GetProperties.getReferenceProcessor(ci);
-				if (refproc == null){
+				if (refproc == null) {
 					isOK = false;
-					action.error(ci, "Thread instance "+ci.getComponentInstancePath()+" has execution time, but no Reference_Processor. Please this property.");
+					action.error(ci, "Thread instance " + ci.getComponentInstancePath()
+							+ " has execution time, but no Reference_Processor. Please this property.");
 				}
 			}
 		}
 
 	}
-	
 
 }

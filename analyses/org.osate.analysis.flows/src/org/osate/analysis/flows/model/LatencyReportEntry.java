@@ -55,8 +55,14 @@ public class LatencyReportEntry {
 
 	public Section export() {
 		Section section;
+		Line line;
 
+		line = new Line();
 		section = new Section();
+		line.addContent("Latency report for flow " + this.relatedEndToEndFlow.getName());
+
+		section.addLine(line);
+
 		for (LatencyContributor lc : this.contributors) {
 			for (Line l : lc.export()) {
 				section.addLine(l);
