@@ -23,53 +23,50 @@ import org.osate.aadl2.NamedElement;
  *
  */
 public class ElementSelectionDialog {
-	private static final Object nullObject = new Object(); // Object that represents a null value. ElementListSelectionDialog does not support having null
-// elements
+	private static final Object nullObject = new Object(); // Object that represents a null value. ElementListSelectionDialog does not support having null elements
 	private final org.eclipse.ui.dialogs.ElementListSelectionDialog dlg;
-
-	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt,
-			final List<?> elementDescriptions) {
-		dlg = new org.eclipse.ui.dialogs.ElementListSelectionDialog(parentShell,
-				new org.eclipse.jface.viewers.LabelProvider() {
-					@Override
-					public String getText(Object element) {
-						if (element == nullObject) {
-							return "<None>";
-						} else if (element instanceof IEObjectDescription) {
-							return ((IEObjectDescription) element).getName().toString("::");
-						} else if (element instanceof NamedElement) {
-							return ((NamedElement) element).getName();
-						} else {
-							return element.toString();
-						}
-					}
-				});
-
+	
+	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt, final List<?> elementDescriptions) {
+		dlg = new org.eclipse.ui.dialogs.ElementListSelectionDialog(parentShell, new org.eclipse.jface.viewers.LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				if(element == nullObject) {
+					return "<None>";
+				} else if(element instanceof IEObjectDescription){
+					return ((IEObjectDescription)element).getName().toString();
+				} else if(element instanceof NamedElement){
+					return ((NamedElement)element).getName();
+				} else {
+					return element.toString();
+				}				
+			}
+		});
+		
 		dlg.setTitle(dlgTitle);
 		dlg.setMessage(prompt);
-
+		
 		// Convert null values to point to the nullObject
-		final Object[] elementsArray = convertToNullObject(elementDescriptions.toArray());
+		final Object[] elementsArray = convertToNullObject(elementDescriptions.toArray());		
 		dlg.setElements(elementsArray);
 	}
-
+	
 	public Object getFirstSelectedElement() {
 		return getFirstSelectedElement(Object.class);
 	}
-
+	
 	public <T> Object getFirstSelectedElement(final Class<T> c) {
 		final T[] selectedElements = getAllSelectedElements(c);
-		if (selectedElements.length > 0) {
+		if(selectedElements.length > 0) {
 			return selectedElements[0];
 		} else {
 			return null;
 		}
 	}
-
+	
 	public Object[] getAllSelectedElements() {
 		return getAllSelectedElements(Object.class);
 	}
-
+	
 	/**
 	 * Converts an array of values to an array that is identical except that references to the nullObject field have been replaced with null values.
 	 * @param values
@@ -77,15 +74,15 @@ public class ElementSelectionDialog {
 	 */
 	private Object[] convertToNullValue(final Object[] values) {
 		final Object[] converted = new Object[values.length];
-
+		
 		// Convert the nullObject to a null value
-		for (int i = 0; i < values.length; i++) {
+		for(int i = 0; i < values.length; i++) {
 			converted[i] = (values[i] == nullObject) ? null : values[i];
 		}
-
+		
 		return converted;
 	}
-
+	
 	/**
 	 * Converts an array of values to an array that is identical except that null references have been replaced to referenced to the nullObject field.
 	 * @param values
@@ -93,44 +90,44 @@ public class ElementSelectionDialog {
 	 */
 	private Object[] convertToNullObject(final Object[] values) {
 		final Object[] converted = new Object[values.length];
-
+		
 		// Convert null values to point to the nullObject
-		for (int i = 0; i < values.length; i++) {
+		for(int i = 0; i < values.length; i++) {
 			converted[i] = (values[i] == null) ? nullObject : values[i];
 		}
-
+		
 		return converted;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public <T> T[] getAllSelectedElements(final Class<T> c) {
 		// Get the results and handle null objects
-		final Object[] results = convertToNullValue(dlg.getResult());
-
-		final T[] selectedElements = (T[]) Array.newInstance(c, results.length);
-		for (int i = 0; i < results.length; i++) {
+		final Object[] results = convertToNullValue(dlg.getResult());		
+		
+		final T[] selectedElements = (T[])Array.newInstance(c, results.length);
+		for(int i = 0; i < results.length; i++) {
 			final Object obj = results[i];
-			if (obj == null) {
+			if(obj == null) {
 				selectedElements[i] = null;
-			} else if (obj instanceof IEObjectDescription) {
-				final EObject element = ((IEObjectDescription) obj).getEObjectOrProxy();
-				selectedElements[i] = (T) element;
+			} else if(obj instanceof IEObjectDescription) {
+				final EObject element = ((IEObjectDescription)obj).getEObjectOrProxy();	
+				selectedElements[i] = (T)element;
 			} else {
-				selectedElements[i] = (T) obj;
+				selectedElements[i] = (T)obj;
 			}
 		}
 
 		return selectedElements;
 	}
-
+	
 	public int open() {
 		return dlg.open();
 	}
-
+	
 	public void setMultipleSelection(final boolean value) {
 		dlg.setMultipleSelection(value);
 	}
-
+	
 	public void setInitialSelections(Object[] elements) {
 		dlg.setInitialSelections(convertToNullObject(elements));
 	}
