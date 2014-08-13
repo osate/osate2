@@ -46,7 +46,6 @@ import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.ui.actions.AbstractAaxlAction;
@@ -80,9 +79,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 * check flow latency
 			 */
 			public String caseComponentInstance(final ComponentInstance ci) {
-				monitor.subTask("Checking flows in " + ci.getName());
-//				processEList(ci.getEndToEndFlows());
-				monitor.worked(1);
+//				monitor.subTask("Checking flows in " + ci.getName());
+////				processEList(ci.getEndToEndFlows());
+//				monitor.worked(1);
 				return DONE;
 			}
 
@@ -95,8 +94,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 				entry = new LatencyReportEntry(etef);
 
-				OsateDebug.osateDebug("FlowLatencyAnalysisSwitch", "Analyzing flow " + "|" + etef + "|"
-						+ FlowLatencyUtil.getEndToEndFlowString(etef));
+//				OsateDebug.osateDebug("FlowLatencyAnalysisSwitch", "Analyzing flow " + "|" + etef + "|"
+//						+ FlowLatencyUtil.getEndToEndFlowString(etef));
 
 				for (FlowElementInstance fei : etef.getFlowElements()) {
 

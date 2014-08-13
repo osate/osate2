@@ -93,11 +93,12 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		if (flas.getReport() != null) {
 			Report report = flas.getReport().export();
 
+			ExcelExport excelExport = new ExcelExport(report);
+			excelExport.save(root);
+
 			CsvExport csvExport = new CsvExport(report);
 			csvExport.save(root);
 
-			ExcelExport excelExport = new ExcelExport(report);
-			excelExport.save(root);
 		}
 
 		monitor.done();

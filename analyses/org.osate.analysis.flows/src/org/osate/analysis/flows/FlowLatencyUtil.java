@@ -5,7 +5,6 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
@@ -34,15 +33,11 @@ public class FlowLatencyUtil {
 
 	public static LatencyContributor mapFlowElementInstance(FlowElementInstance flowElementInstance) {
 
-		OsateDebug.osateDebug("FlowLatencyUtil", "fei = " + flowElementInstance);
-		OsateDebug.osateDebug("FlowLatencyUtil", "fei= name" + flowElementInstance.getName());
+//		OsateDebug.osateDebug("FlowLatencyUtil", "fei = " + flowElementInstance);
+//		OsateDebug.osateDebug("FlowLatencyUtil", "fei= name" + flowElementInstance.getName());
 
 		if (flowElementInstance instanceof FlowSpecificationInstance) {
-			FlowSpecificationInstance flowSpecification;
-			ComponentInstance componentInstance;
 
-			flowSpecification = (FlowSpecificationInstance) flowElementInstance;
-			componentInstance = (ComponentInstance) flowElementInstance.getComponentInstance();
 			return mapComponentInstance(flowElementInstance);
 		}
 
@@ -141,7 +136,7 @@ public class FlowLatencyUtil {
 		latencyContributor.setExpectedMaximum(expectedMax);
 		latencyContributor.setExpectedMinimum(expectedMin);
 
-		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification component=" + componentInstance.getName());
+//		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification component=" + componentInstance.getName());
 
 		return latencyContributor;
 	}
@@ -154,12 +149,12 @@ public class FlowLatencyUtil {
 		connectionInstance = (ConnectionInstance) flowElementInstance;
 		latencyContributor = new LatencyContributorConnection(connectionInstance);
 
-		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
+//		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
 
 		boundBus = GetProperties.getBoundBus(connectionInstance);
 
 		if (boundBus != null) {
-			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
+//			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
 		}
 
 		return latencyContributor;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.analysis.flows.reporting.model.Line;
+import org.osate.analysis.flows.reporting.model.ReportSeverity;
 
 /**
  * A latency Contributor represents something in the flow
@@ -135,6 +136,7 @@ public abstract class LatencyContributor {
 		lines = new ArrayList<Line>();
 
 		myLine = new Line();
+		myLine.setSeverity(ReportSeverity.UNKNOWN);
 
 		myLine.addContent(this.getContributorName());
 		if (this.expectedMin != 0.0) {
@@ -151,6 +153,15 @@ public abstract class LatencyContributor {
 		}
 		myLine.addContent(this.maxValue + "ms");
 		myLine.addContent(mapMethodToString(worstCaseMethod));
+
+		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {
+			myLine.setSeverity(ReportSeverity.WARNING);
+		}
+
+		if ((this.expectedMin != 0.0) && (this.minValue > this.expectedMin)) {
+			myLine.setSeverity(ReportSeverity.WARNING);
+		}
+
 		lines.add(myLine);
 
 		/**

@@ -61,6 +61,7 @@ public class LatencyReportEntry {
 		double maxValue;
 		double expectedMaxLatency;
 		double expectedMinLatency;
+		String sectionName;
 
 		minValue = 0.0;
 		maxValue = 0.0;
@@ -68,11 +69,13 @@ public class LatencyReportEntry {
 		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
 
-		section = new Section();
+		if (relatedEndToEndFlow != null) {
+			sectionName = relatedEndToEndFlow.getName();
+		} else {
+			sectionName = "unamed flow";
+		}
 
-		line = new Line();
-		line.addContent("Latency report for flow " + this.relatedEndToEndFlow.getName());
-		section.addLine(line);
+		section = new Section(sectionName);
 
 		line = new Line();
 		line.addContent("Contributor");
