@@ -118,10 +118,12 @@ public class ExcelExport extends GenericExport {
 		WorkbookSettings wbSettings = new WorkbookSettings();
 
 		wbSettings.setLocale(new Locale("en", "EN"));
-
+		wbSettings.setCellValidationDisabled(false);
+		wbSettings.setRationalization(false);
 		WritableWorkbook workbook;
 		try {
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(this.getPath());
+
 			AadlUtil.makeSureFoldersExist(this.getPath());
 
 			workbook = Workbook.createWorkbook(file.getLocation().toFile(), wbSettings);
@@ -129,9 +131,9 @@ public class ExcelExport extends GenericExport {
 			sectionNumber = 0;
 			for (Section section : report.getSections()) {
 //				workbook.createSheet("Flow Analysis" + sectionNumber, sectionNumber);
-				workbook.createSheet(section.getName() + "(flow " + sectionNumber + ")", sectionNumber);
+				excelSheet = workbook.createSheet(section.getName() + "(flow " + sectionNumber + ")", sectionNumber);
 
-				excelSheet = workbook.getSheet(sectionNumber);
+//				excelSheet = workbook.getSheet(sectionNumber);
 				populateSheet(excelSheet, section);
 				sectionNumber++;
 			}
@@ -147,6 +149,8 @@ public class ExcelExport extends GenericExport {
 			e.printStackTrace();
 		} catch (CoreException e) {
 			e.printStackTrace();
+		} catch (ArrayIndexOutOfBoundsException bounds) {
+			bounds.printStackTrace();
 		}
 	}
 }

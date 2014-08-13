@@ -48,6 +48,7 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
@@ -92,8 +93,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		if (flas.getReport() != null) {
 			Report report = flas.getReport().export();
 
-//			ExcelExport excelExport = new ExcelExport(report);
-//			excelExport.save(root);
+			ExcelExport excelExport = new ExcelExport(report);
+			excelExport.save(root);
 
 			CsvExport csvExport = new CsvExport(report);
 			csvExport.save(root);
