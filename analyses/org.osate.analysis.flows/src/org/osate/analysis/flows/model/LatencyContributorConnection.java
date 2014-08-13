@@ -14,10 +14,6 @@ import org.osate.aadl2.instance.ConnectionInstance;
  */
 public class LatencyContributorConnection extends LatencyContributor {
 
-	public enum ConnectionType {
-		DELAYED, SAMPLED, IMMEDIATE
-	};
-
 	/**
 	 * The relatedElement represents the AADL element that
 	 * is related to this latency contributor. In that case,

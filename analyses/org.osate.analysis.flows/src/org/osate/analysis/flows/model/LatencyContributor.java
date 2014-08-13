@@ -19,7 +19,7 @@ import org.osate.analysis.flows.reporting.model.ReportSeverity;
 public abstract class LatencyContributor {
 
 	public enum LatencyContributorMethod {
-		DEADLINE, PERIOD, WCET, UNKNOWN
+		DEADLINE, PERIOD, WCET, IMMEDIATE, UNKNOWN, DELAYED, SAMPLED
 	};
 
 	/**
@@ -91,6 +91,12 @@ public abstract class LatencyContributor {
 			return "execution time";
 		case PERIOD:
 			return "period";
+		case DELAYED:
+			return "delayed connection";
+		case SAMPLED:
+			return "delayed connection";
+		case IMMEDIATE:
+			return "immediate local connection";
 		}
 		return "unknown";
 	}
@@ -161,6 +167,8 @@ public abstract class LatencyContributor {
 		if ((this.expectedMin != 0.0) && (this.minValue > this.expectedMin)) {
 			myLine.setSeverity(ReportSeverity.WARNING);
 		}
+
+		myLine.addContent(this.getComments());
 
 		lines.add(myLine);
 
