@@ -1,7 +1,6 @@
 /*
- * 
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2014 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -34,6 +33,13 @@
  */
 package org.osate.xtext.aadl2.scoping;
 
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.scoping.Scopes
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ModalElement
+import org.osate.aadl2.Subcomponent
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 /**
@@ -44,4 +50,37 @@ import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
  *
  */
 public class Aadl2ScopeProvider extends PropertiesScopeProvider {
+
+	// mode references
+	def scope_Mode(ModalElement context, EReference reference) {
+		if (reference == Aadl2Package::eINSTANCE.modalElement_InMode) {
+			val classifier = context.containingClassifier
+
+			val modes = switch (classifier) {
+				ComponentClassifier: classifier.allModes
+				default: #[]
+			}
+
+			Scopes::scopeFor(modes)
+		}
+	}
+
+	def scope_Mode(Subcomponent context, EReference reference) {
+		switch reference {
+			case Aadl2Package::eINSTANCE.modeBinding_DerivedMode: {
+				val modes = context.classifier.allModes
+				Scopes::scopeFor(modes)
+			}
+			case Aadl2Package::eINSTANCE.modeBinding_ParentMode: {
+				val modes = context.containingComponentImpl.allModes
+				Scopes::scopeFor(modes)
+			}
+		}
+	}
+
+	// subcomponent references
+	def scope_Subcomponent(ComponentImplementation context, EReference reference) {
+		val subcomponents = context.allSubcomponents
+		Scopes::scopeFor(subcomponents)
+	}
 }
