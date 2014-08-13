@@ -16,6 +16,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
+import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -49,7 +52,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
-public class PackageGeneralizationPattern extends AgeConnectionPattern {
+public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection {
 	private final StyleService styleUtil;
 	private final AadlModificationService modificationService;
 	private final ConnectionService connectionService;
@@ -84,7 +87,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		connection.getConnectionDecorators().clear();
 		
 		// Create the arrow
-        final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 0.0, true);    
+        final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 1.0, true);    
         createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle());
 	}
 	
@@ -146,6 +149,10 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		final Object srcBo = getShapeBusinessObject(context.getSourceAnchor());
 		final Object dstBo = getShapeBusinessObject(context.getTargetAnchor());
 		
+		return areSrcAndDestCompatible(srcBo, dstBo);
+	}
+	
+	private boolean areSrcAndDestCompatible(final Object srcBo, final Object dstBo) {
 		// Ensure they are valid and are not the same
 		if(srcBo == null || dstBo == null || srcBo == dstBo) {
 			return false;
@@ -261,5 +268,131 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+
+	// Reconnect
+	@Override
+	public boolean canReconnect(final IReconnectionContext context) {
+		final Object bo = bor.getBusinessObjectForPictogramElement(context.getConnection());
+		
+		// Require a new anchor
+		if(context.getNewAnchor() == null) {
+			return false;
+		}
+		
+		// Only allow certain types to be moved
+		if(!(bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension)) {
+			return false;
+		}
+	
+		// Determine if the the reconnection is valid
+		final Connection connection = context.getConnection();
+		final Object oldBo = getShapeBusinessObject(context.getOldAnchor());
+		final Object newBo = getShapeBusinessObject(context.getNewAnchor());
+
+		final Object srcBo;
+		final Object dstBo;
+		final Object otherBo;
+		if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
+			srcBo = newBo;
+			otherBo = dstBo = getShapeBusinessObject(connection.getEnd());			
+		} else {
+			otherBo = srcBo = getShapeBusinessObject(connection.getStart());
+			dstBo = newBo;			
+		}
+		
+		if(oldBo == newBo || otherBo == newBo || !areSrcAndDestCompatible(srcBo, dstBo)) {
+			return false;
+		}
+			
+		if(context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
+			if(bo instanceof TypeExtension) {				
+				final ComponentType ct = (ComponentType)newBo;
+				return ct.getOwnedExtension() == null;
+			} else if(bo instanceof ImplementationExtension) {
+				final ComponentImplementation ci = (ComponentImplementation)newBo;
+				return ci.getOwnedExtension() == null;
+			} else if(bo instanceof GroupExtension) {
+				final FeatureGroupType fgt = (FeatureGroupType)newBo;
+				return fgt.getOwnedExtension() == null;
+			}
+		}
+				
+		return true;
+	}
+
+	@Override
+	public void reconnect(final IReconnectionContext context) {
+		final Generalization generalization = (Generalization)bor.getBusinessObjectForPictogramElement(context.getConnection());
+		
+		modificationService.modify(generalization, new AbstractModifier<Generalization, Object>() {
+			@Override
+			public Object modify(final Resource resource, final Generalization generalization) {
+				final Object newBo = getShapeBusinessObject(context.getNewAnchor());
+				if(generalization instanceof TypeExtension) {
+					if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
+						final ComponentType generalComponentType = (ComponentType)generalization.getGeneral();
+						
+						// Delete the generalization and create a new one. (Setting specific on a generalization is not supported)
+						EcoreUtil.delete(generalization);
+						
+						// Create the new type extension
+						final ComponentType ct = (ComponentType)newBo;
+						final TypeExtension te = ct.createOwnedExtension();
+						te.setExtended(generalComponentType);
+						
+					} else {
+						final TypeExtension te = (TypeExtension)generalization;
+						te.setExtended((ComponentType)newBo);		
+					}
+				} else if(generalization instanceof ImplementationExtension) {
+					if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
+						final ComponentImplementation generalComponentImplementation = (ComponentImplementation)generalization.getGeneral();
+						
+						// Delete the generalization and create a new one. (Setting specific on a generalization is not supported)
+						EcoreUtil.delete(generalization);
+						
+						// Create the new type extension
+						final ComponentImplementation ci = (ComponentImplementation)newBo;
+						final ImplementationExtension ie = ci.createOwnedExtension();
+						ie.setExtended(generalComponentImplementation);
+						
+					} else {
+						final ImplementationExtension ie = (ImplementationExtension)generalization;
+						ie.setExtended((ComponentImplementation)newBo);		
+					}
+					
+				} else if(generalization instanceof GroupExtension) {
+					if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
+						final FeatureGroupType generalFgt = (FeatureGroupType)generalization.getGeneral();
+						
+						// Delete the generalization and create a new one. (Setting specific on a generalization is not supported)
+						EcoreUtil.delete(generalization);
+						
+						// Create the new group extension
+						final FeatureGroupType fgt = (FeatureGroupType)newBo;
+						final GroupExtension ge = fgt.createOwnedExtension();
+						ge.setExtended(generalFgt);
+					} else {
+						final GroupExtension ge = (GroupExtension)generalization;
+						ge.setExtended((FeatureGroupType)newBo);		
+					}
+				}
+				
+				return null;
+			}			
+		});	
+	}
+
+	@Override
+	public void preReconnect(final IReconnectionContext context) {
+	}
+
+	@Override
+	public void postReconnect(final IReconnectionContext context) {
+	}
+
+	@Override
+	public void canceledReconnect(final IReconnectionContext context) {
 	}
 }

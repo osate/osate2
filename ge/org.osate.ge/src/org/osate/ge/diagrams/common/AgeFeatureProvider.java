@@ -20,15 +20,18 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.func.IDelete;
+import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -36,6 +39,7 @@ import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
+import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.ui.PlatformUI;
@@ -361,4 +365,22 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 		return retList.toArray(ret);
 	}
+	
+	@Override
+	public IReconnectionFeature getReconnectionFeature(final IReconnectionContext context) {
+		for(final IConnectionPattern conPattern : getConnectionPatterns()) {
+			if(conPattern instanceof IReconnection) {
+				final IReconnection reconnection = (IReconnection)conPattern;
+				if(reconnection.canReconnect(context)) {
+					final ReconnectionFeatureForPattern f = new ReconnectionFeatureForPattern(this, reconnection);
+					if (checkFeatureAndContext(f, context)) {
+						return f;
+					}
+				}
+			}
+		}
+		
+		// Disable all other reconnection
+		return null;
+	 } 
 }
