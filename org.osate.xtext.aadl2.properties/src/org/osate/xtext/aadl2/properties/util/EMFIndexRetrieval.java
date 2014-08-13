@@ -766,7 +766,7 @@ public class EMFIndexRetrieval {
 		final IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
 		final Iterable<IEObjectDescription> objects = rds.getExportedObjects();
 		for (final IEObjectDescription eod : objects) {
-			if (eod.getQualifiedName().toString().equalsIgnoreCase(name)) {
+			if (eod.getQualifiedName().toString("::").equalsIgnoreCase(name)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, resourceSet);
 				if (!Aadl2Util.isNull(res)) {
