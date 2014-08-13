@@ -16,20 +16,29 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
+import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
+import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
+import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
 import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.func.IUpdate;
@@ -382,5 +391,50 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Disable all other reconnection
 		return null;
-	 } 
+	 }
+	
+	// Specialized handling for manipulating bendpoints.
+	// Currently only allow editing when working with AadlConnections
+	// This will disable manipulating connections associated with flow specifications and other model elements
+	
+	private final IMoveBendpointFeature moveBendpointFeature = new DefaultMoveBendpointFeature(this) {
+		@Override
+		public boolean canMoveBendpoint(IMoveBendpointContext context) {
+			return allowBendpointManipulation(context.getConnection());
+		}
+	};
+	
+	@Override 
+	public IMoveBendpointFeature getMoveBendpointFeature(final IMoveBendpointContext context) {
+		return moveBendpointFeature;
+	}
+	
+	private final IAddBendpointFeature addBendpointFeature = new DefaultAddBendpointFeature(this) {
+		@Override
+		public boolean canAddBendpoint(IAddBendpointContext context) {
+			return allowBendpointManipulation(context.getConnection());
+		}
+	};
+	
+	@Override 
+	public IAddBendpointFeature getAddBendpointFeature(final IAddBendpointContext context) {
+		return addBendpointFeature;
+	}
+	
+	private final IRemoveBendpointFeature removeBendpointFeature = new DefaultRemoveBendpointFeature(this) {
+		@Override
+		public boolean canRemoveBendpoint(IRemoveBendpointContext context) {
+			return allowBendpointManipulation(context.getConnection());
+		}
+	};
+	
+	@Override 
+	public IRemoveBendpointFeature getRemoveBendpointFeature(final IRemoveBendpointContext context) {
+		return removeBendpointFeature;
+	}
+
+	private boolean allowBendpointManipulation(final PictogramElement pe) {
+		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+		return bor.getBusinessObjectForPictogramElement(pe) instanceof org.osate.aadl2.Connection;
+	}
 }

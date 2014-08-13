@@ -15,10 +15,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
-import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
-import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -64,12 +62,6 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		   return make(TypeUpdateDiagramFeature.class);
 	   }
 	   return super.getUpdateFeature(context);
-	}
-	
-	// Disable all moving of bendpoints. Context does not seem to contain reference to connection. Ideally will only disable for source and sink flow specifications
-	@Override
-	public IMoveBendpointFeature getMoveBendpointFeature(final IMoveBendpointContext context) {
-		return null;
 	}
 	
 	@Override
