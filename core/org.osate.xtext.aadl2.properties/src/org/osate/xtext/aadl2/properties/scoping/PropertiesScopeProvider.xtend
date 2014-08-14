@@ -73,12 +73,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		val renameScopeElements = newArrayList()
 		val packageSection = EcoreUtil2::getContainerOfType(context, typeof(PackageSection))
 		if (packageSection != null) {
-			if (Aadl2Package.eINSTANCE.componentType.isSuperTypeOf(reference.EReferenceType)) {
-				packageSection.ownedComponentTypeRenames.forEach[
-					renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedComponentType.name), renamedComponentType, null))
-				]
-			}
-			if (Aadl2Package.eINSTANCE.featureGroupType.isSuperTypeOf(reference.EReferenceType)) {
+			packageSection.ownedComponentTypeRenames.filter[reference.EReferenceType.isSuperTypeOf(renamedComponentType.eClass)].forEach[
+				renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedComponentType.name), renamedComponentType, null))
+			]
+			if (Aadl2Package::eINSTANCE.featureGroupType.isSuperTypeOf(reference.EReferenceType)) {
 				packageSection.ownedFeatureGroupTypeRenames.forEach[
 					renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedFeatureGroupType.name), renamedFeatureGroupType, null))
 				]
