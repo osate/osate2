@@ -34,13 +34,15 @@
  */
 package org.osate.xtext.aadl2.properties.scoping;
 
-import java.util.LinkedHashMap
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.Element
@@ -68,36 +70,25 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Adds scope with renames for all references to Classifiers.
 	def scope_Classifier(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
-		val renameScopeElements = new LinkedHashMap
+		val renameScopeElements = newArrayList()
 		val packageSection = EcoreUtil2::getContainerOfType(context, typeof(PackageSection))
 		if (packageSection != null) {
-			packageSection.ownedComponentTypeRenames.forEach[
-				if (name == null) {
-					renameScopeElements.put(renamedComponentType, QualifiedName::create(renamedComponentType.name))
-				} else {
-					renameScopeElements.put(renamedComponentType, QualifiedName::create(name))
-				}
+			if (Aadl2Package.eINSTANCE.componentType.isSuperTypeOf(reference.EReferenceType)) {
+				packageSection.ownedComponentTypeRenames.forEach[
+					renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedComponentType.name), renamedComponentType, null))
+				]
+			}
+			if (Aadl2Package.eINSTANCE.featureGroupType.isSuperTypeOf(reference.EReferenceType)) {
+				packageSection.ownedFeatureGroupTypeRenames.forEach[
+					renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedFeatureGroupType.name), renamedFeatureGroupType, null))
+				]
+			}
+			packageSection.ownedPackageRenames.forEach[packageRename|
+				packageRename.renamedPackage.publicSection.ownedClassifiers.filter[reference.EReferenceType.isSuperTypeOf(eClass)].forEach[classifier|
+					renameScopeElements.add(new EObjectDescription(QualifiedName::create(if (packageRename.renameAll) #[classifier.name] else #[packageRename.name, classifier.name]), classifier, null))
+				]
 			]
-			packageSection.ownedFeatureGroupTypeRenames.forEach[
-				if (name == null) {
-					renameScopeElements.put(renamedFeatureGroupType, QualifiedName::create(renamedFeatureGroupType.name))
-				} else {
-					renameScopeElements.put(renamedFeatureGroupType, QualifiedName::create(name))
-				}
-			]
-			packageSection.ownedPackageRenames.forEach[
-				if (renameAll) {
-					renamedPackage.publicSection.ownedClassifiers.forEach[
-						renameScopeElements.put(it, QualifiedName::create(name))
-					]
-				} else {
-					val newPackageName = name
-					renamedPackage.publicSection.ownedClassifiers.forEach[
-						renameScopeElements.put(it, QualifiedName::create(newPackageName, name))
-					]
-				}
-			]
-			scope = Scopes::scopeFor(renameScopeElements.keySet, [renameScopeElements.get(it)], scope)
+			scope = new SimpleScope(scope, renameScopeElements)
 		}
 		scope
 	}
@@ -185,6 +176,91 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 		IScope::NULLSCOPE
 	}
+	
+	//Reference is from ContainmentPathElement and QualifiedContainmentPathElement in Properties.xtext
+//	def scope_ContainmentPathElement_namedElement(Element context, EReference reference) {
+//		var scope = IScope::NULLSCOPE
+//		if (context instanceof ContainmentPathElement) {
+//			val path = context.owner as ContainedNamedElement
+//			val list = path.containmentPathElements
+//			val idx = list.indexOf(context)
+//			if (idx > 0) {
+//				//find next element in namespace of previous element
+//				val el = list.get(idx - 1)
+//				val ne = el.namedElement
+//				switch ne {
+//					Subcomponent: {
+//						var ns = ne.classifier
+//						if (!Aadl2Util::isNull(ns)) {
+//							val ArrayList<EList<? extends NamedElement>> elementsInScope = newArrayList(ns.members)
+//							//need to look for subprogram calls inside call sequences
+//							if ((ne instanceof ThreadSubcomponent && ns instanceof ThreadImplementation) || (ne instanceof SubprogramSubcomponent && ns instanceof SubprogramImplementation)) {
+//								elementsInScope.add((ns as BehavioredImplementation).subprogramCalls())
+//							}
+//							scope = Scopes::scopeFor(elementsInScope.flatten)
+//						} else {
+//							//look in prototype actuals
+//							ns = ResolvePrototypeUtil::resolveComponentPrototype(ne.prototype, el)
+//							if (ns != null) {
+//								scope = Scopes::scopeFor(ns.members)
+//							}
+//						}
+//					}
+//					FeatureGroup: {
+//						var ns = ne.allFeatureGroupType
+//						if (ns != null) {
+//							scope = Scopes::scopeFor(ns.members)
+//						} else {
+//							//look in prototype actuals
+//							ns = ResolvePrototypeUtil::resolveFeatureGroupPrototype(ne.featureGroupPrototype, el)
+//							if (ns != null) {
+//								scope = Scopes::scopeFor(ns.members)
+//							}
+//						}
+//					}
+//					Feature: {
+//						val ns = ne.classifier
+//						if (ns != null) {
+//							scope = Scopes::scopeFor(ns.members)
+//						}
+//					}
+//					SubprogramCall: {
+//						//looking inside a subprogram that is being called
+//						val called = ne.calledSubprogram
+//						switch called {
+//							SubprogramImplementation:
+//								scope = Scopes::scopeFor(called.members)
+//							SubprogramSubcomponent:
+//								scope = Scopes::scopeFor(called.allClassifier.members)
+//						}
+//					}
+//				}
+//			} else {
+//				//the first containment path element
+//				//need to make sure we look in the correct name space
+//				val containingSubcomponent = EcoreUtil2::getContainerOfType(context, typeof(Subcomponent))
+//				if (containingSubcomponent != null && containingSubcomponent.allClassifier != null) {
+//					scope = Scopes::scopeFor(containingSubcomponent.allClassifier.members)
+//				} else {
+//					val containingFeature = EcoreUtil2::getContainerOfType(context, typeof(Feature))
+//					if (containingFeature != null && containingFeature.allClassifier != null) {
+//						scope = Scopes::scopeFor(containingFeature.allClassifier.members)
+//					} else {
+//						val containingSubprogramCall = EcoreUtil2::getContainerOfType(context, typeof(SubprogramCall))
+//						switch containingSubprogramCall {
+//							SubprogramImplementation:
+//								scope = Scopes::scopeFor(containingSubprogramCall.members)
+//							SubprogramSubcomponent:
+//								scope = Scopes::scopeFor(containingSubprogramCall.allClassifier.members)
+//						}
+//					}
+//				}
+//			}
+//		} else {
+//			println("Not a ContainmentPathElement: " + context.eClass.name)
+//		}
+//		scope
+//	}
 	
 //	override getScope(EObject context, EReference reference) {
 //		println('''
