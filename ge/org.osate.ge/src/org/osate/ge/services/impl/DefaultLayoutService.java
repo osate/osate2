@@ -121,14 +121,23 @@ public class DefaultLayoutService implements LayoutService {
 		}		
 		
 		// Determine how much to shift the X and Y of the children by based on the position of children shapes that are not tied to features
+		// Start at 0 and track the first valid child rather than a large initial value because even though features are not used to determine how much to shift, they
+		// are shifted.
+		boolean firstRelevantChild = true;
 		int shiftX = 0;
 		int shiftY = 0;
 		for(final Shape childShape : shape.getChildren()) {
 			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
 			if(childBo != null && !(childBo instanceof Feature)) {
-				shiftX = Math.min(shiftX, childGa.getX()-featureWidth);
-				shiftY = Math.min(shiftY, childGa.getY()-30);				
+				if(firstRelevantChild) {
+					shiftX = childGa.getX()-featureWidth;
+					shiftY = childGa.getY()-30;
+					firstRelevantChild = false;
+				} else {
+					shiftX = Math.min(shiftX, childGa.getX()-featureWidth);
+					shiftY = Math.min(shiftY, childGa.getY()-30);				
+				}
 			}
 		}
 		
