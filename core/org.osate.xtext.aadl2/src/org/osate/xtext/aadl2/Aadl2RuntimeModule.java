@@ -37,17 +37,12 @@ package org.osate.xtext.aadl2;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.resource.IFragmentProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
-import org.osate.xtext.aadl2.scoping.Aadl2ScopeProviderDelegate;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
-
-import com.google.inject.Binder;
-import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -126,9 +121,9 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2ScopeProvider.class;
 	}
 
-	@Override
-	public void configureIScopeProviderDelegate(Binder binder) {
-		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
-				.to(Aadl2ScopeProviderDelegate.class);
-	}
+//	@Override
+//	public void configureIScopeProviderDelegate(Binder binder) {
+//		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
+//				.to(Aadl2ScopeProviderDelegate.class);
+//	}
 }
