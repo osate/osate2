@@ -40,11 +40,11 @@ import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
 import org.osate.aadl2.modelsupport.util.AadlUtil
 
 public class Aadl2ScopeProviderDelegate extends ImportedNamespaceAwareLocalScopeProvider {
-	override protected getImplicitImports(boolean ignoreCase) {
-		val importNormalizers = newArrayList
-		AadlUtil.getPredeclaredPropertySetNames.forEach[
-			importNormalizers.add(new ImportNormalizer(QualifiedName::create(it), true, ignoreCase))
-		]
-		importNormalizers
-	}
+//	override protected getImplicitImports(boolean ignoreCase) {
+//		val importNormalizers = newArrayList
+//		AadlUtil.getPredeclaredPropertySetNames.forEach[
+//			importNormalizers.add(new ImportNormalizer(QualifiedName::create(it), true, ignoreCase))
+//		]
+//		importNormalizers
+//	}
 }
