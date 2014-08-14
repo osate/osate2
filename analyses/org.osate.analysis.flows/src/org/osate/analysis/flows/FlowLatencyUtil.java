@@ -1,20 +1,22 @@
 package org.osate.analysis.flows;
 
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
-import org.osate.aadl2.instance.FlowSpecificationInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.ConnectionType;
-import org.osate.analysis.flows.model.LatencyContributor;
-import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
-import org.osate.analysis.flows.model.LatencyContributorComponent;
-import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 public class FlowLatencyUtil {
 
@@ -34,258 +36,6 @@ public class FlowLatencyUtil {
 		}
 
 		return ret.toString();
-	}
-
-	public static LatencyContributor mapFlowElementInstance(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-
-//		OsateDebug.osateDebug("FlowLatencyUtil", "fei = " + flowElementInstance);
-//		OsateDebug.osateDebug("FlowLatencyUtil", "fei= name" + flowElementInstance.getName());
-
-		if (flowElementInstance instanceof FlowSpecificationInstance) {
-
-			return mapComponentInstance(etef, flowElementInstance);
-		}
-
-		if (flowElementInstance instanceof ConnectionInstance) {
-			return mapConnectionInstance(etef, flowElementInstance);
-		}
-
-		return null;
-	}
-
-	public static LatencyContributorComponent mapComponentInstance(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		LatencyContributorComponent latencyContributor;
-		FlowSpecificationInstance flowSpecification;
-		ComponentInstance componentInstance;
-		LatencyContributorMethod method;
-		FlowElementInstance nextFlowElement;
-
-		double period;
-		double deadline;
-		double executionTimeLower;
-		double executionTimeHigher;
-		double worstCaseValue;
-		double bestCaseValue;
-		double expectedMin;
-		double expectedMax;
-
-		period = 0.0;
-		deadline = 0.0;
-		executionTimeHigher = 0.0;
-		executionTimeLower = 0.0;
-		worstCaseValue = 0.0;
-		bestCaseValue = 0.0;
-		expectedMax = 0.0;
-		expectedMin = 0.0;
-
-		flowSpecification = (FlowSpecificationInstance) flowElementInstance;
-		componentInstance = (ComponentInstance) flowElementInstance.getComponentInstance();
-
-		nextFlowElement = getNextFlowElement(etef, flowElementInstance);
-
-		latencyContributor = new LatencyContributorComponent(componentInstance);
-
-		expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
-		expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
-
-		/**
-		 * Get all the relevant properties.
-		 */
-		period = GetProperties.getPeriodinMS(componentInstance);
-		deadline = GetProperties.getDeadlineinMilliSec(componentInstance);
-		executionTimeLower = GetProperties.getMinimumComputeExecutionTimeinMs(componentInstance);
-		executionTimeHigher = GetProperties.getMaximumComputeExecutionTimeinMs(componentInstance);
-
-		/**
-		 * Selection of the worst case value, generic case.
-		 */
-		method = LatencyContributorMethod.UNKNOWN;
-
-		if (executionTimeHigher != 0.0) {
-			worstCaseValue = executionTimeHigher;
-			method = LatencyContributorMethod.WCET;
-		}
-
-		if ((worstCaseValue == 0.0) && (deadline != 0.0)) {
-			worstCaseValue = deadline;
-			method = LatencyContributorMethod.DEADLINE;
-		}
-
-		if ((worstCaseValue == 0.0) && (period != 0.0)) {
-			worstCaseValue = period;
-			method = LatencyContributorMethod.PERIOD;
-		}
-
-		latencyContributor.setWorstCaseMethod(method);
-
-		/**
-		 * Selection of the best case value, generic cases.
-		 */
-		method = LatencyContributorMethod.UNKNOWN;
-		if (executionTimeLower != 0.0) {
-			bestCaseValue = executionTimeLower;
-			method = LatencyContributorMethod.WCET;
-		}
-
-		if ((bestCaseValue == 0.0) && (deadline != 0.0)) {
-			bestCaseValue = deadline;
-			method = LatencyContributorMethod.DEADLINE;
-		}
-
-		if ((bestCaseValue == 0.0) && (period != 0.0)) {
-			bestCaseValue = period;
-			method = LatencyContributorMethod.PERIOD;
-		}
-
-		latencyContributor.setBestCaseMethod(method);
-
-		/**
-		 * If the next connection is immediate, then, the data is sent
-		 * as soon as possible. In other words, if both tasks are synchronized,
-		 * the data is send just after it was produced. We use the worst case
-		 * execution time to deduce the time required to produce the data.
-		 * Otherwise, we assume that the time to produce the data is negligible.
-		 */
-		if (isNextConnectionImmediate(etef, flowElementInstance)) {
-			if (executionTimeLower != 0.0) {
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.WCET);
-				bestCaseValue = executionTimeLower;
-			} else {
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.IMMEDIATE);
-				bestCaseValue = 0.0;
-			}
-
-			if (executionTimeLower != 0.0) {
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.WCET);
-				worstCaseValue = executionTimeLower;
-			} else {
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.IMMEDIATE);
-				worstCaseValue = 0.0;
-			}
-
-			latencyContributor
-					.setComments("The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible");
-		}
-
-		/**
-		 * If the next connection is delayed, then, the data is available
-		 * at the next task dispatch. So, the time the data will be available
-		 * is equal to the period of the next task.
-		 */
-		if (isNextConnectionDelayed(etef, flowElementInstance)) {
-			FlowElementInstance nextTask;
-			double nextTaskPeriod;
-			nextTask = getNextTaskOrDevice(etef, flowElementInstance);
-
-			latencyContributor.setWorstCaseMethod(LatencyContributorMethod.DELAYED);
-			latencyContributor.setBestCaseMethod(LatencyContributorMethod.DELAYED);
-
-			if (nextTask != null) {
-
-				nextTaskPeriod = GetProperties.getPeriodinMS(nextTask.getComponentInstance());
-				bestCaseValue = 0.0;
-				worstCaseValue = 0.0;
-				latencyContributor
-						.setComments("Delayed connection, the time will then be taken using the period of the next task and added to the connection");
-
-			} else {
-				bestCaseValue = 0.0;
-				worstCaseValue = 0.0;
-				OsateDebug.osateDebug("FlowLatencyUtils", "cannot find the next task");
-				latencyContributor.setComments("Delayed connection but cannot find the next task");
-
-			}
-
-		}
-
-		/**
-		 * If the next connection is sampled, then, the data is available
-		 * at the next task dispatch. So, the time the data will be available
-		 * is equal to the period of the next task.
-		 */
-		if (isNextConnectionSampled(etef, flowElementInstance)) {
-			FlowElementInstance nextTask;
-			double nextTaskPeriod;
-			nextTask = getNextTaskOrDevice(etef, flowElementInstance);
-
-			latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-			latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-			if (nextTask != null) {
-
-				nextTaskPeriod = GetProperties.getPeriodinMS(nextTask.getComponentInstance());
-				bestCaseValue = 0.0;
-				worstCaseValue = 0.0;
-				latencyContributor
-						.setComments("Delayed connection, the time will then be taken using the period of the next task and added to the connection");
-
-			} else {
-				bestCaseValue = 0.0;
-				worstCaseValue = 0.0;
-				OsateDebug.osateDebug("FlowLatencyUtils", "cannot find the next task");
-				latencyContributor.setComments("Delayed connection but cannot find the next task");
-
-			}
-
-		}
-
-		latencyContributor.setMaximum(worstCaseValue);
-		latencyContributor.setMinimum(bestCaseValue);
-		latencyContributor.setExpectedMaximum(expectedMax);
-		latencyContributor.setExpectedMinimum(expectedMin);
-
-//		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification component=" + componentInstance.getName());
-
-		return latencyContributor;
-	}
-
-	public static LatencyContributor mapConnectionInstance(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		LatencyContributor latencyContributor;
-		ConnectionInstance connectionInstance;
-		ComponentInstance boundBus;
-
-		connectionInstance = (ConnectionInstance) flowElementInstance;
-		latencyContributor = new LatencyContributorConnection(connectionInstance);
-
-//		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
-
-		boundBus = GetProperties.getBoundBus(connectionInstance);
-
-		if (boundBus != null) {
-//			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
-		}
-
-		if (getConnectionType(connectionInstance) == ConnectionType.DELAYED) {
-			FlowElementInstance fei = getNextTaskOrDevice(etef, flowElementInstance);
-
-			if (fei != null) {
-				double period;
-				period = GetProperties.getPeriodinMS(fei.getComponentInstance());
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
-				latencyContributor.setMaximum(period);
-				latencyContributor.setMinimum(period);
-				latencyContributor.setComments("The data will be available at the next task/device dispatch");
-			}
-		}
-
-		if (getConnectionType(connectionInstance) == ConnectionType.SAMPLED) {
-			FlowElementInstance fei = getNextTaskOrDevice(etef, flowElementInstance);
-
-			if (fei != null) {
-				double period;
-				period = GetProperties.getPeriodinMS(fei.getComponentInstance());
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
-				latencyContributor.setMaximum(period);
-				latencyContributor.setMinimum(period);
-				latencyContributor.setComments("The data will be available at the next task/device dispatch");
-			}
-		}
-
-		return latencyContributor;
 	}
 
 	public static boolean isNextConnectionImmediate(final EndToEndFlowInstance etef,
@@ -319,6 +69,18 @@ public class FlowLatencyUtil {
 
 		if ((nextElement != null) && (nextElement instanceof ConnectionInstance)) {
 			return (getConnectionType((ConnectionInstance) nextElement) == ConnectionType.SAMPLED);
+		}
+
+		return false;
+	}
+
+	public static boolean isNextConnectionLocal(final EndToEndFlowInstance etef,
+			final FlowElementInstance flowElementInstance) {
+		FlowElementInstance nextElement;
+		nextElement = getNextFlowElement(etef, flowElementInstance);
+
+		if ((nextElement != null) && (nextElement instanceof ConnectionInstance)) {
+			return (isLocal((ConnectionInstance) nextElement));
 		}
 
 		return false;
@@ -392,6 +154,36 @@ public class FlowLatencyUtil {
 	}
 
 	/**
+	 * find the next connection within an end to end flow
+	 * @param etef - the end to end flow where to search
+	 * @param flowElementInstance - the element from where we start the search
+	 * @return a connectioninstance object that is the next connection in the flow. null otherwise.
+	 */
+	public static FlowElementInstance getNextConnection(final EndToEndFlowInstance etef,
+			final FlowElementInstance flowElementInstance) {
+		boolean found;
+		int n;
+
+		found = false;
+
+		for (n = 0; n < etef.getFlowElements().size(); n++) {
+			if (found) {
+				FlowElementInstance fei = etef.getFlowElements().get(n);
+				if (fei instanceof ConnectionInstance) {
+					return fei;
+				}
+			}
+
+			if (etef.getFlowElements().get(n) == flowElementInstance) {
+				found = true;
+
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Indicate if a connection is between two tasks located on the same processor.
 	 * @param connection - the connection
 	 * @return true if both connection ends are on the same processor
@@ -402,19 +194,44 @@ public class FlowLatencyUtil {
 		ComponentInstance componentSource;
 		ComponentInstance componentDestination;
 
+		ComponentInstance associatedProcessSource;
+		ComponentInstance associatedProcessDestination;
+
 		ComponentInstance processorFromSource;
 		ComponentInstance processorFromDestination;
 
 		connSource = connection.getSource();
 		connDest = connection.getDestination();
 
+		if (connSource instanceof FeatureInstance) {
+			connSource = connSource.getContainingComponentInstance();
+		}
+
+		if (connDest instanceof FeatureInstance) {
+			connDest = connDest.getContainingComponentInstance();
+		}
+
 		componentSource = connSource.getComponentInstance();
 		componentDestination = connDest.getComponentInstance();
 
 		if ((componentSource.getCategory() == ComponentCategory.THREAD)
 				&& (componentDestination.getCategory() == ComponentCategory.THREAD)) {
-			processorFromSource = GetProperties.getBoundProcessor(getEnclosingProcess(componentSource));
-			processorFromDestination = GetProperties.getBoundProcessor(getEnclosingProcess(componentDestination));
+			associatedProcessSource = getEnclosingProcess(componentSource);
+			associatedProcessDestination = getEnclosingProcess(componentDestination);
+			processorFromSource = GetProperties.getBoundProcessor(componentSource);
+			processorFromDestination = GetProperties.getBoundProcessor(componentDestination);
+
+			if (processorFromSource == null) {
+				processorFromSource = GetProperties.getBoundProcessor(associatedProcessSource);
+			}
+
+			if (processorFromDestination == null) {
+				processorFromDestination = GetProperties.getBoundProcessor(associatedProcessDestination);
+			}
+
+			if ((processorFromSource == null) || (processorFromDestination == null)) {
+				return false;
+			}
 
 			/**
 			 * If the processor is bound to a virtual processor, we have a partitioned
@@ -449,4 +266,124 @@ public class FlowLatencyUtil {
 
 		return result;
 	}
+
+	public static Classifier getConnectionData(ConnectionInstance connectionInstance) {
+		Classifier data;
+		ConnectionInstanceEnd cei;
+		FeatureInstance fi;
+
+		data = null;
+
+		cei = connectionInstance.getSource();
+
+		if (cei instanceof FeatureInstance) {
+			fi = (FeatureInstance) cei;
+			if (fi.getFeature() instanceof DataPort) {
+				DataPort dp = (DataPort) fi.getFeature();
+				data = dp.getDataFeatureClassifier().getContainingClassifier();
+			}
+
+			if (fi.getFeature() instanceof EventDataPort) {
+				EventDataPort edp = (EventDataPort) fi.getFeature();
+				data = edp.getDataFeatureClassifier().getContainingClassifier();
+			}
+		}
+
+		return data;
+	}
+
+	private static double getMaximumTransmissionTimePerByte(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	private static double getMaximumTransmissionTimeFixed(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	private static double getMinimumTransmissionTimePerByte(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	private static double getMinimumTransmissionTimeFixed(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMaximumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMaximumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
+	public static double getMinimumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMinimumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
 }

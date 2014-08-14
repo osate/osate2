@@ -19,7 +19,7 @@ import org.osate.analysis.flows.reporting.model.ReportSeverity;
 public abstract class LatencyContributor {
 
 	public enum LatencyContributorMethod {
-		DEADLINE, PERIOD, WCET, IMMEDIATE, UNKNOWN, DELAYED, SAMPLED
+		DEADLINE, PERIOD, WCET, IMMEDIATE, UNKNOWN, DELAYED, SAMPLED, SPECIFIED, TRANSMISSION_TIME
 	};
 
 	/**
@@ -65,10 +65,15 @@ public abstract class LatencyContributor {
 		this.expectedMax = 0.0;
 		this.expectedMin = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
+		this.comments = "";
 	}
 
 	public String getComments() {
 		return this.comments;
+	}
+
+	public void addComment(String c) {
+		this.comments = this.comments + " - " + c;
 	}
 
 	public void setComments(String c) {
@@ -94,9 +99,13 @@ public abstract class LatencyContributor {
 		case DELAYED:
 			return "delayed connection";
 		case SAMPLED:
-			return "delayed connection";
+			return "sampled connection";
 		case IMMEDIATE:
 			return "immediate local connection";
+		case SPECIFIED:
+			return "specified";
+		case TRANSMISSION_TIME:
+			return "transmission time";
 		}
 		return "unknown";
 	}
@@ -126,14 +135,26 @@ public abstract class LatencyContributor {
 	}
 
 	public double getMinimum() {
-		return this.minValue;
+		double res = this.minValue;
+		for (LatencyContributor lc : subContributors) {
+			res = lc.getMinimum();
+		}
+
+		return res;
 	}
 
 	public double getMaximum() {
-		return this.maxValue;
+		double res = this.maxValue;
+		for (LatencyContributor lc : subContributors) {
+			res = lc.getMaximum();
+		}
+
+		return res;
 	}
 
 	protected abstract String getContributorName();
+
+	protected abstract String getContributorType();
 
 	public List<Line> export() {
 		List<Line> lines;
@@ -144,20 +165,20 @@ public abstract class LatencyContributor {
 		myLine = new Line();
 		myLine.setSeverity(ReportSeverity.UNKNOWN);
 
-		myLine.addContent(this.getContributorName());
+		myLine.addContent(this.getContributorType() + " " + this.getContributorName());
 		if (this.expectedMin != 0.0) {
 			myLine.addContent(this.expectedMin + "ms");
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		myLine.addContent(this.minValue + "ms");
+		myLine.addContent(this.getMinimum() + "ms");
 		myLine.addContent(mapMethodToString(bestCaseMethod));
 		if (this.expectedMax != 0.0) {
 			myLine.addContent(this.expectedMax + "ms");
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		myLine.addContent(this.maxValue + "ms");
+		myLine.addContent(this.getMaximum() + "ms");
 		myLine.addContent(mapMethodToString(worstCaseMethod));
 
 		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {

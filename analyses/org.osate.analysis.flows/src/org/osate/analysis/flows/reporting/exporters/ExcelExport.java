@@ -26,31 +26,40 @@ import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Section;
 
 public class ExcelExport extends GenericExport {
-	private static WritableCellFormat normal;
-	private static WritableCellFormat normalBold;
-	private static WritableCellFormat warning;
-	private static WritableCellFormat warningBold;
-	private static WritableCellFormat error;
-	private static WritableCellFormat errorBold;
-	private static WritableCellFormat success;
-	private static WritableCellFormat successBold;
+	private WritableCellFormat normal;
+	private WritableCellFormat normalBold;
+	private WritableCellFormat warning;
+	private WritableCellFormat warningBold;
+	private WritableCellFormat error;
+	private WritableCellFormat errorBold;
+	private WritableCellFormat success;
+	private WritableCellFormat successBold;
 
-	private static WritableFont defaultFont = new WritableFont(WritableFont.ARIAL, 10);
-	private static WritableFont defaultFontBold = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD, false,
-			UnderlineStyle.NO_UNDERLINE);
-	private static WritableFont successFont = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD, false,
-			UnderlineStyle.NO_UNDERLINE, Colour.WHITE);
-	private static WritableFont successFontBold = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD, false,
-			UnderlineStyle.NO_UNDERLINE, Colour.WHITE);
-	private static WritableFont warningFont = successFont;
-	private static WritableFont warningFontBold = successFontBold;
-	private static WritableFont errorFont = successFont;
-	private static WritableFont errorFontBold = successFontBold;
+	private WritableFont defaultFont;
+	private WritableFont defaultFontBold;
+	private WritableFont successFont;
+	private WritableFont successFontBold;
+	private WritableFont warningFont;
+	private WritableFont warningFontBold;
+	private WritableFont errorFont;
+	private WritableFont errorFontBold;
 
 	public ExcelExport(Report r) {
 		super(r);
 
 		this.fileExtension = "xls";
+
+		defaultFont = new WritableFont(WritableFont.ARIAL, 10);
+		defaultFontBold = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD, false,
+				UnderlineStyle.NO_UNDERLINE);
+		successFont = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD, false,
+				UnderlineStyle.NO_UNDERLINE, Colour.WHITE);
+		successFontBold = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD, false,
+				UnderlineStyle.NO_UNDERLINE, Colour.WHITE);
+		warningFont = successFont;
+		warningFontBold = successFontBold;
+		errorFont = successFont;
+		errorFontBold = successFontBold;
 
 		normal = new WritableCellFormat(defaultFont);
 		normalBold = new WritableCellFormat(defaultFontBold);
@@ -101,7 +110,12 @@ public class ExcelExport extends GenericExport {
 				format = normal;
 				break;
 			}
+
 			for (int col = 0; col < line.getContent().size(); col++) {
+				if (nbLines == 0) {
+					format = normalBold;
+				}
+
 				addLabel(sheet, col, nbLines, line.getContent().get(col), format);
 			}
 			nbLines = nbLines + 1;
@@ -114,18 +128,23 @@ public class ExcelExport extends GenericExport {
 		WritableSheet excelSheet;
 		IFile file;
 		int sectionNumber;
+		WritableWorkbook workbook;
+		WorkbookSettings wbSettings;
 
-		WorkbookSettings wbSettings = new WorkbookSettings();
+		wbSettings = new WorkbookSettings();
 
 		wbSettings.setLocale(new Locale("en", "EN"));
 		wbSettings.setCellValidationDisabled(false);
 		wbSettings.setRationalization(false);
-		WritableWorkbook workbook;
+
 		try {
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(this.getPath());
-
+			if (file.exists()) {
+				file.delete(true, null);
+			}
+			file = ResourcesPlugin.getWorkspace().getRoot().getFile(this.getPath());
 			AadlUtil.makeSureFoldersExist(this.getPath());
-
+//			file.touch(null);
 			workbook = Workbook.createWorkbook(file.getLocation().toFile(), wbSettings);
 
 			sectionNumber = 0;

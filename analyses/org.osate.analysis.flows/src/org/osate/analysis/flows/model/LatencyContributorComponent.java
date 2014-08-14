@@ -2,6 +2,7 @@ package org.osate.analysis.flows.model;
 
 import java.util.List;
 
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 
 /**
@@ -39,7 +40,18 @@ public class LatencyContributorComponent extends LatencyContributor {
 	}
 
 	protected String getContributorName() {
-		return "component " + relatedComponentInstance.getName();
+		return relatedComponentInstance.getName();
+	}
+
+	protected String getContributorType() {
+		if (relatedComponentInstance.getCategory() == ComponentCategory.THREAD) {
+			return "Thread";
+		}
+		if (relatedComponentInstance.getCategory() == ComponentCategory.DEVICE) {
+			return "Device";
+		}
+
+		return "Component";
 	}
 
 }

@@ -99,7 +99,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 				for (FlowElementInstance fei : etef.getFlowElements()) {
 
-					entry.addContributor(FlowLatencyUtil.mapFlowElementInstance(etef, fei));
+					entry.addContributor(FlowLatencyLogic.mapFlowElementInstance(etef, fei));
 				}
 				report.addEntry(entry);
 				return DONE;

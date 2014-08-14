@@ -1,6 +1,7 @@
 package org.osate.analysis.flows.model;
 
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.analysis.flows.FlowLatencyUtil;
 
 /**
  * A latency Contributor represents something in the flow
@@ -27,7 +28,23 @@ public class LatencyContributorConnection extends LatencyContributor {
 	}
 
 	protected String getContributorName() {
-		return "connection " + relatedConnection.getName();
+		return relatedConnection.getName();
+	}
+
+	protected String getContributorType() {
+		if (FlowLatencyUtil.getConnectionType(this.relatedConnection) == ConnectionType.DELAYED) {
+			return "Delayed Connection";
+		}
+
+		if (FlowLatencyUtil.getConnectionType(this.relatedConnection) == ConnectionType.IMMEDIATE) {
+			return "Immediate Connection";
+		}
+
+		if (FlowLatencyUtil.getConnectionType(this.relatedConnection) == ConnectionType.SAMPLED) {
+			return "Sampled Connection";
+		}
+
+		return "Connection";
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.analysis.flows.reporting.model.Line;
+import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.Section;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -62,6 +63,9 @@ public class LatencyReportEntry {
 		double expectedMaxLatency;
 		double expectedMinLatency;
 		String sectionName;
+		String reportComment;
+
+		reportComment = "";
 
 		minValue = 0.0;
 		maxValue = 0.0;
@@ -99,8 +103,20 @@ public class LatencyReportEntry {
 		line = new Line();
 		line.addContent("Total");
 
+		line.setSeverity(ReportSeverity.WARNING);
+
+		if ((expectedMinLatency > minValue) && (expectedMaxLatency > maxValue)) {
+			line.setSeverity(ReportSeverity.SUCCESS);
+		}
+
+		if ((expectedMinLatency < minValue) && (expectedMaxLatency < maxValue)) {
+			line.setSeverity(ReportSeverity.ERROR);
+			reportComment += " latency requirements are not met";
+		}
+
 		if (expectedMinLatency == 0.0) {
 			line.addContent("unspecified");
+			reportComment += " minimum latency requirements not specified";
 		} else {
 			line.addContent(expectedMinLatency + "ms");
 		}
@@ -109,9 +125,11 @@ public class LatencyReportEntry {
 		line.addContent("");
 		if (expectedMaxLatency == 0.0) {
 			line.addContent("unspecified");
+			reportComment += " maximum latency requirements not specified";
 		} else {
 			line.addContent(expectedMaxLatency + "ms");
 		}
+
 		line.addContent(maxValue + "ms");
 		line.addContent("");
 		section.addLine(line);
