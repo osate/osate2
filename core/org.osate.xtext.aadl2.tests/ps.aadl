@@ -1,0 +1,4 @@
+property set ps is
+  len_units: type units (cm, m => cm * 100);
+  prop: aadlinteger units ps::len_units applies to (system);
+end ps;

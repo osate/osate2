@@ -1,0 +1,10 @@
+package p
+public
+  with ps;
+  
+  system s
+    properties
+      ps::prop => 10m;
+  end s;
+  
+end p;
