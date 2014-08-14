@@ -41,6 +41,7 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.Subcomponent
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
+import org.osate.aadl2.Element
 
 /**
  * This class contains custom scoping description.
@@ -50,7 +51,31 @@ import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
  *
  */
 public class Aadl2ScopeProvider extends PropertiesScopeProvider {
-
+	//Reference is from TypeExtension in Aadl2.xtext
+	def scope_TypeExtension_extended(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from ImplementationExtension and ComponentImplementationReference in Aadl2.xtext
+	def scope_ComponentImplementation(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from GroupExtension in Aadl2.xtext
+	def scope_GroupExtension_extended(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from FeatureGroupPrototype in Aadl2.xtext
+	def scope_FeatureGroupPrototype_constrainingFeatureGroupType(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from FeatureGroupType in Aadl2.xtext
+	def scope_FeatureGroupType_inverse(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
 		if (reference == Aadl2Package::eINSTANCE.modalElement_InMode) {
