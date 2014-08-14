@@ -44,13 +44,13 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlModificationService;
+import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
-import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection {
 	private final StyleService styleUtil;
@@ -58,12 +58,13 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	private final ConnectionService connectionService;
 	private final ConnectionCreationService connectionCreationService;
 	private final UserInputService userInputService;
-	private final BusinessObjectResolutionService bor;	
-	
+	private final BusinessObjectResolutionService bor;
+
 	@Inject
-	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, 
-			final AadlModificationService modificationService, final ConnectionService connectionService, 
-			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, final BusinessObjectResolutionService bor) {
+	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil,
+			final AadlModificationService modificationService, final ConnectionService connectionService,
+			final ConnectionCreationService connectionCreationService, final UserInputService userInputService,
+			final BusinessObjectResolutionService bor) {
 		super(visibilityHelper);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
@@ -76,21 +77,20 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		final Object unwrappedObj = AadlElementWrapper.unwrap(mainBusinessObject);
-		return (unwrappedObj instanceof Realization || 
-    				unwrappedObj instanceof TypeExtension || 
-    				unwrappedObj instanceof ImplementationExtension ||
-    				unwrappedObj instanceof GroupExtension);
+		return (unwrappedObj instanceof Realization || unwrappedObj instanceof TypeExtension
+				|| unwrappedObj instanceof ImplementationExtension || unwrappedObj instanceof GroupExtension);
 	}
-	
+
 	@Override
 	protected void createDecorators(final Connection connection) {
 		connection.getConnectionDecorators().clear();
-		
+
 		// Create the arrow
-        final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 1.0, true);    
-        createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle());
+		final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(
+				connection, false, 1.0, true);
+		createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle());
 	}
-	
+
 	@Override
 	protected void createGraphicsAlgorithm(final Connection connection) {
 		final Generalization generalization = getGeneralization(connection);
@@ -98,147 +98,149 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		setGraphicsAlgorithmStyle(polyline, generalization);
 	}
-	
+
 	private void setGraphicsAlgorithmStyle(final GraphicsAlgorithm ga, final Generalization generalization) {
 		final boolean isImplements = generalization instanceof Realization;
 		final Style style = isImplements ? styleUtil.getImplementsStyle() : styleUtil.getExtendsStyle();
 		ga.setStyle(style);
 	}
-	
+
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
-	    final IGaService gaService = Graphiti.getGaService();
-	    final GraphicsAlgorithm ga = gaService.createPlainPolygon(gaContainer, new int[] {
-	    		-15, 10, 
-	    		0, 0, 
-	    		-15, -10});
-	    ga.setStyle(style);
-	    return ga;
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createPlainPolygon(gaContainer, new int[] { -15, 10, 0, 0, -15, -10 });
+		ga.setStyle(style);
+		return ga;
 	}
 
 	protected Generalization getGeneralization(final Connection connection) {
-		return (Generalization)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));		
+		return (Generalization) AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 	}
-	
+
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
 		final Generalization generalization = getGeneralization(connection);
 		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
-		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, generalization);		
+		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, generalization);
 	}
-	
-	protected void createGraphicsAlgorithmOnUpdate(final Connection connection)	{ 
-		final Generalization generalization = (Generalization)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-		// CLEAN-UP: As of 8/9/13 updating the graphics algorithm is causing the generalizations to disappear on the 2nd update(1st update after the initial load). Unknown cause.
-		// First noticed after updating to Kepler. So for now, we just set the style since strictly speaking, recreating the graphics algorithm isn't necessary.
-		//createGraphicsAlgorithm(connection, generalization);
+
+	protected void createGraphicsAlgorithmOnUpdate(final Connection connection) {
+		final Generalization generalization = (Generalization) AadlElementWrapper
+				.unwrap(getBusinessObjectForPictogramElement(connection));
+		// CLEAN-UP: As of 8/9/13 updating the graphics algorithm is causing the generalizations to disappear on the 2nd
+// update(1st update after the initial load). Unknown cause.
+		// First noticed after updating to Kepler. So for now, we just set the style since strictly speaking, recreating
+// the graphics algorithm isn't necessary.
+		// createGraphicsAlgorithm(connection, generalization);
 		setGraphicsAlgorithmStyle(connection.getGraphicsAlgorithm(), generalization);
 	}
-	
+
 	@Override
 	public String getCreateName() {
 		return "Extension";
 	}
-	
+
 	@Override
-	public boolean canCreate(final ICreateConnectionContext context) {		
-		if(context.getSourceAnchor() == null || context.getTargetAnchor() == null) {
+	public boolean canCreate(final ICreateConnectionContext context) {
+		if (context.getSourceAnchor() == null || context.getTargetAnchor() == null) {
 			return false;
 		}
-		
+
 		// Get the business objects for the source and destination shapes
 		final Object srcBo = getShapeBusinessObject(context.getSourceAnchor());
 		final Object dstBo = getShapeBusinessObject(context.getTargetAnchor());
-		
+
 		return areSrcAndDestCompatible(srcBo, dstBo);
 	}
-	
+
 	private boolean areSrcAndDestCompatible(final Object srcBo, final Object dstBo) {
 		// Ensure they are valid and are not the same
-		if(srcBo == null || dstBo == null || srcBo == dstBo) {
+		if (srcBo == null || dstBo == null || srcBo == dstBo) {
 			return false;
 		}
-		
-		// Rules: 
+
+		// Rules:
 		// Abstract types can be extended by any type.
 		// Types can be extended by other types in their category
-		// Implementations can extend other implementations with same category and abstract implementation in some cases. 
+		// Implementations can extend other implementations with same category and abstract implementation in some
+// cases.
 		// Feature Group Types can extend other feature group types
-		if(srcBo instanceof ComponentType) {
+		if (srcBo instanceof ComponentType) {
 			return dstBo instanceof AbstractType || dstBo.getClass() == srcBo.getClass();
-		} else if(srcBo instanceof ComponentImplementation) {
+		} else if (srcBo instanceof ComponentImplementation) {
 			return dstBo instanceof AbstractImplementation || dstBo.getClass() == srcBo.getClass();
-		} else if(srcBo instanceof FeatureGroupType) {
+		} else if (srcBo instanceof FeatureGroupType) {
 			return dstBo instanceof FeatureGroupType;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean canStartConnection(final ICreateConnectionContext context) {
 		final Anchor anchor = context.getSourceAnchor();
-		if(anchor == null) {
+		if (anchor == null) {
 			return false;
 		}
 
 		// Determine whether it is a valid starting object
 		final Object bo = getShapeBusinessObject(anchor);
-		if(bo instanceof ComponentType) {
-			final ComponentType ct = (ComponentType)bo;
+		if (bo instanceof ComponentType) {
+			final ComponentType ct = (ComponentType) bo;
 			return ct.getOwnedExtension() == null;
-		} else if(bo instanceof ComponentImplementation) {
-			final ComponentImplementation ci = (ComponentImplementation)bo;
+		} else if (bo instanceof ComponentImplementation) {
+			final ComponentImplementation ci = (ComponentImplementation) bo;
 			return ci.getOwnedExtension() == null;
-		} else if(bo instanceof FeatureGroupType) {
-			final FeatureGroupType fgt = (FeatureGroupType)bo;
+		} else if (bo instanceof FeatureGroupType) {
+			final FeatureGroupType fgt = (FeatureGroupType) bo;
 			return fgt.getOwnedExtension() == null;
 		}
-		
+
 		return false;
-    }
-	
+	}
+
 	private Object getShapeBusinessObject(final Anchor anchor) {
 		return bor.getBusinessObjectForPictogramElement(anchor.getParent());
 	}
-	
+
 	@Override
 	public Connection create(final ICreateConnectionContext context) {
 		// Get the business objects for the source and destination shapes
-		final NamedElement srcEl = (NamedElement)getShapeBusinessObject(context.getSourceAnchor());
-		final URI dstElUri = EcoreUtil.getURI((EObject)getShapeBusinessObject(context.getTargetAnchor()));
-				
+		final NamedElement srcEl = (NamedElement) getShapeBusinessObject(context.getSourceAnchor());
+		final URI dstElUri = EcoreUtil.getURI((EObject) getShapeBusinessObject(context.getTargetAnchor()));
+
 		// Make the modification
-		final Generalization generalization = modificationService.modify(srcEl, new AbstractModifier<NamedElement, Generalization>() {
-			@Override
-			public Generalization modify(final Resource resource, final NamedElement srcEl) {
-				final EObject dstEl = resource.getResourceSet().getEObject(dstElUri, true);
-				
-				if(srcEl instanceof ComponentType) {
-					final ComponentType ct = (ComponentType)srcEl;
-					final TypeExtension te = ct.createOwnedExtension();
-					te.setExtended((ComponentType)dstEl);
-					return te;
-				} else if(srcEl instanceof ComponentImplementation) {
-					final ComponentImplementation ci = (ComponentImplementation)srcEl;
-					final ImplementationExtension ie = ci.createOwnedExtension();
-					ie.setExtended((ComponentImplementation)dstEl);
-					return ie;
-				} else if(srcEl instanceof FeatureGroupType) {
-					final FeatureGroupType fgt = (FeatureGroupType)srcEl;
-					final GroupExtension ge = fgt.createOwnedExtension();
-					ge.setExtended((FeatureGroupType)dstEl);
-					return ge;
-				}
-				
-				return null;
-			}			
-		});		
-				
+		final Generalization generalization = modificationService.modify(srcEl,
+				new AbstractModifier<NamedElement, Generalization>() {
+					@Override
+					public Generalization modify(final Resource resource, final NamedElement srcEl) {
+						final EObject dstEl = resource.getResourceSet().getEObject(dstElUri, true);
+
+						if (srcEl instanceof ComponentType) {
+							final ComponentType ct = (ComponentType) srcEl;
+							final TypeExtension te = ct.createOwnedExtension();
+							te.setExtended((ComponentType) dstEl);
+							return te;
+						} else if (srcEl instanceof ComponentImplementation) {
+							final ComponentImplementation ci = (ComponentImplementation) srcEl;
+							final ImplementationExtension ie = ci.createOwnedExtension();
+							ie.setExtended((ComponentImplementation) dstEl);
+							return ie;
+						} else if (srcEl instanceof FeatureGroupType) {
+							final FeatureGroupType fgt = (FeatureGroupType) srcEl;
+							final GroupExtension ge = fgt.createOwnedExtension();
+							ge.setExtended((FeatureGroupType) dstEl);
+							return ge;
+						}
+
+						return null;
+					}
+				});
+
 		// Create/Get the connection
-		if(generalization == null) {
+		if (generalization == null) {
 			return null;
 		}
-		
+
 		final Connection connection = connectionCreationService.createUpdateConnection(getDiagram(), generalization);
 		return connection;
 	}
@@ -251,40 +253,42 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	@Override
 	public void delete(final IDeleteContext context) {
-		if(!userInputService.confirmDelete(context)) {
+		if (!userInputService.confirmDelete(context)) {
 			return;
 		}
-		
+
 		// Make the modification
-		final Generalization generalization = (Generalization)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final Generalization generalization = (Generalization) bor.getBusinessObjectForPictogramElement(context
+				.getPictogramElement());
 		modificationService.modify(generalization, new AbstractModifier<Generalization, Object>() {
 			@Override
 			public Object modify(final Resource resource, final Generalization generalization) {
 				EcoreUtil.delete(generalization);
-				
+
 				return null;
-			}			
-		});	
-		
+			}
+		});
+
 		// Clear selection
-		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer()
+				.selectPictogramElements(new PictogramElement[0]);
 	}
 
 	// Reconnect
 	@Override
 	public boolean canReconnect(final IReconnectionContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getConnection());
-		
+
 		// Require a new anchor
-		if(context.getNewAnchor() == null) {
+		if (context.getNewAnchor() == null) {
 			return false;
 		}
-		
+
 		// Only allow certain types to be moved
-		if(!(bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension)) {
+		if (!(bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension)) {
 			return false;
 		}
-	
+
 		// Determine if the the reconnection is valid
 		final Connection connection = context.getConnection();
 		final Object oldBo = getShapeBusinessObject(context.getOldAnchor());
@@ -295,93 +299,98 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		final Object otherBo;
 		if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
 			srcBo = newBo;
-			otherBo = dstBo = getShapeBusinessObject(connection.getEnd());			
+			otherBo = dstBo = getShapeBusinessObject(connection.getEnd());
 		} else {
 			otherBo = srcBo = getShapeBusinessObject(connection.getStart());
-			dstBo = newBo;			
+			dstBo = newBo;
 		}
-		
-		if(oldBo == newBo || otherBo == newBo || !areSrcAndDestCompatible(srcBo, dstBo)) {
+
+		if (oldBo == newBo || otherBo == newBo || !areSrcAndDestCompatible(srcBo, dstBo)) {
 			return false;
 		}
-			
-		if(context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
-			if(bo instanceof TypeExtension) {				
-				final ComponentType ct = (ComponentType)newBo;
+
+		if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
+			if (bo instanceof TypeExtension) {
+				final ComponentType ct = (ComponentType) newBo;
 				return ct.getOwnedExtension() == null;
-			} else if(bo instanceof ImplementationExtension) {
-				final ComponentImplementation ci = (ComponentImplementation)newBo;
+			} else if (bo instanceof ImplementationExtension) {
+				final ComponentImplementation ci = (ComponentImplementation) newBo;
 				return ci.getOwnedExtension() == null;
-			} else if(bo instanceof GroupExtension) {
-				final FeatureGroupType fgt = (FeatureGroupType)newBo;
+			} else if (bo instanceof GroupExtension) {
+				final FeatureGroupType fgt = (FeatureGroupType) newBo;
 				return fgt.getOwnedExtension() == null;
 			}
 		}
-				
+
 		return true;
 	}
 
 	@Override
 	public void reconnect(final IReconnectionContext context) {
-		final Generalization generalization = (Generalization)bor.getBusinessObjectForPictogramElement(context.getConnection());
-		
+		final Generalization generalization = (Generalization) bor.getBusinessObjectForPictogramElement(context
+				.getConnection());
+
 		modificationService.modify(generalization, new AbstractModifier<Generalization, Object>() {
 			@Override
 			public Object modify(final Resource resource, final Generalization generalization) {
 				final Object newBo = getShapeBusinessObject(context.getNewAnchor());
-				if(generalization instanceof TypeExtension) {
+				if (generalization instanceof TypeExtension) {
 					if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
-						final ComponentType generalComponentType = (ComponentType)generalization.getGeneral();
-						
-						// Delete the generalization and create a new one. (Setting specific on a generalization is not supported)
+						final ComponentType generalComponentType = (ComponentType) generalization.getGeneral();
+
+						// Delete the generalization and create a new one. (Setting specific on a generalization is not
+// supported)
 						EcoreUtil.delete(generalization);
-						
+
 						// Create the new type extension
-						final ComponentType ct = (ComponentType)newBo;
+						final ComponentType ct = (ComponentType) newBo;
 						final TypeExtension te = ct.createOwnedExtension();
 						te.setExtended(generalComponentType);
-						
+
 					} else {
-						final TypeExtension te = (TypeExtension)generalization;
-						te.setExtended((ComponentType)newBo);		
+						final TypeExtension te = (TypeExtension) generalization;
+						te.setExtended((ComponentType) newBo);
 					}
-				} else if(generalization instanceof ImplementationExtension) {
+				} else if (generalization instanceof ImplementationExtension) {
 					if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
-						final ComponentImplementation generalComponentImplementation = (ComponentImplementation)generalization.getGeneral();
-						
-						// Delete the generalization and create a new one. (Setting specific on a generalization is not supported)
+						final ComponentImplementation generalComponentImplementation = (ComponentImplementation) generalization
+								.getGeneral();
+
+						// Delete the generalization and create a new one. (Setting specific on a generalization is not
+// supported)
 						EcoreUtil.delete(generalization);
-						
+
 						// Create the new type extension
-						final ComponentImplementation ci = (ComponentImplementation)newBo;
+						final ComponentImplementation ci = (ComponentImplementation) newBo;
 						final ImplementationExtension ie = ci.createOwnedExtension();
 						ie.setExtended(generalComponentImplementation);
-						
+
 					} else {
-						final ImplementationExtension ie = (ImplementationExtension)generalization;
-						ie.setExtended((ComponentImplementation)newBo);		
+						final ImplementationExtension ie = (ImplementationExtension) generalization;
+						ie.setExtended((ComponentImplementation) newBo);
 					}
-					
-				} else if(generalization instanceof GroupExtension) {
+
+				} else if (generalization instanceof GroupExtension) {
 					if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
-						final FeatureGroupType generalFgt = (FeatureGroupType)generalization.getGeneral();
-						
-						// Delete the generalization and create a new one. (Setting specific on a generalization is not supported)
+						final FeatureGroupType generalFgt = (FeatureGroupType) generalization.getGeneral();
+
+						// Delete the generalization and create a new one. (Setting specific on a generalization is not
+// supported)
 						EcoreUtil.delete(generalization);
-						
+
 						// Create the new group extension
-						final FeatureGroupType fgt = (FeatureGroupType)newBo;
+						final FeatureGroupType fgt = (FeatureGroupType) newBo;
 						final GroupExtension ge = fgt.createOwnedExtension();
 						ge.setExtended(generalFgt);
 					} else {
-						final GroupExtension ge = (GroupExtension)generalization;
-						ge.setExtended((FeatureGroupType)newBo);		
+						final GroupExtension ge = (GroupExtension) generalization;
+						ge.setExtended((FeatureGroupType) newBo);
 					}
 				}
-				
+
 				return null;
-			}			
-		});	
+			}
+		});
 	}
 
 	@Override
@@ -394,5 +403,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	@Override
 	public void canceledReconnect(final IReconnectionContext context) {
+	}
+
+	@Override
+	public boolean canStartReconnect(IReconnectionContext context) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
