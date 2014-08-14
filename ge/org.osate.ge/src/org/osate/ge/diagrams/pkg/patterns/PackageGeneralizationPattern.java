@@ -374,8 +374,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 					if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
 						final FeatureGroupType generalFgt = (FeatureGroupType) generalization.getGeneral();
 
-						// Delete the generalization and create a new one. (Setting specific on a generalization is not
-// supported)
+						// Delete the generalization and create a new one. (Setting specific on a generalization is not supported)
 						EcoreUtil.delete(generalization);
 
 						// Create the new group extension
@@ -405,9 +404,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	public void canceledReconnect(final IReconnectionContext context) {
 	}
 
-	@Override
-	public boolean canStartReconnect(IReconnectionContext context) {
-		// TODO Auto-generated method stub
-		return false;
+	//@Override - Not in the previous version of Graphiti(as of 2014-08-14) so the Override annotation causes problems
+	public boolean canStartReconnect(final IReconnectionContext context) {
+		final Object bo = bor.getBusinessObjectForPictogramElement(context.getConnection());
+
+		// Only allow certain types to be moved
+		return bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
 	}
 }
