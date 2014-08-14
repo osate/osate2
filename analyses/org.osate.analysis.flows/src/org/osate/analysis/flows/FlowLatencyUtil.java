@@ -4,6 +4,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -388,5 +389,64 @@ public class FlowLatencyUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Indicate if a connection is between two tasks located on the same processor.
+	 * @param connection - the connection
+	 * @return true if both connection ends are on the same processor
+	 */
+	public static boolean isLocal(ConnectionInstance connection) {
+		ConnectionInstanceEnd connSource;
+		ConnectionInstanceEnd connDest;
+		ComponentInstance componentSource;
+		ComponentInstance componentDestination;
+
+		ComponentInstance processorFromSource;
+		ComponentInstance processorFromDestination;
+
+		connSource = connection.getSource();
+		connDest = connection.getDestination();
+
+		componentSource = connSource.getComponentInstance();
+		componentDestination = connDest.getComponentInstance();
+
+		if ((componentSource.getCategory() == ComponentCategory.THREAD)
+				&& (componentDestination.getCategory() == ComponentCategory.THREAD)) {
+			processorFromSource = GetProperties.getBoundProcessor(getEnclosingProcess(componentSource));
+			processorFromDestination = GetProperties.getBoundProcessor(getEnclosingProcess(componentDestination));
+
+			/**
+			 * If the processor is bound to a virtual processor, we have a partitioned
+			 * system. In that case, we need to get the main processor to see
+			 * if the connection is local (or not).
+			 */
+			if (processorFromSource.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
+				processorFromSource = processorFromSource.getContainingComponentInstance();
+			}
+
+			if (processorFromDestination.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
+				processorFromDestination = processorFromDestination.getContainingComponentInstance();
+			}
+
+			if (processorFromSource == processorFromDestination) {
+				return true;
+			}
+
+		}
+		return false;
+	}
+
+	/**
+	 * return the process component that contains the thread
+	 * @param component - the thread component
+	 * @return - the process that contains the thread
+	 */
+	public static ComponentInstance getEnclosingProcess(ComponentInstance component) {
+		ComponentInstance result;
+
+		result = component.getContainingComponentInstance();
+
+		return result;
 	}
 }
