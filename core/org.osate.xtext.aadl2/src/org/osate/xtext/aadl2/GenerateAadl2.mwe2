@@ -139,11 +139,12 @@ Workflow {
 //			fragment = exporting.SimpleNamesFragment {}
 
 			// scoping and exporting API 
+			fragment = scoping.ImportNamespacesScopingFragment {}
 
-			 fragment = scoping.ImportNamespacesScopingFragment {
-			 	generateStub = false
-		        ignoreCase = true
-    		}
+//			 fragment = scoping.ImportNamespacesScopingFragment {
+//			 	generateStub = false
+//		        ignoreCase = true
+  //  		}
 			 fragment = exporting.QualifiedNamesFragment {}
 
 
