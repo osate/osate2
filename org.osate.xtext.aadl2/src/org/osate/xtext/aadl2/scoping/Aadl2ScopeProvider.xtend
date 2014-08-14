@@ -42,6 +42,8 @@ import org.osate.aadl2.ModalElement
 import org.osate.aadl2.Subcomponent
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 import org.osate.aadl2.Element
+import org.eclipse.xtext.EcoreUtil2
+import org.osate.aadl2.BehavioredImplementation
 
 /**
  * This class contains custom scoping description.
@@ -79,6 +81,16 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from Realization in Aadl2.xtext
 	def scope_Realization_implemented(Element context, EReference reference) {
 		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from SubprogramCall in Aadl2.xtext
+	def scope_SubprogramCall_context(Element context, EReference reference) {
+		var scope = scope_Classifier(context, reference)
+		val containingClassifier = EcoreUtil2::getContainerOfType(context, typeof(BehavioredImplementation))
+		if (containingClassifier != null) {
+			scope = Scopes::scopeFor(containingClassifier.members.filter[Aadl2Package::eINSTANCE.callContext.isSuperTypeOf(eClass)], scope)
+		}
+		scope
 	}
 	
 	// mode references
