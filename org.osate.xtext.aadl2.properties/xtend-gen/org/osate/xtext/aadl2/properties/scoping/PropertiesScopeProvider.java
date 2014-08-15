@@ -211,39 +211,50 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
         boolean _isEmpty = _appliesTos.isEmpty();
         boolean _not = (!_isEmpty);
         if (_not) {
+          IScope _elvis = null;
           EList<ContainedNamedElement> _appliesTos_1 = containingPropertyAssociation.getAppliesTos();
-          final ContainedNamedElement path = _appliesTos_1.get(0);
-          final EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
+          ContainedNamedElement _get = _appliesTos_1.get(0);
+          EList<ContainmentPathElement> _containmentPathElements = _get.getContainmentPathElements();
           final Function1<ContainmentPathElement, Boolean> _function = new Function1<ContainmentPathElement, Boolean>() {
             public Boolean apply(final ContainmentPathElement it) {
               NamedElement _namedElement = it.getNamedElement();
               return Boolean.valueOf((_namedElement instanceof Subcomponent));
             }
           };
-          ContainmentPathElement _findLast = IterableExtensions.<ContainmentPathElement>findLast(cpelist, _function);
+          ContainmentPathElement _findLast = IterableExtensions.<ContainmentPathElement>findLast(_containmentPathElements, _function);
           NamedElement _namedElement = _findLast.getNamedElement();
           ComponentClassifier _classifier = null;
           if (((Subcomponent) _namedElement)!=null) {
             _classifier=((Subcomponent) _namedElement).getClassifier();
           }
-          final ComponentClassifier cpecl = _classifier;
-          boolean _notEquals_1 = (!Objects.equal(cpecl, null));
-          if (_notEquals_1) {
-            EList<Mode> _allModes = cpecl.getAllModes();
-            IScope _scopeFor = Scopes.scopeFor(_allModes);
-            scope = _scopeFor;
+          EList<Mode> _allModes = null;
+          if (_classifier!=null) {
+            _allModes=_classifier.getAllModes();
           }
+          IScope _scopeFor = Scopes.scopeFor(_allModes);
+          if (_scopeFor != null) {
+            _elvis = _scopeFor;
+          } else {
+            _elvis = scope;
+          }
+          scope = _elvis;
         } else {
           Element _owner = containingPropertyAssociation.getOwner();
           if ((_owner instanceof Subcomponent)) {
+            IScope _elvis_1 = null;
             Element _owner_1 = containingPropertyAssociation.getOwner();
-            final ComponentClassifier subcomponentClassifier = ((Subcomponent) _owner_1).getAllClassifier();
-            boolean _notEquals_2 = (!Objects.equal(subcomponentClassifier, null));
-            if (_notEquals_2) {
-              EList<Mode> _allModes_1 = subcomponentClassifier.getAllModes();
-              IScope _scopeFor_1 = Scopes.scopeFor(_allModes_1);
-              scope = _scopeFor_1;
+            ComponentClassifier _allClassifier = ((Subcomponent) _owner_1).getAllClassifier();
+            EList<Mode> _allModes_1 = null;
+            if (_allClassifier!=null) {
+              _allModes_1=_allClassifier.getAllModes();
             }
+            IScope _scopeFor_1 = Scopes.scopeFor(_allModes_1);
+            if (_scopeFor_1 != null) {
+              _elvis_1 = _scopeFor_1;
+            } else {
+              _elvis_1 = scope;
+            }
+            scope = _elvis_1;
           }
         }
       }
@@ -415,20 +426,19 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
   }
   
   public IScope scope_NumberValue_unit(final NumberType context, final EReference reference) {
-    IScope _xblockexpression = null;
-    {
-      final UnitsType unitsType = context.getUnitsType();
-      IScope _xifexpression = null;
-      boolean _notEquals = (!Objects.equal(unitsType, null));
-      if (_notEquals) {
-        EList<EnumerationLiteral> _ownedLiterals = unitsType.getOwnedLiterals();
-        _xifexpression = Scopes.scopeFor(_ownedLiterals);
-      } else {
-        _xifexpression = IScope.NULLSCOPE;
-      }
-      _xblockexpression = _xifexpression;
+    IScope _elvis = null;
+    UnitsType _unitsType = context.getUnitsType();
+    EList<EnumerationLiteral> _ownedLiterals = null;
+    if (_unitsType!=null) {
+      _ownedLiterals=_unitsType.getOwnedLiterals();
     }
-    return _xblockexpression;
+    IScope _scopeFor = Scopes.scopeFor(_ownedLiterals);
+    if (_scopeFor != null) {
+      _elvis = _scopeFor;
+    } else {
+      _elvis = IScope.NULLSCOPE;
+    }
+    return _elvis;
   }
   
   public IScope scope_NumberValue_unit(final PropertyConstant context, final EReference reference) {
@@ -474,15 +484,18 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
           unitsType = _unitsType;
         }
       }
-      IScope _xifexpression = null;
-      boolean _notEquals = (!Objects.equal(unitsType, null));
-      if (_notEquals) {
-        EList<EnumerationLiteral> _ownedLiterals = unitsType.getOwnedLiterals();
-        _xifexpression = Scopes.scopeFor(_ownedLiterals);
-      } else {
-        _xifexpression = IScope.NULLSCOPE;
+      IScope _elvis = null;
+      EList<EnumerationLiteral> _ownedLiterals = null;
+      if (unitsType!=null) {
+        _ownedLiterals=unitsType.getOwnedLiterals();
       }
-      _xblockexpression = _xifexpression;
+      IScope _scopeFor = Scopes.scopeFor(_ownedLiterals);
+      if (_scopeFor != null) {
+        _elvis = _scopeFor;
+      } else {
+        _elvis = IScope.NULLSCOPE;
+      }
+      _xblockexpression = _elvis;
     }
     return _xblockexpression;
   }
