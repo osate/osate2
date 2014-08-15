@@ -327,21 +327,25 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getCalledSubprogram() == requiredType) {
-			// first check whether it is a reference to a classifier
 			Classifier ns = AadlUtil.getContainingClassifier(context);
-			EObject searchResult = findClassifier(context, reference, name);
-			if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
-				return Collections.singletonList(searchResult);
-			}
-			// if it was a qualified component type name it would have been found before
-			if (name.contains("::")) {
-				// Qualified classifier should have been found before
-				return Collections.<EObject> emptyList();
-			}
-			// no package qualifier. Look up in local name space, e.g., subprogram access feature or subprogram subcomponent
-			searchResult = ns.findNamedElement(name);
-			if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
-				return Collections.singletonList(searchResult);
+			EObject searchResult;
+			if (!(context instanceof SubprogramCall)
+					|| (context instanceof SubprogramCall && ((SubprogramCall) context).getContext() == null)) {
+				// first check whether it is a reference to a classifier
+				searchResult = findClassifier(context, reference, name);
+				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
+					return Collections.singletonList(searchResult);
+				}
+				// if it was a qualified component type name it would have been found before
+				if (name.contains("::")) {
+					// Qualified classifier should have been found before
+					return Collections.<EObject> emptyList();
+				}
+				// no package qualifier. Look up in local name space, e.g., subprogram access feature or subprogram subcomponent
+				searchResult = ns.findNamedElement(name);
+				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
+					return Collections.singletonList(searchResult);
+				}
 			}
 			// we have a name with context
 			// lets first find it in its context
