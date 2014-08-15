@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -111,22 +110,25 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     IScope _xblockexpression = null;
     {
       IScope scope = this.scope_Classifier(context, reference);
-      final BehavioredImplementation containingClassifier = EcoreUtil2.<BehavioredImplementation>getContainerOfType(context, BehavioredImplementation.class);
-      boolean _notEquals = (!Objects.equal(containingClassifier, null));
-      if (_notEquals) {
-        EList<NamedElement> _members = containingClassifier.getMembers();
-        final Function1<NamedElement, Boolean> _function = new Function1<NamedElement, Boolean>() {
-          public Boolean apply(final NamedElement it) {
-            EClass _callContext = Aadl2Package.eINSTANCE.getCallContext();
-            EClass _eClass = it.eClass();
-            return Boolean.valueOf(_callContext.isSuperTypeOf(_eClass));
-          }
-        };
-        Iterable<NamedElement> _filter = IterableExtensions.<NamedElement>filter(_members, _function);
-        IScope _scopeFor = Scopes.scopeFor(_filter, scope);
-        scope = _scopeFor;
+      IScope _elvis = null;
+      BehavioredImplementation _containerOfType = EcoreUtil2.<BehavioredImplementation>getContainerOfType(context, BehavioredImplementation.class);
+      EList<NamedElement> _members = null;
+      if (_containerOfType!=null) {
+        _members=_containerOfType.getMembers();
       }
-      _xblockexpression = scope;
+      final Function1<NamedElement, Boolean> _function = new Function1<NamedElement, Boolean>() {
+        public Boolean apply(final NamedElement it) {
+          return Boolean.valueOf((it instanceof CallContext));
+        }
+      };
+      Iterable<NamedElement> _filter = IterableExtensions.<NamedElement>filter(_members, _function);
+      IScope _scopeFor = Scopes.scopeFor(_filter, scope);
+      if (_scopeFor != null) {
+        _elvis = _scopeFor;
+      } else {
+        _elvis = scope;
+      }
+      _xblockexpression = _elvis;
     }
     return _xblockexpression;
   }
@@ -233,18 +235,24 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
             callContextNamespace = _featureGroupType;
           }
         }
-        boolean _notEquals = (!Objects.equal(callContextNamespace, null));
-        if (_notEquals) {
-          EList<NamedElement> _members_1 = callContextNamespace.getMembers();
-          final Function1<NamedElement, Boolean> _function_1 = new Function1<NamedElement, Boolean>() {
-            public Boolean apply(final NamedElement it) {
-              return Boolean.valueOf((it instanceof CalledSubprogram));
-            }
-          };
-          Iterable<NamedElement> _filter_1 = IterableExtensions.<NamedElement>filter(_members_1, _function_1);
-          IScope _scopeFor_1 = Scopes.scopeFor(_filter_1, scope);
-          scope = _scopeFor_1;
+        IScope _elvis = null;
+        EList<NamedElement> _members_1 = null;
+        if (callContextNamespace!=null) {
+          _members_1=callContextNamespace.getMembers();
         }
+        final Function1<NamedElement, Boolean> _function_1 = new Function1<NamedElement, Boolean>() {
+          public Boolean apply(final NamedElement it) {
+            return Boolean.valueOf((it instanceof CalledSubprogram));
+          }
+        };
+        Iterable<NamedElement> _filter_1 = IterableExtensions.<NamedElement>filter(_members_1, _function_1);
+        IScope _scopeFor_1 = Scopes.scopeFor(_filter_1, scope);
+        if (_scopeFor_1 != null) {
+          _elvis = _scopeFor_1;
+        } else {
+          _elvis = scope;
+        }
+        scope = _elvis;
       }
       _xblockexpression = scope;
     }

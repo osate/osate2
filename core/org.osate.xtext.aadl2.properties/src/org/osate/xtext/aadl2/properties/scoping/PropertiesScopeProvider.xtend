@@ -35,11 +35,9 @@
 package org.osate.xtext.aadl2.properties.scoping;
 
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Aadl2Package
@@ -57,7 +55,10 @@ import org.osate.aadl2.RangeType
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitsType
-import org.osate.aadl2.modelsupport.util.AadlUtil
+
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 
 /**
  * This class contains custom scoping description.
@@ -71,7 +72,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	def scope_Classifier(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
 		val renameScopeElements = newArrayList()
-		val packageSection = EcoreUtil2::getContainerOfType(context, typeof(PackageSection))
+		val packageSection = context.getContainerOfType(typeof(PackageSection))
 		if (packageSection != null) {
 			packageSection.ownedComponentTypeRenames.filter[reference.EReferenceType.isSuperTypeOf(renamedComponentType.eClass)].forEach[
 				renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedComponentType.name), renamedComponentType, null))
@@ -97,24 +98,17 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	def scope_ModalElement_inMode(Element context, EReference reference) {
 		var scope = IScope::NULLSCOPE
-		val containingPropertyAssociation = EcoreUtil2::getContainerOfType(context, typeof(PropertyAssociation))
+		val containingPropertyAssociation = context.getContainerOfType(typeof(PropertyAssociation))
 		if (containingPropertyAssociation != null) {
 			if (!containingPropertyAssociation.appliesTos.empty) {
-				val path = containingPropertyAssociation.appliesTos.get(0)
-				val cpelist = path.containmentPathElements
-				val cpecl = (cpelist.findLast[namedElement instanceof Subcomponent].namedElement as Subcomponent)?.classifier
-				if (cpecl != null) {
-					scope = Scopes::scopeFor(cpecl.allModes)
-				}
+				scope = (containingPropertyAssociation.appliesTos.get(0).containmentPathElements.findLast[namedElement instanceof Subcomponent].namedElement as Subcomponent)?.
+						classifier?.allModes.scopeFor ?: scope
 			} else if (containingPropertyAssociation.owner instanceof Subcomponent) {
-				val subcomponentClassifier = (containingPropertyAssociation.owner as Subcomponent).allClassifier
-				if (subcomponentClassifier != null) {
-					scope = Scopes::scopeFor(subcomponentClassifier.allModes)
-				}
+				scope = (containingPropertyAssociation.owner as Subcomponent).allClassifier?.allModes.scopeFor ?: scope
 			}
 		}
 		if (scope == IScope::NULLSCOPE) {
-			scope = Scopes::scopeFor(EcoreUtil2::getContainerOfType(context, typeof(ComponentClassifier)).allModes)
+			scope = context.getContainerOfType(typeof(ComponentClassifier)).allModes.scopeFor
 		}
 		scope
 	}
@@ -124,23 +118,23 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		var scope = delegateGetScope(context, reference)
 		var PropertyType propertyType = null;
 		//Inner value of a record value.
-		propertyType = EcoreUtil2::getContainerOfType(context, typeof(BasicPropertyAssociation))?.property?.propertyType
+		propertyType = context.getContainerOfType(typeof(BasicPropertyAssociation))?.property?.propertyType
 		if (propertyType == null) {
 			//Value of the property constant.
-			propertyType = EcoreUtil2::getContainerOfType(context, typeof(PropertyConstant))?.propertyType
+			propertyType = context.getContainerOfType(typeof(PropertyConstant))?.propertyType
 		}
 		if (propertyType == null) {
 			//Default value of a property definition.
-			propertyType = EcoreUtil2::getContainerOfType(context, typeof(Property))?.propertyType
+			propertyType = context.getContainerOfType(typeof(Property))?.propertyType
 		}
 		if (propertyType == null) {
 			//Value of an association.
-			propertyType = EcoreUtil2::getContainerOfType(context, typeof(PropertyAssociation))?.property?.propertyType
+			propertyType = context.getContainerOfType(typeof(PropertyAssociation))?.property?.propertyType
 		}
-		propertyType = AadlUtil::getBasePropertyType(propertyType)
+		propertyType = propertyType.basePropertyType
 		switch (propertyType) {
 			EnumerationType:
-				scope = Scopes::scopeFor(propertyType.ownedLiterals, scope)
+				scope = propertyType.ownedLiterals.scopeFor(scope)
 		}
 		scope
 	}
@@ -167,10 +161,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 			PropertyConstant:
 				propertyType = parent.propertyType
 		}
-		propertyType = AadlUtil::getBasePropertyType(propertyType)
+		propertyType = propertyType.basePropertyType
 		switch (propertyType) {
 			RecordType:
-				return Scopes::scopeFor(propertyType.ownedFields)
+				return propertyType.ownedFields.scopeFor
 		}
 		IScope::NULLSCOPE
 	}
@@ -273,12 +267,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
 	def scope_NumberValue_unit(NumberType context, EReference reference) {
 		//Lower bound or upper bound values of a number property type.
-		val unitsType = context.unitsType
-		if (unitsType != null) {
-			Scopes::scopeFor(unitsType.ownedLiterals)
-		} else {
-			IScope::NULLSCOPE
-		}
+		context.unitsType?.ownedLiterals.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
@@ -306,7 +295,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
-		val baseType = AadlUtil::getBasePropertyType(type)
+		val baseType = type.basePropertyType
 		var UnitsType unitsType = null
 		switch baseType {
 			NumberType:
@@ -314,10 +303,6 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 			RangeType:
 				unitsType = baseType.numberType.unitsType
 		}
-		if (unitsType != null) {
-			Scopes::scopeFor(unitsType.ownedLiterals)
-		} else {
-			IScope::NULLSCOPE
-		}
+		unitsType?.ownedLiterals.scopeFor ?: IScope::NULLSCOPE
 	}
 }
