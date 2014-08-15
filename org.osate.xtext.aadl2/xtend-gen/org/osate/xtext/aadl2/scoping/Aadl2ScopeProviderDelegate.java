@@ -36,12 +36,11 @@ package org.osate.xtext.aadl2.scoping;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 @SuppressWarnings("all")
@@ -51,14 +50,14 @@ public class Aadl2ScopeProviderDelegate extends ImportedNamespaceAwareLocalScope
     {
       final ArrayList<ImportNormalizer> importNormalizers = CollectionLiterals.<ImportNormalizer>newArrayList();
       Set<String> _predeclaredPropertySetNames = AadlUtil.getPredeclaredPropertySetNames();
-      final Procedure1<String> _function = new Procedure1<String>() {
-        public void apply(final String it) {
+      final Consumer<String> _function = new Consumer<String>() {
+        public void accept(final String it) {
           QualifiedName _create = QualifiedName.create(it);
           ImportNormalizer _importNormalizer = new ImportNormalizer(_create, true, ignoreCase);
           importNormalizers.add(_importNormalizer);
         }
       };
-      IterableExtensions.<String>forEach(_predeclaredPropertySetNames, _function);
+      _predeclaredPropertySetNames.forEach(_function);
       _xblockexpression = importNormalizers;
     }
     return _xblockexpression;
