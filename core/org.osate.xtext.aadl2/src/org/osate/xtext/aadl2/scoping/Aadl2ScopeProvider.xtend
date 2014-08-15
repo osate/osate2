@@ -33,17 +33,31 @@
  */
 package org.osate.xtext.aadl2.scoping;
 
+import java.util.ArrayList
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.AccessType
+import org.osate.aadl2.BehavioredImplementation
+import org.osate.aadl2.CalledSubprogram
+import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.ModalElement
-import org.osate.aadl2.Subcomponent
-import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
+import org.osate.aadl2.ComponentType
 import org.osate.aadl2.Element
-import org.eclipse.xtext.EcoreUtil2
-import org.osate.aadl2.BehavioredImplementation
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.ModalElement
+import org.osate.aadl2.PackageSection
+import org.osate.aadl2.PrivatePackageSection
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.SubprogramCall
+import org.osate.aadl2.SubprogramGroupAccess
+import org.osate.aadl2.SubprogramGroupSubcomponent
+import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 /**
  * This class contains custom scoping description.
@@ -93,6 +107,45 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		scope
 	}
 	
+	//Reference is from SubprogramCall in Aadl2.xtext
+	def scope_SubprogramCall_calledSubprogram(Element context, EReference reference) {
+		var scope = scope_Classifier(context, reference)
+		val callContext = EcoreUtil2::getContainerOfType(context, typeof(SubprogramCall))?.context
+		if (callContext == null) {
+			//No call context.  Add prototypes, subprogram accesses, and subprogram subcomponents from the classifier to the scope.
+			scope = Scopes::scopeFor(EcoreUtil2::getContainerOfType(context, typeof(Classifier)).members.filter[it instanceof CalledSubprogram], scope)
+		} else {
+			scope = IScope::NULLSCOPE
+			var Classifier callContextNamespace
+			switch (callContext) {
+				ComponentType: {
+					//Reference is in the form of "component_type.implementation" or "package::component_type.implementation".  Add all implementations of the type from the type's package to the scope.
+					val packageClassifiers = new ArrayList(EcoreUtil2::getContainerOfType(callContext, typeof(AadlPackage)).publicSection.ownedClassifiers)
+					val packageSectionForComponentType = EcoreUtil2::getContainerOfType(callContext, typeof(PackageSection))
+					if (packageSectionForComponentType instanceof PrivatePackageSection && packageSectionForComponentType == EcoreUtil2::getContainerOfType(context, typeof(PrivatePackageSection))) {
+						packageClassifiers.addAll(packageSectionForComponentType.ownedClassifiers)
+					}
+					scope = Scopes::scopeFor(packageClassifiers.filter(typeof(CalledSubprogram)).filter(typeof(ComponentImplementation)).filter[type == callContext],
+						[QualifiedName::create(name.substring(name.lastIndexOf('.') + 1))], IScope::NULLSCOPE
+					)
+					callContextNamespace = callContext
+				}
+				SubprogramGroupSubcomponent:
+					callContextNamespace = callContext.componentType
+				SubprogramGroupAccess:
+					if (callContext.kind == AccessType::REQUIRES && callContext.subprogramGroupFeatureClassifier instanceof Classifier) {
+						callContextNamespace = callContext.subprogramGroupFeatureClassifier as Classifier
+					}
+				FeatureGroup:
+					callContextNamespace = callContext.featureGroupType
+			}
+			if (callContextNamespace != null) {
+				scope = Scopes::scopeFor(callContextNamespace.members.filter[it instanceof CalledSubprogram], scope)
+			}
+		}
+		scope
+	}
+
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
 		if (reference == Aadl2Package::eINSTANCE.modalElement_InMode) {

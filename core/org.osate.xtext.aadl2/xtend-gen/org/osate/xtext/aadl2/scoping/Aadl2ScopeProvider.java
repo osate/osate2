@@ -33,28 +33,46 @@
  */
 package org.osate.xtext.aadl2.scoping;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.CallContext;
+import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider;
 
 /**
@@ -107,6 +125,126 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
         Iterable<NamedElement> _filter = IterableExtensions.<NamedElement>filter(_members, _function);
         IScope _scopeFor = Scopes.scopeFor(_filter, scope);
         scope = _scopeFor;
+      }
+      _xblockexpression = scope;
+    }
+    return _xblockexpression;
+  }
+  
+  public IScope scope_SubprogramCall_calledSubprogram(final Element context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      IScope scope = this.scope_Classifier(context, reference);
+      SubprogramCall _containerOfType = EcoreUtil2.<SubprogramCall>getContainerOfType(context, SubprogramCall.class);
+      CallContext _context = null;
+      if (_containerOfType!=null) {
+        _context=_containerOfType.getContext();
+      }
+      final CallContext callContext = _context;
+      boolean _equals = Objects.equal(callContext, null);
+      if (_equals) {
+        Classifier _containerOfType_1 = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
+        EList<NamedElement> _members = _containerOfType_1.getMembers();
+        final Function1<NamedElement, Boolean> _function = new Function1<NamedElement, Boolean>() {
+          public Boolean apply(final NamedElement it) {
+            return Boolean.valueOf((it instanceof CalledSubprogram));
+          }
+        };
+        Iterable<NamedElement> _filter = IterableExtensions.<NamedElement>filter(_members, _function);
+        IScope _scopeFor = Scopes.scopeFor(_filter, scope);
+        scope = _scopeFor;
+      } else {
+        scope = IScope.NULLSCOPE;
+        Classifier callContextNamespace = null;
+        boolean _matched = false;
+        if (!_matched) {
+          if (callContext instanceof ComponentType) {
+            _matched=true;
+            AadlPackage _containerOfType_2 = EcoreUtil2.<AadlPackage>getContainerOfType(callContext, AadlPackage.class);
+            PublicPackageSection _publicSection = _containerOfType_2.getPublicSection();
+            EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
+            final ArrayList<Classifier> packageClassifiers = new ArrayList<Classifier>(_ownedClassifiers);
+            final PackageSection packageSectionForComponentType = EcoreUtil2.<PackageSection>getContainerOfType(callContext, PackageSection.class);
+            boolean _and = false;
+            if (!(packageSectionForComponentType instanceof PrivatePackageSection)) {
+              _and = false;
+            } else {
+              PrivatePackageSection _containerOfType_3 = EcoreUtil2.<PrivatePackageSection>getContainerOfType(context, PrivatePackageSection.class);
+              boolean _equals_1 = Objects.equal(packageSectionForComponentType, _containerOfType_3);
+              _and = _equals_1;
+            }
+            if (_and) {
+              EList<Classifier> _ownedClassifiers_1 = packageSectionForComponentType.getOwnedClassifiers();
+              packageClassifiers.addAll(_ownedClassifiers_1);
+            }
+            Iterable<CalledSubprogram> _filter_1 = Iterables.<CalledSubprogram>filter(packageClassifiers, CalledSubprogram.class);
+            Iterable<ComponentImplementation> _filter_2 = Iterables.<ComponentImplementation>filter(_filter_1, ComponentImplementation.class);
+            final Function1<ComponentImplementation, Boolean> _function_1 = new Function1<ComponentImplementation, Boolean>() {
+              public Boolean apply(final ComponentImplementation it) {
+                ComponentType _type = it.getType();
+                return Boolean.valueOf(Objects.equal(_type, callContext));
+              }
+            };
+            Iterable<ComponentImplementation> _filter_3 = IterableExtensions.<ComponentImplementation>filter(_filter_2, _function_1);
+            final Function<ComponentImplementation, QualifiedName> _function_2 = new Function<ComponentImplementation, QualifiedName>() {
+              public QualifiedName apply(final ComponentImplementation it) {
+                String _name = it.getName();
+                String _name_1 = it.getName();
+                int _lastIndexOf = _name_1.lastIndexOf(".");
+                int _plus = (_lastIndexOf + 1);
+                String _substring = _name.substring(_plus);
+                return QualifiedName.create(_substring);
+              }
+            };
+            IScope _scopeFor_1 = Scopes.<ComponentImplementation>scopeFor(_filter_3, _function_2, IScope.NULLSCOPE);
+            scope = _scopeFor_1;
+            callContextNamespace = ((ComponentType)callContext);
+          }
+        }
+        if (!_matched) {
+          if (callContext instanceof SubprogramGroupSubcomponent) {
+            _matched=true;
+            ComponentType _componentType = ((SubprogramGroupSubcomponent)callContext).getComponentType();
+            callContextNamespace = _componentType;
+          }
+        }
+        if (!_matched) {
+          if (callContext instanceof SubprogramGroupAccess) {
+            _matched=true;
+            boolean _and = false;
+            AccessType _kind = ((SubprogramGroupAccess)callContext).getKind();
+            boolean _equals_1 = Objects.equal(_kind, AccessType.REQUIRES);
+            if (!_equals_1) {
+              _and = false;
+            } else {
+              SubprogramGroupSubcomponentType _subprogramGroupFeatureClassifier = ((SubprogramGroupAccess)callContext).getSubprogramGroupFeatureClassifier();
+              _and = (_subprogramGroupFeatureClassifier instanceof Classifier);
+            }
+            if (_and) {
+              SubprogramGroupSubcomponentType _subprogramGroupFeatureClassifier_1 = ((SubprogramGroupAccess)callContext).getSubprogramGroupFeatureClassifier();
+              callContextNamespace = ((Classifier) _subprogramGroupFeatureClassifier_1);
+            }
+          }
+        }
+        if (!_matched) {
+          if (callContext instanceof FeatureGroup) {
+            _matched=true;
+            FeatureGroupType _featureGroupType = ((FeatureGroup)callContext).getFeatureGroupType();
+            callContextNamespace = _featureGroupType;
+          }
+        }
+        boolean _notEquals = (!Objects.equal(callContextNamespace, null));
+        if (_notEquals) {
+          EList<NamedElement> _members_1 = callContextNamespace.getMembers();
+          final Function1<NamedElement, Boolean> _function_1 = new Function1<NamedElement, Boolean>() {
+            public Boolean apply(final NamedElement it) {
+              return Boolean.valueOf((it instanceof CalledSubprogram));
+            }
+          };
+          Iterable<NamedElement> _filter_1 = IterableExtensions.<NamedElement>filter(_members_1, _function_1);
+          IScope _scopeFor_1 = Scopes.scopeFor(_filter_1, scope);
+          scope = _scopeFor_1;
+        }
       }
       _xblockexpression = scope;
     }
