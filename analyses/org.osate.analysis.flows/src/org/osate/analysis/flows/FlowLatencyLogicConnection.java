@@ -40,7 +40,7 @@ public class FlowLatencyLogicConnection {
 
 		boundBus = GetProperties.getBoundBus(connectionInstance);
 
-		if (boundBus != null) {
+		if (boundBus != null&&relatedConnectionData!=null) {
 //			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
 			maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
 			minBusLatency = GetProperties.getMinimumLatencyinMilliSec(boundBus);

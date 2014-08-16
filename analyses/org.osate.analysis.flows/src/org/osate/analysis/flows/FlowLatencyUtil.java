@@ -280,12 +280,16 @@ public class FlowLatencyUtil {
 			fi = (FeatureInstance) cei;
 			if (fi.getFeature() instanceof DataPort) {
 				DataPort dp = (DataPort) fi.getFeature();
-				data = dp.getDataFeatureClassifier().getContainingClassifier();
+				if (dp.getDataFeatureClassifier()!=null){
+					data = dp.getDataFeatureClassifier().getContainingClassifier();
+				}
 			}
 
 			if (fi.getFeature() instanceof EventDataPort) {
 				EventDataPort edp = (EventDataPort) fi.getFeature();
-				data = edp.getDataFeatureClassifier().getContainingClassifier();
+				if (edp.getDataFeatureClassifier()!=null){
+					data = edp.getDataFeatureClassifier().getContainingClassifier();
+				}
 			}
 		}
 
