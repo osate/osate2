@@ -45,7 +45,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 @SuppressWarnings("all")
-public class Aadl2ScopeProviderDelegate extends ImportedNamespaceAwareLocalScopeProvider {
+public class Aadl2ImportedNamespaceAwareLocalScopeProvider extends ImportedNamespaceAwareLocalScopeProvider {
   protected List<ImportNormalizer> getImplicitImports(final boolean ignoreCase) {
     ArrayList<ImportNormalizer> _xblockexpression = null;
     {
