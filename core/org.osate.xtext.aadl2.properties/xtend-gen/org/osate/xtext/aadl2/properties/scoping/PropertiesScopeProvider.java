@@ -34,27 +34,20 @@
  */
 package org.osate.xtext.aadl2.properties.scoping;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.LinkedHashMap;
+import java.util.Set;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.eclipse.xtext.resource.EObjectDescription;
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
-import org.eclipse.xtext.scoping.impl.SimpleScope;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.osate.aadl2.Aadl2Package;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -97,99 +90,91 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
     IScope _xblockexpression = null;
     {
       IScope scope = this.delegateGetScope(context, reference);
-      final ArrayList<IEObjectDescription> renameScopeElements = CollectionLiterals.<IEObjectDescription>newArrayList();
+      final LinkedHashMap<Classifier, QualifiedName> renameScopeElements = new LinkedHashMap<Classifier, QualifiedName>();
       final PackageSection packageSection = EcoreUtil2.<PackageSection>getContainerOfType(context, PackageSection.class);
       boolean _notEquals = (!Objects.equal(packageSection, null));
       if (_notEquals) {
         EList<ComponentTypeRename> _ownedComponentTypeRenames = packageSection.getOwnedComponentTypeRenames();
-        final Function1<ComponentTypeRename, Boolean> _function = new Function1<ComponentTypeRename, Boolean>() {
-          public Boolean apply(final ComponentTypeRename it) {
-            EClass _eReferenceType = reference.getEReferenceType();
-            ComponentType _renamedComponentType = it.getRenamedComponentType();
-            EClass _eClass = _renamedComponentType.eClass();
-            return Boolean.valueOf(_eReferenceType.isSuperTypeOf(_eClass));
-          }
-        };
-        Iterable<ComponentTypeRename> _filter = IterableExtensions.<ComponentTypeRename>filter(_ownedComponentTypeRenames, _function);
-        final Consumer<ComponentTypeRename> _function_1 = new Consumer<ComponentTypeRename>() {
-          public void accept(final ComponentTypeRename it) {
-            String _elvis = null;
+        final Procedure1<ComponentTypeRename> _function = new Procedure1<ComponentTypeRename>() {
+          public void apply(final ComponentTypeRename it) {
             String _name = it.getName();
-            if (_name != null) {
-              _elvis = _name;
-            } else {
+            boolean _equals = Objects.equal(_name, null);
+            if (_equals) {
               ComponentType _renamedComponentType = it.getRenamedComponentType();
-              String _name_1 = _renamedComponentType.getName();
-              _elvis = _name_1;
+              ComponentType _renamedComponentType_1 = it.getRenamedComponentType();
+              String _name_1 = _renamedComponentType_1.getName();
+              QualifiedName _create = QualifiedName.create(_name_1);
+              renameScopeElements.put(_renamedComponentType, _create);
+            } else {
+              ComponentType _renamedComponentType_2 = it.getRenamedComponentType();
+              String _name_2 = it.getName();
+              QualifiedName _create_1 = QualifiedName.create(_name_2);
+              renameScopeElements.put(_renamedComponentType_2, _create_1);
             }
-            QualifiedName _create = QualifiedName.create(_elvis);
-            ComponentType _renamedComponentType_1 = it.getRenamedComponentType();
-            EObjectDescription _eObjectDescription = new EObjectDescription(_create, _renamedComponentType_1, null);
-            renameScopeElements.add(_eObjectDescription);
           }
         };
-        _filter.forEach(_function_1);
-        EClass _featureGroupType = Aadl2Package.eINSTANCE.getFeatureGroupType();
-        EClass _eReferenceType = reference.getEReferenceType();
-        boolean _isSuperTypeOf = _featureGroupType.isSuperTypeOf(_eReferenceType);
-        if (_isSuperTypeOf) {
-          EList<FeatureGroupTypeRename> _ownedFeatureGroupTypeRenames = packageSection.getOwnedFeatureGroupTypeRenames();
-          final Consumer<FeatureGroupTypeRename> _function_2 = new Consumer<FeatureGroupTypeRename>() {
-            public void accept(final FeatureGroupTypeRename it) {
-              String _elvis = null;
-              String _name = it.getName();
-              if (_name != null) {
-                _elvis = _name;
-              } else {
-                FeatureGroupType _renamedFeatureGroupType = it.getRenamedFeatureGroupType();
-                String _name_1 = _renamedFeatureGroupType.getName();
-                _elvis = _name_1;
-              }
-              QualifiedName _create = QualifiedName.create(_elvis);
+        IterableExtensions.<ComponentTypeRename>forEach(_ownedComponentTypeRenames, _function);
+        EList<FeatureGroupTypeRename> _ownedFeatureGroupTypeRenames = packageSection.getOwnedFeatureGroupTypeRenames();
+        final Procedure1<FeatureGroupTypeRename> _function_1 = new Procedure1<FeatureGroupTypeRename>() {
+          public void apply(final FeatureGroupTypeRename it) {
+            String _name = it.getName();
+            boolean _equals = Objects.equal(_name, null);
+            if (_equals) {
+              FeatureGroupType _renamedFeatureGroupType = it.getRenamedFeatureGroupType();
               FeatureGroupType _renamedFeatureGroupType_1 = it.getRenamedFeatureGroupType();
-              EObjectDescription _eObjectDescription = new EObjectDescription(_create, _renamedFeatureGroupType_1, null);
-              renameScopeElements.add(_eObjectDescription);
+              String _name_1 = _renamedFeatureGroupType_1.getName();
+              QualifiedName _create = QualifiedName.create(_name_1);
+              renameScopeElements.put(_renamedFeatureGroupType, _create);
+            } else {
+              FeatureGroupType _renamedFeatureGroupType_2 = it.getRenamedFeatureGroupType();
+              String _name_2 = it.getName();
+              QualifiedName _create_1 = QualifiedName.create(_name_2);
+              renameScopeElements.put(_renamedFeatureGroupType_2, _create_1);
             }
-          };
-          _ownedFeatureGroupTypeRenames.forEach(_function_2);
-        }
-        EList<PackageRename> _ownedPackageRenames = packageSection.getOwnedPackageRenames();
-        final Consumer<PackageRename> _function_3 = new Consumer<PackageRename>() {
-          public void accept(final PackageRename packageRename) {
-            AadlPackage _renamedPackage = packageRename.getRenamedPackage();
-            PublicPackageSection _publicSection = _renamedPackage.getPublicSection();
-            EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
-            final Function1<Classifier, Boolean> _function = new Function1<Classifier, Boolean>() {
-              public Boolean apply(final Classifier it) {
-                EClass _eReferenceType = reference.getEReferenceType();
-                EClass _eClass = it.eClass();
-                return Boolean.valueOf(_eReferenceType.isSuperTypeOf(_eClass));
-              }
-            };
-            Iterable<Classifier> _filter = IterableExtensions.<Classifier>filter(_ownedClassifiers, _function);
-            final Consumer<Classifier> _function_1 = new Consumer<Classifier>() {
-              public void accept(final Classifier classifier) {
-                List<String> _xifexpression = null;
-                boolean _isRenameAll = packageRename.isRenameAll();
-                if (_isRenameAll) {
-                  String _name = classifier.getName();
-                  _xifexpression = Collections.<String>unmodifiableList(Lists.<String>newArrayList(_name));
-                } else {
-                  String _name_1 = packageRename.getName();
-                  String _name_2 = classifier.getName();
-                  _xifexpression = Collections.<String>unmodifiableList(Lists.<String>newArrayList(_name_1, _name_2));
-                }
-                QualifiedName _create = QualifiedName.create(_xifexpression);
-                EObjectDescription _eObjectDescription = new EObjectDescription(_create, classifier, null);
-                renameScopeElements.add(_eObjectDescription);
-              }
-            };
-            _filter.forEach(_function_1);
           }
         };
-        _ownedPackageRenames.forEach(_function_3);
-        SimpleScope _simpleScope = new SimpleScope(scope, renameScopeElements);
-        scope = _simpleScope;
+        IterableExtensions.<FeatureGroupTypeRename>forEach(_ownedFeatureGroupTypeRenames, _function_1);
+        EList<PackageRename> _ownedPackageRenames = packageSection.getOwnedPackageRenames();
+        final Procedure1<PackageRename> _function_2 = new Procedure1<PackageRename>() {
+          public void apply(final PackageRename it) {
+            boolean _isRenameAll = it.isRenameAll();
+            if (_isRenameAll) {
+              AadlPackage _renamedPackage = it.getRenamedPackage();
+              PublicPackageSection _publicSection = _renamedPackage.getPublicSection();
+              EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
+              final Procedure1<Classifier> _function = new Procedure1<Classifier>() {
+                public void apply(final Classifier it) {
+                  String _name = it.getName();
+                  QualifiedName _create = QualifiedName.create(_name);
+                  renameScopeElements.put(it, _create);
+                }
+              };
+              IterableExtensions.<Classifier>forEach(_ownedClassifiers, _function);
+            } else {
+              final String newPackageName = it.getName();
+              AadlPackage _renamedPackage_1 = it.getRenamedPackage();
+              PublicPackageSection _publicSection_1 = _renamedPackage_1.getPublicSection();
+              EList<Classifier> _ownedClassifiers_1 = _publicSection_1.getOwnedClassifiers();
+              final Procedure1<Classifier> _function_1 = new Procedure1<Classifier>() {
+                public void apply(final Classifier it) {
+                  String _name = it.getName();
+                  QualifiedName _create = QualifiedName.create(newPackageName, _name);
+                  renameScopeElements.put(it, _create);
+                }
+              };
+              IterableExtensions.<Classifier>forEach(_ownedClassifiers_1, _function_1);
+            }
+          }
+        };
+        IterableExtensions.<PackageRename>forEach(_ownedPackageRenames, _function_2);
+        Set<Classifier> _keySet = renameScopeElements.keySet();
+        final Function<Classifier, QualifiedName> _function_3 = new Function<Classifier, QualifiedName>() {
+          public QualifiedName apply(final Classifier it) {
+            return renameScopeElements.get(it);
+          }
+        };
+        IScope _scopeFor = Scopes.<Classifier>scopeFor(_keySet, _function_3, scope);
+        scope = _scopeFor;
       }
       _xblockexpression = scope;
     }
@@ -211,50 +196,39 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
         boolean _isEmpty = _appliesTos.isEmpty();
         boolean _not = (!_isEmpty);
         if (_not) {
-          IScope _elvis = null;
           EList<ContainedNamedElement> _appliesTos_1 = containingPropertyAssociation.getAppliesTos();
-          ContainedNamedElement _get = _appliesTos_1.get(0);
-          EList<ContainmentPathElement> _containmentPathElements = _get.getContainmentPathElements();
+          final ContainedNamedElement path = _appliesTos_1.get(0);
+          final EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
           final Function1<ContainmentPathElement, Boolean> _function = new Function1<ContainmentPathElement, Boolean>() {
             public Boolean apply(final ContainmentPathElement it) {
               NamedElement _namedElement = it.getNamedElement();
               return Boolean.valueOf((_namedElement instanceof Subcomponent));
             }
           };
-          ContainmentPathElement _findLast = IterableExtensions.<ContainmentPathElement>findLast(_containmentPathElements, _function);
+          ContainmentPathElement _findLast = IterableExtensions.<ContainmentPathElement>findLast(cpelist, _function);
           NamedElement _namedElement = _findLast.getNamedElement();
           ComponentClassifier _classifier = null;
           if (((Subcomponent) _namedElement)!=null) {
             _classifier=((Subcomponent) _namedElement).getClassifier();
           }
-          EList<Mode> _allModes = null;
-          if (_classifier!=null) {
-            _allModes=_classifier.getAllModes();
+          final ComponentClassifier cpecl = _classifier;
+          boolean _notEquals_1 = (!Objects.equal(cpecl, null));
+          if (_notEquals_1) {
+            EList<Mode> _allModes = cpecl.getAllModes();
+            IScope _scopeFor = Scopes.scopeFor(_allModes);
+            scope = _scopeFor;
           }
-          IScope _scopeFor = Scopes.scopeFor(_allModes);
-          if (_scopeFor != null) {
-            _elvis = _scopeFor;
-          } else {
-            _elvis = scope;
-          }
-          scope = _elvis;
         } else {
           Element _owner = containingPropertyAssociation.getOwner();
           if ((_owner instanceof Subcomponent)) {
-            IScope _elvis_1 = null;
             Element _owner_1 = containingPropertyAssociation.getOwner();
-            ComponentClassifier _allClassifier = ((Subcomponent) _owner_1).getAllClassifier();
-            EList<Mode> _allModes_1 = null;
-            if (_allClassifier!=null) {
-              _allModes_1=_allClassifier.getAllModes();
+            final ComponentClassifier subcomponentClassifier = ((Subcomponent) _owner_1).getAllClassifier();
+            boolean _notEquals_2 = (!Objects.equal(subcomponentClassifier, null));
+            if (_notEquals_2) {
+              EList<Mode> _allModes_1 = subcomponentClassifier.getAllModes();
+              IScope _scopeFor_1 = Scopes.scopeFor(_allModes_1);
+              scope = _scopeFor_1;
             }
-            IScope _scopeFor_1 = Scopes.scopeFor(_allModes_1);
-            if (_scopeFor_1 != null) {
-              _elvis_1 = _scopeFor_1;
-            } else {
-              _elvis_1 = scope;
-            }
-            scope = _elvis_1;
           }
         }
       }
@@ -426,19 +400,20 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
   }
   
   public IScope scope_NumberValue_unit(final NumberType context, final EReference reference) {
-    IScope _elvis = null;
-    UnitsType _unitsType = context.getUnitsType();
-    EList<EnumerationLiteral> _ownedLiterals = null;
-    if (_unitsType!=null) {
-      _ownedLiterals=_unitsType.getOwnedLiterals();
+    IScope _xblockexpression = null;
+    {
+      final UnitsType unitsType = context.getUnitsType();
+      IScope _xifexpression = null;
+      boolean _notEquals = (!Objects.equal(unitsType, null));
+      if (_notEquals) {
+        EList<EnumerationLiteral> _ownedLiterals = unitsType.getOwnedLiterals();
+        _xifexpression = Scopes.scopeFor(_ownedLiterals);
+      } else {
+        _xifexpression = IScope.NULLSCOPE;
+      }
+      _xblockexpression = _xifexpression;
     }
-    IScope _scopeFor = Scopes.scopeFor(_ownedLiterals);
-    if (_scopeFor != null) {
-      _elvis = _scopeFor;
-    } else {
-      _elvis = IScope.NULLSCOPE;
-    }
-    return _elvis;
+    return _xblockexpression;
   }
   
   public IScope scope_NumberValue_unit(final PropertyConstant context, final EReference reference) {
@@ -484,18 +459,15 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
           unitsType = _unitsType;
         }
       }
-      IScope _elvis = null;
-      EList<EnumerationLiteral> _ownedLiterals = null;
-      if (unitsType!=null) {
-        _ownedLiterals=unitsType.getOwnedLiterals();
-      }
-      IScope _scopeFor = Scopes.scopeFor(_ownedLiterals);
-      if (_scopeFor != null) {
-        _elvis = _scopeFor;
+      IScope _xifexpression = null;
+      boolean _notEquals = (!Objects.equal(unitsType, null));
+      if (_notEquals) {
+        EList<EnumerationLiteral> _ownedLiterals = unitsType.getOwnedLiterals();
+        _xifexpression = Scopes.scopeFor(_ownedLiterals);
       } else {
-        _elvis = IScope.NULLSCOPE;
+        _xifexpression = IScope.NULLSCOPE;
       }
-      _xblockexpression = _elvis;
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
