@@ -183,6 +183,33 @@ public class FlowLatencyUtil {
 		return null;
 	}
 
+	public static ComponentInstance getProcessorForProcessOrThread(ComponentInstance componentInstance) {
+		ComponentInstance processor;
+		ComponentInstance process;
+
+		processor = null;
+		process = componentInstance;
+
+		if (componentInstance.getCategory() == ComponentCategory.THREAD) {
+			processor = GetProperties.getBoundProcessor(componentInstance);
+
+			if (processor == null) {
+				/**
+				 * if the thread is not bound to a processor, we try to get 
+				 * the processor of the related process.
+				 */
+				return getProcessorForProcessOrThread(getEnclosingProcess(componentInstance));
+			}
+		}
+
+		if ((componentInstance.getCategory() == ComponentCategory.DEVICE)
+				|| (componentInstance.getCategory() == ComponentCategory.PROCESS)) {
+			processor = GetProperties.getBoundProcessor(componentInstance);
+		}
+
+		return processor;
+	}
+
 	/**
 	 * Indicate if a connection is between two tasks located on the same processor.
 	 * @param connection - the connection
@@ -193,9 +220,6 @@ public class FlowLatencyUtil {
 		ConnectionInstanceEnd connDest;
 		ComponentInstance componentSource;
 		ComponentInstance componentDestination;
-
-		ComponentInstance associatedProcessSource;
-		ComponentInstance associatedProcessDestination;
 
 		ComponentInstance processorFromSource;
 		ComponentInstance processorFromDestination;
@@ -216,18 +240,8 @@ public class FlowLatencyUtil {
 
 		if ((componentSource.getCategory() == ComponentCategory.THREAD)
 				&& (componentDestination.getCategory() == ComponentCategory.THREAD)) {
-			associatedProcessSource = getEnclosingProcess(componentSource);
-			associatedProcessDestination = getEnclosingProcess(componentDestination);
 			processorFromSource = GetProperties.getBoundProcessor(componentSource);
 			processorFromDestination = GetProperties.getBoundProcessor(componentDestination);
-
-			if (processorFromSource == null) {
-				processorFromSource = GetProperties.getBoundProcessor(associatedProcessSource);
-			}
-
-			if (processorFromDestination == null) {
-				processorFromDestination = GetProperties.getBoundProcessor(associatedProcessDestination);
-			}
 
 			if ((processorFromSource == null) || (processorFromDestination == null)) {
 				return false;
@@ -280,14 +294,14 @@ public class FlowLatencyUtil {
 			fi = (FeatureInstance) cei;
 			if (fi.getFeature() instanceof DataPort) {
 				DataPort dp = (DataPort) fi.getFeature();
-				if (dp.getDataFeatureClassifier()!=null){
+				if (dp.getDataFeatureClassifier() != null) {
 					data = dp.getDataFeatureClassifier().getContainingClassifier();
 				}
 			}
 
 			if (fi.getFeature() instanceof EventDataPort) {
 				EventDataPort edp = (EventDataPort) fi.getFeature();
-				if (edp.getDataFeatureClassifier()!=null){
+				if (edp.getDataFeatureClassifier() != null) {
 					data = edp.getDataFeatureClassifier().getContainingClassifier();
 				}
 			}
