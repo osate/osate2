@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -234,6 +235,29 @@ public class FlowLatencyLogicConnection {
 		}
 
 		/**
+		 * 
+		 */
+		List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connectionInstance);
+		if ((protocols != null) && (protocols.size() > 0)) {
+			double protocolLatencyMinimum;
+			double protocolLatencyMaximum;
+
+			for (ComponentClassifier cc : protocols) {
+
+				protocolLatencyMinimum = GetProperties.getMinimumLatencyinMilliSec(cc);
+				protocolLatencyMaximum = GetProperties.getMaximumLatencyinMilliSec(cc);
+
+				subContributor = new LatencyContributorComponent(cc);
+				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
+				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+				subContributor.setMaximum(protocolLatencyMaximum);
+				subContributor.setMinimum(protocolLatencyMinimum);
+				subContributor.setComments("Time required by the protocol stack");
+				latencyContributor.addSubContributor(subContributor);
+			}
+		}
+
+		/**
 		 * If the sender is on a partitioned architecture, then, we might need to add
 		 * We do that only if the preferences selected an major frame delayed flush policy.
 		 */
@@ -280,7 +304,7 @@ public class FlowLatencyLogicConnection {
 			/**
 			 * Additional time to send/receive data. Here, we handle the case of the partition destination.
 			 */
-			partitionDestination = FlowLatencyUtil.getProcessorForProcessOrThread(componentInstanceSource,
+			partitionDestination = FlowLatencyUtil.getProcessorForProcessOrThread(componentInstanceDestination,
 					ComponentCategory.VIRTUAL_PROCESSOR);
 			if (partitionDestination != null) {
 				/**

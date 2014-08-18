@@ -3,6 +3,10 @@ package org.osate.analysis.flows.model;
 import java.util.List;
 
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.VirtualBusType;
 import org.osate.aadl2.instance.ComponentInstance;
 
 /**
@@ -22,7 +26,7 @@ public class LatencyContributorComponent extends LatencyContributor {
 	 * is related to this latency contributor. Mostly, it is
 	 * a component or a connection.
 	 */
-	private ComponentInstance relatedComponentInstance;
+	private NamedElement relatedElement;
 
 	/**
 	 * The sub contributors are basically what are the other
@@ -34,26 +38,41 @@ public class LatencyContributorComponent extends LatencyContributor {
 	 */
 	private List<LatencyContributorComponent> subContributors;
 
-	public LatencyContributorComponent(ComponentInstance ci) {
+	public LatencyContributorComponent(NamedElement ci) {
 		super();
-		this.relatedComponentInstance = ci;
+		this.relatedElement = ci;
 	}
 
 	protected String getContributorName() {
-		return relatedComponentInstance.getName();
+		return relatedElement.getName();
 	}
 
 	protected String getContributorType() {
-		if (relatedComponentInstance.getCategory() == ComponentCategory.THREAD) {
-			return "Thread";
+		ComponentInstance relatedComponentInstance;
+		ComponentType relatedComponentType;
+
+		if (relatedElement instanceof ComponentInstance) {
+			relatedComponentInstance = (ComponentInstance) relatedElement;
+
+			if (relatedComponentInstance.getCategory() == ComponentCategory.THREAD) {
+				return "Thread";
+			}
+
+			if (relatedComponentInstance.getCategory() == ComponentCategory.DEVICE) {
+				return "Device";
+			}
+
+			if (relatedComponentInstance.getCategory() == ComponentCategory.BUS) {
+				return "Bus";
+			}
+		}
+		if (relatedElement instanceof ComponentClassifier) {
+			relatedComponentType = (ComponentType) relatedElement;
+			relatedComponentType.getCategory().toString();
 		}
 
-		if (relatedComponentInstance.getCategory() == ComponentCategory.DEVICE) {
-			return "Device";
-		}
-
-		if (relatedComponentInstance.getCategory() == ComponentCategory.BUS) {
-			return "Bus";
+		if (relatedElement instanceof VirtualBusType) {
+			return "Protocol";
 		}
 
 		return "Component";
