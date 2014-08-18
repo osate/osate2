@@ -63,6 +63,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.impl.BooleanLiteralImpl;
 import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -1184,6 +1185,74 @@ public class GetProperties {
 		} catch (PropertyLookupException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * Get the module schedule for a processor
+	 * @param ne - the processor component
+	 * @return - a list with all the module schedule. An empty list if not defined.
+	 */
+	public static List<ARINC653ScheduleWindow> getModuleSchedule(final ComponentInstance io) {
+		Property moduleScheduleProperty;
+		List<ARINC653ScheduleWindow> windows;
+		List<? extends PropertyExpression> propertyValues;
+		RecordValue window;
+		IntegerLiteral windowTime;
+		BooleanLiteralImpl windowStartProcessing;
+		PropertyExpression windowPartition;
+		ARINC653ScheduleWindow scheduleWindow;
+		boolean startProcessing;
+		ComponentInstance part;
+		double time;
+		Property period;
+		UnitLiteral milliseconds;
+
+		period = lookupPropertyDefinition(io, TimingProperties._NAME, TimingProperties.PERIOD);
+		milliseconds = findUnitLiteral(period, AadlProject.MS_LITERAL);
+
+		time = 0;
+		part = null;
+		startProcessing = true;
+
+		moduleScheduleProperty = lookupPropertyDefinition(io, ARINC653Properties._NAME,
+				ARINC653Properties.MODULE_SCHEDULE);
+		windows = new ArrayList<ARINC653ScheduleWindow>();
+
+		try {
+			propertyValues = io.getPropertyValueList(moduleScheduleProperty);
+
+			for (PropertyExpression propertyExpression : propertyValues) {
+
+				if (propertyExpression != null) {
+
+					window = (RecordValue) propertyExpression;
+					windowTime = (IntegerLiteral) PropertyUtils.getRecordFieldValue(window, "duration");
+					windowStartProcessing = (BooleanLiteralImpl) PropertyUtils.getRecordFieldValue(window,
+							"periodic_processing_start");
+					windowPartition = PropertyUtils.getRecordFieldValue(window, "partition");
+
+					part = (ComponentInstance) ((InstanceReferenceValue) windowPartition).getReferencedInstanceObject();
+					time = ((NumberValue) windowTime).getScaledValue(milliseconds);
+					scheduleWindow = new ARINC653ScheduleWindow(part, time, startProcessing);
+					windows.add(scheduleWindow);
+				}
+			}
+		} catch (PropertyLookupException e) {
+			return windows;
+		}
+		return windows;
+	}
+
+	/**
+	 * Return the value of the property ARINC653::Module_Major_Frame
+	 * @param module - the component that represents the ARINC653 module
+	 * @return - the major frame - 0 otherwise
+	 */
+	public static double getARINC653ModuleMajorFrame(final ComponentInstance module) {
+		Property majorFrame = lookupPropertyDefinition(module, ARINC653Properties._NAME,
+				ARINC653Properties.MODULE_MAJOR_FRAME);
+		UnitLiteral milliSecond = findUnitLiteral(majorFrame, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(module, majorFrame, milliSecond, 0.0);
 	}
 
 }
