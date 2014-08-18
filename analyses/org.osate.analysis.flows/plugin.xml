@@ -98,4 +98,22 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
+   
+ 	<extension
+         id="org.osate.analysis.flows.partitioning_policy"
+         name="Partioning Policy"
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.analysis.flows.preferences.Initializer">
+      </initializer>
+   </extension>
+      <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.osate.internal.ui.preferences.OsatePreferencePage"
+            class="org.osate.analysis.flows.preferences.Page"
+            id="org.osate.analysis.flows.PreferencePage"
+            name="Flow Analysis">
+      </page>
+   </extension>
 </plugin>
