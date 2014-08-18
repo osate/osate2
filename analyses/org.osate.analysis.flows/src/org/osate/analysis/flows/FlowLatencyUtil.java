@@ -105,16 +105,9 @@ public class FlowLatencyUtil {
 	 */
 	public static FlowElementInstance getNextFlowElement(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-
-		int n;
-		int res;
-		for (n = 0; n < etef.getFlowElements().size(); n++) {
-			if (etef.getFlowElements().get(n) == flowElementInstance) {
-				res = n + 1;
-				if (res < etef.getFlowElements().size()) {
-					return etef.getFlowElements().get(res);
-				}
-			}
+		int n = etef.getFlowElements().indexOf(flowElementInstance);
+		if (n+1 < etef.getFlowElements().size()) {
+			return etef.getFlowElements().get(n+1);
 		}
 
 		return null;
