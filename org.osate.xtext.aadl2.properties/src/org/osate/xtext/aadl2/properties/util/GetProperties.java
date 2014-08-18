@@ -1270,4 +1270,28 @@ public class GetProperties {
 		return res;
 	}
 
+	/**
+	 * Get the virtual bus required for a connection, virtual bus, port, etc.
+	 * @param io - the component which has the property
+	 * @return - the list of virtual bus classifier
+	 */
+	public static List<ComponentClassifier> getRequiredVirtualBusClass(final NamedElement io) {
+		Property requiredVirtualBusClass;
+		ArrayList<ComponentClassifier> components;
+
+		requiredVirtualBusClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.REQUIRED_VIRTUAL_BUS_CLASS);
+		components = new ArrayList<ComponentClassifier>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(requiredVirtualBusClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add((ComponentClassifier) ((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
+	}
+
 }
