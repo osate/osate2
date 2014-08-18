@@ -17,6 +17,7 @@ import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
+import org.osate.analysis.flows.preferences.Constants.PartitioningPolicy;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FlowLatencyLogicConnection {
@@ -95,6 +96,17 @@ public class FlowLatencyLogicConnection {
 		return buses;
 	}
 
+	/**
+	 * Get the bus for a connection. If the bus is not found, we try
+	 * to get the bus by inspecting the component bound (processor)
+	 * to each part of the connection (thread/process/device).
+	 * 
+	 * If the connection is directly bound to a bus through the property
+	 * mechanism, we automatically return it.
+	 * 
+	 * @param connectionInstance - the connection instance
+	 * @return the bus bound to the connection.
+	 */
 	public static ComponentInstance getBus(ConnectionInstance connectionInstance) {
 		ComponentInstance boundBus;
 		ComponentInstance processorSource;
@@ -113,9 +125,10 @@ public class FlowLatencyLogicConnection {
 		 * bus by browsing the processor bus access features. If we find a bus
 		 * we use it.
 		 */
-		processorSource = FlowLatencyUtil.getProcessorForProcessOrThread(getRelatedComponentSource(connectionInstance));
-		processorDestination = FlowLatencyUtil
-				.getProcessorForProcessOrThread(getRelatedComponentDestination(connectionInstance));
+		processorSource = FlowLatencyUtil.getProcessorForProcessOrThread(getRelatedComponentSource(connectionInstance),
+				ComponentCategory.PROCESSOR);
+		processorDestination = FlowLatencyUtil.getProcessorForProcessOrThread(
+				getRelatedComponentDestination(connectionInstance), ComponentCategory.PROCESSOR);
 
 		if ((processorSource != null) && (processorDestination != null)) {
 			accessedBusesSource = getAccessedBuses(processorSource);
@@ -145,27 +158,35 @@ public class FlowLatencyLogicConnection {
 		LatencyContributor latencyContributor;
 		LatencyContributor subContributor;
 		ConnectionInstance connectionInstance;
-		ComponentInstance boundBus;
+		ComponentInstance componentInstanceSource;
+		ComponentInstance componentInstanceDestination;
+		ComponentInstance partitionSource;
+		ComponentInstance partitionDestination;
 		FlowElementInstance nextTaskOrDevice;
+		ComponentInstance boundBus;
 		Classifier relatedConnectionData;
 
 		double maxBusTransferTime;
 		double minBusTransferTime;
 		double maxBusLatency;
 		double minBusLatency;
+		double partitionLatency;
 
 		nextTaskOrDevice = FlowLatencyUtil.getNextTaskOrDevice(etef, flowElementInstance);
-
 		connectionInstance = (ConnectionInstance) flowElementInstance;
-
 		relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
-
 		latencyContributor = new LatencyContributorConnection(connectionInstance);
-
+		componentInstanceSource = getRelatedComponentSource(connectionInstance);
+		componentInstanceDestination = getRelatedComponentDestination(connectionInstance);
 //		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
 
 		boundBus = getBus(connectionInstance);
+		partitionLatency = 0;
 
+		/**
+		 * Check if the connection is bound to a bus. If yes, then, we add
+		 * the bus transmission time as a contributor.
+		 */
 		if (boundBus != null && relatedConnectionData != null) {
 //			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
 			maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
@@ -212,6 +233,93 @@ public class FlowLatencyLogicConnection {
 			latencyContributor.addSubContributor(subContributor);
 		}
 
+		/**
+		 * If the sender is on a partitioned architecture, then, we might need to add
+		 * We do that only if the preferences selected an major frame delayed flush policy.
+		 */
+		if (org.osate.analysis.flows.preferences.Values.getPartitioningPolicy() == PartitioningPolicy.DELAYED) {
+			/**
+			 * Additional time to send/receive data. Here, we handle the case of the partition source.
+			 */
+			partitionSource = FlowLatencyUtil.getProcessorForProcessOrThread(componentInstanceSource,
+					ComponentCategory.VIRTUAL_PROCESSOR);
+			if (partitionSource != null) {
+				/**
+				 * First, we try to find the latency based on the partition schedule declared
+				 * in the module.
+				 */
+				partitionLatency = FlowLatencyUtil.getPartitionSenderLatencyWithSchedule(partitionSource);
+				if (partitionLatency > 0) {
+					subContributor = new LatencyContributorComponent(partitionSource);
+					subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+					subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+					subContributor.setMaximum(partitionLatency);
+					subContributor.setMinimum(partitionLatency);
+					subContributor
+							.setComments("Time to receive the data once data ports are flushed based on the module schedule");
+					latencyContributor.addSubContributor(subContributor);
+				} else {
+					/**
+					 * if there is no partition schedule declared, we fall back on the major frame value.
+					 */
+					partitionLatency = GetProperties.getARINC653ModuleMajorFrame(FlowLatencyUtil
+							.getProcessorForProcessOrThread(componentInstanceSource, ComponentCategory.PROCESSOR));
+					if (partitionLatency > 0) {
+						subContributor = new LatencyContributorComponent(partitionSource);
+						subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+						subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+						subContributor.setMaximum(partitionLatency);
+						subContributor.setMinimum(partitionLatency);
+						subContributor
+								.setComments("Time to receive the data once data ports are flushed based on the module schedule");
+						latencyContributor.addSubContributor(subContributor);
+					}
+				}
+			}
+
+			/**
+			 * Additional time to send/receive data. Here, we handle the case of the partition destination.
+			 */
+			partitionDestination = FlowLatencyUtil.getProcessorForProcessOrThread(componentInstanceSource,
+					ComponentCategory.VIRTUAL_PROCESSOR);
+			if (partitionDestination != null) {
+				/**
+				 * First, we try to find the latency based on the partition schedule declared
+				 * in the module.
+				 */
+				partitionLatency = FlowLatencyUtil.getPartitionReceiverLatencyWithSchedule(partitionDestination);
+				if (partitionLatency > 0) {
+					subContributor = new LatencyContributorComponent(partitionDestination);
+					subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+					subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+					subContributor.setMaximum(partitionLatency);
+					subContributor.setMinimum(partitionLatency);
+					subContributor
+							.setComments("Time to receive the data once data ports are flushed based on the module schedule");
+					latencyContributor.addSubContributor(subContributor);
+				} else {
+					/**
+					 * if there is no partition schedule declared, we fall back on the major frame value.
+					 */
+					partitionLatency = GetProperties.getARINC653ModuleMajorFrame(FlowLatencyUtil
+							.getProcessorForProcessOrThread(componentInstanceSource, ComponentCategory.PROCESSOR));
+					if (partitionLatency > 0) {
+						subContributor = new LatencyContributorComponent(partitionDestination);
+						subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+						subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+						subContributor.setMaximum(partitionLatency);
+						subContributor.setMinimum(partitionLatency);
+						subContributor
+								.setComments("Time to receive the data once data ports are flushed based on the module schedule");
+						latencyContributor.addSubContributor(subContributor);
+					}
+				}
+			}
+		}
+
+		/**
+		 * Compute the main latency of the connection according to its type: delayed, sampled or immediate.
+		 */
 		if (FlowLatencyUtil.getConnectionType(connectionInstance) == ConnectionType.DELAYED) {
 			/**
 			 * We checked if the connection is local or not.
@@ -271,4 +379,5 @@ public class FlowLatencyLogicConnection {
 
 		return latencyContributor;
 	}
+
 }

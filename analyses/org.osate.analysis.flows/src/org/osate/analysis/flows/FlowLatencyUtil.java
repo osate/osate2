@@ -106,8 +106,8 @@ public class FlowLatencyUtil {
 	public static FlowElementInstance getNextFlowElement(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		int n = etef.getFlowElements().indexOf(flowElementInstance);
-		if (n+1 < etef.getFlowElements().size()) {
-			return etef.getFlowElements().get(n+1);
+		if (n + 1 < etef.getFlowElements().size()) {
+			return etef.getFlowElements().get(n + 1);
 		}
 
 		return null;
@@ -176,7 +176,15 @@ public class FlowLatencyUtil {
 		return null;
 	}
 
-	public static ComponentInstance getProcessorForProcessOrThread(ComponentInstance componentInstance) {
+	/**
+	 * Get the processor for a thread or process. the category argument specifies if we want
+	 * a processor or virtual processor.
+	 * @param componentInstance - the thread/process that is supposed to be bound
+	 * @param category - the category of the component to be returned. It can be a processor or virtual processor
+	 * @return - the first processor or virtual processor bound. Null if nothing is found
+	 */
+	public static ComponentInstance getProcessorForProcessOrThread(ComponentInstance componentInstance,
+			ComponentCategory category) {
 		ComponentInstance processor;
 		ComponentInstance process;
 
@@ -191,7 +199,7 @@ public class FlowLatencyUtil {
 				 * if the thread is not bound to a processor, we try to get 
 				 * the processor of the related process.
 				 */
-				return getProcessorForProcessOrThread(getEnclosingProcess(componentInstance));
+				return getProcessorForProcessOrThread(getEnclosingProcess(componentInstance), category);
 			}
 		}
 
@@ -200,7 +208,12 @@ public class FlowLatencyUtil {
 			processor = GetProperties.getBoundProcessor(componentInstance);
 		}
 
-		return processor;
+		if ((processor != null) && (processor.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+				&& (category == ComponentCategory.PROCESSOR)) {
+			processor = processor.getContainingComponentInstance();
+		}
+
+		return ((processor != null) && (processor.getCategory()) == category) ? processor : null;
 	}
 
 	/**
@@ -395,6 +408,53 @@ public class FlowLatencyUtil {
 		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
 
 		return dataTransferTime + acquisitionTime;
+	}
+
+	public static ComponentInstance getModule(ComponentInstance partition) {
+		ComponentInstance module;
+
+		/**
+		 * The partition must be a virtual processor component.
+		 */
+		if (partition.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR) {
+			return null;
+		}
+
+		/**
+		 * Try to get the module from the virtual processor partition.
+		 */
+		module = GetProperties.getBoundProcessor(partition);
+
+		if (module == null) {
+			module = partition.getContainingComponentInstance();
+		}
+
+		if ((module != null) && (module.getCategory() == ComponentCategory.PROCESSOR)) {
+			return module;
+		}
+		return null;
+	}
+
+	public static double getPartitionReceiverLatencyWithSchedule(ComponentInstance partition) {
+		ComponentInstance module;
+
+		module = getModule(partition);
+		GetProperties.getModuleSchedule(module);
+		/**
+		 * FIXME- wait for bug #413 to be solved to continue
+		 */
+		return 0;
+	}
+
+	public static double getPartitionSenderLatencyWithSchedule(ComponentInstance partition) {
+		ComponentInstance module;
+
+		module = getModule(partition);
+		GetProperties.getModuleSchedule(module);
+		/**
+		 * FIXME- wait for bug #413 to be solved to continue
+		 */
+		return 0;
 	}
 
 }

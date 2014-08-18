@@ -19,7 +19,7 @@ import org.osate.analysis.flows.reporting.model.ReportSeverity;
 public abstract class LatencyContributor {
 
 	public enum LatencyContributorMethod {
-		DEADLINE, PERIOD, WCET, IMMEDIATE, UNKNOWN, DELAYED, SAMPLED, SPECIFIED, TRANSMISSION_TIME
+		DEADLINE, PERIOD, WCET, IMMEDIATE, UNKNOWN, DELAYED, SAMPLED, SPECIFIED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE
 	};
 
 	/**
@@ -104,6 +104,10 @@ public abstract class LatencyContributor {
 			return "immediate local connection";
 		case SPECIFIED:
 			return "specified";
+		case PARTITION_FRAME:
+			return "partition major frame";
+		case PARTITION_SCHEDULE:
+			return "partition schedule";
 		case TRANSMISSION_TIME:
 			return "transmission time";
 		}
