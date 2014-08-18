@@ -1199,7 +1199,7 @@ public class GetProperties {
 		RecordValue window;
 		IntegerLiteral windowTime;
 		BooleanLiteralImpl windowStartProcessing;
-		PropertyExpression windowPartition;
+		InstanceReferenceValue windowPartition;
 		ARINC653ScheduleWindow scheduleWindow;
 		boolean startProcessing;
 		ComponentInstance part;
@@ -1218,33 +1218,28 @@ public class GetProperties {
 				ARINC653Properties.MODULE_SCHEDULE);
 		windows = new ArrayList<ARINC653ScheduleWindow>();
 
-		/*
-		 * Wait for the bug #413 to be fixed before continuing
-		 * See https://github.com/osate/osate2-core/issues/413
-		 */
+		try {
+			propertyValues = io.getPropertyValueList(moduleScheduleProperty);
 
-//		try {
-//			propertyValues = io.getPropertyValueList(moduleScheduleProperty);
-//
-//			for (PropertyExpression propertyExpression : propertyValues) {
-//
-//				if (propertyExpression != null) {
-//
-//					window = (RecordValue) propertyExpression;
-//					windowTime = (IntegerLiteral) PropertyUtils.getRecordFieldValue(window, "duration");
-//					windowStartProcessing = (BooleanLiteralImpl) PropertyUtils.getRecordFieldValue(window,
-//							"periodic_processing_start");
-//					windowPartition = PropertyUtils.getRecordFieldValue(window, "partition");
-//
-//					part = (ComponentInstance) ((InstanceReferenceValue) windowPartition).getReferencedInstanceObject();
-//					time = ((NumberValue) windowTime).getScaledValue(milliseconds);
-//					scheduleWindow = new ARINC653ScheduleWindow(part, time, startProcessing);
-//					windows.add(scheduleWindow);
-//				}
-//			}
-//		} catch (PropertyLookupException e) {
-//			return windows;
-//		}
+			for (PropertyExpression propertyExpression : propertyValues) {
+
+				if (propertyExpression != null) {
+
+					window = (RecordValue) propertyExpression;
+					windowTime = (IntegerLiteral) PropertyUtils.getRecordFieldValue(window, "duration");
+					windowStartProcessing = (BooleanLiteralImpl) PropertyUtils.getRecordFieldValue(window,
+							"periodic_processing_start");
+					windowPartition = (InstanceReferenceValue) PropertyUtils.getRecordFieldValue(window, "partition");
+
+					part = (ComponentInstance) ((InstanceReferenceValue) windowPartition).getReferencedInstanceObject();
+					time = ((NumberValue) windowTime).getScaledValue(milliseconds);
+					scheduleWindow = new ARINC653ScheduleWindow(part, time, startProcessing);
+					windows.add(scheduleWindow);
+				}
+			}
+		} catch (PropertyLookupException e) {
+			return windows;
+		}
 		return windows;
 	}
 
