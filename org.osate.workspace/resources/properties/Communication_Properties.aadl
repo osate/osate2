@@ -68,10 +68,10 @@ property set Communication_Properties is
 		applies to (bus);
 	
 	Actual_Latency: Time_Range
-		applies to (flow, connection, virtual bus, bus, processor, device, feature, memory);
+		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
 	
 	Latency: Time_Range
-		applies to (flow, connection, virtual bus, bus, processor, device, feature, memory);
+		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
 		
 	Data_Rate : aadlinteger units Data_Rate_Units applies to (feature);
 
