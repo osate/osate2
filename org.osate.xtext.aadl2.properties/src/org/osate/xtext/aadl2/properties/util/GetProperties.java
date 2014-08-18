@@ -1249,10 +1249,20 @@ public class GetProperties {
 	 * @return - the major frame - 0 otherwise
 	 */
 	public static double getARINC653ModuleMajorFrame(final ComponentInstance module) {
-		Property majorFrame = lookupPropertyDefinition(module, ARINC653Properties._NAME,
-				ARINC653Properties.MODULE_MAJOR_FRAME);
-		UnitLiteral milliSecond = findUnitLiteral(majorFrame, AadlProject.MS_LITERAL);
-		return PropertyUtils.getScaledNumberValue(module, majorFrame, milliSecond, 0.0);
+		Property majorFrame;
+		UnitLiteral milliSecond;
+		double res;
+
+		if (module == null) {
+			return 0;
+		}
+
+		majorFrame = lookupPropertyDefinition(module, ARINC653Properties._NAME, ARINC653Properties.MODULE_MAJOR_FRAME);
+		milliSecond = findUnitLiteral(majorFrame, AadlProject.MS_LITERAL);
+
+		res = PropertyUtils.getScaledNumberValue(module, majorFrame, milliSecond, 0.0);
+
+		return res;
 	}
 
 }
