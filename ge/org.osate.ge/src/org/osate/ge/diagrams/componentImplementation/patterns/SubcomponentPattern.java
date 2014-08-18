@@ -177,6 +177,9 @@ public class SubcomponentPattern extends AgePattern {
 		this.refresh(shape, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
 		
 		layoutService.checkContainerSize(shape);
+		
+		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
 	}
 
 	@Override 

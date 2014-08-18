@@ -176,8 +176,10 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		final ContainerShape container = (ContainerShape)pe;
        	graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, ((Classifier)bo), context.getWidth(), context.getHeight());
-		
-		super.resizeShape(context);
+
+		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
+		super.resizeShape(context);      	
 	}	
 	
 	@Override
