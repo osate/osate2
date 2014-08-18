@@ -147,12 +147,24 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         
         // Set the size        
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
-		final int width = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
+		final int textWidth = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
 		final int height = 50; 
-		gaService.setLocationAndSize(text, 0, 0, width, 20);
-				
+
+		final int totalWidth;
+		final int labelX;
+        if(bo instanceof FeatureGroupType) {
+        	final int symbolWidth = height * 3 / 4;
+        	totalWidth = symbolWidth + textWidth;
+        	labelX = symbolWidth;
+        } else {
+        	totalWidth = textWidth;
+        	labelX = 0;
+        }        
+
+        gaService.setLocationAndSize(text, labelX, 0, textWidth, 20);
+        
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, width, height);        
+        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, totalWidth, height);        
         gaService.setLocation(ga, x, y);
 	}
 
@@ -186,10 +198,11 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	public boolean canLayout(final ILayoutContext context) {
 		return isPatternControlled(context.getPictogramElement());
 	}
-
+	
 	@Override
 	public boolean layout(final ILayoutContext context) {
 		final PictogramElement pictogramElement = context.getPictogramElement();
+		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		
 		if(pictogramElement instanceof ContainerShape) {
 			final ContainerShape containerShape = (ContainerShape)pictogramElement;
@@ -199,7 +212,13 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 				final Shape shape = children.get(0);
 				final GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
 				if (graphicsAlgorithm instanceof Text) {
-					Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, 0, 0, outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight());
+					if(bo instanceof FeatureGroupType) {
+						final int estSymbolSize = Math.min(outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight()) * 3 / 4;
+						Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, estSymbolSize, 0, outerGraphicsAlgorithm.getWidth()-estSymbolSize, outerGraphicsAlgorithm.getHeight());
+					} else {
+						Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, 0, 0, outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight());
+					}
+					
 					return true;
 				}
 			}

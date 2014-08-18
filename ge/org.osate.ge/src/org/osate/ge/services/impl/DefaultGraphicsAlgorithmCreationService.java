@@ -73,7 +73,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		final GraphicsAlgorithm ga;
 		
 		if(element instanceof FeatureGroupType) {
-        	ga = createFeatureGroupGraphicsAlgorithm(shape, Math.min(width/3, height/3), height);
+        	ga = createFeatureGroupTypeGraphicsAlgorithm(shape, width, height);
         	ga.setWidth(width);
 		} else {
 			final boolean isImplementation;
@@ -610,6 +610,47 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		gaService.setLocationAndSize(bar, circle.getX()-barWidth, 0, barWidth, height);
 		bar.setStyle(style);
 		
+		return ga;
+	}
+	
+	private GraphicsAlgorithm createFeatureGroupTypeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final int width, final int height) {
+		final Style style = styleService.getFeatureGroupStyle();
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
+		final int size = Math.min(width, height);
+		final double halfSize = (size)/2.0;
+		final int paddingCircleSize = (int)(halfSize + 1 + halfSize *.2);
+		final int innerCircleSize = size/2;
+		gaService.setSize(ga, size, size);
+		ga.setLineVisible(false);
+		ga.setFilled(false);	
+
+		// Draw a half circle
+		int pointCount = 16;
+		int[] points = new int[pointCount*2];
+		int j = 0;
+		double t = 0;
+		for(int i = 0; i < pointCount; i++) {
+			final int x = (int)Math.round(halfSize + (-Math.sin(t) * halfSize));
+			final int y = (int)Math.round(height/2.0 + (Math.cos(t) * halfSize));
+			points[j++] = x;
+			points[j++] = y;
+			t += Math.PI/(pointCount-1);
+		}
+		final Polygon halfCircle = gaService.createPlainPolygon(ga, points);
+		gaService.setLocationAndSize(halfCircle, 0, 0, size, size);
+		halfCircle.setStyle(style);
+		
+		// White circle for padding
+		final GraphicsAlgorithm paddingCircle = gaService.createPlainEllipse(ga);
+		gaService.setLocationAndSize(paddingCircle, (int)Math.round(size/2.0 - paddingCircleSize/2.0), (int)Math.round(height/2.0-paddingCircleSize/2.0), paddingCircleSize, paddingCircleSize);
+		paddingCircle.setStyle(styleService.getBackgroundStyle());
+		
+		// Inner Circle
+		final GraphicsAlgorithm innerCircle = gaService.createPlainEllipse(ga);
+		gaService.setLocationAndSize(innerCircle, (int)Math.round(innerCircleSize/2), (int)Math.round(height/2.0-innerCircleSize/2.0), innerCircleSize, innerCircleSize);
+		innerCircle.setStyle(style);
+
 		return ga;
 	}
 	
