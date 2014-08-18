@@ -1,8 +1,6 @@
 package org.osate.xtext.aadl2.tests
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
@@ -12,10 +10,11 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ModelUnit
+import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.SystemType
+import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 
 @RunWith(typeof(XtextRunner))
@@ -52,6 +51,11 @@ class PropertyTests extends OsateTest {
 				      period => 1sec;
 				  end s1;
 				  
+				  system implementation s1.i
+				  subcomponents
+				    d: data;
+				  end s1.i;
+				  
 				end p1;
 			''',
 			"ps1.aadl" -> '''
@@ -85,9 +89,16 @@ class PropertyTests extends OsateTest {
 		val pkg = result.resource.contents.head as AadlPackage
 		assertAllCrossReferencesResolvable(pkg)
 		
-		val pas = (pkg.ownedPublicSection.ownedClassifiers.last as SystemType).ownedPropertyAssociations
+		val pas = pkg.ownedPublicSection.ownedClassifiers.head.ownedPropertyAssociations
 		Assert.assertEquals("prop", pas.head.property.name)
 		Assert.assertEquals("Period", pas.last.property.name)
+		
+		// instantiate
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.last as SystemImplementation
+		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
+		Assert.assertEquals("s1_i_Instance", instance.name)
+		Assert.assertEquals(1, instance.componentInstances.size)
+		Assert.assertEquals("d", instance.componentInstances.head.name)
 	}
 
 }
