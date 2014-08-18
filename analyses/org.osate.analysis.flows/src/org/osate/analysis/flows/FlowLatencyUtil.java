@@ -1,5 +1,7 @@
 package org.osate.analysis.flows;
 
+import java.util.List;
+
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPort;
@@ -15,6 +17,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.analysis.flows.model.ConnectionType;
+import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
@@ -437,24 +440,65 @@ public class FlowLatencyUtil {
 
 	public static double getPartitionReceiverLatencyWithSchedule(ComponentInstance partition) {
 		ComponentInstance module;
+		List<ARINC653ScheduleWindow> schedule;
+		double res;
+		boolean found = false;
 
+		if (partition == null) {
+			return 0;
+		}
+
+		res = 0;
 		module = getModule(partition);
-		GetProperties.getModuleSchedule(module);
-		/**
-		 * FIXME- wait for bug #413 to be solved to continue
-		 */
+		schedule = GetProperties.getModuleSchedule(module);
+
+		if ((schedule == null) || (schedule.size() == 0)) {
+			return 0;
+		}
+
+		found = false;
+
+		for (ARINC653ScheduleWindow window : schedule) {
+			if (window.getPartition() == partition) {
+				return res;
+			}
+
+			res = res + window.getTime();
+		}
 		return 0;
 	}
 
 	public static double getPartitionSenderLatencyWithSchedule(ComponentInstance partition) {
 		ComponentInstance module;
+		List<ARINC653ScheduleWindow> schedule;
+		double res;
+		boolean found = false;
 
+		if (partition == null) {
+			return 0;
+		}
+
+		res = 0;
 		module = getModule(partition);
-		GetProperties.getModuleSchedule(module);
-		/**
-		 * FIXME- wait for bug #413 to be solved to continue
-		 */
-		return 0;
+		schedule = GetProperties.getModuleSchedule(module);
+
+		if ((schedule == null) || (schedule.size() == 0)) {
+			return 0;
+		}
+
+		found = false;
+
+		for (ARINC653ScheduleWindow window : schedule) {
+			if (found == true) {
+				res = res + window.getTime();
+			}
+
+			if (window.getPartition() == partition) {
+				found = true;
+			}
+
+		}
+		return res;
 	}
 
 }

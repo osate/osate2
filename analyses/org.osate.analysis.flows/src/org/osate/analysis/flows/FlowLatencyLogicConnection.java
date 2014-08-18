@@ -52,7 +52,7 @@ public class FlowLatencyLogicConnection {
 		ComponentInstance destination;
 
 		destination = null;
-		destinationEnd = connectionInstance.getSource();
+		destinationEnd = connectionInstance.getDestination();
 
 		if ((destinationEnd.getContainingComponentInstance() != null)
 				&& (destinationEnd.getContainingComponentInstance() != null)) {
@@ -280,7 +280,7 @@ public class FlowLatencyLogicConnection {
 					subContributor.setMaximum(partitionLatency);
 					subContributor.setMinimum(partitionLatency);
 					subContributor
-							.setComments("Time to receive the data once data ports are flushed based on the module schedule");
+							.setComments("Time to send the data and wait for the major frame flush based on the module schedule");
 					latencyContributor.addSubContributor(subContributor);
 				} else {
 					/**
@@ -318,8 +318,7 @@ public class FlowLatencyLogicConnection {
 					subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					subContributor.setMaximum(partitionLatency);
 					subContributor.setMinimum(partitionLatency);
-					subContributor
-							.setComments("Time to receive the data once data ports are flushed based on the module schedule");
+					subContributor.setComments("Time to receive the data based on the module schedule");
 					latencyContributor.addSubContributor(subContributor);
 				} else {
 					/**
