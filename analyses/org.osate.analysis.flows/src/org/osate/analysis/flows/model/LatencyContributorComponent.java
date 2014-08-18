@@ -47,8 +47,13 @@ public class LatencyContributorComponent extends LatencyContributor {
 		if (relatedComponentInstance.getCategory() == ComponentCategory.THREAD) {
 			return "Thread";
 		}
+
 		if (relatedComponentInstance.getCategory() == ComponentCategory.DEVICE) {
 			return "Device";
+		}
+
+		if (relatedComponentInstance.getCategory() == ComponentCategory.BUS) {
+			return "Bus";
 		}
 
 		return "Component";

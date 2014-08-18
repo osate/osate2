@@ -1,10 +1,18 @@
 package org.osate.analysis.flows;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureCategory;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -13,6 +21,102 @@ import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FlowLatencyLogicConnection {
+
+	public static ComponentInstance getRelatedComponentSource(ConnectionInstance connectionInstance) {
+		ConnectionInstanceEnd sourceEnd;
+		ComponentInstance source;
+
+		source = null;
+		sourceEnd = connectionInstance.getSource();
+
+		if ((sourceEnd.getContainingComponentInstance() != null)
+				&& (sourceEnd.getContainingComponentInstance() != null)) {
+			source = sourceEnd.getContainingComponentInstance();
+		}
+		return source;
+	}
+
+	public static ComponentInstance getRelatedComponentDestination(ConnectionInstance connectionInstance) {
+		ConnectionInstanceEnd destinationEnd;
+		ComponentInstance destination;
+
+		destination = null;
+		destinationEnd = connectionInstance.getSource();
+
+		if ((destinationEnd.getContainingComponentInstance() != null)
+				&& (destinationEnd.getContainingComponentInstance() != null)) {
+			destination = destinationEnd.getContainingComponentInstance();
+		}
+		return destination;
+	}
+
+	public static List<ComponentInstance> getAccessedBuses(ComponentInstance processor) {
+		List<ComponentInstance> buses;
+		List<ConnectionInstance> connections;
+		ConnectionInstanceEnd cie;
+
+		buses = new ArrayList<ComponentInstance>();
+		connections = new ArrayList<ConnectionInstance>();
+
+		for (FeatureInstance fi : processor.getFeatureInstances()) {
+			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
+				connections.addAll(fi.getSrcConnectionInstances());
+				connections.addAll(fi.getDstConnectionInstances());
+
+				for (ConnectionInstance ci : connections) {
+					cie = ci.getSource();
+					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
+
+					cie = ci.getDestination();
+					if (cie instanceof ComponentInstance) {
+						if (((ComponentInstance) cie).getCategory() == ComponentCategory.BUS) {
+							buses.add((ComponentInstance) cie);
+						}
+					}
+					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
+				}
+			}
+		}
+		return buses;
+	}
+
+	public static ComponentInstance getBus(ConnectionInstance connectionInstance) {
+		ComponentInstance boundBus;
+		ComponentInstance processorSource;
+		ComponentInstance processorDestination;
+		List<ComponentInstance> accessedBusesSource;
+		List<ComponentInstance> accessedBusesDestination;
+
+		if (FlowLatencyUtil.isLocal(connectionInstance)) {
+			return null;
+		}
+
+		boundBus = GetProperties.getBoundBus(connectionInstance);
+
+		/**
+		 * if boundBus == null and the connection is NOT local, we try to find the
+		 * bus by browsing the processor bus access features. If we find a bus
+		 * we use it.
+		 */
+		processorSource = FlowLatencyUtil.getProcessorForProcessOrThread(getRelatedComponentSource(connectionInstance));
+		processorDestination = FlowLatencyUtil
+				.getProcessorForProcessOrThread(getRelatedComponentDestination(connectionInstance));
+
+		if ((processorSource != null) && (processorDestination != null)) {
+			accessedBusesSource = getAccessedBuses(processorSource);
+			accessedBusesDestination = getAccessedBuses(processorDestination);
+
+			for (ComponentInstance busSource : accessedBusesSource) {
+				for (ComponentInstance busDestination : accessedBusesDestination) {
+					if (busSource == busDestination) {
+						boundBus = busSource;
+					}
+				}
+			}
+		}
+
+		return (boundBus);
+	}
 
 	public static LatencyContributor mapConnectionInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
@@ -38,9 +142,9 @@ public class FlowLatencyLogicConnection {
 
 //		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
 
-		boundBus = GetProperties.getBoundBus(connectionInstance);
+		boundBus = getBus(connectionInstance);
 
-		if (boundBus != null&&relatedConnectionData!=null) {
+		if (boundBus != null && relatedConnectionData != null) {
 //			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
 			maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
 			minBusLatency = GetProperties.getMinimumLatencyinMilliSec(boundBus);
