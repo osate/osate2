@@ -35,8 +35,8 @@
  */
 package org.osate.aadl2;
 
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -53,10 +53,11 @@ import org.osate.aadl2.properties.InvalidModelException;
  */
 public interface ReferenceValue extends ContainedNamedElement, PropertyValue {
 
-	public PropertyExpression instantiate(ComponentInstance root) throws InvalidModelException;
+	public PropertyExpression instantiate(InstanceObject io) throws InvalidModelException;
 
-	public PropertyExpression instantiate(FeatureInstance root) throws InvalidModelException;
+	public PropertyExpression instantiate(FeatureInstance fi) throws InvalidModelException;
 
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx);
 
 } // ReferenceValue
