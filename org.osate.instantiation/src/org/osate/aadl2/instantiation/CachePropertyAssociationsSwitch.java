@@ -385,8 +385,10 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 				((ListValue) newVal.getOwnedValue()).getOwnedListElements().addAll(0, elems);
 			}
-			if (!proxy.isModal()) {
 
+			boolean valueIsUsed = false;
+			if (!proxy.isModal()) {
+				valueIsUsed = true;
 				pa.getOwnedValues().add(newVal);
 			} else {
 				List<Mode> modes = proxy.getModes();
@@ -433,7 +435,23 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					}
 				}
 				if (!newVal.getInModes().isEmpty()) {
+					valueIsUsed = true;
 					pa.getOwnedValues().add(newVal);
+				}
+			}
+			if (valueIsUsed) {
+				// replace reference values in the context of the contained PA's owner
+				for (Iterator<Element> content = EcoreUtil.getAllProperContents(newVal, false); content.hasNext();) {
+					Element elem = content.next();
+
+					if (elem instanceof ReferenceValue) {
+						try {
+							PropertyExpression irv = ((ReferenceValue) elem).instantiate(io);
+							EcoreUtil.replace(elem, irv);
+						} catch (InvalidModelException e) {
+							error(io, e.getMessage());
+						}
+					}
 				}
 			}
 		}
