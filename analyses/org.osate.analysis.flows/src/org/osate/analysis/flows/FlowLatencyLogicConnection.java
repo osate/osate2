@@ -12,7 +12,6 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -22,6 +21,11 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FlowLatencyLogicConnection {
 
+	/**
+	 * Get the component that is connected at the source side of the connection.
+	 * @param connectionInstance - the connection to process
+	 * @return - the component that is the source
+	 */
 	public static ComponentInstance getRelatedComponentSource(ConnectionInstance connectionInstance) {
 		ConnectionInstanceEnd sourceEnd;
 		ComponentInstance source;
@@ -36,6 +40,11 @@ public class FlowLatencyLogicConnection {
 		return source;
 	}
 
+	/**
+	 * Get the component that is connected at the destination side of the connection.
+	 * @param connectionInstance - the connection to be processed
+	 * @return - the component that is the connection destination (and not its feature)
+	 */
 	public static ComponentInstance getRelatedComponentDestination(ConnectionInstance connectionInstance) {
 		ConnectionInstanceEnd destinationEnd;
 		ComponentInstance destination;
@@ -50,6 +59,12 @@ public class FlowLatencyLogicConnection {
 		return destination;
 	}
 
+	/**
+	 * Get the list of all the buses a process can access through its required
+	 * bus access features.
+	 * @param processor - the processor that has bus access features
+	 * @return - the list of all bus components that can be access by the processor.
+	 */
 	public static List<ComponentInstance> getAccessedBuses(ComponentInstance processor) {
 		List<ComponentInstance> buses;
 		List<ConnectionInstance> connections;
@@ -65,7 +80,7 @@ public class FlowLatencyLogicConnection {
 
 				for (ConnectionInstance ci : connections) {
 					cie = ci.getSource();
-					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
+//					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
 
 					cie = ci.getDestination();
 					if (cie instanceof ComponentInstance) {
@@ -73,7 +88,7 @@ public class FlowLatencyLogicConnection {
 							buses.add((ComponentInstance) cie);
 						}
 					}
-					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
+//					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
 				}
 			}
 		}
@@ -118,6 +133,13 @@ public class FlowLatencyLogicConnection {
 		return (boundBus);
 	}
 
+	/**
+	 * Main function, transform the connection instance into a latency contributor
+	 * object. 
+	 * @param etef - the end to end flow being analyzed
+	 * @param flowElementInstance - the flow element that represents the connection to be processed.
+	 * @return - the latency contributor object that maps the connection
+	 */
 	public static LatencyContributor mapConnectionInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		LatencyContributor latencyContributor;
