@@ -75,6 +75,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 		// TODO: Could find an X and Y that doens't overlap existing one. Or wait until layout algorithm is implemented.
 		int childX = startX;
 		int childY = startY;
+
 		for(final NamedElement element : elements) {
 			PictogramElement pictogramElement = shapeService.getChildShapeByElementQualifiedName(shape, element);
 			if(pictogramElement == null) {
