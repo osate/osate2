@@ -66,6 +66,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
@@ -259,8 +260,42 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     return _xblockexpression;
   }
   
-  public IScope scope_ComponentPrototype_constrainingClassifier(final Element element, final EReference reference) {
-    return this.scope_Classifier(element, reference);
+  public IScope scope_ComponentPrototype_constrainingClassifier(final Element context, final EReference reference) {
+    return this.scope_Classifier(context, reference);
+  }
+  
+  /**
+   * Reference is from AbstractPrototype, BusPrototype, DataPrototype, DevicePrototype, MemoryPrototype,
+   * ProcessPrototype, ProcessorPrototype, SubprogramPrototype, SubprogramGroupPrototype, SystemPrototype,
+   * ThreadPrototype, ThreadGroupPrototype, VirtualBusPrototype, VirtualProcessorPrototype,
+   * FeatureGroupPrototype and FeaturePrototype in Aadl2.xtext
+   */
+  public IScope scope_Prototype_refined(final Classifier context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final Classifier extendedClassifier = context.getExtended();
+      IScope _switchResult = null;
+      boolean _matched = false;
+      if (!_matched) {
+        if (extendedClassifier instanceof ComponentClassifier) {
+          _matched=true;
+          EList<Prototype> _allPrototypes = ((ComponentClassifier)extendedClassifier).getAllPrototypes();
+          _switchResult = Scopes.scopeFor(_allPrototypes);
+        }
+      }
+      if (!_matched) {
+        if (extendedClassifier instanceof FeatureGroupType) {
+          _matched=true;
+          EList<Prototype> _allPrototypes = ((FeatureGroupType)extendedClassifier).getAllPrototypes();
+          _switchResult = Scopes.scopeFor(_allPrototypes);
+        }
+      }
+      if (!_matched) {
+        _switchResult = IScope.NULLSCOPE;
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
