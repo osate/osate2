@@ -1133,10 +1133,7 @@ SubprogramCall returns aadl2::SubprogramCall:
 //******* Prototypes
 
 Prototype returns aadl2::Prototype:
-	((( AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-		SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype | VirtualProcessorPrototype | 
-	SystemPrototype | DataPrototype
-	)
+	((ComponentPrototype
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	( array?='[' ']')?
 	) | FeatureGroupPrototype | FeaturePrototype)
@@ -1144,6 +1141,11 @@ Prototype returns aadl2::Prototype:
 	';'
 ;
 
+ComponentPrototype returns aadl2::ComponentPrototype:
+	AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype | VirtualProcessorPrototype | 
+	SystemPrototype | DataPrototype
+;
 
 AbstractPrototype returns aadl2::AbstractPrototype:
 	((name=ID ':' )|
