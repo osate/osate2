@@ -40,7 +40,7 @@ public class LatencyReportEntry {
 	public double getMinimumLatency() {
 		double res = 0.0;
 		for (LatencyContributor lc : contributors) {
-			res = res + lc.getMinimum();
+			res = res + lc.getTotalMinimum();
 		}
 
 		return res;
@@ -49,7 +49,7 @@ public class LatencyReportEntry {
 	public double getMaximumLatency() {
 		double res = 0.0;
 		for (LatencyContributor lc : contributors) {
-			res = res + lc.getMaximum();
+			res = res + lc.getTotalMaximum();
 		}
 
 		return res;
@@ -96,8 +96,8 @@ public class LatencyReportEntry {
 			for (Line l : lc.export()) {
 				section.addLine(l);
 			}
-			minValue = minValue + lc.getMinimum();
-			maxValue = maxValue + lc.getMaximum();
+			minValue = minValue + lc.getTotalMinimum();
+			maxValue = maxValue + lc.getTotalMaximum();
 		}
 
 		line = new Line();

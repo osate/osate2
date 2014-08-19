@@ -138,19 +138,27 @@ public abstract class LatencyContributor {
 		this.maxValue = d;
 	}
 
-	public double getMinimum() {
+	public double getLocalMinimum() {
+		return this.minValue;
+	}
+
+	public double getLocalMaximum() {
+		return this.maxValue;
+	}
+
+	public double getTotalMinimum() {
 		double res = this.minValue;
 		for (LatencyContributor lc : subContributors) {
-			res = lc.getMinimum();
+			res = lc.getTotalMinimum();
 		}
 
 		return res;
 	}
 
-	public double getMaximum() {
+	public double getTotalMaximum() {
 		double res = this.maxValue;
 		for (LatencyContributor lc : subContributors) {
-			res = lc.getMaximum();
+			res = lc.getTotalMaximum();
 		}
 
 		return res;
@@ -175,14 +183,14 @@ public abstract class LatencyContributor {
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		myLine.addContent(this.getMinimum() + "ms");
+		myLine.addContent(this.getLocalMinimum() + "ms");
 		myLine.addContent(mapMethodToString(bestCaseMethod));
 		if (this.expectedMax != 0.0) {
 			myLine.addContent(this.expectedMax + "ms");
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		myLine.addContent(this.getMaximum() + "ms");
+		myLine.addContent(this.getLocalMaximum() + "ms");
 		myLine.addContent(mapMethodToString(worstCaseMethod));
 
 		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {

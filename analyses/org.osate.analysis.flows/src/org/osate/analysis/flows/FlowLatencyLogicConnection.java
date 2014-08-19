@@ -381,8 +381,8 @@ public class FlowLatencyLogicConnection {
 				if (nextTaskOrDevice != null) {
 					double period;
 					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
+					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
+					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
 					latencyContributor.setMaximum(period);
 					latencyContributor.setMinimum(period);
 					latencyContributor.setComments("The data will be available at the next task/device dispatch");
@@ -391,8 +391,8 @@ public class FlowLatencyLogicConnection {
 				if (nextTaskOrDevice != null) {
 					double period;
 					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
+					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
+					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
 					latencyContributor.setMaximum(period);
 					latencyContributor.setMinimum(0.0);
 					latencyContributor.setComments("Data might arrive at dispatch time or next frame");

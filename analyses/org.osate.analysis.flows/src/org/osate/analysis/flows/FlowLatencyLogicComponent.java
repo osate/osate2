@@ -193,9 +193,6 @@ public class FlowLatencyLogicComponent {
 
 					latencyContributor.setComments("Local connection - use default method");
 				} else {
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-
 					/**
 					 * Distributed systems
 					 */
