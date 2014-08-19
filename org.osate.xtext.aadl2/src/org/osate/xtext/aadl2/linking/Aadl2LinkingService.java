@@ -53,6 +53,7 @@ import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
@@ -423,6 +424,11 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				FeatureType subT = cpa.getFeatureType();
 				if (subT instanceof FeatureGroupType) {
 					searchResult = ((FeatureGroupType) subT).findNamedElement(name);
+				}
+			} else if (context.eContainer() instanceof ComponentImplementationReference) {
+				ns = ((ComponentImplementationReference) context.eContainer()).getImplementation();
+				if (!Aadl2Util.isNull(ns)) {
+					searchResult = ns.findNamedElement(name);
 				}
 			} else {
 				ns = AadlUtil.getContainingClassifier(context);
