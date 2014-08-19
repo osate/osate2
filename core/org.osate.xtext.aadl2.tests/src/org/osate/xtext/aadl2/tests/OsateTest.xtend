@@ -28,7 +28,7 @@ class OsateTest extends XtextTest {
       * Create a project with subdirectories in the current workspace.
       */
 	def createProject(String projectName, String... srcDirs) {
-		val project = workspaceRoot.getProject("test")
+		val project = workspaceRoot.getProject(projectName)
 		val plugin_resources = workspaceRoot.getProject("Plugin_Resources")
 
 		Assert.isTrue(plugin_resources.exists, "Plugin_Resources project does not exist")

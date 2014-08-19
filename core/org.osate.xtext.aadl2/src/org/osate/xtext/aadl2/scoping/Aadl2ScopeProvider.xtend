@@ -142,6 +142,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		}
 		scope
 	}
+	
+	//Reference is from Prototype in Aadl2.xtext
+	def scope_ComponentPrototype_constrainingClassifier(Element element, EReference reference) {
+		scope_Classifier(element, reference)
+	}
 
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
