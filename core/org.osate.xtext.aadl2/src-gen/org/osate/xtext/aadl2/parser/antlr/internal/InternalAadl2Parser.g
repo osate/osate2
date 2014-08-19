@@ -27899,15 +27899,34 @@ ruleFeatureGroupType returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFeatureGroupTypeAccess().getOwnedParameterParameterParserRuleCall_5_1_9_0()); 
+	    }
+		lv_ownedParameter_23_0=ruleParameter		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFeatureGroupTypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedParameter",
+        		lv_ownedParameter_23_0, 
+        		"Parameter");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 ))+)?(
-	otherlv_23=KEYWORD_68
+	otherlv_24=KEYWORD_68
     {
-    	newLeafNode(otherlv_23, grammarAccess.getFeatureGroupTypeAccess().getInverseKeyword_6_0());
+    	newLeafNode(otherlv_24, grammarAccess.getFeatureGroupTypeAccess().getInverseKeyword_6_0());
     }
 
-	otherlv_24=KEYWORD_21
+	otherlv_25=KEYWORD_21
     {
-    	newLeafNode(otherlv_24, grammarAccess.getFeatureGroupTypeAccess().getOfKeyword_6_1());
+    	newLeafNode(otherlv_25, grammarAccess.getFeatureGroupTypeAccess().getOfKeyword_6_1());
     }
 (
 (
@@ -27925,23 +27944,23 @@ ruleFeatureGroupType returns [EObject current=null]
 
 )
 ))?(
-	otherlv_26=KEYWORD_88
+	otherlv_27=KEYWORD_88
     {
-    	newLeafNode(otherlv_26, grammarAccess.getFeatureGroupTypeAccess().getPropertiesKeyword_7_0());
+    	newLeafNode(otherlv_27, grammarAccess.getFeatureGroupTypeAccess().getPropertiesKeyword_7_0());
     }
 ((
 (
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupTypeAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0_0()); 
 	    }
-		lv_ownedPropertyAssociation_27_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_28_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFeatureGroupTypeRule());
 	        }
        		add(
        			$current, 
        			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_27_0, 
+        		lv_ownedPropertyAssociation_28_0, 
         		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -27950,10 +27969,10 @@ ruleFeatureGroupType returns [EObject current=null]
 )+
     |((
 (
-		lv_noProperties_28_0=
+		lv_noProperties_29_0=
 	KEYWORD_35
     {
-        newLeafNode(lv_noProperties_28_0, grammarAccess.getFeatureGroupTypeAccess().getNoPropertiesNoneKeyword_7_1_1_0_0());
+        newLeafNode(lv_noProperties_29_0, grammarAccess.getFeatureGroupTypeAccess().getNoPropertiesNoneKeyword_7_1_1_0_0());
     }
 
 	    {
@@ -27965,41 +27984,41 @@ ruleFeatureGroupType returns [EObject current=null]
 
 )
 )
-	otherlv_29=KEYWORD_9
+	otherlv_30=KEYWORD_9
     {
-    	newLeafNode(otherlv_29, grammarAccess.getFeatureGroupTypeAccess().getSemicolonKeyword_7_1_1_1());
+    	newLeafNode(otherlv_30, grammarAccess.getFeatureGroupTypeAccess().getSemicolonKeyword_7_1_1_1());
     }
 )))?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupTypeAccess().getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_8_0()); 
 	    }
-		lv_ownedAnnexSubclause_30_0=ruleAnnexSubclause		{
+		lv_ownedAnnexSubclause_31_0=ruleAnnexSubclause		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFeatureGroupTypeRule());
 	        }
        		add(
        			$current, 
        			"ownedAnnexSubclause",
-        		lv_ownedAnnexSubclause_30_0, 
+        		lv_ownedAnnexSubclause_31_0, 
         		"AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )*
-	otherlv_31=KEYWORD_28
+	otherlv_32=KEYWORD_28
     {
-    	newLeafNode(otherlv_31, grammarAccess.getFeatureGroupTypeAccess().getEndKeyword_9());
+    	newLeafNode(otherlv_32, grammarAccess.getFeatureGroupTypeAccess().getEndKeyword_9());
     }
-this_ID_32=RULE_ID
+this_ID_33=RULE_ID
     { 
-    newLeafNode(this_ID_32, grammarAccess.getFeatureGroupTypeAccess().getIDTerminalRuleCall_10()); 
+    newLeafNode(this_ID_33, grammarAccess.getFeatureGroupTypeAccess().getIDTerminalRuleCall_10()); 
     }
 
-	otherlv_33=KEYWORD_9
+	otherlv_34=KEYWORD_9
     {
-    	newLeafNode(otherlv_33, grammarAccess.getFeatureGroupTypeAccess().getSemicolonKeyword_11());
+    	newLeafNode(otherlv_34, grammarAccess.getFeatureGroupTypeAccess().getSemicolonKeyword_11());
     }
 )
 ;

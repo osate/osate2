@@ -1674,6 +1674,7 @@ FeatureGroupType returns aadl2::FeatureGroupType:
 	| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
+	| ownedParameter+=Parameter
 	)+ ) )?
 	('inverse' 'of' inverse=[aadl2::FeatureGroupType|QCREF])?
 	('properties'
