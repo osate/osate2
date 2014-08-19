@@ -166,6 +166,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				IScope::NULLSCOPE
 		}
 	}
+	
+	//Reference is from FeaturePrototype in Aadl2.xtext
+	def scope_FeaturePrototype_constrainingClassifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
 
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
