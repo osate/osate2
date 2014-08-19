@@ -312,7 +312,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_14_1(), "rule__DataImplementation__Alternatives_14_1");
 					put(grammarAccess.getSubprogramCallAccess().getAlternatives_4(), "rule__SubprogramCall__Alternatives_4");
 					put(grammarAccess.getPrototypeAccess().getAlternatives_0(), "rule__Prototype__Alternatives_0");
-					put(grammarAccess.getPrototypeAccess().getAlternatives_0_0_0(), "rule__Prototype__Alternatives_0_0_0");
+					put(grammarAccess.getComponentPrototypeAccess().getAlternatives(), "rule__ComponentPrototype__Alternatives");
 					put(grammarAccess.getAbstractPrototypeAccess().getAlternatives_0(), "rule__AbstractPrototype__Alternatives_0");
 					put(grammarAccess.getBusPrototypeAccess().getAlternatives_0(), "rule__BusPrototype__Alternatives_0");
 					put(grammarAccess.getDataPrototypeAccess().getAlternatives_0(), "rule__DataPrototype__Alternatives_0");

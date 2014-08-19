@@ -13307,21 +13307,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
 		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
-		private final Alternatives cAlternatives_0_0_0 = (Alternatives)cGroup_0_0.eContents().get(0);
-		private final RuleCall cAbstractPrototypeParserRuleCall_0_0_0_0 = (RuleCall)cAlternatives_0_0_0.eContents().get(0);
-		private final RuleCall cBusPrototypeParserRuleCall_0_0_0_1 = (RuleCall)cAlternatives_0_0_0.eContents().get(1);
-		private final RuleCall cDevicePrototypeParserRuleCall_0_0_0_2 = (RuleCall)cAlternatives_0_0_0.eContents().get(2);
-		private final RuleCall cMemoryPrototypeParserRuleCall_0_0_0_3 = (RuleCall)cAlternatives_0_0_0.eContents().get(3);
-		private final RuleCall cProcessPrototypeParserRuleCall_0_0_0_4 = (RuleCall)cAlternatives_0_0_0.eContents().get(4);
-		private final RuleCall cProcessorPrototypeParserRuleCall_0_0_0_5 = (RuleCall)cAlternatives_0_0_0.eContents().get(5);
-		private final RuleCall cSubprogramPrototypeParserRuleCall_0_0_0_6 = (RuleCall)cAlternatives_0_0_0.eContents().get(6);
-		private final RuleCall cSubprogramGroupPrototypeParserRuleCall_0_0_0_7 = (RuleCall)cAlternatives_0_0_0.eContents().get(7);
-		private final RuleCall cThreadPrototypeParserRuleCall_0_0_0_8 = (RuleCall)cAlternatives_0_0_0.eContents().get(8);
-		private final RuleCall cThreadGroupPrototypeParserRuleCall_0_0_0_9 = (RuleCall)cAlternatives_0_0_0.eContents().get(9);
-		private final RuleCall cVirtualBusPrototypeParserRuleCall_0_0_0_10 = (RuleCall)cAlternatives_0_0_0.eContents().get(10);
-		private final RuleCall cVirtualProcessorPrototypeParserRuleCall_0_0_0_11 = (RuleCall)cAlternatives_0_0_0.eContents().get(11);
-		private final RuleCall cSystemPrototypeParserRuleCall_0_0_0_12 = (RuleCall)cAlternatives_0_0_0.eContents().get(12);
-		private final RuleCall cDataPrototypeParserRuleCall_0_0_0_13 = (RuleCall)cAlternatives_0_0_0.eContents().get(13);
+		private final RuleCall cComponentPrototypeParserRuleCall_0_0_0 = (RuleCall)cGroup_0_0.eContents().get(0);
 		private final Assignment cConstrainingClassifierAssignment_0_0_1 = (Assignment)cGroup_0_0.eContents().get(1);
 		private final CrossReference cConstrainingClassifierComponentClassifierCrossReference_0_0_1_0 = (CrossReference)cConstrainingClassifierAssignment_0_0_1.eContents().get(0);
 		private final RuleCall cConstrainingClassifierComponentClassifierQCREFParserRuleCall_0_0_1_0_1 = (RuleCall)cConstrainingClassifierComponentClassifierCrossReference_0_0_1_0.eContents().get(1);
@@ -13340,79 +13326,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// ******* Prototypes
 		// Prototype returns aadl2::Prototype:
-		//	((AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-		//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//	VirtualProcessorPrototype | SystemPrototype | DataPrototype)
-		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype |
-		//	FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
+		//	(ComponentPrototype constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? |
+		//	FeatureGroupPrototype | FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//((AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//VirtualProcessorPrototype | SystemPrototype | DataPrototype)
-		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype |
-		//FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
+		//(ComponentPrototype constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype
+		//| FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//(AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//VirtualProcessorPrototype | SystemPrototype | DataPrototype)
-		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype |
-		//FeaturePrototype
+		//ComponentPrototype constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype
+		//| FeaturePrototype
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
-		//(AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//VirtualProcessorPrototype | SystemPrototype | DataPrototype)
-		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
+		//ComponentPrototype constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")?
 		public Group getGroup_0_0() { return cGroup_0_0; }
 
-		//AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-		//VirtualProcessorPrototype | SystemPrototype | DataPrototype
-		public Alternatives getAlternatives_0_0_0() { return cAlternatives_0_0_0; }
-
-		//AbstractPrototype
-		public RuleCall getAbstractPrototypeParserRuleCall_0_0_0_0() { return cAbstractPrototypeParserRuleCall_0_0_0_0; }
-
-		//BusPrototype
-		public RuleCall getBusPrototypeParserRuleCall_0_0_0_1() { return cBusPrototypeParserRuleCall_0_0_0_1; }
-
-		//DevicePrototype
-		public RuleCall getDevicePrototypeParserRuleCall_0_0_0_2() { return cDevicePrototypeParserRuleCall_0_0_0_2; }
-
-		//MemoryPrototype
-		public RuleCall getMemoryPrototypeParserRuleCall_0_0_0_3() { return cMemoryPrototypeParserRuleCall_0_0_0_3; }
-
-		//ProcessPrototype
-		public RuleCall getProcessPrototypeParserRuleCall_0_0_0_4() { return cProcessPrototypeParserRuleCall_0_0_0_4; }
-
-		//ProcessorPrototype
-		public RuleCall getProcessorPrototypeParserRuleCall_0_0_0_5() { return cProcessorPrototypeParserRuleCall_0_0_0_5; }
-
-		//SubprogramPrototype
-		public RuleCall getSubprogramPrototypeParserRuleCall_0_0_0_6() { return cSubprogramPrototypeParserRuleCall_0_0_0_6; }
-
-		//SubprogramGroupPrototype
-		public RuleCall getSubprogramGroupPrototypeParserRuleCall_0_0_0_7() { return cSubprogramGroupPrototypeParserRuleCall_0_0_0_7; }
-
-		//ThreadPrototype
-		public RuleCall getThreadPrototypeParserRuleCall_0_0_0_8() { return cThreadPrototypeParserRuleCall_0_0_0_8; }
-
-		//ThreadGroupPrototype
-		public RuleCall getThreadGroupPrototypeParserRuleCall_0_0_0_9() { return cThreadGroupPrototypeParserRuleCall_0_0_0_9; }
-
-		//VirtualBusPrototype
-		public RuleCall getVirtualBusPrototypeParserRuleCall_0_0_0_10() { return cVirtualBusPrototypeParserRuleCall_0_0_0_10; }
-
-		//VirtualProcessorPrototype
-		public RuleCall getVirtualProcessorPrototypeParserRuleCall_0_0_0_11() { return cVirtualProcessorPrototypeParserRuleCall_0_0_0_11; }
-
-		//SystemPrototype
-		public RuleCall getSystemPrototypeParserRuleCall_0_0_0_12() { return cSystemPrototypeParserRuleCall_0_0_0_12; }
-
-		//DataPrototype
-		public RuleCall getDataPrototypeParserRuleCall_0_0_0_13() { return cDataPrototypeParserRuleCall_0_0_0_13; }
+		//ComponentPrototype
+		public RuleCall getComponentPrototypeParserRuleCall_0_0_0() { return cComponentPrototypeParserRuleCall_0_0_0; }
 
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 		public Assignment getConstrainingClassifierAssignment_0_0_1() { return cConstrainingClassifierAssignment_0_0_1; }
@@ -13458,6 +13388,78 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//";"
 		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
+	}
+
+	public class ComponentPrototypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComponentPrototype");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cAbstractPrototypeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cBusPrototypeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cDevicePrototypeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cMemoryPrototypeParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cProcessPrototypeParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cProcessorPrototypeParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cSubprogramPrototypeParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cSubprogramGroupPrototypeParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cThreadPrototypeParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cThreadGroupPrototypeParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cVirtualBusPrototypeParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cVirtualProcessorPrototypeParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cSystemPrototypeParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cDataPrototypeParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
+		
+		//ComponentPrototype returns aadl2::ComponentPrototype:
+		//	AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
+		//	VirtualProcessorPrototype | SystemPrototype | DataPrototype;
+		public ParserRule getRule() { return rule; }
+
+		//AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		//SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
+		//VirtualProcessorPrototype | SystemPrototype | DataPrototype
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//AbstractPrototype
+		public RuleCall getAbstractPrototypeParserRuleCall_0() { return cAbstractPrototypeParserRuleCall_0; }
+
+		//BusPrototype
+		public RuleCall getBusPrototypeParserRuleCall_1() { return cBusPrototypeParserRuleCall_1; }
+
+		//DevicePrototype
+		public RuleCall getDevicePrototypeParserRuleCall_2() { return cDevicePrototypeParserRuleCall_2; }
+
+		//MemoryPrototype
+		public RuleCall getMemoryPrototypeParserRuleCall_3() { return cMemoryPrototypeParserRuleCall_3; }
+
+		//ProcessPrototype
+		public RuleCall getProcessPrototypeParserRuleCall_4() { return cProcessPrototypeParserRuleCall_4; }
+
+		//ProcessorPrototype
+		public RuleCall getProcessorPrototypeParserRuleCall_5() { return cProcessorPrototypeParserRuleCall_5; }
+
+		//SubprogramPrototype
+		public RuleCall getSubprogramPrototypeParserRuleCall_6() { return cSubprogramPrototypeParserRuleCall_6; }
+
+		//SubprogramGroupPrototype
+		public RuleCall getSubprogramGroupPrototypeParserRuleCall_7() { return cSubprogramGroupPrototypeParserRuleCall_7; }
+
+		//ThreadPrototype
+		public RuleCall getThreadPrototypeParserRuleCall_8() { return cThreadPrototypeParserRuleCall_8; }
+
+		//ThreadGroupPrototype
+		public RuleCall getThreadGroupPrototypeParserRuleCall_9() { return cThreadGroupPrototypeParserRuleCall_9; }
+
+		//VirtualBusPrototype
+		public RuleCall getVirtualBusPrototypeParserRuleCall_10() { return cVirtualBusPrototypeParserRuleCall_10; }
+
+		//VirtualProcessorPrototype
+		public RuleCall getVirtualProcessorPrototypeParserRuleCall_11() { return cVirtualProcessorPrototypeParserRuleCall_11; }
+
+		//SystemPrototype
+		public RuleCall getSystemPrototypeParserRuleCall_12() { return cSystemPrototypeParserRuleCall_12; }
+
+		//DataPrototype
+		public RuleCall getDataPrototypeParserRuleCall_13() { return cDataPrototypeParserRuleCall_13; }
 	}
 
 	public class AbstractPrototypeElements extends AbstractParserRuleElementFinder {
@@ -25991,6 +25993,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private SubprogramCallSequenceElements pSubprogramCallSequence;
 	private SubprogramCallElements pSubprogramCall;
 	private PrototypeElements pPrototype;
+	private ComponentPrototypeElements pComponentPrototype;
 	private AbstractPrototypeElements pAbstractPrototype;
 	private BusPrototypeElements pBusPrototype;
 	private DataPrototypeElements pDataPrototype;
@@ -26965,17 +26968,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//// ******* Prototypes
 	// Prototype returns aadl2::Prototype:
-	//	((AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-	//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
-	//	VirtualProcessorPrototype | SystemPrototype | DataPrototype)
-	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? | FeatureGroupPrototype |
-	//	FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
+	//	(ComponentPrototype constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? |
+	//	FeatureGroupPrototype | FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public PrototypeElements getPrototypeAccess() {
 		return (pPrototype != null) ? pPrototype : (pPrototype = new PrototypeElements());
 	}
 	
 	public ParserRule getPrototypeRule() {
 		return getPrototypeAccess().getRule();
+	}
+
+	//ComponentPrototype returns aadl2::ComponentPrototype:
+	//	AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+	//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
+	//	VirtualProcessorPrototype | SystemPrototype | DataPrototype;
+	public ComponentPrototypeElements getComponentPrototypeAccess() {
+		return (pComponentPrototype != null) ? pComponentPrototype : (pComponentPrototype = new ComponentPrototypeElements());
+	}
+	
+	public ParserRule getComponentPrototypeRule() {
+		return getComponentPrototypeAccess().getRule();
 	}
 
 	//AbstractPrototype returns aadl2::AbstractPrototype:

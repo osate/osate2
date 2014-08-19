@@ -242,7 +242,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.ABSTRACT_PROTOTYPE:
-				if(context == grammarAccess.getAbstractPrototypeRule()) {
+				if(context == grammarAccess.getAbstractPrototypeRule() ||
+				   context == grammarAccess.getComponentPrototypeRule()) {
 					sequence_AbstractPrototype(context, (AbstractPrototype) semanticObject); 
 					return; 
 				}
@@ -330,7 +331,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.BUS_PROTOTYPE:
-				if(context == grammarAccess.getBusPrototypeRule()) {
+				if(context == grammarAccess.getBusPrototypeRule() ||
+				   context == grammarAccess.getComponentPrototypeRule()) {
 					sequence_BusPrototype(context, (BusPrototype) semanticObject); 
 					return; 
 				}
@@ -478,7 +480,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.DATA_PROTOTYPE:
-				if(context == grammarAccess.getDataPrototypeRule()) {
+				if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getDataPrototypeRule()) {
 					sequence_DataPrototype(context, (DataPrototype) semanticObject); 
 					return; 
 				}
@@ -524,7 +527,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.DEVICE_PROTOTYPE:
-				if(context == grammarAccess.getDevicePrototypeRule()) {
+				if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getDevicePrototypeRule()) {
 					sequence_DevicePrototype(context, (DevicePrototype) semanticObject); 
 					return; 
 				}
@@ -796,7 +800,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.MEMORY_PROTOTYPE:
-				if(context == grammarAccess.getMemoryPrototypeRule()) {
+				if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getMemoryPrototypeRule()) {
 					sequence_MemoryPrototype(context, (MemoryPrototype) semanticObject); 
 					return; 
 				}
@@ -957,7 +962,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.PROCESS_PROTOTYPE:
-				if(context == grammarAccess.getProcessPrototypeRule()) {
+				if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getProcessPrototypeRule()) {
 					sequence_ProcessPrototype(context, (ProcessPrototype) semanticObject); 
 					return; 
 				}
@@ -989,7 +995,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.PROCESSOR_PROTOTYPE:
-				if(context == grammarAccess.getProcessorPrototypeRule()) {
+				if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getProcessorPrototypeRule()) {
 					sequence_ProcessorPrototype(context, (ProcessorPrototype) semanticObject); 
 					return; 
 				}
@@ -1180,7 +1187,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_Prototype_SubprogramGroupPrototype(context, (SubprogramGroupPrototype) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSubprogramGroupPrototypeRule()) {
+				else if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getSubprogramGroupPrototypeRule()) {
 					sequence_SubprogramGroupPrototype(context, (SubprogramGroupPrototype) semanticObject); 
 					return; 
 				}
@@ -1212,7 +1220,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_Prototype_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSubprogramPrototypeRule()) {
+				else if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getSubprogramPrototypeRule()) {
 					sequence_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
 					return; 
 				}
@@ -1254,7 +1263,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_Prototype_SystemPrototype(context, (SystemPrototype) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSystemPrototypeRule()) {
+				else if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getSystemPrototypeRule()) {
 					sequence_SystemPrototype(context, (SystemPrototype) semanticObject); 
 					return; 
 				}
@@ -1286,7 +1296,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_Prototype_ThreadGroupPrototype(context, (ThreadGroupPrototype) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getThreadGroupPrototypeRule()) {
+				else if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getThreadGroupPrototypeRule()) {
 					sequence_ThreadGroupPrototype(context, (ThreadGroupPrototype) semanticObject); 
 					return; 
 				}
@@ -1318,7 +1329,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_Prototype_ThreadPrototype(context, (ThreadPrototype) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getThreadPrototypeRule()) {
+				else if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getThreadPrototypeRule()) {
 					sequence_ThreadPrototype(context, (ThreadPrototype) semanticObject); 
 					return; 
 				}
@@ -1378,7 +1390,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_Prototype_VirtualBusPrototype(context, (VirtualBusPrototype) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getVirtualBusPrototypeRule()) {
+				else if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getVirtualBusPrototypeRule()) {
 					sequence_VirtualBusPrototype(context, (VirtualBusPrototype) semanticObject); 
 					return; 
 				}
@@ -1410,7 +1423,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_Prototype_VirtualProcessorPrototype(context, (VirtualProcessorPrototype) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getVirtualProcessorPrototypeRule()) {
+				else if(context == grammarAccess.getComponentPrototypeRule() ||
+				   context == grammarAccess.getVirtualProcessorPrototypeRule()) {
 					sequence_VirtualProcessorPrototype(context, (VirtualProcessorPrototype) semanticObject); 
 					return; 
 				}
