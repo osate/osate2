@@ -1897,6 +1897,15 @@ public class AadlBaNameResolver
            return false ;
          }
        }
+       else // other types like ListType, etc.
+       {
+         // As it doesn't make any sense to look after a name in a property type
+         // report an error.
+         
+         reportNameError(currentName.getPropertyName(),
+                         currentName.getPropertyName().getId());
+         return false ;
+       }
      } // End of while.
      
      return true ;

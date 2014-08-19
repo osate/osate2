@@ -188,7 +188,7 @@ transitions
     a -[]-> a {int := Max_Queue_Size} ;  
     a -[]-> a {int := Criticality} ; 
       
-     -- with default value defined
+     -- with default value defined.
    
     a -[]-> a {int := #AadlBaTestPropertySet::aSimpleValueDefined} ;
    
@@ -216,11 +216,54 @@ transitions
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
    
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].int};
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec[0].int} ; -- Not implemented yet
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec.aSimpleRecordDefined.int} ; -- Not implemented yet
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec[0].int} ; 
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined[0][0].listRec.aSimpleRecordDefined.int} ;
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.int};
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfListDefined.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+    
+     -- with default value not defined.
+     
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleValue} ;
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aRange.upper_bound} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aRange.lower_bound} ;
+    
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnum = #AadlBaTestPropertySet::aEnum.two) int := 1 end if} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aEnum = #AadlBaTestPropertySet::aEnum[1]) int := 1 end if} ;
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aSimpleRecord.int} ;
+    a -[]-> a {if(#AadlBaTestPropertySet::aSimpleRecord.bool) int := 1 end if} ;
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecord.int};
+    
+ -- Error tests
+ 
+   -- Property Set
+   
+     -- with default value undefined.
+    
+    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleList[0]} ;
+    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleList.hello} ;
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecord.listRec.aSimpleRecord.int} ; 
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecord.listRec[0].int} ;
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList[0].listRec.aSimpleRecord.int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList.aComplexRecord.int};
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList.aComplexRecord.listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList.aComplexRecord.listRec.aSimpleRecord.int} ;
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList[0][0].int};
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList[0][0].listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.int};
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.listRec[0].int} ;
+    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.listRec.aSimpleRecord.int} ;
 **};  
 
 end MyThread.impl ;
