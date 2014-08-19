@@ -2317,7 +2317,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             ownedBusAccess+=BusAccess | 
 	 *             ownedSubprogramAccess+=SubprogramAccess | 
 	 *             ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *             ownedAbstractFeature+=AbstractFeature
+	 *             ownedAbstractFeature+=AbstractFeature | 
+	 *             ownedParameter+=Parameter
 	 *         )* 
 	 *         inverse=[FeatureGroupType|QCREF]? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 

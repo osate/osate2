@@ -12,21 +12,8 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalAadl2Lexer extends Lexer {
-    public static final int KEYWORD_69=34;
-    public static final int KEYWORD_68=33;
-    public static final int KEYWORD_67=32;
-    public static final int KEYWORD_66=31;
-    public static final int KEYWORD_65=30;
-    public static final int KEYWORD_64=29;
-    public static final int KEYWORD_63=28;
-    public static final int KEYWORD_62=27;
-    public static final int KEYWORD_61=26;
-    public static final int KEYWORD_60=47;
     public static final int RULE_ID=110;
-    public static final int RULE_DIGIT=102;
-    public static final int KEYWORD_59=46;
-    public static final int KEYWORD_58=45;
-    public static final int KEYWORD_57=44;
+    public static final int RULE_REAL_LIT=105;
     public static final int KEYWORD_56=43;
     public static final int KEYWORD_55=42;
     public static final int KEYWORD_54=41;
@@ -34,93 +21,106 @@ public class InternalAadl2Lexer extends Lexer {
     public static final int KEYWORD_52=57;
     public static final int KEYWORD_51=56;
     public static final int KEYWORD_50=55;
-    public static final int RULE_REAL_LIT=105;
-    public static final int KEYWORD_49=54;
-    public static final int KEYWORD_48=53;
-    public static final int KEYWORD_47=52;
-    public static final int KEYWORD_46=51;
-    public static final int KEYWORD_45=50;
-    public static final int KEYWORD_44=49;
-    public static final int KEYWORD_43=48;
-    public static final int KEYWORD_42=69;
-    public static final int KEYWORD_41=68;
-    public static final int KEYWORD_40=67;
-    public static final int RULE_EXPONENT=103;
-    public static final int KEYWORD_39=66;
+    public static final int EOF=-1;
+    public static final int KEYWORD_59=46;
+    public static final int KEYWORD_58=45;
+    public static final int KEYWORD_57=44;
+    public static final int RULE_ANNEXTEXT=100;
+    public static final int KEYWORD_65=30;
+    public static final int KEYWORD_64=29;
+    public static final int KEYWORD_67=32;
+    public static final int KEYWORD_66=31;
+    public static final int KEYWORD_61=26;
+    public static final int KEYWORD_60=47;
+    public static final int KEYWORD_63=28;
+    public static final int KEYWORD_62=27;
+    public static final int KEYWORD_69=34;
+    public static final int KEYWORD_68=33;
+    public static final int RULE_EXTENDED_DIGIT=108;
+    public static final int KEYWORD_30=77;
+    public static final int KEYWORD_34=61;
+    public static final int KEYWORD_33=60;
+    public static final int KEYWORD_32=59;
+    public static final int KEYWORD_31=58;
     public static final int KEYWORD_38=65;
     public static final int KEYWORD_37=64;
     public static final int KEYWORD_36=63;
     public static final int KEYWORD_35=62;
-    public static final int KEYWORD_34=61;
-    public static final int RULE_EXTENDED_DIGIT=108;
-    public static final int KEYWORD_33=60;
-    public static final int KEYWORD_32=59;
-    public static final int KEYWORD_31=58;
-    public static final int KEYWORD_30=77;
-    public static final int KEYWORD_3=89;
-    public static final int KEYWORD_2=88;
-    public static final int KEYWORD_5=91;
-    public static final int KEYWORD_4=90;
-    public static final int KEYWORD_1=87;
-    public static final int RULE_INT_EXPONENT=104;
-    public static final int KEYWORD_29=76;
-    public static final int KEYWORD_28=75;
-    public static final int KEYWORD_27=74;
-    public static final int KEYWORD_26=73;
-    public static final int KEYWORD_25=72;
-    public static final int KEYWORD_24=71;
-    public static final int KEYWORD_23=70;
-    public static final int KEYWORD_22=86;
-    public static final int KEYWORD_21=85;
-    public static final int KEYWORD_20=84;
-    public static final int RULE_BASED_INTEGER=106;
-    public static final int KEYWORD_92=7;
-    public static final int KEYWORD_91=6;
-    public static final int KEYWORD_90=14;
-    public static final int KEYWORD_19=83;
-    public static final int KEYWORD_18=82;
-    public static final int KEYWORD_17=81;
-    public static final int KEYWORD_16=80;
-    public static final int KEYWORD_15=79;
-    public static final int KEYWORD_14=78;
-    public static final int KEYWORD_13=99;
-    public static final int KEYWORD_12=98;
-    public static final int KEYWORD_11=97;
-    public static final int KEYWORD_10=96;
-    public static final int KEYWORD_96=4;
-    public static final int KEYWORD_95=5;
-    public static final int KEYWORD_94=9;
+    public static final int KEYWORD_39=66;
+    public static final int RULE_STRING=109;
+    public static final int RULE_EXPONENT=103;
+    public static final int KEYWORD_41=68;
+    public static final int KEYWORD_40=67;
+    public static final int KEYWORD_43=48;
+    public static final int KEYWORD_42=69;
+    public static final int KEYWORD_45=50;
+    public static final int KEYWORD_44=49;
+    public static final int KEYWORD_47=52;
+    public static final int RULE_DIGIT=102;
+    public static final int KEYWORD_46=51;
+    public static final int KEYWORD_49=54;
+    public static final int KEYWORD_48=53;
     public static final int RULE_INTEGER_LIT=107;
     public static final int KEYWORD_93=8;
+    public static final int KEYWORD_94=9;
+    public static final int KEYWORD_95=5;
+    public static final int KEYWORD_96=4;
+    public static final int KEYWORD_90=14;
+    public static final int KEYWORD_19=83;
+    public static final int KEYWORD_92=7;
+    public static final int KEYWORD_17=81;
+    public static final int KEYWORD_91=6;
+    public static final int KEYWORD_18=82;
+    public static final int KEYWORD_15=79;
+    public static final int KEYWORD_16=80;
+    public static final int KEYWORD_13=99;
+    public static final int KEYWORD_14=78;
+    public static final int KEYWORD_11=97;
+    public static final int KEYWORD_12=98;
+    public static final int KEYWORD_10=96;
+    public static final int KEYWORD_6=92;
+    public static final int KEYWORD_7=93;
+    public static final int KEYWORD_8=94;
+    public static final int KEYWORD_9=95;
+    public static final int KEYWORD_28=75;
+    public static final int KEYWORD_29=76;
+    public static final int KEYWORD_24=71;
+    public static final int KEYWORD_25=72;
+    public static final int KEYWORD_26=73;
+    public static final int KEYWORD_27=74;
+    public static final int KEYWORD_20=84;
+    public static final int KEYWORD_21=85;
+    public static final int KEYWORD_22=86;
+    public static final int KEYWORD_23=70;
+    public static final int KEYWORD_79=22;
+    public static final int KEYWORD_71=36;
+    public static final int KEYWORD_72=37;
+    public static final int KEYWORD_73=38;
+    public static final int KEYWORD_74=39;
+    public static final int KEYWORD_75=18;
+    public static final int KEYWORD_76=19;
+    public static final int KEYWORD_77=20;
+    public static final int KEYWORD_78=21;
+    public static final int KEYWORD_1=87;
+    public static final int KEYWORD_5=91;
+    public static final int KEYWORD_4=90;
+    public static final int KEYWORD_70=35;
+    public static final int KEYWORD_3=89;
+    public static final int KEYWORD_2=88;
+    public static final int RULE_BASED_INTEGER=106;
+    public static final int RULE_SL_COMMENT=101;
+    public static final int KEYWORD_84=16;
+    public static final int KEYWORD_85=17;
+    public static final int KEYWORD_82=25;
+    public static final int KEYWORD_83=15;
+    public static final int KEYWORD_88=12;
+    public static final int KEYWORD_89=13;
+    public static final int RULE_INT_EXPONENT=104;
+    public static final int KEYWORD_86=10;
+    public static final int KEYWORD_87=11;
     public static final int KEYWORD_81=24;
     public static final int KEYWORD_80=23;
-    public static final int RULE_STRING=109;
-    public static final int RULE_SL_COMMENT=101;
-    public static final int RULE_ANNEXTEXT=100;
-    public static final int KEYWORD_89=13;
-    public static final int KEYWORD_88=12;
-    public static final int KEYWORD_87=11;
-    public static final int KEYWORD_86=10;
-    public static final int KEYWORD_85=17;
-    public static final int EOF=-1;
-    public static final int KEYWORD_84=16;
-    public static final int KEYWORD_83=15;
-    public static final int KEYWORD_82=25;
-    public static final int KEYWORD_70=35;
     public static final int RULE_WS=111;
-    public static final int KEYWORD_79=22;
-    public static final int KEYWORD_78=21;
-    public static final int KEYWORD_77=20;
-    public static final int KEYWORD_76=19;
-    public static final int KEYWORD_75=18;
-    public static final int KEYWORD_74=39;
-    public static final int KEYWORD_7=93;
-    public static final int KEYWORD_73=38;
-    public static final int KEYWORD_6=92;
-    public static final int KEYWORD_72=37;
-    public static final int KEYWORD_9=95;
-    public static final int KEYWORD_71=36;
-    public static final int KEYWORD_8=94;
 
     // delegates
     // delegators
@@ -8184,24 +8184,24 @@ public class InternalAadl2Lexer extends Lexer {
         "\1\uffff\2\60\1\uffff\1\60\1\uffff\1\60\2\uffff\1\117\1\123\4\uffff"+
         "\1\116\2\60\2\uffff";
     static final String DFA30_maxS =
-        "\1\175\1\163\1\171\1\160\1\157\1\170\1\165\1\145\1\154\1\165\1"+
-        "\151\1\145\1\157\1\171\1\162\1\156\1\151\1\157\1\151\1\75\1\uffff"+
-        "\1\55\1\165\1\133\1\56\1\72\7\uffff\1\52\1\uffff\1\137\3\uffff\1"+
-        "\160\2\172\1\142\1\165\1\163\1\164\1\156\1\144\1\163\1\160\1\143"+
-        "\1\156\1\154\1\156\1\141\1\154\1\165\1\164\1\145\1\157\1\164\1\142"+
-        "\1\162\1\161\1\156\1\141\1\154\1\157\1\156\1\163\1\162\1\166\1\164"+
-        "\1\155\1\144\1\162\1\165\1\160\1\172\1\157\1\151\1\163\1\156\1\164"+
-        "\4\uffff\1\164\1\172\13\uffff\1\71\1\uffff\1\154\2\145\1\164\1\145"+
-        "\2\uffff\1\160\1\162\1\164\1\146\1\172\1\153\1\154\1\164\1\154\2"+
-        "\145\1\172\1\163\1\160\1\163\1\154\1\155\1\172\1\145\1\156\2\166"+
-        "\1\141\1\153\1\150\1\154\1\164\1\151\1\165\1\141\1\157\1\147\1\164"+
-        "\1\163\1\167\1\144\1\172\1\164\1\151\1\164\1\141\1\157\4\145\1\uffff"+
-        "\1\165\2\164\1\145\1\150\1\172\1\uffff\1\137\1\145\2\162\1\151\1"+
-        "\162\1\157\1\162\1\143\1\145\1\172\1\uffff\1\172\1\163\1\162\1\151"+
-        "\1\163\1\170\1\uffff\1\145\1\164\1\165\2\163\1\145\1\uffff\1\156"+
-        "\1\164\1\145\1\157\1\145\1\151\1\141\1\155\1\141\1\172\1\151\1\172"+
-        "\1\162\1\156\1\151\1\155\1\162\1\145\1\165\1\145\1\172\1\151\1\uffff"+
-        "\1\165\1\143\1\141\1\172\1\162\1\172\1\141\2\172\1\160\1\163\3\172"+
+        "\1\175\1\163\1\171\1\160\1\157\1\170\1\165\1\145\1\154\1\165\1\151"+
+        "\1\145\1\157\1\171\1\162\1\156\1\151\1\157\1\151\1\75\1\uffff\1"+
+        "\55\1\165\1\133\1\56\1\72\7\uffff\1\52\1\uffff\1\137\3\uffff\1\160"+
+        "\2\172\1\142\1\165\1\163\1\164\1\156\1\144\1\163\1\160\1\143\1\156"+
+        "\1\154\1\156\1\141\1\154\1\165\1\164\1\145\1\157\1\164\1\142\1\162"+
+        "\1\161\1\156\1\141\1\154\1\157\1\156\1\163\1\162\1\166\1\164\1\155"+
+        "\1\144\1\162\1\165\1\160\1\172\1\157\1\151\1\163\1\156\1\164\4\uffff"+
+        "\1\164\1\172\13\uffff\1\71\1\uffff\1\154\2\145\1\164\1\145\2\uffff"+
+        "\1\160\1\162\1\164\1\146\1\172\1\153\1\154\1\164\1\154\2\145\1\172"+
+        "\1\163\1\160\1\163\1\154\1\155\1\172\1\145\1\156\2\166\1\141\1\153"+
+        "\1\150\1\154\1\164\1\151\1\165\1\141\1\157\1\147\1\164\1\163\1\167"+
+        "\1\144\1\172\1\164\1\151\1\164\1\141\1\157\4\145\1\uffff\1\165\2"+
+        "\164\1\145\1\150\1\172\1\uffff\1\137\1\145\2\162\1\151\1\162\1\157"+
+        "\1\162\1\143\1\145\1\172\1\uffff\1\172\1\163\1\162\1\151\1\163\1"+
+        "\170\1\uffff\1\145\1\164\1\165\2\163\1\145\1\uffff\1\156\1\164\1"+
+        "\145\1\157\1\145\1\151\1\141\1\155\1\141\1\172\1\151\1\172\1\162"+
+        "\1\156\1\151\1\155\1\162\1\145\1\165\1\145\1\172\1\151\1\uffff\1"+
+        "\165\1\143\1\141\1\172\1\162\1\172\1\141\2\172\1\160\1\163\3\172"+
         "\1\uffff\1\155\1\156\1\151\1\141\1\163\1\155\1\157\1\145\1\155\2"+
         "\uffff\1\157\1\156\1\164\1\145\1\141\1\145\1\163\1\172\1\143\1\141"+
         "\1\164\1\151\1\172\1\162\1\144\1\172\1\162\1\164\1\163\1\144\1\164"+
@@ -8243,34 +8243,34 @@ public class InternalAadl2Lexer extends Lexer {
     static final String DFA30_specialS =
         "\u01dd\uffff}>";
     static final String[] DFA30_transitionS = {
-            "\2\46\2\uffff\1\46\22\uffff\1\46\1\uffff\1\44\4\uffff\1\44"+
-            "\1\33\1\34\1\35\1\23\1\36\1\27\1\30\1\uffff\12\43\1\31\1\37"+
-            "\1\24\1\32\3\uffff\1\3\1\11\1\4\1\13\1\5\1\10\1\16\1\45\1\1"+
-            "\2\45\1\20\1\14\1\21\1\26\1\6\1\45\1\7\1\2\1\15\1\17\1\12\1"+
-            "\22\3\45\1\40\1\uffff\1\25\3\uffff\1\3\1\11\1\4\1\13\1\5\1\10"+
-            "\1\16\1\45\1\1\2\45\1\20\1\14\1\21\1\26\1\6\1\45\1\7\1\2\1\15"+
+            "\2\46\2\uffff\1\46\22\uffff\1\46\1\uffff\1\44\4\uffff\1\44\1"+
+            "\33\1\34\1\35\1\23\1\36\1\27\1\30\1\uffff\12\43\1\31\1\37\1"+
+            "\24\1\32\3\uffff\1\3\1\11\1\4\1\13\1\5\1\10\1\16\1\45\1\1\2"+
+            "\45\1\20\1\14\1\21\1\26\1\6\1\45\1\7\1\2\1\15\1\17\1\12\1\22"+
+            "\3\45\1\40\1\uffff\1\25\3\uffff\1\3\1\11\1\4\1\13\1\5\1\10\1"+
+            "\16\1\45\1\1\2\45\1\20\1\14\1\21\1\26\1\6\1\45\1\7\1\2\1\15"+
             "\1\17\1\12\1\22\3\45\1\41\1\uffff\1\42",
             "\1\47\1\50\4\uffff\1\51\31\uffff\1\47\1\50\4\uffff\1\51",
-            "\1\55\3\uffff\1\56\5\uffff\1\53\5\uffff\1\52\3\uffff\1\54"+
-            "\13\uffff\1\55\3\uffff\1\56\5\uffff\1\53\5\uffff\1\52\3\uffff"+
-            "\1\54",
+            "\1\55\3\uffff\1\56\5\uffff\1\53\5\uffff\1\52\3\uffff\1\54\13"+
+            "\uffff\1\55\3\uffff\1\56\5\uffff\1\53\5\uffff\1\52\3\uffff\1"+
+            "\54",
             "\1\57\1\60\1\62\10\uffff\1\64\1\uffff\1\63\1\uffff\1\61\20"+
             "\uffff\1\57\1\60\1\62\10\uffff\1\64\1\uffff\1\63\1\uffff\1\61",
-            "\1\67\12\uffff\1\66\2\uffff\1\65\21\uffff\1\67\12\uffff\1"+
-            "\66\2\uffff\1\65",
+            "\1\67\12\uffff\1\66\2\uffff\1\65\21\uffff\1\67\12\uffff\1\66"+
+            "\2\uffff\1\65",
             "\1\70\7\uffff\1\72\1\uffff\1\71\25\uffff\1\70\7\uffff\1\72"+
             "\1\uffff\1\71",
             "\1\74\15\uffff\1\76\2\uffff\1\73\2\uffff\1\75\13\uffff\1\74"+
             "\15\uffff\1\76\2\uffff\1\73\2\uffff\1\75",
             "\1\100\3\uffff\1\77\33\uffff\1\100\3\uffff\1\77",
-            "\1\102\3\uffff\1\101\6\uffff\1\103\24\uffff\1\102\3\uffff"+
-            "\1\101\6\uffff\1\103",
+            "\1\102\3\uffff\1\101\6\uffff\1\103\24\uffff\1\102\3\uffff\1"+
+            "\101\6\uffff\1\103",
             "\1\104\13\uffff\1\105\23\uffff\1\104\13\uffff\1\105",
             "\1\106\37\uffff\1\106",
             "\1\110\3\uffff\1\107\33\uffff\1\110\3\uffff\1\107",
             "\1\111\11\uffff\1\112\25\uffff\1\111\11\uffff\1\112",
-            "\1\113\6\uffff\1\116\2\uffff\1\114\6\uffff\1\115\16\uffff"+
-            "\1\113\6\uffff\1\116\2\uffff\1\114\6\uffff\1\115",
+            "\1\113\6\uffff\1\116\2\uffff\1\114\6\uffff\1\115\16\uffff\1"+
+            "\113\6\uffff\1\116\2\uffff\1\114\6\uffff\1\115",
             "\1\117\37\uffff\1\117",
             "\1\120\37\uffff\1\120",
             "\1\121\37\uffff\1\121",
@@ -8391,9 +8391,8 @@ public class InternalAadl2Lexer extends Lexer {
             "\12\45\7\uffff\32\45\4\uffff\1\45\1\uffff\32\45",
             "\1\u00be\37\uffff\1\u00be",
             "\1\u00bf\37\uffff\1\u00bf",
-            "\1\u00c2\14\uffff\1\u00c0\3\uffff\1\u00c1\1\uffff\1\u00c3"+
-            "\14\uffff\1\u00c2\14\uffff\1\u00c0\3\uffff\1\u00c1\1\uffff\1"+
-            "\u00c3",
+            "\1\u00c2\14\uffff\1\u00c0\3\uffff\1\u00c1\1\uffff\1\u00c3\14"+
+            "\uffff\1\u00c2\14\uffff\1\u00c0\3\uffff\1\u00c1\1\uffff\1\u00c3",
             "\1\u00c4\37\uffff\1\u00c4",
             "\1\u00c5\37\uffff\1\u00c5",
             "\1\u00c6\37\uffff\1\u00c6",
@@ -8474,8 +8473,8 @@ public class InternalAadl2Lexer extends Lexer {
             "\1\u010e\37\uffff\1\u010e",
             "\1\u010f\37\uffff\1\u010f",
             "\1\u0110\37\uffff\1\u0110",
-            "\12\45\7\uffff\22\45\1\u0111\7\45\4\uffff\1\45\1\uffff\22"+
-            "\45\1\u0111\7\45",
+            "\12\45\7\uffff\22\45\1\u0111\7\45\4\uffff\1\45\1\uffff\22\45"+
+            "\1\u0111\7\45",
             "\1\u0113\37\uffff\1\u0113",
             "",
             "\1\u0114\37\uffff\1\u0114",
@@ -8483,8 +8482,8 @@ public class InternalAadl2Lexer extends Lexer {
             "\1\u0116\37\uffff\1\u0116",
             "\12\45\7\uffff\32\45\4\uffff\1\45\1\uffff\32\45",
             "\1\u0118\37\uffff\1\u0118",
-            "\12\45\7\uffff\22\45\1\u0119\7\45\4\uffff\1\45\1\uffff\22"+
-            "\45\1\u0119\7\45",
+            "\12\45\7\uffff\22\45\1\u0119\7\45\4\uffff\1\45\1\uffff\22\45"+
+            "\1\u0119\7\45",
             "\1\u011b\37\uffff\1\u011b",
             "\12\45\7\uffff\32\45\4\uffff\1\45\1\uffff\32\45",
             "\12\45\7\uffff\32\45\4\uffff\1\45\1\uffff\32\45",
@@ -8644,8 +8643,8 @@ public class InternalAadl2Lexer extends Lexer {
             "\1\u019d\37\uffff\1\u019d",
             "\12\45\7\uffff\32\45\4\uffff\1\45\1\uffff\32\45",
             "",
-            "\12\45\7\uffff\22\45\1\u019f\7\45\4\uffff\1\45\1\uffff\22"+
-            "\45\1\u019f\7\45",
+            "\12\45\7\uffff\22\45\1\u019f\7\45\4\uffff\1\45\1\uffff\22\45"+
+            "\1\u019f\7\45",
             "\12\45\7\uffff\32\45\4\uffff\1\45\1\uffff\32\45",
             "\12\45\7\uffff\32\45\4\uffff\1\45\1\uffff\32\45",
             "",

@@ -16105,6 +16105,12 @@ rule__FeatureGroupType__Alternatives_5_1
 { after(grammarAccess.getFeatureGroupTypeAccess().getOwnedAbstractFeatureAssignment_5_1_8()); }
 )
 
+    |(
+{ before(grammarAccess.getFeatureGroupTypeAccess().getOwnedParameterAssignment_5_1_9()); }
+(rule__FeatureGroupType__OwnedParameterAssignment_5_1_9)
+{ after(grammarAccess.getFeatureGroupTypeAccess().getOwnedParameterAssignment_5_1_9()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -136019,6 +136025,21 @@ rule__FeatureGroupType__OwnedAbstractFeatureAssignment_5_1_8
 (
 { before(grammarAccess.getFeatureGroupTypeAccess().getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_8_0()); }
 	ruleAbstractFeature{ after(grammarAccess.getFeatureGroupTypeAccess().getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_8_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__FeatureGroupType__OwnedParameterAssignment_5_1_9
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getFeatureGroupTypeAccess().getOwnedParameterParameterParserRuleCall_5_1_9_0()); }
+	ruleParameter{ after(grammarAccess.getFeatureGroupTypeAccess().getOwnedParameterParameterParserRuleCall_5_1_9_0()); }
 )
 
 ;
