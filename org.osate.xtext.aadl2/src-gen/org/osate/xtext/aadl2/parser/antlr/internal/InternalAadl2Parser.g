@@ -18796,146 +18796,16 @@ rulePrototype returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((((
+(((
     { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getAbstractPrototypeParserRuleCall_0_0_0_0()); 
+        newCompositeNode(grammarAccess.getPrototypeAccess().getComponentPrototypeParserRuleCall_0_0_0()); 
     }
-    this_AbstractPrototype_0=ruleAbstractPrototype
+    this_ComponentPrototype_0=ruleComponentPrototype
     {
-        $current = $this_AbstractPrototype_0.current;
+        $current = $this_ComponentPrototype_0.current;
         afterParserOrEnumRuleCall();
     }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getBusPrototypeParserRuleCall_0_0_0_1()); 
-    }
-    this_BusPrototype_1=ruleBusPrototype
-    {
-        $current = $this_BusPrototype_1.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getDevicePrototypeParserRuleCall_0_0_0_2()); 
-    }
-    this_DevicePrototype_2=ruleDevicePrototype
-    {
-        $current = $this_DevicePrototype_2.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getMemoryPrototypeParserRuleCall_0_0_0_3()); 
-    }
-    this_MemoryPrototype_3=ruleMemoryPrototype
-    {
-        $current = $this_MemoryPrototype_3.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getProcessPrototypeParserRuleCall_0_0_0_4()); 
-    }
-    this_ProcessPrototype_4=ruleProcessPrototype
-    {
-        $current = $this_ProcessPrototype_4.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getProcessorPrototypeParserRuleCall_0_0_0_5()); 
-    }
-    this_ProcessorPrototype_5=ruleProcessorPrototype
-    {
-        $current = $this_ProcessorPrototype_5.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getSubprogramPrototypeParserRuleCall_0_0_0_6()); 
-    }
-    this_SubprogramPrototype_6=ruleSubprogramPrototype
-    {
-        $current = $this_SubprogramPrototype_6.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getSubprogramGroupPrototypeParserRuleCall_0_0_0_7()); 
-    }
-    this_SubprogramGroupPrototype_7=ruleSubprogramGroupPrototype
-    {
-        $current = $this_SubprogramGroupPrototype_7.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getThreadPrototypeParserRuleCall_0_0_0_8()); 
-    }
-    this_ThreadPrototype_8=ruleThreadPrototype
-    {
-        $current = $this_ThreadPrototype_8.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getThreadGroupPrototypeParserRuleCall_0_0_0_9()); 
-    }
-    this_ThreadGroupPrototype_9=ruleThreadGroupPrototype
-    {
-        $current = $this_ThreadGroupPrototype_9.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getVirtualBusPrototypeParserRuleCall_0_0_0_10()); 
-    }
-    this_VirtualBusPrototype_10=ruleVirtualBusPrototype
-    {
-        $current = $this_VirtualBusPrototype_10.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getVirtualProcessorPrototypeParserRuleCall_0_0_0_11()); 
-    }
-    this_VirtualProcessorPrototype_11=ruleVirtualProcessorPrototype
-    {
-        $current = $this_VirtualProcessorPrototype_11.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getSystemPrototypeParserRuleCall_0_0_0_12()); 
-    }
-    this_SystemPrototype_12=ruleSystemPrototype
-    {
-        $current = $this_SystemPrototype_12.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getDataPrototypeParserRuleCall_0_0_0_13()); 
-    }
-    this_DataPrototype_13=ruleDataPrototype
-    {
-        $current = $this_DataPrototype_13.current;
-        afterParserOrEnumRuleCall();
-    }
-)(
+(
 (
 		{
 			if ($current==null) {
@@ -18952,10 +18822,10 @@ rulePrototype returns [EObject current=null]
 )
 )?((
 (
-		lv_array_15_0=
+		lv_array_2_0=
 	KEYWORD_10
     {
-        newLeafNode(lv_array_15_0, grammarAccess.getPrototypeAccess().getArrayLeftSquareBracketKeyword_0_0_2_0_0());
+        newLeafNode(lv_array_2_0, grammarAccess.getPrototypeAccess().getArrayLeftSquareBracketKeyword_0_0_2_0_0());
     }
 
 	    {
@@ -18967,18 +18837,18 @@ rulePrototype returns [EObject current=null]
 
 )
 )
-	otherlv_16=KEYWORD_11
+	otherlv_3=KEYWORD_11
     {
-    	newLeafNode(otherlv_16, grammarAccess.getPrototypeAccess().getRightSquareBracketKeyword_0_0_2_1());
+    	newLeafNode(otherlv_3, grammarAccess.getPrototypeAccess().getRightSquareBracketKeyword_0_0_2_1());
     }
 )?)
     |
     { 
         newCompositeNode(grammarAccess.getPrototypeAccess().getFeatureGroupPrototypeParserRuleCall_0_1()); 
     }
-    this_FeatureGroupPrototype_17=ruleFeatureGroupPrototype
+    this_FeatureGroupPrototype_4=ruleFeatureGroupPrototype
     {
-        $current = $this_FeatureGroupPrototype_17.current;
+        $current = $this_FeatureGroupPrototype_4.current;
         afterParserOrEnumRuleCall();
     }
 
@@ -18986,43 +18856,203 @@ rulePrototype returns [EObject current=null]
     { 
         newCompositeNode(grammarAccess.getPrototypeAccess().getFeaturePrototypeParserRuleCall_0_2()); 
     }
-    this_FeaturePrototype_18=ruleFeaturePrototype
+    this_FeaturePrototype_5=ruleFeaturePrototype
     {
-        $current = $this_FeaturePrototype_18.current;
+        $current = $this_FeaturePrototype_5.current;
         afterParserOrEnumRuleCall();
     }
 )(
-	otherlv_19=KEYWORD_12
+	otherlv_6=KEYWORD_12
     {
-    	newLeafNode(otherlv_19, grammarAccess.getPrototypeAccess().getLeftCurlyBracketKeyword_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getPrototypeAccess().getLeftCurlyBracketKeyword_1_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_20_0=rulePropertyAssociation		{
+		lv_ownedPropertyAssociation_7_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPrototypeRule());
 	        }
        		add(
        			$current, 
        			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_20_0, 
+        		lv_ownedPropertyAssociation_7_0, 
         		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+
-	otherlv_21=KEYWORD_13
+	otherlv_8=KEYWORD_13
     {
-    	newLeafNode(otherlv_21, grammarAccess.getPrototypeAccess().getRightCurlyBracketKeyword_1_2());
+    	newLeafNode(otherlv_8, grammarAccess.getPrototypeAccess().getRightCurlyBracketKeyword_1_2());
     }
 )?
-	otherlv_22=KEYWORD_9
+	otherlv_9=KEYWORD_9
     {
-    	newLeafNode(otherlv_22, grammarAccess.getPrototypeAccess().getSemicolonKeyword_2());
+    	newLeafNode(otherlv_9, grammarAccess.getPrototypeAccess().getSemicolonKeyword_2());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleComponentPrototype
+entryRuleComponentPrototype returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getComponentPrototypeRule()); }
+	 iv_ruleComponentPrototype=ruleComponentPrototype 
+	 { $current=$iv_ruleComponentPrototype.current; } 
+	 EOF 
+;
+
+// Rule ComponentPrototype
+ruleComponentPrototype returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getAbstractPrototypeParserRuleCall_0()); 
+    }
+    this_AbstractPrototype_0=ruleAbstractPrototype
+    {
+        $current = $this_AbstractPrototype_0.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getBusPrototypeParserRuleCall_1()); 
+    }
+    this_BusPrototype_1=ruleBusPrototype
+    {
+        $current = $this_BusPrototype_1.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getDevicePrototypeParserRuleCall_2()); 
+    }
+    this_DevicePrototype_2=ruleDevicePrototype
+    {
+        $current = $this_DevicePrototype_2.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getMemoryPrototypeParserRuleCall_3()); 
+    }
+    this_MemoryPrototype_3=ruleMemoryPrototype
+    {
+        $current = $this_MemoryPrototype_3.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getProcessPrototypeParserRuleCall_4()); 
+    }
+    this_ProcessPrototype_4=ruleProcessPrototype
+    {
+        $current = $this_ProcessPrototype_4.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getProcessorPrototypeParserRuleCall_5()); 
+    }
+    this_ProcessorPrototype_5=ruleProcessorPrototype
+    {
+        $current = $this_ProcessorPrototype_5.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getSubprogramPrototypeParserRuleCall_6()); 
+    }
+    this_SubprogramPrototype_6=ruleSubprogramPrototype
+    {
+        $current = $this_SubprogramPrototype_6.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getSubprogramGroupPrototypeParserRuleCall_7()); 
+    }
+    this_SubprogramGroupPrototype_7=ruleSubprogramGroupPrototype
+    {
+        $current = $this_SubprogramGroupPrototype_7.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getThreadPrototypeParserRuleCall_8()); 
+    }
+    this_ThreadPrototype_8=ruleThreadPrototype
+    {
+        $current = $this_ThreadPrototype_8.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getThreadGroupPrototypeParserRuleCall_9()); 
+    }
+    this_ThreadGroupPrototype_9=ruleThreadGroupPrototype
+    {
+        $current = $this_ThreadGroupPrototype_9.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getVirtualBusPrototypeParserRuleCall_10()); 
+    }
+    this_VirtualBusPrototype_10=ruleVirtualBusPrototype
+    {
+        $current = $this_VirtualBusPrototype_10.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getVirtualProcessorPrototypeParserRuleCall_11()); 
+    }
+    this_VirtualProcessorPrototype_11=ruleVirtualProcessorPrototype
+    {
+        $current = $this_VirtualProcessorPrototype_11.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getSystemPrototypeParserRuleCall_12()); 
+    }
+    this_SystemPrototype_12=ruleSystemPrototype
+    {
+        $current = $this_SystemPrototype_12.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getComponentPrototypeAccess().getDataPrototypeParserRuleCall_13()); 
+    }
+    this_DataPrototype_13=ruleDataPrototype
+    {
+        $current = $this_DataPrototype_13.current;
+        afterParserOrEnumRuleCall();
     }
 )
 ;
