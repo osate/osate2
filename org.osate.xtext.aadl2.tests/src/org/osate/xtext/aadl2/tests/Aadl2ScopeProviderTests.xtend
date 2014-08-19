@@ -66,7 +66,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 	}
 	
 	@Test
-	def void scope_ComponentPrototype_constrainingClassifier() {
+	def void testRenamesInClassifierReferenceScope() {
 		createFiles(
 			"pack1.aadl" -> '''
 				package pack1
@@ -82,6 +82,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				  abstract a1
 				    prototypes
 				      proto1: abstract a2;
+				      proto2: feature a2;
 				  end a1;
 				  
 				  abstract a2
@@ -132,12 +133,24 @@ class Aadl2ScopeProviderTests extends OsateTest {
 			'''
 		)
 		suppressSerialization
-		val result = testFile("pack1.aadl")
-		val pack1 = result.resource.contents.head as AadlPackage
+		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
 		assertAllCrossReferencesResolvable(pack1)
 
-		pack1.publicSection.ownedClassifiers.get(0).ownedPrototypes.get(0) => [
+		val prototypes = pack1.publicSection.ownedClassifiers.get(0).ownedPrototypes
+		prototypes.get(0) => [
+			Assert::assertEquals(name, "proto1")
+			//Tests scope_ComponentPrototype_constrainingClassifier
 			assertScope(Aadl2Package::eINSTANCE.componentPrototype_ConstrainingClassifier, "a6, renmaed_classifier, a4, a4.i, " +
+				"renamed_package.a5, renamed_package.a5.i, a1, a2, a2.i, pack1.a1, pack1.a2, pack1.a2.i, pack2.a3, pack2.a3.i, " +
+				"pack5.a6, pack5.a7, pack4.a5, pack4.a5.i, pack3.a4, pack3.a4.i, Base_Types.Boolean, Base_Types.Integer, " +
+				"Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, Base_Types.Integer_64, Base_Types.Unsigned_8, " +
+				"Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, Base_Types.Natural, Base_Types.Float, " +
+				"Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String")
+		]
+		prototypes.get(1) => [
+			Assert::assertEquals(name, "proto2")
+			//Tests scope_FeaturePrototype_constrainingClassifier
+			assertScope(Aadl2Package::eINSTANCE.featurePrototype_ConstrainingClassifier, "a6, renmaed_classifier, a4, a4.i, " +
 				"renamed_package.a5, renamed_package.a5.i, a1, a2, a2.i, pack1.a1, pack1.a2, pack1.a2.i, pack2.a3, pack2.a3.i, " +
 				"pack5.a6, pack5.a7, pack4.a5, pack4.a5.i, pack3.a4, pack3.a4.i, Base_Types.Boolean, Base_Types.Integer, " +
 				"Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, Base_Types.Integer_64, Base_Types.Unsigned_8, " +

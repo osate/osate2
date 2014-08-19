@@ -298,6 +298,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     return _xblockexpression;
   }
   
+  public IScope scope_FeaturePrototype_constrainingClassifier(final Element context, final EReference reference) {
+    return this.scope_Classifier(context, reference);
+  }
+  
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
     IScope _xifexpression = null;
     EReference _modalElement_InMode = Aadl2Package.eINSTANCE.getModalElement_InMode();
