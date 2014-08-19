@@ -48,10 +48,13 @@ import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import com.google.inject.Inject
 import org.junit.Assert
 import org.eclipse.xtext.scoping.IScopeProvider
+import org.osate.aadl2.ModelUnit
+import org.eclipse.xtext.junit4.util.ParseHelper
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class Aadl2ScopeProviderTests extends OsateTest {
+	@Inject extension ParseHelper<ModelUnit>
 	@Inject extension ValidationTestHelper
 	@Inject extension IScopeProvider
 	
@@ -140,6 +143,50 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				"Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, Base_Types.Integer_64, Base_Types.Unsigned_8, " +
 				"Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, Base_Types.Natural, Base_Types.Float, " +
 				"Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String")
+		]
+	}
+	
+	@Test
+	def void scope_Prototype_refined() {
+		val classifiers = ('''
+			package pack
+			public
+			  abstract a1
+			  prototypes
+			    proto1: abstract;
+			  end a1;
+			  
+			  abstract a2 extends a1
+			  prototypes
+			    proto1: refined to abstract;
+			  end a2;
+			  
+			  feature group fgt1
+			  prototypes
+			    proto2: abstract;
+			  end fgt1;
+			  
+			  feature group fgt2 extends fgt1
+			  prototypes
+			    proto2: refined to abstract;
+			  end fgt2;
+			end pack;
+		'''.parse as AadlPackage).publicSection.ownedClassifiers
+		classifiers.get(0) => [
+			Assert::assertEquals(name, "a1")
+			assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
+		]
+		classifiers.get(1) => [
+			Assert::assertEquals(name, "a2")
+			assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto1")
+		]
+		classifiers.get(2) => [
+			Assert::assertEquals(name, "fgt1")
+			assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
+		]
+		classifiers.get(3) => [
+			Assert::assertEquals(name, "fgt2")
+			assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto2")
 		]
 	}
 	

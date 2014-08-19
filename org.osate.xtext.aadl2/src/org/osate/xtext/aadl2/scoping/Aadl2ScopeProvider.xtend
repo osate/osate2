@@ -61,6 +61,7 @@ import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
+import org.osate.aadl2.FeatureGroupType
 
 /**
  * This class contains custom scoping description.
@@ -144,8 +145,26 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	//Reference is from Prototype in Aadl2.xtext
-	def scope_ComponentPrototype_constrainingClassifier(Element element, EReference reference) {
-		scope_Classifier(element, reference)
+	def scope_ComponentPrototype_constrainingClassifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	/*
+	 * Reference is from AbstractPrototype, BusPrototype, DataPrototype, DevicePrototype, MemoryPrototype,
+	 * ProcessPrototype, ProcessorPrototype, SubprogramPrototype, SubprogramGroupPrototype, SystemPrototype,
+	 * ThreadPrototype, ThreadGroupPrototype, VirtualBusPrototype, VirtualProcessorPrototype,
+	 * FeatureGroupPrototype and FeaturePrototype in Aadl2.xtext
+	 */
+	def scope_Prototype_refined(Classifier context, EReference reference) {
+		val extendedClassifier = context.extended
+		switch (extendedClassifier) {
+			ComponentClassifier:
+				extendedClassifier.allPrototypes.scopeFor
+			FeatureGroupType:
+				extendedClassifier.allPrototypes.scopeFor
+			default:
+				IScope::NULLSCOPE
+		}
 	}
 
 	// mode references
