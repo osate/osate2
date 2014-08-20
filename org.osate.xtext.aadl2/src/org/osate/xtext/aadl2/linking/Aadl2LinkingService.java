@@ -432,13 +432,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				}
 			} else {
 				ns = AadlUtil.getContainingClassifier(context);
-				if (context instanceof Prototype) {
-					// we need to resolve a refinement
-					if (ns.getExtended() != null) {
-						ns = ns.getExtended();
-					} else {
-						return Collections.emptyList();
-					}
+				// If resolving a prototype binding formal, don't resolve to a local prototype. Go to the extended.
+				// We could be in a prototype refinement. Go to the extended so that we don't resolve to context.
+				if (ns.getExtended() != null) {
+					ns = ns.getExtended();
+				} else {
+					return Collections.emptyList();
 				}
 				if (!Aadl2Util.isNull(ns)) {
 					searchResult = ns.findNamedElement(name);
