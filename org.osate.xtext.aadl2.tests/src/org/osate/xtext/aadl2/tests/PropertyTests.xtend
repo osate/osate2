@@ -6,6 +6,7 @@ import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.scoping.IScopeProvider
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -13,22 +14,27 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.SystemType
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class PropertyTests extends OsateTest {
+	static val TEST_PROJECT_NAME = "test"
 
 	/**
 	 *  Must build workspace before running any test. Otherwise we get exceptions.
 	 */
 	@Before
 	def setUp() {
-		val test_project = createProject("test", "packages")
+		val test_project = createProject(TEST_PROJECT_NAME, "packages")
 		buildProject("Plugin_Resources", true)
 		setResourceRoot("platform:/resource/test/packages")
+	}
+	
+	@After
+	def cleanUp() {
+		deleteProject(TEST_PROJECT_NAME)
 	}
 
 	@Inject extension ParseHelper<ModelUnit>

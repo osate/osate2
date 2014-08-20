@@ -47,9 +47,12 @@ import org.osate.aadl2.CalledSubprogram
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentPrototypeActual
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupPrototypeActual
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.PrivatePackageSection
@@ -61,7 +64,7 @@ import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
-import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.ComponentImplementationReference
 
 /**
  * This class contains custom scoping description.
@@ -170,6 +173,51 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from FeaturePrototype in Aadl2.xtext
 	def scope_FeaturePrototype_constrainingClassifier(Element context, EReference reference) {
 		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
+	def scope_PrototypeBinding_formal(ComponentPrototypeActual context, EReference reference) {
+		val subcomponentType = context.subcomponentType
+		switch subcomponentType {
+			ComponentClassifier:
+				subcomponentType.allPrototypes.scopeFor
+			default:
+				IScope::NULLSCOPE
+		}
+	}
+	
+	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
+	def scope_PrototypeBinding_formal(FeatureGroupPrototypeActual context, EReference reference) {
+		val featureType = context.featureType
+		switch featureType {
+			FeatureGroupType:
+				featureType.allPrototypes.scopeFor
+			default:
+				IScope::NULLSCOPE
+		}
+	}
+	
+	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
+	def scope_PrototypeBinding_formal(ComponentImplementationReference context, EReference reference) {
+		context.implementation?.allPrototypes.scopeFor ?: IScope::NULLSCOPE
+	}
+	
+	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
+	def scope_PrototypeBinding_formal(Subcomponent context, EReference reference) {
+		context.allClassifier?.allPrototypes.scopeFor ?: IScope::NULLSCOPE
+	}
+	
+	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
+	def scope_PrototypeBinding_formal(Classifier context, EReference reference) {
+		val extended = context.extended
+		switch extended {
+			ComponentClassifier:
+				extended.allPrototypes.scopeFor
+			FeatureGroupType:
+				extended.allPrototypes.scopeFor
+			default:
+				IScope::NULLSCOPE
+		}
 	}
 
 	// mode references

@@ -49,6 +49,10 @@ class OsateTest extends XtextTest {
 		}
 		project
 	}
+	
+	def deleteProject(String projectName) {
+		workspaceRoot.getProject(projectName).delete(true, true, null)
+	}
 
 	/**
 	 * Build the named project. Optionally wait until the build is done.
