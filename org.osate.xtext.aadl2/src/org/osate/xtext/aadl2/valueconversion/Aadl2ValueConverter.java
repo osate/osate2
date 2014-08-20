@@ -163,6 +163,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<String>() {
 			@Override
 			public String toValue(String string, INode node) {
+				if (string == null) {
+					return null;
+				}
 				if (string.charAt(0) == '"') {
 					string = string.substring(1);
 				}
@@ -187,7 +190,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<PortCategory>() {
 			@Override
 			public PortCategory toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return PortCategory.get(string.toLowerCase());
 			}
 
@@ -203,7 +208,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<DirectionType>() {
 			@Override
 			public DirectionType toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return DirectionType.get(string.toLowerCase());
 			}
 
@@ -219,7 +226,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<DirectionType>() {
 			@Override
 			public DirectionType toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return DirectionType.get(string.toLowerCase());
 			}
 
@@ -235,7 +244,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<DirectionType>() {
 			@Override
 			public DirectionType toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return DirectionType.get(string.toLowerCase());
 			}
 
@@ -251,7 +262,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<AccessType>() {
 			@Override
 			public AccessType toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return AccessType.get(string.toLowerCase());
 			}
 
@@ -267,6 +280,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<ComponentCategory>() {
 			@Override
 			public ComponentCategory toValue(String string, INode node) {
+				if (string == null) {
+					return null;
+				}
 				return ComponentCategory.get(string.toLowerCase());
 			}
 
@@ -282,6 +298,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<AccessCategory>() {
 			@Override
 			public AccessCategory toValue(String string, INode node) {
+				if (string == null) {
+					return null;
+				}
 				if (string.equalsIgnoreCase("subprogram group")) {
 					string = "subprogramGroup";
 				}
@@ -300,7 +319,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<FlowKind>() {
 			@Override
 			public FlowKind toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return FlowKind.get(string.toLowerCase());
 			}
 
@@ -316,7 +337,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<FlowKind>() {
 			@Override
 			public FlowKind toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return FlowKind.get(string.toLowerCase());
 			}
 
@@ -332,7 +355,9 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 		return new IValueConverter<FlowKind>() {
 			@Override
 			public FlowKind toValue(String string, INode node) {
-
+				if (string == null) {
+					return null;
+				}
 				return FlowKind.get(string.toLowerCase());
 			}
 
