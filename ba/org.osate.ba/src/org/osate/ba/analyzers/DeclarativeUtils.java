@@ -26,7 +26,8 @@ import java.util.List ;
 
 import org.eclipse.emf.ecore.InternalEObject ;
 import org.osate.aadl2.Element ;
-import org.osate.aadl2.NamedElement ;
+import org.osate.aadl2.ModalPropertyValue ;
+import org.osate.aadl2.PropertyAssociation ;
 import org.osate.ba.aadlba.AadlBaFactory ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
@@ -128,18 +129,18 @@ public class DeclarativeUtils
     
     if(dpr.getQualifiedName() != null)
     {
-      System.out.println("qualified name : " + dpr.getQualifiedName().getOsateRef()) ;
+      System.out.println("qualified name : " + unparseElement(dpr.getQualifiedName().getOsateRef())) ;
     }
     
     if(dpr.getReference() != null)
     {
       if(dpr.getReference().getOsateRef() != null)
       {
-        System.out.println("reference osate : " + dpr.getReference().getOsateRef()) ;
+        System.out.println("reference osate : " + unparseElement(dpr.getReference().getOsateRef())) ;
       } 
       else
       {
-        System.out.println("reference ba : " + dpr.getReference().getBaRef()) ;
+        System.out.println("reference ba : " + unparseElement(dpr.getReference().getBaRef())) ;
       }
     }
     
@@ -147,14 +148,14 @@ public class DeclarativeUtils
     {
       for(DeclarativePropertyName dpn : dpr.getPropertyNames())
       {
-        System.out.println("  property name : " + dpn.getOsateRef()) ;
+        System.out.println("  property name : " + unparseElement(dpn.getOsateRef())) ;
         
         System.out.println("  property name id \'" + dpn.getPropertyName().getId() +
-                           "\' : " + dpn.getPropertyName().getOsateRef()) ;
+                           "\' : " + unparseElement(dpn.getPropertyName().getOsateRef())) ;
         
         for(PropertyField field : dpn.getFields())
         {
-          System.out.println("  field : " + field) ;
+          System.out.println("  field : " + unparsePropertyField(field)) ;
         }
       }
     }
@@ -162,20 +163,31 @@ public class DeclarativeUtils
     System.out.println("*****") ;
   }
   
-  public static void printElement(Element el)
+  public static String unparseElement(Element el)
   {
-    if(el instanceof NamedElement)
+    String result ;
+    
+    if(el instanceof PropertyAssociation)
     {
-      //TODO: to be implemented.
+      PropertyAssociation pa = (PropertyAssociation) el ;
+      
+      result = "" ;
+      
+      for(ModalPropertyValue mpv : pa.getOwnedValues())
+      {
+        result += mpv.getOwnedValue().toString() + " ; " ; 
+      }
     }
     else
     {
-      //TODO: to be implemented.
+      result = el.toString() ;
     }
+    
+    return result ;
   }
   
-  public static void printPropertyField(PropertyField field)
+  public static String unparsePropertyField(PropertyField field)
   {
-    //TODO: to be implemented.
+    return field.toString() ;
   }
 }

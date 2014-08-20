@@ -1755,6 +1755,23 @@ public class AadlBaNameResolver
            
            return propertyNameResolver(ref.getPropertyNames()) ;
          }
+         else if(ne instanceof PropertyType) 
+         {                                      
+           if(ne instanceof EnumerationType)
+           {
+             return propertyNameResolver(ref.getPropertyNames()) ;
+           }
+           else
+           {
+             // It doesn't make any sense
+             // for the other types.
+             String msg = "reference to property type (other than enumeration" +
+                          " type) is not supported";
+             _errManager.error(ref.getPropertyNames().get(1).getPropertyName(),
+                               msg);
+             return false ;
+           }
+         }
          else // Property constant case.
          {
            if(ref.getPropertyNames().size() > 1)
@@ -1897,6 +1914,11 @@ public class AadlBaNameResolver
            return false ;
          }
        }
+       else  if(Aadl2Package.ENUMERATION_TYPE == previousContainerId)
+       {
+         EnumerationType type = (EnumerationType) previousContainer ;
+         return enumerationTypeResolver(type, currentName) ;
+       }
        else // other types like ListType, etc.
        {
          // As it doesn't make any sense to look after a name in a property type
@@ -1963,18 +1985,7 @@ public class AadlBaNameResolver
     {
       case Aadl2Package.ENUMERATION_TYPE:
       {
-        EnumerationType enumType = (EnumerationType) type ;
-        for(EnumerationLiteral literal : enumType.getOwnedLiterals())
-        {
-          if(literal.getName().equalsIgnoreCase(name))
-          {
-            declPropertyName.setOsateRef(literal);
-            declPropertyName.getPropertyName().setOsateRef(literal);
-            return true ;
-          }
-        }
-        
-        return false ;
+        return enumerationTypeResolver((EnumerationType)type, declPropertyName) ;
       }
       
       case Aadl2Package.RECORD_TYPE:
@@ -2007,6 +2018,23 @@ public class AadlBaNameResolver
         return false ;
       }
     }
+  }
+
+  private boolean enumerationTypeResolver(EnumerationType type,
+                                          DeclarativePropertyName declPropertyName)
+  {
+    EnumerationType enumType = (EnumerationType) type ;
+    for(EnumerationLiteral literal : enumType.getOwnedLiterals())
+    {
+      if(literal.getName().equalsIgnoreCase(declPropertyName.getPropertyName().getId()))
+      {
+        declPropertyName.setOsateRef(literal);
+        declPropertyName.getPropertyName().setOsateRef(literal);
+        return true ;
+      }
+    }
+    
+    return false ;
   }
 
   private boolean propertyDeclarationResolver(Property property,
