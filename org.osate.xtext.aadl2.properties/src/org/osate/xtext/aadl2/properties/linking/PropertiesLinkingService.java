@@ -763,16 +763,16 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param name name to be resolved
 	 * @return Classifier or null
 	 */
-	public EObject findClassifier(EObject context, EReference reference, String name) {
+	public Classifier findClassifier(EObject context, EReference reference, String name) {
 		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
 		EObject e = getIndexedObject(context, reference, name);
-		if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+		if (e != null && e instanceof Classifier && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
 			// the result satisfied the expected class
 			Namespace ns = AadlUtil.getContainingTopLevelNamespace(e);
 			if (ns instanceof PrivatePackageSection && scope != ns) {
 				return null;
 			}
-			return e;
+			return (Classifier) e;
 		}
 		// need to do a local lookup as it was not found in the index.
 		String packname = null;
@@ -799,9 +799,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		if (e == null && scope instanceof PackageSection) {
 			// the reference is from inside a package section. Lookup by identifier with or without qualification
 			e = findNamedElementInAadlPackage(packname, cname, scope);
-			if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+			if (e != null && e instanceof Classifier && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
 				// the result satisfied the expected class
-				return e;
+				return (Classifier) e;
 			}
 		}
 		return null;
@@ -1064,9 +1064,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				 * FIX JD: old code that triggered a bug, see #121
 				 * Instead of searching the name using findNamedElement that
 				 * searches in the whole package, we search in the component features.
-				 *
+				 * 
 				 * Related to bug report #121
-				 *
+				 * 
 				 * NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
 				 */
 				if ((searchResult != null) && (searchResult instanceof Access)) {
@@ -1470,13 +1470,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	/*
 	 * TODO: Check for circular dependencies with prototypes. Example:
-	 *
+	 * 
 	 * abstract a prototypes p1: subprogram group; p2: subprogram group; end a;
-	 *
+	 * 
 	 * abstract implementation a.i ( p1 => p2, p2 => p1) subcomponents sub:
 	 * subprogram group p1; calls sequence1: { call1: subprogram
 	 * sub.access_feature_1; end a.i;
-	 *
+	 * 
 	 * This will cause a stack overflow!
 	 */
 	public ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier,
@@ -1636,7 +1636,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	/**
 	 * Search for a {@link NamedElement} with the name {@code elementName} in
-	 * the containing package, which is also the specified by {@code packageName}. 
+	 * the containing package, which is also the specified by {@code packageName}.
 	 * If the element cannot be found in the specified package, then {@code null} will be returned.
 	 *
 	 *
