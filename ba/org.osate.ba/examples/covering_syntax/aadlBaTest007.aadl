@@ -28,7 +28,7 @@
     --> with default property value
     --> without default property value (if possible)
     
---- Classifier properties ( )
+--- Classifier properties (X)
 
 --> classifier name without namespace nor implementation
 --> classifier name with namespace
@@ -122,15 +122,31 @@ data Generic_List
 
 end Generic_List ;
 
-data MyInteger
-
+data MyData
   properties
+  AadlBaTestPropertySet::aSimpleValue => 19 ;
+  AadlBaTestPropertySet::aRange => 0 sec .. 99 sec ;
+  AadlBaTestPropertySet::aEnum => eight ;
+  AadlBaTestPropertySet::aSimpleList => ("bom_dia", "boa_tarde", "boa_noite") ;
+  AadlBaTestPropertySet::aSimpleRecord => [bool => true ; int => 39 ;] ;
+  AadlBaTestPropertySet::aSimpleRecordDefined => [int => 38 ;] ;
+  AadlBaTestPropertySet::aComplexRecord => [bool => true ;
+                                              int => 59 ;
+                                              rec => AadlBaTestPropertySet::aSimpleRecordDefined ;
+                                              listRec => (AadlBaTestPropertySet::aSimpleRecordDefined);] ;
     
-    Data_Model::Data_Representation => Integer ;
-    Data_Model::Integer_Range => 0 .. 99 ;    
-
-end MyInteger ;
-
+  AadlBaTestPropertySet::aComplexList => (AadlBaTestPropertySet::aComplexRecordDefined) ;
+  AadlBaTestPropertySet::aComplexListOfList => ((AadlBaTestPropertySet::aComplexRecordDefined)) ; 
+  
+end MyData ;
+  
+data implementation MyData.v1
+end MyData.v1 ;
+  
+data implementation MyData.v2
+  properties
+  AadlBaTestPropertySet::aSimpleValue => 18 ;
+end MyData.v2 ;
 
 thread MyThread
 
@@ -140,17 +156,17 @@ thread MyThread
  
  features
  
-   portMyInteger : in data port MyInteger ;
+   portMyInteger : in data port MyData ;
 
 end MyThread ;
 
 thread implementation MyThread.impl
- (portPrototypeMyInteger => requires data access MyInteger)
+ (portPrototypeMyInteger => requires data access MyData)
   
  subcomponents
  
    subList : data Generic_List { 
-                                 Data_Model::Base_Type => (classifier (MyInteger));
+                                 Data_Model::Base_Type => (classifier (MyData));
                                  Data_Model::Dimension => (100);
                                };
    
@@ -236,6 +252,57 @@ transitions
     a -[]-> a {if(#AadlBaTestPropertySet::aSimpleRecord.bool) int := 1 end if} ;
     
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecord.int};
+ 
+   -- Classifier properties
+   
+     -- classifier name without namespace nor implementation
+    
+    a -[]-> a {int := MyData#aSimpleValue} ;
+    
+     -- classifier name with namespace
+     
+    a -[]-> a {int := AadlBaTest::Types::Integer#aSimpleValue} ;
+    
+     -- classifier name with implementation
+     
+    a -[]-> a {int := MyData.v1#aSimpleValue} ;
+    a -[]-> a {int := MyData.v2#aSimpleValue} ;
+    
+     -- classifier name with both namespace and implementation
+     
+    a -[]-> a {int := AadlBaTest::Types::Integer.v1#aSimpleValue} ;
+    
+     -- common tests
+    
+    a -[]-> a {int := MyData#aRange.upper_bound} ;
+    a -[]-> a {int := MyData#aRange.lower_bound} ;
+    
+    a -[]-> a {if(MyData#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(MyData#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+    
+    a -[]-> a {str := MyData#aSimpleList[0]} ;
+    a -[]-> a {str := MyData#aSimpleList.bom_dia} ;
+    
+    a -[]-> a {int := MyData#aSimpleRecord.int} ;
+    a -[]-> a {int := MyData#aSimpleRecordDefined.int} ;
+  
+    a -[]-> a {int := MyData#aComplexRecord.int};
+    a -[]-> a {int := MyData#aComplexRecord.listRec.aSimpleRecordDefined.int} ; 
+    a -[]-> a {int := MyData#aComplexRecord.listRec[0].int} ;
+    
+    a -[]-> a {int := MyData#aComplexList[0].int} ;
+    a -[]-> a {int := MyData#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := MyData#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := MyData#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := MyData#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := MyData#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+   
+    a -[]-> a {int := MyData#aComplexListOfList[0][0].int};
+    a -[]-> a {int := MyData#aComplexListOfList[0][0].listRec[0].int} ; 
+    a -[]-> a {int := MyData#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
     
  -- Error tests
  
@@ -264,6 +331,10 @@ transitions
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.int};
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.listRec[0].int} ;
     a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.listRec.aSimpleRecord.int} ;
+    
+   -- Classifier
+    
+    a -[]-> a {int := MyThread#Period} ;
 **};  
 
 end MyThread.impl ;

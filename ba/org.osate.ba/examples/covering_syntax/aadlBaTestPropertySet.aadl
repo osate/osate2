@@ -28,7 +28,7 @@ aStringConstant : constant aadlstring => "hello world" ;
 aBooleanConstant : constant aadlboolean => true ;
 
 aSimpleValue : aadlinteger applies to (data, subprogram, thread, system) ;
-aSimpleValueDefined : aadlinteger => 99 applies to (data, subprogram, thread, system) ;
+aSimpleValueDefined : aadlinteger => 20 applies to (data, subprogram, thread, system) ;
 
 rangeType : type range of aadlinteger units Time_Units ;
 aRange : AadlBaTestPropertySet::rangeType applies to (data, subprogram, thread, system) ;
@@ -44,7 +44,7 @@ aSimpleListDefined : list of aadlstring => ("hello", "hi", "good day") applies t
 simpleRecordType : type record ( bool : aadlboolean ;
                                  int : aadlinteger ;)  ;
 aSimpleRecord : AadlBaTestPropertySet::simpleRecordType applies to (data, subprogram, thread, system) ;
-aSimpleRecordDefined : AadlBaTestPropertySet::simpleRecordType => [bool => true ; int => 10 ;]
+aSimpleRecordDefined : AadlBaTestPropertySet::simpleRecordType => [bool => true ; int => 40 ;]
                        applies to (data, subprogram, thread, system) ;
             
 complexRecordType : type record ( bool : aadlboolean ;
@@ -53,7 +53,7 @@ complexRecordType : type record ( bool : aadlboolean ;
                                 listRec : list of AadlBaTestPropertySet::simpleRecordType ; ) ;
 aComplexRecord : AadlBaTestPropertySet::complexRecordType applies to (data, subprogram, thread, system) ;
 aComplexRecordDefined : AadlBaTestPropertySet::complexRecordType => [bool => true ;
-                                                                   int => 50 ;
+                                                                   int => 60 ;
                                                                    rec => AadlBaTestPropertySet::aSimpleRecordDefined ;
                                                                    listRec => (AadlBaTestPropertySet::aSimpleRecordDefined);] 
                         applies to (data, subprogram, thread, system) ;

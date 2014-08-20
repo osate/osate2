@@ -41,6 +41,7 @@ import org.osate.aadl2.EnumerationType ;
 import org.osate.aadl2.Feature ;
 import org.osate.aadl2.ListType ;
 import org.osate.aadl2.ListValue ;
+import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.PackageSection ;
@@ -1889,6 +1890,8 @@ public class AadlBaNameResolver
          // The sub property is defined within a Record field (basic property).
          BasicProperty bp = (BasicProperty) previousContainer ;
          
+         
+         
          if(propertyTypeResolver(bp.getPropertyType(), currentName) &&
             propertyFieldResolution(currentName))
          {
@@ -2240,9 +2243,21 @@ public class AadlBaNameResolver
     {
       // Link to the default value, if it exists.
       if(Aadl2Package.LIST_VALUE == el.eClass().getClassifierID() &&
-         propertyFieldListValueResolver(field, el, fieldIndex, declProName))
+         propertyFieldListValueResolver(field, (ListValue) el, fieldIndex,
+                                        declProName))
       {
         return true ;
+      }
+      else if (Aadl2Package.PROPERTY_ASSOCIATION == el.eClass().getClassifierID())
+      {
+        PropertyAssociation pa = (PropertyAssociation) el ;
+        ModalPropertyValue mpv = pa.getOwnedValues().get(pa.getOwnedValues().size()-1) ;
+        PropertyExpression pe = mpv.getOwnedValue() ;
+        if(Aadl2Package.LIST_VALUE == pe.eClass().getClassifierID())
+        {
+          return propertyFieldListValueResolver(field, (ListValue) pe,
+                                                fieldIndex, declProName) ;
+        }
       }
       // the else statements: link with the property type.
       
@@ -2257,13 +2272,12 @@ public class AadlBaNameResolver
   }
 
   private boolean propertyFieldListValueResolver(IntegerValue field,
-                                            Element el,
-                                            int fieldIndex,
+                                                 ListValue lv,
+                                                 int fieldIndex,
                                             DeclarativePropertyName declProName)
   {
     if(AadlBaPackage.BEHAVIOR_INTEGER_LITERAL == field.eClass().getClassifierID())
     {
-      ListValue lv = (ListValue) el ;
       BehaviorIntegerLiteral bil = (BehaviorIntegerLiteral) field ;
       Long index = bil.getValue() ;
       return propertyFieldListIndexResolver(index.intValue(), lv, fieldIndex,
