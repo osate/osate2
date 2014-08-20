@@ -57,10 +57,14 @@ import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -69,6 +73,7 @@ import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
@@ -300,6 +305,108 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   
   public IScope scope_FeaturePrototype_constrainingClassifier(final Element context, final EReference reference) {
     return this.scope_Classifier(context, reference);
+  }
+  
+  public IScope scope_PrototypeBinding_formal(final ComponentPrototypeActual context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final SubcomponentType subcomponentType = context.getSubcomponentType();
+      IScope _switchResult = null;
+      boolean _matched = false;
+      if (!_matched) {
+        if (subcomponentType instanceof ComponentClassifier) {
+          _matched=true;
+          EList<Prototype> _allPrototypes = ((ComponentClassifier)subcomponentType).getAllPrototypes();
+          _switchResult = Scopes.scopeFor(_allPrototypes);
+        }
+      }
+      if (!_matched) {
+        _switchResult = IScope.NULLSCOPE;
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
+  }
+  
+  public IScope scope_PrototypeBinding_formal(final FeatureGroupPrototypeActual context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final FeatureType featureType = context.getFeatureType();
+      IScope _switchResult = null;
+      boolean _matched = false;
+      if (!_matched) {
+        if (featureType instanceof FeatureGroupType) {
+          _matched=true;
+          EList<Prototype> _allPrototypes = ((FeatureGroupType)featureType).getAllPrototypes();
+          _switchResult = Scopes.scopeFor(_allPrototypes);
+        }
+      }
+      if (!_matched) {
+        _switchResult = IScope.NULLSCOPE;
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
+  }
+  
+  public IScope scope_PrototypeBinding_formal(final ComponentImplementationReference context, final EReference reference) {
+    IScope _elvis = null;
+    ComponentImplementation _implementation = context.getImplementation();
+    EList<Prototype> _allPrototypes = null;
+    if (_implementation!=null) {
+      _allPrototypes=_implementation.getAllPrototypes();
+    }
+    IScope _scopeFor = Scopes.scopeFor(_allPrototypes);
+    if (_scopeFor != null) {
+      _elvis = _scopeFor;
+    } else {
+      _elvis = IScope.NULLSCOPE;
+    }
+    return _elvis;
+  }
+  
+  public IScope scope_PrototypeBinding_formal(final Subcomponent context, final EReference reference) {
+    IScope _elvis = null;
+    ComponentClassifier _allClassifier = context.getAllClassifier();
+    EList<Prototype> _allPrototypes = null;
+    if (_allClassifier!=null) {
+      _allPrototypes=_allClassifier.getAllPrototypes();
+    }
+    IScope _scopeFor = Scopes.scopeFor(_allPrototypes);
+    if (_scopeFor != null) {
+      _elvis = _scopeFor;
+    } else {
+      _elvis = IScope.NULLSCOPE;
+    }
+    return _elvis;
+  }
+  
+  public IScope scope_PrototypeBinding_formal(final Classifier context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final Classifier extended = context.getExtended();
+      IScope _switchResult = null;
+      boolean _matched = false;
+      if (!_matched) {
+        if (extended instanceof ComponentClassifier) {
+          _matched=true;
+          EList<Prototype> _allPrototypes = ((ComponentClassifier)extended).getAllPrototypes();
+          _switchResult = Scopes.scopeFor(_allPrototypes);
+        }
+      }
+      if (!_matched) {
+        if (extended instanceof FeatureGroupType) {
+          _matched=true;
+          EList<Prototype> _allPrototypes = ((FeatureGroupType)extended).getAllPrototypes();
+          _switchResult = Scopes.scopeFor(_allPrototypes);
+        }
+      }
+      if (!_matched) {
+        _switchResult = IScope.NULLSCOPE;
+      }
+      _xblockexpression = _switchResult;
+    }
+    return _xblockexpression;
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
