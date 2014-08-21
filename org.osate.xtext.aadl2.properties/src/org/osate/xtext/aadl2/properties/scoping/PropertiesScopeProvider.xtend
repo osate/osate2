@@ -77,7 +77,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 			packageSection.ownedComponentTypeRenames.filter[reference.EReferenceType.isSuperTypeOf(renamedComponentType.eClass)].forEach[
 				renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedComponentType.name), renamedComponentType, null))
 			]
-			if (Aadl2Package::eINSTANCE.featureGroupType.isSuperTypeOf(reference.EReferenceType)) {
+			if (reference.EReferenceType.isSuperTypeOf(Aadl2Package::eINSTANCE.featureGroupType)) {
 				packageSection.ownedFeatureGroupTypeRenames.forEach[
 					renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedFeatureGroupType.name), renamedFeatureGroupType, null))
 				]

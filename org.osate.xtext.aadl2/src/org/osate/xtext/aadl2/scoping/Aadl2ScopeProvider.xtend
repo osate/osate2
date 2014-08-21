@@ -65,6 +65,7 @@ import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 import org.osate.aadl2.ComponentImplementationReference
+import org.osate.aadl2.FeatureGroupPrototype
 
 /**
  * This class contains custom scoping description.
@@ -218,6 +219,18 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			default:
 				IScope::NULLSCOPE
 		}
+	}
+	
+	//Reference is from FeatureGroupPrototypeActual in Aadl2.xtext
+	def scope_FeatureGroupPrototypeActual_featureType(Element context, EReference reference) {
+		var scope = scope_Classifier(context, reference)
+		val containingClassifier = context.getContainerOfType(typeof(Classifier))
+		switch containingClassifier {
+			ComponentClassifier:
+				containingClassifier.allPrototypes
+			FeatureGroupType:
+				containingClassifier.allPrototypes
+		}.filter[it instanceof FeatureGroupPrototype].scopeFor(scope)
 	}
 
 	// mode references

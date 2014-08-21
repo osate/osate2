@@ -39,6 +39,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -53,7 +54,6 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicProperty;
@@ -111,8 +111,8 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
           }
         };
         Iterable<ComponentTypeRename> _filter = IterableExtensions.<ComponentTypeRename>filter(_ownedComponentTypeRenames, _function);
-        final Procedure1<ComponentTypeRename> _function_1 = new Procedure1<ComponentTypeRename>() {
-          public void apply(final ComponentTypeRename it) {
+        final Consumer<ComponentTypeRename> _function_1 = new Consumer<ComponentTypeRename>() {
+          public void accept(final ComponentTypeRename it) {
             String _elvis = null;
             String _name = it.getName();
             if (_name != null) {
@@ -128,14 +128,14 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
             renameScopeElements.add(_eObjectDescription);
           }
         };
-        IterableExtensions.<ComponentTypeRename>forEach(_filter, _function_1);
-        EClass _featureGroupType = Aadl2Package.eINSTANCE.getFeatureGroupType();
+        _filter.forEach(_function_1);
         EClass _eReferenceType = reference.getEReferenceType();
-        boolean _isSuperTypeOf = _featureGroupType.isSuperTypeOf(_eReferenceType);
+        EClass _featureGroupType = Aadl2Package.eINSTANCE.getFeatureGroupType();
+        boolean _isSuperTypeOf = _eReferenceType.isSuperTypeOf(_featureGroupType);
         if (_isSuperTypeOf) {
           EList<FeatureGroupTypeRename> _ownedFeatureGroupTypeRenames = packageSection.getOwnedFeatureGroupTypeRenames();
-          final Procedure1<FeatureGroupTypeRename> _function_2 = new Procedure1<FeatureGroupTypeRename>() {
-            public void apply(final FeatureGroupTypeRename it) {
+          final Consumer<FeatureGroupTypeRename> _function_2 = new Consumer<FeatureGroupTypeRename>() {
+            public void accept(final FeatureGroupTypeRename it) {
               String _elvis = null;
               String _name = it.getName();
               if (_name != null) {
@@ -151,11 +151,11 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
               renameScopeElements.add(_eObjectDescription);
             }
           };
-          IterableExtensions.<FeatureGroupTypeRename>forEach(_ownedFeatureGroupTypeRenames, _function_2);
+          _ownedFeatureGroupTypeRenames.forEach(_function_2);
         }
         EList<PackageRename> _ownedPackageRenames = packageSection.getOwnedPackageRenames();
-        final Procedure1<PackageRename> _function_3 = new Procedure1<PackageRename>() {
-          public void apply(final PackageRename packageRename) {
+        final Consumer<PackageRename> _function_3 = new Consumer<PackageRename>() {
+          public void accept(final PackageRename packageRename) {
             AadlPackage _renamedPackage = packageRename.getRenamedPackage();
             PublicPackageSection _publicSection = _renamedPackage.getPublicSection();
             EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
@@ -167,8 +167,8 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
               }
             };
             Iterable<Classifier> _filter = IterableExtensions.<Classifier>filter(_ownedClassifiers, _function);
-            final Procedure1<Classifier> _function_1 = new Procedure1<Classifier>() {
-              public void apply(final Classifier classifier) {
+            final Consumer<Classifier> _function_1 = new Consumer<Classifier>() {
+              public void accept(final Classifier classifier) {
                 List<String> _xifexpression = null;
                 boolean _isRenameAll = packageRename.isRenameAll();
                 if (_isRenameAll) {
@@ -184,10 +184,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
                 renameScopeElements.add(_eObjectDescription);
               }
             };
-            IterableExtensions.<Classifier>forEach(_filter, _function_1);
+            _filter.forEach(_function_1);
           }
         };
-        IterableExtensions.<PackageRename>forEach(_ownedPackageRenames, _function_3);
+        _ownedPackageRenames.forEach(_function_3);
         SimpleScope _simpleScope = new SimpleScope(scope, renameScopeElements);
         scope = _simpleScope;
       }
