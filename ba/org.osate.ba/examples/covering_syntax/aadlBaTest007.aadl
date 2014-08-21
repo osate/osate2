@@ -40,14 +40,14 @@
     --> classifier doesn't define the property value
     --> classifier redefines the property value
 
---- Local variable ( )
+--- Local variable (X)
 
 --> commun tests
     --> local variable type defines the property value
     --> local variable type redefines the property value
     --> local variable type doesn't define the property value
 
---- Binded prototype ( )
+--- Binded prototype (X)
 
 --> commun tests
     --> prototype into a prototype group
@@ -122,6 +122,19 @@ data Generic_List
 
 end Generic_List ;
 
+feature group MyFeatureGroup
+  prototypes
+    myDataPrototype : in feature MyData ;
+    unbindedPrototype : in feature ;
+    nestedGroup : feature group ; 
+
+end MyFeatureGroup ;
+
+feature group MyFeatureGroupConcrete extends MyFeatureGroup
+(myDataPrototype => in event data port MyData,
+ nestedGroup => feature group MyFeatureGroup)
+end MyFeatureGroupConcrete ;
+
 data MyData
   properties
   AadlBaTestPropertySet::aSimpleValue => 19 ;
@@ -152,16 +165,17 @@ thread MyThread
 
  prototypes
  
-   portPrototypeMyInteger : feature ;
+   myDataPrototype : feature ;
  
  features
  
-   portMyInteger : in data port MyData ;
+   portMyData : in data port MyData ;
+   featGrp : feature group MyFeatureGroupConcrete ;
 
 end MyThread ;
 
 thread implementation MyThread.impl
- (portPrototypeMyInteger => requires data access MyData)
+ (myDataPrototype => requires data access MyData)
   
  subcomponents
  
@@ -338,6 +352,49 @@ transitions
     a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
 
+   -- Binded prototype
+   
+     -- prototype into a prototype group
+    a -[]-> a {int := featGrp.myDataPrototype#aSimpleValue} ;
+     
+     -- prototype into a nested prototype group
+    
+    a -[]-> a {int := featGrp.nestedGroup.myDataPrototype#aSimpleRecordDefined.int} ;
+    
+     -- common tests
+    
+    a -[]-> a {int := myDataPrototype#aSimpleValue} ;
+
+    a -[]-> a {int := myDataPrototype#aRange.upper_bound} ;
+    a -[]-> a {int := myDataPrototype#aRange.lower_bound} ;
+    
+    a -[]-> a {if(myDataPrototype#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(myDataPrototype#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+    
+    a -[]-> a {str := myDataPrototype#aSimpleList[0]} ;
+    a -[]-> a {str := myDataPrototype#aSimpleList.bom_dia} ;
+    
+    a -[]-> a {int := myDataPrototype#aSimpleRecord.int} ;
+    a -[]-> a {int := myDataPrototype#aSimpleRecordDefined.int} ;
+    
+    a -[]-> a {int := myDataPrototype#aComplexRecord.int};
+    a -[]-> a {int := myDataPrototype#aComplexRecord.listRec.aSimpleRecordDefined.int} ; 
+    a -[]-> a {int := myDataPrototype#aComplexRecord.listRec[0].int} ;
+    
+    a -[]-> a {int := myDataPrototype#aComplexList[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := myDataPrototype#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := myDataPrototype#aComplexListOfList[0][0].int};
+    a -[]-> a {int := myDataPrototype#aComplexListOfList[0][0].listRec[0].int} ; 
+    a -[]-> a {int := myDataPrototype#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
  -- Error tests
  
    -- Property Set
@@ -369,6 +426,10 @@ transitions
    -- Classifier
     
     a -[]-> a {int := MyThread#Period} ;
+    
+   -- Unbinded prototype
+   
+    a -[]-> a {int := featGrp.unbindedPrototype#aSimpleValue} ;
 **};  
 
 end MyThread.impl ;
