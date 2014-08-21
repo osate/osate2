@@ -56,7 +56,7 @@
     --> prototype type redefines the property value
     --> prototype type doesn't define the property value
     
---- Subcomponent ( ) ; Feature ( )
+--- Subcomponent ( ) ; Feature (X)
 
 --> commun tests
     --> classifier feature into a prototype group
@@ -128,6 +128,9 @@ feature group MyFeatureGroup
     unbindedPrototype : in feature ;
     nestedGroup : feature group ; 
 
+  features
+    portMyData : in data port MyData ;
+
 end MyFeatureGroup ;
 
 feature group MyFeatureGroupConcrete extends MyFeatureGroup
@@ -169,7 +172,7 @@ thread MyThread
  
  features
  
-   portMyData : in data port MyData ;
+   portMyData : in data port MyData {AadlBaTestPropertySet::aSimpleValue => 18 ;} ;
    featGrp : feature group MyFeatureGroupConcrete ;
 
 end MyThread ;
@@ -394,6 +397,50 @@ transitions
     a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.int};
     a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := myDataPrototype#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+   -- Feature
+   
+     -- feature into a prototype group
+    
+    a -[]-> a {int := featGrp.portMyData#aSimpleValue} ;
+     
+     -- feature into a nested prototype group
+    
+    a -[]-> a {int := featGrp.nestedGroup.portMyData#aSimpleValue} ;
+    
+     -- common tests
+     
+    a -[]-> a {int := portMyData#aSimpleValue} ;
+    
+    a -[]-> a {int := portMyData#aRange.upper_bound} ;
+    a -[]-> a {int := portMyData#aRange.lower_bound} ;
+    
+    a -[]-> a {if(portMyData#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(portMyData#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+    
+    a -[]-> a {str := portMyData#aSimpleList[0]} ;
+    a -[]-> a {str := portMyData#aSimpleList.bom_dia} ;
+    
+    a -[]-> a {int := portMyData#aSimpleRecord.int} ;
+    a -[]-> a {int := portMyData#aSimpleRecordDefined.int} ;
+    
+    a -[]-> a {int := portMyData#aComplexRecord.int};
+    a -[]-> a {int := portMyData#aComplexRecord.listRec.aSimpleRecordDefined.int} ; 
+    a -[]-> a {int := portMyData#aComplexRecord.listRec[0].int} ;
+    
+    a -[]-> a {int := portMyData#aComplexList[0].int} ;
+    a -[]-> a {int := portMyData#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := portMyData#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := portMyData#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := portMyData#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := portMyData#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := portMyData#aComplexListOfList[0][0].int};
+    a -[]-> a {int := portMyData#aComplexListOfList[0][0].listRec[0].int} ; 
+    a -[]-> a {int := portMyData#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
 
  -- Error tests
  
