@@ -182,9 +182,7 @@ variables
 
  int : Base_Types::Integer ;
  str : Base_Types::String ;
- ratio : Base_Types::Integer ;
- localMyEnum : MyEnum ;
- localDays : AadlBaTest::Types::Days.v1 ;
+ local_var : MyData ;
  
 states
  
@@ -303,7 +301,43 @@ transitions
     a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.int};
     a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := MyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+   -- Local variable
+   
+     -- common tests
     
+    a -[]-> a {int := local_var#aSimpleValue} ;
+
+    a -[]-> a {int := local_var#aRange.upper_bound} ;
+    a -[]-> a {int := local_var#aRange.lower_bound} ;
+    
+    a -[]-> a {if(local_var#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(local_var#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+    
+    a -[]-> a {str := local_var#aSimpleList[0]} ;
+    a -[]-> a {str := local_var#aSimpleList.bom_dia} ;
+    
+    a -[]-> a {int := local_var#aSimpleRecord.int} ;
+    a -[]-> a {int := local_var#aSimpleRecordDefined.int} ;
+    
+    a -[]-> a {int := local_var#aComplexRecord.int};
+    a -[]-> a {int := local_var#aComplexRecord.listRec.aSimpleRecordDefined.int} ; 
+    a -[]-> a {int := local_var#aComplexRecord.listRec[0].int} ;
+    
+    a -[]-> a {int := local_var#aComplexList[0].int} ;
+    a -[]-> a {int := local_var#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := local_var#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := local_var#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := local_var#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := local_var#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := local_var#aComplexListOfList[0][0].int};
+    a -[]-> a {int := local_var#aComplexListOfList[0][0].listRec[0].int} ; 
+    a -[]-> a {int := local_var#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := local_var#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
  -- Error tests
  
    -- Property Set
