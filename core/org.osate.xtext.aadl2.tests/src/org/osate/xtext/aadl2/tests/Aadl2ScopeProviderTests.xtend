@@ -80,7 +80,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 	
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
-	 * and scope_PortSpecification_classifier
+	 * scope_PortSpecification_classifier, and scope_AccessSpecification_classifier
 	 */
 	@Test
 	def void testRenamesInClassifierReferenceScope() {
@@ -104,11 +104,13 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				      proto2: feature a2;
 				      proto3: feature group;
 				      proto4: feature;
+				      proto5: feature;
 				  end a1;
 				  
 				  abstract a2 extends a1 (
 				    proto3 => feature group fgt1,
-				    proto4 => in data port d1
+				    proto4 => in data port d1,
+				    proto5 => provides data access d1
 				  )
 				  end a2;
 				  
@@ -241,6 +243,11 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				Assert::assertEquals("proto4", formal.name)
 				//Tests scope_PortSpecification_classifier
 				actual.assertScope(Aadl2Package::eINSTANCE.portSpecification_Classifier, componentClassifierScopeForPack1)
+			]
+			ownedPrototypeBindings.get(2) as FeaturePrototypeBinding => [
+				Assert::assertEquals("proto5", formal.name)
+				//Tests scope_AccessSpecification_classifier
+				actual.assertScope(Aadl2Package::eINSTANCE.accessSpecification_Classifier, componentClassifierScopeForPack1)
 			]
 		]
 	}
