@@ -414,7 +414,6 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_FeatureGroupPrototypeActual_featureType(final Element context, final EReference reference) {
     IScope _xblockexpression = null;
     {
-      final IScope scope = this.scope_Classifier(context, reference);
       final Classifier containingClassifier = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
       EList<Prototype> _switchResult = null;
       boolean _matched = false;
@@ -436,7 +435,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
         }
       };
       Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_switchResult, _function);
-      _xblockexpression = Scopes.scopeFor(_filter, scope);
+      IScope _scope_Classifier = this.scope_Classifier(context, reference);
+      _xblockexpression = Scopes.scopeFor(_filter, _scope_Classifier);
     }
     return _xblockexpression;
   }
@@ -476,7 +476,6 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_ComponentPrototypeActual_subcomponentType(final Element context, final EReference reference) {
     IScope _xblockexpression = null;
     {
-      final IScope scope = this.scope_Classifier(context, reference);
       final Classifier containingClassifier = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
       EList<Prototype> _switchResult = null;
       boolean _matched = false;
@@ -498,9 +497,32 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
         }
       };
       Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_switchResult, _function);
-      _xblockexpression = Scopes.scopeFor(_filter, scope);
+      IScope _scope_Classifier = this.scope_Classifier(context, reference);
+      _xblockexpression = Scopes.scopeFor(_filter, _scope_Classifier);
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * Reference is from AbstractSubcomponent, SystemSubcomponent, ProcessSubcomponent, ThreadGroupSubcomponent,
+   * ThreadSubcomponent, SubprogramSubcomponent, SubprogramGroupSubcomponent, ProcessorSubcomponent,
+   * VirtualProcessorSubcomponent, DeviceSubcomponent, MemorySubcomponent, BusSubcomponent,
+   * VirtualBusSubcomponent, DataSubcomponent
+   */
+  public IScope scope_Subcomponent_refined(final ComponentImplementation context, final EReference reference) {
+    IScope _elvis = null;
+    ComponentImplementation _extended = context.getExtended();
+    EList<Subcomponent> _allSubcomponents = null;
+    if (_extended!=null) {
+      _allSubcomponents=_extended.getAllSubcomponents();
+    }
+    IScope _scopeFor = Scopes.scopeFor(_allSubcomponents);
+    if (_scopeFor != null) {
+      _elvis = _scopeFor;
+    } else {
+      _elvis = IScope.NULLSCOPE;
+    }
+    return _elvis;
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
@@ -560,14 +582,5 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
       }
     }
     return _switchResult;
-  }
-  
-  public IScope scope_Subcomponent(final ComponentImplementation context, final EReference reference) {
-    IScope _xblockexpression = null;
-    {
-      final EList<Subcomponent> subcomponents = context.getAllSubcomponents();
-      _xblockexpression = Scopes.scopeFor(subcomponents);
-    }
-    return _xblockexpression;
   }
 }

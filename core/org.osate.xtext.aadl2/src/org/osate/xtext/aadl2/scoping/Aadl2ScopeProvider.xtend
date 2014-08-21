@@ -225,14 +225,13 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeatureGroupPrototypeActual in Aadl2.xtext
 	def scope_FeatureGroupPrototypeActual_featureType(Element context, EReference reference) {
-		val scope = scope_Classifier(context, reference)
 		val containingClassifier = context.getContainerOfType(typeof(Classifier))
 		switch containingClassifier {
 			ComponentClassifier:
 				containingClassifier.allPrototypes
 			FeatureGroupType:
 				containingClassifier.allPrototypes
-		}.filter[it instanceof FeatureGroupPrototype].scopeFor(scope)
+		}.filter[it instanceof FeatureGroupPrototype].scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from PortSpecification in Aadl2.xtext
@@ -257,15 +256,24 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from ComponentReference in Aadl2.xtext
 	def scope_ComponentPrototypeActual_subcomponentType(Element context, EReference reference) {
-		val scope = scope_Classifier(context, reference)
 		val containingClassifier = context.getContainerOfType(typeof(Classifier))
 		switch containingClassifier {
 			ComponentClassifier:
 				containingClassifier.allPrototypes
 			FeatureGroupType:
 				containingClassifier.allPrototypes
-		}.filter[it instanceof SubcomponentType].scopeFor(scope)
+		}.filter[it instanceof SubcomponentType].scopeFor(scope_Classifier(context, reference))
 	}
+	
+	/*
+	 * Reference is from AbstractSubcomponent, SystemSubcomponent, ProcessSubcomponent, ThreadGroupSubcomponent,
+	 * ThreadSubcomponent, SubprogramSubcomponent, SubprogramGroupSubcomponent, ProcessorSubcomponent,
+	 * VirtualProcessorSubcomponent, DeviceSubcomponent, MemorySubcomponent, BusSubcomponent,
+	 * VirtualBusSubcomponent, DataSubcomponent
+	 */
+	 def scope_Subcomponent_refined(ComponentImplementation context, EReference reference) {
+	 	context.extended?.allSubcomponents.scopeFor ?: IScope::NULLSCOPE
+	 }
 
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
@@ -292,11 +300,5 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				Scopes::scopeFor(modes)
 			}
 		}
-	}
-
-	// subcomponent references
-	def scope_Subcomponent(ComponentImplementation context, EReference reference) {
-		val subcomponents = context.allSubcomponents
-		Scopes::scopeFor(subcomponents)
 	}
 }
