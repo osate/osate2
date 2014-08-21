@@ -56,17 +56,21 @@ import org.osgi.framework.Bundle;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
 
+	@Override
 	protected void initPropertyReferences() {
 	}
 
+	@Override
 	protected Bundle getBundle() {
 		return FlowanalysisPlugin.getDefault().getBundle();
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Check flow latency";
 	}
 
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.flows.FlowLatencyObjectMarker";
 	}
@@ -78,7 +82,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
-	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+	public void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
 		if (!(root instanceof SystemInstance)) {
