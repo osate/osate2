@@ -65,6 +65,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
@@ -446,6 +447,30 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   
   public IScope scope_AccessSpecification_classifier(final Element context, final EReference reference) {
     return this.scope_Classifier(context, reference);
+  }
+  
+  public IScope scope_FeaturePrototypeReference_prototype(final Classifier context, final EReference reference) {
+    EList<Prototype> _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (context instanceof ComponentClassifier) {
+        _matched=true;
+        _switchResult = ((ComponentClassifier)context).getAllPrototypes();
+      }
+    }
+    if (!_matched) {
+      if (context instanceof FeatureGroupType) {
+        _matched=true;
+        _switchResult = ((FeatureGroupType)context).getAllPrototypes();
+      }
+    }
+    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
+      public Boolean apply(final Prototype it) {
+        return Boolean.valueOf((it instanceof FeaturePrototype));
+      }
+    };
+    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_switchResult, _function);
+    return Scopes.scopeFor(_filter);
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {

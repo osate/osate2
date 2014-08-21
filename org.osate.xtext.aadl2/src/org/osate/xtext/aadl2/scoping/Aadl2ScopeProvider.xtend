@@ -66,6 +66,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 import org.osate.aadl2.ComponentImplementationReference
 import org.osate.aadl2.FeatureGroupPrototype
+import org.osate.aadl2.FeaturePrototype
 
 /**
  * This class contains custom scoping description.
@@ -241,6 +242,16 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from AccessSpecification in Aadl2.xtext
 	def scope_AccessSpecification_classifier(Element context, EReference reference) {
 		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from FeaturePrototypeReference in Aadl2.xtext
+	def scope_FeaturePrototypeReference_prototype(Classifier context, EReference reference) {
+		switch context {
+			ComponentClassifier:
+				context.allPrototypes
+			FeatureGroupType:
+				context.allPrototypes
+		}.filter[it instanceof FeaturePrototype].scopeFor
 	}
 
 	// mode references
