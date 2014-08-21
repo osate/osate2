@@ -261,9 +261,9 @@ class Aadl2ScopeProviderTests extends OsateTest {
 		]
 	}
 	
-	//Tests scope_Prototype_refined
+	//Tests scope_Prototype_refined and scope_Subcomponent_refined
 	@Test
-	def void scope_Prototype_refined() {
+	def void testRefinedElements() {
 		('''
 			package pack
 			public
@@ -286,6 +286,17 @@ class Aadl2ScopeProviderTests extends OsateTest {
 			  prototypes
 			    proto2: refined to abstract;
 			  end fgt2;
+			  
+			  abstract implementation a1.i1
+			  subcomponents
+			    asub1: abstract;
+			  end a1.i1;
+			  
+			  abstract implementation a1.i2 extends a1.i1
+			  subcomponents
+			    asub1: refined to abstract;
+			    asub2: abstract;
+			  end a1.i2;
 			end pack;
 		'''.parse as AadlPackage) => [
 			Assert::assertEquals("pack", name)
@@ -293,6 +304,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				Assert::assertEquals("a1", name)
 				ownedPrototypes.get(0) => [
 					Assert::assertEquals("proto1", name)
+					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
 				]
 			]
@@ -300,6 +312,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				Assert::assertEquals("a2", name)
 				ownedPrototypes.get(0) => [
 					Assert::assertEquals("proto1", name)
+					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto1")
 				]
 			]
@@ -307,6 +320,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				Assert::assertEquals("fgt1", name)
 				ownedPrototypes.get(0) => [
 					Assert::assertEquals("proto2", name)
+					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
 				]
 			]
@@ -314,7 +328,16 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				Assert::assertEquals("fgt2", name)
 				ownedPrototypes.get(0) => [
 					Assert::assertEquals("proto2", name)
+					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto2")
+				]
+			]
+			publicSection.ownedClassifiers.get(5) as ComponentImplementation => [
+				Assert::assertEquals("a1.i2", name)
+				ownedSubcomponents.get(0) => [
+					Assert::assertEquals("asub1", name)
+					//Tests scope_Subcomponent_refined
+					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, "asub1")
 				]
 			]
 		]
