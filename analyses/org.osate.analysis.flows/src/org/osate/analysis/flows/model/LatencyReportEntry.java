@@ -74,7 +74,7 @@ public class LatencyReportEntry {
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
 
 		if (relatedEndToEndFlow != null) {
-			sectionName = relatedEndToEndFlow.getName();
+			sectionName = relatedEndToEndFlow.getFullName();
 		} else {
 			sectionName = "unamed flow";
 		}
