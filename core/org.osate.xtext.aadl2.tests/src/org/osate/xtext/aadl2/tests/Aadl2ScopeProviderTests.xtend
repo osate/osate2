@@ -55,6 +55,7 @@ import org.junit.After
 import org.osate.aadl2.FeatureGroupPrototypeBinding
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.FeaturePrototypeBinding
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
@@ -77,7 +78,10 @@ class Aadl2ScopeProviderTests extends OsateTest {
 		deleteProject(TEST_PROJECT_NAME)
 	}
 	
-	//Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, and scope_FeatureGroupPrototypeActual_featureType
+	/*
+	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
+	 * and scope_PortSpecification_classifier
+	 */
 	@Test
 	def void testRenamesInClassifierReferenceScope() {
 		createFiles(
@@ -99,10 +103,12 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				      proto1: abstract a2;
 				      proto2: feature a2;
 				      proto3: feature group;
+				      proto4: feature;
 				  end a1;
 				  
 				  abstract a2 extends a1 (
-				    proto3 => feature group fgt1
+				    proto3 => feature group fgt1,
+				    proto4 => in data port d1
 				  )
 				  end a2;
 				  
@@ -111,6 +117,12 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				  
 				  feature group fgt1
 				  end fgt1;
+				  
+				  data d1
+				  end d1;
+				  
+				  data implementation d1.i
+				  end d1.i;
 				end pack1;
 			''',
 			"pack2.aadl" -> '''
@@ -124,6 +136,12 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				  
 				  feature group fgt2
 				  end fgt2;
+				  
+				  data d2
+				  end d2;
+				  
+				  data implementation d2.i
+				  end d2.i;
 			''',
 			"pack3.aadl" -> '''
 				package pack3
@@ -136,6 +154,12 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				  
 				  feature group fgt3
 				  end fgt3;
+				  
+				  data d3
+				  end d3;
+				  
+				  data implementation d3.i
+				  end d3.i;
 				end pack3;
 			''',
 			"pack4.aadl" -> '''
@@ -149,6 +173,12 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				  
 				  feature group fgt4
 				  end fgt4;
+				  
+				  data d4
+				  end d4;
+				  
+				  data implementation d4.i
+				  end d4.i;
 				end pack4;
 			''',
 			"pack5.aadl" -> '''
@@ -162,6 +192,12 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				  
 				  feature group fgt5
 				  end fgt5;
+				  
+				  data d5
+				  end d5;
+				  
+				  data implementation d5.i
+				  end d5.i;
 				end pack5;
 			'''
 		)
@@ -169,28 +205,27 @@ class Aadl2ScopeProviderTests extends OsateTest {
 		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
 		assertAllCrossReferencesResolvable(pack1)
 		
+		val componentClassifierScopeForPack1 = '''
+			a6, renmaed_classifier, a4, a4.i, d3, d3.i, renamed_package.a5, renamed_package.a5.i, renamed_package.d4, renamed_package.d4.i, 
+			a1, a2, a2.i, d1, d1.i, pack1.a1, pack1.a2, pack1.a2.i, pack1.d1, pack1.d1.i, pack3.a4, pack3.a4.i, pack3.d3, pack3.d3.i, pack2.a3, 
+			pack2.a3.i, pack2.d2, pack2.d2.i, pack5.a6, pack5.a7, pack5.d5, pack5.d5.i, pack4.a5, pack4.a5.i, pack4.d4, pack4.d4.i, 
+			Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, Base_Types.Integer_64, 
+			Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, Base_Types.Natural, Base_Types.Float, 
+			Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String
+		'''.toString.replaceAll(System.lineSeparator, "")
+		
 		val classifiers = pack1.publicSection.ownedClassifiers
 		classifiers.get(0) => [
 			Assert::assertEquals("a1", name)
 			ownedPrototypes.get(0) => [
 				Assert::assertEquals("proto1", name)
 				//Tests scope_ComponentPrototype_constrainingClassifier
-				assertScope(Aadl2Package::eINSTANCE.componentPrototype_ConstrainingClassifier, "a6, renmaed_classifier, a4, a4.i, " +
-					"renamed_package.a5, renamed_package.a5.i, a1, a2, a2.i, pack1.a1, pack1.a2, pack1.a2.i, pack3.a4, pack3.a4.i, " +
-					"pack2.a3, pack2.a3.i, pack5.a6, pack5.a7, pack4.a5, pack4.a5.i, Base_Types.Boolean, Base_Types.Integer, " +
-					"Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, Base_Types.Integer_64, Base_Types.Unsigned_8, " +
-					"Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, Base_Types.Natural, Base_Types.Float, " +
-					"Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String")
+				assertScope(Aadl2Package::eINSTANCE.componentPrototype_ConstrainingClassifier, componentClassifierScopeForPack1)
 			]
 			ownedPrototypes.get(1) => [
 				Assert::assertEquals("proto2", name)
 				//Tests scope_FeaturePrototype_constrainingClassifier
-				assertScope(Aadl2Package::eINSTANCE.featurePrototype_ConstrainingClassifier, "a6, renmaed_classifier, a4, a4.i, " +
-					"renamed_package.a5, renamed_package.a5.i, a1, a2, a2.i, pack1.a1, pack1.a2, pack1.a2.i, pack3.a4, pack3.a4.i, " +
-					"pack2.a3, pack2.a3.i, pack5.a6, pack5.a7, pack4.a5, pack4.a5.i, Base_Types.Boolean, Base_Types.Integer, " +
-					"Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, Base_Types.Integer_64, Base_Types.Unsigned_8, " +
-					"Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, Base_Types.Natural, Base_Types.Float, " +
-					"Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String")
+				assertScope(Aadl2Package::eINSTANCE.featurePrototype_ConstrainingClassifier, componentClassifierScopeForPack1)
 			]
 		]
 		classifiers.get(1) => [
@@ -199,7 +234,13 @@ class Aadl2ScopeProviderTests extends OsateTest {
 				Assert::assertEquals("proto3", formal.name)
 				//Tests scope_FeatureGroupPrototypeActual_featureType
 				actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, fgt5, renamed_feature_group, " +
-					"fgt3, renamed_package.fgt4, fgt1, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack4.fgt4")
+					"fgt3, renamed_package.fgt4, fgt1, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack4.fgt4"
+				)
+			]
+			ownedPrototypeBindings.get(1) as FeaturePrototypeBinding => [
+				Assert::assertEquals("proto4", formal.name)
+				//Tests scope_PortSpecification_classifier
+				actual.assertScope(Aadl2Package::eINSTANCE.portSpecification_Classifier, componentClassifierScopeForPack1)
 			]
 		]
 	}

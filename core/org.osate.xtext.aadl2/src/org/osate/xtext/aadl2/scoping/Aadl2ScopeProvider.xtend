@@ -232,6 +232,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				containingClassifier.allPrototypes
 		}.filter[it instanceof FeatureGroupPrototype].scopeFor(scope)
 	}
+	
+	//Reference is from PortSpecification in Aadl2.xtext
+	def scope_PortSpecification_classifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
 
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
