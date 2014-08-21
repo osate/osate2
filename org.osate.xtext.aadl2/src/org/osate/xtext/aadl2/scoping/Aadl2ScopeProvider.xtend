@@ -67,6 +67,7 @@ import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 import org.osate.aadl2.ComponentImplementationReference
 import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeaturePrototype
+import org.osate.aadl2.SubcomponentType
 
 /**
  * This class contains custom scoping description.
@@ -224,7 +225,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeatureGroupPrototypeActual in Aadl2.xtext
 	def scope_FeatureGroupPrototypeActual_featureType(Element context, EReference reference) {
-		var scope = scope_Classifier(context, reference)
+		val scope = scope_Classifier(context, reference)
 		val containingClassifier = context.getContainerOfType(typeof(Classifier))
 		switch containingClassifier {
 			ComponentClassifier:
@@ -252,6 +253,18 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			FeatureGroupType:
 				context.allPrototypes
 		}.filter[it instanceof FeaturePrototype].scopeFor
+	}
+	
+	//Reference is from ComponentReference in Aadl2.xtext
+	def scope_ComponentPrototypeActual_subcomponentType(Element context, EReference reference) {
+		val scope = scope_Classifier(context, reference)
+		val containingClassifier = context.getContainerOfType(typeof(Classifier))
+		switch containingClassifier {
+			ComponentClassifier:
+				containingClassifier.allPrototypes
+			FeatureGroupType:
+				containingClassifier.allPrototypes
+		}.filter[it instanceof SubcomponentType].scopeFor(scope)
 	}
 
 	// mode references
