@@ -414,7 +414,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_FeatureGroupPrototypeActual_featureType(final Element context, final EReference reference) {
     IScope _xblockexpression = null;
     {
-      IScope scope = this.scope_Classifier(context, reference);
+      final IScope scope = this.scope_Classifier(context, reference);
       final Classifier containingClassifier = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
       EList<Prototype> _switchResult = null;
       boolean _matched = false;
@@ -471,6 +471,36 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     };
     Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_switchResult, _function);
     return Scopes.scopeFor(_filter);
+  }
+  
+  public IScope scope_ComponentPrototypeActual_subcomponentType(final Element context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final IScope scope = this.scope_Classifier(context, reference);
+      final Classifier containingClassifier = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
+      EList<Prototype> _switchResult = null;
+      boolean _matched = false;
+      if (!_matched) {
+        if (containingClassifier instanceof ComponentClassifier) {
+          _matched=true;
+          _switchResult = ((ComponentClassifier)containingClassifier).getAllPrototypes();
+        }
+      }
+      if (!_matched) {
+        if (containingClassifier instanceof FeatureGroupType) {
+          _matched=true;
+          _switchResult = ((FeatureGroupType)containingClassifier).getAllPrototypes();
+        }
+      }
+      final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
+        public Boolean apply(final Prototype it) {
+          return Boolean.valueOf((it instanceof SubcomponentType));
+        }
+      };
+      Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_switchResult, _function);
+      _xblockexpression = Scopes.scopeFor(_filter, scope);
+    }
+    return _xblockexpression;
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
