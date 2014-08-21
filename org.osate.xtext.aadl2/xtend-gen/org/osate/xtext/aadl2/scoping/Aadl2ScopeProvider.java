@@ -444,6 +444,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     return this.scope_Classifier(context, reference);
   }
   
+  public IScope scope_AccessSpecification_classifier(final Element context, final EReference reference) {
+    return this.scope_Classifier(context, reference);
+  }
+  
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
     IScope _xifexpression = null;
     EReference _modalElement_InMode = Aadl2Package.eINSTANCE.getModalElement_InMode();

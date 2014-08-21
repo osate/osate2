@@ -237,6 +237,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	def scope_PortSpecification_classifier(Element context, EReference reference) {
 		scope_Classifier(context, reference)
 	}
+	
+	//Reference is from AccessSpecification in Aadl2.xtext
+	def scope_AccessSpecification_classifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
 
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
