@@ -17,45 +17,46 @@ public class CsvExport extends GenericExport {
 
 	public CsvExport(Report r) {
 		super(r);
-		this.fileExtension = "csv";
+		fileExtension = "csv";
 	}
 
 	public StringBuffer getFileContent() {
 		StringBuffer result;
 		result = new StringBuffer();
 
-		result.append("Latency Analysis Report\n\n");
+		result.append("Latency Analysis Report" + System.lineSeparator() + System.lineSeparator());
 
-		for (Section section : this.report.getSections()) {
-			result.append("Flow analysis for end to end flow " + section.getName() + "\n");
+		for (Section section : report.getSections()) {
+			result.append("Flow analysis for end to end flow " + section.getName() + System.lineSeparator());
 			for (Line line : section.getLines()) {
 				for (String content : line.getContent()) {
 					result.append(content);
 					result.append(",");
 				}
-				result.append("\n");
+				result.append(System.lineSeparator());
 			}
-			result.append("\n\n\n");
+			result.append(System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
 		}
 		return result;
 	}
 
+	@Override
 	public void save(EObject relatedObject) {
 		IFile file;
 		InputStream input;
 		StringBuffer reportContent;
 
-		reportContent = this.getFileContent();
+		reportContent = getFileContent();
 
-		if (this.getPath() != null) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(this.getPath());
+		if (getPath() != null) {
+			file = ResourcesPlugin.getWorkspace().getRoot().getFile(getPath());
 			if (file != null) {
 				input = new ByteArrayInputStream(reportContent.toString().getBytes());
 				try {
 					if (file.exists()) {
 						file.setContents(input, true, true, null);
 					} else {
-						AadlUtil.makeSureFoldersExist(this.getPath());
+						AadlUtil.makeSureFoldersExist(getPath());
 						file.create(input, true, null);
 					}
 				} catch (final CoreException e) {
