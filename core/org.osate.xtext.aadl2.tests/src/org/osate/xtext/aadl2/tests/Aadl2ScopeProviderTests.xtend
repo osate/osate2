@@ -298,7 +298,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 	}
 	
 	/*
-	 * Tests scope_PrototypeBinding_formal and scope_FeatureGroupPrototypeActual_featureType
+	 * Tests scope_PrototypeBinding_formal, scope_FeatureGroupPrototypeActual_featureType, and scope_FeaturePrototypeReference_prototype
 	 */
 	@Test
 	def void testPrototypeBindings() {
@@ -310,6 +310,8 @@ class Aadl2ScopeProviderTests extends OsateTest {
 			    proto1: abstract;
 			    proto3: feature group;
 			    proto5: feature group;
+			    proto8: feature;
+			    proto9: feature;
 			  end a1;
 			  
 			  abstract a2 extends a1 (
@@ -335,7 +337,8 @@ class Aadl2ScopeProviderTests extends OsateTest {
 			  abstract implementation a1.i2 extends a1.i1 (
 			    proto1 => abstract a3,
 			    proto3 => feature group fgt1,
-			    proto5 => feature group proto3
+			    proto5 => feature group proto3,
+			    proto8 => feature proto9
 			  )
 			  end a1.i2;
 			  
@@ -351,11 +354,13 @@ class Aadl2ScopeProviderTests extends OsateTest {
 			  prototypes
 			    proto4: feature;
 			    proto6: feature group;
+			    proto10: feature;
 			  end fgt1;
 			  
 			  feature group fgt2 extends fgt1 (
 			    proto4 => in data port,
-			    proto6 => feature group proto7
+			    proto6 => feature group proto7,
+			    proto10 => feature proto4
 			  )
 			  prototypes
 			    proto7: feature group;
@@ -368,7 +373,7 @@ class Aadl2ScopeProviderTests extends OsateTest {
 			ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
 				Assert::assertEquals("proto1", formal.name)
 				//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5")
+				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9")
 				actuals.get(0) => [
 					Assert::assertEquals("a3", subcomponentType.name)
 					//Tests scope_PrototypeBinding_formal(ComponentPrototypeActual, EReference)
@@ -378,13 +383,13 @@ class Aadl2ScopeProviderTests extends OsateTest {
 			ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 				Assert::assertEquals("proto3", formal.name)
 				//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5")
+				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9")
 				actual => [
 					Assert::assertEquals("fgt1", (featureType as NamedElement).name)
 					//Tests scope_FeatureGroupPrototypeActual_featureType
 					assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
 					//Tests scope_PrototypeBinding_formal(FeatureGroupPrototypeActual, EReference)
-					bindings.get(0).assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6")
+					bindings.get(0).assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10")
 				]
 			]
 		]
@@ -407,32 +412,46 @@ class Aadl2ScopeProviderTests extends OsateTest {
 		classifiers.get(3) => [
 			Assert::assertEquals("a1.i2", name)
 			//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-			ownedPrototypeBindings.get(0).assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5")
+			ownedPrototypeBindings.get(0).assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9")
 			ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 				Assert::assertEquals("proto3", formal.name)
 				//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5")
+				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9")
 				//Tests scope_FeatureGroupPrototypeActual_featureType
 				actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
 			]
 			ownedPrototypeBindings.get(2) as FeatureGroupPrototypeBinding => [
 				Assert::assertEquals("proto5", formal.name)
 				//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5")
+				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9")
 				//Tests scope_FeatureGroupPrototypeActual_featureType
 				actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
+			]
+			ownedPrototypeBindings.get(3) as FeaturePrototypeBinding => [
+				Assert::assertEquals("proto8", formal.name)
+				//Tests scope_PrototypeBinding_formal(Classifier, EReference)
+				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9")
+				//Tests scope_FeaturePrototypeReference_prototype
+				actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, "proto8, proto9")
 			]
 		]
 		classifiers.get(7) => [
 			Assert::assertEquals("fgt2", name)
 			//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-			ownedPrototypeBindings.get(0).assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6")
+			ownedPrototypeBindings.get(0).assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10")
 			ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 				Assert::assertEquals("proto6", formal.name)
 				//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6")
+				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10")
 				//Tests scope_FeatureGroupPrototypeActual_featureType
 				actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto6, proto7, fgt1, fgt2, pack.fgt1, pack.fgt2")
+			]
+			ownedPrototypeBindings.get(2) as FeaturePrototypeBinding => [
+				Assert::assertEquals("proto10", formal.name)
+				//Tests scope_PrototypeBinding_formal(Classifier, EReference)
+				assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10")
+				//Tests scope_FeaturePrototypeReference_prototype
+				actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, "proto4, proto10")
 			]
 		]
 	}
