@@ -56,7 +56,7 @@
     --> prototype type redefines the property value
     --> prototype type doesn't define the property value
     
---- Subcomponent ( ) ; Feature (X)
+--- Subcomponent (X) ; Feature (X)
 
 --> commun tests
     --> classifier feature into a prototype group
@@ -182,10 +182,7 @@ thread implementation MyThread.impl
   
  subcomponents
  
-   subList : data Generic_List { 
-                                 Data_Model::Base_Type => (classifier (MyData));
-                                 Data_Model::Dimension => (100);
-                               };
+   subMyData : data MyData {AadlBaTestPropertySet::aSimpleValue => 17 ;};
    
  properties
   Dispatch_Protocol => Periodic;
@@ -441,6 +438,42 @@ transitions
     a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.int};
     a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := portMyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+   -- Subcomponent
+   
+     -- common tests
+     
+    a -[]-> a {int := subMyData#aSimpleValue} ;
+    
+    a -[]-> a {int := subMyData#aRange.upper_bound} ;
+    a -[]-> a {int := subMyData#aRange.lower_bound} ;
+    
+    a -[]-> a {if(subMyData#aEnum = #AadlBaTestPropertySet::enumType.nine) int := 1 end if} ;
+    a -[]-> a {if(subMyData#aEnum = #AadlBaTestPropertySet::aEnumDefined) int := 1 end if} ;
+    
+    a -[]-> a {str := subMyData#aSimpleList[0]} ;
+    a -[]-> a {str := subMyData#aSimpleList.bom_dia} ;
+    
+    a -[]-> a {int := subMyData#aSimpleRecord.int} ;
+    a -[]-> a {int := subMyData#aSimpleRecordDefined.int} ;
+    
+    a -[]-> a {int := subMyData#aComplexRecord.int};
+    a -[]-> a {int := subMyData#aComplexRecord.listRec.aSimpleRecordDefined.int} ; 
+    a -[]-> a {int := subMyData#aComplexRecord.listRec[0].int} ;
+    
+    a -[]-> a {int := subMyData#aComplexList[0].int} ;
+    a -[]-> a {int := subMyData#aComplexList[0].listRec[0].int} ;
+    a -[]-> a {int := subMyData#aComplexList[0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := subMyData#aComplexList.aComplexRecordDefined.int};
+    a -[]-> a {int := subMyData#aComplexList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := subMyData#aComplexList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
+
+    a -[]-> a {int := subMyData#aComplexListOfList[0][0].int};
+    a -[]-> a {int := subMyData#aComplexListOfList[0][0].listRec[0].int} ; 
+    a -[]-> a {int := subMyData#aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
+    a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.int};
+    a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
+    a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
 
  -- Error tests
  
