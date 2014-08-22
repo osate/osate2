@@ -42,7 +42,6 @@ import org.osate.aadl2.impl.DataClassifierImpl ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
-import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.Value ;
 import org.osate.ba.aadlba.ValueConstant ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
@@ -528,14 +527,6 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
           return -1 ;
       }
     }
-    if(baseClass == PropertyField.class)
-    {
-      switch ( derivedFeatureID )
-      {
-        default :
-          return -1 ;
-      }
-    }
     if(baseClass == IntegerValue.class)
     {
       switch ( derivedFeatureID )
@@ -617,14 +608,6 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       }
     }
     if(baseClass == ValueConstant.class)
-    {
-      switch ( baseFeatureID )
-      {
-        default :
-          return -1 ;
-      }
-    }
-    if(baseClass == PropertyField.class)
     {
       switch ( baseFeatureID )
       {

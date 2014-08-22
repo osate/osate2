@@ -21,7 +21,7 @@ package org.osate.ba.declarative ;
 
 import org.eclipse.emf.common.util.EList ;
 import org.osate.ba.aadlba.IntegerValue ;
-import org.osate.ba.aadlba.PropertyField ;
+import org.osate.ba.aadlba.PropertyNameField ;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +32,8 @@ import org.osate.ba.aadlba.PropertyField ;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getPropertyName <em>Property Name</em>}</li>
- *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getFields <em>Fields</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,42 +70,68 @@ public interface DeclarativePropertyName extends DeclarativeBehaviorElement
   void setPropertyName(Identifier value) ;
 
   /**
-   * Returns the value of the '<em><b>Fields</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.PropertyField}.
+   * Returns the value of the '<em><b>Field</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Fields</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Field</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Fields</em>' containment reference list.
-   * @see #isSetFields()
-   * @see #unsetFields()
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Fields()
+   * @return the value of the '<em>Field</em>' containment reference.
+   * @see #setField(PropertyNameField)
+   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Field()
+   * @model containment="true"
+   * @generated
+   */
+  PropertyNameField getField() ;
+
+  /**
+   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Field</em>' containment reference.
+   * @see #getField()
+   * @generated
+   */
+  void setField(PropertyNameField value) ;
+
+  /**
+   * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.ba.aadlba.IntegerValue}.
+   * <!-- begin-user-doc -->
+    	 * <p>
+    	 * If the meaning of the '<em>Indexes</em>' containment reference list isn't clear,
+    	 * there really should be more of a description here...
+    	 * </p>
+    	 * <!-- end-user-doc -->
+   * @return the value of the '<em>Indexes</em>' containment reference list.
+   * @see #isSetIndexes()
+   * @see #unsetIndexes()
+   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Indexes()
    * @model containment="true" unsettable="true"
    * @generated
    */
-  EList<PropertyField> getFields() ;
+  EList<IntegerValue> getIndexes() ;
 
   /**
-   * Unsets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getFields <em>Fields</em>}' containment reference list.
+   * Unsets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' containment reference list.
    * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isSetFields()
-   * @see #getFields()
+  	 * <!-- end-user-doc -->
+   * @see #isSetIndexes()
+   * @see #getIndexes()
    * @generated
    */
-  void unsetFields() ;
+  void unsetIndexes() ;
 
   /**
-   * Returns whether the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getFields <em>Fields</em>}' containment reference list is set.
+   * Returns whether the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' containment reference list is set.
    * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Fields</em>' containment reference list is set.
-   * @see #unsetFields()
-   * @see #getFields()
+  	 * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Indexes</em>' containment reference list is set.
+   * @see #unsetIndexes()
+   * @see #getIndexes()
    * @generated
    */
-  boolean isSetFields() ;
+  boolean isSetIndexes() ;
 
 } // DeclarativePropertyName

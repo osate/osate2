@@ -33,7 +33,8 @@ import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorTransition ;
-import org.osate.ba.aadlba.PropertyField ;
+import org.osate.ba.aadlba.IntegerValue ;
+import org.osate.ba.aadlba.PropertyNameField ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
@@ -152,10 +153,17 @@ public class DeclarativeUtils
         
         System.out.println("  property name id \'" + dpn.getPropertyName().getId() +
                            "\' : " + unparseElement(dpn.getPropertyName().getOsateRef())) ;
-        
-        for(PropertyField field : dpn.getFields())
+        if(null != dpn.getField())
         {
-          System.out.println("  field : " + unparsePropertyField(field)) ;
+          System.out.println("  field : " + unparsePropertyNameField(dpn.getField())) ;
+        }
+        
+        if(dpn.isSetIndexes())
+        {
+          for(IntegerValue iv : dpn.getIndexes())
+          {
+            System.out.println("  index : " + unparseElement(iv)) ;
+          }
         }
       }
     }
@@ -186,7 +194,7 @@ public class DeclarativeUtils
     return result ;
   }
   
-  public static String unparsePropertyField(PropertyField field)
+  public static String unparsePropertyNameField(PropertyNameField field)
   {
     return field.toString() ;
   }

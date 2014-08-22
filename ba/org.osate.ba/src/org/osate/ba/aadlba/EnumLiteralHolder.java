@@ -19,17 +19,37 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.aadl2.EnumerationLiteral;
+
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Upper Bound</b></em>'.
+ * A representation of the model object '<em><b>Enum Literal Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getUpperBound()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getEnumLiteralHolder()
  * @model
  * @generated
  */
-public interface UpperBound extends PropertyNameField
+public interface EnumLiteralHolder extends PropertyElementHolder
 {
-} // UpperBound
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model enumLiteralRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = enumLiteral ;'"
+   * @generated
+   */
+  void setEnumLiteral(EnumerationLiteral enumLiteral);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (EnumerationLiteral) element;'"
+   * @generated
+   */
+  EnumerationLiteral getEnumLiteral();
+} // EnumLiteralHolder

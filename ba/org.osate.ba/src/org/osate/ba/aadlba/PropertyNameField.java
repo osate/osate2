@@ -22,14 +22,14 @@ package org.osate.ba.aadlba;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Property Field</b></em>'.
+ * A representation of the model object '<em><b>Property Name Field</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyField()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyNameField()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface PropertyField extends BehaviorElement
+public interface PropertyNameField extends BehaviorElement
 {
-} // PropertyField
+} // PropertyNameField

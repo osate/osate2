@@ -19,17 +19,37 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.aadl2.PropertyType;
+
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Upper Bound</b></em>'.
+ * A representation of the model object '<em><b>Property Type Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getUpperBound()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyTypeHolder()
  * @model
  * @generated
  */
-public interface UpperBound extends PropertyNameField
+public interface PropertyTypeHolder extends PropertyElementHolder
 {
-} // UpperBound
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model propertyTypeRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = propertyType ;'"
+   * @generated
+   */
+  void setPropertyType(PropertyType propertyType);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (PropertyType) element;'"
+   * @generated
+   */
+  PropertyType getPropertyType();
+} // PropertyTypeHolder

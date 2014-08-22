@@ -68,7 +68,6 @@ import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PortHolder ;
-import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.Target ;
 import org.osate.ba.aadlba.Value ;
 import org.osate.ba.aadlba.ValueConstant ;
@@ -238,12 +237,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           public Adapter caseBehaviorState(BehaviorState object)
           {
             return createBehaviorStateAdapter() ;
-          }
-
-          @Override
-          public Adapter casePropertyField(PropertyField object)
-          {
-            return createPropertyFieldAdapter() ;
           }
 
           @Override
@@ -752,21 +745,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBehaviorStateAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyField <em>Property Field</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyField
-   * @generated
-   */
-  public Adapter createPropertyFieldAdapter()
   {
     return null ;
   }

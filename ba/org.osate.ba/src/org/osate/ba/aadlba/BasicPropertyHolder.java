@@ -19,17 +19,37 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.aadl2.BasicProperty;
+
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Upper Bound</b></em>'.
+ * A representation of the model object '<em><b>Basic Property Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getUpperBound()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getBasicPropertyHolder()
  * @model
  * @generated
  */
-public interface UpperBound extends PropertyNameField
+public interface BasicPropertyHolder extends PropertyElementHolder
 {
-} // UpperBound
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model basicPropertyRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = basicProperty ;'"
+   * @generated
+   */
+  void setBasicProperty(BasicProperty basicProperty);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (BasicProperty) element;'"
+   * @generated
+   */
+  BasicProperty getBasicProperty();
+} // BasicPropertyHolder

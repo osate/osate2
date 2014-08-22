@@ -66,7 +66,6 @@ import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PortHolder ;
-import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.Target ;
 import org.osate.ba.aadlba.Value ;
 import org.osate.ba.aadlba.ValueConstant ;
@@ -148,8 +147,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseBehaviorState(arrayableIdentifier) ;
         if(result == null)
           result = caseDeclarativeBehaviorElement(arrayableIdentifier) ;
-        if(result == null)
-          result = casePropertyField(arrayableIdentifier) ;
         if(result == null)
           result = caseBehaviorNamedElement(arrayableIdentifier) ;
         if(result == null)
@@ -269,8 +266,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseElement(declarativePropertyReference) ;
         if(result == null)
-          result = casePropertyField(declarativePropertyReference) ;
-        if(result == null)
           result = caseValue(declarativePropertyReference) ;
         if(result == null)
           result = caseBehaviorElement(declarativePropertyReference) ;
@@ -309,8 +304,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseDeclarativeBehaviorElement(identifier) ;
         if(result == null)
-          result = casePropertyField(identifier) ;
-        if(result == null)
           result = caseBehaviorNamedElement(identifier) ;
         if(result == null)
           result = caseNamedElement(identifier) ;
@@ -334,8 +327,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseIntegerValue(namedValue) ;
         if(result == null)
           result = caseValueVariable(namedValue) ;
-        if(result == null)
-          result = casePropertyField(namedValue) ;
         if(result == null)
           result = caseValue(namedValue) ;
         if(result == null)
@@ -380,15 +371,13 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseData(qualifiedNamedElement) ;
         if(result == null)
-          result = casePropertyField(qualifiedNamedElement) ;
+          result = caseBehaviorElement(qualifiedNamedElement) ;
         if(result == null)
           result = caseProcessor(qualifiedNamedElement) ;
         if(result == null)
           result = caseNamespace(qualifiedNamedElement) ;
         if(result == null)
           result = caseType(qualifiedNamedElement) ;
-        if(result == null)
-          result = caseBehaviorElement(qualifiedNamedElement) ;
         if(result == null)
           result = caseNamedElement(qualifiedNamedElement) ;
         if(result == null)
@@ -433,8 +422,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseIndexableElement(reference) ;
         if(result == null)
           result = caseGroupableElement(reference) ;
-        if(result == null)
-          result = casePropertyField(reference) ;
         if(result == null)
           result = caseElementHolder(reference) ;
         if(result == null)
@@ -718,22 +705,6 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBehaviorState(BehaviorState object)
-  {
-    return null ;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Property Field</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Property Field</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePropertyField(PropertyField object)
   {
     return null ;
   }

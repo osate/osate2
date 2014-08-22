@@ -19,50 +19,50 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.Element;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Property Enum Literal</b></em>'.
+ * A representation of the model object '<em><b>Property Element Holder</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.PropertyEnumLiteral#getLiteral <em>Literal</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.PropertyElementHolder#getElement <em>Element</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyEnumLiteral()
- * @model
+ * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyElementHolder()
+ * @model abstract="true"
  * @generated
  */
-public interface PropertyEnumLiteral extends PropertyField
+public interface PropertyElementHolder extends BehaviorElement, IndexableElement
 {
   /**
-   * Returns the value of the '<em><b>Literal</b></em>' reference.
+   * Returns the value of the '<em><b>Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Literal</em>' reference isn't clear,
+   * If the meaning of the '<em>Element</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Literal</em>' reference.
-   * @see #setLiteral(EnumerationLiteral)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyEnumLiteral_Literal()
+   * @return the value of the '<em>Element</em>' reference.
+   * @see #setElement(Element)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyElementHolder_Element()
    * @model required="true"
    * @generated
    */
-  EnumerationLiteral getLiteral();
+  Element getElement();
 
   /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyEnumLiteral#getLiteral <em>Literal</em>}' reference.
+   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyElementHolder#getElement <em>Element</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Literal</em>' reference.
-   * @see #getLiteral()
+   * @param value the new value of the '<em>Element</em>' reference.
+   * @see #getElement()
    * @generated
    */
-  void setLiteral(EnumerationLiteral value);
+  void setElement(Element value);
 
-} // PropertyEnumLiteral
+} // PropertyElementHolder

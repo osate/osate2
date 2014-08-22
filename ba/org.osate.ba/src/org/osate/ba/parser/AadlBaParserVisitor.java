@@ -29,7 +29,6 @@ import org.antlr.v4.runtime.misc.NotNull ;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor ;
 import org.antlr.v4.runtime.tree.TerminalNode ;
 import org.eclipse.emf.common.util.BasicEList ;
-import org.eclipse.emf.common.util.EList ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
@@ -52,7 +51,6 @@ import org.osate.ba.aadlba.LogicalOperator ;
 import org.osate.ba.aadlba.LowerBound ;
 import org.osate.ba.aadlba.MultiplyingOperator ;
 import org.osate.ba.aadlba.ParameterLabel ;
-import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.Relation ;
 import org.osate.ba.aadlba.RelationalOperator ;
 import org.osate.ba.aadlba.Term ;
@@ -1936,25 +1934,23 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     propertyName.setId(ctx.IDENT().getText());
     result.setPropertyName(propertyName);
     
-    EList<PropertyField> fields = result.getFields() ;
-    
     if(ctx.UPPER_BOUND() != null)
     {
       UpperBound upField = _fact.createUpperBound() ;
       setLocationReference(upField, ctx.UPPER_BOUND()) ;
-      fields.add(upField) ;
+      result.setField(upField) ;
     }
     else if(ctx.LOWER_BOUND() != null)
     {
       LowerBound lowerField = _fact.createLowerBound() ;
       setLocationReference(lowerField, ctx.LOWER_BOUND()) ;
-      fields.add(lowerField) ;
+      result.setField(lowerField) ;
     }
-    else
+    else if(false == ctx.integer_value().isEmpty())
     {
       for(Integer_valueContext ivc : ctx.integer_value())
       {
-        fields.add(ivc.result) ;
+        result.getIndexes().add(ivc.result) ;
       }
     }
     

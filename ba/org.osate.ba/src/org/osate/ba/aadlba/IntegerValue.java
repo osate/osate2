@@ -30,6 +30,6 @@ package org.osate.ba.aadlba;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface IntegerValue extends BehaviorElement, PropertyField
+public interface IntegerValue extends BehaviorElement
 {
 } // IntegerValue

@@ -30,6 +30,6 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface LowerBound extends PropertyField
+public interface LowerBound extends PropertyNameField
 {
 } // LowerBound

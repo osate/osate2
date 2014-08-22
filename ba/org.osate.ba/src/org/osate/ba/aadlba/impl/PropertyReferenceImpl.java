@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.PropertyHolder;
+import org.osate.ba.aadlba.PropertyNameHolder;
 import org.osate.ba.aadlba.PropertyReference;
 
 /**
@@ -58,7 +58,7 @@ public abstract class PropertyReferenceImpl extends BehaviorElementImpl implemen
    * @generated
    * @ordered
    */
-  protected EList<PropertyHolder> properties;
+  protected EList<PropertyNameHolder> properties;
 
   /**
    * <!-- begin-user-doc -->
@@ -86,11 +86,11 @@ public abstract class PropertyReferenceImpl extends BehaviorElementImpl implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PropertyHolder> getProperties()
+  public EList<PropertyNameHolder> getProperties()
   {
     if (properties == null)
     {
-      properties = new EObjectContainmentEList<PropertyHolder>(PropertyHolder.class, this, AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES);
+      properties = new EObjectContainmentEList<PropertyNameHolder>(PropertyNameHolder.class, this, AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES);
     }
     return properties;
   }
@@ -140,7 +140,7 @@ public abstract class PropertyReferenceImpl extends BehaviorElementImpl implemen
     {
       case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
         getProperties().clear();
-        getProperties().addAll((Collection<? extends PropertyHolder>)newValue);
+        getProperties().addAll((Collection<? extends PropertyNameHolder>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

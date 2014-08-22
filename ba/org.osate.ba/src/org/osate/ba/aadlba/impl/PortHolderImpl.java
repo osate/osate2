@@ -49,7 +49,6 @@ import org.osate.ba.aadlba.IndexableElement;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.PortHolder ;
-import org.osate.ba.aadlba.PropertyField;
 
 /**
  * <!-- begin-user-doc -->
@@ -386,13 +385,6 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == PropertyField.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
     if (baseClass == IntegerValue.class)
     {
       switch (derivedFeatureID)
@@ -456,13 +448,6 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == PropertyField.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
     if (baseClass == IntegerValue.class)
     {
       switch (baseFeatureID)

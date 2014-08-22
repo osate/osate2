@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 
 import org.osate.aadl2.Element ;
 import org.osate.ba.aadlba.BehaviorElement ;
-import org.osate.ba.aadlba.PropertyField ;
 import org.osate.ba.aadlba.Value ;
 import org.osate.ba.aadlba.ValueVariable ;
 import org.osate.ba.aadlba.impl.BehaviorElementImpl ;
@@ -553,14 +552,6 @@ public class NamedValueImpl extends BehaviorElementImpl implements NamedValue
   public int eBaseStructuralFeatureID(int derivedFeatureID,
                                       Class<?> baseClass)
   {
-    if(baseClass == PropertyField.class)
-    {
-      switch ( derivedFeatureID )
-      {
-        default :
-          return -1 ;
-      }
-    }
     if(baseClass == Value.class)
     {
       switch ( derivedFeatureID )
@@ -601,14 +592,6 @@ public class NamedValueImpl extends BehaviorElementImpl implements NamedValue
   public int eDerivedStructuralFeatureID(int baseFeatureID,
                                          Class<?> baseClass)
   {
-    if(baseClass == PropertyField.class)
-    {
-      switch ( baseFeatureID )
-      {
-        default :
-          return -1 ;
-      }
-    }
     if(baseClass == Value.class)
     {
       switch ( baseFeatureID )

@@ -41,7 +41,7 @@ public interface PropertyReference extends ValueConstant, IntegerValueConstant
 {
   /**
    * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.PropertyHolder}.
+   * The list contents are of type {@link org.osate.ba.aadlba.PropertyNameHolder}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
@@ -53,6 +53,6 @@ public interface PropertyReference extends ValueConstant, IntegerValueConstant
    * @model containment="true" required="true"
    * @generated
    */
-  EList<PropertyHolder> getProperties();
+  EList<PropertyNameHolder> getProperties();
 
 } // PropertyReference

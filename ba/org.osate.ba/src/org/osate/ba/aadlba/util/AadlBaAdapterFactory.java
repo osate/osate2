@@ -125,6 +125,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createBasicActionAdapter();
       }
       @Override
+      public Adapter caseBasicPropertyHolder(BasicPropertyHolder object)
+      {
+        return createBasicPropertyHolderAdapter();
+      }
+      @Override
       public Adapter caseBehaviorAction(BehaviorAction object)
       {
         return createBehaviorActionAdapter();
@@ -340,6 +345,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createElseStatementAdapter();
       }
       @Override
+      public Adapter caseEnumLiteralHolder(EnumLiteralHolder object)
+      {
+        return createEnumLiteralHolderAdapter();
+      }
+      @Override
       public Adapter caseEventDataPortHolder(EventDataPortHolder object)
       {
         return createEventDataPortHolderAdapter();
@@ -515,29 +525,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createPortSendActionAdapter();
       }
       @Override
-      public Adapter casePropertyEnumLiteral(PropertyEnumLiteral object)
+      public Adapter casePropertyNameField(PropertyNameField object)
       {
-        return createPropertyEnumLiteralAdapter();
+        return createPropertyNameFieldAdapter();
       }
       @Override
-      public Adapter casePropertyField(PropertyField object)
+      public Adapter casePropertyNameHolder(PropertyNameHolder object)
       {
-        return createPropertyFieldAdapter();
+        return createPropertyNameHolderAdapter();
       }
       @Override
-      public Adapter casePropertyHolder(PropertyHolder object)
+      public Adapter casePropertyElementHolder(PropertyElementHolder object)
       {
-        return createPropertyHolderAdapter();
+        return createPropertyElementHolderAdapter();
       }
       @Override
-      public Adapter casePropertyListValue(PropertyListValue object)
+      public Adapter casePropertyAssociationHolder(PropertyAssociationHolder object)
       {
-        return createPropertyListValueAdapter();
+        return createPropertyAssociationHolderAdapter();
       }
       @Override
-      public Adapter casePropertyRecordField(PropertyRecordField object)
+      public Adapter casePropertyExpressionHolder(PropertyExpressionHolder object)
       {
-        return createPropertyRecordFieldAdapter();
+        return createPropertyExpressionHolderAdapter();
+      }
+      @Override
+      public Adapter casePropertyTypeHolder(PropertyTypeHolder object)
+      {
+        return createPropertyTypeHolderAdapter();
       }
       @Override
       public Adapter casePropertyReference(PropertyReference object)
@@ -802,6 +817,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBasicActionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BasicPropertyHolder <em>Basic Property Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BasicPropertyHolder
+   * @generated
+   */
+  public Adapter createBasicPropertyHolderAdapter()
   {
     return null;
   }
@@ -1422,6 +1452,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.EnumLiteralHolder <em>Enum Literal Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.EnumLiteralHolder
+   * @generated
+   */
+  public Adapter createEnumLiteralHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.EventDataPortHolder <em>Event Data Port Holder</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1917,16 +1962,91 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyEnumLiteral <em>Property Enum Literal</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyNameField <em>Property Name Field</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyEnumLiteral
+   * @see org.osate.ba.aadlba.PropertyNameField
    * @generated
    */
-  public Adapter createPropertyEnumLiteralAdapter()
+  public Adapter createPropertyNameFieldAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyNameHolder <em>Property Name Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyNameHolder
+   * @generated
+   */
+  public Adapter createPropertyNameHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyElementHolder <em>Property Element Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyElementHolder
+   * @generated
+   */
+  public Adapter createPropertyElementHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyAssociationHolder <em>Property Association Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyAssociationHolder
+   * @generated
+   */
+  public Adapter createPropertyAssociationHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyExpressionHolder <em>Property Expression Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyExpressionHolder
+   * @generated
+   */
+  public Adapter createPropertyExpressionHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyTypeHolder <em>Property Type Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.PropertyTypeHolder
+   * @generated
+   */
+  public Adapter createPropertyTypeHolderAdapter()
   {
     return null;
   }
@@ -2332,66 +2452,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPropertyReferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyField <em>Property Field</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyField
-   * @generated
-   */
-  public Adapter createPropertyFieldAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyHolder <em>Property Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyHolder
-   * @generated
-   */
-  public Adapter createPropertyHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyListValue <em>Property List Value</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyListValue
-   * @generated
-   */
-  public Adapter createPropertyListValueAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.PropertyRecordField <em>Property Record Field</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.PropertyRecordField
-   * @generated
-   */
-  public Adapter createPropertyRecordFieldAdapter()
   {
     return null;
   }

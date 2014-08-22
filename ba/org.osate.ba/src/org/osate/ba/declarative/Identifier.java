@@ -22,7 +22,6 @@
 package org.osate.ba.declarative ;
 
 import org.osate.ba.aadlba.BehaviorState ;
-import org.osate.ba.aadlba.PropertyField ;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,8 +39,7 @@ import org.osate.ba.aadlba.PropertyField ;
  * @model
  * @generated
  */
-public interface Identifier extends BehaviorState, DeclarativeBehaviorElement,
-                           PropertyField
+public interface Identifier extends BehaviorState, DeclarativeBehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Id</b></em>' attribute.

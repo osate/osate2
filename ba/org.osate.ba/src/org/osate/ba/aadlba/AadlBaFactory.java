@@ -58,6 +58,15 @@ public interface AadlBaFactory extends EFactory
   Any createAny();
 
   /**
+   * Returns a new object of class '<em>Basic Property Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Basic Property Holder</em>'.
+   * @generated
+   */
+  BasicPropertyHolder createBasicPropertyHolder();
+
+  /**
    * Returns a new object of class '<em>Behavior Action Block</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -301,6 +310,15 @@ public interface AadlBaFactory extends EFactory
   ElseStatement createElseStatement();
 
   /**
+   * Returns a new object of class '<em>Enum Literal Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum Literal Holder</em>'.
+   * @generated
+   */
+  EnumLiteralHolder createEnumLiteralHolder();
+
+  /**
    * Returns a new object of class '<em>Event Data Port Holder</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -499,13 +517,40 @@ public interface AadlBaFactory extends EFactory
   PortSendAction createPortSendAction();
 
   /**
-   * Returns a new object of class '<em>Property Enum Literal</em>'.
+   * Returns a new object of class '<em>Property Name Holder</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property Enum Literal</em>'.
+   * @return a new object of class '<em>Property Name Holder</em>'.
    * @generated
    */
-  PropertyEnumLiteral createPropertyEnumLiteral();
+  PropertyNameHolder createPropertyNameHolder();
+
+  /**
+   * Returns a new object of class '<em>Property Association Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Association Holder</em>'.
+   * @generated
+   */
+  PropertyAssociationHolder createPropertyAssociationHolder();
+
+  /**
+   * Returns a new object of class '<em>Property Expression Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Expression Holder</em>'.
+   * @generated
+   */
+  PropertyExpressionHolder createPropertyExpressionHolder();
+
+  /**
+   * Returns a new object of class '<em>Property Type Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Type Holder</em>'.
+   * @generated
+   */
+  PropertyTypeHolder createPropertyTypeHolder();
 
   /**
    * Returns a new object of class '<em>Relation</em>'.
@@ -695,33 +740,6 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   ClassifierPropertyReference createClassifierPropertyReference();
-
-  /**
-   * Returns a new object of class '<em>Property Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property Holder</em>'.
-   * @generated
-   */
-  PropertyHolder createPropertyHolder();
-
-  /**
-   * Returns a new object of class '<em>Property List Value</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property List Value</em>'.
-   * @generated
-   */
-  PropertyListValue createPropertyListValue();
-
-  /**
-   * Returns a new object of class '<em>Property Record Field</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property Record Field</em>'.
-   * @generated
-   */
-  PropertyRecordField createPropertyRecordField();
 
   /**
    * Returns a new object of class '<em>Upper Bound</em>'.

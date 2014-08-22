@@ -84,6 +84,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
     {
       case AadlBaPackage.ASSIGNMENT_ACTION: return (EObject)createAssignmentAction();
       case AadlBaPackage.ANY: return (EObject)createAny();
+      case AadlBaPackage.BASIC_PROPERTY_HOLDER: return (EObject)createBasicPropertyHolder();
       case AadlBaPackage.BEHAVIOR_ACTION_BLOCK: return (EObject)createBehaviorActionBlock();
       case AadlBaPackage.BEHAVIOR_ACTION_SEQUENCE: return (EObject)createBehaviorActionSequence();
       case AadlBaPackage.BEHAVIOR_ACTION_SET: return (EObject)createBehaviorActionSet();
@@ -113,6 +114,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.DISPATCH_TRIGGER_CONDITION_STOP: return (EObject)createDispatchTriggerConditionStop();
       case AadlBaPackage.DISPATCH_TRIGGER_LOGICAL_EXPRESSION: return (EObject)createDispatchTriggerLogicalExpression();
       case AadlBaPackage.ELSE_STATEMENT: return (EObject)createElseStatement();
+      case AadlBaPackage.ENUM_LITERAL_HOLDER: return (EObject)createEnumLiteralHolder();
       case AadlBaPackage.EVENT_DATA_PORT_HOLDER: return (EObject)createEventDataPortHolder();
       case AadlBaPackage.EVENT_PORT_HOLDER: return (EObject)createEventPortHolder();
       case AadlBaPackage.EXECUTION_TIMEOUT_CATCH: return (EObject)createExecutionTimeoutCatch();
@@ -137,10 +139,10 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.PORT_FRESH_VALUE: return (EObject)createPortFreshValue();
       case AadlBaPackage.PORT_PROTOTYPE_HOLDER: return (EObject)createPortPrototypeHolder();
       case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
-      case AadlBaPackage.PROPERTY_ENUM_LITERAL: return (EObject)createPropertyEnumLiteral();
-      case AadlBaPackage.PROPERTY_HOLDER: return (EObject)createPropertyHolder();
-      case AadlBaPackage.PROPERTY_LIST_VALUE: return (EObject)createPropertyListValue();
-      case AadlBaPackage.PROPERTY_RECORD_FIELD: return (EObject)createPropertyRecordField();
+      case AadlBaPackage.PROPERTY_NAME_HOLDER: return (EObject)createPropertyNameHolder();
+      case AadlBaPackage.PROPERTY_ASSOCIATION_HOLDER: return (EObject)createPropertyAssociationHolder();
+      case AadlBaPackage.PROPERTY_EXPRESSION_HOLDER: return (EObject)createPropertyExpressionHolder();
+      case AadlBaPackage.PROPERTY_TYPE_HOLDER: return (EObject)createPropertyTypeHolder();
       case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE: return (EObject)createPropertySetPropertyReference();
       case AadlBaPackage.RELATION: return (EObject)createRelation();
       case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
@@ -275,6 +277,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     AnyImpl any = new AnyImpl();
     return any;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BasicPropertyHolder createBasicPropertyHolder()
+  {
+    BasicPropertyHolderImpl basicPropertyHolder = new BasicPropertyHolderImpl();
+    return basicPropertyHolder;
   }
 
   /**
@@ -579,6 +592,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public EnumLiteralHolder createEnumLiteralHolder()
+  {
+    EnumLiteralHolderImpl enumLiteralHolder = new EnumLiteralHolderImpl();
+    return enumLiteralHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EventDataPortHolder createEventDataPortHolder()
   {
     EventDataPortHolderImpl eventDataPortHolder = new EventDataPortHolderImpl();
@@ -821,10 +845,43 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyEnumLiteral createPropertyEnumLiteral()
+  public PropertyNameHolder createPropertyNameHolder()
   {
-    PropertyEnumLiteralImpl propertyEnumLiteral = new PropertyEnumLiteralImpl();
-    return propertyEnumLiteral;
+    PropertyNameHolderImpl propertyNameHolder = new PropertyNameHolderImpl();
+    return propertyNameHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyAssociationHolder createPropertyAssociationHolder()
+  {
+    PropertyAssociationHolderImpl propertyAssociationHolder = new PropertyAssociationHolderImpl();
+    return propertyAssociationHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyExpressionHolder createPropertyExpressionHolder()
+  {
+    PropertyExpressionHolderImpl propertyExpressionHolder = new PropertyExpressionHolderImpl();
+    return propertyExpressionHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyTypeHolder createPropertyTypeHolder()
+  {
+    PropertyTypeHolderImpl propertyTypeHolder = new PropertyTypeHolderImpl();
+    return propertyTypeHolder;
   }
 
   /**
@@ -1056,39 +1113,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     ClassifierPropertyReferenceImpl classifierPropertyReference = new ClassifierPropertyReferenceImpl();
     return classifierPropertyReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyHolder createPropertyHolder()
-  {
-    PropertyHolderImpl propertyHolder = new PropertyHolderImpl();
-    return propertyHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyListValue createPropertyListValue()
-  {
-    PropertyListValueImpl propertyListValue = new PropertyListValueImpl();
-    return propertyListValue;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyRecordField createPropertyRecordField()
-  {
-    PropertyRecordFieldImpl propertyRecordField = new PropertyRecordFieldImpl();
-    return propertyRecordField;
   }
 
   /**

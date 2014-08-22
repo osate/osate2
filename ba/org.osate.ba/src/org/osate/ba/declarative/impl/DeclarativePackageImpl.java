@@ -432,7 +432,7 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDeclarativePropertyName_Fields()
+  public EReference getDeclarativePropertyName_Field()
   {
     return (EReference) declarativePropertyNameEClass.getEStructuralFeatures()
           .get(1) ;
@@ -440,7 +440,18 @@ public class DeclarativePackageImpl extends EPackageImpl implements
 
   /**
    * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclarativePropertyName_Indexes()
+  {
+    return (EReference) declarativePropertyNameEClass.getEStructuralFeatures()
+          .get(2) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
    * @generated
    */
   public EClass getDeclarativePropertyReference()
@@ -701,7 +712,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
     createEReference(declarativePropertyNameEClass,
                      DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME) ;
     createEReference(declarativePropertyNameEClass,
-                     DECLARATIVE_PROPERTY_NAME__FIELDS) ;
+                     DECLARATIVE_PROPERTY_NAME__FIELD) ;
+    createEReference(declarativePropertyNameEClass,
+                     DECLARATIVE_PROPERTY_NAME__INDEXES) ;
 
     declarativePropertyReferenceEClass =
           createEClass(DECLARATIVE_PROPERTY_REFERENCE) ;
@@ -804,7 +817,6 @@ public class DeclarativePackageImpl extends EPackageImpl implements
           .add(this.getDeclarativeBehaviorElement()) ;
     identifierEClass.getESuperTypes().add(theAadlBaPackage.getBehaviorState()) ;
     identifierEClass.getESuperTypes().add(this.getDeclarativeBehaviorElement()) ;
-    identifierEClass.getESuperTypes().add(theAadlBaPackage.getPropertyField()) ;
     namedValueEClass.getESuperTypes().add(theAadlBaPackage
                                                 .getIntegerValueVariable()) ;
     namedValueEClass.getESuperTypes().add(theAadlBaPackage.getValueVariable()) ;
@@ -931,8 +943,13 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                    DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
                    IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                    !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
-    initEReference(getDeclarativePropertyName_Fields(), theAadlBaPackage
-                         .getPropertyField(), null, "fields", null, 0, -1,
+    initEReference(getDeclarativePropertyName_Field(), theAadlBaPackage
+                         .getPropertyNameField(), null, "field", null, 0, 1,
+                   DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                   !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
+    initEReference(getDeclarativePropertyName_Indexes(), theAadlBaPackage
+                         .getIntegerValue(), null, "indexes", null, 0, -1,
                    DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
                    IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                    IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
