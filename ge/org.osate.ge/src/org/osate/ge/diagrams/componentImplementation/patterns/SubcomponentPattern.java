@@ -302,6 +302,7 @@ public class SubcomponentPattern extends AgePattern {
 		// Create the graphics Algorithm
 		ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, sc, maxWidth, maxHeight);  
 		gaService.setLocation(ga, x, y);
+		ga.setFilled(false);
 		
 		// Set the position of the text
 		gaService.setLocationAndSize(labelText, 0, 0, ga.getWidth(), 20);

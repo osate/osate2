@@ -11,6 +11,7 @@ package org.osate.ge.services.impl;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -554,35 +555,47 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	}
 	
 	private static GraphicsAlgorithm createMemoryGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
-		final  int ellipseHeight = 20;
+		final int ellipseHeight = 20;
+		final double halfEllipseHeight = ellipseHeight / 2.0;
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
 		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
-		ga.setFilled(false);
+		ga.setStyle(style);
 		
-		final GraphicsAlgorithm bottomEllipse = gaService.createPlainEllipse(ga);
-		gaService.setLocationAndSize(bottomEllipse, 0, height-ellipseHeight, width, ellipseHeight);
-		bottomEllipse.setStyle(style);
-		
+		// Top ellipse
 		final GraphicsAlgorithm topEllipse = gaService.createPlainEllipse(ga);
 		gaService.setLocationAndSize(topEllipse, 0, 0, width, ellipseHeight);
 		topEllipse.setStyle(style);
+		topEllipse.setFilled(false);
+
+		// Draw a half ellipse for the bottom
+		int halfEllipsePointCount = 8;
+		int[] points = new int[halfEllipsePointCount*2 + 8];
+		int j = 0;
 		
-		final GraphicsAlgorithm maskRect = gaService.createPlainRectangle(ga);
-		gaService.setLocationAndSize(maskRect, 0, ellipseHeight, width, height-ellipseHeight-ellipseHeight/2);
-		maskRect.setStyle(style);
-		maskRect.setLineVisible(false);
+		// Right Side
+		points[j++] = width; points[j++] = ellipseHeight/2;
+		points[j++] = width; points[j++] = (int)Math.round(height-halfEllipseHeight);
 		
-		// Create vertical lines
-		gaService.createPlainPolyline(ga, new int[] {
-    			0, ellipseHeight/2,
-    			0, height-ellipseHeight/2}).setStyle(style);
+		// Bottom Half Ellipse
+		double t = -Math.PI/2.0;
+		final double halfWidth = width / 2.0;
+		for(int i = 0; i < halfEllipsePointCount; i++) {
+			final int x = (int)Math.round(halfWidth + (-Math.sin(t) * halfWidth));
+			final int y = (int)Math.round(height-halfEllipseHeight + (Math.cos(t) * halfEllipseHeight));
+			points[j++] = x;
+			points[j++] = y;
+			t += Math.PI/(halfEllipsePointCount-1);
+		}
 		
-		gaService.createPlainPolyline(ga, new int[] {
-    			width-2, ellipseHeight/2,
-    			width-2, height-ellipseHeight/2}).setStyle(style);
+		// Left Side
+		points[j++] = 0; points[j++] = (int)Math.round(height-halfEllipseHeight);
+		points[j++] = 0; points[j++] = ellipseHeight/2;
 		
+		final Polyline linesGa = gaService.createPlainPolyline(ga, points);
+		gaService.setLocationAndSize(linesGa, 0, 0, width, height);
+		linesGa.setStyle(style);
 		return ga;
 	}
 

@@ -159,6 +159,9 @@ public class TypeClassifierPattern extends AgePattern {
 			ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, newSize[0], newSize[1]);
 			gaService.setLocation(ga, x, y);
 		}
+
+		// Do not fill the root shape so that the grid lines can be seen
+		ga.setFilled(false);
 		
 		layoutService.layoutChildren(shape);
 	}

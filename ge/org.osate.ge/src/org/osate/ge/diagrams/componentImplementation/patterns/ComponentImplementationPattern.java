@@ -143,6 +143,9 @@ public class ComponentImplementationPattern extends AgePattern {
 		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, ci, newSize[0], newSize[1]);
 		gaService.setLocation(ga, x, y);	
 
+		// Do not fill the root shape so that the grid lines can be seen
+		ga.setFilled(false);
+		
 		layoutService.layoutChildren(shape);
 	}
 	
