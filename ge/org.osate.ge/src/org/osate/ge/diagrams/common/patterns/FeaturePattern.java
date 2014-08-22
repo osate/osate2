@@ -19,11 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
@@ -53,7 +49,6 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
@@ -63,17 +58,11 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowEnd;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.AadlFeatureService;
@@ -88,6 +77,7 @@ import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.PrototypeService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
@@ -127,6 +117,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final BusinessObjectResolutionService bor;
 	private final ShapeCreationService shapeCreationService;
 	private final HighlightingService highlightingService;
+	private final RefactoringService refactoringService;
 	private final EClass featureType;
 	
 	/**
@@ -157,7 +148,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
-			final HighlightingService highlightingService, final @Named("Feature Type") EClass featureType) {
+			final HighlightingService highlightingService, final RefactoringService refactoringService, final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -175,6 +166,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.bor = bor;
 		this.shapeCreationService = shapeCreationService;
 		this.highlightingService = highlightingService;
+		this.refactoringService = refactoringService;
 		this.featureType = featureType;
 	}
 
@@ -763,113 +755,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
     	final PictogramElement pe = context.getPictogramElement();
     	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(feature, new RenameFeatureModifier(value, diagramModService));   	
+    	refactoringService.renameElement(feature, value);
     }
- 	
- 	private static class RenameFeatureModifier extends AbstractModifier<Feature, Object> {
-    	private final String newName;
-		private final DiagramModificationService diagramModService;
-		private DiagramModificationService.Modification diagramMod;
-		
- 		public RenameFeatureModifier(final String newName, final DiagramModificationService diagramModService) {
-			this.newName = newName;
-			this.diagramModService = diagramModService;
-		}
- 		
- 		@Override
-		public Object modify(final Resource resource, final Feature feature) {
- 			// Resolving allows the name change to propagate when editing without an Xtext document
- 			EcoreUtil.resolveAll(resource.getResourceSet());
-			
- 			diagramMod = diagramModService.startModification();
-			updateReferences(feature, resource.getResourceSet());
- 			diagramMod.markLinkagesAsDirty(feature);
-			feature.setName(newName);		
-			
-			return null;
-		}
- 		
- 		/**
- 		 * Recursive method that updates references to the feature. It recursively updates refinees.
- 		 * @param feature
- 		 * @param resourceSet
- 		 */
- 	    private void updateReferences(final Feature feature, final ResourceSet resourceSet) {
- 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(feature, resourceSet)) {
- 				final EStructuralFeature sf = s.getEStructuralFeature();
- 				if(!sf.isDerived() && sf.isChangeable()) {
- 					final EObject obj = s.getEObject();
- 		 			// Mark linkages to refinements as dirty
- 					if(obj instanceof Feature && ((Feature)obj).getRefined() == feature) {
- 						final Feature refinee = (Feature)obj;
- 						
- 						diagramMod.markLinkagesAsDirty(refinee);
- 						
- 						// Set the refined element to null and then set it again to trigger the change 
- 						refinee.setRefined(null);
- 						refinee.setRefined(feature);
- 						
- 						updateReferences(refinee, resourceSet);
- 					} else if(obj instanceof ConnectedElement) {
-						final ConnectedElement connectedElement = (ConnectedElement)obj;
-						if(connectedElement.getConnectionEnd() == feature) {
-							// Reset the connection end. This will trigger and update by xtext
-							connectedElement.setConnectionEnd(null);
-							connectedElement.setConnectionEnd(feature);							
-						} 
-					} else if(obj instanceof ModeTransitionTrigger) {
-						final ModeTransitionTrigger mtt = (ModeTransitionTrigger)obj;
-						if(mtt.getTriggerPort() == feature) {
-							// Reset the port. This will trigger and update by xtext
-							mtt.setTriggerPort(null);
-							mtt.setTriggerPort((TriggerPort)feature);							
-						} 
-					} else if(obj instanceof FlowEnd) {
-						final FlowEnd fe = (FlowEnd)obj;
-						if(fe.getFeature() == feature) {
-							// Reset the feature. This will trigger and update by xtext
-							fe.setFeature(null);
-							fe.setFeature(feature);
-						}
-						
-						// Flow Implementations do not have a reference to the feature but rather to the flow specification. Trigger an update.
-						if(fe.getOwner() instanceof FlowSpecification) {
-							final FlowSpecification flowSpec = (FlowSpecification)fe.getOwner();
-							updateFlowImplementationReferencesToFlowSpecification(flowSpec, resourceSet);
-						}
-					} else if(obj instanceof FlowSegment && obj instanceof FlowElement) {
-						final FlowSegment fs = (FlowSegment)obj;
-						if(fs.getFlowElement() == feature) {
-							// Reset the flow element. This will trigger and update by xtext
-							fs.setFlowElement(null);
-							fs.setFlowElement((FlowElement)feature);							
-						}
-					}
- 				}
- 			}
- 	    }
- 				
- 		private void updateFlowImplementationReferencesToFlowSpecification(final FlowSpecification flowSpec, final ResourceSet resourceSet) {
- 			// Look for flow implementations
-			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(flowSpec, resourceSet)) {
-				final EStructuralFeature sf = s.getEStructuralFeature();
-				if(!sf.isDerived() && sf.isChangeable()) {
-					final EObject obj = s.getEObject();
-					if(obj instanceof FlowImplementation) {
-						final FlowImplementation fi = (FlowImplementation)obj;
-						if(fi.getSpecification() == flowSpec) {
-							fi.setSpecification(null);
-							fi.setSpecification(flowSpec);
-						}
-					}
-				}
-			}
- 		}		
-
-		@Override
-		public void beforeCommit(final Resource resource, final Feature feature, final Object modificationResult) {
-			diagramMod.commit();
-		}
- 	}
-
 }

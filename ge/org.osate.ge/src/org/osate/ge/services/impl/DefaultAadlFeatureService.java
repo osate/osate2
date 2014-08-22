@@ -139,7 +139,7 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 				// This feature group type is not necessarily the one that owned the feature... Could be inverse.. Could be refined, etc..
 				// Check if the feature group type was implicitly defined via an inverse
 				final FeatureGroupType fgt = getFeatureGroupType(container, fg);
-				if(getAllOwnedFeatures(fgt).isEmpty() && !Aadl2Util.isNull(fgt.getInverse())) {
+				if(fgt != null && getAllOwnedFeatures(fgt).isEmpty() && !Aadl2Util.isNull(fgt.getInverse())) {
 					isInverted = !isInverted;
 				}
 			}

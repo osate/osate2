@@ -20,11 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
@@ -50,10 +46,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -68,6 +60,7 @@ import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.SubcomponentService;
@@ -92,6 +85,7 @@ public class SubcomponentPattern extends AgePattern {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final ShapeService shapeService;
+	private final RefactoringService refactoringService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType;
 
@@ -126,7 +120,7 @@ public class SubcomponentPattern extends AgePattern {
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final HighlightingService highlightingHelper, final AadlModificationService aadlModService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final ShapeService shapeService, 
-			final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
+			final RefactoringService refactoringService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = resizeHelper;
@@ -141,6 +135,7 @@ public class SubcomponentPattern extends AgePattern {
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
 		this.shapeService = shapeService;
+		this.refactoringService = refactoringService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -447,100 +442,9 @@ public class SubcomponentPattern extends AgePattern {
     
     public void setValue(final String value, final IDirectEditingContext context) {
     	final PictogramElement pe = context.getPictogramElement();
-    	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(pe);    	
-   	
-    	aadlModService.modify(sc, new RenameSubcomponentModifier(value, diagramModService));   	
+    	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(pe);  	
+    	refactoringService.renameElement(sc, value);
     }
-    
-    private static class RenameSubcomponentModifier extends AbstractModifier<Subcomponent, Object> {
-    	private final String newName;
-		private final DiagramModificationService diagramModService;
-		private DiagramModificationService.Modification diagramMod;
-		
- 		public RenameSubcomponentModifier(final String newName, final DiagramModificationService diagramModService) {
-			this.newName = newName;
-			this.diagramModService = diagramModService;
-		}
- 		
- 		@Override
-		public Object modify(final Resource resource, final Subcomponent sc) {
- 			// Resolving allows the name change to propagate when editing without an Xtext document
- 			EcoreUtil.resolveAll(resource.getResourceSet());
-
- 			// Start the diagram modification
- 			diagramMod = diagramModService.startModification();
- 			
- 			updateReferences(sc, resource.getResourceSet());
- 			
- 			// Mark linkages to the subcomponent as dirty 			
- 			diagramMod.markLinkagesAsDirty(sc);
- 			
- 			// Set the subcomponent's name
-			sc.setName(newName);
-
-			return null;
-		}	
-
- 		@Override
-		public void beforeCommit(final Resource resource, final Subcomponent sc, final Object modificationResult) {
-			diagramMod.commit();
-		}
- 		
- 		/**
- 		 * Recursive method that updates references to the subcomponent. It recursively updates refinees.
- 		 * @param element
- 		 * @param resourceSet
- 		 */
- 	    private void updateReferences(final Subcomponent element, final ResourceSet resourceSet) {
- 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(element, resourceSet)) {
- 				final EStructuralFeature sf = s.getEStructuralFeature();
- 				if(!sf.isDerived() && sf.isChangeable()) {
- 					final EObject obj = s.getEObject();
- 		 			// Mark linkages to refinements as dirty
- 					if(obj instanceof Subcomponent && ((Subcomponent)obj).getRefined() == element) {
- 						final Subcomponent refinee = (Subcomponent)obj;
- 						
- 						diagramMod.markLinkagesAsDirty(refinee);
- 						
- 						// Set the refined element to null and then set it again to trigger the change 
- 						refinee.setRefined(null);
- 						refinee.setRefined(element);
- 						
- 						updateReferences(refinee, resourceSet);
- 					}
- 					else if(obj instanceof ConnectedElement) {
-						final ConnectedElement connectedElement = (ConnectedElement)obj;
-						if(connectedElement.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							connectedElement.setContext(null);
-							connectedElement.setContext(element);							
-						}
-					} else if(obj instanceof FlowSegment) {
-						final FlowSegment fs = (FlowSegment)obj;
-						if(fs.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							fs.setContext(null);
-							fs.setContext(element);							
-						}
-					} else if(obj instanceof EndToEndFlowSegment) {
-						final EndToEndFlowSegment fs = (EndToEndFlowSegment)obj;
-						if(fs.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							fs.setContext(null);
-							fs.setContext(element);							
-						}
-					} else if(obj instanceof ModeTransitionTrigger) {
-						final ModeTransitionTrigger mtt = (ModeTransitionTrigger)obj;
-						if(mtt.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							mtt.setContext(null);
-							mtt.setContext(element);							
-						}
-					}
- 				}
- 			}
- 	    }
- 	}
     
 	private static Method getSubcomponentCreateMethod(final ComponentImplementation subcomponentOwner, final EClass subcomponentType) {
 		// Determine the method name of the type of subcomponent
