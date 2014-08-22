@@ -1,10 +1,6 @@
 package org.osate.xtext.aadl2.tests
 
 import com.google.inject.Inject
-import org.eclipse.core.resources.IncrementalProjectBuilder
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
@@ -19,20 +15,17 @@ import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
-class ParserTest {
+class ParserTest extends OsateTest {
 
 	@Inject extension ParseHelper<ModelUnit>
 
+	val projectRoot = "platform:/resource/test/"
+
 	@Before
 	def setUp() {
-		val workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		val project = workspaceRoot.getProject("Plugin_Resources");
-		Assert.assertTrue(project.exists());
-		try {
-			project.build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		val test_project = createProject("test", "packages")
+		buildProject("Plugin_Resources", true)
+		setResourceRoot(projectRoot + "packages")
 	}
 
 	@Test
