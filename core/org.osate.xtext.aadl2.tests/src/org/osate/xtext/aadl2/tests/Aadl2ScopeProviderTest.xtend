@@ -43,7 +43,6 @@ import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -57,6 +56,8 @@ import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
+
+import static extension org.junit.Assert.assertEquals
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
@@ -220,41 +221,41 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		'''.toString.replaceAll(System.lineSeparator, "")
 		
 		pack1 => [
-			Assert::assertEquals("pack1", name)
+			"pack1".assertEquals(name)
 			publicSection.ownedClassifiers.get(0) => [
-				Assert::assertEquals("a1", name)
+				"a1".assertEquals(name)
 				ownedPrototypes.get(0) => [
-					Assert::assertEquals("proto1", name)
+					"proto1".assertEquals(name)
 					//Tests scope_ComponentPrototype_constrainingClassifier
 					assertScope(Aadl2Package::eINSTANCE.componentPrototype_ConstrainingClassifier, componentClassifierScopeForPack1)
 				]
 				ownedPrototypes.get(1) => [
-					Assert::assertEquals("proto2", name)
+					"proto2".assertEquals(name)
 					//Tests scope_FeaturePrototype_constrainingClassifier
 					assertScope(Aadl2Package::eINSTANCE.featurePrototype_ConstrainingClassifier, componentClassifierScopeForPack1)
 				]
 			]
 			publicSection.ownedClassifiers.get(1) => [
-				Assert::assertEquals("a2", name)
+				"a2".assertEquals(name)
 				ownedPrototypeBindings.get(0) as FeatureGroupPrototypeBinding => [
-					Assert::assertEquals("proto3", formal.name)
+					"proto3".assertEquals(formal.name)
 					//Tests scope_FeatureGroupPrototypeActual_featureType
 					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, fgt5, renamed_feature_group, " +
 						"fgt3, renamed_package.fgt4, fgt1, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack4.fgt4"
 					)
 				]
 				ownedPrototypeBindings.get(1) as FeaturePrototypeBinding => [
-					Assert::assertEquals("proto4", formal.name)
+					"proto4".assertEquals(formal.name)
 					//Tests scope_PortSpecification_classifier
 					actual.assertScope(Aadl2Package::eINSTANCE.portSpecification_Classifier, componentClassifierScopeForPack1)
 				]
 				ownedPrototypeBindings.get(2) as FeaturePrototypeBinding => [
-					Assert::assertEquals("proto5", formal.name)
+					"proto5".assertEquals(formal.name)
 					//Tests scope_AccessSpecification_classifier
 					actual.assertScope(Aadl2Package::eINSTANCE.accessSpecification_Classifier, componentClassifierScopeForPack1)
 				]
 				ownedPrototypeBindings.get(3) as ComponentPrototypeBinding => [
-					Assert::assertEquals("proto6", formal.name)
+					"proto6".assertEquals(formal.name)
 					//Tests scope_ComponentPrototypeActual_subcomponentType
 					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto6, " + componentClassifierScopeForPack1)
 				]
@@ -300,43 +301,43 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			  end a1.i2;
 			end pack;
 		'''.parse as AadlPackage) => [
-			Assert::assertEquals("pack", name)
+			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.get(0) => [
-				Assert::assertEquals("a1", name)
-				ownedPrototypes.get(0) => [
-					Assert::assertEquals("proto1", name)
+				"a1".assertEquals(name)
+				ownedPrototypes.head => [
+					"proto1".assertEquals(name)
 					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
 				]
 			]
 			publicSection.ownedClassifiers.get(1) => [
-				Assert::assertEquals("a2", name)
-				ownedPrototypes.get(0) => [
-					Assert::assertEquals("proto1", name)
+				"a2".assertEquals(name)
+				ownedPrototypes.head => [
+					"proto1".assertEquals(name)
 					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto1")
 				]
 			]
 			publicSection.ownedClassifiers.get(2) => [
-				Assert::assertEquals("fgt1", name)
-				ownedPrototypes.get(0) => [
-					Assert::assertEquals("proto2", name)
+				"fgt1".assertEquals(name)
+				ownedPrototypes.head => [
+					"proto2".assertEquals(name)
 					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
 				]
 			]
 			publicSection.ownedClassifiers.get(3) => [
-				Assert::assertEquals("fgt2", name)
-				ownedPrototypes.get(0) => [
-					Assert::assertEquals("proto2", name)
+				"fgt2".assertEquals(name)
+				ownedPrototypes.head => [
+					"proto2".assertEquals(name)
 					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto2")
 				]
 			]
 			publicSection.ownedClassifiers.get(5) as ComponentImplementation => [
-				Assert::assertEquals("a1.i2", name)
-				ownedSubcomponents.get(0) => [
-					Assert::assertEquals("asub1", name)
+				"a1.i2".assertEquals(name)
+				ownedSubcomponents.head => [
+					"asub1".assertEquals(name)
 					//Tests scope_Subcomponent_refined
 					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, "asub1")
 				]
@@ -420,32 +421,32 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			  end fgt2;
 			end pack;
 		'''.parse as AadlPackage) => [
-			Assert::assertEquals("pack", name)
+			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
-				Assert::assertEquals("a2", name)
+				"a2".assertEquals(name)
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
-					Assert::assertEquals("proto1", formal.name)
+					"proto1".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
-					actuals.get(0) => [
-						Assert::assertEquals("a3", subcomponentType.name)
-						bindings.get(0) => [
-							Assert::assertEquals("proto2", formal.name)
+					actuals.head => [
+						"a3".assertEquals(subcomponentType.name)
+						bindings.head => [
+							"proto2".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(ComponentPrototypeActual, EReference)
 							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto2")
 						]
 					]
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
-					Assert::assertEquals("proto3", formal.name)
+					"proto3".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
 					actual => [
-						Assert::assertEquals("fgt1", (featureType as NamedElement).name)
+						"fgt1".assertEquals((featureType as NamedElement).name)
 						//Tests scope_FeatureGroupPrototypeActual_featureType
 						assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
-						bindings.get(0) => [
-							Assert::assertEquals("proto4", formal.name)
+						bindings.head => [
+							"proto4".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(FeatureGroupPrototypeActual, EReference)
 							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
 						]
@@ -453,96 +454,96 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				]
 			]
 			publicSection.ownedClassifiers.get(2) as ComponentImplementation => [
-				Assert::assertEquals("a1.i1", name)
+				"a1.i1".assertEquals(name)
 				ownedSubcomponents.get(0) => [
-					Assert::assertEquals("asub1", name)
-					implementationReferences.get(0) => [
-						Assert::assertEquals("a3.i1", implementation.name)
-						ownedPrototypeBindings.get(0) => [
-							Assert::assertEquals("proto2", formal.name)
+					"asub1".assertEquals(name)
+					implementationReferences.head => [
+						"a3.i1".assertEquals(implementation.name)
+						ownedPrototypeBindings.head => [
+							"proto2".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(ComponentImplementationReference, EReference)
 							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto2")
 						]
 					]
 				]
 				ownedSubcomponents.get(1) => [
-					Assert::assertEquals("asub2", name)
-					ownedPrototypeBindings.get(0) => [
-						Assert::assertEquals("proto2", formal.name)
+					"asub2".assertEquals(name)
+					ownedPrototypeBindings.head => [
+						"proto2".assertEquals(formal.name)
 						//Tests scope_PrototypeBinding_formal(Subcomponent, EReference)
 						assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto2")
 					]
 				]
 			]
 			publicSection.ownedClassifiers.get(3) => [
-				Assert::assertEquals("a1.i2", name)
+				"a1.i2".assertEquals(name)
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
-					Assert::assertEquals("proto1", formal.name)
+					"proto1".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto11, a1, a2, a1.i1, a1.i2, a3, " +
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto11, a1, a2, a1.i1, a1.i2, a3, " +
 						"a3.i1, pack.a1, pack.a2, pack.a1.i1, pack.a1.i2, pack.a3, pack.a3.i1"
 					)
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
-					Assert::assertEquals("proto3", formal.name)
+					"proto3".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
 					//Tests scope_FeatureGroupPrototypeActual_featureType
 					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
 				]
 				ownedPrototypeBindings.get(2) as FeatureGroupPrototypeBinding => [
-					Assert::assertEquals("proto5", formal.name)
+					"proto5".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
 					//Tests scope_FeatureGroupPrototypeActual_featureType
 					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
 				]
 				ownedPrototypeBindings.get(3) as FeaturePrototypeBinding => [
-					Assert::assertEquals("proto8", formal.name)
+					"proto8".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
 					//Tests scope_FeaturePrototypeReference_prototype
 					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, "proto8, proto9")
 				]
 				ownedPrototypeBindings.get(4) as ComponentPrototypeBinding => [
-					Assert::assertEquals("proto11", formal.name)
+					"proto11".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto11, a1, a2, a1.i1, a1.i2, a3, " +
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto11, a1, a2, a1.i1, a1.i2, a3, " +
 						"a3.i1, pack.a1, pack.a2, pack.a1.i1, pack.a1.i2, pack.a3, pack.a3.i1"
 					)
 				]
 			]
 			publicSection.ownedClassifiers.get(7) => [
-				Assert::assertEquals("fgt2", name)
+				"fgt2".assertEquals(name)
 				ownedPrototypeBindings.get(0) => [
-					Assert::assertEquals("proto4", formal.name)
+					"proto4".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
-					Assert::assertEquals("proto6", formal.name)
+					"proto6".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
 					//Tests scope_FeatureGroupPrototypeActual_featureType
 					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto6, proto7, fgt1, fgt2, pack.fgt1, pack.fgt2")
 				]
 				ownedPrototypeBindings.get(2) as FeaturePrototypeBinding => [
-					Assert::assertEquals("proto10", formal.name)
+					"proto10".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
 					//Tests scope_FeaturePrototypeReference_prototype
 					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, "proto4, proto10")
 				]
 				ownedPrototypeBindings.get(3) as ComponentPrototypeBinding => [
-					Assert::assertEquals("proto12", formal.name)
+					"proto12".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
 					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto12, proto13, a1, a2, a1.i1, a1.i2, a3, " +
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto12, proto13, a1, a2, a1.i1, a1.i2, a3, " +
 						"a3.i1, pack.a1, pack.a2, pack.a1.i1, pack.a1.i2, pack.a3, pack.a3.i1"
 					)
 				]
@@ -1123,11 +1124,11 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		assertAllCrossReferencesResolvable(pack1)
 		
 		pack1 => [
-			Assert::assertEquals("pack1", name)
+			"pack1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
-				Assert::assertEquals("container.i", name)
+				"container.i".assertEquals(name)
 				ownedAbstractSubcomponents.head => [
-					Assert::assertEquals("asub", name)
+					"asub".assertEquals(name)
 					//Tests scope_AbstractSubcomponent_abstractSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.abstractSubcomponent_AbstractSubcomponentType, "aproto, a5, ra, a3, a3.i, renamed_package.a4, " +
 						"renamed_package.a4.i, container, container.i, a1, a1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack3.a3, " +
@@ -1135,7 +1136,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedSystemSubcomponents.head => [
-					Assert::assertEquals("ssub", name)
+					"ssub".assertEquals(name)
 					//Tests scope_SystemSubcomponent_systemSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.systemSubcomponent_SystemSubcomponentType, "aproto, sproto, a5, s5, ra, rs, a3, a3.i, s3, s3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.s4, renamed_package.s4.i, container, container.i, a1, a1.i, s1, s1.i, " +
@@ -1145,7 +1146,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedProcessSubcomponents.head => [
-					Assert::assertEquals("psub", name)
+					"psub".assertEquals(name)
 					//Tests scope_ProcessSubcomponent_processSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.processSubcomponent_ProcessSubcomponentType, "aproto, pproto, a5, p5, ra, rp, a3, a3.i, p3, p3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.p4, renamed_package.p4.i, container, container.i, a1, a1.i, p1, p1.i, " +
@@ -1155,7 +1156,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedThreadGroupSubcomponents.head => [
-					Assert::assertEquals("tgsub", name)
+					"tgsub".assertEquals(name)
 					//Tests scope_ThreadGroupSubcomponent_threadGroupSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.threadGroupSubcomponent_ThreadGroupSubcomponentType, "aproto, tgproto, a5, tg5, ra, rtg, a3, a3.i, " +
 						"tg3, tg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.tg4, renamed_package.tg4.i, container, container.i, a1, a1.i, " +
@@ -1165,7 +1166,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedThreadSubcomponents.head => [
-					Assert::assertEquals("tsub", name)
+					"tsub".assertEquals(name)
 					//Tests scope_ThreadSubcomponent_threadSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.threadSubcomponent_ThreadSubcomponentType, "aproto, tproto, a5, t5, ra, rt, a3, a3.i, t3, t3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.t4, renamed_package.t4.i, container, container.i, a1, a1.i, t1, t1.i, " +
@@ -1175,7 +1176,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedSubprogramSubcomponents.head => [
-					Assert::assertEquals("subsub", name)
+					"subsub".assertEquals(name)
 					//Tests scope_SubprogramSubcomponent_subprogramSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.subprogramSubcomponent_SubprogramSubcomponentType, "aproto, subproto, a5, sub5, ra, rsub, a3, a3.i, " +
 						"sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, a1, " +
@@ -1185,7 +1186,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedSubprogramGroupSubcomponents.head => [
-					Assert::assertEquals("subgsub", name)
+					"subgsub".assertEquals(name)
 					//Tests scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, "aproto, subgproto, a5, subg5, ra, rsubg, " +
 						"a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, " +
@@ -1195,7 +1196,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedProcessorSubcomponents.head => [
-					Assert::assertEquals("procsub", name)
+					"procsub".assertEquals(name)
 					//Tests scope_ProcessorSubcomponent_processorSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.processorSubcomponent_ProcessorSubcomponentType, "aproto, procproto, a5, proc5, ra, rproc, a3, a3.i, " +
 						"proc3, proc3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.proc4, renamed_package.proc4.i, container, container.i, a1, " +
@@ -1205,7 +1206,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedVirtualProcessorSubcomponents.head => [
-					Assert::assertEquals("vpsub", name)
+					"vpsub".assertEquals(name)
 					//Tests scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, "aproto, vpproto, a5, vp5, ra, rvp, a3, " +
 						"a3.i, vp3, vp3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vp4, renamed_package.vp4.i, container, container.i, a1, " +
@@ -1215,7 +1216,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedDeviceSubcomponents.head => [
-					Assert::assertEquals("devsub", name)
+					"devsub".assertEquals(name)
 					//Tests scope_DeviceSubcomponent_deviceSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.deviceSubcomponent_DeviceSubcomponentType, "aproto, devproto, a5, dev5, ra, rdev, a3, a3.i, dev3, dev3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.dev4, renamed_package.dev4.i, container, container.i, a1, a1.i, dev1, dev1.i, " +
@@ -1225,7 +1226,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedMemorySubcomponents.head => [
-					Assert::assertEquals("msub", name)
+					"msub".assertEquals(name)
 					//Tests scope_MemorySubcomponent_memorySubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.memorySubcomponent_MemorySubcomponentType, "aproto, mproto, a5, m5, ra, rm, a3, a3.i, m3, m3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.m4, renamed_package.m4.i, container, container.i, a1, a1.i, m1, m1.i, " +
@@ -1234,7 +1235,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedBusSubcomponents.head => [
-					Assert::assertEquals("bsub", name)
+					"bsub".assertEquals(name)
 					//Tests scope_BusSubcomponent_busSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.busSubcomponent_BusSubcomponentType, "aproto, bproto, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, " +
@@ -1243,7 +1244,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedVirtualBusSubcomponents.head => [
-					Assert::assertEquals("vbsub", name)
+					"vbsub".assertEquals(name)
 					//Tests scope_VirtualBusSubcomponent_virtualBusSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.virtualBusSubcomponent_VirtualBusSubcomponentType, "aproto, vbproto, a5, vb5, ra, rvb, a3, a3.i, vb3, " +
 						"vb3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vb4, renamed_package.vb4.i, container, container.i, a1, a1.i, vb1, " +
@@ -1253,7 +1254,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					)
 				]
 				ownedDataSubcomponents.head => [
-					Assert::assertEquals("dsub", name)
+					"dsub".assertEquals(name)
 					//Tests scope_DataSubcomponent_dataSubcomponentType
 					assertScope(Aadl2Package::eINSTANCE.dataSubcomponent_DataSubcomponentType, "aproto, dproto, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
@@ -1270,6 +1271,6 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	
 	def private assertScope(EObject context, EReference reference, CharSequence expected) {
 		context.assertNoErrors
-		Assert.assertEquals(expected, context.getScope(reference).allElements.map[name].join(", "))
+		expected.assertEquals(context.getScope(reference).allElements.map[name].join(", "))
 	}
 }
