@@ -136,7 +136,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(this);
-		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(this);
+		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this, styleProviderService);
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
