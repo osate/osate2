@@ -38,29 +38,29 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.scoping.IScopeProvider
+import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.ComponentPrototypeBinding
-import org.osate.aadl2.ModelUnit
-import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
-import org.junit.After
-import org.osate.aadl2.FeatureGroupPrototypeBinding
-import org.osate.aadl2.NamedElement
-import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentPrototypeBinding
+import org.osate.aadl2.FeatureGroupPrototypeBinding
+import org.osate.aadl2.FeaturePrototypeBinding
+import org.osate.aadl2.ModelUnit
+import org.osate.aadl2.NamedElement
+import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 
-@RunWith(typeof(XtextRunner))
+@RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
-class Aadl2ScopeProviderTests extends OsateTest {
+class Aadl2ScopeProviderTest extends OsateTest {
 	@Inject extension ParseHelper<ModelUnit>
 	@Inject extension ValidationTestHelper
 	@Inject extension IScopeProvider
