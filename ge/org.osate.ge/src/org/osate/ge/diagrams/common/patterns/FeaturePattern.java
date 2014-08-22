@@ -40,6 +40,7 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -627,7 +628,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
 
 		// The container must be a Feature Group Type or a ComponentType and it must have a method to create the feature type that is controlled by this pattern
-		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && canContainFeatureType((Classifier)containerBo, featureType);
+		return !(context.getTargetContainer() instanceof Diagram) && (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && canContainFeatureType((Classifier)containerBo, featureType);
 	}
 	
 	@Override
@@ -781,10 +782,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
  			EcoreUtil.resolveAll(resource.getResourceSet());
 			
  			diagramMod = diagramModService.startModification();
- 			diagramMod.markLinkagesAsDirty(feature);
-			feature.setName(newName); // TODO:Reneable
-			
 			updateReferences(feature, resource.getResourceSet());
+ 			diagramMod.markLinkagesAsDirty(feature);
+			feature.setName(newName);		
 			
 			return null;
 		}
