@@ -269,12 +269,86 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * Reference is from AbstractSubcomponent, SystemSubcomponent, ProcessSubcomponent, ThreadGroupSubcomponent,
 	 * ThreadSubcomponent, SubprogramSubcomponent, SubprogramGroupSubcomponent, ProcessorSubcomponent,
 	 * VirtualProcessorSubcomponent, DeviceSubcomponent, MemorySubcomponent, BusSubcomponent,
-	 * VirtualBusSubcomponent, DataSubcomponent
+	 * VirtualBusSubcomponent, and DataSubcomponent in Aadl2.xtext
 	 */
-	 def scope_Subcomponent_refined(ComponentImplementation context, EReference reference) {
-	 	context.extended?.allSubcomponents.scopeFor ?: IScope::NULLSCOPE
-	 }
-
+	def scope_Subcomponent_refined(ComponentImplementation context, EReference reference) {
+		context.extended?.allSubcomponents.scopeFor ?: IScope::NULLSCOPE
+	}
+	
+	//Reference is from AbstractSubcomponent in Aadl2.xtext
+	def scope_AbstractSubcomponent_abstractSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from SystemSubcomponent in Aadl2.xtext
+	def scope_SystemSubcomponent_systemSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from ProcessSubcomponent in Aadl2.xtext
+	def scope_ProcessSubcomponent_processSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from ThreadGroupSubcomponent in Aadl2.xtext
+	def scope_ThreadGroupSubcomponent_threadGroupSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from ThreadSubcomponent in Aadl2.xtext
+	def scope_ThreadSubcomponent_threadSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from SubprogramSubcomponent in Aadl2.xtext
+	def scope_SubprogramSubcomponent_subprogramSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from SubprogramGroupSubcomponent in Aadl2.xtext
+	def scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from ProcessorSubcomponent in Aadl2.xtext
+	def scope_ProcessorSubcomponent_processorSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from VirtualProcessorSubcomponent in Aadl2.xtext
+	def scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from DeviceSubcomponent in Aadl2.xtext
+	def scope_DeviceSubcomponent_deviceSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from MemorySubcomponent in Aadl2.xtext
+	def scope_MemorySubcomponent_memorySubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from BusSubcomponent in Aadl2.xtext
+	def scope_BusSubcomponent_busSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from VirtualBusSubcomponent in Aadl2.xtext
+	def scope_VirtualBusSubcomponent_virtualBusSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	//Reference is from DataSubcomponent in Aadl2.xtext
+	def scope_DataSubcomponent_dataSubcomponentType(Element context, EReference reference) {
+		scope_Subcomponent_subcomponentType(context, reference)
+	}
+	
+	def private scope_Subcomponent_subcomponentType(Element context, EReference reference) {
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[reference.EReferenceType.isSuperTypeOf(eClass)].scopeFor(scope_Classifier(context, reference))
+	}
+	
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
 		if (reference == Aadl2Package::eINSTANCE.modalElement_InMode) {

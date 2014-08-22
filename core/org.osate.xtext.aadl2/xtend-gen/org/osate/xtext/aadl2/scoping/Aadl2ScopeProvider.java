@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -507,7 +508,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
    * Reference is from AbstractSubcomponent, SystemSubcomponent, ProcessSubcomponent, ThreadGroupSubcomponent,
    * ThreadSubcomponent, SubprogramSubcomponent, SubprogramGroupSubcomponent, ProcessorSubcomponent,
    * VirtualProcessorSubcomponent, DeviceSubcomponent, MemorySubcomponent, BusSubcomponent,
-   * VirtualBusSubcomponent, DataSubcomponent
+   * VirtualBusSubcomponent, and DataSubcomponent in Aadl2.xtext
    */
   public IScope scope_Subcomponent_refined(final ComponentImplementation context, final EReference reference) {
     IScope _elvis = null;
@@ -523,6 +524,77 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
       _elvis = IScope.NULLSCOPE;
     }
     return _elvis;
+  }
+  
+  public IScope scope_AbstractSubcomponent_abstractSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_SystemSubcomponent_systemSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_ProcessSubcomponent_processSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_ThreadGroupSubcomponent_threadGroupSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_ThreadSubcomponent_threadSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_SubprogramSubcomponent_subprogramSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_ProcessorSubcomponent_processorSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_DeviceSubcomponent_deviceSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_MemorySubcomponent_memorySubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_BusSubcomponent_busSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_VirtualBusSubcomponent_virtualBusSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  public IScope scope_DataSubcomponent_dataSubcomponentType(final Element context, final EReference reference) {
+    return this.scope_Subcomponent_subcomponentType(context, reference);
+  }
+  
+  private IScope scope_Subcomponent_subcomponentType(final Element context, final EReference reference) {
+    ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
+    EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
+    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
+      public Boolean apply(final Prototype it) {
+        EClass _eReferenceType = reference.getEReferenceType();
+        EClass _eClass = it.eClass();
+        return Boolean.valueOf(_eReferenceType.isSuperTypeOf(_eClass));
+      }
+    };
+    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    IScope _scope_Classifier = this.scope_Classifier(context, reference);
+    return Scopes.scopeFor(_filter, _scope_Classifier);
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
