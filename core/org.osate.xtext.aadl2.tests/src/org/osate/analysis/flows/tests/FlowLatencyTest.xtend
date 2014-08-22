@@ -1,12 +1,10 @@
 package org.osate.analysis.flows.tests
 
-import java.io.IOException
-import java.nio.charset.Charset
-import java.nio.file.Paths
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.util.Files
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Before
 import org.junit.Test
@@ -20,7 +18,7 @@ import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 import org.osate.xtext.aadl2.tests.OsateTest
 
 import static org.junit.Assert.*
-import org.eclipse.xtext.util.Files
+import org.junit.BeforeClass
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
