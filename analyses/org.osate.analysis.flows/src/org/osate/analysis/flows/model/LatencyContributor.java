@@ -17,9 +17,24 @@ import org.osate.analysis.flows.reporting.model.ReportSeverity;
  *
  */
 public abstract class LatencyContributor {
+	// UNKNOWN: method not set (default)
+	// Deadline: worst-case (assumes schedulability)
+	// Period: sampling latency of devices, threads, process, system, abstract (AADL by default equates Deadline to be the Period).
+	// WCET: maximum processing (compute execution) time
+	// BCET: minimum processing (compute execution) time
+	// WCXT: maximum communication (transfer time) time
+	// BCXT: minimum communication (transfer time) time
+	// Immediate: immediate connection enforces mid-frame communication, i.e., cumulative latency of processing elements (similar to message driven processing)
+	// Delayed: enforces frame-delayed communication
+	// Sampled: sampling latency by periodic recipient or transfer mechanism
+	// Specified: latency specified with flow specification
+	// Queued: latency contribution due to queuing on bus or on recipient queuing ports
+	// Transmission time: actual transmission latency
+	// Partition frame: Major frame rate of partition
+	// Partition schedule: frame offset?
 
 	public enum LatencyContributorMethod {
-		DEADLINE, PERIOD, WCET, IMMEDIATE, UNKNOWN, DELAYED, SAMPLED, SPECIFIED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE
+		UNKNOWN, DEADLINE, PERIOD, PROCESSING_TIME, IMMEDIATE, DELAYED, SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE
 	};
 
 	/**
@@ -92,18 +107,20 @@ public abstract class LatencyContributor {
 		switch (method) {
 		case DEADLINE:
 			return "deadline";
-		case WCET:
-			return "execution time";
+		case PROCESSING_TIME:
+			return "processing time";
 		case PERIOD:
 			return "period";
 		case DELAYED:
 			return "delayed connection";
-		case SAMPLED:
-			return "sampled connection";
 		case IMMEDIATE:
-			return "immediate local connection";
+			return "immediate connection";
 		case SPECIFIED:
 			return "specified";
+		case SAMPLED:
+			return "sampling";
+		case QUEUED:
+			return "queued";
 		case PARTITION_FRAME:
 			return "partition major frame";
 		case PARTITION_SCHEDULE:

@@ -61,7 +61,7 @@ public class FlowLatencyLogicComponent {
 
 		if (executionTimeHigher != 0.0) {
 			worstCaseValue = executionTimeHigher;
-			method = LatencyContributorMethod.WCET;
+			method = LatencyContributorMethod.PROCESSING_TIME;
 		}
 
 		if ((worstCaseValue == 0.0) && (deadline != 0.0)) {
@@ -82,7 +82,7 @@ public class FlowLatencyLogicComponent {
 		method = LatencyContributorMethod.UNKNOWN;
 		if (executionTimeLower != 0.0) {
 			bestCaseValue = executionTimeLower;
-			method = LatencyContributorMethod.WCET;
+			method = LatencyContributorMethod.PROCESSING_TIME;
 		}
 
 		if ((bestCaseValue == 0.0) && (deadline != 0.0)) {
@@ -106,7 +106,7 @@ public class FlowLatencyLogicComponent {
 		 */
 		if (FlowLatencyUtil.isNextConnectionImmediate(etef, flowElementInstance)) {
 			if (executionTimeLower != 0.0) {
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.WCET);
+				latencyContributor.setBestCaseMethod(LatencyContributorMethod.PROCESSING_TIME);
 				bestCaseValue = executionTimeLower;
 			} else {
 				latencyContributor.setBestCaseMethod(LatencyContributorMethod.IMMEDIATE);
@@ -114,7 +114,7 @@ public class FlowLatencyLogicComponent {
 			}
 
 			if (executionTimeLower != 0.0) {
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.WCET);
+				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PROCESSING_TIME);
 				worstCaseValue = executionTimeLower;
 			} else {
 				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.IMMEDIATE);

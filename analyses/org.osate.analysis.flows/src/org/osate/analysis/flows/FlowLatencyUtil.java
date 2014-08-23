@@ -501,4 +501,41 @@ public class FlowLatencyUtil {
 		return res;
 	}
 
+	/**
+	 * round up to the next sampling frame. 
+	 * If processing latency is zero then go to the next frame.
+	 * If processing latency is already a multiple of a frame then use that boundary.
+	 * Otherwise use the next multiple of the samplingLatency
+	 * Parameters are assumed to have the same unit
+	 * @param processingLatency double Can be larger than the sampling latency
+	 * @param samplingLatency double Assumed to be non-zero
+	 * @return double 
+	 */
+	public static double roundUp(double processingLatency, double samplingLatency) {
+		int frames = (int) (processingLatency / samplingLatency);
+		if ((processingLatency % samplingLatency) > 0) {
+			frames = frames + 1;
+		} else if (processingLatency == 0) {
+			frames = 1;
+		}
+		return (frames * samplingLatency);
+	}
+
+	/**
+	 * Determine the amount needed to round up to the next frame
+	 * It is the difference been the result of roundUp and processing latency
+	 * @param processingLatency double
+	 * @param samplingLatency double
+	 * @return double
+	 */
+	public static double roundUpDiff(double processingLatency, double samplingLatency) {
+		double diff = processingLatency % samplingLatency;
+		if ((diff) > 0) {
+			return samplingLatency - diff;
+		} else if (processingLatency == 0) {
+			return samplingLatency;
+		} else
+			return 0;
+	}
+
 }
