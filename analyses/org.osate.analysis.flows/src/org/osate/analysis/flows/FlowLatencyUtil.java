@@ -439,11 +439,19 @@ public class FlowLatencyUtil {
 	}
 
 	public static double getPartitionReceiverLatencyWithSchedule(ComponentInstance partition) {
+		return getPartitionFrameOffset(partition);
+	}
+
+	/**
+	 * return the offset of the partition start time relative to the major frame
+	 * utilizes the window schedule of the module for the partition
+	 * @param partition
+	 * @return
+	 */
+	public static double getPartitionFrameOffset(ComponentInstance partition) {
 		ComponentInstance module;
 		List<ARINC653ScheduleWindow> schedule;
 		double res;
-		boolean found = false;
-
 		if (partition == null) {
 			return 0;
 		}
@@ -455,9 +463,6 @@ public class FlowLatencyUtil {
 		if ((schedule == null) || (schedule.size() == 0)) {
 			return 0;
 		}
-
-		found = false;
-
 		for (ARINC653ScheduleWindow window : schedule) {
 			if (window.getPartition() == partition) {
 				return res;
