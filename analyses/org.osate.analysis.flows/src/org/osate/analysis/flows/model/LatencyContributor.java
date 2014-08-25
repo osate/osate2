@@ -3,6 +3,8 @@ package org.osate.analysis.flows.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.NamedElement;
+import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 
@@ -36,6 +38,13 @@ public abstract class LatencyContributor {
 	public enum LatencyContributorMethod {
 		UNKNOWN, DEADLINE, PERIOD, PROCESSING_TIME, IMMEDIATE, DELAYED, SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE
 	};
+
+	/**
+	 * The relatedElement represents the AADL element that
+	 * is related to this latency contributor. Mostly, it is
+	 * a component or a connection.
+	 */
+	protected NamedElement relatedElement;
 
 	/**
 	 * This represents the max and min value of the latency
@@ -181,6 +190,24 @@ public abstract class LatencyContributor {
 		return res;
 	}
 
+	public double getTotalMinimumSpecified() {
+		double res = this.expectedMin;
+		for (LatencyContributor lc : subContributors) {
+			res = lc.getTotalMinimumSpecified();
+		}
+
+		return res;
+	}
+
+	public double getTotalMaximumSpecified() {
+		double res = this.expectedMax;
+		for (LatencyContributor lc : subContributors) {
+			res = lc.getTotalMaximumSpecified();
+		}
+
+		return res;
+	}
+
 	protected abstract String getContributorName();
 
 	protected abstract String getContributorType();
@@ -211,10 +238,15 @@ public abstract class LatencyContributor {
 		myLine.addContent(mapMethodToString(worstCaseMethod));
 
 		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {
+			CheckFlowLatency.getInstance().warning(this.relatedElement,
+					"max latency calculation exceed latency specified");
 			myLine.setSeverity(ReportSeverity.WARNING);
 		}
 
 		if ((this.expectedMin != 0.0) && (this.minValue > this.expectedMin)) {
+
+			CheckFlowLatency.getInstance().warning(this.relatedElement,
+					"min latency calculation exceed latency specified");
 			myLine.setSeverity(ReportSeverity.WARNING);
 		}
 

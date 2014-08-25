@@ -91,10 +91,11 @@ public class FlowLatencyUtil {
 
 	public static ConnectionType getConnectionType(final ConnectionInstance conn) {
 		EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-		if (el.getName().equalsIgnoreCase("immediate")) {
+
+		if ((el != null) && (el.getName().equalsIgnoreCase("immediate"))) {
 			return ConnectionType.IMMEDIATE;
 		}
-		if (el.getName().equalsIgnoreCase("delayed")) {
+		if ((el != null) && (el.getName().equalsIgnoreCase("delayed"))) {
 			return ConnectionType.DELAYED;
 		}
 		return ConnectionType.SAMPLED;
