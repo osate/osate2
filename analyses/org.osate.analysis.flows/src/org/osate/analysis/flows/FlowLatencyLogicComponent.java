@@ -113,9 +113,9 @@ public class FlowLatencyLogicComponent {
 				bestCaseValue = 0.0;
 			}
 
-			if (executionTimeLower != 0.0) {
+			if (executionTimeHigher != 0.0) {
 				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PROCESSING_TIME);
-				worstCaseValue = executionTimeLower;
+				worstCaseValue = executionTimeHigher;
 			} else {
 				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.IMMEDIATE);
 				worstCaseValue = 0.0;
