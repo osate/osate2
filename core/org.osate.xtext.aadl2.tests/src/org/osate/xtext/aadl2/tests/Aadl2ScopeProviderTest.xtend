@@ -768,11 +768,14 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	 * scope_ThreadSubcomponent_threadSubcomponentType, scope_SubprogramSubcomponent_subprogramSubcomponentType,
 	 * scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType, scope_ProcessorSubcomponent_processorSubcomponentType,
 	 * scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType, scope_DeviceSubcomponent_deviceSubcomponentType,
-	 * scope_MemorySubcomponent_memorySubcomponentType, scope_BusSubcomponent_busSubcomponentType,
-	 * scope_VirtualBusSubcomponent_virtualBusSubcomponentType, and scope_DataSubcomponent_dataSubcomponentType
+	 * scope_MemorySubcomponent_memorySubcomponentType, scope_BusSubcomponent_busSubcomponentType, scope_VirtualBusSubcomponent_virtualBusSubcomponentType,
+	 * scope_DataSubcomponent_dataSubcomponentType, scope_DataPort_dataFeatureClassifier, scope_EventDataPort_dataFeatureClassifier,
+	 * scope_FeatureGroup_featureType, scope_Parameter_dataFeatureClassifier, scope_SubprogramAccess_subprogramFeatureClassifier,
+	 * scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier, scope_BusAccess_busFeatureClassifier, scope_DataAccess_dataFeatureClassifier,
+	 * and scope_AbstractFeature_featurePrototype
 	 */
 	 @Test
-	def void testSubcomponents() {
+	def void testFeaturesAndSubcomponents() {
 		createFiles(
 			"pack1.aadl" -> '''
 				package pack1
@@ -798,6 +801,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  renames bus pack5::b5;
 				  renames virtual bus pack5::vb5;
 				  renames data pack5::d5;
+				  renames feature group pack5::fgt5;
 				  
 				  ra renames abstract pack5::a6;
 				  rs renames system pack5::s6;
@@ -813,23 +817,35 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  rb renames bus pack5::b6;
 				  rvb renames virtual bus pack5::vb6;
 				  rd renames data pack5::d6;
+				  rfgt renames feature group pack5::fgt6;
 				  
 				  abstract container
 				  prototypes
-				    aproto: abstract;
-				    sproto: system;
-				    pproto: process;
-				    tgproto: thread group;
-				    tproto: thread;
-				    subproto: subprogram;
-				    subgproto: subprogram group;
-				    procproto: processor;
-				    vpproto: virtual processor;
-				    devproto: device;
-				    mproto: memory;
-				    bproto: bus;
-				    vbproto: virtual bus;
-				    dproto: data;
+				    aproto1: abstract;
+				    sproto1: system;
+				    pproto1: process;
+				    tgproto1: thread group;
+				    tproto1: thread;
+				    subproto1: subprogram;
+				    subgproto1: subprogram group;
+				    procproto1: processor;
+				    vpproto1: virtual processor;
+				    devproto1: device;
+				    mproto1: memory;
+				    bproto1: bus;
+				    vbproto1: virtual bus;
+				    dproto1: data;
+				    fgproto1: feature group;
+				    fproto1: feature;
+				  features
+				    dport1: in data port d1;
+				    edport1: in event data port d1;
+				    fg1: feature group fgt1;
+				    suba1: provides subprogram access sub1;
+				    subga1: provides subprogram group access subg1;
+				    ba1: provides bus access b1;
+				    da1: provides data access d1;
+				    af1: feature fproto1;
 				  end container;
 				  
 				  abstract implementation container.i
@@ -849,6 +865,58 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				    vbsub: virtual bus vb1;
 				    dsub: data d1;
 				  end container.i;
+				  
+				  subprogram subcontainer
+				  prototypes
+				    aproto2: abstract;
+				    sproto2: system;
+				    pproto2: process;
+				    tgproto2: thread group;
+				    tproto2: thread;
+				    subproto2: subprogram;
+				    subgproto2: subprogram group;
+				    procproto2: processor;
+				    vpproto2: virtual processor;
+				    devproto2: device;
+				    mproto2: memory;
+				    bproto2: bus;
+				    vbproto2: virtual bus;
+				    dproto2: data;
+				    fgproto2: feature group;
+				    fproto2: feature;
+				  features
+				    param1: in parameter d1;
+				  end subcontainer;
+				  
+				  feature group fgtcontainer
+				  prototypes
+				    aproto3: abstract;
+				    sproto3: system;
+				    pproto3: process;
+				    tgproto3: thread group;
+				    tproto3: thread;
+				    subproto3: subprogram;
+				    subgproto3: subprogram group;
+				    procproto3: processor;
+				    vpproto3: virtual processor;
+				    devproto3: device;
+				    mproto3: memory;
+				    bproto3: bus;
+				    vbproto3: virtual bus;
+				    dproto3: data;
+				    fgproto3: feature group;
+				    fproto3: feature;
+				  features
+				    dport2: in data port d1;
+				    edport2: in event data port d1;
+				    fg2: feature group fgt1;
+				    param2: in parameter d1;
+				    suba2: provides subprogram access sub1;
+				    subga2: provides subprogram group access subg1;
+				    ba2: provides bus access b1;
+				    da2: provides data access d1;
+				    af2: feature fproto3;
+				  end fgtcontainer;
 				  
 				  abstract a1
 				  end a1;
@@ -933,6 +1001,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d1.i
 				  end d1.i;
+				  
+				  feature group fgt1
+				  end fgt1;
 				end pack1;
 			''',
 			"pack2.aadl" -> '''
@@ -1021,6 +1092,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d2.i
 				  end d2.i;
+				  
+				  feature group fgt2
+				  end fgt2;
 				end pack2;
 			''',
 			"pack3.aadl" -> '''
@@ -1109,6 +1183,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d3.i
 				  end d3.i;
+				  
+				  feature group fgt3
+				  end fgt3;
 				end pack3;
 			''',
 			"pack4.aadl" -> '''
@@ -1197,6 +1274,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d4.i
 				  end d4.i;
+				  
+				  feature group fgt4
+				  end fgt4;
 				end pack4;
 			''',
 			"pack5.aadl" -> '''
@@ -1286,6 +1366,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  data implementation d5.i
 				  end d5.i;
 				  
+				  feature group fgt5
+				  end fgt5;
+				  
 				  abstract a6
 				  end a6;
 				  
@@ -1327,6 +1410,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data d6
 				  end d6;
+				  
+				  feature group fgt6
+				  end fgt6;
 				end pack5;
 			'''
 		)
@@ -1336,12 +1422,93 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		
 		pack1 => [
 			"pack1".assertEquals(name)
+			publicSection.ownedClassifiers.get(0) as AbstractType => [
+				"container".assertEquals(name)
+				ownedDataPorts.head => [
+					"dport1".assertEquals(name)
+					//Tests scope_DataPort_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+				ownedEventDataPorts.head => [
+					"edport1".assertEquals(name)
+					//Tests scope_EventDataPort_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+				ownedFeatureGroups.head => [
+					"fg1".assertEquals(name)
+					//Tests scope_FeatureGroup_featureType
+					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, "fgproto1, fgt5, rfgt, fgt3, renamed_package.fgt4, fgtcontainer, fgt1, " +
+						"pack1.fgtcontainer, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack5.fgt6, pack4.fgt4"
+					)
+				]
+				ownedSubprogramAccesses.head => [
+					"suba1".assertEquals(name)
+					//Tests scope_SubprogramAccess_subprogramFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, "aproto1, subproto1, a5, sub5, ra, rsub, a3, a3.i, " +
+						"sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, " +
+						"subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, pack1.sub1, " +
+						"pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, " +
+						"pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"
+					)
+				]
+				ownedSubprogramGroupAccesses.head => [
+					"subga1".assertEquals(name)
+					//Tests scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, "aproto1, subgproto1, a5, subg5, ra, rsubg, " +
+						"a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, " +
+						"container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, " +
+						"pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, " +
+						"pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"
+					)
+				]
+				ownedBusAccesses.head => [
+					"ba1".assertEquals(name)
+					//Tests scope_BusAccess_busFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, "aproto1, bproto1, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, " +
+						"pack4.b4, pack4.b4.i"
+					)
+				]
+				ownedDataAccesses.head => [
+					"da1".assertEquals(name)
+					//Tests scope_DataAccess_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+				ownedAbstractFeatures.head => [
+					"af1".assertEquals(name)
+					//Tests scope_AbstractFeature_featurePrototype
+					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, "fproto1")
+				]
+			]
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"container.i".assertEquals(name)
 				ownedAbstractSubcomponents.head => [
 					"asub".assertEquals(name)
 					//Tests scope_AbstractSubcomponent_abstractSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.abstractSubcomponent_AbstractSubcomponentType, "aproto, a5, ra, a3, a3.i, renamed_package.a4, " +
+					assertScope(Aadl2Package::eINSTANCE.abstractSubcomponent_AbstractSubcomponentType, "aproto1, a5, ra, a3, a3.i, renamed_package.a4, " +
 						"renamed_package.a4.i, container, container.i, a1, a1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack3.a3, " +
 						"pack3.a3.i, pack2.a2, pack2.a2.i, pack5.a5, pack5.a5.i, pack5.a6, pack4.a4, pack4.a4.i"
 					)
@@ -1349,7 +1516,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedSystemSubcomponents.head => [
 					"ssub".assertEquals(name)
 					//Tests scope_SystemSubcomponent_systemSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.systemSubcomponent_SystemSubcomponentType, "aproto, sproto, a5, s5, ra, rs, a3, a3.i, s3, s3.i, " +
+					assertScope(Aadl2Package::eINSTANCE.systemSubcomponent_SystemSubcomponentType, "aproto1, sproto1, a5, s5, ra, rs, a3, a3.i, s3, s3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.s4, renamed_package.s4.i, container, container.i, a1, a1.i, s1, s1.i, " +
 						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.s1, pack1.s1.i, pack3.a3, pack3.a3.i, pack3.s3, pack3.s3.i, " +
 						"pack2.a2, pack2.a2.i, pack2.s2, pack2.s2.i, pack5.a5, pack5.a5.i, pack5.s5, pack5.s5.i, pack5.a6, pack5.s6, pack4.a4, pack4.a4.i, " +
@@ -1359,7 +1526,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedProcessSubcomponents.head => [
 					"psub".assertEquals(name)
 					//Tests scope_ProcessSubcomponent_processSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.processSubcomponent_ProcessSubcomponentType, "aproto, pproto, a5, p5, ra, rp, a3, a3.i, p3, p3.i, " +
+					assertScope(Aadl2Package::eINSTANCE.processSubcomponent_ProcessSubcomponentType, "aproto1, pproto1, a5, p5, ra, rp, a3, a3.i, p3, p3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.p4, renamed_package.p4.i, container, container.i, a1, a1.i, p1, p1.i, " +
 						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.p1, pack1.p1.i, pack3.a3, pack3.a3.i, pack3.p3, pack3.p3.i, " +
 						"pack2.a2, pack2.a2.i, pack2.p2, pack2.p2.i, pack5.a5, pack5.a5.i, pack5.p5, pack5.p5.i, pack5.a6, pack5.p6, pack4.a4, pack4.a4.i, " +
@@ -1369,17 +1536,17 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedThreadGroupSubcomponents.head => [
 					"tgsub".assertEquals(name)
 					//Tests scope_ThreadGroupSubcomponent_threadGroupSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.threadGroupSubcomponent_ThreadGroupSubcomponentType, "aproto, tgproto, a5, tg5, ra, rtg, a3, a3.i, " +
-						"tg3, tg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.tg4, renamed_package.tg4.i, container, container.i, a1, a1.i, " +
-						"tg1, tg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.tg1, pack1.tg1.i, pack3.a3, pack3.a3.i, pack3.tg3, " +
-						"pack3.tg3.i, pack2.a2, pack2.a2.i, pack2.tg2, pack2.tg2.i, pack5.a5, pack5.a5.i, pack5.tg5, pack5.tg5.i, pack5.a6, pack5.tg6, " +
-						"pack4.a4, pack4.a4.i, pack4.tg4, pack4.tg4.i"
+					assertScope(Aadl2Package::eINSTANCE.threadGroupSubcomponent_ThreadGroupSubcomponentType, "aproto1, tgproto1, a5, tg5, ra, rtg, a3, " +
+						"a3.i, tg3, tg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.tg4, renamed_package.tg4.i, container, container.i, " +
+						"a1, a1.i, tg1, tg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.tg1, pack1.tg1.i, pack3.a3, pack3.a3.i, " +
+						"pack3.tg3, pack3.tg3.i, pack2.a2, pack2.a2.i, pack2.tg2, pack2.tg2.i, pack5.a5, pack5.a5.i, pack5.tg5, pack5.tg5.i, pack5.a6, " +
+						"pack5.tg6, pack4.a4, pack4.a4.i, pack4.tg4, pack4.tg4.i"
 					)
 				]
 				ownedThreadSubcomponents.head => [
 					"tsub".assertEquals(name)
 					//Tests scope_ThreadSubcomponent_threadSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.threadSubcomponent_ThreadSubcomponentType, "aproto, tproto, a5, t5, ra, rt, a3, a3.i, t3, t3.i, " +
+					assertScope(Aadl2Package::eINSTANCE.threadSubcomponent_ThreadSubcomponentType, "aproto1, tproto1, a5, t5, ra, rt, a3, a3.i, t3, t3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.t4, renamed_package.t4.i, container, container.i, a1, a1.i, t1, t1.i, " +
 						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.t1, pack1.t1.i, pack3.a3, pack3.a3.i, pack3.t3, pack3.t3.i, " +
 						"pack2.a2, pack2.a2.i, pack2.t2, pack2.t2.i, pack5.a5, pack5.a5.i, pack5.t5, pack5.t5.i, pack5.a6, pack5.t6, pack4.a4, pack4.a4.i, " +
@@ -1389,92 +1556,202 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedSubprogramSubcomponents.head => [
 					"subsub".assertEquals(name)
 					//Tests scope_SubprogramSubcomponent_subprogramSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.subprogramSubcomponent_SubprogramSubcomponentType, "aproto, subproto, a5, sub5, ra, rsub, a3, a3.i, " +
-						"sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, a1, " +
-						"a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.sub1, pack1.sub1.i, pack3.a3, pack3.a3.i, " +
-						"pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, " +
-						"pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"
+					assertScope(Aadl2Package::eINSTANCE.subprogramSubcomponent_SubprogramSubcomponentType, "aproto1, subproto1, a5, sub5, ra, rsub, a3, " +
+						"a3.i, sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, " +
+						"container.i, subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, " +
+						"pack1.sub1, pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, " +
+						"pack5.a5, pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"
 					)
 				]
 				ownedSubprogramGroupSubcomponents.head => [
 					"subgsub".assertEquals(name)
 					//Tests scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, "aproto, subgproto, a5, subg5, ra, rsubg, " +
-						"a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, " +
-						"container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, pack3.a3, " +
-						"pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, pack5.subg5, " +
-						"pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, "aproto1, subgproto1, a5, subg5, ra, " +
+						"rsubg, a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, " +
+						"container, container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, " +
+						"pack1.subg1.i, pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, " +
+						"pack5.a5.i, pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"
 					)
 				]
 				ownedProcessorSubcomponents.head => [
 					"procsub".assertEquals(name)
 					//Tests scope_ProcessorSubcomponent_processorSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.processorSubcomponent_ProcessorSubcomponentType, "aproto, procproto, a5, proc5, ra, rproc, a3, a3.i, " +
-						"proc3, proc3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.proc4, renamed_package.proc4.i, container, container.i, a1, " +
-						"a1.i, proc1, proc1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.proc1, pack1.proc1.i, pack3.a3, pack3.a3.i, " +
-						"pack3.proc3, pack3.proc3.i, pack2.a2, pack2.a2.i, pack2.proc2, pack2.proc2.i, pack5.a5, pack5.a5.i, pack5.proc5, pack5.proc5.i, " +
-						"pack5.a6, pack5.proc6, pack4.a4, pack4.a4.i, pack4.proc4, pack4.proc4.i"
+					assertScope(Aadl2Package::eINSTANCE.processorSubcomponent_ProcessorSubcomponentType, "aproto1, procproto1, a5, proc5, ra, rproc, a3, " +
+						"a3.i, proc3, proc3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.proc4, renamed_package.proc4.i, container, " +
+						"container.i, a1, a1.i, proc1, proc1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.proc1, pack1.proc1.i, " +
+						"pack3.a3, pack3.a3.i, pack3.proc3, pack3.proc3.i, pack2.a2, pack2.a2.i, pack2.proc2, pack2.proc2.i, pack5.a5, pack5.a5.i, " +
+						"pack5.proc5, pack5.proc5.i, pack5.a6, pack5.proc6, pack4.a4, pack4.a4.i, pack4.proc4, pack4.proc4.i"
 					)
 				]
 				ownedVirtualProcessorSubcomponents.head => [
 					"vpsub".assertEquals(name)
 					//Tests scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, "aproto, vpproto, a5, vp5, ra, rvp, a3, " +
-						"a3.i, vp3, vp3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vp4, renamed_package.vp4.i, container, container.i, a1, " +
-						"a1.i, vp1, vp1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vp1, pack1.vp1.i, pack3.a3, pack3.a3.i, pack3.vp3, " +
-						"pack3.vp3.i, pack2.a2, pack2.a2.i, pack2.vp2, pack2.vp2.i, pack5.a5, pack5.a5.i, pack5.vp5, pack5.vp5.i, pack5.a6, pack5.vp6, pack4.a4, " +
-						"pack4.a4.i, pack4.vp4, pack4.vp4.i"
+					assertScope(Aadl2Package::eINSTANCE.virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, "aproto1, vpproto1, a5, vp5, ra, " +
+						"rvp, a3, a3.i, vp3, vp3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vp4, renamed_package.vp4.i, container, " +
+						"container.i, a1, a1.i, vp1, vp1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vp1, pack1.vp1.i, pack3.a3, " +
+						"pack3.a3.i, pack3.vp3, pack3.vp3.i, pack2.a2, pack2.a2.i, pack2.vp2, pack2.vp2.i, pack5.a5, pack5.a5.i, pack5.vp5, pack5.vp5.i, " +
+						"pack5.a6, pack5.vp6, pack4.a4, pack4.a4.i, pack4.vp4, pack4.vp4.i"
 					)
 				]
 				ownedDeviceSubcomponents.head => [
 					"devsub".assertEquals(name)
 					//Tests scope_DeviceSubcomponent_deviceSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.deviceSubcomponent_DeviceSubcomponentType, "aproto, devproto, a5, dev5, ra, rdev, a3, a3.i, dev3, dev3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.dev4, renamed_package.dev4.i, container, container.i, a1, a1.i, dev1, dev1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.dev1, pack1.dev1.i, pack3.a3, pack3.a3.i, pack3.dev3, pack3.dev3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.dev2, pack2.dev2.i, pack5.a5, pack5.a5.i, pack5.dev5, pack5.dev5.i, pack5.a6, pack5.dev6, pack4.a4, " +
-						"pack4.a4.i, pack4.dev4, pack4.dev4.i"
+					assertScope(Aadl2Package::eINSTANCE.deviceSubcomponent_DeviceSubcomponentType, "aproto1, devproto1, a5, dev5, ra, rdev, a3, a3.i, dev3, " +
+						"dev3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.dev4, renamed_package.dev4.i, container, container.i, a1, a1.i, " +
+						"dev1, dev1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.dev1, pack1.dev1.i, pack3.a3, pack3.a3.i, " +
+						"pack3.dev3, pack3.dev3.i, pack2.a2, pack2.a2.i, pack2.dev2, pack2.dev2.i, pack5.a5, pack5.a5.i, pack5.dev5, pack5.dev5.i, " +
+						"pack5.a6, pack5.dev6, pack4.a4, pack4.a4.i, pack4.dev4, pack4.dev4.i"
 					)
 				]
 				ownedMemorySubcomponents.head => [
 					"msub".assertEquals(name)
 					//Tests scope_MemorySubcomponent_memorySubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.memorySubcomponent_MemorySubcomponentType, "aproto, mproto, a5, m5, ra, rm, a3, a3.i, m3, m3.i, " +
+					assertScope(Aadl2Package::eINSTANCE.memorySubcomponent_MemorySubcomponentType, "aproto1, mproto1, a5, m5, ra, rm, a3, a3.i, m3, m3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.m4, renamed_package.m4.i, container, container.i, a1, a1.i, m1, m1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.m1, pack1.m1.i, pack3.a3, pack3.a3.i, pack3.m3, pack3.m3.i, pack2.a2, " +
-						"pack2.a2.i, pack2.m2, pack2.m2.i, pack5.a5, pack5.a5.i, pack5.m5, pack5.m5.i, pack5.a6, pack5.m6, pack4.a4, pack4.a4.i, pack4.m4, pack4.m4.i"
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.m1, pack1.m1.i, pack3.a3, pack3.a3.i, pack3.m3, pack3.m3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.m2, pack2.m2.i, pack5.a5, pack5.a5.i, pack5.m5, pack5.m5.i, pack5.a6, pack5.m6, pack4.a4, pack4.a4.i, " +
+						"pack4.m4, pack4.m4.i"
 					)
 				]
 				ownedBusSubcomponents.head => [
 					"bsub".assertEquals(name)
 					//Tests scope_BusSubcomponent_busSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.busSubcomponent_BusSubcomponentType, "aproto, bproto, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
+					assertScope(Aadl2Package::eINSTANCE.busSubcomponent_BusSubcomponentType, "aproto1, bproto1, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, pack2.a2, " +
-						"pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, pack4.b4, pack4.b4.i"
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, " +
+						"pack4.b4, pack4.b4.i"
 					)
 				]
 				ownedVirtualBusSubcomponents.head => [
 					"vbsub".assertEquals(name)
 					//Tests scope_VirtualBusSubcomponent_virtualBusSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.virtualBusSubcomponent_VirtualBusSubcomponentType, "aproto, vbproto, a5, vb5, ra, rvb, a3, a3.i, vb3, " +
-						"vb3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vb4, renamed_package.vb4.i, container, container.i, a1, a1.i, vb1, " +
-						"vb1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vb1, pack1.vb1.i, pack3.a3, pack3.a3.i, pack3.vb3, pack3.vb3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.vb2, pack2.vb2.i, pack5.a5, pack5.a5.i, pack5.vb5, pack5.vb5.i, pack5.a6, pack5.vb6, pack4.a4, pack4.a4.i, " +
-						"pack4.vb4, pack4.vb4.i"
+					assertScope(Aadl2Package::eINSTANCE.virtualBusSubcomponent_VirtualBusSubcomponentType, "aproto1, vbproto1, a5, vb5, ra, rvb, a3, a3.i, " +
+						"vb3, vb3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vb4, renamed_package.vb4.i, container, container.i, a1, " +
+						"a1.i, vb1, vb1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vb1, pack1.vb1.i, pack3.a3, pack3.a3.i, " +
+						"pack3.vb3, pack3.vb3.i, pack2.a2, pack2.a2.i, pack2.vb2, pack2.vb2.i, pack5.a5, pack5.a5.i, pack5.vb5, pack5.vb5.i, pack5.a6, " +
+						"pack5.vb6, pack4.a4, pack4.a4.i, pack4.vb4, pack4.vb4.i"
 					)
 				]
 				ownedDataSubcomponents.head => [
 					"dsub".assertEquals(name)
 					//Tests scope_DataSubcomponent_dataSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.dataSubcomponent_DataSubcomponentType, "aproto, dproto, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+					assertScope(Aadl2Package::eINSTANCE.dataSubcomponent_DataSubcomponentType, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
 						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, pack2.a2, " +
-						"pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, pack4.d4, " +
-						"pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
 						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
 						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
 					)
+				]
+			]
+			publicSection.ownedClassifiers.get(2) as SubprogramType => [
+				"subcontainer".assertEquals(name)
+				ownedParameters.head => [
+					"param1".assertEquals(name)
+					//Tests scope_Parameter_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, "aproto2, dproto2, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+			]
+			publicSection.ownedClassifiers.get(3) as FeatureGroupType => [
+				"fgtcontainer".assertEquals(name)
+				ownedDataPorts.head => [
+					"dport2".assertEquals(name)
+					//Tests scope_DataPort_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+				ownedEventDataPorts.head => [
+					"edport2".assertEquals(name)
+					//Tests scope_EventDataPort_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+				ownedFeatureGroups.head => [
+					"fg2".assertEquals(name)
+					//Tests scope_FeatureGroup_featureType
+					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, "fgproto3, fgt5, rfgt, fgt3, renamed_package.fgt4, fgtcontainer, fgt1, " +
+						"pack1.fgtcontainer, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack5.fgt6, pack4.fgt4"
+					)
+				]
+				ownedParameters.head => [
+					"param2".assertEquals(name)
+					//Tests scope_Parameter_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+				ownedSubprogramAccesses.head => [
+					"suba2".assertEquals(name)
+					//Tests scope_SubprogramAccess_subprogramFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, "aproto3, subproto3, a5, sub5, ra, rsub, a3, a3.i, " +
+						"sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, " +
+						"subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, pack1.sub1, " +
+						"pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, " +
+						"pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"
+					)
+				]
+				ownedSubprogramGroupAccesses.head => [
+					"subga2".assertEquals(name)
+					//Tests scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, "aproto3, subgproto3, a5, subg5, ra, rsubg, " +
+						"a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, " +
+						"container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, " +
+						"pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, " +
+						"pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"
+					)
+				]
+				ownedBusAccesses.head => [
+					"ba2".assertEquals(name)
+					//Tests scope_BusAccess_busFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, "aproto3, bproto3, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, " +
+						"pack4.b4, pack4.b4.i"
+					)
+				]
+				ownedDataAccesses.head => [
+					"da2".assertEquals(name)
+					//Tests scope_DataAccess_dataFeatureClassifier
+					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
+						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
+						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
+						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
+						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
+						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
+						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
+					)
+				]
+				ownedAbstractFeatures.head => [
+					"af2".assertEquals(name)
+					//Tests scope_AbstractFeature_featurePrototype
+					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, "fproto3")
 				]
 			]
 		]

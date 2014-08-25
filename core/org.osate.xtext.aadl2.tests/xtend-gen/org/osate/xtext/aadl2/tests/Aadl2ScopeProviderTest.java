@@ -1837,11 +1837,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
    * scope_ThreadSubcomponent_threadSubcomponentType, scope_SubprogramSubcomponent_subprogramSubcomponentType,
    * scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType, scope_ProcessorSubcomponent_processorSubcomponentType,
    * scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType, scope_DeviceSubcomponent_deviceSubcomponentType,
-   * scope_MemorySubcomponent_memorySubcomponentType, scope_BusSubcomponent_busSubcomponentType,
-   * scope_VirtualBusSubcomponent_virtualBusSubcomponentType, and scope_DataSubcomponent_dataSubcomponentType
+   * scope_MemorySubcomponent_memorySubcomponentType, scope_BusSubcomponent_busSubcomponentType, scope_VirtualBusSubcomponent_virtualBusSubcomponentType,
+   * scope_DataSubcomponent_dataSubcomponentType, scope_DataPort_dataFeatureClassifier, scope_EventDataPort_dataFeatureClassifier,
+   * scope_FeatureGroup_featureType, scope_Parameter_dataFeatureClassifier, scope_SubprogramAccess_subprogramFeatureClassifier,
+   * scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier, scope_BusAccess_busFeatureClassifier, scope_DataAccess_dataFeatureClassifier,
+   * and scope_AbstractFeature_featurePrototype
    */
   @Test
-  public void testSubcomponents() {
+  public void testFeaturesAndSubcomponents() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package pack1");
     _builder.newLine();
@@ -1909,6 +1912,9 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.append("renames data pack5::d5;");
     _builder.newLine();
     _builder.append("  ");
+    _builder.append("renames feature group pack5::fgt5;");
+    _builder.newLine();
+    _builder.append("  ");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("ra renames abstract pack5::a6;");
@@ -1953,6 +1959,9 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.append("rd renames data pack5::d6;");
     _builder.newLine();
     _builder.append("  ");
+    _builder.append("rfgt renames feature group pack5::fgt6;");
+    _builder.newLine();
+    _builder.append("  ");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("abstract container");
@@ -1961,46 +1970,79 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.append("prototypes");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("aproto: abstract;");
+    _builder.append("aproto1: abstract;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("sproto: system;");
+    _builder.append("sproto1: system;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("pproto: process;");
+    _builder.append("pproto1: process;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("tgproto: thread group;");
+    _builder.append("tgproto1: thread group;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("tproto: thread;");
+    _builder.append("tproto1: thread;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("subproto: subprogram;");
+    _builder.append("subproto1: subprogram;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("subgproto: subprogram group;");
+    _builder.append("subgproto1: subprogram group;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("procproto: processor;");
+    _builder.append("procproto1: processor;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("vpproto: virtual processor;");
+    _builder.append("vpproto1: virtual processor;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("devproto: device;");
+    _builder.append("devproto1: device;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("mproto: memory;");
+    _builder.append("mproto1: memory;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("bproto: bus;");
+    _builder.append("bproto1: bus;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("vbproto: virtual bus;");
+    _builder.append("vbproto1: virtual bus;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("dproto: data;");
+    _builder.append("dproto1: data;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fgproto1: feature group;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fproto1: feature;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("features");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("dport1: in data port d1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("edport1: in event data port d1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fg1: feature group fgt1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("suba1: provides subprogram access sub1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("subga1: provides subprogram group access subg1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("ba1: provides bus access b1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("da1: provides data access d1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("af1: feature fproto1;");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("end container;");
@@ -2057,6 +2099,160 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.newLine();
     _builder.append("  ");
     _builder.append("end container.i;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("subprogram subcontainer");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("prototypes");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("aproto2: abstract;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("sproto2: system;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("pproto2: process;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("tgproto2: thread group;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("tproto2: thread;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("subproto2: subprogram;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("subgproto2: subprogram group;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("procproto2: processor;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("vpproto2: virtual processor;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("devproto2: device;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("mproto2: memory;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("bproto2: bus;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("vbproto2: virtual bus;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("dproto2: data;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fgproto2: feature group;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fproto2: feature;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("features");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("param1: in parameter d1;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("end subcontainer;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("feature group fgtcontainer");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("prototypes");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("aproto3: abstract;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("sproto3: system;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("pproto3: process;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("tgproto3: thread group;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("tproto3: thread;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("subproto3: subprogram;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("subgproto3: subprogram group;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("procproto3: processor;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("vpproto3: virtual processor;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("devproto3: device;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("mproto3: memory;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("bproto3: bus;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("vbproto3: virtual bus;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("dproto3: data;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fgproto3: feature group;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fproto3: feature;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("features");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("dport2: in data port d1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("edport2: in event data port d1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fg2: feature group fgt1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("param2: in parameter d1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("suba2: provides subprogram access sub1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("subga2: provides subprogram group access subg1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("ba2: provides bus access b1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("da2: provides data access d1;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("af2: feature fproto3;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("end fgtcontainer;");
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
@@ -2281,6 +2477,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.newLine();
     _builder.append("  ");
     _builder.append("end d1.i;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("feature group fgt1");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("end fgt1;");
     _builder.newLine();
     _builder.append("end pack1;");
     _builder.newLine();
@@ -2512,6 +2716,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_1.append("  ");
     _builder_1.append("end d2.i;");
     _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.append("feature group fgt2");
+    _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.append("end fgt2;");
+    _builder_1.newLine();
     _builder_1.append("end pack2;");
     _builder_1.newLine();
     Pair<String, String> _mappedTo_1 = Pair.<String, String>of("pack2.aadl", _builder_1.toString());
@@ -2742,6 +2954,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_2.append("  ");
     _builder_2.append("end d3.i;");
     _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.append("feature group fgt3");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.append("end fgt3;");
+    _builder_2.newLine();
     _builder_2.append("end pack3;");
     _builder_2.newLine();
     Pair<String, String> _mappedTo_2 = Pair.<String, String>of("pack3.aadl", _builder_2.toString());
@@ -2971,6 +3191,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_3.newLine();
     _builder_3.append("  ");
     _builder_3.append("end d4.i;");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.append("feature group fgt4");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.append("end fgt4;");
     _builder_3.newLine();
     _builder_3.append("end pack4;");
     _builder_3.newLine();
@@ -3205,6 +3433,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_4.append("  ");
     _builder_4.newLine();
     _builder_4.append("  ");
+    _builder_4.append("feature group fgt5");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end fgt5;");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
     _builder_4.append("abstract a6");
     _builder_4.newLine();
     _builder_4.append("  ");
@@ -3314,6 +3550,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_4.append("  ");
     _builder_4.append("end d6;");
     _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("feature group fgt6");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end fgt6;");
+    _builder_4.newLine();
     _builder_4.append("end pack5;");
     _builder_4.newLine();
     Pair<String, String> _mappedTo_4 = Pair.<String, String>of("pack5.aadl", _builder_4.toString());
@@ -3331,8 +3575,138 @@ public class Aadl2ScopeProviderTest extends OsateTest {
         Assert.assertEquals("pack1", _name);
         PublicPackageSection _publicSection = it.getPublicSection();
         EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
-        Classifier _get = _ownedClassifiers.get(1);
-        final Procedure1<AbstractImplementation> _function = new Procedure1<AbstractImplementation>() {
+        Classifier _get = _ownedClassifiers.get(0);
+        final Procedure1<AbstractType> _function = new Procedure1<AbstractType>() {
+          public void apply(final AbstractType it) {
+            String _name = it.getName();
+            Assert.assertEquals("container", _name);
+            EList<DataPort> _ownedDataPorts = it.getOwnedDataPorts();
+            DataPort _head = IterableExtensions.<DataPort>head(_ownedDataPorts);
+            final Procedure1<DataPort> _function = new Procedure1<DataPort>() {
+              public void apply(final DataPort it) {
+                String _name = it.getName();
+                Assert.assertEquals("dport1", _name);
+                EReference _dataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataPort_DataFeatureClassifier, (((((("aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<DataPort>operator_doubleArrow(_head, _function);
+            EList<EventDataPort> _ownedEventDataPorts = it.getOwnedEventDataPorts();
+            EventDataPort _head_1 = IterableExtensions.<EventDataPort>head(_ownedEventDataPorts);
+            final Procedure1<EventDataPort> _function_1 = new Procedure1<EventDataPort>() {
+              public void apply(final EventDataPort it) {
+                String _name = it.getName();
+                Assert.assertEquals("edport1", _name);
+                EReference _eventDataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getEventDataPort_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataPort_DataFeatureClassifier, (((((("aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_1, _function_1);
+            EList<FeatureGroup> _ownedFeatureGroups = it.getOwnedFeatureGroups();
+            FeatureGroup _head_2 = IterableExtensions.<FeatureGroup>head(_ownedFeatureGroups);
+            final Procedure1<FeatureGroup> _function_2 = new Procedure1<FeatureGroup>() {
+              public void apply(final FeatureGroup it) {
+                String _name = it.getName();
+                Assert.assertEquals("fg1", _name);
+                EReference _featureGroup_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroup_FeatureType();
+                Aadl2ScopeProviderTest.this.assertScope(it, _featureGroup_FeatureType, ("fgproto1, fgt5, rfgt, fgt3, renamed_package.fgt4, fgtcontainer, fgt1, " + 
+                  "pack1.fgtcontainer, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack5.fgt6, pack4.fgt4"));
+              }
+            };
+            ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_2, _function_2);
+            EList<SubprogramAccess> _ownedSubprogramAccesses = it.getOwnedSubprogramAccesses();
+            SubprogramAccess _head_3 = IterableExtensions.<SubprogramAccess>head(_ownedSubprogramAccesses);
+            final Procedure1<SubprogramAccess> _function_3 = new Procedure1<SubprogramAccess>() {
+              public void apply(final SubprogramAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("suba1", _name);
+                EReference _subprogramAccess_SubprogramFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramAccess_SubprogramFeatureClassifier, (((("aproto1, subproto1, a5, sub5, ra, rsub, a3, a3.i, " + 
+                  "sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, ") + 
+                  "subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, pack1.sub1, ") + 
+                  "pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, ") + 
+                  "pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"));
+              }
+            };
+            ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_3, _function_3);
+            EList<SubprogramGroupAccess> _ownedSubprogramGroupAccesses = it.getOwnedSubprogramGroupAccesses();
+            SubprogramGroupAccess _head_4 = IterableExtensions.<SubprogramGroupAccess>head(_ownedSubprogramGroupAccesses);
+            final Procedure1<SubprogramGroupAccess> _function_4 = new Procedure1<SubprogramGroupAccess>() {
+              public void apply(final SubprogramGroupAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("subga1", _name);
+                EReference _subprogramGroupAccess_SubprogramGroupFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramGroupAccess_SubprogramGroupFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupAccess_SubprogramGroupFeatureClassifier, (((("aproto1, subgproto1, a5, subg5, ra, rsubg, " + 
+                  "a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, ") + 
+                  "container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, ") + 
+                  "pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, ") + 
+                  "pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"));
+              }
+            };
+            ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_4, _function_4);
+            EList<BusAccess> _ownedBusAccesses = it.getOwnedBusAccesses();
+            BusAccess _head_5 = IterableExtensions.<BusAccess>head(_ownedBusAccesses);
+            final Procedure1<BusAccess> _function_5 = new Procedure1<BusAccess>() {
+              public void apply(final BusAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("ba1", _name);
+                EReference _busAccess_BusFeatureClassifier = Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _busAccess_BusFeatureClassifier, (((("aproto1, bproto1, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.b4, pack4.b4.i"));
+              }
+            };
+            ObjectExtensions.<BusAccess>operator_doubleArrow(_head_5, _function_5);
+            EList<DataAccess> _ownedDataAccesses = it.getOwnedDataAccesses();
+            DataAccess _head_6 = IterableExtensions.<DataAccess>head(_ownedDataAccesses);
+            final Procedure1<DataAccess> _function_6 = new Procedure1<DataAccess>() {
+              public void apply(final DataAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("da1", _name);
+                EReference _dataAccess_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataAccess_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataAccess_DataFeatureClassifier, (((((("aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<DataAccess>operator_doubleArrow(_head_6, _function_6);
+            EList<AbstractFeature> _ownedAbstractFeatures = it.getOwnedAbstractFeatures();
+            AbstractFeature _head_7 = IterableExtensions.<AbstractFeature>head(_ownedAbstractFeatures);
+            final Procedure1<AbstractFeature> _function_7 = new Procedure1<AbstractFeature>() {
+              public void apply(final AbstractFeature it) {
+                String _name = it.getName();
+                Assert.assertEquals("af1", _name);
+                EReference _abstractFeature_FeaturePrototype = Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype();
+                Aadl2ScopeProviderTest.this.assertScope(it, _abstractFeature_FeaturePrototype, "fproto1");
+              }
+            };
+            ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_7, _function_7);
+          }
+        };
+        ObjectExtensions.<AbstractType>operator_doubleArrow(
+          ((AbstractType) _get), _function);
+        PublicPackageSection _publicSection_1 = it.getPublicSection();
+        EList<Classifier> _ownedClassifiers_1 = _publicSection_1.getOwnedClassifiers();
+        Classifier _get_1 = _ownedClassifiers_1.get(1);
+        final Procedure1<AbstractImplementation> _function_1 = new Procedure1<AbstractImplementation>() {
           public void apply(final AbstractImplementation it) {
             String _name = it.getName();
             Assert.assertEquals("container.i", _name);
@@ -3343,7 +3717,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("asub", _name);
                 EReference _abstractSubcomponent_AbstractSubcomponentType = Aadl2Package.eINSTANCE.getAbstractSubcomponent_AbstractSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _abstractSubcomponent_AbstractSubcomponentType, (("aproto, a5, ra, a3, a3.i, renamed_package.a4, " + 
+                Aadl2ScopeProviderTest.this.assertScope(it, _abstractSubcomponent_AbstractSubcomponentType, (("aproto1, a5, ra, a3, a3.i, renamed_package.a4, " + 
                   "renamed_package.a4.i, container, container.i, a1, a1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack3.a3, ") + 
                   "pack3.a3.i, pack2.a2, pack2.a2.i, pack5.a5, pack5.a5.i, pack5.a6, pack4.a4, pack4.a4.i"));
               }
@@ -3356,7 +3730,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("ssub", _name);
                 EReference _systemSubcomponent_SystemSubcomponentType = Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _systemSubcomponent_SystemSubcomponentType, (((("aproto, sproto, a5, s5, ra, rs, a3, a3.i, s3, s3.i, " + 
+                Aadl2ScopeProviderTest.this.assertScope(it, _systemSubcomponent_SystemSubcomponentType, (((("aproto1, sproto1, a5, s5, ra, rs, a3, a3.i, s3, s3.i, " + 
                   "renamed_package.a4, renamed_package.a4.i, renamed_package.s4, renamed_package.s4.i, container, container.i, a1, a1.i, s1, s1.i, ") + 
                   "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.s1, pack1.s1.i, pack3.a3, pack3.a3.i, pack3.s3, pack3.s3.i, ") + 
                   "pack2.a2, pack2.a2.i, pack2.s2, pack2.s2.i, pack5.a5, pack5.a5.i, pack5.s5, pack5.s5.i, pack5.a6, pack5.s6, pack4.a4, pack4.a4.i, ") + 
@@ -3371,7 +3745,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("psub", _name);
                 EReference _processSubcomponent_ProcessSubcomponentType = Aadl2Package.eINSTANCE.getProcessSubcomponent_ProcessSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _processSubcomponent_ProcessSubcomponentType, (((("aproto, pproto, a5, p5, ra, rp, a3, a3.i, p3, p3.i, " + 
+                Aadl2ScopeProviderTest.this.assertScope(it, _processSubcomponent_ProcessSubcomponentType, (((("aproto1, pproto1, a5, p5, ra, rp, a3, a3.i, p3, p3.i, " + 
                   "renamed_package.a4, renamed_package.a4.i, renamed_package.p4, renamed_package.p4.i, container, container.i, a1, a1.i, p1, p1.i, ") + 
                   "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.p1, pack1.p1.i, pack3.a3, pack3.a3.i, pack3.p3, pack3.p3.i, ") + 
                   "pack2.a2, pack2.a2.i, pack2.p2, pack2.p2.i, pack5.a5, pack5.a5.i, pack5.p5, pack5.p5.i, pack5.a6, pack5.p6, pack4.a4, pack4.a4.i, ") + 
@@ -3386,11 +3760,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("tgsub", _name);
                 EReference _threadGroupSubcomponent_ThreadGroupSubcomponentType = Aadl2Package.eINSTANCE.getThreadGroupSubcomponent_ThreadGroupSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _threadGroupSubcomponent_ThreadGroupSubcomponentType, (((("aproto, tgproto, a5, tg5, ra, rtg, a3, a3.i, " + 
-                  "tg3, tg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.tg4, renamed_package.tg4.i, container, container.i, a1, a1.i, ") + 
-                  "tg1, tg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.tg1, pack1.tg1.i, pack3.a3, pack3.a3.i, pack3.tg3, ") + 
-                  "pack3.tg3.i, pack2.a2, pack2.a2.i, pack2.tg2, pack2.tg2.i, pack5.a5, pack5.a5.i, pack5.tg5, pack5.tg5.i, pack5.a6, pack5.tg6, ") + 
-                  "pack4.a4, pack4.a4.i, pack4.tg4, pack4.tg4.i"));
+                Aadl2ScopeProviderTest.this.assertScope(it, _threadGroupSubcomponent_ThreadGroupSubcomponentType, (((("aproto1, tgproto1, a5, tg5, ra, rtg, a3, " + 
+                  "a3.i, tg3, tg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.tg4, renamed_package.tg4.i, container, container.i, ") + 
+                  "a1, a1.i, tg1, tg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.tg1, pack1.tg1.i, pack3.a3, pack3.a3.i, ") + 
+                  "pack3.tg3, pack3.tg3.i, pack2.a2, pack2.a2.i, pack2.tg2, pack2.tg2.i, pack5.a5, pack5.a5.i, pack5.tg5, pack5.tg5.i, pack5.a6, ") + 
+                  "pack5.tg6, pack4.a4, pack4.a4.i, pack4.tg4, pack4.tg4.i"));
               }
             };
             ObjectExtensions.<ThreadGroupSubcomponent>operator_doubleArrow(_head_3, _function_3);
@@ -3401,7 +3775,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("tsub", _name);
                 EReference _threadSubcomponent_ThreadSubcomponentType = Aadl2Package.eINSTANCE.getThreadSubcomponent_ThreadSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _threadSubcomponent_ThreadSubcomponentType, (((("aproto, tproto, a5, t5, ra, rt, a3, a3.i, t3, t3.i, " + 
+                Aadl2ScopeProviderTest.this.assertScope(it, _threadSubcomponent_ThreadSubcomponentType, (((("aproto1, tproto1, a5, t5, ra, rt, a3, a3.i, t3, t3.i, " + 
                   "renamed_package.a4, renamed_package.a4.i, renamed_package.t4, renamed_package.t4.i, container, container.i, a1, a1.i, t1, t1.i, ") + 
                   "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.t1, pack1.t1.i, pack3.a3, pack3.a3.i, pack3.t3, pack3.t3.i, ") + 
                   "pack2.a2, pack2.a2.i, pack2.t2, pack2.t2.i, pack5.a5, pack5.a5.i, pack5.t5, pack5.t5.i, pack5.a6, pack5.t6, pack4.a4, pack4.a4.i, ") + 
@@ -3416,11 +3790,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("subsub", _name);
                 EReference _subprogramSubcomponent_SubprogramSubcomponentType = Aadl2Package.eINSTANCE.getSubprogramSubcomponent_SubprogramSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramSubcomponent_SubprogramSubcomponentType, (((("aproto, subproto, a5, sub5, ra, rsub, a3, a3.i, " + 
-                  "sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, a1, ") + 
-                  "a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.sub1, pack1.sub1.i, pack3.a3, pack3.a3.i, ") + 
-                  "pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, ") + 
-                  "pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramSubcomponent_SubprogramSubcomponentType, (((("aproto1, subproto1, a5, sub5, ra, rsub, a3, " + 
+                  "a3.i, sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, ") + 
+                  "container.i, subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, ") + 
+                  "pack1.sub1, pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, ") + 
+                  "pack5.a5, pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"));
               }
             };
             ObjectExtensions.<SubprogramSubcomponent>operator_doubleArrow(_head_5, _function_5);
@@ -3431,11 +3805,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("subgsub", _name);
                 EReference _subprogramGroupSubcomponent_SubprogramGroupSubcomponentType = Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, (((("aproto, subgproto, a5, subg5, ra, rsubg, " + 
-                  "a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, ") + 
-                  "container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, pack3.a3, ") + 
-                  "pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, pack5.subg5, ") + 
-                  "pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, (((("aproto1, subgproto1, a5, subg5, ra, " + 
+                  "rsubg, a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, ") + 
+                  "container, container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, ") + 
+                  "pack1.subg1.i, pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, ") + 
+                  "pack5.a5.i, pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"));
               }
             };
             ObjectExtensions.<SubprogramGroupSubcomponent>operator_doubleArrow(_head_6, _function_6);
@@ -3446,11 +3820,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("procsub", _name);
                 EReference _processorSubcomponent_ProcessorSubcomponentType = Aadl2Package.eINSTANCE.getProcessorSubcomponent_ProcessorSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _processorSubcomponent_ProcessorSubcomponentType, (((("aproto, procproto, a5, proc5, ra, rproc, a3, a3.i, " + 
-                  "proc3, proc3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.proc4, renamed_package.proc4.i, container, container.i, a1, ") + 
-                  "a1.i, proc1, proc1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.proc1, pack1.proc1.i, pack3.a3, pack3.a3.i, ") + 
-                  "pack3.proc3, pack3.proc3.i, pack2.a2, pack2.a2.i, pack2.proc2, pack2.proc2.i, pack5.a5, pack5.a5.i, pack5.proc5, pack5.proc5.i, ") + 
-                  "pack5.a6, pack5.proc6, pack4.a4, pack4.a4.i, pack4.proc4, pack4.proc4.i"));
+                Aadl2ScopeProviderTest.this.assertScope(it, _processorSubcomponent_ProcessorSubcomponentType, (((("aproto1, procproto1, a5, proc5, ra, rproc, a3, " + 
+                  "a3.i, proc3, proc3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.proc4, renamed_package.proc4.i, container, ") + 
+                  "container.i, a1, a1.i, proc1, proc1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.proc1, pack1.proc1.i, ") + 
+                  "pack3.a3, pack3.a3.i, pack3.proc3, pack3.proc3.i, pack2.a2, pack2.a2.i, pack2.proc2, pack2.proc2.i, pack5.a5, pack5.a5.i, ") + 
+                  "pack5.proc5, pack5.proc5.i, pack5.a6, pack5.proc6, pack4.a4, pack4.a4.i, pack4.proc4, pack4.proc4.i"));
               }
             };
             ObjectExtensions.<ProcessorSubcomponent>operator_doubleArrow(_head_7, _function_7);
@@ -3461,11 +3835,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("vpsub", _name);
                 EReference _virtualProcessorSubcomponent_VirtualProcessorSubcomponentType = Aadl2Package.eINSTANCE.getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, (((("aproto, vpproto, a5, vp5, ra, rvp, a3, " + 
-                  "a3.i, vp3, vp3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vp4, renamed_package.vp4.i, container, container.i, a1, ") + 
-                  "a1.i, vp1, vp1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vp1, pack1.vp1.i, pack3.a3, pack3.a3.i, pack3.vp3, ") + 
-                  "pack3.vp3.i, pack2.a2, pack2.a2.i, pack2.vp2, pack2.vp2.i, pack5.a5, pack5.a5.i, pack5.vp5, pack5.vp5.i, pack5.a6, pack5.vp6, pack4.a4, ") + 
-                  "pack4.a4.i, pack4.vp4, pack4.vp4.i"));
+                Aadl2ScopeProviderTest.this.assertScope(it, _virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, (((("aproto1, vpproto1, a5, vp5, ra, " + 
+                  "rvp, a3, a3.i, vp3, vp3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vp4, renamed_package.vp4.i, container, ") + 
+                  "container.i, a1, a1.i, vp1, vp1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vp1, pack1.vp1.i, pack3.a3, ") + 
+                  "pack3.a3.i, pack3.vp3, pack3.vp3.i, pack2.a2, pack2.a2.i, pack2.vp2, pack2.vp2.i, pack5.a5, pack5.a5.i, pack5.vp5, pack5.vp5.i, ") + 
+                  "pack5.a6, pack5.vp6, pack4.a4, pack4.a4.i, pack4.vp4, pack4.vp4.i"));
               }
             };
             ObjectExtensions.<VirtualProcessorSubcomponent>operator_doubleArrow(_head_8, _function_8);
@@ -3476,11 +3850,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("devsub", _name);
                 EReference _deviceSubcomponent_DeviceSubcomponentType = Aadl2Package.eINSTANCE.getDeviceSubcomponent_DeviceSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _deviceSubcomponent_DeviceSubcomponentType, (((("aproto, devproto, a5, dev5, ra, rdev, a3, a3.i, dev3, dev3.i, " + 
-                  "renamed_package.a4, renamed_package.a4.i, renamed_package.dev4, renamed_package.dev4.i, container, container.i, a1, a1.i, dev1, dev1.i, ") + 
-                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.dev1, pack1.dev1.i, pack3.a3, pack3.a3.i, pack3.dev3, pack3.dev3.i, ") + 
-                  "pack2.a2, pack2.a2.i, pack2.dev2, pack2.dev2.i, pack5.a5, pack5.a5.i, pack5.dev5, pack5.dev5.i, pack5.a6, pack5.dev6, pack4.a4, ") + 
-                  "pack4.a4.i, pack4.dev4, pack4.dev4.i"));
+                Aadl2ScopeProviderTest.this.assertScope(it, _deviceSubcomponent_DeviceSubcomponentType, (((("aproto1, devproto1, a5, dev5, ra, rdev, a3, a3.i, dev3, " + 
+                  "dev3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.dev4, renamed_package.dev4.i, container, container.i, a1, a1.i, ") + 
+                  "dev1, dev1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.dev1, pack1.dev1.i, pack3.a3, pack3.a3.i, ") + 
+                  "pack3.dev3, pack3.dev3.i, pack2.a2, pack2.a2.i, pack2.dev2, pack2.dev2.i, pack5.a5, pack5.a5.i, pack5.dev5, pack5.dev5.i, ") + 
+                  "pack5.a6, pack5.dev6, pack4.a4, pack4.a4.i, pack4.dev4, pack4.dev4.i"));
               }
             };
             ObjectExtensions.<DeviceSubcomponent>operator_doubleArrow(_head_9, _function_9);
@@ -3491,10 +3865,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("msub", _name);
                 EReference _memorySubcomponent_MemorySubcomponentType = Aadl2Package.eINSTANCE.getMemorySubcomponent_MemorySubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _memorySubcomponent_MemorySubcomponentType, ((("aproto, mproto, a5, m5, ra, rm, a3, a3.i, m3, m3.i, " + 
+                Aadl2ScopeProviderTest.this.assertScope(it, _memorySubcomponent_MemorySubcomponentType, (((("aproto1, mproto1, a5, m5, ra, rm, a3, a3.i, m3, m3.i, " + 
                   "renamed_package.a4, renamed_package.a4.i, renamed_package.m4, renamed_package.m4.i, container, container.i, a1, a1.i, m1, m1.i, ") + 
-                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.m1, pack1.m1.i, pack3.a3, pack3.a3.i, pack3.m3, pack3.m3.i, pack2.a2, ") + 
-                  "pack2.a2.i, pack2.m2, pack2.m2.i, pack5.a5, pack5.a5.i, pack5.m5, pack5.m5.i, pack5.a6, pack5.m6, pack4.a4, pack4.a4.i, pack4.m4, pack4.m4.i"));
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.m1, pack1.m1.i, pack3.a3, pack3.a3.i, pack3.m3, pack3.m3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.m2, pack2.m2.i, pack5.a5, pack5.a5.i, pack5.m5, pack5.m5.i, pack5.a6, pack5.m6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.m4, pack4.m4.i"));
               }
             };
             ObjectExtensions.<MemorySubcomponent>operator_doubleArrow(_head_10, _function_10);
@@ -3505,10 +3880,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("bsub", _name);
                 EReference _busSubcomponent_BusSubcomponentType = Aadl2Package.eINSTANCE.getBusSubcomponent_BusSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _busSubcomponent_BusSubcomponentType, ((("aproto, bproto, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " + 
+                Aadl2ScopeProviderTest.this.assertScope(it, _busSubcomponent_BusSubcomponentType, (((("aproto1, bproto1, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " + 
                   "renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, ") + 
-                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, pack2.a2, ") + 
-                  "pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, pack4.b4, pack4.b4.i"));
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.b4, pack4.b4.i"));
               }
             };
             ObjectExtensions.<BusSubcomponent>operator_doubleArrow(_head_11, _function_11);
@@ -3519,11 +3895,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("vbsub", _name);
                 EReference _virtualBusSubcomponent_VirtualBusSubcomponentType = Aadl2Package.eINSTANCE.getVirtualBusSubcomponent_VirtualBusSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _virtualBusSubcomponent_VirtualBusSubcomponentType, (((("aproto, vbproto, a5, vb5, ra, rvb, a3, a3.i, vb3, " + 
-                  "vb3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vb4, renamed_package.vb4.i, container, container.i, a1, a1.i, vb1, ") + 
-                  "vb1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vb1, pack1.vb1.i, pack3.a3, pack3.a3.i, pack3.vb3, pack3.vb3.i, ") + 
-                  "pack2.a2, pack2.a2.i, pack2.vb2, pack2.vb2.i, pack5.a5, pack5.a5.i, pack5.vb5, pack5.vb5.i, pack5.a6, pack5.vb6, pack4.a4, pack4.a4.i, ") + 
-                  "pack4.vb4, pack4.vb4.i"));
+                Aadl2ScopeProviderTest.this.assertScope(it, _virtualBusSubcomponent_VirtualBusSubcomponentType, (((("aproto1, vbproto1, a5, vb5, ra, rvb, a3, a3.i, " + 
+                  "vb3, vb3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vb4, renamed_package.vb4.i, container, container.i, a1, ") + 
+                  "a1.i, vb1, vb1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vb1, pack1.vb1.i, pack3.a3, pack3.a3.i, ") + 
+                  "pack3.vb3, pack3.vb3.i, pack2.a2, pack2.a2.i, pack2.vb2, pack2.vb2.i, pack5.a5, pack5.a5.i, pack5.vb5, pack5.vb5.i, pack5.a6, ") + 
+                  "pack5.vb6, pack4.a4, pack4.a4.i, pack4.vb4, pack4.vb4.i"));
               }
             };
             ObjectExtensions.<VirtualBusSubcomponent>operator_doubleArrow(_head_12, _function_12);
@@ -3534,11 +3910,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("dsub", _name);
                 EReference _dataSubcomponent_DataSubcomponentType = Aadl2Package.eINSTANCE.getDataSubcomponent_DataSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _dataSubcomponent_DataSubcomponentType, (((((("aproto, dproto, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataSubcomponent_DataSubcomponentType, (((((("aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
                   "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
-                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, pack2.a2, ") + 
-                  "pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, pack4.d4, ") + 
-                  "pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
                   "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
                   "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
               }
@@ -3547,7 +3923,182 @@ public class Aadl2ScopeProviderTest extends OsateTest {
           }
         };
         ObjectExtensions.<AbstractImplementation>operator_doubleArrow(
-          ((AbstractImplementation) _get), _function);
+          ((AbstractImplementation) _get_1), _function_1);
+        PublicPackageSection _publicSection_2 = it.getPublicSection();
+        EList<Classifier> _ownedClassifiers_2 = _publicSection_2.getOwnedClassifiers();
+        Classifier _get_2 = _ownedClassifiers_2.get(2);
+        final Procedure1<SubprogramType> _function_2 = new Procedure1<SubprogramType>() {
+          public void apply(final SubprogramType it) {
+            String _name = it.getName();
+            Assert.assertEquals("subcontainer", _name);
+            EList<Parameter> _ownedParameters = it.getOwnedParameters();
+            Parameter _head = IterableExtensions.<Parameter>head(_ownedParameters);
+            final Procedure1<Parameter> _function = new Procedure1<Parameter>() {
+              public void apply(final Parameter it) {
+                String _name = it.getName();
+                Assert.assertEquals("param1", _name);
+                EReference _parameter_DataFeatureClassifier = Aadl2Package.eINSTANCE.getParameter_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _parameter_DataFeatureClassifier, (((((("aproto2, dproto2, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<Parameter>operator_doubleArrow(_head, _function);
+          }
+        };
+        ObjectExtensions.<SubprogramType>operator_doubleArrow(
+          ((SubprogramType) _get_2), _function_2);
+        PublicPackageSection _publicSection_3 = it.getPublicSection();
+        EList<Classifier> _ownedClassifiers_3 = _publicSection_3.getOwnedClassifiers();
+        Classifier _get_3 = _ownedClassifiers_3.get(3);
+        final Procedure1<FeatureGroupType> _function_3 = new Procedure1<FeatureGroupType>() {
+          public void apply(final FeatureGroupType it) {
+            String _name = it.getName();
+            Assert.assertEquals("fgtcontainer", _name);
+            EList<DataPort> _ownedDataPorts = it.getOwnedDataPorts();
+            DataPort _head = IterableExtensions.<DataPort>head(_ownedDataPorts);
+            final Procedure1<DataPort> _function = new Procedure1<DataPort>() {
+              public void apply(final DataPort it) {
+                String _name = it.getName();
+                Assert.assertEquals("dport2", _name);
+                EReference _dataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataPort_DataFeatureClassifier, (((((("aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<DataPort>operator_doubleArrow(_head, _function);
+            EList<EventDataPort> _ownedEventDataPorts = it.getOwnedEventDataPorts();
+            EventDataPort _head_1 = IterableExtensions.<EventDataPort>head(_ownedEventDataPorts);
+            final Procedure1<EventDataPort> _function_1 = new Procedure1<EventDataPort>() {
+              public void apply(final EventDataPort it) {
+                String _name = it.getName();
+                Assert.assertEquals("edport2", _name);
+                EReference _eventDataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getEventDataPort_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataPort_DataFeatureClassifier, (((((("aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_1, _function_1);
+            EList<FeatureGroup> _ownedFeatureGroups = it.getOwnedFeatureGroups();
+            FeatureGroup _head_2 = IterableExtensions.<FeatureGroup>head(_ownedFeatureGroups);
+            final Procedure1<FeatureGroup> _function_2 = new Procedure1<FeatureGroup>() {
+              public void apply(final FeatureGroup it) {
+                String _name = it.getName();
+                Assert.assertEquals("fg2", _name);
+                EReference _featureGroup_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroup_FeatureType();
+                Aadl2ScopeProviderTest.this.assertScope(it, _featureGroup_FeatureType, ("fgproto3, fgt5, rfgt, fgt3, renamed_package.fgt4, fgtcontainer, fgt1, " + 
+                  "pack1.fgtcontainer, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack5.fgt6, pack4.fgt4"));
+              }
+            };
+            ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_2, _function_2);
+            EList<Parameter> _ownedParameters = it.getOwnedParameters();
+            Parameter _head_3 = IterableExtensions.<Parameter>head(_ownedParameters);
+            final Procedure1<Parameter> _function_3 = new Procedure1<Parameter>() {
+              public void apply(final Parameter it) {
+                String _name = it.getName();
+                Assert.assertEquals("param2", _name);
+                EReference _parameter_DataFeatureClassifier = Aadl2Package.eINSTANCE.getParameter_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _parameter_DataFeatureClassifier, (((((("aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<Parameter>operator_doubleArrow(_head_3, _function_3);
+            EList<SubprogramAccess> _ownedSubprogramAccesses = it.getOwnedSubprogramAccesses();
+            SubprogramAccess _head_4 = IterableExtensions.<SubprogramAccess>head(_ownedSubprogramAccesses);
+            final Procedure1<SubprogramAccess> _function_4 = new Procedure1<SubprogramAccess>() {
+              public void apply(final SubprogramAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("suba2", _name);
+                EReference _subprogramAccess_SubprogramFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramAccess_SubprogramFeatureClassifier, (((("aproto3, subproto3, a5, sub5, ra, rsub, a3, a3.i, " + 
+                  "sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, ") + 
+                  "subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, pack1.sub1, ") + 
+                  "pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, ") + 
+                  "pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"));
+              }
+            };
+            ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_4, _function_4);
+            EList<SubprogramGroupAccess> _ownedSubprogramGroupAccesses = it.getOwnedSubprogramGroupAccesses();
+            SubprogramGroupAccess _head_5 = IterableExtensions.<SubprogramGroupAccess>head(_ownedSubprogramGroupAccesses);
+            final Procedure1<SubprogramGroupAccess> _function_5 = new Procedure1<SubprogramGroupAccess>() {
+              public void apply(final SubprogramGroupAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("subga2", _name);
+                EReference _subprogramGroupAccess_SubprogramGroupFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramGroupAccess_SubprogramGroupFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupAccess_SubprogramGroupFeatureClassifier, (((("aproto3, subgproto3, a5, subg5, ra, rsubg, " + 
+                  "a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, ") + 
+                  "container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, ") + 
+                  "pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, ") + 
+                  "pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"));
+              }
+            };
+            ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_5, _function_5);
+            EList<BusAccess> _ownedBusAccesses = it.getOwnedBusAccesses();
+            BusAccess _head_6 = IterableExtensions.<BusAccess>head(_ownedBusAccesses);
+            final Procedure1<BusAccess> _function_6 = new Procedure1<BusAccess>() {
+              public void apply(final BusAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("ba2", _name);
+                EReference _busAccess_BusFeatureClassifier = Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _busAccess_BusFeatureClassifier, (((("aproto3, bproto3, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.b4, pack4.b4.i"));
+              }
+            };
+            ObjectExtensions.<BusAccess>operator_doubleArrow(_head_6, _function_6);
+            EList<DataAccess> _ownedDataAccesses = it.getOwnedDataAccesses();
+            DataAccess _head_7 = IterableExtensions.<DataAccess>head(_ownedDataAccesses);
+            final Procedure1<DataAccess> _function_7 = new Procedure1<DataAccess>() {
+              public void apply(final DataAccess it) {
+                String _name = it.getName();
+                Assert.assertEquals("da2", _name);
+                EReference _dataAccess_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataAccess_DataFeatureClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataAccess_DataFeatureClassifier, (((((("aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " + 
+                  "renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, ") + 
+                  "pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, ") + 
+                  "pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, ") + 
+                  "pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, ") + 
+                  "Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, ") + 
+                  "Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"));
+              }
+            };
+            ObjectExtensions.<DataAccess>operator_doubleArrow(_head_7, _function_7);
+            EList<AbstractFeature> _ownedAbstractFeatures = it.getOwnedAbstractFeatures();
+            AbstractFeature _head_8 = IterableExtensions.<AbstractFeature>head(_ownedAbstractFeatures);
+            final Procedure1<AbstractFeature> _function_8 = new Procedure1<AbstractFeature>() {
+              public void apply(final AbstractFeature it) {
+                String _name = it.getName();
+                Assert.assertEquals("af2", _name);
+                EReference _abstractFeature_FeaturePrototype = Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype();
+                Aadl2ScopeProviderTest.this.assertScope(it, _abstractFeature_FeaturePrototype, "fproto3");
+              }
+            };
+            ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_8, _function_8);
+          }
+        };
+        ObjectExtensions.<FeatureGroupType>operator_doubleArrow(
+          ((FeatureGroupType) _get_3), _function_3);
       }
     };
     ObjectExtensions.<AadlPackage>operator_doubleArrow(pack1, _function);
