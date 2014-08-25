@@ -62,6 +62,7 @@ import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
@@ -595,6 +596,22 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
+  }
+  
+  public IScope scope_Feature_refined(final Classifier context, final EReference reference) {
+    IScope _elvis = null;
+    Classifier _extended = context.getExtended();
+    EList<Feature> _allFeatures = null;
+    if (_extended!=null) {
+      _allFeatures=_extended.getAllFeatures();
+    }
+    IScope _scopeFor = Scopes.scopeFor(_allFeatures);
+    if (_scopeFor != null) {
+      _elvis = _scopeFor;
+    } else {
+      _elvis = IScope.NULLSCOPE;
+    }
+    return _elvis;
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {

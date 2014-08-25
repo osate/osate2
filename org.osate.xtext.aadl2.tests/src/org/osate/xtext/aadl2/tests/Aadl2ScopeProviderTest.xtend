@@ -49,13 +49,16 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.AbstractType
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentPrototypeBinding
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupPrototypeBinding
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.SubprogramType
 import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 
 import static extension org.junit.Assert.assertEquals
@@ -264,7 +267,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_Prototype_refined and scope_Subcomponent_refined
+	//Tests scope_Prototype_refined, scope_Subcomponent_refined, and scope_Feature_refined
 	@Test
 	def void testRefinedElements() {
 		('''
@@ -273,21 +276,63 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			  abstract a1
 			  prototypes
 			    proto1: abstract;
+			  features
+			    dport1: in data port;
+			    edport1: in event data port;
+			    eport1: in event port;
+			    fg1: feature group;
+			    suba1: provides subprogram access;
+			    subga1: provides subprogram group access;
+			    ba1: provides bus access;
+			    da1: provides data access;
+			    af1: feature;
 			  end a1;
 			  
 			  abstract a2 extends a1
 			  prototypes
 			    proto1: refined to abstract;
+			  features
+			    dport1: refined to in data port;
+			    edport1: refined to in event data port;
+			    eport1: refined to in event port;
+			    fg1: refined to feature group;
+			    suba1: refined to provides subprogram access;
+			    subga1: refined to provides subprogram group access;
+			    ba1: refined to provides bus access;
+			    da1: refined to provides data access;
+			    af1: refined to feature;
 			  end a2;
 			  
 			  feature group fgt1
 			  prototypes
 			    proto2: abstract;
+			  features
+			    dport2: in data port;
+			    edport2: in event data port;
+			    eport2: in event port;
+			    fg2: feature group;
+			    param1: in parameter;
+			    suba2: provides subprogram access;
+			    subga2: provides subprogram group access;
+			    ba2: provides bus access;
+			    da2: provides data access;
+			    af2: feature;
 			  end fgt1;
 			  
 			  feature group fgt2 extends fgt1
 			  prototypes
 			    proto2: refined to abstract;
+			  features
+			    dport2: refined to in data port;
+			    edport2: refined to in event data port;
+			    eport2: refined to in event port;
+			    fg2: refined to feature group;
+			    param1: refined to in parameter;
+			    suba2: refined to provides subprogram access;
+			    subga2: refined to provides subprogram group access;
+			    ba2: refined to provides bus access;
+			    da2: refined to provides data access;
+			    af2: refined to feature;
 			  end fgt2;
 			  
 			  abstract implementation a1.i1
@@ -300,6 +345,30 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			    asub1: refined to abstract;
 			    asub2: abstract;
 			  end a1.i2;
+			  
+			  subprogram sub1
+			  features
+			    edport3: in event data port;
+			    eport3: in event port;
+			    fg3: feature group;
+			    param2: in parameter;
+			    suba3: requires subprogram access;
+			    subga3: requires subprogram group access;
+			    da3: requires data access;
+			    af3: feature;
+			  end sub1;
+			  
+			  subprogram sub2 extends sub1
+			  features
+			    edport3: refined to in event data port;
+			    eport3: refined to in event port;
+			    fg3: refined to feature group;
+			    param2: refined to in parameter;
+			    suba3: refined to requires subprogram access;
+			    subga3: refined to requires subprogram group access;
+			    da3: refined to requires data access;
+			    af3: refined to feature;
+			  end sub2;
 			end pack;
 		'''.parse as AadlPackage) => [
 			"pack".assertEquals(name)
@@ -311,12 +380,58 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
 				]
 			]
-			publicSection.ownedClassifiers.get(1) => [
+			publicSection.ownedClassifiers.get(1) as AbstractType => [
 				"a2".assertEquals(name)
 				ownedPrototypes.head => [
 					"proto1".assertEquals(name)
 					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto1")
+				]
+				val refinedFeatureScopeForA2 = "fg1, af1, ba1, da1, suba1, dport1, eport1, edport1, subga1"
+				ownedDataPorts.head => [
+					"dport1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedEventDataPorts.head => [
+					"edport1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedEventPorts.head => [
+					"eport1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedFeatureGroups.head => [
+					"fg1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedSubprogramAccesses.head => [
+					"suba1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedSubprogramGroupAccesses.head => [
+					"subga1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedBusAccesses.head => [
+					"ba1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedDataAccesses.head => [
+					"da1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedAbstractFeatures.head => [
+					"af1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
 				]
 			]
 			publicSection.ownedClassifiers.get(2) => [
@@ -327,12 +442,63 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
 				]
 			]
-			publicSection.ownedClassifiers.get(3) => [
+			publicSection.ownedClassifiers.get(3) as FeatureGroupType => [
 				"fgt2".assertEquals(name)
 				ownedPrototypes.head => [
 					"proto2".assertEquals(name)
 					//Tests scope_Prototype_refined
 					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto2")
+				]
+				val refinedFeatureScopeForFgt2 = "ba2, da2, dport2, edport2, eport2, fg2, param1, suba2, subga2, af2"
+				ownedDataPorts.head => [
+					"dport2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedEventDataPorts.head => [
+					"edport2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedEventPorts.head => [
+					"eport2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedFeatureGroups.head => [
+					"fg2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedParameters.head => [
+					"param1".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedSubprogramAccesses.head => [
+					"suba2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedSubprogramGroupAccesses.head => [
+					"subga2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedBusAccesses.head => [
+					"ba2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedDataAccesses.head => [
+					"da2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
+				]
+				ownedAbstractFeatures.head => [
+					"af2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForFgt2)
 				]
 			]
 			publicSection.ownedClassifiers.get(5) as ComponentImplementation => [
@@ -341,6 +507,50 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					"asub1".assertEquals(name)
 					//Tests scope_Subcomponent_refined
 					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, "asub1")
+				]
+			]
+			publicSection.ownedClassifiers.get(7) as SubprogramType => [
+				"sub2".assertEquals(name)
+				val refinedFeatureScopeForSub2 = "fg3, af3, edport3, eport3, param2, da3, suba3, subga3"
+				ownedEventDataPorts.head => [
+					"edport3".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
+				]
+				ownedEventPorts.head => [
+					"eport3".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
+				]
+				ownedFeatureGroups.head => [
+					"fg3".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
+				]
+				ownedParameters.head => [
+					"param2".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
+				]
+				ownedSubprogramAccesses.head => [
+					"suba3".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
+				]
+				ownedSubprogramGroupAccesses.head => [
+					"subga3".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
+				]
+				ownedDataAccesses.head => [
+					"da3".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
+				]
+				ownedAbstractFeatures.head => [
+					"af3".assertEquals(name)
+					//Tests scope_Feature_refined
+					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForSub2)
 				]
 			]
 		]
@@ -1309,6 +1519,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					"af".assertEquals(name)
 					arrayDimensions.head.size => [
 						"ps::def".assertEquals((sizeProperty as NamedElement).qualifiedName())
+						//Tests the reference ArraySize_SizeProperty
 						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, '''
 							Access_Right, Access_Time, Allowed_Message_Size, Assign_Time, Base_Address, Device_Register_Address, Read_Time, Code_Size, 
 							Data_Size, Heap_Size, Stack_Size, Byte_Count, Memory_Size, Word_Size, Word_Space, Write_Time, Fan_Out_Policy, Connection_Pattern, 
