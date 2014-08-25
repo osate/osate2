@@ -157,7 +157,6 @@ public class FlowLatencyLogicConnection {
 	public static LatencyContributor mapConnectionInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		LatencyContributor latencyContributor;
-		LatencyContributor subContributor;
 		ConnectionInstance connectionInstance;
 		ComponentInstance componentInstanceSource;
 		ComponentInstance componentInstanceDestination;
@@ -190,6 +189,7 @@ public class FlowLatencyLogicConnection {
 		 */
 		if (boundBus != null && relatedConnectionData != null) {
 //			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
+			LatencyContributor subContributor;
 			maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
 			minBusLatency = GetProperties.getMinimumLatencyinMilliSec(boundBus);
 			subContributor = new LatencyContributorComponent(boundBus);
@@ -247,7 +247,7 @@ public class FlowLatencyLogicConnection {
 				protocolLatencyMinimum = GetProperties.getMinimumLatencyinMilliSec(cc);
 				protocolLatencyMaximum = GetProperties.getMaximumLatencyinMilliSec(cc);
 
-				subContributor = new LatencyContributorComponent(cc);
+				LatencyContributor subContributor = new LatencyContributorComponent(cc);
 				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
 				subContributor.setMaximum(protocolLatencyMaximum);
@@ -274,7 +274,7 @@ public class FlowLatencyLogicConnection {
 				 */
 				partitionLatency = FlowLatencyUtil.getPartitionSenderLatencyWithSchedule(partitionSource);
 				if (partitionLatency > 0) {
-					subContributor = new LatencyContributorComponent(partitionSource);
+					LatencyContributor subContributor = new LatencyContributorComponent(partitionSource);
 					subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					subContributor.setMaximum(partitionLatency);
@@ -289,7 +289,7 @@ public class FlowLatencyLogicConnection {
 					partitionLatency = GetProperties.getARINC653ModuleMajorFrame(FlowLatencyUtil
 							.getProcessorForProcessOrThread(componentInstanceSource, ComponentCategory.PROCESSOR));
 					if (partitionLatency > 0) {
-						subContributor = new LatencyContributorComponent(partitionSource);
+						LatencyContributor subContributor = new LatencyContributorComponent(partitionSource);
 						subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 						subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 						subContributor.setMaximum(partitionLatency);
@@ -313,7 +313,7 @@ public class FlowLatencyLogicConnection {
 				 */
 				partitionLatency = FlowLatencyUtil.getPartitionReceiverLatencyWithSchedule(partitionDestination);
 				if (partitionLatency > 0) {
-					subContributor = new LatencyContributorComponent(partitionDestination);
+					LatencyContributor subContributor = new LatencyContributorComponent(partitionDestination);
 					subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					subContributor.setMaximum(partitionLatency);
@@ -327,7 +327,7 @@ public class FlowLatencyLogicConnection {
 					partitionLatency = GetProperties.getARINC653ModuleMajorFrame(FlowLatencyUtil
 							.getProcessorForProcessOrThread(componentInstanceSource, ComponentCategory.PROCESSOR));
 					if (partitionLatency > 0) {
-						subContributor = new LatencyContributorComponent(partitionDestination);
+						LatencyContributor subContributor = new LatencyContributorComponent(partitionDestination);
 						subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 						subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 						subContributor.setMaximum(partitionLatency);
