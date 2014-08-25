@@ -255,9 +255,9 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createCompletionRelativeTimeoutAdapter();
       }
       @Override
-      public Adapter caseComponentElementPropertyReference(ComponentElementPropertyReference object)
+      public Adapter caseClassifierFeaturePropertyReference(ClassifierFeaturePropertyReference object)
       {
-        return createComponentElementPropertyReferenceAdapter();
+        return createClassifierFeaturePropertyReferenceAdapter();
       }
       @Override
       public Adapter caseCondStatement(CondStatement object)
@@ -1192,6 +1192,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCompletionRelativeTimeoutAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference <em>Classifier Feature Property Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ClassifierFeaturePropertyReference
+   * @generated
+   */
+  public Adapter createClassifierFeaturePropertyReferenceAdapter()
   {
     return null;
   }
@@ -2362,21 +2377,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPropertySetPropertyReferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ComponentElementPropertyReference <em>Component Element Property Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.ComponentElementPropertyReference
-   * @generated
-   */
-  public Adapter createComponentElementPropertyReferenceAdapter()
   {
     return null;
   }

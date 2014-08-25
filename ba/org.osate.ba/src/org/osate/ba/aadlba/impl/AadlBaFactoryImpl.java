@@ -102,7 +102,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER: return (EObject)createCalledSubprogramHolder();
       case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE: return (EObject)createClassifierPropertyReference();
       case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT: return (EObject)createCompletionRelativeTimeout();
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE: return (EObject)createComponentElementPropertyReference();
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE: return (EObject)createClassifierFeaturePropertyReference();
       case AadlBaPackage.DATA_ACCESS_HOLDER: return (EObject)createDataAccessHolder();
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER: return (EObject)createDataAccessPrototypeHolder();
       case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
@@ -464,6 +464,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     CompletionRelativeTimeoutImpl completionRelativeTimeout = new CompletionRelativeTimeoutImpl();
     return completionRelativeTimeout;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeaturePropertyReference createClassifierFeaturePropertyReference()
+  {
+    ClassifierFeaturePropertyReferenceImpl classifierFeaturePropertyReference = new ClassifierFeaturePropertyReferenceImpl();
+    return classifierFeaturePropertyReference;
   }
 
   /**
@@ -1058,17 +1069,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     PropertySetPropertyReferenceImpl propertySetPropertyReference = new PropertySetPropertyReferenceImpl();
     return propertySetPropertyReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentElementPropertyReference createComponentElementPropertyReference()
-  {
-    ComponentElementPropertyReferenceImpl componentElementPropertyReference = new ComponentElementPropertyReferenceImpl();
-    return componentElementPropertyReference;
   }
 
   /**

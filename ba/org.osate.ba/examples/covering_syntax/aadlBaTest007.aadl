@@ -211,10 +211,10 @@ transitions
  
    -- Property Set
    
-     -- from a predeclared property set.
+     -- property constant.
      
-    a -[]-> a {int := Max_Queue_Size} ;  
-    a -[]-> a {int := Criticality} ; 
+    a -[]-> a {int := #AadlBaTestPropertySet::aConstant} ;
+    a -[]-> a {int := #Max_Queue_Size} ;  
       
      -- with default value defined.
    

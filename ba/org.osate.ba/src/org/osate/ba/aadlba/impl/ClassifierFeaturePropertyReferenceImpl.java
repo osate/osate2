@@ -29,22 +29,22 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.ClassifierFeatureHolder;
-import org.osate.ba.aadlba.ComponentElementPropertyReference;
+import org.osate.ba.aadlba.ClassifierFeaturePropertyReference;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Component Element Property Reference</b></em>'.
+ * An implementation of the model object '<em><b>Classifier Feature Property Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.ComponentElementPropertyReferenceImpl#getComponent <em>Component</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl#getComponent <em>Component</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl implements ComponentElementPropertyReference
+public class ClassifierFeaturePropertyReferenceImpl extends PropertyReferenceImpl implements ClassifierFeaturePropertyReference
 {
   /**
    * The cached value of the '{@link #getComponent() <em>Component</em>}' containment reference.
@@ -61,7 +61,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ComponentElementPropertyReferenceImpl()
+  protected ClassifierFeaturePropertyReferenceImpl()
   {
     super();
   }
@@ -74,7 +74,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.COMPONENT_ELEMENT_PROPERTY_REFERENCE;
+    return AadlBaPackage.Literals.CLASSIFIER_FEATURE_PROPERTY_REFERENCE;
   }
 
   /**
@@ -98,7 +98,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
     component = newComponent;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT, oldComponent, newComponent);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT, oldComponent, newComponent);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -115,14 +115,14 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
     {
       NotificationChain msgs = null;
       if (component != null)
-        msgs = ((InternalEObject)component).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT, null, msgs);
+        msgs = ((InternalEObject)component).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT, null, msgs);
       if (newComponent != null)
-        msgs = ((InternalEObject)newComponent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT, null, msgs);
+        msgs = ((InternalEObject)newComponent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT, null, msgs);
       msgs = basicSetComponent(newComponent, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT, newComponent, newComponent));
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT, newComponent, newComponent));
   }
 
   /**
@@ -135,7 +135,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
   {
     switch (featureID)
     {
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT:
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT:
         return basicSetComponent(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -151,7 +151,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
   {
     switch (featureID)
     {
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT:
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT:
         return getComponent();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -167,7 +167,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
   {
     switch (featureID)
     {
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT:
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT:
         setComponent((ClassifierFeatureHolder)newValue);
         return;
     }
@@ -184,7 +184,7 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
   {
     switch (featureID)
     {
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT:
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT:
         setComponent((ClassifierFeatureHolder)null);
         return;
     }
@@ -201,10 +201,10 @@ public class ComponentElementPropertyReferenceImpl extends PropertyReferenceImpl
   {
     switch (featureID)
     {
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT:
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT:
         return component != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //ComponentElementPropertyReferenceImpl
+} //ClassifierFeaturePropertyReferenceImpl

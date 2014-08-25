@@ -29,7 +29,6 @@ import org.osate.aadl2.RangeValue ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.BehaviorPropertyConstant ;
-import org.osate.ba.aadlba.BehaviorPropertyValue ;
 import org.osate.ba.aadlba.BinaryAddingOperator ;
 import org.osate.ba.aadlba.BinaryNumericOperator ;
 import org.osate.ba.aadlba.DataRepresentation ;
@@ -309,6 +308,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                            reportError = true ;
                         }
                      }
+                     /* DEBUG
                      else if(val instanceof BehaviorPropertyValue)
                      // PropertyValue case : its value can only be evaluated at
                      // runtime so raises a warning.
@@ -316,6 +316,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                         _errManager.warning(e, "Exponent must be of type " +
                               "natural") ;
                      }
+                     */
                   }
                }
             }

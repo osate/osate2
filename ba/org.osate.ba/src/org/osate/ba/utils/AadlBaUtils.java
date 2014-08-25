@@ -178,12 +178,13 @@ public class AadlBaUtils {
    * BehaviorPropertyValue object
    * @exception UnsupportedOperationException for the unsupported types
    */
+  /* DEBUG
   public static DataRepresentation getDataRepresentation(
                                                        BehaviorPropertyValue pv)
   {
     return getDataRepresentation(pv.getProperty().getPropertyType()) ;
   }
-
+  */
   /**
    * Returns the data representation associated to the given ValueConstant
    * object <BR><BR>
@@ -201,10 +202,12 @@ public class AadlBaUtils {
     {
       return getDataRepresentation((BehaviorPropertyConstant) v)  ;
     }
+    /* DEBUG
     else if (v instanceof BehaviorPropertyValue) 
     {
       return getDataRepresentation((BehaviorPropertyValue) v)  ;
-    }   
+    }
+    */   
     else if(v instanceof BehaviorIntegerLiteral)
     {
       return DataRepresentation.INTEGER ;
@@ -744,11 +747,13 @@ public class AadlBaUtils {
       
       result = getClassifier(el, parentContainer) ;
     }
+    /* DEBUG
     else if (v instanceof BehaviorEnumerationLiteral)
     {
       BehaviorEnumerationLiteral bel = (BehaviorEnumerationLiteral) v ;
       result = bel.getComponent() ; 
     }
+    */
     else
     {
       result = null ;
@@ -869,13 +874,14 @@ public class AadlBaUtils {
     {
       result.klass = getDataClassifier(v, parentContainer) ;
     }
+    /* DEBUG
     else if (v instanceof BehaviorEnumerationLiteral) 
     {
       // ValueConstant doesn't have any Classifier, excepted the
       // behavior enumeration literal.
       result.klass = getDataClassifier(v, parentContainer) ;
     }
-
+    */
     return result ;
   }
 

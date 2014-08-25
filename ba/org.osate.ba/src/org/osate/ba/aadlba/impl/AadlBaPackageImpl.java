@@ -63,10 +63,10 @@ import org.osate.ba.aadlba.BinaryAddingOperator;
 import org.osate.ba.aadlba.BinaryNumericOperator;
 import org.osate.ba.aadlba.CalledSubprogramHolder;
 import org.osate.ba.aadlba.ClassifierFeatureHolder;
+import org.osate.ba.aadlba.ClassifierFeaturePropertyReference;
 import org.osate.ba.aadlba.ClassifierPropertyReference;
 import org.osate.ba.aadlba.CommunicationAction;
 import org.osate.ba.aadlba.CompletionRelativeTimeout;
-import org.osate.ba.aadlba.ComponentElementPropertyReference;
 import org.osate.ba.aadlba.CondStatement;
 import org.osate.ba.aadlba.DataAccessHolder;
 import org.osate.ba.aadlba.DataAccessPrototypeHolder;
@@ -370,6 +370,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   private EClass completionRelativeTimeoutEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass classifierFeaturePropertyReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -916,13 +923,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   private EClass propertySetPropertyReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass componentElementPropertyReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1672,6 +1672,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EClass getCompletionRelativeTimeout()
   {
     return completionRelativeTimeoutEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getClassifierFeaturePropertyReference()
+  {
+    return classifierFeaturePropertyReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClassifierFeaturePropertyReference_Component()
+  {
+    return (EReference)classifierFeaturePropertyReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2989,26 +3009,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getComponentElementPropertyReference()
-  {
-    return componentElementPropertyReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComponentElementPropertyReference_Component()
-  {
-    return (EReference)componentElementPropertyReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getSubcomponentHolder()
   {
     return subcomponentHolderEClass;
@@ -3359,8 +3359,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     completionRelativeTimeoutEClass = createEClass(COMPLETION_RELATIVE_TIMEOUT);
 
-    componentElementPropertyReferenceEClass = createEClass(COMPONENT_ELEMENT_PROPERTY_REFERENCE);
-    createEReference(componentElementPropertyReferenceEClass, COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT);
+    classifierFeaturePropertyReferenceEClass = createEClass(CLASSIFIER_FEATURE_PROPERTY_REFERENCE);
+    createEReference(classifierFeaturePropertyReferenceEClass, CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT);
 
     condStatementEClass = createEClass(COND_STATEMENT);
     createEReference(condStatementEClass, COND_STATEMENT__BEHAVIOR_ACTIONS);
@@ -3683,7 +3683,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     communicationActionEClass.getESuperTypes().add(this.getBasicAction());
     completionRelativeTimeoutEClass.getESuperTypes().add(this.getBehaviorTime());
     completionRelativeTimeoutEClass.getESuperTypes().add(this.getDispatchRelativeTimeout());
-    componentElementPropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
+    classifierFeaturePropertyReferenceEClass.getESuperTypes().add(this.getPropertyReference());
     condStatementEClass.getESuperTypes().add(this.getBehaviorAction());
     dataAccessHolderEClass.getESuperTypes().add(this.getDataHolder());
     dataAccessHolderEClass.getESuperTypes().add(this.getTarget());
@@ -3931,8 +3931,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     initEClass(completionRelativeTimeoutEClass, CompletionRelativeTimeout.class, "CompletionRelativeTimeout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(componentElementPropertyReferenceEClass, ComponentElementPropertyReference.class, "ComponentElementPropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getComponentElementPropertyReference_Component(), this.getClassifierFeatureHolder(), null, "component", null, 1, 1, ComponentElementPropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(classifierFeaturePropertyReferenceEClass, ClassifierFeaturePropertyReference.class, "ClassifierFeaturePropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getClassifierFeaturePropertyReference_Component(), this.getClassifierFeatureHolder(), null, "component", null, 1, 1, ClassifierFeaturePropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(condStatementEClass, CondStatement.class, "CondStatement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCondStatement_BehaviorActions(), this.getBehaviorActions(), null, "behaviorActions", null, 1, 1, CondStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

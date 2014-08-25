@@ -68,7 +68,6 @@ public class AadlBaResolver implements AnnexResolver
         // failed. 
         if (result)
         {
-           /*
            typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
                                                    errManager) ;
            AadlBaHyperlink hyperlinker ;
@@ -90,7 +89,8 @@ public class AadlBaResolver implements AnnexResolver
            {
              
              semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
-             result = semanticAnalysis.process(ba) ;
+//             DEBUG
+//             result = semanticAnalysis.process(ba) ;
            }  
            
            DeclarativeUtils.reinstanciateBehaviorTransition(ba, hyperlinker) ;
@@ -105,15 +105,12 @@ public class AadlBaResolver implements AnnexResolver
                  trans.getSourceState()) ;
            }
            
-           
            // XXX DEBUG
 //           AadlBaUnparser unparser = new AadlBaUnparser() ;
 //           System.out.println(unparser.process(ba));
            
            // DEBUG
 //           System.out.println("### nb errors : " + errManager.getNumErrors()) ;
- * 
- */
         }
      }
    }

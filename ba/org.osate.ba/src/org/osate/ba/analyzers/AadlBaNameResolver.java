@@ -1534,7 +1534,7 @@ public class AadlBaNameResolver
          // Unqualified classifier reference cannot have more then two identifiers
          // so the Reference object is true classifier feature.
          System.out.println("$$$ component") ;
-         return componentPropertyReferenceResolver(ref) ;
+         return classifierFeaturePropertyReferenceResolver(ref) ;
        }
        else
        {
@@ -1577,7 +1577,7 @@ public class AadlBaNameResolver
            // Second try as a classifier feature.
            case 1: { 
                      System.out.println("%%% finnaly try component") ;
-                     if(componentPropertyReferenceResolver(ref))
+                     if(classifierFeaturePropertyReferenceResolver(ref))
                      {
                        ref.setQualifiedName(null);
                        return true ;
@@ -1596,7 +1596,7 @@ public class AadlBaNameResolver
      }
    }
    
-  private boolean componentPropertyReferenceResolver(
+  private boolean classifierFeaturePropertyReferenceResolver(
                                                DeclarativePropertyReference ref)
   {
     Reference component = ref.getReference() ;

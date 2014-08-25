@@ -238,6 +238,7 @@ public class AadlBaTypeChecker
     {
       size.setSize(((BehaviorIntegerLiteral)ivc).getValue()) ;
     }
+    /* DEBUG
     else if(ivc instanceof BehaviorProperty)
     {
       PropertyExpression pe = null ;
@@ -267,6 +268,7 @@ public class AadlBaTypeChecker
           throw new UnsupportedOperationException(errorMsg) ;
       }
     }
+    */
     else
     {
       String errorMsg = "integerValueConstantToArrayDimension : " +
@@ -1561,61 +1563,6 @@ public class AadlBaTypeChecker
     _errManager.error(de._element, msg.toString()) ;
   }
 
- private ValueConstant behaviorPropertyResolver(QualifiedNamedElement qne)
- {
-   // Resolves semantic ambiguity between behavior propertyset constant and 
-   // behavior propertyset value.
-   
-   ValueConstant result = null ;
-   
-   // Namespace doesn't need to be checked as namespace has no type.
-   Enum<?> e = typeCheck(qne, qne.getBaName().getId(),TypeCheckRule.PROPERTY,
-                         true);
-   
-   if (e != null)
-   {
-     // BehaviorPropertyValue case.
-     if (e == FeatureType.PROPERTY_VALUE)
-     {
-       // Builds a PropertyValue object and returns it.
-       BehaviorPropertyValue pv = _fact.createBehaviorPropertyValue();
-       
-       pv.setProperty((Property) qne.getOsateRef()) ;
-       
-       if(qne.getBaNamespace() != null)
-       {
-         pv.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
-       }
-       
-       pv.setLocationReference(qne.getLocationReference());
-       
-       result = pv ;
-     }
-     else // // BehaviorPropertyConstant case. 
-     {
-       // Builds a PropertyValue object and returns it.
-       BehaviorPropertyConstant pc = _fact.createBehaviorPropertyConstant();
-       
-       pc.setProperty((PropertyConstant) qne.getOsateRef()) ;
-       
-       if(qne.getBaNamespace() != null)
-       {
-         pc.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
-       }
-             
-       pc.setLocationReference(qne.getLocationReference());
-       
-       result = pc ;
-     }
-   }
-   else // Checking has failed.
-   {
-     result = null ;
-   }
-   
-   return result ;
- }
-  
  // This method checks the given object and returns a value constant
  // resolved from semantic ambiguities and its data representation. On error,
  // reports error and returns null.
@@ -1624,13 +1571,9 @@ public class AadlBaTypeChecker
    ValueAndTypeHolder result = null ;
    ValueConstant tmpResult = null ;
    
-   if(v instanceof Enumeration)
+   if(v instanceof DeclarativePropertyReference)
    {
-     tmpResult = behaviorEnumLiteralResolver((Enumeration)v) ;
-   }
-   else if(v instanceof QualifiedNamedElement)
-   {
-     tmpResult = behaviorPropertyResolver((QualifiedNamedElement) v) ;
+     tmpResult = propertyReferenceResolver((DeclarativePropertyReference) v) ;
    }
    else // Literal cases. Nothing to do.
    {
@@ -1645,20 +1588,75 @@ public class AadlBaTypeChecker
    return result ;
  }
   
-  private ValueConstant behaviorEnumLiteralResolver(Enumeration enu)
+  private ValueConstant propertyReferenceResolver(DeclarativePropertyReference
+                                                  ref)
   {
-    // Checking has already been made in AadlBaNameResolver.
-    // So just set an BehaviorEnumLiteral instance.
+    ValueConstant result = null ;
     
-    BehaviorEnumerationLiteral result = _fact.createBehaviorEnumerationLiteral();
-    result.setLocationReference(enu.getLocationReference()) ;
-    
-    result.setComponent((ComponentClassifier) enu.getBaName().getOsateRef()) ;
-    result.setEnumLiteral((StringLiteral) enu.getLiteral().getOsateRef()) ;
+    if(ref.isPropertySet())
+    {
+      DeclarativePropertyName firstName = ref.getPropertyNames().get(0) ;
+      
+      // Property constant from a property set.
+      if(firstName.getOsateRef() instanceof PropertyConstant)
+      {
+        BehaviorPropertyConstant tmp = _fact.createBehaviorPropertyConstant() ;
+        tmp.setProperty((PropertyConstant) firstName.getOsateRef());
+        if(ref.getQualifiedName() != null)
+        {
+          tmp.setPropertySet((PropertySet) ref.getQualifiedName().
+                                                                 getOsateRef());
+        }
+        result = tmp ;
+      }
+      else // Property value case.
+      {
+        PropertySetPropertyReference tmp = _fact.
+                                          createPropertySetPropertyReference() ;
+        propertyNameResolver(ref.getPropertyNames(), tmp.getProperties()) ;
         
+        if(ref.getQualifiedName() != null)
+        {
+          tmp.setPropertySet((PropertySet) ref.getQualifiedName().
+                                                                 getOsateRef());
+        }
+        result = tmp ;
+      }
+    }
+    else if(ref.getQualifiedName() != null) // (qualified) classifier case. 
+    {
+      ClassifierPropertyReference tmp = _fact.createClassifierPropertyReference();
+      tmp.setClassifier((Classifier) ref.getQualifiedName().getOsateRef());
+      propertyNameResolver(ref.getPropertyNames(), tmp.getProperties()) ;
+      result = tmp ;
+    }
+    else // Classifier feature case.
+    {
+      ClassifierFeaturePropertyReference tmp = _fact.
+                                    createClassifierFeaturePropertyReference() ;
+      
+      classifierFeatureResolver(tmp, ref.getReference()) ;
+      propertyNameResolver(ref.getPropertyNames(), tmp.getProperties()) ;
+      result = tmp ;
+    }
+    
+    result.setLocationReference(ref.getLocationReference());
     return result ;
   }
 
+  private void propertyNameResolver(EList<DeclarativePropertyName> declaratievNames,
+                                    EList<PropertyNameHolder> properties)
+  {
+    //TODO
+  }
+
+  private void classifierFeatureResolver(ClassifierFeaturePropertyReference result,
+                                         Reference ref)
+  {
+    List<ElementHolder> holders = refResolver(ref, null, TypeCheckRule.NOTHING,
+                                                         TypeCheckRule.ALL) ;
+    result.setComponent((ClassifierFeatureHolder) holders.get(0));
+  }
 
   private boolean behaviorActionBlockCheck(BehaviorActionBlock bab)
   {
@@ -3153,7 +3151,25 @@ public class AadlBaTypeChecker
   // Based on a design pattern command.
   private enum TypeCheckRule implements Enumerator
   {
-
+    ALL ("any type", new Enum[] {})
+    {
+      @Override
+      public Enum<?> testTypeCheckRule(Enum<?> other)
+      {
+        return other ;
+      }
+    },
+    
+    NOTHING ("no type", new Enum[] {})
+    {
+      @Override
+      public Enum<?> test(DeclarativeBehaviorElement dbe,
+                          ComponentClassifier baParentContainer)
+      {
+        return null ;  
+      }
+    },
+    
     IN_EVENT_PORT("in event port", new Enum[]
           {FeatureType.IN_EVENT_PORT,
            FeatureType.IN_OUT_EVENT_PORT}),
@@ -3411,8 +3427,6 @@ public class AadlBaTypeChecker
     {
       Enum<?> testedEnum = AadlBaTypeChecker.getType(dbe) ;
 
-
-
       // Resolves feature prototype binding in order to compare the rule
       // to the resolved feature prototype.
       if(testedEnum.equals(FeatureType.FEATURE_PROTOTYPE_BINDING))
@@ -3460,7 +3474,7 @@ public class AadlBaTypeChecker
         {
           if (e.equals(other))
           {
-            return e ;
+            return other ;
           }
           else
           {

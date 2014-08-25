@@ -175,7 +175,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" abstract="true"
       interface="true" eSuperTypes="#//BasicAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeout" eSuperTypes="#//BehaviorTime #//DispatchRelativeTimeout"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentElementPropertyReference" eSuperTypes="#//PropertyReference">
+  <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeaturePropertyReference"
+      eSuperTypes="#//PropertyReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
         eType="#//ClassifierFeatureHolder" containment="true"/>
   </eClassifiers>

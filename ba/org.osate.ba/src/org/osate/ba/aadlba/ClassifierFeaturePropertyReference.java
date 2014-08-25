@@ -22,21 +22,21 @@ package org.osate.ba.aadlba;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Component Element Property Reference</b></em>'.
+ * A representation of the model object '<em><b>Classifier Feature Property Reference</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.ComponentElementPropertyReference#getComponent <em>Component</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference#getComponent <em>Component</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getComponentElementPropertyReference()
+ * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierFeaturePropertyReference()
  * @model
  * @generated
  */
-public interface ComponentElementPropertyReference extends PropertyReference
+public interface ClassifierFeaturePropertyReference extends PropertyReference
 {
   /**
    * Returns the value of the '<em><b>Component</b></em>' containment reference.
@@ -48,14 +48,14 @@ public interface ComponentElementPropertyReference extends PropertyReference
    * <!-- end-user-doc -->
    * @return the value of the '<em>Component</em>' containment reference.
    * @see #setComponent(ClassifierFeatureHolder)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getComponentElementPropertyReference_Component()
+   * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierFeaturePropertyReference_Component()
    * @model containment="true" required="true"
    * @generated
    */
   ClassifierFeatureHolder getComponent();
 
   /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.ComponentElementPropertyReference#getComponent <em>Component</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference#getComponent <em>Component</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Component</em>' containment reference.
@@ -64,4 +64,4 @@ public interface ComponentElementPropertyReference extends PropertyReference
    */
   void setComponent(ClassifierFeatureHolder value);
 
-} // ComponentElementPropertyReference
+} // ClassifierFeaturePropertyReference

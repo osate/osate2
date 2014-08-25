@@ -2727,16 +2727,6 @@ public interface AadlBaPackage extends EPackage
   int PROPERTY_SET_PROPERTY_REFERENCE = 91;
 
   /**
-   * The meta object id for the '{@link org.osate.ba.aadlba.impl.ComponentElementPropertyReferenceImpl <em>Component Element Property Reference</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.ba.aadlba.impl.ComponentElementPropertyReferenceImpl
-   * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getComponentElementPropertyReference()
-   * @generated
-   */
-  int COMPONENT_ELEMENT_PROPERTY_REFERENCE = 30;
-
-  /**
    * The meta object id for the '{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl <em>Subcomponent Holder</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2894,13 +2884,23 @@ public interface AadlBaPackage extends EPackage
   int COMPLETION_RELATIVE_TIMEOUT_FEATURE_COUNT = BEHAVIOR_TIME_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl <em>Classifier Feature Property Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl
+   * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getClassifierFeaturePropertyReference()
+   * @generated
+   */
+  int CLASSIFIER_FEATURE_PROPERTY_REFERENCE = 30;
+
+  /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMPONENT_ELEMENT_PROPERTY_REFERENCE__OWNED_ELEMENT = PROPERTY_REFERENCE__OWNED_ELEMENT;
+  int CLASSIFIER_FEATURE_PROPERTY_REFERENCE__OWNED_ELEMENT = PROPERTY_REFERENCE__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2909,7 +2909,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_ELEMENT_PROPERTY_REFERENCE__OWNED_COMMENT = PROPERTY_REFERENCE__OWNED_COMMENT;
+  int CLASSIFIER_FEATURE_PROPERTY_REFERENCE__OWNED_COMMENT = PROPERTY_REFERENCE__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -2918,7 +2918,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_ELEMENT_PROPERTY_REFERENCE__PROPERTIES = PROPERTY_REFERENCE__PROPERTIES;
+  int CLASSIFIER_FEATURE_PROPERTY_REFERENCE__PROPERTIES = PROPERTY_REFERENCE__PROPERTIES;
 
   /**
    * The feature id for the '<em><b>Component</b></em>' containment reference.
@@ -2927,16 +2927,16 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT = PROPERTY_REFERENCE_FEATURE_COUNT + 0;
+  int CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT = PROPERTY_REFERENCE_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Component Element Property Reference</em>' class.
+   * The number of structural features of the '<em>Classifier Feature Property Reference</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMPONENT_ELEMENT_PROPERTY_REFERENCE_FEATURE_COUNT = PROPERTY_REFERENCE_FEATURE_COUNT + 1;
+  int CLASSIFIER_FEATURE_PROPERTY_REFERENCE_FEATURE_COUNT = PROPERTY_REFERENCE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -7015,6 +7015,27 @@ public interface AadlBaPackage extends EPackage
   EClass getCompletionRelativeTimeout();
 
   /**
+   * Returns the meta object for class '{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference <em>Classifier Feature Property Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Classifier Feature Property Reference</em>'.
+   * @see org.osate.ba.aadlba.ClassifierFeaturePropertyReference
+   * @generated
+   */
+  EClass getClassifierFeaturePropertyReference();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference#getComponent <em>Component</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Component</em>'.
+   * @see org.osate.ba.aadlba.ClassifierFeaturePropertyReference#getComponent()
+   * @see #getClassifierFeaturePropertyReference()
+   * @generated
+   */
+  EReference getClassifierFeaturePropertyReference_Component();
+
+  /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.CondStatement <em>Cond Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -8378,27 +8399,6 @@ public interface AadlBaPackage extends EPackage
   EReference getPropertySetPropertyReference_PropertySet();
 
   /**
-   * Returns the meta object for class '{@link org.osate.ba.aadlba.ComponentElementPropertyReference <em>Component Element Property Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Component Element Property Reference</em>'.
-   * @see org.osate.ba.aadlba.ComponentElementPropertyReference
-   * @generated
-   */
-  EClass getComponentElementPropertyReference();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.ComponentElementPropertyReference#getComponent <em>Component</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Component</em>'.
-   * @see org.osate.ba.aadlba.ComponentElementPropertyReference#getComponent()
-   * @see #getComponentElementPropertyReference()
-   * @generated
-   */
-  EReference getComponentElementPropertyReference_Component();
-
-  /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.SubcomponentHolder <em>Subcomponent Holder</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -9149,6 +9149,24 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EClass COMPLETION_RELATIVE_TIMEOUT = eINSTANCE.getCompletionRelativeTimeout();
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl <em>Classifier Feature Property Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl
+     * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getClassifierFeaturePropertyReference()
+     * @generated
+     */
+    EClass CLASSIFIER_FEATURE_PROPERTY_REFERENCE = eINSTANCE.getClassifierFeaturePropertyReference();
+
+    /**
+     * The meta object literal for the '<em><b>Component</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLASSIFIER_FEATURE_PROPERTY_REFERENCE__COMPONENT = eINSTANCE.getClassifierFeaturePropertyReference_Component();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.CondStatement <em>Cond Statement</em>}' class.
@@ -10353,24 +10371,6 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EReference PROPERTY_SET_PROPERTY_REFERENCE__PROPERTY_SET = eINSTANCE.getPropertySetPropertyReference_PropertySet();
-
-    /**
-     * The meta object literal for the '{@link org.osate.ba.aadlba.impl.ComponentElementPropertyReferenceImpl <em>Component Element Property Reference</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.ba.aadlba.impl.ComponentElementPropertyReferenceImpl
-     * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getComponentElementPropertyReference()
-     * @generated
-     */
-    EClass COMPONENT_ELEMENT_PROPERTY_REFERENCE = eINSTANCE.getComponentElementPropertyReference();
-
-    /**
-     * The meta object literal for the '<em><b>Component</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMPONENT_ELEMENT_PROPERTY_REFERENCE__COMPONENT = eINSTANCE.getComponentElementPropertyReference_Component();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl <em>Subcomponent Holder</em>}' class.

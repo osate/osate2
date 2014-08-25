@@ -479,17 +479,17 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AadlBaPackage.COMPONENT_ELEMENT_PROPERTY_REFERENCE:
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE:
       {
-        ComponentElementPropertyReference componentElementPropertyReference = (ComponentElementPropertyReference)theEObject;
-        T result = caseComponentElementPropertyReference(componentElementPropertyReference);
-        if (result == null) result = casePropertyReference(componentElementPropertyReference);
-        if (result == null) result = caseIntegerValueConstant(componentElementPropertyReference);
-        if (result == null) result = caseValueConstant(componentElementPropertyReference);
-        if (result == null) result = caseValue(componentElementPropertyReference);
-        if (result == null) result = caseIntegerValue(componentElementPropertyReference);
-        if (result == null) result = caseBehaviorElement(componentElementPropertyReference);
-        if (result == null) result = caseElement(componentElementPropertyReference);
+        ClassifierFeaturePropertyReference classifierFeaturePropertyReference = (ClassifierFeaturePropertyReference)theEObject;
+        T result = caseClassifierFeaturePropertyReference(classifierFeaturePropertyReference);
+        if (result == null) result = casePropertyReference(classifierFeaturePropertyReference);
+        if (result == null) result = caseIntegerValueConstant(classifierFeaturePropertyReference);
+        if (result == null) result = caseValueConstant(classifierFeaturePropertyReference);
+        if (result == null) result = caseValue(classifierFeaturePropertyReference);
+        if (result == null) result = caseIntegerValue(classifierFeaturePropertyReference);
+        if (result == null) result = caseBehaviorElement(classifierFeaturePropertyReference);
+        if (result == null) result = caseElement(classifierFeaturePropertyReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -2071,6 +2071,22 @@ public class AadlBaSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Classifier Feature Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Classifier Feature Property Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassifierFeaturePropertyReference(ClassifierFeaturePropertyReference object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Cond Statement</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -3314,22 +3330,6 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePropertySetPropertyReference(PropertySetPropertyReference object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Component Element Property Reference</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Component Element Property Reference</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseComponentElementPropertyReference(ComponentElementPropertyReference object)
   {
     return null;
   }

@@ -211,6 +211,15 @@ public interface AadlBaFactory extends EFactory
   CompletionRelativeTimeout createCompletionRelativeTimeout();
 
   /**
+   * Returns a new object of class '<em>Classifier Feature Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Classifier Feature Property Reference</em>'.
+   * @generated
+   */
+  ClassifierFeaturePropertyReference createClassifierFeaturePropertyReference();
+
+  /**
    * Returns a new object of class '<em>Data Access Holder</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -695,15 +704,6 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   PropertySetPropertyReference createPropertySetPropertyReference();
-
-  /**
-   * Returns a new object of class '<em>Component Element Property Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Component Element Property Reference</em>'.
-   * @generated
-   */
-  ComponentElementPropertyReference createComponentElementPropertyReference();
 
   /**
    * Returns a new object of class '<em>Subcomponent Holder</em>'.
