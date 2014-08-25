@@ -92,8 +92,6 @@
 	<extension point="org.eclipse.ui.startup">
       <startup class="org.osate.ge.ui.xtext.AgeXtextUtil$Initializer">
       </startup>
-      <startup class="org.osate.ge.ui.navigator.NavigatorInitializer">
-      </startup>
    </extension>
    
 	<extension point="org.eclipse.core.runtime.adapters">
