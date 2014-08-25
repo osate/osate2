@@ -20,6 +20,7 @@ public class LatencyReportEntry {
 
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
+	List<String> issues;
 
 	public LatencyReportEntry() {
 		this.contributors = new ArrayList<LatencyContributor>();
@@ -56,7 +57,29 @@ public class LatencyReportEntry {
 		return res;
 	}
 
+	private void reportError(String str) {
+		if (issues != null) {
+			issues.add(str);
+		}
+		CheckFlowLatency.getInstance().error(relatedEndToEndFlow, str);
+	}
+
+	private void reportInfo(String str) {
+		if (issues != null) {
+			issues.add(str);
+		}
+		CheckFlowLatency.getInstance().error(relatedEndToEndFlow, str);
+	}
+
+	private void reportWarning(String str) {
+		if (issues != null) {
+			issues.add(str);
+		}
+		CheckFlowLatency.getInstance().error(relatedEndToEndFlow, str);
+	}
+
 	public Section export() {
+
 		Section section;
 		Line line;
 		double minValue;
@@ -67,7 +90,6 @@ public class LatencyReportEntry {
 		double expectedMinLatency;
 		String sectionName;
 		String otherComment;
-		List<String> issues;
 
 		minValue = 0.0;
 		maxValue = 0.0;
@@ -129,60 +151,60 @@ public class LatencyReportEntry {
 		line.addContent(expectedMinLatency + "ms");
 		line.addContent("");
 
-		if (expectedMinLatency < minSpecifiedValue) {
-			otherComment = "minimum expected latency (" + expectedMinLatency
-					+ "ms) on the end to end flow does not match latency specification (" + minSpecifiedValue + "ms); ";
-			issues.add(otherComment);
-			CheckFlowLatency.getInstance().error(relatedEndToEndFlow, otherComment);
-		}
+		/*
+		 * In that case, the end to end flow has a minimum latency
+		 */
+		if (expectedMinLatency > 0) {
+			if (expectedMinLatency < minSpecifiedValue) {
+				reportError("minimum expected latency (" + expectedMinLatency
+						+ "ms) on the end to end flow does not match latency specification (" + minSpecifiedValue
+						+ "ms); ");
+				line.setSeverity(ReportSeverity.ERROR);
 
-		if (expectedMaxLatency < maxSpecifiedValue) {
-			otherComment = "maximum expected latency (" + expectedMaxLatency
-					+ "ms) on the end to end flow does not match latency specification (" + maxSpecifiedValue + "ms); ";
-			issues.add(otherComment);
-			CheckFlowLatency.getInstance().error(relatedEndToEndFlow, otherComment);
-		}
+			}
 
-		if (expectedMinLatency < minValue) {
-			otherComment = "minimum expected latency (" + expectedMinLatency
-					+ "ms) on the end to end flow does not match latency computation (" + minValue + "ms); ";
-			issues.add(otherComment);
-			CheckFlowLatency.getInstance().error(relatedEndToEndFlow, otherComment);
+			if (expectedMinLatency < minValue) {
+				reportError("minimum expected latency (" + expectedMinLatency
+						+ "ms) on the end to end flow does not match latency computation (" + minValue + "ms); ");
+				line.setSeverity(ReportSeverity.ERROR);
 
-		}
-
-		if (expectedMaxLatency < maxValue) {
-			otherComment = "maximum expected latency (" + expectedMaxLatency
-					+ "ms) on the end to end flow does not match latency computation (" + maxValue + "ms); ";
-			issues.add(otherComment);
-			CheckFlowLatency.getInstance().error(relatedEndToEndFlow, otherComment);
-
-		}
-
-		if ((expectedMinLatency > minValue) && (expectedMaxLatency > maxValue)) {
-			line.setSeverity(ReportSeverity.SUCCESS);
-		}
-
-		if ((minValue == 0) && (maxValue == 0) && (expectedMinLatency > minSpecifiedValue)
-				&& (expectedMaxLatency > maxSpecifiedValue)) {
-			line.setSeverity(ReportSeverity.SUCCESS);
-			CheckFlowLatency.getInstance().info(relatedEndToEndFlow, "End to end latency specification is validated");
-
-		}
-
-		if ((minValue == 0) && (maxValue == 0) && (expectedMinLatency < minSpecifiedValue)
-				&& (expectedMaxLatency < maxSpecifiedValue)) {
-			otherComment = " specified latency is not correct ; ";
-			CheckFlowLatency.getInstance().info(relatedEndToEndFlow,
-					"End to end latency specification is validated by computing latency on sub-components");
-			line.setSeverity(ReportSeverity.ERROR);
-		}
-
-		if ((minValue == 0) && (maxValue == 0)
-				&& ((expectedMinLatency < minSpecifiedValue) || (expectedMaxLatency < maxSpecifiedValue))) {
+			}
+		} else {
+			reportWarning("the minimal latency is not specified");
 			line.setSeverity(ReportSeverity.WARNING);
-			otherComment = " please check each boundary of the latency specification ; ";
+		}
 
+		/**
+		 * Here, the max latency value has been defined
+		 */
+		if (expectedMaxLatency > 0) {
+			if (expectedMaxLatency < maxSpecifiedValue) {
+				reportError("maximum expected latency (" + expectedMaxLatency
+						+ "ms) on the end to end flow does not match latency specification (" + maxSpecifiedValue
+						+ "ms); ");
+				line.setSeverity(ReportSeverity.ERROR);
+			}
+
+			if (expectedMaxLatency < maxValue) {
+				reportError("maximum expected latency (" + expectedMaxLatency
+						+ "ms) on the end to end flow does not match latency computation (" + maxValue + "ms); ");
+				line.setSeverity(ReportSeverity.ERROR);
+			}
+		} else {
+			reportWarning("the maximal latency is not specified");
+			line.setSeverity(ReportSeverity.WARNING);
+		}
+
+		/**
+		 * If the expected latency is defined and consistent with the max value, everything should be ok
+		 * It means that the number calculated from the component is correct and less important
+		 * with the latency specifications
+		 *
+		 */
+		if ((minValue > 0) && (maxValue > 0) && (expectedMaxLatency > 0) && (expectedMinLatency > 0)
+				&& (expectedMinLatency > minValue) && (expectedMaxLatency > maxValue)) {
+			line.setSeverity(ReportSeverity.SUCCESS);
+			reportInfo("the latency calculated from the components is correct with the expected latency specifications");
 		}
 
 		if ((expectedMinLatency < minValue) && (expectedMaxLatency < maxValue)) {
@@ -194,7 +216,7 @@ public class LatencyReportEntry {
 			for (int n = 0; n < issues.size(); n++) {
 				line = new Line();
 				if (n == 0) {
-					line.addContent("Issues");
+					line.addContent("Informations");
 				} else {
 					line.addContent("");
 				}
@@ -203,7 +225,7 @@ public class LatencyReportEntry {
 			}
 		} else {
 			line = new Line();
-			line.addContent("No issue found");
+			line.addContent("Nothing to report");
 			section.addLine(line);
 		}
 

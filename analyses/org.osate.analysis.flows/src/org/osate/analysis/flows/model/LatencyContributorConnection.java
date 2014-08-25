@@ -15,32 +15,25 @@ import org.osate.analysis.flows.FlowLatencyUtil;
  */
 public class LatencyContributorConnection extends LatencyContributor {
 
-	/**
-	 * The relatedElement represents the AADL element that
-	 * is related to this latency contributor. In that case,
-	 * this is a connection
-	 */
-	private ConnectionInstance relatedConnection;
-
 	public LatencyContributorConnection(ConnectionInstance ci) {
 		super();
-		this.relatedConnection = ci;
+		this.relatedElement = ci;
 	}
 
 	protected String getContributorName() {
-		return relatedConnection.getName();
+		return relatedElement.getName();
 	}
 
 	protected String getContributorType() {
-		if (FlowLatencyUtil.getConnectionType(this.relatedConnection) == ConnectionType.DELAYED) {
+		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.DELAYED) {
 			return "Delayed Connection";
 		}
 
-		if (FlowLatencyUtil.getConnectionType(this.relatedConnection) == ConnectionType.IMMEDIATE) {
+		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.IMMEDIATE) {
 			return "Immediate Connection";
 		}
 
-		if (FlowLatencyUtil.getConnectionType(this.relatedConnection) == ConnectionType.SAMPLED) {
+		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.SAMPLED) {
 			return "Sampled Connection";
 		}
 

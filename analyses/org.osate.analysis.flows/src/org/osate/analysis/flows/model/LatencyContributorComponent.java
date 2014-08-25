@@ -22,13 +22,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 public class LatencyContributorComponent extends LatencyContributor {
 
 	/**
-	 * The relatedElement represents the AADL element that
-	 * is related to this latency contributor. Mostly, it is
-	 * a component or a connection.
-	 */
-	private NamedElement relatedElement;
-
-	/**
 	 * The sub contributors are basically what are the other
 	 * elements that can incur a latency in addition to the
 	 * related element. A good example is a bus for a 
