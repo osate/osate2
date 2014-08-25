@@ -194,6 +194,15 @@
            </contentExtension>
         </includes>
      </viewerContentBinding>
+     <viewerContentBinding
+           viewerId="org.osate.ui.navigator.AadlNavigator">
+        <includes>
+           <contentExtension
+                 isRoot="false"
+                 pattern="org.osate.ge.*">
+           </contentExtension>
+        </includes>
+     </viewerContentBinding>
   </extension>
   
   <extension
