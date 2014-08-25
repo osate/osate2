@@ -47,16 +47,20 @@ import org.osate.aadl2.CalledSubprogram
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentImplementationReference
 import org.osate.aadl2.ComponentPrototypeActual
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupPrototypeActual
 import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.FeaturePrototype
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.PrivatePackageSection
 import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.SubcomponentType
 import org.osate.aadl2.SubprogramCall
 import org.osate.aadl2.SubprogramGroupAccess
 import org.osate.aadl2.SubprogramGroupSubcomponent
@@ -64,10 +68,6 @@ import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
-import org.osate.aadl2.ComponentImplementationReference
-import org.osate.aadl2.FeatureGroupPrototype
-import org.osate.aadl2.FeaturePrototype
-import org.osate.aadl2.SubcomponentType
 
 /**
  * This class contains custom scoping description.
@@ -347,6 +347,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	def private scope_Subcomponent_subcomponentType(Element context, EReference reference) {
 		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[reference.EReferenceType.isSuperTypeOf(eClass)].scopeFor(scope_Classifier(context, reference))
+	}
+	
+	//Reference is from DataPort, EventDataPort, EventPort, FeatureGroup, Parameter, SubprogramAccess, SubprogramGroupAccess, BusAccess, DataAccess, and AbstractFeature in Aadl2.xtext
+	def scope_Feature_refined(Classifier context, EReference reference) {
+		context.extended?.getAllFeatures().scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	// mode references
