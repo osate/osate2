@@ -7,6 +7,19 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.analysis.flows.model.LatencyContributor;
 
 public class FlowLatencyLogic {
+
+	protected static boolean doSynchronous = false;
+	protected static double minCumLatency = 0;
+	protected static double maxCumLatency = 0;
+
+	public static void setSynchronous() {
+		doSynchronous = true;
+	}
+
+	public static void setAsynchronous() {
+		doSynchronous = false;
+	}
+
 	public static LatencyContributor mapFlowElementInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 
