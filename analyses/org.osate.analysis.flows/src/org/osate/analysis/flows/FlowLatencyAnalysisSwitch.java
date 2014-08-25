@@ -91,11 +91,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
-
+				FlowLatencyLogic.setAsynchronous();
 				entry = new LatencyReportEntry(etef);
 
-//				OsateDebug.osateDebug("FlowLatencyAnalysisSwitch", "Analyzing flow " + "|" + etef + "|"
-//						+ FlowLatencyUtil.getEndToEndFlowString(etef));
+				for (FlowElementInstance fei : etef.getFlowElements()) {
+
+					entry.addContributor(FlowLatencyLogic.mapFlowElementInstance(etef, fei));
+				}
+				report.addEntry(entry);
+				// sync entry
+				FlowLatencyLogic.setSynchronous();
+				entry = new LatencyReportEntry(etef);
 
 				for (FlowElementInstance fei : etef.getFlowElements()) {
 
