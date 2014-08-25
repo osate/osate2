@@ -34,29 +34,20 @@
 package org.osate.ui.navigator;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.ui.views.navigator.ResourceComparator;
-import org.eclipse.ui.views.navigator.ResourceNavigator;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.eclipse.ui.navigator.CommonNavigator;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
-public class AadlNavigator extends ResourceNavigator implements IResourceChangeListener {
+public class AadlNavigator extends CommonNavigator implements IResourceChangeListener {
 	private String lastResourceName = "";
 	private ModificationFlag lastDecorator = null;
-
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
@@ -68,58 +59,7 @@ public class AadlNavigator extends ResourceNavigator implements IResourceChangeL
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
 		super.dispose();
 	}
-
-	@Override
-	protected void initContentProvider(TreeViewer viewer) {
-		viewer.setContentProvider(new AadlNavigatorContentProvider());
-	}
-
-	@Override
-	protected void initLabelProvider(TreeViewer viewer) {
-		viewer.setLabelProvider(new AadlNavigatorLabelProvider(new WorkbenchLabelProvider(), getPlugin().getWorkbench()
-				.getDecoratorManager().getLabelDecorator()));
-	}
-
-	@Override
-	protected void initResourceComparator() {
-		super.initResourceComparator();
-		setComparator(new ResourceComparator(getComparator().getCriteria()) {
-			@Override
-			public int compare(Viewer viewer, Object o1, Object o2) {
-				if (o1 instanceof IProject
-						&& ((IProject) o1).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
-					return 1;
-				} else if (o2 instanceof IProject
-						&& ((IProject) o2).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
-					return -1;
-				} else {
-					return super.compare(viewer, o1, o2);
-				}
-			}
-		});
-	}
-
-	@Override
-	protected void initFilters(TreeViewer viewer) {
-		super.initFilters(viewer);
-		viewer.addFilter(new ViewerFilter() {
-			@Override
-			public boolean select(Viewer viewer, Object parentElement, Object element) {
-				if (element instanceof IResource) {
-					IResource elementAsIResource = (IResource) element;
-					return !elementAsIResource.getName().startsWith(".");
-				} else {
-					return true;
-				}
-			}
-		});
-	}
-
-	@Override
-	protected void makeActions() {
-		setActionGroup(new AadlNavigatorActionGroup(this));
-	}
-
+	
 	private boolean hasChangedDelta(IResourceDelta delta) {
 		IResourceDelta[] children = delta.getAffectedChildren();
 
@@ -158,8 +98,7 @@ public class AadlNavigator extends ResourceNavigator implements IResourceChangeL
 
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
-		processDelta(event.getDelta());
-		final Control ctrl = getTreeViewer().getControl();
+		final Control ctrl = getCommonViewer().getControl();		
 		if (ctrl != null && !ctrl.isDisposed()) {
 			IResourceDelta delta = event.getDelta();
 			if (delta != null) {
@@ -182,31 +121,10 @@ public class AadlNavigator extends ResourceNavigator implements IResourceChangeL
 				@Override
 				public void run() {
 					if (!ctrl.isDisposed()) {
-						getTreeViewer().refresh();
+						getCommonViewer().refresh();
 					}
 				}
 			});
-		}
-	}
-
-	private void processDelta(IResourceDelta delta) {
-		if (delta != null) {
-			IResourceDelta[] children = delta.getAffectedChildren();
-
-			for (int i = 0; i < children.length; i++) {
-				processDelta(children[i]);
-			}
-			processChanged(delta);
-		}
-	}
-
-	private void processChanged(IResourceDelta delta) {
-		if ((delta.getKind() & IResourceDelta.ADDED) != 0 && (delta.getFlags() & IResourceDelta.MOVED_FROM) != 0) {
-			IResource added = delta.getResource();
-			IPath moved = delta.getMovedFromPath();
-			if (added instanceof IFile) {
-			} else if (added instanceof IFolder) {
-			}
 		}
 	}
 }
