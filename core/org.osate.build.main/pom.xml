@@ -101,6 +101,7 @@
 		<module>../../osate-ge/org.osate.ge.doc</module>
 		<module>../../osate-ge/org.osate.ge.feature</module>
 
+		<module>../org.osate.xtext.aadl2.tests</module>
 	</modules>
 
 	<build>
@@ -112,7 +113,6 @@
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
-
 			<!-- enable source bundle generation -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -126,6 +126,11 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>

@@ -15,22 +15,26 @@
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<artifactId>target-platform-configuration</artifactId>
 				<configuration>
-					<dependencies>
-						<dependency>
-							<type>eclipse-plugin</type>
-							<artifactId>org.eclipse.equinox.event</artifactId>
-							<version>1.3.0</version>
-						</dependency>
-						<dependency>
-							<!-- needed to find transactional editing domain used during instantiation-->
-							<type>eclipse-plugin</type>
-							<artifactId>org.osate.aadl2.model.editor</artifactId>
-							<version>1.0.0</version>
-						</dependency>
-					</dependencies>
+					<!-- additional requirements for running the tests -->
+					<!-- adding them here works, adding them in surefire configuration as -->
+					<!-- dependency works only if the tests are started in the test plugin directory -->
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.event</id>
+								<versionRange>1.3.0</versionRange>
+							</requirement>
+							<requirement>
+							<!--  for transactional editing domain that is needed during instantiation -->
+								<type>eclipse-plugin</type>
+								<id>org.osate.aadl2.model.editor</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
 				</configuration>
 			</plugin>
 		</plugins>
