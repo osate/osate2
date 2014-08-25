@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.Section;
@@ -60,15 +61,20 @@ public class LatencyReportEntry {
 		Line line;
 		double minValue;
 		double maxValue;
+		double minSpecifiedValue;
+		double maxSpecifiedValue;
 		double expectedMaxLatency;
 		double expectedMinLatency;
 		String sectionName;
 		String reportComment;
+		String otherComment;
 
 		reportComment = "";
 
 		minValue = 0.0;
 		maxValue = 0.0;
+		minSpecifiedValue = 0.0;
+		maxSpecifiedValue = 0.0;
 
 		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
@@ -83,10 +89,10 @@ public class LatencyReportEntry {
 
 		line = new Line();
 		line.addContent("Contributor");
-		line.addContent("Min Expected");
+		line.addContent("Min Specified");
 		line.addContent("Min Value");
 		line.addContent("Min Method");
-		line.addContent("Max Expected");
+		line.addContent("Max Specified");
 		line.addContent("Max Value");
 		line.addContent("Max Method");
 		line.addContent("Comments");
@@ -98,40 +104,94 @@ public class LatencyReportEntry {
 			}
 			minValue = minValue + lc.getTotalMinimum();
 			maxValue = maxValue + lc.getTotalMaximum();
+			minSpecifiedValue = minSpecifiedValue + lc.getTotalMinimumSpecified();
+			maxSpecifiedValue = maxSpecifiedValue + lc.getTotalMaximumSpecified();
 		}
 
 		line = new Line();
 		line.addContent("Total");
+		line.addContent(minSpecifiedValue + "ms");
+		line.addContent(minValue + "ms");
+		line.addContent("");
+		line.addContent(maxSpecifiedValue + "ms");
+		line.addContent(maxValue + "ms");
+		line.addContent("");
+		section.addLine(line);
 
-		line.setSeverity(ReportSeverity.WARNING);
+		line = new Line();
+		reportComment = "";
+		line.setSeverity(ReportSeverity.SUCCESS);
+
+		line.addContent("Flow Specification");
+		line.addContent("");
+		line.addContent(expectedMinLatency + "ms");
+		line.addContent("");
+		line.addContent("");
+		line.addContent(expectedMinLatency + "ms");
+		line.addContent("");
+
+		if (expectedMinLatency < minSpecifiedValue) {
+			otherComment = "minimum expected latency (" + expectedMinLatency
+					+ ") on the end to end flow does not match latency specification (" + minSpecifiedValue + "); ";
+			reportComment += otherComment;
+			FlowLatencyAnalysisSwitch.getInstance().error(relatedEndToEndFlow, otherComment);
+		}
+
+		if (expectedMaxLatency < maxSpecifiedValue) {
+			otherComment = "maximum expected latency (" + expectedMaxLatency
+					+ ") on the end to end flow does not match latency specification (" + maxSpecifiedValue + "); ";
+			reportComment += otherComment;
+			FlowLatencyAnalysisSwitch.getInstance().error(relatedEndToEndFlow, otherComment);
+		}
+
+		if (expectedMinLatency < minValue) {
+			otherComment = "minimum expected latency (" + expectedMinLatency
+					+ ") on the end to end flow does not match latency computation (" + minValue + "); ";
+			reportComment += otherComment;
+			FlowLatencyAnalysisSwitch.getInstance().error(relatedEndToEndFlow, otherComment);
+
+		}
+
+		if (expectedMaxLatency < maxValue) {
+			otherComment = "maximum expected latency (" + expectedMaxLatency
+					+ ") on the end to end flow does not match latency computation (" + maxValue + "); ";
+			reportComment += otherComment;
+			FlowLatencyAnalysisSwitch.getInstance().error(relatedEndToEndFlow, otherComment);
+
+		}
 
 		if ((expectedMinLatency > minValue) && (expectedMaxLatency > maxValue)) {
 			line.setSeverity(ReportSeverity.SUCCESS);
+		}
+
+		if ((minValue == 0) && (maxValue == 0) && (expectedMinLatency > minSpecifiedValue)
+				&& (expectedMaxLatency > maxSpecifiedValue)) {
+			line.setSeverity(ReportSeverity.SUCCESS);
+			FlowLatencyAnalysisSwitch.getInstance().info(relatedEndToEndFlow,
+					"End to end latency specification is validated");
+
+		}
+
+		if ((minValue == 0) && (maxValue == 0) && (expectedMinLatency < minSpecifiedValue)
+				&& (expectedMaxLatency < maxSpecifiedValue)) {
+			otherComment = " specified latency is not correct ; ";
+			FlowLatencyAnalysisSwitch.getInstance().info(relatedEndToEndFlow,
+					"End to end latency specification is validated by computing latency on sub-components");
+			line.setSeverity(ReportSeverity.ERROR);
+		}
+
+		if ((minValue == 0) && (maxValue == 0)
+				&& ((expectedMinLatency < minSpecifiedValue) || (expectedMaxLatency < maxSpecifiedValue))) {
+			line.setSeverity(ReportSeverity.WARNING);
+			otherComment = " please check each boundary of the latency specification ; ";
+			reportComment += otherComment;
 		}
 
 		if ((expectedMinLatency < minValue) && (expectedMaxLatency < maxValue)) {
 			line.setSeverity(ReportSeverity.ERROR);
 			reportComment += " latency requirements are not met";
 		}
-
-		if (expectedMinLatency == 0.0) {
-			line.addContent("unspecified");
-			reportComment += " minimum latency requirements not specified";
-		} else {
-			line.addContent(expectedMinLatency + "ms");
-		}
-
-		line.addContent(minValue + "ms");
-		line.addContent("");
-		if (expectedMaxLatency == 0.0) {
-			line.addContent("unspecified");
-			reportComment += " maximum latency requirements not specified";
-		} else {
-			line.addContent(expectedMaxLatency + "ms");
-		}
-
-		line.addContent(maxValue + "ms");
-		line.addContent("");
+		line.addContent(reportComment);
 		section.addLine(line);
 
 		return section;

@@ -164,6 +164,24 @@ public abstract class LatencyContributor {
 		return res;
 	}
 
+	public double getTotalMinimumSpecified() {
+		double res = this.expectedMin;
+		for (LatencyContributor lc : subContributors) {
+			res = lc.getTotalMinimumSpecified();
+		}
+
+		return res;
+	}
+
+	public double getTotalMaximumSpecified() {
+		double res = this.expectedMax;
+		for (LatencyContributor lc : subContributors) {
+			res = lc.getTotalMaximumSpecified();
+		}
+
+		return res;
+	}
+
 	protected abstract String getContributorName();
 
 	protected abstract String getContributorType();
