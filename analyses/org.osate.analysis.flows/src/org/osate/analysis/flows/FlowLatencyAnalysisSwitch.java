@@ -60,17 +60,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	AbstractAaxlAction action;
 	LatencyReport report;
-	static FlowLatencyAnalysisSwitch currentInstance;
 
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, AbstractAaxlAction a) {
 		super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL);
 		this.action = a;
 		this.report = new LatencyReport(si);
-		currentInstance = this;
-	}
-
-	public static FlowLatencyAnalysisSwitch getInstance() {
-		return currentInstance;
 	}
 
 	public LatencyReport getReport() {

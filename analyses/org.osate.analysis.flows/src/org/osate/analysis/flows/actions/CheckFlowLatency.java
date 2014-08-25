@@ -55,6 +55,16 @@ import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
+	static CheckFlowLatency currentInstance;
+
+	public CheckFlowLatency() {
+		super();
+		currentInstance = this;
+	}
+
+	public static CheckFlowLatency getInstance() {
+		return currentInstance;
+	}
 
 	@Override
 	protected void initPropertyReferences() {
