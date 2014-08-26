@@ -23,7 +23,6 @@ package org.osate.ba.analyzers;
 
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.common.util.Enumerator ;
-
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.RangeValue ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
@@ -35,6 +34,7 @@ import org.osate.ba.aadlba.DataRepresentation ;
 import org.osate.ba.aadlba.Factor ;
 import org.osate.ba.aadlba.LogicalOperator ;
 import org.osate.ba.aadlba.MultiplyingOperator ;
+import org.osate.ba.aadlba.PropertyReference ;
 import org.osate.ba.aadlba.RelationalOperator ;
 import org.osate.ba.aadlba.UnaryAddingOperator ;
 import org.osate.ba.aadlba.UnaryBooleanOperator ;
@@ -308,15 +308,13 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                            reportError = true ;
                         }
                      }
-                     /* DEBUG
-                     else if(val instanceof BehaviorPropertyValue)
+                     else if(val instanceof PropertyReference)
                      // PropertyValue case : its value can only be evaluated at
                      // runtime so raises a warning.
                      {
-                        _errManager.warning(e, "Exponent must be of type " +
-                              "natural") ;
+                        _errManager.warning(e, "Cannot evaluate if the exponent"+
+                                               " is a natural") ;
                      }
-                     */
                   }
                }
             }

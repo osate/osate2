@@ -96,7 +96,7 @@ public interface DeclarativePropertyName extends DeclarativeBehaviorElement
   void setField(PropertyNameField value) ;
 
   /**
-   * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Indexes</b></em>' reference list.
    * The list contents are of type {@link org.osate.ba.aadlba.IntegerValue}.
    * <!-- begin-user-doc -->
     	 * <p>
@@ -104,17 +104,17 @@ public interface DeclarativePropertyName extends DeclarativeBehaviorElement
     	 * there really should be more of a description here...
     	 * </p>
     	 * <!-- end-user-doc -->
-   * @return the value of the '<em>Indexes</em>' containment reference list.
+   * @return the value of the '<em>Indexes</em>' reference list.
    * @see #isSetIndexes()
    * @see #unsetIndexes()
    * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Indexes()
-   * @model containment="true" unsettable="true"
+   * @model unsettable="true"
    * @generated
    */
   EList<IntegerValue> getIndexes() ;
 
   /**
-   * Unsets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' containment reference list.
+   * Unsets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' reference list.
    * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
    * @see #isSetIndexes()
@@ -124,10 +124,10 @@ public interface DeclarativePropertyName extends DeclarativeBehaviorElement
   void unsetIndexes() ;
 
   /**
-   * Returns whether the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' containment reference list is set.
+   * Returns whether the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' reference list is set.
    * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Indexes</em>' containment reference list is set.
+   * @return whether the value of the '<em>Indexes</em>' reference list is set.
    * @see #unsetIndexes()
    * @see #getIndexes()
    * @generated

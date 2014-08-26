@@ -32,10 +32,11 @@ import org.eclipse.emf.ecore.InternalEObject ;
 import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.ArraySize ;
+import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.CalledSubprogram ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ClassifierValue ;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.ComponentPrototype ;
 import org.osate.aadl2.ComponentPrototypeActual ;
 import org.osate.aadl2.ComponentPrototypeBinding ;
@@ -44,33 +45,45 @@ import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.DataPort ;
 import org.osate.aadl2.DataSubcomponent ;
 import org.osate.aadl2.DirectionType ;
-import org.osate.aadl2.Element;
+import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.EventDataPort ;
 import org.osate.aadl2.EventPort ;
 import org.osate.aadl2.Feature ;
-import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeBinding ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Parameter ;
 import org.osate.aadl2.Port ;
 import org.osate.aadl2.ProcessorClassifier ;
-import org.osate.aadl2.Property ;
+import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyConstant ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertySet ;
+import org.osate.aadl2.PropertyType ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
-import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subprogram ;
 import org.osate.aadl2.SubprogramAccess ;
 import org.osate.aadl2.SubprogramImplementation ;
-import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramPrototype ;
 import org.osate.aadl2.SubprogramSubcomponent ;
 import org.osate.aadl2.SubprogramType ;
 import org.osate.aadl2.UnitLiteral ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.aadl2.parsesupport.LocationReference ;
 import org.osate.ba.aadlba.* ;
-import org.osate.ba.declarative.* ;
+import org.osate.ba.declarative.ArrayableIdentifier ;
+import org.osate.ba.declarative.CommAction ;
+import org.osate.ba.declarative.DeclarativeArrayDimension ;
+import org.osate.ba.declarative.DeclarativeBehaviorElement ;
+import org.osate.ba.declarative.DeclarativePropertyName ;
+import org.osate.ba.declarative.DeclarativePropertyReference ;
+import org.osate.ba.declarative.DeclarativeTime ;
+import org.osate.ba.declarative.Identifier ;
+import org.osate.ba.declarative.NamedValue ;
+import org.osate.ba.declarative.QualifiedNamedElement ;
+import org.osate.ba.declarative.Reference ;
 import org.osate.ba.texteditor.AadlBaHyperlink ;
 import org.osate.ba.texteditor.DefaultAadlBaHyperlink ;
 import org.osate.ba.unparser.AadlBaUnparser ;
@@ -238,21 +251,11 @@ public class AadlBaTypeChecker
     {
       size.setSize(((BehaviorIntegerLiteral)ivc).getValue()) ;
     }
-    /* DEBUG
-    else if(ivc instanceof BehaviorProperty)
+    else if(ivc instanceof BehaviorPropertyConstant)
     {
       PropertyExpression pe = null ;
-      
-      if(ivc instanceof BehaviorPropertyConstant)
-      {
-        PropertyConstant pc = ((BehaviorPropertyConstant) ivc).getProperty() ;
-        pe = pc.getConstantValue() ;
-      }
-      else if(ivc instanceof BehaviorPropertyValue)
-      {
-        Property p = ((BehaviorPropertyValue)ivc).getProperty() ;
-        pe = p.getDefaultValue() ;
-      }
+      PropertyConstant pc = ((BehaviorPropertyConstant) ivc).getProperty() ;
+      pe = pc.getConstantValue() ;
       
       if(pe instanceof NumberValue)
       {
@@ -261,14 +264,28 @@ public class AadlBaTypeChecker
       }
       else
       {
-        String errorMsg = "integerValueConstantToArrayDimension : " +
-              pe.getClass().getSimpleName()+
-              " is not supported yet." ;
-          System.err.println(errorMsg) ;
-          throw new UnsupportedOperationException(errorMsg) ;
+        String msg = "cannot evaluate the property constant";
+        _errManager.warning(ivc, msg);
       }
     }
-    */
+    else if(ivc instanceof PropertyReference)
+    {
+      PropertyReference pr = (PropertyReference) ivc ;
+      PropertyNameHolder last = pr.getProperties().
+                                              get(pr.getProperties().size()-1) ;
+      Element el = last.getProperty().getElement() ;
+      
+      if(el instanceof NumberValue)
+      {
+        double value = ((NumberValue)el).getScaledValue() ;
+        size.setSize((long) value);
+      }
+      else
+      {
+        String msg = "cannot evaluate the property value";
+        _errManager.warning(ivc, msg);
+      }
+    }
     else
     {
       String errorMsg = "integerValueConstantToArrayDimension : " +
@@ -1455,6 +1472,7 @@ public class AadlBaTypeChecker
         }
         
         case FEATURE_GROUP_PROTOTYPE:
+        case FEATURE_GROUP_PROTOTYPE_BINDING:  
         case SUBPROGRAM_GROUP_PROTOTYPE:
         case THREAD_GROUP_PROTOTYPE:
         case REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:
@@ -1613,7 +1631,7 @@ public class AadlBaTypeChecker
       {
         PropertySetPropertyReference tmp = _fact.
                                           createPropertySetPropertyReference() ;
-        propertyNameResolver(ref.getPropertyNames(), tmp.getProperties()) ;
+        propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
         
         if(ref.getQualifiedName() != null)
         {
@@ -1623,11 +1641,11 @@ public class AadlBaTypeChecker
         result = tmp ;
       }
     }
-    else if(ref.getQualifiedName() != null) // (qualified) classifier case. 
+    else if(ref.getQualifiedName() != null) // [qualified] classifier case. 
     {
       ClassifierPropertyReference tmp = _fact.createClassifierPropertyReference();
       tmp.setClassifier((Classifier) ref.getQualifiedName().getOsateRef());
-      propertyNameResolver(ref.getPropertyNames(), tmp.getProperties()) ;
+      propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
       result = tmp ;
     }
     else // Classifier feature case.
@@ -1636,7 +1654,7 @@ public class AadlBaTypeChecker
                                     createClassifierFeaturePropertyReference() ;
       
       classifierFeatureResolver(tmp, ref.getReference()) ;
-      propertyNameResolver(ref.getPropertyNames(), tmp.getProperties()) ;
+      propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
       result = tmp ;
     }
     
@@ -1644,12 +1662,104 @@ public class AadlBaTypeChecker
     return result ;
   }
 
-  private void propertyNameResolver(EList<DeclarativePropertyName> declaratievNames,
-                                    EList<PropertyNameHolder> properties)
+  private void propertyNameListResolver(EList<DeclarativePropertyName> dpns,
+                                           EList<PropertyNameHolder> result)
   {
-    //TODO
+    PropertyNameHolder pnh = null ;
+    PropertyElementHolder peh = null ;
+    LocationReference loc = null ;
+    Element global, primary ;
+    
+    for(DeclarativePropertyName dpn : dpns)
+    {
+      pnh = _fact.createPropertyNameHolder() ;
+      pnh.setLocationReference(dpn.getLocationReference());
+      
+      global = dpn.getOsateRef() ;
+      primary = dpn.getPropertyName().getOsateRef() ;
+      
+      if(primary != global) // Item list case.
+      {
+        loc = dpn.getPropertyName().getLocationReference() ;
+        peh = propertyElementHolderResolver(primary, loc);
+        EList<IntegerValue> indexes = peh.getArrayIndexes() ;
+        for(IntegerValue iv : dpn.getIndexes())
+        {
+          IntegerValue tmp = integerValueCheck(iv) ; // Report any error.
+          if(tmp != null)
+          {
+            indexes.add(tmp) ;
+          }
+        }
+      }
+      else
+      {
+        loc = dpn.getLocationReference() ;
+        peh = propertyElementHolderResolver(global, loc);
+        
+        if(dpn.getField() != null)
+        {
+          pnh.setField(dpn.getField());
+        }
+      }
+      
+      pnh.setProperty(peh);
+      result.add(pnh) ;
+    }
   }
-
+  
+  private PropertyElementHolder propertyElementHolderResolver(Element el,
+                                                              LocationReference loc)
+  {
+    PropertyElementHolder result = null ;
+    
+    if(el instanceof BasicProperty)
+    {
+      BasicProperty bp = (BasicProperty) el ;
+      BasicPropertyHolder tmp = _fact.createBasicPropertyHolder() ;
+      tmp.setBasicProperty(bp) ;
+      result = tmp ; 
+    }
+    else if(el  instanceof PropertyAssociation)
+    {
+      PropertyAssociation pa = (PropertyAssociation) el ;
+      PropertyAssociationHolder tmp = _fact.createPropertyAssociationHolder();
+      tmp.setPropertyAssociation(pa);
+      result = tmp ;
+    }
+    else if(el instanceof PropertyExpression)
+    {
+      PropertyExpression pe = (PropertyExpression) el ;
+      PropertyExpressionHolder tmp = _fact.createPropertyExpressionHolder();
+      tmp.setPropertyExpression(pe);
+      result = tmp ;
+    }
+    else if(el instanceof PropertyType)
+    {
+      PropertyType pt = (PropertyType) el ;
+      PropertyTypeHolder tmp = _fact.createPropertyTypeHolder();
+      tmp.setPropertyType(pt);
+      result = tmp ;
+    }
+    else if(el instanceof EnumerationLiteral)
+    {
+      EnumerationLiteral enumLit = (EnumerationLiteral) el ;
+      EnumLiteralHolder tmp = _fact.createEnumLiteralHolder();
+      tmp.setEnumLiteral(enumLit);
+      result = tmp ;
+    }
+    else
+    {
+      String errorMsg = "type: " + el.getClass().getSimpleName() + 
+            " is not supported yet." ;
+        System.err.println(errorMsg) ;
+        throw new UnsupportedOperationException(errorMsg) ;
+    }
+    
+    result.setLocationReference(loc);
+    return result ;
+  }
+  
   private void classifierFeatureResolver(ClassifierFeaturePropertyReference result,
                                          Reference ref)
   {
@@ -2116,7 +2226,7 @@ public class AadlBaTypeChecker
           catch(IllegalArgumentException e)
           {
             // if the user set the same more than once.
-            System.out.println("################") ;
+            System.out.println("catch IllegalArgumentException AadlTypeChecker") ;
           }
         }
         else
@@ -3361,6 +3471,7 @@ public class AadlBaTypeChecker
            FeatureType.THREAD_GROUP_PROTOTYPE,
            FeatureType.SUBPROGRAM_GROUP_PROTOTYPE,
            FeatureType.FEATURE_GROUP_PROTOTYPE,
+           FeatureType.FEATURE_GROUP_PROTOTYPE_BINDING,
            FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE,
            FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE}),
     

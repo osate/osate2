@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.InternalEObject ;
 import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList ;
 import org.eclipse.emf.ecore.util.InternalEList ;
 
 import org.osate.ba.aadlba.IntegerValue ;
@@ -78,7 +79,7 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
   protected PropertyNameField field ;
 
   /**
-   * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
+   * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' reference list.
    * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @see #getIndexes()
@@ -254,7 +255,7 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
     if(indexes == null)
     {
       indexes =
-            new EObjectContainmentEList.Unsettable<IntegerValue>(
+            new EObjectResolvingEList.Unsettable<IntegerValue>(
                   IntegerValue.class, this,
                   DeclarativePackage.DECLARATIVE_PROPERTY_NAME__INDEXES) ;
     }
@@ -298,8 +299,6 @@ public class DeclarativePropertyNameImpl extends DeclarativeBehaviorElementImpl
         return basicSetPropertyName(null, msgs) ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__FIELD :
         return basicSetField(null, msgs) ;
-      case DeclarativePackage.DECLARATIVE_PROPERTY_NAME__INDEXES :
-        return ((InternalEList<?>) getIndexes()).basicRemove(otherEnd, msgs) ;
     }
     return super.eInverseRemove(otherEnd, featureID, msgs) ;
   }

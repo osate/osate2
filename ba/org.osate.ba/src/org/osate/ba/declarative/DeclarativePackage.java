@@ -852,7 +852,7 @@ public interface DeclarativePackage extends EPackage
         DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 1 ;
 
   /**
-   * The feature id for the '<em><b>Indexes</b></em>' containment reference list.
+   * The feature id for the '<em><b>Indexes</b></em>' reference list.
    * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @generated
@@ -1768,10 +1768,10 @@ public interface DeclarativePackage extends EPackage
   EReference getDeclarativePropertyName_Field() ;
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}'.
    * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Indexes</em>'.
+   * @return the meta object for the reference list '<em>Indexes</em>'.
    * @see org.osate.ba.declarative.DeclarativePropertyName#getIndexes()
    * @see #getDeclarativePropertyName()
    * @generated
@@ -2206,7 +2206,7 @@ public interface DeclarativePackage extends EPackage
           .getDeclarativePropertyName_Field() ;
 
     /**
-     * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Indexes</b></em>' reference list feature.
      * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
      * @generated

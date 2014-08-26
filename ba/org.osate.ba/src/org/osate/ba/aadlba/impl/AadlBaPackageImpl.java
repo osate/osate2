@@ -4126,7 +4126,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEClass(propertyNameFieldEClass, PropertyNameField.class, "PropertyNameField", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(propertyNameHolderEClass, PropertyNameHolder.class, "PropertyNameHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropertyNameHolder_Property(), this.getPropertyElementHolder(), null, "property", null, 1, 1, PropertyNameHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyNameHolder_Property(), this.getPropertyElementHolder(), null, "property", null, 1, 1, PropertyNameHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPropertyNameHolder_Field(), this.getPropertyNameField(), null, "field", null, 0, 1, PropertyNameHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyElementHolderEClass, PropertyElementHolder.class, "PropertyElementHolder", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4283,6 +4283,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.STRING);
     addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.STRUCT);
     addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.UNION);
+    addEEnumLiteral(dataRepresentationEEnum, DataRepresentation.ENUM_LITERAL);
 
     initEEnum(featureTypeEEnum, FeatureType.class, "FeatureType");
     addEEnumLiteral(featureTypeEEnum, FeatureType.NONE);

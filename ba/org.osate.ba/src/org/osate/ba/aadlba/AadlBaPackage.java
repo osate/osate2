@@ -5203,7 +5203,7 @@ public interface AadlBaPackage extends EPackage
   int PROPERTY_NAME_HOLDER__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Property</b></em>' reference.
+   * The feature id for the '<em><b>Property</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -7874,10 +7874,10 @@ public interface AadlBaPackage extends EPackage
   EClass getPropertyNameHolder();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.ba.aadlba.PropertyNameHolder#getProperty <em>Property</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.PropertyNameHolder#getProperty <em>Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Property</em>'.
+   * @return the meta object for the containment reference '<em>Property</em>'.
    * @see org.osate.ba.aadlba.PropertyNameHolder#getProperty()
    * @see #getPropertyNameHolder()
    * @generated
@@ -9923,7 +9923,7 @@ public interface AadlBaPackage extends EPackage
     EClass PROPERTY_NAME_HOLDER = eINSTANCE.getPropertyNameHolder();
 
     /**
-     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Property</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

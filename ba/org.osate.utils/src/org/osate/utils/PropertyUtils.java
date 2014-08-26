@@ -1251,7 +1251,7 @@ public class PropertyUtils {
    * @param pe the given PropertyExpression object
    * @return the BasicProperty object that contains the given PropertyExpression object
    */
-  public static BasicProperty getType(PropertyExpression pe)
+  public static BasicProperty getContainingProperty(PropertyExpression pe)
   {
     EObject tmp = pe.eContainer() ;
     int classId = tmp.eClass().getClassifierID() ;

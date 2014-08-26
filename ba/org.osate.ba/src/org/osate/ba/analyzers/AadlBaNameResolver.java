@@ -1497,12 +1497,12 @@ public class AadlBaNameResolver
      {
        //DEBUG
        boolean result = propertyReferenceResolver((DeclarativePropertyReference) value) ; 
-       
+/*       
        if(result)
        {
          DeclarativeUtils.printDeclarativePropertyReference((DeclarativePropertyReference) value);
        }
-             
+*/             
        return result ;
      }
      else // Other literals : they don't contain any name.
@@ -1867,7 +1867,7 @@ public class AadlBaNameResolver
          }
          else // Try with the property expression type definition.
          {
-           previousContainer = PropertyUtils.getType((PropertyExpression) 
+           previousContainer = PropertyUtils.getContainingProperty((PropertyExpression) 
                                                      previousContainer) ;
          }
        }
@@ -2122,9 +2122,9 @@ public class AadlBaNameResolver
     }
     else if(el instanceof PropertyExpression)
     {
-      return PropertyUtils.getType((PropertyExpression) el) ;
+      return PropertyUtils.getContainingProperty((PropertyExpression) el) ;
     }
-    //BasciProperty EMF identifier == Aadl2Package.LIST_VALUE, why ???? 
+    //BasicProperty EMF identifier == Aadl2Package.LIST_VALUE, why ???? 
     else if(el instanceof BasicProperty)
     {
       return (BasicProperty) el ;

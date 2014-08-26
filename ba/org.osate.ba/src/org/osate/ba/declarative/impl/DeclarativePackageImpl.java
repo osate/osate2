@@ -951,7 +951,7 @@ public class DeclarativePackageImpl extends EPackageImpl implements
     initEReference(getDeclarativePropertyName_Indexes(), theAadlBaPackage
                          .getIntegerValue(), null, "indexes", null, 0, -1,
                    DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
-                   IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                   IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                    IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
 
     initEClass(declarativePropertyReferenceEClass,

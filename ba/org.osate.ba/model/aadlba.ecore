@@ -229,6 +229,7 @@
     <eLiterals name="String" value="8" literal="standard string"/>
     <eLiterals name="Struct" value="9" literal="structure"/>
     <eLiterals name="Union" value="10" literal="union"/>
+    <eLiterals name="ENUM_LITERAL" value="11" literal="enumeration literal"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentHolder" eSuperTypes="#//DataHolder #//Target #//ElementValues #//SubprogramHolderProxy #//SubcomponentHolder">
     <eOperations name="setDataSubcomponent" lowerBound="1">
@@ -556,7 +557,7 @@
       eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyNameHolder" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
-        lowerBound="1" eType="#//PropertyElementHolder"/>
+        lowerBound="1" eType="#//PropertyElementHolder" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="#//PropertyNameField"
         unsettable="true" containment="true"/>
   </eClassifiers>

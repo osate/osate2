@@ -46,7 +46,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass aadlba.ecore#//PropertyNameField"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="indexes" upperBound="-1"
-        eType="ecore:EClass aadlba.ecore#//IntegerValue" unsettable="true" containment="true"/>
+        eType="ecore:EClass aadlba.ecore#//IntegerValue" unsettable="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativePropertyReference" eSuperTypes="#//DeclarativeBehaviorElement aadlba.ecore#//IntegerValueConstant aadlba.ecore#//ValueConstant">
     <eStructuralFeatures xsi:type="ecore:EReference" name="qualifiedName" eType="#//QualifiedNamedElement"

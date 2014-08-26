@@ -40,26 +40,26 @@ package org.osate.ba.aadlba;
 public interface PropertyNameHolder extends BehaviorElement
 {
   /**
-   * Returns the value of the '<em><b>Property</b></em>' reference.
+   * Returns the value of the '<em><b>Property</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Property</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' reference.
+   * @return the value of the '<em>Property</em>' containment reference.
    * @see #setProperty(PropertyElementHolder)
    * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyNameHolder_Property()
-   * @model required="true"
+   * @model containment="true" required="true"
    * @generated
    */
   PropertyElementHolder getProperty();
 
   /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getProperty <em>Property</em>}' reference.
+   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getProperty <em>Property</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' reference.
+   * @param value the new value of the '<em>Property</em>' containment reference.
    * @see #getProperty()
    * @generated
    */

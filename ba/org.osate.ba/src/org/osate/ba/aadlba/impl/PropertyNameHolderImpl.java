@@ -50,7 +50,7 @@ import org.osate.ba.aadlba.PropertyNameHolder;
 public class PropertyNameHolderImpl extends BehaviorElementImpl implements PropertyNameHolder
 {
   /**
-   * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
+   * The cached value of the '{@link #getProperty() <em>Property</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getProperty()
@@ -106,16 +106,6 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    */
   public PropertyElementHolder getProperty()
   {
-    if (property != null && ((EObject)property).eIsProxy())
-    {
-      InternalEObject oldProperty = (InternalEObject)property;
-      property = (PropertyElementHolder)eResolveProxy(oldProperty);
-      if (property != oldProperty)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY, oldProperty, property));
-      }
-    }
     return property;
   }
 
@@ -124,9 +114,16 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyElementHolder basicGetProperty()
+  public NotificationChain basicSetProperty(PropertyElementHolder newProperty, NotificationChain msgs)
   {
-    return property;
+    PropertyElementHolder oldProperty = property;
+    property = newProperty;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY, oldProperty, newProperty);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -136,10 +133,18 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    */
   public void setProperty(PropertyElementHolder newProperty)
   {
-    PropertyElementHolder oldProperty = property;
-    property = newProperty;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY, oldProperty, property));
+    if (newProperty != property)
+    {
+      NotificationChain msgs = null;
+      if (property != null)
+        msgs = ((InternalEObject)property).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY, null, msgs);
+      if (newProperty != null)
+        msgs = ((InternalEObject)newProperty).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY, null, msgs);
+      msgs = basicSetProperty(newProperty, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY, newProperty, newProperty));
   }
 
   /**
@@ -259,6 +264,8 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
   {
     switch (featureID)
     {
+      case AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY:
+        return basicSetProperty(null, msgs);
       case AadlBaPackage.PROPERTY_NAME_HOLDER__FIELD:
         return basicUnsetField(msgs);
     }
@@ -276,8 +283,7 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
     switch (featureID)
     {
       case AadlBaPackage.PROPERTY_NAME_HOLDER__PROPERTY:
-        if (resolve) return getProperty();
-        return basicGetProperty();
+        return getProperty();
       case AadlBaPackage.PROPERTY_NAME_HOLDER__FIELD:
         return getField();
     }
