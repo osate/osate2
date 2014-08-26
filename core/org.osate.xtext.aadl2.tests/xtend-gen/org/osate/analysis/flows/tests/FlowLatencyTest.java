@@ -91,7 +91,7 @@ public class FlowLatencyTest extends OsateTest {
       EList<SystemOperationMode> _systemOperationModes = instance.getSystemOperationModes();
       final SystemOperationMode som = IterableExtensions.<SystemOperationMode>head(_systemOperationModes);
       NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-      checker.analyzeInstanceModel(_nullProgressMonitor, errorManager, instance, som);
+      checker.invoke(_nullProgressMonitor, errorManager, instance, som);
       final URI uri = URI.createURI(
         (this.projectRoot + "instances/reports/latency/pullprotocols_stub_i_Instance__latencylatency.csv"));
       String _platformString = uri.toPlatformString(true);
@@ -372,7 +372,7 @@ public class FlowLatencyTest extends OsateTest {
       _builder.newLine();
       _builder.append("Flow analysis for end to end flow XferOnly");
       _builder.newLine();
-      _builder.append("Contributor,Min Expected,Min Value,Min Method,Max Expected,Max Value,Max Method,Comments,");
+      _builder.append("Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,");
       _builder.newLine();
       _builder.append("Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,");
       _builder.newLine();
@@ -380,7 +380,7 @@ public class FlowLatencyTest extends OsateTest {
       _builder.newLine();
       _builder.append("Protocol DCFMInputPullProtocol,,300.0ms,specified,,300.0ms,specified,Time required by the protocol stack,");
       _builder.newLine();
-      _builder.append("Thread requestor,,0.0ms,immediate local connection,,0.0ms,immediate local connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,");
+      _builder.append("Thread requestor,,0.0ms,immediate connection,,0.0ms,immediate connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,");
       _builder.newLine();
       _builder.append("Immediate Connection requestor.CorrelatedTracksRequest -> sender.CorrelatedTracksRequest,,0.0ms,unknown,,0.0ms,unknown,,");
       _builder.newLine();
@@ -388,7 +388,7 @@ public class FlowLatencyTest extends OsateTest {
       _builder.newLine();
       _builder.append("Delayed Connection sender.SendCorrelatedTrackSet -> requestor.ReceivedCorrelatedTrackSet,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,");
       _builder.newLine();
-      _builder.append("Thread requestor,,0.0ms,immediate local connection,,0.0ms,immediate local connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,");
+      _builder.append("Thread requestor,,0.0ms,immediate connection,,0.0ms,immediate connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,");
       _builder.newLine();
       _builder.append("Immediate Connection requestor.OwnAircraftPositionRequest -> sender.OwnAircraftPositionRequest,,0.0ms,unknown,,0.0ms,unknown,,");
       _builder.newLine();
@@ -398,7 +398,13 @@ public class FlowLatencyTest extends OsateTest {
       _builder.newLine();
       _builder.append("Thread requestor,,100.0ms,deadline,,100.0ms,deadline,,");
       _builder.newLine();
-      _builder.append("Total,unspecified,700.0ms,,unspecified,900.0ms,,");
+      _builder.append("Total,0.0ms,700.0ms,,0.0ms,900.0ms,,");
+      _builder.newLine();
+      _builder.append("Flow Specification,,0.0ms,,,0.0ms,,");
+      _builder.newLine();
+      _builder.append("Informations,the minimal latency is not specified,");
+      _builder.newLine();
+      _builder.append(",the maximal latency is not specified,");
       _builder.newLine();
       return _builder.toString();
     }
