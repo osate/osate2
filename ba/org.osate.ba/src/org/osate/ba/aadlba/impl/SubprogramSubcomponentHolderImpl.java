@@ -44,26 +44,12 @@ import org.osate.ba.aadlba.SubprogramSubcomponentHolder;
  * An implementation of the model object '<em><b>Subprogram Subcomponent Holder</b></em>'.
  * <!-- end-user-doc -->
  * <p>
- * The following features are implemented:
- * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.SubprogramSubcomponentHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
- * </ul>
  * </p>
  *
  * @generated
  */
 public class SubprogramSubcomponentHolderImpl extends SubcomponentHolderImpl implements SubprogramSubcomponentHolder
 {
-  /**
-   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getGroupHolders()
-   * @generated
-   * @ordered
-   */
-  protected EList<GroupHolder> groupHolders;
-
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -90,40 +76,6 @@ public class SubprogramSubcomponentHolderImpl extends SubcomponentHolderImpl imp
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<GroupHolder> getGroupHolders()
-  {
-    if (groupHolders == null)
-    {
-      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS);
-    }
-    return groupHolders;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void unsetGroupHolders()
-  {
-    if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isSetGroupHolders()
-  {
-    return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public void setSubprogramSubcomponent(final SubprogramSubcomponent subprogramSubcomponent)
   {
     element = subprogramSubcomponent ;
@@ -137,142 +89,6 @@ public class SubprogramSubcomponentHolderImpl extends SubcomponentHolderImpl imp
   public SubprogramSubcomponent getSubprogramSubcomponent()
   {
     return (SubprogramSubcomponent) element;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
-        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Object eGet(int featureID, boolean resolve, boolean coreType)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
-        return getGroupHolders();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public void eSet(int featureID, Object newValue)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
-        getGroupHolders().clear();
-        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void eUnset(int featureID)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
-        unsetGroupHolders();
-        return;
-    }
-    super.eUnset(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public boolean eIsSet(int featureID)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
-        return isSetGroupHolders();
-    }
-    return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == GroupableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    if (baseClass == CalledSubprogramHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == GroupableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    if (baseClass == CalledSubprogramHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
   }
 
 } //SubprogramSubcomponentHolderImpl

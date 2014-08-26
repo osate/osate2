@@ -145,7 +145,6 @@ public class AadlBaUtils {
                         type.getClass().getSimpleName()+
                         " from " + type.eContainer().toString() +
                         " is not supported yet." ;
-      System.err.println(errorMsg) ;
       throw new UnsupportedOperationException(errorMsg) ;
     }
   }
@@ -190,7 +189,6 @@ public class AadlBaUtils {
         // RangeValue, RecordValue, ReferenceValue
         String errorMsg = "getDataRepresentation: " + pe.getClass().getSimpleName() +
             " from " + pe.eContainer().toString() + " is not supported yet." ;
-        System.err.println(errorMsg) ;
         throw new UnsupportedOperationException(errorMsg) ;
       }
     }

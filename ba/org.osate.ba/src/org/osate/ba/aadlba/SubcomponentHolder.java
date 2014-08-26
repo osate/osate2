@@ -31,7 +31,7 @@ import org.osate.aadl2.Subcomponent;
  * @model
  * @generated
  */
-public interface SubcomponentHolder extends ClassifierFeatureHolder, IndexableElement
+public interface SubcomponentHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement
 {
   /**
    * <!-- begin-user-doc -->

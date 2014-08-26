@@ -39,6 +39,8 @@ import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.DataSubcomponentHolder ;
 import org.osate.ba.aadlba.ElementValues ;
+import org.osate.ba.aadlba.GroupHolder;
+import org.osate.ba.aadlba.GroupableElement;
 import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.ParameterLabel ;
@@ -54,6 +56,7 @@ import org.osate.ba.aadlba.Target ;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DataSubcomponentHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.DataSubcomponentHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +73,16 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
    * @ordered
    */
   protected EList<IntegerValue> arrayIndexes;
+
+  /**
+   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGroupHolders()
+   * @generated
+   * @ordered
+   */
+  protected EList<GroupHolder> groupHolders;
 
   /**
    * <!-- begin-user-doc -->
@@ -124,6 +137,40 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<GroupHolder> getGroupHolders()
+  {
+    if (groupHolders == null)
+    {
+      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS);
+    }
+    return groupHolders;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetGroupHolders()
+  {
+    if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetGroupHolders()
+  {
+    return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
   }
 
   /**
@@ -198,6 +245,8 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
     {
       case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -214,6 +263,8 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
     {
       case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return getArrayIndexes();
+      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return getGroupHolders();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -233,6 +284,10 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
         return;
+      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        getGroupHolders().clear();
+        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -250,6 +305,9 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
       case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         unsetArrayIndexes();
         return;
+      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        unsetGroupHolders();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -266,6 +324,8 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
     {
       case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return isSetArrayIndexes();
+      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return isSetGroupHolders();
     }
     return super.eIsSet(featureID);
   }
@@ -318,6 +378,14 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
       switch (derivedFeatureID)
       {
         case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
         default: return -1;
       }
     }
@@ -379,6 +447,14 @@ public class DataSubcomponentHolderImpl extends DataHolderImpl implements DataSu
       switch (baseFeatureID)
       {
         case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS;
         default: return -1;
       }
     }

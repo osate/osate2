@@ -614,6 +614,7 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseParameterLabel(dataSubcomponentHolder);
         if (result == null) result = caseClassifierFeatureHolder(dataSubcomponentHolder);
         if (result == null) result = caseIndexableElement(dataSubcomponentHolder);
+        if (result == null) result = caseGroupableElement(dataSubcomponentHolder);
         if (result == null) result = caseElementHolder(dataSubcomponentHolder);
         if (result == null) result = caseIntegerValue(dataSubcomponentHolder);
         if (result == null) result = caseValueVariable(dataSubcomponentHolder);
@@ -1405,6 +1406,7 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = caseSubcomponentHolder(subcomponentHolder);
         if (result == null) result = caseClassifierFeatureHolder(subcomponentHolder);
         if (result == null) result = caseIndexableElement(subcomponentHolder);
+        if (result == null) result = caseGroupableElement(subcomponentHolder);
         if (result == null) result = caseElementHolder(subcomponentHolder);
         if (result == null) result = caseBehaviorElement(subcomponentHolder);
         if (result == null) result = caseElement(subcomponentHolder);

@@ -3801,6 +3801,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     structUnionElementHolderEClass.getESuperTypes().add(this.getElementValues());
     subcomponentHolderEClass.getESuperTypes().add(this.getClassifierFeatureHolder());
     subcomponentHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    subcomponentHolderEClass.getESuperTypes().add(this.getGroupableElement());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getFeatureHolder());

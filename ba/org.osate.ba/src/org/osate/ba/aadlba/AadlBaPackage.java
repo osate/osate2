@@ -3245,13 +3245,22 @@ public interface AadlBaPackage extends EPackage
   int DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Group Holders</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS = DATA_HOLDER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Data Subcomponent Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATA_SUBCOMPONENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
+  int DATA_SUBCOMPONENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5755,13 +5764,22 @@ public interface AadlBaPackage extends EPackage
   int SUBCOMPONENT_HOLDER__ARRAY_INDEXES = CLASSIFIER_FEATURE_HOLDER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Group Holders</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBCOMPONENT_HOLDER__GROUP_HOLDERS = CLASSIFIER_FEATURE_HOLDER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Subcomponent Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUBCOMPONENT_HOLDER_FEATURE_COUNT = CLASSIFIER_FEATURE_HOLDER_FEATURE_COUNT + 1;
+  int SUBCOMPONENT_HOLDER_FEATURE_COUNT = CLASSIFIER_FEATURE_HOLDER_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6058,7 +6076,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS = SUBCOMPONENT_HOLDER_FEATURE_COUNT + 0;
+  int SUBPROGRAM_SUBCOMPONENT_HOLDER__GROUP_HOLDERS = SUBCOMPONENT_HOLDER__GROUP_HOLDERS;
 
   /**
    * The number of structural features of the '<em>Subprogram Subcomponent Holder</em>' class.
@@ -6067,7 +6085,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUBPROGRAM_SUBCOMPONENT_HOLDER_FEATURE_COUNT = SUBCOMPONENT_HOLDER_FEATURE_COUNT + 1;
+  int SUBPROGRAM_SUBCOMPONENT_HOLDER_FEATURE_COUNT = SUBCOMPONENT_HOLDER_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.

@@ -40,6 +40,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
 import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.GroupHolder;
+import org.osate.ba.aadlba.GroupableElement;
 import org.osate.ba.aadlba.IndexableElement;
 import org.osate.ba.aadlba.IntegerValue;
 import org.osate.ba.aadlba.SubcomponentHolder;
@@ -53,6 +55,7 @@ import org.osate.ba.aadlba.SubcomponentHolder;
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,6 +82,16 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * @ordered
    */
   protected EList<IntegerValue> arrayIndexes;
+
+  /**
+   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGroupHolders()
+   * @generated
+   * @ordered
+   */
+  protected EList<GroupHolder> groupHolders;
 
   /**
    * <!-- begin-user-doc -->
@@ -183,6 +196,40 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<GroupHolder> getGroupHolders()
+  {
+    if (groupHolders == null)
+    {
+      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS);
+    }
+    return groupHolders;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetGroupHolders()
+  {
+    if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetGroupHolders()
+  {
+    return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public void setSubcomponent(final Subcomponent subcomponent)
   {
     element = subcomponent ;
@@ -230,6 +277,8 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
     {
       case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -249,6 +298,8 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
         return basicGetElement();
       case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return getArrayIndexes();
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return getGroupHolders();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -271,6 +322,10 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
         return;
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        getGroupHolders().clear();
+        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -291,6 +346,9 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
       case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         unsetArrayIndexes();
         return;
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        unsetGroupHolders();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -309,6 +367,8 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
         return element != null;
       case AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES:
         return isSetArrayIndexes();
+      case AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS:
+        return isSetGroupHolders();
     }
     return super.eIsSet(featureID);
   }
@@ -329,6 +389,14 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
         default: return -1;
       }
     }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
+        default: return -1;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
   }
 
@@ -345,6 +413,14 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
       switch (baseFeatureID)
       {
         case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.SUBCOMPONENT_HOLDER__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.SUBCOMPONENT_HOLDER__GROUP_HOLDERS;
         default: return -1;
       }
     }
