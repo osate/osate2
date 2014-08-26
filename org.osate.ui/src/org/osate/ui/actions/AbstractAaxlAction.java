@@ -136,7 +136,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * The manager of error reporters. Set by the run action to the resource of
 	 * the selected item
 	 */
-	private AnalysisErrorReporterManager errManager;
+	protected AnalysisErrorReporterManager errManager;
 
 	protected WriteToFile csvlog = null;
 
@@ -222,15 +222,15 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		AbstractAaxlAction.this.context = root instanceof SystemInstance ? ((SystemInstance) root)
 				.getSystemImplementation() : root;
 
-		// Init the properties
-		notFound.clear();
-		initPropertyReferences();
-		initializeAction((NamedElement) root);
-		if (suppressErrorMessages() || !reportPropertyLookupErrors()) {
-			// Run the command (indirectly)
-			processAaxlAction(monitor, resource, root);
-		}
-		finalizeAction();
+				// Init the properties
+				notFound.clear();
+				initPropertyReferences();
+				initializeAction((NamedElement) root);
+				if (suppressErrorMessages() || !reportPropertyLookupErrors()) {
+					// Run the command (indirectly)
+					processAaxlAction(monitor, resource, root);
+				}
+				finalizeAction();
 	}
 
 	protected abstract Job createJob(Element root);
