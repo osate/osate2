@@ -35,6 +35,7 @@
 package org.osate.xtext.aadl2.tests
 
 import com.google.inject.Inject
+import java.util.Set
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.junit4.InjectWith
@@ -59,6 +60,7 @@ import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SubprogramType
+import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 
 import static extension org.junit.Assert.assertEquals
@@ -1798,6 +1800,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 						"ps::def".assertEquals((sizeProperty as NamedElement).qualifiedName())
 						//Tests the reference ArraySize_SizeProperty
 						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, '''
+							ps.def, ps.const, 
 							Access_Right, Access_Time, Allowed_Message_Size, Assign_Time, Base_Address, Device_Register_Address, Read_Time, Code_Size, 
 							Data_Size, Heap_Size, Stack_Size, Byte_Count, Memory_Size, Word_Size, Word_Space, Write_Time, Fan_Out_Policy, Connection_Pattern, 
 							Connection_Set, Overflow_Handling_Protocol, Queue_Processing_Protocol, Queue_Size, Required_Connection, Timing, Transmission_Type, 
@@ -1827,7 +1830,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 							Dispatch_Protocol, Dispatch_Trigger, Dispatch_Able, POSIX_Scheduling_Policy, Priority, Criticality, Time_Slot, 
 							Concurrency_Control_Protocol, Urgency, Dequeue_Protocol, Dequeued_Items, Mode_Transition_Response, Resumption_Policy, 
 							Active_Thread_Handling_Protocol, Active_Thread_Queue_Handling_Protocol, Deactivation_Policy, Runtime_Protection, 
-							Subprogram_Call_Type, Synchronized_Component, ps.def, ps.const, Memory_Properties.Access_Right, Memory_Properties.Access_Time, 
+							Subprogram_Call_Type, Synchronized_Component, Memory_Properties.Access_Right, Memory_Properties.Access_Time, 
 							Memory_Properties.Allowed_Message_Size, Memory_Properties.Assign_Time, Memory_Properties.Base_Address, 
 							Memory_Properties.Device_Register_Address, Memory_Properties.Read_Time, Memory_Properties.Code_Size, Memory_Properties.Data_Size, 
 							Memory_Properties.Heap_Size, Memory_Properties.Stack_Size, Memory_Properties.Byte_Count, Memory_Properties.Memory_Size, 
@@ -1838,9 +1841,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 							Communication_Properties.Transmission_Type, Communication_Properties.Input_Rate, Communication_Properties.Input_Time, 
 							Communication_Properties.Output_Rate, Communication_Properties.Output_Time, Communication_Properties.Subprogram_Call_Rate, 
 							Communication_Properties.Transmission_Time, Communication_Properties.Actual_Latency, Communication_Properties.Latency, 
-							Communication_Properties.Data_Rate, ARP4761.Hazards, ARP4761.Catastrophic, ARP4761.Hazardous, ARP4761.SevereMajor, ARP4761.Major, 
-							ARP4761.Minor, ARP4761.NoEffect, ARP4761.Frequent, ARP4761.Probable, ARP4761.Remote, ARP4761.ExtremelyRemote, 
-							ARP4761.ExtremelyImprobable, Modeling_Properties.Acceptable_Array_Size, Modeling_Properties.Classifier_Matching_Rule, 
+							Communication_Properties.Data_Rate, Modeling_Properties.Acceptable_Array_Size, Modeling_Properties.Classifier_Matching_Rule, 
 							Modeling_Properties.Classifier_Substitution_Rule, Modeling_Properties.Implemented_As, 
 							Modeling_Properties.Prototype_Substitution_Rule, Deployment_Properties.Allowed_Processor_Binding_Class, 
 							Deployment_Properties.Allowed_Processor_Binding, Deployment_Properties.Actual_Processor_Binding, 
@@ -1874,17 +1875,6 @@ class Aadl2ScopeProviderTest extends OsateTest {
 							AADL_Project.Supported_Classifier_Complement_Matches, AADL_Project.Max_Aadlinteger, AADL_Project.Max_Target_Integer, 
 							AADL_Project.Max_Base_Address, AADL_Project.Max_Memory_Size, AADL_Project.Max_Queue_Size, AADL_Project.Max_Thread_Limit, 
 							AADL_Project.Max_Time, AADL_Project.Max_Urgency, AADL_Project.Max_Byte_Count, AADL_Project.Max_Word_Space, AADL_Project.Max_Volume, 
-							ARINC429.WordID, ARINC429.FirstBit, ARINC429.NumberBits, ARINC653.Module_Major_Frame, ARINC653.Sampling_Refresh_Period, 
-							ARINC653.Memory_Type, ARINC653.Timeout, ARINC653.DAL, ARINC653.Module_Version, ARINC653.Module_Identifier, 
-							ARINC653.Partition_Identifier, ARINC653.Partition_Name, ARINC653.System_Partition, ARINC653.Error_Handling, 
-							ARINC653.HM_Error_ID_Levels, ARINC653.HM_Error_ID_Actions, ARINC653.State_Information, ARINC653.Queueing_Discipline, 
-							ARINC653.Module_Schedule, ARINC653.Time_Capacity, ARINC653.Deadline_Type, SEI.SecurityLevel, SEI.SafetyCriticality, 
-							SEI.StreamMissRate, SEI.NetWeight, SEI.GrossWeight, SEI.WeightLimit, SEI.StateRepresentation, SEI.ProtocolQoS, SEI.Partition_Latency, 
-							SEI.Is_Partition, SEI.InstructionsPerDispatch, SEI.MIPSCapacity, SEI.MIPSBudget, SEI.RAMCapacity, SEI.RAMBudget, SEI.ROMCapacity, 
-							SEI.ROMBudget, SEI.PowerCapacity, SEI.PowerBudget, SEI.PowerSupply, SEI.BandWidthCapacity, SEI.BandWidthBudget, SEI.RAMActual, 
-							SEI.ROMActual, SEI.Data_Rate, SEI.nsloc, SEI.vdid_inspect, SEI.Broadcast_Protocol, SEI.Model_References, 
-							Behavior_Properties.Subprogram_Call_Protocol, MILSTD882.Hazards, MILSTD882.Catastrophic, MILSTD882.Critical, MILSTD882.Marginal, 
-							MILSTD882.Negligible, MILSTD882.Frequent, MILSTD882.Probable, MILSTD882.Occasional, MILSTD882.Remote, MILSTD882.Improbable, 
 							Timing_Properties.Activate_Deadline, Timing_Properties.Activate_Execution_Time, Timing_Properties.Compute_Deadline, 
 							Timing_Properties.Compute_Execution_Time, Timing_Properties.Client_Subprogram_Execution_Time, Timing_Properties.Deactivate_Dealing, 
 							Timing_Properties.Deactivate_Execution_Time, Timing_Properties.Deadline, Timing_Properties.First_Dispatch_Time, 
@@ -1895,20 +1885,14 @@ class Aadl2ScopeProviderTest extends OsateTest {
 							Timing_Properties.Recover_Execution_Time, Timing_Properties.Startup_Deadline, Timing_Properties.Startup_Execution_Time, 
 							Timing_Properties.Clock_Jitter, Timing_Properties.Clock_Period, Timing_Properties.Clock_Period_Range, 
 							Timing_Properties.Process_Swap_Execution_Time, Timing_Properties.Reference_Processor, Timing_Properties.Scheduler_Quantum, 
-							Timing_Properties.Thread_Swap_Execution_Time, Timing_Properties.Frame_Period, Timing_Properties.Slot_Time, Data_Model.Base_Type, 
-							Data_Model.Code_Set, Data_Model.Data_Digits, Data_Model.Data_Scale, Data_Model.Data_Representation, Data_Model.MyDimension, 
-							Data_Model.Dimension, Data_Model.Element_Names, Data_Model.Enumerators, Data_Model.IEEE754_Precision, Data_Model.Initial_Value, 
-							Data_Model.Integer_Range, Data_Model.Measurement_Unit, Data_Model.Number_Representation, Data_Model.Real_Range, 
-							Data_Model.Representation, EMV2.OccurrenceDistribution, EMV2.DurationDistribution, EMV2.PropagationTimeDelay, EMV2.StateKind, 
-							EMV2.DetectionMechanism, EMV2.FaultKind, EMV2.Persistence, EMV2.Severity, EMV2.Likelihood, EMV2.Hazards, EMV2.Description, 
-							EMV2.HazardAllocation, Thread_Properties.Dispatch_Protocol, Thread_Properties.Dispatch_Trigger, Thread_Properties.Dispatch_Able, 
+							Timing_Properties.Thread_Swap_Execution_Time, Timing_Properties.Frame_Period, Timing_Properties.Slot_Time, 
+							Thread_Properties.Dispatch_Protocol, Thread_Properties.Dispatch_Trigger, Thread_Properties.Dispatch_Able, 
 							Thread_Properties.POSIX_Scheduling_Policy, Thread_Properties.Priority, Thread_Properties.Criticality, Thread_Properties.Time_Slot, 
 							Thread_Properties.Concurrency_Control_Protocol, Thread_Properties.Urgency, Thread_Properties.Dequeue_Protocol, 
 							Thread_Properties.Dequeued_Items, Thread_Properties.Mode_Transition_Response, Thread_Properties.Resumption_Policy, 
 							Thread_Properties.Active_Thread_Handling_Protocol, Thread_Properties.Active_Thread_Queue_Handling_Protocol, 
-							Thread_Properties.Deactivation_Policy, Thread_Properties.Runtime_Protection, Thread_Properties.Subprogram_Call_Type, 
-							Thread_Properties.Synchronized_Component
-						'''.toString.replaceAll(System.lineSeparator, "")
+							Thread_Properties.Deactivation_Policy, Thread_Properties.Runtime_Protection, Thread_Properties.Synchronized_Component, Thread_Properties.Subprogram_Call_Type
+						'''.toString.replaceAll(System.lineSeparator, ""), #{"ps"}
 						)
 					]
 				]
@@ -1918,6 +1902,19 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	
 	def private assertScope(EObject context, EReference reference, CharSequence expected) {
 		context.assertNoErrors
-		expected.assertEquals(context.getScope(reference).allElements.map[name].join(", "))
+		expected.toString.replaceAll(" ", "").split(",").filter[!empty].sort.join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString].sort.join(", "))
+	}
+
+	def private assertScope(EObject context, EReference reference, CharSequence expected, Set<String> validPropertySets) {
+		context.assertNoErrors
+		expected.toString.replaceAll(" ", "").split(",").filter[!empty].sort.join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString].filter[
+			val separatorIndex = indexOf(".")
+			if (separatorIndex != -1) {
+				val propertySetName = it.substring(0, separatorIndex)
+				validPropertySets.exists[equalsIgnoreCase(propertySetName)] || AadlUtil::isPredeclaredPropertySet(propertySetName)
+			} else {
+				true
+			}
+		].sort.join(", "))
 	}
 }
