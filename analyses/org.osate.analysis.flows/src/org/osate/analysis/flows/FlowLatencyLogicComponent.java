@@ -207,8 +207,33 @@ public class FlowLatencyLogicComponent {
 
 		}
 
-		latencyContributor.setMaximum(worstCaseValue);
-		latencyContributor.setMinimum(bestCaseValue);
+		/**
+		 * If the implementation value is equal to 0, then,
+		 * we try to fallback to the specification value.
+		 */
+		if (worstCaseValue > 0) {
+			latencyContributor.setMaximum(worstCaseValue);
+		} else {
+			if (expectedMax > 0) {
+				latencyContributor.setMaximum(expectedMax);
+				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+			}
+		}
+
+		/**
+		 * If the implementation value is equal to 0, then,
+		 * we try to fallback to the specification value.
+		 */
+		if (bestCaseValue > 0) {
+			latencyContributor.setMinimum(bestCaseValue);
+
+		} else {
+			if (expectedMin > 0) {
+				latencyContributor.setMinimum(expectedMin);
+				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+			}
+		}
+
 		latencyContributor.setExpectedMaximum(expectedMax);
 		latencyContributor.setExpectedMinimum(expectedMin);
 

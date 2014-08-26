@@ -68,14 +68,14 @@ public class LatencyReportEntry {
 		if (issues != null) {
 			issues.add(str);
 		}
-		CheckFlowLatency.getInstance().error(relatedEndToEndFlow, str);
+		CheckFlowLatency.getInstance().info(relatedEndToEndFlow, str);
 	}
 
 	private void reportWarning(String str) {
 		if (issues != null) {
 			issues.add(str);
 		}
-		CheckFlowLatency.getInstance().error(relatedEndToEndFlow, str);
+		CheckFlowLatency.getInstance().warning(relatedEndToEndFlow, str);
 	}
 
 	public Section export() {
@@ -143,7 +143,7 @@ public class LatencyReportEntry {
 		line = new Line();
 		line.setSeverity(ReportSeverity.SUCCESS);
 
-		line.addContent("Flow Specification");
+		line.addContent("End to End Flow");
 		line.addContent("");
 		line.addContent(expectedMinLatency + "ms");
 		line.addContent("");
@@ -156,16 +156,15 @@ public class LatencyReportEntry {
 		 */
 		if (expectedMinLatency > 0) {
 			if (expectedMinLatency < minSpecifiedValue) {
-				reportError("minimum expected latency (" + expectedMinLatency
-						+ "ms) on the end to end flow does not match latency specification (" + minSpecifiedValue
-						+ "ms); ");
+				reportError("sum of specified minimum latencies (" + minSpecifiedValue
+						+ " ms) does not match latency specifications (" + expectedMinLatency + "ms)");
 				line.setSeverity(ReportSeverity.ERROR);
 
 			}
 
 			if (expectedMinLatency < minValue) {
-				reportError("minimum expected latency (" + expectedMinLatency
-						+ "ms) on the end to end flow does not match latency computation (" + minValue + "ms); ");
+				reportError("sum of minimum latencies (" + minSpecifiedValue
+						+ " ms) does not match latency specifications (" + expectedMinLatency + "ms)");
 				line.setSeverity(ReportSeverity.ERROR);
 
 			}
@@ -186,8 +185,8 @@ public class LatencyReportEntry {
 			}
 
 			if (expectedMaxLatency < maxValue) {
-				reportError("maximum expected latency (" + expectedMaxLatency
-						+ "ms) on the end to end flow does not match latency computation (" + maxValue + "ms); ");
+				reportError("sun of maximum latencies (" + maxValue + "ms) does not match latency specification ("
+						+ expectedMaxLatency + "ms)");
 				line.setSeverity(ReportSeverity.ERROR);
 			}
 		} else {
@@ -204,7 +203,8 @@ public class LatencyReportEntry {
 		if ((minValue > 0) && (maxValue > 0) && (expectedMaxLatency > 0) && (expectedMinLatency > 0)
 				&& (expectedMinLatency > minValue) && (expectedMaxLatency > maxValue)) {
 			line.setSeverity(ReportSeverity.SUCCESS);
-			reportInfo("the latency calculated from the components is correct with the expected latency specifications");
+			reportInfo("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
+					+ " calculated from the components is correct with the expected latency specifications");
 		}
 
 		if ((expectedMinLatency < minValue) && (expectedMaxLatency < maxValue)) {

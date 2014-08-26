@@ -21,12 +21,14 @@ import org.osate.analysis.flows.reporting.model.ReportSeverity;
 public abstract class LatencyContributor {
 	// UNKNOWN: method not set (default)
 	// Deadline: worst-case (assumes schedulability)
-	// Period: sampling latency of devices, threads, process, system, abstract (AADL by default equates Deadline to be the Period).
+	// Period: sampling latency of devices, threads, process, system, abstract (AADL by default equates Deadline to be
+// the Period).
 	// WCET: maximum processing (compute execution) time
 	// BCET: minimum processing (compute execution) time
 	// WCXT: maximum communication (transfer time) time
 	// BCXT: minimum communication (transfer time) time
-	// Immediate: immediate connection enforces mid-frame communication, i.e., cumulative latency of processing elements (similar to message driven processing)
+	// Immediate: immediate connection enforces mid-frame communication, i.e., cumulative latency of processing elements
+// (similar to message driven processing)
 	// Delayed: enforces frame-delayed communication
 	// Sampled: sampling latency by periodic recipient or transfer mechanism
 	// Specified: latency specified with flow specification
@@ -137,7 +139,7 @@ public abstract class LatencyContributor {
 		case TRANSMISSION_TIME:
 			return "transmission time";
 		}
-		return "unknown";
+		return "no latency";
 	}
 
 	public void setWorstCaseMethod(LatencyContributorMethod m) {
