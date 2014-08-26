@@ -111,13 +111,12 @@ public class AadlBaUtils {
    * Returns the data representation associated to the given PropertyType
    * object.
    * <BR><BR>
-   * Note : this method doesn't support the following property types :
-   * <BR>_ ClassifierType
-   * <BR>_ NumberType
-   * <BR>_ RangeType
-   * <BR>_ RecordType
-   * <BR>_ ReferenceType
-   * <BR>_ UnitsType
+   * Note : this method only supports the following property types :
+   * <BR>_ Aadl integer
+   * <BR>_ Aadl real
+   * <BR>_ Aadl string
+   * <BR>_ Aadl boolean
+   * <BR>_ Enumeration
    * <BR><BR>
    * @param type the given PropertyType object.
    * @return the data representation associated to the given PropertyType 
@@ -150,10 +149,14 @@ public class AadlBaUtils {
   }
   
   /**
-   * TODO: DOC ME !
-   * 
-   * @param pa
-   * @return
+   * Returns the data representation associated to the given PropertyAssociation
+   * object.
+   * <BR><BR>
+   * Note : {@link #getDataRepresentation(PropertyExpression)} to see restrictions.
+   * @param pa the given PropertyAssociation object.
+   * @return the data representation associated to the given PropertyAssociation 
+   * object
+   * @exception UnsupportedOperationException for the unsupported types
    */
   public static DataRepresentation getDataRepresentation(PropertyAssociation pa)
   {
@@ -161,15 +164,20 @@ public class AadlBaUtils {
     return getDataRepresentation(mpv.getOwnedValue());
   }
   
-  // BooleanLiteral, 
-  // IntegerLiteral, 
-  // RealLiteral, StringLiteral
-  
   /**
-   * TODO: DOC ME !
-   * 
-   * @param pe
-   * @return
+   * Returns the data representation associated to the given PropertyExpression
+   * object.
+   * <BR><BR>
+   * Note : this method only supports the following property types :
+   * <BR>_ Boolean literal
+   * <BR>_ Integer literal
+   * <BR>_ Real literal
+   * <BR>_ String literal
+   * <BR><BR>
+   * @param pe the given PropertyExpression object.
+   * @return the data representation associated to the given PropertyExpression 
+   * object
+   * @exception UnsupportedOperationException for the unsupported types
    */
   public static DataRepresentation getDataRepresentation(PropertyExpression pe)
   {
@@ -253,10 +261,10 @@ public class AadlBaUtils {
   }
   
   /**
-   * TODO: DOC ME
-   * 
-   * @param holder
-   * @return
+   * Returns the PropertyType object associated to the given PropertyElementHolder
+   * given object.
+   * @param holder the PropertyElementHolder given object
+   * @return the associated PropertyType object
    */
   public static PropertyType getPropertyType(PropertyElementHolder holder)
   {
