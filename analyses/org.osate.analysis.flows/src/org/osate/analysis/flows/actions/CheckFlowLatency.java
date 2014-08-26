@@ -92,7 +92,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
-	public void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
 		if (!(root instanceof SystemInstance)) {
@@ -116,4 +116,11 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		monitor.done();
 	}
 
+	public void invoke(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root,
+			SystemOperationMode som) {
+		this.errManager = errManager != null ? errManager : new AnalysisErrorReporterManager(
+				getAnalysisErrorReporterFactory());
+		summaryReport = new StringBuffer();
+		analyzeInstanceModel(monitor, errManager, root, som);
+	}
 }
