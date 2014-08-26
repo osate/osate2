@@ -94,6 +94,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
+		currentInstance = this;
 		monitor.beginTask(getActionName(), 1);
 		if (!(root instanceof SystemInstance)) {
 			Dialog.showError("Flow Latency Error", "Please select a system implementation instance");
