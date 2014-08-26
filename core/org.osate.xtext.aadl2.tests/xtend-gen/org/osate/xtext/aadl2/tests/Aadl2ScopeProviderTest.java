@@ -33,7 +33,11 @@
  */
 package org.osate.xtext.aadl2.tests;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -46,6 +50,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -111,6 +116,7 @@ import org.osate.aadl2.ThreadGroupSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.Aadl2UiInjectorProvider;
 import org.osate.xtext.aadl2.tests.OsateTest;
 
@@ -4188,6 +4194,8 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                     Assert.assertEquals("ps::def", _qualifiedName);
                     EReference _arraySize_SizeProperty = Aadl2Package.eINSTANCE.getArraySize_SizeProperty();
                     StringConcatenation _builder = new StringConcatenation();
+                    _builder.append("ps.def, ps.const, ");
+                    _builder.newLine();
                     _builder.append("Access_Right, Access_Time, Allowed_Message_Size, Assign_Time, Base_Address, Device_Register_Address, Read_Time, Code_Size, ");
                     _builder.newLine();
                     _builder.append("Data_Size, Heap_Size, Stack_Size, Byte_Count, Memory_Size, Word_Size, Word_Space, Write_Time, Fan_Out_Policy, Connection_Pattern, ");
@@ -4246,7 +4254,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                     _builder.newLine();
                     _builder.append("Active_Thread_Handling_Protocol, Active_Thread_Queue_Handling_Protocol, Deactivation_Policy, Runtime_Protection, ");
                     _builder.newLine();
-                    _builder.append("Subprogram_Call_Type, Synchronized_Component, ps.def, ps.const, Memory_Properties.Access_Right, Memory_Properties.Access_Time, ");
+                    _builder.append("Subprogram_Call_Type, Synchronized_Component, Memory_Properties.Access_Right, Memory_Properties.Access_Time, ");
                     _builder.newLine();
                     _builder.append("Memory_Properties.Allowed_Message_Size, Memory_Properties.Assign_Time, Memory_Properties.Base_Address, ");
                     _builder.newLine();
@@ -4268,11 +4276,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                     _builder.newLine();
                     _builder.append("Communication_Properties.Transmission_Time, Communication_Properties.Actual_Latency, Communication_Properties.Latency, ");
                     _builder.newLine();
-                    _builder.append("Communication_Properties.Data_Rate, ARP4761.Hazards, ARP4761.Catastrophic, ARP4761.Hazardous, ARP4761.SevereMajor, ARP4761.Major, ");
-                    _builder.newLine();
-                    _builder.append("ARP4761.Minor, ARP4761.NoEffect, ARP4761.Frequent, ARP4761.Probable, ARP4761.Remote, ARP4761.ExtremelyRemote, ");
-                    _builder.newLine();
-                    _builder.append("ARP4761.ExtremelyImprobable, Modeling_Properties.Acceptable_Array_Size, Modeling_Properties.Classifier_Matching_Rule, ");
+                    _builder.append("Communication_Properties.Data_Rate, Modeling_Properties.Acceptable_Array_Size, Modeling_Properties.Classifier_Matching_Rule, ");
                     _builder.newLine();
                     _builder.append("Modeling_Properties.Classifier_Substitution_Rule, Modeling_Properties.Implemented_As, ");
                     _builder.newLine();
@@ -4340,28 +4344,6 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                     _builder.newLine();
                     _builder.append("AADL_Project.Max_Time, AADL_Project.Max_Urgency, AADL_Project.Max_Byte_Count, AADL_Project.Max_Word_Space, AADL_Project.Max_Volume, ");
                     _builder.newLine();
-                    _builder.append("ARINC429.WordID, ARINC429.FirstBit, ARINC429.NumberBits, ARINC653.Module_Major_Frame, ARINC653.Sampling_Refresh_Period, ");
-                    _builder.newLine();
-                    _builder.append("ARINC653.Memory_Type, ARINC653.Timeout, ARINC653.DAL, ARINC653.Module_Version, ARINC653.Module_Identifier, ");
-                    _builder.newLine();
-                    _builder.append("ARINC653.Partition_Identifier, ARINC653.Partition_Name, ARINC653.System_Partition, ARINC653.Error_Handling, ");
-                    _builder.newLine();
-                    _builder.append("ARINC653.HM_Error_ID_Levels, ARINC653.HM_Error_ID_Actions, ARINC653.State_Information, ARINC653.Queueing_Discipline, ");
-                    _builder.newLine();
-                    _builder.append("ARINC653.Module_Schedule, ARINC653.Time_Capacity, ARINC653.Deadline_Type, SEI.SecurityLevel, SEI.SafetyCriticality, ");
-                    _builder.newLine();
-                    _builder.append("SEI.StreamMissRate, SEI.NetWeight, SEI.GrossWeight, SEI.WeightLimit, SEI.StateRepresentation, SEI.ProtocolQoS, SEI.Partition_Latency, ");
-                    _builder.newLine();
-                    _builder.append("SEI.Is_Partition, SEI.InstructionsPerDispatch, SEI.MIPSCapacity, SEI.MIPSBudget, SEI.RAMCapacity, SEI.RAMBudget, SEI.ROMCapacity, ");
-                    _builder.newLine();
-                    _builder.append("SEI.ROMBudget, SEI.PowerCapacity, SEI.PowerBudget, SEI.PowerSupply, SEI.BandWidthCapacity, SEI.BandWidthBudget, SEI.RAMActual, ");
-                    _builder.newLine();
-                    _builder.append("SEI.ROMActual, SEI.Data_Rate, SEI.nsloc, SEI.vdid_inspect, SEI.Broadcast_Protocol, SEI.Model_References, ");
-                    _builder.newLine();
-                    _builder.append("Behavior_Properties.Subprogram_Call_Protocol, MILSTD882.Hazards, MILSTD882.Catastrophic, MILSTD882.Critical, MILSTD882.Marginal, ");
-                    _builder.newLine();
-                    _builder.append("MILSTD882.Negligible, MILSTD882.Frequent, MILSTD882.Probable, MILSTD882.Occasional, MILSTD882.Remote, MILSTD882.Improbable, ");
-                    _builder.newLine();
                     _builder.append("Timing_Properties.Activate_Deadline, Timing_Properties.Activate_Execution_Time, Timing_Properties.Compute_Deadline, ");
                     _builder.newLine();
                     _builder.append("Timing_Properties.Compute_Execution_Time, Timing_Properties.Client_Subprogram_Execution_Time, Timing_Properties.Deactivate_Dealing, ");
@@ -4382,19 +4364,9 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                     _builder.newLine();
                     _builder.append("Timing_Properties.Process_Swap_Execution_Time, Timing_Properties.Reference_Processor, Timing_Properties.Scheduler_Quantum, ");
                     _builder.newLine();
-                    _builder.append("Timing_Properties.Thread_Swap_Execution_Time, Timing_Properties.Frame_Period, Timing_Properties.Slot_Time, Data_Model.Base_Type, ");
+                    _builder.append("Timing_Properties.Thread_Swap_Execution_Time, Timing_Properties.Frame_Period, Timing_Properties.Slot_Time, ");
                     _builder.newLine();
-                    _builder.append("Data_Model.Code_Set, Data_Model.Data_Digits, Data_Model.Data_Scale, Data_Model.Data_Representation, Data_Model.MyDimension, ");
-                    _builder.newLine();
-                    _builder.append("Data_Model.Dimension, Data_Model.Element_Names, Data_Model.Enumerators, Data_Model.IEEE754_Precision, Data_Model.Initial_Value, ");
-                    _builder.newLine();
-                    _builder.append("Data_Model.Integer_Range, Data_Model.Measurement_Unit, Data_Model.Number_Representation, Data_Model.Real_Range, ");
-                    _builder.newLine();
-                    _builder.append("Data_Model.Representation, EMV2.OccurrenceDistribution, EMV2.DurationDistribution, EMV2.PropagationTimeDelay, EMV2.StateKind, ");
-                    _builder.newLine();
-                    _builder.append("EMV2.DetectionMechanism, EMV2.FaultKind, EMV2.Persistence, EMV2.Severity, EMV2.Likelihood, EMV2.Hazards, EMV2.Description, ");
-                    _builder.newLine();
-                    _builder.append("EMV2.HazardAllocation, Thread_Properties.Dispatch_Protocol, Thread_Properties.Dispatch_Trigger, Thread_Properties.Dispatch_Able, ");
+                    _builder.append("Thread_Properties.Dispatch_Protocol, Thread_Properties.Dispatch_Trigger, Thread_Properties.Dispatch_Able, ");
                     _builder.newLine();
                     _builder.append("Thread_Properties.POSIX_Scheduling_Policy, Thread_Properties.Priority, Thread_Properties.Criticality, Thread_Properties.Time_Slot, ");
                     _builder.newLine();
@@ -4404,14 +4376,12 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                     _builder.newLine();
                     _builder.append("Thread_Properties.Active_Thread_Handling_Protocol, Thread_Properties.Active_Thread_Queue_Handling_Protocol, ");
                     _builder.newLine();
-                    _builder.append("Thread_Properties.Deactivation_Policy, Thread_Properties.Runtime_Protection, Thread_Properties.Subprogram_Call_Type, ");
-                    _builder.newLine();
-                    _builder.append("Thread_Properties.Synchronized_Component");
+                    _builder.append("Thread_Properties.Deactivation_Policy, Thread_Properties.Runtime_Protection, Thread_Properties.Synchronized_Component, Thread_Properties.Subprogram_Call_Type");
                     _builder.newLine();
                     String _string = _builder.toString();
                     String _lineSeparator = System.lineSeparator();
                     String _replaceAll = _string.replaceAll(_lineSeparator, "");
-                    Aadl2ScopeProviderTest.this.assertScope(it, _arraySize_SizeProperty, _replaceAll);
+                    Aadl2ScopeProviderTest.this.assertScope(it, _arraySize_SizeProperty, _replaceAll, Collections.<String>unmodifiableSet(Sets.<String>newHashSet("ps")));
                   }
                 };
                 ObjectExtensions.<ArraySize>operator_doubleArrow(_size, _function);
@@ -4429,15 +4399,92 @@ public class Aadl2ScopeProviderTest extends OsateTest {
   
   private void assertScope(final EObject context, final EReference reference, final CharSequence expected) {
     this._validationTestHelper.assertNoErrors(context);
-    IScope _scope = this._iScopeProvider.getScope(context, reference);
-    Iterable<IEObjectDescription> _allElements = _scope.getAllElements();
-    final Function1<IEObjectDescription, QualifiedName> _function = new Function1<IEObjectDescription, QualifiedName>() {
-      public QualifiedName apply(final IEObjectDescription it) {
-        return it.getName();
+    String _string = expected.toString();
+    String _replaceAll = _string.replaceAll(" ", "");
+    String[] _split = _replaceAll.split(",");
+    final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+      public Boolean apply(final String it) {
+        boolean _isEmpty = it.isEmpty();
+        return Boolean.valueOf((!_isEmpty));
       }
     };
-    Iterable<QualifiedName> _map = IterableExtensions.<IEObjectDescription, QualifiedName>map(_allElements, _function);
-    String _join = IterableExtensions.join(_map, ", ");
-    Assert.assertEquals(expected, _join);
+    Iterable<String> _filter = IterableExtensions.<String>filter(((Iterable<String>)Conversions.doWrapArray(_split)), _function);
+    List<String> _sort = IterableExtensions.<String>sort(_filter);
+    String _join = IterableExtensions.join(_sort, ", ");
+    IScope _scope = this._iScopeProvider.getScope(context, reference);
+    Iterable<IEObjectDescription> _allElements = _scope.getAllElements();
+    final Function1<IEObjectDescription, String> _function_1 = new Function1<IEObjectDescription, String>() {
+      public String apply(final IEObjectDescription it) {
+        QualifiedName _name = it.getName();
+        return _name.toString();
+      }
+    };
+    Iterable<String> _map = IterableExtensions.<IEObjectDescription, String>map(_allElements, _function_1);
+    List<String> _sort_1 = IterableExtensions.<String>sort(_map);
+    String _join_1 = IterableExtensions.join(_sort_1, ", ");
+    Assert.assertEquals(_join, _join_1);
+  }
+  
+  private void assertScope(final EObject context, final EReference reference, final CharSequence expected, final Set<String> validPropertySets) {
+    this._validationTestHelper.assertNoErrors(context);
+    String _string = expected.toString();
+    String _replaceAll = _string.replaceAll(" ", "");
+    String[] _split = _replaceAll.split(",");
+    final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+      public Boolean apply(final String it) {
+        boolean _isEmpty = it.isEmpty();
+        return Boolean.valueOf((!_isEmpty));
+      }
+    };
+    Iterable<String> _filter = IterableExtensions.<String>filter(((Iterable<String>)Conversions.doWrapArray(_split)), _function);
+    List<String> _sort = IterableExtensions.<String>sort(_filter);
+    String _join = IterableExtensions.join(_sort, ", ");
+    IScope _scope = this._iScopeProvider.getScope(context, reference);
+    Iterable<IEObjectDescription> _allElements = _scope.getAllElements();
+    final Function1<IEObjectDescription, String> _function_1 = new Function1<IEObjectDescription, String>() {
+      public String apply(final IEObjectDescription it) {
+        QualifiedName _name = it.getName();
+        return _name.toString();
+      }
+    };
+    Iterable<String> _map = IterableExtensions.<IEObjectDescription, String>map(_allElements, _function_1);
+    final Function1<String, Boolean> _function_2 = new Function1<String, Boolean>() {
+      public Boolean apply(final String it) {
+        boolean _xblockexpression = false;
+        {
+          final int separatorIndex = it.indexOf(".");
+          boolean _xifexpression = false;
+          if ((separatorIndex != (-1))) {
+            boolean _xblockexpression_1 = false;
+            {
+              final String propertySetName = it.substring(0, separatorIndex);
+              boolean _or = false;
+              final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+                public Boolean apply(final String it) {
+                  return Boolean.valueOf(it.equalsIgnoreCase(propertySetName));
+                }
+              };
+              boolean _exists = IterableExtensions.<String>exists(validPropertySets, _function);
+              if (_exists) {
+                _or = true;
+              } else {
+                boolean _isPredeclaredPropertySet = AadlUtil.isPredeclaredPropertySet(propertySetName);
+                _or = _isPredeclaredPropertySet;
+              }
+              _xblockexpression_1 = _or;
+            }
+            _xifexpression = _xblockexpression_1;
+          } else {
+            _xifexpression = true;
+          }
+          _xblockexpression = _xifexpression;
+        }
+        return Boolean.valueOf(_xblockexpression);
+      }
+    };
+    Iterable<String> _filter_1 = IterableExtensions.<String>filter(_map, _function_2);
+    List<String> _sort_1 = IterableExtensions.<String>sort(_filter_1);
+    String _join_1 = IterableExtensions.join(_sort_1, ", ");
+    Assert.assertEquals(_join, _join_1);
   }
 }
