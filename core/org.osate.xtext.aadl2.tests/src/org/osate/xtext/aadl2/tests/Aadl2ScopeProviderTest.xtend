@@ -35,7 +35,8 @@
 package org.osate.xtext.aadl2.tests
 
 import com.google.inject.Inject
-import java.util.Set
+import java.util.Comparator
+import org.eclipse.core.resources.IFile
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.junit4.InjectWith
@@ -74,6 +75,8 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	
 	static val TEST_PROJECT_NAME = "Aadl2_Scope_Provider_Test"
 	
+	val pluginResourcesNames = workspaceRoot.getProject("Plugin_Resources").members.filter(typeof(IFile)).map[name].filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
+	
 	@Before
 	def setUp() {
 		createProject(TEST_PROJECT_NAME, "packages")
@@ -103,7 +106,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  renamed_package renames package pack4;
 				  renames abstract pack5::a6;
 				  renames feature group pack5::fgt5;
-				  renmaed_classifier renames abstract pack5::a7;
+				  renamed_classifier renames abstract pack5::a7;
 				  renamed_feature_group renames feature group pack5::fgt5;
 				
 				  abstract a1
@@ -217,14 +220,11 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
 		assertAllCrossReferencesResolvable(pack1)
 		
-		val componentClassifierScopeForPack1 = '''
-			a6, renmaed_classifier, a4, a4.i, d3, d3.i, renamed_package.a5, renamed_package.a5.i, renamed_package.d4, renamed_package.d4.i, 
-			a1, a2, a2.i, d1, d1.i, pack1.a1, pack1.a2, pack1.a2.i, pack1.d1, pack1.d1.i, pack3.a4, pack3.a4.i, pack3.d3, pack3.d3.i, pack2.a3, 
-			pack2.a3.i, pack2.d2, pack2.d2.i, pack5.a6, pack5.a7, pack5.d5, pack5.d5.i, pack4.a5, pack4.a5.i, pack4.d4, pack4.d4.i, 
-			Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, Base_Types.Integer_64, 
-			Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, Base_Types.Natural, Base_Types.Float, 
-			Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String
-		'''.toString.replaceAll(System.lineSeparator, "")
+		val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "renamed_classifier", "pack1::a1",
+			"pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack3::a4", "pack3::a4.i",
+			"pack3::d3", "pack3::d3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i",
+			"renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i"
+		]
 		
 		pack1 => [
 			"pack1".assertEquals(name)
@@ -246,9 +246,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) as FeatureGroupPrototypeBinding => [
 					"proto3".assertEquals(formal.name)
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, fgt5, renamed_feature_group, " +
-						"fgt3, renamed_package.fgt4, fgt1, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack4.fgt4"
-					)
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt3", "fgt5", "proto3",
+						"renamed_feature_group", "pack1::fgt1", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "renamed_package::fgt4"
+					])
 				]
 				ownedPrototypeBindings.get(1) as FeaturePrototypeBinding => [
 					"proto4".assertEquals(formal.name)
@@ -263,7 +263,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(3) as ComponentPrototypeBinding => [
 					"proto6".assertEquals(formal.name)
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto6, " + componentClassifierScopeForPack1)
+					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["proto1", "proto6"] + componentClassifierScopeForPack1)
 				]
 			]
 		]
@@ -379,7 +379,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypes.head => [
 					"proto1".assertEquals(name)
 					//Tests scope_Prototype_refined
-					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
+					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, #[])
 				]
 			]
 			publicSection.ownedClassifiers.get(1) as AbstractType => [
@@ -387,9 +387,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypes.head => [
 					"proto1".assertEquals(name)
 					//Tests scope_Prototype_refined
-					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto1")
+					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, #["proto1"])
 				]
-				val refinedFeatureScopeForA2 = "fg1, af1, ba1, da1, suba1, dport1, eport1, edport1, subga1"
+				val refinedFeatureScopeForA2 = #["af1", "ba1", "da1", "dport1", "edport1", "eport1", "fg1", "suba1", "subga1"]
 				ownedDataPorts.head => [
 					"dport1".assertEquals(name)
 					//Tests scope_Feature_refined
@@ -441,7 +441,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypes.head => [
 					"proto2".assertEquals(name)
 					//Tests scope_Prototype_refined
-					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "")
+					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, #[])
 				]
 			]
 			publicSection.ownedClassifiers.get(3) as FeatureGroupType => [
@@ -449,9 +449,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypes.head => [
 					"proto2".assertEquals(name)
 					//Tests scope_Prototype_refined
-					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, "proto2")
+					assertScope(Aadl2Package::eINSTANCE.prototype_Refined, #["proto2"])
 				]
-				val refinedFeatureScopeForFgt2 = "ba2, da2, dport2, edport2, eport2, fg2, param1, suba2, subga2, af2"
+				val refinedFeatureScopeForFgt2 = #["af2", "ba2", "da2", "dport2", "edport2", "eport2", "fg2", "param1", "suba2", "subga2"]
 				ownedDataPorts.head => [
 					"dport2".assertEquals(name)
 					//Tests scope_Feature_refined
@@ -508,12 +508,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedSubcomponents.head => [
 					"asub1".assertEquals(name)
 					//Tests scope_Subcomponent_refined
-					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, "asub1")
+					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, #["asub1"])
 				]
 			]
 			publicSection.ownedClassifiers.get(7) as SubprogramType => [
 				"sub2".assertEquals(name)
-				val refinedFeatureScopeForSub2 = "fg3, af3, edport3, eport3, param2, da3, suba3, subga3"
+				val refinedFeatureScopeForSub2 = #["af3", "da3", "edport3", "eport3", "fg3", "param2", "suba3", "subga3"]
 				ownedEventDataPorts.head => [
 					"edport3".assertEquals(name)
 					//Tests scope_Feature_refined
@@ -640,28 +640,30 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
 					"proto1".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					actuals.head => [
 						"a3".assertEquals(subcomponentType.name)
 						bindings.head => [
 							"proto2".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(ComponentPrototypeActual, EReference)
-							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto2")
+							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto2"])
 						]
 					]
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 					"proto3".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					actual => [
 						"fgt1".assertEquals((featureType as NamedElement).name)
 						//Tests scope_FeatureGroupPrototypeActual_featureType
-						assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
+						assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto3", "proto5", "pack::fgt1",
+							"pack::fgt2"
+						])
 						bindings.head => [
 							"proto4".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(FeatureGroupPrototypeActual, EReference)
-							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
+							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
 						]
 					]
 				]
@@ -675,7 +677,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 						ownedPrototypeBindings.head => [
 							"proto2".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(ComponentImplementationReference, EReference)
-							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto2")
+							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto2"])
 						]
 					]
 				]
@@ -684,7 +686,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					ownedPrototypeBindings.head => [
 						"proto2".assertEquals(formal.name)
 						//Tests scope_PrototypeBinding_formal(Subcomponent, EReference)
-						assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto2")
+						assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto2"])
 					]
 				]
 			]
@@ -693,41 +695,45 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
 					"proto1".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto11, a1, a2, a1.i1, a1.i2, a3, " +
-						"a3.i1, pack.a1, pack.a2, pack.a1.i1, pack.a1.i2, pack.a3, pack.a3.i1"
-					)
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1",
+						"proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1"
+					])
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 					"proto3".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto3", "proto5", "pack::fgt1",
+						"pack::fgt2"
+					])
 				]
 				ownedPrototypeBindings.get(2) as FeatureGroupPrototypeBinding => [
 					"proto5".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto3, proto5, fgt1, fgt2, pack.fgt1, pack.fgt2")
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto3", "proto5", "pack::fgt1",
+						"pack::fgt2"
+					])
 				]
 				ownedPrototypeBindings.get(3) as FeaturePrototypeBinding => [
 					"proto8".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_FeaturePrototypeReference_prototype
-					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, "proto8, proto9")
+					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, #["proto8", "proto9"])
 				]
 				ownedPrototypeBindings.get(4) as ComponentPrototypeBinding => [
 					"proto11".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto1, proto3, proto5, proto8, proto9, proto11")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto1, proto11, a1, a2, a1.i1, a1.i2, a3, " +
-						"a3.i1, pack.a1, pack.a2, pack.a1.i1, pack.a1.i2, pack.a3, pack.a3.i1"
-					)
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1",
+						"proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1"
+					])
 				]
 			]
 			publicSection.ownedClassifiers.get(7) => [
@@ -735,30 +741,32 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) => [
 					"proto4".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 					"proto6".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, "proto6, proto7, fgt1, fgt2, pack.fgt1, pack.fgt2")
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto6", "proto7", "pack::fgt1",
+						"pack::fgt2"
+					])
 				]
 				ownedPrototypeBindings.get(2) as FeaturePrototypeBinding => [
 					"proto10".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
 					//Tests scope_FeaturePrototypeReference_prototype
-					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, "proto4, proto10")
+					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, #["proto10", "proto4"])
 				]
 				ownedPrototypeBindings.get(3) as ComponentPrototypeBinding => [
 					"proto12".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, "proto4, proto6, proto10, proto12")
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, "proto12, proto13, a1, a2, a1.i1, a1.i2, a3, " +
-						"a3.i1, pack.a1, pack.a2, pack.a1.i1, pack.a1.i2, pack.a3, pack.a3.i1"
-					)
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1",
+						"proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1"
+					])
 				]
 			]
 		]
@@ -1429,80 +1437,76 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedDataPorts.head => [
 					"dport1".assertEquals(name)
 					//Tests scope_DataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 				ownedEventDataPorts.head => [
 					"edport1".assertEquals(name)
 					//Tests scope_EventDataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 				ownedFeatureGroups.head => [
 					"fg1".assertEquals(name)
 					//Tests scope_FeatureGroup_featureType
-					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, "fgproto1, fgt5, rfgt, fgt3, renamed_package.fgt4, fgtcontainer, fgt1, " +
-						"pack1.fgtcontainer, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack5.fgt6, pack4.fgt4"
-					)
+					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, #["fgproto1", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt", "pack1::fgt1",
+						"pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6", "renamed_package::fgt4"
+					])
 				]
 				ownedSubprogramAccesses.head => [
 					"suba1".assertEquals(name)
 					//Tests scope_SubprogramAccess_subprogramFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, "aproto1, subproto1, a5, sub5, ra, rsub, a3, a3.i, " +
-						"sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, " +
-						"subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, pack1.sub1, " +
-						"pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, " +
-						"pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1", "pack1::a1",
+						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2",
+						"pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i",
+						"pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6",
+						"renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i"
+					])
 				]
 				ownedSubprogramGroupAccesses.head => [
 					"subga1".assertEquals(name)
 					//Tests scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, "aproto1, subgproto1, a5, subg5, ra, rsubg, " +
-						"a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, " +
-						"container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, " +
-						"pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, " +
-						"pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1", "pack1::a1.i",
+						"pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2",
+						"pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4",
+						"pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4",
+						"renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i"
+					])
 				]
 				ownedBusAccesses.head => [
 					"ba1".assertEquals(name)
 					//Tests scope_BusAccess_busFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, "aproto1, bproto1, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, " +
-						"pack4.b4, pack4.b4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i", "b3",
+						"b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
+						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i"
+					])
 				]
 				ownedDataAccesses.head => [
 					"da1".assertEquals(name)
 					//Tests scope_DataAccess_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 				ownedAbstractFeatures.head => [
 					"af1".assertEquals(name)
 					//Tests scope_AbstractFeature_featurePrototype
-					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, "fproto1")
+					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, #["fproto1"])
 				]
 			]
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
@@ -1510,142 +1514,149 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedAbstractSubcomponents.head => [
 					"asub".assertEquals(name)
 					//Tests scope_AbstractSubcomponent_abstractSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.abstractSubcomponent_AbstractSubcomponentType, "aproto1, a5, ra, a3, a3.i, renamed_package.a4, " +
-						"renamed_package.a4.i, container, container.i, a1, a1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack3.a3, " +
-						"pack3.a3.i, pack2.a2, pack2.a2.i, pack5.a5, pack5.a5.i, pack5.a6, pack4.a4, pack4.a4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.abstractSubcomponent_AbstractSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "ra", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i",
+						"pack3::a3", "pack3::a3.i", "pack4::a4", "pack4::a4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "renamed_package::a4",
+						"renamed_package::a4.i"
+					])
 				]
 				ownedSystemSubcomponents.head => [
 					"ssub".assertEquals(name)
 					//Tests scope_SystemSubcomponent_systemSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.systemSubcomponent_SystemSubcomponentType, "aproto1, sproto1, a5, s5, ra, rs, a3, a3.i, s3, s3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.s4, renamed_package.s4.i, container, container.i, a1, a1.i, s1, s1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.s1, pack1.s1.i, pack3.a3, pack3.a3.i, pack3.s3, pack3.s3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.s2, pack2.s2.i, pack5.a5, pack5.a5.i, pack5.s5, pack5.s5.i, pack5.a6, pack5.s6, pack4.a4, pack4.a4.i, " +
-						"pack4.s4, pack4.s4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.systemSubcomponent_SystemSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "ra", "rs", "s1", "s1.i", "s3", "s3.i", "s5", "sproto1", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::s1", "pack1::s1.i", "pack2::a2", "pack2::a2.i", "pack2::s2", "pack2::s2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::s3", "pack3::s3.i", "pack4::a4", "pack4::a4.i", "pack4::s4", "pack4::s4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::s5", "pack5::s5.i", "pack5::s6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::s4", "renamed_package::s4.i"
+					])
 				]
 				ownedProcessSubcomponents.head => [
 					"psub".assertEquals(name)
 					//Tests scope_ProcessSubcomponent_processSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.processSubcomponent_ProcessSubcomponentType, "aproto1, pproto1, a5, p5, ra, rp, a3, a3.i, p3, p3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.p4, renamed_package.p4.i, container, container.i, a1, a1.i, p1, p1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.p1, pack1.p1.i, pack3.a3, pack3.a3.i, pack3.p3, pack3.p3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.p2, pack2.p2.i, pack5.a5, pack5.a5.i, pack5.p5, pack5.p5.i, pack5.a6, pack5.p6, pack4.a4, pack4.a4.i, " +
-						"pack4.p4, pack4.p4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.processSubcomponent_ProcessSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "p1", "p1.i", "p3", "p3.i", "p5", "pproto1", "ra", "rp", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::p1", "pack1::p1.i", "pack2::a2", "pack2::a2.i", "pack2::p2", "pack2::p2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::p3", "pack3::p3.i", "pack4::a4", "pack4::a4.i", "pack4::p4", "pack4::p4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::p5", "pack5::p5.i", "pack5::p6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::p4", "renamed_package::p4.i"
+					])
 				]
 				ownedThreadGroupSubcomponents.head => [
 					"tgsub".assertEquals(name)
 					//Tests scope_ThreadGroupSubcomponent_threadGroupSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.threadGroupSubcomponent_ThreadGroupSubcomponentType, "aproto1, tgproto1, a5, tg5, ra, rtg, a3, " +
-						"a3.i, tg3, tg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.tg4, renamed_package.tg4.i, container, container.i, " +
-						"a1, a1.i, tg1, tg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.tg1, pack1.tg1.i, pack3.a3, pack3.a3.i, " +
-						"pack3.tg3, pack3.tg3.i, pack2.a2, pack2.a2.i, pack2.tg2, pack2.tg2.i, pack5.a5, pack5.a5.i, pack5.tg5, pack5.tg5.i, pack5.a6, " +
-						"pack5.tg6, pack4.a4, pack4.a4.i, pack4.tg4, pack4.tg4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.threadGroupSubcomponent_ThreadGroupSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "ra", "rtg", "tg1", "tg1.i", "tg3", "tg3.i", "tg5", "tgproto1", "pack1::a1", "pack1::a1.i",
+						"pack1::container", "pack1::container.i", "pack1::tg1", "pack1::tg1.i", "pack2::a2", "pack2::a2.i", "pack2::tg2", "pack2::tg2.i",
+						"pack3::a3", "pack3::a3.i", "pack3::tg3", "pack3::tg3.i", "pack4::a4", "pack4::a4.i", "pack4::tg4", "pack4::tg4.i", "pack5::a5",
+						"pack5::a5.i", "pack5::a6", "pack5::tg5", "pack5::tg5.i", "pack5::tg6", "renamed_package::a4", "renamed_package::a4.i",
+						"renamed_package::tg4", "renamed_package::tg4.i"
+					])
 				]
 				ownedThreadSubcomponents.head => [
 					"tsub".assertEquals(name)
 					//Tests scope_ThreadSubcomponent_threadSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.threadSubcomponent_ThreadSubcomponentType, "aproto1, tproto1, a5, t5, ra, rt, a3, a3.i, t3, t3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.t4, renamed_package.t4.i, container, container.i, a1, a1.i, t1, t1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.t1, pack1.t1.i, pack3.a3, pack3.a3.i, pack3.t3, pack3.t3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.t2, pack2.t2.i, pack5.a5, pack5.a5.i, pack5.t5, pack5.t5.i, pack5.a6, pack5.t6, pack4.a4, pack4.a4.i, " +
-						"pack4.t4, pack4.t4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.threadSubcomponent_ThreadSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "ra", "rt", "t1", "t1.i", "t3", "t3.i", "t5", "tproto1", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::t1", "pack1::t1.i", "pack2::a2", "pack2::a2.i", "pack2::t2", "pack2::t2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::t3", "pack3::t3.i", "pack4::a4", "pack4::a4.i", "pack4::t4", "pack4::t4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::t5", "pack5::t5.i", "pack5::t6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::t4", "renamed_package::t4.i"
+					])
 				]
 				ownedSubprogramSubcomponents.head => [
 					"subsub".assertEquals(name)
 					//Tests scope_SubprogramSubcomponent_subprogramSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.subprogramSubcomponent_SubprogramSubcomponentType, "aproto1, subproto1, a5, sub5, ra, rsub, a3, " +
-						"a3.i, sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, " +
-						"container.i, subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, " +
-						"pack1.sub1, pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, " +
-						"pack5.a5, pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.subprogramSubcomponent_SubprogramSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1", "pack1::a1",
+						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2",
+						"pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i",
+						"pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6",
+						"renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i"
+					])
 				]
 				ownedSubprogramGroupSubcomponents.head => [
 					"subgsub".assertEquals(name)
 					//Tests scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, "aproto1, subgproto1, a5, subg5, ra, " +
-						"rsubg, a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, " +
-						"container, container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, " +
-						"pack1.subg1.i, pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, " +
-						"pack5.a5.i, pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5",
+						"aproto1", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1",
+						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2",
+						"pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4",
+						"pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4",
+						"renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i"
+					])
 				]
 				ownedProcessorSubcomponents.head => [
 					"procsub".assertEquals(name)
 					//Tests scope_ProcessorSubcomponent_processorSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.processorSubcomponent_ProcessorSubcomponentType, "aproto1, procproto1, a5, proc5, ra, rproc, a3, " +
-						"a3.i, proc3, proc3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.proc4, renamed_package.proc4.i, container, " +
-						"container.i, a1, a1.i, proc1, proc1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.proc1, pack1.proc1.i, " +
-						"pack3.a3, pack3.a3.i, pack3.proc3, pack3.proc3.i, pack2.a2, pack2.a2.i, pack2.proc2, pack2.proc2.i, pack5.a5, pack5.a5.i, " +
-						"pack5.proc5, pack5.proc5.i, pack5.a6, pack5.proc6, pack4.a4, pack4.a4.i, pack4.proc4, pack4.proc4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.processorSubcomponent_ProcessorSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "proc1", "proc1.i", "proc3", "proc3.i", "proc5", "procproto1", "ra", "rproc", "pack1::a1", "pack1::a1.i",
+						"pack1::container", "pack1::container.i", "pack1::proc1", "pack1::proc1.i", "pack2::a2", "pack2::a2.i", "pack2::proc2",
+						"pack2::proc2.i", "pack3::a3", "pack3::a3.i", "pack3::proc3", "pack3::proc3.i", "pack4::a4", "pack4::a4.i", "pack4::proc4",
+						"pack4::proc4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::proc5", "pack5::proc5.i", "pack5::proc6", "renamed_package::a4",
+						"renamed_package::a4.i", "renamed_package::proc4", "renamed_package::proc4.i"
+					])
 				]
 				ownedVirtualProcessorSubcomponents.head => [
 					"vpsub".assertEquals(name)
 					//Tests scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, "aproto1, vpproto1, a5, vp5, ra, " +
-						"rvp, a3, a3.i, vp3, vp3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vp4, renamed_package.vp4.i, container, " +
-						"container.i, a1, a1.i, vp1, vp1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vp1, pack1.vp1.i, pack3.a3, " +
-						"pack3.a3.i, pack3.vp3, pack3.vp3.i, pack2.a2, pack2.a2.i, pack2.vp2, pack2.vp2.i, pack5.a5, pack5.a5.i, pack5.vp5, pack5.vp5.i, " +
-						"pack5.a6, pack5.vp6, pack4.a4, pack4.a4.i, pack4.vp4, pack4.vp4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5",
+						"aproto1", "container", "container.i", "ra", "rvp", "vp1", "vp1.i", "vp3", "vp3.i", "vp5", "vpproto1", "pack1::a1", "pack1::a1.i",
+						"pack1::container", "pack1::container.i", "pack1::vp1", "pack1::vp1.i", "pack2::a2", "pack2::a2.i", "pack2::vp2", "pack2::vp2.i",
+						"pack3::a3", "pack3::a3.i", "pack3::vp3", "pack3::vp3.i", "pack4::a4", "pack4::a4.i", "pack4::vp4", "pack4::vp4.i", "pack5::a5",
+						"pack5::a5.i", "pack5::a6", "pack5::vp5", "pack5::vp5.i", "pack5::vp6", "renamed_package::a4", "renamed_package::a4.i",
+						"renamed_package::vp4", "renamed_package::vp4.i"
+					])
 				]
 				ownedDeviceSubcomponents.head => [
 					"devsub".assertEquals(name)
 					//Tests scope_DeviceSubcomponent_deviceSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.deviceSubcomponent_DeviceSubcomponentType, "aproto1, devproto1, a5, dev5, ra, rdev, a3, a3.i, dev3, " +
-						"dev3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.dev4, renamed_package.dev4.i, container, container.i, a1, a1.i, " +
-						"dev1, dev1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.dev1, pack1.dev1.i, pack3.a3, pack3.a3.i, " +
-						"pack3.dev3, pack3.dev3.i, pack2.a2, pack2.a2.i, pack2.dev2, pack2.dev2.i, pack5.a5, pack5.a5.i, pack5.dev5, pack5.dev5.i, " +
-						"pack5.a6, pack5.dev6, pack4.a4, pack4.a4.i, pack4.dev4, pack4.dev4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.deviceSubcomponent_DeviceSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "dev1", "dev1.i", "dev3", "dev3.i", "dev5", "devproto1", "ra", "rdev", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::dev1", "pack1::dev1.i", "pack2::a2", "pack2::a2.i", "pack2::dev2", "pack2::dev2.i", "pack3::a3",
+						"pack3::a3.i", "pack3::dev3", "pack3::dev3.i", "pack4::a4", "pack4::a4.i", "pack4::dev4", "pack4::dev4.i", "pack5::a5", "pack5::a5.i",
+						"pack5::a6", "pack5::dev5", "pack5::dev5.i", "pack5::dev6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::dev4",
+						"renamed_package::dev4.i"
+					])
 				]
 				ownedMemorySubcomponents.head => [
 					"msub".assertEquals(name)
 					//Tests scope_MemorySubcomponent_memorySubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.memorySubcomponent_MemorySubcomponentType, "aproto1, mproto1, a5, m5, ra, rm, a3, a3.i, m3, m3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.m4, renamed_package.m4.i, container, container.i, a1, a1.i, m1, m1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.m1, pack1.m1.i, pack3.a3, pack3.a3.i, pack3.m3, pack3.m3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.m2, pack2.m2.i, pack5.a5, pack5.a5.i, pack5.m5, pack5.m5.i, pack5.a6, pack5.m6, pack4.a4, pack4.a4.i, " +
-						"pack4.m4, pack4.m4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.memorySubcomponent_MemorySubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "m1", "m1.i", "m3", "m3.i", "m5", "mproto1", "ra", "rm", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::m1", "pack1::m1.i", "pack2::a2", "pack2::a2.i", "pack2::m2", "pack2::m2.i", "pack3::a3",
+						"pack3::a3.i", "pack3::m3", "pack3::m3.i", "pack4::a4", "pack4::a4.i", "pack4::m4", "pack4::m4.i", "pack5::a5", "pack5::a5.i",
+						"pack5::a6", "pack5::m5", "pack5::m5.i", "pack5::m6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::m4",
+						"renamed_package::m4.i"
+					])
 				]
 				ownedBusSubcomponents.head => [
 					"bsub".assertEquals(name)
 					//Tests scope_BusSubcomponent_busSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.busSubcomponent_BusSubcomponentType, "aproto1, bproto1, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, " +
-						"pack4.b4, pack4.b4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.busSubcomponent_BusSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i", "b3",
+						"b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
+						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i"
+					])
 				]
 				ownedVirtualBusSubcomponents.head => [
 					"vbsub".assertEquals(name)
 					//Tests scope_VirtualBusSubcomponent_virtualBusSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.virtualBusSubcomponent_VirtualBusSubcomponentType, "aproto1, vbproto1, a5, vb5, ra, rvb, a3, a3.i, " +
-						"vb3, vb3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.vb4, renamed_package.vb4.i, container, container.i, a1, " +
-						"a1.i, vb1, vb1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.vb1, pack1.vb1.i, pack3.a3, pack3.a3.i, " +
-						"pack3.vb3, pack3.vb3.i, pack2.a2, pack2.a2.i, pack2.vb2, pack2.vb2.i, pack5.a5, pack5.a5.i, pack5.vb5, pack5.vb5.i, pack5.a6, " +
-						"pack5.vb6, pack4.a4, pack4.a4.i, pack4.vb4, pack4.vb4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.virtualBusSubcomponent_VirtualBusSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+						"container", "container.i", "ra", "rvb", "vb1", "vb1.i", "vb3", "vb3.i", "vb5", "vbproto1", "pack1::a1", "pack1::a1.i",
+						"pack1::container", "pack1::container.i", "pack1::vb1", "pack1::vb1.i", "pack2::a2", "pack2::a2.i", "pack2::vb2", "pack2::vb2.i",
+						"pack3::a3", "pack3::a3.i", "pack3::vb3", "pack3::vb3.i", "pack4::a4", "pack4::a4.i", "pack4::vb4", "pack4::vb4.i", "pack5::a5",
+						"pack5::a5.i", "pack5::a6", "pack5::vb5", "pack5::vb5.i", "pack5::vb6", "renamed_package::a4", "renamed_package::a4.i",
+						"renamed_package::vb4", "renamed_package::vb4.i"
+					])
 				]
 				ownedDataSubcomponents.head => [
 					"dsub".assertEquals(name)
 					//Tests scope_DataSubcomponent_dataSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.dataSubcomponent_DataSubcomponentType, "aproto1, dproto1, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.dataSubcomponent_DataSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 			]
 			publicSection.ownedClassifiers.get(2) as SubprogramType => [
@@ -1653,14 +1664,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedParameters.head => [
 					"param1".assertEquals(name)
 					//Tests scope_Parameter_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, "aproto2, dproto2, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto2", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto2", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 			]
 			publicSection.ownedClassifiers.get(3) as FeatureGroupType => [
@@ -1668,92 +1677,86 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedDataPorts.head => [
 					"dport2".assertEquals(name)
 					//Tests scope_DataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 				ownedEventDataPorts.head => [
 					"edport2".assertEquals(name)
 					//Tests scope_EventDataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 				ownedFeatureGroups.head => [
 					"fg2".assertEquals(name)
 					//Tests scope_FeatureGroup_featureType
-					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, "fgproto3, fgt5, rfgt, fgt3, renamed_package.fgt4, fgtcontainer, fgt1, " +
-						"pack1.fgtcontainer, pack1.fgt1, pack3.fgt3, pack2.fgt2, pack5.fgt5, pack5.fgt6, pack4.fgt4"
-					)
+					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, #["fgproto3", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt", "pack1::fgt1",
+						"pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6", "renamed_package::fgt4"
+					])
 				]
 				ownedParameters.head => [
 					"param2".assertEquals(name)
 					//Tests scope_Parameter_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 				ownedSubprogramAccesses.head => [
 					"suba2".assertEquals(name)
 					//Tests scope_SubprogramAccess_subprogramFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, "aproto3, subproto3, a5, sub5, ra, rsub, a3, a3.i, " +
-						"sub3, sub3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.sub4, renamed_package.sub4.i, container, container.i, " +
-						"subcontainer, a1, a1.i, sub1, sub1.i, pack1.container, pack1.container.i, pack1.subcontainer, pack1.a1, pack1.a1.i, pack1.sub1, " +
-						"pack1.sub1.i, pack3.a3, pack3.a3.i, pack3.sub3, pack3.sub3.i, pack2.a2, pack2.a2.i, pack2.sub2, pack2.sub2.i, pack5.a5, " +
-						"pack5.a5.i, pack5.sub5, pack5.sub5.i, pack5.a6, pack5.sub6, pack4.a4, pack4.a4.i, pack4.sub4, pack4.sub4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3",
+						"container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto3", "pack1::a1",
+						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2",
+						"pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i",
+						"pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6",
+						"renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i"
+					])
 				]
 				ownedSubprogramGroupAccesses.head => [
 					"subga2".assertEquals(name)
 					//Tests scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, "aproto3, subgproto3, a5, subg5, ra, rsubg, " +
-						"a3, a3.i, subg3, subg3.i, renamed_package.a4, renamed_package.a4.i, renamed_package.subg4, renamed_package.subg4.i, container, " +
-						"container.i, a1, a1.i, subg1, subg1.i, pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.subg1, pack1.subg1.i, " +
-						"pack3.a3, pack3.a3.i, pack3.subg3, pack3.subg3.i, pack2.a2, pack2.a2.i, pack2.subg2, pack2.subg2.i, pack5.a5, pack5.a5.i, " +
-						"pack5.subg5, pack5.subg5.i, pack5.a6, pack5.subg6, pack4.a4, pack4.a4.i, pack4.subg4, pack4.subg4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3",
+						"container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto3", "pack1::a1", "pack1::a1.i",
+						"pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2",
+						"pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4",
+						"pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4",
+						"renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i"
+					])
 				]
 				ownedBusAccesses.head => [
 					"ba2".assertEquals(name)
 					//Tests scope_BusAccess_busFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, "aproto3, bproto3, a5, b5, ra, rb, a3, a3.i, b3, b3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.b4, renamed_package.b4.i, container, container.i, a1, a1.i, b1, b1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.b1, pack1.b1.i, pack3.a3, pack3.a3.i, pack3.b3, pack3.b3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.b2, pack2.b2.i, pack5.a5, pack5.a5.i, pack5.b5, pack5.b5.i, pack5.a6, pack5.b6, pack4.a4, pack4.a4.i, " +
-						"pack4.b4, pack4.b4.i"
-					)
+					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "b1", "b1.i", "b3",
+						"b3.i", "b5", "bproto3", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
+						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i"
+					])
 				]
 				ownedDataAccesses.head => [
 					"da2".assertEquals(name)
 					//Tests scope_DataAccess_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, "aproto3, dproto3, a5, d5, ra, rd, a3, a3.i, d3, d3.i, " +
-						"renamed_package.a4, renamed_package.a4.i, renamed_package.d4, renamed_package.d4.i, container, container.i, a1, a1.i, d1, d1.i, " +
-						"pack1.container, pack1.container.i, pack1.a1, pack1.a1.i, pack1.d1, pack1.d1.i, pack3.a3, pack3.a3.i, pack3.d3, pack3.d3.i, " +
-						"pack2.a2, pack2.a2.i, pack2.d2, pack2.d2.i, pack5.a5, pack5.a5.i, pack5.d5, pack5.d5.i, pack5.a6, pack5.d6, pack4.a4, pack4.a4.i, " +
-						"pack4.d4, pack4.d4.i, Base_Types.Boolean, Base_Types.Integer, Base_Types.Integer_8, Base_Types.Integer_16, Base_Types.Integer_32, " +
-						"Base_Types.Integer_64, Base_Types.Unsigned_8, Base_Types.Unsigned_16, Base_Types.Unsigned_32, Base_Types.Unsigned_64, " +
-						"Base_Types.Natural, Base_Types.Float, Base_Types.Float_32, Base_Types.Float_64, Base_Types.Character, Base_Types.String"
-					)
+					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
+						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 				ownedAbstractFeatures.head => [
 					"af2".assertEquals(name)
 					//Tests scope_AbstractFeature_featurePrototype
-					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, "fproto3")
+					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, #["fproto3"])
 				]
 			]
 		]
@@ -1799,122 +1802,156 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					arrayDimensions.head.size => [
 						"ps::def".assertEquals((sizeProperty as NamedElement).qualifiedName())
 						//Tests the reference ArraySize_SizeProperty
-						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, '''
-							ps.def, ps.const, 
-							Access_Right, Access_Time, Allowed_Message_Size, Assign_Time, Base_Address, Device_Register_Address, Read_Time, Code_Size, 
-							Data_Size, Heap_Size, Stack_Size, Byte_Count, Memory_Size, Word_Size, Word_Space, Write_Time, Fan_Out_Policy, Connection_Pattern, 
-							Connection_Set, Overflow_Handling_Protocol, Queue_Processing_Protocol, Queue_Size, Required_Connection, Timing, Transmission_Type, 
-							Input_Rate, Input_Time, Output_Rate, Output_Time, Subprogram_Call_Rate, Transmission_Time, Actual_Latency, Latency, Data_Rate, 
-							Acceptable_Array_Size, Classifier_Matching_Rule, Classifier_Substitution_Rule, Implemented_As, Prototype_Substitution_Rule, 
-							Allowed_Processor_Binding_Class, Allowed_Processor_Binding, Actual_Processor_Binding, Allowed_Memory_Binding_Class, 
-							Allowed_Memory_Binding, Actual_Memory_Binding, Allowed_Connection_Binding_Class, Allowed_Connection_Binding, 
-							Actual_Connection_Binding, Actual_Function_Binding, Allowed_Subprogram_Call, Actual_Subprogram_Call, 
-							Allowed_Subprogram_Call_Binding, Actual_Subprogram_Call_Binding, Provided_Virtual_Bus_Class, Required_Virtual_Bus_Class, 
-							Provided_Connection_Quality_Of_Service, Required_Connection_Quality_Of_Service, Not_Collocated, Collocated, Allowed_Connection_Type, 
-							Allowed_Dispatch_Protocol, Allowed_Period, Allowed_Physical_Access_Class, Allowed_Physical_Access, Memory_Protocol, 
-							Runtime_Protection_Support, Scheduling_Protocol, Preemptive_Scheduler, Thread_Limit, Priority_Map, Priority_Range, 
-							Activate_Entrypoint, Activate_Entrypoint_Call_Sequence, Activate_Entrypoint_Source_Text, Compute_Entrypoint, 
-							Compute_Entrypoint_Call_Sequence, Compute_Entrypoint_Source_Text, Deactivate_Entrypoint, Deactivate_Entrypoint_Call_Sequence, 
-							Deactivate_Entrypoint_Source_Text, Finalize_Entrypoint, Finalize_Entrypoint_Call_Sequence, Finalize_Entrypoint_Source_Text, 
-							Initialize_Entrypoint, Initialize_Entrypoint_Call_Sequence, Initialize_Entrypoint_Source_Text, Recover_Entrypoint, 
-							Recover_Entrypoint_Call_Sequence, Recover_Entrypoint_Source_Text, Source_Language, Source_Name, Source_Text, 
-							Supported_Source_Language, Type_Source_Name, Hardware_Description_Source_Text, Hardware_Source_Language, Device_Driver, 
-							Supported_Classifier_Equivalence_Matches, Supported_Classifier_Subset_Matches, Supported_Type_Conversions, 
-							Supported_Classifier_Complement_Matches, Max_Aadlinteger, Max_Target_Integer, Max_Base_Address, Max_Memory_Size, Max_Queue_Size, 
-							Max_Thread_Limit, Max_Time, Max_Urgency, Max_Byte_Count, Max_Word_Space, Max_Volume, Activate_Deadline, Activate_Execution_Time, 
-							Compute_Deadline, Compute_Execution_Time, Client_Subprogram_Execution_Time, Deactivate_Dealing, Deactivate_Execution_Time, Deadline, 
-							First_Dispatch_Time, Dispatch_Jitter, Dispatch_Offset, Execution_Time, Finalize_Deadline, Finalize_Execution_Time, 
-							Initialize_Deadline, Initialize_Execution_Time, Load_Deadline, Load_Time, Processor_Capacity, Period, Recover_Deadline, 
-							Recover_Execution_Time, Startup_Deadline, Startup_Execution_Time, Clock_Jitter, Clock_Period, Clock_Period_Range, 
-							Process_Swap_Execution_Time, Reference_Processor, Scheduler_Quantum, Thread_Swap_Execution_Time, Frame_Period, Slot_Time, 
-							Dispatch_Protocol, Dispatch_Trigger, Dispatch_Able, POSIX_Scheduling_Policy, Priority, Criticality, Time_Slot, 
-							Concurrency_Control_Protocol, Urgency, Dequeue_Protocol, Dequeued_Items, Mode_Transition_Response, Resumption_Policy, 
-							Active_Thread_Handling_Protocol, Active_Thread_Queue_Handling_Protocol, Deactivation_Policy, Runtime_Protection, 
-							Subprogram_Call_Type, Synchronized_Component, Memory_Properties.Access_Right, Memory_Properties.Access_Time, 
-							Memory_Properties.Allowed_Message_Size, Memory_Properties.Assign_Time, Memory_Properties.Base_Address, 
-							Memory_Properties.Device_Register_Address, Memory_Properties.Read_Time, Memory_Properties.Code_Size, Memory_Properties.Data_Size, 
-							Memory_Properties.Heap_Size, Memory_Properties.Stack_Size, Memory_Properties.Byte_Count, Memory_Properties.Memory_Size, 
-							Memory_Properties.Word_Size, Memory_Properties.Word_Space, Memory_Properties.Write_Time, Communication_Properties.Fan_Out_Policy, 
-							Communication_Properties.Connection_Pattern, Communication_Properties.Connection_Set, 
-							Communication_Properties.Overflow_Handling_Protocol, Communication_Properties.Queue_Processing_Protocol, 
-							Communication_Properties.Queue_Size, Communication_Properties.Required_Connection, Communication_Properties.Timing, 
-							Communication_Properties.Transmission_Type, Communication_Properties.Input_Rate, Communication_Properties.Input_Time, 
-							Communication_Properties.Output_Rate, Communication_Properties.Output_Time, Communication_Properties.Subprogram_Call_Rate, 
-							Communication_Properties.Transmission_Time, Communication_Properties.Actual_Latency, Communication_Properties.Latency, 
-							Communication_Properties.Data_Rate, Modeling_Properties.Acceptable_Array_Size, Modeling_Properties.Classifier_Matching_Rule, 
-							Modeling_Properties.Classifier_Substitution_Rule, Modeling_Properties.Implemented_As, 
-							Modeling_Properties.Prototype_Substitution_Rule, Deployment_Properties.Allowed_Processor_Binding_Class, 
-							Deployment_Properties.Allowed_Processor_Binding, Deployment_Properties.Actual_Processor_Binding, 
-							Deployment_Properties.Allowed_Memory_Binding_Class, Deployment_Properties.Allowed_Memory_Binding, 
-							Deployment_Properties.Actual_Memory_Binding, Deployment_Properties.Allowed_Connection_Binding_Class, 
-							Deployment_Properties.Allowed_Connection_Binding, Deployment_Properties.Actual_Connection_Binding, 
-							Deployment_Properties.Actual_Function_Binding, Deployment_Properties.Allowed_Subprogram_Call, 
-							Deployment_Properties.Actual_Subprogram_Call, Deployment_Properties.Allowed_Subprogram_Call_Binding, 
-							Deployment_Properties.Actual_Subprogram_Call_Binding, Deployment_Properties.Provided_Virtual_Bus_Class, 
-							Deployment_Properties.Required_Virtual_Bus_Class, Deployment_Properties.Provided_Connection_Quality_Of_Service, 
-							Deployment_Properties.Required_Connection_Quality_Of_Service, Deployment_Properties.Not_Collocated, 
-							Deployment_Properties.Collocated, Deployment_Properties.Allowed_Connection_Type, Deployment_Properties.Allowed_Dispatch_Protocol, 
-							Deployment_Properties.Allowed_Period, Deployment_Properties.Allowed_Physical_Access_Class, 
-							Deployment_Properties.Allowed_Physical_Access, Deployment_Properties.Memory_Protocol, 
-							Deployment_Properties.Runtime_Protection_Support, Deployment_Properties.Scheduling_Protocol, 
-							Deployment_Properties.Preemptive_Scheduler, Deployment_Properties.Thread_Limit, Deployment_Properties.Priority_Map, 
-							Deployment_Properties.Priority_Range, Programming_Properties.Activate_Entrypoint, 
-							Programming_Properties.Activate_Entrypoint_Call_Sequence, Programming_Properties.Activate_Entrypoint_Source_Text, 
-							Programming_Properties.Compute_Entrypoint, Programming_Properties.Compute_Entrypoint_Call_Sequence, 
-							Programming_Properties.Compute_Entrypoint_Source_Text, Programming_Properties.Deactivate_Entrypoint, 
-							Programming_Properties.Deactivate_Entrypoint_Call_Sequence, Programming_Properties.Deactivate_Entrypoint_Source_Text, 
-							Programming_Properties.Finalize_Entrypoint, Programming_Properties.Finalize_Entrypoint_Call_Sequence, 
-							Programming_Properties.Finalize_Entrypoint_Source_Text, Programming_Properties.Initialize_Entrypoint, 
-							Programming_Properties.Initialize_Entrypoint_Call_Sequence, Programming_Properties.Initialize_Entrypoint_Source_Text, 
-							Programming_Properties.Recover_Entrypoint, Programming_Properties.Recover_Entrypoint_Call_Sequence, 
-							Programming_Properties.Recover_Entrypoint_Source_Text, Programming_Properties.Source_Language, Programming_Properties.Source_Name, 
-							Programming_Properties.Source_Text, Programming_Properties.Supported_Source_Language, Programming_Properties.Type_Source_Name, 
-							Programming_Properties.Hardware_Description_Source_Text, Programming_Properties.Hardware_Source_Language, 
-							Programming_Properties.Device_Driver, AADL_Project.Supported_Classifier_Equivalence_Matches, 
-							AADL_Project.Supported_Classifier_Subset_Matches, AADL_Project.Supported_Type_Conversions, 
-							AADL_Project.Supported_Classifier_Complement_Matches, AADL_Project.Max_Aadlinteger, AADL_Project.Max_Target_Integer, 
-							AADL_Project.Max_Base_Address, AADL_Project.Max_Memory_Size, AADL_Project.Max_Queue_Size, AADL_Project.Max_Thread_Limit, 
-							AADL_Project.Max_Time, AADL_Project.Max_Urgency, AADL_Project.Max_Byte_Count, AADL_Project.Max_Word_Space, AADL_Project.Max_Volume, 
-							Timing_Properties.Activate_Deadline, Timing_Properties.Activate_Execution_Time, Timing_Properties.Compute_Deadline, 
-							Timing_Properties.Compute_Execution_Time, Timing_Properties.Client_Subprogram_Execution_Time, Timing_Properties.Deactivate_Dealing, 
-							Timing_Properties.Deactivate_Execution_Time, Timing_Properties.Deadline, Timing_Properties.First_Dispatch_Time, 
-							Timing_Properties.Dispatch_Jitter, Timing_Properties.Dispatch_Offset, Timing_Properties.Execution_Time, 
-							Timing_Properties.Finalize_Deadline, Timing_Properties.Finalize_Execution_Time, Timing_Properties.Initialize_Deadline, 
-							Timing_Properties.Initialize_Execution_Time, Timing_Properties.Load_Deadline, Timing_Properties.Load_Time, 
-							Timing_Properties.Processor_Capacity, Timing_Properties.Period, Timing_Properties.Recover_Deadline, 
-							Timing_Properties.Recover_Execution_Time, Timing_Properties.Startup_Deadline, Timing_Properties.Startup_Execution_Time, 
-							Timing_Properties.Clock_Jitter, Timing_Properties.Clock_Period, Timing_Properties.Clock_Period_Range, 
-							Timing_Properties.Process_Swap_Execution_Time, Timing_Properties.Reference_Processor, Timing_Properties.Scheduler_Quantum, 
-							Timing_Properties.Thread_Swap_Execution_Time, Timing_Properties.Frame_Period, Timing_Properties.Slot_Time, 
-							Thread_Properties.Dispatch_Protocol, Thread_Properties.Dispatch_Trigger, Thread_Properties.Dispatch_Able, 
-							Thread_Properties.POSIX_Scheduling_Policy, Thread_Properties.Priority, Thread_Properties.Criticality, Thread_Properties.Time_Slot, 
-							Thread_Properties.Concurrency_Control_Protocol, Thread_Properties.Urgency, Thread_Properties.Dequeue_Protocol, 
-							Thread_Properties.Dequeued_Items, Thread_Properties.Mode_Transition_Response, Thread_Properties.Resumption_Policy, 
-							Thread_Properties.Active_Thread_Handling_Protocol, Thread_Properties.Active_Thread_Queue_Handling_Protocol, 
-							Thread_Properties.Deactivation_Policy, Thread_Properties.Runtime_Protection, Thread_Properties.Synchronized_Component, Thread_Properties.Subprogram_Call_Type
-						'''.toString.replaceAll(System.lineSeparator, ""), #{"ps"}
-						)
+						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
+							"Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
+							"Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol", "Actual_Connection_Binding",
+							"Actual_Function_Binding", "Actual_Latency", "Actual_Memory_Binding", "Actual_Processor_Binding", "Actual_Subprogram_Call",
+							"Actual_Subprogram_Call_Binding", "Allowed_Connection_Binding", "Allowed_Connection_Binding_Class", "Allowed_Connection_Type",
+							"Allowed_Dispatch_Protocol", "Allowed_Memory_Binding", "Allowed_Memory_Binding_Class", "Allowed_Message_Size", "Allowed_Period",
+							"Allowed_Physical_Access", "Allowed_Physical_Access_Class", "Allowed_Processor_Binding", "Allowed_Processor_Binding_Class",
+							"Allowed_Subprogram_Call", "Allowed_Subprogram_Call_Binding", "Assign_Time", "Base_Address", "Byte_Count",
+							"Classifier_Matching_Rule", "Classifier_Substitution_Rule", "Client_Subprogram_Execution_Time", "Clock_Jitter", "Clock_Period",
+							"Clock_Period_Range", "Code_Size", "Collocated", "Compute_Deadline", "Compute_Entrypoint", "Compute_Entrypoint_Call_Sequence",
+							"Compute_Entrypoint_Source_Text", "Compute_Execution_Time", "Concurrency_Control_Protocol", "Connection_Pattern", "Connection_Set",
+							"Criticality", "Data_Rate", "Data_Size", "Deactivate_Dealing", "Deactivate_Entrypoint", "Deactivate_Entrypoint_Call_Sequence",
+							"Deactivate_Entrypoint_Source_Text", "Deactivate_Execution_Time", "Deactivation_Policy", "Deadline", "Dequeue_Protocol",
+							"Dequeued_Items", "Device_Driver", "Device_Register_Address", "Dispatch_Able", "Dispatch_Jitter", "Dispatch_Offset",
+							"Dispatch_Protocol", "Dispatch_Trigger", "Execution_Time", "Fan_Out_Policy", "Finalize_Deadline", "Finalize_Entrypoint",
+							"Finalize_Entrypoint_Call_Sequence", "Finalize_Entrypoint_Source_Text", "Finalize_Execution_Time", "First_Dispatch_Time",
+							"Frame_Period", "Hardware_Description_Source_Text", "Hardware_Source_Language", "Heap_Size", "Implemented_As",
+							"Initialize_Deadline", "Initialize_Entrypoint", "Initialize_Entrypoint_Call_Sequence", "Initialize_Entrypoint_Source_Text",
+							"Initialize_Execution_Time", "Input_Rate", "Input_Time", "Latency", "Load_Deadline", "Load_Time", "Max_Aadlinteger",
+							"Max_Base_Address", "Max_Byte_Count", "Max_Memory_Size", "Max_Queue_Size", "Max_Target_Integer", "Max_Thread_Limit", "Max_Time",
+							"Max_Urgency", "Max_Volume", "Max_Word_Space", "Memory_Protocol", "Memory_Size", "Mode_Transition_Response", "Not_Collocated",
+							"Output_Rate", "Output_Time", "Overflow_Handling_Protocol", "POSIX_Scheduling_Policy", "Period", "Preemptive_Scheduler",
+							"Priority", "Priority_Map", "Priority_Range", "Process_Swap_Execution_Time", "Processor_Capacity", "Prototype_Substitution_Rule",
+							"Provided_Connection_Quality_Of_Service", "Provided_Virtual_Bus_Class", "Queue_Processing_Protocol", "Queue_Size", "Read_Time",
+							"Recover_Deadline", "Recover_Entrypoint", "Recover_Entrypoint_Call_Sequence", "Recover_Entrypoint_Source_Text",
+							"Recover_Execution_Time", "Reference_Processor", "Required_Connection", "Required_Connection_Quality_Of_Service",
+							"Required_Virtual_Bus_Class", "Resumption_Policy", "Runtime_Protection", "Runtime_Protection_Support", "Scheduler_Quantum",
+							"Scheduling_Protocol", "Slot_Time", "Source_Language", "Source_Name", "Source_Text", "Stack_Size", "Startup_Deadline",
+							"Startup_Execution_Time", "Subprogram_Call_Rate", "Subprogram_Call_Type", "Supported_Classifier_Complement_Matches",
+							"Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language",
+							"Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing",
+							"Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const",
+							"ps::def", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
+							"AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer",
+							"AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume",
+							"AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches",
+							"AADL_Project::Supported_Classifier_Equivalence_Matches", "AADL_Project::Supported_Classifier_Subset_Matches",
+							"AADL_Project::Supported_Type_Conversions", "Communication_Properties::Actual_Latency",
+							"Communication_Properties::Connection_Pattern", "Communication_Properties::Connection_Set", "Communication_Properties::Data_Rate",
+							"Communication_Properties::Fan_Out_Policy", "Communication_Properties::Input_Rate", "Communication_Properties::Input_Time",
+							"Communication_Properties::Latency", "Communication_Properties::Output_Rate", "Communication_Properties::Output_Time",
+							"Communication_Properties::Overflow_Handling_Protocol", "Communication_Properties::Queue_Processing_Protocol",
+							"Communication_Properties::Queue_Size", "Communication_Properties::Required_Connection",
+							"Communication_Properties::Subprogram_Call_Rate", "Communication_Properties::Timing",
+							"Communication_Properties::Transmission_Time", "Communication_Properties::Transmission_Type",
+							"Deployment_Properties::Actual_Connection_Binding", "Deployment_Properties::Actual_Function_Binding",
+							"Deployment_Properties::Actual_Memory_Binding", "Deployment_Properties::Actual_Processor_Binding",
+							"Deployment_Properties::Actual_Subprogram_Call", "Deployment_Properties::Actual_Subprogram_Call_Binding",
+							"Deployment_Properties::Allowed_Connection_Binding", "Deployment_Properties::Allowed_Connection_Binding_Class",
+							"Deployment_Properties::Allowed_Connection_Type", "Deployment_Properties::Allowed_Dispatch_Protocol",
+							"Deployment_Properties::Allowed_Memory_Binding", "Deployment_Properties::Allowed_Memory_Binding_Class",
+							"Deployment_Properties::Allowed_Period", "Deployment_Properties::Allowed_Physical_Access",
+							"Deployment_Properties::Allowed_Physical_Access_Class", "Deployment_Properties::Allowed_Processor_Binding",
+							"Deployment_Properties::Allowed_Processor_Binding_Class", "Deployment_Properties::Allowed_Subprogram_Call",
+							"Deployment_Properties::Allowed_Subprogram_Call_Binding", "Deployment_Properties::Collocated",
+							"Deployment_Properties::Memory_Protocol", "Deployment_Properties::Not_Collocated", "Deployment_Properties::Preemptive_Scheduler",
+							"Deployment_Properties::Priority_Map", "Deployment_Properties::Priority_Range",
+							"Deployment_Properties::Provided_Connection_Quality_Of_Service", "Deployment_Properties::Provided_Virtual_Bus_Class",
+							"Deployment_Properties::Required_Connection_Quality_Of_Service", "Deployment_Properties::Required_Virtual_Bus_Class",
+							"Deployment_Properties::Runtime_Protection_Support", "Deployment_Properties::Scheduling_Protocol",
+							"Deployment_Properties::Thread_Limit", "Memory_Properties::Access_Right", "Memory_Properties::Access_Time",
+							"Memory_Properties::Allowed_Message_Size", "Memory_Properties::Assign_Time", "Memory_Properties::Base_Address",
+							"Memory_Properties::Byte_Count", "Memory_Properties::Code_Size", "Memory_Properties::Data_Size",
+							"Memory_Properties::Device_Register_Address", "Memory_Properties::Heap_Size", "Memory_Properties::Memory_Size",
+							"Memory_Properties::Read_Time", "Memory_Properties::Stack_Size", "Memory_Properties::Word_Size", "Memory_Properties::Word_Space",
+							"Memory_Properties::Write_Time", "Modeling_Properties::Acceptable_Array_Size", "Modeling_Properties::Classifier_Matching_Rule",
+							"Modeling_Properties::Classifier_Substitution_Rule", "Modeling_Properties::Implemented_As",
+							"Modeling_Properties::Prototype_Substitution_Rule", "Programming_Properties::Activate_Entrypoint",
+							"Programming_Properties::Activate_Entrypoint_Call_Sequence", "Programming_Properties::Activate_Entrypoint_Source_Text",
+							"Programming_Properties::Compute_Entrypoint", "Programming_Properties::Compute_Entrypoint_Call_Sequence",
+							"Programming_Properties::Compute_Entrypoint_Source_Text", "Programming_Properties::Deactivate_Entrypoint",
+							"Programming_Properties::Deactivate_Entrypoint_Call_Sequence", "Programming_Properties::Deactivate_Entrypoint_Source_Text",
+							"Programming_Properties::Device_Driver", "Programming_Properties::Finalize_Entrypoint",
+							"Programming_Properties::Finalize_Entrypoint_Call_Sequence", "Programming_Properties::Finalize_Entrypoint_Source_Text",
+							"Programming_Properties::Hardware_Description_Source_Text", "Programming_Properties::Hardware_Source_Language",
+							"Programming_Properties::Initialize_Entrypoint", "Programming_Properties::Initialize_Entrypoint_Call_Sequence",
+							"Programming_Properties::Initialize_Entrypoint_Source_Text", "Programming_Properties::Recover_Entrypoint",
+							"Programming_Properties::Recover_Entrypoint_Call_Sequence", "Programming_Properties::Recover_Entrypoint_Source_Text",
+							"Programming_Properties::Source_Language", "Programming_Properties::Source_Name", "Programming_Properties::Source_Text",
+							"Programming_Properties::Supported_Source_Language", "Programming_Properties::Type_Source_Name",
+							"Thread_Properties::Active_Thread_Handling_Protocol", "Thread_Properties::Active_Thread_Queue_Handling_Protocol",
+							"Thread_Properties::Concurrency_Control_Protocol", "Thread_Properties::Criticality", "Thread_Properties::Deactivation_Policy",
+							"Thread_Properties::Dequeue_Protocol", "Thread_Properties::Dequeued_Items", "Thread_Properties::Dispatch_Able",
+							"Thread_Properties::Dispatch_Protocol", "Thread_Properties::Dispatch_Trigger", "Thread_Properties::Mode_Transition_Response",
+							"Thread_Properties::POSIX_Scheduling_Policy", "Thread_Properties::Priority", "Thread_Properties::Resumption_Policy",
+							"Thread_Properties::Runtime_Protection", "Thread_Properties::Subprogram_Call_Type", "Thread_Properties::Synchronized_Component",
+							"Thread_Properties::Time_Slot", "Thread_Properties::Urgency", "Timing_Properties::Activate_Deadline",
+							"Timing_Properties::Activate_Execution_Time", "Timing_Properties::Client_Subprogram_Execution_Time",
+							"Timing_Properties::Clock_Jitter", "Timing_Properties::Clock_Period", "Timing_Properties::Clock_Period_Range",
+							"Timing_Properties::Compute_Deadline", "Timing_Properties::Compute_Execution_Time", "Timing_Properties::Deactivate_Dealing",
+							"Timing_Properties::Deactivate_Execution_Time", "Timing_Properties::Deadline", "Timing_Properties::Dispatch_Jitter",
+							"Timing_Properties::Dispatch_Offset", "Timing_Properties::Execution_Time", "Timing_Properties::Finalize_Deadline",
+							"Timing_Properties::Finalize_Execution_Time", "Timing_Properties::First_Dispatch_Time", "Timing_Properties::Frame_Period",
+							"Timing_Properties::Initialize_Deadline", "Timing_Properties::Initialize_Execution_Time", "Timing_Properties::Load_Deadline",
+							"Timing_Properties::Load_Time", "Timing_Properties::Period", "Timing_Properties::Process_Swap_Execution_Time",
+							"Timing_Properties::Processor_Capacity", "Timing_Properties::Recover_Deadline", "Timing_Properties::Recover_Execution_Time",
+							"Timing_Properties::Reference_Processor", "Timing_Properties::Scheduler_Quantum", "Timing_Properties::Slot_Time",
+							"Timing_Properties::Startup_Deadline", "Timing_Properties::Startup_Execution_Time", "Timing_Properties::Thread_Swap_Execution_Time"
+						])
 					]
 				]
 			]
 		]
 	}
 	
-	def private assertScope(EObject context, EReference reference, CharSequence expected) {
+	def private assertScope(EObject context, EReference reference, Iterable<String> expected) {
 		context.assertNoErrors
-		expected.toString.replaceAll(" ", "").split(",").filter[!empty].sort.join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString].sort.join(", "))
-	}
-
-	def private assertScope(EObject context, EReference reference, CharSequence expected, Set<String> validPropertySets) {
-		context.assertNoErrors
-		expected.toString.replaceAll(" ", "").split(",").filter[!empty].sort.join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString].filter[
-			val separatorIndex = indexOf(".")
+		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString("::")].filter[
+			val separatorIndex = indexOf("::")
 			if (separatorIndex != -1) {
-				val propertySetName = it.substring(0, separatorIndex)
-				validPropertySets.exists[equalsIgnoreCase(propertySetName)] || AadlUtil::isPredeclaredPropertySet(propertySetName)
+				val propertySetName = substring(0, separatorIndex)
+				AadlUtil::isPredeclaredPropertySet(propertySetName) || !pluginResourcesNames.exists[equalsIgnoreCase(propertySetName)]
 			} else {
 				true
 			}
-		].sort.join(", "))
+		].sort(CUSTOM_NAME_COMPARATOR).join(", "))
+	}
+	
+	/*
+	 * Compares two aadl names such that simple names are less than qualified names.
+	 * If the name is qualified then names in predeclared property sets are greater than names in other packages or property sets.
+	 * 
+	 * Example: "id" < "ps::id" < "Memory_Properties::Heap_Size"
+	 */
+	val static CUSTOM_NAME_COMPARATOR = new Comparator<String>() {
+		override compare(String o1, String o2) {
+			val o1SeparatorIndex = o1.indexOf("::")
+			val o2SeparatorIndex = o2.indexOf("::")
+			if (o1SeparatorIndex == -1 && o2SeparatorIndex == -1) {
+				o1.compareTo(o2)
+			} else if (o1SeparatorIndex == -1) {
+				-1
+			} else if (o2SeparatorIndex == -1) {
+				1
+			} else {
+				val o1PsIsPredeclared = AadlUtil::isPredeclaredPropertySet(o1.substring(0, o1SeparatorIndex))
+				val o2PsIsPredeclared = AadlUtil::isPredeclaredPropertySet(o2.substring(0, o2SeparatorIndex))
+				if (o1PsIsPredeclared == o2PsIsPredeclared) {
+					o1.compareTo(o2)
+				} else if (o2PsIsPredeclared) {
+					-1
+				} else {
+					1
+				}
+			}
+		}
+		
+		//Xtend requires this method to be overriden.  I should file a bug with Xtend
+		override equals(Object obj) {
+			class == obj.class
+		}
 	}
 }
