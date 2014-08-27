@@ -3013,7 +3013,7 @@
         <generalization xmi:id="_RM1vkIOFEeOWItHzPgezWw" general="_y7R98IN2EeOWItHzPgezWw"/>
         <ownedAttribute xmi:id="_o_4rFJP5EeO4lMXvNCrZDQ" name="dataClassifier" type="Components-Data-DataClassifier" association="_o_4rEJP5EeO4lMXvNCrZDQ">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_o_4rFZP5EeO4lMXvNCrZDQ" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_o_4rFpP5EeO4lMXvNCrZDQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_o_4rFpP5EeO4lMXvNCrZDQ"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_m5EA4IOEEeOWItHzPgezWw" name="SubprogramProxy">
