@@ -1495,15 +1495,7 @@ public class AadlBaNameResolver
    {
      if(value instanceof DeclarativePropertyReference)
      {
-       //DEBUG
-       boolean result = propertyReferenceResolver((DeclarativePropertyReference) value) ; 
-/*       
-       if(result)
-       {
-         DeclarativeUtils.printDeclarativePropertyReference((DeclarativePropertyReference) value);
-       }
-*/             
-       return result ;
+       return propertyReferenceResolver((DeclarativePropertyReference) value) ; 
      }
      else // Other literals : they don't contain any name.
      {
@@ -1516,13 +1508,11 @@ public class AadlBaNameResolver
      if(ref.isPropertySet())
      {
        // Property reference or property constant from a property set.
-       System.out.println("&&&& isPropertySet") ;
        return propertySetpropertyReferenceResolver(ref) ;
      }
      else if(ref.getQualifiedName() != null) 
      {
        // Property reference from a qualified classifier.
-       System.out.println("### classifier") ;
        return classifierPropertyReferenceResolver(ref, true) == 0 ;
      }
      else
@@ -1533,7 +1523,6 @@ public class AadlBaNameResolver
        {
          // Unqualified classifier reference cannot have more then two identifiers
          // so the Reference object is true classifier feature.
-         System.out.println("$$$ component") ;
          return classifierFeaturePropertyReferenceResolver(ref) ;
        }
        else
@@ -1563,7 +1552,6 @@ public class AadlBaNameResolver
          qne.setLocationReference(nameId.getLocationReference());
          
          ref.setQualifiedName(qne);
-         System.out.println("£££ try classifier") ;
          short classifierResult = 
                                 classifierPropertyReferenceResolver(ref, false);
          
@@ -1576,7 +1564,6 @@ public class AadlBaNameResolver
            
            // Second try as a classifier feature.
            case 1: { 
-                     System.out.println("%%% finnaly try component") ;
                      if(classifierFeaturePropertyReferenceResolver(ref))
                      {
                        ref.setQualifiedName(null);
@@ -1590,7 +1577,7 @@ public class AadlBaNameResolver
            
            case 2: // The classifier has been found but one or more property 
                    // names are not found. Errors have already been reported.
-           default: {System.out.println("xxx classifier found but property names not") ; return false ; }
+           default: {return false ; }
          }
        }
      }
