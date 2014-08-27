@@ -39,10 +39,15 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Port Proxy</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Special Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.PortProxy#getDirection <em>Direction</em>}</li>
+ *   <li>{@link org.osate.aadl2.PortProxy#getDataClassifier <em>Data Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,6 +66,9 @@ public interface PortProxy extends ProcessorFeature, FeatureConnectionEnd, PortC
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see org.osate.aadl2.DirectionType
 	 * @see #setDirection(DirectionType)
@@ -80,4 +88,29 @@ public interface PortProxy extends ProcessorFeature, FeatureConnectionEnd, PortC
 	 * @generated
 	 */
 	void setDirection(DirectionType value);
+
+	/**
+	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Data Classifier</em>' reference.
+	 * @see #setDataClassifier(DataClassifier)
+	 * @see org.osate.aadl2.Aadl2Package#getPortProxy_DataClassifier()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	DataClassifier getDataClassifier();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortProxy#getDataClassifier <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Classifier</em>' reference.
+	 * @see #getDataClassifier()
+	 * @generated
+	 */
+	void setDataClassifier(DataClassifier value);
 } // PortProxy

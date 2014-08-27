@@ -42,6 +42,11 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Feature</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Connections.</p>
+ * <p>From package AADLConstructs::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -71,6 +76,9 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Prototype</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_Prototype()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -87,6 +95,9 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature Classifier</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_FeatureClassifier()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -108,6 +119,9 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_Classifier()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -129,6 +143,9 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined</em>' reference.
 	 * @see #setRefined(Feature)
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_Refined()

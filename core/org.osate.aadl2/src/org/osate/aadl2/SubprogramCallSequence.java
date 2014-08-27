@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Subprogram Call Sequence</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Calls.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +67,9 @@ public interface SubprogramCallSequence extends BehavioralFeature, ModalElement 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Calls.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Call</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramCallSequence_OwnedSubprogramCall()
 	 * @model containment="true"

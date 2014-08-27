@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Computed Value</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Expressions.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -61,6 +65,9 @@ public interface ComputedValue extends PropertyValue {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Function</em>' attribute.
 	 * @see #setFunction(String)
 	 * @see org.osate.aadl2.Aadl2Package#getComputedValue_Function()

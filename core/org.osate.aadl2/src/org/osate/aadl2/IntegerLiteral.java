@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Integer Literal</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Expressions.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -61,6 +65,9 @@ public interface IntegerLiteral extends NumberValue {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Base</em>' attribute.
 	 * @see #setBase(long)
 	 * @see org.osate.aadl2.Aadl2Package#getIntegerLiteral_Base()
@@ -87,6 +94,9 @@ public interface IntegerLiteral extends NumberValue {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(long)
 	 * @see org.osate.aadl2.Aadl2Package#getIntegerLiteral_Value()

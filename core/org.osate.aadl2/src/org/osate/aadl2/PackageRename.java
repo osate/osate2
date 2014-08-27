@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Package Rename</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Packaging.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -61,6 +65,9 @@ public interface PackageRename extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Renamed Package</em>' reference.
 	 * @see #setRenamedPackage(AadlPackage)
 	 * @see org.osate.aadl2.Aadl2Package#getPackageRename_RenamedPackage()
@@ -87,6 +94,9 @@ public interface PackageRename extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Rename All</em>' attribute.
 	 * @see #setRenameAll(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getPackageRename_RenameAll()

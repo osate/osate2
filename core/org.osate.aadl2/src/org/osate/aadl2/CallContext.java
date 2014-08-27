@@ -43,6 +43,10 @@ import org.osate.aadl2.parsesupport.AObject;
  * A representation of the model object '<em><b>Call Context</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Calls.</p>
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.osate.aadl2.Aadl2Package#getCallContext()
  * @model abstract="true"

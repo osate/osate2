@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Mode Transition</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Modes.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -64,6 +68,9 @@ public interface ModeTransition extends ModeFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(Mode)
 	 * @see org.osate.aadl2.Aadl2Package#getModeTransition_Source()
@@ -90,6 +97,9 @@ public interface ModeTransition extends ModeFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Destination</em>' reference.
 	 * @see #setDestination(Mode)
 	 * @see org.osate.aadl2.Aadl2Package#getModeTransition_Destination()
@@ -117,6 +127,9 @@ public interface ModeTransition extends ModeFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Trigger</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModeTransition_OwnedTrigger()
 	 * @model containment="true" required="true" ordered="false"

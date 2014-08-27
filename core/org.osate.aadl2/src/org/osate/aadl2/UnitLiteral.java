@@ -41,6 +41,10 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Unit Literal</b></em>'. <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Types.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -88,6 +92,9 @@ public interface UnitLiteral extends EnumerationLiteral {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Factor</em>' containment reference.
 	 * @see #setFactor(NumberValue)
 	 * @see org.osate.aadl2.Aadl2Package#getUnitLiteral_Factor()

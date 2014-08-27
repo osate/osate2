@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Connection</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Connections.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +67,9 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Connections.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Destination</em>' containment reference.
 	 * @see #setDestination(ConnectedElement)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Destination()
@@ -99,6 +106,9 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Connections.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source</em>' containment reference.
 	 * @see #setSource(ConnectedElement)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Source()
@@ -135,6 +145,9 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Connections.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bidirectional</em>' attribute.
 	 * @see #setBidirectional(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Bidirectional()
@@ -167,6 +180,9 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Connections.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined</em>' reference.
 	 * @see #setRefined(Connection)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Refined()

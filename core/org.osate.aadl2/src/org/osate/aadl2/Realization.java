@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Realization</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Components.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -66,6 +70,9 @@ public interface Realization extends Generalization {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Implemented</em>' reference.
 	 * @see #setImplemented(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getRealization_Implemented()

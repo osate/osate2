@@ -20567,13 +20567,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cEventKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cDataKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cDataClassifierAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cDataClassifierDataClassifierCrossReference_4_0 = (CrossReference)cDataClassifierAssignment_4.eContents().get(0);
+		private final RuleCall cDataClassifierDataClassifierQCREFParserRuleCall_4_0_1 = (RuleCall)cDataClassifierDataClassifierCrossReference_4_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//EventDataSource returns aadl2::EventDataSource:
-		//	name=ID ":" "event" "data" ";";
+		//	name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "event" "data" ";"
+		//name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -20591,8 +20594,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"data"
 		public Keyword getDataKeyword_3() { return cDataKeyword_3; }
 
+		//dataClassifier=[aadl2::DataClassifier|QCREF]?
+		public Assignment getDataClassifierAssignment_4() { return cDataClassifierAssignment_4; }
+
+		//[aadl2::DataClassifier|QCREF]
+		public CrossReference getDataClassifierDataClassifierCrossReference_4_0() { return cDataClassifierDataClassifierCrossReference_4_0; }
+
+		//QCREF
+		public RuleCall getDataClassifierDataClassifierQCREFParserRuleCall_4_0_1() { return cDataClassifierDataClassifierQCREFParserRuleCall_4_0_1; }
+
 		//";"
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class PortProxyElements extends AbstractParserRuleElementFinder {
@@ -20602,13 +20614,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cPortKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cDataClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cDataClassifierDataClassifierCrossReference_3_0 = (CrossReference)cDataClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cDataClassifierDataClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cDataClassifierDataClassifierCrossReference_3_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//PortProxy returns aadl2::PortProxy:
-		//	name=ID ":" "port" ";";
+		//	name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "port" ";"
+		//name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -20623,8 +20638,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"port"
 		public Keyword getPortKeyword_2() { return cPortKeyword_2; }
 
+		//dataClassifier=[aadl2::DataClassifier|QCREF]?
+		public Assignment getDataClassifierAssignment_3() { return cDataClassifierAssignment_3; }
+
+		//[aadl2::DataClassifier|QCREF]
+		public CrossReference getDataClassifierDataClassifierCrossReference_3_0() { return cDataClassifierDataClassifierCrossReference_3_0; }
+
+		//QCREF
+		public RuleCall getDataClassifierDataClassifierQCREFParserRuleCall_3_0_1() { return cDataClassifierDataClassifierQCREFParserRuleCall_3_0_1; }
+
 		//";"
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
 	public class SubprogramProxyElements extends AbstractParserRuleElementFinder {
@@ -20634,13 +20658,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cSubprogramKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cSubprogramClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cSubprogramClassifierSubprogramClassifierCrossReference_3_0 = (CrossReference)cSubprogramClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cSubprogramClassifierSubprogramClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cSubprogramClassifierSubprogramClassifierCrossReference_3_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//SubprogramProxy returns aadl2::SubprogramProxy:
-		//	name=ID ":" "subprogram" ";";
+		//	name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "subprogram" ";"
+		//name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -20655,8 +20682,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"subprogram"
 		public Keyword getSubprogramKeyword_2() { return cSubprogramKeyword_2; }
 
+		//subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]?
+		public Assignment getSubprogramClassifierAssignment_3() { return cSubprogramClassifierAssignment_3; }
+
+		//[aadl2::SubprogramClassifier|QCREF]
+		public CrossReference getSubprogramClassifierSubprogramClassifierCrossReference_3_0() { return cSubprogramClassifierSubprogramClassifierCrossReference_3_0; }
+
+		//QCREF
+		public RuleCall getSubprogramClassifierSubprogramClassifierQCREFParserRuleCall_3_0_1() { return cSubprogramClassifierSubprogramClassifierQCREFParserRuleCall_3_0_1; }
+
 		//";"
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
 	public class ConnectedElementElements extends AbstractParserRuleElementFinder {
@@ -27679,7 +27715,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EventDataSource returns aadl2::EventDataSource:
-	//	name=ID ":" "event" "data" ";";
+	//	name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
 	public EventDataSourceElements getEventDataSourceAccess() {
 		return (pEventDataSource != null) ? pEventDataSource : (pEventDataSource = new EventDataSourceElements());
 	}
@@ -27689,7 +27725,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PortProxy returns aadl2::PortProxy:
-	//	name=ID ":" "port" ";";
+	//	name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
 	public PortProxyElements getPortProxyAccess() {
 		return (pPortProxy != null) ? pPortProxy : (pPortProxy = new PortProxyElements());
 	}
@@ -27699,7 +27735,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SubprogramProxy returns aadl2::SubprogramProxy:
-	//	name=ID ":" "subprogram" ";";
+	//	name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ";";
 	public SubprogramProxyElements getSubprogramProxyAccess() {
 		return (pSubprogramProxy != null) ? pSubprogramProxy : (pSubprogramProxy = new SubprogramProxyElements());
 	}

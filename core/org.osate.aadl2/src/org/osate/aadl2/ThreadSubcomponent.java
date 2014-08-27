@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Thread Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Thread.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface ThreadSubcomponent extends Subcomponent, org.osate.aadl2.Thread
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Thread.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Thread Subcomponent Type</em>' reference.
 	 * @see #setThreadSubcomponentType(ThreadSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getThreadSubcomponent_ThreadSubcomponentType()

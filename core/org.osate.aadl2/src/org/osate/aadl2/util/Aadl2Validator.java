@@ -52,10 +52,6 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.osate.aadl2.*;
-import org.osate.aadl2.Process;
-import org.osate.aadl2.System;
-import org.osate.aadl2.Thread;
-import org.osate.aadl2.ThreadGroup;
 
 /**
  * <!-- begin-user-doc -->
@@ -418,10 +414,14 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateEventSource((EventSource) value, diagnostics, context);
 		case Aadl2Package.EVENT_DATA_SOURCE:
 			return validateEventDataSource((EventDataSource) value, diagnostics, context);
+		case Aadl2Package.DATA_CLASSIFIER:
+			return validateDataClassifier((DataClassifier) value, diagnostics, context);
 		case Aadl2Package.PORT_PROXY:
 			return validatePortProxy((PortProxy) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_PROXY:
 			return validateSubprogramProxy((SubprogramProxy) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CLASSIFIER:
+			return validateSubprogramClassifier((SubprogramClassifier) value, diagnostics, context);
 		case Aadl2Package.ANNEX_LIBRARY:
 			return validateAnnexLibrary((AnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
@@ -484,19 +484,19 @@ public class Aadl2Validator extends EObjectValidator {
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE:
 			return validateThreadGroupSubcomponentType((ThreadGroupSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.THREAD_GROUP:
-			return validateThreadGroup((ThreadGroup) value, diagnostics, context);
+			return validateThreadGroup((org.osate.aadl2.ThreadGroup) value, diagnostics, context);
 		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE:
 			return validateThreadSubcomponentType((ThreadSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.THREAD:
-			return validateThread((Thread) value, diagnostics, context);
+			return validateThread((org.osate.aadl2.Thread) value, diagnostics, context);
 		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE:
 			return validateSystemSubcomponentType((SystemSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.SYSTEM:
-			return validateSystem((System) value, diagnostics, context);
+			return validateSystem((org.osate.aadl2.System) value, diagnostics, context);
 		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE:
 			return validateProcessSubcomponentType((ProcessSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.PROCESS:
-			return validateProcess((Process) value, diagnostics, context);
+			return validateProcess((org.osate.aadl2.Process) value, diagnostics, context);
 		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE:
 			return validateMemorySubcomponentType((MemorySubcomponentType) value, diagnostics, context);
 		case Aadl2Package.MEMORY:
@@ -547,8 +547,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateBusImplementation((BusImplementation) value, diagnostics, context);
 		case Aadl2Package.BUS_PROTOTYPE:
 			return validateBusPrototype((BusPrototype) value, diagnostics, context);
-		case Aadl2Package.DATA_CLASSIFIER:
-			return validateDataClassifier((DataClassifier) value, diagnostics, context);
 		case Aadl2Package.DATA_TYPE:
 			return validateDataType((DataType) value, diagnostics, context);
 		case Aadl2Package.DATA_IMPLEMENTATION:
@@ -571,8 +569,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateMemoryImplementation((MemoryImplementation) value, diagnostics, context);
 		case Aadl2Package.MEMORY_PROTOTYPE:
 			return validateMemoryPrototype((MemoryPrototype) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_CLASSIFIER:
-			return validateSubprogramClassifier((SubprogramClassifier) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_TYPE:
 			return validateSubprogramType((SubprogramType) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
@@ -6250,7 +6246,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateProcess(Process process, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateProcess(org.osate.aadl2.Process process, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) process, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) process, diagnostics, context);
@@ -6543,7 +6540,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateSystem(System system, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateSystem(org.osate.aadl2.System system, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) system, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) system, diagnostics, context);
@@ -6761,7 +6759,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateThread(Thread thread, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateThread(org.osate.aadl2.Thread thread, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) thread, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) thread, diagnostics, context);
@@ -6908,7 +6907,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateThreadGroup(ThreadGroup threadGroup, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateThreadGroup(org.osate.aadl2.ThreadGroup threadGroup, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment((EObject) threadGroup, diagnostics, context))
 			return false;
 		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroup, diagnostics, context);
@@ -10015,14 +10015,9 @@ public class Aadl2Validator extends EObjectValidator {
 				&& eClassesIterator.hasNext();) {
 			EAnnotation eAnnotation = eClassesIterator.next().getEAnnotation("duplicates");
 			if (eAnnotation != null) {
-				for (EObject eContents : eAnnotation.eContents()) {
-					if (eContents instanceof EAnnotation) {
-						EAnnotation nestedEAnnotation = (EAnnotation) eContents;
-						if (featureName.equals(nestedEAnnotation.getSource())) {
-							redefinitionDetail = nestedEAnnotation.getDetails().get(key);
-							break;
-						}
-					}
+				EAnnotation nestedEAnnotation = eAnnotation.getEAnnotation(featureName);
+				if (nestedEAnnotation != null) {
+					redefinitionDetail = nestedEAnnotation.getDetails().get(key);
 				}
 			}
 		}

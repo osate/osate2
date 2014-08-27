@@ -41,6 +41,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>List Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Types.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -68,6 +72,9 @@ public interface ListType extends PropertyType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Element Type</em>' containment reference.
 	 * @see #setOwnedElementType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getListType_OwnedElementType()
@@ -105,6 +112,9 @@ public interface ListType extends PropertyType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Element Type</em>' reference.
 	 * @see #setElementType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getListType_ElementType()

@@ -49,6 +49,7 @@ import org.osate.aadl2.parsesupport.AObject;
  * <!-- begin-model-doc -->
  * An element is a constituent of a model.
  * An element is a constituent of a model. As such, it has the capability of owning other elements.
+ * <p>From package AADLInfrastructure.</p>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -73,6 +74,7 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The Elements owned by this element.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Element</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getElement_OwnedElement()
@@ -95,6 +97,7 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The Comments owned by this element.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Comment</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getElement_OwnedComment()
@@ -153,6 +156,7 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @model ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))'"
@@ -165,6 +169,7 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='true'"

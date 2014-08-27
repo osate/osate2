@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Abstract Feature</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -61,6 +65,9 @@ public interface AbstractFeature extends DirectedFeature, TriggerPort {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature Prototype</em>' reference.
 	 * @see #setFeaturePrototype(FeaturePrototype)
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractFeature_FeaturePrototype()

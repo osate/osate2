@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Aadl Package</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Packaging.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -52,7 +56,8 @@ package org.osate.aadl2;
  * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getAadlPackage()
- * @model extendedMetaData="name='Package'"
+ * @model annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='Package'"
+ *        extendedMetaData="name='Package'"
  * @generated
  */
 public interface AadlPackage extends ModelUnit {
@@ -71,6 +76,9 @@ public interface AadlPackage extends ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Public Section</em>' containment reference.
 	 * @see #setOwnedPublicSection(PublicPackageSection)
 	 * @see org.osate.aadl2.Aadl2Package#getAadlPackage_OwnedPublicSection()
@@ -114,6 +122,9 @@ public interface AadlPackage extends ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Private Section</em>' containment reference.
 	 * @see #setOwnedPrivateSection(PrivatePackageSection)
 	 * @see org.osate.aadl2.Aadl2Package#getAadlPackage_OwnedPrivateSection()
@@ -150,6 +161,9 @@ public interface AadlPackage extends ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Public Section</em>' reference.
 	 * @see #setPublicSection(PublicPackageSection)
 	 * @see org.osate.aadl2.Aadl2Package#getAadlPackage_PublicSection()
@@ -176,6 +190,9 @@ public interface AadlPackage extends ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Private Section</em>' reference.
 	 * @see #setPrivateSection(PrivatePackageSection)
 	 * @see org.osate.aadl2.Aadl2Package#getAadlPackage_PrivateSection()
