@@ -25,8 +25,8 @@ import java.util.Iterator ;
 import java.util.List ;
 
 import org.eclipse.core.runtime.Platform ;
-import org.osate.annexsupport.AnnexResolver ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.annexsupport.AnnexResolver ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.aadlba.BehaviorTransition ;
 import org.osate.ba.analyzers.AadlBaNameResolver ;
@@ -89,8 +89,7 @@ public class AadlBaResolver implements AnnexResolver
            {
              
              semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
-//             DEBUG
-//             result = semanticAnalysis.process(ba) ;
+             result = semanticAnalysis.process(ba) ;
            }  
            
            DeclarativeUtils.reinstanciateBehaviorTransition(ba, hyperlinker) ;

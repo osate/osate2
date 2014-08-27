@@ -19,25 +19,10 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.aadl2.SubprogramSubcomponent;
-
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.CalledSubprogramHolder;
-import org.osate.ba.aadlba.GroupHolder;
-import org.osate.ba.aadlba.GroupableElement;
-import org.osate.ba.aadlba.SubprogramSubcomponentHolder;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.SubprogramSubcomponent ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.SubprogramSubcomponentHolder ;
 
 /**
  * <!-- begin-user-doc -->

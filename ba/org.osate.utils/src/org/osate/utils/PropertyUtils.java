@@ -1256,7 +1256,8 @@ public class PropertyUtils {
     EObject tmp = pe.eContainer() ;
     int classId = tmp.eClass().getClassifierID() ;
     
-    while(false == (Aadl2Package.PROPERTY_ASSOCIATION == classId ||
+    while(false == (Aadl2Package.BASIC_PROPERTY_ASSOCIATION == classId ||
+                    Aadl2Package.PROPERTY_ASSOCIATION == classId ||
                     Aadl2Package.PROPERTY == classId))
     {
       tmp = tmp.eContainer() ;

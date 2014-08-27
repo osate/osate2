@@ -1667,6 +1667,7 @@ public class AadlBaTypeChecker
   {
     PropertyNameHolder pnh = null ;
     PropertyElementHolder peh = null ;
+    EList<IntegerValue> indexes = null ;
     LocationReference loc = null ;
     Element global, primary ;
     
@@ -1682,7 +1683,22 @@ public class AadlBaTypeChecker
       {
         loc = dpn.getPropertyName().getLocationReference() ;
         peh = propertyElementHolderResolver(primary, loc);
-        EList<IntegerValue> indexes = peh.getArrayIndexes() ;
+      }
+      else
+      {
+        loc = dpn.getLocationReference() ;
+        peh = propertyElementHolderResolver(global, loc);
+        
+      }
+      
+      indexes = peh.getArrayIndexes() ;
+      
+      if(dpn.getField() != null)
+      {
+        pnh.setField(dpn.getField());
+      }
+      else
+      {
         for(IntegerValue iv : dpn.getIndexes())
         {
           IntegerValue tmp = integerValueCheck(iv) ; // Report any error.
@@ -1690,16 +1706,6 @@ public class AadlBaTypeChecker
           {
             indexes.add(tmp) ;
           }
-        }
-      }
-      else
-      {
-        loc = dpn.getLocationReference() ;
-        peh = propertyElementHolderResolver(global, loc);
-        
-        if(dpn.getField() != null)
-        {
-          pnh.setField(dpn.getField());
         }
       }
       
