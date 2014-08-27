@@ -75,7 +75,7 @@ public class TypeOperations extends NamedElementOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String CONFORMS_TO__TYPE__EOCL_EXP = "result = false";
+	protected static final String CONFORMS_TO__TYPE__EOCL_EXP = "false";
 
 	/**
 	 * The cached OCL query for the '{@link #conformsTo(Type, org.osate.aadl2.Type) <em>Conforms To</em>}' query operation.
@@ -92,6 +92,7 @@ public class TypeOperations extends NamedElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param type The receiving '<em><b>Type</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

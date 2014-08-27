@@ -42,6 +42,7 @@ package org.osate.aadl2;
  *
  * <!-- begin-model-doc -->
  * A generalization is a taxonomic relationship between a more general classifier and a more specific classifier. Each instance of the specific classifier is also an instance of the general classifier. Thus, the specific classifier indirectly has features of the more general classifier.
+ * <p>From package AADLInfrastructure.</p>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -70,6 +71,7 @@ public interface Generalization extends DirectedRelationship {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * References the general classifier in the Generalization relationship.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>General</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getGeneralization_General()
@@ -91,6 +93,7 @@ public interface Generalization extends DirectedRelationship {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * References the specializing classifier in the Generalization relationship. 
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Specific</em>' reference.
 	 * @see #setSpecific(Classifier)

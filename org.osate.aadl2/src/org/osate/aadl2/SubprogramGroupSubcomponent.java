@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Subprogram Group Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::SubprogramGroup.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface SubprogramGroupSubcomponent extends Subcomponent, AccessConnect
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::SubprogramGroup.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Subprogram Group Subcomponent Type</em>' reference.
 	 * @see #setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType()

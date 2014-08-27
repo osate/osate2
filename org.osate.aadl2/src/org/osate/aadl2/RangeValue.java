@@ -42,6 +42,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Range Value</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Expressions.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -64,6 +68,9 @@ public interface RangeValue extends PropertyValue {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Minimum</em>' containment reference.
 	 * @see #setMinimum(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getRangeValue_Minimum()
@@ -101,6 +108,9 @@ public interface RangeValue extends PropertyValue {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Maximum</em>' containment reference.
 	 * @see #setMaximum(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getRangeValue_Maximum()
@@ -138,6 +148,9 @@ public interface RangeValue extends PropertyValue {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Delta</em>' containment reference.
 	 * @see #setDelta(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getRangeValue_Delta()

@@ -44,6 +44,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Metaclass Reference</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Types.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -65,6 +69,9 @@ public interface MetaclassReference extends PropertyOwner {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Annex Name</em>' attribute.
 	 * @see #setAnnexName(String)
 	 * @see org.osate.aadl2.Aadl2Package#getMetaclassReference_AnnexName()
@@ -92,6 +99,9 @@ public interface MetaclassReference extends PropertyOwner {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Metaclass Name</em>' attribute list.
 	 * @see org.osate.aadl2.Aadl2Package#getMetaclassReference_MetaclassName()
 	 * @model unique="false" dataType="org.osate.aadl2.String" required="true" ordered="false"

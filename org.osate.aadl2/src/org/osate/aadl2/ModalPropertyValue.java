@@ -46,6 +46,10 @@ import org.osate.aadl2.properties.InvalidModelException;
  * A representation of the model object '<em><b>Modal Property Value</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Associations.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface ModalPropertyValue extends ModalElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Value</em>' containment reference.
 	 * @see #setOwnedValue(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getModalPropertyValue_OwnedValue()

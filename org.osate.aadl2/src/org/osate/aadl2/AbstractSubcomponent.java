@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Abstract Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Abstract.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface AbstractSubcomponent extends Subcomponent, Abstract {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Abstract Subcomponent Type</em>' reference.
 	 * @see #setAbstractSubcomponentType(AbstractSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractSubcomponent_AbstractSubcomponentType()

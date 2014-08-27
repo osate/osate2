@@ -41,6 +41,11 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Array Size</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Arrays.</p>
+ * <p>From package AADLProperties::Arrays.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +68,9 @@ public interface ArraySize extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Arrays.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Size</em>' attribute.
 	 * @see #setSize(long)
 	 * @see org.osate.aadl2.Aadl2Package#getArraySize_Size()
@@ -89,6 +97,9 @@ public interface ArraySize extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Arrays.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Size Property</em>' reference.
 	 * @see #setSizeProperty(ArraySizeProperty)
 	 * @see org.osate.aadl2.Aadl2Package#getArraySize_SizeProperty()

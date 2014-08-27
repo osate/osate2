@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Virtual Bus Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::VirtualBus.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -72,6 +76,9 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::VirtualBus.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
@@ -104,6 +111,9 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::VirtualBus.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
@@ -136,6 +146,9 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::VirtualBus.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedEventPort()
 	 * @model containment="true" ordered="false"

@@ -43,6 +43,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Component Prototype Binding</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -64,6 +68,9 @@ public interface ComponentPrototypeBinding extends PrototypeBinding {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Actual</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeBinding_Actual()
 	 * @model containment="true" required="true"

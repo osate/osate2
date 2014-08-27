@@ -44,6 +44,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <!-- begin-model-doc -->
  * A directed relationship represents a relationship between a collection of source model elements and a collection of target model elements.
+ * <p>From package AADLInfrastructure.</p>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -73,6 +74,7 @@ public interface DirectedRelationship extends Relationship {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the sources of the DirectedRelationship.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDirectedRelationship_Source()
@@ -95,6 +97,7 @@ public interface DirectedRelationship extends Relationship {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the targets of the DirectedRelationship.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDirectedRelationship_Target()

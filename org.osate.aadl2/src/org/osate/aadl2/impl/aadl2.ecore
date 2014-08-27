@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadl2" nsURI="http://aadl.info/AADL/2.0" nsPrefix="aadl2">
+  <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <details key="originalName" value="AADL2"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
     <eOperations name="not_own_self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
@@ -969,12 +972,23 @@
         lowerBound="1" eType="#//DirectionType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventSource" eSuperTypes="#//InternalFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDataSource" eSuperTypes="#//InternalFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EventDataSource" eSuperTypes="#//InternalFeature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
+        eType="#//DataClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DataSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortProxy" eSuperTypes="#//ProcessorFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
         lowerBound="1" eType="#//DirectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
+        eType="#//DataClassifier"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramProxy" eSuperTypes="#//ProcessorFeature #//AccessConnectionEnd #//CalledSubprogram"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramProxy" eSuperTypes="#//ProcessorFeature #//AccessConnectionEnd #//CalledSubprogram">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramClassifier" ordered="false"
+        eType="#//SubprogramClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
+      eSuperTypes="#//ComponentClassifier #//SubprogramSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ComponentCategory">
     <eLiterals name="abstract"/>
     <eLiterals name="bus" value="1"/>
@@ -1053,6 +1067,9 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AadlPackage" eSuperTypes="#//ModelUnit">
+    <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <details key="originalName" value="Package"/>
+    </eAnnotations>
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="Package"/>
     </eAnnotations>
@@ -1427,7 +1444,6 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusPrototype" eSuperTypes="#//ComponentPrototype #//BusSubcomponentType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DataSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataType" eSuperTypes="#//ComponentType #//DataClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramAccess"
         ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
@@ -1555,8 +1571,6 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemoryPrototype" eSuperTypes="#//ComponentPrototype #//MemorySubcomponentType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//SubprogramSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramType" eSuperTypes="#//ComponentType #//SubprogramClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
         upperBound="-1" eType="#//EventDataPort" containment="true">

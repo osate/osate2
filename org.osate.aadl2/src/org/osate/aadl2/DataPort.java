@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Data Port</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -66,6 +70,9 @@ public interface DataPort extends Port, Context, Data, ParameterConnectionEnd {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Data Feature Classifier</em>' reference.
 	 * @see #setDataFeatureClassifier(DataSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getDataPort_DataFeatureClassifier()
