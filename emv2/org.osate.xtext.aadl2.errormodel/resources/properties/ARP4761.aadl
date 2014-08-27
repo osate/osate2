@@ -48,6 +48,6 @@ Hazards: list of record
    Comment : aadlstring;            -- additional information about the hazard
    )
      applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
-                 {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
+                 {emv2}**error source, {emv2}**error propagation, {emv2}**error event, {emv2}**error flow));
 
 end ARP4761;
