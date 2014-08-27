@@ -45,6 +45,9 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>Port Category</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Features.</p>
+ * <!-- end-model-doc -->
  * @see org.osate.aadl2.Aadl2Package#getPortCategory()
  * @model
  * @generated

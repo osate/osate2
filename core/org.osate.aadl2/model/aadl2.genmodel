@@ -31,6 +31,10 @@
     <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
     <details key="VALIDATION_DELEGATES" value="IGNORE"/>
     <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
   </genAnnotations>
   <foreignModel>../../org.osate.aadl2.metamodel/Models/AADL2.EMF.merged.uml</foreignModel>
   <genPackages xsi:type="genmodel:GenPackage" prefix="Aadl2" basePackage="org.osate"
@@ -666,11 +670,21 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//InternalFeature/direction"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventSource"/>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventDataSource"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventDataSource">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EventDataSource/dataClassifier"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//DataClassifier"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PortProxy">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PortProxy/direction"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PortProxy/dataClassifier"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//SubprogramProxy"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//SubprogramProxy">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramProxy/subprogramClassifier"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//SubprogramClassifier"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AnnexLibrary"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//DefaultAnnexLibrary">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//DefaultAnnexLibrary/sourceText"/>
@@ -927,7 +941,6 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusImplementation/ownedVirtualBusSubcomponent"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//BusPrototype"/>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//DataClassifier"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//DataType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DataType/ownedSubprogramAccess"/>
@@ -985,7 +998,6 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryImplementation/ownedMemorySubcomponent"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//MemoryPrototype"/>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//SubprogramClassifier"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//SubprogramType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramType/ownedEventDataPort"/>

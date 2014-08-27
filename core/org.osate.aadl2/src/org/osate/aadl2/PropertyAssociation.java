@@ -46,6 +46,10 @@ import org.osate.aadl2.properties.InvalidModelException;
  * A representation of the model object '<em><b>Property Association</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Associations.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -71,6 +75,9 @@ public interface PropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Property</em>' reference.
 	 * @see #setProperty(Property)
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyAssociation_Property()
@@ -98,6 +105,9 @@ public interface PropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Applies To</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyAssociation_AppliesTo()
 	 * @model containment="true" ordered="false"
@@ -135,6 +145,9 @@ public interface PropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>In Binding</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyAssociation_InBinding()
 	 * @model ordered="false"
@@ -150,6 +163,9 @@ public interface PropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Append</em>' attribute.
 	 * @see #setAppend(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyAssociation_Append()
@@ -176,6 +192,9 @@ public interface PropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Constant</em>' attribute.
 	 * @see #setConstant(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyAssociation_Constant()
@@ -203,6 +222,9 @@ public interface PropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Value</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyAssociation_OwnedValue()
 	 * @model containment="true" required="true" ordered="false"

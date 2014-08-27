@@ -3011,11 +3011,19 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_mkiiYIOEEeOWItHzPgezWw" name="EventDataSource">
         <generalization xmi:id="_RM1vkIOFEeOWItHzPgezWw" general="_y7R98IN2EeOWItHzPgezWw"/>
+        <ownedAttribute xmi:id="_o_4rFJP5EeO4lMXvNCrZDQ" name="dataClassifier" type="Components-Data-DataClassifier" association="_o_4rEJP5EeO4lMXvNCrZDQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_o_4rFZP5EeO4lMXvNCrZDQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_o_4rFpP5EeO4lMXvNCrZDQ"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_m5EA4IOEEeOWItHzPgezWw" name="SubprogramProxy">
         <generalization xmi:id="_NumuIIOFEeOWItHzPgezWw" general="_ylhJUIN2EeOWItHzPgezWw"/>
         <generalization xmi:id="_SIDoYIOKEeOWItHzPgezWw" general="Connections-AccessConnectionEnd"/>
         <generalization xmi:id="_ifDE8IOKEeOWItHzPgezWw" general="Calls-CalledSubprogram"/>
+        <ownedAttribute xmi:id="_E2UmdJP6EeO4lMXvNCrZDQ" name="subprogramClassifier" type="Components-Subprogram-SubprogramClassifier" association="_E2UmcJP6EeO4lMXvNCrZDQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_E2UmdZP6EeO4lMXvNCrZDQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_E2UmdpP6EeO4lMXvNCrZDQ"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_nQXtoIOEEeOWItHzPgezWw" name="PortProxy">
         <generalization xmi:id="_MuvMkIOFEeOWItHzPgezWw" general="_ylhJUIN2EeOWItHzPgezWw"/>
@@ -3026,6 +3034,10 @@
         <generalization xmi:id="_Ojvlg5MfEeOjKPnjRLtKFw" general="Connections-FeatureConnectionEnd"/>
         <ownedAttribute xmi:id="_yJiP0JP8EeO4lMXvNCrZDQ" name="direction">
           <type xmi:type="uml:Enumeration" href="AADLConstructs.uml#Features-DirectionType"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_p3oydJP5EeO4lMXvNCrZDQ" name="dataClassifier" type="Components-Data-DataClassifier" association="_p3oycJP5EeO4lMXvNCrZDQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_p3oydZP5EeO4lMXvNCrZDQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_p3oydpP5EeO4lMXvNCrZDQ"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_9DkewIOFEeOWItHzPgezWw" name="A_componentImplementation_ownedEventSource" memberEnd="_9DkewYOFEeOWItHzPgezWw _9C3UIIOFEeOWItHzPgezWw">
@@ -3052,34 +3064,22 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-r3SQ4OFEeOWItHzPgezWw" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_o_4rEJP5EeO4lMXvNCrZDQ" name="A_eventDataSource_dataClassifier" memberEnd="_o_4rEZP5EeO4lMXvNCrZDQ _o_4rFJP5EeO4lMXvNCrZDQ" navigableOwnedEnd="_o_4rFJP5EeO4lMXvNCrZDQ">
+      <packagedElement xmi:type="uml:Association" xmi:id="_o_4rEJP5EeO4lMXvNCrZDQ" name="A_eventDataSource_dataClassifier" memberEnd="_o_4rEZP5EeO4lMXvNCrZDQ _o_4rFJP5EeO4lMXvNCrZDQ">
         <ownedEnd xmi:id="_o_4rEZP5EeO4lMXvNCrZDQ" name="eventDataSource" type="_mkiiYIOEEeOWItHzPgezWw" association="_o_4rEJP5EeO4lMXvNCrZDQ">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_o_4rEpP5EeO4lMXvNCrZDQ" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_o_4rE5P5EeO4lMXvNCrZDQ"/>
         </ownedEnd>
-        <ownedEnd xmi:id="_o_4rFJP5EeO4lMXvNCrZDQ" name="dataClassifier" type="Components-Data-DataClassifier" association="_o_4rEJP5EeO4lMXvNCrZDQ">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_o_4rFZP5EeO4lMXvNCrZDQ" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_o_4rFpP5EeO4lMXvNCrZDQ" value="1"/>
-        </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_p3oycJP5EeO4lMXvNCrZDQ" name="A_portProxy_dataClassifier" memberEnd="_p3oycZP5EeO4lMXvNCrZDQ _p3oydJP5EeO4lMXvNCrZDQ" navigableOwnedEnd="_p3oydJP5EeO4lMXvNCrZDQ">
+      <packagedElement xmi:type="uml:Association" xmi:id="_p3oycJP5EeO4lMXvNCrZDQ" name="A_portProxy_dataClassifier" memberEnd="_p3oycZP5EeO4lMXvNCrZDQ _p3oydJP5EeO4lMXvNCrZDQ">
         <ownedEnd xmi:id="_p3oycZP5EeO4lMXvNCrZDQ" name="portProxy" type="_nQXtoIOEEeOWItHzPgezWw" association="_p3oycJP5EeO4lMXvNCrZDQ">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_p3oycpP5EeO4lMXvNCrZDQ" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_p3oyc5P5EeO4lMXvNCrZDQ"/>
         </ownedEnd>
-        <ownedEnd xmi:id="_p3oydJP5EeO4lMXvNCrZDQ" name="dataClassifier" type="Components-Data-DataClassifier" association="_p3oycJP5EeO4lMXvNCrZDQ">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_p3oydZP5EeO4lMXvNCrZDQ" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_p3oydpP5EeO4lMXvNCrZDQ"/>
-        </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_E2UmcJP6EeO4lMXvNCrZDQ" name="A_subprogramProxy_subprogramClassifier" memberEnd="_E2UmcZP6EeO4lMXvNCrZDQ _E2UmdJP6EeO4lMXvNCrZDQ" navigableOwnedEnd="_E2UmdJP6EeO4lMXvNCrZDQ">
+      <packagedElement xmi:type="uml:Association" xmi:id="_E2UmcJP6EeO4lMXvNCrZDQ" name="A_subprogramProxy_subprogramClassifier" memberEnd="_E2UmcZP6EeO4lMXvNCrZDQ _E2UmdJP6EeO4lMXvNCrZDQ">
         <ownedEnd xmi:id="_E2UmcZP6EeO4lMXvNCrZDQ" name="subprogramProxy" type="_m5EA4IOEEeOWItHzPgezWw" association="_E2UmcJP6EeO4lMXvNCrZDQ">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_E2UmcpP6EeO4lMXvNCrZDQ" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_E2Umc5P6EeO4lMXvNCrZDQ"/>
-        </ownedEnd>
-        <ownedEnd xmi:id="_E2UmdJP6EeO4lMXvNCrZDQ" name="subprogramClassifier" type="Components-Subprogram-SubprogramClassifier" association="_E2UmcJP6EeO4lMXvNCrZDQ">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_E2UmdZP6EeO4lMXvNCrZDQ" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_E2UmdpP6EeO4lMXvNCrZDQ"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

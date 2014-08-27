@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Access Specification</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -65,6 +69,9 @@ public interface AccessSpecification extends FeaturePrototypeActual {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Kind</em>' attribute.
 	 * @see org.osate.aadl2.AccessType
 	 * @see #setKind(AccessType)
@@ -94,6 +101,9 @@ public interface AccessSpecification extends FeaturePrototypeActual {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Category</em>' attribute.
 	 * @see org.osate.aadl2.AccessCategory
 	 * @see #setCategory(AccessCategory)
@@ -122,6 +132,9 @@ public interface AccessSpecification extends FeaturePrototypeActual {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference.
 	 * @see #setClassifier(ComponentClassifier)
 	 * @see org.osate.aadl2.Aadl2Package#getAccessSpecification_Classifier()
@@ -148,6 +161,9 @@ public interface AccessSpecification extends FeaturePrototypeActual {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Component Prototype</em>' reference.
 	 * @see #setComponentPrototype(ComponentPrototype)
 	 * @see org.osate.aadl2.Aadl2Package#getAccessSpecification_ComponentPrototype()

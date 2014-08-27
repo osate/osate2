@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Memory Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Memory.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -72,6 +76,9 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Memory.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedBusAccess()
 	 * @model containment="true" ordered="false"
@@ -104,6 +111,9 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Memory.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
@@ -136,6 +146,9 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Memory.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
@@ -168,6 +181,9 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Memory.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedEventPort()
 	 * @model containment="true" ordered="false"

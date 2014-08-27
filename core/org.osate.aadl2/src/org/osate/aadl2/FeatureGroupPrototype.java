@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Feature Group Prototype</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -61,6 +65,9 @@ public interface FeatureGroupPrototype extends Prototype, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Constraining Feature Group Type</em>' reference.
 	 * @see #setConstrainingFeatureGroupType(FeatureGroupType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupPrototype_ConstrainingFeatureGroupType()

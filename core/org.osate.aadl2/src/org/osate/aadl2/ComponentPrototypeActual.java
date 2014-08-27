@@ -44,6 +44,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Component Prototype Actual</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface ComponentPrototypeActual extends ArrayableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Category</em>' attribute.
 	 * @see org.osate.aadl2.ComponentCategory
 	 * @see #setCategory(ComponentCategory)
@@ -96,6 +103,9 @@ public interface ComponentPrototypeActual extends ArrayableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Binding</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeActual_Binding()
 	 * @model containment="true" ordered="false"
@@ -122,6 +132,9 @@ public interface ComponentPrototypeActual extends ArrayableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Subcomponent Type</em>' reference.
 	 * @see #setSubcomponentType(SubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeActual_SubcomponentType()

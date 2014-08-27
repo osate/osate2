@@ -44,6 +44,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Feature Group Prototype Actual</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface FeatureGroupPrototypeActual extends FeaturePrototypeActual {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Binding</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupPrototypeActual_Binding()
 	 * @model containment="true" ordered="false"
@@ -93,6 +100,9 @@ public interface FeatureGroupPrototypeActual extends FeaturePrototypeActual {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature Type</em>' reference.
 	 * @see #setFeatureType(FeatureType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupPrototypeActual_FeatureType()

@@ -18,7 +18,6 @@ import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
 import org.osate.xtext.aadl2.tests.OsateTest
 
 import static org.junit.Assert.*
-import org.junit.BeforeClass
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
@@ -56,7 +55,7 @@ class FlowLatencyTest extends OsateTest {
 		val errorManager = AnalysisErrorReporterManager.NULL_ERROR_MANANGER
 		val checker = new CheckFlowLatency()
 		val som = instance.systemOperationModes.head
-		checker.analyzeInstanceModel(new NullProgressMonitor, errorManager, instance, som)
+		checker.invoke(new NullProgressMonitor, errorManager, instance, som)
 
 		// read csv
 		val uri = URI.createURI(
@@ -176,22 +175,25 @@ class FlowLatencyTest extends OsateTest {
 	end PullProtocols;'''
 
 	val expected = '''
-		Latency Analysis Report
-		
-		Flow analysis for end to end flow XferOnly
-		Contributor,Min Expected,Min Value,Min Method,Max Expected,Max Value,Max Method,Comments,
-		Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
-		Delayed Connection sender.SendSourceTrackSet -> requestor.ReceivedSourceTrackSet,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
-		Protocol DCFMInputPullProtocol,,300.0ms,specified,,300.0ms,specified,Time required by the protocol stack,
-		Thread requestor,,0.0ms,immediate local connection,,0.0ms,immediate local connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,
-		Immediate Connection requestor.CorrelatedTracksRequest -> sender.CorrelatedTracksRequest,,0.0ms,unknown,,0.0ms,unknown,,
-		Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
-		Delayed Connection sender.SendCorrelatedTrackSet -> requestor.ReceivedCorrelatedTrackSet,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
-		Thread requestor,,0.0ms,immediate local connection,,0.0ms,immediate local connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,
-		Immediate Connection requestor.OwnAircraftPositionRequest -> sender.OwnAircraftPositionRequest,,0.0ms,unknown,,0.0ms,unknown,,
-		Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
-		Delayed Connection sender.SendOwnAircraftPosition -> requestor.ReceivedOwnAircraftPosition,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
-		Thread requestor,,100.0ms,deadline,,100.0ms,deadline,,
-		Total,unspecified,700.0ms,,unspecified,900.0ms,,
+Latency Analysis Report
+
+Flow analysis for end to end flow XferOnly
+Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
+Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
+Delayed Connection sender.SendSourceTrackSet -> requestor.ReceivedSourceTrackSet,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
+Protocol DCFMInputPullProtocol,,300.0ms,specified,,300.0ms,specified,Time required by the protocol stack,
+Thread requestor,,0.0ms,immediate connection,,0.0ms,immediate connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,
+Immediate Connection requestor.CorrelatedTracksRequest -> sender.CorrelatedTracksRequest,,0.0ms,unknown,,0.0ms,unknown,,
+Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
+Delayed Connection sender.SendCorrelatedTrackSet -> requestor.ReceivedCorrelatedTrackSet,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
+Thread requestor,,0.0ms,immediate connection,,0.0ms,immediate connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,
+Immediate Connection requestor.OwnAircraftPositionRequest -> sender.OwnAircraftPositionRequest,,0.0ms,unknown,,0.0ms,unknown,,
+Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
+Delayed Connection sender.SendOwnAircraftPosition -> requestor.ReceivedOwnAircraftPosition,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
+Thread requestor,,100.0ms,deadline,,100.0ms,deadline,,
+Total,0.0ms,700.0ms,,0.0ms,900.0ms,,
+Flow Specification,,0.0ms,,,0.0ms,,
+Informations,the minimal latency is not specified,
+,the maximal latency is not specified,
 	'''
 }

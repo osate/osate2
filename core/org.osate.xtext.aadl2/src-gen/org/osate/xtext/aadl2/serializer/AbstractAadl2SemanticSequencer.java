@@ -2179,7 +2179,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     (name=ID dataClassifier=[DataClassifier|QCREF]?)
 	 */
 	protected void sequence_EventDataSource(EObject context, EventDataSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2188,7 +2188,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (inMode+=[Mode|ID] inMode+=[Mode|ID]*)? ownedPropertyAssociation+=ContainedPropertyAssociation*)
+	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? (inMode+=[Mode|ID] inMode+=[Mode|ID]*)? ownedPropertyAssociation+=ContainedPropertyAssociation*)
 	 */
 	protected void sequence_EventDataSource_InternalFeature(EObject context, EventDataSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2748,7 +2748,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     (name=ID dataClassifier=[DataClassifier|QCREF]?)
 	 */
 	protected void sequence_PortProxy(EObject context, PortProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2757,7 +2757,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (inMode+=[Mode|ID] inMode+=[Mode|ID]*)? ownedPropertyAssociation+=ContainedPropertyAssociation*)
+	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? (inMode+=[Mode|ID] inMode+=[Mode|ID]*)? ownedPropertyAssociation+=ContainedPropertyAssociation*)
 	 */
 	protected void sequence_PortProxy_ProcessorFeature(EObject context, PortProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2905,7 +2905,12 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (inMode+=[Mode|ID] inMode+=[Mode|ID]*)? ownedPropertyAssociation+=ContainedPropertyAssociation*)
+	 *     (
+	 *         name=ID 
+	 *         subprogramClassifier=[SubprogramClassifier|QCREF]? 
+	 *         (inMode+=[Mode|ID] inMode+=[Mode|ID]*)? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_ProcessorFeature_SubprogramProxy(EObject context, SubprogramProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -3508,7 +3513,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     (name=ID subprogramClassifier=[SubprogramClassifier|QCREF]?)
 	 */
 	protected void sequence_SubprogramProxy(EObject context, SubprogramProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

@@ -39,6 +39,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Virtual Bus Prototype</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::VirtualBus.</p>
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.osate.aadl2.Aadl2Package#getVirtualBusPrototype()
  * @model

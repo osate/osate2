@@ -39,6 +39,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Flow End</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Flows.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -60,6 +64,9 @@ public interface FlowEnd extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see #setContext(Context)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowEnd_Context()
@@ -86,6 +93,9 @@ public interface FlowEnd extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature</em>' reference.
 	 * @see #setFeature(Feature)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowEnd_Feature()

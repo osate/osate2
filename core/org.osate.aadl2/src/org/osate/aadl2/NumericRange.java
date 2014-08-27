@@ -43,6 +43,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Numeric Range</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Types.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -65,6 +69,9 @@ public interface NumericRange extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upper Bound</em>' containment reference.
 	 * @see #setUpperBound(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getNumericRange_UpperBound()
@@ -102,6 +109,9 @@ public interface NumericRange extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lower Bound</em>' containment reference.
 	 * @see #setLowerBound(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getNumericRange_LowerBound()

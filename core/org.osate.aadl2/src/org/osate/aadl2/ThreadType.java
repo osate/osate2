@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Thread Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Thread.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -74,6 +78,9 @@ public interface ThreadType extends ComponentType, ThreadClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Thread.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
@@ -106,6 +113,9 @@ public interface ThreadType extends ComponentType, ThreadClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Thread.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
@@ -138,6 +148,9 @@ public interface ThreadType extends ComponentType, ThreadClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Thread.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
@@ -170,6 +183,9 @@ public interface ThreadType extends ComponentType, ThreadClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Thread.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadType_OwnedDataAccess()
 	 * @model containment="true" ordered="false"
@@ -202,6 +218,9 @@ public interface ThreadType extends ComponentType, ThreadClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Thread.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadType_OwnedSubprogramAccess()
 	 * @model containment="true" ordered="false"
@@ -234,6 +253,9 @@ public interface ThreadType extends ComponentType, ThreadClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Thread.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadType_OwnedSubprogramGroupAccess()
 	 * @model containment="true" ordered="false"

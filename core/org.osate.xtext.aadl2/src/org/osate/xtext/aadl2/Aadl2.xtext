@@ -1726,15 +1726,27 @@ EventSource returns aadl2::EventSource:
 ;
 
 EventDataSource returns aadl2::EventDataSource:
-	name = ID ':' 'event' 'data' ';'
+	name = ID ':' 'event' 'data'
+	(
+		dataClassifier = [aadl2::DataClassifier|QCREF]
+	)?
+	';'
 ;
 
 PortProxy returns aadl2::PortProxy:
-	name = ID ':' 'port' ';'
+	name = ID ':' 'port'
+	(
+		dataClassifier = [aadl2::DataClassifier|QCREF]
+	)?
+	';'
 ;
 
 SubprogramProxy returns aadl2::SubprogramProxy:
-	name = ID ':' 'subprogram' ';'
+	name = ID ':' 'subprogram'
+	(
+		subprogramClassifier = [aadl2::SubprogramClassifier|QCREF]
+	)?
+	';'
 ;
 
 // ********* connections 

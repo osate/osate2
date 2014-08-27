@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Flow Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Flows.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -64,6 +68,9 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature, Flow {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Specification</em>' reference.
 	 * @see #setSpecification(FlowSpecification)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_Specification()
@@ -91,6 +98,9 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature, Flow {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Flow Segment</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_OwnedFlowSegment()
 	 * @model containment="true"
@@ -117,6 +127,9 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature, Flow {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Kind</em>' attribute.
 	 * @see org.osate.aadl2.FlowKind
 	 * @see #setKind(FlowKind)

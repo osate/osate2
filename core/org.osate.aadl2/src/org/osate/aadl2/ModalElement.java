@@ -42,6 +42,11 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Modal Element</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Associations.</p>
+ * <p>From package AADLConstructs::Modes.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +68,9 @@ public interface ModalElement extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>In Mode</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModalElement_InMode()
 	 * @model ordered="false"

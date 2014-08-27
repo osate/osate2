@@ -43,6 +43,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Modal Path</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Modes.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -64,6 +68,9 @@ public interface ModalPath extends ModalElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>In Mode Or Transition</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getModalPath_InModeOrTransition()
 	 * @model ordered="false"

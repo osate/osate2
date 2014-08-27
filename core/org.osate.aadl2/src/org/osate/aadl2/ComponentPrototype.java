@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Component Prototype</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -62,6 +66,9 @@ public interface ComponentPrototype extends Prototype, SubcomponentType, Feature
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Array</em>' attribute.
 	 * @see #setArray(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototype_Array()
@@ -88,6 +95,9 @@ public interface ComponentPrototype extends Prototype, SubcomponentType, Feature
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Constraining Classifier</em>' reference.
 	 * @see #setConstrainingClassifier(ComponentClassifier)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentPrototype_ConstrainingClassifier()
