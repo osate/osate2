@@ -912,8 +912,8 @@ public class Aadl2ScopeProviderTest extends OsateTest {
           PublicPackageSection _publicSection = it.getPublicSection();
           EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
           Classifier _get = _ownedClassifiers.get(0);
-          final Procedure1<Classifier> _function = new Procedure1<Classifier>() {
-            public void apply(final Classifier it) {
+          final Procedure1<AbstractType> _function = new Procedure1<AbstractType>() {
+            public void apply(final AbstractType it) {
               String _name = it.getName();
               Assert.assertEquals("a1", _name);
               EList<Prototype> _ownedPrototypes = it.getOwnedPrototypes();
@@ -927,9 +927,109 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 }
               };
               ObjectExtensions.<Prototype>operator_doubleArrow(_head, _function);
+              EList<DataPort> _ownedDataPorts = it.getOwnedDataPorts();
+              DataPort _head_1 = IterableExtensions.<DataPort>head(_ownedDataPorts);
+              final Procedure1<DataPort> _function_1 = new Procedure1<DataPort>() {
+                public void apply(final DataPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("dport1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<DataPort>operator_doubleArrow(_head_1, _function_1);
+              EList<EventDataPort> _ownedEventDataPorts = it.getOwnedEventDataPorts();
+              EventDataPort _head_2 = IterableExtensions.<EventDataPort>head(_ownedEventDataPorts);
+              final Procedure1<EventDataPort> _function_2 = new Procedure1<EventDataPort>() {
+                public void apply(final EventDataPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("edport1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_2, _function_2);
+              EList<EventPort> _ownedEventPorts = it.getOwnedEventPorts();
+              EventPort _head_3 = IterableExtensions.<EventPort>head(_ownedEventPorts);
+              final Procedure1<EventPort> _function_3 = new Procedure1<EventPort>() {
+                public void apply(final EventPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("eport1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<EventPort>operator_doubleArrow(_head_3, _function_3);
+              EList<FeatureGroup> _ownedFeatureGroups = it.getOwnedFeatureGroups();
+              FeatureGroup _head_4 = IterableExtensions.<FeatureGroup>head(_ownedFeatureGroups);
+              final Procedure1<FeatureGroup> _function_4 = new Procedure1<FeatureGroup>() {
+                public void apply(final FeatureGroup it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fg1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_4, _function_4);
+              EList<SubprogramAccess> _ownedSubprogramAccesses = it.getOwnedSubprogramAccesses();
+              SubprogramAccess _head_5 = IterableExtensions.<SubprogramAccess>head(_ownedSubprogramAccesses);
+              final Procedure1<SubprogramAccess> _function_5 = new Procedure1<SubprogramAccess>() {
+                public void apply(final SubprogramAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("suba1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_5, _function_5);
+              EList<SubprogramGroupAccess> _ownedSubprogramGroupAccesses = it.getOwnedSubprogramGroupAccesses();
+              SubprogramGroupAccess _head_6 = IterableExtensions.<SubprogramGroupAccess>head(_ownedSubprogramGroupAccesses);
+              final Procedure1<SubprogramGroupAccess> _function_6 = new Procedure1<SubprogramGroupAccess>() {
+                public void apply(final SubprogramGroupAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("subga1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_6, _function_6);
+              EList<BusAccess> _ownedBusAccesses = it.getOwnedBusAccesses();
+              BusAccess _head_7 = IterableExtensions.<BusAccess>head(_ownedBusAccesses);
+              final Procedure1<BusAccess> _function_7 = new Procedure1<BusAccess>() {
+                public void apply(final BusAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("ba1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<BusAccess>operator_doubleArrow(_head_7, _function_7);
+              EList<DataAccess> _ownedDataAccesses = it.getOwnedDataAccesses();
+              DataAccess _head_8 = IterableExtensions.<DataAccess>head(_ownedDataAccesses);
+              final Procedure1<DataAccess> _function_8 = new Procedure1<DataAccess>() {
+                public void apply(final DataAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("da1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<DataAccess>operator_doubleArrow(_head_8, _function_8);
+              EList<AbstractFeature> _ownedAbstractFeatures = it.getOwnedAbstractFeatures();
+              AbstractFeature _head_9 = IterableExtensions.<AbstractFeature>head(_ownedAbstractFeatures);
+              final Procedure1<AbstractFeature> _function_9 = new Procedure1<AbstractFeature>() {
+                public void apply(final AbstractFeature it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("af1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_9, _function_9);
             }
           };
-          ObjectExtensions.<Classifier>operator_doubleArrow(_get, _function);
+          ObjectExtensions.<AbstractType>operator_doubleArrow(
+            ((AbstractType) _get), _function);
           PublicPackageSection _publicSection_1 = it.getPublicSection();
           EList<Classifier> _ownedClassifiers_1 = _publicSection_1.getOwnedClassifiers();
           Classifier _get_1 = _ownedClassifiers_1.get(1);
@@ -1055,8 +1155,8 @@ public class Aadl2ScopeProviderTest extends OsateTest {
           PublicPackageSection _publicSection_2 = it.getPublicSection();
           EList<Classifier> _ownedClassifiers_2 = _publicSection_2.getOwnedClassifiers();
           Classifier _get_2 = _ownedClassifiers_2.get(2);
-          final Procedure1<Classifier> _function_2 = new Procedure1<Classifier>() {
-            public void apply(final Classifier it) {
+          final Procedure1<FeatureGroupType> _function_2 = new Procedure1<FeatureGroupType>() {
+            public void apply(final FeatureGroupType it) {
               String _name = it.getName();
               Assert.assertEquals("fgt1", _name);
               EList<Prototype> _ownedPrototypes = it.getOwnedPrototypes();
@@ -1070,9 +1170,120 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 }
               };
               ObjectExtensions.<Prototype>operator_doubleArrow(_head, _function);
+              EList<DataPort> _ownedDataPorts = it.getOwnedDataPorts();
+              DataPort _head_1 = IterableExtensions.<DataPort>head(_ownedDataPorts);
+              final Procedure1<DataPort> _function_1 = new Procedure1<DataPort>() {
+                public void apply(final DataPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("dport2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<DataPort>operator_doubleArrow(_head_1, _function_1);
+              EList<EventDataPort> _ownedEventDataPorts = it.getOwnedEventDataPorts();
+              EventDataPort _head_2 = IterableExtensions.<EventDataPort>head(_ownedEventDataPorts);
+              final Procedure1<EventDataPort> _function_2 = new Procedure1<EventDataPort>() {
+                public void apply(final EventDataPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("edport2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_2, _function_2);
+              EList<EventPort> _ownedEventPorts = it.getOwnedEventPorts();
+              EventPort _head_3 = IterableExtensions.<EventPort>head(_ownedEventPorts);
+              final Procedure1<EventPort> _function_3 = new Procedure1<EventPort>() {
+                public void apply(final EventPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("eport2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<EventPort>operator_doubleArrow(_head_3, _function_3);
+              EList<FeatureGroup> _ownedFeatureGroups = it.getOwnedFeatureGroups();
+              FeatureGroup _head_4 = IterableExtensions.<FeatureGroup>head(_ownedFeatureGroups);
+              final Procedure1<FeatureGroup> _function_4 = new Procedure1<FeatureGroup>() {
+                public void apply(final FeatureGroup it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fg2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_4, _function_4);
+              EList<Parameter> _ownedParameters = it.getOwnedParameters();
+              Parameter _head_5 = IterableExtensions.<Parameter>head(_ownedParameters);
+              final Procedure1<Parameter> _function_5 = new Procedure1<Parameter>() {
+                public void apply(final Parameter it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("param1", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<Parameter>operator_doubleArrow(_head_5, _function_5);
+              EList<SubprogramAccess> _ownedSubprogramAccesses = it.getOwnedSubprogramAccesses();
+              SubprogramAccess _head_6 = IterableExtensions.<SubprogramAccess>head(_ownedSubprogramAccesses);
+              final Procedure1<SubprogramAccess> _function_6 = new Procedure1<SubprogramAccess>() {
+                public void apply(final SubprogramAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("suba2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_6, _function_6);
+              EList<SubprogramGroupAccess> _ownedSubprogramGroupAccesses = it.getOwnedSubprogramGroupAccesses();
+              SubprogramGroupAccess _head_7 = IterableExtensions.<SubprogramGroupAccess>head(_ownedSubprogramGroupAccesses);
+              final Procedure1<SubprogramGroupAccess> _function_7 = new Procedure1<SubprogramGroupAccess>() {
+                public void apply(final SubprogramGroupAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("subga2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_7, _function_7);
+              EList<BusAccess> _ownedBusAccesses = it.getOwnedBusAccesses();
+              BusAccess _head_8 = IterableExtensions.<BusAccess>head(_ownedBusAccesses);
+              final Procedure1<BusAccess> _function_8 = new Procedure1<BusAccess>() {
+                public void apply(final BusAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("ba2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<BusAccess>operator_doubleArrow(_head_8, _function_8);
+              EList<DataAccess> _ownedDataAccesses = it.getOwnedDataAccesses();
+              DataAccess _head_9 = IterableExtensions.<DataAccess>head(_ownedDataAccesses);
+              final Procedure1<DataAccess> _function_9 = new Procedure1<DataAccess>() {
+                public void apply(final DataAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("da2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<DataAccess>operator_doubleArrow(_head_9, _function_9);
+              EList<AbstractFeature> _ownedAbstractFeatures = it.getOwnedAbstractFeatures();
+              AbstractFeature _head_10 = IterableExtensions.<AbstractFeature>head(_ownedAbstractFeatures);
+              final Procedure1<AbstractFeature> _function_10 = new Procedure1<AbstractFeature>() {
+                public void apply(final AbstractFeature it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("af2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_10, _function_10);
             }
           };
-          ObjectExtensions.<Classifier>operator_doubleArrow(_get_2, _function_2);
+          ObjectExtensions.<FeatureGroupType>operator_doubleArrow(
+            ((FeatureGroupType) _get_2), _function_2);
           PublicPackageSection _publicSection_3 = it.getPublicSection();
           EList<Classifier> _ownedClassifiers_3 = _publicSection_3.getOwnedClassifiers();
           Classifier _get_3 = _ownedClassifiers_3.get(3);
@@ -1208,11 +1419,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
             ((FeatureGroupType) _get_3), _function_3);
           PublicPackageSection _publicSection_4 = it.getPublicSection();
           EList<Classifier> _ownedClassifiers_4 = _publicSection_4.getOwnedClassifiers();
-          Classifier _get_4 = _ownedClassifiers_4.get(5);
+          Classifier _get_4 = _ownedClassifiers_4.get(4);
           final Procedure1<ComponentImplementation> _function_4 = new Procedure1<ComponentImplementation>() {
             public void apply(final ComponentImplementation it) {
               String _name = it.getName();
-              Assert.assertEquals("a1.i2", _name);
+              Assert.assertEquals("a1.i1", _name);
               EList<Subcomponent> _ownedSubcomponents = it.getOwnedSubcomponents();
               Subcomponent _head = IterableExtensions.<Subcomponent>head(_ownedSubcomponents);
               final Procedure1<Subcomponent> _function = new Procedure1<Subcomponent>() {
@@ -1220,7 +1431,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("asub1", _name);
                   EReference _subcomponent_Refined = Aadl2Package.eINSTANCE.getSubcomponent_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<Subcomponent>operator_doubleArrow(_head, _function);
@@ -1230,8 +1441,140 @@ public class Aadl2ScopeProviderTest extends OsateTest {
             ((ComponentImplementation) _get_4), _function_4);
           PublicPackageSection _publicSection_5 = it.getPublicSection();
           EList<Classifier> _ownedClassifiers_5 = _publicSection_5.getOwnedClassifiers();
-          Classifier _get_5 = _ownedClassifiers_5.get(7);
-          final Procedure1<SubprogramType> _function_5 = new Procedure1<SubprogramType>() {
+          Classifier _get_5 = _ownedClassifiers_5.get(5);
+          final Procedure1<ComponentImplementation> _function_5 = new Procedure1<ComponentImplementation>() {
+            public void apply(final ComponentImplementation it) {
+              String _name = it.getName();
+              Assert.assertEquals("a1.i2", _name);
+              EList<Subcomponent> _ownedSubcomponents = it.getOwnedSubcomponents();
+              Subcomponent _get = _ownedSubcomponents.get(0);
+              final Procedure1<Subcomponent> _function = new Procedure1<Subcomponent>() {
+                public void apply(final Subcomponent it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("asub1", _name);
+                  EReference _subcomponent_Refined = Aadl2Package.eINSTANCE.getSubcomponent_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1")));
+                }
+              };
+              ObjectExtensions.<Subcomponent>operator_doubleArrow(_get, _function);
+              EList<Subcomponent> _ownedSubcomponents_1 = it.getOwnedSubcomponents();
+              Subcomponent _get_1 = _ownedSubcomponents_1.get(1);
+              final Procedure1<Subcomponent> _function_1 = new Procedure1<Subcomponent>() {
+                public void apply(final Subcomponent it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("asub2", _name);
+                  EReference _subcomponent_Refined = Aadl2Package.eINSTANCE.getSubcomponent_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1")));
+                }
+              };
+              ObjectExtensions.<Subcomponent>operator_doubleArrow(_get_1, _function_1);
+            }
+          };
+          ObjectExtensions.<ComponentImplementation>operator_doubleArrow(
+            ((ComponentImplementation) _get_5), _function_5);
+          PublicPackageSection _publicSection_6 = it.getPublicSection();
+          EList<Classifier> _ownedClassifiers_6 = _publicSection_6.getOwnedClassifiers();
+          Classifier _get_6 = _ownedClassifiers_6.get(6);
+          final Procedure1<SubprogramType> _function_6 = new Procedure1<SubprogramType>() {
+            public void apply(final SubprogramType it) {
+              String _name = it.getName();
+              Assert.assertEquals("sub1", _name);
+              EList<EventDataPort> _ownedEventDataPorts = it.getOwnedEventDataPorts();
+              EventDataPort _head = IterableExtensions.<EventDataPort>head(_ownedEventDataPorts);
+              final Procedure1<EventDataPort> _function = new Procedure1<EventDataPort>() {
+                public void apply(final EventDataPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("edport3", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<EventDataPort>operator_doubleArrow(_head, _function);
+              EList<EventPort> _ownedEventPorts = it.getOwnedEventPorts();
+              EventPort _head_1 = IterableExtensions.<EventPort>head(_ownedEventPorts);
+              final Procedure1<EventPort> _function_1 = new Procedure1<EventPort>() {
+                public void apply(final EventPort it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("eport3", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<EventPort>operator_doubleArrow(_head_1, _function_1);
+              EList<FeatureGroup> _ownedFeatureGroups = it.getOwnedFeatureGroups();
+              FeatureGroup _head_2 = IterableExtensions.<FeatureGroup>head(_ownedFeatureGroups);
+              final Procedure1<FeatureGroup> _function_2 = new Procedure1<FeatureGroup>() {
+                public void apply(final FeatureGroup it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fg3", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_2, _function_2);
+              EList<Parameter> _ownedParameters = it.getOwnedParameters();
+              Parameter _head_3 = IterableExtensions.<Parameter>head(_ownedParameters);
+              final Procedure1<Parameter> _function_3 = new Procedure1<Parameter>() {
+                public void apply(final Parameter it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("param2", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<Parameter>operator_doubleArrow(_head_3, _function_3);
+              EList<SubprogramAccess> _ownedSubprogramAccesses = it.getOwnedSubprogramAccesses();
+              SubprogramAccess _head_4 = IterableExtensions.<SubprogramAccess>head(_ownedSubprogramAccesses);
+              final Procedure1<SubprogramAccess> _function_4 = new Procedure1<SubprogramAccess>() {
+                public void apply(final SubprogramAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("suba3", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_4, _function_4);
+              EList<SubprogramGroupAccess> _ownedSubprogramGroupAccesses = it.getOwnedSubprogramGroupAccesses();
+              SubprogramGroupAccess _head_5 = IterableExtensions.<SubprogramGroupAccess>head(_ownedSubprogramGroupAccesses);
+              final Procedure1<SubprogramGroupAccess> _function_5 = new Procedure1<SubprogramGroupAccess>() {
+                public void apply(final SubprogramGroupAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("subga3", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_5, _function_5);
+              EList<DataAccess> _ownedDataAccesses = it.getOwnedDataAccesses();
+              DataAccess _head_6 = IterableExtensions.<DataAccess>head(_ownedDataAccesses);
+              final Procedure1<DataAccess> _function_6 = new Procedure1<DataAccess>() {
+                public void apply(final DataAccess it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("da3", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<DataAccess>operator_doubleArrow(_head_6, _function_6);
+              EList<AbstractFeature> _ownedAbstractFeatures = it.getOwnedAbstractFeatures();
+              AbstractFeature _head_7 = IterableExtensions.<AbstractFeature>head(_ownedAbstractFeatures);
+              final Procedure1<AbstractFeature> _function_7 = new Procedure1<AbstractFeature>() {
+                public void apply(final AbstractFeature it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("af3", _name);
+                  EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_7, _function_7);
+            }
+          };
+          ObjectExtensions.<SubprogramType>operator_doubleArrow(
+            ((SubprogramType) _get_6), _function_6);
+          PublicPackageSection _publicSection_7 = it.getPublicSection();
+          EList<Classifier> _ownedClassifiers_7 = _publicSection_7.getOwnedClassifiers();
+          Classifier _get_7 = _ownedClassifiers_7.get(7);
+          final Procedure1<SubprogramType> _function_7 = new Procedure1<SubprogramType>() {
             public void apply(final SubprogramType it) {
               String _name = it.getName();
               Assert.assertEquals("sub2", _name);
@@ -1327,7 +1670,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
             }
           };
           ObjectExtensions.<SubprogramType>operator_doubleArrow(
-            ((SubprogramType) _get_5), _function_5);
+            ((SubprogramType) _get_7), _function_7);
         }
       };
       ObjectExtensions.<AadlPackage>operator_doubleArrow(((AadlPackage) _parse), _function);
@@ -1566,6 +1909,8 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                       SubcomponentType _subcomponentType = it.getSubcomponentType();
                       String _name = _subcomponentType.getName();
                       Assert.assertEquals("a3", _name);
+                      EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
+                      Aadl2ScopeProviderTest.this.assertScope(it, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
                       EList<PrototypeBinding> _bindings = it.getBindings();
                       PrototypeBinding _head = IterableExtensions.<PrototypeBinding>head(_bindings);
                       final Procedure1<PrototypeBinding> _function = new Procedure1<PrototypeBinding>() {
