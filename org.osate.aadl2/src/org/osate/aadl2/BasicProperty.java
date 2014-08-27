@@ -42,6 +42,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Basic Property</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Definitions.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -69,6 +73,9 @@ public interface BasicProperty extends TypedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Definitions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Property Type</em>' reference.
 	 * @see #setPropertyType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getBasicProperty_PropertyType()
@@ -101,6 +108,9 @@ public interface BasicProperty extends TypedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Definitions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Property Type</em>' containment reference.
 	 * @see #setOwnedPropertyType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getBasicProperty_OwnedPropertyType()

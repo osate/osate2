@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Data Classifier</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Data.</p>
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.osate.aadl2.Aadl2Package#getDataClassifier()
  * @model abstract="true"

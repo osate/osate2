@@ -42,6 +42,7 @@ package org.osate.aadl2;
  *
  * <!-- begin-model-doc -->
  * A typed element has a type.
+ * <p>From package AADLInfrastructure.</p>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -62,6 +63,7 @@ public interface TypedElement extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The type of the TypedElement.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)

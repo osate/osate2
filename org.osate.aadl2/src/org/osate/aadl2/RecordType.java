@@ -43,6 +43,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Record Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Types.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -70,6 +74,9 @@ public interface RecordType extends Namespace, NonListType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Field</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getRecordType_OwnedField()
 	 * @model containment="true" ordered="false"

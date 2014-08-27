@@ -43,6 +43,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Containment Path Element</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Associations.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -66,6 +70,9 @@ public interface ContainmentPathElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Array Range</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getContainmentPathElement_ArrayRange()
 	 * @model containment="true"
@@ -91,6 +98,9 @@ public interface ContainmentPathElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Named Element</em>' reference.
 	 * @see #setNamedElement(NamedElement)
 	 * @see org.osate.aadl2.Aadl2Package#getContainmentPathElement_NamedElement()
@@ -117,6 +127,9 @@ public interface ContainmentPathElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Annex Name</em>' attribute.
 	 * @see #setAnnexName(String)
 	 * @see org.osate.aadl2.Aadl2Package#getContainmentPathElement_AnnexName()

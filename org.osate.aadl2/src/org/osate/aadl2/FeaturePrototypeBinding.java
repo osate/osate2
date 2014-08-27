@@ -43,6 +43,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Feature Prototype Binding</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +67,9 @@ public interface FeaturePrototypeBinding extends PrototypeBinding {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Actual</em>' containment reference.
 	 * @see #setActual(FeaturePrototypeActual)
 	 * @see org.osate.aadl2.Aadl2Package#getFeaturePrototypeBinding_Actual()

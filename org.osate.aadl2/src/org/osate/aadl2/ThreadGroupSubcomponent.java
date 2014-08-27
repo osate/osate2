@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Thread Group Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::ThreadGroup.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface ThreadGroupSubcomponent extends Subcomponent, org.osate.aadl2.T
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::ThreadGroup.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Thread Group Subcomponent Type</em>' reference.
 	 * @see #setThreadGroupSubcomponentType(ThreadGroupSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupSubcomponent_ThreadGroupSubcomponentType()

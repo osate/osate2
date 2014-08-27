@@ -44,6 +44,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>List Value</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Expressions.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -65,6 +69,9 @@ public interface ListValue extends PropertyExpression {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned List Element</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getListValue_OwnedListElement()
 	 * @model containment="true"

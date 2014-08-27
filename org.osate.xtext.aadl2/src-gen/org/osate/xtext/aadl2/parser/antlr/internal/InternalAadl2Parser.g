@@ -28132,10 +28132,25 @@ ruleEventDataSource returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getEventDataSourceAccess().getDataKeyword_3());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEventDataSourceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getEventDataSourceAccess().getDataClassifierDataClassifierCrossReference_4_0()); 
+	    }
+		ruleQCREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
-	otherlv_4=KEYWORD_9
+)
+)?
+	otherlv_5=KEYWORD_9
     {
-    	newLeafNode(otherlv_4, grammarAccess.getEventDataSourceAccess().getSemicolonKeyword_4());
+    	newLeafNode(otherlv_5, grammarAccess.getEventDataSourceAccess().getSemicolonKeyword_5());
     }
 )
 ;
@@ -28186,10 +28201,25 @@ rulePortProxy returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getPortProxyAccess().getPortKeyword_2());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPortProxyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getPortProxyAccess().getDataClassifierDataClassifierCrossReference_3_0()); 
+	    }
+		ruleQCREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
-	otherlv_3=KEYWORD_9
+)
+)?
+	otherlv_4=KEYWORD_9
     {
-    	newLeafNode(otherlv_3, grammarAccess.getPortProxyAccess().getSemicolonKeyword_3());
+    	newLeafNode(otherlv_4, grammarAccess.getPortProxyAccess().getSemicolonKeyword_4());
     }
 )
 ;
@@ -28240,10 +28270,25 @@ ruleSubprogramProxy returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getSubprogramProxyAccess().getSubprogramKeyword_2());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSubprogramProxyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSubprogramProxyAccess().getSubprogramClassifierSubprogramClassifierCrossReference_3_0()); 
+	    }
+		ruleQCREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
-	otherlv_3=KEYWORD_9
+)
+)?
+	otherlv_4=KEYWORD_9
     {
-    	newLeafNode(otherlv_3, grammarAccess.getSubprogramProxyAccess().getSemicolonKeyword_3());
+    	newLeafNode(otherlv_4, grammarAccess.getSubprogramProxyAccess().getSemicolonKeyword_4());
     }
 )
 ;

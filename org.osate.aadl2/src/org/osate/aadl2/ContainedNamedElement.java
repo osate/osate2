@@ -43,6 +43,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Contained Named Element</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Associations.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -65,6 +69,9 @@ public interface ContainedNamedElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Containment Path Element</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getContainedNamedElement_ContainmentPathElement()
 	 * @model containment="true" required="true"

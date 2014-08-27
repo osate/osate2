@@ -41,6 +41,10 @@ import org.osate.aadl2.parsesupport.AObject;
  * A representation of the model object '<em><b>Feature Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Features.</p>
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.osate.aadl2.Aadl2Package#getFeatureType()
  * @model abstract="true"

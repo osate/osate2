@@ -1962,7 +1962,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			this.getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall);
 		} else {
 			// XXX we have an unresolved implementation or alias throw new InvalidModelException(this,
-// "Component implementation is missing its component type reference.");
+			// "Component implementation is missing its component type reference.");
 		}
 	}
 

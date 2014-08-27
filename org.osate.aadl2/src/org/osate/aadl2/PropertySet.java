@@ -43,6 +43,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Property Set</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::PropertySets.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -74,6 +78,9 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::PropertySets.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Property Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedPropertyType()
 	 * @model containment="true" ordered="false"
@@ -107,6 +114,9 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::PropertySets.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Property</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedProperty()
 	 * @model containment="true" ordered="false"
@@ -139,6 +149,9 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::PropertySets.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Property Constant</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedPropertyConstant()
 	 * @model containment="true" ordered="false"
@@ -165,6 +178,9 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::PropertySets.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Imported Unit</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_ImportedUnit()
 	 * @model ordered="false"
@@ -181,6 +197,9 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::PropertySets.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Annex Subclause</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedAnnexSubclause()
 	 * @model containment="true" ordered="false"

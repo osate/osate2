@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Virtual Processor Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::VirtualProcessor.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -70,6 +74,9 @@ public interface VirtualProcessorImplementation extends ComponentImplementation,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::VirtualProcessor.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -102,6 +109,9 @@ public interface VirtualProcessorImplementation extends ComponentImplementation,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::VirtualProcessor.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorImplementation_OwnedVirtualProcessorSubcomponent()
 	 * @model containment="true" ordered="false"

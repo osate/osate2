@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Process Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Process.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface ProcessSubcomponent extends Subcomponent, org.osate.aadl2.Proce
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Process.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Process Subcomponent Type</em>' reference.
 	 * @see #setProcessSubcomponentType(ProcessSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getProcessSubcomponent_ProcessSubcomponentType()

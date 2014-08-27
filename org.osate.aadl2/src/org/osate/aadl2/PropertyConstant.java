@@ -45,6 +45,10 @@ import org.osate.aadl2.properties.InvalidModelException;
  * A representation of the model object '<em><b>Property Constant</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Constants.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -73,6 +77,9 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Constants.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Property Type</em>' reference.
 	 * @see #setPropertyType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyConstant_PropertyType()
@@ -105,6 +112,9 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Constants.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Property Type</em>' containment reference.
 	 * @see #setOwnedPropertyType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyConstant_OwnedPropertyType()
@@ -142,6 +152,9 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Constants.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Constant Value</em>' containment reference.
 	 * @see #setConstantValue(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getPropertyConstant_ConstantValue()

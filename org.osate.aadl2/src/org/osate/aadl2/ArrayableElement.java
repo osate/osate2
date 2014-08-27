@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Arrayable Element</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Arrays.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +67,9 @@ public interface ArrayableElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Arrays.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Array Dimension</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getArrayableElement_ArrayDimension()
 	 * @model containment="true"

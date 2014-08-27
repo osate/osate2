@@ -42,6 +42,11 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Component Classifier</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::NoneSupport.</p>
+ * <p>From package AADLConstructs::Components.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -74,6 +79,9 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Mode</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_OwnedMode()
 	 * @model containment="true" ordered="false"
@@ -107,6 +115,9 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Mode Transition</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_OwnedModeTransition()
 	 * @model containment="true" ordered="false"
@@ -132,6 +143,9 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Derived Modes</em>' attribute.
 	 * @see #setDerivedModes(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_DerivedModes()
@@ -158,6 +172,9 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::NoneSupport.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>No Flows</em>' attribute.
 	 * @see #setNoFlows(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_NoFlows()
@@ -184,6 +201,9 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::NoneSupport.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>No Modes</em>' attribute.
 	 * @see #setNoModes(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_NoModes()

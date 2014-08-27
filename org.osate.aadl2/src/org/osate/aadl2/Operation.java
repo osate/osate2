@@ -43,6 +43,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Operation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Expressions.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -65,6 +69,9 @@ public interface Operation extends PropertyExpression {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Op</em>' attribute.
 	 * @see org.osate.aadl2.OperationKind
 	 * @see #setOp(OperationKind)
@@ -94,6 +101,9 @@ public interface Operation extends PropertyExpression {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Expressions.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Property Expression</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getOperation_OwnedPropertyExpression()
 	 * @model containment="true" required="true" ordered="false"

@@ -44,6 +44,11 @@ import org.eclipse.emf.common.util.DiagnosticChain;
  * A representation of the model object '<em><b>Prototype</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <p>From package AADLDetails::Calls.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -70,6 +75,9 @@ public interface Prototype extends StructuralFeature, CalledSubprogram {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined</em>' reference.
 	 * @see #setRefined(Prototype)
 	 * @see org.osate.aadl2.Aadl2Package#getPrototype_Refined()
