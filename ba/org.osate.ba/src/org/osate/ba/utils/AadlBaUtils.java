@@ -738,12 +738,27 @@ public class AadlBaUtils {
     return getDataClassifier(v, null) ;
   }
   
+  /**
+   * Returns the DataClassifier object associated to the given Target object.  
+   * 
+   * @param t the given Target object
+   * @return the DataClassifier object
+   * @exception UnsupportedOperationException for unsupported cases
+   */
   public static DataClassifier getDataClassifier(Target t)
   {
     return getDataClassifier(t, null);
   }
   
-  // DOC ME
+  /**
+   * Returns the DataClassifier object associated to the given Target object.
+   * 
+   * @param t the given Target object
+   * @param parentContainer the object that contains the element binded to the
+   * given Target Object (and not the Target container)
+   * @return the DataClassifier object
+   * @exception UnsupportedOperationException for unsupported cases
+   */
   public static DataClassifier getDataClassifier(Target t, NamedElement parentContainer)
   {
     NamedElement result ;
