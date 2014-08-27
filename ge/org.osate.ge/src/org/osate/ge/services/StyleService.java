@@ -67,6 +67,8 @@ public interface StyleService {
 	Style getModeTransitionTrigger();
 
 	Style getLabelStyle();
+	
+	Style getAnnotationStyle();
 
 	Style getFeatureStyle();
 

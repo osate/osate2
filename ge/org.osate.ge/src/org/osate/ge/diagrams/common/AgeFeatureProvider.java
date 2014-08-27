@@ -54,6 +54,7 @@ import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModeTransition;
+import org.osate.ge.diagrams.common.features.ChangeFeatureTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentImplementationToTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentToPackageFeature;
 import org.osate.ge.diagrams.common.features.ConfigureInModesFeature;
@@ -62,6 +63,7 @@ import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.diagrams.common.features.RenameModeTransitionFeature;
 import org.osate.ge.diagrams.common.features.SetDerivedModesFeature;
+import org.osate.ge.diagrams.common.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
@@ -272,6 +274,14 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(createSetDerivedModesFeature(true));
 		features.add(createSetDerivedModesFeature(false));
 		features.add(make(SetModeTransitionTriggersFeature.class));
+		
+		features.add(make(SetFeatureClassifierFeature.class));
+		
+		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
+			final IEclipseContext childCtx = getContext().createChild();
+			childCtx.set("Feature Type", featureType);
+			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));	
+		}
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {

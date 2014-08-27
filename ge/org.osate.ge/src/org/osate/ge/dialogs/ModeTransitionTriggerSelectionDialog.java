@@ -11,11 +11,15 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.PortProxy;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
+import org.osate.ge.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
 
 public abstract class ModeTransitionTriggerSelectionDialog {
 	
@@ -76,16 +80,29 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			}
 		}		
 
-		// Gets ports from the subcomponents
 		if(cc instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)cc;
+			
+			// Get Internal Features
+			for(final InternalFeature f : ComponentImplementationPattern.getAllInternalFeatures(ci)) {
+				ports.add(new ModeTransitionTriggerInfo(f, null));
+			}
+			
+			// Get Port Proxies
+			for(final ProcessorFeature f : ComponentImplementationPattern.getAllProcessorFeatures(ci)) {
+				if(f instanceof PortProxy) {
+					ports.add(new ModeTransitionTriggerInfo((PortProxy)f, null));
+				}				
+			}
+			
+			// Gets ports from the subcomponents
 			for(final Subcomponent sc : ci.getAllSubcomponents()) {
 				for(final Feature f : sc.getAllFeatures()) {
 					if(f instanceof Port) {
 						ports.add(new ModeTransitionTriggerInfo((Port)f, sc));
 					}
 				}
-			}			
+			}	
 		}
 
 		// TODO: Get ports from subprogram calls

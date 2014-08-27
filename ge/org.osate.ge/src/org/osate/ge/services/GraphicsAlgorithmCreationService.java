@@ -8,7 +8,7 @@ import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortCategory;
 
 /**
@@ -20,6 +20,7 @@ import org.osate.aadl2.PortCategory;
 public interface GraphicsAlgorithmCreationService {
 
 	Text createLabelGraphicsAlgorithm(GraphicsAlgorithmContainer container, String labelTxt);
+	Text createAnnotationGraphicsAlgorithm(GraphicsAlgorithmContainer container, String annotationTxt);
 
 	/**
 	 * Creates a graphics algorithm representing a specified classifer or subcomponent. 
@@ -31,7 +32,13 @@ public interface GraphicsAlgorithmCreationService {
 	 */
 	GraphicsAlgorithm createClassifierGraphicsAlgorithm(Shape shape, Element element, int width, int height);
 
-	GraphicsAlgorithm createFeatureGraphicsAlgorithm(Shape shape, Feature feature);
+	/**
+	 * Works for regular, internal, and processor features
+	 * @param shape
+	 * @param feature
+	 * @return
+	 */
+	GraphicsAlgorithm createFeatureGraphicsAlgorithm(Shape shape, NamedElement feature);
 
 	GraphicsAlgorithm createPortGraphicsAlgorithm(Shape shape, PortCategory category, DirectionType direction);
 
