@@ -168,6 +168,11 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeaturePropertyReference"
+      eSuperTypes="#//PropertyReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="#//ClassifierFeatureHolder" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassifierPropertyReference" eSuperTypes="#//PropertyReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
         eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
@@ -175,11 +180,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" abstract="true"
       interface="true" eSuperTypes="#//BasicAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeout" eSuperTypes="#//BehaviorTime #//DispatchRelativeTimeout"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeaturePropertyReference"
-      eSuperTypes="#//PropertyReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
-        eType="#//ClassifierFeatureHolder" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CondStatement" abstract="true" interface="true"
       eSuperTypes="#//BehaviorAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorActions" lowerBound="1"
@@ -553,19 +553,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" eType="#//ValueExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyNameField" abstract="true" interface="true"
-      eSuperTypes="#//BehaviorElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyNameHolder" eSuperTypes="#//BehaviorElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
-        lowerBound="1" eType="#//PropertyElementHolder" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="#//PropertyNameField"
-        unsettable="true" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyElementHolder" abstract="true"
-      eSuperTypes="#//BehaviorElement #//IndexableElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Element"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyAssociationHolder" eSuperTypes="#//PropertyElementHolder">
     <eOperations name="setPropertyAssociation" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -578,6 +565,11 @@
         <details key="body" value="return (PropertyAssociation) element;"/>
       </eAnnotations>
     </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyElementHolder" abstract="true"
+      eSuperTypes="#//BehaviorElement #//IndexableElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Element"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyExpressionHolder" eSuperTypes="#//PropertyElementHolder">
     <eOperations name="setPropertyExpression" lowerBound="1">
@@ -592,6 +584,22 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyNameField" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyNameHolder" eSuperTypes="#//BehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
+        lowerBound="1" eType="#//PropertyElementHolder" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="#//PropertyNameField"
+        unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" abstract="true" eSuperTypes="#//ValueConstant #//IntegerValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" lowerBound="1"
+        upperBound="-1" eType="#//PropertyNameHolder" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertySetPropertyReference" eSuperTypes="#//PropertyReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertySet" unique="false"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertySet"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyTypeHolder" eSuperTypes="#//PropertyElementHolder">
     <eOperations name="setPropertyType" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -604,14 +612,6 @@
         <details key="body" value="return (PropertyType) element;"/>
       </eAnnotations>
     </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyReference" abstract="true" eSuperTypes="#//ValueConstant #//IntegerValueConstant">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" lowerBound="1"
-        upperBound="-1" eType="#//PropertyNameHolder" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertySetPropertyReference" eSuperTypes="#//PropertyReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertySet" unique="false"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertySet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrototypeHolder" abstract="true" interface="true"
       eSuperTypes="#//IndexableElement #//GroupableElement #//ClassifierFeatureHolder">
