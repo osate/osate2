@@ -13,10 +13,21 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.EventDataSource;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.PortProxy;
+import org.osate.aadl2.ProcessorFeature;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
@@ -76,5 +87,43 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public String getTitleToolTip() {		
 		final String diagramTitle = getDiagramTypeProvider() == null ? null : getDiagramTypeProvider().getDiagramTitle();
 		return diagramTitle == null ? super.getTitleToolTip() : diagramTitle;
+	}
+	
+	@Override
+	public Object getToolTip(final GraphicsAlgorithm ga) {
+	    PictogramElement pe = ga.getPictogramElement();
+	    final Object bo = AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe));
+
+	    // Use the classifier name as the tooltip for features
+	    if(bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature) {
+	    	final Classifier featureClassifier;
+	    	if(bo instanceof EventDataSource) {
+		    	final EventDataSource aadlFeature = (EventDataSource)bo;
+		    	featureClassifier = aadlFeature.getDataClassifier();
+		    } else if(bo instanceof PortProxy) {
+		    	final PortProxy aadlFeature = (PortProxy)bo;
+		    	featureClassifier = aadlFeature.getDataClassifier();
+		    } else if(bo instanceof SubprogramProxy) {
+		    	final SubprogramProxy aadlFeature = (SubprogramProxy)bo;
+		    	featureClassifier = aadlFeature.getSubprogramClassifier();
+		    } else if(bo instanceof Feature) {
+		    	final Feature aadlFeature = (Feature)bo;
+		    	featureClassifier = aadlFeature.getAllClassifier();		    	
+		    } else {
+		    	featureClassifier = null;
+		    }
+	    	
+	    	if(featureClassifier instanceof ComponentClassifier) {
+	    		return ((ComponentClassifier) featureClassifier).getCategory() + " " + featureClassifier.getQualifiedName();
+	    	} else if(featureClassifier instanceof FeatureGroupType) {
+	    		return  "feature group " + featureClassifier.getQualifiedName();
+	    	} else if(featureClassifier == null) {
+	    		return "No Classifier";
+	    	} else {
+	    		return featureClassifier.getQualifiedName();	
+	    	}	    	
+	    }
+	    
+	    return super.getToolTip(ga);
 	}
 }
