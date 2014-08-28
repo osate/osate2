@@ -123,6 +123,7 @@ import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemSubcomponent;
@@ -200,7 +201,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
   /**
    * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
    * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,
-   * scope_EventDataSource_dataClassifier, and scope_PortProxy_dataClassifier
+   * scope_EventDataSource_dataClassifier, scope_PortProxy_dataClassifier, and scope_SubprogramProxy_subprogramClassifier
    */
   @Test
   public void testRenamesInClassifierReferenceScope() {
@@ -235,6 +236,9 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.append("renames data pack5::d5;");
     _builder.newLine();
     _builder.append("  ");
+    _builder.append("renames subprogram pack5::subp5;");
+    _builder.newLine();
+    _builder.append("  ");
     _builder.append("renames feature group pack5::fgt5;");
     _builder.newLine();
     _builder.append("  ");
@@ -244,6 +248,9 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.newLine();
     _builder.append("  ");
     _builder.append("renamed_data renames data pack5::d6;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("renamed_subprogram renames subprogram pack5::subp6;");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("renamed_feature_group renames feature group pack5::fgt5;");
@@ -316,6 +323,9 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.append("    ");
     _builder.append("pp1: port d1;");
     _builder.newLine();
+    _builder.append("    ");
+    _builder.append("sp1: subprogram subp1;");
+    _builder.newLine();
     _builder.append("  ");
     _builder.append("end a2.i;");
     _builder.newLine();
@@ -342,6 +352,22 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.newLine();
     _builder.append("  ");
     _builder.append("end d1.i;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("subprogram subp1");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("end subp1;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("subprogram implementation subp1.i");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("end subp1.i;");
     _builder.newLine();
     _builder.append("end pack1;");
     _builder.newLine();
@@ -389,6 +415,22 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_1.append("  ");
     _builder_1.append("end d2.i;");
     _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.append("subprogram subp2");
+    _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.append("end subp2;");
+    _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.append("subprogram implementation subp2.i");
+    _builder_1.newLine();
+    _builder_1.append("  ");
+    _builder_1.append("end subp2.i;");
+    _builder_1.newLine();
     Pair<String, String> _mappedTo_1 = Pair.<String, String>of("pack2.aadl", _builder_1.toString());
     StringConcatenation _builder_2 = new StringConcatenation();
     _builder_2.append("package pack3");
@@ -432,6 +474,22 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_2.newLine();
     _builder_2.append("  ");
     _builder_2.append("end d3.i;");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.append("subprogram subp3");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.append("end subp3;");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.append("subprogram implementation subp3.i");
+    _builder_2.newLine();
+    _builder_2.append("  ");
+    _builder_2.append("end subp3.i;");
     _builder_2.newLine();
     _builder_2.append("end pack3;");
     _builder_2.newLine();
@@ -478,6 +536,22 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_3.newLine();
     _builder_3.append("  ");
     _builder_3.append("end d4.i;");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.append("subprogram subp4");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.append("end subp4;");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.append("subprogram implementation subp4.i");
+    _builder_3.newLine();
+    _builder_3.append("  ");
+    _builder_3.append("end subp4.i;");
     _builder_3.newLine();
     _builder_3.append("end pack4;");
     _builder_3.newLine();
@@ -528,6 +602,22 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_4.append("  ");
     _builder_4.newLine();
     _builder_4.append("  ");
+    _builder_4.append("subprogram subp5");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end subp5;");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("subprogram implementation subp5.i");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end subp5.i;");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
     _builder_4.append("data d6");
     _builder_4.newLine();
     _builder_4.append("  ");
@@ -541,6 +631,22 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_4.append("  ");
     _builder_4.append("end d6.i;");
     _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("subprogram subp6");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end subp6;");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("subprogram implementation subp6.i");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end subp6.i;");
+    _builder_4.newLine();
     _builder_4.append("end pack5;");
     _builder_4.newLine();
     Pair<String, String> _mappedTo_4 = Pair.<String, String>of("pack5.aadl", _builder_4.toString());
@@ -552,7 +658,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     EObject _head = IterableExtensions.<EObject>head(_contents);
     final AadlPackage pack1 = ((AadlPackage) _head);
     this.assertAllCrossReferencesResolvable(pack1);
-    final List<String> componentClassifierScopeForPack1 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i"));
+    final List<String> componentClassifierScopeForPack1 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data", "renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack1::subp1", "pack1::subp1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack2::subp2", "pack2::subp2.i", "pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack3::subp3", "pack3::subp3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack4::subp4", "pack4::subp4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i", "renamed_package::subp4", "renamed_package::subp4.i"));
     final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
       public void apply(final AadlPackage it) {
         String _name = it.getName();
@@ -686,6 +792,17 @@ public class Aadl2ScopeProviderTest extends OsateTest {
               }
             };
             ObjectExtensions.<PortProxy>operator_doubleArrow(_head_1, _function_1);
+            EList<SubprogramProxy> _ownedSubprogramProxies = it.getOwnedSubprogramProxies();
+            SubprogramProxy _head_2 = IterableExtensions.<SubprogramProxy>head(_ownedSubprogramProxies);
+            final Procedure1<SubprogramProxy> _function_2 = new Procedure1<SubprogramProxy>() {
+              public void apply(final SubprogramProxy it) {
+                String _name = it.getName();
+                Assert.assertEquals("sp1", _name);
+                EReference _subprogramProxy_SubprogramClassifier = Aadl2Package.eINSTANCE.getSubprogramProxy_SubprogramClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramProxy_SubprogramClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::subp1", "pack1::subp1.i", "pack2::subp2", "pack2::subp2.i", "pack3::subp3", "pack3::subp3.i", "pack4::subp4", "pack4::subp4.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::subp4", "renamed_package::subp4.i")));
+              }
+            };
+            ObjectExtensions.<SubprogramProxy>operator_doubleArrow(_head_2, _function_2);
           }
         };
         ObjectExtensions.<ComponentImplementation>operator_doubleArrow(

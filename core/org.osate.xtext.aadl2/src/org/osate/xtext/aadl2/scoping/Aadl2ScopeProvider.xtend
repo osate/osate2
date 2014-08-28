@@ -395,6 +395,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		scope_Classifier(context, reference)
 	}
 	
+	//Reference is from SubprogramProxy in Aadl2.xtext
+	def scope_SubprogramProxy_subprogramClassifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
 	//Reference is from ConnectedElement in Aadl2.xtext
 	/*
 	 * TODO: This method was written to mimic the functionality of the linking service, which only links correct context objects based upon the type of
