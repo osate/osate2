@@ -78,10 +78,6 @@ public interface StyleService {
 
 	Style getBackgroundStyle();
 
-	Style getFeatureGroupLargeCircleStyle();
-
-	Style getFeatureGroupSmallCircleStyle();
-
 	Style getModeStyle();
 
 	Style getInitialModeStyle();

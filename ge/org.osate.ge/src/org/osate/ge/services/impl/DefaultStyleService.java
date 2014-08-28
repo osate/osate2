@@ -264,23 +264,7 @@ public class DefaultStyleService implements StyleService {
 	public Style getBackgroundStyle() {
 		return getStyle("background");
     }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getFeatureGroupLargeCircleStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getFeatureGroupLargeCircleStyle() {
-		return getStyle("feature_group_large_circle");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getFeatureGroupSmallCircleStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getFeatureGroupSmallCircleStyle() {
-		return getStyle("feature_group_small_circle");
-    }
-	
+
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.StyleService#getModeStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
