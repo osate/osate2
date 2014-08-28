@@ -46,27 +46,35 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractSubcomponentType;
+import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.BusSubcomponentType;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.DeviceSubcomponentType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
@@ -77,6 +85,9 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponentType;
 import org.osate.aadl2.ProcessorSubcomponentType;
@@ -138,12 +149,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
       if (_containerOfType!=null) {
         _members=_containerOfType.getMembers();
       }
-      final Function1<NamedElement, Boolean> _function = new Function1<NamedElement, Boolean>() {
-        public Boolean apply(final NamedElement it) {
-          return Boolean.valueOf((it instanceof CallContext));
-        }
-      };
-      Iterable<NamedElement> _filter = IterableExtensions.<NamedElement>filter(_members, _function);
+      Iterable<CallContext> _filter = Iterables.<CallContext>filter(_members, CallContext.class);
       IScope _scopeFor = Scopes.scopeFor(_filter, scope);
       if (_scopeFor != null) {
         _elvis = _scopeFor;
@@ -169,12 +175,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
       if (_equals) {
         Classifier _containerOfType_1 = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
         EList<NamedElement> _members = _containerOfType_1.getMembers();
-        final Function1<NamedElement, Boolean> _function = new Function1<NamedElement, Boolean>() {
-          public Boolean apply(final NamedElement it) {
-            return Boolean.valueOf((it instanceof CalledSubprogram));
-          }
-        };
-        Iterable<NamedElement> _filter = IterableExtensions.<NamedElement>filter(_members, _function);
+        Iterable<CalledSubprogram> _filter = Iterables.<CalledSubprogram>filter(_members, CalledSubprogram.class);
         IScope _scopeFor = Scopes.scopeFor(_filter, scope);
         scope = _scopeFor;
       } else {
@@ -203,14 +204,14 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
             }
             Iterable<CalledSubprogram> _filter_1 = Iterables.<CalledSubprogram>filter(packageClassifiers, CalledSubprogram.class);
             Iterable<ComponentImplementation> _filter_2 = Iterables.<ComponentImplementation>filter(_filter_1, ComponentImplementation.class);
-            final Function1<ComponentImplementation, Boolean> _function_1 = new Function1<ComponentImplementation, Boolean>() {
+            final Function1<ComponentImplementation, Boolean> _function = new Function1<ComponentImplementation, Boolean>() {
               public Boolean apply(final ComponentImplementation it) {
                 ComponentType _type = it.getType();
                 return Boolean.valueOf(Objects.equal(_type, callContext));
               }
             };
-            Iterable<ComponentImplementation> _filter_3 = IterableExtensions.<ComponentImplementation>filter(_filter_2, _function_1);
-            final Function<ComponentImplementation, QualifiedName> _function_2 = new Function<ComponentImplementation, QualifiedName>() {
+            Iterable<ComponentImplementation> _filter_3 = IterableExtensions.<ComponentImplementation>filter(_filter_2, _function);
+            final Function<ComponentImplementation, QualifiedName> _function_1 = new Function<ComponentImplementation, QualifiedName>() {
               public QualifiedName apply(final ComponentImplementation it) {
                 String _name = it.getName();
                 String _name_1 = it.getName();
@@ -220,7 +221,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
                 return QualifiedName.create(_substring);
               }
             };
-            IScope _scopeFor_1 = Scopes.<ComponentImplementation>scopeFor(_filter_3, _function_2, IScope.NULLSCOPE);
+            IScope _scopeFor_1 = Scopes.<ComponentImplementation>scopeFor(_filter_3, _function_1, IScope.NULLSCOPE);
             scope = _scopeFor_1;
             callContextNamespace = ((ComponentType)callContext);
           }
@@ -262,12 +263,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
         if (callContextNamespace!=null) {
           _members_1=callContextNamespace.getMembers();
         }
-        final Function1<NamedElement, Boolean> _function_1 = new Function1<NamedElement, Boolean>() {
-          public Boolean apply(final NamedElement it) {
-            return Boolean.valueOf((it instanceof CalledSubprogram));
-          }
-        };
-        Iterable<NamedElement> _filter_1 = IterableExtensions.<NamedElement>filter(_members_1, _function_1);
+        Iterable<CalledSubprogram> _filter_1 = Iterables.<CalledSubprogram>filter(_members_1, CalledSubprogram.class);
         IScope _scopeFor_1 = Scopes.scopeFor(_filter_1, scope);
         if (_scopeFor_1 != null) {
           _elvis = _scopeFor_1;
@@ -315,19 +311,14 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     IScope _xblockexpression = null;
     {
       final SubcomponentType subcomponentType = context.getSubcomponentType();
-      IScope _switchResult = null;
-      boolean _matched = false;
-      if (!_matched) {
-        if (subcomponentType instanceof ComponentClassifier) {
-          _matched=true;
-          EList<Prototype> _allPrototypes = ((ComponentClassifier)subcomponentType).getAllPrototypes();
-          _switchResult = Scopes.scopeFor(_allPrototypes);
-        }
+      IScope _xifexpression = null;
+      if ((subcomponentType instanceof ComponentClassifier)) {
+        EList<Prototype> _allPrototypes = ((ComponentClassifier)subcomponentType).getAllPrototypes();
+        _xifexpression = Scopes.scopeFor(_allPrototypes);
+      } else {
+        _xifexpression = IScope.NULLSCOPE;
       }
-      if (!_matched) {
-        _switchResult = IScope.NULLSCOPE;
-      }
-      _xblockexpression = _switchResult;
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
@@ -336,19 +327,14 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     IScope _xblockexpression = null;
     {
       final FeatureType featureType = context.getFeatureType();
-      IScope _switchResult = null;
-      boolean _matched = false;
-      if (!_matched) {
-        if (featureType instanceof FeatureGroupType) {
-          _matched=true;
-          EList<Prototype> _allPrototypes = ((FeatureGroupType)featureType).getAllPrototypes();
-          _switchResult = Scopes.scopeFor(_allPrototypes);
-        }
+      IScope _xifexpression = null;
+      if ((featureType instanceof FeatureGroupType)) {
+        EList<Prototype> _allPrototypes = ((FeatureGroupType)featureType).getAllPrototypes();
+        _xifexpression = Scopes.scopeFor(_allPrototypes);
+      } else {
+        _xifexpression = IScope.NULLSCOPE;
       }
-      if (!_matched) {
-        _switchResult = IScope.NULLSCOPE;
-      }
-      _xblockexpression = _switchResult;
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
@@ -404,12 +390,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_FeatureGroupPrototypeActual_featureType(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof FeatureGroupPrototype));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<FeatureGroupPrototype> _filter = Iterables.<FeatureGroupPrototype>filter(_allPrototypes, FeatureGroupPrototype.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -424,24 +405,14 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   
   public IScope scope_FeaturePrototypeReference_prototype(final Classifier context, final EReference reference) {
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(context);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof FeaturePrototype));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<FeaturePrototype> _filter = Iterables.<FeaturePrototype>filter(_allPrototypes, FeaturePrototype.class);
     return Scopes.scopeFor(_filter);
   }
   
   public IScope scope_ComponentPrototypeActual_subcomponentType(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof SubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<SubcomponentType> _filter = Iterables.<SubcomponentType>filter(_allPrototypes, SubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -471,12 +442,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_AbstractSubcomponent_abstractSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof AbstractSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<AbstractSubcomponentType> _filter = Iterables.<AbstractSubcomponentType>filter(_allPrototypes, AbstractSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -484,12 +450,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_SystemSubcomponent_systemSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof SystemSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<SystemSubcomponentType> _filter = Iterables.<SystemSubcomponentType>filter(_allPrototypes, SystemSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -497,12 +458,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_ProcessSubcomponent_processSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof ProcessSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<ProcessSubcomponentType> _filter = Iterables.<ProcessSubcomponentType>filter(_allPrototypes, ProcessSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -510,12 +466,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_ThreadGroupSubcomponent_threadGroupSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof ThreadGroupSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<ThreadGroupSubcomponentType> _filter = Iterables.<ThreadGroupSubcomponentType>filter(_allPrototypes, ThreadGroupSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -523,12 +474,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_ThreadSubcomponent_threadSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof ThreadSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<ThreadSubcomponentType> _filter = Iterables.<ThreadSubcomponentType>filter(_allPrototypes, ThreadSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -536,12 +482,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_SubprogramSubcomponent_subprogramSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof SubprogramSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<SubprogramSubcomponentType> _filter = Iterables.<SubprogramSubcomponentType>filter(_allPrototypes, SubprogramSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -549,12 +490,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof SubprogramGroupSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<SubprogramGroupSubcomponentType> _filter = Iterables.<SubprogramGroupSubcomponentType>filter(_allPrototypes, SubprogramGroupSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -562,12 +498,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_ProcessorSubcomponent_processorSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof ProcessorSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<ProcessorSubcomponentType> _filter = Iterables.<ProcessorSubcomponentType>filter(_allPrototypes, ProcessorSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -575,12 +506,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof VirtualProcessorSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<VirtualProcessorSubcomponentType> _filter = Iterables.<VirtualProcessorSubcomponentType>filter(_allPrototypes, VirtualProcessorSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -588,12 +514,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_DeviceSubcomponent_deviceSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof DeviceSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<DeviceSubcomponentType> _filter = Iterables.<DeviceSubcomponentType>filter(_allPrototypes, DeviceSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -601,12 +522,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_MemorySubcomponent_memorySubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof MemorySubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<MemorySubcomponentType> _filter = Iterables.<MemorySubcomponentType>filter(_allPrototypes, MemorySubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -614,12 +530,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_BusSubcomponent_busSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof BusSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<BusSubcomponentType> _filter = Iterables.<BusSubcomponentType>filter(_allPrototypes, BusSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -627,12 +538,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_VirtualBusSubcomponent_virtualBusSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof VirtualBusSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<VirtualBusSubcomponentType> _filter = Iterables.<VirtualBusSubcomponentType>filter(_allPrototypes, VirtualBusSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -640,12 +546,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_DataSubcomponent_dataSubcomponentType(final Element context, final EReference reference) {
     ComponentImplementation _containerOfType = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
     EList<Prototype> _allPrototypes = _containerOfType.getAllPrototypes();
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof DataSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<DataSubcomponentType> _filter = Iterables.<DataSubcomponentType>filter(_allPrototypes, DataSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -669,12 +570,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_DataPort_dataFeatureClassifier(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof DataSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<DataSubcomponentType> _filter = Iterables.<DataSubcomponentType>filter(_allPrototypes, DataSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -682,12 +578,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_EventDataPort_dataFeatureClassifier(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof DataSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<DataSubcomponentType> _filter = Iterables.<DataSubcomponentType>filter(_allPrototypes, DataSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -695,12 +586,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_FeatureGroup_featureType(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof FeatureType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<FeatureType> _filter = Iterables.<FeatureType>filter(_allPrototypes, FeatureType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -708,12 +594,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_Parameter_dataFeatureClassifier(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof DataSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<DataSubcomponentType> _filter = Iterables.<DataSubcomponentType>filter(_allPrototypes, DataSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -721,12 +602,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_SubprogramAccess_subprogramFeatureClassifier(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof SubprogramSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<SubprogramSubcomponentType> _filter = Iterables.<SubprogramSubcomponentType>filter(_allPrototypes, SubprogramSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -734,12 +610,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof SubprogramGroupSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<SubprogramGroupSubcomponentType> _filter = Iterables.<SubprogramGroupSubcomponentType>filter(_allPrototypes, SubprogramGroupSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -747,12 +618,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_BusAccess_busFeatureClassifier(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof BusSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<BusSubcomponentType> _filter = Iterables.<BusSubcomponentType>filter(_allPrototypes, BusSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
@@ -760,25 +626,114 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_DataAccess_dataFeatureClassifier(final Element context, final EReference reference) {
     Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(_containerOfType);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof DataSubcomponentType));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<DataSubcomponentType> _filter = Iterables.<DataSubcomponentType>filter(_allPrototypes, DataSubcomponentType.class);
     IScope _scope_Classifier = this.scope_Classifier(context, reference);
     return Scopes.scopeFor(_filter, _scope_Classifier);
   }
   
   public IScope scope_AbstractFeature_featurePrototype(final Classifier context, final EReference reference) {
     EList<Prototype> _allPrototypes = Aadl2ScopeProvider.allPrototypes(context);
-    final Function1<Prototype, Boolean> _function = new Function1<Prototype, Boolean>() {
-      public Boolean apply(final Prototype it) {
-        return Boolean.valueOf((it instanceof FeaturePrototype));
-      }
-    };
-    Iterable<Prototype> _filter = IterableExtensions.<Prototype>filter(_allPrototypes, _function);
+    Iterable<FeaturePrototype> _filter = Iterables.<FeaturePrototype>filter(_allPrototypes, FeaturePrototype.class);
     return Scopes.scopeFor(_filter);
+  }
+  
+  /**
+   * TODO: This method was written to mimic the functionality of the linking service, which only links correct context objects based upon the type of
+   * connection.  What should happen is that the scope provider should return all visible Context objects and the linker should link any visible context
+   * Context object.  This check of having the correct Context type for each type of Connection should be moved to the validator.  Let the link exist, but
+   * mark a specific validator error message.  Also, the context assist should filter based upon Connection type.
+   */
+  public IScope scope_ConnectedElement_context(final Connection context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final ComponentImplementation containingClassifier = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
+      final ArrayList<ClassifierFeature> validElements = CollectionLiterals.<ClassifierFeature>newArrayList();
+      boolean _matched = false;
+      if (!_matched) {
+        if (context instanceof FeatureGroupConnection) {
+          _matched=true;
+          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
+          validElements.addAll(_allSubcomponents);
+          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
+          Iterable<FeatureGroup> _filter = Iterables.<FeatureGroup>filter(_allFeatures, FeatureGroup.class);
+          Iterables.<ClassifierFeature>addAll(validElements, _filter);
+        }
+      }
+      if (!_matched) {
+        if (context instanceof FeatureConnection) {
+          _matched=true;
+          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
+          validElements.addAll(_allSubcomponents);
+          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
+          Iterable<FeatureGroup> _filter = Iterables.<FeatureGroup>filter(_allFeatures, FeatureGroup.class);
+          Iterables.<ClassifierFeature>addAll(validElements, _filter);
+        }
+      }
+      if (!_matched) {
+        if (context instanceof AccessConnection) {
+          _matched=true;
+          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
+          validElements.addAll(_allSubcomponents);
+          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
+          Iterable<FeatureGroup> _filter = Iterables.<FeatureGroup>filter(_allFeatures, FeatureGroup.class);
+          Iterables.<ClassifierFeature>addAll(validElements, _filter);
+          if ((containingClassifier instanceof BehavioredImplementation)) {
+            ArrayList<SubprogramCall> _allSubprogramCalls = Aadl2ScopeProvider.allSubprogramCalls(((BehavioredImplementation)containingClassifier));
+            validElements.addAll(_allSubprogramCalls);
+          }
+        }
+      }
+      if (!_matched) {
+        if (context instanceof ParameterConnection) {
+          _matched=true;
+          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
+          final Function1<Feature, Boolean> _function = new Function1<Feature, Boolean>() {
+            public Boolean apply(final Feature it) {
+              boolean _or = false;
+              if ((((it instanceof Parameter) || (it instanceof DataPort)) || (it instanceof EventDataPort))) {
+                _or = true;
+              } else {
+                _or = (it instanceof FeatureGroup);
+              }
+              return Boolean.valueOf(_or);
+            }
+          };
+          Iterable<Feature> _filter = IterableExtensions.<Feature>filter(_allFeatures, _function);
+          Iterables.<ClassifierFeature>addAll(validElements, _filter);
+          if ((containingClassifier instanceof BehavioredImplementation)) {
+            ArrayList<SubprogramCall> _allSubprogramCalls = Aadl2ScopeProvider.allSubprogramCalls(((BehavioredImplementation)containingClassifier));
+            validElements.addAll(_allSubprogramCalls);
+          }
+        }
+      }
+      if (!_matched) {
+        if (context instanceof PortConnection) {
+          _matched=true;
+          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
+          validElements.addAll(_allSubcomponents);
+          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
+          final Function1<Feature, Boolean> _function = new Function1<Feature, Boolean>() {
+            public Boolean apply(final Feature it) {
+              boolean _or = false;
+              if (((it instanceof FeatureGroup) || (it instanceof DataPort))) {
+                _or = true;
+              } else {
+                _or = (it instanceof EventDataPort);
+              }
+              return Boolean.valueOf(_or);
+            }
+          };
+          Iterable<Feature> _filter = IterableExtensions.<Feature>filter(_allFeatures, _function);
+          Iterables.<ClassifierFeature>addAll(validElements, _filter);
+          if ((containingClassifier instanceof BehavioredImplementation)) {
+            ArrayList<SubprogramCall> _allSubprogramCalls = Aadl2ScopeProvider.allSubprogramCalls(((BehavioredImplementation)containingClassifier));
+            validElements.addAll(_allSubprogramCalls);
+          }
+        }
+      }
+      _xblockexpression = Scopes.scopeFor(validElements);
+    }
+    return _xblockexpression;
   }
   
   private static EList<Prototype> allPrototypes(final Classifier classifier) {
@@ -797,6 +752,21 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
       }
     }
     return _switchResult;
+  }
+  
+  private static ArrayList<SubprogramCall> allSubprogramCalls(final BehavioredImplementation implementation) {
+    ArrayList<SubprogramCall> _xblockexpression = null;
+    {
+      final ArrayList<SubprogramCall> allSubprogramCalls = CollectionLiterals.<SubprogramCall>newArrayList();
+      for (ComponentImplementation currentImplementation = implementation; (!Objects.equal(currentImplementation, null)); currentImplementation = currentImplementation.getExtended()) {
+        if ((currentImplementation instanceof BehavioredImplementation)) {
+          EList<SubprogramCall> _subprogramCalls = ((BehavioredImplementation)currentImplementation).subprogramCalls();
+          allSubprogramCalls.addAll(_subprogramCalls);
+        }
+      }
+      _xblockexpression = allSubprogramCalls;
+    }
+    return _xblockexpression;
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
