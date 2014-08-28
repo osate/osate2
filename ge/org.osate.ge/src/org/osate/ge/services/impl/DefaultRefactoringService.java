@@ -32,11 +32,13 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
@@ -166,8 +168,8 @@ public class DefaultRefactoringService implements RefactoringService {
 		for(final Setting s : EcoreUtil.UsageCrossReferencer.find(ne, resourceSet)) {
 			final EStructuralFeature sf = s.getEStructuralFeature();
 			if(!sf.isDerived() && sf.isChangeable()) {
-				if(ne instanceof Feature) {
-	 				updateFeatureReference((Feature)ne, s, resourceSet, diagramMod);
+				if(ne instanceof Feature || ne instanceof InternalFeature || ne instanceof ProcessorFeature) {
+	 				updateFeatureReference(ne, s, resourceSet, diagramMod);
 	 			} else if(ne instanceof Mode) {
 	 				updateModeReference((Mode)ne, s, resourceSet, diagramMod);
 	 			} else if(ne instanceof Connection) {
