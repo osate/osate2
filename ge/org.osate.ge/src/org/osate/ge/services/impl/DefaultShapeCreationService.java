@@ -21,7 +21,6 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -44,10 +43,10 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 
 	@Override
-	public void createUpdateFeatureShapes(final ContainerShape shape, final List<Feature> features, final Collection<Shape> touchedShapes) {	
+	public void createUpdateFeatureShapes(final ContainerShape shape, final List<? extends NamedElement> features, final Collection<Shape> touchedShapes) {	
 		createUpdateShapesForElements(shape, features, 0, false, 25, 45, true, 5, true, touchedShapes);
 	}
-	
+
 	@Override
 	public void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes) {
 		createUpdateShapesForElements(shape, modes, 80, false, 25, 25, true, 5);

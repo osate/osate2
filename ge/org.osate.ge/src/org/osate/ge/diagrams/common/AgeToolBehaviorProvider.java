@@ -65,7 +65,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			while(getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null && shape != null) {
 				shape = shape.getContainer();
 			}
-
+			
 			return shape;
 		}
 		

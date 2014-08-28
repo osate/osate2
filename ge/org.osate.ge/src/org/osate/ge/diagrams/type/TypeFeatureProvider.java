@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
@@ -28,17 +27,14 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.diagrams.common.AgeFeatureProvider;
-import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.diagrams.common.patterns.FlowSpecificationPattern;
 import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
-import org.osate.ge.diagrams.type.features.ChangeFeatureTypeFeature;
 import org.osate.ge.diagrams.type.features.CreateSimpleFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.RefineFeatureFeature;
 import org.osate.ge.diagrams.type.features.RefineFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.RenameFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
-import org.osate.ge.diagrams.type.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.diagrams.type.features.TypeUpdateDiagramFeature;
@@ -69,7 +65,6 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		super.addCustomFeatures(features);
 		features.add(make(RefineFeatureFeature.class));
 		features.add(make(RefineFlowSpecificationFeature.class));
-		features.add(make(SetFeatureClassifierFeature.class));
 		features.add(createSetFeatureGroupInverseFeature(true));
 		features.add(createSetFeatureGroupInverseFeature(false));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN));
@@ -77,12 +72,6 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN_OUT));		
 		features.add(createSetFeatureKindFeature(AccessType.PROVIDES));
 		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));
-		
-		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
-			final IEclipseContext childCtx = getContext().createChild();
-			childCtx.set("Feature Type", featureType);
-			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));	
-		}
 		
 		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE));
 		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SINK));

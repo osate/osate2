@@ -36,6 +36,8 @@ import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 import org.eclipse.zest.layouts.exampleStructures.SimpleNode;
 import org.eclipse.zest.layouts.exampleStructures.SimpleRelationship;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.PropertyService;
@@ -192,7 +194,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	
 	private boolean shouldIgnoreShape(final Shape shape, final boolean relayoutShapes) {
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
-		return bo == null || bo instanceof Feature || (propertyUtil.isLayedOut(shape) && !relayoutShapes);
+		return bo == null || bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature || (propertyUtil.isLayedOut(shape) && !relayoutShapes);
 	}
 	/**
 	 * Gets the layout entity that is the closest match to the specified anchor

@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.type.features;
+package org.osate.ge.diagrams.common.features;
 
 import java.util.List;
 
@@ -30,6 +30,9 @@ import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -69,14 +72,14 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
 		
-		if(!(bo instanceof Feature && containerBo instanceof Classifier)) {
+		if(!((bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature) && containerBo instanceof Classifier)) {
 			return false;
 		}
 		
-		final Feature feature = (Feature)bo;	
+		final NamedElement feature = (NamedElement)bo;	
 		return feature.getContainingClassifier() == containerBo && 
-				FeaturePattern.canContainFeatureType(feature.getContainingClassifier(), featureType) &&
-				(feature.getRefined() == null || feature.getRefined() instanceof AbstractFeature);
+				FeaturePattern.canOwnFeatureType(feature.getContainingClassifier(), featureType) &&
+				(!(feature instanceof Feature) || (((Feature)feature).getRefined() == null || ((Feature)feature).getRefined() instanceof AbstractFeature));
 	}   	
     
 	@Override
@@ -88,7 +91,7 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
     public boolean canExecute(final ICustomContext context) {
     	// Only allow when the feature is owned by the container
     	final PictogramElement pe = context.getPictogramElements()[0];
-    	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(((Shape)pe));
+    	final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(((Shape)pe));
 		
 		// Check that the feature is not already of the target type
     	return feature.eClass() != featureType;
@@ -97,12 +100,12 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 	@Override
 	public void execute(final ICustomContext context) {
 		final PictogramElement pe = context.getPictogramElements()[0];		
-		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);
-		aadlModService.modify(feature, new AbstractModifier<Feature, Object>() {
+		final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(pe);
+		aadlModService.modify(feature, new AbstractModifier<NamedElement, Object>() {
 			@Override
-			public Object modify(final Resource resource, final Feature featurec) {
+			public Object modify(final Resource resource, final NamedElement featurec) {
 				final Classifier featureOwner = feature.getContainingClassifier();
-				final Feature replacementFeature = FeaturePattern.createFeature(featureOwner, featureType);
+				final NamedElement replacementFeature = FeaturePattern.createFeature(featureOwner, featureType);
 				
 				// Copy structural feature values to the replacement object.
 				transferStructuralFeatureValues(feature, replacementFeature);
@@ -124,7 +127,7 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 		});
 	}
 	
-	private DataSubcomponentType getDataFeatureClassifier(final Feature feature) {
+	private DataSubcomponentType getDataFeatureClassifier(final NamedElement feature) {
 		if(feature instanceof EventDataPort) {
 			return ((EventDataPort) feature).getDataFeatureClassifier();
 		} else if(feature instanceof DataPort) {

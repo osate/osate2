@@ -228,6 +228,11 @@ public class DefaultStyleService implements StyleService {
 		return getStyle("label");
     }
 	
+	@Override
+	public Style getAnnotationStyle() {
+		return getStyle("annotation");
+    }
+	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.StyleService#getFeatureStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */

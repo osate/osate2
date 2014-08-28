@@ -27,12 +27,16 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.EventDataSource;
+import org.osate.aadl2.EventSource;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
@@ -63,6 +67,14 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
         text.setStyle(styleService.getLabelStyle());
+        return text;
+	}
+	
+	@Override
+	public Text createAnnotationGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String annotationTxt) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Text text = gaService.createPlainText(container, annotationTxt);
+        text.setStyle(styleService.getAnnotationStyle());
         return text;
 	}
 	
@@ -132,7 +144,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createFeatureGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Feature)
 	 */
 	@Override
-	public GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final Feature feature) {
+	public GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final NamedElement feature) {
 		final IGaService gaService = Graphiti.getGaService();
 		
         // Abstract Feature
@@ -145,14 +157,22 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
         	ga = createAccessGraphicsAlgorithm(shape, ((Access)feature).getCategory(), ((Access)feature).getKind());
         } else if(feature instanceof FeatureGroup) {
         	throw new RuntimeException("Unhandled case. Feature Group");   		
-        } else {
+        } else if(feature instanceof EventSource) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.EVENT, DirectionType.IN);    
+		} else if(feature instanceof EventDataSource) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.EVENT_DATA, DirectionType.IN);
+		} else if(feature instanceof SubprogramProxy) {
+			ga = createAccessGraphicsAlgorithm(shape, AccessCategory.SUBPROGRAM, AccessType.REQUIRES);
+		} else if(feature instanceof PortProxy) {
+			ga = createAbstractFeatureGraphicsAlgorithm(shape, DirectionType.IN_OUT);
+		} else {
         	ga = gaService.createPlainRectangle(shape);
             gaService.setSize(ga, 10, 10);
         }
-		
+
 		return ga;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createPortGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.PortCategory, org.osate.aadl2.DirectionType)
 	 */

@@ -17,6 +17,8 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.VisibilityService;
@@ -115,7 +117,7 @@ public class DefaultLayoutService implements LayoutService {
 		// Determine the extra width needed to hold AADL features
 		int featureWidth = 80;
 		for(final Shape childShape : shape.getChildren()) {
-			if(bor.getBusinessObjectForPictogramElement(childShape) instanceof Feature) {
+			if(isFeature(bor.getBusinessObjectForPictogramElement(childShape))) {
 				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth() + 30);
 			}
 		}		
@@ -133,7 +135,7 @@ public class DefaultLayoutService implements LayoutService {
 			if(childBo != null) {
 				// Currently features are only allowed to be on the left and right edges so don't take them into account when deciding to shift left or right
 				// TODO: When features are allowed to be snapped to the top and bottom, need to take into account feature position
-				if(!(childBo instanceof Feature)) {
+				if(!isFeature(childBo)) {
 					if(firstRelevantChildX) {
 						shiftX = childGa.getX()-featureWidth;
 						firstRelevantChildX = false;
@@ -161,7 +163,7 @@ public class DefaultLayoutService implements LayoutService {
 			// Determine the needed width and height of the classifier shape
 			// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
 			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
-			if(childBo != null && !(childBo instanceof Feature)) {				
+			if(childBo != null && !isFeature(childBo)) {				
 				maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() - shiftX + featureWidth);
 			}			
 			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() - shiftY);
@@ -172,5 +174,14 @@ public class DefaultLayoutService implements LayoutService {
 		}
 
 		return new int[] { maxWidth, maxHeight+25};
+	}
+	
+	/**
+	 * Returns whether an element is any type of feature. That includes internal and processor features.
+	 * @param bo
+	 * @return
+	 */
+	private boolean isFeature(final Object bo) {
+		return bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature;
 	}
 }

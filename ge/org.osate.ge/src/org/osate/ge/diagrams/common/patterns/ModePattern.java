@@ -218,8 +218,10 @@ public class ModePattern extends AgeLeafShapePattern {
 		if(innerModeShape == null) {
 			innerModeShape = peCreateService.createContainerShape(shape, true);
 			propertyService.setName(innerModeShape, innerModeShapeName);
-			anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		}
+		
+		// Ensure the inner mode shope has a chopbox anchor
+		anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		
 		// Clear the inner mode shape's children
 		innerModeShape.getChildren().clear();
@@ -231,6 +233,9 @@ public class ModePattern extends AgeLeafShapePattern {
         final Shape labelShape = peCreateService.createShape(innerModeShape, true);
         link(labelShape, new AadlElementWrapper(mode));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
+        
+        // Create an anchor for the label otherwise there are issues creating mode transitions
+        anchorService.createOrUpdateChopboxAnchor(labelShape, chopboxAnchorName);
         
         // Set the size        
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());

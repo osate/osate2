@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 
@@ -23,9 +22,15 @@ import org.osate.aadl2.NamedElement;
  *
  */
 public interface ShapeCreationService {
+	/**
+	 * 
+	 * @param shape
+	 * @param features should be a list of features, internal features, or processor features
+	 * @param touchedShapes
+	 */
 	void createUpdateFeatureShapes(ContainerShape shape,
-			List<Feature> features, Collection<Shape> touchedShapes);
-
+			List<? extends NamedElement> features, Collection<Shape> touchedShapes);
+	
 	void createUpdateModeShapes(ContainerShape shape, List<Mode> modes);
 
 	void createUpdateShapesForElements(ContainerShape shape,

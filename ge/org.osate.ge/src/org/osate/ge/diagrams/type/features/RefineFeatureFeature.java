@@ -21,6 +21,7 @@ import org.osate.aadl2.Access;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.services.AadlModificationService;
@@ -92,24 +93,31 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
      			diagramMod = diagramModService.startModification();
      			
 				// Refine the feature
-				final Feature newFeature = FeaturePattern.createFeature(featureOwner, feature.eClass());
-				newFeature.setRefined(feature);
-				
-				if(feature instanceof DirectedFeature) {
-					((DirectedFeature)newFeature).setDirection(((DirectedFeature)feature).getDirection());
-				} else if(feature instanceof Access) {
-					((Access)newFeature).setKind(((Access)feature).getKind());
+				final NamedElement newFeatureEl = FeaturePattern.createFeature(featureOwner, feature.eClass());
+				if(newFeatureEl instanceof Feature) {
+					final Feature newFeature = (Feature)newFeatureEl;
+					newFeature.setRefined(feature);
+					
+					if(feature instanceof DirectedFeature) {
+						((DirectedFeature)newFeature).setDirection(((DirectedFeature)feature).getDirection());
+					} else if(feature instanceof Access) {
+						((Access)newFeature).setKind(((Access)feature).getKind());
+					}
+					
+					diagramMod.markRelatedDiagramsAsDirty(featureOwner);	
+					
+					return newFeature;
 				}
 				
-				diagramMod.markRelatedDiagramsAsDirty(featureOwner);
-				
-				return newFeature;
+				return null;			
 			}			
 			
 			@Override
 			public void beforeCommit(final Resource resource, final Feature feature, final Feature newFeature) {
-				// Relink the shape
-				getFeatureProvider().link(shape, new AadlElementWrapper(newFeature));
+				if(newFeature != null) {
+					// Relink the shape
+					getFeatureProvider().link(shape, new AadlElementWrapper(newFeature));
+				}
 								
 				diagramMod.commit();
 			}

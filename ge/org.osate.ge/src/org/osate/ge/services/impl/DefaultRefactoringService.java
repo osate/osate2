@@ -20,6 +20,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
@@ -31,11 +32,13 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
@@ -165,8 +168,8 @@ public class DefaultRefactoringService implements RefactoringService {
 		for(final Setting s : EcoreUtil.UsageCrossReferencer.find(ne, resourceSet)) {
 			final EStructuralFeature sf = s.getEStructuralFeature();
 			if(!sf.isDerived() && sf.isChangeable()) {
-				if(ne instanceof Feature) {
-	 				updateFeatureReference((Feature)ne, s, resourceSet, diagramMod);
+				if(ne instanceof Feature || ne instanceof InternalFeature || ne instanceof ProcessorFeature) {
+	 				updateFeatureReference(ne, s, resourceSet, diagramMod);
 	 			} else if(ne instanceof Mode) {
 	 				updateModeReference((Mode)ne, s, resourceSet, diagramMod);
 	 			} else if(ne instanceof Connection) {
@@ -203,17 +206,16 @@ public class DefaultRefactoringService implements RefactoringService {
 	 * @param feature
 	 * @param resourceSet
 	 */
-    private void updateFeatureReference(final Feature feature, final Setting setting, final ResourceSet resourceSet, final DiagramModificationService.Modification diagramMod) {
+    private void updateFeatureReference(final NamedElement feature, final Setting setting, final ResourceSet resourceSet, final DiagramModificationService.Modification diagramMod) {
     	final EObject obj = setting.getEObject();
 		// Mark linkages to refinements as dirty
-		if(obj instanceof Feature && ((Feature)obj).getRefined() == feature) {
-			final Feature refinee = (Feature)obj;
-			
+		if(feature instanceof Feature && obj instanceof Feature && ((Feature)obj).getRefined() == feature) {
+			final Feature refinee = (Feature)obj;			
 			diagramMod.markLinkagesAsDirty(refinee);
 			
 			// Set the refined element to null and then set it again to trigger the change 
 			refinee.setRefined(null);
-			refinee.setRefined(feature);
+			refinee.setRefined((Feature)feature);
 			
 			updateReferences(refinee, resourceSet, diagramMod);
 		} else if(obj instanceof ConnectedElement) {
@@ -221,7 +223,7 @@ public class DefaultRefactoringService implements RefactoringService {
 			if(connectedElement.getConnectionEnd() == feature) {
 				// Reset the connection end. This will trigger and update by xtext
 				connectedElement.setConnectionEnd(null);
-				connectedElement.setConnectionEnd(feature);							
+				connectedElement.setConnectionEnd((ConnectionEnd)feature);							
 			} 
 		} else if(obj instanceof ModeTransitionTrigger) {
 			final ModeTransitionTrigger mtt = (ModeTransitionTrigger)obj;
@@ -232,10 +234,10 @@ public class DefaultRefactoringService implements RefactoringService {
 			} 
 		} else if(obj instanceof FlowEnd) {
 			final FlowEnd fe = (FlowEnd)obj;
-			if(fe.getFeature() == feature) {
+			if(feature instanceof Feature && fe.getFeature() == feature) {
 				// Reset the feature. This will trigger and update by xtext
 				fe.setFeature(null);
-				fe.setFeature(feature);
+				fe.setFeature((Feature)feature);
 			}
 			
 			// Flow Implementations do not have a reference to the feature but rather to the flow specification. Trigger an update.
