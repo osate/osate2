@@ -32,6 +32,7 @@ import org.osate.aadl2.EventSource;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortProxy;
@@ -172,6 +173,8 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 			ga = createAccessGraphicsAlgorithm(shape, AccessCategory.SUBPROGRAM, AccessType.REQUIRES);
 		} else if(feature instanceof PortProxy) {
 			ga = createAbstractFeatureGraphicsAlgorithm(shape, DirectionType.IN_OUT);
+		} else if(feature instanceof Parameter) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.DATA, ((Parameter) feature).getDirection());
 		} else {
         	ga = gaService.createPlainRectangle(shape);
             gaService.setSize(ga, 10, 10);
