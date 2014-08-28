@@ -2062,6 +2062,108 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		]
 	}
 	
+	//Tests scope_ConnectedElement_context
+	@Test
+	def void testConnections() {
+		('''
+			package pack
+			public
+			  abstract a1
+			  features
+			    fg1: feature group;
+			    af1: feature;
+			    da1: requires data access;
+			    dp1: in data port;
+			    edp1: in event data port;
+			  end a1;
+			  
+			  abstract implementation a1.i1
+			  subcomponents
+			    asub1: abstract a2;
+			  calls sequence1: {
+			    call1: subprogram subp1;
+			  };
+			  connections
+			    conn1: feature group asub1.fg2 <-> asub1.fg2;
+			    conn2: feature af1 -> asub1.af2;
+			    conn3: data access da1 <-> asub1.da2;
+			    conn4: parameter dp1 -> call1.param1;
+			    conn5: port dp1 -> asub1.dp2;
+			  end a1.i1;
+			  
+			  abstract a2
+			  features
+			    fg2: feature group;
+			    af2: feature;
+			    da2: requires data access;
+			    dp2: in data port;
+			  end a2;
+			  
+			  subprogram subp1
+			  features
+			    param1: in parameter;
+			  end subp1;
+			  
+			  subprogram implementation subp1.i1
+			  calls sequence2: {
+			    call2: subprogram subp1;
+			  };
+			  connections
+			    conn6: parameter param1 -> call2.param1;
+			  end subp1.i1;
+			end pack;
+		'''.parse as AadlPackage) => [
+			"pack".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as ComponentImplementation => [
+				"a1.i1".assertEquals(name)
+				ownedFeatureGroupConnections.head => [
+					"conn1".assertEquals(name)
+					//Tests scope_ConnectedElement_context
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "fg1"])
+					//Tests scope_ConnectedElement_context
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "fg1"])
+				]
+				ownedFeatureConnections.head => [
+					"conn2".assertEquals(name)
+					//Tests scope_ConnectedElement_context
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "fg1"])
+					//Tests scope_ConnectedElement_context
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "fg1"])
+				]
+				ownedAccessConnections.head => [
+					"conn3".assertEquals(name)
+					//Tests scope_ConnectedElement_context
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "call1", "fg1"])
+					//Tests scope_ConnectedElement_context
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "call1", "fg1"])
+				]
+				ownedParameterConnections.head => [
+					"conn4".assertEquals(name)
+					//Tests scope_ConnectedElement_context
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call1", "dp1", "edp1", "fg1"])
+					//Tests scope_ConnectedElement_context
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call1", "dp1", "edp1", "fg1"])
+				]
+				ownedPortConnections.head => [
+					"conn5".assertEquals(name)
+					//Tests scope_ConnectedElement_context
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "call1", "dp1", "edp1", "fg1"])
+					//Tests scope_ConnectedElement_context
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "call1", "dp1", "edp1", "fg1"])
+				]
+			]
+			publicSection.ownedClassifiers.get(4) as ComponentImplementation => [
+				ownedParameterConnections.head => [
+					"conn6".assertEquals(name)
+					//Tests scope_ConnectedElement_context
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "param1"])
+					//Tests scope_ConnectedElement_context
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "param1"])
+				]
+			]
+		]
+	}
+	
 	def private assertScope(EObject context, EReference reference, Iterable<String> expected) {
 		context.assertNoErrors
 		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString("::")].filter[
