@@ -10,6 +10,7 @@ package org.osate.ge.ui.editor;
 
 import java.util.Set;
 
+import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
@@ -188,6 +189,27 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				diagramService.savePersistentProperties(diagram);
 				
 				return retValue;
+			}
+			
+			// From the fixed 0.11.x branch of Graphitti. Work around for #67.
+			// See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=437933
+			// TODO: Remove wants the released version of Graphiti includes the fix
+			@Override
+			public boolean isDirty() {
+				TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
+				if (editingDomain == null) {
+					// Right in the middle of closing the editor, it cannot be dirty
+					// without an editing domain
+					return false;
+				}
+				BasicCommandStack commandStack = (BasicCommandStack) editingDomain.getCommandStack();
+				if (commandStack == null) {
+					// Right in the middle of closing the editor, it cannot be dirty
+					// without a command stack
+					return false;
+				}
+				
+				return savedCommand != commandStack.getUndoCommand();
 			}
 		};
 	}
