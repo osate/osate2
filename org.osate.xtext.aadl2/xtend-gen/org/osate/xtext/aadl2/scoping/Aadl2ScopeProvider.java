@@ -641,6 +641,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     return this.scope_Classifier(context, reference);
   }
   
+  public IScope scope_PortProxy_dataClassifier(final Element context, final EReference reference) {
+    return this.scope_Classifier(context, reference);
+  }
+  
   /**
    * TODO: This method was written to mimic the functionality of the linking service, which only links correct context objects based upon the type of
    * connection.  What should happen is that the scope provider should return all visible Context objects and the linker should link any visible context
