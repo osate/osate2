@@ -95,6 +95,7 @@ import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
@@ -216,19 +217,31 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.append("with pack5;");
     _builder.newLine();
     _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
     _builder.append("renames pack3::all;");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("renamed_package renames package pack4;");
     _builder.newLine();
     _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
     _builder.append("renames abstract pack5::a6;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("renames data pack5::d5;");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("renames feature group pack5::fgt5;");
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("renamed_classifier renames abstract pack5::a7;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("renamed_abstract renames abstract pack5::a7;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("renamed_data renames data pack5::d6;");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("renamed_feature_group renames feature group pack5::fgt5;");
@@ -288,6 +301,12 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.newLine();
     _builder.append("  ");
     _builder.append("abstract implementation a2.i");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("internal features");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("eds1: event data d1;");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("end a2.i;");
@@ -498,6 +517,22 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_4.append("  ");
     _builder_4.append("end d5.i;");
     _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("data d6");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end d6;");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("data implementation d6.i");
+    _builder_4.newLine();
+    _builder_4.append("  ");
+    _builder_4.append("end d6.i;");
+    _builder_4.newLine();
     _builder_4.append("end pack5;");
     _builder_4.newLine();
     Pair<String, String> _mappedTo_4 = Pair.<String, String>of("pack5.aadl", _builder_4.toString());
@@ -509,7 +544,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     EObject _head = IterableExtensions.<EObject>head(_contents);
     final AadlPackage pack1 = ((AadlPackage) _head);
     this.assertAllCrossReferencesResolvable(pack1);
-    final List<String> componentClassifierScopeForPack1 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "renamed_classifier", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i"));
+    final List<String> componentClassifierScopeForPack1 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i"));
     final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
       public void apply(final AadlPackage it) {
         String _name = it.getName();
@@ -614,6 +649,28 @@ public class Aadl2ScopeProviderTest extends OsateTest {
           }
         };
         ObjectExtensions.<Classifier>operator_doubleArrow(_get_1, _function_1);
+        PublicPackageSection _publicSection_2 = it.getPublicSection();
+        EList<Classifier> _ownedClassifiers_2 = _publicSection_2.getOwnedClassifiers();
+        Classifier _get_2 = _ownedClassifiers_2.get(2);
+        final Procedure1<ComponentImplementation> _function_2 = new Procedure1<ComponentImplementation>() {
+          public void apply(final ComponentImplementation it) {
+            String _name = it.getName();
+            Assert.assertEquals("a2.i", _name);
+            EList<EventDataSource> _ownedEventDataSources = it.getOwnedEventDataSources();
+            EventDataSource _head = IterableExtensions.<EventDataSource>head(_ownedEventDataSources);
+            final Procedure1<EventDataSource> _function = new Procedure1<EventDataSource>() {
+              public void apply(final EventDataSource it) {
+                String _name = it.getName();
+                Assert.assertEquals("eds1", _name);
+                EReference _eventDataSource_DataClassifier = Aadl2Package.eINSTANCE.getEventDataSource_DataClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataSource_DataClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1", "pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i")));
+              }
+            };
+            ObjectExtensions.<EventDataSource>operator_doubleArrow(_head, _function);
+          }
+        };
+        ObjectExtensions.<ComponentImplementation>operator_doubleArrow(
+          ((ComponentImplementation) _get_2), _function_2);
       }
     };
     ObjectExtensions.<AadlPackage>operator_doubleArrow(pack1, _function);

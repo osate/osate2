@@ -102,11 +102,16 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  with pack3;
 				  with pack4;
 				  with pack5;
+				  
 				  renames pack3::all;
 				  renamed_package renames package pack4;
+				  
 				  renames abstract pack5::a6;
+				  renames data pack5::d5;
 				  renames feature group pack5::fgt5;
-				  renamed_classifier renames abstract pack5::a7;
+				  
+				  renamed_abstract renames abstract pack5::a7;
+				  renamed_data renames data pack5::d6;
 				  renamed_feature_group renames feature group pack5::fgt5;
 				
 				  abstract a1
@@ -128,6 +133,8 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  end a2;
 				  
 				  abstract implementation a2.i
+				  internal features
+				    eds1: event data d1;
 				  end a2.i;
 				  
 				  feature group fgt1
@@ -213,6 +220,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d5.i
 				  end d5.i;
+				  
+				  data d6
+				  end d6;
+				  
+				  data implementation d6.i
+				  end d6.i;
 				end pack5;
 			'''
 		)
@@ -220,10 +233,10 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
 		assertAllCrossReferencesResolvable(pack1)
 		
-		val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "renamed_classifier", "pack1::a1",
-			"pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack3::a4", "pack3::a4.i",
-			"pack3::d3", "pack3::d3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i",
-			"renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i"
+		val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data",
+			"pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack3::a4",
+			"pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack5::a6", "pack5::a7", "pack5::d5",
+			"pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i"
 		]
 		
 		pack1 => [
@@ -264,6 +277,16 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					"proto6".assertEquals(formal.name)
 					//Tests scope_ComponentPrototypeActual_subcomponentType
 					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["proto1", "proto6"] + componentClassifierScopeForPack1)
+				]
+			]
+			publicSection.ownedClassifiers.get(2) as ComponentImplementation => [
+				"a2.i".assertEquals(name)
+				ownedEventDataSources.head => [
+					"eds1".assertEquals(name)
+					assertScope(Aadl2Package::eINSTANCE.eventDataSource_DataClassifier, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
+						"pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i",
+						"pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
 				]
 			]
 		]
