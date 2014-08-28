@@ -145,6 +145,7 @@
  	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="feature"/>
  	<factory class="org.osate.ge.diagrams.common.styles.LabelStyleFactory" styleId="label"/>
  	<factory class="org.osate.ge.diagrams.common.styles.AnnotationStyleFactory" styleId="annotation"/>
+ 	<factory class="org.osate.ge.diagrams.common.styles.TextBackgroundStyleFactory" styleId="text-background"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
  	<factory class="org.osate.ge.diagrams.common.styles.BackgroundStyleFactory" styleId="background"/>

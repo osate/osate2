@@ -69,6 +69,8 @@ public interface StyleService {
 	Style getLabelStyle();
 	
 	Style getAnnotationStyle();
+	
+	Style getTextBackgroundStyle();
 
 	Style getFeatureStyle();
 

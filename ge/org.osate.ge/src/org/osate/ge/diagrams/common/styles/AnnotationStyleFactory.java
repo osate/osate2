@@ -30,7 +30,7 @@ public class AnnotationStyleFactory implements StyleFactory {
         style.setFilled(false);
         style.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
         style.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-        style.setFont(gaService.manageDefaultFont(diagram, false, true));
+        style.setFont(gaService.manageFont(diagram, "Arial", 10, false, true));
 		return style;
 	}
 }

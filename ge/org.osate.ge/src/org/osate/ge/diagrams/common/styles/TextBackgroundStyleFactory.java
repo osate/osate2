@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.styles;
 
-import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
@@ -16,16 +15,15 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.styles.StyleFactory;
 
-public class LabelStyleFactory implements StyleFactory {
+public class TextBackgroundStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
-		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setFilled(false);
-        style.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-        style.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-        style.setFont(gaService.manageFont(diagram, "Arial", 10, false, true));
+		style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+		style.setLineVisible(false);
+        style.setFilled(true);
+        style.setTransparency(0.2);
 		return style;
 	}
 }

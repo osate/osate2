@@ -23,6 +23,13 @@ public interface GraphicsAlgorithmCreationService {
 	Text createAnnotationGraphicsAlgorithm(GraphicsAlgorithmContainer container, String annotationTxt);
 
 	/**
+	 * Creates a graphics algorithm that is designed to be placed behind a label to improve readability
+	 * @param container
+	 * @return
+	 */
+	GraphicsAlgorithm createTextBackground(GraphicsAlgorithmContainer container);
+	
+	/**
 	 * Creates a graphics algorithm representing a specified classifer or subcomponent. 
 	 * @param shape
 	 * @param element the classifier or subcomponent for which to create the graphics algorithm. If the classifier is null then a generic representation is returned.

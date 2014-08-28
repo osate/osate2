@@ -77,7 +77,14 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
         text.setStyle(styleService.getAnnotationStyle());
         return text;
 	}
-	
+		
+	@Override
+	public GraphicsAlgorithm createTextBackground(final GraphicsAlgorithmContainer container) {
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm background = gaService.createPlainRectangle(container);	
+		background.setStyle(styleService.getTextBackgroundStyle());		
+		return background;
+	}
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createClassifierGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Element, int, int)
 	 */

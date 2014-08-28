@@ -233,6 +233,11 @@ public class DefaultStyleService implements StyleService {
 		return getStyle("annotation");
     }
 	
+	@Override
+	public Style getTextBackgroundStyle() {
+		return getStyle("text-background");
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.StyleService#getFeatureStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */

@@ -392,11 +392,15 @@ public class FeaturePattern extends AgeLeafShapePattern {
         final Shape labelShape = peCreateService.createShape(shape, false);
         this.link(labelShape, new AadlElementWrapper(feature));
         propertyUtil.setName(labelShape, labelShapeName);
-        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
-        // Set the size        
+		
+		final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
+        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, labelTxt);
+        
+        // Set the sizes        
         final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
 		gaService.setLocationAndSize(label, 0, 0, labelSize.getWidth(), labelSize.getHeight());		
+		gaService.setLocationAndSize(labelBackground, 0, 0, labelSize.getWidth(), labelSize.getHeight());
 		
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
@@ -514,11 +518,13 @@ public class FeaturePattern extends AgeLeafShapePattern {
         final Shape annotationShape = peCreateService.createShape(shape, false);
         this.link(annotationShape, new AadlElementWrapper(feature));
         propertyUtil.setName(annotationShape, annotationShapeName);
-        final Text annotation = graphicsAlgorithmCreator.createAnnotationGraphicsAlgorithm(annotationShape, annotationTxt);
+        final GraphicsAlgorithm annotationBackground = graphicsAlgorithmCreator.createTextBackground(annotationShape);
+        final Text annotation = graphicsAlgorithmCreator.createAnnotationGraphicsAlgorithm(annotationBackground, annotationTxt);
         
         if(annotationTxt.length() != 0) {
         	final IDimension annotationSize = GraphitiUi.getUiLayoutService().calculateTextSize(annotationTxt, annotation.getStyle().getFont());
-        	gaService.setLocationAndSize(annotation, 0, featureShape.getGraphicsAlgorithm().getY() + featureShape.getGraphicsAlgorithm().getHeight(), annotationSize.getWidth(), annotationSize.getHeight());	
+        	gaService.setLocationAndSize(annotation, 0, 0, annotationSize.getWidth(), annotationSize.getHeight());
+        	gaService.setLocationAndSize(annotationBackground, 0, featureShape.getGraphicsAlgorithm().getY() + featureShape.getGraphicsAlgorithm().getHeight(), annotationSize.getWidth(), annotationSize.getHeight());
         }				
 		
 		// Determine whether the feature has a "context" and then highlight it
@@ -526,8 +532,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
      	highlightingService.highlight(feature, possibleContext instanceof Context ? (Context)possibleContext : null, featureShape.getGraphicsAlgorithm());		
      	
         // Set size as appropriate
-        gaService.setSize(ga, Math.max(getWidth(annotation)+annotationPadding, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm()))), 
-        		Math.max(getHeight(annotation), Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm()))));
+        gaService.setSize(ga, Math.max(getWidth(annotationBackground)+annotationPadding, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm()))), 
+        		Math.max(getHeight(annotationBackground), Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm()))));
      		
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
 	}
