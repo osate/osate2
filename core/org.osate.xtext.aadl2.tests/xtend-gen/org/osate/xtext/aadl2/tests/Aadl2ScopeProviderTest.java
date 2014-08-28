@@ -112,6 +112,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.Prototype;
@@ -198,7 +199,8 @@ public class Aadl2ScopeProviderTest extends OsateTest {
   
   /**
    * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
-   * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, and scope_ComponentPrototypeActual_subcomponentType
+   * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,
+   * scope_EventDataSource_dataClassifier, and scope_PortProxy_dataClassifier
    */
   @Test
   public void testRenamesInClassifierReferenceScope() {
@@ -307,6 +309,12 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("eds1: event data d1;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("processor features");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("pp1: port d1;");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("end a2.i;");
@@ -667,6 +675,17 @@ public class Aadl2ScopeProviderTest extends OsateTest {
               }
             };
             ObjectExtensions.<EventDataSource>operator_doubleArrow(_head, _function);
+            EList<PortProxy> _ownedPortProxies = it.getOwnedPortProxies();
+            PortProxy _head_1 = IterableExtensions.<PortProxy>head(_ownedPortProxies);
+            final Procedure1<PortProxy> _function_1 = new Procedure1<PortProxy>() {
+              public void apply(final PortProxy it) {
+                String _name = it.getName();
+                Assert.assertEquals("pp1", _name);
+                EReference _portProxy_DataClassifier = Aadl2Package.eINSTANCE.getPortProxy_DataClassifier();
+                Aadl2ScopeProviderTest.this.assertScope(it, _portProxy_DataClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1", "pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i")));
+              }
+            };
+            ObjectExtensions.<PortProxy>operator_doubleArrow(_head_1, _function_1);
           }
         };
         ObjectExtensions.<ComponentImplementation>operator_doubleArrow(

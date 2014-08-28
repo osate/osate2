@@ -91,7 +91,8 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
-	 * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, and scope_ComponentPrototypeActual_subcomponentType
+	 * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,
+	 * scope_EventDataSource_dataClassifier, and scope_PortProxy_dataClassifier
 	 */
 	@Test
 	def void testRenamesInClassifierReferenceScope() {
@@ -135,6 +136,8 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  abstract implementation a2.i
 				  internal features
 				    eds1: event data d1;
+				  processor features
+				    pp1: port d1;
 				  end a2.i;
 				  
 				  feature group fgt1
@@ -283,7 +286,16 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				"a2.i".assertEquals(name)
 				ownedEventDataSources.head => [
 					"eds1".assertEquals(name)
+					//Tests scope_EventDataSource_dataClassifier
 					assertScope(Aadl2Package::eINSTANCE.eventDataSource_DataClassifier, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
+						"pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i",
+						"pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
+				]
+				ownedPortProxies.head => [
+					"pp1".assertEquals(name)
+					//Tests scope_PortProxy_dataClassifier
+					assertScope(Aadl2Package::eINSTANCE.portProxy_DataClassifier, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
 						"pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i",
 						"pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i"
 					])
