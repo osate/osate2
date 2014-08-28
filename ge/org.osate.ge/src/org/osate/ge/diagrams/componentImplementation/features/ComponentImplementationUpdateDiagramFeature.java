@@ -31,13 +31,14 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.util.Log;
 
-public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
+public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature, DiagramUpdateFeature {
 	private final StyleService styleService;
 	private final VisibilityService visibilityService;
 	private final ShapeService shapeService;
