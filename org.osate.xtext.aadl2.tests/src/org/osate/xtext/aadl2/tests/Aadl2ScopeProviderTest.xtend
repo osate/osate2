@@ -92,7 +92,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
 	 * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,
-	 * scope_EventDataSource_dataClassifier, and scope_PortProxy_dataClassifier
+	 * scope_EventDataSource_dataClassifier, scope_PortProxy_dataClassifier, and scope_SubprogramProxy_subprogramClassifier
 	 */
 	@Test
 	def void testRenamesInClassifierReferenceScope() {
@@ -109,10 +109,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  renames abstract pack5::a6;
 				  renames data pack5::d5;
+				  renames subprogram pack5::subp5;
 				  renames feature group pack5::fgt5;
 				  
 				  renamed_abstract renames abstract pack5::a7;
 				  renamed_data renames data pack5::d6;
+				  renamed_subprogram renames subprogram pack5::subp6;
 				  renamed_feature_group renames feature group pack5::fgt5;
 				
 				  abstract a1
@@ -138,6 +140,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				    eds1: event data d1;
 				  processor features
 				    pp1: port d1;
+				    sp1: subprogram subp1;
 				  end a2.i;
 				  
 				  feature group fgt1
@@ -148,6 +151,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d1.i
 				  end d1.i;
+				  
+				  subprogram subp1
+				  end subp1;
+				  
+				  subprogram implementation subp1.i
+				  end subp1.i;
 				end pack1;
 			''',
 			"pack2.aadl" -> '''
@@ -167,6 +176,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d2.i
 				  end d2.i;
+				  
+				  subprogram subp2
+				  end subp2;
+				  
+				  subprogram implementation subp2.i
+				  end subp2.i;
 			''',
 			"pack3.aadl" -> '''
 				package pack3
@@ -185,6 +200,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d3.i
 				  end d3.i;
+				  
+				  subprogram subp3
+				  end subp3;
+				  
+				  subprogram implementation subp3.i
+				  end subp3.i;
 				end pack3;
 			''',
 			"pack4.aadl" -> '''
@@ -204,6 +225,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  data implementation d4.i
 				  end d4.i;
+				  
+				  subprogram subp4
+				  end subp4;
+				  
+				  subprogram implementation subp4.i
+				  end subp4.i;
 				end pack4;
 			''',
 			"pack5.aadl" -> '''
@@ -224,11 +251,23 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  data implementation d5.i
 				  end d5.i;
 				  
+				  subprogram subp5
+				  end subp5;
+				  
+				  subprogram implementation subp5.i
+				  end subp5.i;
+				  
 				  data d6
 				  end d6;
 				  
 				  data implementation d6.i
 				  end d6.i;
+				  
+				  subprogram subp6
+				  end subp6;
+				  
+				  subprogram implementation subp6.i
+				  end subp6.i;
 				end pack5;
 			'''
 		)
@@ -237,9 +276,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		assertAllCrossReferencesResolvable(pack1)
 		
 		val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data",
-			"pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack3::a4",
-			"pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack5::a6", "pack5::a7", "pack5::d5",
-			"pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i"
+			"renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i",
+			"pack1::subp1", "pack1::subp1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack2::subp2", "pack2::subp2.i", "pack3::a4",
+			"pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack3::subp3", "pack3::subp3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i",
+			"pack4::subp4", "pack4::subp4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "pack5::subp5",
+			"pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i",
+			"renamed_package::subp4", "renamed_package::subp4.i"
 		]
 		
 		pack1 => [
@@ -298,6 +340,15 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.portProxy_DataClassifier, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
 						"pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i",
 						"pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i"
+					])
+				]
+				ownedSubprogramProxies.head => [
+					"sp1".assertEquals(name)
+					//Tests scope_SubprogramProxy_subprogramClassifier
+					assertScope(Aadl2Package::eINSTANCE.subprogramProxy_SubprogramClassifier, #["renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i",
+						"subp5", "pack1::subp1", "pack1::subp1.i", "pack2::subp2", "pack2::subp2.i", "pack3::subp3", "pack3::subp3.i", "pack4::subp4",
+						"pack4::subp4.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::subp4",
+						"renamed_package::subp4.i"
 					])
 				]
 			]
