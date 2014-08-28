@@ -35,6 +35,7 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -328,7 +329,7 @@ public class SubcomponentPattern extends AgePattern {
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		return containerBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)containerBo, subcomponentType) : false;
+		return !(context.getTargetContainer() instanceof Diagram) && (containerBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)containerBo, subcomponentType) : false);
 	}
 	
 	@Override

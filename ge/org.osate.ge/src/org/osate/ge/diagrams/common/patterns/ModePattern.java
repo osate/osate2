@@ -33,6 +33,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -326,7 +327,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
-		return bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
+		return !(context.getTargetContainer() instanceof Diagram) && bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
 	}
 	
 	@Override
