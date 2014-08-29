@@ -390,8 +390,12 @@ public class AadlBaUtils {
         DataHolder lastElement = dcr.getData().get(dcr.getData().size()-1) ;
         el = lastElement.getElement() ;
       }
-
-      if(el instanceof Feature)
+      
+      if(el instanceof Abstract)
+      {
+        return DataRepresentation.UNKNOWN ;
+      }
+      else if(el instanceof Feature)
       {
         return getDataRepresentation((DataClassifier)((Feature) el).
                     getClassifier()) ;
