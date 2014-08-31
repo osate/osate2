@@ -198,14 +198,19 @@ public class GetProperties {
 		return lookupPropertyDefinition(io, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 	}
 
-	public static ComponentInstance getBoundBus(final ConnectionInstance connection) {
-		List<ComponentInstance> ret = getActualConnectionBinding(connection);
-		ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
-		if (ci != null) {
-			return ci;
-		}
-		return null;
-	}
+//	/**
+//	 * this method only picks up the first element, which may not be a bus
+//	 * @param connection Connection Instance
+//	 * @return
+//	 */
+//	public static ComponentInstance getBoundBus(final ConnectionInstance connection) {
+//		List<ComponentInstance> ret = getActualConnectionBinding(connection);
+//		ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
+//		if (ci != null) {
+//			return ci;
+//		}
+//		return null;
+//	}
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
@@ -1051,7 +1056,7 @@ public class GetProperties {
 					CommunicationProperties.TIMING);
 			return PropertyUtils.getEnumLiteral(pc, timing);
 		} catch (PropertyLookupException e) {
-			return null;
+			return getSampledUnitLiteral(pc);
 		}
 	}
 
