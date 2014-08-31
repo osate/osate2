@@ -23,10 +23,7 @@ public abstract class LatencyContributor {
 	// Deadline: worst-case (assumes schedulability)
 	// Period: sampling latency of devices, threads, process, system, abstract (AADL by default equates Deadline to be
 // the Period).
-	// WCET: maximum processing (compute execution) time
-	// BCET: minimum processing (compute execution) time
-	// WCXT: maximum communication (transfer time) time
-	// BCXT: minimum communication (transfer time) time
+	// Processing_Time: processing (compute execution) time
 	// Immediate: immediate connection enforces mid-frame communication, i.e., cumulative latency of processing elements
 // (similar to message driven processing)
 	// Delayed: enforces frame-delayed communication
@@ -112,6 +109,14 @@ public abstract class LatencyContributor {
 
 	public void setExpectedMinimum(double d) {
 		this.expectedMin = d;
+	}
+
+	public LatencyContributorMethod getWorstcaseLatencyContributorMethod() {
+		return this.worstCaseMethod;
+	}
+
+	public LatencyContributorMethod getBestcaseLatencyContributorMethod() {
+		return this.bestCaseMethod;
 	}
 
 	public static String mapMethodToString(LatencyContributorMethod method) {

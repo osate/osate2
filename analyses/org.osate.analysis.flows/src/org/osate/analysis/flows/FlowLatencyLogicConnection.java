@@ -1,151 +1,25 @@
 package org.osate.analysis.flows;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FeatureCategory;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
-import org.osate.analysis.flows.model.ConnectionType;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
+import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Constants.PartitioningPolicy;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FlowLatencyLogicConnection {
-
-	/**
-	 * Get the component that is connected at the source side of the connection.
-	 * @param connectionInstance - the connection to process
-	 * @return - the component that is the source
-	 */
-	public static ComponentInstance getRelatedComponentSource(ConnectionInstance connectionInstance) {
-		ConnectionInstanceEnd sourceEnd;
-		ComponentInstance source;
-
-		source = null;
-		sourceEnd = connectionInstance.getSource();
-
-		if ((sourceEnd.getContainingComponentInstance() != null)
-				&& (sourceEnd.getContainingComponentInstance() != null)) {
-			source = sourceEnd.getContainingComponentInstance();
-		}
-		return source;
-	}
-
-	/**
-	 * Get the component that is connected at the destination side of the connection.
-	 * @param connectionInstance - the connection to be processed
-	 * @return - the component that is the connection destination (and not its feature)
-	 */
-	public static ComponentInstance getRelatedComponentDestination(ConnectionInstance connectionInstance) {
-		ConnectionInstanceEnd destinationEnd;
-		ComponentInstance destination;
-
-		destination = null;
-		destinationEnd = connectionInstance.getDestination();
-
-		if ((destinationEnd.getContainingComponentInstance() != null)
-				&& (destinationEnd.getContainingComponentInstance() != null)) {
-			destination = destinationEnd.getContainingComponentInstance();
-		}
-		return destination;
-	}
-
-	/**
-	 * Get the list of all the buses a process can access through its required
-	 * bus access features.
-	 * @param processor - the processor that has bus access features
-	 * @return - the list of all bus components that can be access by the processor.
-	 */
-	public static List<ComponentInstance> getAccessedBuses(ComponentInstance processor) {
-		List<ComponentInstance> buses;
-		List<ConnectionInstance> connections;
-		ConnectionInstanceEnd cie;
-
-		buses = new ArrayList<ComponentInstance>();
-		connections = new ArrayList<ConnectionInstance>();
-
-		for (FeatureInstance fi : processor.getFeatureInstances()) {
-			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
-				connections.addAll(fi.getSrcConnectionInstances());
-				connections.addAll(fi.getDstConnectionInstances());
-
-				for (ConnectionInstance ci : connections) {
-					cie = ci.getSource();
-//					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
-
-					cie = ci.getDestination();
-					if (cie instanceof ComponentInstance) {
-						if (((ComponentInstance) cie).getCategory() == ComponentCategory.BUS) {
-							buses.add((ComponentInstance) cie);
-						}
-					}
-//					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
-				}
-			}
-		}
-		return buses;
-	}
-
-	/**
-	 * Get the bus for a connection. If the bus is not found, we try
-	 * to get the bus by inspecting the component bound (processor)
-	 * to each part of the connection (thread/process/device).
-	 * 
-	 * If the connection is directly bound to a bus through the property
-	 * mechanism, we automatically return it.
-	 * 
-	 * @param connectionInstance - the connection instance
-	 * @return the bus bound to the connection.
-	 */
-	public static ComponentInstance getBus(ConnectionInstance connectionInstance) {
-		ComponentInstance boundBus;
-		ComponentInstance processorSource;
-		ComponentInstance processorDestination;
-		List<ComponentInstance> accessedBusesSource;
-		List<ComponentInstance> accessedBusesDestination;
-
-		if (FlowLatencyUtil.isLocal(connectionInstance)) {
-			return null;
-		}
-
-		boundBus = GetProperties.getBoundBus(connectionInstance);
-
-		/**
-		 * if boundBus == null and the connection is NOT local, we try to find the
-		 * bus by browsing the processor bus access features. If we find a bus
-		 * we use it.
-		 */
-		processorSource = FlowLatencyUtil.getProcessorForProcessOrThread(getRelatedComponentSource(connectionInstance),
-				ComponentCategory.PROCESSOR);
-		processorDestination = FlowLatencyUtil.getProcessorForProcessOrThread(
-				getRelatedComponentDestination(connectionInstance), ComponentCategory.PROCESSOR);
-
-		if ((processorSource != null) && (processorDestination != null)) {
-			accessedBusesSource = getAccessedBuses(processorSource);
-			accessedBusesDestination = getAccessedBuses(processorDestination);
-
-			for (ComponentInstance busSource : accessedBusesSource) {
-				for (ComponentInstance busDestination : accessedBusesDestination) {
-					if (busSource == busDestination) {
-						boundBus = busSource;
-					}
-				}
-			}
-		}
-
-		return (boundBus);
-	}
 
 	/**
 	 * Main function, transform the connection instance into a latency contributor
@@ -154,108 +28,32 @@ public class FlowLatencyLogicConnection {
 	 * @param flowElementInstance - the flow element that represents the connection to be processed.
 	 * @return - the latency contributor object that maps the connection
 	 */
-	public static LatencyContributor mapConnectionInstance(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
+	public static void mapConnectionInstance(final EndToEndFlowInstance etef,
+			final FlowElementInstance flowElementInstance, LatencyReportEntry entry) {
 		LatencyContributor latencyContributor;
 		ConnectionInstance connectionInstance;
 		ComponentInstance componentInstanceSource;
 		ComponentInstance componentInstanceDestination;
 		ComponentInstance partitionSource;
 		ComponentInstance partitionDestination;
-		FlowElementInstance nextTaskOrDevice;
-		ComponentInstance boundBus;
 		Classifier relatedConnectionData;
-
-		double maxBusTransferTime;
-		double minBusTransferTime;
-		double maxBusLatency;
-		double minBusLatency;
 		double partitionLatency;
 
-		nextTaskOrDevice = FlowLatencyUtil.getNextTaskOrDevice(etef, flowElementInstance);
+//		nextTaskOrDevice = FlowLatencyUtil.getNextTaskOrDevice(etef, flowElementInstance);
 		connectionInstance = (ConnectionInstance) flowElementInstance;
-		relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
-		latencyContributor = new LatencyContributorConnection(connectionInstance);
-		componentInstanceSource = getRelatedComponentSource(connectionInstance);
-		componentInstanceDestination = getRelatedComponentDestination(connectionInstance);
-//		OsateDebug.osateDebug("FlowLatencyUtil", "flowSpecification connection=" + connectionInstance);
 
-		boundBus = getBus(connectionInstance);
+		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
+		double expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
+
+		relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
+		componentInstanceSource = FlowLatencyUtil.getRelatedComponentSource(connectionInstance);
+		componentInstanceDestination = FlowLatencyUtil.getRelatedComponentDestination(connectionInstance);
+
 		partitionLatency = 0;
 
-		/**
-		 * Check if the connection is bound to a bus. If yes, then, we add
-		 * the bus transmission time as a contributor.
-		 */
-		if (boundBus != null && relatedConnectionData != null) {
-//			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
-			LatencyContributor subContributor;
-			maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
-			minBusLatency = GetProperties.getMinimumLatencyinMilliSec(boundBus);
-			subContributor = new LatencyContributorComponent(boundBus);
+		latencyContributor = new LatencyContributorConnection(connectionInstance);
 
-			maxBusTransferTime = FlowLatencyUtil.getMaximumTimeToTransferData(boundBus, relatedConnectionData);
-			minBusTransferTime = FlowLatencyUtil.getMinimumTimeToTransferData(boundBus, relatedConnectionData);
-
-			subContributor.setMaximum(maxBusLatency);
-			subContributor.setMinimum(minBusLatency);
-			subContributor.setExpectedMaximum(maxBusLatency);
-			subContributor.setExpectedMinimum(minBusLatency);
-
-			if (maxBusLatency > 0) {
-				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
-				subContributor.setComments("Use the latency properties on the bus");
-			} else {
-				subContributor.setWorstCaseMethod(LatencyContributorMethod.UNKNOWN);
-				subContributor.setComments("latency not specified on the bus");
-			}
-
-			if (minBusLatency > 0) {
-				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
-				subContributor.setComments("Use the latency properties on the bus");
-			} else {
-				subContributor.setBestCaseMethod(LatencyContributorMethod.UNKNOWN);
-				subContributor.setComments("latency not specified on the bus");
-			}
-
-			if (maxBusTransferTime > 0) {
-				subContributor.setMaximum(maxBusTransferTime);
-				subContributor.setComments("");
-				subContributor.setWorstCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
-			}
-
-			if (minBusTransferTime > 0) {
-				subContributor.setMinimum(minBusTransferTime);
-				subContributor.setComments("");
-				subContributor.setBestCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
-
-			}
-
-			latencyContributor.addSubContributor(subContributor);
-		}
-
-		/**
-		 * 
-		 */
-		List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connectionInstance);
-		if ((protocols != null) && (protocols.size() > 0)) {
-			double protocolLatencyMinimum;
-			double protocolLatencyMaximum;
-
-			for (ComponentClassifier cc : protocols) {
-
-				protocolLatencyMinimum = GetProperties.getMinimumLatencyinMilliSec(cc);
-				protocolLatencyMaximum = GetProperties.getMaximumLatencyinMilliSec(cc);
-
-				LatencyContributor subContributor = new LatencyContributorComponent(cc);
-				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
-				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
-				subContributor.setMaximum(protocolLatencyMaximum);
-				subContributor.setMinimum(protocolLatencyMinimum);
-				subContributor.setComments("Time required by the protocol stack");
-				latencyContributor.addSubContributor(subContributor);
-			}
-		}
+		processActualConnectionBindings(connectionInstance, relatedConnectionData, latencyContributor);
 
 		/**
 		 * If the sender is on a partitioned architecture, then, we might need to add
@@ -340,67 +138,195 @@ public class FlowLatencyLogicConnection {
 			}
 		}
 
+//		/**
+//		 * Compute the main latency of the connection according to its type: delayed, sampled or immediate.
+//		 */
+//		if (FlowLatencyUtil.getConnectionType(connectionInstance) == ConnectionType.DELAYED) {
+//			/**
+//			 * We checked if the connection is local or not.
+//			 */
+//			if (FlowLatencyUtil.isLocal(connectionInstance)) {
+//
+//				if (nextTaskOrDevice != null) {
+//					double period;
+//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
+//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
+//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
+//					latencyContributor.setMaximum(period);
+//					latencyContributor.setMinimum(period);
+//					latencyContributor.setComments("The data will be available at the next task/device dispatch");
+//				}
+//			} else {
+//				if (nextTaskOrDevice != null) {
+//					double period;
+//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
+//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
+//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
+//					latencyContributor.setMaximum(period);
+//					latencyContributor.setMinimum(0.0);
+//					latencyContributor.setComments("Data might arrive at dispatch time or next frame");
+//				}
+//			}
+//
+//		}
+//
+//		if (FlowLatencyUtil.getConnectionType(connectionInstance) == ConnectionType.SAMPLED) {
+//			/**
+//			 * We checked if the connection is local or not.
+//			 */
+//			if (FlowLatencyUtil.isLocal(connectionInstance)) {
+//
+//				if (nextTaskOrDevice != null) {
+//					double period;
+//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
+//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
+//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
+//					latencyContributor.setMaximum(period);
+//					latencyContributor.setMinimum(period);
+//					latencyContributor.setComments("The data will be available at the next task/device dispatch");
+//				}
+//			} else {
+//				if (nextTaskOrDevice != null) {
+//					double period;
+//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
+//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
+//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
+//					latencyContributor.setMaximum(period);
+//					latencyContributor.setMinimum(0.0);
+//					latencyContributor.setComments("Data might arrive at dispatch time or next frame");
+//				}
+//			}
+//		}
+
 		/**
-		 * Compute the main latency of the connection according to its type: delayed, sampled or immediate.
+		 * handle the case when there is no binding to virtual bus or bus.
+		 * In this case we use the latency from the connection itself
 		 */
-		if (FlowLatencyUtil.getConnectionType(connectionInstance) == ConnectionType.DELAYED) {
-			/**
-			 * We checked if the connection is local or not.
-			 */
-			if (FlowLatencyUtil.isLocal(connectionInstance)) {
+		// XXX we can add a check whether the latencies coming from the bindings exceeds the connection latency
 
-				if (nextTaskOrDevice != null) {
-					double period;
-					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
-					latencyContributor.setMaximum(period);
-					latencyContributor.setMinimum(period);
-					latencyContributor.setComments("The data will be available at the next task/device dispatch");
-				}
-			} else {
-				if (nextTaskOrDevice != null) {
-					double period;
-					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
-					latencyContributor.setMaximum(period);
-					latencyContributor.setMinimum(0.0);
-					latencyContributor.setComments("Data might arrive at dispatch time or next frame");
-				}
+		if (latencyContributor.getSubContributors().isEmpty()) {
+			if (expectedMax > 0) {
+				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+				latencyContributor.setExpectedMaximum(expectedMax);
 			}
-
-		}
-
-		if (FlowLatencyUtil.getConnectionType(connectionInstance) == ConnectionType.SAMPLED) {
-			/**
-			 * We checked if the connection is local or not.
-			 */
-			if (FlowLatencyUtil.isLocal(connectionInstance)) {
-
-				if (nextTaskOrDevice != null) {
-					double period;
-					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-					latencyContributor.setMaximum(period);
-					latencyContributor.setMinimum(period);
-					latencyContributor.setComments("The data will be available at the next task/device dispatch");
-				}
-			} else {
-				if (nextTaskOrDevice != null) {
-					double period;
-					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-					latencyContributor.setMaximum(period);
-					latencyContributor.setMinimum(0.0);
-					latencyContributor.setComments("Data might arrive at dispatch time or next frame");
-				}
+			if (expectedMin > 0) {
+				latencyContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
+				latencyContributor.setExpectedMinimum(expectedMin);
 			}
 		}
 
-		return latencyContributor;
+		entry.addContributor(latencyContributor);
+	}
+
+	public static void processBoundBus(ComponentInstance boundBus, Classifier relatedConnectionData,
+			LatencyContributor latencyContributor) {
+		/**
+		 * we add the bus transmission time as a contributor.
+		 */
+
+		// XXX: dealing with a periodic bus that samples or bus queuing delay
+		// a bus has a period value when operating periodically.
+		// we then add sampling latency for the bus
+		// need to do that before the transmission latency
+		if (boundBus != null && relatedConnectionData != null) {
+//			OsateDebug.osateDebug("FlowLatencyUtil", "connection bound to bus=" + boundBus);
+			LatencyContributor subContributor = new LatencyContributorComponent(boundBus);
+
+			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
+			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(boundBus);
+
+			double maxBusTransferTime = FlowLatencyUtil.getMaximumTimeToTransferData(boundBus, relatedConnectionData);
+			double minBusTransferTime = FlowLatencyUtil.getMinimumTimeToTransferData(boundBus, relatedConnectionData);
+			subContributor.setExpectedMaximum(maxBusLatency);
+			subContributor.setExpectedMinimum(minBusLatency);
+
+			if (maxBusTransferTime > 0) {
+				subContributor.setMaximum(maxBusTransferTime);
+				subContributor.setComments("Data transfer time");
+				subContributor.setWorstCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
+			} else if (maxBusLatency > 0) {
+				subContributor.setMaximum(maxBusLatency);
+				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+				subContributor.setComments("Use the latency properties on the bus");
+			} else {
+				subContributor.setWorstCaseMethod(LatencyContributorMethod.UNKNOWN);
+				subContributor.setComments("latency not specified on the bus");
+			}
+
+			if (minBusTransferTime > 0) {
+				subContributor.setMinimum(minBusTransferTime);
+				subContributor.setComments("Data transfer time");
+				subContributor.setBestCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
+
+			} else if (minBusLatency > 0) {
+				subContributor.setMinimum(minBusLatency);
+				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
+				subContributor.setComments("Use the latency properties on the bus");
+			} else {
+				subContributor.setBestCaseMethod(LatencyContributorMethod.UNKNOWN);
+				subContributor.setComments("latency not specified on the bus");
+			}
+
+			latencyContributor.addSubContributor(subContributor);
+		}
+
+	}
+
+	public static void processVirtualBus(NamedElement vb, Classifier relatedConnectionData,
+			LatencyContributor latencyContributor) {
+		double protocolLatencyMinimum = GetProperties.getMinimumLatencyinMilliSec(vb);
+		double protocolLatencyMaximum = GetProperties.getMaximumLatencyinMilliSec(vb);
+
+		LatencyContributor subContributor = new LatencyContributorComponent(vb);
+		subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
+		subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
+		subContributor.setMaximum(protocolLatencyMaximum);
+		subContributor.setMinimum(protocolLatencyMinimum);
+		subContributor.setExpectedMaximum(protocolLatencyMaximum);
+		subContributor.setExpectedMinimum(protocolLatencyMinimum);
+		subContributor.setComments("Time required by the protocol stack");
+		latencyContributor.addSubContributor(subContributor);
+		processActualConnectionBindings(vb, relatedConnectionData, latencyContributor);
+	}
+
+	public static void processActualConnectionBindings(NamedElement connorvb, Classifier relatedConnectionData,
+			LatencyContributor latencyContributor) {
+		boolean didVirtualBuses = false;
+
+		if (connorvb instanceof InstanceObject) {
+			// look for actual binding if we have a connection instance or virtual bus instance
+			List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connorvb);
+			for (ComponentInstance componentInstance : bindings) {
+				ComponentCategory cat = componentInstance.getCategory();
+				if (cat.equals(ComponentCategory.BUS) || cat.equals(ComponentCategory.SYSTEM)
+						|| cat.equals(ComponentCategory.ABSTRACT)) {
+					/**
+					 * Check if the connection is bound to a bus. If yes, then, we add
+					 * the bus transmission time as a contributor.
+					 */
+					// XXX we can add knowledge about protocol overhead to be added to the data size
+					processBoundBus(componentInstance, relatedConnectionData, latencyContributor);
+				}
+				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+					didVirtualBuses = true;
+					processVirtualBus(componentInstance, relatedConnectionData, latencyContributor);
+				}
+			}
+		}
+
+		/**
+		 * required virtual bus class indicates protocols the connection intends to use.
+		 * We also can have an actual connection binding to a virtual bus
+		 * If we have that we want to use that virtual bus overhead
+		 */
+		if (!didVirtualBuses) {
+			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+			if ((protocols != null) && (protocols.size() > 0)) {
+				for (ComponentClassifier cc : protocols) {
+					processVirtualBus(cc, relatedConnectionData, latencyContributor);
+				}
+			}
+		}
 	}
 
 }

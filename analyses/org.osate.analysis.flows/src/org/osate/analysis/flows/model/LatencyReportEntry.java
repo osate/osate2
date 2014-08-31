@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
+import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.Section;
@@ -21,6 +22,8 @@ public class LatencyReportEntry {
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
 	List<String> issues;
+	boolean doSynchronous = false;
+	LatencyContributor lastSampled = null;
 
 	public LatencyReportEntry() {
 		this.contributors = new ArrayList<LatencyContributor>();
@@ -31,8 +34,68 @@ public class LatencyReportEntry {
 		this.relatedEndToEndFlow = etef;
 	}
 
+	public void setSynchronous() {
+		doSynchronous = true;
+	}
+
+	public void setAsynchronous() {
+		doSynchronous = false;
+	}
+
+	public boolean isSynchronous() {
+		return doSynchronous;
+	}
+
 	public void addContributor(LatencyContributor lc) {
 		this.contributors.add(lc);
+		if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED)
+				|| lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED)) {
+			lastSampled = lc;
+		}
+	}
+
+	public void setLastSampled(LatencyContributor lc) {
+		lastSampled = lc;
+	}
+
+	public boolean wasSampled() {
+		return lastSampled != null;
+	}
+
+	public double getMinimumCumLatency() {
+		double result = 0;
+		if (lastSampled == null) {
+			return 0;
+		}
+		int idx = this.contributors.indexOf(lastSampled);
+		if (idx < 0)
+			return 0;
+		for (int i = idx + 1; i < this.contributors.size(); i++) {
+			LatencyContributor lc = this.contributors.get(i);
+			if (!(lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED) || lc
+					.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED))) {
+				result = result + lc.getTotalMinimum();
+			}
+		}
+		return result;
+	}
+
+	public double getMaximumCumLatency() {
+		double result = 0;
+		if (lastSampled == null) {
+			return 0;
+		}
+		int idx = this.contributors.indexOf(lastSampled);
+		if (idx < 0)
+			return 0;
+		for (int i = idx; i < this.contributors.size(); i++) {
+			LatencyContributor lc = this.contributors.get(i);
+			if (!(lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED) || lc
+					.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED))) {
+				result = result + lc.getTotalMaximum();
+			}
+		}
+		return result;
 	}
 
 	public List<LatencyContributor> getContributors() {
@@ -78,6 +141,14 @@ public class LatencyReportEntry {
 		CheckFlowLatency.getInstance().warning(relatedEndToEndFlow, str);
 	}
 
+	private String getSyncLabel() {
+		if (doSynchronous) {
+			return " (Sync)";
+		} else {
+			return " (Async)";
+		}
+	}
+
 	public Section export() {
 
 		Section section;
@@ -102,12 +173,12 @@ public class LatencyReportEntry {
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
 
 		if (relatedEndToEndFlow != null) {
-			sectionName = relatedEndToEndFlow.getFullName();
+			sectionName = relatedEndToEndFlow.getComponentInstancePath();
 		} else {
 			sectionName = "unamed flow";
 		}
 
-		section = new Section(sectionName);
+		section = new Section(sectionName + getSyncLabel());
 
 		line = new Line();
 		line.addContent("Contributor");
@@ -155,16 +226,16 @@ public class LatencyReportEntry {
 		 * In that case, the end to end flow has a minimum latency
 		 */
 		if (expectedMinLatency > 0) {
-			if (expectedMinLatency < minSpecifiedValue) {
-				reportError("sum of specified minimum latencies (" + minSpecifiedValue
-						+ " ms) does not match latency specifications (" + expectedMinLatency + "ms)");
+			if (expectedMinLatency > minSpecifiedValue) {
+				reportError("sum of minimum specified latencies (" + minSpecifiedValue
+						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
 				line.setSeverity(ReportSeverity.ERROR);
 
 			}
 
-			if (expectedMinLatency < minValue) {
-				reportError("sum of minimum latencies (" + minSpecifiedValue
-						+ " ms) does not match latency specifications (" + expectedMinLatency + "ms)");
+			if (expectedMinLatency > minValue) {
+				reportError("sum of minimum actual latencies (" + minSpecifiedValue
+						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
 				line.setSeverity(ReportSeverity.ERROR);
 
 			}
@@ -178,19 +249,18 @@ public class LatencyReportEntry {
 		 */
 		if (expectedMaxLatency > 0) {
 			if (expectedMaxLatency < maxSpecifiedValue) {
-				reportError("maximum expected latency (" + expectedMaxLatency
-						+ "ms) on the end to end flow does not match latency specification (" + maxSpecifiedValue
-						+ "ms); ");
+				reportError("sum of maximum specified latency (" + maxSpecifiedValue
+						+ "ms) exceeds end to end latency (" + expectedMaxLatency + "ms); ");
 				line.setSeverity(ReportSeverity.ERROR);
 			}
 
 			if (expectedMaxLatency < maxValue) {
-				reportError("sun of maximum latencies (" + maxValue + "ms) does not match latency specification ("
+				reportError("sum of maximum actual latencies (" + maxValue + "ms) exceeds end to end latency ("
 						+ expectedMaxLatency + "ms)");
 				line.setSeverity(ReportSeverity.ERROR);
 			}
 		} else {
-			reportWarning("the maximal latency is not specified");
+			reportWarning("the maximal end to end latency is not specified");
 			line.setSeverity(ReportSeverity.WARNING);
 		}
 
