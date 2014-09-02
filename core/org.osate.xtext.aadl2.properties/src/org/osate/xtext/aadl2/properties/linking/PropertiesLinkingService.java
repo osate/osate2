@@ -1064,9 +1064,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				 * FIX JD: old code that triggered a bug, see #121
 				 * Instead of searching the name using findNamedElement that
 				 * searches in the whole package, we search in the component features.
-				 * 
+				 *
 				 * Related to bug report #121
-				 * 
+				 *
 				 * NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
 				 */
 				if ((searchResult != null) && (searchResult instanceof Access)) {
@@ -1127,8 +1127,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						}
 					}
 				}
-				if (searchResult instanceof PortConnectionEnd) {
-					return ((PortConnectionEnd) searchResult);
+				if (searchResult instanceof AccessConnectionEnd) {
+					return ((AccessConnectionEnd) searchResult);
 				}
 			}
 		}
@@ -1470,13 +1470,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	/*
 	 * TODO: Check for circular dependencies with prototypes. Example:
-	 * 
+	 *
 	 * abstract a prototypes p1: subprogram group; p2: subprogram group; end a;
-	 * 
+	 *
 	 * abstract implementation a.i ( p1 => p2, p2 => p1) subcomponents sub:
 	 * subprogram group p1; calls sequence1: { call1: subprogram
 	 * sub.access_feature_1; end a.i;
-	 * 
+	 *
 	 * This will cause a stack overflow!
 	 */
 	public ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier,
