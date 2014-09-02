@@ -3826,8 +3826,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
 		if (source instanceof AccessConnectionEnd && destination instanceof AccessConnectionEnd) {
-			Classifier sourceClassifier;
-			Classifier destinationClassifier;
+			Classifier sourceClassifier = null;
+			Classifier destinationClassifier = null;
 			// for type extension
 			boolean invert = false;
 			AccessType srckind = null;
@@ -3838,7 +3838,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				sourceClassifier = ((Access) source).getAllClassifier();
 				srckind = ((Access) source).getKind();
 				srcCxt = connection.getAllSourceContext();
-			} else {
+			} else if (source instanceof Subcomponent) {
 				sourceClassifier = ((Subcomponent) source).getAllClassifier();
 				invert = true;
 			}
@@ -3846,7 +3846,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				dstkind = ((Access) destination).getKind();
 				destinationClassifier = ((Access) destination).getAllClassifier();
 				dstCxt = connection.getAllDestinationContext();
-			} else {
+			} else if (destination instanceof Subcomponent) {
 				destinationClassifier = ((Subcomponent) destination).getAllClassifier();
 			}
 			// now we have the classifier
