@@ -209,7 +209,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private void updateRelationships(final Diagram diagram, final Set<NamedElement> elements) {
 		final AadlPackage pkg = (AadlPackage)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
 		for(final NamedElement el : elements) {
-			if(el.getNamespace() != null && el.getNamespace().getOwner() == pkg) {
+			if(el.getNamespace() != null) {
 				if(el instanceof ComponentType) {
 					// Extension
 					final ComponentType ct = (ComponentType)el;
