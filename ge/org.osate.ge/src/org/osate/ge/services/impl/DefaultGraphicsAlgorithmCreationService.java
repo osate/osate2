@@ -454,15 +454,19 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		return createProcessGraphicsAlgorithm(container, style, width, height);
 	}
 	
-	private static GraphicsAlgorithm createSubprogramGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createSubprogramGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = gaService.createPlainEllipse(container);
-    	gaService.setSize(ga, width, height);
-        ga.setStyle(style);
+		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(container);
+		gaService.setSize(ga, width, height);
+		
+		final GraphicsAlgorithm ellipseGa = gaService.createPlainEllipse(ga);
+		gaService.setSize(ellipseGa, width, height);
+		ellipseGa.setStyle(style);
+         
     	return ga;
 	}
 	
-	private static GraphicsAlgorithm createSubprogramGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createSubprogramGroupGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
 		return createSubprogramGraphicsAlgorithm(container, style, width, height);
 	}
 	
