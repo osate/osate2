@@ -141,6 +141,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     			
     			for(final Diagram tmpDiagram : getDiagrams()) {
 	    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
+	    			
 	    			boolean markDiagram = false;
 	    			
 	    			if(relevantClassifiers.contains(tmpDiagramBo)) {

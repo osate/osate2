@@ -61,6 +61,7 @@ import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
@@ -81,13 +82,14 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final UserInputService userInputService;
 	private final NamingService namingService;
 	private final RefactoringService refactoringService; 
+	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
 
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
 			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
-			final NamingService namingService, final RefactoringService refactoringService, 
+			final NamingService namingService, final RefactoringService refactoringService, final DiagramModificationService diagramModService,
 			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
 		super(anchorUtil, visibilityHelper);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
@@ -97,6 +99,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		this.userInputService = userInputService;
 		this.namingService = namingService;
 		this.refactoringService = refactoringService;
+		this.diagramModService = diagramModService;
 		this.bor = bor;
 		this.classifierType = classifierType;
 	}
@@ -469,7 +472,10 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
-		return true;
+		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	final Namespace ns = classifier.getNamespace();
+    	final AadlPackage pkg = getPackage();
+    	return ns != null && ns.getOwner() == pkg;
 	}
 
 	@Override
@@ -480,14 +486,25 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 		modificationService.modify(classifier, new AbstractModifier<Classifier, Object>() {
+			private DiagramModificationService.Modification diagramMod;
+			
 			@Override
 			public Object modify(final Resource resource, final Classifier classifier) {
-				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			diagramMod.markRelatedDiagramsAsDirty(classifier);
+
+	 			// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.
 				EcoreUtil.remove(classifier);
 				
 				return null;
 			}			
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
+				diagramMod.commit();
+			}
 		});
 		
 		// Clear selection
