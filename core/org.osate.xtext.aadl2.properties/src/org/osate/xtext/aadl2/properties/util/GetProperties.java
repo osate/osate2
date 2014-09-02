@@ -796,6 +796,11 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
 	}
 
+	public static boolean isAsignedDeadline(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.DEADLINE);
+		return PropertyUtils.isAssignedPropertyValue(ne, deadline);
+	}
+
 	public static double getComputeDeadlineinMilliSec(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.COMPUTE_DEADLINE);
 		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
