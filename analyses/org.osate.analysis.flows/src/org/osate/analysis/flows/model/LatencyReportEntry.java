@@ -372,12 +372,12 @@ public class LatencyReportEntry {
 
 		/**
 		 * If the expected latency is defined and consistent with the max value, everything should be ok
-		 * It means that the number calculated from the component is correct and less important
-		 * with the latency specifications
-		 *
+		 * It means that the number calculated from the component is correct and less than
+		 * the latency specifications.
+		 * In case of Min latency the actual sum should be higher.
 		 */
 		if ((minValue > 0) && (maxValue > 0) && (expectedMaxLatency > 0) && (expectedMinLatency > 0)
-				&& (expectedMinLatency > minValue) && (expectedMaxLatency > maxValue)) {
+				&& (minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)) {
 			reportSummaryInfo("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
 					+ " calculated from the components is correct with the expected latency specifications");
 		}
