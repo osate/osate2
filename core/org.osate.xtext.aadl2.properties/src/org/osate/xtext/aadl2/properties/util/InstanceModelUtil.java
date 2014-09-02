@@ -430,6 +430,40 @@ public class InstanceModelUtil {
 		}
 	}
 
+	/**
+	 * virtual processor instances directly bound to by component
+	 * @param componentInstance
+	 * @return virtual processor instance
+	 */
+	public static Collection<ComponentInstance> getBoundVirtualProcessors(ComponentInstance componentInstance) {
+		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
+		addBoundVirtualProcessors(componentInstance, actualProcs, false);
+		return actualProcs;
+	}
+
+	/**
+	 * virtual processor instances directly or indirectly bound to by component
+	 * @param componentInstance
+	 * @return virtual processor instance
+	 */
+	public static Collection<ComponentInstance> getALlBoundVirtualProcessors(ComponentInstance componentInstance) {
+		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
+		addBoundVirtualProcessors(componentInstance, actualProcs, true);
+		return actualProcs;
+	}
+
+	protected static void addBoundVirtualProcessors(ComponentInstance componentInstance,
+			UniqueEList<ComponentInstance> result, boolean doAll) {
+		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
+		for (ComponentInstance boundCompInstance : bindinglist) {
+			if (isVirtualProcessor(boundCompInstance)) {
+				result.add(boundCompInstance);
+				if (doAll)
+					addBoundVirtualProcessors(boundCompInstance, result, doAll);
+			}
+		}
+	}
+
 	private static HashMap<ComponentInstance, EList<ComponentInstance>> boundSWCache = new HashMap<ComponentInstance, EList<ComponentInstance>>();
 	private static HashMap<ComponentInstance, EList<ConnectionInstance>> boundBusConnections = new HashMap<ComponentInstance, EList<ConnectionInstance>>();
 
