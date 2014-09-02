@@ -36,14 +36,6 @@ public class LatencyContributorComponent extends LatencyContributor {
 		this.relatedElement = ci;
 	}
 
-	protected String getContributorName() {
-		return relatedElement.getName();
-	}
-
-	protected String getFullContributorName() {
-		return relatedElement.getFullName();
-	}
-
 	protected String getContributorType() {
 		ComponentInstance relatedComponentInstance;
 		ComponentType relatedComponentType;

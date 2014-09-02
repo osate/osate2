@@ -7,6 +7,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
+import org.osate.analysis.flows.reporting.model.ReportedCell;
 
 /**
  * A latency Contributor represents something in the flow
@@ -19,23 +20,24 @@ import org.osate.analysis.flows.reporting.model.ReportSeverity;
  *
  */
 public abstract class LatencyContributor {
+	// used for processing/communication latency
 	// UNKNOWN: method not set (default)
-	// Deadline: worst-case (assumes schedulability)
-	// Period: sampling latency of devices, threads, process, system, abstract (AADL by default equates Deadline to be
-// the Period).
 	// Processing_Time: processing (compute execution) time
-	// Immediate: immediate connection enforces mid-frame communication, i.e., cumulative latency of processing elements
-// (similar to message driven processing)
-	// Delayed: enforces frame-delayed communication
-	// Sampled: sampling latency by periodic recipient or transfer mechanism
-	// Specified: latency specified with flow specification
-	// Queued: latency contribution due to queuing on bus or on recipient queuing ports
+	// Deadline: worst-case (assumes schedulability) if no processing time
 	// Transmission time: actual transmission latency
+	// Specified: latency specified with flow specification if no processing/transmission time
+
+	// Sampling latency contributions when recipient operates periodically
+	// Sampled: sampling latency of period by periodic recipient or transfer mechanism
+	// Delayed: frame-delay latency due to incoming delayed connection
+	// Immediate: incoming immediate connection and outgoing immediate connection (acts like an aperiodic event/msg driven task).
+	// Last_Immediate: last of incoming immediate connection: Its deadline determines the deadline of the sequence.
+	// Queued: latency contribution due to queuing on bus or on recipient queuing ports
 	// Partition frame: Major frame rate of partition
-	// Partition schedule: frame offset?
+	// Partition schedule: frame offset
 
 	public enum LatencyContributorMethod {
-		UNKNOWN, DEADLINE, PERIOD, PROCESSING_TIME, IMMEDIATE, DELAYED, SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE
+		UNKNOWN, DEADLINE, PROCESSING_TIME, IMMEDIATE, LAST_IMMEDIATE, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE
 	};
 
 	/**
@@ -59,9 +61,31 @@ public abstract class LatencyContributor {
 	private double expectedMax;
 
 	/**
+	 * Hold on to deadline for LAST_IMMEDIATE
+	 */
+	private double deadline;
+
+	/**
+	 * Sampling period for SAMPLED, DELAYED, or partition related
+	 */
+	private double samplingPeriod;
+
+	/**
 	 * Some comments we would like to add in the report.
 	 */
 	private String comments;
+
+	List<ReportedCell> issues;
+
+	/**
+	 * Sampling of incoming communication is synchronous
+	 * Set if model indicates so. The doSynchronous value is examined if this is not set.
+	 */
+	public enum SynchronizeType {
+		Asynchronous, Synchronous
+	};
+
+	private SynchronizeType isSynchronized = SynchronizeType.Asynchronous;
 
 	/**
 	 * methods represent what is the model elements used
@@ -87,20 +111,80 @@ public abstract class LatencyContributor {
 		this.maxValue = 0.0;
 		this.expectedMax = 0.0;
 		this.expectedMin = 0.0;
+		this.deadline = 0.0;
+		this.samplingPeriod = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
 		this.comments = "";
+		this.issues = new ArrayList<ReportedCell>();
 	}
+
+	protected List<ReportedCell> getReportedIssues() {
+		return this.issues;
+	}
+
+	public void reportError(String str) {
+		CheckFlowLatency.getInstance().error(this.relatedElement, str);
+		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
+	}
+
+	public void reportInfo(String str) {
+		CheckFlowLatency.getInstance().info(this.relatedElement, str);
+		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
+	}
+
+	public void reportWarning(String str) {
+		CheckFlowLatency.getInstance().warning(this.relatedElement, str);
+		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
+	}
+
+	protected String getContributorName() {
+		return relatedElement.getName();
+	}
+
+	protected String getFullContributorName() {
+		return relatedElement.getFullName();
+	}
+
+	protected abstract String getContributorType();
 
 	public String getComments() {
 		return this.comments;
 	}
 
 	public void addComment(String c) {
-		this.comments = this.comments + " - " + c;
+		this.comments = this.comments + (this.comments.isEmpty() ? "" : " - ") + c;
 	}
 
 	public void setComments(String c) {
 		this.comments = c;
+	}
+
+	public void setSynchronous() {
+		this.isSynchronized = SynchronizeType.Synchronous;
+	}
+
+	public void setAsynchronous() {
+		this.isSynchronized = SynchronizeType.Asynchronous;
+	}
+
+	public boolean isSynchronous() {
+		return this.isSynchronized.equals(SynchronizeType.Synchronous);
+	}
+
+	public double getSamplingPeriod() {
+		return this.samplingPeriod;
+	}
+
+	public void setSamplingPeriod(double val) {
+		this.samplingPeriod = val;
+	}
+
+	public double getDeadline() {
+		return this.deadline;
+	}
+
+	public void setDeadline(double val) {
+		this.deadline = val;
 	}
 
 	public void setExpectedMaximum(double d) {
@@ -125,16 +209,18 @@ public abstract class LatencyContributor {
 			return "deadline";
 		case PROCESSING_TIME:
 			return "processing time";
-		case PERIOD:
-			return "period";
 		case DELAYED:
-			return "delayed connection";
+			return "delayed sampling";
 		case IMMEDIATE:
-			return "immediate connection";
+			return "incoming immediate connection";
+		case LAST_IMMEDIATE:
+			return "last immediate connection";
 		case SPECIFIED:
 			return "specified";
 		case SAMPLED:
 			return "sampling";
+		case FIRST_SAMPLED:
+			return "first sampling";
 		case QUEUED:
 			return "queued";
 		case PARTITION_FRAME:
@@ -215,9 +301,18 @@ public abstract class LatencyContributor {
 		return res;
 	}
 
-	protected abstract String getContributorName();
+	public void checkConsistency() {
 
-	protected abstract String getContributorType();
+		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {
+			reportWarning("max actual latency exceeds max flow latency");
+		}
+
+		if ((this.expectedMin != 0.0) && (this.minValue > this.expectedMin)) {
+
+			reportWarning("min actual latency exceeds min flow latency");
+		}
+
+	}
 
 	public List<Line> export() {
 		List<Line> lines;
@@ -234,31 +329,27 @@ public abstract class LatencyContributor {
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		myLine.addContent(this.getLocalMinimum() + "ms");
+		if (this.getSamplingPeriod() > 0.0
+				&& !this.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
+			myLine.addContent(this.getSamplingPeriod() + "ms");
+		} else {
+			myLine.addContent(this.getLocalMinimum() + "ms");
+		}
 		myLine.addContent(mapMethodToString(bestCaseMethod));
 		if (this.expectedMax != 0.0) {
 			myLine.addContent(this.expectedMax + "ms");
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		myLine.addContent(this.getLocalMaximum() + "ms");
+		if (this.getSamplingPeriod() > 0.0
+				&& !this.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
+			myLine.addContent(this.getSamplingPeriod() + "ms");
+		} else {
+			myLine.addContent(this.getLocalMaximum() + "ms");
+		}
 		myLine.addContent(mapMethodToString(worstCaseMethod));
-
-		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {
-			CheckFlowLatency.getInstance().warning(this.relatedElement,
-					"max latency calculation exceed latency specified");
-			myLine.setSeverity(ReportSeverity.WARNING);
-		}
-
-		if ((this.expectedMin != 0.0) && (this.minValue > this.expectedMin)) {
-
-			CheckFlowLatency.getInstance().warning(this.relatedElement,
-					"min latency calculation exceed latency specified");
-			myLine.setSeverity(ReportSeverity.WARNING);
-		}
-
 		myLine.addContent(this.getComments());
-
+		myLine.addCells(this.getReportedIssues());
 		lines.add(myLine);
 
 		/**

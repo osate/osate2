@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
+import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -21,7 +23,7 @@ public class LatencyReportEntry {
 
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
-	List<String> issues;
+	List<ReportedCell> issues;
 	boolean doSynchronous = false;
 	LatencyContributor lastSampled = null;
 
@@ -34,15 +36,17 @@ public class LatencyReportEntry {
 		this.relatedEndToEndFlow = etef;
 	}
 
-	public void setSynchronous() {
+	public void resetSynchronous() {
 		doSynchronous = true;
+		lastSampled = null;
 	}
 
-	public void setAsynchronous() {
+	public void resetAsynchronous() {
 		doSynchronous = false;
+		lastSampled = null;
 	}
 
-	public boolean isSynchronous() {
+	public boolean doSynchronous() {
 		return doSynchronous;
 	}
 
@@ -62,7 +66,7 @@ public class LatencyReportEntry {
 		return lastSampled != null;
 	}
 
-	public double getMinimumCumLatency() {
+	public double getMinimumCumLatency(LatencyContributor current) {
 		double result = 0;
 		if (lastSampled == null) {
 			return 0;
@@ -76,11 +80,14 @@ public class LatencyReportEntry {
 					.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED))) {
 				result = result + lc.getTotalMinimum();
 			}
+			if (lc == current) {
+				break;
+			}
 		}
 		return result;
 	}
 
-	public double getMaximumCumLatency() {
+	public double getMaximumCumLatency(LatencyContributor current) {
 		double result = 0;
 		if (lastSampled == null) {
 			return 0;
@@ -94,6 +101,9 @@ public class LatencyReportEntry {
 					.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED))) {
 				result = result + lc.getTotalMaximum();
 			}
+			if (lc == current) {
+				break;
+			}
 		}
 		return result;
 	}
@@ -102,42 +112,135 @@ public class LatencyReportEntry {
 		return this.contributors;
 	}
 
-	public double getMinimumLatency() {
+	public double getMinimumActualLatency() {
 		double res = 0.0;
 		for (LatencyContributor lc : contributors) {
-			res = res + lc.getTotalMinimum();
+			if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
+				// skip the first sampled if it is the first element in the contributor list
+				// and remember initial sample
+				// XXX: if we sample external events by sensor this might have to be added as sampling latency
+				lastSampled = lc;
+			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED)) {
+				// lets deal with the sampling case
+				if (doSynchronous() && wasSampled()) {
+					// there was a previous sampling component. We can to the roundup game.
+					double diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
+					res = res + diff;
+					lc.setComments("Added " + diff + "ms");
+				} else {
+					res = res + lc.getSamplingPeriod();
+				}
+				lastSampled = lc;
+			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED)) {
+				if (doSynchronous() && wasSampled()) {
+					// there was a previous sampling component. We can to the roundup game.
+//					double framediff = FlowLatencyUtil.roundUp(cummax, period) - FlowLatencyUtil.roundUp(cummin, period);
+//					latencyContributor.setMinimum(FlowLatencyUtil.roundUpDiff(cummin, period) + framediff);
+//					latencyContributor
+//							.setComments("Recipient period difference as sampling latency. Min frames aligned with max frames.");
+					double cumMin = getMinimumCumLatency(lc);
+					double framediff = FlowLatencyUtil.roundUp(getMaximumCumLatency(lc), lc.getSamplingPeriod())
+							- FlowLatencyUtil.roundUp(cumMin, lc.getSamplingPeriod());
+					double diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff;
+					res = res + diff;
+					lc.setComments("Added " + diff + "ms");
+					if (framediff > 0) {
+						lc.reportWarning("Aligned min latency with max by adding " + diff + "ms");
+					}
+				} else {
+					res = res + lc.getSamplingPeriod();
+				}
+				lastSampled = lc;
+			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.IMMEDIATE)) {
+				// no sampling. We are part of an immediate connection sequence
+			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.LAST_IMMEDIATE)) {
+				// No sampling. we are the last of an immediate connection sequence.
+				// XXX: However, the cumulative values should not exceed the deadline of the last.
+
+			} else {
+				res = res + lc.getTotalMinimum();
+			}
 		}
 
 		return res;
 	}
 
-	public double getMaximumLatency() {
+	// TODO for downsampling we can distinguish between most recent data sample (sender Period) and event (Receiver period)
+
+	public double getMaximumActualLatency() {
 		double res = 0.0;
 		for (LatencyContributor lc : contributors) {
-			res = res + lc.getTotalMaximum();
+			if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
+				// skip the first sampled if it is the first element in the contributor list
+				// and remember initial sample
+				// XXX: if we sample external events by sensor this might have to be added as sampling latency
+				lastSampled = lc;
+			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED)) {
+				// lets deal with the sampling case
+				if ((doSynchronous() || lc.isSynchronous()) && wasSampled()) {
+					// there was a previous sampling component. We can to the roundup game.
+					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
+					res = res + diff;
+					lc.setComments("Added " + diff + "ms");
+				} else {
+					res = res + lc.getSamplingPeriod();
+				}
+				lastSampled = lc;
+			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED)) {
+				if (doSynchronous() && wasSampled()) {
+					// there was a previous sampling component. We can to the roundup game.
+					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
+					res = res + diff;
+					lc.setComments("Added " + diff + "ms");
+				} else {
+					res = res + lc.getSamplingPeriod();
+				}
+				lastSampled = lc;
+			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.IMMEDIATE)) {
+				// no sampling. We are part of an immediate connection sequence
+			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.LAST_IMMEDIATE)) {
+				// No sampling. we are the last of an immediate connection sequence.
+				if (lc.getDeadline() > 0.0 && getMaximumCumLatency(lc) > lc.getDeadline()) {
+					lc.reportError("Max immediate latency sequence exceeds deadline " + lc.getDeadline() + "ms");
+				}
+			} else {
+				res = res + lc.getTotalMaximum();
+			}
 		}
 
 		return res;
 	}
 
-	private void reportError(String str) {
-		if (issues != null) {
-			issues.add(str);
+	public double getMaximumSpecifiedLatency() {
+		double res = 0.0;
+		for (LatencyContributor lc : contributors) {
+			res = res + lc.getTotalMaximumSpecified();
 		}
+
+		return res;
+	}
+
+	public double getMinimumSpecifiedLatency() {
+		double res = 0.0;
+		for (LatencyContributor lc : contributors) {
+			res = res + lc.getTotalMinimumSpecified();
+		}
+
+		return res;
+	}
+
+	private void reportSummaryError(String str) {
+		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
 		CheckFlowLatency.getInstance().error(relatedEndToEndFlow, str);
 	}
 
-	private void reportInfo(String str) {
-		if (issues != null) {
-			issues.add(str);
-		}
+	private void reportSummaryInfo(String str) {
+		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
 		CheckFlowLatency.getInstance().info(relatedEndToEndFlow, str);
 	}
 
-	private void reportWarning(String str) {
-		if (issues != null) {
-			issues.add(str);
-		}
+	private void reportSummaryWarning(String str) {
+		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
 		CheckFlowLatency.getInstance().warning(relatedEndToEndFlow, str);
 	}
 
@@ -147,6 +250,12 @@ public class LatencyReportEntry {
 		} else {
 			return " (Async)";
 		}
+	}
+
+	// skip the contributor as sampled contributor because it just marks an incoming immediate
+	private boolean skipMeInReport(LatencyContributor lc) {
+		return lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.IMMEDIATE)
+				|| lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.LAST_IMMEDIATE);
 	}
 
 	public Section export() {
@@ -160,14 +269,13 @@ public class LatencyReportEntry {
 		double expectedMaxLatency;
 		double expectedMinLatency;
 		String sectionName;
-		String otherComment;
 
 		minValue = 0.0;
 		maxValue = 0.0;
 		minSpecifiedValue = 0.0;
 		maxSpecifiedValue = 0.0;
 
-		issues = new ArrayList<String>();
+		issues = new ArrayList<ReportedCell>();
 
 		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
 		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
@@ -175,34 +283,40 @@ public class LatencyReportEntry {
 		if (relatedEndToEndFlow != null) {
 			sectionName = relatedEndToEndFlow.getComponentInstancePath();
 		} else {
-			sectionName = "unamed flow";
+			sectionName = "Unnamed flow";
 		}
 
 		section = new Section(sectionName + getSyncLabel());
 
 		line = new Line();
-		line.addContent("Contributor");
-		line.addContent("Min Specified");
-		line.addContent("Min Value");
-		line.addContent("Min Method");
-		line.addContent("Max Specified");
-		line.addContent("Max Value");
-		line.addContent("Max Method");
-		line.addContent("Comments");
+		line.addHeaderContent("Contributor");
+		line.addHeaderContent("Min Specified");
+		line.addHeaderContent("Min Value");
+		line.addHeaderContent("Min Method");
+		line.addHeaderContent("Max Specified");
+		line.addHeaderContent("Max Value");
+		line.addHeaderContent("Max Method");
+		line.addHeaderContent("Comments");
+		line.addHeaderContent("Issues");
 		section.addLine(line);
 
+		// will populate the comments section
+		minValue = getMinimumActualLatency();
+		maxValue = getMaximumActualLatency();
+		minSpecifiedValue = getMinimumSpecifiedLatency();
+		maxSpecifiedValue = getMaximumSpecifiedLatency();
+
+		// reporting each entry
 		for (LatencyContributor lc : this.contributors) {
-			for (Line l : lc.export()) {
-				section.addLine(l);
+			if (!skipMeInReport(lc)) {
+				for (Line l : lc.export()) {
+					section.addLine(l);
+				}
 			}
-			minValue = minValue + lc.getTotalMinimum();
-			maxValue = maxValue + lc.getTotalMaximum();
-			minSpecifiedValue = minSpecifiedValue + lc.getTotalMinimumSpecified();
-			maxSpecifiedValue = maxSpecifiedValue + lc.getTotalMaximumSpecified();
 		}
 
 		line = new Line();
-		line.addContent("Total");
+		line.addContent("Latency Total");
 		line.addContent(minSpecifiedValue + "ms");
 		line.addContent(minValue + "ms");
 		line.addContent("");
@@ -214,12 +328,12 @@ public class LatencyReportEntry {
 		line = new Line();
 		line.setSeverity(ReportSeverity.SUCCESS);
 
-		line.addContent("End to End Flow");
+		line.addContent("End to End Latency");
 		line.addContent("");
 		line.addContent(expectedMinLatency + "ms");
 		line.addContent("");
 		line.addContent("");
-		line.addContent(expectedMinLatency + "ms");
+		line.addContent(expectedMaxLatency + "ms");
 		line.addContent("");
 
 		/*
@@ -227,21 +341,16 @@ public class LatencyReportEntry {
 		 */
 		if (expectedMinLatency > 0) {
 			if (expectedMinLatency > minSpecifiedValue) {
-				reportError("sum of minimum specified latencies (" + minSpecifiedValue
+				reportSummaryWarning("Sum of minimum specified latencies (" + minSpecifiedValue
 						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
-				line.setSeverity(ReportSeverity.ERROR);
-
 			}
 
 			if (expectedMinLatency > minValue) {
-				reportError("sum of minimum actual latencies (" + minSpecifiedValue
+				reportSummaryError("Sum of minimum actual latencies (" + minValue
 						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
-				line.setSeverity(ReportSeverity.ERROR);
-
 			}
 		} else {
-			reportWarning("the minimal latency is not specified");
-			line.setSeverity(ReportSeverity.WARNING);
+			reportSummaryWarning("Minimum end to end latency is not pecified or zero");
 		}
 
 		/**
@@ -249,19 +358,16 @@ public class LatencyReportEntry {
 		 */
 		if (expectedMaxLatency > 0) {
 			if (expectedMaxLatency < maxSpecifiedValue) {
-				reportError("sum of maximum specified latency (" + maxSpecifiedValue
-						+ "ms) exceeds end to end latency (" + expectedMaxLatency + "ms); ");
-				line.setSeverity(ReportSeverity.ERROR);
+				reportSummaryError("Sum of maximum specified latency (" + maxSpecifiedValue
+						+ "ms) exceeds end to end latency (" + expectedMaxLatency + "ms)");
 			}
 
 			if (expectedMaxLatency < maxValue) {
-				reportError("sum of maximum actual latencies (" + maxValue + "ms) exceeds end to end latency ("
+				reportSummaryError("Sum of maximum actual latencies (" + maxValue + "ms) exceeds end to end latency ("
 						+ expectedMaxLatency + "ms)");
-				line.setSeverity(ReportSeverity.ERROR);
 			}
 		} else {
-			reportWarning("the maximal end to end latency is not specified");
-			line.setSeverity(ReportSeverity.WARNING);
+			reportSummaryWarning("End to end latency is not specified");
 		}
 
 		/**
@@ -272,31 +378,28 @@ public class LatencyReportEntry {
 		 */
 		if ((minValue > 0) && (maxValue > 0) && (expectedMaxLatency > 0) && (expectedMinLatency > 0)
 				&& (expectedMinLatency > minValue) && (expectedMaxLatency > maxValue)) {
-			line.setSeverity(ReportSeverity.SUCCESS);
-			reportInfo("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
+			reportSummaryInfo("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
 					+ " calculated from the components is correct with the expected latency specifications");
 		}
 
 		if ((expectedMinLatency < minValue) && (expectedMaxLatency < maxValue)) {
+			// XXX a message?
 			line.setSeverity(ReportSeverity.ERROR);
 		}
 		section.addLine(line);
 
 		if (issues.size() > 0) {
-			for (int n = 0; n < issues.size(); n++) {
+			line = new Line();
+			line.addHeaderContent("End to end Latency Summary");
+			section.addLine(line);
+			for (ReportedCell issue : issues) {
 				line = new Line();
-				if (n == 0) {
-					line.addContent("Informations");
-				} else {
-					line.addContent("");
-				}
-				line.addContent(issues.get(n));
+				String msg = issue.getMessage();
+				issue.setMessage(issue.getSeverity().toString());
+				line.addCell(issue);
+				line.addContent(msg);
 				section.addLine(line);
 			}
-		} else {
-			line = new Line();
-			line.addContent("Nothing to report");
-			section.addLine(line);
 		}
 
 		return section;

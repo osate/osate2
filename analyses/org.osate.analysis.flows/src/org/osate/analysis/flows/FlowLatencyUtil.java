@@ -142,7 +142,8 @@ public class FlowLatencyUtil {
 	public static FlowElementInstance getNextFlowElement(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		int n = etef.getFlowElements().indexOf(flowElementInstance);
-		if (n + 1 < etef.getFlowElements().size()) {
+		int size = etef.getFlowElements().size();
+		if (n + 1 < size) {
 			return etef.getFlowElements().get(n + 1);
 		}
 

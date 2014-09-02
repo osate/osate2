@@ -11,6 +11,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
 
 public class CsvExport extends GenericExport {
@@ -29,8 +30,8 @@ public class CsvExport extends GenericExport {
 		for (Section section : report.getSections()) {
 			result.append("Flow analysis for end to end flow " + section.getName() + System.lineSeparator());
 			for (Line line : section.getLines()) {
-				for (String content : line.getContent()) {
-					result.append(content);
+				for (ReportedCell content : line.getContent()) {
+					result.append(content.getMessage());
 					result.append(",");
 				}
 				result.append(System.lineSeparator());

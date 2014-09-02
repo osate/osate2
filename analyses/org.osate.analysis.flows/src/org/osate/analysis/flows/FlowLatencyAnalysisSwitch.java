@@ -92,15 +92,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					return DONE;
 				}
 				entry = new LatencyReportEntry(etef);
-				entry.setAsynchronous();
-
-				for (FlowElementInstance fei : etef.getFlowElements()) {
-					FlowLatencyLogic.mapFlowElementInstance(etef, fei, entry);
-				}
-				report.addEntry(entry);
-				// sync entry
-				entry = new LatencyReportEntry(etef);
-				entry.setSynchronous();
 
 				for (FlowElementInstance fei : etef.getFlowElements()) {
 					FlowLatencyLogic.mapFlowElementInstance(etef, fei, entry);

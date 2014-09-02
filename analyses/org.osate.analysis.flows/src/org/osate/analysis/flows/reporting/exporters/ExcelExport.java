@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
 
 public class ExcelExport extends GenericExport {
@@ -90,35 +91,31 @@ public class ExcelExport extends GenericExport {
 	}
 
 	private void populateSheet(WritableSheet sheet, Section section) throws RowsExceededException, WriteException {
-		int nbLines;
-		WritableCellFormat format;
-
-		nbLines = 0;
-
+		int row = 0;
 		for (Line line : section.getLines()) {
-			switch (line.getSeverity()) {
-			case ERROR:
-				format = errorBold;
-				break;
-			case WARNING:
-				format = warningBold;
-				break;
-			case SUCCESS:
-				format = successBold;
-				break;
-			default:
-				format = normal;
-				break;
-			}
+			int col = 0;
 
-			for (int col = 0; col < line.getContent().size(); col++) {
-				if (nbLines == 0) {
-					format = normalBold;
-				}
-
-				addLabel(sheet, col, nbLines, line.getContent().get(col), format);
+			for (ReportedCell cell : line.getContent()) {
+				addLabel(sheet, col, row, cell.getMessage(), getCellFormat(cell));
+				col = col + 1;
 			}
-			nbLines = nbLines + 1;
+			row = row + 1;
+		}
+
+	}
+
+	private WritableCellFormat getCellFormat(ReportedCell cell) {
+		switch (cell.getSeverity()) {
+		case ERROR:
+			return error;
+		case WARNING:
+			return warningBold;
+		case SUCCESS:
+			return successBold;
+		case HEADER:
+			return normalBold;
+		default:
+			return normal;
 		}
 
 	}

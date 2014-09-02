@@ -138,66 +138,6 @@ public class FlowLatencyLogicConnection {
 			}
 		}
 
-//		/**
-//		 * Compute the main latency of the connection according to its type: delayed, sampled or immediate.
-//		 */
-//		if (FlowLatencyUtil.getConnectionType(connectionInstance) == ConnectionType.DELAYED) {
-//			/**
-//			 * We checked if the connection is local or not.
-//			 */
-//			if (FlowLatencyUtil.isLocal(connectionInstance)) {
-//
-//				if (nextTaskOrDevice != null) {
-//					double period;
-//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
-//					latencyContributor.setMaximum(period);
-//					latencyContributor.setMinimum(period);
-//					latencyContributor.setComments("The data will be available at the next task/device dispatch");
-//				}
-//			} else {
-//				if (nextTaskOrDevice != null) {
-//					double period;
-//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.PERIOD);
-//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.PERIOD);
-//					latencyContributor.setMaximum(period);
-//					latencyContributor.setMinimum(0.0);
-//					latencyContributor.setComments("Data might arrive at dispatch time or next frame");
-//				}
-//			}
-//
-//		}
-//
-//		if (FlowLatencyUtil.getConnectionType(connectionInstance) == ConnectionType.SAMPLED) {
-//			/**
-//			 * We checked if the connection is local or not.
-//			 */
-//			if (FlowLatencyUtil.isLocal(connectionInstance)) {
-//
-//				if (nextTaskOrDevice != null) {
-//					double period;
-//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-//					latencyContributor.setMaximum(period);
-//					latencyContributor.setMinimum(period);
-//					latencyContributor.setComments("The data will be available at the next task/device dispatch");
-//				}
-//			} else {
-//				if (nextTaskOrDevice != null) {
-//					double period;
-//					period = GetProperties.getPeriodinMS(nextTaskOrDevice.getComponentInstance());
-//					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-//					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-//					latencyContributor.setMaximum(period);
-//					latencyContributor.setMinimum(0.0);
-//					latencyContributor.setComments("Data might arrive at dispatch time or next frame");
-//				}
-//			}
-//		}
-
 		/**
 		 * handle the case when there is no binding to virtual bus or bus.
 		 * In this case we use the latency from the connection itself
