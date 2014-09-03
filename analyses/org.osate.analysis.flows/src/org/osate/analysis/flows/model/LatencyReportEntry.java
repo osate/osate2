@@ -149,6 +149,7 @@ public class LatencyReportEntry {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
 						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
+						reportMinSubtotal(lc, res);
 						lc.reportInfo("Min: Added " + diff + "ms");
 					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 						lc.reportWarning("Min: Task period smaller than partition period");
@@ -160,9 +161,11 @@ public class LatencyReportEntry {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
+					reportMinSubtotal(lc, res);
 					lc.reportInfo("Min: Sync added " + diff + "ms");
 				} else {
 					res = res + lc.getSamplingPeriod();
+					reportMinSubtotal(lc, res);
 				}
 				lastSampled = lc;
 			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED)) {
@@ -171,6 +174,7 @@ public class LatencyReportEntry {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
 						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
+						reportMinSubtotal(lc, res);
 						lc.reportInfo("Min: Added " + diff + "ms");
 					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 						lc.reportWarning("Min: Task period smaller than partition period");
@@ -185,12 +189,14 @@ public class LatencyReportEntry {
 							- FlowLatencyUtil.roundUp(cumMin, lc.getSamplingPeriod());
 					double diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff;
 					res = res + diff;
+					reportMinSubtotal(lc, res);
 					lc.reportInfo("Min: Sync added " + diff + "ms");
 					if (framediff > 0) {
 						lc.reportWarning("Min: Aligned min latency with max by adding " + diff + "ms");
 					}
 				} else {
 					res = res + lc.getSamplingPeriod();
+					reportMinSubtotal(lc, res);
 				}
 				lastSampled = lc;
 			} else if (lc.isPartition() && contributors.indexOf(lc) > 0) {
@@ -202,6 +208,7 @@ public class LatencyReportEntry {
 					if (lc.isPartitionFrame()) {
 						double diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
 						res = res + diff;
+						reportMinSubtotal(lc, res);
 						lc.reportInfo("Min: Sync added " + diff + "ms");
 					} else {
 						// we have a partition offset.
@@ -224,12 +231,14 @@ public class LatencyReportEntry {
 								}
 								double diff = myOffset - prevPlus;
 								res = res + diff;
+								reportMinSubtotal(lc, res);
 								lc.reportInfo("Min: Added " + diff + "ms (offset to offset roundup)");
 							} else {
 								// the previous one is not based on a schedule
 								// this branch should not be reached since both partitions are on same processor, thus have the same schedule
 								double diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
 								res = res + diff;
+								reportMinSubtotal(lc, res);
 								lc.reportInfo("Min: Added " + diff + "ms");
 							}
 						} else {
@@ -237,12 +246,14 @@ public class LatencyReportEntry {
 							// this branch should not be reached since both partitions are on same processor, thus have the same schedule
 							double diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
 							res = res + diff;
+							reportMinSubtotal(lc, res);
 							lc.reportInfo("Min: Added " + diff + "ms");
 						}
 					}
 				} else {
 					// add the period. Even for partition with offset we have the worst case of a period
 					res = res + lc.getSamplingPeriod();
+					reportMinSubtotal(lc, res);
 				}
 				lastSampled = lc;
 
@@ -255,6 +266,7 @@ public class LatencyReportEntry {
 				}
 			} else {
 				res = res + lc.getTotalMinimum();
+				reportMinSubtotal(lc, res);
 			}
 		}
 
@@ -278,6 +290,7 @@ public class LatencyReportEntry {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
 						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
+						reportMaxSubtotal(lc, res);
 						lc.reportInfo("Max: Added " + diff + "ms");
 					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 						lc.reportWarning("Max: Task period smaller than partition period");
@@ -289,6 +302,7 @@ public class LatencyReportEntry {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
+					reportMaxSubtotal(lc, res);
 					lc.reportInfo("Max: Sync added " + diff + "ms");
 				} else {
 					res = res + lc.getSamplingPeriod();
@@ -300,6 +314,7 @@ public class LatencyReportEntry {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
 						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
+						reportMaxSubtotal(lc, res);
 						lc.reportInfo("Max: Added " + diff + "ms");
 					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 						lc.reportWarning("Max: Task period smaller than partition period");
@@ -311,9 +326,11 @@ public class LatencyReportEntry {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
+					reportMaxSubtotal(lc, res);
 					lc.reportInfo("Max: Sync added " + diff + "ms");
 				} else {
 					res = res + lc.getSamplingPeriod();
+					reportMaxSubtotal(lc, res);
 				}
 				lastSampled = lc;
 			} else if (lc.isPartition() && contributors.indexOf(lc) > 0) {
@@ -325,6 +342,7 @@ public class LatencyReportEntry {
 					if (lc.isPartitionFrame()) {
 						double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 						res = res + diff;
+						reportMaxSubtotal(lc, res);
 						lc.reportInfo("Max: Sync added " + diff + "ms");
 					} else {
 						// we have a partition offset.
@@ -347,12 +365,14 @@ public class LatencyReportEntry {
 								}
 								double diff = myOffset - prevPlus;
 								res = res + diff;
+								reportMaxSubtotal(lc, res);
 								lc.reportInfo("Max: Added " + diff + "ms (offset to offset roundup)");
 							} else {
 								// the previous one is not based on a schedule
 								// this branch should not be reached since both partitions are on same processor, thus have the same schedule
 								double diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
 								res = res + diff;
+								reportMaxSubtotal(lc, res);
 								lc.reportInfo("Max: Added " + diff + "ms");
 							}
 						} else {
@@ -360,12 +380,14 @@ public class LatencyReportEntry {
 							// this branch should not be reached since both partitions are on same processor, thus have the same schedule
 							double diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
 							res = res + diff;
+							reportMaxSubtotal(lc, res);
 							lc.reportInfo("Max: Added " + diff + "ms");
 						}
 					}
 				} else {
 					// add the period. Even for partition with offset we have the worst case of a period
 					res = res + lc.getSamplingPeriod();
+					reportMaxSubtotal(lc, res);
 				}
 				lastSampled = lc;
 
@@ -378,10 +400,19 @@ public class LatencyReportEntry {
 				}
 			} else {
 				res = res + lc.getTotalMaximum();
+				reportMaxSubtotal(lc, res);
 			}
 		}
 
 		return res;
+	}
+
+	public void reportMaxSubtotal(LatencyContributor lc, double val) {
+		lc.setMaxSubtotal(val);
+	}
+
+	public void reportMinSubtotal(LatencyContributor lc, double val) {
+		lc.setMinSubtotal(val);
 	}
 
 	public double getMaximumSpecifiedLatency() {
