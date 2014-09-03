@@ -3157,9 +3157,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				destinationClassifier = ((Feature) destination).getAllClassifier();
 			}
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning(connection, '\'' + source.getName() + "' is missing a classifier.");
+				warning('\'' + source.getName() + "' is missing a classifier.", connection,
+						Aadl2Package.eINSTANCE.getConnection_Source());
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning(connection, '\'' + destination.getName() + "' is missing a classifier.");
+				warning('\'' + destination.getName() + "' is missing a classifier.", connection,
+						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(connection,
 						ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
@@ -3187,8 +3189,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				} else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
 					if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier, sourceClassifier)) {
-						warning(connection, "Source classifier " + sourceClassifier.getName()
-								+ " is not a 'Type Extension' of destination " + destinationClassifier.getName());
+						warning("Source classifier " + sourceClassifier.getName()
+								+ " is not a 'Type Extension' of destination " + destinationClassifier.getName(),
+								connection, Aadl2Package.eINSTANCE.getConnection_Source());
 					}
 				} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
