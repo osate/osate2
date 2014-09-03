@@ -69,8 +69,9 @@ public class LatencyReportEntry {
 			return 0;
 		}
 		int idx = this.contributors.indexOf(lastSampled);
-		if (idx < 0)
+		if (idx < 0) {
 			return 0;
+		}
 		for (int i = idx + 1; i < this.contributors.size(); i++) {
 			LatencyContributor lc = this.contributors.get(i);
 			if (!(lc.isSamplingContributor())) {
@@ -136,6 +137,8 @@ public class LatencyReportEntry {
 
 	public double getMinimumActualLatency() {
 		double res = 0.0;
+		double diff;
+
 		for (LatencyContributor lc : contributors) {
 			if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
 				// skip the first sampled if it is the first element in the contributor list
@@ -147,7 +150,7 @@ public class LatencyReportEntry {
 				LatencyContributor last = getPrevious(lc);
 				if (last != null && last.isPartition()) {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
-						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
 						reportMinSubtotal(lc, res);
 						lc.reportInfo("Min: Added " + diff + "ms");
@@ -159,7 +162,7 @@ public class LatencyReportEntry {
 				} else if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
 						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
-					double diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
+					diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
 					reportMinSubtotal(lc, res);
 					lc.reportInfo("Min: Sync added " + diff + "ms");
@@ -172,7 +175,7 @@ public class LatencyReportEntry {
 				LatencyContributor last = getPrevious(lc);
 				if (last.isPartition()) {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
-						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
 						reportMinSubtotal(lc, res);
 						lc.reportInfo("Min: Added " + diff + "ms");
@@ -187,7 +190,7 @@ public class LatencyReportEntry {
 					double cumMin = getMinimumCumLatency(lc);
 					double framediff = FlowLatencyUtil.roundUp(getMaximumCumLatency(lc), lc.getSamplingPeriod())
 							- FlowLatencyUtil.roundUp(cumMin, lc.getSamplingPeriod());
-					double diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff;
+					diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff;
 					res = res + diff;
 					reportMinSubtotal(lc, res);
 					lc.reportInfo("Min: Sync added " + diff + "ms");
@@ -206,7 +209,7 @@ public class LatencyReportEntry {
 						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					if (lc.isPartitionFrame()) {
-						double diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
+						diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
 						res = res + diff;
 						reportMinSubtotal(lc, res);
 						lc.reportInfo("Min: Sync added " + diff + "ms");
@@ -229,22 +232,24 @@ public class LatencyReportEntry {
 								while ((myOffset - prevPlus) < 0) {
 									myOffset = myOffset + lc.getSamplingPeriod();
 								}
-								double diff = myOffset - prevPlus;
+								diff = myOffset - prevPlus;
 								res = res + diff;
 								reportMinSubtotal(lc, res);
 								lc.reportInfo("Min: Added " + diff + "ms (offset to offset roundup)");
 							} else {
 								// the previous one is not based on a schedule
-								// this branch should not be reached since both partitions are on same processor, thus have the same schedule
-								double diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
+								// this branch should not be reached since both partitions are on same processor, thus
+// have the same schedule
+								diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
 								res = res + diff;
 								reportMinSubtotal(lc, res);
 								lc.reportInfo("Min: Added " + diff + "ms");
 							}
 						} else {
 							// the previous one is not based on a schedule
-							// this branch should not be reached since both partitions are on same processor, thus have the same schedule
-							double diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
+							// this branch should not be reached since both partitions are on same processor, thus have
+// the same schedule
+							diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
 							res = res + diff;
 							reportMinSubtotal(lc, res);
 							lc.reportInfo("Min: Added " + diff + "ms");
@@ -273,10 +278,12 @@ public class LatencyReportEntry {
 		return res;
 	}
 
-	// TODO for downsampling we can distinguish between most recent data sample (sender Period) and event (Receiver period)
+	// TODO for downsampling we can distinguish between most recent data sample (sender Period) and event (Receiver
+// period)
 
 	public double getMaximumActualLatency() {
 		double res = 0.0;
+		double diff;
 		for (LatencyContributor lc : contributors) {
 			if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
 				// skip the first sampled if it is the first element in the contributor list
@@ -288,7 +295,7 @@ public class LatencyReportEntry {
 				LatencyContributor last = getPrevious(lc);
 				if (last != null && last.isPartition()) {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
-						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
 						reportMaxSubtotal(lc, res);
 						lc.reportInfo("Max: Added " + diff + "ms");
@@ -300,7 +307,7 @@ public class LatencyReportEntry {
 				} else if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
 						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
-					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
+					diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
 					reportMaxSubtotal(lc, res);
 					lc.reportInfo("Max: Sync added " + diff + "ms");
@@ -312,7 +319,7 @@ public class LatencyReportEntry {
 				LatencyContributor last = getPrevious(lc);
 				if (last.isPartition()) {
 					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
-						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
 						reportMaxSubtotal(lc, res);
 						lc.reportInfo("Max: Added " + diff + "ms");
@@ -324,7 +331,7 @@ public class LatencyReportEntry {
 				} else if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
 						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
-					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
+					diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
 					reportMaxSubtotal(lc, res);
 					lc.reportInfo("Max: Sync added " + diff + "ms");
@@ -340,7 +347,7 @@ public class LatencyReportEntry {
 						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					if (lc.isPartitionFrame()) {
-						double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
+						diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 						res = res + diff;
 						reportMaxSubtotal(lc, res);
 						lc.reportInfo("Max: Sync added " + diff + "ms");
@@ -363,22 +370,24 @@ public class LatencyReportEntry {
 								while ((myOffset - prevPlus) < 0) {
 									myOffset = myOffset + lc.getSamplingPeriod();
 								}
-								double diff = myOffset - prevPlus;
+								diff = myOffset - prevPlus;
 								res = res + diff;
 								reportMaxSubtotal(lc, res);
 								lc.reportInfo("Max: Added " + diff + "ms (offset to offset roundup)");
 							} else {
 								// the previous one is not based on a schedule
-								// this branch should not be reached since both partitions are on same processor, thus have the same schedule
-								double diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
+								// this branch should not be reached since both partitions are on same processor, thus
+// have the same schedule
+								diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
 								res = res + diff;
 								reportMaxSubtotal(lc, res);
 								lc.reportInfo("Max: Added " + diff + "ms");
 							}
 						} else {
 							// the previous one is not based on a schedule
-							// this branch should not be reached since both partitions are on same processor, thus have the same schedule
-							double diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
+							// this branch should not be reached since both partitions are on same processor, thus have
+// the same schedule
+							diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
 							res = res + diff;
 							reportMaxSubtotal(lc, res);
 							lc.reportInfo("Max: Added " + diff + "ms");
@@ -543,12 +552,12 @@ public class LatencyReportEntry {
 		 * In that case, the end to end flow has a minimum latency
 		 */
 		if (expectedMinLatency > 0) {
-			if (expectedMinLatency > minSpecifiedValue) {
+			if (expectedMinLatency < minSpecifiedValue) {
 				reportSummaryWarning("Sum of minimum specified latencies (" + minSpecifiedValue
 						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
 			}
 
-			if (expectedMinLatency > minValue) {
+			if (expectedMinLatency < minValue) {
 				reportSummaryError("Sum of minimum actual latencies (" + minValue
 						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
 			}
