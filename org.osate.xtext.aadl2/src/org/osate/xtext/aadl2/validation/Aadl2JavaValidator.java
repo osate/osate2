@@ -3856,6 +3856,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			} else if (source instanceof Subcomponent) {
 				sourceClassifier = ((Subcomponent) source).getAllClassifier();
 				invert = true;
+			} else if (source instanceof SubprogramProxy) {
+				sourceClassifier = ((SubprogramProxy) source).getSubprogramClassifier();
 			}
 			if (destination instanceof Access) {
 				dstkind = ((Access) destination).getKind();
@@ -3863,6 +3865,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				dstCxt = connection.getAllDestinationContext();
 			} else if (destination instanceof Subcomponent) {
 				destinationClassifier = ((Subcomponent) destination).getAllClassifier();
+			} else if (destination instanceof SubprogramProxy) {
+				destinationClassifier = ((SubprogramProxy) destination).getSubprogramClassifier();
 			}
 			// now we have the classifier
 
