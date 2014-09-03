@@ -3531,43 +3531,42 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkPortConnectionEnds(PortConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
-		if (Aadl2Util.isNull(source) || Aadl2Util.isNull(destination)) {
-			return;
-		}
-		if (source instanceof EventPort && !(destination instanceof EventPort)) {
-			error(connection, "Source event port '" + source.getName()
-					+ "' must be connected to an event port destination.");
-			return;
-		}
-		if (source instanceof DataPort
-				&& !(destination instanceof EventPort || destination instanceof DataPort
-						|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)) {
-			error(connection,
-					"Source data port '"
-							+ source.getName()
-							+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
-			return;
-		}
-		if (source instanceof EventDataPort
-				&& !(destination instanceof EventPort || destination instanceof DataPort
-						|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)) {
-			error(connection,
-					"Source event data port '"
-							+ source.getName()
-							+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
-			return;
-		}
-		if (source instanceof DataSubcomponent
-				&& !(destination instanceof EventPort || destination instanceof DataPort || destination instanceof EventDataPort)) {
-			error(connection, "Source data subcomponent '" + source.getName()
-					+ "' must be connected to an event, data, or event data port destination.");
-			return;
-		}
-		if (source instanceof DataAccess
-				&& !(destination instanceof EventPort || destination instanceof DataPort || destination instanceof EventDataPort)) {
-			error(connection, "Source data access feature '" + source.getName()
-					+ "' must be connected to an event, data, or event data port destination.");
-			return;
+		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
+			if (source instanceof EventPort && !(destination instanceof EventPort)) {
+				error(connection, "Source event port '" + source.getName()
+						+ "' must be connected to an event port destination.");
+				return;
+			}
+			if (source instanceof DataPort
+					&& !(destination instanceof EventPort || destination instanceof DataPort
+							|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)) {
+				error(connection,
+						"Source data port '"
+								+ source.getName()
+								+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+				return;
+			}
+			if (source instanceof EventDataPort
+					&& !(destination instanceof EventPort || destination instanceof DataPort
+							|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)) {
+				error(connection,
+						"Source event data port '"
+								+ source.getName()
+								+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+				return;
+			}
+			if (source instanceof DataSubcomponent
+					&& !(destination instanceof EventPort || destination instanceof DataPort || destination instanceof EventDataPort)) {
+				error(connection, "Source data subcomponent '" + source.getName()
+						+ "' must be connected to an event, data, or event data port destination.");
+				return;
+			}
+			if (source instanceof DataAccess
+					&& !(destination instanceof EventPort || destination instanceof DataPort || destination instanceof EventDataPort)) {
+				error(connection, "Source data access feature '" + source.getName()
+						+ "' must be connected to an event, data, or event data port destination.");
+				return;
+			}
 		}
 	}
 
