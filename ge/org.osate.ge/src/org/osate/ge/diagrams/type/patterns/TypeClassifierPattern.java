@@ -29,6 +29,7 @@ import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
 import org.osate.ge.services.AadlFeatureService;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.LayoutService;
@@ -48,11 +49,12 @@ public class TypeClassifierPattern extends AgePattern {
 	private final ConnectionCreationService connectionCreationService;
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
+	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public TypeClassifierPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeCreationService shapeCreationService,
 			final AadlFeatureService featureService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
-			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
+			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final BusinessObjectResolutionService bor) {
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = layoutService;
 		this.shapeCreationService = shapeCreationService;
@@ -60,6 +62,7 @@ public class TypeClassifierPattern extends AgePattern {
 		this.connectionCreationService = connectionCreationService;
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
+		this.bor = bor;
 	}
 	
 	@Override
@@ -85,7 +88,20 @@ public class TypeClassifierPattern extends AgePattern {
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return false;
+		return true;
+	}
+	
+	@Override
+	public void resizeShape(final IResizeShapeContext context) {
+		super.resizeShape(context);
+
+		// Refresh
+		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
+		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(shape);
+		this.refresh(shape, classifier, context.getX(), context.getY());
+
+		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
 	}
 	
 	@Override
