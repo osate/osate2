@@ -61,12 +61,10 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
@@ -85,7 +83,6 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
@@ -295,16 +292,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 			if (context instanceof ConnectedElement) {
 				// connection context
-				EObject conn = context.eContainer();
-				if (((conn instanceof FeatureGroupConnection || conn instanceof FeatureConnection) && (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup))
-						|| ((conn instanceof AccessConnection) && (searchResult instanceof Subcomponent
-								|| searchResult instanceof FeatureGroup || searchResult instanceof SubprogramCall))
-						|| ((conn instanceof ParameterConnection) && (searchResult instanceof Parameter
-								|| searchResult instanceof SubprogramCall || searchResult instanceof DataPort
-								|| searchResult instanceof EventDataPort || searchResult instanceof FeatureGroup))
-						|| ((conn instanceof PortConnection) && (searchResult instanceof FeatureGroup
-								|| searchResult instanceof Subcomponent || searchResult instanceof SubprogramCall
-								|| searchResult instanceof DataPort || searchResult instanceof EventDataPort))) {
+				if (searchResult instanceof Context) {
 					return Collections.singletonList(searchResult);
 				}
 			} else if (context instanceof ModeTransitionTrigger || context instanceof FlowEnd
