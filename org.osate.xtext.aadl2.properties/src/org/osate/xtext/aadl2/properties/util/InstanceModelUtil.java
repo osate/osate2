@@ -334,9 +334,8 @@ public class InstanceModelUtil {
 
 	/**
 	 * return the hardware component of the connection instance end.
-	 * If its enclosing component is a hardware component or device return it. 
-	 * If its enclosing component  is a software component, return the processor it is bound to.
-	 * If its enclosing component is a software component, then look for the processor it is bound to.
+	 * If it is a hardware component or device return it. 
+	 * If it is a software component, return the processor it is bound to.
 	 * If it is a component instance (BUS), return the bus
 	 * If it is a DATA, SUBPROGRAM, or SUBPROGRAM GROUP component instance, then return the memory it is bound to. 
 	 * @param cie
@@ -374,8 +373,7 @@ public class InstanceModelUtil {
 		if (cil.isEmpty())
 			return null;
 		for (ComponentInstance ci : cil) {
-			if (ci.getCategory() == ComponentCategory.PROCESSOR || ci.getCategory() == ComponentCategory.SYSTEM
-					|| ci.getCategory() == ComponentCategory.ABSTRACT) {
+			if (isProcessor(ci) || isSystem(ci) || isAbstract(ci)) {
 				return ci;
 			}
 		}
@@ -428,6 +426,14 @@ public class InstanceModelUtil {
 			}
 			// we should not have another else
 		}
+		if (isVirtualProcessor(componentInstance)) {
+			// check whether VP is a subcomponent of a processor
+			ComponentInstance res = getEnclosingProcessor(componentInstance);
+			if (res != null) {
+				result.add(res);
+			}
+
+		}
 	}
 
 	/**
@@ -446,7 +452,7 @@ public class InstanceModelUtil {
 	 * @param componentInstance
 	 * @return virtual processor instance
 	 */
-	public static Collection<ComponentInstance> getALlBoundVirtualProcessors(ComponentInstance componentInstance) {
+	public static Collection<ComponentInstance> getAllBoundVirtualProcessors(ComponentInstance componentInstance) {
 		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
 		addBoundVirtualProcessors(componentInstance, actualProcs, true);
 		return actualProcs;
