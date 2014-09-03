@@ -271,13 +271,15 @@ public class SubcomponentPattern extends AgePattern {
         final Shape labelShape = peCreateService.createShape(shape, false);
         this.link(labelShape, new AadlElementWrapper(sc));
         final String name = getLabelText(sc);
-        final Text labelText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, name);
+        final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
+        final Text labelText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, name);
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getStyle().getFont());
         
 		// Create Subcomponent Type Indicator
         final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
         final String subcomponentTypeName = sc.getSubcomponentType() == null ? "" : sc.getSubcomponentType().getQualifiedName();
-        final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeIndicatorShape, subcomponentTypeName);
+        final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
+        final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
         final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont());
         
 		// Adjust size. Width and height
@@ -306,8 +308,10 @@ public class SubcomponentPattern extends AgePattern {
 		ga.setFilled(false);
 		
 		// Set the position of the text
-		gaService.setLocationAndSize(labelText, 0, 0, ga.getWidth(), 20);
-		gaService.setLocationAndSize(subcomponentTypeText, 0, labelText.getY()+textSize.getHeight(), ga.getWidth(), 20);
+		gaService.setLocationAndSize(labelText, 0, 0, textSize.getWidth(), textSize.getHeight());
+		gaService.setLocationAndSize(labelBackground, (ga.getWidth() - textSize.getWidth()) / 2, 0, textSize.getWidth(), textSize.getHeight());
+		gaService.setLocationAndSize(subcomponentTypeText, 0, 0, subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
+		gaService.setLocationAndSize(subcomponentTypeLabelBackground, (ga.getWidth() - subcomponentTypeTextSize.getWidth()) / 2, labelText.getY()+textSize.getHeight(), subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
 		
 		// Set color based on current mode
 		highlightingHelper.highlight(sc, null, ga);		

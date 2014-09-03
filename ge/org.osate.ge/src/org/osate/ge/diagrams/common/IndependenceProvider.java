@@ -270,27 +270,29 @@ public class IndependenceProvider implements IIndependenceSolver {
 	private NamedElement findNamedElementInClassifier(final Classifier c, final String[] pathSegs, final int i, Set<Classifier> checkedClassifiers) {
 		final String seg = pathSegs[i];
 		
-		for(final NamedElement member : c.getOwnedMembers()) {
-			final String name = member.getName();
-			if(name != null) {
-				if(name.equalsIgnoreCase(seg)) {
-					final NamedElement result = findNamedElement(member, pathSegs, i+1);
+		if(c != null) {
+			for(final NamedElement member : c.getOwnedMembers()) {
+				final String name = member.getName();
+				if(name != null) {
+					if(name.equalsIgnoreCase(seg)) {
+						final NamedElement result = findNamedElement(member, pathSegs, i+1);
+						if(result != null) {
+							return result;
+						}
+					} 
+				}
+			}
+			
+			for (Generalization g : c.getGeneralizations()) {
+				final Classifier gc = g.getGeneral();
+				// Only check the generalization if it has not been checked yet. This protects against cycles.
+				if(!checkedClassifiers.contains(gc)) {
+					checkedClassifiers.add(gc);
+					final NamedElement result = findNamedElementInClassifier(gc, pathSegs, i, checkedClassifiers);
 					if(result != null) {
 						return result;
-					}
-				} 
-			}
-		}
-		
-		for (Generalization g : c.getGeneralizations()) {
-			final Classifier gc = g.getGeneral();
-			// Only check the generalization if it has not been checked yet. This protects against cycles.
-			if(!checkedClassifiers.contains(gc)) {
-				checkedClassifiers.add(gc);
-				final NamedElement result = findNamedElementInClassifier(gc, pathSegs, i, checkedClassifiers);
-				if(result != null) {
-					return result;
-				}				
+					}				
+				}
 			}
 		}
 		
