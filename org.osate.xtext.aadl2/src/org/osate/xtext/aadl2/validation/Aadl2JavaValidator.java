@@ -3867,9 +3867,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			// now we have the classifier
 
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning(connection, '\'' + source.getName() + "' is missing a classifier.");
+				warning('\'' + source.getName() + "' is missing a classifier.", connection,
+						Aadl2Package.eINSTANCE.getConnection_Source());
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning(connection, '\'' + destination.getName() + "' is missing a classifier.");
+				warning('\'' + destination.getName() + "' is missing a classifier.", connection,
+						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(connection,
 						ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
@@ -3911,14 +3913,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 					if (invert) {
 						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier, sourceClassifier)) {
-							warning(connection, "Destination classifier " + destinationClassifier.getName()
-									+ " connected to " + sourceClassifier.getName()
-									+ " does not satisfy 'Type Extension'");
+							warning("Destination classifier " + destinationClassifier.getName() + " connected to "
+									+ sourceClassifier.getName() + " does not satisfy 'Type Extension'", connection,
+									Aadl2Package.eINSTANCE.getConnection_Destination());
 						}
 					} else {
 						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(sourceClassifier, destinationClassifier)) {
-							warning(connection, "Source classifier " + sourceClassifier.getName() + " connected to "
-									+ destinationClassifier.getName() + " does not satisfy 'Type Extension'");
+							warning("Source classifier " + sourceClassifier.getName() + " connected to "
+									+ destinationClassifier.getName() + " does not satisfy 'Type Extension'",
+									connection, Aadl2Package.eINSTANCE.getConnection_Source());
 						}
 					}
 				} else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
