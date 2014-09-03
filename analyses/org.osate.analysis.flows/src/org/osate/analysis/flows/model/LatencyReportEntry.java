@@ -3,6 +3,7 @@ package org.osate.analysis.flows.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
@@ -52,10 +53,6 @@ public class LatencyReportEntry {
 
 	public void addContributor(LatencyContributor lc) {
 		this.contributors.add(lc);
-		if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED)
-				|| lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED)) {
-			lastSampled = lc;
-		}
 	}
 
 	public void setLastSampled(LatencyContributor lc) {
@@ -76,8 +73,7 @@ public class LatencyReportEntry {
 			return 0;
 		for (int i = idx + 1; i < this.contributors.size(); i++) {
 			LatencyContributor lc = this.contributors.get(i);
-			if (!(lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED) || lc
-					.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED))) {
+			if (!(lc.isSamplingContributor())) {
 				result = result + lc.getTotalMinimum();
 			}
 			if (lc == current) {
@@ -95,10 +91,9 @@ public class LatencyReportEntry {
 		int idx = this.contributors.indexOf(lastSampled);
 		if (idx < 0)
 			return 0;
-		for (int i = idx; i < this.contributors.size(); i++) {
+		for (int i = idx + 1; i < this.contributors.size(); i++) {
 			LatencyContributor lc = this.contributors.get(i);
-			if (!(lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED) || lc
-					.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED))) {
+			if (!(lc.isSamplingContributor())) {
 				result = result + lc.getTotalMaximum();
 			}
 			if (lc == current) {
@@ -112,6 +107,33 @@ public class LatencyReportEntry {
 		return this.contributors;
 	}
 
+	public LatencyContributor getPrevious(LatencyContributor lc) {
+		int idx = contributors.indexOf(lc);
+		return idx == 0 ? null : contributors.get(idx - 1);
+	}
+
+	public boolean isPreviousConnectionSynchronous(LatencyContributor lc) {
+		int idx = contributors.indexOf(lc);
+		for (int i = idx - 1; i >= 0; i--) {
+			LatencyContributor plc = contributors.get(idx - 1);
+			if (plc.getContributor() instanceof ConnectionInstance) {
+				return plc.isSynchronous();
+			}
+		}
+		return false;
+	}
+
+	public boolean isPreviousConnectionUnknown(LatencyContributor lc) {
+		int idx = contributors.indexOf(lc);
+		for (int i = idx - 1; i >= 0; i--) {
+			LatencyContributor plc = contributors.get(idx - 1);
+			if (plc.getContributor() instanceof ConnectionInstance) {
+				return plc.isUnknown();
+			}
+		}
+		return false;
+	}
+
 	public double getMinimumActualLatency() {
 		double res = 0.0;
 		for (LatencyContributor lc : contributors) {
@@ -122,41 +144,115 @@ public class LatencyReportEntry {
 				lastSampled = lc;
 			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED)) {
 				// lets deal with the sampling case
-				if (doSynchronous() && wasSampled()) {
+				LatencyContributor last = getPrevious(lc);
+				if (last != null && last.isPartition()) {
+					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
+						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						res = res + diff;
+						lc.reportInfo("Min: Added " + diff + "ms");
+					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
+						lc.reportWarning("Min: Task period smaller than partition period");
+					} else {
+						lc.reportInfo("Min: No added latency");
+					}
+				} else if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
+						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
-					lc.setComments("Added " + diff + "ms");
+					lc.reportInfo("Min: Sync added " + diff + "ms");
 				} else {
 					res = res + lc.getSamplingPeriod();
 				}
 				lastSampled = lc;
 			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED)) {
-				if (doSynchronous() && wasSampled()) {
+				LatencyContributor last = getPrevious(lc);
+				if (last.isPartition()) {
+					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
+						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						res = res + diff;
+						lc.reportInfo("Min: Added " + diff + "ms");
+					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
+						lc.reportWarning("Min: Task period smaller than partition period");
+					} else {
+						lc.reportInfo("Min: No added latency");
+					}
+				} else if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
+						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
-//					double framediff = FlowLatencyUtil.roundUp(cummax, period) - FlowLatencyUtil.roundUp(cummin, period);
-//					latencyContributor.setMinimum(FlowLatencyUtil.roundUpDiff(cummin, period) + framediff);
-//					latencyContributor
-//							.setComments("Recipient period difference as sampling latency. Min frames aligned with max frames.");
 					double cumMin = getMinimumCumLatency(lc);
 					double framediff = FlowLatencyUtil.roundUp(getMaximumCumLatency(lc), lc.getSamplingPeriod())
 							- FlowLatencyUtil.roundUp(cumMin, lc.getSamplingPeriod());
 					double diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff;
 					res = res + diff;
-					lc.setComments("Added " + diff + "ms");
+					lc.reportInfo("Min: Sync added " + diff + "ms");
 					if (framediff > 0) {
-						lc.reportWarning("Aligned min latency with max by adding " + diff + "ms");
+						lc.reportWarning("Min: Aligned min latency with max by adding " + diff + "ms");
 					}
 				} else {
 					res = res + lc.getSamplingPeriod();
 				}
 				lastSampled = lc;
+			} else if (lc.isPartition() && contributors.indexOf(lc) > 0) {
+				// ignore if partition is the first entry as it goes along with FIRST_SAMPLED
+				// partition boundary has been crossed
+				if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
+						&& wasSampled()) {
+					// there was a previous sampling component. We can to the roundup game.
+					if (lc.isPartitionFrame()) {
+						double diff = FlowLatencyUtil.roundUpDiff(getMinimumCumLatency(lc), lc.getSamplingPeriod());
+						res = res + diff;
+						lc.reportInfo("Min: Sync added " + diff + "ms");
+					} else {
+						// we have a partition offset.
+						double mincum = getMinimumCumLatency(lc);
+						double myOffset = lc.getSamplingOffset();
+						if (myOffset > -1) {
+							double prevOffset = -1;
+							if (lastSampled.isPartitionOffset()) {
+								prevOffset = lastSampled.getSamplingOffset();
+							}
+							LatencyContributor prev = getPrevious(lastSampled);
+							if (prevOffset == -1 && prev != null && prev.isPartitionOffset()) {
+								prevOffset = prev.getSamplingOffset();
+							}
+							if (prevOffset > -1) {
+								// now we do the offset based roundup
+								double prevPlus = prevOffset + mincum;
+								while ((myOffset - prevPlus) < 0) {
+									myOffset = myOffset + lc.getSamplingPeriod();
+								}
+								double diff = myOffset - prevPlus;
+								res = res + diff;
+								lc.reportInfo("Min: Added " + diff + "ms (offset to offset roundup)");
+							} else {
+								// the previous one is not based on a schedule
+								// this branch should not be reached since both partitions are on same processor, thus have the same schedule
+								double diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
+								res = res + diff;
+								lc.reportInfo("Min: Added " + diff + "ms");
+							}
+						} else {
+							// the previous one is not based on a schedule
+							// this branch should not be reached since both partitions are on same processor, thus have the same schedule
+							double diff = FlowLatencyUtil.roundUpDiff(mincum, lc.getSamplingPeriod());
+							res = res + diff;
+							lc.reportInfo("Min: Added " + diff + "ms");
+						}
+					}
+				} else {
+					// add the period. Even for partition with offset we have the worst case of a period
+					res = res + lc.getSamplingPeriod();
+				}
+				lastSampled = lc;
+
 			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.IMMEDIATE)) {
 				// no sampling. We are part of an immediate connection sequence
 			} else if (lc.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.LAST_IMMEDIATE)) {
 				// No sampling. we are the last of an immediate connection sequence.
-				// XXX: However, the cumulative values should not exceed the deadline of the last.
-
+				if (lc.getDeadline() > 0.0 && getMinimumCumLatency(lc) > lc.getDeadline()) {
+					lc.reportError("Min immediate latency sequence exceeds deadline " + lc.getDeadline() + "ms");
+				}
 			} else {
 				res = res + lc.getTotalMinimum();
 			}
@@ -177,25 +273,102 @@ public class LatencyReportEntry {
 				lastSampled = lc;
 			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED)) {
 				// lets deal with the sampling case
-				if ((doSynchronous() || lc.isSynchronous()) && wasSampled()) {
+				LatencyContributor last = getPrevious(lc);
+				if (last != null && last.isPartition()) {
+					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
+						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						res = res + diff;
+						lc.reportInfo("Max: Added " + diff + "ms");
+					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
+						lc.reportWarning("Max: Task period smaller than partition period");
+					} else {
+						lc.reportInfo("Max: No added latency");
+					}
+				} else if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
+						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
-					lc.setComments("Added " + diff + "ms");
+					lc.reportInfo("Max: Sync added " + diff + "ms");
 				} else {
 					res = res + lc.getSamplingPeriod();
 				}
 				lastSampled = lc;
 			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.DELAYED)) {
-				if (doSynchronous() && wasSampled()) {
+				LatencyContributor last = getPrevious(lc);
+				if (last.isPartition()) {
+					if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
+						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
+						res = res + diff;
+						lc.reportInfo("Max: Added " + diff + "ms");
+					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
+						lc.reportWarning("Max: Task period smaller than partition period");
+					} else {
+						lc.reportInfo("Max: No added latency");
+					}
+				} else if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
+						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
 					res = res + diff;
-					lc.setComments("Added " + diff + "ms");
+					lc.reportInfo("Max: Sync added " + diff + "ms");
 				} else {
 					res = res + lc.getSamplingPeriod();
 				}
 				lastSampled = lc;
+			} else if (lc.isPartition() && contributors.indexOf(lc) > 0) {
+				// ignore if partition is the first entry as it goes along with FIRST_SAMPLED
+				// partition boundary has been crossed
+				if (((doSynchronous() && isPreviousConnectionUnknown(lc)) || isPreviousConnectionSynchronous(lc))
+						&& wasSampled()) {
+					// there was a previous sampling component. We can to the roundup game.
+					if (lc.isPartitionFrame()) {
+						double diff = FlowLatencyUtil.roundUpDiff(getMaximumCumLatency(lc), lc.getSamplingPeriod());
+						res = res + diff;
+						lc.reportInfo("Max: Sync added " + diff + "ms");
+					} else {
+						// we have a partition offset.
+						double maxCum = getMaximumCumLatency(lc);
+						double myOffset = lc.getSamplingOffset();
+						if (myOffset > -1) {
+							double prevOffset = -1;
+							if (lastSampled.isPartitionOffset()) {
+								prevOffset = lastSampled.getSamplingOffset();
+							}
+							LatencyContributor prev = getPrevious(lastSampled);
+							if (prevOffset == -1 && prev != null && prev.isPartitionOffset()) {
+								prevOffset = prev.getSamplingOffset();
+							}
+							if (prevOffset > -1) {
+								// now we do the offset based roundup
+								double prevPlus = prevOffset + maxCum;
+								while ((myOffset - prevPlus) < 0) {
+									myOffset = myOffset + lc.getSamplingPeriod();
+								}
+								double diff = myOffset - prevPlus;
+								res = res + diff;
+								lc.reportInfo("Max: Added " + diff + "ms (offset to offset roundup)");
+							} else {
+								// the previous one is not based on a schedule
+								// this branch should not be reached since both partitions are on same processor, thus have the same schedule
+								double diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
+								res = res + diff;
+								lc.reportInfo("Max: Added " + diff + "ms");
+							}
+						} else {
+							// the previous one is not based on a schedule
+							// this branch should not be reached since both partitions are on same processor, thus have the same schedule
+							double diff = FlowLatencyUtil.roundUpDiff(maxCum, lc.getSamplingPeriod());
+							res = res + diff;
+							lc.reportInfo("Max: Added " + diff + "ms");
+						}
+					}
+				} else {
+					// add the period. Even for partition with offset we have the worst case of a period
+					res = res + lc.getSamplingPeriod();
+				}
+				lastSampled = lc;
+
 			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.IMMEDIATE)) {
 				// no sampling. We are part of an immediate connection sequence
 			} else if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.LAST_IMMEDIATE)) {
@@ -297,7 +470,6 @@ public class LatencyReportEntry {
 		line.addHeaderContent("Max Value");
 		line.addHeaderContent("Max Method");
 		line.addHeaderContent("Comments");
-		line.addHeaderContent("Issues");
 		section.addLine(line);
 
 		// will populate the comments section
@@ -380,11 +552,6 @@ public class LatencyReportEntry {
 				&& (minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)) {
 			reportSummaryInfo("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
 					+ " calculated from the components is correct with the expected latency specifications");
-		}
-
-		if ((expectedMinLatency < minValue) && (expectedMaxLatency < maxValue)) {
-			// XXX a message?
-			line.setSeverity(ReportSeverity.ERROR);
 		}
 		section.addLine(line);
 

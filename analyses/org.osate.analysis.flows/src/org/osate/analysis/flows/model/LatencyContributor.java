@@ -66,14 +66,14 @@ public abstract class LatencyContributor {
 	private double deadline;
 
 	/**
+	 * Sampling offset for partition frame
+	 */
+	private double samplingOffset;
+
+	/**
 	 * Sampling period for SAMPLED, DELAYED, or partition related
 	 */
 	private double samplingPeriod;
-
-	/**
-	 * Some comments we would like to add in the report.
-	 */
-	private String comments;
 
 	List<ReportedCell> issues;
 
@@ -82,10 +82,10 @@ public abstract class LatencyContributor {
 	 * Set if model indicates so. The doSynchronous value is examined if this is not set.
 	 */
 	public enum SynchronizeType {
-		Asynchronous, Synchronous
+		Asynchronous, Synchronous, Unknown
 	};
 
-	private SynchronizeType isSynchronized = SynchronizeType.Asynchronous;
+	private SynchronizeType isSynchronized = SynchronizeType.Unknown;
 
 	/**
 	 * methods represent what is the model elements used
@@ -107,14 +107,15 @@ public abstract class LatencyContributor {
 	public LatencyContributor() {
 		this.worstCaseMethod = LatencyContributorMethod.UNKNOWN;
 		this.bestCaseMethod = LatencyContributorMethod.UNKNOWN;
+		this.isSynchronized = SynchronizeType.Unknown;
 		this.minValue = 0.0;
 		this.maxValue = 0.0;
 		this.expectedMax = 0.0;
 		this.expectedMin = 0.0;
 		this.deadline = 0.0;
 		this.samplingPeriod = 0.0;
+		this.samplingOffset = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
-		this.comments = "";
 		this.issues = new ArrayList<ReportedCell>();
 	}
 
@@ -127,9 +128,14 @@ public abstract class LatencyContributor {
 		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
 	}
 
-	public void reportInfo(String str) {
+	public void reportSuccess(String str) {
 		CheckFlowLatency.getInstance().info(this.relatedElement, str);
 		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
+	}
+
+	public void reportInfo(String str) {
+		CheckFlowLatency.getInstance().info(this.relatedElement, str);
+		issues.add(new ReportedCell(ReportSeverity.UNKNOWN, str));
 	}
 
 	public void reportWarning(String str) {
@@ -141,23 +147,15 @@ public abstract class LatencyContributor {
 		return relatedElement.getName();
 	}
 
+	protected NamedElement getContributor() {
+		return relatedElement;
+	}
+
 	protected String getFullContributorName() {
 		return relatedElement.getFullName();
 	}
 
 	protected abstract String getContributorType();
-
-	public String getComments() {
-		return this.comments;
-	}
-
-	public void addComment(String c) {
-		this.comments = this.comments + (this.comments.isEmpty() ? "" : " - ") + c;
-	}
-
-	public void setComments(String c) {
-		this.comments = c;
-	}
 
 	public void setSynchronous() {
 		this.isSynchronized = SynchronizeType.Synchronous;
@@ -171,12 +169,28 @@ public abstract class LatencyContributor {
 		return this.isSynchronized.equals(SynchronizeType.Synchronous);
 	}
 
+	public boolean isAsynchronous() {
+		return this.isSynchronized.equals(SynchronizeType.Asynchronous);
+	}
+
+	public boolean isUnknown() {
+		return this.isSynchronized.equals(SynchronizeType.Unknown);
+	}
+
 	public double getSamplingPeriod() {
 		return this.samplingPeriod;
 	}
 
 	public void setSamplingPeriod(double val) {
 		this.samplingPeriod = val;
+	}
+
+	public double getSamplingOffset() {
+		return this.samplingOffset;
+	}
+
+	public void setSamplingOffset(double val) {
+		this.samplingOffset = val;
 	}
 
 	public double getDeadline() {
@@ -301,6 +315,29 @@ public abstract class LatencyContributor {
 		return res;
 	}
 
+	public boolean isPartition() {
+		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_FRAME)
+				|| worstCaseMethod.equals(LatencyContributorMethod.PARTITION_SCHEDULE);
+	}
+
+	public boolean isPartitionFrame() {
+		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_FRAME);
+	}
+
+	public boolean isPartitionOffset() {
+		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_SCHEDULE);
+	}
+
+	public boolean isSamplingContributor() {
+		return isPartition() || isSamplingTask();
+	}
+
+	public boolean isSamplingTask() {
+		return worstCaseMethod.equals(LatencyContributorMethod.SAMPLED)
+				|| worstCaseMethod.equals(LatencyContributorMethod.FIRST_SAMPLED)
+				|| worstCaseMethod.equals(LatencyContributorMethod.DELAYED);
+	}
+
 	public void checkConsistency() {
 
 		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {
@@ -348,7 +385,6 @@ public abstract class LatencyContributor {
 			myLine.addContent(this.getLocalMaximum() + "ms");
 		}
 		myLine.addContent(mapMethodToString(worstCaseMethod));
-		myLine.addContent(this.getComments());
 		myLine.addCells(this.getReportedIssues());
 		lines.add(myLine);
 

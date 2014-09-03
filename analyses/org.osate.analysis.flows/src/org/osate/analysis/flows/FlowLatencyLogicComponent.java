@@ -13,7 +13,6 @@ public class FlowLatencyLogicComponent {
 
 	public static void mapComponentInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance, LatencyReportEntry entry) {
-		LatencyContributorComponent latencyContributor;
 		ComponentInstance componentInstance;
 		double expectedMin = 0.0;
 		double expectedMax = 0.0;
@@ -40,7 +39,7 @@ public class FlowLatencyLogicComponent {
 		 */
 
 		if (period > 0) {
-			latencyContributor = new LatencyContributorComponent(componentInstance);
+			LatencyContributorComponent latencyContributor = new LatencyContributorComponent(componentInstance);
 			latencyContributor.setSamplingPeriod(period);
 			if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
 				latencyContributor.setBestCaseMethod(LatencyContributorMethod.DELAYED);
@@ -58,9 +57,33 @@ public class FlowLatencyLogicComponent {
 				}
 			} else {
 				if (entry.getContributors().isEmpty()) {
-					latencyContributor.setComments("Initial " + period + "ms sampling latency not added");
+					latencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
 					latencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
 					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
+					// insert first partition sampling
+					ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
+					if (firstPartition != null) {
+						double partitionLatency = FlowLatencyUtil.getPartitionLatency(firstPartition);
+						double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition);
+						if (frameOffset != -1) {
+							LatencyContributorComponent platencyContributor = new LatencyContributorComponent(
+									firstPartition);
+							platencyContributor.setSamplingPeriod(partitionLatency);
+							platencyContributor.setSamplingOffset(frameOffset);
+							platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+							platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+							platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
+							entry.addContributor(platencyContributor);
+						} else {
+							LatencyContributorComponent platencyContributor = new LatencyContributorComponent(
+									firstPartition);
+							platencyContributor.setSamplingPeriod(partitionLatency);
+							platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+							platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+							platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
+							entry.addContributor(platencyContributor);
+						}
+					}
 				} else {
 					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
 					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
@@ -114,14 +137,14 @@ public class FlowLatencyLogicComponent {
 			bestmethod = LatencyContributorMethod.SPECIFIED;
 		}
 
-		latencyContributor = new LatencyContributorComponent(componentInstance);
-		latencyContributor.setWorstCaseMethod(worstmethod);
-		latencyContributor.setBestCaseMethod(bestmethod);
-		latencyContributor.setMaximum(worstCaseValue);
-		latencyContributor.setMinimum(bestCaseValue);
-		latencyContributor.setExpectedMaximum(expectedMax);
-		latencyContributor.setExpectedMinimum(expectedMin);
-		latencyContributor.checkConsistency();
-		entry.addContributor(latencyContributor);
+		LatencyContributorComponent platencyContributor = new LatencyContributorComponent(componentInstance);
+		platencyContributor.setWorstCaseMethod(worstmethod);
+		platencyContributor.setBestCaseMethod(bestmethod);
+		platencyContributor.setMaximum(worstCaseValue);
+		platencyContributor.setMinimum(bestCaseValue);
+		platencyContributor.setExpectedMaximum(expectedMax);
+		platencyContributor.setExpectedMinimum(expectedMin);
+		platencyContributor.checkConsistency();
+		entry.addContributor(platencyContributor);
 	}
 }

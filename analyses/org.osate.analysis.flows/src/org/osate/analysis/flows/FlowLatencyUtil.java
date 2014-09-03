@@ -1,30 +1,21 @@
 package org.osate.analysis.flows;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyUtil {
 
@@ -106,16 +97,6 @@ public class FlowLatencyUtil {
 		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
 		if ((nextElement != null)) {
 			return (getConnectionType((ConnectionInstance) nextElement) == ConnectionType.SAMPLED);
-		}
-
-		return false;
-	}
-
-	public static boolean isNextConnectionLocal(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (isLocal((ConnectionInstance) nextElement));
 		}
 
 		return false;
@@ -230,194 +211,60 @@ public class FlowLatencyUtil {
 	}
 
 	/**
-	 * Get the processor for a thread or process. the category argument specifies if we want
-	 * a processor or virtual processor.
-	 * @param componentInstance - the thread/process that is supposed to be bound
-	 * @param category - the category of the component to be returned. It can be a processor or virtual processor
-	 * @return - the first processor or virtual processor bound. Null if nothing is found
-	 */
-	public static ComponentInstance getProcessorForProcessOrThread(ComponentInstance componentInstance,
-			ComponentCategory category) {
-		ComponentInstance processor;
-
-		processor = null;
-
-		if (componentInstance.getCategory() == ComponentCategory.THREAD) {
-			processor = GetProperties.getBoundProcessor(componentInstance);
-
-			if (processor == null) {
-				/**
-				 * if the thread is not bound to a processor, we try to get 
-				 * the processor of the related process.
-				 */
-				return getProcessorForProcessOrThread(getEnclosingProcess(componentInstance), category);
-			}
-		}
-
-		if ((componentInstance.getCategory() == ComponentCategory.DEVICE)
-				|| (componentInstance.getCategory() == ComponentCategory.PROCESS)) {
-			processor = GetProperties.getBoundProcessor(componentInstance);
-		}
-
-		if ((processor != null) && (processor.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-				&& (category == ComponentCategory.PROCESSOR)) {
-			processor = processor.getContainingComponentInstance();
-		}
-
-		return ((processor != null) && (processor.getCategory()) == category) ? processor : null;
-	}
-
-	/**
-	 * get hardware of connection end.
+	 * find component tagged with isPartition and return its partition latency (period)
 	 * @param ci
 	 * @return
 	 */
-	public static ComponentInstance getHardwareComponent(ComponentInstance ci) {
-		ComponentInstance p;
-		if (ci.getCategory() == ComponentCategory.DEVICE) {
-			return ci;
-		}
-		List<ComponentInstance> cil = GetProperties.getActualProcessorBinding(ci);
-		if (cil.isEmpty())
-			return null;
-		p = (ComponentInstance) cil.get(0);
-		if (p.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-			ComponentInstance res = getHardwareComponent(p);
-			if (res == null) {
-				res = getEnclosingProcessor(p);
-			}
-			return res;
-		}
-
-		return p;
-	}
-
-	public static ComponentInstance getEnclosingProcessor(ComponentInstance vpi) {
-		ComponentInstance ci = vpi;
+	public static double getSEIPartitionLatency(ComponentInstance ci) {
 		while (ci != null) {
+			if (GetProperties.getIsPartition(ci)) {
+				double res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
+				return res;
+			}
 			ci = ci.getContainingComponentInstance();
-			if (ci.getCategory().equals(ComponentCategory.PROCESSOR)) {
-				return ci;
+		}
+		return 0.0;
+	}
+
+	/**
+	 * find component tagged with isPartition
+	 * @param ci
+	 * @return
+	 */
+	public static ComponentInstance getSEIPartition(ComponentInstance ci) {
+		while (ci != null) {
+			if (GetProperties.getIsPartition(ci)) {
+				double res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
+				if (res > 0)
+					return ci;
 			}
+			ci = ci.getContainingComponentInstance();
 		}
 		return null;
 	}
 
 	/**
-	 * Get the component that is connected at the source side of the connection.
-	 * @param connectionInstance - the connection to process
-	 * @return - the component that is the source
+	 * virtual processor representing SEI tagged or ARINC653 partition (bound to processor with ARINC653 major frame)
+	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
+	 * @return partition 
 	 */
-	public static ComponentInstance getRelatedComponentSource(ConnectionInstance connectionInstance) {
-		ConnectionInstanceEnd sourceEnd;
-		ComponentInstance source;
-
-		source = null;
-		sourceEnd = connectionInstance.getSource();
-
-		if (!(sourceEnd instanceof ComponentInstance)) {
-			source = sourceEnd.getContainingComponentInstance();
-		} else {
-			source = (ComponentInstance) sourceEnd;
-		}
-		return source;
-	}
-
-	/**
-	 * Get the component that is connected at the destination side of the connection.
-	 * @param connectionInstance - the connection to be processed
-	 * @return - the component that is the connection destination (and not its feature)
-	 */
-	public static ComponentInstance getRelatedComponentDestination(ConnectionInstance connectionInstance) {
-		ConnectionInstanceEnd destinationEnd;
-		ComponentInstance destination = null;
-		destinationEnd = connectionInstance.getDestination();
-
-		if (!(destinationEnd instanceof ComponentInstance)) {
-			destination = destinationEnd.getContainingComponentInstance();
-		} else {
-			destination = (ComponentInstance) destinationEnd;
-		}
-		return destination;
-	}
-
-	/**
-	 * returns list of buses connecting to HW components. Can be empty list (if same component), or null (no connection).
-	 * @param source HW component
-	 * @param destination HW component
-	 * @return list of buses involved in the physical connection
-	 */
-	public static EList<ComponentInstance> connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
-		EList<ComponentInstance> visitedBuses = new UniqueEList<ComponentInstance>();
-		return doConnectedByBus(srcHW, dstHW, visitedBuses);
-	}
-
-	/**
-	 * returns list of buses connecting to HW components. Can be empty list (if same component), or null (no connection).
-	 * @param source HW component
-	 * @param destination HW component
-	 * @return list of buses involved in the physical connection
-	 */
-	protected static EList<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
-			EList<ComponentInstance> visitedBuses) {
-		if (srcHW == null || dstHW == null)
-			return null;
-		if (srcHW == dstHW)
-			return null;
-		EList<FeatureInstance> busaccesslist = srcHW.getFeatureInstances();
-		for (FeatureInstance fi : busaccesslist) {
-			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
-				EList<ConnectionInstance> acl = fi.getDstConnectionInstances();
-				boolean opposite = false;
-				if (acl.isEmpty()) {
-					acl = fi.getSrcConnectionInstances();
-					opposite = true;
-				}
-				for (ConnectionInstance aci : acl) {
-					ComponentInstance curBus = opposite ? (ComponentInstance) aci.getDestination()
-							: (ComponentInstance) aci.getSource();
-					if (!visitedBuses.contains(curBus)) {
-						if (connectedToBus(dstHW, curBus)) {
-							BasicEList<ComponentInstance> res = new BasicEList<ComponentInstance>();
-							res.add(curBus);
-							return res;
-						} else {
-							// first check if there is a bus this bus is connected to
-							visitedBuses.add(curBus);
-							EList<ComponentInstance> res = doConnectedByBus(curBus, dstHW, visitedBuses);
-							if (res != null) {
-								res.add(0, curBus);
-								return res;
-							} else {
-								// check for buses that are connected to this bus
-								EList<ConnectionInstance> bcl = curBus.getSrcConnectionInstances();
-								boolean cbOpposite = false;
-								if (bcl.isEmpty()) {
-									bcl = curBus.getDstConnectionInstances();
-									cbOpposite = true;
-								}
-								for (ConnectionInstance srcaci : bcl) {
-									ComponentInstance bi = cbOpposite ? srcaci.getSource()
-											.getContainingComponentInstance() : srcaci.getDestination()
-											.getContainingComponentInstance();
-									if (bi.getCategory() == ComponentCategory.BUS) {
-										if (connectedToBus(dstHW, bi)) {
-											res = new BasicEList<ComponentInstance>();
-											res.add(bi);
-											return res;
-										} else {
-											visitedBuses.add(bi);
-											res = doConnectedByBus(bi, dstHW, visitedBuses);
-											if (res != null) {
-												res.add(0, curBus);
-												return res;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
+	public static ComponentInstance getVirtualProcessorPartition(ComponentInstance componentInstance) {
+		double res = 0.0;
+		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
+		for (ComponentInstance vproc : vprocessors) {
+			res = GetProperties.getPartitionLatencyInMilliSec(vproc, 0.0);
+			if (res > 0.0) {
+				return vproc;
+			}
+			res = GetProperties.getARINC653ModuleMajorFrame(vproc);
+			if (res > 0.0) {
+				return vproc;
+			}
+			Collection<ComponentInstance> procs = InstanceModelUtil.getBoundPhysicalProcessors(vproc);
+			for (ComponentInstance proc : procs) {
+				res = GetProperties.getARINC653ModuleMajorFrame(proc);
+				if (res > 0.0) {
+					return vproc;
 				}
 			}
 		}
@@ -425,279 +272,71 @@ public class FlowLatencyUtil {
 	}
 
 	/**
-	 * is hardware component connected (directly) to the given bus
-	 * @param HWcomp ComponentInstance hardware component
-	 * @param bus ComponentInstance bus component
-	 * @return true if they are connected by bus access connection
+	 * Get the major frame from the processor supporting ARINC653 partitions
+	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
+	 * @return partition period supported by virtual processor
 	 */
-	public static boolean connectedToBus(ComponentInstance HWcomp, ComponentInstance bus) {
-		EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
-		for (ConnectionInstance srcaci : acl) {
-			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
-				return true;
+	public static double getVirtualProcessorPartitionPeriod(ComponentInstance componentInstance) {
+		double res = 0.0;
+		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
+		for (ComponentInstance vproc : vprocessors) {
+			res = GetProperties.getPartitionLatencyInMilliSec(vproc, 0.0);
+			if (res > 0.0) {
+				return res;
+			}
+			res = GetProperties.getARINC653ModuleMajorFrame(vproc);
+			if (res > 0.0) {
+				return res;
 			}
 		}
-		return false;
-	}
-
-	/**
-	 * is hardware component connected (directly) to the given bus, incl. bus to bus
-	 * @param HWcomp ComponentInstance hardware component
-	 * @param bus ComponentInstance bus component
-	 * @return access connection instance if they are connected by bus access connection
-	 */
-	public static ConnectionInstance getBusAccessConnection(ComponentInstance HWcomp, ComponentInstance bus) {
-		EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
-		for (ConnectionInstance srcaci : acl) {
-			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
-				return srcaci;
-			}
-		}
-		if (HWcomp.getCategory() == ComponentCategory.BUS) {
-			// check the other way
-			acl = HWcomp.getSrcConnectionInstances();
-			for (ConnectionInstance srcaci : acl) {
-				if (srcaci.getDestination().getContainingComponentInstance() == bus) {
-					return srcaci;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Get the list of all the buses a process can access through its required
-	 * bus access features.
-	 * @param processor - the processor that has bus access features
-	 * @return - the list of all bus components that can be access by the processor.
-	 */
-	public static List<ComponentInstance> getAccessedBuses(ComponentInstance processor) {
-		List<ComponentInstance> buses;
-		List<ConnectionInstance> connections;
-		ConnectionInstanceEnd cie;
-
-		buses = new ArrayList<ComponentInstance>();
-		connections = new ArrayList<ConnectionInstance>();
-
-		for (FeatureInstance fi : processor.getFeatureInstances()) {
-			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
-				connections.addAll(fi.getSrcConnectionInstances());
-				connections.addAll(fi.getDstConnectionInstances());
-
-				for (ConnectionInstance ci : connections) {
-					cie = ci.getSource();
-//					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
-
-					cie = ci.getDestination();
-					if (cie instanceof ComponentInstance) {
-						if (((ComponentInstance) cie).getCategory() == ComponentCategory.BUS) {
-							buses.add((ComponentInstance) cie);
-						}
-					}
-//					OsateDebug.osateDebug("FlowLatencyLogicConnection", "cie=" + cie);
-				}
-			}
-		}
-		return buses;
-	}
-
-	/**
-	 * Get the bus for a connection. If the bus is not found, we try
-	 * to get the bus by inspecting the component bound (processor)
-	 * to each part of the connection (thread/process/device).
-	 * 
-	 * If the connection is directly bound to a bus through the property
-	 * mechanism, we automatically return it.
-	 * 
-	 * @param connectionInstance - the connection instance
-	 * @return the bus bound to the connection.
-	 */
-	public static EList<ComponentInstance> deriveBoundBuses(ConnectionInstance connectionInstance) {
-		ComponentInstance connectionSource = FlowLatencyUtil.getRelatedComponentSource(connectionInstance);
-		ComponentInstance conenctionDestination = FlowLatencyUtil.getRelatedComponentDestination(connectionInstance);
-		ComponentInstance srcHW = FlowLatencyUtil.getHardwareComponent(connectionSource);
-		ComponentInstance dstHW = FlowLatencyUtil.getHardwareComponent(conenctionDestination);
-		EList<ComponentInstance> res = FlowLatencyUtil.connectedByBus(srcHW, dstHW);
 		return res;
 	}
 
 	/**
-	 * Indicate if a connection is between two tasks located on the same processor.
-	 * @param connection - the connection
-	 * @return true if both connection ends are on the same processor
+	 * Get the the processor supporting ARINC653 partitions
+	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
+	 * @return processor supporting ARINC653
 	 */
-	// XXX: this one needs some work.
-	public static boolean isLocal(ConnectionInstance connection) {
-		ComponentInstance componentSource = FlowLatencyUtil.getRelatedComponentSource(connection);
-		ComponentInstance componentDestination = FlowLatencyUtil.getRelatedComponentDestination(connection);
-
-		ComponentInstance processorFromSource;
-		ComponentInstance processorFromDestination;
-
-		if ((componentSource.getCategory() == ComponentCategory.THREAD)
-				&& (componentDestination.getCategory() == ComponentCategory.THREAD)) {
-			processorFromSource = GetProperties.getBoundProcessor(componentSource);
-			processorFromDestination = GetProperties.getBoundProcessor(componentDestination);
-
-			if ((processorFromSource == null) || (processorFromDestination == null)) {
-				return false;
+	public static ComponentInstance getARINC653PartitionProcessor(ComponentInstance componentInstance) {
+		double res = 0.0;
+		Collection<ComponentInstance> processors = InstanceModelUtil.getBoundPhysicalProcessors(componentInstance);
+		for (ComponentInstance proc : processors) {
+			res = GetProperties.getARINC653ModuleMajorFrame(proc);
+			if (res > 0.0) {
+				return proc;
 			}
-
-			/**
-			 * If the processor is bound to a virtual processor, we have a partitioned
-			 * system. In that case, we need to get the main processor to see
-			 * if the connection is local (or not).
-			 */
-			if (processorFromSource.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-				processorFromSource = processorFromSource.getContainingComponentInstance();
-			}
-
-			if (processorFromDestination.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-				processorFromDestination = processorFromDestination.getContainingComponentInstance();
-			}
-
-			if (processorFromSource == processorFromDestination) {
-				return true;
-			}
-
 		}
-		return false;
+		return null;
 	}
 
 	/**
-	 * return the process component that contains the thread
-	 * @param component - the thread component
-	 * @return - the process that contains the thread
+	 * Get the major frame from the processor supporting ARINC653 partitions
+	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
+	 * @return partition period supported by processor
 	 */
-	public static ComponentInstance getEnclosingProcess(ComponentInstance component) {
-		ComponentInstance result;
-
-		result = component.getContainingComponentInstance();
-
-		return result;
+	public static double getARINC653PartitionPeriod(ComponentInstance componentInstance) {
+		double res = 0.0;
+		Collection<ComponentInstance> processors = InstanceModelUtil.getBoundPhysicalProcessors(componentInstance);
+		for (ComponentInstance proc : processors) {
+			res = GetProperties.getARINC653ModuleMajorFrame(proc);
+			if (res > 0.0) {
+				return res;
+			}
+		}
+		return res;
 	}
 
 	public static Classifier getConnectionData(ConnectionInstance connectionInstance) {
-		Classifier data;
 		ConnectionInstanceEnd cei;
 		FeatureInstance fi;
-
-		data = null;
-
 		cei = connectionInstance.getSource();
 
 		if (cei instanceof FeatureInstance) {
 			fi = (FeatureInstance) cei;
-			if (fi.getFeature() instanceof DataPort) {
-				DataPort dp = (DataPort) fi.getFeature();
-				if (dp.getDataFeatureClassifier() != null) {
-					data = dp.getDataFeatureClassifier().getContainingClassifier();
-				}
-			}
-
-			if (fi.getFeature() instanceof EventDataPort) {
-				EventDataPort edp = (EventDataPort) fi.getFeature();
-				if (edp.getDataFeatureClassifier() != null) {
-					data = edp.getDataFeatureClassifier().getContainingClassifier();
-				}
-			}
+			return fi.getFeature().getAllClassifier();
 		}
 
-		return data;
-	}
-
-	private static double getMaximumTransmissionTimePerByte(final ComponentInstance bus) {
-		RecordValue rv;
-		RangeValue bpa;
-		NumberValue nv;
-		rv = GetProperties.getTransmissionTime(bus);
-		if (rv == null) {
-			return 0;
-		}
-		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
-		if (bpa != null) {
-			nv = bpa.getMaximumValue();
-			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
-		}
-		return 0;
-	}
-
-	private static double getMaximumTransmissionTimeFixed(final ComponentInstance bus) {
-		RecordValue rv;
-		RangeValue bpa;
-		NumberValue nv;
-		rv = GetProperties.getTransmissionTime(bus);
-		if (rv == null) {
-			return 0;
-		}
-		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
-		if (bpa != null) {
-			nv = bpa.getMaximumValue();
-			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
-		}
-		return 0;
-	}
-
-	private static double getMinimumTransmissionTimePerByte(final ComponentInstance bus) {
-		RecordValue rv;
-		RangeValue bpa;
-		NumberValue nv;
-		rv = GetProperties.getTransmissionTime(bus);
-		if (rv == null) {
-			return 0;
-		}
-		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
-		if (bpa != null) {
-			nv = bpa.getMinimumValue();
-			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
-		}
-		return 0;
-	}
-
-	private static double getMinimumTransmissionTimeFixed(final ComponentInstance bus) {
-		RecordValue rv;
-		RangeValue bpa;
-		NumberValue nv;
-		rv = GetProperties.getTransmissionTime(bus);
-		if (rv == null) {
-			return 0;
-		}
-		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
-		if (bpa != null) {
-			nv = bpa.getMinimumValue();
-			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
-		}
-		return 0;
-	}
-
-	public static double getMaximumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
-		double dataSize;
-		double speed;
-		double dataTransferTime;
-		double acquisitionTime;
-
-		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
-		speed = getMaximumTransmissionTimePerByte(bus);
-		dataTransferTime = speed * dataSize;
-
-		acquisitionTime = getMaximumTransmissionTimeFixed(bus);
-
-		return dataTransferTime + acquisitionTime;
-	}
-
-	public static double getMinimumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
-		double dataSize;
-		double speed;
-		double dataTransferTime;
-		double acquisitionTime;
-
-		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
-		speed = getMinimumTransmissionTimePerByte(bus);
-		dataTransferTime = speed * dataSize;
-
-		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
-
-		return dataTransferTime + acquisitionTime;
+		return null;
 	}
 
 	public static ComponentInstance getModule(ComponentInstance partition) {
@@ -733,14 +372,14 @@ public class FlowLatencyUtil {
 	 * return the offset of the partition start time relative to the major frame
 	 * utilizes the window schedule of the module for the partition
 	 * @param partition
-	 * @return
+	 * @return offset or -1 if no schedule
 	 */
 	public static double getPartitionFrameOffset(ComponentInstance partition) {
 		ComponentInstance module;
 		List<ARINC653ScheduleWindow> schedule;
 		double res;
 		if (partition == null) {
-			return 0;
+			return -1;
 		}
 
 		res = 0;
@@ -748,7 +387,7 @@ public class FlowLatencyUtil {
 		schedule = GetProperties.getModuleSchedule(module);
 
 		if ((schedule == null) || (schedule.size() == 0)) {
-			return 0;
+			return -1;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
 			if (window.getPartition() == partition) {
@@ -828,6 +467,43 @@ public class FlowLatencyUtil {
 			return samplingLatency;
 		} else
 			return 0;
+	}
+
+	/**
+	 * find a virtual processor tagged as SEI partition or with ARINC653 major frame properties, or bound to a processor with ARINC653 properties
+	 * @param ci Component Instance
+	 * @return Component Instance
+	 */
+	public static ComponentInstance getPartition(ComponentInstance ci) {
+		ComponentInstance partition = FlowLatencyUtil.getVirtualProcessorPartition(ci);
+		if (partition == null) {
+			partition = FlowLatencyUtil.getSEIPartition(ci);
+		}
+		return partition;
+	}
+
+	public static double getPartitionLatency(ComponentInstance ci) {
+		double res = FlowLatencyUtil.getARINC653PartitionPeriod(ci);
+		if (res == 0.0) {
+			res = FlowLatencyUtil.getVirtualProcessorPartitionPeriod(ci);
+		}
+		if (res == 0.0) {
+			res = FlowLatencyUtil.getSEIPartitionLatency(ci);
+		}
+		return res;
+	}
+
+	public static double getQueueDelayinMilliSec(final ConnectionInstanceEnd conniEnd, final ComponentInstance comp,
+			boolean periodic) {
+		if (conniEnd == null || conniEnd instanceof ComponentInstance)
+			return 0;
+		FeatureInstance port = (FeatureInstance) conniEnd;
+		if (port == null || comp == null) {
+			return 0;
+		}
+		double qs = GetProperties.getQueueSize(port);
+		double dl = periodic ? GetProperties.getPeriodinMS(comp) : GetProperties.getDeadlineinMilliSec(comp);
+		return qs * dl;
 	}
 
 }

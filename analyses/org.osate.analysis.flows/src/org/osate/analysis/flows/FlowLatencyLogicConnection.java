@@ -16,8 +16,8 @@ import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMetho
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReportEntry;
-import org.osate.analysis.flows.preferences.Constants.PartitioningPolicy;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyLogicConnection {
 
@@ -30,114 +30,19 @@ public class FlowLatencyLogicConnection {
 	 */
 	public static void mapConnectionInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance, LatencyReportEntry entry) {
-		LatencyContributor latencyContributor;
-		ConnectionInstance connectionInstance;
-		ComponentInstance componentInstanceSource;
-		ComponentInstance componentInstanceDestination;
-		ComponentInstance partitionSource;
-		ComponentInstance partitionDestination;
-		Classifier relatedConnectionData;
-		double partitionLatency;
-
-//		nextTaskOrDevice = FlowLatencyUtil.getNextTaskOrDevice(etef, flowElementInstance);
-		connectionInstance = (ConnectionInstance) flowElementInstance;
+		ConnectionInstance connectionInstance = (ConnectionInstance) flowElementInstance;
 
 		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
 		double expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
 
-		relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
-		componentInstanceSource = FlowLatencyUtil.getRelatedComponentSource(connectionInstance);
-		componentInstanceDestination = FlowLatencyUtil.getRelatedComponentDestination(connectionInstance);
+		Classifier relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
+		ComponentInstance componentInstanceSource = InstanceModelUtil.getRelatedComponentSource(connectionInstance);
+		ComponentInstance componentInstanceDestination = InstanceModelUtil
+				.getRelatedComponentDestination(connectionInstance);
 
-		partitionLatency = 0;
-
-		latencyContributor = new LatencyContributorConnection(connectionInstance);
+		LatencyContributor latencyContributor = new LatencyContributorConnection(connectionInstance);
 
 		processActualConnectionBindings(connectionInstance, relatedConnectionData, latencyContributor);
-
-		/**
-		 * If the sender is on a partitioned architecture, then, we might need to add
-		 * We do that only if the preferences selected an major frame delayed flush policy.
-		 */
-		if (org.osate.analysis.flows.preferences.Values.getPartitioningPolicy() == PartitioningPolicy.DELAYED) {
-			/**
-			 * Additional time to send/receive data. Here, we handle the case of the partition source.
-			 */
-			partitionSource = FlowLatencyUtil.getProcessorForProcessOrThread(componentInstanceSource,
-					ComponentCategory.VIRTUAL_PROCESSOR);
-			if (partitionSource != null) {
-				/**
-				 * First, we try to find the latency based on the partition schedule declared
-				 * in the module.
-				 */
-				partitionLatency = FlowLatencyUtil.getPartitionSenderLatencyWithSchedule(partitionSource);
-				if (partitionLatency > 0) {
-					LatencyContributor subContributor = new LatencyContributorComponent(partitionSource);
-					subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-					subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-					subContributor.setMaximum(partitionLatency);
-					subContributor.setMinimum(partitionLatency);
-					subContributor
-							.setComments("Time to send the data and wait for the major frame flush based on the module schedule");
-					latencyContributor.addSubContributor(subContributor);
-				} else {
-					/**
-					 * if there is no partition schedule declared, we fall back on the major frame value.
-					 */
-					partitionLatency = GetProperties.getARINC653ModuleMajorFrame(FlowLatencyUtil
-							.getProcessorForProcessOrThread(componentInstanceSource, ComponentCategory.PROCESSOR));
-					if (partitionLatency > 0) {
-						LatencyContributor subContributor = new LatencyContributorComponent(partitionSource);
-						subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-						subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-						subContributor.setMaximum(partitionLatency);
-						subContributor.setMinimum(partitionLatency);
-						subContributor
-								.setComments("Time to receive the data once data ports are flushed based on the module schedule");
-						latencyContributor.addSubContributor(subContributor);
-					}
-				}
-			}
-
-			/**
-			 * Additional time to send/receive data. Here, we handle the case of the partition destination.
-			 */
-			partitionDestination = FlowLatencyUtil.getProcessorForProcessOrThread(componentInstanceDestination,
-					ComponentCategory.VIRTUAL_PROCESSOR);
-			if (partitionDestination != null) {
-				/**
-				 * First, we try to find the latency based on the partition schedule declared
-				 * in the module.
-				 */
-				partitionLatency = FlowLatencyUtil.getPartitionReceiverLatencyWithSchedule(partitionDestination);
-				if (partitionLatency > 0) {
-					LatencyContributor subContributor = new LatencyContributorComponent(partitionDestination);
-					subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-					subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-					subContributor.setMaximum(partitionLatency);
-					subContributor.setMinimum(partitionLatency);
-					subContributor.setComments("Time to receive the data based on the module schedule");
-					latencyContributor.addSubContributor(subContributor);
-				} else {
-					/**
-					 * if there is no partition schedule declared, we fall back on the major frame value.
-					 */
-					partitionLatency = GetProperties.getARINC653ModuleMajorFrame(FlowLatencyUtil
-							.getProcessorForProcessOrThread(componentInstanceSource, ComponentCategory.PROCESSOR));
-					if (partitionLatency > 0) {
-						LatencyContributor subContributor = new LatencyContributorComponent(partitionDestination);
-						subContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-						subContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-						subContributor.setMaximum(partitionLatency);
-						subContributor.setMinimum(partitionLatency);
-						subContributor
-								.setComments("Time to receive the data once data ports are flushed based on the module schedule");
-						latencyContributor.addSubContributor(subContributor);
-					}
-				}
-			}
-		}
-
 		/**
 		 * handle the case when there is no binding to virtual bus or bus.
 		 * In this case we use the latency from the connection itself
@@ -154,8 +59,68 @@ public class FlowLatencyLogicConnection {
 				latencyContributor.setExpectedMinimum(expectedMin);
 			}
 		}
-
+		// set synchronous if on same processor
+		ComponentInstance srcHW = InstanceModelUtil.getHardwareComponent(componentInstanceSource);
+		ComponentInstance dstHW = InstanceModelUtil.getHardwareComponent(componentInstanceDestination);
+		if (srcHW != null && dstHW != null) {
+			if (srcHW == dstHW) {
+				latencyContributor.setSynchronous();
+			} else {
+				latencyContributor.setAsynchronous();
+			}
+		}
+		// set synchronous if in same partition
+		ComponentInstance srcPartition = FlowLatencyUtil.getPartition(componentInstanceSource);
+		ComponentInstance dstPartition = FlowLatencyUtil.getPartition(componentInstanceDestination);
+		if (dstPartition != null && srcPartition != null) {
+			if (srcPartition == dstPartition) {
+				latencyContributor.setSynchronous();
+			} else {
+				latencyContributor.setAsynchronous();
+			}
+		}
 		entry.addContributor(latencyContributor);
+
+		// now deal with cross partition sampling latency
+		// We add a separate latency contributor
+
+		if (dstPartition != null && srcPartition != dstPartition) {
+			// add partition latency if the destination is a partition and it is different from the source partition (or null)
+			double partitionLatency = FlowLatencyUtil.getPartitionLatency(dstPartition);
+			double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(dstPartition);
+			if (frameOffset != -1) {
+				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
+				platencyContributor.setSamplingPeriod(partitionLatency);
+				platencyContributor.setSamplingOffset(frameOffset);
+				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+				entry.addContributor(platencyContributor);
+			} else {
+				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
+				platencyContributor.setSamplingPeriod(partitionLatency);
+				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+				entry.addContributor(platencyContributor);
+			}
+		}
+	}
+
+	public static void checkPartitionLatencyConsistency(ComponentInstance ci) {
+		double res = 0.0;
+		if (GetProperties.getIsPartition(ci)) {
+			res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
+		}
+		double VPres = FlowLatencyUtil.getVirtualProcessorPartitionPeriod(ci);
+		double ARINC653res = FlowLatencyUtil.getARINC653PartitionPeriod(ci);
+		if (res > 0.0 && VPres > 0.0) {
+			// TODO they should be the same
+		}
+		if (res > 0.0 && ARINC653res > 0.0) {
+			// TODO they should be the same
+		}
+		if (VPres > 0.0 && ARINC653res > 0.0) {
+			// TODO they should be the same
+		}
 	}
 
 	public static void processBoundBus(ComponentInstance boundBus, Classifier relatedConnectionData,
@@ -175,36 +140,32 @@ public class FlowLatencyLogicConnection {
 			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
 			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(boundBus);
 
-			double maxBusTransferTime = FlowLatencyUtil.getMaximumTimeToTransferData(boundBus, relatedConnectionData);
-			double minBusTransferTime = FlowLatencyUtil.getMinimumTimeToTransferData(boundBus, relatedConnectionData);
+			double maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(boundBus, relatedConnectionData);
+			double minBusTransferTime = GetProperties.getMinimumTimeToTransferData(boundBus, relatedConnectionData);
 			subContributor.setExpectedMaximum(maxBusLatency);
 			subContributor.setExpectedMinimum(minBusLatency);
 
 			if (maxBusTransferTime > 0) {
 				subContributor.setMaximum(maxBusTransferTime);
-				subContributor.setComments("Data transfer time");
+				subContributor.reportInfo("Using data transfer time");
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
 			} else if (maxBusLatency > 0) {
 				subContributor.setMaximum(maxBusLatency);
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
-				subContributor.setComments("Use the latency properties on the bus");
+				subContributor.reportInfo("Using specified bus latency");
 			} else {
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.UNKNOWN);
-				subContributor.setComments("latency not specified on the bus");
 			}
 
 			if (minBusTransferTime > 0) {
 				subContributor.setMinimum(minBusTransferTime);
-				subContributor.setComments("Data transfer time");
 				subContributor.setBestCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
 
 			} else if (minBusLatency > 0) {
 				subContributor.setMinimum(minBusLatency);
 				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
-				subContributor.setComments("Use the latency properties on the bus");
 			} else {
 				subContributor.setBestCaseMethod(LatencyContributorMethod.UNKNOWN);
-				subContributor.setComments("latency not specified on the bus");
 			}
 
 			latencyContributor.addSubContributor(subContributor);
@@ -224,7 +185,7 @@ public class FlowLatencyLogicConnection {
 		subContributor.setMinimum(protocolLatencyMinimum);
 		subContributor.setExpectedMaximum(protocolLatencyMaximum);
 		subContributor.setExpectedMinimum(protocolLatencyMinimum);
-		subContributor.setComments("Time required by the protocol stack");
+		subContributor.reportInfo("Time required by the protocol stack");
 		latencyContributor.addSubContributor(subContributor);
 		processActualConnectionBindings(vb, relatedConnectionData, latencyContributor);
 	}
