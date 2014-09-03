@@ -997,9 +997,14 @@ public class PropertyUtils {
 	 * @return
 	 */
 	public static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
-		final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
-		PropertyAssociation firstAssociation = propertyAccumulator.first();
-		return firstAssociation != null;
+		try {
+			final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
+			PropertyAssociation firstAssociation = propertyAccumulator.first();
+			return firstAssociation != null;
+		} catch (org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException exception) {
+			return false;
+		}
+
 	}
 
 }
