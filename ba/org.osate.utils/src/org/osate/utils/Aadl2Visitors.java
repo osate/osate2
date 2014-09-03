@@ -276,7 +276,8 @@ public class Aadl2Visitors
     PropertiesLinkingService pls =
         Aadl2Visitors.getPropertiesLinkingService(context) ;
 
-    if(packageName == null || currentNamespace.equalsIgnoreCase(packageName))
+    if(packageName == null || currentNamespace == null ||
+       currentNamespace.equalsIgnoreCase(packageName))
     {
       // The element is declared into the current context.
       result = pls.findNamedElementInsideAadlPackage(elementName, context) ;
