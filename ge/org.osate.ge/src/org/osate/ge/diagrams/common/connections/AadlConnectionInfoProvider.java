@@ -70,7 +70,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		final org.osate.aadl2.Connection connection = (org.osate.aadl2.Connection)bo;
 		Anchor a1 = null;
 		Anchor a2 = null;
-		
+
 		// Get the pictogram elements for the source and destination of the connection
 		final PictogramElement sourcePe = getPictogramElement(ownerShape, connection.getAllSource(), connection.getAllSourceContext(), connection.getAllSrcContextComponent());
 		final PictogramElement destPe = getPictogramElement(ownerShape, connection.getAllDestination(), connection.getAllDestinationContext(), connection.getAllDstContextComponent());
@@ -139,7 +139,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 				return null;
 			} else {
 				// Get the shape for the context
-				pe = shapeService.getDescendantShapeByElementQualifiedName((ContainerShape)pe, context);
+				pe = shapeService.getDescendantShapeByElementName((ContainerShape)pe, context);
 				if(pe == null || !(pe instanceof ContainerShape)) {
 					return null;
 				}
@@ -155,7 +155,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		}
 		
 		// Get Descendant PE
-		pe = shapeService.getDescendantShapeByElementQualifiedName((ContainerShape)pe, ce);		
+		pe = shapeService.getDescendantShapeByElementName((ContainerShape)pe, ce);		
 		
 		// CLEAN-UP: Clarify or remove comments
 		// Case: Just CE is valid. (Probably a feature? could be a component)
