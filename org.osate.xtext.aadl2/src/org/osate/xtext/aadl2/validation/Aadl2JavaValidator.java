@@ -3675,10 +3675,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		ConnectionEnd source = connection.getAllSource();
 		AccessCategory sourceCategory = null;
-// FIXME-lw: assign correct category
-//		if (Aadl2Util.isNull(source) && connection.getSource() instanceof ProcessorSubprogram)
-//			sourceCategory = AccessCategory.SUBPROGRAM;
-		if (source instanceof Access) {
+		if (source instanceof SubprogramProxy) {
+			sourceCategory = AccessCategory.SUBPROGRAM;
+		} else if (source instanceof Access) {
 			sourceCategory = ((Access) source).getCategory();
 		} else if (source instanceof BusSubcomponent) {
 			sourceCategory = AccessCategory.BUS;
@@ -3692,10 +3691,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		ConnectionEnd destination = connection.getAllDestination();
 		AccessCategory destinationCategory = null;
-// FIXME-lw: assign correct category
-//		if (Aadl2Util.isNull(destination) && connection.getDestination() instanceof ProcessorSubprogram)
-//			destinationCategory = AccessCategory.SUBPROGRAM;
-		if (destination instanceof Access) {
+		if (destination instanceof SubprogramProxy) {
+			destinationCategory = AccessCategory.SUBPROGRAM;
+		} else if (destination instanceof Access) {
 			destinationCategory = ((Access) destination).getCategory();
 		} else if (destination instanceof BusSubcomponent) {
 			destinationCategory = AccessCategory.BUS;
@@ -3707,16 +3705,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			destinationCategory = AccessCategory.SUBPROGRAM_GROUP;
 		}
 
-		if (!connectionCategory.equals(sourceCategory)) {
-			error(connection, "The source of a " + connectionCategory.getName() + " access connection must be a "
+		if (sourceCategory != null && !connectionCategory.equals(sourceCategory)) {
+			error("The source of a " + connectionCategory.getName() + " access connection must be a "
 					+ connectionCategory.getName() + " access feature or a " + connectionCategory.getName()
-					+ " subcomponent.");
+					+ " subcomponent.", connection, Aadl2Package.eINSTANCE.getConnection_Source());
 		}
 
-		if (!connectionCategory.equals(destinationCategory)) {
-			error(connection, "The destination of a " + connectionCategory.getName() + " access connection must be a "
+		if (destinationCategory != null && !connectionCategory.equals(destinationCategory)) {
+			error("The destination of a " + connectionCategory.getName() + " access connection must be a "
 					+ connectionCategory.getName() + " access feature or a " + connectionCategory.getName()
-					+ " subcomponent.");
+					+ " subcomponent.", connection, Aadl2Package.eINSTANCE.getConnection_Destination());
 		}
 	}
 
