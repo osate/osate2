@@ -3802,30 +3802,34 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		else if (source instanceof Subcomponent && destination instanceof Access
 				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
 			if (!destinationType.equals(AccessType.PROVIDES)) {
-				error(connection, '\'' + destination.getName()
-						+ "' must be a provides access feature for a connection from an accessed subcomponent.");
+				error('\'' + destination.getName()
+						+ "' must be a provides access feature for a connection from an accessed subcomponent.",
+						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
 			}
 		}
 		// Test for L6: connection between access feature and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access
 				&& (srcContext == null || srcContext instanceof FeatureGroup)) {
 			if (!sourceType.equals(AccessType.PROVIDES)) {
-				error(connection, '\'' + source.getName()
-						+ "' must be a provides access feature for a connection to a accessed subcomponent.");
+				error('\'' + source.getName()
+						+ "' must be a provides access feature for a connection to a accessed subcomponent.",
+						connection, Aadl2Package.eINSTANCE.getConnection_Source());
 			}
 		}
 		// Test for L7: connection between subcomponent and access feature of subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access && dstContext instanceof Subcomponent) {
 			if (!destinationType.equals(AccessType.REQUIRES)) {
-				error(connection, '\'' + destination.getName()
-						+ "' must be a requires access feature for a connection from an accessed subcomponent.");
+				error('\'' + destination.getName()
+						+ "' must be a requires access feature for a connection from an accessed subcomponent.",
+						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
 			}
 		}
 		// Test for L7: connection between access feature of subcomponent and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access && srcContext instanceof Subcomponent) {
 			if (!sourceType.equals(AccessType.REQUIRES)) {
-				error(connection, '\'' + source.getName()
-						+ "' must be a requires access feature for a connection to an accessed subcomponent.");
+				error('\'' + source.getName()
+						+ "' must be a requires access feature for a connection to an accessed subcomponent.",
+						connection, Aadl2Package.eINSTANCE.getConnection_Source());
 			}
 		}
 	}
