@@ -300,6 +300,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void casePortConnection(PortConnection connection) {
+		typeCheckPortConnectionEnd(connection.getSource());
+		typeCheckPortConnectionEnd(connection.getDestination());
 		checkPortConnectionClassifiers(connection);
 		checkPortConnectionDirection(connection);
 		checkPortConnectionEnds(connection);
@@ -3799,6 +3801,42 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else {
 			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
 					+ " is not a valid parameter connection end.", connectedElement,
+					Aadl2Package.eINSTANCE.getConnectedElement_Context());
+		}
+	}
+
+	private void typeCheckPortConnectionEnd(ConnectedElement connectedElement) {
+		Context connectionContext = connectedElement.getContext();
+		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if (connectionContext == null) {
+			if (!(connectionEnd instanceof PortConnectionEnd)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+						+ " is not a valid port connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof FeatureGroup || connectionContext instanceof SubprogramCall) {
+			if (!(connectionEnd instanceof PortConnectionEnd) || connectionEnd instanceof InternalFeature
+					|| connectionEnd instanceof PortProxy) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid port connection end.",
+						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof Subcomponent) {
+			if (!(connectionEnd instanceof Port || connectionEnd instanceof DataAccess)
+					&& !(connectionContext instanceof DataSubcomponent && connectionEnd instanceof DataSubcomponent)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid port connection end.",
+						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof DataPort || connectionContext instanceof EventDataPort) {
+			if (!(connectionEnd instanceof DataSubcomponent)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid port connection end.",
+						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else {
+			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+					+ " is not a valid port connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
 	}
