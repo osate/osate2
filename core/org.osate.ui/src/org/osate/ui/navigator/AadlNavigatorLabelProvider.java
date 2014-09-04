@@ -39,18 +39,17 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
-import org.eclipse.jface.viewers.ILabelDecorator;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
 public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
-	public AadlNavigatorLabelProvider(ILabelProvider provider, ILabelDecorator decorator) {
-		super(provider, decorator);
+	public AadlNavigatorLabelProvider() {
+		super(new WorkbenchLabelProvider(), null);
 	}
 
 	@Override

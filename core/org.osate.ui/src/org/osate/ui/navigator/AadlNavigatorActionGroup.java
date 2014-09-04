@@ -50,23 +50,20 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RefreshAction;
 import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.views.navigator.IResourceNavigator;
-import org.eclipse.ui.views.navigator.MainActionGroup;
+import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.eclipse.ui.navigator.ICommonViewerSite;
+import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 
-public class AadlNavigatorActionGroup extends MainActionGroup {
+public class AadlNavigatorActionGroup extends org.eclipse.ui.navigator.CommonActionProvider {
 	private static final String OPEN_FOR_MODIFICATION_ACTION_ID = "org.osate.ui.navigator.OpenForModificationAction";
 	private static final String REVERT_TO_CONTRIBUTED_ACTION_ID = "org.osate.ui.navigator.RevertToContributedAction";
 
 	private static final HashSet<String> validIds;
 	private Action openForModificationAction;
 	private Action revertToContributedAction;
-
-	public AadlNavigatorActionGroup(IResourceNavigator navigator) {
-		super(navigator);
-	}
 
 	static {
 		validIds = new HashSet<String>();
@@ -115,40 +112,44 @@ public class AadlNavigatorActionGroup extends MainActionGroup {
 	}
 
 	@Override
-	protected void makeActions() {
-		super.makeActions();
-		openForModificationAction = new Action("Open For Modification") {
-			@Override
-			public void run() {
-				IFile file = (IFile) ((IStructuredSelection) getNavigator().getViewer().getSelection())
-						.getFirstElement();
-				ResourceAttributes attributes = file.getResourceAttributes();
-				attributes.setReadOnly(false);
-				try {
-					file.setResourceAttributes(attributes);
-					getNavigator().getViewer().update(file, null);
-					IDE.openEditor(getNavigator().getViewSite().getPage(), file, "org.osate.xtext.aadl2.Aadl2");
-				} catch (CoreException e) {
-					OsateUiPlugin.log(e);
+	public void init(final ICommonActionExtensionSite aSite) {
+		final ICommonViewerSite viewSite = aSite.getViewSite();
+		if(viewSite instanceof ICommonViewerWorkbenchSite) {
+			final ICommonViewerWorkbenchSite workbenchSite = (ICommonViewerWorkbenchSite)viewSite;
+			
+			openForModificationAction = new Action("Open For Modification") {
+				@Override
+				public void run() {
+					IFile file = (IFile) ((IStructuredSelection) workbenchSite.getSelectionProvider().getSelection())
+							.getFirstElement();
+					ResourceAttributes attributes = file.getResourceAttributes();
+					attributes.setReadOnly(false);
+					try {
+						file.setResourceAttributes(attributes);
+						aSite.getStructuredViewer().update(file, null);
+						IDE.openEditor(workbenchSite.getPage(), file, "org.osate.xtext.aadl2.Aadl2");
+					} catch (CoreException e) {
+						OsateUiPlugin.log(e);
+					}
 				}
-			}
-		};
-		openForModificationAction.setId(OPEN_FOR_MODIFICATION_ACTION_ID);
-		revertToContributedAction = new Action("Revert To Contributed Version") {
-			@Override
-			public void run() {
-				IFile file = (IFile) ((IStructuredSelection) getNavigator().getViewer().getSelection())
-						.getFirstElement();
-				try {
-					PredeclaredProperties.revertToContributed(file);
-					getNavigator().getViewer().update(file, null);
-				} catch (IOException e) {
-					OsateUiPlugin.log(e);
-				} catch (CoreException e) {
-					OsateUiPlugin.log(e);
+			};
+			openForModificationAction.setId(OPEN_FOR_MODIFICATION_ACTION_ID);
+			revertToContributedAction = new Action("Revert To Contributed Version") {
+				@Override
+				public void run() {
+					IFile file = (IFile) ((IStructuredSelection) aSite.getStructuredViewer().getSelection())
+							.getFirstElement();
+					try {
+						PredeclaredProperties.revertToContributed(file);
+						aSite.getStructuredViewer().update(file, null);
+					} catch (IOException e) {
+						OsateUiPlugin.log(e);
+					} catch (CoreException e) {
+						OsateUiPlugin.log(e);
+					}
 				}
-			}
-		};
-		revertToContributedAction.setId(REVERT_TO_CONTRIBUTED_ACTION_ID);
+			};
+			revertToContributedAction.setId(REVERT_TO_CONTRIBUTED_ACTION_ID);
+		}
 	}
 }
