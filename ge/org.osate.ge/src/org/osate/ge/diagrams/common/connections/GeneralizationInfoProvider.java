@@ -68,6 +68,6 @@ public class GeneralizationInfoProvider extends AbstractConnectionInfoProvider {
 			throw new RuntimeException("Unhandled case. Unable to get chopbox anchor for pictogram elements");
 		}
 		
-		return new Anchor[] {generalAnchor, specificAnchor};
+		return new Anchor[] {specificAnchor, generalAnchor};
 	}
 }

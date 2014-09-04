@@ -10,12 +10,6 @@ package org.osate.ge.diagrams.componentImplementation.features;
 
 import javax.inject.Inject;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EStructuralFeature.Setting;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
@@ -24,31 +18,24 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class RenameConnectionFeature extends AbstractDirectEditingFeature {
 	private final ShapeService shapeService;
-	private final AadlModificationService aadlModService;
-	private final DiagramModificationService diagramModService;
 	private final NamingService namingService;
+	private final RefactoringService refactoringService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public RenameConnectionFeature(final IFeatureProvider fp, final ShapeService shapeService, AadlModificationService aadlModService, final DiagramModificationService diagramModService, 
-			final NamingService namingService, final BusinessObjectResolutionService bor) {
+	public RenameConnectionFeature(final IFeatureProvider fp, final ShapeService shapeService, final NamingService namingService, final RefactoringService refactoringService, final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.shapeService = shapeService;
-		this.aadlModService = aadlModService;
-		this.diagramModService = diagramModService;
 		this.namingService = namingService;
+		this.refactoringService = refactoringService;
 		this.bor = bor;
 	}
 
@@ -104,83 +91,7 @@ public class RenameConnectionFeature extends AbstractDirectEditingFeature {
 	}
 	
 	public void setValue(final String value, final IDirectEditingContext context) {
-    	final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());    	   	
-    	aadlModService.modify(aadlConnection, new RenameConnectionModifier(value, diagramModService));  
+    	final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	refactoringService.renameElement(aadlConnection, value);
     }
-	    
-    private static class RenameConnectionModifier extends AbstractModifier<org.osate.aadl2.Connection, Object> {
-    	private final String newName;
-		private final DiagramModificationService diagramModService;
-		private DiagramModificationService.Modification diagramMod;
-		
- 		public RenameConnectionModifier(final String newName, final DiagramModificationService diagramModService) {
-			this.newName = newName;
-			this.diagramModService = diagramModService;
-		}
- 		
- 		@Override
-		public Object modify(final Resource resource, final org.osate.aadl2.Connection aadlConnection) {
- 			// Resolving allows the name change to propagate when editing without an Xtext document
- 			EcoreUtil.resolveAll(resource.getResourceSet());
-
- 			// Start the diagram modification
- 			diagramMod = diagramModService.startModification();
- 			
- 			// Update reference to the connection
- 			updateReferences(aadlConnection, resource.getResourceSet());
- 			
- 			// Mark linkages to the element as dirty 			
- 			diagramMod.markLinkagesAsDirty(aadlConnection);
- 			
- 			// Set the element's name
-			aadlConnection.setName(newName); 			
-			
-			return null;
-		}	
-
- 		@Override
-		public void beforeCommit(final Resource resource, final org.osate.aadl2.Connection aadlConnection, final Object modificationResult) {
-			diagramMod.commit();
-		}
- 		
- 		/**
- 		 * Recursive method that updates refinees as dirty and ensures that the source is regenerated with the name of the refined element
- 		 * @param element
- 		 * @param resourceSet
- 		 */
- 	    private void updateReferences(final org.osate.aadl2.Connection element, final ResourceSet resourceSet) {
- 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(element, resourceSet)) {
- 				final EStructuralFeature sf = s.getEStructuralFeature();
- 				if(!sf.isDerived() && sf.isChangeable()) {
- 					final EObject obj = s.getEObject();
- 		 			// Mark linkages to refinements as dirty
- 					if(obj instanceof org.osate.aadl2.Connection && ((org.osate.aadl2.Connection)obj).getRefined() == element) {
- 						final org.osate.aadl2.Connection refinee = (org.osate.aadl2.Connection)obj;
- 						
- 						diagramMod.markLinkagesAsDirty(refinee);
- 						
- 						// Set the refined element to null and then set it again to trigger the change 
- 						refinee.setRefined(null);
- 						refinee.setRefined(element);
- 						
- 						updateReferences(refinee, resourceSet);
- 					} else if(obj instanceof FlowSegment) {
-						final FlowSegment fs = (FlowSegment)obj;
-						if(fs.getFlowElement() == element) {
-							// Reset the flow element. This will trigger and update by xtext
-							fs.setFlowElement(null);
-							fs.setFlowElement(element);							
-						}
-					} else if(obj instanceof EndToEndFlowSegment) {
-						final EndToEndFlowSegment fs = (EndToEndFlowSegment)obj;
-						if(fs.getFlowElement() == element) {
-							// Reset the flow element. This will trigger and update by xtext
-							fs.setFlowElement(null);
-							fs.setFlowElement(element);							
-						}
-					}
- 				}
- 			}
- 	    }
- 	}
 }

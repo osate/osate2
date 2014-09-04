@@ -10,8 +10,6 @@ package org.osate.ge.diagrams.type.features;
 
 import javax.inject.Inject;
 
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
@@ -22,27 +20,23 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class RenameFlowSpecificationFeature extends AbstractDirectEditingFeature {
 	private final ShapeService shapeService;
-	private final AadlModificationService aadlModService;
-	private final DiagramModificationService diagramModService;
 	private final NamingService namingService;
+	private final RefactoringService refactoringService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public RenameFlowSpecificationFeature(final IFeatureProvider fp, final ShapeService shapeService, AadlModificationService aadlModService, final DiagramModificationService diagramModService, 
-			final NamingService namingService, final BusinessObjectResolutionService bor) {
+	public RenameFlowSpecificationFeature(final IFeatureProvider fp, final ShapeService shapeService, 
+			final RefactoringService refactoringService, final NamingService namingService, final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.shapeService = shapeService;
-		this.aadlModService = aadlModService;
-		this.diagramModService = diagramModService;
+		this.refactoringService = refactoringService;
 		this.namingService = namingService;
 		this.bor = bor;
 	}
@@ -99,31 +93,7 @@ public class RenameFlowSpecificationFeature extends AbstractDirectEditingFeature
 	}
 	
 	public void setValue(final String value, final IDirectEditingContext context) {
-    	final FlowSpecification fs = (FlowSpecification)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());    	   	
-    	aadlModService.modify(fs, new AbstractModifier<FlowSpecification, Object>() {
-    		private DiagramModificationService.Modification diagramMod;    		
-     		
-     		@Override
-    		public Object modify(final Resource resource, final FlowSpecification fs) {
-     			// Resolving allows the name change to propagate when editing without an Xtext document
-     			EcoreUtil.resolveAll(resource.getResourceSet());
-
-     			// Start the diagram modification
-     			diagramMod = diagramModService.startModification();
-     			 			
-     			// Mark linkages to the element as dirty 			
-     			diagramMod.markLinkagesAsDirty(fs);
-     			
-     			// Set the element's name
-    			fs.setName(value); 			
-    			
-    			return null;
-    		}	
-
-     		@Override
-    		public void beforeCommit(final Resource resource, final FlowSpecification fs, final Object modificationResult) {
-    			diagramMod.commit();
-    		}
-     	});
+    	final FlowSpecification fs = (FlowSpecification)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	refactoringService.renameElement(fs, value);
     }
 }

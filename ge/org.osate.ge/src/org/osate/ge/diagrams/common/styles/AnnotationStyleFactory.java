@@ -16,7 +16,12 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.styles.StyleFactory;
 
-public class LabelStyleFactory implements StyleFactory {
+/**
+ * Style used for annotations such as feature annotations that specify that a feature is an internal or processor feature
+ * @author philip.alldredge
+ *
+ */
+public class AnnotationStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();

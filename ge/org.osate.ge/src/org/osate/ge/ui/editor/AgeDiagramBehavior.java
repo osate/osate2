@@ -8,18 +8,26 @@
  *******************************************************************************/
 package org.osate.ge.ui.editor;
 
+import java.util.EventObject;
+import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
@@ -34,12 +42,12 @@ import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.services.DiagramService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
 import org.eclipse.core.runtime.IProgressMonitor;
-
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
@@ -47,6 +55,8 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	private final DiagramService diagramService;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
+	private boolean forceNotDirty = false;
+	private boolean updatingFeatureWhileForcingNotDirty = false;
 	
 	private PaintListener paintListener = new PaintListener() {
 		@Override
@@ -167,6 +177,74 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		return super.getPersistencyBehavior();
 	}
 	
+	/**
+	 * Returns the number of visible objects in the diagram. Only certain objects are checked. Used to decide whether the diagram has changed after an update
+	 * @return
+	 */
+	private int getVisibleObjectsInDiagram() {
+		int count = 0;
+		final Iterator<EObject> it = getDiagramTypeProvider().getDiagram().eAllContents();
+		while(it.hasNext()) {
+			final EObject obj = it.next();
+			if((obj instanceof Shape || obj instanceof Connection)) {
+				final PictogramElement pe = (PictogramElement)obj;
+				if(pe.isVisible()) {
+					count++;
+				}
+			}
+		}
+		
+		return count;
+	}
+	
+	@Override
+	public Object executeFeature(final IFeature feature, final IContext context) {
+		// If we are forcing the diagram to not be seen as dirty, decide whether to start using the typical dirty check
+		if(forceNotDirty) {
+			// Prevent the initial diagrma update from making the diagram dirty if the number of objects doesn't change.			
+			if(feature instanceof DiagramUpdateFeature) {
+				final int startCount = getVisibleObjectsInDiagram();
+				updatingFeatureWhileForcingNotDirty = true;
+				final Object retValue = super.executeFeature(feature, context);
+				updatingFeatureWhileForcingNotDirty = false;
+				final int endCount = getVisibleObjectsInDiagram();
+				if(startCount != endCount) {
+					forceNotDirty = false;
+				}
+				return retValue;
+			} else {
+				if(!updatingFeatureWhileForcingNotDirty) {
+					forceNotDirty = false;
+				}
+			}
+		}
+		
+		return super.executeFeature(feature, context);
+	}
+	
+	@Override
+	protected void editingDomainInitialized() {
+		super.editingDomainInitialized();
+		
+		final TransactionalEditingDomain editingDomain = getEditingDomain();
+		if(editingDomain != null) {
+			final BasicCommandStack commandStack = (BasicCommandStack) editingDomain.getCommandStack();
+			if(commandStack != null) {
+				commandStack.addCommandStackListener(new CommandStackListener() {
+					@Override
+					public void commandStackChanged(EventObject event) {
+						if(!updatingFeatureWhileForcingNotDirty) {
+							forceNotDirty = false;
+						}
+					}					
+				});
+				
+				// Since we have successfully creased a command stack listener, force the diagram to be seen as not dirty until there is a change
+				forceNotDirty = true;
+			}
+		}
+	}
+	
 	@Override
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
 		return new DefaultPersistencyBehavior(this) {
@@ -188,6 +266,32 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				diagramService.savePersistentProperties(diagram);
 				
 				return retValue;
+			}
+			
+			// Part of this is from the fixed 0.11.x branch of Graphitti. Work around for #67.
+			// See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=437933
+			// TODO: Remove wants the released version of Graphiti includes the fix
+			// Keep the forceNotDirty check
+			@Override
+			public boolean isDirty() {
+				if(forceNotDirty) {
+					return false;
+				}
+				
+				TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
+				if (editingDomain == null) {
+					// Right in the middle of closing the editor, it cannot be dirty
+					// without an editing domain
+					return false;
+				}
+				BasicCommandStack commandStack = (BasicCommandStack) editingDomain.getCommandStack();
+				if (commandStack == null) {
+					// Right in the middle of closing the editor, it cannot be dirty
+					// without a command stack
+					return false;
+				}
+				
+				return savedCommand != commandStack.getUndoCommand();
 			}
 		};
 	}

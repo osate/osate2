@@ -140,7 +140,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 		// Populate the list with valid classifier descriptions
 		if(name != null) {		
 			for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(bo.eClass())) {
-				if(!name.equalsIgnoreCase(desc.getName().toString())) {
+				if(!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 					objectDescriptions.add(desc);
 				}
 			}
@@ -149,7 +149,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 			if(bo instanceof ComponentType) {
 				if(bo.eClass() != Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType()) {
 					for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType())) {
-						if(!name.equalsIgnoreCase(desc.getName().toString())) {
+						if(!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}
 					}
@@ -157,7 +157,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 			} else if(bo instanceof ComponentImplementation) {
 					if(bo.eClass() != Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractImplementation()) {
 					for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractImplementation())) {
-						if(!name.equalsIgnoreCase(desc.getName().toString())) {
+						if(!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}
 					}

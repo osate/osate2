@@ -10,6 +10,8 @@ package org.osate.ge.diagrams.componentImplementation.patterns;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
@@ -22,10 +24,13 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.LayoutService;
@@ -42,15 +47,17 @@ public class ComponentImplementationPattern extends AgePattern {
 	private final ShapeCreationService shapeCreationService;
 	private final ConnectionCreationService connectionCreationService;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
+	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeCreationService shapeCreationService, 
-			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
+			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final BusinessObjectResolutionService bor) {
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = layoutService;
 		this.shapeCreationService = shapeCreationService;
 		this.connectionCreationService = connectionCreationService;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
+		this.bor = bor;
 	}
 	
 	@Override
@@ -76,7 +83,20 @@ public class ComponentImplementationPattern extends AgePattern {
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return false;
+		return true;
+	}
+	
+	@Override
+	public void resizeShape(final IResizeShapeContext context) {
+		super.resizeShape(context);
+
+		// Refresh
+		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
+		final ComponentImplementation classifier = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(shape);
+		this.refresh(shape, classifier, context.getX(), context.getY());
+
+		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
 	}
 	
 	@Override
@@ -114,6 +134,30 @@ public class ComponentImplementationPattern extends AgePattern {
 		return true;
 	}
 	
+	// TODO: Submit patch to OSATE to add to Classifier Implementation
+	public static EList<InternalFeature> getAllInternalFeatures(final ComponentImplementation ci) {
+		EList<InternalFeature> returnList = new BasicEList<InternalFeature>();
+		ComponentImplementation tmpCi = ci;
+		while(tmpCi != null) {
+			returnList.addAll(tmpCi.getOwnedInternalFeatures());
+			tmpCi = tmpCi.getExtended();
+		}
+
+		return returnList;
+	}
+	
+	// TODO: Submit patch to OSATE to add to Classifier Implementation
+	public static EList<ProcessorFeature> getAllProcessorFeatures(final ComponentImplementation ci) {
+		EList<ProcessorFeature> returnList = new BasicEList<ProcessorFeature>();
+		ComponentImplementation tmpCi = ci;
+		while(tmpCi != null) {
+			returnList.addAll(tmpCi.getOwnedProcessorFeatures());
+			tmpCi = tmpCi.getExtended();
+		}
+		
+		return returnList;
+	}
+	
 	private void refresh(final ContainerShape shape, final ComponentImplementation ci, final int x, final int y) {
 		visibilityHelper.setIsGhost(shape, false);
 		
@@ -127,6 +171,8 @@ public class ComponentImplementationPattern extends AgePattern {
 			
 		// Create/Update Shapes
 		shapeCreationService.createUpdateFeatureShapes(shape, ci.getAllFeatures(), null);
+		shapeCreationService.createUpdateFeatureShapes(shape, getAllInternalFeatures(ci), null);
+		shapeCreationService.createUpdateFeatureShapes(shape, getAllProcessorFeatures(ci), null);
 		
 		createUpdateSubcomponents(shape, ci);
 
@@ -141,8 +187,11 @@ public class ComponentImplementationPattern extends AgePattern {
 		// Create a new graphics Algorithm
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, ci, newSize[0], newSize[1]);
-		gaService.setLocation(ga, x, y);	
+		gaService.setLocation(ga, x, y);
 
+		// Do not fill the root shape so that the grid lines can be seen
+		ga.setFilled(false);
+		
 		layoutService.layoutChildren(shape);
 	}
 	

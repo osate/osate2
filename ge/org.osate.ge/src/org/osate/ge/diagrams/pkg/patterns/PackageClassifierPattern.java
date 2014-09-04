@@ -14,17 +14,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
@@ -48,7 +40,6 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
@@ -64,7 +55,6 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.AgeLeafShapePattern;
 import org.osate.ge.dialogs.ElementSelectionDialog;
@@ -75,11 +65,11 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
@@ -91,14 +81,16 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final ShapeService shapeService;
 	private final UserInputService userInputService;
 	private final NamingService namingService;
-	final DiagramModificationService diagramModService;
+	private final RefactoringService refactoringService; 
+	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
 
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
 			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
-			final NamingService namingService, final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
+			final NamingService namingService, final RefactoringService refactoringService, final DiagramModificationService diagramModService,
+			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
 		super(anchorUtil, visibilityHelper);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
@@ -106,6 +98,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		this.shapeService = shapeService;
 		this.userInputService = userInputService;
 		this.namingService = namingService;
+		this.refactoringService = refactoringService;
 		this.diagramModService = diagramModService;
 		this.bor = bor;
 		this.classifierType = classifierType;
@@ -147,12 +140,24 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         
         // Set the size        
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
-		final int width = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
+		final int textWidth = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
 		final int height = 50; 
-		gaService.setLocationAndSize(text, 0, 0, width, 20);
-				
+
+		final int totalWidth;
+		final int labelX;
+        if(bo instanceof FeatureGroupType) {
+        	final int symbolWidth = height * 3 / 4;
+        	totalWidth = symbolWidth + textWidth;
+        	labelX = symbolWidth;
+        } else {
+        	totalWidth = textWidth;
+        	labelX = 0;
+        }        
+
+        gaService.setLocationAndSize(text, labelX, 0, textWidth, 20);
+        
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, width, height);        
+        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, totalWidth, height);        
         gaService.setLocation(ga, x, y);
 	}
 
@@ -176,18 +181,21 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		final ContainerShape container = (ContainerShape)pe;
        	graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, ((Classifier)bo), context.getWidth(), context.getHeight());
-		
-		super.resizeShape(context);
+
+		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
+		super.resizeShape(context);      	
 	}	
 	
 	@Override
 	public boolean canLayout(final ILayoutContext context) {
 		return isPatternControlled(context.getPictogramElement());
 	}
-
+	
 	@Override
 	public boolean layout(final ILayoutContext context) {
 		final PictogramElement pictogramElement = context.getPictogramElement();
+		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		
 		if(pictogramElement instanceof ContainerShape) {
 			final ContainerShape containerShape = (ContainerShape)pictogramElement;
@@ -197,7 +205,13 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 				final Shape shape = children.get(0);
 				final GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
 				if (graphicsAlgorithm instanceof Text) {
-					Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, 0, 0, outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight());
+					if(bo instanceof FeatureGroupType) {
+						final int estSymbolSize = Math.min(outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight()) * 3 / 4;
+						Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, estSymbolSize, 0, outerGraphicsAlgorithm.getWidth()-estSymbolSize, outerGraphicsAlgorithm.getHeight());
+					} else {
+						Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, 0, 0, outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight());
+					}
+					
 					return true;
 				}
 			}
@@ -458,7 +472,10 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
-		return true;
+		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	final Namespace ns = classifier.getNamespace();
+    	final AadlPackage pkg = getPackage();
+    	return ns != null && ns.getOwner() == pkg;
 	}
 
 	@Override
@@ -469,14 +486,25 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 		modificationService.modify(classifier, new AbstractModifier<Classifier, Object>() {
+			private DiagramModificationService.Modification diagramMod;
+			
 			@Override
 			public Object modify(final Resource resource, final Classifier classifier) {
-				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			diagramMod.markRelatedDiagramsAsDirty(classifier);
+
+	 			// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.
 				EcoreUtil.remove(classifier);
 				
 				return null;
 			}			
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
+				diagramMod.commit();
+			}
 		});
 		
 		// Clear selection
@@ -562,124 +590,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     public void setValue(final String value, final IDirectEditingContext context) {
     	final PictogramElement pe = context.getPictogramElement();
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
-   	
-    	modificationService.modify(classifier, new RenameClassifierModifier(value, diagramModService));   	   
+    	refactoringService.renameElement(classifier,  value);  	   
     }
-    
-    private static class RenameClassifierModifier extends AbstractModifier<Classifier, Object> {
-    	private final String newName;
-    	private final DiagramModificationService diagramModService;
-		private DiagramModificationService.Modification diagramMod;		
-		
-		public RenameClassifierModifier(final String newName, final DiagramModificationService diagramModService) {
-			this.newName = newName;
-			this.diagramModService = diagramModService;
-		}
-		
-		private void markLinkagesToOwnedMembersAsDirty(final Namespace ns) {
-			for(final NamedElement member : ns.getOwnedMembers()) {
-				diagramMod.markLinkagesAsDirty(member);
-			}
-			
-		}
-		@Override
-		public Object modify(final Resource resource, final Classifier classifier) {		
-			// Resolving allows the name change to propagate when editing without an Xtext document
-			EcoreUtil.resolveAll(resource.getResourceSet());
-
-			// Find diagrams that links to this classifier
-			diagramMod = diagramModService.startModification();
-			diagramMod.markLinkagesAsDirty(classifier);
-			markLinkagesToOwnedMembersAsDirty(classifier);
-			
-			// Set the name
-			classifier.setName(newName);
-			
-			// Special handling of renaming component implementations. Need to set the type so that they will update appropriately in all cases.
-			if(classifier instanceof ComponentImplementation) {
-				final ComponentImplementation ci = (ComponentImplementation)classifier;
-				final String typeName = newName.split("\\.")[0];
-				for(final NamedElement member : ci.getNamespace().getMembers()) {
-					if(typeName.equalsIgnoreCase(member.getName())) {
-						// Handle renames
-						if(member instanceof ComponentTypeRename) {
-							final ComponentTypeRename ctr = (ComponentTypeRename) member;
-							if(ctr.getRenamedComponentType() != null) {
-								ci.setType(ctr.getRenamedComponentType());
-							}
-						}
-						
-						// Component Types
-						if(member instanceof ComponentType) {
-							ci.setType((ComponentType)member);
-						}
-						break;
-					}
-					
-				}
-			}
-			
-			// Check for cross references and update them
-			// The extension changes are only needed when editing using an xtext document
-			// Other changes are needed in all cases
-			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(classifier, resource.getResourceSet())) {
-				final EStructuralFeature sf = s.getEStructuralFeature();
-				if(!sf.isDerived() && sf.isChangeable()) {
-					final EObject obj = s.getEObject();
-					if(obj instanceof TypeExtension) {
-						final TypeExtension extension = (TypeExtension)obj;
-						if(classifier == extension.getExtended()) {
-							((ComponentType)extension.getSpecific()).createOwnedExtension().setExtended((ComponentType) classifier);
-						}
-					} else if(obj instanceof ImplementationExtension) {
-						final ImplementationExtension extension = (ImplementationExtension)obj;
-						if(classifier == extension.getExtended()) {
-							((ComponentImplementation)extension.getSpecific()).createOwnedExtension().setExtended((ComponentImplementation)classifier);
-						}
-					} else if(obj instanceof GroupExtension) {
-						final GroupExtension extension = (GroupExtension)obj;
-						if(classifier == extension.getExtended()) {
-							((FeatureGroupType)extension.getSpecific()).createOwnedExtension().setExtended((FeatureGroupType) classifier);
-						}
-					} else if(obj instanceof Realization && classifier instanceof ComponentType) {
-						final Realization realization = (Realization)obj;
-						final ComponentImplementation ci = (ComponentImplementation)realization.getSpecific();
-						if(ci.getName() != null) {
-							final String[] segs = ci.getName().split("\\.");
-							if(segs.length == 2) {
-								diagramMod.markLinkagesAsDirty(ci);
-								markLinkagesToOwnedMembersAsDirty(ci);
-								
-								// Set the name
-								ci.setName(classifier.getName() + "." + segs[1]);
-							}
-						}
-						
-					}
-				}
-			}
-			
-			return null;
-		}
-		
-		@Override
-		public void afterCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
-			// Build the project so that the index will be updated
-			// This was formerly part of DefaultAadlModificationService but it causes deadlock under certain circumstances(renaming features).
-			final IProject project = SelectionHelper.getProject(resource);
-			try {
-				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
-			} catch(CoreException ex) {
-				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after a graphical modification.", ex);
-				StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
-			} catch(RuntimeException ex) {
-				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "An error building the AADL project after a graphical modification.", ex);
-				StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
-			}
-			
-			// Commit the diagram changes after the commit because the EMF index needs to be updated before the diagram can be
-			diagramMod.commit();
-			diagramMod = null;
-		}
-	}
 }

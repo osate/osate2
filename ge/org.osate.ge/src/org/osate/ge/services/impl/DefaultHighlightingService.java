@@ -80,37 +80,40 @@ public class DefaultHighlightingService implements HighlightingService {
  		final boolean isFlowSelected = !selectedFlowName.equals("");
  		boolean inSelectedFlow = false;
  		if(isFlowSelected) {
- 			// If the current diagram's BO is a component implementation
-	 		final Object bo = bor.getBusinessObjectForPictogramElement(getDiagram());
-	 		if(bo instanceof ComponentImplementation) {
-	 			final ComponentImplementation ci = (ComponentImplementation)bo;
-	 			
-	 			// Check Flow Implementations
-	 			for(final FlowImplementation flow : ci.getAllFlowImplementations()) {
-	 				if(flow.getSpecification() != null && selectedFlowName.equalsIgnoreCase(flow.getSpecification().getName())) {					
-	 					if(flow.getSpecification().getInEnd() != null && doesElementMatchFlowElement(element, context, flow.getSpecification().getInEnd().getFeature(), flow.getSpecification().getInEnd().getContext() )) {
- 							inSelectedFlow = true;
- 						} else if(flow.getSpecification().getOutEnd() != null && doesElementMatchFlowElement(element, context, flow.getSpecification().getOutEnd().getFeature(), flow.getSpecification().getOutEnd().getContext())) {
- 							inSelectedFlow = true;
- 						} else {
-		 					for(final FlowSegment fs : flow.getOwnedFlowSegments()) {
-		 						if(doesElementMatchFlowElement(element, context, fs.getFlowElement(), fs.getContext())) {
-		 							inSelectedFlow = true;
-									break;
-		 						}
-		 					}
- 						}
-	 				}
-	 			}
-	 			
-	 			// Check End to End Flows
-				for(final EndToEndFlow flow : ci.getAllEndToEndFlows()) {
-					if(selectedFlowName.equalsIgnoreCase(flow.getName())) {
-						inSelectedFlow = isInEndToEndFlow(element, context, flow);
-						break;
-	 				}
-				}
-	 		}
+ 			if(element instanceof NamedElement) {
+ 				final NamedElement namedElement = (NamedElement)element;
+	 			// If the current diagram's BO is a component implementation
+		 		final Object bo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		 		if(bo instanceof ComponentImplementation) {
+		 			final ComponentImplementation ci = (ComponentImplementation)bo;
+		 			
+		 			// Check Flow Implementations
+		 			for(final FlowImplementation flow : ci.getAllFlowImplementations()) {
+		 				if(flow.getSpecification() != null && selectedFlowName.equalsIgnoreCase(flow.getSpecification().getName())) {					
+		 					if(flow.getSpecification().getInEnd() != null && doesElementMatchFlowElement(namedElement, context, flow.getSpecification().getInEnd().getFeature(), flow.getSpecification().getInEnd().getContext() )) {
+	 							inSelectedFlow = true;
+	 						} else if(flow.getSpecification().getOutEnd() != null && doesElementMatchFlowElement(namedElement, context, flow.getSpecification().getOutEnd().getFeature(), flow.getSpecification().getOutEnd().getContext())) {
+	 							inSelectedFlow = true;
+	 						} else {
+			 					for(final FlowSegment fs : flow.getOwnedFlowSegments()) {
+			 						if(doesElementMatchFlowElement(namedElement, context, fs.getFlowElement(), fs.getContext())) {
+			 							inSelectedFlow = true;
+										break;
+			 						}
+			 					}
+	 						}
+		 				}
+		 			}
+		 			
+		 			// Check End to End Flows
+					for(final EndToEndFlow flow : ci.getAllEndToEndFlows()) {
+						if(selectedFlowName.equalsIgnoreCase(flow.getName())) {
+							inSelectedFlow = isInEndToEndFlow(namedElement, context, flow);
+							break;
+		 				}
+					}
+		 		}
+ 			}
  		}
 		
 		// Highlight accordingly
@@ -131,7 +134,7 @@ public class DefaultHighlightingService implements HighlightingService {
 		}
 	}
 	
-	private boolean isInEndToEndFlow(final Element element, final Context context, final EndToEndFlow flow) {
+	private boolean isInEndToEndFlow(final NamedElement element, final Context context, final EndToEndFlow flow) {
 		for(final EndToEndFlowSegment fs : flow.getAllFlowSegments()) {
 			if(doesElementMatchFlowElement(element, context, fs.getFlowElement(), fs.getContext())) {
 				return true;
@@ -148,12 +151,23 @@ public class DefaultHighlightingService implements HighlightingService {
 		return false;
 	}
 	
-	private boolean doesElementMatchFlowElement(final Element element, final Context context, final Element flowElement, final Context flowContext) {
-		if(context == flowContext && element == flowElement) {
+	private boolean doesElementMatchFlowElement(final NamedElement element, final Context context, final NamedElement flowElement, final Context flowContext) {
+		if(areNamesEqualOrBothNull(context, flowContext) && areNamesEqualOrBothNull(element, flowElement)) {
 			return true;
 		}
 
 		return false;
+	}
+	
+	private boolean areNamesEqualOrBothNull(final NamedElement e1, final NamedElement e2) {
+		if(e1 == null && e2 == null) {
+			return true;
+		}
+		
+		if(e1 == null || e1.getName() == null || e2 == null || e2.getName() == null)
+			return false;
+
+		return e1.getName().equalsIgnoreCase(e2.getName());
 	}
 	
 	private boolean listContainsElementWithName(final List<? extends NamedElement> elements, final String name) {

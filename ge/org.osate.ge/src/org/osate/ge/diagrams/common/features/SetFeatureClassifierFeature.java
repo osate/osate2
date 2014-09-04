@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.type.features;
+package org.osate.ge.diagrams.common.features;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -36,12 +36,14 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BusSubcomponentType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponentType;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.SubprogramSubcomponentType;
 import org.osate.ge.dialogs.ElementSelectionDialog;
@@ -67,6 +69,9 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 		featureTypeToClassifierSetterMap.put(p.getParameter(), new FeatureClassifierSetterInfo(p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
 		featureTypeToClassifierSetterMap.put(p.getDataPort(), new FeatureClassifierSetterInfo(p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
 		featureTypeToClassifierSetterMap.put(p.getEventDataPort(), new FeatureClassifierSetterInfo(p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
+		featureTypeToClassifierSetterMap.put(p.getEventDataSource(), new FeatureClassifierSetterInfo(p.getDataClassifier(), DataClassifier.class, "setDataClassifier"));
+		featureTypeToClassifierSetterMap.put(p.getPortProxy(), new FeatureClassifierSetterInfo(p.getDataClassifier(), DataClassifier.class, "setDataClassifier"));
+		featureTypeToClassifierSetterMap.put(p.getSubprogramProxy(), new FeatureClassifierSetterInfo(p.getSubprogramClassifier(), SubprogramClassifier.class, "setSubprogramClassifier"));
 	}
 	
 	private static class FeatureClassifierSetterInfo {
@@ -86,6 +91,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 		super(fp);
 		this.aadlModService = aadlModService;
 		this.bor = bor;
+		
 	}
 
 	@Override
@@ -110,11 +116,11 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 		final PictogramElement pe = pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
-		if(!(bo instanceof Feature)) {
+		if(!(bo instanceof NamedElement)) {
 			return false;
 		}
 
-		final Feature feature = (Feature)bo;
+		final NamedElement feature = (NamedElement)bo;
 		return feature.getContainingClassifier() == containerBo && featureTypeToClassifierSetterMap.containsKey(feature.eClass());
 	}
     
@@ -126,7 +132,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 	@Override
 	public void execute(final ICustomContext context) {
 		final PictogramElement pe = context.getPictogramElements()[0];
-		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);
+		final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(pe);
 
 		// Prompt the user for the classifier
 		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier.", getPotentialFeatureClassifiers(feature));
@@ -135,9 +141,9 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 		}
 
 		// Set the classifier
-		aadlModService.modify(feature, new AbstractModifier<Feature, Object>() {
+		aadlModService.modify(feature, new AbstractModifier<NamedElement, Object>() {
 			@Override
-			public Object modify(final Resource resource, final Feature feature) {
+			public Object modify(final Resource resource, final NamedElement feature) {
 				// Import the package if necessary
 				EObject selectedType = (EObject)dlg.getFirstSelectedElement();
 				if(selectedType != null) {
@@ -168,7 +174,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 	 * Return a list of EObjectDescriptions and NamedElements for potential subcomponent types for the specified subcomponent
 	 * @return
 	 */
-	private List<Object> getPotentialFeatureClassifiers(final Feature feature) {
+	private List<Object> getPotentialFeatureClassifiers(final NamedElement feature) {
 		final List<Object> featureClassifiers = new ArrayList<Object>();
 		featureClassifiers.add(null);
 		
@@ -190,7 +196,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 		return featureClassifiers;
 	}
 	
-	private static void setFeatureClassifier(final Feature feature, final Object classifier) {
+	private static void setFeatureClassifier(final NamedElement feature, final Object classifier) {
 		final FeatureClassifierSetterInfo setterInfo = featureTypeToClassifierSetterMap.get(feature.eClass());
 		try {
 			final Method method = feature.getClass().getMethod(setterInfo.setterName, setterInfo.classifierClass);

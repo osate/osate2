@@ -33,6 +33,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -53,6 +54,7 @@ import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
@@ -75,13 +77,14 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final AadlModificationService modificationService;
 	private final UserInputService userInputService;
 	private final NamingService namingService;
-	private final BusinessObjectResolutionService bor;	
+	private final BusinessObjectResolutionService bor;
+	private final RefactoringService refactoringService;
 	
 	@Inject
 	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
-			final UserInputService userInputService, final NamingService namingService, final BusinessObjectResolutionService bor) {
+			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService, final BusinessObjectResolutionService bor) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorService = anchorUtil;
 		this.resizeHelper = resizeHelper;
@@ -94,6 +97,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.modificationService = modificationService;
 		this.userInputService = userInputService;
 		this.namingService = namingService;
+		this.refactoringService = refactoringService;
 		this.bor = bor;
 	}
 
@@ -215,8 +219,10 @@ public class ModePattern extends AgeLeafShapePattern {
 		if(innerModeShape == null) {
 			innerModeShape = peCreateService.createContainerShape(shape, true);
 			propertyService.setName(innerModeShape, innerModeShapeName);
-			anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		}
+		
+		// Ensure the inner mode shope has a chopbox anchor
+		anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		
 		// Clear the inner mode shape's children
 		innerModeShape.getChildren().clear();
@@ -228,6 +234,9 @@ public class ModePattern extends AgeLeafShapePattern {
         final Shape labelShape = peCreateService.createShape(innerModeShape, true);
         link(labelShape, new AadlElementWrapper(mode));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
+        
+        // Create an anchor for the label otherwise there are issues creating mode transitions
+        anchorService.createOrUpdateChopboxAnchor(labelShape, chopboxAnchorName);
         
         // Set the size        
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
@@ -318,7 +327,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
-		return bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
+		return !(context.getTargetContainer() instanceof Diagram) && bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
 	}
 	
 	@Override
@@ -435,31 +444,6 @@ public class ModePattern extends AgeLeafShapePattern {
     public void setValue(final String value, final IDirectEditingContext context) {
     	final PictogramElement pe = context.getPictogramElement();
     	final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(pe);
-   	
-    	modificationService.modify(mode, new AbstractModifier<Mode, Object>() {
-    		private DiagramModificationService.Modification diagramMod;
-    		
-     		@Override
-    		public Object modify(final Resource resource, final Mode mode) {
-     			// Resolving allows the name change to propagate when editing without an Xtext document
-     			EcoreUtil.resolveAll(resource.getResourceSet());
-
-     			// Start the diagram modification
-     			diagramMod = diagramModService.startModification();     			
-     			
-     			// Mark linkages to the element as dirty 			
-     			diagramMod.markLinkagesAsDirty(mode);
-     			
-     			// Set the element's name
-    			mode.setName(value); 			
-    			
-    			return null;
-    		}	
-
-     		@Override
-    		public void beforeCommit(final Resource resource, final Mode mode, final Object modificationResult) {
-    			diagramMod.commit();
-    		}
-    	});   	
+    	refactoringService.renameElement(mode, value);
     }
 }

@@ -16,19 +16,31 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IMoveBendpointFeature;
+import org.eclipse.graphiti.features.IReconnectionFeature;
+import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.IMoveBendpointContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
+import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
+import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
 import org.eclipse.graphiti.func.IDelete;
+import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -36,11 +48,13 @@ import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
+import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModeTransition;
+import org.osate.ge.diagrams.common.features.ChangeFeatureTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentImplementationToTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentToPackageFeature;
 import org.osate.ge.diagrams.common.features.ConfigureInModesFeature;
@@ -49,6 +63,7 @@ import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.diagrams.common.features.RenameModeTransitionFeature;
 import org.osate.ge.diagrams.common.features.SetDerivedModesFeature;
+import org.osate.ge.diagrams.common.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
@@ -67,6 +82,7 @@ import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.PrototypeService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleProviderService;
@@ -88,6 +104,7 @@ import org.osate.ge.services.impl.DefaultLayoutService;
 import org.osate.ge.services.impl.DefaultNamingService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 import org.osate.ge.services.impl.DefaultPrototypeService;
+import org.osate.ge.services.impl.DefaultRefactoringService;
 import org.osate.ge.services.impl.DefaultShapeCreationService;
 import org.osate.ge.services.impl.DefaultShapeService;
 import org.osate.ge.services.impl.DefaultStyleService;
@@ -121,6 +138,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(this);
+		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this, styleProviderService);
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
@@ -148,6 +166,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
 		context.set(AadlModificationService.class, modificationService);
+		context.set(RefactoringService.class, refactoringService);
 		context.set(GraphicsAlgorithmManipulationService.class, graphicsAlgorithmUtil);
 		context.set(PropertyService.class, propertyUtil);
 		context.set(LayoutService.class, layoutService);
@@ -255,6 +274,14 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(createSetDerivedModesFeature(true));
 		features.add(createSetDerivedModesFeature(false));
 		features.add(make(SetModeTransitionTriggersFeature.class));
+		
+		features.add(make(SetFeatureClassifierFeature.class));
+		
+		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
+			final IEclipseContext childCtx = getContext().createChild();
+			childCtx.set("Feature Type", featureType);
+			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));	
+		}
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
@@ -360,5 +387,68 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 
 		return retList.toArray(ret);
+	}
+	
+	@Override
+	public IReconnectionFeature getReconnectionFeature(final IReconnectionContext context) {
+		for(final IConnectionPattern conPattern : getConnectionPatterns()) {
+			if(conPattern instanceof IReconnection) {
+				final IReconnection reconnection = (IReconnection)conPattern;
+				if(reconnection.canReconnect(context)) {
+					final ReconnectionFeatureForPattern f = new ReconnectionFeatureForPattern(this, reconnection);
+					if (checkFeatureAndContext(f, context)) {
+						return f;
+					}
+				}
+			}
+		}
+		
+		// Disable all other reconnection
+		return null;
+	 }
+	
+	// Specialized handling for manipulating bendpoints.
+	// Currently only allow editing when working with AadlConnections
+	// This will disable manipulating connections associated with flow specifications and other model elements
+	
+	private final IMoveBendpointFeature moveBendpointFeature = new DefaultMoveBendpointFeature(this) {
+		@Override
+		public boolean canMoveBendpoint(IMoveBendpointContext context) {
+			return allowBendpointManipulation(context.getConnection());
+		}
+	};
+	
+	@Override 
+	public IMoveBendpointFeature getMoveBendpointFeature(final IMoveBendpointContext context) {
+		return moveBendpointFeature;
+	}
+	
+	private final IAddBendpointFeature addBendpointFeature = new DefaultAddBendpointFeature(this) {
+		@Override
+		public boolean canAddBendpoint(IAddBendpointContext context) {
+			return allowBendpointManipulation(context.getConnection());
+		}
+	};
+	
+	@Override 
+	public IAddBendpointFeature getAddBendpointFeature(final IAddBendpointContext context) {
+		return addBendpointFeature;
+	}
+	
+	private final IRemoveBendpointFeature removeBendpointFeature = new DefaultRemoveBendpointFeature(this) {
+		@Override
+		public boolean canRemoveBendpoint(IRemoveBendpointContext context) {
+			return allowBendpointManipulation(context.getConnection());
+		}
+	};
+	
+	@Override 
+	public IRemoveBendpointFeature getRemoveBendpointFeature(final IRemoveBendpointContext context) {
+		return removeBendpointFeature;
+	}
+
+	private boolean allowBendpointManipulation(final PictogramElement pe) {
+		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+		return bor.getBusinessObjectForPictogramElement(pe) instanceof org.osate.aadl2.Connection;
 	}
 }

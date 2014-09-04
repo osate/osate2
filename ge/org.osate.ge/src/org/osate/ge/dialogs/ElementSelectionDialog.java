@@ -33,7 +33,7 @@ public class ElementSelectionDialog {
 				if(element == nullObject) {
 					return "<None>";
 				} else if(element instanceof IEObjectDescription){
-					return ((IEObjectDescription)element).getName().toString();
+					return ((IEObjectDescription)element).getName().toString("::");
 				} else if(element instanceof NamedElement){
 					return ((NamedElement)element).getName();
 				} else {

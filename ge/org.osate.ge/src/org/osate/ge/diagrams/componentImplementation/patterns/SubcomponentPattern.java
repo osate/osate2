@@ -20,11 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
@@ -39,6 +35,7 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -50,10 +47,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -68,6 +61,7 @@ import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.SubcomponentService;
@@ -92,6 +86,7 @@ public class SubcomponentPattern extends AgePattern {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final ShapeService shapeService;
+	private final RefactoringService refactoringService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType;
 
@@ -126,7 +121,7 @@ public class SubcomponentPattern extends AgePattern {
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final HighlightingService highlightingHelper, final AadlModificationService aadlModService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final ShapeService shapeService, 
-			final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
+			final RefactoringService refactoringService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = resizeHelper;
@@ -141,6 +136,7 @@ public class SubcomponentPattern extends AgePattern {
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
 		this.shapeService = shapeService;
+		this.refactoringService = refactoringService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -177,6 +173,9 @@ public class SubcomponentPattern extends AgePattern {
 		this.refresh(shape, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
 		
 		layoutService.checkContainerSize(shape);
+		
+		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
 	}
 
 	@Override 
@@ -272,13 +271,15 @@ public class SubcomponentPattern extends AgePattern {
         final Shape labelShape = peCreateService.createShape(shape, false);
         this.link(labelShape, new AadlElementWrapper(sc));
         final String name = getLabelText(sc);
-        final Text labelText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, name);
+        final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
+        final Text labelText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, name);
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getStyle().getFont());
         
 		// Create Subcomponent Type Indicator
         final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
         final String subcomponentTypeName = sc.getSubcomponentType() == null ? "" : sc.getSubcomponentType().getQualifiedName();
-        final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeIndicatorShape, subcomponentTypeName);
+        final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
+        final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
         final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont());
         
 		// Adjust size. Width and height
@@ -304,10 +305,13 @@ public class SubcomponentPattern extends AgePattern {
 		// Create the graphics Algorithm
 		ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, sc, maxWidth, maxHeight);  
 		gaService.setLocation(ga, x, y);
+		ga.setFilled(false);
 		
 		// Set the position of the text
-		gaService.setLocationAndSize(labelText, 0, 0, ga.getWidth(), 20);
-		gaService.setLocationAndSize(subcomponentTypeText, 0, labelText.getY()+textSize.getHeight(), ga.getWidth(), 20);
+		gaService.setLocationAndSize(labelText, 0, 0, textSize.getWidth(), textSize.getHeight());
+		gaService.setLocationAndSize(labelBackground, (ga.getWidth() - textSize.getWidth()) / 2, 0, textSize.getWidth(), textSize.getHeight());
+		gaService.setLocationAndSize(subcomponentTypeText, 0, 0, subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
+		gaService.setLocationAndSize(subcomponentTypeLabelBackground, (ga.getWidth() - subcomponentTypeTextSize.getWidth()) / 2, labelText.getY()+textSize.getHeight(), subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
 		
 		// Set color based on current mode
 		highlightingHelper.highlight(sc, null, ga);		
@@ -329,7 +333,7 @@ public class SubcomponentPattern extends AgePattern {
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		return containerBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)containerBo, subcomponentType) : false;
+		return !(context.getTargetContainer() instanceof Diagram) && (containerBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)containerBo, subcomponentType) : false);
 	}
 	
 	@Override
@@ -444,100 +448,9 @@ public class SubcomponentPattern extends AgePattern {
     
     public void setValue(final String value, final IDirectEditingContext context) {
     	final PictogramElement pe = context.getPictogramElement();
-    	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(pe);    	
-   	
-    	aadlModService.modify(sc, new RenameSubcomponentModifier(value, diagramModService));   	
+    	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(pe);  	
+    	refactoringService.renameElement(sc, value);
     }
-    
-    private static class RenameSubcomponentModifier extends AbstractModifier<Subcomponent, Object> {
-    	private final String newName;
-		private final DiagramModificationService diagramModService;
-		private DiagramModificationService.Modification diagramMod;
-		
- 		public RenameSubcomponentModifier(final String newName, final DiagramModificationService diagramModService) {
-			this.newName = newName;
-			this.diagramModService = diagramModService;
-		}
- 		
- 		@Override
-		public Object modify(final Resource resource, final Subcomponent sc) {
- 			// Resolving allows the name change to propagate when editing without an Xtext document
- 			EcoreUtil.resolveAll(resource.getResourceSet());
-
- 			// Start the diagram modification
- 			diagramMod = diagramModService.startModification();
- 			
- 			updateReferences(sc, resource.getResourceSet());
- 			
- 			// Mark linkages to the subcomponent as dirty 			
- 			diagramMod.markLinkagesAsDirty(sc);
- 			
- 			// Set the subcomponent's name
-			sc.setName(newName);
-
-			return null;
-		}	
-
- 		@Override
-		public void beforeCommit(final Resource resource, final Subcomponent sc, final Object modificationResult) {
-			diagramMod.commit();
-		}
- 		
- 		/**
- 		 * Recursive method that updates references to the subcomponent. It recursively updates refinees.
- 		 * @param element
- 		 * @param resourceSet
- 		 */
- 	    private void updateReferences(final Subcomponent element, final ResourceSet resourceSet) {
- 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(element, resourceSet)) {
- 				final EStructuralFeature sf = s.getEStructuralFeature();
- 				if(!sf.isDerived() && sf.isChangeable()) {
- 					final EObject obj = s.getEObject();
- 		 			// Mark linkages to refinements as dirty
- 					if(obj instanceof Subcomponent && ((Subcomponent)obj).getRefined() == element) {
- 						final Subcomponent refinee = (Subcomponent)obj;
- 						
- 						diagramMod.markLinkagesAsDirty(refinee);
- 						
- 						// Set the refined element to null and then set it again to trigger the change 
- 						refinee.setRefined(null);
- 						refinee.setRefined(element);
- 						
- 						updateReferences(refinee, resourceSet);
- 					}
- 					else if(obj instanceof ConnectedElement) {
-						final ConnectedElement connectedElement = (ConnectedElement)obj;
-						if(connectedElement.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							connectedElement.setContext(null);
-							connectedElement.setContext(element);							
-						}
-					} else if(obj instanceof FlowSegment) {
-						final FlowSegment fs = (FlowSegment)obj;
-						if(fs.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							fs.setContext(null);
-							fs.setContext(element);							
-						}
-					} else if(obj instanceof EndToEndFlowSegment) {
-						final EndToEndFlowSegment fs = (EndToEndFlowSegment)obj;
-						if(fs.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							fs.setContext(null);
-							fs.setContext(element);							
-						}
-					} else if(obj instanceof ModeTransitionTrigger) {
-						final ModeTransitionTrigger mtt = (ModeTransitionTrigger)obj;
-						if(mtt.getContext() == element) {
-							// Reset the context. This will trigger and update by xtext
-							mtt.setContext(null);
-							mtt.setContext(element);							
-						}
-					}
- 				}
- 			}
- 	    }
- 	}
     
 	private static Method getSubcomponentCreateMethod(final ComponentImplementation subcomponentOwner, final EClass subcomponentType) {
 		// Determine the method name of the type of subcomponent

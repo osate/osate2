@@ -45,6 +45,7 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
@@ -53,7 +54,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.util.Log;
 
-public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
+public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements DiagramUpdateFeature {
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final VisibilityService visibilityService;
@@ -206,9 +207,8 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	}
 	
 	private void updateRelationships(final Diagram diagram, final Set<NamedElement> elements) {
-		final AadlPackage pkg = (AadlPackage)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
 		for(final NamedElement el : elements) {
-			if(el.getNamespace() != null && el.getNamespace().getOwner() == pkg) {
+			if(el.getNamespace() != null) {
 				if(el instanceof ComponentType) {
 					// Extension
 					final ComponentType ct = (ComponentType)el;

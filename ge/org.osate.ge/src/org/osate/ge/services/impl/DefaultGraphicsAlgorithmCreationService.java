@@ -11,6 +11,7 @@ package org.osate.ge.services.impl;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -26,12 +27,17 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.EventDataSource;
+import org.osate.aadl2.EventSource;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
@@ -65,6 +71,21 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
         return text;
 	}
 	
+	@Override
+	public Text createAnnotationGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String annotationTxt) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Text text = gaService.createPlainText(container, annotationTxt);
+        text.setStyle(styleService.getAnnotationStyle());
+        return text;
+	}
+		
+	@Override
+	public GraphicsAlgorithm createTextBackground(final GraphicsAlgorithmContainer container) {
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm background = gaService.createPlainRectangle(container);	
+		background.setStyle(styleService.getTextBackgroundStyle());		
+		return background;
+	}
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createClassifierGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Element, int, int)
 	 */
@@ -73,7 +94,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		final GraphicsAlgorithm ga;
 		
 		if(element instanceof FeatureGroupType) {
-        	ga = createFeatureGroupGraphicsAlgorithm(shape, Math.min(width/3, height/3), height);
+        	ga = createFeatureGroupTypeGraphicsAlgorithm(shape, width, height);
         	ga.setWidth(width);
 		} else {
 			final boolean isImplementation;
@@ -131,7 +152,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createFeatureGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Feature)
 	 */
 	@Override
-	public GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final Feature feature) {
+	public GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final NamedElement feature) {
 		final IGaService gaService = Graphiti.getGaService();
 		
         // Abstract Feature
@@ -144,14 +165,24 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
         	ga = createAccessGraphicsAlgorithm(shape, ((Access)feature).getCategory(), ((Access)feature).getKind());
         } else if(feature instanceof FeatureGroup) {
         	throw new RuntimeException("Unhandled case. Feature Group");   		
-        } else {
+        } else if(feature instanceof EventSource) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.EVENT, DirectionType.IN);    
+		} else if(feature instanceof EventDataSource) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.EVENT_DATA, DirectionType.IN);
+		} else if(feature instanceof SubprogramProxy) {
+			ga = createAccessGraphicsAlgorithm(shape, AccessCategory.SUBPROGRAM, AccessType.REQUIRES);
+		} else if(feature instanceof PortProxy) {
+			ga = createAbstractFeatureGraphicsAlgorithm(shape, DirectionType.IN_OUT);
+		} else if(feature instanceof Parameter) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.DATA, ((Parameter) feature).getDirection());
+		} else {
         	ga = gaService.createPlainRectangle(shape);
             gaService.setSize(ga, 10, 10);
         }
-		
+
 		return ga;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createPortGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.PortCategory, org.osate.aadl2.DirectionType)
 	 */
@@ -423,15 +454,19 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		return createProcessGraphicsAlgorithm(container, style, width, height);
 	}
 	
-	private static GraphicsAlgorithm createSubprogramGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createSubprogramGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = gaService.createPlainEllipse(container);
-    	gaService.setSize(ga, width, height);
-        ga.setStyle(style);
+		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(container);
+		gaService.setSize(ga, width, height);
+		
+		final GraphicsAlgorithm ellipseGa = gaService.createPlainEllipse(ga);
+		gaService.setSize(ellipseGa, width, height);
+		ellipseGa.setStyle(style);
+         
     	return ga;
 	}
 	
-	private static GraphicsAlgorithm createSubprogramGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createSubprogramGroupGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
 		return createSubprogramGraphicsAlgorithm(container, style, width, height);
 	}
 	
@@ -554,35 +589,47 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	}
 	
 	private static GraphicsAlgorithm createMemoryGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
-		final  int ellipseHeight = 20;
+		final int ellipseHeight = 20;
+		final double halfEllipseHeight = ellipseHeight / 2.0;
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
 		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
-		ga.setFilled(false);
+		ga.setStyle(style);
 		
-		final GraphicsAlgorithm bottomEllipse = gaService.createPlainEllipse(ga);
-		gaService.setLocationAndSize(bottomEllipse, 0, height-ellipseHeight, width, ellipseHeight);
-		bottomEllipse.setStyle(style);
-		
+		// Top ellipse
 		final GraphicsAlgorithm topEllipse = gaService.createPlainEllipse(ga);
 		gaService.setLocationAndSize(topEllipse, 0, 0, width, ellipseHeight);
 		topEllipse.setStyle(style);
+		topEllipse.setFilled(false);
+
+		// Draw a half ellipse for the bottom
+		int halfEllipsePointCount = 8;
+		int[] points = new int[halfEllipsePointCount*2 + 8];
+		int j = 0;
 		
-		final GraphicsAlgorithm maskRect = gaService.createPlainRectangle(ga);
-		gaService.setLocationAndSize(maskRect, 0, ellipseHeight, width, height-ellipseHeight-ellipseHeight/2);
-		maskRect.setStyle(style);
-		maskRect.setLineVisible(false);
+		// Right Side
+		points[j++] = width; points[j++] = ellipseHeight/2;
+		points[j++] = width; points[j++] = (int)Math.round(height-halfEllipseHeight);
 		
-		// Create vertical lines
-		gaService.createPlainPolyline(ga, new int[] {
-    			0, ellipseHeight/2,
-    			0, height-ellipseHeight/2}).setStyle(style);
+		// Bottom Half Ellipse
+		double t = -Math.PI/2.0;
+		final double halfWidth = width / 2.0;
+		for(int i = 0; i < halfEllipsePointCount; i++) {
+			final int x = (int)Math.round(halfWidth + (-Math.sin(t) * halfWidth));
+			final int y = (int)Math.round(height-halfEllipseHeight + (Math.cos(t) * halfEllipseHeight));
+			points[j++] = x;
+			points[j++] = y;
+			t += Math.PI/(halfEllipsePointCount-1);
+		}
 		
-		gaService.createPlainPolyline(ga, new int[] {
-    			width-2, ellipseHeight/2,
-    			width-2, height-ellipseHeight/2}).setStyle(style);
+		// Left Side
+		points[j++] = 0; points[j++] = (int)Math.round(height-halfEllipseHeight);
+		points[j++] = 0; points[j++] = ellipseHeight/2;
 		
+		final Polyline linesGa = gaService.createPlainPolyline(ga, points);
+		gaService.setLocationAndSize(linesGa, 0, 0, width, height);
+		linesGa.setStyle(style);
 		return ga;
 	}
 
@@ -610,6 +657,47 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		gaService.setLocationAndSize(bar, circle.getX()-barWidth, 0, barWidth, height);
 		bar.setStyle(style);
 		
+		return ga;
+	}
+	
+	private GraphicsAlgorithm createFeatureGroupTypeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final int width, final int height) {
+		final Style style = styleService.getFeatureGroupStyle();
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
+		final int size = Math.min(width, height);
+		final double halfSize = (size)/2.0;
+		final int paddingCircleSize = (int)(halfSize + 1 + halfSize *.2);
+		final int innerCircleSize = size/2;
+		gaService.setSize(ga, size, size);
+		ga.setLineVisible(false);
+		ga.setFilled(false);	
+
+		// Draw a half circle
+		int pointCount = 16;
+		int[] points = new int[pointCount*2];
+		int j = 0;
+		double t = 0;
+		for(int i = 0; i < pointCount; i++) {
+			final int x = (int)Math.round(halfSize + (-Math.sin(t) * halfSize));
+			final int y = (int)Math.round(height/2.0 + (Math.cos(t) * halfSize));
+			points[j++] = x;
+			points[j++] = y;
+			t += Math.PI/(pointCount-1);
+		}
+		final Polygon halfCircle = gaService.createPlainPolygon(ga, points);
+		gaService.setLocationAndSize(halfCircle, 0, 0, size, size);
+		halfCircle.setStyle(style);
+		
+		// White circle for padding
+		final GraphicsAlgorithm paddingCircle = gaService.createPlainEllipse(ga);
+		gaService.setLocationAndSize(paddingCircle, (int)Math.round(size/2.0 - paddingCircleSize/2.0), (int)Math.round(height/2.0-paddingCircleSize/2.0), paddingCircleSize, paddingCircleSize);
+		paddingCircle.setStyle(styleService.getBackgroundStyle());
+		
+		// Inner Circle
+		final GraphicsAlgorithm innerCircle = gaService.createPlainEllipse(ga);
+		gaService.setLocationAndSize(innerCircle, (int)Math.round(innerCircleSize/2), (int)Math.round(height/2.0-innerCircleSize/2.0), innerCircleSize, innerCircleSize);
+		innerCircle.setStyle(style);
+
 		return ga;
 	}
 	

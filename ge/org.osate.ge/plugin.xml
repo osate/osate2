@@ -92,8 +92,6 @@
 	<extension point="org.eclipse.ui.startup">
       <startup class="org.osate.ge.ui.xtext.AgeXtextUtil$Initializer">
       </startup>
-      <startup class="org.osate.ge.ui.navigator.NavigatorInitializer">
-      </startup>
    </extension>
    
 	<extension point="org.eclipse.core.runtime.adapters">
@@ -146,11 +144,10 @@
  	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="decorator"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="feature"/>
  	<factory class="org.osate.ge.diagrams.common.styles.LabelStyleFactory" styleId="label"/>
+ 	<factory class="org.osate.ge.diagrams.common.styles.AnnotationStyleFactory" styleId="annotation"/>
+ 	<factory class="org.osate.ge.diagrams.common.styles.TextBackgroundStyleFactory" styleId="text-background"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
- 	<!-- TODO: Remove Feature group circles? -->
- 	<factory class="org.osate.ge.diagrams.common.styles.ThickOutlineStyleFactory" styleId="feature_group_large_circle"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="feature_group_small_circle"/>
  	<factory class="org.osate.ge.diagrams.common.styles.BackgroundStyleFactory" styleId="background"/>
  	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="mode-initial"/>
@@ -176,6 +173,11 @@
            labelProvider="org.osate.ge.ui.navigator.LabelProvider"
            name="AADL Diagrams"
            priority="highest">
+           
+		<actionProvider
+			class="org.osate.ge.ui.navigator.ActionProvider">
+		</actionProvider>
+		
         <enablement>
            <or>
               <instanceof
@@ -185,10 +187,20 @@
         </enablement>
      </navigatorContent>
   </extension>
+  
   <extension
         point="org.eclipse.ui.navigator.viewer">
      <viewerContentBinding
            viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+        <includes>
+           <contentExtension
+                 isRoot="false"
+                 pattern="org.osate.ge.*">
+           </contentExtension>
+        </includes>
+     </viewerContentBinding>
+     <viewerContentBinding
+           viewerId="org.osate.ui.navigator.AadlNavigator">
         <includes>
            <contentExtension
                  isRoot="false"
@@ -211,9 +223,13 @@
               id="org.osate.ge.navigatorContent.sorter">
            <parentExpression>
               <or>
-                 <instanceof
-                       value="org.eclipse.core.resources.IResource">
-                 </instanceof></or>
+                 <adapt
+                       type="org.eclipse.core.resources.IFolder">
+                    <test
+                          property="org.osate.ge.name"
+                          value="diagrams">
+                    </test>
+                 </adapt></or>
            </parentExpression>
         </commonSorter>
      </navigatorContent>
@@ -227,6 +243,16 @@
            id="org.osate.ge.wizards.NewPackageWizard"
            name="Aadl Package (Graphical)">
      </wizard>
+  </extension>
+  <extension
+        point="org.eclipse.core.expressions.propertyTesters">
+     <propertyTester
+           class="org.osate.ge.ui.navigator.PropertyTester"
+           id="org.osate.ge.navigator.propertyTester"
+           namespace="org.osate.ge"
+           properties="name"
+           type="org.eclipse.core.resources.IResource">
+     </propertyTester>
   </extension>
  
 </plugin>

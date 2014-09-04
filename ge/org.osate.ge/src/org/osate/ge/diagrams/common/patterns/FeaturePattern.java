@@ -19,11 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
@@ -40,6 +36,7 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -51,9 +48,10 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -62,17 +60,18 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowEnd;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.AadlFeatureService;
@@ -87,6 +86,7 @@ import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.PrototypeService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
@@ -104,12 +104,14 @@ import org.osate.ge.util.StringUtil;
 public class FeaturePattern extends AgeLeafShapePattern {
 	private static final String featureShapeName = "feature";
 	private static final String labelShapeName = "label";	
+	private static final String annotationShapeName = "annotation";
 	public static final String innerConnectorAnchorName = "innerConnector";
 	public static final String outerConnectorAnchorName = "outerConnector";
 	public static final String flowSpecificationAnchorName = "flowSpecification";
 	private static LinkedHashMap<EClass, String> featureTypeToMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final int featureGroupSymbolWidth = 30;
 	private static final int labelPadding = 5;
+	private static final int annotationPadding = 5;
 	private final AnchorService anchorUtil;
 	private final VisibilityService visibilityHelper;
 	private final PropertyService propertyUtil;
@@ -126,6 +128,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final BusinessObjectResolutionService bor;
 	private final ShapeCreationService shapeCreationService;
 	private final HighlightingService highlightingService;
+	private final RefactoringService refactoringService;
 	private final EClass featureType;
 	
 	/**
@@ -133,6 +136,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	 */
 	static {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		
+		// Regular Features
 		featureTypeToMethodNameMap.put(p.getAbstractFeature(), "createOwnedAbstractFeature");
 		featureTypeToMethodNameMap.put(p.getBusAccess(), "createOwnedBusAccess");
 		featureTypeToMethodNameMap.put(p.getDataAccess(), "createOwnedDataAccess");
@@ -143,6 +148,14 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		featureTypeToMethodNameMap.put(p.getParameter(), "createOwnedParameter");
 		featureTypeToMethodNameMap.put(p.getSubprogramAccess(), "createOwnedSubprogramAccess");
 		featureTypeToMethodNameMap.put(p.getSubprogramGroupAccess(), "createOwnedSubprogramGroupAccess");
+		
+		// Internal Features
+		featureTypeToMethodNameMap.put(p.getEventSource(), "createOwnedEventSource");
+		featureTypeToMethodNameMap.put(p.getEventDataSource(), "createOwnedEventDataSource");
+		
+		// Processor Features
+		featureTypeToMethodNameMap.put(p.getSubprogramProxy(), "createOwnedSubprogramProxy");
+		featureTypeToMethodNameMap.put(p.getPortProxy(), "createOwnedPortProxy");
 	}
 	
 	public static Collection<EClass> getFeatureTypes() {
@@ -156,7 +169,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
-			final HighlightingService highlightingService, final @Named("Feature Type") EClass featureType) {
+			final HighlightingService highlightingService, final RefactoringService refactoringService, final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -174,6 +187,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.bor = bor;
 		this.shapeCreationService = shapeCreationService;
 		this.highlightingService = highlightingService;
+		this.refactoringService = refactoringService;
 		this.featureType = featureType;
 	}
 
@@ -254,7 +268,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		final ContainerShape featureShape = getFeatureShape(shape);
 		final GraphicsAlgorithm featureGa = featureShape.getGraphicsAlgorithm();
-		final Feature feature = (Feature)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
+		final NamedElement feature = (NamedElement)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		
 		boolean wasLeftLayout = propertyUtil.getIsLeftLayout(shape);
 		final boolean isLeftLayout = isLeft(shape);
@@ -290,12 +304,20 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		// All
 		featureGa.setX(isLeftLayout ? 0 : shapeGa.getWidth()-featureGa.getWidth());
-		final Shape labelShape = getLabelShape(shape);
 		
+		// Position the label shape
+		final Shape labelShape = getLabelShape(shape);		
 		if(labelShape != null) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
 			labelGa.setX(isLeftLayout ? labelPadding : shapeGa.getWidth()-labelGa.getWidth()-labelPadding);
 		}	
+		
+		// Position the annotation shape
+		final Shape annotationShape = getAnnotationShape(shape);		
+		if(annotationShape != null) {
+			final GraphicsAlgorithm annotationGa = annotationShape.getGraphicsAlgorithm();
+			annotationGa.setX(isLeftLayout ? annotationPadding : shapeGa.getWidth()-annotationGa.getWidth()-annotationPadding);
+		}
 		
 		// Handle positioning of the shape in cases where the shape container has a fully initialized container
 		final GraphicsAlgorithm containerGa = shape.getContainer().getGraphicsAlgorithm();
@@ -331,7 +353,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
 		visibilityHelper.setIsGhost(shape, false);
 		
-		final Feature feature = (Feature)bo;
+		final NamedElement feature = (NamedElement)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();		
 	
@@ -370,11 +392,15 @@ public class FeaturePattern extends AgeLeafShapePattern {
         final Shape labelShape = peCreateService.createShape(shape, false);
         this.link(labelShape, new AadlElementWrapper(feature));
         propertyUtil.setName(labelShape, labelShapeName);
-        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
-        // Set the size        
+		
+		final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
+        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, labelTxt);
+        
+        // Set the sizes        
         final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
 		gaService.setLocationAndSize(label, 0, 0, labelSize.getWidth(), labelSize.getHeight());		
+		gaService.setLocationAndSize(labelBackground, 0, 0, labelSize.getWidth(), labelSize.getHeight());
 		
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
@@ -483,17 +509,31 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				graphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, feature);		
 			}
 		}
-		
+
 		// Position the feature shape		
 		gaService.setLocation(featureShape.getGraphicsAlgorithm(), 0, labelSize.getHeight());  
+		
+		// Create annotation label
+		final String annotationTxt = getAnnotationText(feature);
+        final Shape annotationShape = peCreateService.createShape(shape, false);
+        this.link(annotationShape, new AadlElementWrapper(feature));
+        propertyUtil.setName(annotationShape, annotationShapeName);
+        final GraphicsAlgorithm annotationBackground = graphicsAlgorithmCreator.createTextBackground(annotationShape);
+        final Text annotation = graphicsAlgorithmCreator.createAnnotationGraphicsAlgorithm(annotationBackground, annotationTxt);
+        
+        if(annotationTxt.length() != 0) {
+        	final IDimension annotationSize = GraphitiUi.getUiLayoutService().calculateTextSize(annotationTxt, annotation.getStyle().getFont());
+        	gaService.setLocationAndSize(annotation, 0, 0, annotationSize.getWidth(), annotationSize.getHeight());
+        	gaService.setLocationAndSize(annotationBackground, 0, featureShape.getGraphicsAlgorithm().getY() + featureShape.getGraphicsAlgorithm().getHeight(), annotationSize.getWidth(), annotationSize.getHeight());
+        }				
 		
 		// Determine whether the feature has a "context" and then highlight it
 		final Element possibleContext = shapeService.getClosestBusinessObjectOfType(shape, Context.class, Classifier.class);
      	highlightingService.highlight(feature, possibleContext instanceof Context ? (Context)possibleContext : null, featureShape.getGraphicsAlgorithm());		
      	
         // Set size as appropriate
-        gaService.setSize(ga, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())), 
-        		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
+        gaService.setSize(ga, Math.max(getWidth(annotationBackground)+annotationPadding, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm()))), 
+        		Math.max(getHeight(annotationBackground), Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm()))));
      		
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
 	}
@@ -502,7 +542,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	protected void updateAnchors(final ContainerShape shape) {
 		super.updateAnchors(shape);
 
-		final Feature feature = (Feature)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));		
+		final NamedElement feature = (NamedElement)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));		
 		final GraphicsAlgorithm featureGa = getFeatureShape(shape).getGraphicsAlgorithm();
 		final boolean isLeft = isLeft(shape);
 		
@@ -543,6 +583,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		return shapeService.getChildShapeByName(container, labelShapeName);
 	}	
 
+	private Shape getAnnotationShape(final ContainerShape container) {
+		return shapeService.getChildShapeByName(container, annotationShapeName);
+	}	
+	
 	private int getWidth(final GraphicsAlgorithm ga) {
 		return ga.getX() + ga.getWidth();
 	}
@@ -551,7 +595,17 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		return ga.getY() + ga.getHeight();
 	}
 	
-	public final String getLabelText(final Feature feature) {
+	public final String getAnnotationText(final NamedElement feature) {
+		if(feature instanceof InternalFeature) {
+			return "<internal>";
+		} else if(feature instanceof ProcessorFeature) {
+			return "<processor>";
+		}
+		
+		return "";
+	}
+	
+	public final String getLabelText(final NamedElement feature) {
 		return feature.getName();
 	}
 		
@@ -600,10 +654,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			return;
 		}
 		
-		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		modificationService.modify(feature, new AbstractModifier<Feature, Object>() {
+		final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		modificationService.modify(feature, new AbstractModifier<NamedElement, Object>() {
 			@Override
-			public Object modify(final Resource resource, final Feature feature) {
+			public Object modify(final Resource resource, final NamedElement feature) {
 				// Just remove the feature. 
 				// In the future it would be helpful to offer options for refactoring the model so that it does not cause errors.
 				EcoreUtil.remove(feature);
@@ -619,15 +673,19 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return getFeatureCreateMethod((Classifier)diagramBo, featureType) != null;
-	}
-	
+		return canOwnFeatureType((Classifier)diagramBo, featureType);
+	}	
+
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
 
 		// The container must be a Feature Group Type or a ComponentType and it must have a method to create the feature type that is controlled by this pattern
-		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && canContainFeatureType((Classifier)containerBo, featureType);
+		return !(context.getTargetContainer() instanceof Diagram) && 
+				(containerBo instanceof FeatureGroupType || 
+						containerBo instanceof ComponentType || 
+						containerBo instanceof ComponentImplementation) && 
+				canOwnFeatureType((Classifier)containerBo, featureType);
 	}
 	
 	@Override
@@ -639,29 +697,29 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	public Object[] create(final ICreateContext context) {
 		// Get the classifier
 		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		final Feature newFeature;
+		final NamedElement newFeature;
 		if(classifier == null) {
 			newFeature = null;
 		} else {		
 			final String newFeatureName = namingService.buildUniqueIdentifier(classifier, "new_feature");
 			
 			// Make the modification
-			newFeature = modificationService.modify(classifier, new AbstractModifier<Classifier, Feature>() {
+			newFeature = modificationService.modify(classifier, new AbstractModifier<Classifier, NamedElement>() {
 				private DiagramModificationService.Modification diagramMod;
 				
 				@Override
-				public Feature modify(final Resource resource, final Classifier classifier) {
+				public NamedElement modify(final Resource resource, final Classifier classifier) {
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
 		 			diagramMod.markRelatedDiagramsAsDirty(classifier);
 		 			
-					final Feature newFeature = createFeature(classifier, featureType);
+					final NamedElement newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
 					return newFeature;
 				}
 				
 				@Override
-				public void beforeCommit(final Resource resource, final Classifier classifier, final Feature newFeature) {
+				public void beforeCommit(final Resource resource, final Classifier classifier, final NamedElement newFeature) {
 					diagramMod.commit();
 					
 					final ContainerShape newShape = (ContainerShape)shapeCreationService.createShape(context.getTargetContainer(), newFeature, context.getX(), context.getY());
@@ -694,16 +752,31 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		}
 	}
 	
-	public static Feature createFeature(final Classifier featureOwner, final EClass featureClass) {
+	public static NamedElement createFeature(final Classifier featureOwner, final EClass featureClass) {
 		try {
-			return (Feature)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
+			return (NamedElement)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public static boolean canContainFeatureType(final Classifier featureOwner, final EClass featureType) {
-		return getFeatureCreateMethod(featureOwner, featureType) != null;
+	public static boolean canOwnFeatureType(final Classifier featureOwner, final EClass featureType) {
+		return getFeatureCreateMethod(featureOwner, featureType) != null &&
+				(!isProcessorFeatureType(featureType) || canOwnProcessorFeatures(featureOwner));
+	}
+	
+	private static boolean canOwnProcessorFeatures(final Object bo) {
+		return bo instanceof SystemImplementation || 
+				bo instanceof ProcessImplementation || 
+				bo instanceof ThreadGroupImplementation || 
+				bo instanceof ThreadImplementation || 
+				bo instanceof DeviceImplementation || 
+				bo instanceof VirtualProcessorImplementation;
+	}
+	
+	private static boolean isProcessorFeatureType(final EClass t) {
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		return p.getProcessorFeature().isSuperTypeOf(t);
 	}
 	
 	@Override
@@ -723,13 +796,13 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		final Shape featureShape = (Shape)pe;
 		final Object bo = bor.getBusinessObjectForPictogramElement(featureShape);
-		if(!(bo instanceof Feature)) {
+		if(!(bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature)) {
 			return false;
 		}
 		
-		final Feature feature = (Feature)bo;
+		final NamedElement feature = (NamedElement)bo;
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(featureShape.getContainer());
-		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && feature.getContainingClassifier() == containerBo;
+		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType || containerBo instanceof ComponentImplementation) && feature.getContainingClassifier() == containerBo;
 	}
  
 	@Override
@@ -738,10 +811,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	        final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 	        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
 	        
-	        if (bo instanceof Feature && ga instanceof Text) {
+	        if (bo instanceof NamedElement && ga instanceof Text) {
 	        	final Shape labelShape = (Shape)context.getPictogramElement();
 	        	final Shape featureShape = labelShape.getContainer();
-	        	return canEdit(featureShape) && ((Feature)bo).getRefined() == null;
+	        	return canEdit(featureShape) && (!(bo instanceof Feature) || ((Feature)bo).getRefined() == null);
 	        }
 		}
 
@@ -749,7 +822,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
     }
     
     public String getInitialValue(final IDirectEditingContext context) {
-    	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
     	return this.getLabelText(feature);
     }
     
@@ -760,116 +833,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
      
  	public void setValue(final String value, final IDirectEditingContext context) {
     	final PictogramElement pe = context.getPictogramElement();
-    	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);    	
+    	final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(feature, new RenameFeatureModifier(value, diagramModService));   	
+    	refactoringService.renameElement(feature, value);
     }
- 	
- 	private static class RenameFeatureModifier extends AbstractModifier<Feature, Object> {
-    	private final String newName;
-		private final DiagramModificationService diagramModService;
-		private DiagramModificationService.Modification diagramMod;
-		
- 		public RenameFeatureModifier(final String newName, final DiagramModificationService diagramModService) {
-			this.newName = newName;
-			this.diagramModService = diagramModService;
-		}
- 		
- 		@Override
-		public Object modify(final Resource resource, final Feature feature) {
- 			// Resolving allows the name change to propagate when editing without an Xtext document
- 			EcoreUtil.resolveAll(resource.getResourceSet());
-			
- 			diagramMod = diagramModService.startModification();
- 			diagramMod.markLinkagesAsDirty(feature);
-			feature.setName(newName); // TODO:Reneable
-			
-			updateReferences(feature, resource.getResourceSet());
-			
-			return null;
-		}
- 		
- 		/**
- 		 * Recursive method that updates references to the feature. It recursively updates refinees.
- 		 * @param feature
- 		 * @param resourceSet
- 		 */
- 	    private void updateReferences(final Feature feature, final ResourceSet resourceSet) {
- 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(feature, resourceSet)) {
- 				final EStructuralFeature sf = s.getEStructuralFeature();
- 				if(!sf.isDerived() && sf.isChangeable()) {
- 					final EObject obj = s.getEObject();
- 		 			// Mark linkages to refinements as dirty
- 					if(obj instanceof Feature && ((Feature)obj).getRefined() == feature) {
- 						final Feature refinee = (Feature)obj;
- 						
- 						diagramMod.markLinkagesAsDirty(refinee);
- 						
- 						// Set the refined element to null and then set it again to trigger the change 
- 						refinee.setRefined(null);
- 						refinee.setRefined(feature);
- 						
- 						updateReferences(refinee, resourceSet);
- 					} else if(obj instanceof ConnectedElement) {
-						final ConnectedElement connectedElement = (ConnectedElement)obj;
-						if(connectedElement.getConnectionEnd() == feature) {
-							// Reset the connection end. This will trigger and update by xtext
-							connectedElement.setConnectionEnd(null);
-							connectedElement.setConnectionEnd(feature);							
-						} 
-					} else if(obj instanceof ModeTransitionTrigger) {
-						final ModeTransitionTrigger mtt = (ModeTransitionTrigger)obj;
-						if(mtt.getTriggerPort() == feature) {
-							// Reset the port. This will trigger and update by xtext
-							mtt.setTriggerPort(null);
-							mtt.setTriggerPort((TriggerPort)feature);							
-						} 
-					} else if(obj instanceof FlowEnd) {
-						final FlowEnd fe = (FlowEnd)obj;
-						if(fe.getFeature() == feature) {
-							// Reset the feature. This will trigger and update by xtext
-							fe.setFeature(null);
-							fe.setFeature(feature);
-						}
-						
-						// Flow Implementations do not have a reference to the feature but rather to the flow specification. Trigger an update.
-						if(fe.getOwner() instanceof FlowSpecification) {
-							final FlowSpecification flowSpec = (FlowSpecification)fe.getOwner();
-							updateFlowImplementationReferencesToFlowSpecification(flowSpec, resourceSet);
-						}
-					} else if(obj instanceof FlowSegment && obj instanceof FlowElement) {
-						final FlowSegment fs = (FlowSegment)obj;
-						if(fs.getFlowElement() == feature) {
-							// Reset the flow element. This will trigger and update by xtext
-							fs.setFlowElement(null);
-							fs.setFlowElement((FlowElement)feature);							
-						}
-					}
- 				}
- 			}
- 	    }
- 				
- 		private void updateFlowImplementationReferencesToFlowSpecification(final FlowSpecification flowSpec, final ResourceSet resourceSet) {
- 			// Look for flow implementations
-			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(flowSpec, resourceSet)) {
-				final EStructuralFeature sf = s.getEStructuralFeature();
-				if(!sf.isDerived() && sf.isChangeable()) {
-					final EObject obj = s.getEObject();
-					if(obj instanceof FlowImplementation) {
-						final FlowImplementation fi = (FlowImplementation)obj;
-						if(fi.getSpecification() == flowSpec) {
-							fi.setSpecification(null);
-							fi.setSpecification(flowSpec);
-						}
-					}
-				}
-			}
- 		}		
-
-		@Override
-		public void beforeCommit(final Resource resource, final Feature feature, final Object modificationResult) {
-			diagramMod.commit();
-		}
- 	}
-
 }

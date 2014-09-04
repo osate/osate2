@@ -67,6 +67,10 @@ public interface StyleService {
 	Style getModeTransitionTrigger();
 
 	Style getLabelStyle();
+	
+	Style getAnnotationStyle();
+	
+	Style getTextBackgroundStyle();
 
 	Style getFeatureStyle();
 
@@ -75,10 +79,6 @@ public interface StyleService {
 	Style getSubprogramGroupAccessStyle();
 
 	Style getBackgroundStyle();
-
-	Style getFeatureGroupLargeCircleStyle();
-
-	Style getFeatureGroupSmallCircleStyle();
 
 	Style getModeStyle();
 

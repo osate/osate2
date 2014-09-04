@@ -30,10 +30,12 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TypeExtension;
@@ -73,6 +75,10 @@ public class IndependenceProvider implements IIndependenceSolver {
 				return "group_extension " + ((GroupExtension)bo).getSpecific().getQualifiedName();
 			} else if(bo instanceof Feature) {
 				return "feature " + ((Feature)bo).getQualifiedName();
+			} else if(bo instanceof InternalFeature) {
+				return "internal_feature " + ((InternalFeature)bo).getQualifiedName();
+			} else if(bo instanceof ProcessorFeature) {
+				return "processor_feature " + ((ProcessorFeature)bo).getQualifiedName();
 			} else if(bo instanceof FlowSpecification) {
 				return "flow_specification " + ((FlowSpecification)bo).getQualifiedName();
 			} else if(bo instanceof Connection) {
@@ -157,6 +163,8 @@ public class IndependenceProvider implements IIndependenceSolver {
 				type.equals("classifier") ||
 				type.equals("subcomponent") ||
 				type.equals("feature") ||
+				type.equals("internal_feature") ||
+				type.equals("processor_feature") ||
 				type.equals("flow_specification") ||
 				type.equals("connection") ||
 				type.equals("mode") ||
@@ -262,27 +270,29 @@ public class IndependenceProvider implements IIndependenceSolver {
 	private NamedElement findNamedElementInClassifier(final Classifier c, final String[] pathSegs, final int i, Set<Classifier> checkedClassifiers) {
 		final String seg = pathSegs[i];
 		
-		for(final NamedElement member : c.getOwnedMembers()) {
-			final String name = member.getName();
-			if(name != null) {
-				if(name.equalsIgnoreCase(seg)) {
-					final NamedElement result = findNamedElement(member, pathSegs, i+1);
+		if(c != null) {
+			for(final NamedElement member : c.getOwnedMembers()) {
+				final String name = member.getName();
+				if(name != null) {
+					if(name.equalsIgnoreCase(seg)) {
+						final NamedElement result = findNamedElement(member, pathSegs, i+1);
+						if(result != null) {
+							return result;
+						}
+					} 
+				}
+			}
+			
+			for (Generalization g : c.getGeneralizations()) {
+				final Classifier gc = g.getGeneral();
+				// Only check the generalization if it has not been checked yet. This protects against cycles.
+				if(!checkedClassifiers.contains(gc)) {
+					checkedClassifiers.add(gc);
+					final NamedElement result = findNamedElementInClassifier(gc, pathSegs, i, checkedClassifiers);
 					if(result != null) {
 						return result;
-					}
-				} 
-			}
-		}
-		
-		for (Generalization g : c.getGeneralizations()) {
-			final Classifier gc = g.getGeneral();
-			// Only check the generalization if it has not been checked yet. This protects against cycles.
-			if(!checkedClassifiers.contains(gc)) {
-				checkedClassifiers.add(gc);
-				final NamedElement result = findNamedElementInClassifier(gc, pathSegs, i, checkedClassifiers);
-				if(result != null) {
-					return result;
-				}				
+					}				
+				}
 			}
 		}
 		
