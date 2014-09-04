@@ -44,10 +44,17 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArraySize;
+import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -328,9 +335,62 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	private String getLabelText(final Subcomponent sc) {
-		return sc.getName() == null ? "" : sc.getName();
+		String labelTxt = "";
+		if(sc.getName() != null) {
+			labelTxt += sc.getName();
+		}
+		
+		for(final ArrayDimension dim : sc.getArrayDimensions()) {
+			final SimplifiedDimensionSize size = new SimplifiedDimensionSize(dim);
+			labelTxt += "[" + size.getSizeString() + "]";
+		}
+		return labelTxt;
 	}
 	
+	class SimplifiedDimensionSize {
+		private Long dimSize = null;
+		private String dimSizeString;
+		
+		public SimplifiedDimensionSize(final ArrayDimension dim) {
+			final ArraySize size = dim.getSize();
+			
+			if(size == null) {
+				dimSizeString = "";
+			} else {
+				final ArraySizeProperty sizeProp = size.getSizeProperty();
+				if(sizeProp == null) {
+					dimSize = size.getSize();
+				} else {
+					if(sizeProp instanceof PropertyConstant) {
+						final PropertyExpression pe = ((PropertyConstant) sizeProp).getConstantValue();
+						if(pe instanceof IntegerLiteral) {
+							dimSize = ((IntegerLiteral) pe).getValue();
+						} else {
+							dimSizeString = ((PropertyConstant) sizeProp).getQualifiedName();
+						}
+					} else if(sizeProp instanceof Property) {
+						dimSizeString = ((Property) sizeProp).getQualifiedName();
+					} else {
+						dimSizeString = "?";
+					}
+				}				
+			}
+						
+			// Store a string version of the long
+			if(dimSize != null) {
+				dimSizeString = Long.toString(dimSize);
+			}
+		}
+		
+		public final Long getSize() {
+			return dimSize;
+		}
+		
+		public final String getSizeString() {
+			return dimSizeString;
+		}
+	}
+
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
