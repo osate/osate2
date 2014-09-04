@@ -328,6 +328,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupConnection(FeatureGroupConnection connection) {
+		typeCheckFeatureGroupConnectionEnd(connection.getSource());
+		typeCheckFeatureGroupConnectionEnd(connection.getDestination());
 		checkFeatureGroupConnectionDirection(connection);
 		checkFeatureGroupConnectionClassifiers(connection);
 	}
@@ -3734,6 +3736,29 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else {
 			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
 					+ " is not a valid feature connection end.", connectedElement,
+					Aadl2Package.eINSTANCE.getConnectedElement_Context());
+		}
+	}
+
+	private void typeCheckFeatureGroupConnectionEnd(ConnectedElement connectedElement) {
+		Context connectionContext = connectedElement.getContext();
+		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if (connectionContext == null) {
+			if (!(connectionEnd instanceof FeatureGroupConnectionEnd)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+						+ " is not a valid feature group connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup) {
+			if (!(connectionEnd instanceof FeatureGroupConnectionEnd)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass())
+						+ " is not a valid feature group connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else {
+			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+					+ " is not a valid feature group connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
 	}
