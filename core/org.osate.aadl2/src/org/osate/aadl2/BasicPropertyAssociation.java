@@ -42,6 +42,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Basic Property Association</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Associations.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -74,6 +78,9 @@ public interface BasicPropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Property</em>' reference.
 	 * @see #setProperty(BasicProperty)
 	 * @see org.osate.aadl2.Aadl2Package#getBasicPropertyAssociation_Property()
@@ -100,6 +107,9 @@ public interface BasicPropertyAssociation extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Value</em>' containment reference.
 	 * @see #setOwnedValue(PropertyExpression)
 	 * @see org.osate.aadl2.Aadl2Package#getBasicPropertyAssociation_OwnedValue()

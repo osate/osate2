@@ -197,4 +197,4 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements Anne
 	 */
 	protected static final OCL EOCL_ENV = OCL.newInstance();
 
-} //AnnexInstanceImpl
+} // AnnexInstanceImpl

@@ -40,7 +40,6 @@ package org.osate.aadl2.modelsupport.modeltraversal;
 import java.util.HashSet;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -51,7 +50,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-
 abstract class AbstractSimpleTraversal extends AbstractTraversal {
 
 	public AbstractSimpleTraversal(final IProcessingMethod pm) {
@@ -60,21 +58,21 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 
 	/**
 	 * Process all AADL models in the AadlWorkspace.
-	 * 
+	 *
 	 * <p>
 	 * This method checks whether the processing has been cancelled after
 	 * visiting each element, and terminates the processing if the traversal has
 	 * been cancelled.
-	 * 
+	 *
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
+	@Override
 	public final EList<Element> visitWorkspace() {
 		HashSet<IFile> files = TraverseWorkspace.getAadlandInstanceFilesInWorkspace();
-		for (final IFile file : files)
-		{
+		for (final IFile file : files) {
 			/*
-			 * JD fix for bug 
+			 * JD fix for bug
 			 * This part of the code was taken from SaveAsTextHandler.java
 			 * from package org.osate.xtext.aadl2.ui.handlers. It seems
 			 * that we can retrieve all packages using that method using
@@ -84,80 +82,89 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
+				@Override
 				protected void doExecute() {
 					ResourceSet rs = OsateResourceUtil.createResourceSet();
-					Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource)file), true);
-					Element target = (Element)res.getContents().get(0);
-					
+					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
+					Element target = (Element) res.getContents().get(0);
+
 					visitRoot(target);
 
 				}
 			});
 
-			if (processingMethod.cancelled())
+			if (processingMethod.cancelled()) {
 				break;
 			}
-		
+		}
+
 		return processingMethod.getResultList();
 	}
 
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace.
-	 * 
+	 *
 	 * <p>
 	 * This method checks whether the processing has been cancelled after
 	 * visiting each element, and terminates the processing if the traversal has
 	 * been cancelled.
-	 * 
+	 *
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
+	@Override
 	public final EList<Element> visitWorkspaceDeclarativeModels() {
 		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
-		for (final IFile file : files){
-			
+		for (final IFile file : files) {
+
 			/*
 			 * JD fix for bug 169. For justification, see comments before.
 			 */
 			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
+				@Override
 				protected void doExecute() {
 					ResourceSet rs = OsateResourceUtil.createResourceSet();
-					Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource)file), true);
-					Element target = (Element)res.getContents().get(0);
-					
+					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
+					Element target = (Element) res.getContents().get(0);
+
 					visitRoot(target);
 
 				}
 			});
 
-			if (processingMethod.cancelled())
+			if (processingMethod.cancelled()) {
 				break;
+			}
 		}
 		return processingMethod.getResultList();
 	}
-	
+
 	/**
 	 * Process all AADL instance models in the AadlWorkspace.
-	 * 
+	 *
 	 * <p>
 	 * This method checks whether the processing has been cancelled after
 	 * visiting each element, and terminates the processing if the traversal has
 	 * been cancelled.
-	 * 
+	 *
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
+	@Override
 	public final EList visitWorkspaceInstanceModels() {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
-		for (IFile file : files){
-			SystemInstance target = (SystemInstance)Platform.getAdapterManager().getAdapter(file, SystemInstance.class);
-			if (target != null){
+		for (IFile file : files) {
+			SystemInstance target = (SystemInstance) Platform.getAdapterManager()
+					.getAdapter(file, SystemInstance.class);
+			if (target != null) {
 				visitRoot(target);
 			}
-			if (processingMethod.cancelled()) break;
+			if (processingMethod.cancelled()) {
+				break;
+			}
 		}
- 		return processingMethod.getResultList();
+		return processingMethod.getResultList();
 	}
 }

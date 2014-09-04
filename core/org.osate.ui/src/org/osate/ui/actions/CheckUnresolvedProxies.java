@@ -69,8 +69,6 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osgi.framework.Bundle;
 
-
-
 /**
  * CheckUnresolvedProxies looks for objects with unresolved proxies and marks them
  * @see IWorkbenchWindowActionDelegate
@@ -81,19 +79,20 @@ public class CheckUnresolvedProxies implements IWorkbenchWindowActionDelegate, I
 	 */
 	private Set currentSelection = Collections.EMPTY_SET;
 	private IWorkbenchWindow window;
-	
+
 	/**
 	 * The constructor.
 	 */
 	public CheckUnresolvedProxies() {
 	}
 
-    /**
-     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-     */
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-    	this.window = targetPart.getSite().getWorkbenchWindow();
-    }
+	/**
+	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
+	 */
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		window = targetPart.getSite().getWorkbenchWindow();
+	}
 
 	/**
 	 * The action has been activated. The argument of the
@@ -101,55 +100,54 @@ public class CheckUnresolvedProxies implements IWorkbenchWindowActionDelegate, I
 	 * in the workbench UI.
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		final Bundle theBundle = OsateUiPlugin.getDefault().getBundle();
-		final AnalysisErrorReporterManager errManager =
-			new AnalysisErrorReporterManager(
-				new MarkerAnalysisErrorReporter.Factory(
-						"org.osate.ui.XMLErrorMarker",
+		final AnalysisErrorReporterManager errManager = new AnalysisErrorReporterManager(
+				new MarkerAnalysisErrorReporter.Factory("org.osate.ui.XMLErrorMarker",
 						new LogAnalysisErrorReporter.Factory(theBundle)));
-		
+
 		if (currentSelection.isEmpty()) {
-			MessageDialog.openError(getShell(),
-					"Check Unresolved Proxies",	"No resource(s) selected.");
+			MessageDialog.openError(getShell(), "Check Unresolved Proxies", "No resource(s) selected.");
 			return;
 		}
 		for (final Iterator rsrcs = currentSelection.iterator(); rsrcs.hasNext();) {
 			final IResource rsrc = (IResource) rsrcs.next();
 			final Resource res = OsateResourceUtil.getResource(rsrc);
-			
-			/* Get the error reporter for the current resource.  This has the
-			 * effect of clearing the old error reports on the resource. 
+
+			/*
+			 * Get the error reporter for the current resource. This has the
+			 * effect of clearing the old error reports on the resource.
 			 */
 			final AnalysisErrorReporter errReporter = errManager.getReporter(res);
 
 			final Map map = EcoreUtil.UnresolvedProxyCrossReferencer.find(res);
-		    if (!map.isEmpty()) {
-		      for (Iterator i = map.entrySet().iterator(); i.hasNext(); )
-		      {
-		        final Map.Entry entry = (Map.Entry)i.next();
+			if (!map.isEmpty()) {
+				for (Iterator i = map.entrySet().iterator(); i.hasNext();) {
+					final Map.Entry entry = (Map.Entry) i.next();
 //		        final EObject unresolvedProxy = (EObject)entry.getKey();
 //				String proxy = unresolvedProxy.toString();
 //		        if (unresolvedProxy instanceof BasicEObjectImpl){
 //		        	proxy = ((BasicEObjectImpl)unresolvedProxy).eProxyURI().toString();
 //				}
-		        for (Iterator j = ((List)entry.getValue()).iterator(); j.hasNext(); )
-		        {
-		          final EStructuralFeature.Setting setting = (EStructuralFeature.Setting)j.next();
-		          final EObject obj = setting.getEObject();
-		          errManager.error((Element) obj, "Unresolved proxy");
-		        }
-		      }
-		    }
+					for (Iterator j = ((List) entry.getValue()).iterator(); j.hasNext();) {
+						final EStructuralFeature.Setting setting = (EStructuralFeature.Setting) j.next();
+						final EObject obj = setting.getEObject();
+						errManager.error((Element) obj, "Unresolved proxy");
+					}
+				}
+			}
 		}
 	}
-/**
-	 * Selection in the workbench has been changed. We
-	 * can change the state of the 'real' action here
-	 * if we want, but this can only happen after
-	 * the delegate has been created.
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-	 */
+
+	/**
+		 * Selection in the workbench has been changed. We
+		 * can change the state of the 'real' action here
+		 * if we want, but this can only happen after
+		 * the delegate has been created.
+		 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+		 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
 			currentSelection = new HashSet();
@@ -167,6 +165,7 @@ public class CheckUnresolvedProxies implements IWorkbenchWindowActionDelegate, I
 	 * resources we previously allocated.
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
+	@Override
 	public void dispose() {
 	}
 
@@ -175,11 +174,12 @@ public class CheckUnresolvedProxies implements IWorkbenchWindowActionDelegate, I
 	 * be able to provide parent shell for the message dialog.
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 		this.window = window;
 	}
 
 	private final Shell getShell() {
-		return this.window.getShell();
+		return window.getShell();
 	}
 }

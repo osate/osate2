@@ -228,7 +228,9 @@ public class DataPortImpl extends PortImpl implements DataPort {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
 	 */
 	@Override

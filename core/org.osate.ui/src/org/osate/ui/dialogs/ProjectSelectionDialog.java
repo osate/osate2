@@ -52,16 +52,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
-public class ProjectSelectionDialog extends Dialog
-{
+public class ProjectSelectionDialog extends Dialog {
 	private final ArrayList<IProject> openProjects;
 	private final String title;
 	private final String messageText;
 	private ListViewer viewer = null;
 	private IProject selectedProject = null;
-	
-	public ProjectSelectionDialog(final Shell parentShell, final ArrayList<IProject> openProjects, final String title, final String messageText)
-	{
+
+	public ProjectSelectionDialog(final Shell parentShell, final ArrayList<IProject> openProjects, final String title,
+			final String messageText) {
 		super(parentShell);
 		int flags = getShellStyle();
 		flags |= SWT.RESIZE;
@@ -70,64 +69,63 @@ public class ProjectSelectionDialog extends Dialog
 		this.title = title;
 		this.messageText = messageText;
 	}
-	
-	public IProject getSelectedProject() throws IllegalStateException
-	{
-		if (selectedProject == null)
-			throw new IllegalStateException("Method called out of order.  Only call getSelectedProject() when open() has returned Dialog.OK");
-		else
+
+	public IProject getSelectedProject() throws IllegalStateException {
+		if (selectedProject == null) {
+			throw new IllegalStateException(
+					"Method called out of order.  Only call getSelectedProject() when open() has returned Dialog.OK");
+		} else {
 			return selectedProject;
+		}
 	}
-	
-	protected Control createDialogArea(Composite parent)
-	{
-		Composite composite = (Composite)super.createDialogArea(parent);
+
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite composite = (Composite) super.createDialogArea(parent);
 		composite.getShell().setText(title);
-		
+
 		Label message = new Label(composite, SWT.NONE);
 		message.setText(messageText);
 		GridData layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		message.setLayoutData(layoutData);
-		
+
 		viewer = new ListViewer(composite, SWT.BORDER | SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new ArrayContentProvider());
 		viewer.setLabelProvider(WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider());
 		viewer.setInput(openProjects);
 		layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		viewer.getControl().setLayoutData(layoutData);
-		
+
 		addListeners();
-		
+
 		return composite;
 	}
-	
-	protected Control createContents(Composite parent)
-	{
+
+	@Override
+	protected Control createContents(Composite parent) {
 		Control control = super.createContents(parent);
 		getButton(IDialogConstants.OK_ID).setEnabled(false);
 		return control;
 	}
-	
-	protected Point getInitialSize()
-	{
+
+	@Override
+	protected Point getInitialSize() {
 		return new Point(400, 400);
 	}
-	
-	protected void okPressed()
-	{
-		selectedProject = (IProject)((IStructuredSelection)viewer.getSelection()).getFirstElement();
+
+	@Override
+	protected void okPressed() {
+		selectedProject = (IProject) ((IStructuredSelection) viewer.getSelection()).getFirstElement();
 		super.okPressed();
 	}
-	
-	private void addListeners()
-	{
-		viewer.addSelectionChangedListener(
-				new ISelectionChangedListener()
-				{				
-					public void selectionChanged(SelectionChangedEvent event)
-					{
-						getButton(IDialogConstants.OK_ID).setEnabled(((IStructuredSelection)viewer.getSelection()).size() == 1);
-					}				
-				});
+
+	private void addListeners() {
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				getButton(IDialogConstants.OK_ID)
+						.setEnabled(((IStructuredSelection) viewer.getSelection()).size() == 1);
+			}
+		});
 	}
 }

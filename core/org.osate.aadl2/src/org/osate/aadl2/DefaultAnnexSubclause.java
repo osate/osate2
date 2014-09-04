@@ -42,6 +42,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Default Annex Subclause</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Extensibility.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +67,9 @@ public interface DefaultAnnexSubclause extends AnnexSubclause {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Extensibility.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source Text</em>' attribute.
 	 * @see #setSourceText(String)
 	 * @see org.osate.aadl2.Aadl2Package#getDefaultAnnexSubclause_SourceText()
@@ -89,6 +96,9 @@ public interface DefaultAnnexSubclause extends AnnexSubclause {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Extensibility.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Parsed Annex Subclause</em>' containment reference.
 	 * @see #setParsedAnnexSubclause(AnnexSubclause)
 	 * @see org.osate.aadl2.Aadl2Package#getDefaultAnnexSubclause_ParsedAnnexSubclause()

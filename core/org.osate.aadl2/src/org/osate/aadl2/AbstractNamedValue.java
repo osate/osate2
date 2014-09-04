@@ -41,6 +41,10 @@ import org.osate.aadl2.parsesupport.AObject;
  * A representation of the model object '<em><b>Abstract Named Value</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Expressions.</p>
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.osate.aadl2.Aadl2Package#getAbstractNamedValue()
  * @model abstract="true"

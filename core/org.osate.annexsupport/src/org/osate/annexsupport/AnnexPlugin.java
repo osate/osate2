@@ -51,10 +51,10 @@ public class AnnexPlugin extends AbstractUIPlugin {
 	/** The ID of this plugin. */
 	public static final String PLUGIN_ID = "org.osate.annexsupport";
 
-	//The shared instance.
+	// The shared instance.
 	private static AnnexPlugin plugin;
 
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
 
 	/**
@@ -73,6 +73,7 @@ public class AnnexPlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -80,6 +81,7 @@ public class AnnexPlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
@@ -112,7 +114,7 @@ public class AnnexPlugin extends AbstractUIPlugin {
 	}
 
 	// Logging methods
-	
+
 	/**
 	 * Log the specified information.
 	 * @param message a log message.
@@ -166,7 +168,7 @@ public class AnnexPlugin extends AbstractUIPlugin {
 
 	/**
 	 * Create a status object representing the specified information.
-	 * 
+	 *
 	 * @param severity
 	 *                the severity; one of the following: <code>IStatus.OK</code>,
 	 *                <code>IStatus.ERROR</code>,<code>IStatus.INFO</code>,
@@ -182,13 +184,12 @@ public class AnnexPlugin extends AbstractUIPlugin {
 	 */
 	public static IStatus createStatus(int severity, int code, String message, Throwable exception) {
 
-		return new Status(severity, AnnexPlugin.getDefault().getBundle().getSymbolicName(), code, message,
-				exception);
+		return new Status(severity, AnnexPlugin.getDefault().getBundle().getSymbolicName(), code, message, exception);
 	}
 
 	/**
 	 * Log the given status.
-	 * 
+	 *
 	 * @param status
 	 *                the status to log.
 	 */

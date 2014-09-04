@@ -38,7 +38,6 @@ import java.util.List;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
-
 /**
  * @author lwrage
  * @version $Id: AnnexResolverProxy.java,v 1.7 2009-10-09 18:49:32 lwrage Exp $
@@ -59,8 +58,9 @@ public class AnnexResolverProxy extends AnnexProxy implements AnnexResolver {
 	 * (non-Javadoc)
 	 * 
 	 * @see edu.cmu.sei.aadl.resolver.annex.AnnexResolver#resolveAnnex(java.lang.String,
-	 *      java.util.List, AnalysisErrorReporterManager)
+	 * java.util.List, AnalysisErrorReporterManager)
 	 */
+	@Override
 	public void resolveAnnex(String annexName, List annexElements, AnalysisErrorReporterManager errManager) {
 		AnnexResolver resolver = getResolver();
 

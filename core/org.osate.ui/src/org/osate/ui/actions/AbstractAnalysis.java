@@ -45,235 +45,217 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-
 /**
  * Provides common functionality for all analyses.  Provides an error manager
  * and ensures that the public methods are called in the correct order.
- * 
+ *
  * @author jseibel
  *
  */
-public abstract class AbstractAnalysis implements IAnalysis
-{
-	private enum State { CREATED, PARAMETER_SET, CONFIGURATOR_KEYS_AND_VALUES_SET, READY_TO_RUN, NOT_READY_TO_RUN, ALREADY_RAN }
-	
+public abstract class AbstractAnalysis implements IAnalysis {
+	private enum State {
+		CREATED, PARAMETER_SET, CONFIGURATOR_KEYS_AND_VALUES_SET, READY_TO_RUN, NOT_READY_TO_RUN, ALREADY_RAN
+	}
+
 	private Element parameter = null;
-	
+
 	private State state = State.CREATED;
 	private String notReadyToRunReason = "";
 	private HashMap<String, String> configuratorKeysAndValues = null;
 	private AnalysisErrorReporterManager errManager = null;
-	
-	public final void setParameter(URI parameterPath, String readablePath)
-	{
-		switch (state)
-		{
-			case CREATED:
-				try
-				{
-					EObject parameterAsEObject = OsateResourceUtil.getResourceSet().getEObject(parameterPath, true);
-					if (parameterAsEObject instanceof Element)
-						parameter = (Element)parameterAsEObject;
-					else
-						notReadyToRunReason = "The Parameter \"" + readablePath + "\" cannot be found.";
-				}
-				catch (WrappedException e)
-				{
+
+	@Override
+	public final void setParameter(URI parameterPath, String readablePath) {
+		switch (state) {
+		case CREATED:
+			try {
+				EObject parameterAsEObject = OsateResourceUtil.getResourceSet().getEObject(parameterPath, true);
+				if (parameterAsEObject instanceof Element) {
+					parameter = (Element) parameterAsEObject;
+				} else {
 					notReadyToRunReason = "The Parameter \"" + readablePath + "\" cannot be found.";
 				}
-				state = State.PARAMETER_SET;
-				break;
-			case PARAMETER_SET:
-				throw new IllegalStateException("Parameter already set.");
-			case CONFIGURATOR_KEYS_AND_VALUES_SET:
-				throw new IllegalStateException("Configurator keys and values already set.");
-			case READY_TO_RUN:
-			case NOT_READY_TO_RUN:
-				throw new IllegalStateException("readyToRun() already called.");
-			case ALREADY_RAN:
-				throw new IllegalStateException("Already ran.");
-			default:
-				throw new AssertionError("Unknown enum constant: " + state.name());
+			} catch (WrappedException e) {
+				notReadyToRunReason = "The Parameter \"" + readablePath + "\" cannot be found.";
+			}
+			state = State.PARAMETER_SET;
+			break;
+		case PARAMETER_SET:
+			throw new IllegalStateException("Parameter already set.");
+		case CONFIGURATOR_KEYS_AND_VALUES_SET:
+			throw new IllegalStateException("Configurator keys and values already set.");
+		case READY_TO_RUN:
+		case NOT_READY_TO_RUN:
+			throw new IllegalStateException("readyToRun() already called.");
+		case ALREADY_RAN:
+			throw new IllegalStateException("Already ran.");
+		default:
+			throw new AssertionError("Unknown enum constant: " + state.name());
 		}
 	}
-	
-	public final void setConfiguratorKeysAndValues(HashMap<String, String> keysAndValues)
-	{
-		switch (state)
-		{
-			case CREATED:
-				throw new IllegalStateException("Parameter not set.");
-			case PARAMETER_SET:
-				configuratorKeysAndValues = keysAndValues;
-				state = State.CONFIGURATOR_KEYS_AND_VALUES_SET;
-				break;
-			case CONFIGURATOR_KEYS_AND_VALUES_SET:
-				throw new IllegalStateException("Configurator keys and values already set.");
-			case READY_TO_RUN:
-			case NOT_READY_TO_RUN:
-				throw new IllegalStateException("readyToRun() already called.");
-			case ALREADY_RAN:
-				throw new IllegalStateException("Already ran.");
-			default:
-				throw new AssertionError("Unknown enum constant: " + state.name());
+
+	@Override
+	public final void setConfiguratorKeysAndValues(HashMap<String, String> keysAndValues) {
+		switch (state) {
+		case CREATED:
+			throw new IllegalStateException("Parameter not set.");
+		case PARAMETER_SET:
+			configuratorKeysAndValues = keysAndValues;
+			state = State.CONFIGURATOR_KEYS_AND_VALUES_SET;
+			break;
+		case CONFIGURATOR_KEYS_AND_VALUES_SET:
+			throw new IllegalStateException("Configurator keys and values already set.");
+		case READY_TO_RUN:
+		case NOT_READY_TO_RUN:
+			throw new IllegalStateException("readyToRun() already called.");
+		case ALREADY_RAN:
+			throw new IllegalStateException("Already ran.");
+		default:
+			throw new AssertionError("Unknown enum constant: " + state.name());
 		}
 	}
-	
-	public final boolean readyToRun()
-	{
-		switch (state)
-		{
-			case CREATED:
-				throw new IllegalStateException("Parameter not set.");
-			case PARAMETER_SET:
-				throw new IllegalStateException("Configurator keys and values not set.");
-			case CONFIGURATOR_KEYS_AND_VALUES_SET:
-				if (parameter != null && readyToRunImpl())
-				{
-					state = State.READY_TO_RUN;
-					return true;
-				}
-				else
-				{
-					state = State.NOT_READY_TO_RUN;
-					return false;
-				}
-			case READY_TO_RUN:
-			case NOT_READY_TO_RUN:
-				throw new IllegalStateException("readyToRun() already called.");
-			case ALREADY_RAN:
-				throw new IllegalStateException("Already ran.");
-			default:
-				throw new AssertionError("Unknown enum constant: " + state.name());
+
+	@Override
+	public final boolean readyToRun() {
+		switch (state) {
+		case CREATED:
+			throw new IllegalStateException("Parameter not set.");
+		case PARAMETER_SET:
+			throw new IllegalStateException("Configurator keys and values not set.");
+		case CONFIGURATOR_KEYS_AND_VALUES_SET:
+			if (parameter != null && readyToRunImpl()) {
+				state = State.READY_TO_RUN;
+				return true;
+			} else {
+				state = State.NOT_READY_TO_RUN;
+				return false;
+			}
+		case READY_TO_RUN:
+		case NOT_READY_TO_RUN:
+			throw new IllegalStateException("readyToRun() already called.");
+		case ALREADY_RAN:
+			throw new IllegalStateException("Already ran.");
+		default:
+			throw new AssertionError("Unknown enum constant: " + state.name());
 		}
 	}
-	
-	public final String getNotReadyToRunReason()
-	{
-		switch (state)
-		{
-			case CREATED:
-				throw new IllegalStateException("Parameter not set.");
-			case PARAMETER_SET:
-				throw new IllegalStateException("Configurator keys and values not set.");
-			case CONFIGURATOR_KEYS_AND_VALUES_SET:
-				throw new IllegalStateException("readyToRun() not called.");
-			case READY_TO_RUN:
-				throw new IllegalStateException("Analysis is ready to run.");
-			case NOT_READY_TO_RUN:
-				return notReadyToRunReason;
-			case ALREADY_RAN:
-				throw new IllegalStateException("Already ran.");
-			default:
-				throw new AssertionError("Unknown enum constant: " + state.name());
+
+	@Override
+	public final String getNotReadyToRunReason() {
+		switch (state) {
+		case CREATED:
+			throw new IllegalStateException("Parameter not set.");
+		case PARAMETER_SET:
+			throw new IllegalStateException("Configurator keys and values not set.");
+		case CONFIGURATOR_KEYS_AND_VALUES_SET:
+			throw new IllegalStateException("readyToRun() not called.");
+		case READY_TO_RUN:
+			throw new IllegalStateException("Analysis is ready to run.");
+		case NOT_READY_TO_RUN:
+			return notReadyToRunReason;
+		case ALREADY_RAN:
+			throw new IllegalStateException("Already ran.");
+		default:
+			throw new AssertionError("Unknown enum constant: " + state.name());
 		}
 	}
-	
-	public final boolean run()
-	{
-		switch (state)
-		{
-			case CREATED:
-				throw new IllegalStateException("Parameter not set.");
-			case PARAMETER_SET:
-				throw new IllegalStateException("Configurator keys and values not set.");
-			case CONFIGURATOR_KEYS_AND_VALUES_SET:
-				throw new IllegalStateException("readyToRun() not called.");
-			case READY_TO_RUN:
-				errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(getMarkerType()));
-				state = State.ALREADY_RAN;
-				return runImpl();
-			case NOT_READY_TO_RUN:
-				throw new IllegalStateException("Not ready to run.");
-			case ALREADY_RAN:
-				throw new IllegalStateException("Already ran.");
-			default:
-				throw new AssertionError("Unknown enum constant: " + state.name());
+
+	@Override
+	public final boolean run() {
+		switch (state) {
+		case CREATED:
+			throw new IllegalStateException("Parameter not set.");
+		case PARAMETER_SET:
+			throw new IllegalStateException("Configurator keys and values not set.");
+		case CONFIGURATOR_KEYS_AND_VALUES_SET:
+			throw new IllegalStateException("readyToRun() not called.");
+		case READY_TO_RUN:
+			errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(getMarkerType()));
+			state = State.ALREADY_RAN;
+			return runImpl();
+		case NOT_READY_TO_RUN:
+			throw new IllegalStateException("Not ready to run.");
+		case ALREADY_RAN:
+			throw new IllegalStateException("Already ran.");
+		default:
+			throw new AssertionError("Unknown enum constant: " + state.name());
 		}
 	}
-	
-	protected String getMarkerType()
-	{
+
+	protected String getMarkerType() {
 		return AadlConstants.AADLOBJECTMARKER;
 	}
-	
+
 	/**
-	 * Returns an error manager that should be used by the analysis.  There is 
+	 * Returns an error manager that should be used by the analysis.  There is
 	 * one error manager instance per analysis instance.  The error manager is
 	 * created in the <code>run()</code> method before it calls
 	 * <code>runImpl()</code>.
-	 * 
+	 *
 	 * @return The error manager for this analysis.
 	 */
-	protected final AnalysisErrorReporterManager getErrorManager()
-	{
+	protected final AnalysisErrorReporterManager getErrorManager() {
 		return errManager;
 	}
-	
+
 	/**
 	 * If <code>readyToRunImpl()</code> determines that the analysis cannot
 	 * run, the reason should be reported to this method.
-	 * 
+	 *
 	 * @param reason A human readable description of why the analysis cannot
 	 * 		  run.
 	 */
-	protected final void setNotReadyToRunReason(String reason)
-	{
+	protected final void setNotReadyToRunReason(String reason) {
 		notReadyToRunReason = reason;
 	}
-	
-	protected final Element getParameter()
-	{
+
+	protected final Element getParameter() {
 		return parameter;
 	}
-	
-	protected final String getConfiguratorValue(String key)
-	{
+
+	protected final String getConfiguratorValue(String key) {
 		return configuratorKeysAndValues.get(key);
 	}
-	
+
 	/**
 	 * Sets the <code>notReadyToRunReason</code> to the message that the
 	 * specified <code>PropertyDefinition</code> could not be found.
-	 * 
+	 *
 	 * @param propertySet <code>PropertySet</code> that the
 	 * 					  <code>PropertyDefinition</code> was expected to be
 	 * 					  in.
 	 * @param propertyDefinition <code>PropertyDefinition</code> that could not
 	 * 							 be found.
 	 */
-	protected final void propertyDefinitionNotFound(String propertySet, String propertyDefinition)
-	{
+	protected final void propertyDefinitionNotFound(String propertySet, String propertyDefinition) {
 		setNotReadyToRunReason("Property Definition \"" + propertySet + "::" + propertyDefinition + "\" not found.");
 	}
-	
+
 	/**
 	 * Sets the <code>notReadyToRunReason</code> to the message that the
 	 * specified <code>UnitsType</code> could not be found.
-	 * 
+	 *
 	 * @param propertySet <code>PropertySet</code> that the
 	 * 					  <code>UnitsType</code> was expected to be in.
 	 * @param unitsType <code>UnitsType</code> that could not be found.
 	 */
-	protected final void unitsTypeNotFound(String propertySet, String unitsType)
-	{
+	protected final void unitsTypeNotFound(String propertySet, String unitsType) {
 		setNotReadyToRunReason("Units Type \"" + propertySet + "::" + unitsType + "\" not found.");
 	}
-	
+
 	/**
 	 * Sets the <code>notReadyToRunReason</code> to the message that the
 	 * specified <code>UnitLiteral</code> could not be found.
-	 * 
+	 *
 	 * @param unitLiteral <code>UnitLiteral</code> that could not be found.
 	 * @param unitsType <code>UnitsType</code> that the
 	 * 					<code>UnitLiteral</code> was expected to be in.
 	 */
-	protected final void unitLiteralNotFound(String unitLiteral, UnitsType unitsType)
-	{
-		setNotReadyToRunReason("Unit Literal \"" + unitLiteral + "\" not found in Units Type \"" + unitsType.getNamespace().getName() +
-				"::" + unitsType.getName() + "\".");
+	protected final void unitLiteralNotFound(String unitLiteral, UnitsType unitsType) {
+		setNotReadyToRunReason("Unit Literal \"" + unitLiteral + "\" not found in Units Type \""
+				+ unitsType.getNamespace().getName() + "::" + unitsType.getName() + "\".");
 	}
-	
+
 	/**
 	 * <code>readyToRun()</code> will call this method.  All the checks to
 	 * ensure that <code>readyToRun()</code> is called in the correct order are
@@ -282,12 +264,12 @@ public abstract class AbstractAnalysis implements IAnalysis
 	 * checking the state when overriding <code>readyToRunImpl()</code>.  The
 	 * return value of <code>readyToRunImpl()</code> will be the return value
 	 * of <code>readyToRun()</code>.
-	 * 
+	 *
 	 * @return <code>true</code> if the <code>run()</code> method can be
 	 * 		   called; <code>false</code> if it cannot.
 	 */
 	protected abstract boolean readyToRunImpl();
-	
+
 	/**
 	 * <code>run()</code> will call this method.  All the checks to ensure that
 	 * <code>run()</code> is called in the correct order are handled by
@@ -295,7 +277,7 @@ public abstract class AbstractAnalysis implements IAnalysis
 	 * appropriate state.  In other words, don't worry about checking the state
 	 * when overriding <code>runImpl()</code>.  The return value of
 	 * <code>runImpl()</code> will be the return value of <code>run()</code>.
-	 * 
+	 *
 	 * @return <code>true</code> if the analysis passed; <code>false</code> if
 	 * 		   it failed.
 	 */

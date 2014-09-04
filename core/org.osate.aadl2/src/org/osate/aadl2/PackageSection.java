@@ -43,6 +43,12 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Package Section</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Associations.</p>
+ * <p>From package AADLDetails::NoneSupport.</p>
+ * <p>From package AADLConstructs::Packaging.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -77,6 +83,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Package Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedPackageRename()
 	 * @model containment="true" ordered="false"
@@ -109,6 +118,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Component Type Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedComponentTypeRename()
 	 * @model containment="true" ordered="false"
@@ -134,6 +146,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::NoneSupport.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>No Annexes</em>' attribute.
 	 * @see #setNoAnnexes(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_NoAnnexes()
@@ -160,6 +175,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>No Properties</em>' attribute.
 	 * @see #setNoProperties(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_NoProperties()
@@ -193,6 +211,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Classifier</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedClassifier()
 	 * @model containment="true" ordered="false"
@@ -226,6 +247,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Feature Group Type Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedFeatureGroupTypeRename()
 	 * @model containment="true" ordered="false"
@@ -258,6 +282,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Annex Library</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedAnnexLibrary()
 	 * @model containment="true" ordered="false"
@@ -295,6 +322,9 @@ public interface PackageSection extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Imported Unit</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_ImportedUnit()
 	 * @model ordered="false"

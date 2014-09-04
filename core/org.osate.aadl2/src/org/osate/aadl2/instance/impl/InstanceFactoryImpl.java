@@ -336,4 +336,4 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 		return InstancePackage.eINSTANCE;
 	}
 
-} //InstanceFactoryImpl
+} // InstanceFactoryImpl

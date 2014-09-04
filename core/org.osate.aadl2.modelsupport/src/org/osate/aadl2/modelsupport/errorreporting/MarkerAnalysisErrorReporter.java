@@ -43,16 +43,15 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-
 /**
  * An implementation of {@link edu.cmu.sei.aadl.model.pluginsupport.AnalysisErrorReporter}
- * that reports errors as markers on the aaxl object models.  Internal errors 
- * are logged to the Eclipse "error" view.  The reporter is parameterized by 
+ * that reports errors as markers on the aaxl object models.  Internal errors
+ * are logged to the Eclipse "error" view.  The reporter is parameterized by
  * the name of the marker type to create.
- * 
+ *
  * <p>A marker is created when the maximum number of messages has been exceeded
  * that indicates this fact.
- * 
+ *
  * <p>
  * The class defines a nested class
  * {@link edu.cmu.sei.aadl.model.pluginsupport.MarkerAnalysisErrorReporter.Factory}
@@ -63,35 +62,29 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 public final class MarkerAnalysisErrorReporter extends AbstractAnalysisErrorReporter {
 	/** The name of the marker type to use. */
 	private final String markerType;
-	
+
 	/** The IResource to attach the markers to. */
 	private final IResource iResource;
 
-	
-	
 	/**
 	 * Create a new error reporter that uses the given marker types.
 	 * Assumes that <code>resource</code> is not <code>null</code>.
 	 */
-	public MarkerAnalysisErrorReporter(
-			final Resource rsrc, final IResource irsrc,	final String mType) {
+	public MarkerAnalysisErrorReporter(final Resource rsrc, final IResource irsrc, final String mType) {
 		super(rsrc);
 		iResource = irsrc;
 		markerType = mType;
 	}
 
-	
-	
-	private void createMarker(
-			final Element where, final String message, final int severity,
-			final String[] attrs, final Object[] values) {
+	private void createMarker(final Element where, final String message, final int severity, final String[] attrs,
+			final Object[] values) {
 		if (iResource.exists()) {
 			try {
 				IMarker marker_p = iResource.createMarker(markerType);
 				marker_p.setAttribute(IMarker.SEVERITY, severity);
 				marker_p.setAttribute(IMarker.MESSAGE, message);
 				marker_p.setAttribute(AadlConstants.AADLURI, EcoreUtil.getURI(where).toString());
-				
+
 				for (int i = 0; i < attrs.length; i++) {
 					marker_p.setAttribute(markerType + "." + attrs[i], values[i]);
 				}
@@ -103,25 +96,23 @@ public final class MarkerAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 			Activator.logErrorMessage("Couldn't find IResource.");
 		}
 	}
-	
+
 	@Override
-	protected void errorImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void errorImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		createMarker(where, message, IMarker.SEVERITY_ERROR, attrs, values);
 	}
-	
+
 	@Override
-	protected void warningImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void warningImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		createMarker(where, message, IMarker.SEVERITY_WARNING, attrs, values);
 	}
-	
+
 	@Override
-	protected void infoImpl(final Element where, final String message,
-			final String[] attrs, final Object[] values) {
+	protected void infoImpl(final Element where, final String message, final String[] attrs, final Object[] values) {
 		createMarker(where, message, IMarker.SEVERITY_INFO, attrs, values);
 	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		if (iResource.exists()) {
 			try {
@@ -131,15 +122,13 @@ public final class MarkerAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 			}
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Factory for creating Marker error reporters.  Parameterized by the
 	 * marker type to use.  Can optionally be parameterized by another
 	 * {@link ParseErrorReporterFactory} that is used when it is unable to
 	 * find an {@link IResource} for the given Resource.
-	 * 
+	 *
 	 * @author aarong
 	 */
 	public static final class Factory implements AnalysisErrorReporterFactory {
@@ -151,25 +140,23 @@ public final class MarkerAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 		 * Allowed to be <code>null</code>.
 		 */
 		private final AnalysisErrorReporterFactory secondaryFactory;
-		
-		
-		
+
 		public Factory(final String mt, final AnalysisErrorReporterFactory sndFact) {
 			markerType = mt;
 			secondaryFactory = sndFact;
 		}
-		
+
 		public Factory(final String mt) {
 			this(mt, null);
 		}
-		
-		public AnalysisErrorReporter getReporterFor(final Resource rsrc)
-		{
+
+		@Override
+		public AnalysisErrorReporter getReporterFor(final Resource rsrc) {
 			if (rsrc == null) {
-				throw new IllegalArgumentException("Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
+				throw new IllegalArgumentException(
+						"Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
 			}
-			final IResource irsrc =
-				OsateResourceUtil.convertToIResource(rsrc);
+			final IResource irsrc = OsateResourceUtil.convertToIResource(rsrc);
 			if (irsrc != null && irsrc.exists()) {
 				return new MarkerAnalysisErrorReporter(rsrc, irsrc, markerType);
 			} else {

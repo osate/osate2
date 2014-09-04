@@ -42,7 +42,6 @@ import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.PropertyExpression;
 
-
 /**
  * @author lwrage
  *
@@ -55,11 +54,11 @@ public class EvaluatedProperty {
 	 */
 	public static class MpvProxy {
 		static ModalPropertyValue emptyMPV = Aadl2Factory.eINSTANCE.createModalPropertyValue();
-		
+
 		final PropertyExpression exp;
 
 		ModalPropertyValue mpv;
-		
+
 		public MpvProxy(ModalPropertyValue mpv) {
 			exp = mpv.getOwnedValue();
 			this.mpv = mpv;
@@ -72,12 +71,12 @@ public class EvaluatedProperty {
 		public PropertyExpression getValue() {
 			return exp;
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		public List<Mode> getModes() {
 			return mpv == null ? (List<Mode>) Collections.EMPTY_LIST : mpv.getInModes();
 		}
-		
+
 		public boolean isModal() {
 			return getModes().size() > 0;
 		}
@@ -89,15 +88,15 @@ public class EvaluatedProperty {
 		public void setMPV(ModalPropertyValue mpv) {
 			this.mpv = mpv;
 		}
-		
+
 	}
-	
+
 	private List<MpvProxy> mpvList;
-	
+
 	public EvaluatedProperty() {
-		mpvList = new LinkedList<MpvProxy> ();
+		mpvList = new LinkedList<MpvProxy>();
 	}
-	
+
 //	public EvaluatedProperty(ModalPropertyValue mpv) {
 //		this();
 //		mpvList.add(new MpvProxy(mpv));
@@ -107,27 +106,27 @@ public class EvaluatedProperty {
 		this();
 		mpvList.add(new MpvProxy(pe));
 	}
-	
+
 //	public void add(ModalPropertyValue mpv) {
 //		mpvList.add(new MpvProxy(mpv));
 //	}
-	
+
 	public void add(PropertyExpression pe) {
 		mpvList.add(new MpvProxy(pe));
 	}
-	
+
 	public void add(EvaluatedProperty ep) {
 		mpvList.addAll(ep.mpvList);
 	}
-	
+
 	public int size() {
 		return mpvList.size();
 	}
-	
+
 	public boolean isEmpty() {
 		return size() == 0;
 	}
-	
+
 	public MpvProxy first() {
 		return mpvList.isEmpty() ? null : mpvList.get(0);
 	}

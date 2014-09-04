@@ -41,11 +41,14 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
@@ -85,19 +88,15 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.impl.MetaclassReferenceImpl;
-import org.osate.aadl2.impl.SubcomponentImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
-
-
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
+	public static final String INVALID_ASSIGNMENT = "edu.cmu.sei.invalid.assignment";
+	public static final String MISSING_WITH = "org.osate.xtext.aadl2.properties.missing_with";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -124,39 +123,34 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkClassifierReferenceInWith(nt.getClassifier(), nt);
 	}
 
-
 	// checking methods
 
-
-	protected void checkPropertyAssociation(PropertyAssociation pa){
+	protected void checkPropertyAssociation(PropertyAssociation pa) {
 		// type check value against type
 		Property pdef = pa.getProperty();
 		checkPropertySetElementReference(pdef, pa);
-		if (Aadl2Util.isNull(pdef))
-		{
+		if (Aadl2Util.isNull(pdef)) {
 			return;
 		}
-		
+
 		PropertyType pt = pdef.getPropertyType();
-		if (Aadl2Util.isNull(pt))
-		{
+		if (Aadl2Util.isNull(pt)) {
 			return;
 		}
-		
+
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
-		for (ModalPropertyValue modalPropertyValue : pvl) 
-		{
-			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(),pa,pdef.getQualifiedName());
+		for (ModalPropertyValue modalPropertyValue : pvl) {
+			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName());
 		}
-		checkAssociationAppliesTo (pa);
-		checkInBinding (pa);
-		if (pa.getProperty() != null && "Byte_Count".equalsIgnoreCase(pa.getProperty().getName())){
-			warning(pa,"Byte_Count is deprecated. Please use Memory_Size.");
+		checkAssociationAppliesTo(pa);
+		checkInBinding(pa);
+		if (pa.getProperty() != null && "Byte_Count".equalsIgnoreCase(pa.getProperty().getName())) {
+			warning(pa, "Byte_Count is deprecated. Please use Memory_Size.");
 		}
 	}
 
-	protected void checkInBinding(final PropertyAssociation pa){
-		for (Classifier c: pa.getInBindings()){
+	protected void checkInBinding(final PropertyAssociation pa) {
+		for (Classifier c : pa.getInBindings()) {
 			checkClassifierReferenceInWith(c, pa);
 		}
 	}
@@ -170,45 +164,32 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 * feature, connection, flow, or mode the property association is declared
 	 * for in its Property_Owner_Category list. </blockquote>
 	 */
-	private void checkAssociationAppliesTo(
-			final PropertyAssociation pa)
-	{
+	private void checkAssociationAppliesTo(final PropertyAssociation pa) {
 		final Property pn = pa.getProperty();
 		final EList<ContainedNamedElement> appliesTo = pa.getAppliesTos();
-		if (appliesTo == null || appliesTo.size() == 0) 
-		{
+		if (appliesTo == null || appliesTo.size() == 0) {
 			Element element = pa.getOwner();
-			if (element instanceof NamedElement)
-			{
-				final boolean applies = ((NamedElement)element).acceptsProperty(pn);
-				if (!applies) 
-				{
-					error(pa,
-							"Property "	+ pa.getProperty().getQualifiedName() +
-							" does not apply to " + ((NamedElement)element).getName());
-					//				error(pa,
-					//						"Property "	+ pa.getQualifiedName() +
-					//						" does not apply to " + element.eClass().getName());
+			if (element instanceof NamedElement) {
+				final boolean applies = ((NamedElement) element).acceptsProperty(pn);
+				if (!applies) {
+					error(pa, "Property " + pa.getProperty().getQualifiedName() + " does not apply to "
+							+ ((NamedElement) element).getName());
+					// error(pa,
+					// "Property " + pa.getQualifiedName() +
+					// " does not apply to " + element.eClass().getName());
 				}
 			}
-		} 
-		else 
-		{
-			for (ContainedNamedElement cna : appliesTo)
-			{
+		} else {
+			for (ContainedNamedElement cna : appliesTo) {
 				EList<ContainmentPathElement> path = cna.getContainmentPathElements();
-				if (!path.isEmpty())
-				{
+				if (!path.isEmpty()) {
 					// only the last value is interesting to us
-					final ContainmentPathElement ph =  path.get(path.size()-1);
-					if (!Aadl2Util.isNull(ph.getNamedElement()))
-					{
+					final ContainmentPathElement ph = path.get(path.size() - 1);
+					if (!Aadl2Util.isNull(ph.getNamedElement())) {
 						final boolean applies = ph.getNamedElement().acceptsProperty(pn);
-						if (!applies) 
-						{
-							error(pa,
-									"Property " + pa.getProperty().getQualifiedName() +
-									" does not apply to "+unparseAppliesTo(cna));
+						if (!applies) {
+							error(pa, "Property " + pa.getProperty().getQualifiedName() + " does not apply to "
+									+ unparseAppliesTo(cna));
 						}
 					}
 				}
@@ -216,29 +197,30 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
-	private static String unparseAppliesTo(final ContainedNamedElement cna){
+	private static String unparseAppliesTo(final ContainedNamedElement cna) {
 		final StringBuffer sb = new StringBuffer();
 		EList<ContainmentPathElement> path = cna.getContainmentPathElements();
 		for (final Iterator<ContainmentPathElement> it = path.iterator(); it.hasNext();) {
 			final ContainmentPathElement pc = it.next();
 			sb.append(pc.getNamedElement().getName());
-			if (it.hasNext()) sb.append(".");
+			if (it.hasNext()) {
+				sb.append(".");
+			}
 		}
 		return sb.toString();
 	}
 
-
 	/**
 	 * Make sure that a NamedValue object pointing to a property or property constant referenced as a
 	 * subclause of a boolean expression actually refers to a boolean-valued
-	 * property.  Also make sure that if the property reference is to a 
-	 * property definition, then the property holder or property definition 
+	 * property.  Also make sure that if the property reference is to a
+	 * property definition, then the property holder or property definition
 	 * that it is a part of should have a compatible applies to clause.
 	 */
 	protected void checkPropertyReference(final NamedValue pr) {
 		final EObject parent = pr.eContainer();
 		final AbstractNamedValue anv = pr.getNamedValue();
-		if(anv instanceof Property){
+		if (anv instanceof Property) {
 			Property rp = (Property) anv;
 			if (parent instanceof Operation) {
 				final PropertyType pt = rp.getPropertyType();
@@ -246,8 +228,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					error(pr, "Not a reference to a boolean-valued property");
 				}
 			}
-			final Property refPD = (Property) rp;
-			/* Find the property making reference to us.  It is either the PD
+			final Property refPD = rp;
+			/*
+			 * Find the property making reference to us. It is either the PD
 			 * from a property association, or the enclosing PD if our use is
 			 * as a default value.
 			 */
@@ -271,7 +254,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				final List refAppliesTo = refPD.getAppliesTos();
 				final List appliesTo = pd.getAppliesTos();
 				if (!refAppliesTo.containsAll(appliesTo)) {
-					error(pr, "Referenced property definition does not apply to all the categories that the referring property applies to");
+					error(pr,
+							"Referenced property definition does not apply to all the categories that the referring property applies to");
 				}
 
 				final List refAppliesToClass = new ArrayList();
@@ -285,233 +269,235 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					appliesToClass.add(cv.getClassifier());
 				}
 				if (!refAppliesToClass.containsAll(appliesToClass)) {
-					error(pr, "Referenced property definition does not apply to all the classifiers that the referring property applies to");
+					error(pr,
+							"Referenced property definition does not apply to all the classifiers that the referring property applies to");
 				}
 
 			}
 		}
 	}
 
-
 	/**
-	 * checks and report mismatch in type of value and type	
+	 * checks and report mismatch in type of value and type
 	 * @param pt: PropertyType or unresolved proxy or null
 	 * @param pv: PropertyExpression or null
 	 */
-	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv,Element holder, String defName){
-		typeCheckPropertyValues(pt, pv, "",holder, defName);
+	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName) {
+		typeCheckPropertyValues(pt, pv, "", holder, defName);
 	}
 
 	/**
-	 * checks and report mismatch in type of value and type	
+	 * checks and report mismatch in type of value and type
 	 * @param pt: PropertyType or unresolved proxy or null
 	 * @param pv: PropertyExpression or null
 	 * @param prefix: String prefix to error message used for lists
 	 */
-	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix,Element holder, String defName){
+	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix, Element holder,
+			String defName) {
 
-		if (Aadl2Util.isNull(pt) || pv == null || holder == null) return;
-		String msg = " to property '"+defName+"' of type '"+pt.eClass().getName()+"'";
-		if (!prefix.isEmpty() && !prefix.startsWith(" ")) prefix = prefix+" ";
-		if (pv instanceof ListValue ){
-			if (pt instanceof ListType){
-				typeMatchListElements(((ListType)pt).getElementType(), ((ListValue)pv).getOwnedListElements(),holder,defName);
+		if (Aadl2Util.isNull(pt) || pv == null || holder == null) {
+			return;
+		}
+		String msg = " to property '" + defName + "' of type '" + pt.eClass().getName() + "'";
+		if (!prefix.isEmpty() && !prefix.startsWith(" ")) {
+			prefix = prefix + " ";
+		}
+		if (pv instanceof ListValue) {
+			if (pt instanceof ListType) {
+				typeMatchListElements(((ListType) pt).getElementType(), ((ListValue) pv).getOwnedListElements(),
+						holder, defName);
 			} else {
-				error(holder, prefix+"Assigning a list of values"+msg);
+				error(holder, prefix + "Assigning a list of values" + msg);
 			}
-		} else 	if(pv instanceof Operation || pv instanceof BooleanLiteral ){
-			if(!(pt instanceof AadlBoolean )) {
-				error(holder, prefix+"Assigning a Boolean value"+msg);
+		} else if (pv instanceof Operation || pv instanceof BooleanLiteral) {
+			if (!(pt instanceof AadlBoolean)) {
+				error(holder, prefix + "Assigning a Boolean value" + msg);
 			}
-		} else 	if (pv instanceof StringLiteral){
-			if (!( pt instanceof AadlString)){
-				error(holder, prefix+"Assigning String value"+msg);
+		} else if (pv instanceof StringLiteral) {
+			if (!(pt instanceof AadlString)) {
+				error(prefix + "Assigning String value" + msg, holder, null,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX, Diagnostic.LINKING_DIAGNOSTIC);
+
 			}
-		} else if (pv instanceof EnumerationLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof EnumerationLiteral) ){
-			if (!(pt instanceof EnumerationType)){
-				error(holder, prefix+"Assigning Enumeration literal"+msg);
+		} else if (pv instanceof EnumerationLiteral
+				|| (pv instanceof NamedValue && ((NamedValue) pv).getNamedValue() instanceof EnumerationLiteral)) {
+			if (!(pt instanceof EnumerationType)) {
+				error(holder, prefix + "Assigning Enumeration literal" + msg);
 			}
-		} else if (pv instanceof UnitLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof UnitLiteral) ){
-			if (!(pt instanceof UnitsType)){
-				error(holder, prefix+"Assigning Unit literal"+msg);
+		} else if (pv instanceof UnitLiteral
+				|| (pv instanceof NamedValue && ((NamedValue) pv).getNamedValue() instanceof UnitLiteral)) {
+			if (!(pt instanceof UnitsType)) {
+				error(holder, prefix + "Assigning Unit literal" + msg);
 			}
-		} else 	if (pv instanceof IntegerLiteral ){
-			if(!(pt instanceof AadlInteger)){
-				error(holder, prefix+"Assigning Integer value"+msg);
+		} else if (pv instanceof IntegerLiteral) {
+			if (!(pt instanceof AadlInteger)) {
+				error(holder, prefix + "Assigning Integer value" + msg);
 			} else {
-				checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
+				checkUnits((AadlInteger) pt, (IntegerLiteral) pv);
 			}
-		} else if (pv instanceof RealLiteral ){
-			if(!(pt instanceof AadlReal)){
-				error(holder, prefix+"Assigning Real value"+msg);
+		} else if (pv instanceof RealLiteral) {
+			if (!(pt instanceof AadlReal)) {
+				error(holder, prefix + "Assigning Real value" + msg);
 			} else {
-				checkUnits((AadlReal)pt,(RealLiteral)pv);
+				checkUnits((AadlReal) pt, (RealLiteral) pv);
 			}
-		} else if ( pv instanceof RangeValue){
-			if(!(pt instanceof RangeType)){
-				error(holder, prefix+"Assigning Range value"+msg);
+		} else if (pv instanceof RangeValue) {
+			if (!(pt instanceof RangeType)) {
+				error(holder, prefix + "Assigning Range value" + msg);
 			} else {
-				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMinimumValue(),holder,defName);
-				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMaximumValue(),holder,defName);
-				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getDeltaValue(),holder,defName);
+				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMinimumValue(), holder,
+						defName);
+				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMaximumValue(), holder,
+						defName);
+				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getDeltaValue(), holder,
+						defName);
 			}
-		} 
-		else if (pv instanceof ClassifierValue )
-		{
-			if(!(pt instanceof ClassifierType))
-			{
-				error(pv, prefix+"Assigning incorrect Classifier value"+msg);
+		} else if (pv instanceof ClassifierValue) {
+			if (!(pt instanceof ClassifierType)) {
+				error(pv, prefix + "Assigning incorrect Classifier value" + msg);
 				return;
 			}
 			ClassifierValue cv = (ClassifierValue) pv;
 			ClassifierType ct = (ClassifierType) pt;
 
-			for (MetaclassReference mcri : ct.getClassifierReferences())
-			{
-				if(mcri.getMetaclass().isSuperTypeOf(cv.getClassifier().eClass())){
+			for (MetaclassReference mcri : ct.getClassifierReferences()) {
+				if (mcri.getMetaclass().isSuperTypeOf(cv.getClassifier().eClass())) {
 					return;
 				}
 			}
-			error(holder, prefix+"Assigning classifier value with incorrect Classifier"+msg);
-		} else if (pv instanceof RecordValue){
-			if(!(pt instanceof RecordType )){
-				error(pv, prefix+"Assinging Record value"+msg);
+			error(holder, prefix + "Assigning classifier value with incorrect Classifier" + msg);
+		} else if (pv instanceof RecordValue) {
+			if (!(pt instanceof RecordType)) {
+				error(pv, prefix + "Assinging Record value" + msg);
 			} else {
-				typeMatchRecordFields(((RecordValue)pv).getOwnedFieldValues(),holder,defName);
+				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName);
 			}
-		} else if (pv instanceof ReferenceValue ){
-			if(!(pt instanceof ReferenceType))
-			{
-							error(holder, prefix+"Assigning incorrect reference value"+msg);
-			}
-			else
-			{
-				ReferenceType ptrt = (ReferenceType)pt;
+		} else if (pv instanceof ReferenceValue) {
+			if (!(pt instanceof ReferenceType)) {
+				error(holder, prefix + "Assigning incorrect reference value" + msg);
+			} else {
+				ReferenceType ptrt = (ReferenceType) pt;
 				ReferenceValue pvrv = (ReferenceValue) pv;
 				EList<ContainmentPathElement> cpes = pvrv.getContainmentPathElements();
-				NamedElement ne = cpes.get(cpes.size()-1).getNamedElement();
-				for (MetaclassReference mcri : ptrt.getNamedElementReferences())
-				{
-					if(mcri.getMetaclass().isSuperTypeOf(ne.eClass())){
+				NamedElement ne = cpes.get(cpes.size() - 1).getNamedElement();
+				for (MetaclassReference mcri : ptrt.getNamedElementReferences()) {
+					if (mcri.getMetaclass().isSuperTypeOf(ne.eClass())) {
 						return;
 					}
 				}
-				error(holder, prefix+"Assigning reference value with incorrect Named Element class"+msg);
+				error(holder, prefix + "Assigning reference value with incorrect Named Element class" + msg);
 			}
-		} else if (pv instanceof NamedValue ){
-			AbstractNamedValue nv = ((NamedValue)pv).getNamedValue();
-			if (nv instanceof PropertyConstant){
-				typeCheckPropertyValues(pt,((PropertyConstant)nv).getConstantValue(),holder,defName);
-			} else if (nv instanceof Property){
-				PropertyType pvt = ((Property)nv).getPropertyType();
-				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()){
-					error(holder, "Assigning property of incorrect type"+msg);
+		} else if (pv instanceof NamedValue) {
+			AbstractNamedValue nv = ((NamedValue) pv).getNamedValue();
+			if (nv instanceof PropertyConstant) {
+				typeCheckPropertyValues(pt, ((PropertyConstant) nv).getConstantValue(), holder, defName);
+			} else if (nv instanceof Property) {
+				PropertyType pvt = ((Property) nv).getPropertyType();
+				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()) {
+					error(holder, "Assigning property of incorrect type" + msg);
 				}
 			} else {
 				error(holder, "Enum/Unit literal validation should have happened before");
 			}
-		} 
-	}
-
-	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel,Element holder, String defName){
-		for (PropertyExpression propertyExpression : pel) {
-			typeCheckPropertyValues(pt,propertyExpression,"list element",holder,defName);
 		}
 	}
 
-	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl,Element holder, String defName){
+	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel, Element holder, String defName) {
+		for (PropertyExpression propertyExpression : pel) {
+			typeCheckPropertyValues(pt, propertyExpression, "list element", holder, defName);
+		}
+	}
+
+	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName) {
 		for (BasicPropertyAssociation field : rfl) {
-			if (field.getProperty() != null){
-				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(),holder,defName);
+			if (field.getProperty() != null) {
+				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), holder, defName);
 			}
 		}
 	}
 
-
-	protected void checkUnits(NumberType nt, NumberValue nv){
+	protected void checkUnits(NumberType nt, NumberValue nv) {
 		UnitsType ut = nt.getUnitsType();
 		UnitLiteral ul = nv.getUnit();
-		if (Aadl2Util.isNull(ut) && Aadl2Util.isNull(ul)) return;
-		if (ul == null){
+		if (Aadl2Util.isNull(ut) && Aadl2Util.isNull(ul)) {
+			return;
+		}
+		if (ul == null) {
 			error(nv, "Number value is missing a unit");
-		} else
-			if (!ut.getOwnedLiterals().contains(ul)){
-				error(nv, "Unit '"+ul.getName()+"'of number value is not of Units type "+ut.getQualifiedName());
-			}
+		} else if (!ut.getOwnedLiterals().contains(ul)) {
+			error(nv, "Unit '" + ul.getName() + "'of number value is not of Units type " + ut.getQualifiedName());
+		}
 	}
 
-
-
-	public void checkClassifierReferenceInWith(Classifier cl, Element context){
-		if (Aadl2Util.isNull(cl)) return;
+	public void checkClassifierReferenceInWith(Classifier cl, Element context) {
+		if (Aadl2Util.isNull(cl)) {
+			return;
+		}
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
-		PackageSection referenceNS = (PackageSection)AadlUtil.getContainingTopLevelNamespace(cl);
-		if (contextNS != referenceNS){
-			if (!AadlUtil.isImportedPackage(AadlUtil.getContainingPackage(referenceNS), contextNS)){
-				error(context, "The referenced package '" + AadlUtil.getContainingPackage(referenceNS).getName() +
-						"' of classifier '"+ cl.getName() +"' is not listed in a with clause.");
+		PackageSection referenceNS = (PackageSection) AadlUtil.getContainingTopLevelNamespace(cl);
+		if (contextNS != referenceNS) {
+			AadlPackage referencePackage = AadlUtil.getContainingPackage(referenceNS);
+			if (!AadlUtil.isImportedPackage(referencePackage, contextNS)) {
+				error("The referenced package '" + referencePackage.getName() + "' of classifier '" + cl.getName()
+						+ "' is not listed in a with clause.", context, null, MISSING_WITH, referencePackage.getName(),
+						EcoreUtil.getURI(referencePackage).toString(), EcoreUtil.getURI(contextNS).toString());
 			}
 		}
 	}
 
-
-	public void checkPropertySetElementReference(NamedElement pse, Element context){
-		if (Aadl2Util.isNull(pse)) return;
+	public void checkPropertySetElementReference(NamedElement pse, Element context) {
+		if (Aadl2Util.isNull(pse)) {
+			return;
+		}
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
 		PropertySet referenceNS = (PropertySet) AadlUtil.getContainingTopLevelNamespace(pse);
-		if (contextNS != referenceNS){
-			if (!AadlUtil.isImportedPropertySet(referenceNS, contextNS)){
-				error(context, "The referenced property set '" + referenceNS.getName() +
-						"' of "+ (pse instanceof Property ? "property '":(pse instanceof PropertyType? "property type '":"property constant '" ))
-						+ pse.getName() +"' is not listed in a with clause.");
+		if (contextNS != referenceNS) {
+			if (!AadlUtil.isImportedPropertySet(referenceNS, contextNS)) {
+				error("The referenced property set '"
+						+ referenceNS.getName()
+						+ "' of "
+						+ (pse instanceof Property ? "property '" : (pse instanceof PropertyType ? "property type '"
+								: "property constant '")) + pse.getName() + "' is not listed in a with clause.",
+						context, null, MISSING_WITH, referenceNS.getName(), EcoreUtil.getURI(referenceNS).toString(),
+						EcoreUtil.getURI(contextNS).toString());
 			}
 		}
 	}
-
-
 
 	// helper methods
 
-	protected void error(String message, EObject source,
-			EStructuralFeature feature) {
-		error(message, source, feature,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+	@Override
+	protected void error(String message, EObject source, EStructuralFeature feature) {
+		error(message, source, feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
 	protected void error(EObject source, String message) {
-		error(message, source, null,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+		error(message, source, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
 	protected void error(String message) {
-		error(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				null);
+		error(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
-	protected void warning(String message, EObject source,
-			EStructuralFeature feature) {
-		warning(message, source, feature,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+	@Override
+	protected void warning(String message, EObject source, EStructuralFeature feature) {
+		warning(message, source, feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
 	protected void warning(EObject source, String message) {
-		warning(message, source, null,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+		warning(message, source, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
 	protected void warning(String message) {
-		warning(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				null);
+		warning(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
 	protected void info(EObject source, String message) {
-		info(message, source, null,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+		info(message, source, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
 	protected void info(String message) {
-		info(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				null);
+		info(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
 }

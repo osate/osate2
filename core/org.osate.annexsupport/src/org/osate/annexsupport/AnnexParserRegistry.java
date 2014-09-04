@@ -32,6 +32,7 @@
  * </copyright>
  */
 package org.osate.annexsupport;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 
 /**
@@ -43,7 +44,7 @@ public class AnnexParserRegistry extends AnnexRegistry {
 	protected AnnexParserRegistry() {
 		initialize(ANNEX_PARSER_EXT_ID);
 	}
-	
+
 	public AnnexParser getAnnexParser(String annexName) {
 		AnnexParser parser = (AnnexParser) extensions.get(annexName.toLowerCase());
 
@@ -57,6 +58,7 @@ public class AnnexParserRegistry extends AnnexRegistry {
 	 * Factory method for annex parser proxies.
 	 * @param configElem
 	 */
+	@Override
 	protected AnnexProxy createProxy(IConfigurationElement configElem) {
 		return new AnnexParserProxy(configElem);
 	}

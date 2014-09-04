@@ -42,6 +42,11 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Component Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::NoneSupport.</p>
+ * <p>From package AADLConstructs::Components.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -68,6 +73,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::NoneSupport.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>No Features</em>' attribute.
 	 * @see #setNoFeatures(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_NoFeatures()
@@ -103,6 +111,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFeature()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -124,6 +135,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Extended</em>' reference.
 	 * @see #setExtended(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_Extended()
@@ -158,6 +172,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Flow Specification</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFlowSpecification()
 	 * @model containment="true"
@@ -189,6 +206,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #setOwnedExtension(TypeExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedExtension()
@@ -232,6 +252,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Feature Group</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFeatureGroup()
 	 * @model containment="true" ordered="false"
@@ -264,6 +287,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Abstract Feature</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedAbstractFeature()
 	 * @model containment="true" ordered="false"

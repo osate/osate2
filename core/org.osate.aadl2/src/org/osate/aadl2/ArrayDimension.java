@@ -39,6 +39,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Array Dimension</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Arrays.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -59,6 +63,9 @@ public interface ArrayDimension extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Arrays.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Size</em>' containment reference.
 	 * @see #setSize(ArraySize)
 	 * @see org.osate.aadl2.Aadl2Package#getArrayDimension_Size()

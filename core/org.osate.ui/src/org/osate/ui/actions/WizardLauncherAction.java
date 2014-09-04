@@ -43,41 +43,38 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.ui.wizards.AadlProjectWizard;
 
-
 /**
  * Launches a "new Aadl project wizard" when the user clicks on the
  * "new Aadl project" button on the toolbar.
- * 
+ *
  * @author jseibel
  */
-public class WizardLauncherAction implements IWorkbenchWindowActionDelegate
-{
-	//workbench and selection required for instanciating the wizard.
+public class WizardLauncherAction implements IWorkbenchWindowActionDelegate {
+	// workbench and selection required for instanciating the wizard.
 	private IWorkbench workbench = null;
 	private IStructuredSelection selection = null;
 
-	public void dispose()
-	{
+	@Override
+	public void dispose() {
 	}
 
-	public void init(IWorkbenchWindow window)
-	{
+	@Override
+	public void init(IWorkbenchWindow window) {
 		workbench = window.getWorkbench();
 	}
 
-	public void run(IAction action)
-	{
+	@Override
+	public void run(IAction action) {
 		AadlProjectWizard wizard = new AadlProjectWizard();
 		wizard.init(workbench, selection);
 		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
 		dialog.open();
 	}
 
-	public void selectionChanged(IAction action, ISelection selection)
-	{
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1)
-		{
-			this.selection = (IStructuredSelection)selection;
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			this.selection = (IStructuredSelection) selection;
 		}
 	}
 }

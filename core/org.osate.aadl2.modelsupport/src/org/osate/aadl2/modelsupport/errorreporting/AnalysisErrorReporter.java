@@ -8,7 +8,7 @@ public interface AnalysisErrorReporter extends ErrorReporter {
 	/**
 	 * Report an error on an Element (AADL object model object). The error may
 	 * have additional attributes to be used by the reporter.
-	 * 
+	 *
 	 * @param obj
 	 *            the object to which the marker is pointing
 	 * @param msg
@@ -21,13 +21,12 @@ public interface AnalysisErrorReporter extends ErrorReporter {
 	 *                Thrown if
 	 *                <code>(attrs == null) || (values == null) || (attrs.length != values.length)</code>.
 	 */
-	public void error(Element obj, String msg,
-			String[] attrs, Object[] values);
+	public void error(Element obj, String msg, String[] attrs, Object[] values);
 
 	/**
 	 * Report a warning on an Element (AADL object model object). The warning
 	 * may have additional attributes to be used by the reporter.
-	 * 
+	 *
 	 * @param obj
 	 *            the object to which the marker is pointing
 	 * @param msg
@@ -40,13 +39,12 @@ public interface AnalysisErrorReporter extends ErrorReporter {
 	 *                Thrown if
 	 *                <code>(attrs == null) || (values == null) || (attrs.length != values.length)</code>.
 	 */
-	public void warning(Element obj, String msg,
-			String[] attrs, Object[] values);
+	public void warning(Element obj, String msg, String[] attrs, Object[] values);
 
 	/**
 	 * Report an information message on an Element (AADL object model object).
 	 * The information may have additional attributes to be used by the reporter.
-	 * 
+	 *
 	 * @param obj
 	 *            the object to which the marker is pointing
 	 * @param msg

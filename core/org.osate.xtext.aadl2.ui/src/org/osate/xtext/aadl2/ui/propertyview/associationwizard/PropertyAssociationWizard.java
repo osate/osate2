@@ -37,7 +37,7 @@ import org.osate.xtext.aadl2.ui.propertyview.associationwizard.commands.CreatePr
  * association is gathered from the user using the widgets of this wizard's pages, but
  * the fields can be pre-selected for user convenience.  Use the different
  * constructors to pre-select the fields.
- * 
+ *
  * @author jseibel
  *
  */
@@ -49,25 +49,26 @@ public class PropertyAssociationWizard extends Wizard {
 	private final ISerializer serializer;
 	private final Aadl2Parser aadl2Parser;
 	private final ILinker linker;
-	
+
 	private PropertyDefinitionWizardPage propertyDefinitionWizardPage = null;
 	private PropertyValueWizardPage propertyValueWizardPage = null;
 //	private InstanceReferenceValueWizardPage instanceReferenceValueWizardPage = null;
 //	private ListOfInstanceReferenceValueWizardPage listOfInstanceReferenceValueWizardPage = null;
 	private ModeChooserWizardPage modeChooserWizardPage = null;
-	
+
 	/**
 	 * Creates a new wizard without pre-selecting any fields.  This will create a new
 	 * <code>PropertyAssociation</code>.
-	 * 
+	 *
 	 * @param commandStack The command stack of the editor.
 	 * @param holderURI The <code>NamedElement</code> that will contain the new
 	 * 				<code>PropertyAssociation</code>.
 	 */
-	public PropertyAssociationWizard(IXtextDocument xtextDocument, CommandStack commandStack, URI holderURI, ISerializer serializer, Aadl2Parser aadl2Parser, ILinker linker) {
+	public PropertyAssociationWizard(IXtextDocument xtextDocument, CommandStack commandStack, URI holderURI,
+			ISerializer serializer, Aadl2Parser aadl2Parser, ILinker linker) {
 		this.xtextDocument = xtextDocument;
 		this.commandStack = commandStack;
-		this.holderuri = holderURI;
+		holderuri = holderURI;
 		this.serializer = serializer;
 		this.aadl2Parser = aadl2Parser;
 		this.linker = linker;
@@ -75,20 +76,17 @@ public class PropertyAssociationWizard extends Wizard {
 		EList<? extends Mode> modes = ModeChooserWizardPage.getModesForHolder(getHolder());
 		shouldDisplayModeChooserWizardPage = modes != null && modes.size() > 0;
 	}
-	
-	private class AddPropertyUnitOfWork extends IUnitOfWork.Void<XtextResource>
-	{
+
+	private class AddPropertyUnitOfWork extends IUnitOfWork.Void<XtextResource> {
 		private final AbstractPropertyValueWizardPage activePropertyValueWizardPage;
-		
-		public AddPropertyUnitOfWork(AbstractPropertyValueWizardPage activePropertyValueWizardPage)
-		{
+
+		public AddPropertyUnitOfWork(AbstractPropertyValueWizardPage activePropertyValueWizardPage) {
 			this.activePropertyValueWizardPage = activePropertyValueWizardPage;
 		}
-		
+
 		@Override
-		public void process(XtextResource state) throws Exception
-		{
-			final NamedElement holder = (NamedElement)state.getResourceSet().getEObject(holderuri, true);
+		public void process(XtextResource state) throws Exception {
+			final NamedElement holder = (NamedElement) state.getResourceSet().getEObject(holderuri, true);
 			PropertyAssociation newAssociation = holder.createOwnedPropertyAssociation();
 			newAssociation.setProperty(propertyDefinitionWizardPage.getSelectedDefinition());
 			ModalPropertyValue mpv = newAssociation.createOwnedValue();
@@ -98,35 +96,34 @@ public class PropertyAssociationWizard extends Wizard {
 			}
 			newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
 			newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
-			PropertySet propertySet = (PropertySet)propertyDefinitionWizardPage.getSelectedDefinition().getElementRoot();
+			PropertySet propertySet = (PropertySet) propertyDefinitionWizardPage.getSelectedDefinition()
+					.getElementRoot();
 			if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
 				Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
-				if (context instanceof PropertySet)
-					((PropertySet)context).getImportedUnits().add(propertySet);
-				else
-					((PackageSection)context).getImportedUnits().add(propertySet);
+				if (context instanceof PropertySet) {
+					((PropertySet) context).getImportedUnits().add(propertySet);
+				} else {
+					((PackageSection) context).getImportedUnits().add(propertySet);
+				}
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean performFinish() {
 		AbstractPropertyValueWizardPage activePropertyValueWizardPage = getActivePropertyValueWizardPage();
 		if (xtextDocument != null) {
-			if (xtextDocument instanceof XtextDocument)
-			{
+			if (xtextDocument instanceof XtextDocument) {
 				TextEditComposerWithoutValidationOnSave composer = new TextEditComposerWithoutValidationOnSave();
-				OsateCorePlugin.getDefault().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(composer);
+				OsateCorePlugin.getDefault().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)
+						.injectMembers(composer);
 				ReconcilingUnitOfWork<Object> reconcilingUnitOfWork = new ReconcilingUnitOfWork<Object>(
 						new AddPropertyUnitOfWork(activePropertyValueWizardPage), xtextDocument, composer);
 				((XtextDocument) xtextDocument).internalModify(reconcilingUnitOfWork);
-			}
-			else
-			{
+			} else {
 				xtextDocument.modify(new AddPropertyUnitOfWork(activePropertyValueWizardPage));
 			}
-		}
-		else {
+		} else {
 			final NamedElement holder = getHolder();
 			// If the command stack is null, a new temporary editing domain will be created to edit the resource
 			TransactionalEditingDomain createdEditingDomain = null;
@@ -134,77 +131,86 @@ public class PropertyAssociationWizard extends Wizard {
 				createdEditingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain();
 				commandStack = createdEditingDomain.getCommandStack();
 			}
-			
+
 			CreatePropertyAssociationCommand command;
 			if (shouldDisplayModeChooserWizardPage && modeChooserWizardPage.getSelectedModes().size() > 0) {
-				command = new CreatePropertyAssociationCommand(holder, propertyDefinitionWizardPage.getSelectedDefinition(), activePropertyValueWizardPage.getPropertyExpression(),
-						modeChooserWizardPage.getSelectedModes());
+				command = new CreatePropertyAssociationCommand(holder,
+						propertyDefinitionWizardPage.getSelectedDefinition(),
+						activePropertyValueWizardPage.getPropertyExpression(), modeChooserWizardPage.getSelectedModes());
+			} else {
+				command = new CreatePropertyAssociationCommand(holder,
+						propertyDefinitionWizardPage.getSelectedDefinition(),
+						activePropertyValueWizardPage.getPropertyExpression());
 			}
-			else
-				command = new CreatePropertyAssociationCommand(holder, propertyDefinitionWizardPage.getSelectedDefinition(), activePropertyValueWizardPage.getPropertyExpression());
 			commandStack.execute(command);
 			PropertyAssociation newAssociation = command.getNewAssociation();
 			newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
 			newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
-			
+
 			// Dispose of the editing domain if it was created to execute this command
 			if (createdEditingDomain != null) {
 				createdEditingDomain.dispose();
 				commandStack = null;
 			}
-			
+
 			// Save the resource
 			OsateResourceUtil.save(holder.eResource());
 		}
-		if (activePropertyValueWizardPage instanceof PropertyValueWizardPage)
+		if (activePropertyValueWizardPage instanceof PropertyValueWizardPage) {
 			propertyValueWizardPage.recordDialogSettings();
+		}
 		return true;
 	}
-	
+
 	private NamedElement getHolder() {
 		NamedElement aobj = null;
 		if (holderuri != null) {
 			aobj = null;
 
-			// If an xtext document has been provided, try to get the holder from it first. If the xtext document has not been serialized, it will not be available through the resource set
+			// If an xtext document has been provided, try to get the holder from it first. If the xtext document has not been serialized, it will not be
+// available through the resource set
 			// provided by OsateResourceUtil.
-			if(xtextDocument != null) {
+			if (xtextDocument != null) {
 				aobj = xtextDocument.readOnly(new IUnitOfWork<NamedElement, XtextResource>() {
 					@Override
 					public NamedElement exec(final XtextResource res) throws Exception {
-						return (NamedElement)res.getResourceSet().getEObject(holderuri, true);
+						return (NamedElement) res.getResourceSet().getEObject(holderuri, true);
 					}
-				});				
+				});
 			}
-			
-			if(aobj == null) {
-				aobj = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(holderuri, true);
+
+			if (aobj == null) {
+				aobj = (NamedElement) OsateResourceUtil.getResourceSet().getEObject(holderuri, true);
 			}
 		}
 		return aobj;
 	}
-	
+
 	@Override
 	public boolean canFinish() {
-		if (propertyDefinitionWizardPage.isPageComplete())
+		if (propertyDefinitionWizardPage.isPageComplete()) {
 			return getActivePropertyValueWizardPage().isPageComplete();
-		else
+		} else {
 			return false;
+		}
 	}
-	
+
 	@Override
 	public void addPages() {
 		NamedElement holder = getHolder();
-		propertyDefinitionWizardPage = new PropertyDefinitionWizardPage(holder, serializer, new PropertyDefinitionSelectionChangedListener() {
-			@Override
-			public void propertyDefinitionSelectionChanged() {
-				getActivePropertyValueWizardPage().setDefinition(propertyDefinitionWizardPage.getSelectedDefinition());
-				
-				//This method might be called while the initial values are being set.  At that point, it doesn't make sense to call updateButtons().
-				if (getContainer().getCurrentPage() != null)
-					getContainer().updateButtons();
-			}
-		});
+		propertyDefinitionWizardPage = new PropertyDefinitionWizardPage(holder, serializer,
+				new PropertyDefinitionSelectionChangedListener() {
+					@Override
+					public void propertyDefinitionSelectionChanged() {
+						getActivePropertyValueWizardPage().setDefinition(
+								propertyDefinitionWizardPage.getSelectedDefinition());
+
+						// This method might be called while the initial values are being set. At that point, it doesn't make sense to call updateButtons().
+						if (getContainer().getCurrentPage() != null) {
+							getContainer().updateButtons();
+						}
+					}
+				});
 		addPage(propertyDefinitionWizardPage);
 		propertyValueWizardPage = new PropertyValueWizardPage(xtextDocument, holder, serializer, aadl2Parser, linker);
 		addPage(propertyValueWizardPage);
@@ -215,32 +221,34 @@ public class PropertyAssociationWizard extends Wizard {
 		modeChooserWizardPage = new ModeChooserWizardPage(holder);
 		addPage(modeChooserWizardPage);
 	}
-	
+
 	@Override
 	public IWizardPage getNextPage(IWizardPage page) {
-		if (page.equals(propertyDefinitionWizardPage))
+		if (page.equals(propertyDefinitionWizardPage)) {
 			return getActivePropertyValueWizardPage();
-		else if (page instanceof AbstractPropertyValueWizardPage) {
-			if (shouldDisplayModeChooserWizardPage)
+		} else if (page instanceof AbstractPropertyValueWizardPage) {
+			if (shouldDisplayModeChooserWizardPage) {
 				return modeChooserWizardPage;
-			else
+			} else {
 				return null;
-		}
-		else
+			}
+		} else {
 			return null;
+		}
 	}
-	
+
 	@Override
 	public IWizardPage getPreviousPage(IWizardPage page) {
-		if (page instanceof AbstractPropertyValueWizardPage)
+		if (page instanceof AbstractPropertyValueWizardPage) {
 			return propertyDefinitionWizardPage;
-		else if (page.equals(modeChooserWizardPage))
+		} else if (page.equals(modeChooserWizardPage)) {
 			return getActivePropertyValueWizardPage();
-		else
+		} else {
 			return null;
+		}
 	}
-	
-	//TODO: Consider nested lists.
+
+	// TODO: Consider nested lists.
 	private AbstractPropertyValueWizardPage getActivePropertyValueWizardPage() {
 		NamedElement holder = getHolder();
 //		if (holder instanceof InstanceObject && propertyDefinitionWizardPage.getSelectedDefinition().getPropertyType() instanceof ReferenceType) {
@@ -250,14 +258,12 @@ public class PropertyAssociationWizard extends Wizard {
 //				return instanceReferenceValueWizardPage;
 //		}
 //		else
-			return propertyValueWizardPage;
+		return propertyValueWizardPage;
 	}
-	
-	private static class TextEditComposerWithoutValidationOnSave extends DefaultTextEditComposer
-	{
+
+	private static class TextEditComposerWithoutValidationOnSave extends DefaultTextEditComposer {
 		@Override
-		protected SaveOptions getSaveOptions()
-		{
+		protected SaveOptions getSaveOptions() {
 			return SaveOptions.newBuilder().noValidation().getOptions();
 		}
 	}

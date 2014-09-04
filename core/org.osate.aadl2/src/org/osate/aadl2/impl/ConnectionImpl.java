@@ -260,7 +260,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		// DB This should be an EStructuralFeature.Setting
 		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
 				Aadl2Package.CONNECTION__FEATURING_CLASSIFIER);
-		//		BasicEList<Classifier> list = new BasicEList<Classifier>();
+		// BasicEList<Classifier> list = new BasicEList<Classifier>();
 
 		final Classifier classifier = getContainingClassifier();
 		// DB the list does not allow null values.
@@ -787,7 +787,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			return;
 		}
 
-		/* Next see if the property is defined in connection's properties
+		/*
+		 * Next see if the property is defined in connection's properties
 		 * subclause (could merge this with the loop below, but I want to make
 		 * the steps more explicit.)
 		 */
@@ -805,7 +806,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			refined = refined.getRefined();
 		}
 
-		/* if still not set, and the property is "inherit", try the containing
+		/*
+		 * if still not set, and the property is "inherit", try the containing
 		 * component implementation.
 		 */
 		if (!fromInstanceSlaveCall && pn.isInherit()) {
@@ -813,7 +815,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Connection#getAllSrcContextComponent()
 	 */
 	public NamedElement getAllSrcContextComponent() {
@@ -825,7 +829,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		return scxt;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.Connection#getAllDstContextComponent()
 	 */
 	public NamedElement getAllDstContextComponent() {

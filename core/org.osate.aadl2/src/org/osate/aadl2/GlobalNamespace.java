@@ -42,6 +42,11 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Global Namespace</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::PropertySets.</p>
+ * <p>From package AADLConstructs::Packaging.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -70,6 +75,9 @@ public interface GlobalNamespace extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Packaging.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Package</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getGlobalNamespace_Package()
 	 * @model transient="true" volatile="true" ordered="false"
@@ -92,6 +100,9 @@ public interface GlobalNamespace extends Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::PropertySets.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Property Set</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getGlobalNamespace_PropertySet()
 	 * @model transient="true" volatile="true" ordered="false"

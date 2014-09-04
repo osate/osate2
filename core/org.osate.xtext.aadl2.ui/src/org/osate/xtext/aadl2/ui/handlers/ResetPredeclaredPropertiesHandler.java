@@ -41,10 +41,10 @@ import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 
 public class ResetPredeclaredPropertiesHandler extends AbstractHandler {
 
-
-		public Object execute(ExecutionEvent event) throws ExecutionException {
-			PredeclaredProperties.resetPluginContributedAadl();
-			return null;
-		}
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		PredeclaredProperties.resetPluginContributedAadl();
+		return null;
+	}
 
 }

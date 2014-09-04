@@ -34,27 +34,24 @@
 package org.osate.aadl2.modelsupport.errorreporting;
 
 /**
- * Base implementation that handles tracking messages counts and message 
+ * Base implementation that handles tracking messages counts and message
  * deletion.  Delegates the actual message
  * deletion functionaliy to {@link #deleteMessagesImpl()}.
- * 
+ *
  * @author aarong
  */
 public abstract class AbstractErrorReporter implements ErrorReporter {
 	private int numErrors;
 	private int numWarnings;
 	private int numInfos;
-	
-	
-	
+
 	protected AbstractErrorReporter() {
 		numErrors = 0;
 		numWarnings = 0;
 		numInfos = 0;
 	}
 
-	
-	
+	@Override
 	public final void deleteMessages() {
 		deleteMessagesImpl();
 		numErrors = 0;
@@ -63,13 +60,12 @@ public abstract class AbstractErrorReporter implements ErrorReporter {
 	}
 
 	protected abstract void deleteMessagesImpl();
-	
-	
-	
+
 	protected final void incError() {
 		numErrors += 1;
 	}
-	
+
+	@Override
 	public final int getNumErrors() {
 		return numErrors;
 	}
@@ -77,7 +73,8 @@ public abstract class AbstractErrorReporter implements ErrorReporter {
 	protected final void incWarning() {
 		numWarnings += 1;
 	}
-	
+
+	@Override
 	public final int getNumWarnings() {
 		return numWarnings;
 	}
@@ -86,12 +83,12 @@ public abstract class AbstractErrorReporter implements ErrorReporter {
 		numInfos += 1;
 	}
 
+	@Override
 	public final int getNumInfos() {
 		return numInfos;
 	}
-	
-	
-	
+
+	@Override
 	public final int getNumMessages() {
 		return numErrors + numWarnings + numInfos;
 	}

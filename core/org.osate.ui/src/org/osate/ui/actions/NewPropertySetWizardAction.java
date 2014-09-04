@@ -38,11 +38,9 @@ import org.osate.ui.wizards.NewModelWizard;
 /**
  * This class is based on edu.cmu.sei.aadl.model.core.presentation.NewPropertysetWizardAction from OSATE 1.
  */
-public class NewPropertySetWizardAction extends NewModelWizardLauncherAction
-{
+public class NewPropertySetWizardAction extends NewModelWizardLauncherAction {
 	@Override
-	protected void setInitialObjectType(NewModelWizard wizard)
-	{
+	protected void setInitialObjectType(NewModelWizard wizard) {
 		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PROPERTY_SET);
 	}
 }

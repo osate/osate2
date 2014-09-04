@@ -14,7 +14,6 @@ import org.osate.aadl2.Property;
  */
 public interface IPropertyService {
 
-
 	/**
 	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
 	 * For predeclared properties this is not required
@@ -23,7 +22,5 @@ public interface IPropertyService {
 	 * @param propertyName String Property Definition name
 	 * @return Property or null
 	 */
-	Property lookupPropertyDefinition(	EObject context,
-										String propertySetName,
-										String propertyName );
+	Property lookupPropertyDefinition(EObject context, String propertySetName, String propertyName);
 }

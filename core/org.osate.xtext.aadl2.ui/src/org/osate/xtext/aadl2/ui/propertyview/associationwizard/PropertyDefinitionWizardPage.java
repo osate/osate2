@@ -35,14 +35,15 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 public class PropertyDefinitionWizardPage extends WizardPage {
 	private static final String COLUMN_PROPERTY_DEFINITION = "Property Definition";
 	private static final String COLUMN_PROPERTY_TYPE = "Property Type";
-	
+
 	private final NamedElement holder;
 	private final PropertyDefinitionSelectionChangedListener listener;
 	private final ISerializer serializer;
-	
+
 	private FilteredTree definitionsTree = null;
-	
-	public PropertyDefinitionWizardPage(NamedElement holder, ISerializer serializer, PropertyDefinitionSelectionChangedListener listener) {
+
+	public PropertyDefinitionWizardPage(NamedElement holder, ISerializer serializer,
+			PropertyDefinitionSelectionChangedListener listener) {
 		super("Property Definition Wizard Page");
 		this.holder = holder;
 		this.listener = listener;
@@ -50,132 +51,134 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 		setTitle("PropertyDefinition");
 		setDescription("Select a property definition.");
 	}
-	
+
 	@Override
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
-		
-		definitionsTree = new FilteredTree(composite, SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION, new PatternFilter()
-		{
-			@Override
-			public boolean isElementSelectable(Object element)
-			{
-				return element instanceof Property;
-			}
-			
-			@Override
-			protected boolean isLeafMatch(Viewer viewer, Object element)
-			{
-				if (element instanceof Property)
-					return wordMatches(((Property)element).getName().replaceAll("_", " "));
-				else
-					return false;
-			}
-		}, true);
+
+		definitionsTree = new FilteredTree(composite, SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION,
+				new PatternFilter() {
+					@Override
+					public boolean isElementSelectable(Object element) {
+						return element instanceof Property;
+					}
+
+					@Override
+					protected boolean isLeafMatch(Viewer viewer, Object element) {
+						if (element instanceof Property) {
+							return wordMatches(((Property) element).getName().replaceAll("_", " "));
+						} else {
+							return false;
+						}
+					}
+				}, true);
 		definitionsTree.getViewer().getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		Tree tree = definitionsTree.getViewer().getTree();
 		TableLayout tableLayout = new TableLayout();
 		tree.setLayout(tableLayout);
 		tree.setLinesVisible(true);
 		tree.setHeaderVisible(true);
-		
+
 		TreeColumn column = new TreeColumn(tree, SWT.LEFT);
 		column.setText(COLUMN_PROPERTY_DEFINITION);
 		tableLayout.addColumnData(new ColumnWeightData(1, true));
-		
+
 		column = new TreeColumn(tree, SWT.LEFT);
 		column.setText(COLUMN_PROPERTY_TYPE);
 		tableLayout.addColumnData(new ColumnWeightData(1, true));
-		
+
 		definitionsTree.getViewer().setContentProvider(new ITreeContentProvider() {
 			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
-			
+
 			@Override
 			public void dispose() {
 			}
-			
+
 			@Override
 			public boolean hasChildren(Object element) {
 				Object[] children = getChildren(element);
 				return children != null && children.length > 0;
 			}
-			
+
 			@Override
 			public Object getParent(Object element) {
-				if (element instanceof PropertySet)
+				if (element instanceof PropertySet) {
 					return definitionsTree.getViewer().getInput();
-				else if (element instanceof Property)
-					return ((Property)element).eContainer();
-				else
+				} else if (element instanceof Property) {
+					return ((Property) element).eContainer();
+				} else {
 					return null;
+				}
 			}
-			
+
 			@Override
 			public Object[] getElements(Object inputElement) {
 				return getChildren(inputElement);
 			}
-			
+
 			@Override
 			public Object[] getChildren(Object parentElement) {
 				if (parentElement instanceof EList<?>) {
 					ArrayList<PropertySet> applicablePropertySets = new ArrayList<PropertySet>();
-					for (Iterator<?> iter = ((EList<?>)parentElement).iterator(); iter.hasNext();) {
-						PropertySet currentPS = (PropertySet)OsateResourceUtil.getResourceSet().getEObject(((IEObjectDescription)iter.next()).getEObjectURI(), true);
-						if (hasAcceptableDefinitions(holder, currentPS))
+					for (Iterator<?> iter = ((EList<?>) parentElement).iterator(); iter.hasNext();) {
+						PropertySet currentPS = (PropertySet) OsateResourceUtil.getResourceSet().getEObject(
+								((IEObjectDescription) iter.next()).getEObjectURI(), true);
+						if (hasAcceptableDefinitions(holder, currentPS)) {
 							applicablePropertySets.add(currentPS);
+						}
 					}
 					return applicablePropertySets.toArray();
-				}
-				else if (parentElement instanceof PropertySet) {
+				} else if (parentElement instanceof PropertySet) {
 					ArrayList<Property> applicablePropertyDefinitions = new ArrayList<Property>();
-					for (Property currentDefinition : ((PropertySet)parentElement).getOwnedProperties()) {
-						if (holder.acceptsProperty(currentDefinition))
+					for (Property currentDefinition : ((PropertySet) parentElement).getOwnedProperties()) {
+						if (holder.acceptsProperty(currentDefinition)) {
 							applicablePropertyDefinitions.add(currentDefinition);
+						}
 					}
 					return applicablePropertyDefinitions.toArray();
-				}
-				else
+				} else {
 					return null;
+				}
 			}
 		});
 		definitionsTree.getViewer().setLabelProvider(new ITableLabelProvider() {
 			@Override
 			public void removeListener(ILabelProviderListener listener) {
 			}
-			
+
 			@Override
 			public boolean isLabelProperty(Object element, String property) {
 				return true;
 			}
-			
+
 			@Override
 			public void dispose() {
 			}
-			
+
 			@Override
 			public void addListener(ILabelProviderListener listener) {
 			}
-			
+
 			@Override
 			public String getColumnText(Object element, int columnIndex) {
-				if (columnIndex == 0)
-					//element should be a PropertySet or a Property.
-					return ((NamedElement)element).getName();
-				else if (columnIndex == 1) {
+				if (columnIndex == 0) {
+					// element should be a PropertySet or a Property.
+					return ((NamedElement) element).getName();
+				} else if (columnIndex == 1) {
 					if (element instanceof Property) {
-						Property definition = (Property)element;
+						Property definition = (Property) element;
 						return AssociationWizardUtil.unparse(serializer, definition.getPropertyType());
-					}
-					else
+					} else {
 						return null;
-				}
-				else
+					}
+				} else {
 					return null;
+				}
 			}
-			
+
 			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
 				return null;
@@ -185,37 +188,40 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 			@SuppressWarnings("unchecked")
 			@Override
 			public int compare(Viewer viewer, Object e1, Object e2) {
-				//Each object should be a PropertySet or a Property
-				return getComparator().compare(((NamedElement)e1).getName(), ((NamedElement)e2).getName());
+				// Each object should be a PropertySet or a Property
+				return getComparator().compare(((NamedElement) e1).getName(), ((NamedElement) e2).getName());
 			}
 		});
 		definitionsTree.getViewer().setInput(EMFIndexRetrieval.getAllPropertySetsInWorkspace(holder));
 		definitionsTree.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				Object selectedElement = ((IStructuredSelection)definitionsTree.getViewer().getSelection()).getFirstElement();
+				Object selectedElement = ((IStructuredSelection) definitionsTree.getViewer().getSelection())
+						.getFirstElement();
 				if (selectedElement instanceof Property) {
 					setPageComplete(true);
 					listener.propertyDefinitionSelectionChanged();
-				}
-				else
+				} else {
 					setPageComplete(false);
+				}
 			}
 		});
-		
-		setPageComplete(((IStructuredSelection)definitionsTree.getViewer().getSelection()).getFirstElement() instanceof Property);
+
+		setPageComplete(((IStructuredSelection) definitionsTree.getViewer().getSelection()).getFirstElement() instanceof Property);
 		setControl(composite);
 	}
-	
+
 	public Property getSelectedDefinition() {
-		return (Property)((IStructuredSelection)definitionsTree.getViewer().getSelection()).getFirstElement();
+		return (Property) ((IStructuredSelection) definitionsTree.getViewer().getSelection()).getFirstElement();
 	}
-	
-	//Used to determine if the PropertySet ps should be displayed in the tree.
+
+	// Used to determine if the PropertySet ps should be displayed in the tree.
 	private static boolean hasAcceptableDefinitions(NamedElement holder, PropertySet ps) {
-		for (Property definition : ps.getOwnedProperties())
-			if (holder.acceptsProperty(definition))
+		for (Property definition : ps.getOwnedProperties()) {
+			if (holder.acceptsProperty(definition)) {
 				return true;
+			}
+		}
 		return false;
 	}
 }

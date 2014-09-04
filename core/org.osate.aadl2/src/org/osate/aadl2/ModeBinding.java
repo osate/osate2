@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Mode Binding</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Modes.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -62,6 +66,9 @@ public interface ModeBinding extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Parent Mode</em>' reference.
 	 * @see #setParentMode(Mode)
 	 * @see org.osate.aadl2.Aadl2Package#getModeBinding_ParentMode()
@@ -88,6 +95,9 @@ public interface ModeBinding extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Derived Mode</em>' reference.
 	 * @see #setDerivedMode(Mode)
 	 * @see org.osate.aadl2.Aadl2Package#getModeBinding_DerivedMode()

@@ -32,9 +32,9 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>kepler.target</file>
+									<file>luna.target</file>
 									<type>target</type>
-									<classifier>kepler</classifier>
+									<classifier>luna</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>

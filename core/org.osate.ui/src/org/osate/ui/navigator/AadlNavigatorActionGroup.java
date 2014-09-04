@@ -50,29 +50,22 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RefreshAction;
 import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.views.navigator.IResourceNavigator;
-import org.eclipse.ui.views.navigator.MainActionGroup;
+import org.eclipse.ui.navigator.ICommonActionExtensionSite;
+import org.eclipse.ui.navigator.ICommonViewerSite;
+import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 
-
-public class AadlNavigatorActionGroup extends MainActionGroup
-{
+public class AadlNavigatorActionGroup extends org.eclipse.ui.navigator.CommonActionProvider {
 	private static final String OPEN_FOR_MODIFICATION_ACTION_ID = "org.osate.ui.navigator.OpenForModificationAction";
 	private static final String REVERT_TO_CONTRIBUTED_ACTION_ID = "org.osate.ui.navigator.RevertToContributedAction";
-	
+
 	private static final HashSet<String> validIds;
 	private Action openForModificationAction;
 	private Action revertToContributedAction;
-	
-	public AadlNavigatorActionGroup(IResourceNavigator navigator)
-	{
-		super(navigator);
-	}
-	
-	static
-	{
+
+	static {
 		validIds = new HashSet<String>();
 		validIds.add(OPEN_FOR_MODIFICATION_ACTION_ID);
 		validIds.add(REVERT_TO_CONTRIBUTED_ACTION_ID);
@@ -82,94 +75,81 @@ public class AadlNavigatorActionGroup extends MainActionGroup
 		validIds.add("export");
 		validIds.add(RefreshAction.ID);
 	}
-	
-	public void fillContextMenu(IMenuManager menu)
-	{
-		Object selectedElement = ((IStructuredSelection)getContext().getSelection()).getFirstElement();
-		if (selectedElement instanceof IResource &&
-				((IResource)selectedElement).getProject().getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
-		{
-			if (selectedElement instanceof IFile)
-			{
+
+	@Override
+	public void fillContextMenu(IMenuManager menu) {
+		Object selectedElement = ((IStructuredSelection) getContext().getSelection()).getFirstElement();
+		if (selectedElement instanceof IResource
+				&& ((IResource) selectedElement).getProject().getName()
+						.equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+			if (selectedElement instanceof IFile) {
 				menu.add(openForModificationAction);
 				menu.add(revertToContributedAction);
-				if (((IFile)selectedElement).getResourceAttributes().isReadOnly())
-				{
+				if (((IFile) selectedElement).getResourceAttributes().isReadOnly()) {
 					openForModificationAction.setEnabled(true);
 					revertToContributedAction.setEnabled(false);
-				}
-				else
-				{
+				} else {
 					openForModificationAction.setEnabled(false);
 					revertToContributedAction.setEnabled(true);
 				}
 			}
 			super.fillContextMenu(menu);
-			for (IContributionItem item : menu.getItems())
-			{
-				if (!(item instanceof Separator))
-				{
+			for (IContributionItem item : menu.getItems()) {
+				if (!(item instanceof Separator)) {
 					String id = item.getId();
-					if (id == null)
-					{
-						if (item instanceof ActionContributionItem || item instanceof MenuManager)
+					if (id == null) {
+						if (item instanceof ActionContributionItem || item instanceof MenuManager) {
 							menu.remove(item);
-					}
-					else if  (!validIds.contains(id))
+						}
+					} else if (!validIds.contains(id)) {
 						menu.remove(item);
+					}
 				}
 			}
-		}
-		else
+		} else {
 			super.fillContextMenu(menu);
+		}
 	}
-	
+
 	@Override
-	protected void makeActions()
-	{
-		super.makeActions();
-		openForModificationAction = new Action("Open For Modification")
-		{
-			@Override
-			public void run()
-			{
-				IFile file = (IFile)((IStructuredSelection)getNavigator().getViewer().getSelection()).getFirstElement();
-				ResourceAttributes attributes = file.getResourceAttributes();
-				attributes.setReadOnly(false);
-				try
-				{
-					file.setResourceAttributes(attributes);
-					getNavigator().getViewer().update(file, null);
-					IDE.openEditor(getNavigator().getViewSite().getPage(), file, "org.osate.xtext.aadl2.Aadl2");
+	public void init(final ICommonActionExtensionSite aSite) {
+		final ICommonViewerSite viewSite = aSite.getViewSite();
+		if(viewSite instanceof ICommonViewerWorkbenchSite) {
+			final ICommonViewerWorkbenchSite workbenchSite = (ICommonViewerWorkbenchSite)viewSite;
+			
+			openForModificationAction = new Action("Open For Modification") {
+				@Override
+				public void run() {
+					IFile file = (IFile) ((IStructuredSelection) workbenchSite.getSelectionProvider().getSelection())
+							.getFirstElement();
+					ResourceAttributes attributes = file.getResourceAttributes();
+					attributes.setReadOnly(false);
+					try {
+						file.setResourceAttributes(attributes);
+						aSite.getStructuredViewer().update(file, null);
+						IDE.openEditor(workbenchSite.getPage(), file, "org.osate.xtext.aadl2.Aadl2");
+					} catch (CoreException e) {
+						OsateUiPlugin.log(e);
+					}
 				}
-				catch (CoreException e)
-				{
-					OsateUiPlugin.log(e);
+			};
+			openForModificationAction.setId(OPEN_FOR_MODIFICATION_ACTION_ID);
+			revertToContributedAction = new Action("Revert To Contributed Version") {
+				@Override
+				public void run() {
+					IFile file = (IFile) ((IStructuredSelection) aSite.getStructuredViewer().getSelection())
+							.getFirstElement();
+					try {
+						PredeclaredProperties.revertToContributed(file);
+						aSite.getStructuredViewer().update(file, null);
+					} catch (IOException e) {
+						OsateUiPlugin.log(e);
+					} catch (CoreException e) {
+						OsateUiPlugin.log(e);
+					}
 				}
-			}
-		};
-		openForModificationAction.setId(OPEN_FOR_MODIFICATION_ACTION_ID);
-		revertToContributedAction = new Action("Revert To Contributed Version")
-		{
-			@Override
-			public void run()
-			{
-				IFile file = (IFile)((IStructuredSelection)getNavigator().getViewer().getSelection()).getFirstElement();
-				try
-				{
-					PredeclaredProperties.revertToContributed(file);
-					getNavigator().getViewer().update(file, null);
-				}
-				catch (IOException e)
-				{
-					OsateUiPlugin.log(e);
-				}
-				catch (CoreException e)
-				{
-					OsateUiPlugin.log(e);
-				}
-			}
-		};
-		revertToContributedAction.setId(REVERT_TO_CONTRIBUTED_ACTION_ID);
+			};
+			revertToContributedAction.setId(REVERT_TO_CONTRIBUTED_ACTION_ID);
+		}
 	}
 }

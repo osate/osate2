@@ -1,10 +1,9 @@
 /*
- * 
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
+ * at http://www.eclipse.org/legal/cpl-v10.html.
  *
  * NO WARRANTY
  *
@@ -25,24 +24,20 @@
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
  *
- * Carnegie Mellon Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+ * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.scoping;
+package org.osate.xtext.aadl2.properties.util;
 
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+public final class ARINC653Properties {
+	private ARINC653Properties() {
+	}
 
-/**
- * This class contains custom scoping description.
- *
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
- * on how and when to use it
- *
- */
-public class Aadl2ScopeProvider extends AbstractDeclarativeScopeProvider {
-
+	public static final String _NAME = "ARINC653";
+	public static final String MODULE_SCHEDULE = "Module_Schedule";
+	public static final String MODULE_MAJOR_FRAME = "Module_Major_Frame";
 }

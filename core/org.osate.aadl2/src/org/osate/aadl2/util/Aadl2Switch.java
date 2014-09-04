@@ -39,10 +39,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.osate.aadl2.*;
-import org.osate.aadl2.Process;
-import org.osate.aadl2.System;
-import org.osate.aadl2.Thread;
-import org.osate.aadl2.ThreadGroup;
 
 /**
  * <!-- begin-user-doc -->
@@ -1997,6 +1993,33 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.DATA_CLASSIFIER: {
+			DataClassifier dataClassifier = (DataClassifier) theEObject;
+			T result = caseDataClassifier(dataClassifier);
+			if (result == null)
+				result = caseComponentClassifier(dataClassifier);
+			if (result == null)
+				result = caseDataSubcomponentType(dataClassifier);
+			if (result == null)
+				result = caseClassifier(dataClassifier);
+			if (result == null)
+				result = caseSubcomponentType(dataClassifier);
+			if (result == null)
+				result = caseFeatureClassifier(dataClassifier);
+			if (result == null)
+				result = caseData(dataClassifier);
+			if (result == null)
+				result = caseNamespace(dataClassifier);
+			if (result == null)
+				result = caseType(dataClassifier);
+			if (result == null)
+				result = caseNamedElement(dataClassifier);
+			if (result == null)
+				result = caseElement(dataClassifier);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.PORT_PROXY: {
 			PortProxy portProxy = (PortProxy) theEObject;
 			T result = casePortProxy(portProxy);
@@ -2049,6 +2072,35 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseNamedElement(subprogramProxy);
 			if (result == null)
 				result = caseElement(subprogramProxy);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_CLASSIFIER: {
+			SubprogramClassifier subprogramClassifier = (SubprogramClassifier) theEObject;
+			T result = caseSubprogramClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseComponentClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseSubprogramSubcomponentType(subprogramClassifier);
+			if (result == null)
+				result = caseClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseSubcomponentType(subprogramClassifier);
+			if (result == null)
+				result = caseFeatureClassifier(subprogramClassifier);
+			if (result == null)
+				result = caseSubprogram(subprogramClassifier);
+			if (result == null)
+				result = caseNamespace(subprogramClassifier);
+			if (result == null)
+				result = caseType(subprogramClassifier);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramClassifier);
+			if (result == null)
+				result = caseNamedElement(subprogramClassifier);
+			if (result == null)
+				result = caseElement(subprogramClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -2600,7 +2652,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 			return result;
 		}
 		case Aadl2Package.THREAD_GROUP: {
-			ThreadGroup threadGroup = (ThreadGroup) theEObject;
+			org.osate.aadl2.ThreadGroup threadGroup = (org.osate.aadl2.ThreadGroup) theEObject;
 			T result = caseThreadGroup(threadGroup);
 			if (result == null)
 				result = caseNamedElement(threadGroup);
@@ -2628,7 +2680,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 			return result;
 		}
 		case Aadl2Package.THREAD: {
-			Thread thread = (Thread) theEObject;
+			org.osate.aadl2.Thread thread = (org.osate.aadl2.Thread) theEObject;
 			T result = caseThread(thread);
 			if (result == null)
 				result = caseNamedElement(thread);
@@ -2656,7 +2708,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 			return result;
 		}
 		case Aadl2Package.SYSTEM: {
-			System system = (System) theEObject;
+			org.osate.aadl2.System system = (org.osate.aadl2.System) theEObject;
 			T result = caseSystem(system);
 			if (result == null)
 				result = caseNamedElement(system);
@@ -2684,7 +2736,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 			return result;
 		}
 		case Aadl2Package.PROCESS: {
-			Process process = (Process) theEObject;
+			org.osate.aadl2.Process process = (org.osate.aadl2.Process) theEObject;
 			T result = caseProcess(process);
 			if (result == null)
 				result = caseNamedElement(process);
@@ -3499,33 +3551,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.DATA_CLASSIFIER: {
-			DataClassifier dataClassifier = (DataClassifier) theEObject;
-			T result = caseDataClassifier(dataClassifier);
-			if (result == null)
-				result = caseComponentClassifier(dataClassifier);
-			if (result == null)
-				result = caseDataSubcomponentType(dataClassifier);
-			if (result == null)
-				result = caseClassifier(dataClassifier);
-			if (result == null)
-				result = caseSubcomponentType(dataClassifier);
-			if (result == null)
-				result = caseFeatureClassifier(dataClassifier);
-			if (result == null)
-				result = caseData(dataClassifier);
-			if (result == null)
-				result = caseNamespace(dataClassifier);
-			if (result == null)
-				result = caseType(dataClassifier);
-			if (result == null)
-				result = caseNamedElement(dataClassifier);
-			if (result == null)
-				result = caseElement(dataClassifier);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.DATA_TYPE: {
 			DataType dataType = (DataType) theEObject;
 			T result = caseDataType(dataType);
@@ -3863,35 +3888,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseNamedElement(memoryPrototype);
 			if (result == null)
 				result = caseElement(memoryPrototype);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM_CLASSIFIER: {
-			SubprogramClassifier subprogramClassifier = (SubprogramClassifier) theEObject;
-			T result = caseSubprogramClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseComponentClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseSubprogramSubcomponentType(subprogramClassifier);
-			if (result == null)
-				result = caseClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseSubcomponentType(subprogramClassifier);
-			if (result == null)
-				result = caseFeatureClassifier(subprogramClassifier);
-			if (result == null)
-				result = caseSubprogram(subprogramClassifier);
-			if (result == null)
-				result = caseNamespace(subprogramClassifier);
-			if (result == null)
-				result = caseType(subprogramClassifier);
-			if (result == null)
-				result = caseCalledSubprogram(subprogramClassifier);
-			if (result == null)
-				result = caseNamedElement(subprogramClassifier);
-			if (result == null)
-				result = caseElement(subprogramClassifier);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -7884,7 +7880,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseProcess(Process object) {
+	public T caseProcess(org.osate.aadl2.Process object) {
 		return null;
 	}
 
@@ -8004,7 +8000,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSystem(System object) {
+	public T caseSystem(org.osate.aadl2.System object) {
 		return null;
 	}
 
@@ -8094,7 +8090,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseThread(Thread object) {
+	public T caseThread(org.osate.aadl2.Thread object) {
 		return null;
 	}
 
@@ -8154,7 +8150,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseThreadGroup(ThreadGroup object) {
+	public T caseThreadGroup(org.osate.aadl2.ThreadGroup object) {
 		return null;
 	}
 

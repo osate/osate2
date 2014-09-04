@@ -35,7 +35,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
-
 /**
  * Listens for the loading of resources, and creates editors on them when they
  * load.
@@ -59,7 +58,7 @@ public class ResourceLoadedListener extends DemultiplexingListener {
 
 	/**
 	 * Returns the default listener instance.
-	 * 
+	 *
 	 * @return the instance associated with the editing domain that manages the
 	 *     specified resource set, or <code>null</code> if none is found
 	 */
@@ -70,7 +69,7 @@ public class ResourceLoadedListener extends DemultiplexingListener {
 	/**
 	 * Ignores any future load/unload notifications from the specified resource,
 	 * until the next call to {@link #watch(Resource) watch(res)}.
-	 * 
+	 *
 	 * @param res the resource to ignore
 	 */
 	public void ignore(Resource res) {
@@ -79,7 +78,7 @@ public class ResourceLoadedListener extends DemultiplexingListener {
 
 	/**
 	 * Ceases to {@link #ignore(Resource)} a previously ignored resource.
-	 * 
+	 *
 	 * @param res the resource
 	 */
 	public void watch(Resource res) {
@@ -94,7 +93,7 @@ public class ResourceLoadedListener extends DemultiplexingListener {
 		}
 
 		if (notification.getNewBooleanValue() && !notification.getOldBooleanValue()) {
-			// a resource has been loaded that was not loaded before.  Open an editor
+			// a resource has been loaded that was not loaded before. Open an editor
 			final IFile file = WorkspaceSynchronizer.getFile((Resource) notification.getNotifier());
 
 //			if (file != null) {
@@ -123,12 +122,13 @@ public class ResourceLoadedListener extends DemultiplexingListener {
 //				});
 //			}
 		} else if (!notification.getNewBooleanValue() && notification.getOldBooleanValue()) {
-			// a resource has been unloaded that was  loaded before.  Close
-			//    the editor, if any
+			// a resource has been unloaded that was loaded before. Close
+			// the editor, if any
 			final IFile file = WorkspaceSynchronizer.getFile((Resource) notification.getNotifier());
 
 			if (file != null) {
 				Display.getDefault().asyncExec(new Runnable() {
+					@Override
 					public void run() {
 						IWorkbenchPage page = getActivePage();
 
@@ -148,7 +148,7 @@ public class ResourceLoadedListener extends DemultiplexingListener {
 
 	/**
 	 * Obtains the currently active workbench page.
-	 * 
+	 *
 	 * @return the active page, or <code>null</code> if none is active
 	 */
 	private IWorkbenchPage getActivePage() {

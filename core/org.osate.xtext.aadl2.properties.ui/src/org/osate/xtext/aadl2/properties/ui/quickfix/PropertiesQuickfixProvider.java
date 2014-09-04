@@ -35,19 +35,50 @@
 
 package org.osate.xtext.aadl2.properties.ui.quickfix;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
+import org.eclipse.xtext.ui.editor.quickfix.Fix;
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
+import org.eclipse.xtext.validation.Issue;
+import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PropertySet;
+import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator;
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
-
-//	@Fix(MyJavaValidator.INVALID_NAME)
-//	public void capitalizeName(final Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, "Capitalize name", "Capitalize the name.", "upcase.png", new IModification() {
-//			public void apply(IModificationContext context) throws BadLocationException {
-//				IXtextDocument xtextDocument = context.getXtextDocument();
-//				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-//			}
-//		});
-//	}
-
+	/**
+	 * QuickFix for adding a required with statement for a referenced package or property set.
+	 * The issue data array is expected to have three elements:
+	 *
+	 * issue.getData()[0]: The name of the package or property set
+	 * issue.getData()[1]: The URI String of the referenced AadlPackage or PropertySet.
+	 * issue.getData()[2]: The URI String of the Namespace where the with statement should be inserted.
+	 */
+	@Fix(PropertiesJavaValidator.MISSING_WITH)
+	public void fixMissingWith(final Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Add '" + issue.getData()[0] + "' to the with clauses", null, null,
+				new ISemanticModification() {
+					@Override
+					public void apply(EObject element, IModificationContext context) throws Exception {
+						ResourceSet resourceSet = element.eResource().getResourceSet();
+						ModelUnit requiredModelUnit = (ModelUnit) resourceSet.getEObject(
+								URI.createURI(issue.getData()[1]), true);
+						Namespace contextNS = (Namespace) resourceSet.getEObject(URI.createURI(issue.getData()[2]),
+								true);
+						EList<ModelUnit> imports;
+						if (contextNS instanceof PropertySet) {
+							imports = ((PropertySet) contextNS).getImportedUnits();
+						} else {
+							imports = ((PackageSection) contextNS).getImportedUnits();
+						}
+						imports.add(requiredModelUnit);
+					}
+				});
+	}
 }

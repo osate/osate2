@@ -1,7 +1,7 @@
 /*
- * /**
+ *
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2014 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -32,17 +32,23 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties.scoping;
+package org.osate.xtext.aadl2.validation;
 
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import java.util.Map;
 
-/**
- * This class contains custom scoping description.
- *
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
- * on how and when to use it
- *
- */
-public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.validation.impl.ConcreteSyntaxValidator;
+import org.osate.aadl2.Aadl2Package;
 
+public class Aadl2ConcreteSyntaxValidator extends ConcreteSyntaxValidator {
+	@Override
+	public boolean validateObject(EObject obj, IDiagnosticAcceptor acceptor, Map<Object, Object> context) {
+		EPackage objEPackage = obj.eClass().getEPackage();
+		if (objEPackage.equals(Aadl2Package.eINSTANCE) || objEPackage.getNsURI().equals("http://www.aadl.info/EMV2")) {
+			return super.validateObject(obj, acceptor, context);
+		} else {
+			return true;
+		}
+	}
 }

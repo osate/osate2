@@ -67,4 +67,4 @@ public class EventSourceImpl extends InternalFeatureImpl implements EventSource 
 		return Aadl2Package.eINSTANCE.getEventSource();
 	}
 
-} //EventSourceImpl
+} // EventSourceImpl

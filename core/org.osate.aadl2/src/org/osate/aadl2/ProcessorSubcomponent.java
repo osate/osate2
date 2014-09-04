@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Processor Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Processor.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface ProcessorSubcomponent extends Subcomponent, Processor {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Processor.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Processor Subcomponent Type</em>' reference.
 	 * @see #setProcessorSubcomponentType(ProcessorSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorSubcomponent_ProcessorSubcomponentType()

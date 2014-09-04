@@ -42,7 +42,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 
-
 /**
  * @author lwrage
  * @version $Id: AnnexResolverProxy.java,v 1.7 2009-10-09 18:49:32 lwrage Exp $
@@ -59,9 +58,9 @@ public class AnnexLinkingServiceProxy extends AnnexProxy implements AnnexLinking
 		super(configElem);
 	}
 
-	
 	// mechanism to resolve individual references in an Xtext based setting
-	public List<EObject> resolveAnnexReference(String annexName, EObject context,EReference reference, INode node) {
+	@Override
+	public List<EObject> resolveAnnexReference(String annexName, EObject context, EReference reference, INode node) {
 		AnnexLinkingService resolver = getLinkingService();
 
 		if (resolver == null) {
@@ -76,6 +75,7 @@ public class AnnexLinkingServiceProxy extends AnnexProxy implements AnnexLinking
 		return Collections.<EObject> emptyList();
 	}
 
+	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
 		AnnexLinkingService resolver = getLinkingService();
 
@@ -85,7 +85,6 @@ public class AnnexLinkingServiceProxy extends AnnexProxy implements AnnexLinking
 		return resolver.getFullyQualifiedName(obj);
 	}
 
-
 	private AnnexLinkingService getLinkingService() {
 		if (linkingservice != null) {
 			return linkingservice;
@@ -93,8 +92,8 @@ public class AnnexLinkingServiceProxy extends AnnexProxy implements AnnexLinking
 		try {
 			linkingservice = (AnnexLinkingService) configElem.createExecutableExtension(ATT_CLASS);
 		} catch (Exception e) {
-			AnnexPlugin.logError("Failed to instantiate " + annexName + " linking service " + className + " in type: " + id
-					+ " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
+			AnnexPlugin.logError("Failed to instantiate " + annexName + " linking service " + className + " in type: "
+					+ id + " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
 		}
 		return linkingservice;
 	}

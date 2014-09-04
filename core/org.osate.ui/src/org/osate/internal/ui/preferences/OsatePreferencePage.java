@@ -40,10 +40,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osate.workspace.WorkspacePlugin;
 
-
 /**
  * This class represents the OSATE workspace preferences.
- * 
+ *
  * @author lwrage
  * @version $Id: OsatePreferencePage.java,v 1.15 2007-06-18 18:47:27 jseibel Exp $
  */
@@ -59,12 +58,16 @@ public class OsatePreferencePage extends FieldEditorPreferencePage implements IW
 	/**
 	 * Create the field editors.
 	 */
+	@Override
 	public void createFieldEditors() {
-		BooleanFieldEditor be = new BooleanFieldEditor(WorkspacePlugin.EXPAND_DEFAULT_FLAG,"Store Default Attribute Values in XML File (Normally defaults recorded in the schema are not stored)",getFieldEditorParent());
+		BooleanFieldEditor be = new BooleanFieldEditor(WorkspacePlugin.EXPAND_DEFAULT_FLAG,
+				"Store Default Attribute Values in XML File (Normally defaults recorded in the schema are not stored)",
+				getFieldEditorParent());
 		addField(be);
 //		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_REINSTANTIATE, "Automatically reinstantiate models during build.", getFieldEditorParent()));
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 }

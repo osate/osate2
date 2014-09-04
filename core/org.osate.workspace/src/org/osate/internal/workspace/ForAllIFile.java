@@ -47,7 +47,7 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * ForAllIFile operates on all files in a container hierarchy
- * 
+ *
  * @author phf
  */
 public class ForAllIFile {
@@ -64,7 +64,7 @@ public class ForAllIFile {
 
 	/**
 	 * placeholder to be overwritten by real action in each list element
-	 * 
+	 *
 	 * @param obj IFile
 	 * @return true always
 	 */
@@ -76,7 +76,7 @@ public class ForAllIFile {
 	 * placeholder to be overwritten by real action in each list element the
 	 * default implementation creates a list of elements satisfying the
 	 * condition
-	 * 
+	 *
 	 * @param obj IFile
 	 */
 	protected void action(IFile obj) {
@@ -99,21 +99,22 @@ public class ForAllIFile {
 	 * Does preorder processing of containment hierarchy The default
 	 * implementation applies the suchThat condition and if true adds the
 	 * element to the result list
-	 * 
+	 *
 	 * @param obj root object
 	 * @return EList result list of IFile
 	 */
 	public final EList<IFile> traverse(IResource obj) {
-		if (obj == null)
+		if (obj == null) {
 			return resultList;
+		}
 		if (obj instanceof IFile) {
-			this.process((IFile) obj);
+			process((IFile) obj);
 		} else if (obj instanceof IContainer) {
 			IResource[] list;
 			try {
 				list = ((IContainer) obj).members();
 				for (int it = 0; it < list.length; it++) {
-					this.traverse(list[it]);
+					traverse(list[it]);
 				}
 			} catch (CoreException e) {
 			}

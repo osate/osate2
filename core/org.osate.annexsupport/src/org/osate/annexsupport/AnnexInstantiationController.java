@@ -47,7 +47,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 
-
 /**
  * @author lwrage
  * @version $Id: AnnexInstantiationController.java,v 1.10 2010-05-04 18:13:49 lwrage Exp $
@@ -60,11 +59,12 @@ public class AnnexInstantiationController extends ForAllElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * 
+	 *
+	 *
 	 * Efficiency: Recalculates list for each instance, even if same
 	 * implementation.
 	 */
+	@Override
 	protected void action(Element obj) {
 		ComponentInstance instance = (ComponentInstance) obj;
 		AnnexInstantiatorRegistry registry = (AnnexInstantiatorRegistry) AnnexRegistry
@@ -74,14 +74,16 @@ public class AnnexInstantiationController extends ForAllElement {
 		// group annex subclauses by annex name
 		// annex subclauses list ordered following the inheritance chain upwards
 		// result in annexMap
-		if (InstanceUtil.getComponentImplementation(instance, 0, null)!= null) {
-			final EList<Classifier> classifiers = InstanceUtil.getComponentImplementation(instance, 0, null).getSelfPlusAllExtended();
+		if (InstanceUtil.getComponentImplementation(instance, 0, null) != null) {
+			final EList<Classifier> classifiers = InstanceUtil.getComponentImplementation(instance, 0, null)
+					.getSelfPlusAllExtended();
 			for (final Iterator<Classifier> iter = classifiers.iterator(); iter.hasNext();) {
 				final Classifier classifier = iter.next();
-				for (Iterator<AnnexSubclause> subclauseIter = classifier.getOwnedAnnexSubclauses().iterator(); subclauseIter.hasNext();) {
+				for (Iterator<AnnexSubclause> subclauseIter = classifier.getOwnedAnnexSubclauses().iterator(); subclauseIter
+						.hasNext();) {
 					AnnexSubclause annexSubclause = subclauseIter.next();
 					String annexName = annexSubclause.getName();
-	
+
 					if (annexMap.get(annexName) == null) {
 						annexMap.put(annexName, new LinkedList<AnnexSubclause>());
 					}
@@ -90,7 +92,8 @@ public class AnnexInstantiationController extends ForAllElement {
 			}
 		}
 		// instantiate each annex
-		for (Iterator<Map.Entry<String, List<AnnexSubclause>>> annexIter = annexMap.entrySet().iterator(); annexIter.hasNext();) {
+		for (Iterator<Map.Entry<String, List<AnnexSubclause>>> annexIter = annexMap.entrySet().iterator(); annexIter
+				.hasNext();) {
 			Map.Entry<String, List<AnnexSubclause>> annexEntry = annexIter.next();
 			String annexName = annexEntry.getKey();
 			List<AnnexSubclause> annexElements = annexEntry.getValue();
@@ -104,8 +107,8 @@ public class AnnexInstantiationController extends ForAllElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 */
+	@Override
 	protected boolean suchThat(Element obj) {
 		return true;
 	}

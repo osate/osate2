@@ -44,6 +44,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Component Implementation Reference</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Arrays.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -65,6 +69,9 @@ public interface ComponentImplementationReference extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Arrays.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Implementation</em>' reference.
 	 * @see #setImplementation(ComponentImplementation)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementationReference_Implementation()
@@ -92,6 +99,9 @@ public interface ComponentImplementationReference extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Arrays.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Prototype Binding</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementationReference_OwnedPrototypeBinding()
 	 * @model containment="true" ordered="false"

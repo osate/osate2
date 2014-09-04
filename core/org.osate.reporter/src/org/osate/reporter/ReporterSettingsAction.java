@@ -54,7 +54,7 @@ public class ReporterSettingsAction implements IWorkbenchWindowActionDelegate, I
 	 */
 	private IResource currentSelection = null;
 	private IWorkbenchWindow workbenchWindow = null;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -67,20 +67,24 @@ public class ReporterSettingsAction implements IWorkbenchWindowActionDelegate, I
 	 * in the workbench UI.
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
-		new ReporterSettingsDialog((workbenchWindow == null) ? null : workbenchWindow.getShell(), currentSelection.getProject()).open();
+		new ReporterSettingsDialog((workbenchWindow == null) ? null : workbenchWindow.getShell(),
+				currentSelection.getProject()).open();
 	}
-/**
-	 * Selection in the workbench has been changed. We
-	 * can change the state of the 'real' action here
-	 * if we want, but this can only happen after
-	 * the delegate has been created.
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-	 */
+
+	/**
+		 * Selection in the workbench has been changed. We
+		 * can change the state of the 'real' action here
+		 * if we want, but this can only happen after
+		 * the delegate has been created.
+		 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
+		 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {
-			Object object = ((IStructuredSelection)selection).getFirstElement();
-			if ( object != null && object instanceof IResource ){
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			Object object = ((IStructuredSelection) selection).getFirstElement();
+			if (object != null && object instanceof IResource) {
 				currentSelection = (IResource) object;
 			}
 		}
@@ -91,6 +95,7 @@ public class ReporterSettingsAction implements IWorkbenchWindowActionDelegate, I
 	 * resources we previously allocated.
 	 * @see IWorkbenchWindowActionDelegate#dispose
 	 */
+	@Override
 	public void dispose() {
 	}
 
@@ -99,14 +104,16 @@ public class ReporterSettingsAction implements IWorkbenchWindowActionDelegate, I
 	 * be able to provide parent shell for the message dialog.
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
-		this.workbenchWindow = window;
+		workbenchWindow = window;
 	}
 
-    /**
-     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-     */
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-    	this.workbenchWindow = targetPart.getSite().getWorkbenchWindow();
-    }
+	/**
+	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
+	 */
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		workbenchWindow = targetPart.getSite().getWorkbenchWindow();
+	}
 }

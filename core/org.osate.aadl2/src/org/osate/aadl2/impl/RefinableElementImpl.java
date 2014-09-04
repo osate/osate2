@@ -177,7 +177,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 
 	@Override
 	public void setName(final String newName) {
-		// DB: Avoid setting a non null name to refined elements (causes a validation error during serialization 
+		// DB: Avoid setting a non null name to refined elements (causes a validation error during serialization
 		// when both the name and refined element are set).
 		final String actualName = Aadl2Util.isNull(getRefinedElement()) ? newName : null;
 

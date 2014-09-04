@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see org.osate.aadl2.Aadl2Factory
  * @model kind="package"
+ *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='AADL2'"
  * @generated
  */
 public interface Aadl2Package extends EPackage {
@@ -1272,7 +1273,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusClassifier()
 	 * @generated
 	 */
-	int BUS_CLASSIFIER = 172;
+	int BUS_CLASSIFIER = 174;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImpl <em>Bus</em>}' class.
@@ -1352,7 +1353,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataClassifier()
 	 * @generated
 	 */
-	int DATA_CLASSIFIER = 176;
+	int DATA_CLASSIFIER = 112;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImpl <em>Data</em>}' class.
@@ -1442,7 +1443,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramClassifier()
 	 * @generated
 	 */
-	int SUBPROGRAM_CLASSIFIER = 188;
+	int SUBPROGRAM_CLASSIFIER = 115;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentTypeImpl <em>Subprogram Subcomponent Type</em>}' class.
@@ -1552,7 +1553,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractClassifier()
 	 * @generated
 	 */
-	int ABSTRACT_CLASSIFIER = 138;
+	int ABSTRACT_CLASSIFIER = 140;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImpl <em>Abstract</em>}' class.
@@ -1732,7 +1733,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexLibrary()
 	 * @generated
 	 */
-	int ANNEX_LIBRARY = 114;
+	int ANNEX_LIBRARY = 116;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexLibraryImpl <em>Default Annex Library</em>}' class.
@@ -1742,7 +1743,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexLibrary()
 	 * @generated
 	 */
-	int DEFAULT_ANNEX_LIBRARY = 115;
+	int DEFAULT_ANNEX_LIBRARY = 117;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexSubclauseImpl <em>Default Annex Subclause</em>}' class.
@@ -1752,7 +1753,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexSubclause()
 	 * @generated
 	 */
-	int DEFAULT_ANNEX_SUBCLAUSE = 116;
+	int DEFAULT_ANNEX_SUBCLAUSE = 118;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageSectionImpl <em>Package Section</em>}' class.
@@ -1762,7 +1763,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageSection()
 	 * @generated
 	 */
-	int PACKAGE_SECTION = 118;
+	int PACKAGE_SECTION = 120;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PublicPackageSectionImpl <em>Public Package Section</em>}' class.
@@ -1772,7 +1773,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPublicPackageSection()
 	 * @generated
 	 */
-	int PUBLIC_PACKAGE_SECTION = 117;
+	int PUBLIC_PACKAGE_SECTION = 119;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageRenameImpl <em>Package Rename</em>}' class.
@@ -1782,7 +1783,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageRename()
 	 * @generated
 	 */
-	int PACKAGE_RENAME = 119;
+	int PACKAGE_RENAME = 121;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModelUnitImpl <em>Model Unit</em>}' class.
@@ -1792,7 +1793,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModelUnit()
 	 * @generated
 	 */
-	int MODEL_UNIT = 121;
+	int MODEL_UNIT = 123;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlPackageImpl <em>Aadl Package</em>}' class.
@@ -1802,7 +1803,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlPackage()
 	 * @generated
 	 */
-	int AADL_PACKAGE = 120;
+	int AADL_PACKAGE = 122;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrivatePackageSectionImpl <em>Private Package Section</em>}' class.
@@ -1812,7 +1813,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrivatePackageSection()
 	 * @generated
 	 */
-	int PRIVATE_PACKAGE_SECTION = 122;
+	int PRIVATE_PACKAGE_SECTION = 124;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeRenameImpl <em>Component Type Rename</em>}' class.
@@ -1822,7 +1823,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentTypeRename()
 	 * @generated
 	 */
-	int COMPONENT_TYPE_RENAME = 123;
+	int COMPONENT_TYPE_RENAME = 125;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeRenameImpl <em>Feature Group Type Rename</em>}' class.
@@ -1832,7 +1833,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupTypeRename()
 	 * @generated
 	 */
-	int FEATURE_GROUP_TYPE_RENAME = 124;
+	int FEATURE_GROUP_TYPE_RENAME = 126;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
@@ -1842,7 +1843,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractType()
 	 * @generated
 	 */
-	int ABSTRACT_TYPE = 137;
+	int ABSTRACT_TYPE = 139;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioredImplementationImpl <em>Behaviored Implementation</em>}' class.
@@ -1852,7 +1853,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioredImplementation()
 	 * @generated
 	 */
-	int BEHAVIORED_IMPLEMENTATION = 136;
+	int BEHAVIORED_IMPLEMENTATION = 138;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImplementationImpl <em>Abstract Implementation</em>}' class.
@@ -1862,7 +1863,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractImplementation()
 	 * @generated
 	 */
-	int ABSTRACT_IMPLEMENTATION = 157;
+	int ABSTRACT_IMPLEMENTATION = 159;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl <em>Subprogram Call Sequence</em>}' class.
@@ -1872,7 +1873,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCallSequence()
 	 * @generated
 	 */
-	int SUBPROGRAM_CALL_SEQUENCE = 134;
+	int SUBPROGRAM_CALL_SEQUENCE = 136;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentImpl <em>Bus Subcomponent</em>}' class.
@@ -1882,7 +1883,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponent()
 	 * @generated
 	 */
-	int BUS_SUBCOMPONENT = 158;
+	int BUS_SUBCOMPONENT = 160;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentImpl <em>Data Subcomponent</em>}' class.
@@ -1892,7 +1893,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponent()
 	 * @generated
 	 */
-	int DATA_SUBCOMPONENT = 159;
+	int DATA_SUBCOMPONENT = 161;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentImpl <em>Device Subcomponent</em>}' class.
@@ -1902,7 +1903,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponent()
 	 * @generated
 	 */
-	int DEVICE_SUBCOMPONENT = 160;
+	int DEVICE_SUBCOMPONENT = 162;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImpl <em>Device</em>}' class.
@@ -1912,7 +1913,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevice()
 	 * @generated
 	 */
-	int DEVICE = 154;
+	int DEVICE = 156;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceClassifierImpl <em>Device Classifier</em>}' class.
@@ -1922,7 +1923,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceClassifier()
 	 * @generated
 	 */
-	int DEVICE_CLASSIFIER = 180;
+	int DEVICE_CLASSIFIER = 181;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentImpl <em>Memory Subcomponent</em>}' class.
@@ -1932,7 +1933,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponent()
 	 * @generated
 	 */
-	int MEMORY_SUBCOMPONENT = 161;
+	int MEMORY_SUBCOMPONENT = 163;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImpl <em>Memory</em>}' class.
@@ -1942,7 +1943,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemory()
 	 * @generated
 	 */
-	int MEMORY = 152;
+	int MEMORY = 154;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryClassifierImpl <em>Memory Classifier</em>}' class.
@@ -1952,7 +1953,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryClassifier()
 	 * @generated
 	 */
-	int MEMORY_CLASSIFIER = 184;
+	int MEMORY_CLASSIFIER = 185;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentImpl <em>Process Subcomponent</em>}' class.
@@ -1962,7 +1963,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponent()
 	 * @generated
 	 */
-	int PROCESS_SUBCOMPONENT = 162;
+	int PROCESS_SUBCOMPONENT = 164;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImpl <em>Process</em>}' class.
@@ -1972,7 +1973,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcess()
 	 * @generated
 	 */
-	int PROCESS = 150;
+	int PROCESS = 152;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessClassifierImpl <em>Process Classifier</em>}' class.
@@ -1992,7 +1993,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponent()
 	 * @generated
 	 */
-	int PROCESSOR_SUBCOMPONENT = 163;
+	int PROCESSOR_SUBCOMPONENT = 165;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImpl <em>Processor</em>}' class.
@@ -2002,7 +2003,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessor()
 	 * @generated
 	 */
-	int PROCESSOR = 156;
+	int PROCESSOR = 158;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorClassifierImpl <em>Processor Classifier</em>}' class.
@@ -2022,7 +2023,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponent()
 	 * @generated
 	 */
-	int SYSTEM_SUBCOMPONENT = 164;
+	int SYSTEM_SUBCOMPONENT = 166;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImpl <em>System</em>}' class.
@@ -2032,7 +2033,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystem()
 	 * @generated
 	 */
-	int SYSTEM = 148;
+	int SYSTEM = 150;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemClassifierImpl <em>System Classifier</em>}' class.
@@ -2052,7 +2053,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponent()
 	 * @generated
 	 */
-	int SUBPROGRAM_SUBCOMPONENT = 165;
+	int SUBPROGRAM_SUBCOMPONENT = 167;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl <em>Subprogram Group Subcomponent</em>}' class.
@@ -2062,7 +2063,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponent()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT = 166;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT = 168;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentImpl <em>Thread Subcomponent</em>}' class.
@@ -2072,7 +2073,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponent()
 	 * @generated
 	 */
-	int THREAD_SUBCOMPONENT = 167;
+	int THREAD_SUBCOMPONENT = 169;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImpl <em>Thread</em>}' class.
@@ -2082,7 +2083,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThread()
 	 * @generated
 	 */
-	int THREAD = 146;
+	int THREAD = 148;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadClassifierImpl <em>Thread Classifier</em>}' class.
@@ -2102,7 +2103,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponent()
 	 * @generated
 	 */
-	int THREAD_GROUP_SUBCOMPONENT = 168;
+	int THREAD_GROUP_SUBCOMPONENT = 170;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImpl <em>Thread Group</em>}' class.
@@ -2112,7 +2113,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroup()
 	 * @generated
 	 */
-	int THREAD_GROUP = 144;
+	int THREAD_GROUP = 146;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupClassifierImpl <em>Thread Group Classifier</em>}' class.
@@ -2132,7 +2133,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponent()
 	 * @generated
 	 */
-	int VIRTUAL_BUS_SUBCOMPONENT = 169;
+	int VIRTUAL_BUS_SUBCOMPONENT = 171;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
@@ -2142,7 +2143,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBus()
 	 * @generated
 	 */
-	int VIRTUAL_BUS = 142;
+	int VIRTUAL_BUS = 144;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusClassifierImpl <em>Virtual Bus Classifier</em>}' class.
@@ -2162,7 +2163,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponent()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 170;
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 172;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImpl <em>Virtual Processor</em>}' class.
@@ -2172,7 +2173,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessor()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR = 140;
+	int VIRTUAL_PROCESSOR = 142;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorClassifierImpl <em>Virtual Processor Classifier</em>}' class.
@@ -2192,7 +2193,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusType()
 	 * @generated
 	 */
-	int BUS_TYPE = 173;
+	int BUS_TYPE = 175;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImplementationImpl <em>Bus Implementation</em>}' class.
@@ -2202,7 +2203,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusImplementation()
 	 * @generated
 	 */
-	int BUS_IMPLEMENTATION = 174;
+	int BUS_IMPLEMENTATION = 176;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataTypeImpl <em>Data Type</em>}' class.
@@ -2212,7 +2213,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataType()
 	 * @generated
 	 */
-	int DATA_TYPE = 177;
+	int DATA_TYPE = 178;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImplementationImpl <em>Data Implementation</em>}' class.
@@ -2222,7 +2223,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataImplementation()
 	 * @generated
 	 */
-	int DATA_IMPLEMENTATION = 178;
+	int DATA_IMPLEMENTATION = 179;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceTypeImpl <em>Device Type</em>}' class.
@@ -2232,7 +2233,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceType()
 	 * @generated
 	 */
-	int DEVICE_TYPE = 181;
+	int DEVICE_TYPE = 182;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImplementationImpl <em>Device Implementation</em>}' class.
@@ -2242,7 +2243,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceImplementation()
 	 * @generated
 	 */
-	int DEVICE_IMPLEMENTATION = 182;
+	int DEVICE_IMPLEMENTATION = 183;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryTypeImpl <em>Memory Type</em>}' class.
@@ -2252,7 +2253,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryType()
 	 * @generated
 	 */
-	int MEMORY_TYPE = 185;
+	int MEMORY_TYPE = 186;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImplementationImpl <em>Memory Implementation</em>}' class.
@@ -2262,7 +2263,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryImplementation()
 	 * @generated
 	 */
-	int MEMORY_IMPLEMENTATION = 186;
+	int MEMORY_IMPLEMENTATION = 187;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessTypeImpl <em>Process Type</em>}' class.
@@ -2452,7 +2453,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeBinding()
 	 * @generated
 	 */
-	int COMPONENT_PROTOTYPE_BINDING = 125;
+	int COMPONENT_PROTOTYPE_BINDING = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl <em>Component Prototype Actual</em>}' class.
@@ -2462,7 +2463,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeActual()
 	 * @generated
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL = 126;
+	int COMPONENT_PROTOTYPE_ACTUAL = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl <em>Feature Group Prototype</em>}' class.
@@ -2482,7 +2483,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeBinding()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING = 127;
+	int FEATURE_GROUP_PROTOTYPE_BINDING = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl <em>Feature Group Prototype Actual</em>}' class.
@@ -2492,7 +2493,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeActual()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 128;
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeImpl <em>Feature Prototype</em>}' class.
@@ -2512,7 +2513,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_BINDING = 130;
+	int FEATURE_PROTOTYPE_BINDING = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
@@ -2522,7 +2523,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeActual()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_ACTUAL = 129;
+	int FEATURE_PROTOTYPE_ACTUAL = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessSpecificationImpl <em>Access Specification</em>}' class.
@@ -2532,7 +2533,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessSpecification()
 	 * @generated
 	 */
-	int ACCESS_SPECIFICATION = 131;
+	int ACCESS_SPECIFICATION = 133;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortSpecificationImpl <em>Port Specification</em>}' class.
@@ -2542,7 +2543,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortSpecification()
 	 * @generated
 	 */
-	int PORT_SPECIFICATION = 132;
+	int PORT_SPECIFICATION = 134;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl <em>Feature Prototype Reference</em>}' class.
@@ -2552,7 +2553,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeReference()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_REFERENCE = 133;
+	int FEATURE_PROTOTYPE_REFERENCE = 135;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallImpl <em>Subprogram Call</em>}' class.
@@ -2562,7 +2563,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCall()
 	 * @generated
 	 */
-	int SUBPROGRAM_CALL = 135;
+	int SUBPROGRAM_CALL = 137;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentTypeImpl <em>Device Subcomponent Type</em>}' class.
@@ -2572,7 +2573,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponentType()
 	 * @generated
 	 */
-	int DEVICE_SUBCOMPONENT_TYPE = 153;
+	int DEVICE_SUBCOMPONENT_TYPE = 155;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentTypeImpl <em>Memory Subcomponent Type</em>}' class.
@@ -2582,7 +2583,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponentType()
 	 * @generated
 	 */
-	int MEMORY_SUBCOMPONENT_TYPE = 151;
+	int MEMORY_SUBCOMPONENT_TYPE = 153;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentTypeImpl <em>Process Subcomponent Type</em>}' class.
@@ -2592,7 +2593,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponentType()
 	 * @generated
 	 */
-	int PROCESS_SUBCOMPONENT_TYPE = 149;
+	int PROCESS_SUBCOMPONENT_TYPE = 151;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentTypeImpl <em>Processor Subcomponent Type</em>}' class.
@@ -2602,7 +2603,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponentType()
 	 * @generated
 	 */
-	int PROCESSOR_SUBCOMPONENT_TYPE = 155;
+	int PROCESSOR_SUBCOMPONENT_TYPE = 157;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentTypeImpl <em>System Subcomponent Type</em>}' class.
@@ -2612,7 +2613,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponentType()
 	 * @generated
 	 */
-	int SYSTEM_SUBCOMPONENT_TYPE = 147;
+	int SYSTEM_SUBCOMPONENT_TYPE = 149;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentTypeImpl <em>Thread Subcomponent Type</em>}' class.
@@ -2622,7 +2623,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponentType()
 	 * @generated
 	 */
-	int THREAD_SUBCOMPONENT_TYPE = 145;
+	int THREAD_SUBCOMPONENT_TYPE = 147;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentTypeImpl <em>Thread Group Subcomponent Type</em>}' class.
@@ -2632,7 +2633,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponentType()
 	 * @generated
 	 */
-	int THREAD_GROUP_SUBCOMPONENT_TYPE = 143;
+	int THREAD_GROUP_SUBCOMPONENT_TYPE = 145;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentTypeImpl <em>Virtual Processor Subcomponent Type</em>}' class.
@@ -2642,7 +2643,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponentType()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE = 139;
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE = 141;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractPrototypeImpl <em>Abstract Prototype</em>}' class.
@@ -2652,7 +2653,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractPrototype()
 	 * @generated
 	 */
-	int ABSTRACT_PROTOTYPE = 171;
+	int ABSTRACT_PROTOTYPE = 173;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusPrototypeImpl <em>Bus Prototype</em>}' class.
@@ -2662,7 +2663,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusPrototype()
 	 * @generated
 	 */
-	int BUS_PROTOTYPE = 175;
+	int BUS_PROTOTYPE = 177;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPrototypeImpl <em>Data Prototype</em>}' class.
@@ -2672,7 +2673,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPrototype()
 	 * @generated
 	 */
-	int DATA_PROTOTYPE = 179;
+	int DATA_PROTOTYPE = 180;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DevicePrototypeImpl <em>Device Prototype</em>}' class.
@@ -2682,7 +2683,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevicePrototype()
 	 * @generated
 	 */
-	int DEVICE_PROTOTYPE = 183;
+	int DEVICE_PROTOTYPE = 184;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryPrototypeImpl <em>Memory Prototype</em>}' class.
@@ -2692,7 +2693,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryPrototype()
 	 * @generated
 	 */
-	int MEMORY_PROTOTYPE = 187;
+	int MEMORY_PROTOTYPE = 188;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramPrototypeImpl <em>Subprogram Prototype</em>}' class.
@@ -5396,7 +5397,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortProxy()
 	 * @generated
 	 */
-	int PORT_PROXY = 112;
+	int PORT_PROXY = 113;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramProxyImpl <em>Subprogram Proxy</em>}' class.
@@ -5406,7 +5407,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramProxy()
 	 * @generated
 	 */
-	int SUBPROGRAM_PROXY = 113;
+	int SUBPROGRAM_PROXY = 114;
 
 	/**
 	 * The number of structural features of the '<em>Trigger Port</em>' class.
@@ -12015,13 +12016,239 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_DATA_SOURCE__DIRECTION = INTERNAL_FEATURE__DIRECTION;
 
 	/**
+	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE__DATA_CLASSIFIER = INTERNAL_FEATURE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Event Data Source</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_DATA_SOURCE_FEATURE_COUNT = INTERNAL_FEATURE_FEATURE_COUNT + 0;
+	int EVENT_DATA_SOURCE_FEATURE_COUNT = INTERNAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentTypeImpl <em>Virtual Bus Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponentType()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE = 143;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The number of structural features of the '<em>Data Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -12114,13 +12341,22 @@ public interface Aadl2Package extends EPackage {
 	int PORT_PROXY__DIRECTION = PROCESSOR_FEATURE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_PROXY__DATA_CLASSIFIER = PROCESSOR_FEATURE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Port Proxy</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 1;
+	int PORT_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -12204,13 +12440,229 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_PROXY__IN_MODE = PROCESSOR_FEATURE__IN_MODE;
 
 	/**
+	 * The feature id for the '<em><b>Subprogram Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_PROXY__SUBPROGRAM_CLASSIFIER = PROCESSOR_FEATURE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Subprogram Proxy</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 0;
+	int SUBPROGRAM_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>General</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
+
+	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
+
+	/**
+	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
+
+	/**
+	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
+	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
+
+	/**
+	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -14947,16 +15399,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_PROCESSOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentTypeImpl <em>Virtual Bus Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VirtualBusSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponentType()
-	 * @generated
-	 */
-	int VIRTUAL_BUS_SUBCOMPONENT_TYPE = 141;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -19870,213 +20312,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The number of structural features of the '<em>Data Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
 	int DATA_TYPE__OWNED_ELEMENT = COMPONENT_TYPE__OWNED_ELEMENT;
 
 	/**
@@ -23039,213 +23274,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MEMORY_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_ELEMENT = COMPONENT_CLASSIFIER__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_COMMENT = COMPONENT_CLASSIFIER__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NAME = COMPONENT_CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__QUALIFIED_NAME = COMPONENT_CLASSIFIER__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_MEMBER = COMPONENT_CLASSIFIER__OWNED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__MEMBER = COMPONENT_CLASSIFIER__MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Feature</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__CLASSIFIER_FEATURE = COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__INHERITED_MEMBER = COMPONENT_CLASSIFIER__INHERITED_MEMBER;
-
-	/**
-	 * The feature id for the '<em><b>Generalization</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__GENERALIZATION = COMPONENT_CLASSIFIER__GENERALIZATION;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__GENERAL = COMPONENT_CLASSIFIER__GENERAL;
-
-	/**
-	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE = COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_PROTOTYPE_BINDING = COMPONENT_CLASSIFIER__OWNED_PROTOTYPE_BINDING;
-
-	/**
-	 * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_PROTOTYPES = COMPONENT_CLASSIFIER__NO_PROTOTYPES;
-
-	/**
-	 * The feature id for the '<em><b>No Annexes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_ANNEXES = COMPONENT_CLASSIFIER__NO_ANNEXES;
-
-	/**
-	 * The feature id for the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_PROPERTIES = COMPONENT_CLASSIFIER__NO_PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_MODE = COMPONENT_CLASSIFIER__OWNED_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
-
-	/**
-	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
-
-	/**
-	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_FLOWS = COMPONENT_CLASSIFIER__NO_FLOWS;
-
-	/**
-	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38379,6 +38407,17 @@ public interface Aadl2Package extends EPackage {
 	EClass getEventDataSource();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.EventDataSource#getDataClassifier <em>Data Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Data Classifier</em>'.
+	 * @see org.osate.aadl2.EventDataSource#getDataClassifier()
+	 * @see #getEventDataSource()
+	 * @generated
+	 */
+	EReference getEventDataSource_DataClassifier();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.PortProxy <em>Port Proxy</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38400,6 +38439,17 @@ public interface Aadl2Package extends EPackage {
 	EAttribute getPortProxy_Direction();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.PortProxy#getDataClassifier <em>Data Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Data Classifier</em>'.
+	 * @see org.osate.aadl2.PortProxy#getDataClassifier()
+	 * @see #getPortProxy()
+	 * @generated
+	 */
+	EReference getPortProxy_DataClassifier();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.SubprogramProxy <em>Subprogram Proxy</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38408,6 +38458,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getSubprogramProxy();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.SubprogramProxy#getSubprogramClassifier <em>Subprogram Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Subprogram Classifier</em>'.
+	 * @see org.osate.aadl2.SubprogramProxy#getSubprogramClassifier()
+	 * @see #getSubprogramProxy()
+	 * @generated
+	 */
+	EReference getSubprogramProxy_SubprogramClassifier();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.AnnexLibrary <em>Annex Library</em>}'.

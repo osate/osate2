@@ -1422,4 +1422,4 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		createResource(eNS_URI);
 	}
 
-} //InstancePackageImpl
+} // InstancePackageImpl
