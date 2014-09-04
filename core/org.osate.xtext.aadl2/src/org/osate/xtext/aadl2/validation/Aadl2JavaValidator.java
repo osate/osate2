@@ -308,6 +308,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseParameterConnection(ParameterConnection connection) {
+		typeCheckParameterConnectionEnd(connection.getSource());
+		typeCheckParameterConnectionEnd(connection.getDestination());
 		checkParameterConnectionClassifiers(connection);
 	}
 
@@ -3759,6 +3761,44 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else {
 			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
 					+ " is not a valid feature group connection end.", connectedElement,
+					Aadl2Package.eINSTANCE.getConnectedElement_Context());
+		}
+	}
+
+	private void typeCheckParameterConnectionEnd(ConnectedElement connectedElement) {
+		Context connectionContext = connectedElement.getContext();
+		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if (connectionContext == null) {
+			if (!(connectionEnd instanceof ParameterConnectionEnd)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+						+ " is not a valid parameter connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof Parameter || connectionContext instanceof DataPort
+				|| connectionContext instanceof EventDataPort) {
+			if (!(connectionEnd instanceof DataSubcomponent)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass())
+						+ " is not a valid parameter connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof SubprogramCall) {
+			if (!(connectionEnd instanceof Parameter)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass())
+						+ " is not a valid parameter connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof FeatureGroup) {
+			if (!(connectionEnd instanceof ParameterConnectionEnd)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass())
+						+ " is not a valid parameter connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else {
+			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+					+ " is not a valid parameter connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
 	}
