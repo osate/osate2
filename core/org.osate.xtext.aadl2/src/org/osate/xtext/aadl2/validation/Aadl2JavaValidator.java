@@ -321,6 +321,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Check(CheckType.FAST)
+	public void caseFeatureConnection(FeatureConnection connection) {
+		typeCheckFeatureConnectionEnd(connection.getSource());
+		typeCheckFeatureConnectionEnd(connection.getDestination());
+	}
+
+	@Check(CheckType.FAST)
 	public void caseFeatureGroupConnection(FeatureGroupConnection connection) {
 		checkFeatureGroupConnectionDirection(connection);
 		checkFeatureGroupConnectionClassifiers(connection);
@@ -3705,6 +3711,29 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else {
 			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
 					+ " is not a valid access connection end.", connectedElement,
+					Aadl2Package.eINSTANCE.getConnectedElement_Context());
+		}
+	}
+
+	private void typeCheckFeatureConnectionEnd(ConnectedElement connectedElement) {
+		Context connectionContext = connectedElement.getContext();
+		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if (connectionContext == null) {
+			if (!(connectionEnd instanceof FeatureConnectionEnd)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+						+ " is not a valid feature connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
+				|| connectionContext instanceof SubprogramCall) {
+			if (!(connectionEnd instanceof Feature)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid feature connection end.",
+						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else {
+			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+					+ " is not a valid feature connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
 	}
