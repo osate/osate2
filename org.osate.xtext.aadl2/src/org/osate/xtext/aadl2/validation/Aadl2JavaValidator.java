@@ -60,6 +60,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyLookupException;
@@ -312,6 +313,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseAccessConnection(AccessConnection connection) {
+		typeCheckAccessConnectionEnd(connection.getSource());
+		typeCheckAccessConnectionEnd(connection.getDestination());
 		checkAccessConnectionCategory(connection);
 		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
@@ -3681,6 +3684,45 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 		}
+	}
+
+	private void typeCheckAccessConnectionEnd(ConnectedElement connectedElement) {
+		Context connectionContext = connectedElement.getContext();
+		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if (connectionContext == null) {
+			if (!(connectionEnd instanceof AccessConnectionEnd)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+						+ " is not a valid access connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
+				|| connectionContext instanceof SubprogramCall) {
+			if (!(connectionEnd instanceof Access)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
+						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid access connection end.",
+						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+		} else {
+			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+					+ " is not a valid access connection end.", connectedElement,
+					Aadl2Package.eINSTANCE.getConnectedElement_Context());
+		}
+	}
+
+	private static String getEClassDisplayName(EClass eClass) {
+		StringBuilder displayName = new StringBuilder(eClass.getName());
+		for (int i = displayName.length() - 1; i > 0; i--) {
+			if (Character.isUpperCase(displayName.charAt(i))) {
+				displayName.insert(i, ' ');
+			}
+		}
+		if ("AEIOU".indexOf(displayName.charAt(0)) == -1) {
+			displayName.insert(0, "a '");
+		} else {
+			displayName.insert(0, "an '");
+		}
+		displayName.append('\'');
+		return displayName.toString().toLowerCase();
 	}
 
 	/**
