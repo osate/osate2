@@ -215,7 +215,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ALL_FEATURES__EOCL_EXP = "result = member->select(oclIsKindOf(Feature))";
+	protected static final String ALL_FEATURES__EOCL_EXP = "member->select(oclIsKindOf(Feature))";
 
 	/**
 	 * The cached OCL query for the '{@link #allFeatures(Classifier) <em>All Features</em>}' query operation.
@@ -232,6 +232,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -261,7 +262,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String INHERITED_MEMBER__EOCL_EXP = "result = self.inherit(self.parents()->collect(p | p.inheritableMembers(self))";
+	protected static final String INHERITED_MEMBER__EOCL_EXP = "self.inherit(self.parents()->collect(p | p.inheritableMembers(self))";
 
 	/**
 	 * The cached OCL query for the '{@link #inheritedMember(Classifier) <em>Inherited Member</em>}' query operation.
@@ -278,6 +279,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The inheritedMember association is derived by inheriting the inheritable members of the parents.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -307,7 +309,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String PARENTS__EOCL_EXP = "result = general";
+	protected static final String PARENTS__EOCL_EXP = "general";
 
 	/**
 	 * The cached OCL query for the '{@link #parents(Classifier) <em>Parents</em>}' query operation.
@@ -324,6 +326,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query parents() gives all of the immediate ancestors of a generalized Classifier.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -353,7 +356,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ALL_PARENTS__EOCL_EXP = "result = self.parents()->union(self.parents()->collect(p | p.allParents())";
+	protected static final String ALL_PARENTS__EOCL_EXP = "self.parents()->union(self.parents()->collect(p | p.allParents())";
 
 	/**
 	 * The cached OCL query for the '{@link #allParents(Classifier) <em>All Parents</em>}' query operation.
@@ -370,6 +373,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -399,7 +403,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String INHERITABLE_MEMBERS__CLASSIFIER__EOCL_EXP = "result = member->select(m | c.hasVisibilityOf(m))";
+	protected static final String INHERITABLE_MEMBERS__CLASSIFIER__EOCL_EXP = "member->select(m | c.hasVisibilityOf(m))";
 
 	/**
 	 * The cached OCL query for the '{@link #inheritableMembers(Classifier, org.osate.aadl2.Classifier) <em>Inheritable Members</em>}' query operation.
@@ -416,6 +420,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -448,7 +453,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_EXP = "result = if (self.inheritedMember->includes (n)) then (n.visibility <> #private) else true";
+	protected static final String HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_EXP = "if (self.inheritedMember->includes (n)) then (n.visibility <> #private) else true";
 
 	/**
 	 * The cached OCL query for the '{@link #hasVisibilityOf(Classifier, org.osate.aadl2.NamedElement) <em>Has Visibility Of</em>}' query operation.
@@ -465,6 +470,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -495,7 +501,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String INHERIT__ELIST__EOCL_EXP = "result = inhs";
+	protected static final String INHERIT__ELIST__EOCL_EXP = "inhs";
 
 	/**
 	 * The cached OCL query for the '{@link #inherit(Classifier, org.eclipse.emf.common.util.EList) <em>Inherit</em>}' query operation.
@@ -512,6 +518,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -543,7 +550,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_EXP = "result = self.oclIsKindOf(c.oclType)";
+	protected static final String MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_EXP = "self.oclIsKindOf(c.oclType)";
 
 	/**
 	 * The cached OCL query for the '{@link #maySpecializeType(Classifier, org.osate.aadl2.Classifier) <em>May Specialize Type</em>}' query operation.
@@ -560,6 +567,7 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

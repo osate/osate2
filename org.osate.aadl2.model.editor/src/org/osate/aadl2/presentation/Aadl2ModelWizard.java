@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,21 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- * 
+ *
  *
  * $Id: Aadl2ModelWizard.java,v 1.2 2008-12-22 18:14:47 lwrage Exp $
  */
@@ -92,7 +92,6 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.provider.Aadl2EditPlugin;
 
-
 /**
  * This is a simple wizard for creating a new model file.
  * <!-- begin-user-doc -->
@@ -106,9 +105,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<String> FILE_EXTENSIONS = Collections
-			.unmodifiableList(Arrays.asList(Aadl2EditorPlugin.INSTANCE.getString(
-					"_UI_InstanceEditorFilenameExtensions").split("\\s*,\\s*"))); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final List<String> FILE_EXTENSIONS = Collections.unmodifiableList(Arrays
+			.asList(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceEditorFilenameExtensions").split("\\s*,\\s*"))); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * A formatted list of supported file extensions, suitable for display.
@@ -181,6 +179,7 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
@@ -284,6 +283,7 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 			if (activePart instanceof ISetSelectionTarget) {
 				final ISelection targetSelection = new StructuredSelection(modelFile);
 				getShell().getDisplay().asyncExec(new Runnable() {
+					@Override
 					public void run() {
 						((ISetSelectionTarget) activePart).selectReveal(targetSelection);
 					}
@@ -293,11 +293,11 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 			// Open an editor on the new file.
 			//
 			try {
-				page.openEditor(new FileEditorInput(modelFile), workbench.getEditorRegistry().getDefaultEditor(
-						modelFile.getFullPath().toString()).getId());
+				page.openEditor(new FileEditorInput(modelFile),
+						workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
 			} catch (PartInitException exception) {
-				MessageDialog.openError(workbenchWindow.getShell(), Aadl2EditorPlugin.INSTANCE
-						.getString("_UI_OpenEditorError_label"), exception.getMessage()); //$NON-NLS-1$
+				MessageDialog.openError(workbenchWindow.getShell(),
+						Aadl2EditorPlugin.INSTANCE.getString("_UI_OpenEditorError_label"), exception.getMessage()); //$NON-NLS-1$
 				return false;
 			}
 
@@ -399,6 +399,7 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
+		@Override
 		public void createControl(Composite parent) {
 			Composite composite = new Composite(parent, SWT.NONE);
 			{
@@ -473,6 +474,7 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 		 * @generated
 		 */
 		protected ModifyListener validator = new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				setPageComplete(validatePage());
 			}
@@ -554,8 +556,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 		protected Collection<String> getEncodings() {
 			if (encodings == null) {
 				encodings = new ArrayList<String>();
-				for (StringTokenizer stringTokenizer = new StringTokenizer(Aadl2EditorPlugin.INSTANCE
-						.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens();) //$NON-NLS-1$
+				for (StringTokenizer stringTokenizer = new StringTokenizer(
+						Aadl2EditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens();) //$NON-NLS-1$
 				{
 					encodings.add(stringTokenizer.nextToken());
 				}
@@ -576,10 +578,9 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 		//
 		newFileCreationPage = new InstanceModelWizardNewFileCreationPage("Whatever", selection); //$NON-NLS-1$
 		newFileCreationPage.setTitle(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceModelWizard_label")); //$NON-NLS-1$
-		newFileCreationPage.setDescription(Aadl2EditorPlugin.INSTANCE
-				.getString("_UI_InstanceModelWizard_description")); //$NON-NLS-1$
-		newFileCreationPage.setFileName(Aadl2EditorPlugin.INSTANCE
-				.getString("_UI_InstanceEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0)); //$NON-NLS-1$ //$NON-NLS-2$
+		newFileCreationPage.setDescription(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceModelWizard_description")); //$NON-NLS-1$
+		newFileCreationPage
+				.setFileName(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0)); //$NON-NLS-1$ //$NON-NLS-2$
 		addPage(newFileCreationPage);
 
 		// Try and get the resource selection to determine a current directory for the file dialog.

@@ -39,31 +39,30 @@ package org.osate.aadl2.modelsupport.modeltraversal;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 
-
 final class NullTraversal extends AbstractTraversal {
 	/** Prototype reference. */
 	public static final NullTraversal prototype = new NullTraversal();
-	
-	
 
 	private NullTraversal() {
 		super(null);
 	}
 
-	
-	
+	@Override
 	public void visitRoot(Element root) {
 		throw new UnsupportedOperationException("No traversal has been specified.");
 	}
 
+	@Override
 	public EList<Element> visitWorkspace() {
 		throw new UnsupportedOperationException("No traversal has been specified.");
 	}
 
+	@Override
 	public EList<Element> visitWorkspaceDeclarativeModels() {
 		throw new UnsupportedOperationException("No traversal has been specified.");
 	}
 
+	@Override
 	public EList<Element> visitWorkspaceInstanceModels() {
 		throw new UnsupportedOperationException("No traversal has been specified.");
 	}

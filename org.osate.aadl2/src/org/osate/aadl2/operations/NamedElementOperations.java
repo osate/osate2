@@ -248,6 +248,7 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allNamespaces() gives the sequence of namespaces in which the NamedElement is nested, working outwards.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -298,6 +299,7 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query isDistinguishableFrom() determines whether two NamedElements may logically co-exist within a Namespace. By default, two named elements are distinguishable if (a) they have unrelated types or (b) they have related types but different names.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -346,6 +348,7 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query separator() gives the string that is used to separate names when constructing a qualified name.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

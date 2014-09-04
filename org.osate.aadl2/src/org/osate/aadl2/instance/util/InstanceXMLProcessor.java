@@ -78,4 +78,4 @@ public class InstanceXMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //InstanceXMLProcessor
+} // InstanceXMLProcessor

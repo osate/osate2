@@ -37,7 +37,6 @@ import java.util.HashMap;
 
 import org.eclipse.emf.common.util.URI;
 
-
 /**
  * <code>IAnalysis</code> is the interface for all analyses that can be run
  * through the Auto-Analysis view.  There should be one analysis instance per
@@ -51,12 +50,11 @@ import org.eclipse.emf.common.util.URI;
  * thrown.  After step 4 is executed, the object is dead and should no longer
  * be used.  Do not try to reset the parameter or run the analysis again.
  * Instead, a new <code>IAnalysis</code> object should be created.
- * 
+ *
  * @author jseibel
  *
  */
-public interface IAnalysis
-{
+public interface IAnalysis {
 	/**
 	 * Depending on the analysis, the parameter is the model,
 	 * <code>ComponentImpl</code>, <code>SystemImpl</code>, or other
@@ -66,7 +64,7 @@ public interface IAnalysis
 	 * <code>setParameter</code> does not validate the parameter.  It is the
 	 * responsibility of this method's caller to ensure that the parameter is
 	 * appropriate according to the analysis' <code>plugin.xml</code> file.
-	 * 
+	 *
 	 * @param parameterPath The <code>URI</code> path of the parameter which
 	 * 						can be found by calling
 	 * 						<code>EcoreUtil.getURI(EObject)</code>.
@@ -74,38 +72,38 @@ public interface IAnalysis
 	 * 					   its location that can be displayed to the user.
 	 */
 	public void setParameter(URI parameterPath, String readablePath);
-	
+
 	public void setConfiguratorKeysAndValues(HashMap<String, String> keysAndValues);
-	
+
 	/**
 	 * Execute the analysis based on the parameter.  If the analysis passed,
 	 * then <code>true</code> is returned.  If the analysis failed, then
 	 * <code>false</code> is returned.  For most analyses, failure is reported
 	 * through problem markers on the model, however this behavior is not
 	 * guaranteed for all analyses.  See each analysis for failure details.
-	 * 
+	 *
 	 * @return <code>true</code> if the analysis passed; <code>false</code> if
 	 * 		   it failed.
 	 */
 	public boolean run();
-	
+
 	/**
 	 * For all analyses, this method ensures that the parameter still exists.
 	 * Depending on the specific analysis, this method might check if certain
 	 * property definitions are available.  If for some reason the analysis is
 	 * not in a runnable state, the reason is reported as a <code>String</code>
 	 * and can be retrieved through <code>getNotReadyToRunReason()</code>.
-	 * 
+	 *
 	 * @return <code>true</code> if the <code>run()</code> method can be
 	 * 		   called; <code>false</code> if it cannot.
 	 */
 	public boolean readyToRun();
-	
+
 	/**
 	 * If for some reason the <code>run()</code> method could not be called,
 	 * the reason is given as a human readable <code>String</code> that can be
 	 * displayed to the user.
-	 * 
+	 *
 	 * @return The reason that <code>run()</code> could not be called.
 	 */
 	public String getNotReadyToRunReason();

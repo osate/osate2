@@ -42,6 +42,7 @@ package org.osate.aadl2;
  *
  * <!-- begin-model-doc -->
  * A comment is a textual annotation that can be attached to a set of elements.
+ * <p>From package AADLInfrastructure.</p>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -62,6 +63,7 @@ public interface Comment extends Element {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies a string that is the comment
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Body</em>' attribute.
 	 * @see #setBody(String)

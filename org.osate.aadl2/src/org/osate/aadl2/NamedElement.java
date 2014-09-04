@@ -125,6 +125,9 @@ public interface NamedElement extends Element {
 	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Property Association</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getNamedElement_OwnedPropertyAssociation()
 	 * @model containment="true" ordered="false"

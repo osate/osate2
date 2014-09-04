@@ -78,13 +78,17 @@ Workflow {
 		directory = "${runtimeProject}.ui/src-gen"
 	}
 
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.tests/src-gen"
+	}
+
 	component = Generator {
 		pathRtProject = runtimeProject
 		pathUiProject = "${runtimeProject}.ui"
-//		pathTestProject = "${runtimeProject}.tests"
+		pathTestProject = "${runtimeProject}.tests"
 		projectNameRt = projectName
 		projectNameUi = "${projectName}.ui"
-		language = {
+		language = auto-inject {
 			uri = grammarURI
 			fileExtensions = file.extensions
 
@@ -137,8 +141,9 @@ Workflow {
 			// scoping and exporting API 
 
 			 fragment = scoping.ImportNamespacesScopingFragment {
+			 	generateStub = false
 		        ignoreCase = true
-    			}
+    		}
 			 fragment = exporting.QualifiedNamesFragment {}
 
 
@@ -161,7 +166,7 @@ Workflow {
 			fragment = outline.OutlineTreeProviderFragment {}
 			fragment = outline.QuickOutlineFragment {}
 			// quickfix API 
-			fragment = quickfix.QuickfixProviderFragment {}
+			fragment = quickfix.QuickfixProviderFragment auto-inject {}
 
 
 			// java-based API for content assistance 
@@ -184,7 +189,8 @@ Workflow {
 			}
 
 			// generates junit test support classes into Generator#pathTestProject
-//			fragment = junit.Junit4Fragment {}
+			fragment = junit.Junit4Fragment {
+			}
 
 			// project wizard (optional) 
 			// fragment = projectWizard.SimpleProjectWizardFragment {
@@ -196,8 +202,12 @@ Workflow {
 			// generates the required bindings only if the grammar inherits from Xbase
 //			fragment = xbase.XbaseGeneratorFragment {}
 
-// provides a preference page for template proposals
-//fragment = templates.CodetemplatesGeneratorFragment {}			
+			// provides a preference page for template proposals
+			fragment = tasks.TaskTagPreferencePageFragment {}			
+
+			// provides a preference page for task tags
+			fragment = templates.CodetemplatesGeneratorFragment {}			
+
 			// rename refactoring  
 			fragment = refactoring.RefactorElementNameFragment {}
 //			// Code generator

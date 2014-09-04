@@ -39,34 +39,34 @@ import org.osate.aadl2.AnnexSubclause;
 /**
  * Annex unparsers must implement this interface. Each time the AADL unparser finds
  * either an annex library or an annex subclause in a model it calls the corresponding
- * annex unparser method. 
+ * annex unparser method.
  * <p>
  * Each annex unparser will be called for annexes for which it provides an
  * extension as specified in the annexName attribute in the extension point
  * org.osate.annexsupport.unparser.
- * 
+ *
  * @author lwrage
  * @version $Id: AnnexUnparser.java,v 1.3 2009-10-09 18:49:32 lwrage Exp $
  */
 public interface AnnexUnparser {
 	/**
 	 * Unparse an annex library element found in an AADL model.
-	 * 
+	 *
 	 * @param library
 	 *                the annex library to unparse.
 	 * @param indent
-	 *                initial indentation for each line.  
+	 *                initial indentation for each line.
 	 * @return The source text for the annex library.
 	 */
 	String unparseAnnexLibrary(AnnexLibrary library, String indent);
 
 	/**
 	 * Unarse an annex subclause element found in an AADL model.
-	 * 
+	 *
 	 * @param subclause
 	 *                the source text string in the annex library.
 	 * @param indent
-	 *                initial indentation for each line.  
+	 *                initial indentation for each line.
 	 * @return The source text for the annex subclause.
 	 */
 	String unparseAnnexSubclause(AnnexSubclause subclause, String indent);

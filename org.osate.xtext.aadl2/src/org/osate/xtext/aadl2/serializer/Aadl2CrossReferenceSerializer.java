@@ -55,27 +55,28 @@ public class Aadl2CrossReferenceSerializer extends CrossReferenceSerializer {
 	@Override
 	protected String getCrossReferenceNameFromScope(EObject semanticObject, CrossReference crossref, EObject target,
 			final IScope scope, Acceptor errors) {
-		if (target instanceof AadlPackage){
-			return ((NamedElement)target).getName();
-		} else if (target instanceof Classifier){
-			return AadlUtil.getClassifierName((Classifier)target, (Element) semanticObject);
-		} else if (target instanceof Property || target instanceof PropertyType ||
-				target instanceof PropertyConstant){
-			return AadlUtil.getPropertySetElementName((NamedElement)target);
-		} else if (semanticObject instanceof SubprogramCall){
+		if (target instanceof AadlPackage) {
+			return ((NamedElement) target).getName();
+		} else if (target instanceof Classifier) {
+			return AadlUtil.getClassifierName((Classifier) target, (Element) semanticObject);
+		} else if (target instanceof Property || target instanceof PropertyType || target instanceof PropertyConstant) {
+			return AadlUtil.getPropertySetElementName((NamedElement) target);
+		} else if (semanticObject instanceof SubprogramCall) {
 			String s = "";
-			CallContext sc = ((SubprogramCall)semanticObject).getContext();
-			if (sc != null){
-				if (sc instanceof Classifier){
-					s = AadlUtil.getClassifierName((Classifier)sc, (Element) semanticObject)+".";
-				} else if (sc instanceof NamedElement){
-					s = ((NamedElement)sc).getName()+".";
+			CallContext sc = ((SubprogramCall) semanticObject).getContext();
+			if (sc != null) {
+				if (sc instanceof Classifier) {
+					s = AadlUtil.getClassifierName((Classifier) sc, (Element) semanticObject) + ".";
+				} else if (sc instanceof NamedElement) {
+					s = ((NamedElement) sc).getName() + ".";
 				}
 			}
-			return s+((NamedElement)target).getName();
-		} else if (target instanceof NamedElement){
-			return ((NamedElement)target).getName();
-		} else return "<noname>";
+			return s + ((NamedElement) target).getName();
+		} else if (target instanceof NamedElement) {
+			return ((NamedElement) target).getName();
+		} else {
+			return "<noname>";
+		}
 	}
 
 }

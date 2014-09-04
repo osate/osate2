@@ -34,8 +34,13 @@
  */
 package org.osate.aadl2.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.EventDataSource;
 
 /**
@@ -43,11 +48,25 @@ import org.osate.aadl2.EventDataSource;
  * An implementation of the model object '<em><b>Event Data Source</b></em>'.
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.impl.EventDataSourceImpl#getDataClassifier <em>Data Classifier</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public class EventDataSourceImpl extends InternalFeatureImpl implements EventDataSource {
+	/**
+	 * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataClassifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataClassifier dataClassifier;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,4 +86,104 @@ public class EventDataSourceImpl extends InternalFeatureImpl implements EventDat
 		return Aadl2Package.eINSTANCE.getEventDataSource();
 	}
 
-} //EventDataSourceImpl
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataClassifier getDataClassifier() {
+		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
+			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
+			dataClassifier = (DataClassifier) eResolveProxy(oldDataClassifier);
+			if (dataClassifier != oldDataClassifier) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
+			}
+		}
+		return dataClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataClassifier basicGetDataClassifier() {
+		return dataClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataClassifier(DataClassifier newDataClassifier) {
+		DataClassifier oldDataClassifier = dataClassifier;
+		dataClassifier = newDataClassifier;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER,
+					oldDataClassifier, dataClassifier));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:
+			if (resolve)
+				return getDataClassifier();
+			return basicGetDataClassifier();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:
+			setDataClassifier((DataClassifier) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:
+			setDataClassifier((DataClassifier) null);
+			return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.EVENT_DATA_SOURCE__DATA_CLASSIFIER:
+			return dataClassifier != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+} // EventDataSourceImpl

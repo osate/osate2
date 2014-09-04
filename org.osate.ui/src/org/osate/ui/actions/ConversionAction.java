@@ -45,12 +45,11 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.core.AadlNature;
 
-
 /**
  * ConversionAction implements workbench action delegate.
  * The action proxy will be created by the workbench and
  * shown in the UI. When the user tries to use the action,
- * this delegate will be created and execution will be 
+ * this delegate will be created and execution will be
  * delegated to it.
  * <p>
  * ConversionAction en- and disables the Aadl Nature.
@@ -62,30 +61,32 @@ public class ConversionAction implements IObjectActionDelegate {
 
 	private IProject project;
 
-    /**
-     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-     */
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+	/**
+	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
+	 */
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		// do nothing
-    }
+	}
 
 	/**
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(IAction, ISelection)
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
 			boolean enabled = false;
-			Object obj = (((IStructuredSelection)selection).getFirstElement());
+			Object obj = (((IStructuredSelection) selection).getFirstElement());
 			if (obj == null) {
 				project = null;
 			} else {
 				if (obj instanceof IProject) {
-					project = (IProject)obj;
+					project = (IProject) obj;
 				} else {
-	
+
 					// In plugin.xml is configured to allow IResource instances
 					// which are adaptable to IProject
-					project = (IProject)((IAdaptable)obj).getAdapter(IProject.class);
+					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
 				}
 				if (project != null && project.isOpen()) {
 					enabled = true;
@@ -94,10 +95,11 @@ public class ConversionAction implements IObjectActionDelegate {
 			action.setEnabled(enabled);
 		}
 	}
-	
+
 	/**
 	 * @see org.eclipse.ui.IActionDelegate#run(IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		Assert.isNotNull(project);
 		if (AadlNature.hasNature(project)) {

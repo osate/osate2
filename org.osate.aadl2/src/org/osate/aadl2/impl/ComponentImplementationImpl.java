@@ -767,8 +767,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		// DB: The returned list must be an EStructuralFeature.Setting
 		final EList<Connection> connections = new NonNotifyingEObjectEList<Connection>(Connection.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION);
-		//		BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
-		//				Connection.class);
+		// BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
+		// Connection.class);
 		connections.addAll(getOwnedAccessConnections());
 		connections.addAll(getOwnedFeatureConnections());
 		connections.addAll(getOwnedFeatureGroupConnections());
@@ -1738,29 +1738,31 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @return List of connections
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	/*public EList<Subcomponent> getAllSubcomponents() {
-		final EList<Classifier> ancestors = getAllExtendPlusSelf();
-		final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
-		// Process from farthest ancestor to self
-		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
-				.size()); li.hasPrevious();) {
-			final ComponentImplementation current = (ComponentImplementation) li
-					.previous();
-			final EList<Subcomponent> currentItems = current
-					.getOwnedSubcomponents();
-			if (currentItems != null) {
-				for (Iterator<Subcomponent> i = currentItems.iterator(); i
-						.hasNext();) {
-					final Subcomponent fe = i.next();
-					final Subcomponent rfe = fe.getRefined();
-					if (rfe != null)
-						returnlist.remove(rfe);
-					returnlist.add(fe);
-				}
-			}
-		}
-		return returnlist;
-	}*/
+	/*
+	 * public EList<Subcomponent> getAllSubcomponents() {
+	 * final EList<Classifier> ancestors = getAllExtendPlusSelf();
+	 * final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
+	 * // Process from farthest ancestor to self
+	 * for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
+	 * .size()); li.hasPrevious();) {
+	 * final ComponentImplementation current = (ComponentImplementation) li
+	 * .previous();
+	 * final EList<Subcomponent> currentItems = current
+	 * .getOwnedSubcomponents();
+	 * if (currentItems != null) {
+	 * for (Iterator<Subcomponent> i = currentItems.iterator(); i
+	 * .hasNext();) {
+	 * final Subcomponent fe = i.next();
+	 * final Subcomponent rfe = fe.getRefined();
+	 * if (rfe != null)
+	 * returnlist.remove(rfe);
+	 * returnlist.add(fe);
+	 * }
+	 * }
+	 * }
+	 * return returnlist;
+	 * }
+	 */
 
 	public EList<Subcomponent> getAllSubcomponents() {
 		return ComponentImplementationOperations.getAllSubcomponents(this);
@@ -1959,7 +1961,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		if (this.getType() != null) {
 			this.getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall);
 		} else {
-			//	XXX we have an unresolved implementation or alias		throw new InvalidModelException(this, "Component implementation is missing its component type reference.");
+			// XXX we have an unresolved implementation or alias throw new InvalidModelException(this,
+			// "Component implementation is missing its component type reference.");
 		}
 	}
 

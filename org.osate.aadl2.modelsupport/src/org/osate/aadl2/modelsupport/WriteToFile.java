@@ -14,7 +14,6 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
-
 /**
  * mechanism to provide a logging capability into csv files
  * has a saved flag to know whether to save since the last save
@@ -23,71 +22,67 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  *
  */
 public class WriteToFile {
-	
-	UnparseText textBuffer ;
+
+	UnparseText textBuffer;
 	String reportFolder;
 	String reportType;
 	EObject root;
 	String fileExtension;
 	Boolean saved = false;
 	String suffix = null;
-	
-	public WriteToFile(String reporttype, EObject root){
-		this.reportType = reporttype;
+
+	public WriteToFile(String reporttype, EObject root) {
+		reportType = reporttype;
 		this.root = root;
-		this.textBuffer = new UnparseText();
-		this.fileExtension = "csv";
+		textBuffer = new UnparseText();
+		fileExtension = "csv";
 	}
 
-	public WriteToFile(String reporttype, EObject root, String extension){
-		this.reportType = reporttype;
+	public WriteToFile(String reporttype, EObject root, String extension) {
+		reportType = reporttype;
 		this.root = root;
-		this.textBuffer = new UnparseText();
-		this.fileExtension = extension;
-	}
-	
-	public WriteToFile(String reportfolder, String reporttype, EObject root){
-		this.reportFolder = reportfolder;
-		this.reportType = reporttype;
-		this.root = root;
-		this.textBuffer = new UnparseText();
-		this.fileExtension = "csv";
+		textBuffer = new UnparseText();
+		fileExtension = extension;
 	}
 
-	public WriteToFile(String reportfolder,String reporttype, EObject root, String extension){
-		this.reportFolder = reportfolder;
-		this.reportType = reporttype;
+	public WriteToFile(String reportfolder, String reporttype, EObject root) {
+		reportFolder = reportfolder;
+		reportType = reporttype;
 		this.root = root;
-		this.textBuffer = new UnparseText();
-		this.fileExtension = extension;
+		textBuffer = new UnparseText();
+		fileExtension = "csv";
 	}
-	
-	public void setReportFolder (String s)
-	{
-		this.reportFolder = s;
+
+	public WriteToFile(String reportfolder, String reporttype, EObject root, String extension) {
+		reportFolder = reportfolder;
+		reportType = reporttype;
+		this.root = root;
+		textBuffer = new UnparseText();
+		fileExtension = extension;
 	}
-	
-	public void setSuffix (String s)
-	{
-		this.suffix = s;
+
+	public void setReportFolder(String s) {
+		reportFolder = s;
 	}
-	
-	public void setFileExtension (String fe)
-	{
-		this.fileExtension = fe;
+
+	public void setSuffix(String s) {
+		suffix = s;
 	}
-	
-	public void addOutput(String text){
+
+	public void setFileExtension(String fe) {
+		fileExtension = fe;
+	}
+
+	public void addOutput(String text) {
 		textBuffer.addOutput(text);
 		saved = false;
 	}
-	
-	public void addOutputNewline(String text){
+
+	public void addOutputNewline(String text) {
 		textBuffer.addOutputNewline(text);
 		saved = false;
 	}
-	
-	
+
 	/**
 	 * placement of file into a report folder with a subfolder for the report type
 	 * The file is that of the instance model appended with the report type.
@@ -97,74 +92,71 @@ public class WriteToFile {
 	 * @param root
 	 * @return
 	 */
-	protected IPath getReportPath(String reporttype, EObject root)
-	{
+	protected IPath getReportPath(String reporttype, EObject root) {
 
 		String filename = null;
 		reporttype = reporttype.replaceAll(" ", "");
 		Resource res = root.eResource();
 		URI uri = res.getURI();
 		IPath path = OsateResourceUtil.getOsatePath(uri);
-		if (root instanceof InstanceObject){
+		if (root instanceof InstanceObject) {
 			path = path.removeFileExtension();
-			filename = path.lastSegment()+"__"+reporttype;
-			if (this.suffix != null)
-			{
+			filename = path.lastSegment() + "__" + reporttype;
+			if (suffix != null) {
 				filename = filename + suffix;
 			}
-			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+			path = path.removeLastSegments(1).append("/reports/" + reporttype + "/" + filename);
 		} else {
-			filename = path.lastSegment()+reporttype;
-			if (this.suffix != null)
-			{
+			filename = path.lastSegment() + reporttype;
+			if (suffix != null) {
 				filename = filename + suffix;
 			}
-			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+			path = path.removeLastSegments(1).append("/reports/" + reporttype + "/" + filename);
 		}
 
-		path = path.addFileExtension(this.fileExtension);
+		path = path.addFileExtension(fileExtension);
 		return path;
 	}
-	
-	public static String getFileName(String reporttype, EObject root)
-	{
+
+	public static String getFileName(String reporttype, EObject root) {
 		String filename = null;
 		reporttype = reporttype.replaceAll(" ", "");
 		Resource res = root.eResource();
 		URI uri = res.getURI();
 		IPath path = OsateResourceUtil.getOsatePath(uri);
-		if (root instanceof InstanceObject){
+		if (root instanceof InstanceObject) {
 			path = path.removeFileExtension();
-			filename = path.lastSegment()+"__"+reporttype;
+			filename = path.lastSegment() + "__" + reporttype;
 
-			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+			path = path.removeLastSegments(1).append("/reports/" + reporttype + "/" + filename);
 		} else {
-			filename = path.lastSegment()+reporttype;
+			filename = path.lastSegment() + reporttype;
 
-			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+			path = path.removeLastSegments(1).append("/reports/" + reporttype + "/" + filename);
 		}
 
 		return filename;
 	}
-	
-	
+
 	/**
 	 * Writes content as csv report
-	 */	
-	public void saveToFile(){
+	 */
+	public void saveToFile() {
 		saveToFile("");
-	}	
-	
+	}
+
 	/**
 	 * Writes content as csv report prefixed with summary text.
-	 */	
-	public void saveToFile(String summary){
-		if (saved) return;
-		IPath path = getReportPath(reportType,root);
+	 */
+	public void saveToFile(String summary) {
+		if (saved) {
+			return;
+		}
+		IPath path = getReportPath(reportType, root);
 		if (path != null) {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			if (file != null) {
-				final InputStream input = new ByteArrayInputStream((summary+textBuffer.getParseOutput()).getBytes());
+				final InputStream input = new ByteArrayInputStream((summary + textBuffer.getParseOutput()).getBytes());
 				try {
 					if (file.exists()) {
 						file.setContents(input, true, true, null);
@@ -178,5 +170,5 @@ public class WriteToFile {
 		}
 		saved = true;
 	}
-	
+
 }

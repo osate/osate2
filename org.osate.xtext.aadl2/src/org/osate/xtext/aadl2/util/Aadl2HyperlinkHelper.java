@@ -24,36 +24,39 @@ import com.google.inject.Inject;
 
 public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 
-	AnnexTextPositionResolverRegistry textpositionresolverregistry ;
-	
-	protected Aadl2HyperlinkHelper(){
+	AnnexTextPositionResolverRegistry textpositionresolverregistry;
+
+	protected Aadl2HyperlinkHelper() {
 		initTextPositionResolverRegistry();
 	}
-	
-	protected void initTextPositionResolverRegistry(){
-		if (textpositionresolverregistry == null){
+
+	protected void initTextPositionResolverRegistry() {
+		if (textpositionresolverregistry == null) {
 			textpositionresolverregistry = (AnnexTextPositionResolverRegistry) AnnexRegistry
 					.getRegistry(AnnexRegistry.ANNEX_TEXTPOSITIONRESOLVER_EXT_ID);
 		}
 	}
-	
+
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
 	@Override
 	public void createHyperlinksByOffset(XtextResource resource, int offset, IHyperlinkAcceptor acceptor) {
 		INode annexLeaf = findAnnexTextLeafNode(resource, offset);
-		if (annexLeaf!= null){
+		if (annexLeaf != null) {
 			// handle extensionpoint based text position
 			EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
-			if (obj instanceof NamedElement){
+			if (obj instanceof NamedElement) {
 				EObject actualAnnexElement = AnnexUtil.getParsedAnnex(obj);
-				if (actualAnnexElement != null){
-					String annexName = ((NamedElement)obj).getName();
-					if (textpositionresolverregistry == null) initTextPositionResolverRegistry();
-					if (textpositionresolverregistry != null){
-						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-						if (atpr != null){
+				if (actualAnnexElement != null) {
+					String annexName = ((NamedElement) obj).getName();
+					if (textpositionresolverregistry == null) {
+						initTextPositionResolverRegistry();
+					}
+					if (textpositionresolverregistry != null) {
+						AnnexTextPositionResolver atpr = textpositionresolverregistry
+								.getTextPositionResolver(annexName);
+						if (atpr != null) {
 							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset);
 							if (tpo.getModelObject() != null && !tpo.getModelObject().eIsProxy()) {
 								Region region = new Region(tpo.getOffset(), tpo.getLength());
@@ -66,8 +69,9 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 		}
 		// xtext based position is getting resolved by Aadl2EObjectAtOffsetHelper
 		INode crossRefNode = eObjectAtOffsetHelper.getCrossReferenceNode(resource, new TextRegion(offset, 0));
-		if (crossRefNode == null)
+		if (crossRefNode == null) {
 			return;
+		}
 		EObject crossLinkedEObject = eObjectAtOffsetHelper.getCrossReferencedElement(crossRefNode);
 		if (crossLinkedEObject != null && !crossLinkedEObject.eIsProxy()) {
 			Region region = new Region(crossRefNode.getOffset(), crossRefNode.getLength());
@@ -75,30 +79,31 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 		}
 	}
 
-
 	/**
 	 * return the ILeafNode for the ANNEXTEXT if the offset points into an annex
 	 * @param resource
 	 * @param offset
 	 * @return
 	 */
-	protected ILeafNode findAnnexTextLeafNode(XtextResource resource, int offset){
+	protected ILeafNode findAnnexTextLeafNode(XtextResource resource, int offset) {
 		IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
-			if (isAnnexLeaf(leaf)){
+			if (isAnnexLeaf(leaf)) {
 				return leaf;
 			}
 		}
 		return null;
 	}
 
-	protected boolean isAnnexLeaf(ILeafNode leaf){
-		if (leaf == null) return false;
+	protected boolean isAnnexLeaf(ILeafNode leaf) {
+		if (leaf == null) {
+			return false;
+		}
 		EObject ge = leaf.getGrammarElement();
-		if (ge instanceof RuleCall){
-			AbstractRule rule = ((RuleCall)ge).getRule();
-			if (rule.getName().equalsIgnoreCase("ANNEXTEXT")){
+		if (ge instanceof RuleCall) {
+			AbstractRule rule = ((RuleCall) ge).getRule();
+			if (rule.getName().equalsIgnoreCase("ANNEXTEXT")) {
 				return true;
 			}
 		}

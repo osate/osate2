@@ -702,90 +702,90 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * be retrieved because the model is incomplete or otherwise invalid.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	//	protected void getPropertyValueFromDeclarativeModel(final Property property,
-	//			final AadlPropertyValue apv) throws InvalidModelException {
-	//		/*
-	//		 * If there is more than one declarative spec that influences this
-	//		 * instance object, then we pick the first one that has the property we
-	//		 * are looking for. Semantic checks at the time the instance model is
-	//		 * generated guarantee that it deosn't matter which of the declarative
-	//		 * objects with the property value we look at. Right now this
-	//		 * multiple-spec case only applies to semantic connections.
-	//		 */
-	//		/*
-	//		 * Sanity check: if there are no declarative connections then we have
-	//		 * nothing to do! If the number of connections does not match the number
-	//		 * of connection contexts then the model is ill-formed and we should not
-	//		 * proceed.
-	//		 */
-	//		final List<Connection> connections = getConnections();
-	//		final List<ComponentInstance> contexts = getConnectionContexts();
-	//		if ((connections.size() > 0) && (connections.size() == contexts.size())) {
-	//			/*
-	//			 * This is sleazy: because using getPropertyValueInternal mutates
-	//			 * the pva, we can't use it repeatedly until we find the particular
-	//			 * declarative element that gives us the property value. If we do,
-	//			 * we will corrupt the pva. But we cannot directly use
-	//			 * getPropertyValue() either because it will trigger a cyclic
-	//			 * dependency error. So we have to create a new PVA for each lookup;
-	//			 * in this case we know that we always want a DeclarativeMPVA
-	//			 * because the whole point is that we now have delcarative model
-	//			 * elements.
-	//			 * 
-	//			 * If all of them are "not present", then the value is not present,
-	//			 * so we can pick an arbitrary declarative element to do the real
-	//			 * work with a "normal" call to getPropertyValueInternal. If some of
-	//			 * the values are present, then we can also pick an arbitrary one to
-	//			 * use for getPropertyValueInternal.
-	//			 */
-	//			Connection definingConnection = null;
-	//			ComponentInstance definingConnectionContext = null;
-	//			final Iterator<Connection> connIter = connections.iterator();
-	//			final Iterator<ComponentInstance> ctxtIter = contexts.iterator();
-	//			while ((definingConnection == null) && connIter.hasNext()) {
-	//				final Connection conn = connIter.next();
-	//				final ComponentInstance ctxt = ctxtIter.next();
-	//				final AadlPropertyValue apv1 = new AadlPropertyValue(property);
-	//				conn.getPropertyValueInternal(property, apv1, true);
-	////				apv.addDefaultValue(property.getDefaultAadlValue());
+	// protected void getPropertyValueFromDeclarativeModel(final Property property,
+	// final AadlPropertyValue apv) throws InvalidModelException {
+	// /*
+	// * If there is more than one declarative spec that influences this
+	// * instance object, then we pick the first one that has the property we
+	// * are looking for. Semantic checks at the time the instance model is
+	// * generated guarantee that it deosn't matter which of the declarative
+	// * objects with the property value we look at. Right now this
+	// * multiple-spec case only applies to semantic connections.
+	// */
+	// /*
+	// * Sanity check: if there are no declarative connections then we have
+	// * nothing to do! If the number of connections does not match the number
+	// * of connection contexts then the model is ill-formed and we should not
+	// * proceed.
+	// */
+	// final List<Connection> connections = getConnections();
+	// final List<ComponentInstance> contexts = getConnectionContexts();
+	// if ((connections.size() > 0) && (connections.size() == contexts.size())) {
+	// /*
+	// * This is sleazy: because using getPropertyValueInternal mutates
+	// * the pva, we can't use it repeatedly until we find the particular
+	// * declarative element that gives us the property value. If we do,
+	// * we will corrupt the pva. But we cannot directly use
+	// * getPropertyValue() either because it will trigger a cyclic
+	// * dependency error. So we have to create a new PVA for each lookup;
+	// * in this case we know that we always want a DeclarativeMPVA
+	// * because the whole point is that we now have delcarative model
+	// * elements.
+	// *
+	// * If all of them are "not present", then the value is not present,
+	// * so we can pick an arbitrary declarative element to do the real
+	// * work with a "normal" call to getPropertyValueInternal. If some of
+	// * the values are present, then we can also pick an arbitrary one to
+	// * use for getPropertyValueInternal.
+	// */
+	// Connection definingConnection = null;
+	// ComponentInstance definingConnectionContext = null;
+	// final Iterator<Connection> connIter = connections.iterator();
+	// final Iterator<ComponentInstance> ctxtIter = contexts.iterator();
+	// while ((definingConnection == null) && connIter.hasNext()) {
+	// final Connection conn = connIter.next();
+	// final ComponentInstance ctxt = ctxtIter.next();
+	// final AadlPropertyValue apv1 = new AadlPropertyValue(property);
+	// conn.getPropertyValueInternal(property, apv1, true);
+	// // apv.addDefaultValue(property.getDefaultAadlValue());
 	//
-	//				/*
-	//				 * If the value exists for this connection, then we choose it.
-	//				 * If the value is modal then make sure it exists for at least
-	//				 * one mode.
-	//				 */
-	//				if (apv1.isModal()) {
-	//					final Collection<ReflectiveAadlPropertyValue> vals = apv1.getAllValues();
-	//					for (final Iterator<ReflectiveAadlPropertyValue> valIter = vals.iterator(); valIter.hasNext();) {
-	//						final AadlPropertyValue apv = valIter.next();
-	//						if (!apv.isNotPresent() && apv.exists()) {
-	//							definingConnection = conn;
-	//							definingConnectionContext = ctxt;
-	//							break;
-	//						}
-	//					}
-	//				} else if (!apv1.getValue().isNotPresent()) {
-	//					definingConnection = conn;
-	//					definingConnectionContext = ctxt;
-	//				}
-	//			}
-	//			/*
-	//			 * If definingConnection == null then all the values are not
-	//			 * present, so we arbitrarily use the first component to compute the
-	//			 * property value.
-	//			 */
-	//			if (definingConnection == null) {
-	//				definingConnection = connections.get(0);
-	//				definingConnectionContext = contexts.get(0);
-	//			}
-	////			apv.pushCurrentComponent(definingConnectionContext);
-	//			try {
-	//				definingConnection.getPropertyValueInternal(property, apv, true);
-	//			} finally {
-	////				pva.popCurrentComponent();
-	//			}
-	//		}
-	//	}
+	// /*
+	// * If the value exists for this connection, then we choose it.
+	// * If the value is modal then make sure it exists for at least
+	// * one mode.
+	// */
+	// if (apv1.isModal()) {
+	// final Collection<ReflectiveAadlPropertyValue> vals = apv1.getAllValues();
+	// for (final Iterator<ReflectiveAadlPropertyValue> valIter = vals.iterator(); valIter.hasNext();) {
+	// final AadlPropertyValue apv = valIter.next();
+	// if (!apv.isNotPresent() && apv.exists()) {
+	// definingConnection = conn;
+	// definingConnectionContext = ctxt;
+	// break;
+	// }
+	// }
+	// } else if (!apv1.getValue().isNotPresent()) {
+	// definingConnection = conn;
+	// definingConnectionContext = ctxt;
+	// }
+	// }
+	// /*
+	// * If definingConnection == null then all the values are not
+	// * present, so we arbitrarily use the first component to compute the
+	// * property value.
+	// */
+	// if (definingConnection == null) {
+	// definingConnection = connections.get(0);
+	// definingConnectionContext = contexts.get(0);
+	// }
+	// // apv.pushCurrentComponent(definingConnectionContext);
+	// try {
+	// definingConnection.getPropertyValueInternal(property, apv, true);
+	// } finally {
+	// // pva.popCurrentComponent();
+	// }
+	// }
+	// }
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<Connection> getInstantiatedObjects() {
@@ -803,53 +803,54 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	//	public List<AadlModalPropertyValue> getConnectionPropertyValues(final Property property)
-	//			throws InvalidModelException {
-	//		final List<Connection> connections = getConnections();
-	//		final List<ComponentInstance> contexts = getConnectionContexts();
-	//		final List<AadlModalPropertyValue> values = new ArrayList<AadlModalPropertyValue>(connections.size());
+	// public List<AadlModalPropertyValue> getConnectionPropertyValues(final Property property)
+	// throws InvalidModelException {
+	// final List<Connection> connections = getConnections();
+	// final List<ComponentInstance> contexts = getConnectionContexts();
+	// final List<AadlModalPropertyValue> values = new ArrayList<AadlModalPropertyValue>(connections.size());
 	//
-	//		final Iterator<Connection> connIter = connections.iterator();
-	//		final Iterator<ComponentInstance> ctxtIter = contexts.iterator();
-	//		while (connIter.hasNext()) {
-	//			final Connection conn = connIter.next();
-	//			final ComponentInstance ctxt = ctxtIter.next();
-	//			if (conn.acceptsProperty(property)) {
-	//				final AadlPropertyValue impva = new AadlPropertyValue(property);
-	////				impva.pushCurrentComponent(ctxt);
-	//				/*
-	//				 * Don't have lookup interpret the inherit flag in the
-	//				 * declarative model because we need to interpret it in the
-	//				 * instance model (below).
-	//				 */
-	//				conn.getPropertyValueInternal(property, impva, true);
-	////				impva.popCurrentComponent();
-	//				/*
-	//				 * Must manually interpret the inherit flag here. We inherit
-	//				 * along the subcomponent ancestors of the connection's context
-	//				 * object.
-	//				 */
-	//				if (property.isInherit()) {
-	//					ctxt.getPropertyValueInternal(property, impva, false);
-	//				}
-	//				// Must manually add the default property value
-	////				impva.addDefaultValue(property.getDefaultAadlValue());
-	//				values.add(impva);
-	//			} else {
-	//				throw new IllegalArgumentException("Not accepted by connection \"" + conn.getName()
-	//						+ "\" in classifier \"" + conn.getContainingClassifier().getName() + "\"");
-	//			}
-	//		}
-	//		return values;
-	//	}
+	// final Iterator<Connection> connIter = connections.iterator();
+	// final Iterator<ComponentInstance> ctxtIter = contexts.iterator();
+	// while (connIter.hasNext()) {
+	// final Connection conn = connIter.next();
+	// final ComponentInstance ctxt = ctxtIter.next();
+	// if (conn.acceptsProperty(property)) {
+	// final AadlPropertyValue impva = new AadlPropertyValue(property);
+	// // impva.pushCurrentComponent(ctxt);
+	// /*
+	// * Don't have lookup interpret the inherit flag in the
+	// * declarative model because we need to interpret it in the
+	// * instance model (below).
+	// */
+	// conn.getPropertyValueInternal(property, impva, true);
+	// // impva.popCurrentComponent();
+	// /*
+	// * Must manually interpret the inherit flag here. We inherit
+	// * along the subcomponent ancestors of the connection's context
+	// * object.
+	// */
+	// if (property.isInherit()) {
+	// ctxt.getPropertyValueInternal(property, impva, false);
+	// }
+	// // Must manually add the default property value
+	// // impva.addDefaultValue(property.getDefaultAadlValue());
+	// values.add(impva);
+	// } else {
+	// throw new IllegalArgumentException("Not accepted by connection \"" + conn.getName()
+	// + "\" in classifier \"" + conn.getContainingClassifier().getName() + "\"");
+	// }
+	// }
+	// return values;
+	// }
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty (org.osate.aadl2.Property)
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
-		//OsateDebug.osateDebug("[ConnectionInstanceImpl] acceptsProperty" + property);
+		// OsateDebug.osateDebug("[ConnectionInstanceImpl] acceptsProperty" + property);
 
 		for (ConnectionReference ref : getConnectionReferences()) {
 			Connection conn = ref.getConnection();
@@ -897,7 +898,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			final ConnectionEnd connEndPoint, final Context connCtxt) {
 		ConnectionInstanceEnd instance = null;
 		if (connCtxt == null) {
-			//lookup subcomponent using the connection src
+			// lookup subcomponent using the connection src
 			if (connEndPoint instanceof Subcomponent) {
 				instance = ctxt.findSubcomponentInstance((Subcomponent) connEndPoint);
 			}
@@ -910,14 +911,14 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			}
 
 		} else if (connCtxt instanceof ComponentImplementation) {
-			//lookup feature in the context using the connection src
+			// lookup feature in the context using the connection src
 			instance = ctxt.findFeatureInstance((Feature) connEndPoint);
 		} else if (connCtxt instanceof Subcomponent) {
-			//lookup feature in the subcomponent
+			// lookup feature in the subcomponent
 			instance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt).findFeatureInstance(
 					(Feature) connEndPoint);
 		} else if (connCtxt instanceof FeatureGroup) {
-			//feature in a feature group...
+			// feature in a feature group...
 			instance = ctxt.findFeatureInstance((FeatureGroup) connCtxt).findFeatureInstance((Feature) connEndPoint);
 		}
 		return instance;
@@ -930,4 +931,4 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return false;
 	}
 
-} //ConnectionInstanceImpl
+} // ConnectionInstanceImpl

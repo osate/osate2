@@ -35,14 +35,12 @@ package org.osate.ui.actions;
 
 import org.eclipse.jface.wizard.WizardPage;
 
-public abstract class AutoAnalysisConfiguratorWizardPage extends WizardPage
-{
-	public AutoAnalysisConfiguratorWizardPage(String pageName)
-	{
+public abstract class AutoAnalysisConfiguratorWizardPage extends WizardPage {
+	public AutoAnalysisConfiguratorWizardPage(String pageName) {
 		super(pageName);
 	}
-	
+
 	public abstract void setValue(String key, String value);
-	
+
 	public abstract String getValue(String key);
 }

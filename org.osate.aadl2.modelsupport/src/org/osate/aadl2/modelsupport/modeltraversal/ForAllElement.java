@@ -56,7 +56,6 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
-
 /**
  * ForAllElement plays the role of an iterator object that supports traversal of
  * AADL models Encapsulates traversal algorithms over models. Each instance of
@@ -100,7 +99,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  * determine if the traversal was cancelled by checking {@link #cancelled()}.
  * The result list is not in a well defined state when the traversal has been
  * cancelled.
- * 
+ *
  * @author phf
  */
 public class ForAllElement implements IProcessingMethod {
@@ -189,7 +188,7 @@ public class ForAllElement implements IProcessingMethod {
 	/**
 	 * Create a new traversal that uses the given error manager and uses the
 	 * given default traversal algorithm.
-	 * 
+	 *
 	 * @param defTraversal The default traversal algorithm. One of
 	 *            {@link #NO_DEFAULT}, {@link #PROCESS_BOTTOM_UP_COMPONENT_IMPL}
 	 *            , {@link #PROCESS_POST_ORDER_ALL},
@@ -210,7 +209,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * Create a new traversal that uses
 	 * {@link AnalysisErrorReporterManager#NULL_ERROR_MANANGER the null error
 	 * mananger} and the given default traversal algorithm.
-	 * 
+	 *
 	 * @param defTraversal The default traversal algorithm. One of
 	 *            {@link #NO_DEFAULT}, {@link #PROCESS_BOTTOM_UP_COMPONENT_IMPL}
 	 *            , {@link #PROCESS_POST_ORDER_ALL},
@@ -225,7 +224,7 @@ public class ForAllElement implements IProcessingMethod {
 	/**
 	 * Create a new traversal that uses the given error manager and uses the
 	 * {@link #DEFAULT_DEFAULT_TRAVERSAL default default traversal algorithm}.
-	 * 
+	 *
 	 * @param errMgr The analysis error manager to use to report error results.
 	 */
 	public ForAllElement(final AnalysisErrorReporterManager errMgr) {
@@ -253,7 +252,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * object by the traversal methods (e.g., {@link #processEList(EList)},
 	 * {@link #processPreOrderAll(Element)}, etc.). The default implementation
 	 * is
-	 * 
+	 *
 	 * <pre>
 	 * protected void process(Element theElement) {
 	 * 	if (suchThat(theElement)) {
@@ -263,15 +262,15 @@ public class ForAllElement implements IProcessingMethod {
 	 * </pre>
 	 * <P>
 	 * But subclasses can reimplement this method to do anything.
-	 * 
+	 *
 	 * @see #action(Element)
 	 * @see #suchThat(Element)
 	 */
 	protected void process(final Element theElement) {
-		if(suchThat(theElement))
+		if (suchThat(theElement)) {
 			action(theElement);
+		}
 	}
-	
 
 	/**
 	 * Process a single model object. Delegates to {@link #process(Element)}.
@@ -282,6 +281,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * would have to make the method <code>public</code>, which could break
 	 * existing code.
 	 */
+	@Override
 	public final void processObject(final Element theElement) {
 		process(theElement);
 	}
@@ -296,7 +296,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after each element in the
 	 * list, and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param list EList of Elements
 	 * @return EList result list of objects that have been visited by any
 	 *         traversal with the given ForAllElement
@@ -306,7 +306,7 @@ public class ForAllElement implements IProcessingMethod {
 	 */
 	public final EList<Element> processEList(final EList<? extends Element> list) {
 		for (Iterator<? extends Element> it = list.iterator(); notCancelled() && it.hasNext();) {
-			this.process(it.next());
+			process(it.next());
 		}
 		return resultList;
 	}
@@ -315,7 +315,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * Method used to filter out objects during traversal. Intended to be
 	 * overridden. Used by the default implementation of
 	 * {@link #process(Element)}:
-	 * 
+	 *
 	 * <pre>
 	 * protected void process(Element theElement) {
 	 * 	if (suchThat(theElement)) {
@@ -325,7 +325,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * </pre>
 	 * <p>
 	 * By default, this method returns <code>true</code>.
-	 * 
+	 *
 	 * @param obj The object to test
 	 * @return Whether the object should be visited or not.
 	 * @see #process(Element)
@@ -339,7 +339,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * Action to be performed on the currently visited model object. This method
 	 * is intended to be overridden. This method is used by the default
 	 * implementation of {@link #process(Element)}:
-	 * 
+	 *
 	 * <pre>
 	 * protected void process(Element theElement) {
 	 * 	if (suchThat(theElement)) {
@@ -350,7 +350,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * By default, this method adds the object to {@link #resultList}. But this
 	 * method can do anything.
-	 * 
+	 *
 	 * @param obj The object to visit.
 	 * @see #suchThat(Element)
 	 * @see #process(Element)
@@ -365,6 +365,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * contents of this list depend on the implementation of
 	 * {@link #process(Element)}.
 	 */
+	@Override
 	public EList<Element> getResultList() {
 		return resultList;
 	}
@@ -380,7 +381,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * specific traversal implementation to halt the traversal. It is not
 	 * <code>public</code> because there is no sense in outsiders calling this
 	 * method.
-	 * 
+	 *
 	 * @see #cancelled()
 	 * @see #notCancelled()
 	 */
@@ -392,9 +393,10 @@ public class ForAllElement implements IProcessingMethod {
 	 * Test if we are cancelled. Unlike {@link #cancelTraversal()}, this method
 	 * is <code>public</code>: it is interesting for the user of the traversal
 	 * to learn if the traversal was cancelled.
-	 * 
+	 *
 	 * @see #notCancelled
 	 */
+	@Override
 	public final boolean cancelled() {
 		return !notCancelled;
 	}
@@ -406,9 +408,10 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * Most the time it is more interesting to know that the traversal wasn't
 	 * cancelled, than to know that it was cancelled.
-	 * 
+	 *
 	 * @see #cancelled()
 	 */
+	@Override
 	public final boolean notCancelled() {
 		return notCancelled;
 	}
@@ -429,7 +432,7 @@ public class ForAllElement implements IProcessingMethod {
 		case PROCESS_BOTTOM_UP_COMPONENT_IMPL:
 			return new BottomUpComponentImplTraversal(this);
 		case PROCESS_POST_ORDER_ALL:
-			return new PostOrderTraversal(this);	
+			return new PostOrderTraversal(this);
 		case PROCESS_PRE_ORDER_ALL:
 			return new PreOrderTraversal(this);
 		case PROCESS_TOP_DOWN_COMPONENT_CLASSIFIER:
@@ -447,7 +450,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param obj The root object to start the traversal.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -468,7 +471,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param objs List of root objects.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -487,7 +490,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #defaultTraversalMethod
@@ -498,6 +501,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList defaultTraversalAllDeclarativeModels() {
 		return defaultTraversalMethod.visitWorkspaceDeclarativeModels();
 	}
+
 	/**
 	 * Perform the default traversal on all the instance models in the
 	 * workspace. Not all traversal algorithsm support this operation: If the
@@ -508,7 +512,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #defaultTraversalMethod
@@ -533,7 +537,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param obj The root object of the traversal.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -555,7 +559,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param objlist The roots nodes to be visited.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -566,6 +570,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPreOrderAll(final EList objlist) {
 		return (new PreOrderTraversal(this)).visitList(objlist);
 	}
+
 	/**
 	 * Process all AADL models in the AadlWorkspace in in prefix order. In case
 	 * of instance models, takes into account the current mode when traversing
@@ -573,7 +578,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -583,12 +588,13 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPreOrderAll() {
 		return (new PreOrderTraversal(this)).visitWorkspace();
 	}
+
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace in prefix order.
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -598,6 +604,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPreOrderAllDeclarativeModels() {
 		return (new PreOrderTraversal(this)).visitWorkspaceDeclarativeModels();
 	}
+
 	/**
 	 * Process all AADL instance models in the AadlWorkspace in prefix order. In
 	 * case of instance models, takes into account the current mode when
@@ -605,7 +612,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -615,6 +622,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPreOrderAllInstances() {
 		return (new PreOrderTraversal(this)).visitWorkspaceInstanceModels();
 	}
+
 	/**
 	 * Visits all the {@link ComponentInstance} objects in the given instance
 	 * model in prefix order. Takes into account the current mode when
@@ -622,7 +630,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param obj The root object for the traversal.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -631,7 +639,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #process(Element)
 	 */
 	public final EList<Element> processPreOrderComponentInstance(final ComponentInstance obj) {
-		this.process(obj);
+		process(obj);
 		final EList<Element> list = obj.getChildren();
 		for (Iterator<Element> it = list.iterator(); notCancelled() && it.hasNext();) {
 			final Element child = it.next();
@@ -649,7 +657,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param obj The root object for the traversal.
 	 * @param cat The category of the component instances to visit.
 	 * @return The value of {@link #resultList}. The contents of this list
@@ -658,10 +666,11 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #notCancelled()
 	 * @see #process(Element)
 	 */
-	public final EList<Element> processPreOrderComponentInstance(final ComponentInstance obj, final ComponentCategory cat) {
+	public final EList<Element> processPreOrderComponentInstance(final ComponentInstance obj,
+			final ComponentCategory cat) {
 		// Only process if the category matches
 		if (obj.getCategory() == cat) {
-			this.process(obj);
+			process(obj);
 		}
 		// always scan the children
 		final EList<?> list = obj.getChildren();
@@ -674,58 +683,56 @@ public class ForAllElement implements IProcessingMethod {
 		}
 		return resultList;
 	}
-	
 
 	/**
 	 * process a single model element. When true is returned do not recurse to the element's children.
-	 * By Default, if suchThat is satisfied invoke the action and return true. 
+	 * By Default, if suchThat is satisfied invoke the action and return true.
 	 * Otherwise do not take an action and return false.
 	 * This lets use visit the first layer of elements in the hierarchy that satisfy suchThat.
-	 * Using the default action, this effectively lets us create a list of "leaf" elements, 
+	 * Using the default action, this effectively lets us create a list of "leaf" elements,
 	 * i.e., elements that satisfy suchThat.
 	 * @param theElement
 	 * @return Boolean true if children should not be visited
 	 */
-	protected boolean processStop (Element theElement) {
-		if (suchThat((Element) theElement)) {
-			if (theElement instanceof NamedElement)
-			//{ System.out.println(((NamedElement) theElement).getName());}
-			  action((Element) theElement);
-			  return true;
+	protected boolean processStop(Element theElement) {
+		if (suchThat(theElement)) {
+			if (theElement instanceof NamedElement) {
+				// { System.out.println(((NamedElement) theElement).getName());}
+				action(theElement);
 			}
+			return true;
+		}
 		return false;
 	}
 
-	
 	/**
 	 * Modifies processPreOrderComponentInstance to stop processing down
 	 * when a component with error model is found
 	 * If the suchThat method returned true, it means an error model subclause was found
 	 * and we stop traversing the model down
-	 * 
+	 *
 	 * Does preorder processing of Component Instance containment hierarchy
 	 * Takes into account the current mode when traversing the content hierarchy
 	 * of model instances The default implementation applies the suchThat
 	 * condition and if true adds the element to the result list
-	 * 
+	 *
 	 * @param obj
 	 *                 InstanceObject root object
 	 * @return EList result list of objects that have been visited by any traversal with the given ForAllElement
 	 *
 	 */
 	public final EList processPreOrderComponentInstanceStop(ComponentInstance obj) {
-		if (!this.processStop(obj)) {
-		EList list = obj.getChildren();
-		for (Iterator it = list.iterator(); notCancelled() &&it.hasNext();) {
-			Object child = it.next();
-			if (child instanceof ComponentInstance) {
-				this.processPreOrderComponentInstanceStop((ComponentInstance) child);
+		if (!processStop(obj)) {
+			EList list = obj.getChildren();
+			for (Iterator it = list.iterator(); notCancelled() && it.hasNext();) {
+				Object child = it.next();
+				if (child instanceof ComponentInstance) {
+					processPreOrderComponentInstanceStop((ComponentInstance) child);
 				}
-		}
+			}
 		}
 		return resultList;
 	}
-
 
 	/*
 	 * ============================================================= Postfix
@@ -740,7 +747,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param obj The root object of the traversal.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -762,7 +769,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param objlist The roots nodes to be visited.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -773,6 +780,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPostOrderAll(final EList objlist) {
 		return (new PostOrderTraversal(this)).visitList(objlist);
 	}
+
 	/**
 	 * Process all AADL models in the AadlWorkspace in postfix order. In case of
 	 * instance models, takes into account the current mode when traversing the
@@ -780,7 +788,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -790,13 +798,14 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPostOrderAll() {
 		return (new PostOrderTraversal(this)).visitWorkspace();
 	}
+
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace in postfix
 	 * order.
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -806,6 +815,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPostOrderAllDeclarativeModels() {
 		return (new PostOrderTraversal(this)).visitWorkspaceDeclarativeModels();
 	}
+
 	/**
 	 * Process all AADL instance models in the AadlWorkspace in postfix order.
 	 * Takes into account the current mode when traversing the content hierarchy
@@ -813,7 +823,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -823,6 +833,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPostOrderAllInstances() {
 		return (new PostOrderTraversal(this)).visitWorkspaceInstanceModels();
 	}
+
 	/**
 	 * Visits all the {@link ComponentInstance} objects in the given instance
 	 * model in post fix order. Takes into account the current mode when
@@ -830,7 +841,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param obj The root object for the traversal.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -847,10 +858,11 @@ public class ForAllElement implements IProcessingMethod {
 			}
 		}
 		if (notCancelled()) {
-			this.process(obj);
+			process(obj);
 		}
 		return resultList;
 	}
+
 	/**
 	 * Visits all the {@link ComponentInstance} objects that are of the given
 	 * component category (e.g., system, data, thread, etc.) in the given
@@ -859,7 +871,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param obj The root object for the traversal.
 	 * @param cat The category.
 	 * @return The value of {@link #resultList}. The contents of this list
@@ -868,18 +880,18 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #notCancelled()
 	 * @see #process(Element)
 	 */
-	public final EList<Element> processPostOrderComponentInstance(
-			final ComponentInstance obj, final ComponentCategory cat) {
+	public final EList<Element> processPostOrderComponentInstance(final ComponentInstance obj,
+			final ComponentCategory cat) {
 		final EList<Element> list = obj.getChildren();
 		for (Iterator<Element> it = list.iterator(); notCancelled() && it.hasNext();) {
-			final Element child = (Element) it.next();
+			final Element child = it.next();
 			if (child instanceof ComponentInstance) {
 				this.processPostOrderComponentInstance((ComponentInstance) child);
 			}
 		}
 		// Only process if the category matches
 		if (notCancelled() && (obj.getCategory() == cat)) {
-			this.process(obj);
+			process(obj);
 		}
 		return resultList;
 	}
@@ -908,7 +920,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param root The root node.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -929,7 +941,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -961,7 +973,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @param root The root node.
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
@@ -973,6 +985,7 @@ public class ForAllElement implements IProcessingMethod {
 		(new TopDownComponentImplTraversal(this)).visitRoot(root);
 		return resultList;
 	}
+
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace according to the
 	 * top-down component implementation ordering; see
@@ -980,7 +993,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -1005,7 +1018,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -1016,6 +1029,7 @@ public class ForAllElement implements IProcessingMethod {
 		(new BottomUpComponentImplTraversal(this)).visitRoot(root);
 		return resultList;
 	}
+
 	/**
 	 * Visits all the component implementations in the workspace in reverse
 	 * containment order. That is, a component implementation is visited before
@@ -1023,7 +1037,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -1045,7 +1059,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
 	 * and terminates the processing if the traversal has been cancelled.
-	 * 
+	 *
 	 * @return The value of {@link #resultList}. The contents of this list
 	 *         depend on the implementation of {@link #process}/{@link #action}.
 	 * @see #cancelTraversal()
@@ -1074,7 +1088,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * ) on the error reporter associated with each Resource. The union of the
 	 * returned set with the elements added to <code>outputBad</code> equals
 	 * <code>inputResourceSet</code>.
-	 * 
+	 *
 	 * @param inputResourceSet Set of resources to analyse. The analysis is run
 	 *            on each resource in turn. The resources are assumed to be AADL
 	 *            Object models, that is the {@link Resource#getContents()}
@@ -1119,7 +1133,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * ) on the error reporter associated with each Resource. The union of the
 	 * returned set with the elements added to <code>outputBad</code> equals
 	 * <code>inputResourceSet</code>.
-	 * 
+	 *
 	 * @param inputResourceSet Set of resources to analyse. The analysis is run
 	 *            on each resource in turn. The resources are assumed to be AADL
 	 *            Object models, that is the {@link Resource#getContents()}
@@ -1158,7 +1172,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * traversal object&mdash;increased after the analysis was run. The union of
 	 * the return value and the elements added to <code>outputBad</code> equals
 	 * <code>inputResourceSet</code>.
-	 * 
+	 *
 	 * @param inputResourceSet Set of resources to analyse. The analysis is run
 	 *            on each resource in turn. The resources are assumed to be AADL
 	 *            Object models, that is the {@link Resource#getContents()}
@@ -1175,20 +1189,20 @@ public class ForAllElement implements IProcessingMethod {
 			final Set<? super Resource> outputBad) {
 		final Set<Resource> good = new HashSet<Resource>();
 		for (final Resource r : inputResourceSet) {
-				final EList<EObject> rc = r.getContents();
-				final AnalysisErrorReporter errReporter = errManager.getReporter(r);
-				final int errCountBefore = errReporter.getNumErrors();
+			final EList<EObject> rc = r.getContents();
+			final AnalysisErrorReporter errReporter = errManager.getReporter(r);
+			final int errCountBefore = errReporter.getNumErrors();
 
-				if (!rc.isEmpty()) {
-					EObject o = rc.get(0);
-					this.defaultTraversal((Element) o);
-				}
+			if (!rc.isEmpty()) {
+				EObject o = rc.get(0);
+				this.defaultTraversal((Element) o);
+			}
 
-				if (errReporter.getNumErrors() > errCountBefore) {
-					outputBad.add(r);
-				} else {
-					good.add(r);
-				}
+			if (errReporter.getNumErrors() > errCountBefore) {
+				outputBad.add(r);
+			} else {
+				good.add(r);
+			}
 		}
 		return Collections.unmodifiableSet(good);
 	}
@@ -1197,7 +1211,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * Run a series of traversals over a tree rooted at a given Element. If a
 	 * particular traversal fails, i.e., it generates errors in the error
 	 * reporter, then the subsequent traversals are not performed.
-	 * 
+	 *
 	 * @param root The Element that is the root of the tree to traverse.
 	 * @param switches The analyses to run, as an array of length >= 1. Each
 	 *            analysis is invoked using its
@@ -1231,7 +1245,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * Run a series of traversals over a tree rooted at a given Element. All
 	 * traversals are run over the tree regardless of whether a previous
 	 * traversal failed.
-	 * 
+	 *
 	 * @param root The Element that is the root of the tree to traverse.
 	 * @param switches The analyses to run, as an array of length >= 1. Each
 	 *            analysis is invoked using its
@@ -1262,7 +1276,7 @@ public class ForAllElement implements IProcessingMethod {
 
 	/**
 	 * Report an internal error.
-	 * 
+	 *
 	 * @param message The error message.
 	 */
 	public final void internalError(final String message) {
@@ -1271,7 +1285,7 @@ public class ForAllElement implements IProcessingMethod {
 
 	/**
 	 * Report an internal error.
-	 * 
+	 *
 	 * @param e The exception causing the error.
 	 */
 	public final void internalError(final Exception e) {
@@ -1281,7 +1295,7 @@ public class ForAllElement implements IProcessingMethod {
 	/**
 	 * Report an error on an Element (AADL object model object) using the error
 	 * reporter associated with that object's {@link Resource}.
-	 * 
+	 *
 	 * @param obj the object to which the marker is pointing
 	 * @param msg the message as string
 	 */
@@ -1296,7 +1310,7 @@ public class ForAllElement implements IProcessingMethod {
 	/**
 	 * Report a warning on an Element (AADL object model object) using the error
 	 * reporter associated with that object's {@link Resource}.
-	 * 
+	 *
 	 * @param obj the object to which the marker is pointing
 	 * @param msg the message as string
 	 */
@@ -1311,7 +1325,7 @@ public class ForAllElement implements IProcessingMethod {
 	/**
 	 * Report an information message on an Element (AADL object model object)
 	 * using the error reporter associated with that object's {@link Resource}.
-	 * 
+	 *
 	 * @param obj the object to which the marker is pointing
 	 * @param msg the message as string
 	 */

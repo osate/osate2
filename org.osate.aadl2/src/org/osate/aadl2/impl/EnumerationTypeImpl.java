@@ -259,7 +259,9 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.EnumerationType#findLiteral(java.lang.String)
 	 */
 	public EnumerationLiteral findLiteral(String literalName) {

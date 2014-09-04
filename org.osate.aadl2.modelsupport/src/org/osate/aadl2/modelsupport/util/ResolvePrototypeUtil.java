@@ -35,11 +35,9 @@
  */
 package org.osate.aadl2.modelsupport.util;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
@@ -64,11 +62,9 @@ import org.osate.aadl2.Subcomponent;
  */
 public class ResolvePrototypeUtil {
 
-
-
 	/**
 	 * Find the binding for a given component prototype.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context of the feature or subcomponent in which the prototype is used, e.g., a
 	 *            ComponentType, FeatureGroupType, ComponentImplementation
@@ -87,11 +83,13 @@ public class ResolvePrototypeUtil {
 			ComponentPrototypeActual actual = actuals.get(0);
 
 			if (actual.getSubcomponentType() instanceof ComponentClassifier) {
-				return (ComponentClassifier)actual.getSubcomponentType();
+				return (ComponentClassifier) actual.getSubcomponentType();
 			} else {
-				if (actual.getSubcomponentType() instanceof ComponentPrototype && context instanceof ContainmentPathElement){
-				// resolve recursively if we are in a containment path
-					return resolveComponentPrototype((Prototype)actual.getSubcomponentType(), getPrevious((ContainmentPathElement) context));
+				if (actual.getSubcomponentType() instanceof ComponentPrototype
+						&& context instanceof ContainmentPathElement) {
+					// resolve recursively if we are in a containment path
+					return resolveComponentPrototype((Prototype) actual.getSubcomponentType(),
+							getPrevious((ContainmentPathElement) context));
 				}
 			}
 		}
@@ -100,7 +98,7 @@ public class ResolvePrototypeUtil {
 
 	/**
 	 * Find the binding for a given feature group prototype.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context of the feature group in which the prototype is used, e.g., a
 	 *            ComponentType, FeatureGroupType, ContainmentPathElement
@@ -118,9 +116,10 @@ public class ResolvePrototypeUtil {
 		if (actual.getFeatureType() instanceof FeatureGroupType) {
 			return (FeatureGroupType) actual.getFeatureType();
 		} else {
-			if (actual.getFeatureType() instanceof Prototype && context instanceof ContainmentPathElement){
-			// resolve recursively if we are in a containment path
-				return resolveFeatureGroupPrototype((Prototype)actual.getFeatureType(), getPrevious((ContainmentPathElement) context));
+			if (actual.getFeatureType() instanceof Prototype && context instanceof ContainmentPathElement) {
+				// resolve recursively if we are in a containment path
+				return resolveFeatureGroupPrototype((Prototype) actual.getFeatureType(),
+						getPrevious((ContainmentPathElement) context));
 			}
 		}
 		return null;
@@ -128,33 +127,33 @@ public class ResolvePrototypeUtil {
 
 	/**
 	 * Find the binding for a given feature prototype. Recursively resolves references.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context in which the prototype is used, e.g., a ComponentType, FeatureGroupType
 	 * @return the actual feature this prototype resolves to.
 	 */
 	public static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
-		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)resolvePrototype(proto, context);
-		if(fpb == null) {
+		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) resolvePrototype(proto, context);
+		if (fpb == null) {
 			// cannot resolve
 			return null;
 		}
 
 		final FeaturePrototypeActual actual = fpb.getActual();
-		if(actual instanceof FeaturePrototypeReference) {
+		if (actual instanceof FeaturePrototypeReference) {
 			// If context is FeatureGroupPrototypeActual, use containing classifier as the context for the reference
-			if(context instanceof FeatureGroupPrototypeActual) {
+			if (context instanceof FeatureGroupPrototypeActual) {
 				context = context.getContainingClassifier();
 			}
 			return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
-		}			
+		}
 
 		return fpb;
 	}
 
 	/**
 	 * Find the binding for a given prototype.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context of the entity in which the prototype is used, e.g., a
 	 *            ComponentType, ComponentImplementation, FeatureGroupType, Subcomponent
@@ -167,21 +166,20 @@ public class ResolvePrototypeUtil {
 			Classifier impl = (Classifier) context;
 			result = impl.lookupPrototypeBinding(proto);
 		} else if (context instanceof Subcomponent) {
-			Subcomponent parentSub = (Subcomponent)context;
+			Subcomponent parentSub = (Subcomponent) context;
 			result = parentSub.lookupPrototypeBinding(proto);
-			if(result == null)
-			{
+			if (result == null) {
 				result = resolvePrototype(proto, parentSub.getAllClassifier());
 			}
-		} else if (context instanceof ContainmentPathElement){
-			result = resolvePrototypeInContainmentPath(proto, (ContainmentPathElement)context);
-		} else if(context instanceof FeatureGroupPrototypeActual) {
-			final FeatureGroupPrototypeActual fgpa = (FeatureGroupPrototypeActual)context;
-			for(final PrototypeBinding binding : fgpa.getBindings()) {
-				if(binding.getFormal() == proto) {
+		} else if (context instanceof ContainmentPathElement) {
+			result = resolvePrototypeInContainmentPath(proto, (ContainmentPathElement) context);
+		} else if (context instanceof FeatureGroupPrototypeActual) {
+			final FeatureGroupPrototypeActual fgpa = (FeatureGroupPrototypeActual) context;
+			for (final PrototypeBinding binding : fgpa.getBindings()) {
+				if (binding.getFormal() == proto) {
 					result = binding;
 					break;
-				}				
+				}
 			}
 		}
 //		// lookup in parent's classifier (nested prototype bindings)
@@ -202,40 +200,40 @@ public class ResolvePrototypeUtil {
 //		}
 		return result;
 	}
-	
-	public static ContainmentPathElement getPrevious(ContainmentPathElement cpe){
+
+	public static ContainmentPathElement getPrevious(ContainmentPathElement cpe) {
 		ContainedNamedElement path = (ContainedNamedElement) cpe.eContainer();
 		EList<ContainmentPathElement> list = path.getContainmentPathElements();
 		int idx = list.indexOf(cpe);
-		if (idx > 0){
+		if (idx > 0) {
 			return list.get(idx - 1);
 		} else {
 			return null;
 		}
 	}
-	
-	public static PrototypeBinding resolvePrototypeInContainmentPath(Prototype proto, ContainmentPathElement cpe){
+
+	public static PrototypeBinding resolvePrototypeInContainmentPath(Prototype proto, ContainmentPathElement cpe) {
 		ContainmentPathElement previous = getPrevious(cpe);
-		if (previous != null){
+		if (previous != null) {
 			// find prototype binding in namespace of previous element
 			NamedElement ne = previous.getNamedElement();
-			if (ne instanceof Subcomponent){
+			if (ne instanceof Subcomponent) {
 				// look for prototype in prototype binding of subcomponent declaration
 				PrototypeBinding res = resolvePrototype(proto, ne);
 				return res;
-			} else if (ne instanceof FeatureGroup){
-				
-			} else if (ne instanceof Feature){
-				
+			} else if (ne instanceof FeatureGroup) {
+
+			} else if (ne instanceof Feature) {
+
 			}
 		} else {
 			// the context is the entity with the property association
 			// need to make sure we look in the correct name space
 			Classifier cl = null;
-			if (AadlUtil.getContainingSubcomponent(cpe) != null){
+			if (AadlUtil.getContainingSubcomponent(cpe) != null) {
 				cl = AadlUtil.getContainingSubcomponentClassifier(cpe);
 			} else {
-				cl =AadlUtil.getContainingClassifier(cpe);
+				cl = AadlUtil.getContainingClassifier(cpe);
 			}
 			PrototypeBinding res = resolvePrototype(proto, cl);
 			return res;

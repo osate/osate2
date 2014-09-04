@@ -39,7 +39,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.modelsupport.Activator;
 
-
 /**
  * An implementation of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ParseErrorReporter} that reports
@@ -49,26 +48,26 @@ import org.osate.aadl2.modelsupport.Activator;
  * The class defines a nested class
  * {@link edu.cmu.sei.aadl.model.pluginsupport.MarkerParseErrorReporter.Factory}
  * that implements a factory.
- * 
+ *
  * @author aarong
  */
 public final class MarkerParseErrorReporter extends AbstractParseErrorReporter {
 	/** The name of the marker type used for error markers. */
 	private final String markerType;
-	
+
 	/** The resource to attach the markers to. */
 	private final IResource resource;
-	
+
 	private Resource contextResource;
-	
-	public void setContextResource(Resource res){
+
+	public void setContextResource(Resource res) {
 		contextResource = res;
 	}
-	
-	public Resource getContextResource(){
+
+	public Resource getContextResource() {
 		return contextResource;
 	}
-	
+
 	/**
 	 * Create a new error reporter that uses the given marker types.
 	 * Assumes that <code>rsrc</code> is not <code>null</code>.
@@ -79,11 +78,8 @@ public final class MarkerParseErrorReporter extends AbstractParseErrorReporter {
 		markerType = mt;
 	}
 
-	
-	
-	private void createMarker(final String markerType, 
-			final String filename, final int line,
-			final String message, final int severity) {
+	private void createMarker(final String markerType, final String filename, final int line, final String message,
+			final int severity) {
 		if (resource.exists()) {
 			try {
 				final IMarker marker_p = resource.createMarker(markerType);
@@ -98,50 +94,45 @@ public final class MarkerParseErrorReporter extends AbstractParseErrorReporter {
 		}
 	}
 
-	protected void errorImpl(
-			final String filename, final int line, final String message) {
-		createMarker(markerType, filename, line, message,
-				IMarker.SEVERITY_ERROR);
+	@Override
+	protected void errorImpl(final String filename, final int line, final String message) {
+		createMarker(markerType, filename, line, message, IMarker.SEVERITY_ERROR);
 
 	}
 
-	protected void warningImpl(
-			final String filename, final int line, final String message) {
-		createMarker(markerType, filename, line, message,
-				IMarker.SEVERITY_WARNING);
+	@Override
+	protected void warningImpl(final String filename, final int line, final String message) {
+		createMarker(markerType, filename, line, message, IMarker.SEVERITY_WARNING);
 	}
 
-	protected void infoImpl(
-			final String filename, final int line, final String message) {
-		createMarker(markerType, filename, line, message,
-				IMarker.SEVERITY_INFO);
+	@Override
+	protected void infoImpl(final String filename, final int line, final String message) {
+		createMarker(markerType, filename, line, message, IMarker.SEVERITY_INFO);
 	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		if (resource.exists()) {
 			try {
-				resource.deleteMarkers(markerType,
-						false, IResource.DEPTH_INFINITE);
+				resource.deleteMarkers(markerType, false, IResource.DEPTH_INFINITE);
 			} catch (final CoreException e1) {
 				Activator.logThrowable(e1);
 			}
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Factory for creating Marker error reporters.  Parameterized by the
 	 * marker type to use.  Is also parameterized by another
-	 * {@link ParseErrorReporterFactory} that is used when the given 
+	 * {@link ParseErrorReporterFactory} that is used when the given
 	 * {@link IResource} is <code>null</code>; this happens,
 	 * for example, when dealing with the standard AADL property sets, which
 	 * currently do not exist inside the workspace and thus cannot be mapped
 	 * to an IFile.
-	 * 
-	 * <p>The secondary factory must be non-<code>null</code> and must be 
+	 *
+	 * <p>The secondary factory must be non-<code>null</code> and must be
 	 * capable of handling <code>null</code> IResources.
-	 * 
+	 *
 	 * @author aarong
 	 */
 	public static final class Factory implements ParseErrorReporterFactory {
@@ -153,17 +144,16 @@ public final class MarkerParseErrorReporter extends AbstractParseErrorReporter {
 		 * Allowed to be <code>null</code>.
 		 */
 		private final ParseErrorReporterFactory secondaryFactory;
-		
-		
-		
-		public Factory(final String mt,	final ParseErrorReporterFactory sndFact) {
+
+		public Factory(final String mt, final ParseErrorReporterFactory sndFact) {
 			if (sndFact == null) {
-				throw new IllegalArgumentException("The secondary factory must not be null");	
+				throw new IllegalArgumentException("The secondary factory must not be null");
 			}
 			markerType = mt;
 			secondaryFactory = sndFact;
 		}
-		
+
+		@Override
 		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
 			if (aadlRsrc != null && aadlRsrc.exists()) {
 				return new MarkerParseErrorReporter(aadlRsrc, markerType);

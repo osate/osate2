@@ -53,7 +53,6 @@ public class LocationReference {
 	private int offset = 0;
 	private int length = 0;
 
-
 	public int getOffset() {
 		return offset;
 	}
@@ -86,11 +85,11 @@ public class LocationReference {
 		this.linenumber = ln;
 	}
 
-	public void setFilename (String in) {
+	public void setFilename(String in) {
 		this.filename = in;
 	}
 
-	public void setLine (int in) {
+	public void setLine(int in) {
 		this.linenumber = in;
 	}
 

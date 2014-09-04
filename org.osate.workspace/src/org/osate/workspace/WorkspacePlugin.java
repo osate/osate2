@@ -42,12 +42,11 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * File extension of AADL model files
 	 */
 	public static final String MODEL_FILE_EXT = "aaxl2";
-	
+
 //	 Instance model extensions and naming
 	// new naming convention is "aail2" and no need for name ending with "_instance"
 	// Code for handling new convention is in place
 	// Have not enabled until people depending on it are made aware of the change
-	
 
 	/**
 	 * File extension of AADL instance model files
@@ -128,13 +127,12 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 */
 	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
 
-
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
 
-	//The shared instance.
+	// The shared instance.
 	private static WorkspacePlugin plugin;
 
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
 
 	/**
@@ -153,6 +151,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -160,6 +159,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
@@ -200,11 +200,11 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	}
 
 	public static void log(Throwable t) {
-		log(new Status(IStatus.ERROR, getPluginId(), Status.OK, "WorkspacePlugin internal error", t));
+		log(new Status(IStatus.ERROR, getPluginId(), IStatus.OK, "WorkspacePlugin internal error", t));
 	}
 
 	public static void logErrorMessage(String message) {
-		log(new Status(IStatus.ERROR, getPluginId(), Status.OK, message, null));
+		log(new Status(IStatus.ERROR, getPluginId(), IStatus.OK, message, null));
 	}
 
 	public static String getPluginId() {
@@ -255,6 +255,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 			} catch (Exception e1) {
 			}
 			Display.getDefault().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 							"Aadl and aaxl folders", "Could not find " + AADLPATH_FILENAME

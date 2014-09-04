@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Abstract Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Abstract.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -81,6 +85,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -113,6 +120,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -145,6 +155,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Device Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedDeviceSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -177,6 +190,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedMemorySubcomponent()
 	 * @model containment="true" ordered="false"
@@ -209,6 +225,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Process Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedProcessSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -241,6 +260,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedProcessorSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -273,6 +295,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned System Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSystemSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -305,6 +330,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSubprogramSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -337,6 +365,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSubprogramGroupSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -369,6 +400,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Thread Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedThreadSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -401,6 +435,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Thread Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedThreadGroupSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -433,6 +470,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -465,6 +505,9 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Abstract.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedVirtualProcessorSubcomponent()
 	 * @model containment="true" ordered="false"

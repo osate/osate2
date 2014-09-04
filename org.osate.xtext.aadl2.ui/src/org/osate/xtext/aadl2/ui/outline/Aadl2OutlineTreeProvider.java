@@ -1,5 +1,5 @@
 /*
-* /**
+ * /**
  * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
@@ -31,7 +31,7 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
-*/
+ */
 package org.osate.xtext.aadl2.ui.outline;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -54,39 +54,35 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
  */
 public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
-	protected void _createChildren(DocumentRootNode parentNode,	ModelUnit aadlModel) {
-		if (aadlModel instanceof AadlPackage) 
-		{
-			for (Element element : aadlModel.getChildren()) 
-			{
+	protected void _createChildren(DocumentRootNode parentNode, ModelUnit aadlModel) {
+		if (aadlModel instanceof AadlPackage) {
+			for (Element element : aadlModel.getChildren()) {
 				createNode(parentNode, element);
 			}
-		} 
-		else 
-		{
+		} else {
 			createNode(parentNode, aadlModel);
 		}
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
-		for (EObject childElement : modelElement.getChildren())
+		for (EObject childElement : modelElement.getChildren()) {
 			createNode(parentNode, childElement);
+		}
 	}
 
 	protected void _createChildren(DocumentRootNode parentNode, SystemInstance aadlModel) {
 		createNode(parentNode, aadlModel);
 	}
+
 	protected boolean _isLeaf(SystemInstance feature) {
-	    return false;
+		return false;
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
-		if (sysInstance.getOwnedElements().isEmpty()){
-			final InstantiateModel instantiateModel =
-			new InstantiateModel(new NullProgressMonitor(),
-					new AnalysisErrorReporterManager(
-							new MarkerAnalysisErrorReporter.Factory(
-									AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		if (sysInstance.getOwnedElements().isEmpty()) {
+			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
+					new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
+							AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 			instantiateModel.fillSystemInstance(sysInstance);
 		}
 		super._createChildren(parentNode, sysInstance);
@@ -113,7 +109,5 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 //	protected boolean _isLeaf(PropertyType feature) {
 //	    return true;
 //	}
-
-
 
 }

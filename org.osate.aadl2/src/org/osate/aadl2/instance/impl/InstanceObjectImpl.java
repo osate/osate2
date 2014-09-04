@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -92,7 +92,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected InstanceObjectImpl() {
@@ -101,7 +101,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -114,6 +114,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AnnexInstance> getAnnexInstances() {
 		if (annexInstances == null) {
 			annexInstances = new EObjectContainmentEList<AnnexInstance>(AnnexInstance.class, this,
@@ -210,6 +211,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * If the object is a component instance, get its enclosing instance
 	 * @return Closest containing component instance
 	 */
+	@Override
 	public ComponentInstance getContainingComponentInstance() {
 		EObject eobj = this;
 
@@ -222,9 +224,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/**
 	 * Find the enclosing system instance.
-	 * 
+	 *
 	 * @return The system instance object
 	 */
+	@Override
 	public SystemInstance getSystemInstance() {
 		EObject eobj = this;
 
@@ -236,9 +239,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * construct a string path from the systeminstance as root
-	 * 
+	 *
 	 * @return path as string
 	 */
+	@Override
 	public String getInstanceObjectPath() {
 		if (this instanceof SystemInstance) {
 			return getName();
@@ -251,9 +255,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstancePath()
 	 */
+	@Override
 	public String getComponentInstancePath() {
 		if (this instanceof SystemInstance) {
 			return "";
@@ -264,6 +269,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		return path.length() == 0 ? localname : path + "." + localname;
 	}
 
+	@Override
 	public final void getPropertyValueInternal(final Property property, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		/*
@@ -301,9 +307,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	/**
 	 * Returns the System Operation Modes in which the element exists, or
 	 * <code>null</code> if the element always exists.
-	 * 
+	 *
 	 * @return
 	 */
+	@Override
 	public List<SystemOperationMode> getExistsInModes() {
 		return null;
 	}
@@ -314,7 +321,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * ConnectionInstances; this method is overridden in ConnectionInstance to
 	 * handle the problem of dealing with all the connections that make up the
 	 * semantic connection.
-	 * 
+	 *
 	 * @param property The property to lookup
 	 * @param pva The property value accumulator to use to build the property
 	 *            value
@@ -324,24 +331,28 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 */
 	protected void getPropertyValueFromDeclarativeModel(final Property property, final PropertyAcc pas)
 			throws InvalidModelException {
-		//apv.pushCurrentComponent(getContainingComponentInstanceOrSelf());
+		// apv.pushCurrentComponent(getContainingComponentInstanceOrSelf());
 		try {
 			final List<? extends NamedElement> compDecls = getInstantiatedObjects();
 			// Here we assume compDecls is empty or has only one element
 			if (!compDecls.isEmpty()) {
 				final NamedElement compDecl = compDecls.get(0);
-				if (compDecl == null)
+				if (compDecl == null) {
 					return;
+				}
 				compDecl.getPropertyValueInternal(property, pas, true);
 			}
 		} finally {
-			//apv.popCurrentComponent();
+			// apv.popCurrentComponent();
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstance()
 	 */
+	@Override
 	public ComponentInstance getComponentInstance() {
 		EObject current = this;
 		while (current != null && !(current instanceof ComponentInstance)) {
@@ -354,29 +365,31 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * Return the declarative objects that define this instance. Most of the
 	 * time this will return a singleton list. But in the case of semantic
 	 * connections, it will return a list of connection objects.
-	 * 
+	 *
 	 * @return A List of NamedElement objects that should be declarative model
 	 *         elements. Returns an empty list if no named declarative object
 	 *         exists, such as in the case of {@link ModeTransitionInstance}s.
 	 */
+	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return null;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osate.aadl2.impl.NamedElementImpl#acceptsProperty(edu.cmu.
 	 * sei.aadl.aadl2.Property)
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
-		//OsateDebug.osateDebug ("[InstanceObjectImpl] property=" + property);
+		// OsateDebug.osateDebug ("[InstanceObjectImpl] property=" + property);
 
 		for (NamedElement ne : getInstantiatedObjects()) {
-			if (!ne.acceptsProperty(property))
+			if (!ne.acceptsProperty(property)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -450,9 +463,12 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
+	@Override
 	public List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath) {
 		List<InstanceObject> result = new LinkedList<InstanceObject>();
 
@@ -489,11 +505,13 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override
 	public boolean matchesIndex(List<ArrayRange> ranges) {
-		return false;
+		return ranges.isEmpty();
 	}
 } // InstanceObjectImpl

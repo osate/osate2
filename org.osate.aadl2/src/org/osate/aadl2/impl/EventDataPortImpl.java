@@ -229,7 +229,9 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
 	 */
 	@Override

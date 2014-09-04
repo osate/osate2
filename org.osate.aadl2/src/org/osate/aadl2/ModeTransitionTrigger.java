@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Mode Transition Trigger</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Modes.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -62,6 +66,9 @@ public interface ModeTransitionTrigger extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see #setContext(Context)
 	 * @see org.osate.aadl2.Aadl2Package#getModeTransitionTrigger_Context()
@@ -88,6 +95,9 @@ public interface ModeTransitionTrigger extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Modes.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Trigger Port</em>' reference.
 	 * @see #setTriggerPort(TriggerPort)
 	 * @see org.osate.aadl2.Aadl2Package#getModeTransitionTrigger_TriggerPort()

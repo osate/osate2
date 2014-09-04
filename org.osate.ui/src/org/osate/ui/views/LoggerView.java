@@ -1,6 +1,5 @@
 package org.osate.ui.views;
 
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -33,7 +32,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.osate.aadl2.modelsupport.OsateLogger;
 
-
 /**
  * This sample class demonstrates how to plug-in a new
  * workbench view. The view shows data obtained from the
@@ -64,36 +62,43 @@ public class LoggerView extends ViewPart implements Adapter {
 	 * existing objects in adapters or simply return
 	 * objects as-is. These objects may be sensitive
 	 * to the current input of the view, or ignore
-	 * it and always show the same content 
+	 * it and always show the same content
 	 * (like Task List, for example).
 	 */
-	 
+
 	class ViewContentProvider implements IStructuredContentProvider {
+		@Override
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 		}
-		
+
+		@Override
 		public void dispose() {
 		}
-		
+
+		@Override
 		public Object[] getElements(Object parent) {
-			
+
 			return OsateLogger.getContent();
 		}
 	}
-	
+
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public String getColumnText(Object obj, int index) {
 			return getText(obj);
 		}
+
+		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return getImage(obj);
 		}
+
+		@Override
 		public Image getImage(Object obj) {
-			return PlatformUI.getWorkbench().
-					getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
+			return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
-	
+
 	class NameSorter extends ViewerSorter {
 	}
 
@@ -105,30 +110,37 @@ public class LoggerView extends ViewPart implements Adapter {
 	}
 
 	// Adapter methods
+	@Override
 	public boolean isAdapterForType(Object type) {
 		return false;
 	}
-	
+
+	@Override
 	public Notifier getTarget() {
 		return null;
 	}
-	
+
+	@Override
 	public void setTarget(Notifier notifier) {
 	}
-	
+
+	@Override
 	public void notifyChanged(Notification notification) {
 		Display.getDefault().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				viewer.refresh();
 			}
 		});
 	}
+
 	// end Adapter methods
-	
+
 	/**
 	 * This is a callback that will allow us
 	 * to create the viewer and initialize it.
 	 */
+	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new ViewContentProvider());
@@ -145,6 +157,7 @@ public class LoggerView extends ViewPart implements Adapter {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager manager) {
 				LoggerView.this.fillContextMenu(manager);
 			}
@@ -172,7 +185,7 @@ public class LoggerView extends ViewPart implements Adapter {
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	
+
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(reset);
 		manager.add(refresh);
@@ -180,50 +193,53 @@ public class LoggerView extends ViewPart implements Adapter {
 
 	private void makeActions() {
 		reset = new Action() {
+			@Override
 			public void run() {
 				OsateLogger.reset();
 			}
 		};
 		reset.setText("Clear");
 		reset.setToolTipText("Clear the Osate Log");
-		reset.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-			getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
-		
+		reset.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
+				.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+
 		refresh = new Action() {
+			@Override
 			public void run() {
 				viewer.refresh();
 			}
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh the Osate Log");
-		refresh.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
+		refresh.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
+				.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
 		doubleClickAction = new Action() {
+			@Override
 			public void run() {
 				ISelection selection = viewer.getSelection();
-				Object obj = ((IStructuredSelection)selection).getFirstElement();
-				showMessage("Double-click detected on "+obj.toString());
+				Object obj = ((IStructuredSelection) selection).getFirstElement();
+				showMessage("Double-click detected on " + obj.toString());
 			}
 		};
 	}
 
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				doubleClickAction.run();
 			}
 		});
 	}
+
 	private void showMessage(String message) {
-		MessageDialog.openInformation(
-			viewer.getControl().getShell(),
-			"Sample View",
-			message);
+		MessageDialog.openInformation(viewer.getControl().getShell(), "Sample View", message);
 	}
 
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
+	@Override
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}

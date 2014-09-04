@@ -11,27 +11,27 @@ import org.eclipse.swt.widgets.Composite;
 public class BooleanAssistant extends AbstractAssistant {
 	private Button trueButton = null;
 	private Button falseButton = null;
-	
+
 	public BooleanAssistant(Composite parent, AssistantValueChangedListener listener) {
 		super(parent, listener);
 		layoutComponents();
 	}
-	
+
 	private void layoutComponents() {
 		setLayout(new GridLayout(2, false));
-		
+
 		trueButton = new Button(this, SWT.RADIO);
 		trueButton.setText("True");
 		trueButton.setSelection(true);
 		trueButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		falseButton = new Button(this, SWT.RADIO);
 		falseButton.setText("False");
 		falseButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		
+
 		addListeners();
 	}
-	
+
 	private void addListeners() {
 		trueButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -46,17 +46,17 @@ public class BooleanAssistant extends AbstractAssistant {
 			}
 		});
 	}
-	
+
 	@Override
 	public String getValueText() {
 		return Boolean.valueOf(trueButton.getSelection()).toString();
 	}
-	
+
 	@Override
 	public boolean isComplete() {
 		return true;
 	}
-	
+
 	@Override
 	public void setAssistantEnabled(boolean enabled) {
 		trueButton.setEnabled(enabled);

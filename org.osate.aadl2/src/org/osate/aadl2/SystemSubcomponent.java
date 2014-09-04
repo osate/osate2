@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>System Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::System.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface SystemSubcomponent extends Subcomponent, org.osate.aadl2.System
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>System Subcomponent Type</em>' reference.
 	 * @see #setSystemSubcomponentType(SystemSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getSystemSubcomponent_SystemSubcomponentType()

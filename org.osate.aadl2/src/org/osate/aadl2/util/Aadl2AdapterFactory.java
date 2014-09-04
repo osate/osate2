@@ -40,10 +40,6 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.*;
-import org.osate.aadl2.Process;
-import org.osate.aadl2.System;
-import org.osate.aadl2.Thread;
-import org.osate.aadl2.ThreadGroup;
 
 /**
  * <!-- begin-user-doc -->
@@ -661,6 +657,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseDataClassifier(DataClassifier object) {
+			return createDataClassifierAdapter();
+		}
+
+		@Override
 		public Adapter casePortProxy(PortProxy object) {
 			return createPortProxyAdapter();
 		}
@@ -668,6 +669,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseSubprogramProxy(SubprogramProxy object) {
 			return createSubprogramProxyAdapter();
+		}
+
+		@Override
+		public Adapter caseSubprogramClassifier(SubprogramClassifier object) {
+			return createSubprogramClassifierAdapter();
 		}
 
 		@Override
@@ -821,7 +827,7 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseThreadGroup(ThreadGroup object) {
+		public Adapter caseThreadGroup(org.osate.aadl2.ThreadGroup object) {
 			return createThreadGroupAdapter();
 		}
 
@@ -831,7 +837,7 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseThread(Thread object) {
+		public Adapter caseThread(org.osate.aadl2.Thread object) {
 			return createThreadAdapter();
 		}
 
@@ -841,7 +847,7 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSystem(System object) {
+		public Adapter caseSystem(org.osate.aadl2.System object) {
 			return createSystemAdapter();
 		}
 
@@ -851,7 +857,7 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseProcess(Process object) {
+		public Adapter caseProcess(org.osate.aadl2.Process object) {
 			return createProcessAdapter();
 		}
 
@@ -981,11 +987,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseDataClassifier(DataClassifier object) {
-			return createDataClassifierAdapter();
-		}
-
-		@Override
 		public Adapter caseDataType(DataType object) {
 			return createDataTypeAdapter();
 		}
@@ -1038,11 +1039,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseMemoryPrototype(MemoryPrototype object) {
 			return createMemoryPrototypeAdapter();
-		}
-
-		@Override
-		public Adapter caseSubprogramClassifier(SubprogramClassifier object) {
-			return createSubprogramClassifierAdapter();
 		}
 
 		@Override

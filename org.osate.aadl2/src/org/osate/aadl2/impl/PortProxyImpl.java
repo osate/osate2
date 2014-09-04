@@ -36,8 +36,11 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.PortProxy;
 
@@ -49,6 +52,7 @@ import org.osate.aadl2.PortProxy;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#getDirection <em>Direction</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#getDataClassifier <em>Data Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,6 +77,16 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * @ordered
 	 */
 	protected DirectionType direction = DIRECTION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataClassifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataClassifier dataClassifier;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -120,11 +134,55 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataClassifier getDataClassifier() {
+		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
+			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
+			dataClassifier = (DataClassifier) eResolveProxy(oldDataClassifier);
+			if (dataClassifier != oldDataClassifier) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PORT_PROXY__DATA_CLASSIFIER,
+							oldDataClassifier, dataClassifier));
+			}
+		}
+		return dataClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataClassifier basicGetDataClassifier() {
+		return dataClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataClassifier(DataClassifier newDataClassifier) {
+		DataClassifier oldDataClassifier = dataClassifier;
+		dataClassifier = newDataClassifier;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_PROXY__DATA_CLASSIFIER,
+					oldDataClassifier, dataClassifier));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
 			return getDirection();
+		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
+			if (resolve)
+				return getDataClassifier();
+			return basicGetDataClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -139,6 +197,9 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
 			setDirection((DirectionType) newValue);
+			return;
+		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
+			setDataClassifier((DataClassifier) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -155,6 +216,9 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
 			setDirection(DIRECTION_EDEFAULT);
 			return;
+		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
+			setDataClassifier((DataClassifier) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -169,6 +233,8 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
 			return direction != DIRECTION_EDEFAULT;
+		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
+			return dataClassifier != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -190,4 +256,4 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 		return result.toString();
 	}
 
-} //PortProxyImpl
+} // PortProxyImpl

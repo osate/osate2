@@ -286,6 +286,54 @@
       		class="org.osate.ui.navigator.AadlNavigator"/>
    </extension>
    
+	<extension
+         point="org.eclipse.ui.navigator.viewer">
+		<viewerContentBinding 
+            viewerId="org.osate.ui.navigator.AadlNavigator">
+			<includes>
+				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
+				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
+				<contentExtension pattern="org.osate.ui.navigator.content"/>
+			</includes>
+		</viewerContentBinding>
+  		<viewerActionBinding
+        	viewerId="org.osate.ui.navigator.AadlNavigator">
+     		<includes>
+     			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />	
+     		</includes>
+	  </viewerActionBinding>
+   </extension>
+   
+	<extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent 
+            id="org.osate.ui.navigator.content" 
+            name="AADL Navigator Content"
+            contentProvider="org.osate.ui.navigator.AadlNavigatorContentProvider"
+            labelProvider="org.osate.ui.navigator.AadlNavigatorLabelProvider" 
+            activeByDefault="true"
+            priority="normal" >
+		<triggerPoints>
+		</triggerPoints>
+		<actionProvider
+			class="org.osate.ui.navigator.AadlNavigatorActionGroup">
+		</actionProvider>
+		  <enablement>
+		  </enablement>
+		  
+        <commonSorter
+              class="org.osate.ui.navigator.AadlNavigatorSorter"
+              id="org.osate.ui.navigator.sorter">
+           <parentExpression>
+              <or>
+                 <instanceof
+                       value="org.eclipse.core.resources.IResource">
+                 </instanceof></or>
+           </parentExpression>
+        </commonSorter>
+      </navigatorContent>
+   </extension>
+   
    <extension 
         point="org.eclipse.ui.perspectives"> 
         <perspective 
@@ -361,4 +409,15 @@
       </page>
    </extension>
    -->
+     <extension
+        point="org.eclipse.ui.newWizards">
+     <wizard
+           category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
+           class="org.osate.ui.wizards.AadlExamplesWizard"
+           icon="icons/aadl.gif"
+           id="org.osate.wizard.examples"
+           name="AADL examples"
+           project="true">
+     </wizard>
+     </extension>
 </plugin>

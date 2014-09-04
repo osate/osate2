@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright (c) 2000, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Carnegie Mellon University - adapted for use in OSATE
@@ -51,7 +51,7 @@ public interface IOpenable {
 	 * Note: although <code>close</code> is exposed in the API, clients are not
 	 * expected to open and close elements - the Java model does this
 	 * automatically as elements are accessed.
-	 * 
+	 *
 	 * @exception AadlModelException if an error occurs closing this element
 	 */
 	public void close() throws AadlModelException;
@@ -59,7 +59,7 @@ public interface IOpenable {
 	/**
 	 * Returns the buffer opened for this element, or <code>null</code> if this
 	 * element does not have a buffer.
-	 * 
+	 *
 	 * @exception JavaModelException if this element does not exist or if an
 	 *                exception occurs while accessing its corresponding
 	 *                resource.
@@ -75,7 +75,7 @@ public interface IOpenable {
 	 * <li>a working copy has been created on one of this element's children and
 	 * has not yet destroyed
 	 * </ul>
-	 * 
+	 *
 	 * @exception AadlModelException if this element does not exist or if an
 	 *                exception occurs while accessing its corresponding
 	 *                resource.
@@ -99,7 +99,7 @@ public interface IOpenable {
 	 * fragment responds <code>true</code> when it knows about all of its
 	 * compilation units present in its underlying folder. However, one or more
 	 * of the compilation units could be inconsistent.
-	 * 
+	 *
 	 * @exception AadlModelException if this element does not exist or if an
 	 *                exception occurs while accessing its corresponding
 	 *                resource.
@@ -111,7 +111,7 @@ public interface IOpenable {
 
 	/**
 	 * Returns whether this openable is open. This is a handle-only method.
-	 * 
+	 *
 	 * @return true if this openable is open, false otherwise
 	 */
 	boolean isOpen();
@@ -126,7 +126,7 @@ public interface IOpenable {
 	 * changes which occurred before an explicit use of
 	 * <code>#makeConsistent(IProgressMonitor)</code>
 	 * <p>
-	 * 
+	 *
 	 * @param progress the given progress monitor
 	 * @exception AadlModelException if the element is unable to access the
 	 *                contents of its underlying resource. Reasons include:
@@ -146,7 +146,7 @@ public interface IOpenable {
 	 * Note: although <code>open</code> is exposed in the API, clients are not
 	 * expected to open and close elements - the Java model does this
 	 * automatically as elements are accessed.
-	 * 
+	 *
 	 * @param progress the given progress monitor
 	 * @exception AadlModelException if an error occurs accessing the contents
 	 *                of its underlying resource. Reasons include:
@@ -175,7 +175,7 @@ public interface IOpenable {
 	 * <p>
 	 * As a result of this operation, the element is consistent with its
 	 * underlying resource or buffer.
-	 * 
+	 *
 	 * @param progress the given progress monitor
 	 * @param force it controls how this method deals with cases where the
 	 *            workbench is not completely in sync with the local file system

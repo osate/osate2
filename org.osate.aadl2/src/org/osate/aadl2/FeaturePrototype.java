@@ -41,6 +41,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Feature Prototype</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Templates.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -64,6 +68,9 @@ public interface FeaturePrototype extends Prototype {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see org.osate.aadl2.DirectionType
 	 * @see #setDirection(DirectionType)
@@ -92,6 +99,9 @@ public interface FeaturePrototype extends Prototype {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Constraining Classifier</em>' reference.
 	 * @see #setConstrainingClassifier(ComponentClassifier)
 	 * @see org.osate.aadl2.Aadl2Package#getFeaturePrototype_ConstrainingClassifier()

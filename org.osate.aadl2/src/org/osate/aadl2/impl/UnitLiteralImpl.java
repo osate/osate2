@@ -46,6 +46,7 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.operations.UnitLiteralOperations;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -100,6 +101,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitLiteral getBaseUnit() {
 		if (baseUnit != null && ((EObject) baseUnit).eIsProxy()) {
 			InternalEObject oldBaseUnit = (InternalEObject) baseUnit;
@@ -125,6 +127,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBaseUnit(UnitLiteral newBaseUnit) {
 		UnitLiteral oldBaseUnit = baseUnit;
 		baseUnit = newBaseUnit;
@@ -137,6 +140,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberValue getFactor() {
 		return factor;
 	}
@@ -163,6 +167,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFactor(NumberValue newFactor) {
 		if (newFactor != factor) {
 			NotificationChain msgs = null;
@@ -184,6 +189,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NumberValue createFactor(EClass eClass) {
 		NumberValue newFactor = (NumberValue) create(eClass);
 		setFactor(newFactor);
@@ -271,9 +277,10 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor()
 	 */
+	@Override
 	public final double getAbsoluteFactor() {
 		double factor = 1.0;
 		UnitLiteral current = this;
@@ -288,41 +295,12 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.osate.aadl2.UnitLiteral#getAbsoluteFactor(edu.cmu.sei.aadl
-	 * .aadl2.UnitLiteral)
+	 *
+	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor(org.osate.aadl2.UnitLiteral)
 	 */
+	@Override
 	public final double getAbsoluteFactor(UnitLiteral target) {
-		double factor = 1.0;
-		if (this == target)
-			return factor;
-		UnitLiteral current = this;
-		while (current.getBaseUnit() != null) {
-			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
-			factor *= val;
-			current = current.getBaseUnit();
-			if (current == target)
-				return factor;
-			if (current == current.getBaseUnit())
-				break;
-		}
-		// did not find target. Let's go in opposite direction
-		factor = 1.0;
-		current = target;
-		while (current.getBaseUnit() != null) {
-			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
-			factor /= val;
-			current = current.getBaseUnit();
-			if (current == this)
-				return factor;
-			if (current == current.getBaseUnit())
-				break;
-
-		}
-		return 1.0;
+		return UnitLiteralOperations.getAbsoluteFactor(this, target);
 	}
 
 } // UnitLiteralImpl

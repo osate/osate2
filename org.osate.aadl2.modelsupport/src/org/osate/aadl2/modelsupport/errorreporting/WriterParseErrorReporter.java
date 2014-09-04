@@ -45,12 +45,12 @@ import org.eclipse.core.resources.IResource;
  * the messages to a Java {@link java.io.Writer}. Includes a
  * {@link #SYSTEM_OUT_FACTORY prototype reference to a factory that creates
  * reporters that print to the system out}.
- * 
+ *
  * <p>
  * The class defines a nested class
  * {@link edu.cmu.sei.aadl.model.pluginsupport.WriterParseErrorReporter.Factory}
  * that implements a factory.
- * 
+ *
  * @author aarong
  */
 public final class WriterParseErrorReporter extends AbstractParseErrorReporter {
@@ -58,36 +58,34 @@ public final class WriterParseErrorReporter extends AbstractParseErrorReporter {
 	 * Singleton reference to an error reporter that sends the messages to
 	 * {@link System#out}.
 	 */
-	public static final WriterParseErrorReporter SYSTEM_OUT =
-		new WriterParseErrorReporter(new OutputStreamWriter(System.out));
-	
+	public static final WriterParseErrorReporter SYSTEM_OUT = new WriterParseErrorReporter(new OutputStreamWriter(
+			System.out));
+
 	/**
 	 * Singleton reference to an error reporter that sends the messages to
 	 * {@link System#err}.
 	 */
-	public static final WriterParseErrorReporter SYSTEM_ERR =
-		new WriterParseErrorReporter(new OutputStreamWriter(System.err));
-	
+	public static final WriterParseErrorReporter SYSTEM_ERR = new WriterParseErrorReporter(new OutputStreamWriter(
+			System.err));
+
 	/**
 	 * Singleton reference to an factory that creates reporters that send the
 	 * messages to {@link System#out}.
 	 */
-	public static final Factory SYSTEM_OUT_FACTORY = 
-		new Factory(new OutputStreamWriter(System.out));
+	public static final Factory SYSTEM_OUT_FACTORY = new Factory(new OutputStreamWriter(System.out));
 
 	/** The system end-of-line character */
 	private final String END_OF_LINE = System.getProperty("line.separator");
-	
+
 	/** The writer. */
 	private final Writer writer;
-	
-	
+
 	/**
 	 * Create a new error reporter that writes the error messages to the given
 	 * {@link Writer} object. The caller is responsible for providing any
 	 * buffering, i.e., the writer will be used as provided and is not further
 	 * wrapped.
-	 * 
+	 *
 	 * @param writer
 	 *            The writer to use.
 	 * @exception IllegalArgumentException
@@ -101,7 +99,6 @@ public final class WriterParseErrorReporter extends AbstractParseErrorReporter {
 		this.writer = writer;
 	}
 
-
 	private void writeMessage(final String message) {
 		try {
 			writer.write(message);
@@ -112,38 +109,37 @@ public final class WriterParseErrorReporter extends AbstractParseErrorReporter {
 		}
 	}
 
-	protected void errorImpl(
-			final String filename, final int line, final String message) {
-		writeMessage("Error parsing " + filename + " at line " + 
-				line + ": " + message);
+	@Override
+	protected void errorImpl(final String filename, final int line, final String message) {
+		writeMessage("Error parsing " + filename + " at line " + line + ": " + message);
 	}
 
-	protected void warningImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void warningImpl(final String filename, final int line, final String message) {
 		writeMessage("Warning checking " + filename + " at line " + line + ": " + message);
 	}
 
-	protected void infoImpl(
-			final String filename, final int line, final String message) {
+	@Override
+	protected void infoImpl(final String filename, final int line, final String message) {
 		writeMessage(filename + " at line " + line + ": " + message);
 	}
 
+	@Override
 	protected void deleteMessagesImpl() {
 		// Nothing to do because we cannot undo writing
 	}
 
-	
-	
 	public static final class Factory implements ParseErrorReporterFactory {
 		final WriterParseErrorReporter reporter;
-		
+
 		public Factory(final Writer writer) {
 			reporter = new WriterParseErrorReporter(writer);
 		}
-		
+
 		/**
 		 * The given AADL IResource is allowed to be <code>null</code>.
 		 */
+		@Override
 		public ParseErrorReporter getReporterFor(final IResource aadlRsrc) {
 			return reporter;
 		}

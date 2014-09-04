@@ -12,7 +12,6 @@ import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 
-
 public class AadlWizardReferencePage extends WizardNewProjectReferencePage {
 
 	public AadlWizardReferencePage(String pageName) {
@@ -23,6 +22,7 @@ public class AadlWizardReferencePage extends WizardNewProjectReferencePage {
 	protected IStructuredContentProvider getContentProvider() {
 
 		return new WorkbenchContentProvider() {
+			@Override
 			public Object[] getChildren(Object element) {
 				if (!(element instanceof IWorkspace)) {
 					return new Object[0];
@@ -34,19 +34,16 @@ public class AadlWizardReferencePage extends WizardNewProjectReferencePage {
 				for (int i = 0; i < projects.length; i++) {
 					project = projects[i];
 					try {
-						if( project.isOpen() )
-						{
+						if (project.isOpen()) {
 							if (project.hasNature(XtextProjectHelper.NATURE_ID)) {
 								projectsWithNatures.add(project);
 							}
 						}
 					} catch (CoreException e) {
-						MessageDialog
-						.openError(getShell(),
-								"Project Problems", //$NON-NLS-1$
-								MessageFormat
-										.format("Project does not exist or is not open", e.getStackTrace().toString() ));
-					} 
+						MessageDialog.openError(getShell(), "Project Problems", //$NON-NLS-1$
+								MessageFormat.format("Project does not exist or is not open", e.getStackTrace()
+										.toString()));
+					}
 				}
 
 				return projectsWithNatures.toArray();

@@ -46,22 +46,22 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.NamedElement;
 
 public class Aadl2ValueSerializer extends ValueSerializer {
-public String serializeUnassignedValue(EObject context, RuleCall ruleCall, Object value, INode node) {
-	// phf: this code was from serializeUnassignedValue under the old serializer.
-	// For the new one we have to use the PNAME trick
-	if (context instanceof ComponentType || context instanceof FeatureGroupType){
-		return ((NamedElement)context).getName();
+	public String serializeUnassignedValue(EObject context, RuleCall ruleCall, Object value, INode node) {
+		// phf: this code was from serializeUnassignedValue under the old serializer.
+		// For the new one we have to use the PNAME trick
+		if (context instanceof ComponentType || context instanceof FeatureGroupType) {
+			return ((NamedElement) context).getName();
+		}
+		if (context instanceof AadlPackage) {
+			return ((NamedElement) context).getName();
+		}
+		if (context instanceof ComponentImplementation) {
+			return ((NamedElement) context).getName();
+		}
+		if (context instanceof FlowImplementation) {
+			return ((NamedElement) context).getName();
+		}
+		return "<noname>";
 	}
-	if (context instanceof AadlPackage){
-		return ((NamedElement)context).getName();
-	}
-	if (context instanceof ComponentImplementation){
-		return ((NamedElement)context).getName();
-	}
-	if (context instanceof FlowImplementation){
-		return ((NamedElement)context).getName();
-	}
-	return "<noname>";
-}
 
 }

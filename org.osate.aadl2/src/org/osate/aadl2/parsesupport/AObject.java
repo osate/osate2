@@ -63,7 +63,7 @@ public interface AObject extends EObject, org.eclipse.core.runtime.IAdaptable {
 	 * @generated
 	 */
 	String copyright = "Copyright 2004-2006 by Carnegie Mellon University, all rights reserved";
-	
+
 	/**
 	 * Returns the value of the '<em><b>Comment</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
@@ -84,18 +84,18 @@ public interface AObject extends EObject, org.eclipse.core.runtime.IAdaptable {
 	 *
 	 */
 	LocationReference getLocationReference();
-		
+
 	/**
 	 * Set  the '<em><b>location reference</b></em>' attribute.
 	 * @param fn File name
 	 * @param ln line number
 	 */
 	void setLocationReference(String fn, int ln);
-	
+
 	/**
 	 * Set  the '<em><b>location reference</b></em>' attribute.
 	 * @param lr Location Reference
 	 */
 	void setLocationReference(LocationReference lr);
-	
+
 } // AObject

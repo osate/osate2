@@ -62,7 +62,6 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -77,16 +76,13 @@ import com.google.inject.Inject;
 
 public class InstantiateHandler extends AbstractHandler {
 
-
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
-
 
 	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
 			.getDefault().getBundle());
 
-
-
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
@@ -94,27 +90,28 @@ public class InstantiateHandler extends AbstractHandler {
 		IWorkbenchPart part = page.getActivePart();
 		final ISelection selection;
 		IEditorPart activeEditor = page.getActiveEditor();
-		if (part instanceof AadlNavigator){
-			selection= page.getSelection();
-			if (selection instanceof TreeSelection){
-				for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
-					final Object f = (Object) iterator.next();
-					if (f instanceof IResource){
-						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		if (part instanceof AadlNavigator) {
+			selection = page.getSelection();
+			if (selection instanceof TreeSelection) {
+				for (Iterator iterator = ((TreeSelection) selection).iterator(); iterator.hasNext();) {
+					final Object f = iterator.next();
+					if (f instanceof IResource) {
+						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage().getEditorReferences();
 						for (int i = 0; i < editorRefs.length; i++) {
 							IEditorReference edref = editorRefs[i];
 							String pname = edref.getPartName();
 							IEditorPart edpart = edref.getEditor(true);
 							String fname = ((IResource) f).getName();
-							if ( pname.equals(fname)){
+							if (pname.equals(fname)) {
 								page.closeEditor(edpart, true);
 							}
 						}
 
-						Resource res = OsateResourceUtil.getResource((IResource)f);
+						Resource res = OsateResourceUtil.getResource((IResource) f);
 
 						try {
-							InstantiateModel.rebuildInstanceModelFile((IResource)f);//res);
+							InstantiateModel.rebuildInstanceModelFile((IResource) f);// res);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -122,119 +119,117 @@ public class InstantiateHandler extends AbstractHandler {
 					}
 				}
 			}
-		} else if (activeEditor != null){
-			XtextEditor xtextEditor = (activeEditor == null)?null:(XtextEditor) activeEditor.getAdapter(XtextEditor.class);
+		} else if (activeEditor != null) {
+			XtextEditor xtextEditor = (activeEditor == null) ? null : (XtextEditor) activeEditor
+					.getAdapter(XtextEditor.class);
 			if (part instanceof ContentOutline) {
 				selection = ((ContentOutline) part).getSelection();
 			} else {
-				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
+				selection = xtextEditor.getSelectionProvider().getSelection();
 			}
 			if (xtextEditor != null) {
 				// make sure the model has been saved
-				if (xtextEditor.isDirty())
+				if (xtextEditor.isDirty()) {
 					xtextEditor.doSave(new NullProgressMonitor());
+				}
 
-				xtextEditor.getDocument().readOnly(
-						new IUnitOfWork<EObject, XtextResource>() {
-							public EObject exec(XtextResource resource) throws Exception {
-								EObject targetElement = null;
-								if (selection instanceof IStructuredSelection) {
-									IStructuredSelection ss = (IStructuredSelection) selection;
-									Object eon = ss.getFirstElement();
-									if (eon instanceof EObjectNode) {
-										targetElement = ((EObjectNode)eon).getEObject(resource);
-									}
-								} else {
-									targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource,
-											((ITextSelection)selection).getOffset());
-								}
-
-								if (targetElement != null) {
-									if (targetElement instanceof Element){
-										ComponentImplementation cc = ((Element) targetElement).getContainingComponentImpl();
-										if (cc instanceof SystemImplementation){
-											SystemImplementation si = (SystemImplementation)cc;
-											System.out.println("instantiate " + si.getName());
-											try
-											{
-												SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
-												if (sinst == null)
-												{
-													String message;
-													message = "Error when instantiating the model";
-													if (InstantiateModel.getErrorMessage() != null)
-													{
-														message = message + " - reason: " + InstantiateModel.getErrorMessage() + "\nRefer to the help content and FAQ for more information";
-													}
-													Dialog.showError("Model Instantiate", message);
-												}
-											}
-											catch (UnsupportedOperationException uoe)
-											{
-												Dialog.showError("Model Instantiate", "Operation is not supported: " + uoe.getMessage());
-											}
-											catch (Exception other)
-											{
-												other.printStackTrace();
-												Dialog.showError("Model Instantiate", "Error when instantiating the model");
-											}
-
-										} 
-										else 
-										{
-											Dialog.showInfo("Model Instantiation","Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
-										}
-									} else {
-										Dialog.showInfo("Model Instantiation","Please select an AADL model element. You selected " + targetElement.eClass().getName()+" "+ targetElement.toString());
-									}
-									return null;
-								}
-								return null;
+				xtextEditor.getDocument().readOnly(new IUnitOfWork<EObject, XtextResource>() {
+					@Override
+					public EObject exec(XtextResource resource) throws Exception {
+						EObject targetElement = null;
+						if (selection instanceof IStructuredSelection) {
+							IStructuredSelection ss = (IStructuredSelection) selection;
+							Object eon = ss.getFirstElement();
+							if (eon instanceof EObjectNode) {
+								targetElement = ((EObjectNode) eon).getEObject(resource);
 							}
-						});
+						} else {
+							targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource,
+									((ITextSelection) selection).getOffset());
+						}
+
+						if (targetElement != null) {
+							if (targetElement instanceof Element) {
+								ComponentImplementation cc = ((Element) targetElement).getContainingComponentImpl();
+								if (cc instanceof SystemImplementation) {
+									SystemImplementation si = (SystemImplementation) cc;
+									System.out.println("instantiate " + si.getName());
+									try {
+										SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
+										if (sinst == null) {
+											String message;
+											message = "Error when instantiating the model";
+											if (InstantiateModel.getErrorMessage() != null) {
+												message = message + " - reason: " + InstantiateModel.getErrorMessage()
+														+ "\nRefer to the help content and FAQ for more information";
+											}
+											Dialog.showError("Model Instantiate", message);
+										}
+									} catch (UnsupportedOperationException uoe) {
+										Dialog.showError("Model Instantiate",
+												"Operation is not supported: " + uoe.getMessage());
+									} catch (Exception other) {
+										other.printStackTrace();
+										Dialog.showError("Model Instantiate", "Error when instantiating the model");
+									}
+
+								} else {
+									Dialog.showInfo("Model Instantiation",
+											"Must select a system implementation. Selected "
+													+ targetElement.eClass().getName() + " " + targetElement.toString());
+								}
+							} else {
+								Dialog.showInfo("Model Instantiation",
+										"Please select an AADL model element. You selected "
+												+ targetElement.eClass().getName() + " " + targetElement.toString());
+							}
+							return null;
+						}
+						return null;
+					}
+				});
 			}
 		}
 		return null;
 	}
 
-	//	@Override
-	//	public boolean isEnabled() {
-	//		IWorkbench wb = PlatformUI.getWorkbench();
-	//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-	//		IWorkbenchPage page = win.getActivePage();
-	//		IWorkbenchPart part = page.getActivePart();
-	//		IEditorPart activeEditor = page.getActiveEditor();
-	//		if (activeEditor == null)
-	//			return false;
-	//		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
-	//		final ISelection selection;
-	//		if (xtextEditor != null) {
-	//			if (part instanceof ContentOutline) {
-	//				selection = ((ContentOutline) part).getSelection();
-	//			} else {
-	//				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
-	//			}
-	//		}
-	//		Resource resource = xtextEditor.getResource();
-	//		Resource resource = xtextEditor.getEditorSite().g;
-	//		EObject targetElement = null;
-	//		if (selection instanceof IStructuredSelection) {
-	//			IStructuredSelection ss = (IStructuredSelection) selection;
-	//			Object eon = ss.getFirstElement();
-	//			if (eon instanceof EObjectNode) {
-	//				targetElement = ((EObjectNode)eon).getEObject(resource);
-	//			}
-	//		} else {
-	//			targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
-	//					((ITextSelection)selection).getOffset());
-	//		}
+	// @Override
+	// public boolean isEnabled() {
+	// IWorkbench wb = PlatformUI.getWorkbench();
+	// IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	// IWorkbenchPage page = win.getActivePage();
+	// IWorkbenchPart part = page.getActivePart();
+	// IEditorPart activeEditor = page.getActiveEditor();
+	// if (activeEditor == null)
+	// return false;
+	// XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
+	// final ISelection selection;
+	// if (xtextEditor != null) {
+	// if (part instanceof ContentOutline) {
+	// selection = ((ContentOutline) part).getSelection();
+	// } else {
+	// selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
+	// }
+	// }
+	// Resource resource = xtextEditor.getResource();
+	// Resource resource = xtextEditor.getEditorSite().g;
+	// EObject targetElement = null;
+	// if (selection instanceof IStructuredSelection) {
+	// IStructuredSelection ss = (IStructuredSelection) selection;
+	// Object eon = ss.getFirstElement();
+	// if (eon instanceof EObjectNode) {
+	// targetElement = ((EObjectNode)eon).getEObject(resource);
+	// }
+	// } else {
+	// targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
+	// ((ITextSelection)selection).getOffset());
+	// }
 	//
-	//		return  true;
-	//	}
+	// return true;
+	// }
 
 	/*
 	 * XXX buildInstanceModelFile has moved to InstantiateModel
 	 */
-
 
 }

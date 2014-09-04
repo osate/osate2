@@ -32,10 +32,10 @@
  * </copyright>
  */
 package org.osate.annexsupport;
+
 import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
-
 
 /**
  * @author lwrage

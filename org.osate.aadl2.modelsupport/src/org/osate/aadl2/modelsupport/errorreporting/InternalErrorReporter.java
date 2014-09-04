@@ -8,26 +8,26 @@ package org.osate.aadl2.modelsupport.errorreporting;
  * operation from completing normally. It is distinct from an error in the AADL
  * textfile or AADL object model that prevent the correct execution of the
  * analysis, etc. Of course, such an error might <em>cause</em> an internal
- * error, e.g., a {@link java.lang.NullPointerException} or 
+ * error, e.g., a {@link java.lang.NullPointerException} or
  * {@link java.lang.IndexOutOfBoundsException}.
- * 
+ *
  * @author aarong
  */
 public interface InternalErrorReporter {
 	/**
 	 * Report an error in the operation of the client task itself.
-	 * 
+	 *
 	 * @param message The error message.
 	 */
 	public void internalError(String message);
-	
+
 	/**
 	 * Report an error in the operation of the client task itself.
-	 * 
+	 *
 	 * @param e The exception that caused the error.
 	 */
 	public void internalError(Exception e);
-	
+
 	/**
 	 * Get the number of internal errors reported with this error manager
 	 * since it was created.  Currently there is no way to clear the count

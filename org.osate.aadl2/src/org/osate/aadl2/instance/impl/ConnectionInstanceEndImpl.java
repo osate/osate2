@@ -235,4 +235,4 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 		return super.eIsSet(featureID);
 	}
 
-} //ConnectionInstanceEndImpl
+} // ConnectionInstanceEndImpl

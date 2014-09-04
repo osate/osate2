@@ -93,13 +93,35 @@ three files:
 <ul>
 	<li>Each component in the diagram is mapped into an AADL system component</li>
 	<li>Simulink component connections is mapped using AADL event data port connections</li>
-	<li>AADL event data port connections are using a generic type.</li>
-	<li>In the <em>runtime.aadl</em> model, all systems are bound to the same processor</li>
+	<li>
+		AADL event data port connections are using a generic type.
+		The plugin also tries to see if the data is a boolean type. Otherwise,
+		it is mapped into a generic type.
+	</li>
+	<li>
+		In the <em>runtime.aadl</em> model, all systems are bound to
+		the same processor.
+	</li>
 	<li>State flow diagrams are translated into AADL behavior state machine
 		<ul>
-			<li>Inner state machines are embedded</li>
-			<li>Data shared across state machines are mapped using an AADL shared data component</li>
+			<li>
+				Inner state machines are embedded
+			</li>
+			<li>
+				Data shared across state machines are mapped using an
+				AADL shared data component.
+			</li>
+			<li>
+				The type of shared data is inferred from the Simulink model.
+				When possible, it tries to detect the use of boolean types.
+				Otherwise, it is mapped to a generic type.
+			</li>	
 		</ul>
+	</li>
+	<li>
+		When a Simulink model references a components from another file, it
+		does not resolve the reference. Instead, the user then needs to import
+		the referenced Simulink library as well.
 	</li>
 </ul>
 

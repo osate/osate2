@@ -312,7 +312,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_14_1(), "rule__DataImplementation__Alternatives_14_1");
 					put(grammarAccess.getSubprogramCallAccess().getAlternatives_4(), "rule__SubprogramCall__Alternatives_4");
 					put(grammarAccess.getPrototypeAccess().getAlternatives_0(), "rule__Prototype__Alternatives_0");
-					put(grammarAccess.getPrototypeAccess().getAlternatives_0_0_0(), "rule__Prototype__Alternatives_0_0_0");
+					put(grammarAccess.getComponentPrototypeAccess().getAlternatives(), "rule__ComponentPrototype__Alternatives");
 					put(grammarAccess.getAbstractPrototypeAccess().getAlternatives_0(), "rule__AbstractPrototype__Alternatives_0");
 					put(grammarAccess.getBusPrototypeAccess().getAlternatives_0(), "rule__BusPrototype__Alternatives_0");
 					put(grammarAccess.getDataPrototypeAccess().getAlternatives_0(), "rule__DataPrototype__Alternatives_0");
@@ -2471,6 +2471,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramAccessAssignment_5_1_6(), "rule__FeatureGroupType__OwnedSubprogramAccessAssignment_5_1_6");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedSubprogramGroupAccessAssignment_5_1_7(), "rule__FeatureGroupType__OwnedSubprogramGroupAccessAssignment_5_1_7");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedAbstractFeatureAssignment_5_1_8(), "rule__FeatureGroupType__OwnedAbstractFeatureAssignment_5_1_8");
+					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedParameterAssignment_5_1_9(), "rule__FeatureGroupType__OwnedParameterAssignment_5_1_9");
 					put(grammarAccess.getFeatureGroupTypeAccess().getInverseAssignment_6_2(), "rule__FeatureGroupType__InverseAssignment_6_2");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedPropertyAssociationAssignment_7_1_0(), "rule__FeatureGroupType__OwnedPropertyAssociationAssignment_7_1_0");
 					put(grammarAccess.getFeatureGroupTypeAccess().getNoPropertiesAssignment_7_1_1_0(), "rule__FeatureGroupType__NoPropertiesAssignment_7_1_1_0");
@@ -2483,8 +2484,11 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getProcessorFeatureAccess().getOwnedPropertyAssociationAssignment_2_1(), "rule__ProcessorFeature__OwnedPropertyAssociationAssignment_2_1");
 					put(grammarAccess.getEventSourceAccess().getNameAssignment_0(), "rule__EventSource__NameAssignment_0");
 					put(grammarAccess.getEventDataSourceAccess().getNameAssignment_0(), "rule__EventDataSource__NameAssignment_0");
+					put(grammarAccess.getEventDataSourceAccess().getDataClassifierAssignment_4(), "rule__EventDataSource__DataClassifierAssignment_4");
 					put(grammarAccess.getPortProxyAccess().getNameAssignment_0(), "rule__PortProxy__NameAssignment_0");
+					put(grammarAccess.getPortProxyAccess().getDataClassifierAssignment_3(), "rule__PortProxy__DataClassifierAssignment_3");
 					put(grammarAccess.getSubprogramProxyAccess().getNameAssignment_0(), "rule__SubprogramProxy__NameAssignment_0");
+					put(grammarAccess.getSubprogramProxyAccess().getSubprogramClassifierAssignment_3(), "rule__SubprogramProxy__SubprogramClassifierAssignment_3");
 					put(grammarAccess.getConnectedElementAccess().getContextAssignment_0_0(), "rule__ConnectedElement__ContextAssignment_0_0");
 					put(grammarAccess.getConnectedElementAccess().getConnectionEndAssignment_1(), "rule__ConnectedElement__ConnectionEndAssignment_1");
 					put(grammarAccess.getProcessorPortAccess().getConnectionEndAssignment_2(), "rule__ProcessorPort__ConnectionEndAssignment_2");

@@ -1133,10 +1133,7 @@ SubprogramCall returns aadl2::SubprogramCall:
 //******* Prototypes
 
 Prototype returns aadl2::Prototype:
-	((( AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
-		SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype | VirtualProcessorPrototype | 
-	SystemPrototype | DataPrototype
-	)
+	((ComponentPrototype
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	( array?='[' ']')?
 	) | FeatureGroupPrototype | FeaturePrototype)
@@ -1144,6 +1141,11 @@ Prototype returns aadl2::Prototype:
 	';'
 ;
 
+ComponentPrototype returns aadl2::ComponentPrototype:
+	AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+		SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype | VirtualProcessorPrototype | 
+	SystemPrototype | DataPrototype
+;
 
 AbstractPrototype returns aadl2::AbstractPrototype:
 	((name=ID ':' )|
@@ -1672,6 +1674,7 @@ FeatureGroupType returns aadl2::FeatureGroupType:
 	| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
+	| ownedParameter+=Parameter
 	)+ ) )?
 	('inverse' 'of' inverse=[aadl2::FeatureGroupType|QCREF])?
 	('properties'
@@ -1723,15 +1726,27 @@ EventSource returns aadl2::EventSource:
 ;
 
 EventDataSource returns aadl2::EventDataSource:
-	name = ID ':' 'event' 'data' ';'
+	name = ID ':' 'event' 'data'
+	(
+		dataClassifier = [aadl2::DataClassifier|QCREF]
+	)?
+	';'
 ;
 
 PortProxy returns aadl2::PortProxy:
-	name = ID ':' 'port' ';'
+	name = ID ':' 'port'
+	(
+		dataClassifier = [aadl2::DataClassifier|QCREF]
+	)?
+	';'
 ;
 
 SubprogramProxy returns aadl2::SubprogramProxy:
-	name = ID ':' 'subprogram' ';'
+	name = ID ':' 'subprogram'
+	(
+		subprogramClassifier = [aadl2::SubprogramClassifier|QCREF]
+	)?
+	';'
 ;
 
 // ********* connections 

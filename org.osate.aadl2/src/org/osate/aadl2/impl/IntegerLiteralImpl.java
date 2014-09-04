@@ -347,12 +347,12 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * @see org.osate.aadl2.NumberValue#getScaledValue()
 	 * DB: Moved to NumberValueOperations
 	 */
-	//	public final double getScaledValue() {
-	//		final long value = getValue();
-	//		final UnitLiteral unit = getUnit();
-	//		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
-	//		return value * factor;
-	//	}
+	// public final double getScaledValue() {
+	// final long value = getValue();
+	// final UnitLiteral unit = getUnit();
+	// final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
+	// return value * factor;
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -362,12 +362,12 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * .UnitLiteral)
 	 * DB: Moved to NumberValueOperations
 	 */
-	//	public double getScaledValue(UnitLiteral target) {
-	//		final long value = getValue();
-	//		final UnitLiteral unit = getUnit();
-	//		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor(target);
-	//		return value * factor;
-	//	}
+	// public double getScaledValue(UnitLiteral target) {
+	// final long value = getValue();
+	// final UnitLiteral unit = getUnit();
+	// final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor(target);
+	// return value * factor;
+	// }
 
 	@Override
 	public boolean equals(Object obj) {

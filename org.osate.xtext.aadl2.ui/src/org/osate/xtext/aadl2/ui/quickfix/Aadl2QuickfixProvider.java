@@ -35,19 +35,43 @@
 
 package org.osate.xtext.aadl2.ui.quickfix;
 
-import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.ui.editor.model.edit.IModification;
+import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
+import org.eclipse.xtext.ui.editor.quickfix.Fix;
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
+import org.eclipse.xtext.validation.Issue;
+import org.osate.aadl2.NamedElement;
+import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider;
+import org.osate.xtext.aadl2.validation.Aadl2JavaValidator;
 
-public class Aadl2QuickfixProvider extends DefaultQuickfixProvider {
-
-//	@Fix(MyJavaValidator.INVALID_NAME)
-//	public void capitalizeName(final Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, "Capitalize name", "Capitalize the name.", "upcase.png", new IModification() {
-//			public void apply(IModificationContext context) throws BadLocationException {
-//				IXtextDocument xtextDocument = context.getXtextDocument();
-//				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-//			}
-//		});
-//	}
-
+public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
+	/**
+	 * QuickFix for matching the defining and ending identifiers of classifiers, packages, and property sets.
+	 * The issue data array is expected to have three elements:
+	 *
+	 * issue.getData()[0]: The defining identifier of the classifier or model unit.
+	 * issue.getData()[1]: The ending identifier of the classifier or model unit.
+	 * issue.getData()[2]: The offset of the ending identifier within the Xtext document.
+	 */
+	@Fix(Aadl2JavaValidator.MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS)
+	public void fixMismatchedBeginningAndEndingIdentifiers(final Issue issue, IssueResolutionAcceptor acceptor) {
+		final String beginningName = issue.getData()[0];
+		final String endingName = issue.getData()[1];
+		final int endingIdentifierOffset = Integer.parseInt(issue.getData()[2]);
+		acceptor.accept(issue, "Change defining identifier to '" + endingName + "'", null, null,
+				new ISemanticModification() {
+					@Override
+					public void apply(EObject element, IModificationContext context) throws Exception {
+						((NamedElement) element).setName(endingName);
+					}
+				});
+		acceptor.accept(issue, "Change ending identifier to '" + beginningName + "'", null, null, new IModification() {
+			@Override
+			public void apply(IModificationContext context) throws Exception {
+				context.getXtextDocument().replace(endingIdentifierOffset, endingName.length(), beginningName);
+			}
+		});
+	}
 }

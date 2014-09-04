@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Device Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Device.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface DeviceSubcomponent extends Subcomponent, Device {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Device.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Device Subcomponent Type</em>' reference.
 	 * @see #setDeviceSubcomponentType(DeviceSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceSubcomponent_DeviceSubcomponentType()

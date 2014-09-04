@@ -37,8 +37,10 @@ package org.osate.xtext.aadl2.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
-import org.eclipse.xtext.ui.editor.autoedit.DefaultAutoEditStrategyProvider;
+import org.osate.xtext.aadl2.ui.editor.findrefs.Aadl2ReferenceFinder;
+import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
+import org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2RenameStrategy;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -47,15 +49,16 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Aadl2UiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+
 	@Override
 	public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
-	return Aadl2OutlinePage.class;
+		return Aadl2OutlinePage.class;
 	}
+
 	// will need to add the same class to aadl2 and have it be an extension of the properties one.
 	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
 		return org.osate.xtext.aadl2.properties.ui.linking.PropertiesLinkingDiagnosticMessageProvider.class;
 	}
-
 
 	public Class<? extends org.eclipse.xtext.parser.antlr.ISyntaxErrorMessageProvider> bindISyntaxErrorMessageProvider() {
 		return org.osate.xtext.aadl2.ui.syntax.Aadl2SyntaxErrorMessageProvider.class;
@@ -70,5 +73,31 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		return org.osate.xtext.aadl2.ui.editor.autoedit.Aadl2AutoEditStrategyPprovider.class;
 	}
 
+	@SuppressWarnings("restriction")
+	public Class<? extends org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder> bindIReferenceFinder() {
+		return Aadl2ReferenceFinder.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.ui.editor.occurrences.IOccurrenceComputer> bindIOccurrenceComputer() {
+		return Aadl2OccurrenceComputer.class;
+	}
+
+	@SuppressWarnings("restriction")
+	@Override
+	public Class<? extends org.eclipse.xtext.ui.refactoring.IRenameStrategy> bindIRenameStrategy() {
+		return Aadl2RenameStrategy.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper> bindHyperlinkHelper() {
+		return org.osate.xtext.aadl2.util.Aadl2HyperlinkHelper.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.AbstractWordAwareDoubleClickStrategy> bindLexerTokenAndCharacterPairAwareStrategy() {
+		return org.osate.xtext.aadl2.parsing.Aadl2TokenStrategy.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.DoubleClickStrategyProvider> bindDoubleClickStrategyProvider() {
+		return org.osate.xtext.aadl2.parsing.Aadl2DoubleClickStrategyProvider.class;
+	}
 
 }
