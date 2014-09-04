@@ -167,7 +167,6 @@ public class LatencyReportEntry {
 					reportMinSubtotal(lc, res);
 					lc.reportInfo("Min: Sync added " + diff + "ms");
 				} else {
-					res = res + lc.getSamplingPeriod();
 					reportMinSubtotal(lc, res);
 				}
 				lastSampled = lc;
@@ -554,12 +553,12 @@ public class LatencyReportEntry {
 		if (expectedMinLatency > 0) {
 			if (expectedMinLatency < minSpecifiedValue) {
 				reportSummaryWarning("Sum of minimum specified latencies (" + minSpecifiedValue
-						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
+						+ " ms) is greater than minimum end to end latency (" + expectedMinLatency + "ms)");
 			}
 
 			if (expectedMinLatency < minValue) {
 				reportSummaryError("Sum of minimum actual latencies (" + minValue
-						+ " ms) is less than minimum end to end latency (" + expectedMinLatency + "ms)");
+						+ " ms) is greater than minimum end to end latency (" + expectedMinLatency + "ms)");
 			}
 		} else {
 			reportSummaryWarning("Minimum end to end latency is not pecified or zero");

@@ -30,7 +30,8 @@ public abstract class LatencyContributor {
 	// Sampling latency contributions when recipient operates periodically
 	// Sampled: sampling latency of period by periodic recipient or transfer mechanism
 	// Delayed: frame-delay latency due to incoming delayed connection
-	// Immediate: incoming immediate connection and outgoing immediate connection (acts like an aperiodic event/msg driven task).
+	// Immediate: incoming immediate connection and outgoing immediate connection (acts like an aperiodic event/msg
+// driven task).
 	// Last_Immediate: last of incoming immediate connection: Its deadline determines the deadline of the sequence.
 	// Queued: latency contribution due to queuing on bus or on recipient queuing ports
 	// Partition frame: Major frame rate of partition
@@ -389,7 +390,7 @@ public abstract class LatencyContributor {
 		}
 		if (this.getSamplingPeriod() > 0.0
 				&& !this.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
-			myLine.addContent(this.getSamplingPeriod() + "ms");
+			myLine.addContent("0 ms");
 		} else {
 			myLine.addContent(this.getLocalMinimum() + "ms");
 		}
