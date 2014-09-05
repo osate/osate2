@@ -8,10 +8,13 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
+import java.util.List;
+
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.services.PrototypeService;
@@ -64,5 +67,17 @@ public class DefaultSubcomponentService implements SubcomponentService {
 		} while(sc != null && scType == null);
 		
 		return scType;		
+	}
+	
+	public List<ComponentImplementationReference> getArrayComponentImplementationReferences(final Subcomponent sc) {
+		Subcomponent tmpSc = sc;
+		List<ComponentImplementationReference> refs;
+		
+		do {
+			refs = tmpSc.getImplementationReferences();
+			tmpSc = tmpSc.getRefined();
+		} while(tmpSc != null && refs.size() == 0);
+		
+		return refs;
 	}
 }

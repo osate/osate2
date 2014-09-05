@@ -44,22 +44,16 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ArrayDimension;
-import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
+import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
@@ -78,7 +72,6 @@ import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.util.SimplifiedDimensionSize;
 import org.osate.ge.util.StringUtil;
 
 public class SubcomponentPattern extends AgePattern {
@@ -99,6 +92,7 @@ public class SubcomponentPattern extends AgePattern {
 	private final ShapeService shapeService;
 	private final RefactoringService refactoringService;
 	private final PropertyService propertyService;
+	private final AadlArrayService arrayService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType;
 
@@ -133,7 +127,7 @@ public class SubcomponentPattern extends AgePattern {
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final HighlightingService highlightingHelper, final AadlModificationService aadlModService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final ShapeService shapeService, 
-			final RefactoringService refactoringService, final PropertyService propertyService,
+			final RefactoringService refactoringService, final PropertyService propertyService, final AadlArrayService arrayService,
 			final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -151,6 +145,7 @@ public class SubcomponentPattern extends AgePattern {
 		this.shapeService = shapeService;
 		this.refactoringService = refactoringService;
 		this.propertyService = propertyService;
+		this.arrayService = arrayService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -292,11 +287,12 @@ public class SubcomponentPattern extends AgePattern {
         
 		// Create Subcomponent Type Indicator
         final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
+        propertyService.setIsManuallyPositioned(subcomponentTypeIndicatorShape, true);
         final String subcomponentTypeName = getTypeText(sc);
         final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
         final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
         final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont(), true);
-
+        
 		// Adjust size. Width and height
 		final IGaService gaService = Graphiti.getGaService();
 		GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
@@ -304,7 +300,7 @@ public class SubcomponentPattern extends AgePattern {
 		// Calculate max width and height
 		int maxWidth = Math.max(minWidth, 150);
 		int maxHeight = Math.max(minHeight, 50);
-		final int extraWidth = 30;
+		final int extraWidth = 50;
 		final int extraHeight = 30;
 		maxWidth = Math.max(maxWidth, Math.max(textSize.getWidth(), subcomponentTypeTextSize.getWidth()) + extraWidth);
 		for(final Shape childShape : visibilityHelper.getNonGhostChildren(shape)) {
@@ -341,7 +337,7 @@ public class SubcomponentPattern extends AgePattern {
 	
 	private String getLabelText(final Subcomponent sc) {
 		// TODO: Will need to handle differently depending on whether the shape is for a subcomponent array or a subcomponent array element
-		return getSubcomponentName(sc) + SimplifiedDimensionSize.toUserString(sc.getArrayDimensions());
+		return getSubcomponentName(sc) + arrayService.getDimensionUserString(sc);
 	}
 	
 	private String getTypeText(final Subcomponent sc) {
@@ -353,6 +349,30 @@ public class SubcomponentPattern extends AgePattern {
 			retVal += scType.getQualifiedName();
 		}
 
+		// TODO: Show types of all subcomponents if collapsed?
+		// Add text for each of the implementation references (for arrays)
+		final List<ComponentImplementationReference> implRefs = subcomponentService.getArrayComponentImplementationReferences(sc);
+		if(implRefs.size() != 0) {
+			retVal += "\n(";			
+			for(int i = 0; i < implRefs.size(); i++) {
+				final ComponentImplementationReference ref = implRefs.get(i);
+				if(ref.getImplementation() != null) {
+					if(ref.getImplementation().eIsProxy()) {
+						retVal += "<unresolved>";
+					} else {
+						retVal += ref.getImplementation().getQualifiedName();
+					}
+				}
+				
+				if(i == (implRefs.size() - 1)) {
+					retVal += ")";
+				} else {
+					retVal += ",\n";					
+				}
+				
+			}
+		}
+		
 		return retVal;
 	}
 

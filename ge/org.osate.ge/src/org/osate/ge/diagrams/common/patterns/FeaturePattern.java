@@ -48,7 +48,6 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -77,6 +76,7 @@ import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
@@ -95,7 +95,6 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.util.SimplifiedDimensionSize;
 import org.osate.ge.util.StringUtil;
 
 /**
@@ -133,6 +132,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final ShapeCreationService shapeCreationService;
 	private final HighlightingService highlightingService;
 	private final RefactoringService refactoringService;
+	private final AadlArrayService arrayService;
 	private final EClass featureType;
 	
 	/**
@@ -173,7 +173,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
-			final HighlightingService highlightingService, final RefactoringService refactoringService, final @Named("Feature Type") EClass featureType) {
+			final HighlightingService highlightingService, final RefactoringService refactoringService, final AadlArrayService arrayService,
+			final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -192,6 +193,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.shapeCreationService = shapeCreationService;
 		this.highlightingService = highlightingService;
 		this.refactoringService = refactoringService;
+		this.arrayService = arrayService;
 		this.featureType = featureType;
 	}
 
@@ -637,7 +639,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		String retVal = getFeatureName(feature);
 		
 		if(feature instanceof ArrayableElement) {
-			retVal += SimplifiedDimensionSize.toUserString(((ArrayableElement) feature).getArrayDimensions());
+			retVal += arrayService.getDimensionUserString((ArrayableElement) feature);
 		}
 
 		return retVal;

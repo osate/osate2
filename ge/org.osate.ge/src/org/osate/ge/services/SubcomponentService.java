@@ -8,9 +8,12 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
+import java.util.List;
+
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 
@@ -39,4 +42,8 @@ public interface SubcomponentService {
 	 * @return
 	 */
 	SubcomponentType getAllSubcomponentType(Subcomponent sc);
+
+	// Checks the subcomponent and then refined subcomponents and returns the first non-empty list of component implementation references.
+	// Returns an empty list if they are all empty.
+	List<ComponentImplementationReference> getArrayComponentImplementationReferences(Subcomponent sc);
 }

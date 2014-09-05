@@ -67,6 +67,7 @@ import org.osate.ge.diagrams.common.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
+import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
@@ -91,6 +92,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.impl.DefaultAadlArrayService;
 import org.osate.ge.services.impl.DefaultAadlFeatureService;
 import org.osate.ge.services.impl.DefaultAadlModificationService;
 import org.osate.ge.services.impl.DefaultAnchorService;
@@ -133,6 +135,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
+		final DefaultAadlArrayService arrayService = new DefaultAadlArrayService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil, bor, this);
 		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);
@@ -155,7 +158,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, this);
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
 		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, styleUtil, bor, this);		
-		
+
 		// Create the eclipse context
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
@@ -164,6 +167,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(IFeatureProvider.class, this);
 		context.set(SerializableReferenceService.class, serializableReferenceService);
 		context.set(BusinessObjectResolutionService.class, bor);
+		context.set(AadlArrayService.class, arrayService);
 		context.set(DiagramService.class, diagramService);
 		context.set(DiagramModificationService.class, diagramModificationService);
 		context.set(StyleProviderService.class, styleProviderService);
