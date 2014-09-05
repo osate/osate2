@@ -727,13 +727,13 @@ public class AadlBaUtils {
    *  Notes: <BR><BR>
    *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
    *                                 to see the restrictions.
-   *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
-   *  the others value constants return {@code null}.
+   *  <BR>_ ValueConstant : Property constant and property reference are not supported:
+   *  returns {@code null}.
    *  <BR><BR>
    * 
    * @param v the given Value object
    * @return the binded component's DataClassifier object or {@code null} for
-   * the ValueConstant objects (excepted BehaviorEnumerationLiteral object)
+   * the ValueConstant objects
    * @exception UnsupportedOperationException for unsupported binded 
    * object types.
    */
@@ -833,16 +833,15 @@ public class AadlBaUtils {
    *  Notes: <BR><BR>
    *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
    *                                 to see the restrictions.
-   *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
-   *  the others value constants return {@code null}.
+   *  <BR>_ ValueConstant : Property constant and property reference are not supported:
+   *  returns {@code null}.
    *  <BR><BR>
    * 
    * @param v the given Value object
    * @param parentContainer only for AADLBA declarative objects which have no
    * parent set, yet
    * @return the binded component's DataClassifier object or {@code null} for
-   * the ValueConstant objects (excepted BehaviorEnumerationLiteral object) and
-   * for the Abstract components objects.
+   * the ValueConstant objects and for the Abstract components objects.
    * @exception UnsupportedOperationException for unsupported binded 
    * object types.
    */
