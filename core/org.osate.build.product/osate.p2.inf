@@ -5,5 +5,5 @@ instructions.configure=\
   addRepository(type:1,name:Luna,enabled:true,location:http${#58}//download.eclipse.org/releases/luna);\
   addRepository(type:0,name:Subclipse,enabled:true,location:http${#58}//subclipse.tigris.org/update_1.8.x);\
   addRepository(type:1,name:Subclipse,enabled:true,location:http${#58}//subclipse.tigris.org/update_1.8.x);\
-  addRepository(type:0,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/4.3);\
-  addRepository(type:1,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/4.3);
+  addRepository(type:0,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/4.4);\
+  addRepository(type:1,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/4.4);
