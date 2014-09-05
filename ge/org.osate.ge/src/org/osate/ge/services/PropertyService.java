@@ -43,6 +43,15 @@ public interface PropertyService {
 	boolean isLayedOut(PictogramElement pe);
 
 	void setIsLayedOut(PictogramElement pe, boolean value);
+	
+	/**
+	 * Being manually positioned indicates the the pictogram shape should never be moved by any automatic diagram layout algorithms. An example of such a pictogram is 
+	 * a subcomponent label shape.
+	 * @param pe
+	 * @return
+	 */
+	boolean isManuallyPositioned(PictogramElement pe);	
+	void setIsManuallyPositioned(PictogramElement pe, boolean value);
 
 	boolean isGhost(PictogramElement pe);
 

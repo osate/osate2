@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.antlr.runtime.tree.TreeFilter.fptr;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -194,7 +195,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	
 	private boolean shouldIgnoreShape(final Shape shape, final boolean relayoutShapes) {
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
-		return bo == null || bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature || (propertyUtil.isLayedOut(shape) && !relayoutShapes);
+		return bo == null || bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature || propertyUtil.isManuallyPositioned(shape) || (propertyUtil.isLayedOut(shape) && !relayoutShapes);
 	}
 	/**
 	 * Gets the layout entity that is the closest match to the specified anchor

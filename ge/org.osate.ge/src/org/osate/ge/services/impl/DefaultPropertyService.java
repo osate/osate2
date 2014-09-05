@@ -22,6 +22,7 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
 	private static final String SELECTED_FLOW_KEY = "selected_flow"; // The name of the flow the user has selected in the UI
 	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm
+	private static final String IS_MANUALLY_POSITIONED_KEY = "is_manually_positioned"; // Whether the shape should be ignored by the automatic layout algorithm
 	private static final String IS_GHOST_KEY = "is_ghost"; // Whether the pictogram element is a ghost. A ghost is an element that has been hidden because the corresponding business object is no longer valid.
 	
 	/* (non-Javadoc)
@@ -123,6 +124,16 @@ public class DefaultPropertyService implements PropertyService {
 	public final void setIsLayedOut(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_LAYED_OUT_KEY, value ? "true" : "false");
 	}
+	
+	@Override
+	public boolean isManuallyPositioned(PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_MANUALLY_POSITIONED_KEY));
+	}
+	
+	@Override
+	public void setIsManuallyPositioned(PictogramElement pe, boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_MANUALLY_POSITIONED_KEY, value ? "true" : "false");
+	}	
 	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.PropertyService#isGhost(org.eclipse.graphiti.mm.pictograms.PictogramElement)

@@ -306,7 +306,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		featureGa.setX(isLeftLayout ? 0 : shapeGa.getWidth()-featureGa.getWidth());
 		
 		// Position the label shape
-		final Shape labelShape = getLabelShape(shape);		
+		final Shape labelShape = getLabelShape(shape);
 		if(labelShape != null) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
 			labelGa.setX(isLeftLayout ? labelPadding : shapeGa.getWidth()-labelGa.getWidth()-labelPadding);
@@ -390,6 +390,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
+        propertyUtil.setIsManuallyPositioned(labelShape, true);
         this.link(labelShape, new AadlElementWrapper(feature));
         propertyUtil.setName(labelShape, labelShapeName);
         

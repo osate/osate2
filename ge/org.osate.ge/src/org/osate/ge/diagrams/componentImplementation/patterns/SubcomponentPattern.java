@@ -61,6 +61,7 @@ import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
@@ -87,6 +88,7 @@ public class SubcomponentPattern extends AgePattern {
 	private final UserInputService userInputService;
 	private final ShapeService shapeService;
 	private final RefactoringService refactoringService;
+	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType;
 
@@ -121,7 +123,8 @@ public class SubcomponentPattern extends AgePattern {
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final HighlightingService highlightingHelper, final AadlModificationService aadlModService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final ShapeService shapeService, 
-			final RefactoringService refactoringService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
+			final RefactoringService refactoringService, final PropertyService propertyService,
+			final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = resizeHelper;
@@ -137,6 +140,7 @@ public class SubcomponentPattern extends AgePattern {
 		this.userInputService = userInputService;
 		this.shapeService = shapeService;
 		this.refactoringService = refactoringService;
+		this.propertyService = propertyService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -269,7 +273,8 @@ public class SubcomponentPattern extends AgePattern {
 		
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
-        this.link(labelShape, new AadlElementWrapper(sc));
+        propertyService.setIsManuallyPositioned(labelShape, true);
+        link(labelShape, new AadlElementWrapper(sc));
         final String name = getLabelText(sc);
         final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
         final Text labelText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, name);
@@ -309,7 +314,7 @@ public class SubcomponentPattern extends AgePattern {
 		
 		// Set the position of the text
 		gaService.setLocationAndSize(labelText, 0, 0, textSize.getWidth(), textSize.getHeight());
-		gaService.setLocationAndSize(labelBackground, (ga.getWidth() - textSize.getWidth()) / 2, 0, textSize.getWidth(), textSize.getHeight());
+		gaService.setLocationAndSize(labelBackground, (ga.getWidth() - textSize.getWidth()) / 2, 2, textSize.getWidth(), textSize.getHeight());
 		gaService.setLocationAndSize(subcomponentTypeText, 0, 0, subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
 		gaService.setLocationAndSize(subcomponentTypeLabelBackground, (ga.getWidth() - subcomponentTypeTextSize.getWidth()) / 2, labelText.getY()+textSize.getHeight(), subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
 		

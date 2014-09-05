@@ -232,6 +232,7 @@ public class ModePattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(innerModeShape, true);
+        propertyService.setIsManuallyPositioned(labelShape, true);
         link(labelShape, new AadlElementWrapper(mode));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         

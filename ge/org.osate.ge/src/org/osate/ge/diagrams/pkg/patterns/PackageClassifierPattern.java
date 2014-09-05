@@ -135,6 +135,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
+        propertyUtil.setIsManuallyPositioned(labelShape, true);
         this.link(labelShape, new AadlElementWrapper(classifier));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
