@@ -9,4 +9,13 @@ public class Constants {
 	public enum PartitioningPolicy {
 		IMMEDIATE, DELAYED
 	};
+
+	public static String REPORT_SUBTOTALS = "org.osate.analysis.flows.report_subtotals";
+
+	public static String REPORT_SUBTOTALS_YES = "yes";
+	public static String REPORT_SUBTOTALS_NO = "no";
+
+	public enum ReportSubtotals {
+		YES, NO
+	};
 }

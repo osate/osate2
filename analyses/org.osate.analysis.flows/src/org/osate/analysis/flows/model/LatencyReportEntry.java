@@ -8,6 +8,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
+import org.osate.analysis.flows.preferences.Constants.ReportSubtotals;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
@@ -470,6 +471,10 @@ public class LatencyReportEntry {
 				|| lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.LAST_IMMEDIATE);
 	}
 
+	public boolean doReportSubtotals() {
+		return org.osate.analysis.flows.preferences.Values.getReportSubtotals() == ReportSubtotals.YES;
+	}
+
 	public Section export() {
 
 		Section section;
@@ -504,9 +509,15 @@ public class LatencyReportEntry {
 		line.addHeaderContent("Contributor");
 		line.addHeaderContent("Min Specified");
 		line.addHeaderContent("Min Value");
+		if (doReportSubtotals()) {
+			line.addHeaderContent("Min Subtotals");
+		}
 		line.addHeaderContent("Min Method");
 		line.addHeaderContent("Max Specified");
 		line.addHeaderContent("Max Value");
+		if (doReportSubtotals()) {
+			line.addHeaderContent("Max Subtotals");
+		}
 		line.addHeaderContent("Max Method");
 		line.addHeaderContent("Comments");
 		section.addLine(line);
@@ -530,9 +541,15 @@ public class LatencyReportEntry {
 		line.addContent("Latency Total");
 		line.addContent(minSpecifiedValue + "ms");
 		line.addContent(minValue + "ms");
+		if (doReportSubtotals()) {
+			line.addHeaderContent("");
+		}
 		line.addContent("");
 		line.addContent(maxSpecifiedValue + "ms");
 		line.addContent(maxValue + "ms");
+		if (doReportSubtotals()) {
+			line.addHeaderContent("");
+		}
 		line.addContent("");
 		section.addLine(line);
 

@@ -13,6 +13,7 @@ public class Initializer extends AbstractPreferenceInitializer {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 
 		store.setDefault(Constants.PARTITONING_POLICY, Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
+		store.setDefault(Constants.REPORT_SUBTOTALS, Constants.REPORT_SUBTOTALS_NO);
 
 	}
 

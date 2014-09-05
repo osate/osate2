@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.NamedElement;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
+import org.osate.analysis.flows.preferences.Constants.ReportSubtotals;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
@@ -373,6 +374,16 @@ public abstract class LatencyContributor {
 
 	}
 
+	/**
+	 * If the sender is on a partitioned architecture, then, we might need to add
+	 * We do that only if the preferences selected an major frame delayed flush policy.
+	 */
+//	if (org.osate.analysis.flows.preferences.Values.getPartitioningPolicy() == PartitioningPolicy.DELAYED) {
+
+	public boolean doReportSubtotals() {
+		return org.osate.analysis.flows.preferences.Values.getReportSubtotals() == ReportSubtotals.YES;
+	}
+
 	public List<Line> export() {
 		List<Line> lines;
 		Line myLine;
@@ -394,6 +405,9 @@ public abstract class LatencyContributor {
 		} else {
 			myLine.addContent(this.getLocalMinimum() + "ms");
 		}
+		if (doReportSubtotals()) {
+			myLine.addContent(this.minSubtotal + "ms");
+		}
 		myLine.addContent(mapMethodToString(bestCaseMethod));
 		if (this.expectedMax != 0.0) {
 			myLine.addContent(this.expectedMax + "ms");
@@ -405,6 +419,9 @@ public abstract class LatencyContributor {
 			myLine.addContent(this.getSamplingPeriod() + "ms");
 		} else {
 			myLine.addContent(this.getLocalMaximum() + "ms");
+		}
+		if (doReportSubtotals()) {
+			myLine.addContent(this.minSubtotal + "ms");
 		}
 		myLine.addContent(mapMethodToString(worstCaseMethod));
 		myLine.addCells(this.getReportedIssues());
