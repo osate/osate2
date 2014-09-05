@@ -77,6 +77,7 @@ import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.ui.util.SimplifiedDimensionSize;
 import org.osate.ge.util.StringUtil;
 
 public class SubcomponentPattern extends AgePattern {
@@ -290,8 +291,7 @@ public class SubcomponentPattern extends AgePattern {
         
 		// Create Subcomponent Type Indicator
         final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
-        final SubcomponentType scType = subcomponentService.getAllSubcomponentType(sc);
-        final String subcomponentTypeName = scType == null ? "" : scType.getQualifiedName();
+        final String subcomponentTypeName = getTypeText(sc);
         final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
         final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
         final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont());
@@ -335,60 +335,27 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	private String getLabelText(final Subcomponent sc) {
-		String labelTxt = "";
+		// TODO: Will need to handle differently depending on whether the shape is for a subcomponent array or a subcomponent array element
+		String retVal = "";
 		if(sc.getName() != null) {
-			labelTxt += sc.getName();
+			retVal += sc.getName();
 		}
+
+		retVal += SimplifiedDimensionSize.toUserString(sc.getArrayDimensions());
 		
-		for(final ArrayDimension dim : sc.getArrayDimensions()) {
-			final SimplifiedDimensionSize size = new SimplifiedDimensionSize(dim);
-			labelTxt += "[" + size.getSizeString() + "]";
-		}
-		return labelTxt;
+		return retVal;
 	}
 	
-	class SimplifiedDimensionSize {
-		private Long dimSize = null;
-		private String dimSizeString;
-		
-		public SimplifiedDimensionSize(final ArrayDimension dim) {
-			final ArraySize size = dim.getSize();
-			
-			if(size == null) {
-				dimSizeString = "";
-			} else {
-				final ArraySizeProperty sizeProp = size.getSizeProperty();
-				if(sizeProp == null) {
-					dimSize = size.getSize();
-				} else {
-					if(sizeProp instanceof PropertyConstant) {
-						final PropertyExpression pe = ((PropertyConstant) sizeProp).getConstantValue();
-						if(pe instanceof IntegerLiteral) {
-							dimSize = ((IntegerLiteral) pe).getValue();
-						} else {
-							dimSizeString = ((PropertyConstant) sizeProp).getQualifiedName();
-						}
-					} else if(sizeProp instanceof Property) {
-						dimSizeString = ((Property) sizeProp).getQualifiedName();
-					} else {
-						dimSizeString = "?";
-					}
-				}				
-			}
-						
-			// Store a string version of the long
-			if(dimSize != null) {
-				dimSizeString = Long.toString(dimSize);
-			}
+	private String getTypeText(final Subcomponent sc) {
+		// TODO: Will need to handle differently depending on whether the shape is for a subcomponent array or a subcomponent array element
+		String retVal = "";
+        final SubcomponentType scType = subcomponentService.getAllSubcomponentType(sc);
+        
+		if(scType != null) {
+			retVal += scType.getQualifiedName();
 		}
 		
-		public final Long getSize() {
-			return dimSize;
-		}
-		
-		public final String getSizeString() {
-			return dimSizeString;
-		}
+		return retVal;
 	}
 
 	@Override

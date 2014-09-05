@@ -48,6 +48,8 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -93,6 +95,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.ui.util.SimplifiedDimensionSize;
 import org.osate.ge.util.StringUtil;
 
 /**
@@ -406,8 +409,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
         final Shape labelShape = peCreateService.createShape(shape, false);
         propertyUtil.setIsManuallyPositioned(labelShape, true);
         this.link(labelShape, new AadlElementWrapper(feature));
-        propertyUtil.setName(labelShape, labelShapeName);
-        
+        propertyUtil.setName(labelShape, labelShapeName);        
 		
 		final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
         final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, labelTxt);
@@ -628,7 +630,17 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	public final String getLabelText(final NamedElement feature) {
-		return feature.getName();
+		String retVal = "";
+		
+		if(feature.getName() != null) {
+			retVal += feature.getName();		
+		}
+		
+		if(feature instanceof ArrayableElement) {
+			retVal += SimplifiedDimensionSize.toUserString(((ArrayableElement) feature).getArrayDimensions());
+		}
+
+		return retVal;
 	}
 		
 	@Override
