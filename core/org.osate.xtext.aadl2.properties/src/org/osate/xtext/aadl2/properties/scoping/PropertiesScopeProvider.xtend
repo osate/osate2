@@ -132,9 +132,8 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 			propertyType = context.getContainerOfType(typeof(PropertyAssociation))?.property?.propertyType
 		}
 		propertyType = propertyType.basePropertyType
-		switch (propertyType) {
-			EnumerationType:
-				scope = propertyType.ownedLiterals.scopeFor(scope)
+		if (propertyType instanceof EnumerationType) {
+			scope = propertyType.ownedLiterals.scopeFor(scope)
 		}
 		scope
 	}
@@ -162,11 +161,11 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				propertyType = parent.propertyType
 		}
 		propertyType = propertyType.basePropertyType
-		switch (propertyType) {
-			RecordType:
-				return propertyType.ownedFields.scopeFor
+		if (propertyType instanceof RecordType) {
+			propertyType.ownedFields.scopeFor
+		} else {
+			IScope::NULLSCOPE
 		}
-		IScope::NULLSCOPE
 	}
 	
 	//Reference is from ContainmentPathElement and QualifiedContainmentPathElement in Properties.xtext

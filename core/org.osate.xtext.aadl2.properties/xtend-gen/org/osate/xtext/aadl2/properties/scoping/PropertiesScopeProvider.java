@@ -318,14 +318,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
       }
       PropertyType _basePropertyType = AadlUtil.getBasePropertyType(propertyType);
       propertyType = _basePropertyType;
-      boolean _matched = false;
-      if (!_matched) {
-        if (propertyType instanceof EnumerationType) {
-          _matched=true;
-          EList<EnumerationLiteral> _ownedLiterals = ((EnumerationType)propertyType).getOwnedLiterals();
-          IScope _scopeFor = Scopes.scopeFor(_ownedLiterals, scope);
-          scope = _scopeFor;
-        }
+      if ((propertyType instanceof EnumerationType)) {
+        EList<EnumerationLiteral> _ownedLiterals = ((EnumerationType)propertyType).getOwnedLiterals();
+        IScope _scopeFor = Scopes.scopeFor(_ownedLiterals, scope);
+        scope = _scopeFor;
       }
       _xblockexpression = scope;
     }
@@ -412,15 +408,14 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
       }
       PropertyType _basePropertyType = AadlUtil.getBasePropertyType(propertyType);
       propertyType = _basePropertyType;
-      boolean _matched_2 = false;
-      if (!_matched_2) {
-        if (propertyType instanceof RecordType) {
-          _matched_2=true;
-          EList<BasicProperty> _ownedFields = ((RecordType)propertyType).getOwnedFields();
-          return Scopes.scopeFor(_ownedFields);
-        }
+      IScope _xifexpression = null;
+      if ((propertyType instanceof RecordType)) {
+        EList<BasicProperty> _ownedFields = ((RecordType)propertyType).getOwnedFields();
+        _xifexpression = Scopes.scopeFor(_ownedFields);
+      } else {
+        _xifexpression = IScope.NULLSCOPE;
       }
-      _xblockexpression = IScope.NULLSCOPE;
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
