@@ -15,7 +15,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.antlr.runtime.tree.TreeFilter.fptr;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
