@@ -61,6 +61,11 @@ public class AadlBaParserAction implements AnnexParser
                                    ParseErrorReporter errReporter)
                                    throws antlr.RecognitionException
    {
+      if(false == ANNEX_NAME.equalsIgnoreCase(annexName))
+      {
+        return null ;
+      }
+     
       CharStream cs = new CaseInsensitiveCharStream(source) ;
       
       // AnnexOffset is the offset of the first token found in String source
