@@ -49,6 +49,7 @@ import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
@@ -294,8 +295,8 @@ public class SubcomponentPattern extends AgePattern {
         final String subcomponentTypeName = getTypeText(sc);
         final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
         final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
-        final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont());
-        
+        final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont(), true);
+
 		// Adjust size. Width and height
 		final IGaService gaService = Graphiti.getGaService();
 		GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
@@ -334,16 +335,13 @@ public class SubcomponentPattern extends AgePattern {
 		anchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}
 	
+	private String getSubcomponentName(final Subcomponent sc) {
+		return sc.getName() == null ? "" : sc.getName();
+	}
+	
 	private String getLabelText(final Subcomponent sc) {
 		// TODO: Will need to handle differently depending on whether the shape is for a subcomponent array or a subcomponent array element
-		String retVal = "";
-		if(sc.getName() != null) {
-			retVal += sc.getName();
-		}
-
-		retVal += SimplifiedDimensionSize.toUserString(sc.getArrayDimensions());
-		
-		return retVal;
+		return getSubcomponentName(sc) + SimplifiedDimensionSize.toUserString(sc.getArrayDimensions());
 	}
 	
 	private String getTypeText(final Subcomponent sc) {
@@ -354,7 +352,7 @@ public class SubcomponentPattern extends AgePattern {
 		if(scType != null) {
 			retVal += scType.getQualifiedName();
 		}
-		
+
 		return retVal;
 	}
 
@@ -481,7 +479,7 @@ public class SubcomponentPattern extends AgePattern {
     
     public String getInitialValue(final IDirectEditingContext context) {
     	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-    	return this.getLabelText(sc);
+    	return getSubcomponentName(sc);
     }
     
     public void setValue(final String value, final IDirectEditingContext context) {

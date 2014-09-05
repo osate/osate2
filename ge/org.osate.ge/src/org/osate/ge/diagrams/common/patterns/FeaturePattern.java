@@ -629,12 +629,12 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		return "";
 	}
 	
-	public final String getLabelText(final NamedElement feature) {
-		String retVal = "";
-		
-		if(feature.getName() != null) {
-			retVal += feature.getName();		
-		}
+	private final String getFeatureName(final NamedElement feature) {
+		return feature.getName() == null ? "" : feature.getName(); 
+	}
+	
+	private final String getLabelText(final NamedElement feature) {
+		String retVal = getFeatureName(feature);
 		
 		if(feature instanceof ArrayableElement) {
 			retVal += SimplifiedDimensionSize.toUserString(((ArrayableElement) feature).getArrayDimensions());
@@ -862,7 +862,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
     
     public String getInitialValue(final IDirectEditingContext context) {
     	final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-    	return this.getLabelText(feature);
+    	return getFeatureName(feature);
     }
     
     @Override
