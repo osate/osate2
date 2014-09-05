@@ -49,6 +49,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.services.AadlFeatureService;
@@ -282,7 +283,8 @@ public class SubcomponentPattern extends AgePattern {
         
 		// Create Subcomponent Type Indicator
         final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
-        final String subcomponentTypeName = sc.getSubcomponentType() == null ? "" : sc.getSubcomponentType().getQualifiedName();
+        final SubcomponentType scType = subcomponentService.getAllSubcomponentType(sc);
+        final String subcomponentTypeName = scType == null ? "" : scType.getQualifiedName();
         final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
         final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
         final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont());

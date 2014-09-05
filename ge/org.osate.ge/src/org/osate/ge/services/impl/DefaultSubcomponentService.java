@@ -13,6 +13,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.services.PrototypeService;
 import org.osate.ge.services.SubcomponentService;
 
@@ -26,7 +27,11 @@ public class DefaultSubcomponentService implements SubcomponentService {
 	@Override
 	public ComponentClassifier getComponentClassifier(final Shape shape, final Subcomponent sc) {
 		if(sc.getPrototype() == null) {
-			return sc.getClassifier();
+			if(sc.getClassifier() == null && sc.getRefined() != null) {
+				return getComponentClassifier(shape, sc.getRefined());
+			} else {
+				return sc.getClassifier();
+			}
 		} else {
 			return prototypeService.getComponentClassifier(prototypeService.getPrototypeBindingContext(shape), sc);	
 		}
@@ -48,5 +53,16 @@ public class DefaultSubcomponentService implements SubcomponentService {
 	public boolean isImplementation(final Shape shape, final Subcomponent sc) {
 		final ComponentClassifier c = getComponentClassifier(shape, sc);
 		return c == null ? false : c instanceof ComponentImplementation;
+	}
+	
+	@Override
+	public SubcomponentType getAllSubcomponentType(Subcomponent sc) {
+		SubcomponentType scType;
+		do {
+			scType = sc.getSubcomponentType();
+			sc = sc.getRefined();
+		} while(sc != null && scType == null);
+		
+		return scType;		
 	}
 }
