@@ -41,7 +41,6 @@ import org.eclipse.xtext.scoping.Scopes
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractSubcomponentType
-import org.osate.aadl2.AccessConnection
 import org.osate.aadl2.AccessType
 import org.osate.aadl2.BehavioredImplementation
 import org.osate.aadl2.BusSubcomponentType
@@ -54,15 +53,12 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentImplementationReference
 import org.osate.aadl2.ComponentPrototypeActual
 import org.osate.aadl2.ComponentType
-import org.osate.aadl2.Connection
 import org.osate.aadl2.DataPort
 import org.osate.aadl2.DataSubcomponentType
 import org.osate.aadl2.DeviceSubcomponentType
 import org.osate.aadl2.Element
 import org.osate.aadl2.EventDataPort
-import org.osate.aadl2.FeatureConnection
 import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.FeatureGroupConnection
 import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupPrototypeActual
 import org.osate.aadl2.FeatureGroupType
@@ -72,8 +68,6 @@ import org.osate.aadl2.MemorySubcomponentType
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Parameter
-import org.osate.aadl2.ParameterConnection
-import org.osate.aadl2.PortConnection
 import org.osate.aadl2.PrivatePackageSection
 import org.osate.aadl2.ProcessSubcomponentType
 import org.osate.aadl2.ProcessorSubcomponentType
@@ -401,44 +395,12 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	//Reference is from ConnectedElement in Aadl2.xtext
-	/*
-	 * TODO: This method was written to mimic the functionality of the linking service, which only links correct context objects based upon the type of
-	 * connection.  What should happen is that the scope provider should return all visible Context objects and the linker should link any visible context
-	 * Context object.  This check of having the correct Context type for each type of Connection should be moved to the validator.  Let the link exist, but
-	 * mark a specific validator error message.  Also, the context assist should filter based upon Connection type.
-	 */
-	def scope_ConnectedElement_context(Connection context, EReference reference) {
-		val containingClassifier = context.getContainerOfType(typeof(ComponentImplementation))
+	def scope_ConnectedElement_context(ComponentImplementation context, EReference reference) {
 		val ArrayList<ClassifierFeature> validElements = newArrayList
-		switch (context) {
-			FeatureGroupConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
-			}
-			FeatureConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
-			}
-			AccessConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
-				if (containingClassifier instanceof BehavioredImplementation) {
-					validElements.addAll(containingClassifier.allSubprogramCalls)
-				}
-			}
-			ParameterConnection: {
-				validElements.addAll(containingClassifier.getAllFeatures().filter[it instanceof Parameter || it instanceof DataPort || it instanceof EventDataPort || it instanceof FeatureGroup])
-				if (containingClassifier instanceof BehavioredImplementation) {
-					validElements.addAll(containingClassifier.allSubprogramCalls)
-				}
-			}
-			PortConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter[it instanceof FeatureGroup || it instanceof DataPort || it instanceof EventDataPort])
-				if (containingClassifier instanceof BehavioredImplementation) {
-					validElements.addAll(containingClassifier.allSubprogramCalls)
-				}
-			}
+		validElements.addAll(context.getAllFeatures().filter[it instanceof DataPort || it instanceof EventDataPort || it instanceof FeatureGroup || it instanceof Parameter])
+		validElements.addAll(context.allSubcomponents)
+		if (context instanceof BehavioredImplementation) {
+			validElements.addAll(context.allSubprogramCalls)
 		}
 		validElements.scopeFor
 	}

@@ -77,7 +77,6 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArraySizeProperty;
@@ -97,7 +96,6 @@ import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
-import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
@@ -111,7 +109,6 @@ import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
@@ -4659,19 +4656,13 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.append("features");
       _builder.newLine();
       _builder.append("    ");
-      _builder.append("fg1: feature group;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("af1: feature;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("da1: requires data access;");
-      _builder.newLine();
-      _builder.append("    ");
       _builder.append("dp1: in data port;");
       _builder.newLine();
       _builder.append("    ");
       _builder.append("edp1: in event data port;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fg1: feature group;");
       _builder.newLine();
       _builder.append("  ");
       _builder.append("end a1;");
@@ -4702,18 +4693,6 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.append("    ");
       _builder.append("conn1: feature group asub1.fg2 <-> asub1.fg2;");
       _builder.newLine();
-      _builder.append("    ");
-      _builder.append("conn2: feature af1 -> asub1.af2;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("conn3: data access da1 <-> asub1.da2;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("conn4: parameter dp1 -> call1.param1;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("conn5: port dp1 -> asub1.dp2;");
-      _builder.newLine();
       _builder.append("  ");
       _builder.append("end a1.i1;");
       _builder.newLine();
@@ -4727,15 +4706,6 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.newLine();
       _builder.append("    ");
       _builder.append("fg2: feature group;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("af2: feature;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("da2: requires data access;");
-      _builder.newLine();
-      _builder.append("    ");
-      _builder.append("dp2: in data port;");
       _builder.newLine();
       _builder.append("  ");
       _builder.append("end a2;");
@@ -4772,16 +4742,17 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.append("connections");
       _builder.newLine();
       _builder.append("    ");
-      _builder.append("conn6: parameter param1 -> call2.param1;");
+      _builder.append("conn2: parameter param1 -> call2.param1;");
       _builder.newLine();
       _builder.append("  ");
-      _builder.append("end subp1.i1;");
+      _builder.append("end sub1.i1;");
       _builder.newLine();
       _builder.append("end pack;");
       _builder.newLine();
       ModelUnit _parse = this._parseHelper.parse(_builder);
       final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
         public void apply(final AadlPackage it) {
+          Aadl2ScopeProviderTest.this._validationTestHelper.assertNoErrors(it);
           String _name = it.getName();
           Assert.assertEquals("pack", _name);
           PublicPackageSection _publicSection = it.getPublicSection();
@@ -4799,73 +4770,13 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   Assert.assertEquals("conn1", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
-                  ConnectedElement _destination = it.getDestination();
-                  EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
-                }
-              };
-              ObjectExtensions.<FeatureGroupConnection>operator_doubleArrow(_head, _function);
-              EList<FeatureConnection> _ownedFeatureConnections = it.getOwnedFeatureConnections();
-              FeatureConnection _head_1 = IterableExtensions.<FeatureConnection>head(_ownedFeatureConnections);
-              final Procedure1<FeatureConnection> _function_1 = new Procedure1<FeatureConnection>() {
-                public void apply(final FeatureConnection it) {
-                  String _name = it.getName();
-                  Assert.assertEquals("conn2", _name);
-                  ConnectedElement _source = it.getSource();
-                  EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
-                  ConnectedElement _destination = it.getDestination();
-                  EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
-                }
-              };
-              ObjectExtensions.<FeatureConnection>operator_doubleArrow(_head_1, _function_1);
-              EList<AccessConnection> _ownedAccessConnections = it.getOwnedAccessConnections();
-              AccessConnection _head_2 = IterableExtensions.<AccessConnection>head(_ownedAccessConnections);
-              final Procedure1<AccessConnection> _function_2 = new Procedure1<AccessConnection>() {
-                public void apply(final AccessConnection it) {
-                  String _name = it.getName();
-                  Assert.assertEquals("conn3", _name);
-                  ConnectedElement _source = it.getSource();
-                  EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "fg1")));
-                  ConnectedElement _destination = it.getDestination();
-                  EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "fg1")));
-                }
-              };
-              ObjectExtensions.<AccessConnection>operator_doubleArrow(_head_2, _function_2);
-              EList<ParameterConnection> _ownedParameterConnections = it.getOwnedParameterConnections();
-              ParameterConnection _head_3 = IterableExtensions.<ParameterConnection>head(_ownedParameterConnections);
-              final Procedure1<ParameterConnection> _function_3 = new Procedure1<ParameterConnection>() {
-                public void apply(final ParameterConnection it) {
-                  String _name = it.getName();
-                  Assert.assertEquals("conn4", _name);
-                  ConnectedElement _source = it.getSource();
-                  EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("call1", "dp1", "edp1", "fg1")));
-                  ConnectedElement _destination = it.getDestination();
-                  EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("call1", "dp1", "edp1", "fg1")));
-                }
-              };
-              ObjectExtensions.<ParameterConnection>operator_doubleArrow(_head_3, _function_3);
-              EList<PortConnection> _ownedPortConnections = it.getOwnedPortConnections();
-              PortConnection _head_4 = IterableExtensions.<PortConnection>head(_ownedPortConnections);
-              final Procedure1<PortConnection> _function_4 = new Procedure1<PortConnection>() {
-                public void apply(final PortConnection it) {
-                  String _name = it.getName();
-                  Assert.assertEquals("conn5", _name);
-                  ConnectedElement _source = it.getSource();
-                  EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
                   Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "dp1", "edp1", "fg1")));
                   ConnectedElement _destination = it.getDestination();
                   EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
                   Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "dp1", "edp1", "fg1")));
                 }
               };
-              ObjectExtensions.<PortConnection>operator_doubleArrow(_head_4, _function_4);
+              ObjectExtensions.<FeatureGroupConnection>operator_doubleArrow(_head, _function);
             }
           };
           ObjectExtensions.<ComponentImplementation>operator_doubleArrow(
@@ -4875,12 +4786,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
           Classifier _get_1 = _ownedClassifiers_1.get(4);
           final Procedure1<ComponentImplementation> _function_1 = new Procedure1<ComponentImplementation>() {
             public void apply(final ComponentImplementation it) {
+              String _name = it.getName();
+              Assert.assertEquals("subp1.i1", _name);
               EList<ParameterConnection> _ownedParameterConnections = it.getOwnedParameterConnections();
               ParameterConnection _head = IterableExtensions.<ParameterConnection>head(_ownedParameterConnections);
               final Procedure1<ParameterConnection> _function = new Procedure1<ParameterConnection>() {
                 public void apply(final ParameterConnection it) {
                   String _name = it.getName();
-                  Assert.assertEquals("conn6", _name);
+                  Assert.assertEquals("conn2", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
                   Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("call2", "param1")));
