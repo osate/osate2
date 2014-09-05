@@ -52,7 +52,6 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractSubcomponentType;
-import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.BusSubcomponentType;
@@ -65,16 +64,13 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.DeviceSubcomponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
@@ -86,8 +82,6 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponentType;
 import org.osate.aadl2.ProcessorSubcomponentType;
@@ -649,99 +643,29 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     return this.scope_Classifier(context, reference);
   }
   
-  /**
-   * TODO: This method was written to mimic the functionality of the linking service, which only links correct context objects based upon the type of
-   * connection.  What should happen is that the scope provider should return all visible Context objects and the linker should link any visible context
-   * Context object.  This check of having the correct Context type for each type of Connection should be moved to the validator.  Let the link exist, but
-   * mark a specific validator error message.  Also, the context assist should filter based upon Connection type.
-   */
-  public IScope scope_ConnectedElement_context(final Connection context, final EReference reference) {
+  public IScope scope_ConnectedElement_context(final ComponentImplementation context, final EReference reference) {
     IScope _xblockexpression = null;
     {
-      final ComponentImplementation containingClassifier = EcoreUtil2.<ComponentImplementation>getContainerOfType(context, ComponentImplementation.class);
       final ArrayList<ClassifierFeature> validElements = CollectionLiterals.<ClassifierFeature>newArrayList();
-      boolean _matched = false;
-      if (!_matched) {
-        if (context instanceof FeatureGroupConnection) {
-          _matched=true;
-          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
-          validElements.addAll(_allSubcomponents);
-          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
-          Iterable<FeatureGroup> _filter = Iterables.<FeatureGroup>filter(_allFeatures, FeatureGroup.class);
-          Iterables.<ClassifierFeature>addAll(validElements, _filter);
-        }
-      }
-      if (!_matched) {
-        if (context instanceof FeatureConnection) {
-          _matched=true;
-          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
-          validElements.addAll(_allSubcomponents);
-          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
-          Iterable<FeatureGroup> _filter = Iterables.<FeatureGroup>filter(_allFeatures, FeatureGroup.class);
-          Iterables.<ClassifierFeature>addAll(validElements, _filter);
-        }
-      }
-      if (!_matched) {
-        if (context instanceof AccessConnection) {
-          _matched=true;
-          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
-          validElements.addAll(_allSubcomponents);
-          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
-          Iterable<FeatureGroup> _filter = Iterables.<FeatureGroup>filter(_allFeatures, FeatureGroup.class);
-          Iterables.<ClassifierFeature>addAll(validElements, _filter);
-          if ((containingClassifier instanceof BehavioredImplementation)) {
-            ArrayList<SubprogramCall> _allSubprogramCalls = Aadl2ScopeProvider.allSubprogramCalls(((BehavioredImplementation)containingClassifier));
-            validElements.addAll(_allSubprogramCalls);
+      EList<Feature> _allFeatures = context.getAllFeatures();
+      final Function1<Feature, Boolean> _function = new Function1<Feature, Boolean>() {
+        public Boolean apply(final Feature it) {
+          boolean _or = false;
+          if ((((it instanceof DataPort) || (it instanceof EventDataPort)) || (it instanceof FeatureGroup))) {
+            _or = true;
+          } else {
+            _or = (it instanceof Parameter);
           }
+          return Boolean.valueOf(_or);
         }
-      }
-      if (!_matched) {
-        if (context instanceof ParameterConnection) {
-          _matched=true;
-          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
-          final Function1<Feature, Boolean> _function = new Function1<Feature, Boolean>() {
-            public Boolean apply(final Feature it) {
-              boolean _or = false;
-              if ((((it instanceof Parameter) || (it instanceof DataPort)) || (it instanceof EventDataPort))) {
-                _or = true;
-              } else {
-                _or = (it instanceof FeatureGroup);
-              }
-              return Boolean.valueOf(_or);
-            }
-          };
-          Iterable<Feature> _filter = IterableExtensions.<Feature>filter(_allFeatures, _function);
-          Iterables.<ClassifierFeature>addAll(validElements, _filter);
-          if ((containingClassifier instanceof BehavioredImplementation)) {
-            ArrayList<SubprogramCall> _allSubprogramCalls = Aadl2ScopeProvider.allSubprogramCalls(((BehavioredImplementation)containingClassifier));
-            validElements.addAll(_allSubprogramCalls);
-          }
-        }
-      }
-      if (!_matched) {
-        if (context instanceof PortConnection) {
-          _matched=true;
-          EList<Subcomponent> _allSubcomponents = containingClassifier.getAllSubcomponents();
-          validElements.addAll(_allSubcomponents);
-          EList<Feature> _allFeatures = containingClassifier.getAllFeatures();
-          final Function1<Feature, Boolean> _function = new Function1<Feature, Boolean>() {
-            public Boolean apply(final Feature it) {
-              boolean _or = false;
-              if (((it instanceof FeatureGroup) || (it instanceof DataPort))) {
-                _or = true;
-              } else {
-                _or = (it instanceof EventDataPort);
-              }
-              return Boolean.valueOf(_or);
-            }
-          };
-          Iterable<Feature> _filter = IterableExtensions.<Feature>filter(_allFeatures, _function);
-          Iterables.<ClassifierFeature>addAll(validElements, _filter);
-          if ((containingClassifier instanceof BehavioredImplementation)) {
-            ArrayList<SubprogramCall> _allSubprogramCalls = Aadl2ScopeProvider.allSubprogramCalls(((BehavioredImplementation)containingClassifier));
-            validElements.addAll(_allSubprogramCalls);
-          }
-        }
+      };
+      Iterable<Feature> _filter = IterableExtensions.<Feature>filter(_allFeatures, _function);
+      Iterables.<ClassifierFeature>addAll(validElements, _filter);
+      EList<Subcomponent> _allSubcomponents = context.getAllSubcomponents();
+      validElements.addAll(_allSubcomponents);
+      if ((context instanceof BehavioredImplementation)) {
+        ArrayList<SubprogramCall> _allSubprogramCalls = Aadl2ScopeProvider.allSubprogramCalls(((BehavioredImplementation)context));
+        validElements.addAll(_allSubprogramCalls);
       }
       _xblockexpression = Scopes.scopeFor(validElements);
     }
