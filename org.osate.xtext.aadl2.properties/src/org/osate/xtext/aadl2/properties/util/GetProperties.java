@@ -198,14 +198,19 @@ public class GetProperties {
 		return lookupPropertyDefinition(io, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 	}
 
-	public static ComponentInstance getBoundBus(final ConnectionInstance connection) {
-		List<ComponentInstance> ret = getActualConnectionBinding(connection);
-		ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
-		if (ci != null) {
-			return ci;
-		}
-		return null;
-	}
+//	/**
+//	 * this method only picks up the first element, which may not be a bus
+//	 * @param connection Connection Instance
+//	 * @return
+//	 */
+//	public static ComponentInstance getBoundBus(final ConnectionInstance connection) {
+//		List<ComponentInstance> ret = getActualConnectionBinding(connection);
+//		ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
+//		if (ci != null) {
+//			return ci;
+//		}
+//		return null;
+//	}
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
@@ -464,6 +469,100 @@ public class GetProperties {
 		} catch (PropertyLookupException e) {
 			return null;
 		}
+	}
+
+	public static double getMaximumTransmissionTimePerByte(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMaximumTransmissionTimeFixed(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMinimumTransmissionTimePerByte(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMinimumTransmissionTimeFixed(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMaximumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMaximumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
+	public static double getMinimumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMinimumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
 	}
 
 	public static double fromMStoSec(NamedElement ne, double value) {
@@ -791,6 +890,11 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
 	}
 
+	public static boolean isAsignedDeadline(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.DEADLINE);
+		return PropertyUtils.isAssignedPropertyValue(ne, deadline);
+	}
+
 	public static double getComputeDeadlineinMilliSec(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.COMPUTE_DEADLINE);
 		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
@@ -1051,7 +1155,7 @@ public class GetProperties {
 					CommunicationProperties.TIMING);
 			return PropertyUtils.getEnumLiteral(pc, timing);
 		} catch (PropertyLookupException e) {
-			return null;
+			return getSampledUnitLiteral(pc);
 		}
 	}
 

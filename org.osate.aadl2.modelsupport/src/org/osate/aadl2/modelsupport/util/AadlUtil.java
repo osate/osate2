@@ -291,8 +291,7 @@ public final class AadlUtil {
 		final Set<String> seen = new HashSet<String>();
 
 		if (el != null) {
-			for (final Iterator i = el.iterator(); i.hasNext();) {
-				final Object obj = i.next();
+			for (Object obj : el) {
 				if (obj instanceof NamedElement) {
 					final NamedElement lit = (NamedElement) obj;
 					String name = lit.getName();
@@ -328,8 +327,7 @@ public final class AadlUtil {
 	public static boolean oncePerMode(List<? extends ModalElement> list, List<? extends Mode> allModes) {
 		int noModeSet = 0;
 		EList<Mode> modeset = new BasicEList<Mode>();
-		for (Iterator<? extends ModalElement> it = list.iterator(); it.hasNext();) {
-			ModalElement cs = it.next();
+		for (ModalElement cs : list) {
 			// TODO: [MODES] Uncomment when ModalElement.isNoMode() is created.
 			// if (! cs.isNoMode())
 			{
@@ -1092,8 +1090,7 @@ public final class AadlUtil {
 	 */
 	public static EList<FeatureGroupConnection> getFeatureGroupConnection(Collection<?> portconn) {
 		EList<FeatureGroupConnection> result = new BasicEList<FeatureGroupConnection>();
-		for (Iterator<?> it = portconn.iterator(); it.hasNext();) {
-			Object pc = it.next();
+		for (Object pc : portconn) {
 			if (pc instanceof FeatureGroupConnection) {
 				result.add((FeatureGroupConnection) pc);
 			}
@@ -1117,8 +1114,8 @@ public final class AadlUtil {
 
 		final List<T> copy = new ArrayList<T>(list.size());
 		final EcoreUtil.Copier copier = new EcoreUtil.Copier();
-		for (final Iterator<? extends T> i = list.iterator(); i.hasNext();) {
-			copy.add((T) copier.copy(i.next()));
+		for (T name : list) {
+			copy.add((T) copier.copy(name));
 		}
 		copier.copyReferences();
 		return copy;
@@ -1573,8 +1570,7 @@ public final class AadlUtil {
 		} else if (el.size() == 1) {
 			target = el.get(0);
 		} else if (el.size() > 1) {
-			for (Iterator<? extends NamedElement> it = el.iterator(); it.hasNext();) {
-				NamedElement o = it.next();
+			for (NamedElement o : el) {
 				if (o instanceof Connection) {
 					Connection conn = (Connection) o;
 					if ((conn.getAllSourceContext() instanceof Subcomponent && conn.getAllDestinationContext() instanceof Subcomponent)
@@ -1598,21 +1594,21 @@ public final class AadlUtil {
 	 */
 
 	/**
-	* For the subtree rooted at the given node, count the number of model
-	* elements whose class extends from the given model element type. For
-	* example,
-	*
-	* <pre>
-	* int numSubs = AadlUtil.countElementsBySubclass(root, Subcomponent.class);
-	* </pre>
-	*
-	* @param root
-	*            The root of the subtree.
-	* @param clazz
-	*            The class to count instances of.
-	* @return The number of model elements in the given subtree that are
-	*         instances of the given class or one of its subclasses.
-	*/
+	 * For the subtree rooted at the given node, count the number of model
+	 * elements whose class extends from the given model element type. For
+	 * example,
+	 *
+	 * <pre>
+	 * int numSubs = AadlUtil.countElementsBySubclass(root, Subcomponent.class);
+	 * </pre>
+	 *
+	 * @param root
+	 *            The root of the subtree.
+	 * @param clazz
+	 *            The class to count instances of.
+	 * @return The number of model elements in the given subtree that are
+	 *         instances of the given class or one of its subclasses.
+	 */
 	public static int countElementsBySubclass(final Element root, final Class clazz) {
 		final SimpleSubclassCounter counter = new SimpleSubclassCounter(clazz);
 		counter.defaultTraversal(root);
@@ -1632,8 +1628,7 @@ public final class AadlUtil {
 		if (sl == null) {
 			return false;
 		}
-		for (Iterator<Subcomponent> it = sl.iterator(); it.hasNext();) {
-			Subcomponent o = it.next();
+		for (Subcomponent o : sl) {
 			if (o instanceof SystemSubcomponent || o instanceof ProcessSubcomponent
 					|| o instanceof ThreadGroupSubcomponent || o instanceof ThreadSubcomponent
 					|| o instanceof DeviceSubcomponent || o instanceof ProcessorSubcomponent) {
@@ -1672,11 +1667,9 @@ public final class AadlUtil {
 	 * @param subcompinstances list of sub component instances
 	 */
 	public static boolean hasOutgoingPortSubcomponents(EList<? extends ComponentInstance> subcompinstances) {
-		for (Iterator<? extends ComponentInstance> it = subcompinstances.iterator(); it.hasNext();) {
-			ComponentInstance o = it.next();
+		for (ComponentInstance o : subcompinstances) {
 			EList<FeatureInstance> filist = o.getFeatureInstances();
-			for (Iterator<FeatureInstance> fit = filist.iterator(); fit.hasNext();) {
-				FeatureInstance fi = fit.next();
+			for (FeatureInstance fi : filist) {
 				Feature f = fi.getFeature();
 				if (isOutgoingPort(f)) {
 					return true;
@@ -1700,8 +1693,7 @@ public final class AadlUtil {
 				return true;
 			}
 		} else {
-			for (Iterator<FeatureInstance> fit = filist.iterator(); fit.hasNext();) {
-				FeatureInstance subfi = fit.next();
+			for (FeatureInstance subfi : filist) {
 				if (hasOutgoingFeatures(subfi)) {
 					return true;
 				}
@@ -1711,7 +1703,7 @@ public final class AadlUtil {
 	}
 
 	/**
-	 * get ingoing connections to subcomponents from a specified feature of the
+	 * Get ingoing connections to subcomponents from a specified feature of the
 	 * component impl
 	 *
 	 * @param feature component impl feature that is the source of a connection
@@ -1720,7 +1712,9 @@ public final class AadlUtil {
 	 */
 	public static EList<Connection> getIngoingConnections(ComponentImplementation cimpl, Feature feature) {
 		EList<Connection> result = new BasicEList<Connection>();
-		List<Feature> features = feature.getAllFeatureRefinements();
+		// The local feature could be a refinement of the feature through which the connection enters the component
+		Feature local = (Feature) cimpl.findNamedElement(feature.getName());
+		List<Feature> features = local.getAllFeatureRefinements();
 		EList<Connection> cimplconns = cimpl.getAllConnections();
 		for (Connection conn : cimplconns) {
 			if (features.contains(conn.getAllSource())
@@ -1752,11 +1746,9 @@ public final class AadlUtil {
 	 * @param subcompinstances list of sub component instances
 	 */
 	public static boolean hasOutgoingFeatureSubcomponents(EList<? extends ComponentInstance> subcompinstances) {
-		for (Iterator<? extends ComponentInstance> it = subcompinstances.iterator(); it.hasNext();) {
-			ComponentInstance o = it.next();
+		for (ComponentInstance o : subcompinstances) {
 			EList<FeatureInstance> filist = o.getFeatureInstances();
-			for (Iterator<FeatureInstance> fit = filist.iterator(); fit.hasNext();) {
-				FeatureInstance fi = fit.next();
+			for (FeatureInstance fi : filist) {
 				Feature f = fi.getFeature();
 				if (isOutgoingFeature(f)) {
 					return true;
@@ -1801,8 +1793,7 @@ public final class AadlUtil {
 	 */
 	public static EList<FeatureGroupConnection> getPortGroupConnection(Collection<? extends Connection> portconn) {
 		EList<FeatureGroupConnection> result = new BasicEList<FeatureGroupConnection>();
-		for (Iterator<? extends Connection> it = portconn.iterator(); it.hasNext();) {
-			Connection pc = it.next();
+		for (Connection pc : portconn) {
 			if (pc instanceof FeatureGroupConnection) {
 				result.add((FeatureGroupConnection) pc);
 			}

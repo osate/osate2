@@ -2748,16 +2748,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkFeatureDirectionInRefinement(DirectedFeature feature) {
 		DirectionType direction = feature.getDirection();
 		if (feature.getRefined() instanceof DirectedFeature) {
-			DirectionType refinedDirection = ((DirectedFeature) feature.getRefined()).getDirection();
+			DirectionType originalDirection = ((DirectedFeature) feature.getRefined()).getDirection();
 			// For ports and parameters, the directions must be the same value.
 			// All other DirectedFeatures have the option of refining from
 			// IN_OUT to IN or OUT.
-			if (!direction.equals(refinedDirection)
-					&& (feature.getRefined() instanceof Port || feature.getRefined() instanceof Parameter || !refinedDirection
-							.equals(DirectionType.IN_OUT))) {
+			// in case of a feature group leaving off the direction mean it inherits the original direction.
+			if (!direction.equals(originalDirection)
+					&& ((feature.getRefined() instanceof Port || feature.getRefined() instanceof Parameter || !originalDirection
+							.equals(DirectionType.IN_OUT)))) {
 				error(feature,
-						"Incompatible direction in feature refinement.  The direction of the refined feature is '"
-								+ refinedDirection.getName() + "'.");
+						"The direction in feature refinement must be the same or in casse of abstract features or feature groups the original direction must be 'in out'.  The direction of the refined feature is '"
+								+ direction.getName()
+								+ "' while original direction is '"
+								+ originalDirection.getName()
+								+ "'.");
 			}
 		}
 	}
@@ -2914,10 +2918,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * must satisfy this direction."
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup) {
-		if (!featureGroup.getDirection().equals(DirectionType.IN_OUT) && featureGroup.getFeatureGroupType() != null) {
+		DirectionType fgDirection = featureGroup.getDirection();
+		if (!fgDirection.equals(DirectionType.IN_OUT) && featureGroup.getFeatureGroupType() != null) {
+			if (featureGroup.isInverse()) {
+				fgDirection = fgDirection.getInverseDirection();
+			}
 			for (Feature feature : featureGroup.getFeatureGroupType().getAllFeatures()) {
 				if (feature instanceof DirectedFeature
-						&& !((DirectedFeature) feature).getDirection().equals(featureGroup.getDirection())) {
+						&& !((DirectedFeature) feature).getDirection().equals(fgDirection)) {
 					error(featureGroup,
 							"All ports, parameters, feature groups, and abstract features in the referenced feature group"
 									+ " type must satisfy the direction specified in the feature group.");

@@ -41,21 +41,28 @@ import org.eclipse.xtext.scoping.Scopes
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractSubcomponentType
+import org.osate.aadl2.AccessConnection
 import org.osate.aadl2.AccessType
 import org.osate.aadl2.BehavioredImplementation
 import org.osate.aadl2.BusSubcomponentType
 import org.osate.aadl2.CallContext
 import org.osate.aadl2.CalledSubprogram
 import org.osate.aadl2.Classifier
+import org.osate.aadl2.ClassifierFeature
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentImplementationReference
 import org.osate.aadl2.ComponentPrototypeActual
 import org.osate.aadl2.ComponentType
+import org.osate.aadl2.Connection
+import org.osate.aadl2.DataPort
 import org.osate.aadl2.DataSubcomponentType
 import org.osate.aadl2.DeviceSubcomponentType
 import org.osate.aadl2.Element
+import org.osate.aadl2.EventDataPort
+import org.osate.aadl2.FeatureConnection
 import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupConnection
 import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupPrototypeActual
 import org.osate.aadl2.FeatureGroupType
@@ -64,6 +71,9 @@ import org.osate.aadl2.FeatureType
 import org.osate.aadl2.MemorySubcomponentType
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.PackageSection
+import org.osate.aadl2.Parameter
+import org.osate.aadl2.ParameterConnection
+import org.osate.aadl2.PortConnection
 import org.osate.aadl2.PrivatePackageSection
 import org.osate.aadl2.ProcessSubcomponentType
 import org.osate.aadl2.ProcessorSubcomponentType
@@ -125,7 +135,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from SubprogramCall in Aadl2.xtext
 	def scope_SubprogramCall_context(Element context, EReference reference) {
 		var scope = scope_Classifier(context, reference)
-		context.getContainerOfType(typeof(BehavioredImplementation))?.members.filter[it instanceof CallContext].scopeFor(scope) ?: scope
+		context.getContainerOfType(typeof(BehavioredImplementation))?.members.filter(typeof(CallContext)).scopeFor(scope) ?: scope
 	}
 	
 	//Reference is from SubprogramCall in Aadl2.xtext
@@ -134,7 +144,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		val callContext = context.getContainerOfType(typeof(SubprogramCall))?.context
 		if (callContext == null) {
 			//No call context.  Add prototypes, subprogram accesses, and subprogram subcomponents from the classifier to the scope.
-			scope = context.getContainerOfType(typeof(Classifier)).members.filter[it instanceof CalledSubprogram].scopeFor(scope)
+			scope = context.getContainerOfType(typeof(Classifier)).members.filter(typeof(CalledSubprogram)).scopeFor(scope)
 		} else {
 			scope = IScope::NULLSCOPE
 			var Classifier callContextNamespace
@@ -160,7 +170,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				FeatureGroup:
 					callContextNamespace = callContext.featureGroupType
 			}
-			scope = callContextNamespace?.members.filter[it instanceof CalledSubprogram].scopeFor(scope) ?: scope
+			scope = callContextNamespace?.members.filter(typeof(CalledSubprogram)).scopeFor(scope) ?: scope
 		}
 		scope
 	}
@@ -188,22 +198,20 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(ComponentPrototypeActual context, EReference reference) {
 		val subcomponentType = context.subcomponentType
-		switch subcomponentType {
-			ComponentClassifier:
-				subcomponentType.allPrototypes.scopeFor
-			default:
-				IScope::NULLSCOPE
+		if (subcomponentType instanceof ComponentClassifier) {
+			subcomponentType.allPrototypes.scopeFor
+		} else {
+			IScope::NULLSCOPE
 		}
 	}
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(FeatureGroupPrototypeActual context, EReference reference) {
 		val featureType = context.featureType
-		switch featureType {
-			FeatureGroupType:
-				featureType.allPrototypes.scopeFor
-			default:
-				IScope::NULLSCOPE
+		if (featureType instanceof FeatureGroupType) {
+			featureType.allPrototypes.scopeFor
+		} else {
+			IScope::NULLSCOPE
 		}
 	}
 	
@@ -224,7 +232,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeatureGroupPrototypeActual in Aadl2.xtext
 	def scope_FeatureGroupPrototypeActual_featureType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof FeatureGroupPrototype].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(FeatureGroupPrototype)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from PortSpecification in Aadl2.xtext
@@ -239,12 +247,12 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeaturePrototypeReference in Aadl2.xtext
 	def scope_FeaturePrototypeReference_prototype(Classifier context, EReference reference) {
-		context.allPrototypes.filter[it instanceof FeaturePrototype].scopeFor
+		context.allPrototypes.filter(typeof(FeaturePrototype)).scopeFor
 	}
 	
 	//Reference is from ComponentReference in Aadl2.xtext
 	def scope_ComponentPrototypeActual_subcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof SubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(SubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	/*
@@ -259,72 +267,72 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from AbstractSubcomponent in Aadl2.xtext
 	def scope_AbstractSubcomponent_abstractSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof AbstractSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(AbstractSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SystemSubcomponent in Aadl2.xtext
 	def scope_SystemSubcomponent_systemSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof SystemSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(SystemSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ProcessSubcomponent in Aadl2.xtext
 	def scope_ProcessSubcomponent_processSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof ProcessSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(ProcessSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ThreadGroupSubcomponent in Aadl2.xtext
 	def scope_ThreadGroupSubcomponent_threadGroupSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof ThreadGroupSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(ThreadGroupSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ThreadSubcomponent in Aadl2.xtext
 	def scope_ThreadSubcomponent_threadSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof ThreadSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(ThreadSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramSubcomponent in Aadl2.xtext
 	def scope_SubprogramSubcomponent_subprogramSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof SubprogramSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(SubprogramSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramGroupSubcomponent in Aadl2.xtext
 	def scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof SubprogramGroupSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(SubprogramGroupSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ProcessorSubcomponent in Aadl2.xtext
 	def scope_ProcessorSubcomponent_processorSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof ProcessorSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(ProcessorSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from VirtualProcessorSubcomponent in Aadl2.xtext
 	def scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof VirtualProcessorSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(VirtualProcessorSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DeviceSubcomponent in Aadl2.xtext
 	def scope_DeviceSubcomponent_deviceSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof DeviceSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(DeviceSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from MemorySubcomponent in Aadl2.xtext
 	def scope_MemorySubcomponent_memorySubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof MemorySubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(MemorySubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from BusSubcomponent in Aadl2.xtext
 	def scope_BusSubcomponent_busSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof BusSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(BusSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from VirtualBusSubcomponent in Aadl2.xtext
 	def scope_VirtualBusSubcomponent_virtualBusSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof VirtualBusSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(VirtualBusSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DataSubcomponent in Aadl2.xtext
 	def scope_DataSubcomponent_dataSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter[it instanceof DataSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(ComponentImplementation)).allPrototypes.filter(typeof(DataSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DataPort, EventDataPort, EventPort, FeatureGroup, Parameter, SubprogramAccess, SubprogramGroupAccess, BusAccess, DataAccess, and AbstractFeature in Aadl2.xtext
@@ -334,47 +342,105 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from DataPort in Aadl2.xtext
 	def scope_DataPort_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof DataSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(DataSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from EventDataPort in Aadl2.xtext
 	def scope_EventDataPort_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof DataSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(DataSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from FeatureGroup in Aadl2.xtext
 	def scope_FeatureGroup_featureType(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof FeatureType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(FeatureType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from Parameter in Aadl2.xtext
 	def scope_Parameter_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof DataSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(DataSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramAccess in Aadl2.xtext
 	def scope_SubprogramAccess_subprogramFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof SubprogramSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(SubprogramSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramGroupAccess in Aadl2.xtext
 	def scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof SubprogramGroupSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(SubprogramGroupSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from BusAccess in Aadl2.xtext
 	def scope_BusAccess_busFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof BusSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(BusSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DataAccess in Aadl2.xtext
 	def scope_DataAccess_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter[it instanceof DataSubcomponentType].scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(typeof(Classifier)).allPrototypes.filter(typeof(DataSubcomponentType)).scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from AbstractFeature in Aadl2.xtext
 	def scope_AbstractFeature_featurePrototype(Classifier context, EReference reference) {
-		context.allPrototypes.filter[it instanceof FeaturePrototype].scopeFor
+		context.allPrototypes.filter(typeof(FeaturePrototype)).scopeFor
+	}
+	
+	//Reference is from EventDataSource in Aadl2.xtext
+	def scope_EventDataSource_dataClassifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from PortProxy in Aadl2.xtext
+	def scope_PortProxy_dataClassifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from SubprogramProxy in Aadl2.xtext
+	def scope_SubprogramProxy_subprogramClassifier(Element context, EReference reference) {
+		scope_Classifier(context, reference)
+	}
+	
+	//Reference is from ConnectedElement in Aadl2.xtext
+	/*
+	 * TODO: This method was written to mimic the functionality of the linking service, which only links correct context objects based upon the type of
+	 * connection.  What should happen is that the scope provider should return all visible Context objects and the linker should link any visible context
+	 * Context object.  This check of having the correct Context type for each type of Connection should be moved to the validator.  Let the link exist, but
+	 * mark a specific validator error message.  Also, the context assist should filter based upon Connection type.
+	 */
+	def scope_ConnectedElement_context(Connection context, EReference reference) {
+		val containingClassifier = context.getContainerOfType(typeof(ComponentImplementation))
+		val ArrayList<ClassifierFeature> validElements = newArrayList
+		switch (context) {
+			FeatureGroupConnection: {
+				validElements.addAll(containingClassifier.allSubcomponents)
+				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
+			}
+			FeatureConnection: {
+				validElements.addAll(containingClassifier.allSubcomponents)
+				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
+			}
+			AccessConnection: {
+				validElements.addAll(containingClassifier.allSubcomponents)
+				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
+				if (containingClassifier instanceof BehavioredImplementation) {
+					validElements.addAll(containingClassifier.allSubprogramCalls)
+				}
+			}
+			ParameterConnection: {
+				validElements.addAll(containingClassifier.getAllFeatures().filter[it instanceof Parameter || it instanceof DataPort || it instanceof EventDataPort || it instanceof FeatureGroup])
+				if (containingClassifier instanceof BehavioredImplementation) {
+					validElements.addAll(containingClassifier.allSubprogramCalls)
+				}
+			}
+			PortConnection: {
+				validElements.addAll(containingClassifier.allSubcomponents)
+				validElements.addAll(containingClassifier.getAllFeatures().filter[it instanceof FeatureGroup || it instanceof DataPort || it instanceof EventDataPort])
+				if (containingClassifier instanceof BehavioredImplementation) {
+					validElements.addAll(containingClassifier.allSubprogramCalls)
+				}
+			}
+		}
+		validElements.scopeFor
 	}
 	
 	def private static allPrototypes(Classifier classifier) {
@@ -384,6 +450,17 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			FeatureGroupType:
 				classifier.allPrototypes
 		}
+	}
+	
+	def private static allSubprogramCalls(BehavioredImplementation implementation) {
+		val allSubprogramCalls = newArrayList
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+			//Should always be a BehavioredImplementation unless we have a malformed model.
+			if (currentImplementation instanceof BehavioredImplementation) {
+				allSubprogramCalls.addAll(currentImplementation.subprogramCalls())
+			}
+		}
+		allSubprogramCalls
 	}
 	
 	// mode references
