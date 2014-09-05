@@ -10,6 +10,7 @@ package org.osate.ge.services.impl;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
@@ -67,6 +68,14 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	public Text createLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String labelTxt) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
+        text.setStyle(styleService.getLabelStyle());
+        return text;
+	}
+	
+	@Override
+	public MultiText createMultiLineLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String labelTxt) {
+		final IGaService gaService = Graphiti.getGaService();
+		final MultiText text = gaService.createPlainMultiText(container, labelTxt);
         text.setStyle(styleService.getLabelStyle());
         return text;
 	}

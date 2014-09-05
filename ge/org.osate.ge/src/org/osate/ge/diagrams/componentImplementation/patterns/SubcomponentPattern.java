@@ -33,6 +33,7 @@ import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -290,8 +291,12 @@ public class SubcomponentPattern extends AgePattern {
         propertyService.setIsManuallyPositioned(subcomponentTypeIndicatorShape, true);
         final String subcomponentTypeName = getTypeText(sc);
         final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
-        final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
-        final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont(), true);
+        final MultiText subcomponentTypeText = graphicsAlgorithmCreator.createMultiLineLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
+        final IDimension unpaddedSubcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont(), true);
+        
+        // Currently adding padding to work around incorrect size being returned by calculateTextSize(). 
+        final int paddedTypeTextWidth = unpaddedSubcomponentTypeTextSize.getWidth() + 10;
+        final int paddedTypeTextHeight = unpaddedSubcomponentTypeTextSize.getHeight() + 10;
         
 		// Adjust size. Width and height
 		final IGaService gaService = Graphiti.getGaService();
@@ -302,7 +307,7 @@ public class SubcomponentPattern extends AgePattern {
 		int maxHeight = Math.max(minHeight, 50);
 		final int extraWidth = 50;
 		final int extraHeight = 30;
-		maxWidth = Math.max(maxWidth, Math.max(textSize.getWidth(), subcomponentTypeTextSize.getWidth()) + extraWidth);
+		maxWidth = Math.max(maxWidth, Math.max(textSize.getWidth(), paddedTypeTextWidth) + extraWidth);
 		for(final Shape childShape : visibilityHelper.getNonGhostChildren(shape)) {
 			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 			
@@ -321,8 +326,8 @@ public class SubcomponentPattern extends AgePattern {
 		// Set the position of the text
 		gaService.setLocationAndSize(labelText, 0, 0, textSize.getWidth(), textSize.getHeight());
 		gaService.setLocationAndSize(labelBackground, (ga.getWidth() - textSize.getWidth()) / 2, 2, textSize.getWidth(), textSize.getHeight());
-		gaService.setLocationAndSize(subcomponentTypeText, 0, 0, subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
-		gaService.setLocationAndSize(subcomponentTypeLabelBackground, (ga.getWidth() - subcomponentTypeTextSize.getWidth()) / 2, labelText.getY()+textSize.getHeight(), subcomponentTypeTextSize.getWidth(), subcomponentTypeTextSize.getHeight());
+		gaService.setLocationAndSize(subcomponentTypeText, 0, 0, paddedTypeTextWidth, paddedTypeTextHeight);
+		gaService.setLocationAndSize(subcomponentTypeLabelBackground, (ga.getWidth() - paddedTypeTextWidth) / 2, labelText.getY()+textSize.getHeight(), paddedTypeTextWidth, paddedTypeTextHeight);
 		
 		// Set color based on current mode
 		highlightingHelper.highlight(sc, null, ga);		
