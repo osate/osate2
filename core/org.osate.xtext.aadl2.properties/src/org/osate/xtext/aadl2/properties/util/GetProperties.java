@@ -471,6 +471,100 @@ public class GetProperties {
 		}
 	}
 
+	public static double getMaximumTransmissionTimePerByte(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMaximumTransmissionTimeFixed(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMinimumTransmissionTimePerByte(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMinimumTransmissionTimeFixed(final ComponentInstance bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMaximumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMaximumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
+	public static double getMinimumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMinimumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
 	public static double fromMStoSec(NamedElement ne, double value) {
 		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
