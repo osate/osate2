@@ -40,6 +40,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
@@ -49,6 +50,7 @@ import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractSubcomponentType;
@@ -389,22 +391,16 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   }
   
   public IScope scope_PrototypeBinding_formal(final Classifier context, final EReference reference) {
-    IScope _elvis = null;
-    Classifier _extended = context.getExtended();
-    EList<Prototype> _allPrototypes = null;
-    if (_extended!=null) {
-      _allPrototypes=Aadl2ScopeProvider.allPrototypes(_extended);
-    }
-    IScope _scopeFor = null;
-    if (_allPrototypes!=null) {
-      _scopeFor=Scopes.scopeFor(_allPrototypes);
-    }
-    if (_scopeFor != null) {
-      _elvis = _scopeFor;
-    } else {
-      _elvis = IScope.NULLSCOPE;
-    }
-    return _elvis;
+    EList<Classifier> _generals = context.getGenerals();
+    final Function1<Classifier, EList<Prototype>> _function = new Function1<Classifier, EList<Prototype>>() {
+      public EList<Prototype> apply(final Classifier it) {
+        return Aadl2ScopeProvider.allPrototypes(it);
+      }
+    };
+    List<EList<Prototype>> _map = ListExtensions.<Classifier, EList<Prototype>>map(_generals, _function);
+    Iterable<Prototype> _flatten = Iterables.<Prototype>concat(_map);
+    Set<Prototype> _set = IterableExtensions.<Prototype>toSet(_flatten);
+    return Scopes.scopeFor(_set);
   }
   
   public IScope scope_FeatureGroupPrototypeActual_featureType(final Element context, final EReference reference) {

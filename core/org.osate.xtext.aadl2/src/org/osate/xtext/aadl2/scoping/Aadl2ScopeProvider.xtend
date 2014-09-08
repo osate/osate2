@@ -226,7 +226,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(Classifier context, EReference reference) {
-		context.extended?.allPrototypes?.scopeFor ?: IScope::NULLSCOPE
+		context.generals.map[allPrototypes].flatten.toSet.scopeFor
 	}
 	
 	//Reference is from FeatureGroupPrototypeActual in Aadl2.xtext
