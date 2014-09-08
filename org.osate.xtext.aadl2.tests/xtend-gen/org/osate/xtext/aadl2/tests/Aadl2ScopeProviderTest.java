@@ -2004,6 +2004,20 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.append("  ");
       _builder.newLine();
       _builder.append("  ");
+      _builder.append("abstract implementation a1.i3 (");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("proto1 => abstract a3");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append(")");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("end a1.i3;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.newLine();
+      _builder.append("  ");
       _builder.append("abstract a3");
       _builder.newLine();
       _builder.append("  ");
@@ -2109,7 +2123,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                       String _name = _subcomponentType.getName();
                       Assert.assertEquals("a3", _name);
                       EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                      Aadl2ScopeProviderTest.this.assertScope(it, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                      Aadl2ScopeProviderTest.this.assertScope(it, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1")));
                       EList<PrototypeBinding> _bindings = it.getBindings();
                       PrototypeBinding _head = IterableExtensions.<PrototypeBinding>head(_bindings);
                       final Procedure1<PrototypeBinding> _function = new Procedure1<PrototypeBinding>() {
@@ -2250,7 +2264,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   EList<ComponentPrototypeActual> _actuals = it.getActuals();
                   ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
                   EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1")));
                 }
               };
               ObjectExtensions.<ComponentPrototypeBinding>operator_doubleArrow(
@@ -2315,7 +2329,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   EList<ComponentPrototypeActual> _actuals = it.getActuals();
                   ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
                   EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1")));
                 }
               };
               ObjectExtensions.<ComponentPrototypeBinding>operator_doubleArrow(
@@ -2325,8 +2339,35 @@ public class Aadl2ScopeProviderTest extends OsateTest {
           ObjectExtensions.<Classifier>operator_doubleArrow(_get_2, _function_2);
           PublicPackageSection _publicSection_3 = it.getPublicSection();
           EList<Classifier> _ownedClassifiers_3 = _publicSection_3.getOwnedClassifiers();
-          Classifier _get_3 = _ownedClassifiers_3.get(7);
+          Classifier _get_3 = _ownedClassifiers_3.get(4);
           final Procedure1<Classifier> _function_3 = new Procedure1<Classifier>() {
+            public void apply(final Classifier it) {
+              String _name = it.getName();
+              Assert.assertEquals("a1.i3", _name);
+              EList<PrototypeBinding> _ownedPrototypeBindings = it.getOwnedPrototypeBindings();
+              PrototypeBinding _get = _ownedPrototypeBindings.get(0);
+              final Procedure1<ComponentPrototypeBinding> _function = new Procedure1<ComponentPrototypeBinding>() {
+                public void apply(final ComponentPrototypeBinding it) {
+                  Prototype _formal = it.getFormal();
+                  String _name = _formal.getName();
+                  Assert.assertEquals("proto1", _name);
+                  EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  EList<ComponentPrototypeActual> _actuals = it.getActuals();
+                  ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
+                  EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
+                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1")));
+                }
+              };
+              ObjectExtensions.<ComponentPrototypeBinding>operator_doubleArrow(
+                ((ComponentPrototypeBinding) _get), _function);
+            }
+          };
+          ObjectExtensions.<Classifier>operator_doubleArrow(_get_3, _function_3);
+          PublicPackageSection _publicSection_4 = it.getPublicSection();
+          EList<Classifier> _ownedClassifiers_4 = _publicSection_4.getOwnedClassifiers();
+          Classifier _get_4 = _ownedClassifiers_4.get(8);
+          final Procedure1<Classifier> _function_4 = new Procedure1<Classifier>() {
             public void apply(final Classifier it) {
               String _name = it.getName();
               Assert.assertEquals("fgt2", _name);
@@ -2386,14 +2427,14 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   EList<ComponentPrototypeActual> _actuals = it.getActuals();
                   ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
                   EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3", "a3.i1", "proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1")));
                 }
               };
               ObjectExtensions.<ComponentPrototypeBinding>operator_doubleArrow(
                 ((ComponentPrototypeBinding) _get_3), _function_3);
             }
           };
-          ObjectExtensions.<Classifier>operator_doubleArrow(_get_3, _function_3);
+          ObjectExtensions.<Classifier>operator_doubleArrow(_get_4, _function_4);
         }
       };
       ObjectExtensions.<AadlPackage>operator_doubleArrow(((AadlPackage) _parse), _function);
