@@ -46,6 +46,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.RangeValue;
@@ -123,17 +124,25 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected boolean _isLeaf(RangeValue rv) {
-		return true;
-	}
-
-	protected boolean _isLeaf(RecordValue rv) {
 		return false;
 	}
 
 	protected boolean _isLeaf(ModalPropertyValue ml) {
-//		if (ml.getInModes().isEmpty()) {
-//			return false;
-//		}
+		if (ml.getInModes().isEmpty()) {
+			if (ml.getOwnedValue() instanceof RangeValue) {
+				return false;
+			}
+
+			if (ml.getOwnedValue() instanceof ListValue) {
+				return false;
+			}
+
+			if (ml.getOwnedValue() instanceof RecordValue) {
+				return false;
+			}
+
+			return true;
+		}
 		return false;
 	}
 

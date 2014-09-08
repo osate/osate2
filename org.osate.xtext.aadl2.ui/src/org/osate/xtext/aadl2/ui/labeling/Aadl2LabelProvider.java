@@ -58,6 +58,7 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
@@ -88,6 +89,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramGroupType;
@@ -106,6 +108,7 @@ import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 
 import com.google.inject.Inject;
 
@@ -122,6 +125,7 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(PropertyExpression pe) {
+
 		if (pe instanceof BooleanLiteral) {
 			return "boolean " + ((BooleanLiteral) pe).getValue() + "";
 		}
@@ -131,7 +135,15 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		}
 
 		if (pe instanceof IntegerLiteral) {
-			return "integer " + ((IntegerLiteral) pe).getValue() + "";
+			return text((IntegerLiteral) pe);
+		}
+
+		if (pe instanceof StringLiteral) {
+			return text((StringLiteral) pe);
+		}
+
+		if (pe instanceof NamedValue) {
+			return text((NamedValue) pe);
 		}
 
 		if (pe instanceof ReferenceValue) {
@@ -140,6 +152,10 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 			return "reference " + cpe.get(0).getNamedElement().getName();
 		}
 
+		if (pe instanceof RangeValue) {
+			return text(((RangeValue) pe));
+		}
+		OsateDebug.osateDebug("unknown pe=" + pe);
 		return null;
 	}
 
@@ -316,14 +332,25 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 
 	String text(ModalPropertyValue ele) {
 		EList<Mode> ml = ele.getInModes();
+		String label = "";
 		if (ml.isEmpty()) {
-			return "Non-Modal Value";
+			label = "Non-Modal Value";
+
+			OsateDebug.osateDebug("non modal value" + ele.getOwnedValue());
+			if ((ele.getOwnedValue() != null) && (!(ele.getOwnedValue() instanceof RangeValue))
+					&& (!(ele.getOwnedValue() instanceof RecordValue)) && (!(ele.getOwnedValue() instanceof ListValue))) {
+				label += " " + text(ele.getOwnedValue());
+			}
+
+		} else {
+			String modes = "";
+			for (Mode m : ml) {
+				modes = modes + " " + m.getName();
+			}
+
+			label = "Modal property value (" + modes + ")";
 		}
-		String modes = "";
-		for (Mode m : ml) {
-			modes = modes + " " + m.getName();
-		}
-		return "Modal property value (" + modes + ")";
+		return label;
 	}
 
 	// these next ones we need only if we go deeper than classifiers
@@ -376,19 +403,44 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(NamedValue ele) {
-		return "NamedValue: " + ele.getNamedValue();
+		String ret;
+		ret = "unknown value";
+
+		if (ele.getNamedValue() instanceof EnumerationLiteral) {
+			EnumerationLiteral el;
+			el = (EnumerationLiteral) ele.getNamedValue();
+			ret = el.getName();
+		}
+//		OsateDebug.osateDebug("Aadl2LabelProvider", "unknwon value" + ele.getNamedValue());
+		return ret;
 	}
 
 	String text(IntegerLiteral ele) {
-		return "" + ele.getValue();
+		String val;
+
+		val = "" + ele.getValue();
+		if (ele.getUnit() != null) {
+			val += ele.getUnit().getName();
+		}
+		return val;
 	}
 
 	String text(RealLiteral ele) {
-		return "" + ele.getValue();
+		String val;
+
+		val = "" + ele.getValue();
+		if (ele.getUnit() != null) {
+			val += ele.getUnit().getName();
+		}
+		return val;
 	}
 
 	String text(BooleanLiteral ele) {
 		return "" + ele.getValue();
+	}
+
+	String text(StringLiteral sl) {
+		return "" + sl.getValue();
 	}
 
 	String text(ListValue ele) {
@@ -397,24 +449,12 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 
 	String text(RangeValue ele) {
 		RangeValue rv;
-		String maxUnit;
-		String minUnit;
 
 		rv = (RangeValue) ele;
-		maxUnit = "";
-		minUnit = "";
-
-		if (rv.getMaximumValue().getUnit() != null) {
-			maxUnit = rv.getMaximumValue().getUnit().getName();
-		}
-
-		if (rv.getMinimumValue().getUnit() != null) {
-			minUnit = rv.getMinimumValue().getUnit().getName();
-		}
 
 //		OsateDebug.osateDebug("bla" + rv.getMaximumValue().getUnit().getName());
 
-		return "range (" + text(rv.getMinimumValue()) + minUnit + " .. " + text(rv.getMaximumValue()) + maxUnit + ")";
+		return "range (" + text(rv.getMinimumValue()) + " .. " + text(rv.getMaximumValue()) + ")";
 	}
 
 	String text(NumberValue ele) {
@@ -426,6 +466,12 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		}
 		if (ele instanceof IntegerLiteral) {
 			return text((IntegerLiteral) ele);
+		}
+		if (ele instanceof NamedValue) {
+			return text((NamedValue) ele);
+		}
+		if (ele instanceof StringLiteral) {
+			return text((StringLiteral) ele);
 		}
 		if (ele instanceof RealLiteral) {
 			return text((RealLiteral) ele);
