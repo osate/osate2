@@ -414,13 +414,20 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 		if (result) {
 			try {
 				List<File> selectedExamples = fetchSelectedExamples(_SelectedExamplesTreeContent);
-				if (!selectedExamples.isEmpty()) {
-					IPath projectPath = newProject.getLocation();
+				for (File exampleFile : selectedExamples) {
+					String exampleName;
+					IPath projectPath;
+					File destFolder;
 
-					File destFolder = new File(projectPath.toString() + IPath.SEPARATOR + _EXAMPLE_ROOT_PATH);
-					destFolder.mkdir();
+					projectPath = newProject.getLocation();
+					exampleName = exampleFile.getParentFile().toPath().getFileName().toString();
+					OsateDebug.osateDebug("AadlExamplesWizard", "exampleName=" + exampleName);
 
-					FileUtils.copyFiles(selectedExamples, destFolder, _EXCLUDED_DIRECTORIES);
+					destFolder = new File(projectPath.toString() + IPath.SEPARATOR + exampleName);
+
+					OsateDebug.osateDebug("AadlExamplesWizard", "new folder" + destFolder.toString());
+
+					FileUtils.copyFile(exampleFile, destFolder);
 
 					newProject.refreshLocal(2, null);
 				}
