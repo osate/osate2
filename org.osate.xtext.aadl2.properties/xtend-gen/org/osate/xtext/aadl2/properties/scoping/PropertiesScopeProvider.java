@@ -231,7 +231,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
           if (_classifier!=null) {
             _allModes=_classifier.getAllModes();
           }
-          IScope _scopeFor = Scopes.scopeFor(_allModes);
+          IScope _scopeFor = null;
+          if (_allModes!=null) {
+            _scopeFor=Scopes.scopeFor(_allModes);
+          }
           if (_scopeFor != null) {
             _elvis = _scopeFor;
           } else {
@@ -248,7 +251,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
             if (_allClassifier!=null) {
               _allModes_1=_allClassifier.getAllModes();
             }
-            IScope _scopeFor_1 = Scopes.scopeFor(_allModes_1);
+            IScope _scopeFor_1 = null;
+            if (_allModes_1!=null) {
+              _scopeFor_1=Scopes.scopeFor(_allModes_1);
+            }
             if (_scopeFor_1 != null) {
               _elvis_1 = _scopeFor_1;
             } else {
@@ -427,7 +433,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
     if (_unitsType!=null) {
       _ownedLiterals=_unitsType.getOwnedLiterals();
     }
-    IScope _scopeFor = Scopes.scopeFor(_ownedLiterals);
+    IScope _scopeFor = null;
+    if (_ownedLiterals!=null) {
+      _scopeFor=Scopes.scopeFor(_ownedLiterals);
+    }
     if (_scopeFor != null) {
       _elvis = _scopeFor;
     } else {
@@ -484,7 +493,10 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
       if (unitsType!=null) {
         _ownedLiterals=unitsType.getOwnedLiterals();
       }
-      IScope _scopeFor = Scopes.scopeFor(_ownedLiterals);
+      IScope _scopeFor = null;
+      if (_ownedLiterals!=null) {
+        _scopeFor=Scopes.scopeFor(_ownedLiterals);
+      }
       if (_scopeFor != null) {
         _elvis = _scopeFor;
       } else {
