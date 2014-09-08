@@ -102,9 +102,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		if (containingPropertyAssociation != null) {
 			if (!containingPropertyAssociation.appliesTos.empty) {
 				scope = (containingPropertyAssociation.appliesTos.get(0).containmentPathElements.findLast[namedElement instanceof Subcomponent].namedElement as Subcomponent)?.
-						classifier?.allModes.scopeFor ?: scope
+						classifier?.allModes?.scopeFor ?: scope
 			} else if (containingPropertyAssociation.owner instanceof Subcomponent) {
-				scope = (containingPropertyAssociation.owner as Subcomponent).allClassifier?.allModes.scopeFor ?: scope
+				scope = (containingPropertyAssociation.owner as Subcomponent).allClassifier?.allModes?.scopeFor ?: scope
 			}
 		}
 		if (scope == IScope::NULLSCOPE) {
@@ -266,7 +266,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
 	def scope_NumberValue_unit(NumberType context, EReference reference) {
 		//Lower bound or upper bound values of a number property type.
-		context.unitsType?.ownedLiterals.scopeFor ?: IScope::NULLSCOPE
+		context.unitsType?.ownedLiterals?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
@@ -302,6 +302,6 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 			RangeType:
 				unitsType = baseType.numberType.unitsType
 		}
-		unitsType?.ownedLiterals.scopeFor ?: IScope::NULLSCOPE
+		unitsType?.ownedLiterals?.scopeFor ?: IScope::NULLSCOPE
 	}
 }

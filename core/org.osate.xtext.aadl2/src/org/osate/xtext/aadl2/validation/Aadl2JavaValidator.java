@@ -5184,6 +5184,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static ComponentCategory getComponentPrototypeCategory(ComponentPrototype prototype) {
 		String eClassname = prototype.eClass().getName();
 		String s = eClassname.substring(0, eClassname.length() - 9);
+		int secondCapitalLetterIndex = -1;
+		for (int i = 1; secondCapitalLetterIndex == -1 && i < s.length(); i++) {
+			if (Character.isUpperCase(s.charAt(i))) {
+				secondCapitalLetterIndex = i;
+			}
+		}
+		if (secondCapitalLetterIndex != -1) {
+			s = s.substring(0, secondCapitalLetterIndex) + " " + s.substring(secondCapitalLetterIndex);
+		}
 		ComponentCategory prototypeCategory = ComponentCategory.get(s.toLowerCase());
 		return prototypeCategory;
 	}

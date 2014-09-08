@@ -58,17 +58,19 @@ import org.osate.aadl2.BusSubcomponentType;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.DataPort;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.DeviceSubcomponentType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
@@ -76,29 +78,35 @@ import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.MemorySubcomponentType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Parameter;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponentType;
 import org.osate.aadl2.ProcessorSubcomponentType;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
+import org.osate.aadl2.SubprogramProxy;
+import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramSubcomponentType;
 import org.osate.aadl2.SystemSubcomponentType;
 import org.osate.aadl2.ThreadGroupSubcomponentType;
 import org.osate.aadl2.ThreadSubcomponentType;
 import org.osate.aadl2.VirtualBusSubcomponentType;
 import org.osate.aadl2.VirtualProcessorSubcomponentType;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider;
 
 /**
@@ -143,7 +151,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
       if (_containerOfType!=null) {
         _members=_containerOfType.getMembers();
       }
-      Iterable<CallContext> _filter = Iterables.<CallContext>filter(_members, CallContext.class);
+      Iterable<CallContext> _filter = null;
+      if (_members!=null) {
+        _filter=Iterables.<CallContext>filter(_members, CallContext.class);
+      }
       IScope _scopeFor = Scopes.scopeFor(_filter, scope);
       if (_scopeFor != null) {
         _elvis = _scopeFor;
@@ -257,7 +268,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
         if (callContextNamespace!=null) {
           _members_1=callContextNamespace.getMembers();
         }
-        Iterable<CalledSubprogram> _filter_1 = Iterables.<CalledSubprogram>filter(_members_1, CalledSubprogram.class);
+        Iterable<CalledSubprogram> _filter_1 = null;
+        if (_members_1!=null) {
+          _filter_1=Iterables.<CalledSubprogram>filter(_members_1, CalledSubprogram.class);
+        }
         IScope _scopeFor_1 = Scopes.scopeFor(_filter_1, scope);
         if (_scopeFor_1 != null) {
           _elvis = _scopeFor_1;
@@ -288,7 +302,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     if (_extended!=null) {
       _allPrototypes=Aadl2ScopeProvider.allPrototypes(_extended);
     }
-    IScope _scopeFor = Scopes.scopeFor(_allPrototypes);
+    IScope _scopeFor = null;
+    if (_allPrototypes!=null) {
+      _scopeFor=Scopes.scopeFor(_allPrototypes);
+    }
     if (_scopeFor != null) {
       _elvis = _scopeFor;
     } else {
@@ -340,7 +357,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     if (_implementation!=null) {
       _allPrototypes=_implementation.getAllPrototypes();
     }
-    IScope _scopeFor = Scopes.scopeFor(_allPrototypes);
+    IScope _scopeFor = null;
+    if (_allPrototypes!=null) {
+      _scopeFor=Scopes.scopeFor(_allPrototypes);
+    }
     if (_scopeFor != null) {
       _elvis = _scopeFor;
     } else {
@@ -356,7 +376,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     if (_allClassifier!=null) {
       _allPrototypes=_allClassifier.getAllPrototypes();
     }
-    IScope _scopeFor = Scopes.scopeFor(_allPrototypes);
+    IScope _scopeFor = null;
+    if (_allPrototypes!=null) {
+      _scopeFor=Scopes.scopeFor(_allPrototypes);
+    }
     if (_scopeFor != null) {
       _elvis = _scopeFor;
     } else {
@@ -372,7 +395,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     if (_extended!=null) {
       _allPrototypes=Aadl2ScopeProvider.allPrototypes(_extended);
     }
-    IScope _scopeFor = Scopes.scopeFor(_allPrototypes);
+    IScope _scopeFor = null;
+    if (_allPrototypes!=null) {
+      _scopeFor=Scopes.scopeFor(_allPrototypes);
+    }
     if (_scopeFor != null) {
       _elvis = _scopeFor;
     } else {
@@ -424,7 +450,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     if (_extended!=null) {
       _allSubcomponents=_extended.getAllSubcomponents();
     }
-    IScope _scopeFor = Scopes.scopeFor(_allSubcomponents);
+    IScope _scopeFor = null;
+    if (_allSubcomponents!=null) {
+      _scopeFor=Scopes.scopeFor(_allSubcomponents);
+    }
     if (_scopeFor != null) {
       _elvis = _scopeFor;
     } else {
@@ -552,7 +581,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
     if (_extended!=null) {
       _allFeatures=_extended.getAllFeatures();
     }
-    IScope _scopeFor = Scopes.scopeFor(_allFeatures);
+    IScope _scopeFor = null;
+    if (_allFeatures!=null) {
+      _scopeFor=Scopes.scopeFor(_allFeatures);
+    }
     if (_scopeFor != null) {
       _elvis = _scopeFor;
     } else {
@@ -646,21 +678,10 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
   public IScope scope_ConnectedElement_context(final ComponentImplementation context, final EReference reference) {
     IScope _xblockexpression = null;
     {
-      final ArrayList<ClassifierFeature> validElements = CollectionLiterals.<ClassifierFeature>newArrayList();
+      final ArrayList<Context> validElements = CollectionLiterals.<Context>newArrayList();
       EList<Feature> _allFeatures = context.getAllFeatures();
-      final Function1<Feature, Boolean> _function = new Function1<Feature, Boolean>() {
-        public Boolean apply(final Feature it) {
-          boolean _or = false;
-          if ((((it instanceof DataPort) || (it instanceof EventDataPort)) || (it instanceof FeatureGroup))) {
-            _or = true;
-          } else {
-            _or = (it instanceof Parameter);
-          }
-          return Boolean.valueOf(_or);
-        }
-      };
-      Iterable<Feature> _filter = IterableExtensions.<Feature>filter(_allFeatures, _function);
-      Iterables.<ClassifierFeature>addAll(validElements, _filter);
+      Iterable<Context> _filter = Iterables.<Context>filter(_allFeatures, Context.class);
+      Iterables.<Context>addAll(validElements, _filter);
       EList<Subcomponent> _allSubcomponents = context.getAllSubcomponents();
       validElements.addAll(_allSubcomponents);
       if ((context instanceof BehavioredImplementation)) {
@@ -668,6 +689,691 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
         validElements.addAll(_allSubprogramCalls);
       }
       _xblockexpression = Scopes.scopeFor(validElements);
+    }
+    return _xblockexpression;
+  }
+  
+  /**
+   * Reference is from ConnectedElement in Aadl2.xtext
+   * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ConnectedElement.  When the
+   * ConnectedElement is a single identifier, e.g. "port1", then the passed context is a Connection.  In this case, we know that the ConnectedElement's
+   * Context is null even though we can't access it and check it here.  In all other cases, the passed context is a ConnectedElement, thus calling the other
+   * scope method.
+   */
+  public IScope scope_ConnectedElement_connectionEnd(final Connection context, final EReference reference) {
+    Classifier _containerOfType = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
+    ArrayList<ConnectionEnd> _allConnectionEnds = Aadl2ScopeProvider.allConnectionEnds(_containerOfType);
+    return Scopes.scopeFor(_allConnectionEnds);
+  }
+  
+  /**
+   * Reference is from ConnectedElement, ProcessorPort, ProcessorSubprogram, and InternalEvent in Aadl2.xtext
+   * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ConnectedElement.  When the
+   * ConnectedElement is a qualified reference, e.g. "subcomponent1.port1" or "processor.portproxy1", then the passed context is a ConnectedElement and we
+   * can access and check the ConnectedElement's Context object.
+   */
+  public IScope scope_ConnectedElement_connectionEnd(final ConnectedElement context, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final Classifier containingClassifier = EcoreUtil2.<Classifier>getContainerOfType(context, Classifier.class);
+      IScope _switchResult = null;
+      Context _context = context.getContext();
+      final Context connectionContext = _context;
+      boolean _matched = false;
+      if (!_matched) {
+        if (Objects.equal(connectionContext, null)) {
+          _matched=true;
+          Element _owner = context.getOwner();
+          _switchResult = this.scope_ConnectedElement_connectionEnd(((Connection) _owner), reference);
+        }
+      }
+      if (!_matched) {
+        if (connectionContext instanceof FeatureGroup) {
+          _matched=true;
+          IScope _xblockexpression_1 = null;
+          {
+            FeatureGroup featureGroup = ((FeatureGroup)connectionContext);
+            boolean _and = false;
+            boolean _and_1 = false;
+            FeatureGroupType _featureGroupType = featureGroup.getFeatureGroupType();
+            boolean _equals = Objects.equal(_featureGroupType, null);
+            if (!_equals) {
+              _and_1 = false;
+            } else {
+              FeatureGroupPrototype _featureGroupPrototype = featureGroup.getFeatureGroupPrototype();
+              boolean _equals_1 = Objects.equal(_featureGroupPrototype, null);
+              _and_1 = _equals_1;
+            }
+            if (!_and_1) {
+              _and = false;
+            } else {
+              Feature _refined = featureGroup.getRefined();
+              _and = (_refined instanceof FeatureGroup);
+            }
+            boolean _while = _and;
+            while (_while) {
+              Feature _refined_1 = featureGroup.getRefined();
+              featureGroup = ((FeatureGroup) _refined_1);
+              boolean _and_2 = false;
+              boolean _and_3 = false;
+              FeatureGroupType _featureGroupType_1 = featureGroup.getFeatureGroupType();
+              boolean _equals_2 = Objects.equal(_featureGroupType_1, null);
+              if (!_equals_2) {
+                _and_3 = false;
+              } else {
+                FeatureGroupPrototype _featureGroupPrototype_1 = featureGroup.getFeatureGroupPrototype();
+                boolean _equals_3 = Objects.equal(_featureGroupPrototype_1, null);
+                _and_3 = _equals_3;
+              }
+              if (!_and_3) {
+                _and_2 = false;
+              } else {
+                Feature _refined_2 = featureGroup.getRefined();
+                _and_2 = (_refined_2 instanceof FeatureGroup);
+              }
+              _while = _and_2;
+            }
+            FeatureGroupType _elvis = null;
+            FeatureGroupType _featureGroupType_1 = featureGroup.getFeatureGroupType();
+            if (_featureGroupType_1 != null) {
+              _elvis = _featureGroupType_1;
+            } else {
+              FeatureGroupPrototype _featureGroupPrototype_1 = featureGroup.getFeatureGroupPrototype();
+              FeatureGroupType _findFeatureGroupTypeForFeatureGroupPrototype = null;
+              if (_featureGroupPrototype_1!=null) {
+                _findFeatureGroupTypeForFeatureGroupPrototype=Aadl2ScopeProvider.findFeatureGroupTypeForFeatureGroupPrototype(_featureGroupPrototype_1, containingClassifier);
+              }
+              _elvis = _findFeatureGroupTypeForFeatureGroupPrototype;
+            }
+            final FeatureGroupType featureGroupType = _elvis;
+            IScope _elvis_1 = null;
+            EList<Feature> _allFeatures = null;
+            if (featureGroupType!=null) {
+              _allFeatures=featureGroupType.getAllFeatures();
+            }
+            IScope _scopeFor = null;
+            if (_allFeatures!=null) {
+              _scopeFor=Scopes.scopeFor(_allFeatures);
+            }
+            if (_scopeFor != null) {
+              _elvis_1 = _scopeFor;
+            } else {
+              _elvis_1 = IScope.NULLSCOPE;
+            }
+            _xblockexpression_1 = _elvis_1;
+          }
+          _switchResult = _xblockexpression_1;
+        }
+      }
+      if (!_matched) {
+        if (connectionContext instanceof Feature) {
+          _matched=true;
+          IScope _xblockexpression_1 = null;
+          {
+            Feature feature = ((Feature)connectionContext);
+            boolean _and = false;
+            boolean _and_1 = false;
+            Classifier _classifier = feature.getClassifier();
+            boolean _equals = Objects.equal(_classifier, null);
+            if (!_equals) {
+              _and_1 = false;
+            } else {
+              ComponentPrototype _prototype = feature.getPrototype();
+              boolean _equals_1 = Objects.equal(_prototype, null);
+              _and_1 = _equals_1;
+            }
+            if (!_and_1) {
+              _and = false;
+            } else {
+              Feature _refined = feature.getRefined();
+              boolean _notEquals = (!Objects.equal(_refined, null));
+              _and = _notEquals;
+            }
+            boolean _while = _and;
+            while (_while) {
+              Feature _refined_1 = feature.getRefined();
+              feature = _refined_1;
+              boolean _and_2 = false;
+              boolean _and_3 = false;
+              Classifier _classifier_1 = feature.getClassifier();
+              boolean _equals_2 = Objects.equal(_classifier_1, null);
+              if (!_equals_2) {
+                _and_3 = false;
+              } else {
+                ComponentPrototype _prototype_1 = feature.getPrototype();
+                boolean _equals_3 = Objects.equal(_prototype_1, null);
+                _and_3 = _equals_3;
+              }
+              if (!_and_3) {
+                _and_2 = false;
+              } else {
+                Feature _refined_2 = feature.getRefined();
+                boolean _notEquals_1 = (!Objects.equal(_refined_2, null));
+                _and_2 = _notEquals_1;
+              }
+              _while = _and_2;
+            }
+            Classifier _elvis = null;
+            Classifier _classifier_1 = feature.getClassifier();
+            if (_classifier_1 != null) {
+              _elvis = _classifier_1;
+            } else {
+              ComponentPrototype _prototype_1 = feature.getPrototype();
+              ComponentClassifier _findClassifierForComponentPrototype = null;
+              if (_prototype_1!=null) {
+                _findClassifierForComponentPrototype=Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_1, containingClassifier);
+              }
+              _elvis = _findClassifierForComponentPrototype;
+            }
+            final Classifier featureClassifier = _elvis;
+            IScope _elvis_1 = null;
+            ArrayList<ConnectionEnd> _allConnectionEnds = null;
+            if (featureClassifier!=null) {
+              _allConnectionEnds=Aadl2ScopeProvider.allConnectionEnds(featureClassifier);
+            }
+            IScope _scopeFor = null;
+            if (_allConnectionEnds!=null) {
+              _scopeFor=Scopes.scopeFor(_allConnectionEnds);
+            }
+            if (_scopeFor != null) {
+              _elvis_1 = _scopeFor;
+            } else {
+              _elvis_1 = IScope.NULLSCOPE;
+            }
+            _xblockexpression_1 = _elvis_1;
+          }
+          _switchResult = _xblockexpression_1;
+        }
+      }
+      if (!_matched) {
+        if (connectionContext instanceof Subcomponent) {
+          _matched=true;
+          IScope _xblockexpression_1 = null;
+          {
+            Subcomponent subcomponent = ((Subcomponent)connectionContext);
+            boolean _and = false;
+            SubcomponentType _subcomponentType = subcomponent.getSubcomponentType();
+            boolean _equals = Objects.equal(_subcomponentType, null);
+            if (!_equals) {
+              _and = false;
+            } else {
+              Subcomponent _refined = subcomponent.getRefined();
+              boolean _notEquals = (!Objects.equal(_refined, null));
+              _and = _notEquals;
+            }
+            boolean _while = _and;
+            while (_while) {
+              Subcomponent _refined_1 = subcomponent.getRefined();
+              subcomponent = _refined_1;
+              boolean _and_1 = false;
+              SubcomponentType _subcomponentType_1 = subcomponent.getSubcomponentType();
+              boolean _equals_1 = Objects.equal(_subcomponentType_1, null);
+              if (!_equals_1) {
+                _and_1 = false;
+              } else {
+                Subcomponent _refined_2 = subcomponent.getRefined();
+                boolean _notEquals_1 = (!Objects.equal(_refined_2, null));
+                _and_1 = _notEquals_1;
+              }
+              _while = _and_1;
+            }
+            ComponentClassifier _switchResult_1 = null;
+            SubcomponentType _subcomponentType_1 = subcomponent.getSubcomponentType();
+            final SubcomponentType subcomponentType = _subcomponentType_1;
+            boolean _matched_1 = false;
+            if (!_matched_1) {
+              if (subcomponentType instanceof ComponentClassifier) {
+                _matched_1=true;
+                _switchResult_1 = ((ComponentClassifier)subcomponentType);
+              }
+            }
+            if (!_matched_1) {
+              if (subcomponentType instanceof ComponentPrototype) {
+                _matched_1=true;
+                _switchResult_1 = Aadl2ScopeProvider.findClassifierForComponentPrototype(((ComponentPrototype)subcomponentType), containingClassifier);
+              }
+            }
+            final ComponentClassifier subcomponentClassifier = _switchResult_1;
+            IScope _elvis = null;
+            ArrayList<ConnectionEnd> _allConnectionEnds = null;
+            if (subcomponentClassifier!=null) {
+              _allConnectionEnds=Aadl2ScopeProvider.allConnectionEnds(subcomponentClassifier);
+            }
+            IScope _scopeFor = null;
+            if (_allConnectionEnds!=null) {
+              _scopeFor=Scopes.scopeFor(_allConnectionEnds);
+            }
+            if (_scopeFor != null) {
+              _elvis = _scopeFor;
+            } else {
+              _elvis = IScope.NULLSCOPE;
+            }
+            _xblockexpression_1 = _elvis;
+          }
+          _switchResult = _xblockexpression_1;
+        }
+      }
+      if (!_matched) {
+        if (connectionContext instanceof SubprogramCall) {
+          _matched=true;
+          IScope _switchResult_1 = null;
+          CalledSubprogram _calledSubprogram = ((SubprogramCall)connectionContext).getCalledSubprogram();
+          final CalledSubprogram calledSubprogram = _calledSubprogram;
+          boolean _matched_1 = false;
+          if (!_matched_1) {
+            if (calledSubprogram instanceof ComponentClassifier) {
+              _matched_1=true;
+              ArrayList<ConnectionEnd> _allConnectionEnds = Aadl2ScopeProvider.allConnectionEnds(((ComponentClassifier)calledSubprogram));
+              _switchResult_1 = Scopes.scopeFor(_allConnectionEnds);
+            }
+          }
+          if (!_matched_1) {
+            if (calledSubprogram instanceof SubprogramSubcomponent) {
+              _matched_1=true;
+              IScope _xblockexpression_1 = null;
+              {
+                Subcomponent subcomponent = ((Subcomponent)calledSubprogram);
+                boolean _and = false;
+                SubcomponentType _subcomponentType = subcomponent.getSubcomponentType();
+                boolean _equals = Objects.equal(_subcomponentType, null);
+                if (!_equals) {
+                  _and = false;
+                } else {
+                  Subcomponent _refined = subcomponent.getRefined();
+                  boolean _notEquals = (!Objects.equal(_refined, null));
+                  _and = _notEquals;
+                }
+                boolean _while = _and;
+                while (_while) {
+                  Subcomponent _refined_1 = subcomponent.getRefined();
+                  subcomponent = _refined_1;
+                  boolean _and_1 = false;
+                  SubcomponentType _subcomponentType_1 = subcomponent.getSubcomponentType();
+                  boolean _equals_1 = Objects.equal(_subcomponentType_1, null);
+                  if (!_equals_1) {
+                    _and_1 = false;
+                  } else {
+                    Subcomponent _refined_2 = subcomponent.getRefined();
+                    boolean _notEquals_1 = (!Objects.equal(_refined_2, null));
+                    _and_1 = _notEquals_1;
+                  }
+                  _while = _and_1;
+                }
+                ComponentClassifier _switchResult_2 = null;
+                SubcomponentType _subcomponentType_1 = subcomponent.getSubcomponentType();
+                final SubcomponentType subcomponentType = _subcomponentType_1;
+                boolean _matched_2 = false;
+                if (!_matched_2) {
+                  if (subcomponentType instanceof ComponentClassifier) {
+                    _matched_2=true;
+                    _switchResult_2 = ((ComponentClassifier)subcomponentType);
+                  }
+                }
+                if (!_matched_2) {
+                  if (subcomponentType instanceof ComponentPrototype) {
+                    _matched_2=true;
+                    _switchResult_2 = Aadl2ScopeProvider.findClassifierForComponentPrototype(((ComponentPrototype)subcomponentType), containingClassifier);
+                  }
+                }
+                final ComponentClassifier subcomponentClassifier = _switchResult_2;
+                IScope _elvis = null;
+                ArrayList<ConnectionEnd> _allConnectionEnds = null;
+                if (subcomponentClassifier!=null) {
+                  _allConnectionEnds=Aadl2ScopeProvider.allConnectionEnds(subcomponentClassifier);
+                }
+                IScope _scopeFor = null;
+                if (_allConnectionEnds!=null) {
+                  _scopeFor=Scopes.scopeFor(_allConnectionEnds);
+                }
+                if (_scopeFor != null) {
+                  _elvis = _scopeFor;
+                } else {
+                  _elvis = IScope.NULLSCOPE;
+                }
+                _xblockexpression_1 = _elvis;
+              }
+              _switchResult_1 = _xblockexpression_1;
+            }
+          }
+          if (!_matched_1) {
+            if (calledSubprogram instanceof SubprogramAccess) {
+              _matched_1=true;
+              IScope _xblockexpression_1 = null;
+              {
+                Feature access = ((Feature)calledSubprogram);
+                boolean _and = false;
+                boolean _and_1 = false;
+                Classifier _classifier = access.getClassifier();
+                boolean _equals = Objects.equal(_classifier, null);
+                if (!_equals) {
+                  _and_1 = false;
+                } else {
+                  ComponentPrototype _prototype = access.getPrototype();
+                  boolean _equals_1 = Objects.equal(_prototype, null);
+                  _and_1 = _equals_1;
+                }
+                if (!_and_1) {
+                  _and = false;
+                } else {
+                  Feature _refined = access.getRefined();
+                  boolean _notEquals = (!Objects.equal(_refined, null));
+                  _and = _notEquals;
+                }
+                boolean _while = _and;
+                while (_while) {
+                  Feature _refined_1 = access.getRefined();
+                  access = _refined_1;
+                  boolean _and_2 = false;
+                  boolean _and_3 = false;
+                  Classifier _classifier_1 = access.getClassifier();
+                  boolean _equals_2 = Objects.equal(_classifier_1, null);
+                  if (!_equals_2) {
+                    _and_3 = false;
+                  } else {
+                    ComponentPrototype _prototype_1 = access.getPrototype();
+                    boolean _equals_3 = Objects.equal(_prototype_1, null);
+                    _and_3 = _equals_3;
+                  }
+                  if (!_and_3) {
+                    _and_2 = false;
+                  } else {
+                    Feature _refined_2 = access.getRefined();
+                    boolean _notEquals_1 = (!Objects.equal(_refined_2, null));
+                    _and_2 = _notEquals_1;
+                  }
+                  _while = _and_2;
+                }
+                Classifier accessClassifier = null;
+                Classifier _classifier_1 = access.getClassifier();
+                boolean _notEquals_1 = (!Objects.equal(_classifier_1, null));
+                if (_notEquals_1) {
+                  Classifier _classifier_2 = access.getClassifier();
+                  accessClassifier = _classifier_2;
+                } else {
+                  ComponentPrototype _prototype_1 = access.getPrototype();
+                  boolean _notEquals_2 = (!Objects.equal(_prototype_1, null));
+                  if (_notEquals_2) {
+                    ComponentClassifier _switchResult_2 = null;
+                    CallContext _context_1 = ((SubprogramCall)connectionContext).getContext();
+                    final CallContext callContext = _context_1;
+                    boolean _matched_2 = false;
+                    if (!_matched_2) {
+                      if (callContext instanceof ComponentType) {
+                        _matched_2=true;
+                        ComponentPrototype _prototype_2 = access.getPrototype();
+                        _switchResult_2 = Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_2, ((ComponentType)callContext));
+                      }
+                    }
+                    if (!_matched_2) {
+                      if (callContext instanceof FeatureGroup) {
+                        _matched_2=true;
+                        ComponentClassifier _xblockexpression_2 = null;
+                        {
+                          FeatureGroup callContextFeatureGroup = ((FeatureGroup)callContext);
+                          boolean _and_2 = false;
+                          boolean _and_3 = false;
+                          FeatureGroupType _featureGroupType = callContextFeatureGroup.getFeatureGroupType();
+                          boolean _equals_2 = Objects.equal(_featureGroupType, null);
+                          if (!_equals_2) {
+                            _and_3 = false;
+                          } else {
+                            FeatureGroupPrototype _featureGroupPrototype = callContextFeatureGroup.getFeatureGroupPrototype();
+                            boolean _equals_3 = Objects.equal(_featureGroupPrototype, null);
+                            _and_3 = _equals_3;
+                          }
+                          if (!_and_3) {
+                            _and_2 = false;
+                          } else {
+                            Feature _refined_1 = callContextFeatureGroup.getRefined();
+                            _and_2 = (_refined_1 instanceof FeatureGroup);
+                          }
+                          boolean _while_1 = _and_2;
+                          while (_while_1) {
+                            Feature _refined_2 = callContextFeatureGroup.getRefined();
+                            callContextFeatureGroup = ((FeatureGroup) _refined_2);
+                            boolean _and_4 = false;
+                            boolean _and_5 = false;
+                            FeatureGroupType _featureGroupType_1 = callContextFeatureGroup.getFeatureGroupType();
+                            boolean _equals_4 = Objects.equal(_featureGroupType_1, null);
+                            if (!_equals_4) {
+                              _and_5 = false;
+                            } else {
+                              FeatureGroupPrototype _featureGroupPrototype_1 = callContextFeatureGroup.getFeatureGroupPrototype();
+                              boolean _equals_5 = Objects.equal(_featureGroupPrototype_1, null);
+                              _and_5 = _equals_5;
+                            }
+                            if (!_and_5) {
+                              _and_4 = false;
+                            } else {
+                              Feature _refined_3 = callContextFeatureGroup.getRefined();
+                              _and_4 = (_refined_3 instanceof FeatureGroup);
+                            }
+                            _while_1 = _and_4;
+                          }
+                          FeatureGroupType _elvis = null;
+                          FeatureGroupType _featureGroupType_1 = callContextFeatureGroup.getFeatureGroupType();
+                          if (_featureGroupType_1 != null) {
+                            _elvis = _featureGroupType_1;
+                          } else {
+                            FeatureGroupPrototype _featureGroupPrototype_1 = callContextFeatureGroup.getFeatureGroupPrototype();
+                            FeatureGroupType _findFeatureGroupTypeForFeatureGroupPrototype = null;
+                            if (_featureGroupPrototype_1!=null) {
+                              _findFeatureGroupTypeForFeatureGroupPrototype=Aadl2ScopeProvider.findFeatureGroupTypeForFeatureGroupPrototype(_featureGroupPrototype_1, containingClassifier);
+                            }
+                            _elvis = _findFeatureGroupTypeForFeatureGroupPrototype;
+                          }
+                          final FeatureGroupType prototypeContext = _elvis;
+                          ComponentClassifier _xifexpression = null;
+                          boolean _notEquals_3 = (!Objects.equal(prototypeContext, null));
+                          if (_notEquals_3) {
+                            ComponentPrototype _prototype_2 = access.getPrototype();
+                            _xifexpression = Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_2, prototypeContext);
+                          }
+                          _xblockexpression_2 = _xifexpression;
+                        }
+                        _switchResult_2 = _xblockexpression_2;
+                      }
+                    }
+                    if (!_matched_2) {
+                      if (callContext instanceof SubprogramGroupAccess) {
+                        _matched_2=true;
+                        ComponentClassifier _xblockexpression_2 = null;
+                        {
+                          Feature callContextAccess = ((Feature)callContext);
+                          boolean _and_2 = false;
+                          boolean _and_3 = false;
+                          Classifier _classifier_3 = callContextAccess.getClassifier();
+                          boolean _equals_2 = Objects.equal(_classifier_3, null);
+                          if (!_equals_2) {
+                            _and_3 = false;
+                          } else {
+                            ComponentPrototype _prototype_2 = callContextAccess.getPrototype();
+                            boolean _equals_3 = Objects.equal(_prototype_2, null);
+                            _and_3 = _equals_3;
+                          }
+                          if (!_and_3) {
+                            _and_2 = false;
+                          } else {
+                            Feature _refined_1 = callContextAccess.getRefined();
+                            boolean _notEquals_3 = (!Objects.equal(_refined_1, null));
+                            _and_2 = _notEquals_3;
+                          }
+                          boolean _while_1 = _and_2;
+                          while (_while_1) {
+                            Feature _refined_2 = callContextAccess.getRefined();
+                            callContextAccess = _refined_2;
+                            boolean _and_4 = false;
+                            boolean _and_5 = false;
+                            Classifier _classifier_4 = callContextAccess.getClassifier();
+                            boolean _equals_4 = Objects.equal(_classifier_4, null);
+                            if (!_equals_4) {
+                              _and_5 = false;
+                            } else {
+                              ComponentPrototype _prototype_3 = callContextAccess.getPrototype();
+                              boolean _equals_5 = Objects.equal(_prototype_3, null);
+                              _and_5 = _equals_5;
+                            }
+                            if (!_and_5) {
+                              _and_4 = false;
+                            } else {
+                              Feature _refined_3 = callContextAccess.getRefined();
+                              boolean _notEquals_4 = (!Objects.equal(_refined_3, null));
+                              _and_4 = _notEquals_4;
+                            }
+                            _while_1 = _and_4;
+                          }
+                          Classifier _elvis = null;
+                          Classifier _classifier_4 = callContextAccess.getClassifier();
+                          if (_classifier_4 != null) {
+                            _elvis = _classifier_4;
+                          } else {
+                            ComponentPrototype _prototype_3 = callContextAccess.getPrototype();
+                            ComponentClassifier _findClassifierForComponentPrototype = null;
+                            if (_prototype_3!=null) {
+                              _findClassifierForComponentPrototype=Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_3, containingClassifier);
+                            }
+                            _elvis = _findClassifierForComponentPrototype;
+                          }
+                          final Classifier prototypeContext = _elvis;
+                          ComponentClassifier _xifexpression = null;
+                          boolean _notEquals_4 = (!Objects.equal(prototypeContext, null));
+                          if (_notEquals_4) {
+                            ComponentPrototype _prototype_4 = access.getPrototype();
+                            _xifexpression = Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_4, prototypeContext);
+                          }
+                          _xblockexpression_2 = _xifexpression;
+                        }
+                        _switchResult_2 = _xblockexpression_2;
+                      }
+                    }
+                    if (!_matched_2) {
+                      if (callContext instanceof SubprogramGroupSubcomponent) {
+                        _matched_2=true;
+                        ComponentClassifier _xblockexpression_2 = null;
+                        {
+                          Subcomponent callContextSubcomponent = ((Subcomponent)callContext);
+                          boolean _and_2 = false;
+                          SubcomponentType _subcomponentType = callContextSubcomponent.getSubcomponentType();
+                          boolean _equals_2 = Objects.equal(_subcomponentType, null);
+                          if (!_equals_2) {
+                            _and_2 = false;
+                          } else {
+                            Subcomponent _refined_1 = callContextSubcomponent.getRefined();
+                            boolean _notEquals_3 = (!Objects.equal(_refined_1, null));
+                            _and_2 = _notEquals_3;
+                          }
+                          boolean _while_1 = _and_2;
+                          while (_while_1) {
+                            Subcomponent _refined_2 = callContextSubcomponent.getRefined();
+                            callContextSubcomponent = _refined_2;
+                            boolean _and_3 = false;
+                            SubcomponentType _subcomponentType_1 = callContextSubcomponent.getSubcomponentType();
+                            boolean _equals_3 = Objects.equal(_subcomponentType_1, null);
+                            if (!_equals_3) {
+                              _and_3 = false;
+                            } else {
+                              Subcomponent _refined_3 = callContextSubcomponent.getRefined();
+                              boolean _notEquals_4 = (!Objects.equal(_refined_3, null));
+                              _and_3 = _notEquals_4;
+                            }
+                            _while_1 = _and_3;
+                          }
+                          ComponentClassifier _switchResult_3 = null;
+                          SubcomponentType _subcomponentType_1 = callContextSubcomponent.getSubcomponentType();
+                          final SubcomponentType callContextSubcomponentType = _subcomponentType_1;
+                          boolean _matched_3 = false;
+                          if (!_matched_3) {
+                            if (callContextSubcomponentType instanceof ComponentClassifier) {
+                              _matched_3=true;
+                              ComponentClassifier _xifexpression = null;
+                              EList<PrototypeBinding> _ownedPrototypeBindings = callContextSubcomponent.getOwnedPrototypeBindings();
+                              boolean _isEmpty = _ownedPrototypeBindings.isEmpty();
+                              if (_isEmpty) {
+                                ComponentPrototype _prototype_2 = access.getPrototype();
+                                _xifexpression = Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_2, ((Classifier)callContextSubcomponentType));
+                              } else {
+                                ComponentPrototype _prototype_3 = access.getPrototype();
+                                _xifexpression = Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_3, ((Classifier)callContextSubcomponentType), callContextSubcomponent);
+                              }
+                              _switchResult_3 = _xifexpression;
+                            }
+                          }
+                          if (!_matched_3) {
+                            if (callContextSubcomponentType instanceof ComponentPrototype) {
+                              _matched_3=true;
+                              ComponentClassifier _xblockexpression_3 = null;
+                              {
+                                ComponentClassifier prototypeContext = Aadl2ScopeProvider.findClassifierForComponentPrototype(((ComponentPrototype)callContextSubcomponentType), containingClassifier);
+                                ComponentClassifier _xifexpression = null;
+                                boolean _notEquals_4 = (!Objects.equal(prototypeContext, null));
+                                if (_notEquals_4) {
+                                  ComponentPrototype _prototype_2 = access.getPrototype();
+                                  _xifexpression = Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_2, prototypeContext);
+                                }
+                                _xblockexpression_3 = _xifexpression;
+                              }
+                              _switchResult_3 = _xblockexpression_3;
+                            }
+                          }
+                          _xblockexpression_2 = _switchResult_3;
+                        }
+                        _switchResult_2 = _xblockexpression_2;
+                      }
+                    }
+                    if (!_matched_2) {
+                      ComponentPrototype _prototype_2 = access.getPrototype();
+                      _switchResult_2 = Aadl2ScopeProvider.findClassifierForComponentPrototype(_prototype_2, containingClassifier);
+                    }
+                    accessClassifier = _switchResult_2;
+                  }
+                }
+                IScope _elvis = null;
+                ArrayList<ConnectionEnd> _allConnectionEnds = null;
+                if (accessClassifier!=null) {
+                  _allConnectionEnds=Aadl2ScopeProvider.allConnectionEnds(accessClassifier);
+                }
+                IScope _scopeFor = null;
+                if (_allConnectionEnds!=null) {
+                  _scopeFor=Scopes.scopeFor(_allConnectionEnds);
+                }
+                if (_scopeFor != null) {
+                  _elvis = _scopeFor;
+                } else {
+                  _elvis = IScope.NULLSCOPE;
+                }
+                _xblockexpression_1 = _elvis;
+              }
+              _switchResult_1 = _xblockexpression_1;
+            }
+          }
+          if (!_matched_1) {
+            if (calledSubprogram instanceof ComponentPrototype) {
+              _matched_1=true;
+              IScope _elvis = null;
+              ComponentClassifier _findClassifierForComponentPrototype = Aadl2ScopeProvider.findClassifierForComponentPrototype(((ComponentPrototype)calledSubprogram), containingClassifier);
+              ArrayList<ConnectionEnd> _allConnectionEnds = null;
+              if (_findClassifierForComponentPrototype!=null) {
+                _allConnectionEnds=Aadl2ScopeProvider.allConnectionEnds(_findClassifierForComponentPrototype);
+              }
+              IScope _scopeFor = null;
+              if (_allConnectionEnds!=null) {
+                _scopeFor=Scopes.scopeFor(_allConnectionEnds);
+              }
+              if (_scopeFor != null) {
+                _elvis = _scopeFor;
+              } else {
+                _elvis = IScope.NULLSCOPE;
+              }
+              _switchResult_1 = _elvis;
+            }
+          }
+          if (!_matched_1) {
+            _switchResult_1 = IScope.NULLSCOPE;
+          }
+          _switchResult = _switchResult_1;
+        }
+      }
+      _xblockexpression = _switchResult;
     }
     return _xblockexpression;
   }
@@ -703,6 +1409,79 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
       _xblockexpression = allSubprogramCalls;
     }
     return _xblockexpression;
+  }
+  
+  private static ArrayList<ConnectionEnd> allConnectionEnds(final Classifier classifier) {
+    ArrayList<ConnectionEnd> _xblockexpression = null;
+    {
+      final ArrayList<ConnectionEnd> connectionEnds = CollectionLiterals.<ConnectionEnd>newArrayList();
+      EList<Feature> _allFeatures = classifier.getAllFeatures();
+      connectionEnds.addAll(_allFeatures);
+      if ((classifier instanceof ComponentImplementation)) {
+        EList<Subcomponent> _allSubcomponents = ((ComponentImplementation)classifier).getAllSubcomponents();
+        Iterable<ConnectionEnd> _filter = Iterables.<ConnectionEnd>filter(_allSubcomponents, ConnectionEnd.class);
+        Iterables.<ConnectionEnd>addAll(connectionEnds, _filter);
+        ArrayList<SubprogramProxy> _allSubprogramProxies = Aadl2ScopeProvider.allSubprogramProxies(((ComponentImplementation)classifier));
+        connectionEnds.addAll(_allSubprogramProxies);
+        ArrayList<PortProxy> _allPortProxies = Aadl2ScopeProvider.allPortProxies(((ComponentImplementation)classifier));
+        connectionEnds.addAll(_allPortProxies);
+        ArrayList<InternalFeature> _allInternalFeatures = Aadl2ScopeProvider.allInternalFeatures(((ComponentImplementation)classifier));
+        connectionEnds.addAll(_allInternalFeatures);
+      }
+      _xblockexpression = connectionEnds;
+    }
+    return _xblockexpression;
+  }
+  
+  private static ArrayList<SubprogramProxy> allSubprogramProxies(final ComponentImplementation implementation) {
+    ArrayList<SubprogramProxy> _xblockexpression = null;
+    {
+      final ArrayList<SubprogramProxy> allSubprogramProxies = CollectionLiterals.<SubprogramProxy>newArrayList();
+      for (ComponentImplementation currentImplementation = implementation; (!Objects.equal(currentImplementation, null)); currentImplementation = currentImplementation.getExtended()) {
+        EList<SubprogramProxy> _ownedSubprogramProxies = currentImplementation.getOwnedSubprogramProxies();
+        allSubprogramProxies.addAll(_ownedSubprogramProxies);
+      }
+      _xblockexpression = allSubprogramProxies;
+    }
+    return _xblockexpression;
+  }
+  
+  private static ArrayList<PortProxy> allPortProxies(final ComponentImplementation implementation) {
+    ArrayList<PortProxy> _xblockexpression = null;
+    {
+      final ArrayList<PortProxy> allPortProxies = CollectionLiterals.<PortProxy>newArrayList();
+      for (ComponentImplementation currentImplementation = implementation; (!Objects.equal(currentImplementation, null)); currentImplementation = currentImplementation.getExtended()) {
+        EList<PortProxy> _ownedPortProxies = currentImplementation.getOwnedPortProxies();
+        allPortProxies.addAll(_ownedPortProxies);
+      }
+      _xblockexpression = allPortProxies;
+    }
+    return _xblockexpression;
+  }
+  
+  private static ArrayList<InternalFeature> allInternalFeatures(final ComponentImplementation implementation) {
+    ArrayList<InternalFeature> _xblockexpression = null;
+    {
+      final ArrayList<InternalFeature> allInternalFeatures = CollectionLiterals.<InternalFeature>newArrayList();
+      for (ComponentImplementation currentImplementation = implementation; (!Objects.equal(currentImplementation, null)); currentImplementation = currentImplementation.getExtended()) {
+        EList<InternalFeature> _ownedInternalFeatures = currentImplementation.getOwnedInternalFeatures();
+        allInternalFeatures.addAll(_ownedInternalFeatures);
+      }
+      _xblockexpression = allInternalFeatures;
+    }
+    return _xblockexpression;
+  }
+  
+  private static FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(final FeatureGroupPrototype prototype, final Classifier containingClassifier) {
+    return PropertiesLinkingService.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier, prototype);
+  }
+  
+  private static ComponentClassifier findClassifierForComponentPrototype(final ComponentPrototype prototype, final Classifier containingClassifier) {
+    return PropertiesLinkingService.findClassifierForComponentPrototype(containingClassifier, prototype);
+  }
+  
+  private static ComponentClassifier findClassifierForComponentPrototype(final ComponentPrototype prototype, final Classifier classifierPrototypeContext, final Subcomponent subcomponentPrototypeContext) {
+    return PropertiesLinkingService.findClassifierForComponentPrototype(classifierPrototypeContext, subcomponentPrototypeContext, prototype);
   }
   
   public IScope scope_Mode(final ModalElement context, final EReference reference) {
