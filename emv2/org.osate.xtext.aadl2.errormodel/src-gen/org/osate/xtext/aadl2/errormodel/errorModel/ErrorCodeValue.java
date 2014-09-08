@@ -4,6 +4,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.Element;
 import org.osate.aadl2.PropertyConstant;
 
 /**
@@ -24,7 +25,7 @@ import org.osate.aadl2.PropertyConstant;
  * @model
  * @generated
  */
-public interface ErrorCodeValue extends EObject
+public interface ErrorCodeValue extends EObject, Element
 {
   /**
    * Returns the value of the '<em><b>Int Value</b></em>' attribute.

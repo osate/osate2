@@ -9,9 +9,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.aadl2.PropertyConstant;
+
+import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -31,7 +32,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  *
  * @generated
  */
-public class ErrorCodeValueImpl extends MinimalEObjectImpl.Container implements ErrorCodeValue
+public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
 {
   /**
    * The default value of the '{@link #getIntValue() <em>Int Value</em>}' attribute.

@@ -355,6 +355,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
       {
         BranchValue branchValue = (BranchValue)theEObject;
         T result = caseBranchValue(branchValue);
+        if (result == null) result = caseElement(branchValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -441,6 +442,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
       {
         ErrorCodeValue errorCodeValue = (ErrorCodeValue)theEObject;
         T result = caseErrorCodeValue(errorCodeValue);
+        if (result == null) result = caseElement(errorCodeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }

@@ -4254,7 +4254,7 @@ ruleBranchValue returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyConstantCrossReference_1_1_0()); 
+	        newCompositeNode(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyCrossReference_1_1_0()); 
 	    }
 		ruleQEMREF		{ 
 	        afterParserOrEnumRuleCall();

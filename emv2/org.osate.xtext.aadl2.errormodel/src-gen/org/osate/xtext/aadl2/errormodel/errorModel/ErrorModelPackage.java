@@ -2528,13 +2528,31 @@ public interface ErrorModelPackage extends EPackage
   int BRANCH_VALUE = 29;
 
   /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BRANCH_VALUE__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BRANCH_VALUE__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+
+  /**
    * The feature id for the '<em><b>Realvalue</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BRANCH_VALUE__REALVALUE = 0;
+  int BRANCH_VALUE__REALVALUE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Symboliclabel</b></em>' reference.
@@ -2543,7 +2561,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BRANCH_VALUE__SYMBOLICLABEL = 1;
+  int BRANCH_VALUE__SYMBOLICLABEL = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Others</b></em>' attribute.
@@ -2552,7 +2570,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BRANCH_VALUE__OTHERS = 2;
+  int BRANCH_VALUE__OTHERS = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Branch Value</em>' class.
@@ -2561,7 +2579,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BRANCH_VALUE_FEATURE_COUNT = 3;
+  int BRANCH_VALUE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl <em>Connection Error Source</em>}' class.
@@ -3258,13 +3276,31 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_CODE_VALUE = 39;
 
   /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_CODE_VALUE__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_CODE_VALUE__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+
+  /**
    * The feature id for the '<em><b>Int Value</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_CODE_VALUE__INT_VALUE = 0;
+  int ERROR_CODE_VALUE__INT_VALUE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Constant</b></em>' reference.
@@ -3273,7 +3309,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_CODE_VALUE__CONSTANT = 1;
+  int ERROR_CODE_VALUE__CONSTANT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Enum Literal</b></em>' attribute.
@@ -3282,7 +3318,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_CODE_VALUE__ENUM_LITERAL = 2;
+  int ERROR_CODE_VALUE__ENUM_LITERAL = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Error Code Value</em>' class.
@@ -3291,7 +3327,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_CODE_VALUE_FEATURE_COUNT = 3;
+  int ERROR_CODE_VALUE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorStateToModeMappingImpl <em>Error State To Mode Mapping</em>}' class.

@@ -10709,7 +10709,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	        }
                             
                      
-                    	        newCompositeNode(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyConstantCrossReference_1_1_0()); 
+                    	        newCompositeNode(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyCrossReference_1_1_0()); 
                     	    
                     pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleBranchValue8956);
                     ruleQEMREF();

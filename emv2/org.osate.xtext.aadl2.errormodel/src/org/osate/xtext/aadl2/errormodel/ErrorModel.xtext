@@ -44,8 +44,8 @@ ErrorModelSubclause
 Element returns aadl2::Element:
 TypeSetElement|TypeToken 
 |TypeTransformation|TypeMapping
-|QualifiedPropagationPoint|TransitionBranch
-|ConditionElement
+|QualifiedPropagationPoint|TransitionBranch|BranchValue | ErrorCodeValue
+|ConditionElement | AndExpression | ConditionTerm
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 	|ErrorStateToModeMapping 
 | SubcomponentElement | FeatureorPPReference  | TypeUseContext
@@ -337,7 +337,7 @@ TransitionBranch returns TransitionBranch:
 // store real literal as integer, ID as reference to property constant
 BranchValue returns BranchValue: 
 	{BranchValue}
-   ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::PropertyConstant|QEMREF]) | (others?='others'));
+   ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::Property|QEMREF]) | (others?='others'));
 
 
 ConnectionErrorSource returns ConnectionErrorSource:

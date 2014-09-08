@@ -253,7 +253,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.BRANCH_VALUE:
-				if(context == grammarAccess.getBranchValueRule()) {
+				if(context == grammarAccess.getBranchValueRule() ||
+				   context == grammarAccess.getElementRule()) {
 					sequence_BranchValue(context, (BranchValue) semanticObject); 
 					return; 
 				}
@@ -318,7 +319,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.ERROR_CODE_VALUE:
-				if(context == grammarAccess.getErrorCodeValueRule()) {
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getErrorCodeValueRule()) {
 					sequence_ErrorCodeValue(context, (ErrorCodeValue) semanticObject); 
 					return; 
 				}
@@ -643,7 +645,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (realvalue=REAL_LIT | symboliclabel=[PropertyConstant|QEMREF] | others?='others')
+	 *     (realvalue=REAL_LIT | symboliclabel=[Property|QEMREF] | others?='others')
 	 */
 	protected void sequence_BranchValue(EObject context, BranchValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

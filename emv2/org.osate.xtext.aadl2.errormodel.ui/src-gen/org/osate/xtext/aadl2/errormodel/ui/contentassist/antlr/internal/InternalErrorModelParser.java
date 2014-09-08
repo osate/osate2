@@ -68611,21 +68611,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:25866:1: ( ( ruleQEMREF ) )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:25867:1: ( ruleQEMREF )
             {
-             before(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyConstantCrossReference_1_1_0()); 
+             before(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyCrossReference_1_1_0()); 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:25868:1: ( ruleQEMREF )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:25869:1: ruleQEMREF
             {
-             before(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyConstantQEMREFParserRuleCall_1_1_0_1()); 
+             before(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyQEMREFParserRuleCall_1_1_0_1()); 
             pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__BranchValue__SymboliclabelAssignment_1_152064);
             ruleQEMREF();
 
             state._fsp--;
 
-             after(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyConstantQEMREFParserRuleCall_1_1_0_1()); 
+             after(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyQEMREFParserRuleCall_1_1_0_1()); 
 
             }
 
-             after(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyConstantCrossReference_1_1_0()); 
+             after(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyCrossReference_1_1_0()); 
 
             }
 

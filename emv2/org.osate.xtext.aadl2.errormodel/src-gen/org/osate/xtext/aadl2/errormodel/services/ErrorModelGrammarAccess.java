@@ -191,25 +191,31 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeMappingParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cQualifiedPropagationPointParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cTransitionBranchParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cConditionElementParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cConditionExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cOrmoreExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cOrlessExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cOutgoingPropagationConditionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
-		private final RuleCall cErrorStateToModeMappingParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
-		private final RuleCall cSubcomponentElementParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
-		private final RuleCall cFeatureorPPReferenceParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
-		private final RuleCall cTypeUseContextParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cBranchValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cErrorCodeValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cConditionElementParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cAndExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cConditionTermParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cConditionExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cOrmoreExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cOrlessExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
+		private final RuleCall cOutgoingPropagationConditionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cErrorStateToModeMappingParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
+		private final RuleCall cSubcomponentElementParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
+		private final RuleCall cFeatureorPPReferenceParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
+		private final RuleCall cTypeUseContextParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
 		
 		//Element returns aadl2::Element:
 		//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-		//	ConditionElement | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
-		//	ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference | TypeUseContext;
+		//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
+		//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
+		//	FeatureorPPReference | TypeUseContext;
 		public ParserRule getRule() { return rule; }
 
 		//TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-		//ConditionElement | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
-		//ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference | TypeUseContext
+		//BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
+		//OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
+		//FeatureorPPReference | TypeUseContext
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TypeSetElement
@@ -230,32 +236,44 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TransitionBranch
 		public RuleCall getTransitionBranchParserRuleCall_5() { return cTransitionBranchParserRuleCall_5; }
 
+		//BranchValue
+		public RuleCall getBranchValueParserRuleCall_6() { return cBranchValueParserRuleCall_6; }
+
+		//ErrorCodeValue
+		public RuleCall getErrorCodeValueParserRuleCall_7() { return cErrorCodeValueParserRuleCall_7; }
+
 		//ConditionElement
-		public RuleCall getConditionElementParserRuleCall_6() { return cConditionElementParserRuleCall_6; }
+		public RuleCall getConditionElementParserRuleCall_8() { return cConditionElementParserRuleCall_8; }
+
+		//AndExpression
+		public RuleCall getAndExpressionParserRuleCall_9() { return cAndExpressionParserRuleCall_9; }
+
+		//ConditionTerm
+		public RuleCall getConditionTermParserRuleCall_10() { return cConditionTermParserRuleCall_10; }
 
 		//ConditionExpression
-		public RuleCall getConditionExpressionParserRuleCall_7() { return cConditionExpressionParserRuleCall_7; }
+		public RuleCall getConditionExpressionParserRuleCall_11() { return cConditionExpressionParserRuleCall_11; }
 
 		//OrmoreExpression
-		public RuleCall getOrmoreExpressionParserRuleCall_8() { return cOrmoreExpressionParserRuleCall_8; }
+		public RuleCall getOrmoreExpressionParserRuleCall_12() { return cOrmoreExpressionParserRuleCall_12; }
 
 		//OrlessExpression
-		public RuleCall getOrlessExpressionParserRuleCall_9() { return cOrlessExpressionParserRuleCall_9; }
+		public RuleCall getOrlessExpressionParserRuleCall_13() { return cOrlessExpressionParserRuleCall_13; }
 
 		//OutgoingPropagationCondition
-		public RuleCall getOutgoingPropagationConditionParserRuleCall_10() { return cOutgoingPropagationConditionParserRuleCall_10; }
+		public RuleCall getOutgoingPropagationConditionParserRuleCall_14() { return cOutgoingPropagationConditionParserRuleCall_14; }
 
 		//ErrorStateToModeMapping
-		public RuleCall getErrorStateToModeMappingParserRuleCall_11() { return cErrorStateToModeMappingParserRuleCall_11; }
+		public RuleCall getErrorStateToModeMappingParserRuleCall_15() { return cErrorStateToModeMappingParserRuleCall_15; }
 
 		//SubcomponentElement
-		public RuleCall getSubcomponentElementParserRuleCall_12() { return cSubcomponentElementParserRuleCall_12; }
+		public RuleCall getSubcomponentElementParserRuleCall_16() { return cSubcomponentElementParserRuleCall_16; }
 
 		//FeatureorPPReference
-		public RuleCall getFeatureorPPReferenceParserRuleCall_13() { return cFeatureorPPReferenceParserRuleCall_13; }
+		public RuleCall getFeatureorPPReferenceParserRuleCall_17() { return cFeatureorPPReferenceParserRuleCall_17; }
 
 		//TypeUseContext
-		public RuleCall getTypeUseContextParserRuleCall_14() { return cTypeUseContextParserRuleCall_14; }
+		public RuleCall getTypeUseContextParserRuleCall_18() { return cTypeUseContextParserRuleCall_18; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -3187,23 +3205,23 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRealvalueAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
 		private final RuleCall cRealvalueREAL_LITTerminalRuleCall_1_0_0 = (RuleCall)cRealvalueAssignment_1_0.eContents().get(0);
 		private final Assignment cSymboliclabelAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
-		private final CrossReference cSymboliclabelPropertyConstantCrossReference_1_1_0 = (CrossReference)cSymboliclabelAssignment_1_1.eContents().get(0);
-		private final RuleCall cSymboliclabelPropertyConstantQEMREFParserRuleCall_1_1_0_1 = (RuleCall)cSymboliclabelPropertyConstantCrossReference_1_1_0.eContents().get(1);
+		private final CrossReference cSymboliclabelPropertyCrossReference_1_1_0 = (CrossReference)cSymboliclabelAssignment_1_1.eContents().get(0);
+		private final RuleCall cSymboliclabelPropertyQEMREFParserRuleCall_1_1_0_1 = (RuleCall)cSymboliclabelPropertyCrossReference_1_1_0.eContents().get(1);
 		private final Assignment cOthersAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
 		private final Keyword cOthersOthersKeyword_1_2_0 = (Keyword)cOthersAssignment_1_2.eContents().get(0);
 		
 		//// store real literal as integer, ID as reference to property constant
 		// BranchValue:
-		//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others");
+		//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::Property|QEMREF] | others?="others");
 		public ParserRule getRule() { return rule; }
 
-		//{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others")
+		//{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::Property|QEMREF] | others?="others")
 		public Group getGroup() { return cGroup; }
 
 		//{BranchValue}
 		public Action getBranchValueAction_0() { return cBranchValueAction_0; }
 
-		//realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others"
+		//realvalue=REAL_LIT | symboliclabel=[aadl2::Property|QEMREF] | others?="others"
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//realvalue=REAL_LIT
@@ -3212,14 +3230,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//REAL_LIT
 		public RuleCall getRealvalueREAL_LITTerminalRuleCall_1_0_0() { return cRealvalueREAL_LITTerminalRuleCall_1_0_0; }
 
-		//symboliclabel=[aadl2::PropertyConstant|QEMREF]
+		//symboliclabel=[aadl2::Property|QEMREF]
 		public Assignment getSymboliclabelAssignment_1_1() { return cSymboliclabelAssignment_1_1; }
 
-		//[aadl2::PropertyConstant|QEMREF]
-		public CrossReference getSymboliclabelPropertyConstantCrossReference_1_1_0() { return cSymboliclabelPropertyConstantCrossReference_1_1_0; }
+		//[aadl2::Property|QEMREF]
+		public CrossReference getSymboliclabelPropertyCrossReference_1_1_0() { return cSymboliclabelPropertyCrossReference_1_1_0; }
 
 		//QEMREF
-		public RuleCall getSymboliclabelPropertyConstantQEMREFParserRuleCall_1_1_0_1() { return cSymboliclabelPropertyConstantQEMREFParserRuleCall_1_1_0_1; }
+		public RuleCall getSymboliclabelPropertyQEMREFParserRuleCall_1_1_0_1() { return cSymboliclabelPropertyQEMREFParserRuleCall_1_1_0_1; }
 
 		//others?="others"
 		public Assignment getOthersAssignment_1_2() { return cOthersAssignment_1_2; }
@@ -4655,8 +4673,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Element returns aadl2::Element:
 	//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-	//	ConditionElement | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
-	//	ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference | TypeUseContext;
+	//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
+	//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
+	//	FeatureorPPReference | TypeUseContext;
 	public ElementElements getElementAccess() {
 		return (pElement != null) ? pElement : (pElement = new ElementElements());
 	}
@@ -5111,7 +5130,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// store real literal as integer, ID as reference to property constant
 	// BranchValue:
-	//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others");
+	//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::Property|QEMREF] | others?="others");
 	public BranchValueElements getBranchValueAccess() {
 		return (pBranchValue != null) ? pBranchValue : (pBranchValue = new BranchValueElements());
 	}

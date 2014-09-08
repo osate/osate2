@@ -2624,6 +2624,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorBehaviorStateEClass.getESuperTypes().add(this.getErrorBehaviorStateOrTypeSet());
     errorBehaviorTransitionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     transitionBranchEClass.getESuperTypes().add(theAadl2Package.getElement());
+    branchValueEClass.getESuperTypes().add(theAadl2Package.getElement());
     connectionErrorSourceEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     typeUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
     conditionExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2636,6 +2637,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     eventOrPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     outgoingPropagationConditionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorDetectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+    errorCodeValueEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorStateToModeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
     compositeStateEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     subcomponentElementEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2796,7 +2798,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(branchValueEClass, BranchValue.class, "BranchValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBranchValue_Realvalue(), theEcorePackage.getEString(), "realvalue", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getBranchValue_Symboliclabel(), theAadl2Package.getPropertyConstant(), null, "symboliclabel", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBranchValue_Symboliclabel(), theAadl2Package.getProperty(), null, "symboliclabel", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getBranchValue_Others(), theEcorePackage.getEBoolean(), "others", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(connectionErrorSourceEClass, ConnectionErrorSource.class, "ConnectionErrorSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -112,6 +112,88 @@ Deadlock: type extends MutExError;
 Starvation: type extends MutExError;
 
 end types;
+
+-- state machine for simple FailStop behavior
+error behavior FailStop
+events
+	Failure : error event ;
+states
+	Operational : initial state ;
+	FailStop : state ;
+transitions
+	FailureTransition : Operational -[ Failure ]-> FailStop ;
+end behavior ;
+
+-- state machine for Degraded then FailStop behavior
+error behavior DegradedFailStop
+events
+	Failure : error event ;
+states
+	Operational : initial state ;
+	Degraded: state;
+	FailStop : state ;
+transitions
+	FirstFailure : Operational -[ Failure ]-> Degraded ;
+	SecondFailure : Degraded -[ Failure ]-> FailStop ;
+end behavior ;
+	
+-- state machine for Failure with Recovery behavior
+error behavior FailAndRecover
+events
+	Failure: error event ;
+	Recovery: recover event;
+states
+	Operational: initial state;
+	Failed:  state;
+transitions
+	FailureTransition : Operational-[Failure]->Failed;
+	RecoveryTransition :Failed-[Recovery]->Operational;
+end behavior;
+
+-- state machine for Degraded with Recovery and FailStop behavior
+error behavior DegradedRecovery
+events
+	Failure : error event ;
+	Recovery: recover event;
+states
+	Operational : initial state ;
+	Degraded: state;
+	FailStop : state ;
+transitions
+	FirstFailure : Operational -[ Failure ]-> Degraded ;
+	RecoveryTransition: Degraded -[ Recovery ]-> Operational;
+	SecondFailure : Degraded -[ Failure ]-> FailStop ;
+end behavior ;
+
+-- state machine for Transient and Permanent failure behavior
+error behavior PermanentTransientFailure
+events
+	Failure: error event ;
+	Recovery: recover event;
+states
+	Operational: initial state;
+	FailedTransient:  state;
+	FailedPermanent:  state;
+transitions
+	failtransition: Operational-[Failure]->(FailedTransient with EMV2::TransientFailureRatio, FailedPermanent with others);
+	RecoveryTransition : FailedTransient-[Recovery]->Operational;
+end behavior;
+	
+
+-- state machine for Failure with Recovery behavior where recovery can fail
+error behavior FailRecoveryFailure
+events
+	Failure: error event ;
+	Recovery: recover event;
+states
+	Operational: initial state;
+	Failed:  state;
+	FailStop: state;
+transitions
+	FailureTransition : Operational-[Failure]->Failed;
+	RecoveryTransition : Failed-[Recovery]->(Operational with EMV2::RecoveryFailureRatio, FailStop with others);
+end behavior;
+	
 **}; 
 end ErrorLibrary;
 

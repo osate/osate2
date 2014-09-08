@@ -9,9 +9,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.Property;
+
+import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -31,7 +32,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  *
  * @generated
  */
-public class BranchValueImpl extends MinimalEObjectImpl.Container implements BranchValue
+public class BranchValueImpl extends ElementImpl implements BranchValue
 {
   /**
    * The default value of the '{@link #getRealvalue() <em>Realvalue</em>}' attribute.
@@ -61,7 +62,7 @@ public class BranchValueImpl extends MinimalEObjectImpl.Container implements Bra
    * @generated
    * @ordered
    */
-  protected PropertyConstant symboliclabel;
+  protected Property symboliclabel;
 
   /**
    * The default value of the '{@link #isOthers() <em>Others</em>}' attribute.
@@ -132,12 +133,12 @@ public class BranchValueImpl extends MinimalEObjectImpl.Container implements Bra
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyConstant getSymboliclabel()
+  public Property getSymboliclabel()
   {
     if (symboliclabel != null && ((EObject)symboliclabel).eIsProxy())
     {
       InternalEObject oldSymboliclabel = (InternalEObject)symboliclabel;
-      symboliclabel = (PropertyConstant)eResolveProxy(oldSymboliclabel);
+      symboliclabel = (Property)eResolveProxy(oldSymboliclabel);
       if (symboliclabel != oldSymboliclabel)
       {
         if (eNotificationRequired())
@@ -152,7 +153,7 @@ public class BranchValueImpl extends MinimalEObjectImpl.Container implements Bra
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyConstant basicGetSymboliclabel()
+  public Property basicGetSymboliclabel()
   {
     return symboliclabel;
   }
@@ -162,9 +163,9 @@ public class BranchValueImpl extends MinimalEObjectImpl.Container implements Bra
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSymboliclabel(PropertyConstant newSymboliclabel)
+  public void setSymboliclabel(Property newSymboliclabel)
   {
-    PropertyConstant oldSymboliclabel = symboliclabel;
+    Property oldSymboliclabel = symboliclabel;
     symboliclabel = newSymboliclabel;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL, oldSymboliclabel, symboliclabel));
@@ -228,7 +229,7 @@ public class BranchValueImpl extends MinimalEObjectImpl.Container implements Bra
         setRealvalue((String)newValue);
         return;
       case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
-        setSymboliclabel((PropertyConstant)newValue);
+        setSymboliclabel((Property)newValue);
         return;
       case ErrorModelPackage.BRANCH_VALUE__OTHERS:
         setOthers((Boolean)newValue);
@@ -251,7 +252,7 @@ public class BranchValueImpl extends MinimalEObjectImpl.Container implements Bra
         setRealvalue(REALVALUE_EDEFAULT);
         return;
       case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
-        setSymboliclabel((PropertyConstant)null);
+        setSymboliclabel((Property)null);
         return;
       case ErrorModelPackage.BRANCH_VALUE__OTHERS:
         setOthers(OTHERS_EDEFAULT);

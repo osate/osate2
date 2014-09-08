@@ -208,9 +208,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//BranchValue"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BranchValue">
+  <eClassifiers xsi:type="ecore:EClass" name="BranchValue" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="realvalue" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="symboliclabel" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyConstant"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="symboliclabel" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="others" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionErrorSource" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement">
@@ -271,7 +271,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorCode" eType="#//ErrorCodeValue"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorCodeValue">
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorCodeValue" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intValue" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constant" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyConstant"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enumLiteral" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
