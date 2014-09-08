@@ -35,6 +35,7 @@
 package org.osate.xtext.aadl2.linking;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
@@ -403,16 +404,11 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					searchResult = ns.findNamedElement(name);
 				}
 			} else {
+				// If resolving a prototype binding formal, don't resolve to a local prototype. Go to the generals.
+				// We could be in a prototype refinement. Go to the generals so that we don't resolve to context.
 				ns = AadlUtil.getContainingClassifier(context);
-				// If resolving a prototype binding formal, don't resolve to a local prototype. Go to the extended.
-				// We could be in a prototype refinement. Go to the extended so that we don't resolve to context.
-				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
-				} else {
-					return Collections.emptyList();
-				}
-				if (!Aadl2Util.isNull(ns)) {
-					searchResult = ns.findNamedElement(name);
+				for (Iterator<Classifier> iter = ns.getGenerals().iterator(); searchResult == null && iter.hasNext();) {
+					searchResult = iter.next().findNamedElement(name);
 				}
 			}
 			if (!Aadl2Util.isNull(searchResult) && searchResult instanceof Prototype) {
