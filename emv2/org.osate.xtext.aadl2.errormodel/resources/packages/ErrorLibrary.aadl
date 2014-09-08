@@ -113,6 +113,8 @@ Starvation: type extends MutExError;
 
 end types;
 
+-- Reusable Error Behavior State Machines
+
 -- state machine for simple FailStop behavior
 error behavior FailStop
 events
