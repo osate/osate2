@@ -108,7 +108,6 @@ import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.util.OsateDebug;
 
 import com.google.inject.Inject;
 
@@ -155,7 +154,15 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		if (pe instanceof RangeValue) {
 			return text(((RangeValue) pe));
 		}
-		OsateDebug.osateDebug("unknown pe=" + pe);
+
+		if (pe instanceof ListValue) {
+			return text(((ListValue) pe));
+		}
+
+		if (pe instanceof RecordValue) {
+			return text(((RecordValue) pe));
+		}
+//		OsateDebug.osateDebug("unknown pe=" + pe);
 		return null;
 	}
 
@@ -336,7 +343,7 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		if (ml.isEmpty()) {
 			label = "Non-Modal Value";
 
-			OsateDebug.osateDebug("non modal value" + ele.getOwnedValue());
+//			OsateDebug.osateDebug("non modal value" + ele.getOwnedValue());
 			if ((ele.getOwnedValue() != null) && (!(ele.getOwnedValue() instanceof RangeValue))
 					&& (!(ele.getOwnedValue() instanceof RecordValue)) && (!(ele.getOwnedValue() instanceof ListValue))) {
 				label += " " + text(ele.getOwnedValue());
