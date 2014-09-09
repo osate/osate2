@@ -154,7 +154,7 @@
 							<!-- <goal>testCompile</goal> -->
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/src/main/xtend-gen</outputDirectory>
+							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
