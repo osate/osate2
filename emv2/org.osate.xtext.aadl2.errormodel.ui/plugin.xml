@@ -50,9 +50,10 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
+       	 	category="org.osate.internal.ui.preferences.OsatePreferencePage"
             class="org.osate.xtext.aadl2.errormodel.ui.ErrorModelExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
             id="org.osate.xtext.aadl2.errormodel.ErrorModel"
-            name="ErrorModel">
+            name="ErrorModel Textual Editor">
             <keywordReference id="org.osate.xtext.aadl2.errormodel.ui.keyword_ErrorModel"/>
         </page>
         <page
