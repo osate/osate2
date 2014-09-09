@@ -236,7 +236,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 							/*
 							 * FIXME JD
-							 *
+							 * 
 							 * Try to look if the property references a component or not.
 							 * This was done to fix the issue related to the Bound Bus analysis plugin
 							 */
@@ -299,9 +299,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
 										// this comparison return inequality even if the two property values are the same. They are
 										// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to the
-// same literal
+										// same literal
 										// The second issue is that evaluate may return the default value for the property, which may be different from the
-// assigned value.
+										// assigned value.
 
 										/*
 										 * JD
@@ -420,12 +420,12 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
 									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
 
-							for (ModeInstance mi : holderModes) {
-								if (mi.getMode() == mode) {
-									inSOMs.addAll(mode2som.get(mi));
-									break;
-								}
-							}
+									for (ModeInstance mi : holderModes) {
+										if (mi.getMode() == mode) {
+											inSOMs.addAll(mode2som.get(mi));
+											break;
+										}
+									}
 						}
 					}
 				}
@@ -447,7 +447,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					if (elem instanceof ReferenceValue) {
 						try {
 							PropertyExpression irv = ((ReferenceValue) elem).instantiate(io);
-							EcoreUtil.replace(elem, irv);
+							if (irv != null) {
+								EcoreUtil.replace(elem, irv);
+							}
 						} catch (InvalidModelException e) {
 							error(io, e.getMessage());
 						}
