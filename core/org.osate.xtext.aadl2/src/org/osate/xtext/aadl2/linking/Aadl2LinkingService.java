@@ -35,6 +35,7 @@
 package org.osate.xtext.aadl2.linking;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
@@ -47,7 +48,6 @@ import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
@@ -61,16 +61,12 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
@@ -85,17 +81,16 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
+import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -209,20 +204,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getConnectionEnd() == requiredType) {
 			// resolve connection end
-			Context cxt = ((ConnectedElement) context).getContext();
-			Connection conn = (Connection) context.eContainer();
-			ConnectionEnd ce = null;
-			if (conn instanceof PortConnection) {
-				ce = findPortConnectionEnd((PortConnection) context.eContainer(), cxt, name);
-			} else if (conn instanceof AccessConnection) {
-				ce = findAccessConnectionEnd((AccessConnection) context.eContainer(), cxt, name);
-			} else if (conn instanceof FeatureGroupConnection) {
-				ce = findFeatureGroupConnectionEnd((FeatureGroupConnection) context.eContainer(), cxt, name);
-			} else if (conn instanceof FeatureConnection) {
-				ce = findFeatureConnectionEnd((FeatureConnection) context.eContainer(), cxt, name);
-			} else if (conn instanceof ParameterConnection) {
-				ce = findParameterConnectionEnd((ParameterConnection) context.eContainer(), cxt, name);
-			}
+			ConnectionEnd ce = findConnectionEnd((ConnectedElement) context, name);
 			if (ce != null) {
 				return Collections.singletonList((EObject) ce);
 			}
@@ -295,16 +277,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 			if (context instanceof ConnectedElement) {
 				// connection context
-				EObject conn = context.eContainer();
-				if (((conn instanceof FeatureGroupConnection || conn instanceof FeatureConnection) && (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup))
-						|| ((conn instanceof AccessConnection) && (searchResult instanceof Subcomponent
-								|| searchResult instanceof FeatureGroup || searchResult instanceof SubprogramCall))
-						|| ((conn instanceof ParameterConnection) && (searchResult instanceof Parameter
-								|| searchResult instanceof SubprogramCall || searchResult instanceof DataPort
-								|| searchResult instanceof EventDataPort || searchResult instanceof FeatureGroup))
-						|| ((conn instanceof PortConnection) && (searchResult instanceof FeatureGroup
-								|| searchResult instanceof Subcomponent || searchResult instanceof SubprogramCall
-								|| searchResult instanceof DataPort || searchResult instanceof EventDataPort))) {
+				if (searchResult instanceof Context) {
 					return Collections.singletonList(searchResult);
 				}
 			} else if (context instanceof ModeTransitionTrigger || context instanceof FlowEnd
@@ -431,16 +404,11 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					searchResult = ns.findNamedElement(name);
 				}
 			} else {
+				// If resolving a prototype binding formal, don't resolve to a local prototype. Go to the generals.
+				// We could be in a prototype refinement. Go to the generals so that we don't resolve to context.
 				ns = AadlUtil.getContainingClassifier(context);
-				// If resolving a prototype binding formal, don't resolve to a local prototype. Go to the extended.
-				// We could be in a prototype refinement. Go to the extended so that we don't resolve to context.
-				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
-				} else {
-					return Collections.emptyList();
-				}
-				if (!Aadl2Util.isNull(ns)) {
-					searchResult = ns.findNamedElement(name);
+				for (Iterator<Classifier> iter = ns.getGenerals().iterator(); searchResult == null && iter.hasNext();) {
+					searchResult = iter.next().findNamedElement(name);
 				}
 			}
 			if (!Aadl2Util.isNull(searchResult) && searchResult instanceof Prototype) {
@@ -619,4 +587,173 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		return eInstance;
 	}
 
+	private static ConnectionEnd findConnectionEnd(ConnectedElement connectedElement, String name) {
+		NamedElement searchResult = null;
+		if (connectedElement.getContext() == null) {
+			searchResult = AadlUtil.getContainingClassifier(connectedElement).findNamedElement(name);
+		} else if (connectedElement.getContext() instanceof FeatureGroup) {
+			FeatureGroup featureGroup = (FeatureGroup) connectedElement.getContext();
+			while (featureGroup.getFeatureGroupType() == null && featureGroup.getFeatureGroupPrototype() == null
+					&& featureGroup.getRefined() instanceof FeatureGroup) {
+				featureGroup = (FeatureGroup) featureGroup.getRefined();
+			}
+			FeatureGroupType featureGroupType = null;
+			if (featureGroup.getFeatureGroupType() != null) {
+				featureGroupType = featureGroup.getFeatureGroupType();
+			} else if (featureGroup.getFeatureGroupPrototype() != null) {
+				featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
+						AadlUtil.getContainingClassifier(connectedElement), featureGroup.getFeatureGroupPrototype());
+			}
+			if (featureGroupType != null) {
+				searchResult = featureGroupType.findNamedElement(name);
+			}
+		} else if (connectedElement.getContext() instanceof Feature) {
+			Feature feature = (Feature) connectedElement.getContext();
+			while (feature.getClassifier() == null && feature.getPrototype() == null && feature.getRefined() != null) {
+				feature = feature.getRefined();
+			}
+			Classifier featureClassifier = null;
+			if (feature.getClassifier() != null) {
+				featureClassifier = feature.getClassifier();
+			} else if (feature.getPrototype() != null) {
+				featureClassifier = findClassifierForComponentPrototype(
+						AadlUtil.getContainingClassifier(connectedElement), feature.getPrototype());
+			}
+			if (featureClassifier != null) {
+				searchResult = featureClassifier.findNamedElement(name);
+			}
+		} else if (connectedElement.getContext() instanceof Subcomponent) {
+			Subcomponent subcomponent = (Subcomponent) connectedElement.getContext();
+			while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+				subcomponent = subcomponent.getRefined();
+			}
+			ComponentClassifier subcomponentClassifier = null;
+			if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+				subcomponentClassifier = (ComponentClassifier) subcomponent.getSubcomponentType();
+			} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+				subcomponentClassifier = findClassifierForComponentPrototype(
+						AadlUtil.getContainingClassifier(connectedElement),
+						(ComponentPrototype) subcomponent.getSubcomponentType());
+			}
+			if (subcomponentClassifier != null) {
+				searchResult = subcomponentClassifier.findNamedElement(name);
+			}
+		} else if (connectedElement.getContext() instanceof SubprogramCall) {
+			SubprogramCall subprogramCall = (SubprogramCall) connectedElement.getContext();
+			if (subprogramCall.getCalledSubprogram() instanceof ComponentClassifier) {
+				searchResult = ((ComponentClassifier) subprogramCall.getCalledSubprogram()).findNamedElement(name);
+			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramSubcomponent) {
+				Subcomponent subcomponent = (SubprogramSubcomponent) subprogramCall.getCalledSubprogram();
+				while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+					subcomponent = subcomponent.getRefined();
+				}
+				ComponentClassifier subcomponentClassifier = null;
+				if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+					subcomponentClassifier = (ComponentClassifier) subcomponent.getSubcomponentType();
+				} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+					subcomponentClassifier = findClassifierForComponentPrototype(
+							AadlUtil.getContainingClassifier(connectedElement),
+							(ComponentPrototype) subcomponent.getSubcomponentType());
+				}
+				if (subcomponentClassifier != null) {
+					searchResult = subcomponentClassifier.findNamedElement(name);
+				}
+			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramAccess) {
+				Feature access = (SubprogramAccess) subprogramCall.getCalledSubprogram();
+				while (access.getClassifier() == null && access.getPrototype() == null && access.getRefined() != null) {
+					access = access.getRefined();
+				}
+				Classifier accessClassifier = null;
+				if (access.getClassifier() != null) {
+					accessClassifier = access.getClassifier();
+				} else if (access.getPrototype() != null) {
+					CallContext callContext = subprogramCall.getContext();
+					if (callContext instanceof ComponentType) {
+						accessClassifier = findClassifierForComponentPrototype((ComponentType) callContext,
+								access.getPrototype());
+					} else if (callContext instanceof FeatureGroup) {
+						FeatureGroup callContextFeatureGroup = (FeatureGroup) callContext;
+						FeatureGroupType prototypeContext = null;
+						while (callContextFeatureGroup.getFeatureGroupType() == null
+								&& callContextFeatureGroup.getFeatureGroupPrototype() == null
+								&& callContextFeatureGroup.getRefined() instanceof FeatureGroup) {
+							callContextFeatureGroup = (FeatureGroup) callContextFeatureGroup.getRefined();
+						}
+						if (callContextFeatureGroup.getFeatureGroupType() != null) {
+							prototypeContext = callContextFeatureGroup.getFeatureGroupType();
+						} else if (callContextFeatureGroup.getFeatureGroupPrototype() != null) {
+							prototypeContext = findFeatureGroupTypeForFeatureGroupPrototype(
+									AadlUtil.getContainingClassifier(connectedElement),
+									callContextFeatureGroup.getFeatureGroupPrototype());
+						}
+						if (prototypeContext != null) {
+							accessClassifier = findClassifierForComponentPrototype(prototypeContext,
+									access.getPrototype());
+						}
+					} else if (callContext instanceof SubprogramGroupAccess) {
+						Feature callContextAccess = (SubprogramGroupAccess) callContext;
+						Classifier prototypeContext = null;
+						while (callContextAccess.getClassifier() == null && callContextAccess.getPrototype() == null
+								&& callContextAccess.getRefined() != null) {
+							callContextAccess = callContextAccess.getRefined();
+						}
+						if (callContextAccess.getClassifier() != null) {
+							prototypeContext = callContextAccess.getClassifier();
+						} else if (callContextAccess.getPrototype() != null) {
+							prototypeContext = findClassifierForComponentPrototype(
+									AadlUtil.getContainingClassifier(connectedElement),
+									callContextAccess.getPrototype());
+						}
+						if (prototypeContext != null) {
+							accessClassifier = findClassifierForComponentPrototype(prototypeContext,
+									access.getPrototype());
+						}
+					} else if (callContext instanceof SubprogramGroupSubcomponent) {
+						Subcomponent callContextSubcomponent = (SubprogramGroupSubcomponent) callContext;
+						while (callContextSubcomponent.getSubcomponentType() == null
+								&& callContextSubcomponent.getRefined() != null) {
+							callContextSubcomponent = callContextSubcomponent.getRefined();
+						}
+						if (callContextSubcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+							if (callContextSubcomponent.getOwnedPrototypeBindings().isEmpty()) {
+								accessClassifier = findClassifierForComponentPrototype(
+										callContextSubcomponent.getClassifier(), access.getPrototype());
+							} else {
+								accessClassifier = findClassifierForComponentPrototype(
+										callContextSubcomponent.getClassifier(), callContextSubcomponent,
+										access.getPrototype());
+							}
+						} else if (callContextSubcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+							ComponentClassifier prototypeContext = findClassifierForComponentPrototype(
+									AadlUtil.getContainingClassifier(connectedElement),
+									callContextSubcomponent.getPrototype());
+							if (prototypeContext != null) {
+								accessClassifier = findClassifierForComponentPrototype(prototypeContext,
+										access.getPrototype());
+							}
+						}
+					} else // callContext is null.
+					{
+						accessClassifier = findClassifierForComponentPrototype(
+								AadlUtil.getContainingClassifier(connectedElement), access.getPrototype());
+					}
+				}
+				if (accessClassifier != null) {
+					searchResult = accessClassifier.findNamedElement(name);
+				}
+			} else if (subprogramCall.getCalledSubprogram() instanceof ComponentPrototype) {
+				ComponentClassifier classifier = findClassifierForComponentPrototype(
+						AadlUtil.getContainingClassifier(connectedElement),
+						(ComponentPrototype) subprogramCall.getCalledSubprogram());
+				if (classifier != null) {
+					searchResult = classifier.findNamedElement(name);
+				}
+			}
+		}
+		if (searchResult instanceof ConnectionEnd) {
+			return (ConnectionEnd) searchResult;
+		} else {
+			return null;
+		}
+	}
 }

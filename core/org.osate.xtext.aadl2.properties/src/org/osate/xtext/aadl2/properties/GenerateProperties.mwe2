@@ -134,7 +134,9 @@ Workflow {
 			// fragment = exporting.SimpleNamesFragment {}
 
 			// scoping and exporting API 
-			fragment = scoping.ImportNamespacesScopingFragment {}
+			fragment = scoping.ImportNamespacesScopingFragment {
+				generateXtendStub=true
+			}
 			fragment = exporting.QualifiedNamesFragment {}
 			fragment = builder.BuilderIntegrationFragment {}
 
@@ -145,7 +147,7 @@ Workflow {
 //			}
 			
 			// formatter API 
-			fragment = formatting.FormatterFragment {}
+			// fragment = formatting.FormatterFragment {}
 
 			// labeling API 
 			fragment = labeling.LabelProviderFragment {}
