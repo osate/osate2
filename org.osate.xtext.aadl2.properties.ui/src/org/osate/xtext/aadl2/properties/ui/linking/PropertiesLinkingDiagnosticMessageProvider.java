@@ -95,10 +95,6 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		if (Aadl2Package.eINSTANCE.getConnectionEnd() == referenceType) {
-			String msg = "Couldn't resolve feature '" + context.getLinkText() + "'. It may not match connection type.";
-			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
-		}
 		if (Aadl2Package.eINSTANCE.getMode() == referenceType) {
 			EObject cxt = context.getContext();
 			PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(cxt);
