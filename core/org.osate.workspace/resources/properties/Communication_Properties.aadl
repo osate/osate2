@@ -65,7 +65,7 @@ property set Communication_Properties is
 	Transmission_Time: record (
 			Fixed: Time_Range;
 			PerByte: Time_Range;)
-		applies to (bus);
+		applies to (bus,system,device,processor,memory,virtual bus, virtual processor);
 	
 	Actual_Latency: Time_Range
 		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
