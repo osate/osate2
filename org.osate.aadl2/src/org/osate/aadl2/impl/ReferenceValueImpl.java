@@ -78,10 +78,12 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		return Aadl2Package.eINSTANCE.getReferenceValue();
 	}
 
+	@Override
 	public PropertyExpression instantiate(InstanceObject root) throws InvalidModelException {
 		List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
-			throw new InvalidModelException(this, "Reference does not refer to an instance object");
+			// reference to a non-instantiated element, e.g., subprogram or call sequence
+			return null;
 		} else if (iol.size() > 1) {
 			throw new InvalidModelException(this, "Reference refers to more than one instance object");
 		} else {

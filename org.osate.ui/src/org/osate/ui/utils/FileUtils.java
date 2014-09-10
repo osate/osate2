@@ -82,6 +82,46 @@ public class FileUtils {
 		}
 	}
 
+	public static void copyFile(File srcFile, File destFolder) throws IOException {
+		// Verifications
+		byte errorCode = 0;
+
+		if (!srcFile.exists()) {
+			errorCode += 1;
+		}
+
+		if (destFolder.exists() && destFolder.isFile()) {
+			errorCode += 10;
+		}
+
+		if (errorCode != 0) {
+			String errorMsg = "";
+
+			switch (errorCode) {
+			case 11:
+				errorMsg = "destination is not a directory, can overwrite it and ";
+			case 1: {
+				errorMsg = "source file doesn't exist";
+				break;
+			}
+			case 10: {
+				errorMsg = "destination is not a directory, can overwrite it";
+				break;
+			}
+			}
+
+			throw new IOException(errorMsg);
+		}
+
+		if (!destFolder.exists()) {
+			destFolder.mkdirs();
+		}
+		File newFile = new File(destFolder.getPath() + File.separatorChar + srcFile.getName());
+
+		Files.copy(srcFile, newFile);
+
+	}
+
 	public static void copyFiles(List<File> srcFiles, File destFolder, List<String> excludedNodeNames)
 			throws IOException {
 		for (File f : srcFiles) {

@@ -301,10 +301,7 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 				if (string == null) {
 					return null;
 				}
-				if (string.equalsIgnoreCase("subprogram group")) {
-					string = "subprogramGroup";
-				}
-				return AccessCategory.get(string.toLowerCase());
+				return AccessCategory.get(string);
 			}
 
 			@Override
