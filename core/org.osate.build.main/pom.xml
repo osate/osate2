@@ -101,7 +101,8 @@
 		<module>../../osate-ge/org.osate.ge</module>
 		<module>../../osate-ge/org.osate.ge.doc</module>
 		<module>../../osate-ge/org.osate.ge.feature</module>
-		<!-- <module>../org.osate.xtext.aadl2.tests</module> -->
+		
+		<module>../org.osate.xtext.aadl2.tests</module>
 
 	</modules>
 
