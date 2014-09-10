@@ -549,6 +549,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		}
 	}
 	
+	//Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and ParameterConnection in Aadl2.xtext
+	def scope_Connection_refined(ComponentImplementation context, EReference reference) {
+		context.extended?.allConnections?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
