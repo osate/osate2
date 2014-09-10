@@ -190,7 +190,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
   public void setUp() {
     this.createProject(Aadl2ScopeProviderTest.TEST_PROJECT_NAME, "packages");
     this.buildProject("Plugin_Resources", true);
-    this.setResourceRoot("platform:/resource/Aadl2_Scope_Provider_Test/packages");
+    this.setResourceRoot((("platform:/resource/" + Aadl2ScopeProviderTest.TEST_PROJECT_NAME) + "/packages"));
   }
   
   @After
