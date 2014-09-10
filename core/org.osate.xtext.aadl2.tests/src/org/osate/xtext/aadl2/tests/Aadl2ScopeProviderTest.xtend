@@ -81,7 +81,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	def setUp() {
 		createProject(TEST_PROJECT_NAME, "packages")
 		buildProject("Plugin_Resources", true)
-		setResourceRoot("platform:/resource/Aadl2_Scope_Provider_Test/packages")
+		setResourceRoot("platform:/resource/" + TEST_PROJECT_NAME + "/packages")
 	}
 	
 	@After
