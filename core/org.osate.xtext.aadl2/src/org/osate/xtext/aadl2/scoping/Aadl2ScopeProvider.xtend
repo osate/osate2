@@ -41,28 +41,27 @@ import org.eclipse.xtext.scoping.Scopes
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractSubcomponentType
-import org.osate.aadl2.AccessConnection
 import org.osate.aadl2.AccessType
 import org.osate.aadl2.BehavioredImplementation
 import org.osate.aadl2.BusSubcomponentType
 import org.osate.aadl2.CallContext
 import org.osate.aadl2.CalledSubprogram
 import org.osate.aadl2.Classifier
-import org.osate.aadl2.ClassifierFeature
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentImplementationReference
+import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.ComponentPrototypeActual
 import org.osate.aadl2.ComponentType
+import org.osate.aadl2.ConnectedElement
 import org.osate.aadl2.Connection
-import org.osate.aadl2.DataPort
+import org.osate.aadl2.ConnectionEnd
+import org.osate.aadl2.Context
 import org.osate.aadl2.DataSubcomponentType
 import org.osate.aadl2.DeviceSubcomponentType
 import org.osate.aadl2.Element
-import org.osate.aadl2.EventDataPort
-import org.osate.aadl2.FeatureConnection
+import org.osate.aadl2.Feature
 import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.FeatureGroupConnection
 import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupPrototypeActual
 import org.osate.aadl2.FeatureGroupType
@@ -71,24 +70,24 @@ import org.osate.aadl2.FeatureType
 import org.osate.aadl2.MemorySubcomponentType
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.PackageSection
-import org.osate.aadl2.Parameter
-import org.osate.aadl2.ParameterConnection
-import org.osate.aadl2.PortConnection
 import org.osate.aadl2.PrivatePackageSection
 import org.osate.aadl2.ProcessSubcomponentType
 import org.osate.aadl2.ProcessorSubcomponentType
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.SubcomponentType
+import org.osate.aadl2.SubprogramAccess
 import org.osate.aadl2.SubprogramCall
 import org.osate.aadl2.SubprogramGroupAccess
 import org.osate.aadl2.SubprogramGroupSubcomponent
 import org.osate.aadl2.SubprogramGroupSubcomponentType
+import org.osate.aadl2.SubprogramSubcomponent
 import org.osate.aadl2.SubprogramSubcomponentType
 import org.osate.aadl2.SystemSubcomponentType
 import org.osate.aadl2.ThreadGroupSubcomponentType
 import org.osate.aadl2.ThreadSubcomponentType
 import org.osate.aadl2.VirtualBusSubcomponentType
 import org.osate.aadl2.VirtualProcessorSubcomponentType
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
@@ -135,7 +134,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from SubprogramCall in Aadl2.xtext
 	def scope_SubprogramCall_context(Element context, EReference reference) {
 		var scope = scope_Classifier(context, reference)
-		context.getContainerOfType(typeof(BehavioredImplementation))?.members.filter(typeof(CallContext)).scopeFor(scope) ?: scope
+		context.getContainerOfType(typeof(BehavioredImplementation))?.members?.filter(typeof(CallContext)).scopeFor(scope) ?: scope
 	}
 	
 	//Reference is from SubprogramCall in Aadl2.xtext
@@ -170,7 +169,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				FeatureGroup:
 					callContextNamespace = callContext.featureGroupType
 			}
-			scope = callContextNamespace?.members.filter(typeof(CalledSubprogram)).scopeFor(scope) ?: scope
+			scope = callContextNamespace?.members?.filter(typeof(CalledSubprogram)).scopeFor(scope) ?: scope
 		}
 		scope
 	}
@@ -187,7 +186,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * FeatureGroupPrototype and FeaturePrototype in Aadl2.xtext
 	 */
 	def scope_Prototype_refined(Classifier context, EReference reference) {
-		context.extended?.allPrototypes.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.allPrototypes?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from FeaturePrototype in Aadl2.xtext
@@ -217,17 +216,17 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(ComponentImplementationReference context, EReference reference) {
-		context.implementation?.allPrototypes.scopeFor ?: IScope::NULLSCOPE
+		context.implementation?.allPrototypes?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(Subcomponent context, EReference reference) {
-		context.allClassifier?.allPrototypes.scopeFor ?: IScope::NULLSCOPE
+		context.allClassifier?.allPrototypes?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(Classifier context, EReference reference) {
-		context.extended?.allPrototypes.scopeFor ?: IScope::NULLSCOPE
+		context.generals.map[allPrototypes].flatten.toSet.scopeFor
 	}
 	
 	//Reference is from FeatureGroupPrototypeActual in Aadl2.xtext
@@ -262,7 +261,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * VirtualBusSubcomponent, and DataSubcomponent in Aadl2.xtext
 	 */
 	def scope_Subcomponent_refined(ComponentImplementation context, EReference reference) {
-		context.extended?.allSubcomponents.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.allSubcomponents?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from AbstractSubcomponent in Aadl2.xtext
@@ -337,7 +336,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from DataPort, EventDataPort, EventPort, FeatureGroup, Parameter, SubprogramAccess, SubprogramGroupAccess, BusAccess, DataAccess, and AbstractFeature in Aadl2.xtext
 	def scope_Feature_refined(Classifier context, EReference reference) {
-		context.extended?.getAllFeatures().scopeFor ?: IScope::NULLSCOPE
+		context.extended?.getAllFeatures()?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from DataPort in Aadl2.xtext
@@ -401,46 +400,153 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	//Reference is from ConnectedElement in Aadl2.xtext
+	def scope_ConnectedElement_context(ComponentImplementation context, EReference reference) {
+		val validElements = newArrayList
+		validElements.addAll(context.getAllFeatures().filter(typeof(Context)))
+		validElements.addAll(context.allSubcomponents)
+		if (context instanceof BehavioredImplementation) {
+			validElements.addAll(context.allSubprogramCalls)
+		}
+		validElements.scopeFor
+	}
+	
 	/*
-	 * TODO: This method was written to mimic the functionality of the linking service, which only links correct context objects based upon the type of
-	 * connection.  What should happen is that the scope provider should return all visible Context objects and the linker should link any visible context
-	 * Context object.  This check of having the correct Context type for each type of Connection should be moved to the validator.  Let the link exist, but
-	 * mark a specific validator error message.  Also, the context assist should filter based upon Connection type.
+	 * Reference is from ConnectedElement in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ConnectedElement.  When the
+	 * ConnectedElement is a single identifier, e.g. "port1", then the passed context is a Connection.  In this case, we know that the ConnectedElement's
+	 * Context is null even though we can't access it and check it here.  In all other cases, the passed context is a ConnectedElement, thus calling the other
+	 * scope method.
 	 */
-	def scope_ConnectedElement_context(Connection context, EReference reference) {
-		val containingClassifier = context.getContainerOfType(typeof(ComponentImplementation))
-		val ArrayList<ClassifierFeature> validElements = newArrayList
-		switch (context) {
-			FeatureGroupConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
-			}
-			FeatureConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
-			}
-			AccessConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter(typeof(FeatureGroup)))
-				if (containingClassifier instanceof BehavioredImplementation) {
-					validElements.addAll(containingClassifier.allSubprogramCalls)
+	def scope_ConnectedElement_connectionEnd(Connection context, EReference reference) {
+		context.getContainerOfType(typeof(Classifier)).allConnectionEnds.scopeFor
+	}
+	
+	/*
+	 * Reference is from ConnectedElement, ProcessorPort, ProcessorSubprogram, and InternalEvent in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ConnectedElement.  When the
+	 * ConnectedElement is a qualified reference, e.g. "subcomponent1.port1" or "processor.portproxy1", then the passed context is a ConnectedElement and we
+	 * can access and check the ConnectedElement's Context object.
+	 */
+	def scope_ConnectedElement_connectionEnd(ConnectedElement context, EReference reference) {
+		val containingClassifier = context.getContainerOfType(typeof(Classifier))
+		switch connectionContext : context.context {
+			case null:
+				scope_ConnectedElement_connectionEnd(context.owner as Connection, reference)
+			FeatureGroup: {
+				var featureGroup = connectionContext
+				while (featureGroup.featureGroupType == null && featureGroup.featureGroupPrototype == null && featureGroup.refined instanceof FeatureGroup) {
+					featureGroup = featureGroup.refined as FeatureGroup
 				}
+				val featureGroupType = featureGroup.featureGroupType ?: featureGroup.featureGroupPrototype?.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier)
+				featureGroupType?.getAllFeatures()?.scopeFor ?: IScope::NULLSCOPE
 			}
-			ParameterConnection: {
-				validElements.addAll(containingClassifier.getAllFeatures().filter[it instanceof Parameter || it instanceof DataPort || it instanceof EventDataPort || it instanceof FeatureGroup])
-				if (containingClassifier instanceof BehavioredImplementation) {
-					validElements.addAll(containingClassifier.allSubprogramCalls)
+			Feature: {
+				var Feature feature = connectionContext
+				while (feature.classifier == null && feature.prototype == null && feature.refined != null) {
+					feature = feature.refined
 				}
+				val featureClassifier = feature.classifier ?: feature.prototype?.findClassifierForComponentPrototype(containingClassifier)
+				featureClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
 			}
-			PortConnection: {
-				validElements.addAll(containingClassifier.allSubcomponents)
-				validElements.addAll(containingClassifier.getAllFeatures().filter[it instanceof FeatureGroup || it instanceof DataPort || it instanceof EventDataPort])
-				if (containingClassifier instanceof BehavioredImplementation) {
-					validElements.addAll(containingClassifier.allSubprogramCalls)
+			Subcomponent: {
+				var subcomponent = connectionContext
+				while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
+					subcomponent = subcomponent.refined
+				}
+				val subcomponentClassifier = switch subcomponentType : subcomponent.subcomponentType {
+					ComponentClassifier:
+						subcomponentType
+					ComponentPrototype:
+						subcomponentType.findClassifierForComponentPrototype(containingClassifier)
+				}
+				subcomponentClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
+			}
+			SubprogramCall: {
+				switch calledSubprogram : connectionContext.calledSubprogram {
+					ComponentClassifier:
+						calledSubprogram.allConnectionEnds.scopeFor
+					SubprogramSubcomponent: {
+						var Subcomponent subcomponent = calledSubprogram
+						while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
+							subcomponent = subcomponent.refined
+						}
+						val subcomponentClassifier = switch subcomponentType : subcomponent.subcomponentType {
+							ComponentClassifier:
+								subcomponentType
+							ComponentPrototype:
+								subcomponentType.findClassifierForComponentPrototype(containingClassifier)
+						}
+						subcomponentClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
+					}
+					SubprogramAccess: {
+						var Feature access = calledSubprogram
+						while (access.classifier == null && access.prototype == null && access.refined != null) {
+							access = access.refined
+						}
+						var Classifier accessClassifier
+						if (access.classifier != null) {
+							accessClassifier = access.classifier
+						} else if (access.prototype != null) {
+							accessClassifier = switch callContext : connectionContext.context {
+								ComponentType:
+									access.prototype.findClassifierForComponentPrototype(callContext)
+								FeatureGroup: {
+									var callContextFeatureGroup = callContext
+									while (callContextFeatureGroup.featureGroupType == null && callContextFeatureGroup.featureGroupPrototype == null &&
+										callContextFeatureGroup.refined instanceof FeatureGroup
+									) {
+										callContextFeatureGroup = callContextFeatureGroup.refined as FeatureGroup
+									}
+									val prototypeContext = callContextFeatureGroup.featureGroupType ?:
+										callContextFeatureGroup.featureGroupPrototype?.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier)
+									if (prototypeContext != null) {
+										access.prototype.findClassifierForComponentPrototype(prototypeContext)
+									}
+								}
+								SubprogramGroupAccess: {
+									var Feature callContextAccess = callContext
+									while (callContextAccess.classifier == null && callContextAccess.prototype == null && callContextAccess.refined != null) {
+										callContextAccess = callContextAccess.refined
+									}
+									val prototypeContext = callContextAccess.classifier ?: callContextAccess.prototype?.findClassifierForComponentPrototype(containingClassifier)
+									if (prototypeContext != null) {
+										access.prototype.findClassifierForComponentPrototype(prototypeContext)
+									}
+								}
+								SubprogramGroupSubcomponent: {
+									var Subcomponent callContextSubcomponent = callContext
+									while (callContextSubcomponent.subcomponentType == null && callContextSubcomponent.refined != null) {
+										callContextSubcomponent = callContextSubcomponent.refined
+									}
+									switch callContextSubcomponentType : callContextSubcomponent.subcomponentType {
+										ComponentClassifier: {
+											if (callContextSubcomponent.ownedPrototypeBindings.empty) {
+												access.prototype.findClassifierForComponentPrototype(callContextSubcomponentType)
+											} else {
+												access.prototype.findClassifierForComponentPrototype(callContextSubcomponentType, callContextSubcomponent)
+											}
+										}
+										ComponentPrototype: {
+											var prototypeContext = callContextSubcomponentType.findClassifierForComponentPrototype(containingClassifier)
+											if (prototypeContext != null) {
+												access.prototype.findClassifierForComponentPrototype(prototypeContext)
+											}
+										}
+									}
+								}
+								default: //callContext is null.
+									access.prototype.findClassifierForComponentPrototype(containingClassifier)
+							}
+						}
+						accessClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
+					}
+					ComponentPrototype:
+						calledSubprogram.findClassifierForComponentPrototype(containingClassifier)?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
+					default:
+						IScope::NULLSCOPE
 				}
 			}
 		}
-		validElements.scopeFor
 	}
 	
 	def private static allPrototypes(Classifier classifier) {
@@ -461,6 +567,54 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			}
 		}
 		allSubprogramCalls
+	}
+	
+	def private static allConnectionEnds(Classifier classifier) {
+		val connectionEnds = newArrayList
+		connectionEnds.addAll(classifier.getAllFeatures())
+		if (classifier instanceof ComponentImplementation) {
+			connectionEnds.addAll(classifier.allSubcomponents.filter(typeof(ConnectionEnd)))
+			connectionEnds.addAll(classifier.allSubprogramProxies)
+			connectionEnds.addAll(classifier.allPortProxies)
+			connectionEnds.addAll(classifier.allInternalFeatures)
+		}
+		connectionEnds
+	}
+	
+	def private static allSubprogramProxies(ComponentImplementation implementation) {
+		val allSubprogramProxies = newArrayList
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+			allSubprogramProxies.addAll(currentImplementation.ownedSubprogramProxies)
+		}
+		allSubprogramProxies
+	}
+	
+	def private static allPortProxies(ComponentImplementation implementation) {
+		val allPortProxies = newArrayList
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+			allPortProxies.addAll(currentImplementation.ownedPortProxies)
+		}
+		allPortProxies
+	}
+	
+	def private static allInternalFeatures(ComponentImplementation implementation) {
+		val allInternalFeatures = newArrayList
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+			allInternalFeatures.addAll(currentImplementation.ownedInternalFeatures)
+		}
+		allInternalFeatures
+	}
+	
+	def private static findFeatureGroupTypeForFeatureGroupPrototype(FeatureGroupPrototype prototype, Classifier containingClassifier) {
+		PropertiesLinkingService.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier, prototype)
+	}
+	
+	def private static findClassifierForComponentPrototype(ComponentPrototype prototype, Classifier containingClassifier) {
+		PropertiesLinkingService.findClassifierForComponentPrototype(containingClassifier, prototype)
+	}
+	
+	def private static findClassifierForComponentPrototype(ComponentPrototype prototype, Classifier classifierPrototypeContext, Subcomponent subcomponentPrototypeContext) {
+		PropertiesLinkingService.findClassifierForComponentPrototype(classifierPrototypeContext, subcomponentPrototypeContext, prototype)
 	}
 	
 	// mode references

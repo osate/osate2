@@ -51,190 +51,357 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
-		Aadl2GrammarAccess f = (Aadl2GrammarAccess) getGrammarAccess();
+		Aadl2GrammarAccess g = (Aadl2GrammarAccess) getGrammarAccess();
 		c.setAutoLinewrap(120);
+		c.setWrappedLineIndentation(2);
 
 		// find common keywords an specify formatting for them
-		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("(", ")")) {
+		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("(", ")")) {
+			c.setIndentationIncrement().after(pair.getFirst());
 			c.setNoSpace().after(pair.getFirst());
+			c.setLinewrap(0, 1, 1).after(pair.getFirst());
+			c.setIndentationDecrement().before(pair.getSecond());
 			c.setNoSpace().before(pair.getSecond());
+			c.setLinewrap(0, 1, 1).before(pair.getSecond());
 		}
-		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("[", "]")) {
+		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("[", "]")) {
+			c.setIndentationIncrement().after(pair.getFirst());
 			c.setNoSpace().after(pair.getFirst());
+			c.setLinewrap(0, 1, 1).after(pair.getFirst());
+			c.setIndentationDecrement().before(pair.getSecond());
 			c.setNoSpace().before(pair.getSecond());
+			c.setLinewrap(0, 1, 1).before(pair.getSecond());
 		}
-		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{**", "**}")) {
+		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("{**", "**}")) {
 			c.setIndentationIncrement().after(pair.getFirst());
 			c.setLinewrap().after(pair.getFirst());
 			c.setIndentationDecrement().before(pair.getSecond());
 			c.setLinewrap().before(pair.getSecond());
 		}
-		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
+		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("{", "}")) {
 			c.setIndentationIncrement().after(pair.getFirst());
-			c.setLinewrap().after(pair.getFirst());
+			c.setLinewrap(0, 1, 1).after(pair.getFirst());
 			c.setIndentationDecrement().before(pair.getSecond());
-			c.setLinewrap().before(pair.getSecond());
+			c.setLinewrap(0, 1, 1).before(pair.getSecond());
 		}
-		for (Keyword comma : f.findKeywords(",")) {
+		for (Keyword comma : g.findKeywords(",")) {
 			c.setNoSpace().before(comma);
+			c.setLinewrap(0, 1, 1).after(comma);
 		}
-		for (Keyword semi : f.findKeywords(";")) {
+		for (Keyword semi : g.findKeywords(";")) {
 			c.setNoSpace().before(semi);
-			c.setLinewrap().after(semi);
+			c.setLinewrap(1, 1, 2).after(semi);
 		}
-		for (Keyword dot : f.findKeywords(".")) {
+		for (Keyword dot : g.findKeywords(".")) {
 			c.setNoSpace().around(dot);
 		}
-		for (Keyword doublecolon : f.findKeywords("::")) {
+		for (Keyword colon : g.findKeywords(":")) {
+			c.setNoSpace().before(colon);
+		}
+		for (Keyword doublecolon : g.findKeywords("::")) {
 			c.setNoSpace().around(doublecolon);
 		}
-		for (Keyword fea : f.findKeywords("features")) {
-			c.setLinewrap().around(fea);
-			c.setIndentationDecrement().before(fea);
-			c.setIndentationIncrement().after(fea);
+		for (Keyword left : g.findKeywords("-[")) {
+			c.setNoSpace().after(left);
 		}
-		for (Keyword sub : f.findKeywords("subcomponents")) {
-			c.setLinewrap().around(sub);
-			c.setIndentationDecrement().before(sub);
-			c.setIndentationIncrement().after(sub);
+		for (Keyword right : g.findKeywords("]->")) {
+			c.setNoSpace().before(right);
 		}
-		for (Keyword conns : f.findKeywords("connections")) {
-			c.setLinewrap().around(conns);
-			c.setIndentationDecrement().before(conns);
-			c.setIndentationIncrement().after(conns);
+		for (Keyword arrow : g.findKeywords("->")) {
+			c.setLinewrap(0, 1, 1).after(arrow);
 		}
-		for (Keyword proto : f.findKeywords("prototypes")) {
-			c.setLinewrap().around(proto);
-			c.setIndentationDecrement().before(proto);
-			c.setIndentationIncrement().after(proto);
+
+		for (String sectionName : new String[] { "prototypes", "subcomponents", "connections", "flows", "calls",
+				"properties" }) {
+			for (Keyword keyword : g.findKeywords(sectionName)) {
+				c.setLinewrap(1, 1, 2).before(keyword);
+				c.setLinewrap().after(keyword);
+				c.setIndentationDecrement().before(keyword);
+				c.setIndentationIncrement().after(keyword);
+			}
 		}
-		for (Keyword flows : f.findKeywords("flows")) {
-			c.setLinewrap().around(flows);
-			c.setIndentationDecrement().before(flows);
-			c.setIndentationIncrement().after(flows);
-		}
-		for (Keyword calls : f.findKeywords("calls")) {
-			c.setLinewrap().around(calls);
-			c.setIndentationDecrement().before(calls);
-			c.setIndentationIncrement().after(calls);
-		}
-		for (Keyword prop : f.findKeywords("properties")) {
-			c.setLinewrap().around(prop);
-			c.setIndentationDecrement().before(prop);
-			c.setIndentationIncrement().after(prop);
-		}
-		for (Keyword end : f.findKeywords("end")) {
-			c.setLinewrap().before(end);
-			c.setIndentationDecrement().before(end);
-		}
-		for (Keyword is : f.findKeywords("is")) {
+		for (Keyword is : g.findKeywords("is")) {
 			c.setIndentationIncrement().after(is);
-			c.setLinewrap().after(is);
+			c.setLinewrap(1, 1, 2).after(is);
 		}
-		for (Keyword applies : f.findKeywords("applies")) {
-			c.setIndentationIncrement().before(applies);
-			c.setLinewrap().before(applies);
-			c.setIndentationDecrement().after(applies);
+		for (Keyword applies : g.findKeywords("applies")) {
+			c.setLinewrap(0, 1, 1).before(applies);
+			c.setNoLinewrap().after(applies);
 		}
-		for (Keyword requires : f.findKeywords("requires")) {
-			c.setIndentationDecrement().before(requires);
-			c.setLinewrap().before(requires);
-			c.setLinewrap(0, 0, 0).after(requires);
-			c.setIndentationIncrement().after(requires);
-		}
-		for (Keyword modes : f.findKeywords("modes")) {
-			c.setIndentationDecrement().before(modes);
-			c.setLinewrap().before(modes);
-			c.setLinewrap().after(modes);
-			c.setIndentationIncrement().after(modes);
-		}
-		for (Keyword in : f.findKeywords("in")) {
-			c.setLinewrap(0, 0, 0).after(in);
+		for (Keyword in : g.findKeywords("in")) {
+			c.setLinewrap(0, 1, 1).before(in);
+			c.setNoLinewrap().after(in);
 		}
 
-		c.setLinewrap().around(f.getPublicPackageSectionAccess().getPublicKeyword_1());
-		c.setLinewrap().around(f.getPrivatePackageSectionAccess().getPrivateKeyword_1());
+		c.setLinewrap().around(g.getPublicPackageSectionAccess().getPublicKeyword_1());
+		c.setLinewrap().around(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
 
-		c.setLinewrap().before(f.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
-
-		// WE NEED IT THIS WAY BECAUSE "IN MODES" should not have new lines
-		// modes, requires modes and in modes
-//	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getModesKeyword_3_0());
-//	      c.setLinewrap().around(f.getComponentTypeAccess().getModesKeyword_3_0());
-//	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_3_0());
-//
-//	      c.setIndentationDecrement().before(f.getComponentImplementationAccess().getModesKeyword_3_0());
-//	      c.setLinewrap().around(f.getComponentImplementationAccess().getModesKeyword_3_0());
-//	      c.setIndentationIncrement().after(f.getComponentImplementationAccess().getModesKeyword_3_0());
-//
-//	      // requires modes
-//	      c.setLinewrap().before(f.getComponentTypeAccess().getRequiresKeyword_2_0());
-//	      c.setLinewrap().after(f.getComponentTypeAccess().getModesKeyword_2_1());
-//	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getRequiresKeyword_2_0());
-//	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_2_1());
+		c.setLinewrap().before(g.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
 
 		// component types and implementations
-		c.setIndentationIncrement().before(f.getClassifierRule());
-		c.setIndentationDecrement().after(f.getClassifierRule());
-		c.setLinewrap(2).after(f.getClassifierRule());
-//
-//	      c.setIndentationIncrement().before(f.getComponentImplementationRule());
-//	      c.setIndentationDecrement().after(f.getComponentImplementationRule());
-//	      c.setLinewrap(2).after(f.getComponentImplementationRule());
+		c.setIndentationIncrement().before(g.getClassifierRule());
+		c.setIndentationDecrement().after(g.getClassifierRule());
+		c.setLinewrap(2).after(g.getClassifierRule());
 
-		c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
-		c.setIndentationIncrement().after(f.getSystemImplementationAccess().getImplementationKeyword_1());
-//	      c.setLinewrap().after(f.getSystemImplementationRule());
+		// @formatter:off
+		indentInComponent(c, g.getAbstractTypeAccess().getAbstractKeyword_0(), g.getAbstractTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getAbstractImplementationAccess().getAbstractKeyword_0(), g.getAbstractImplementationAccess().getEndKeyword_17());
 
-		// Need to leave category specific rules in those cases where the rule is not part of the Component Type/Impl rule
-		// This is the case for categories that have special rules for the common subclause sections
+		indentInComponent(c, g.getBusTypeAccess().getBusKeyword_0(), g.getBusTypeAccess().getEndKeyword_8());
+		indentInComponent(c, g.getBusImplementationAccess().getBusKeyword_0(), g.getBusImplementationAccess().getEndKeyword_13());
 
-		c.setIndentationIncrement().after(f.getAbstractTypeAccess().getAbstractKeyword_0());
-		c.setIndentationIncrement().after(f.getAbstractImplementationAccess().getAbstractKeyword_0());
+		indentInComponent(c, g.getDataTypeAccess().getDataKeyword_0(), g.getDataTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getDataImplementationAccess().getDataKeyword_1(), g.getDataImplementationAccess().getEndKeyword_16());
 
-		c.setIndentationIncrement().after(f.getProcessTypeAccess().getProcessKeyword_0());
-		c.setIndentationIncrement().after(f.getProcessImplementationAccess().getProcessKeyword_0());
+		indentInComponent(c, g.getDeviceTypeAccess().getDeviceKeyword_0(), g.getDeviceTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getDeviceImplementationAccess().getDeviceKeyword_0(), g.getDeviceImplementationAccess().getEndKeyword_16());
 
-		c.setIndentationIncrement().after(f.getThreadGroupTypeAccess().getThreadKeyword_0());
-		c.setIndentationIncrement().after(f.getThreadGroupImplementationAccess().getThreadKeyword_0());
+		indentInComponent(c, g.getMemoryTypeAccess().getMemoryKeyword_0(), g.getMemoryTypeAccess().getEndKeyword_8());
+		indentInComponent(c, g.getMemoryImplementationAccess().getMemoryKeyword_0(), g.getMemoryImplementationAccess().getEndKeyword_14());
 
-		c.setIndentationIncrement().after(f.getThreadTypeAccess().getThreadKeyword_0());
-		c.setIndentationIncrement().after(f.getThreadImplementationAccess().getThreadKeyword_0());
+		indentInComponent(c, g.getProcessTypeAccess().getProcessKeyword_0(), g.getProcessTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getProcessImplementationAccess().getProcessKeyword_0(), g.getProcessImplementationAccess().getEndKeyword_16());
 
-		c.setIndentationIncrement().after(f.getDataTypeAccess().getDataKeyword_0());
-		c.setIndentationIncrement().after(f.getDataImplementationAccess().getDataKeyword_1());
+		indentInComponent(c, g.getProcessorTypeAccess().getProcessorKeyword_0(), g.getProcessorTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getProcessorImplementationAccess().getProcessorKeyword_0(), g.getProcessorImplementationAccess().getEndKeyword_15());
 
-		c.setIndentationIncrement().after(f.getSubprogramTypeAccess().getSubprogramKeyword_0());
-		c.setIndentationIncrement().after(f.getSubprogramImplementationAccess().getSubprogramKeyword_0());
+		indentInComponent(c, g.getSystemTypeAccess().getSystemKeyword_0(), g.getSystemTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getSystemImplementationAccess().getSystemKeyword_0(), g.getSystemImplementationAccess().getEndKeyword_16());
 
-		c.setIndentationIncrement().after(f.getSubprogramGroupTypeAccess().getSubprogramKeyword_0());
-		c.setIndentationIncrement().after(f.getSubprogramGroupImplementationAccess().getSubprogramKeyword_0());
+		indentInComponent(c, g.getSubprogramTypeAccess().getSubprogramKeyword_0(), g.getSubprogramTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getSubprogramImplementationAccess().getSubprogramKeyword_0(), g.getSubprogramImplementationAccess().getEndKeyword_17());
 
-		c.setIndentationIncrement().after(f.getProcessorTypeAccess().getProcessorKeyword_0());
-		c.setIndentationIncrement().after(f.getProcessorImplementationAccess().getProcessorKeyword_0());
+		indentInComponent(c, g.getSubprogramGroupTypeAccess().getSubprogramKeyword_0(), g.getSubprogramGroupTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getSubprogramGroupImplementationAccess().getSubprogramKeyword_0(), g.getSubprogramGroupImplementationAccess().getEndKeyword_16());
 
-		c.setIndentationIncrement().after(f.getMemoryTypeAccess().getMemoryKeyword_0());
-		c.setIndentationIncrement().after(f.getMemoryImplementationAccess().getMemoryKeyword_0());
+		indentInComponent(c, g.getThreadTypeAccess().getThreadKeyword_0(), g.getThreadTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getThreadImplementationAccess().getThreadKeyword_0(), g.getThreadImplementationAccess().getEndKeyword_17());
 
-		c.setIndentationIncrement().after(f.getBusTypeAccess().getBusKeyword_0());
-		c.setIndentationIncrement().after(f.getBusImplementationAccess().getBusKeyword_0());
+		indentInComponent(c, g.getThreadGroupTypeAccess().getThreadKeyword_0(), g.getThreadGroupTypeAccess().getEndKeyword_10());
+		indentInComponent(c, g.getThreadGroupImplementationAccess().getThreadKeyword_0(), g.getThreadGroupImplementationAccess().getEndKeyword_17());
 
-		c.setIndentationIncrement().after(f.getDeviceTypeAccess().getDeviceKeyword_0());
-		c.setIndentationIncrement().after(f.getDeviceImplementationAccess().getDeviceKeyword_0());
+		indentInComponent(c, g.getVirtualBusTypeAccess().getVirtualKeyword_0(), g.getVirtualBusTypeAccess().getEndKeyword_9());
+		indentInComponent(c, g.getVirtualBusImplementationAccess().getVirtualKeyword_0(), g.getVirtualBusImplementationAccess().getEndKeyword_14());
 
-		c.setIndentationIncrement().after(f.getVirtualProcessorTypeAccess().getVirtualKeyword_0());
-		c.setIndentationIncrement().after(f.getVirtualProcessorImplementationAccess().getVirtualKeyword_0());
+		indentInComponent(c, g.getVirtualProcessorTypeAccess().getVirtualKeyword_0(), g.getVirtualProcessorTypeAccess().getEndKeyword_10());
+		indentInComponent(c, g.getVirtualProcessorImplementationAccess().getVirtualKeyword_0(), g.getVirtualProcessorImplementationAccess().getEndKeyword_17());
 
-		c.setIndentationIncrement().after(f.getVirtualBusTypeAccess().getVirtualKeyword_0());
-		c.setIndentationIncrement().after(f.getVirtualBusImplementationAccess().getVirtualKeyword_0());
+		indentInComponent(c, g.getFeatureGroupTypeAccess().getFeatureKeyword_0(), g.getFeatureGroupTypeAccess().getEndKeyword_9());
+		// @formatter:on
 
-		c.setIndentationIncrement().after(f.getFeatureGroupTypeAccess().getFeatureKeyword_0());
+		// features section in types
+		indentSection(c, g.getAbstractTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getBusTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getDataTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getDeviceTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getMemoryTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getProcessTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getProcessorTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getSystemTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getSubprogramTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getSubprogramGroupTypeAccess().getFeaturesKeyword_5_0());
+		indentSection(c, g.getThreadTypeAccess().getFeaturesKeyword_4_0());
+		indentSection(c, g.getThreadGroupTypeAccess().getFeaturesKeyword_5_0());
+		indentSection(c, g.getVirtualBusTypeAccess().getFeaturesKeyword_5_0());
+		indentSection(c, g.getVirtualProcessorTypeAccess().getFeaturesKeyword_5_0());
+		indentSection(c, g.getFeatureGroupTypeAccess().getFeaturesKeyword_5_0());
 
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
-		c.setLinewrap(0, 1, 2).before(f.getSL_COMMENTRule());
+		// @formatter:off
+		indentTwoKeywordSection(c, g.getAbstractTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getAbstractTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getBusTypeAccess().getDerivedModesRequiresKeyword_5_0_0_0(), g.getBusTypeAccess().getModesKeyword_5_0_1());
+		indentTwoKeywordSection(c, g.getDataTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getDataTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getDeviceTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getDeviceTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getMemoryTypeAccess().getDerivedModesRequiresKeyword_5_0_0_0(), g.getMemoryTypeAccess().getModesKeyword_5_0_1());
+		indentTwoKeywordSection(c, g.getProcessTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getProcessTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getProcessorTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getProcessorTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getSystemTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getSystemTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getSubprogramTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getSubprogramTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getThreadTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getThreadTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getThreadGroupTypeAccess().getDerivedModesRequiresKeyword_7_0_0_0(), g.getThreadGroupTypeAccess().getModesKeyword_7_0_1());
+		indentTwoKeywordSection(c, g.getVirtualBusTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0(), g.getVirtualBusTypeAccess().getModesKeyword_6_0_1());
+		indentTwoKeywordSection(c, g.getVirtualProcessorTypeAccess().getDerivedModesRequiresKeyword_7_0_0_0(), g.getVirtualProcessorTypeAccess().getModesKeyword_7_0_1());
+		// @formatter:on
+
+		// simple modes section in types
+		indentSection(c, g.getAbstractTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getBusTypeAccess().getModesKeyword_5_1_0());
+		indentSection(c, g.getDataTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getDeviceTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getMemoryTypeAccess().getModesKeyword_5_1_0());
+		indentSection(c, g.getProcessTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getProcessorTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getSystemTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getSubprogramTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getThreadTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getThreadGroupTypeAccess().getModesKeyword_7_1_0());
+		indentSection(c, g.getVirtualBusTypeAccess().getModesKeyword_6_1_0());
+		indentSection(c, g.getVirtualProcessorTypeAccess().getModesKeyword_7_1_0());
+
+		// Internal features section in types
+		// @formatter:off
+		indentTwoKeywordSection(c, g.getAbstractImplementationAccess().getInternalKeyword_9_0(), g.getAbstractImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getBusImplementationAccess().getInternalKeyword_9_0(), g.getBusImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getDataImplementationAccess().getInternalKeyword_10_0(), g.getDataImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getDeviceImplementationAccess().getInternalKeyword_9_0(), g.getDeviceImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getMemoryImplementationAccess().getInternalKeyword_9_0(), g.getMemoryImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getProcessImplementationAccess().getInternalKeyword_9_0(), g.getProcessImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getProcessorImplementationAccess().getInternalKeyword_9_0(), g.getProcessorImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getSystemImplementationAccess().getInternalKeyword_9_0(), g.getSystemImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getSubprogramImplementationAccess().getInternalKeyword_9_0(), g.getSubprogramImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getThreadImplementationAccess().getInternalKeyword_9_0(), g.getThreadImplementationAccess().getFeaturesKeyword_9_1());
+		indentTwoKeywordSection(c, g.getThreadGroupImplementationAccess().getInternalKeyword_10_0(), g.getThreadGroupImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getVirtualBusImplementationAccess().getInternalKeyword_10_0(), g.getVirtualBusImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getVirtualProcessorImplementationAccess().getInternalKeyword_10_0(), g.getVirtualProcessorImplementationAccess().getFeaturesKeyword_10_1());
+		// @formatter:on
+
+		// processor features section in types
+		// @formatter:off
+		indentTwoKeywordSection(c, g.getAbstractImplementationAccess().getProcessorKeyword_10_0(), g.getAbstractImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getDeviceImplementationAccess().getProcessorKeyword_10_0(), g.getDeviceImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getProcessImplementationAccess().getProcessorKeyword_10_0(), g.getProcessImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getSystemImplementationAccess().getProcessorKeyword_10_0(), g.getSystemImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getSubprogramImplementationAccess().getProcessorKeyword_10_0(), g.getSubprogramImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getThreadImplementationAccess().getProcessorKeyword_10_0(), g.getThreadImplementationAccess().getFeaturesKeyword_10_1());
+		indentTwoKeywordSection(c, g.getThreadGroupImplementationAccess().getProcessorKeyword_11_0(), g.getThreadGroupImplementationAccess().getFeaturesKeyword_11_1());
+		indentTwoKeywordSection(c, g.getVirtualProcessorImplementationAccess().getProcessorKeyword_11_0(), g.getVirtualProcessorImplementationAccess().getFeaturesKeyword_11_1());
+		// @formatter:on
+
+		// modes section in component implementation
+		indentSection(c, g.getAbstractImplementationAccess().getModesKeyword_14_0());
+		indentSection(c, g.getBusImplementationAccess().getModesKeyword_10_0());
+		indentSection(c, g.getDataImplementationAccess().getModesKeyword_13_0());
+		indentSection(c, g.getDeviceImplementationAccess().getModesKeyword_13_0());
+		indentSection(c, g.getMemoryImplementationAccess().getModesKeyword_11_0());
+		indentSection(c, g.getProcessImplementationAccess().getModesKeyword_13_0());
+		indentSection(c, g.getProcessorImplementationAccess().getModesKeyword_12_0());
+		indentSection(c, g.getSystemImplementationAccess().getModesKeyword_13_0());
+		indentSection(c, g.getSubprogramImplementationAccess().getModesKeyword_14_0());
+		indentSection(c, g.getThreadImplementationAccess().getModesKeyword_14_0());
+		indentSection(c, g.getThreadGroupImplementationAccess().getModesKeyword_14_0());
+		indentSection(c, g.getVirtualBusImplementationAccess().getModesKeyword_11_0());
+		indentSection(c, g.getVirtualProcessorImplementationAccess().getModesKeyword_14_0());
+
+		// It's usually a good idea to activate the following three statements.
+		// They will add and preserve newlines around comments
+		c.setLinewrap(0, 1, 2).before(g.getSL_COMMENTRule());
 //			c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
 //			c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
-
 	}
+
+	protected void indentInComponent(FormattingConfig c, Keyword start, Keyword end) {
+		c.setIndentationIncrement().after(start);
+		c.setIndentationIncrement().after(start);
+		c.setLinewrap(1, 1, 2).before(end);
+		c.setIndentationDecrement().before(end);
+		c.setIndentationDecrement().before(end);
+	}
+
+	protected void indentSection(FormattingConfig c, Keyword keyword) {
+		c.setLinewrap(1, 1, 2).before(keyword);
+		c.setLinewrap().after(keyword);
+		c.setIndentationDecrement().before(keyword);
+		c.setIndentationIncrement().after(keyword);
+	}
+
+	protected void indentTwoKeywordSection(FormattingConfig c, Keyword first, Keyword second) {
+		c.setLinewrap(1, 1, 2).before(first);
+		c.setNoLinewrap().between(first, second);
+		c.setLinewrap().after(second);
+		c.setIndentationDecrement().before(first);
+		c.setIndentationIncrement().after(second);
+	}
+
+//	@Override
+//	public ITokenStream createFormatterStream(String indent, ITokenStream out, boolean preserveWhitespaces) {
+//		return new MyTokenStream(out, indent, getConfig(), createMatcher(), getHiddenTokenHelper(), preserveWhitespaces);
+//	}
+//
+//	@Override
+//	public ITokenStream createFormatterStream(EObject context, String indent, ITokenStream out,
+//			boolean preserveWhitespaces) {
+//		super.createFormatterStream(context, indent, out, preserveWhitespaces);
+//		return new MyTokenStream(out, indent, getConfig(), createMatcher(), getHiddenTokenHelper(), preserveWhitespaces);
+//	}
+//
+//	private static class MyTokenStream extends FormattingConfigBasedStream {
+//
+//		public MyTokenStream(ITokenStream out, String indentation, FormattingConfig cfg,
+//				IElementMatcher<ElementPattern> matcher, IHiddenTokenHelper hiddenTokenHelper, boolean preserveSpaces) {
+//			super(out, indentation, cfg, matcher, hiddenTokenHelper, preserveSpaces);
+//		}
+//
+//		@Override
+//		public MyLineEntry createLineEntry(EObject grammarElement, String value, boolean isHidden,
+//				Set<ElementLocator> beforeLocators, String leadingWS, int indent, ParserRule hiddenTokenDefition) {
+//			return new MyLineEntry(grammarElement, value, isHidden, beforeLocators, leadingWS, indent,
+//					hiddenTokenDefition);
+//		}
+//
+//		protected class MyLineEntry extends FormattingConfigBasedStream.LineEntry {
+//			public MyLineEntry(EObject grammarElement, String value, boolean isHidden,
+//					Set<ElementLocator> beforeLocators, String leadingWS, int indent, ParserRule hiddenTokenDefition) {
+//				super(grammarElement, value, isHidden, beforeLocators, leadingWS, indent, hiddenTokenDefition);
+//			}
+//
+//			@Override
+//			protected boolean isBreakable() {
+//				if (leadingLocators == null) {
+//					return false;
+//				}
+//				for (ElementLocator e : leadingLocators) {
+//					if (e instanceof LinewrapLocator && ((LinewrapLocator) e).getMaxWrap() == 0) {
+//						return false;
+//					// if (e instanceof SpaceLocator)
+//					// 	return false;
+//					}
+//				}
+//				return hiddenTokenHelper.getWhitespaceRuleFor(hiddenTokenDefinition, getLineSeparator()) != null;
+//			}
+//		}
+
+//		private EObject previous = null;
+//
+//		@Override
+//		public void writeSemantic(EObject grammarElement, String value) throws IOException {
+//			previous = grammarElement;
+//			super.writeSemantic(grammarElement, value);
+//		}
+//
+//		@Override
+//		public void writeHidden(EObject grammarElement, String value) throws IOException {
+//			String newValue = value;
+//
+//			if (grammarElement instanceof TerminalRule) {
+//				if ("SL_COMMENT".equals(((TerminalRule) grammarElement).getName())) {
+//					if (previous instanceof Keyword) {
+//						if ("{".equals(((Keyword) previous).getValue())) {
+//							newValue = "\t" + value;
+//						}
+//					}
+//				}
+//				if ("ML_COMMENT".equals(((TerminalRule) grammarElement).getName())) {
+//					StringBuilder sb = new StringBuilder();
+//					sb.append("\r\n\r\n");
+//					for (int i = 0; i < indentationLevel; i++) {
+//						sb.append("\t");
+//					}
+//
+//					if (previous instanceof Keyword) {
+//						if ("{".equals(((Keyword) previous).getValue())) {
+//							sb.append("\t");
+//						}
+//					}
+//					sb.append(value).append("\r\n");
+//					newValue = sb.toString();
+//				}
+//			}
+//			super.writeHidden(grammarElement, newValue);
+//		}
+//
+//		@Override
+//		public void flush() throws IOException {
+//			super.flush();
+//		}
+//};
+
 }
