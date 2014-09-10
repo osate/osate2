@@ -335,7 +335,7 @@ public class SubcomponentPattern extends AgePattern {
 		layoutService.layoutChildren(shape);
 		anchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}
-	
+		
 	private String getSubcomponentName(final Subcomponent sc) {
 		return sc.getName() == null ? "" : sc.getName();
 	}
