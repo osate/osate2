@@ -454,6 +454,10 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		return "List Value";
 	}
 
+	String text(RecordValue ele) {
+		return "Record";
+	}
+
 	String text(RangeValue ele) {
 		RangeValue rv;
 
