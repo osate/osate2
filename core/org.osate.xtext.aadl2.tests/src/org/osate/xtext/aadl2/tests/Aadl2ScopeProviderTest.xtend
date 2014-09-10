@@ -182,6 +182,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				  
 				  subprogram implementation subp2.i
 				  end subp2.i;
+				end pack2;
 			''',
 			"pack3.aadl" -> '''
 				package pack3
@@ -272,8 +273,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			'''
 		)
 		suppressSerialization
+		testFile("pack2.aadl").resource.contents.head.assertNoIssues
+		testFile("pack3.aadl").resource.contents.head.assertNoIssues
+		testFile("pack4.aadl").resource.contents.head.assertNoIssues
+		testFile("pack5.aadl").resource.contents.head.assertNoIssues
 		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
-		assertAllCrossReferencesResolvable(pack1)
+		pack1.assertNoIssues
 		
 		val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data",
 			"renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i",
@@ -355,7 +360,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_Prototype_refined, scope_Subcomponent_refined, and scope_Feature_refined
+	//Tests scope_Prototype_refined, scope_Subcomponent_refined, scope_Feature_refined, and scope_Connection_refined
 	@Test
 	def void testRefinedElements() {
 		('''
@@ -426,12 +431,17 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			  abstract implementation a1.i1
 			  subcomponents
 			    asub1: abstract;
+			  connections
+			    fgconn1: feature group fg1 <-> fg1;
 			  end a1.i1;
 			  
 			  abstract implementation a1.i2 extends a1.i1
 			  subcomponents
 			    asub1: refined to abstract;
 			    asub2: abstract;
+			  connections
+			    fgconn1: refined to feature group;
+			    fgconn2: feature group fg1 <-> fg1;
 			  end a1.i2;
 			  
 			  subprogram sub1
@@ -460,6 +470,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			end pack;
 		'''.parse as AadlPackage) => [
 			"pack".assertEquals(name)
+			assertNoIssues
 			publicSection.ownedClassifiers.get(0) as AbstractType => [
 				"a1".assertEquals(name)
 				ownedPrototypes.head => [
@@ -691,6 +702,11 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					//Tests scope_Subcomponent_refined
 					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, #[])
 				]
+				ownedConnections.head => [
+					"fgconn1".assertEquals(name)
+					//Tests scope_Connection_refined
+					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #[])
+				]
 			]
 			publicSection.ownedClassifiers.get(5) as ComponentImplementation => [
 				"a1.i2".assertEquals(name)
@@ -703,6 +719,16 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					"asub2".assertEquals(name)
 					//Tests scope_Subcomponent_refined
 					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, #["asub1"])
+				]
+				ownedConnections.get(0) => [
+					"fgconn1".assertEquals(name)
+					//Tests scope_Connection_refined
+					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #["fgconn1"])
+				]
+				ownedConnections.get(1) => [
+					"fgconn2".assertEquals(name)
+					//Tests scope_Connection_refined
+					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #["fgconn1"])
 				]
 			]
 			publicSection.ownedClassifiers.get(6) as SubprogramType => [
@@ -877,6 +903,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			end pack;
 		'''.parse as AadlPackage) => [
 			"pack".assertEquals(name)
+			assertNoIssues
 			publicSection.ownedClassifiers.get(1) => [
 				"a2".assertEquals(name)
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
@@ -1685,8 +1712,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			'''
 		)
 		suppressSerialization
+		testFile("pack2.aadl").resource.contents.head.assertNoIssues
+		testFile("pack3.aadl").resource.contents.head.assertNoIssues
+		testFile("pack4.aadl").resource.contents.head.assertNoIssues
+		testFile("pack5.aadl").resource.contents.head.assertNoIssues
 		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
-		assertAllCrossReferencesResolvable(pack1)
+		pack1.assertNoIssues
 		
 		pack1 => [
 			"pack1".assertEquals(name)
@@ -2048,8 +2079,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			'''
 		)
 		suppressSerialization
+		testFile("ps.aadl").resource.contents.head.assertNoIssues
 		val pack = testFile("pack.aadl").resource.contents.head as AadlPackage
-		assertAllCrossReferencesResolvable(pack)
+		pack.assertNoIssues
 		
 		pack => [
 			"pack".assertEquals(name)
@@ -2302,7 +2334,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 «««			    conn21: parameter param1 -> call10.param1;
 «««				conn22: parameter param1 -> call11.param1;
 «««				conn23: parameter param1 -> call12.param1;
-			  end sub1.i1;
+			  end subp1.i1;
 			  
 			  subprogram implementation subp1.i2
 			  subcomponents
@@ -2344,7 +2376,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			  end subpg1;
 			end pack;
 		'''.parse as AadlPackage) => [
-			assertNoErrors
+			assertNoIssues
 			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as ComponentImplementation => [
 				"a1.i1".assertEquals(name)
@@ -2858,7 +2890,6 @@ class Aadl2ScopeProviderTest extends OsateTest {
 	}
 	
 	def private assertScope(EObject context, EReference reference, Iterable<String> expected) {
-		context.assertNoErrors
 		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString("::")].filter[
 			val separatorIndex = indexOf("::")
 			if (separatorIndex != -1) {

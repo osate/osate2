@@ -90,6 +90,7 @@ import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
@@ -431,6 +432,8 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     _builder_1.append("  ");
     _builder_1.append("end subp2.i;");
     _builder_1.newLine();
+    _builder_1.append("end pack2;");
+    _builder_1.newLine();
     Pair<String, String> _mappedTo_1 = Pair.<String, String>of("pack2.aadl", _builder_1.toString());
     StringConcatenation _builder_2 = new StringConcatenation();
     _builder_2.append("package pack3");
@@ -652,12 +655,32 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     Pair<String, String> _mappedTo_4 = Pair.<String, String>of("pack5.aadl", _builder_4.toString());
     this.createFiles(_mappedTo, _mappedTo_1, _mappedTo_2, _mappedTo_3, _mappedTo_4);
     this.suppressSerialization();
-    FluentIssueCollection _testFile = this.testFile("pack1.aadl");
+    FluentIssueCollection _testFile = this.testFile("pack2.aadl");
     Resource _resource = _testFile.getResource();
     EList<EObject> _contents = _resource.getContents();
     EObject _head = IterableExtensions.<EObject>head(_contents);
-    final AadlPackage pack1 = ((AadlPackage) _head);
-    this.assertAllCrossReferencesResolvable(pack1);
+    this._validationTestHelper.assertNoIssues(_head);
+    FluentIssueCollection _testFile_1 = this.testFile("pack3.aadl");
+    Resource _resource_1 = _testFile_1.getResource();
+    EList<EObject> _contents_1 = _resource_1.getContents();
+    EObject _head_1 = IterableExtensions.<EObject>head(_contents_1);
+    this._validationTestHelper.assertNoIssues(_head_1);
+    FluentIssueCollection _testFile_2 = this.testFile("pack4.aadl");
+    Resource _resource_2 = _testFile_2.getResource();
+    EList<EObject> _contents_2 = _resource_2.getContents();
+    EObject _head_2 = IterableExtensions.<EObject>head(_contents_2);
+    this._validationTestHelper.assertNoIssues(_head_2);
+    FluentIssueCollection _testFile_3 = this.testFile("pack5.aadl");
+    Resource _resource_3 = _testFile_3.getResource();
+    EList<EObject> _contents_3 = _resource_3.getContents();
+    EObject _head_3 = IterableExtensions.<EObject>head(_contents_3);
+    this._validationTestHelper.assertNoIssues(_head_3);
+    FluentIssueCollection _testFile_4 = this.testFile("pack1.aadl");
+    Resource _resource_4 = _testFile_4.getResource();
+    EList<EObject> _contents_4 = _resource_4.getContents();
+    EObject _head_4 = IterableExtensions.<EObject>head(_contents_4);
+    final AadlPackage pack1 = ((AadlPackage) _head_4);
+    this._validationTestHelper.assertNoIssues(pack1);
     final List<String> componentClassifierScopeForPack1 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data", "renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack1::subp1", "pack1::subp1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack2::subp2", "pack2::subp2.i", "pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack3::subp3", "pack3::subp3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack4::subp4", "pack4::subp4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i", "renamed_package::subp4", "renamed_package::subp4.i"));
     final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
       public void apply(final AadlPackage it) {
@@ -1012,6 +1035,12 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.append("asub1: abstract;");
       _builder.newLine();
       _builder.append("  ");
+      _builder.append("connections");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fgconn1: feature group fg1 <-> fg1;");
+      _builder.newLine();
+      _builder.append("  ");
       _builder.append("end a1.i1;");
       _builder.newLine();
       _builder.append("  ");
@@ -1027,6 +1056,15 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.newLine();
       _builder.append("    ");
       _builder.append("asub2: abstract;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("connections");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fgconn1: refined to feature group;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fgconn2: feature group fg1 <-> fg1;");
       _builder.newLine();
       _builder.append("  ");
       _builder.append("end a1.i2;");
@@ -1108,6 +1146,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
         public void apply(final AadlPackage it) {
           String _name = it.getName();
           Assert.assertEquals("pack", _name);
+          Aadl2ScopeProviderTest.this._validationTestHelper.assertNoIssues(it);
           PublicPackageSection _publicSection = it.getPublicSection();
           EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
           Classifier _get = _ownedClassifiers.get(0);
@@ -1634,6 +1673,17 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 }
               };
               ObjectExtensions.<Subcomponent>operator_doubleArrow(_head, _function);
+              EList<Connection> _ownedConnections = it.getOwnedConnections();
+              Connection _head_1 = IterableExtensions.<Connection>head(_ownedConnections);
+              final Procedure1<Connection> _function_1 = new Procedure1<Connection>() {
+                public void apply(final Connection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fgconn1", _name);
+                  EReference _connection_Refined = Aadl2Package.eINSTANCE.getConnection_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _connection_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                }
+              };
+              ObjectExtensions.<Connection>operator_doubleArrow(_head_1, _function_1);
             }
           };
           ObjectExtensions.<ComponentImplementation>operator_doubleArrow(
@@ -1667,6 +1717,28 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 }
               };
               ObjectExtensions.<Subcomponent>operator_doubleArrow(_get_1, _function_1);
+              EList<Connection> _ownedConnections = it.getOwnedConnections();
+              Connection _get_2 = _ownedConnections.get(0);
+              final Procedure1<Connection> _function_2 = new Procedure1<Connection>() {
+                public void apply(final Connection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fgconn1", _name);
+                  EReference _connection_Refined = Aadl2Package.eINSTANCE.getConnection_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _connection_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgconn1")));
+                }
+              };
+              ObjectExtensions.<Connection>operator_doubleArrow(_get_2, _function_2);
+              EList<Connection> _ownedConnections_1 = it.getOwnedConnections();
+              Connection _get_3 = _ownedConnections_1.get(1);
+              final Procedure1<Connection> _function_3 = new Procedure1<Connection>() {
+                public void apply(final Connection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fgconn2", _name);
+                  EReference _connection_Refined = Aadl2Package.eINSTANCE.getConnection_Refined();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _connection_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgconn1")));
+                }
+              };
+              ObjectExtensions.<Connection>operator_doubleArrow(_get_3, _function_3);
             }
           };
           ObjectExtensions.<ComponentImplementation>operator_doubleArrow(
@@ -2099,6 +2171,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
         public void apply(final AadlPackage it) {
           String _name = it.getName();
           Assert.assertEquals("pack", _name);
+          Aadl2ScopeProviderTest.this._validationTestHelper.assertNoIssues(it);
           PublicPackageSection _publicSection = it.getPublicSection();
           EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
           Classifier _get = _ownedClassifiers.get(1);
@@ -4175,12 +4248,32 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     Pair<String, String> _mappedTo_4 = Pair.<String, String>of("pack5.aadl", _builder_4.toString());
     this.createFiles(_mappedTo, _mappedTo_1, _mappedTo_2, _mappedTo_3, _mappedTo_4);
     this.suppressSerialization();
-    FluentIssueCollection _testFile = this.testFile("pack1.aadl");
+    FluentIssueCollection _testFile = this.testFile("pack2.aadl");
     Resource _resource = _testFile.getResource();
     EList<EObject> _contents = _resource.getContents();
     EObject _head = IterableExtensions.<EObject>head(_contents);
-    final AadlPackage pack1 = ((AadlPackage) _head);
-    this.assertAllCrossReferencesResolvable(pack1);
+    this._validationTestHelper.assertNoIssues(_head);
+    FluentIssueCollection _testFile_1 = this.testFile("pack3.aadl");
+    Resource _resource_1 = _testFile_1.getResource();
+    EList<EObject> _contents_1 = _resource_1.getContents();
+    EObject _head_1 = IterableExtensions.<EObject>head(_contents_1);
+    this._validationTestHelper.assertNoIssues(_head_1);
+    FluentIssueCollection _testFile_2 = this.testFile("pack4.aadl");
+    Resource _resource_2 = _testFile_2.getResource();
+    EList<EObject> _contents_2 = _resource_2.getContents();
+    EObject _head_2 = IterableExtensions.<EObject>head(_contents_2);
+    this._validationTestHelper.assertNoIssues(_head_2);
+    FluentIssueCollection _testFile_3 = this.testFile("pack5.aadl");
+    Resource _resource_3 = _testFile_3.getResource();
+    EList<EObject> _contents_3 = _resource_3.getContents();
+    EObject _head_3 = IterableExtensions.<EObject>head(_contents_3);
+    this._validationTestHelper.assertNoIssues(_head_3);
+    FluentIssueCollection _testFile_4 = this.testFile("pack1.aadl");
+    Resource _resource_4 = _testFile_4.getResource();
+    EList<EObject> _contents_4 = _resource_4.getContents();
+    EObject _head_4 = IterableExtensions.<EObject>head(_contents_4);
+    final AadlPackage pack1 = ((AadlPackage) _head_4);
+    this._validationTestHelper.assertNoIssues(pack1);
     final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
       public void apply(final AadlPackage it) {
         String _name = it.getName();
@@ -4637,12 +4730,17 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     Pair<String, String> _mappedTo_1 = Pair.<String, String>of("ps.aadl", _builder_1.toString());
     this.createFiles(_mappedTo, _mappedTo_1);
     this.suppressSerialization();
-    FluentIssueCollection _testFile = this.testFile("pack.aadl");
+    FluentIssueCollection _testFile = this.testFile("ps.aadl");
     Resource _resource = _testFile.getResource();
     EList<EObject> _contents = _resource.getContents();
     EObject _head = IterableExtensions.<EObject>head(_contents);
-    final AadlPackage pack = ((AadlPackage) _head);
-    this.assertAllCrossReferencesResolvable(pack);
+    this._validationTestHelper.assertNoIssues(_head);
+    FluentIssueCollection _testFile_1 = this.testFile("pack.aadl");
+    Resource _resource_1 = _testFile_1.getResource();
+    EList<EObject> _contents_1 = _resource_1.getContents();
+    EObject _head_1 = IterableExtensions.<EObject>head(_contents_1);
+    final AadlPackage pack = ((AadlPackage) _head_1);
+    this._validationTestHelper.assertNoIssues(pack);
     final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
       public void apply(final AadlPackage it) {
         String _name = it.getName();
@@ -5058,7 +5156,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       _builder.append("conn20: parameter param1 -> call9.param1;");
       _builder.newLine();
       _builder.append("  ");
-      _builder.append("end sub1.i1;");
+      _builder.append("end subp1.i1;");
       _builder.newLine();
       _builder.append("  ");
       _builder.newLine();
@@ -5178,7 +5276,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       ModelUnit _parse = this._parseHelper.parse(_builder);
       final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
         public void apply(final AadlPackage it) {
-          Aadl2ScopeProviderTest.this._validationTestHelper.assertNoErrors(it);
+          Aadl2ScopeProviderTest.this._validationTestHelper.assertNoIssues(it);
           String _name = it.getName();
           Assert.assertEquals("pack", _name);
           PublicPackageSection _publicSection = it.getPublicSection();
@@ -5718,7 +5816,6 @@ public class Aadl2ScopeProviderTest extends OsateTest {
   }
   
   private void assertScope(final EObject context, final EReference reference, final Iterable<String> expected) {
-    this._validationTestHelper.assertNoErrors(context);
     List<String> _sort = IterableExtensions.<String>sort(expected, Aadl2ScopeProviderTest.CUSTOM_NAME_COMPARATOR);
     String _join = IterableExtensions.join(_sort, ", ");
     IScope _scope = this._iScopeProvider.getScope(context, reference);
