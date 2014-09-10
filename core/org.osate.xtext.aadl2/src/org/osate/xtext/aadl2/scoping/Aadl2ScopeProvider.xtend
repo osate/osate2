@@ -554,6 +554,14 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.extended?.allConnections?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
+	/*
+	 * Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, ParameterConnection, FlowSpecification,
+	 * FlowImplementation, and EndToEndFlow in Aadl2.xtext
+	 */
+	def scope_ModalPath_inModeOrTransition(ComponentClassifier context, EReference reference) {
+		(context.allModes + context.allModeTransitions).scopeFor
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
