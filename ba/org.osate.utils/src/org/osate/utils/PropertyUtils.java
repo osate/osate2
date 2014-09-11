@@ -1101,7 +1101,7 @@ public class PropertyUtils {
    * @return the first matching property expression or abstract named element.
    * otherwise return {@code null}
    * 
-   * @throws UnsupportedOperationException other property values than:
+   * @throws UnsupportedOperationException for other property values than:
    *   _ StringLiteral
    *   _ ListValue (recursion supported)
    *   _ ClassifierValue
