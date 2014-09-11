@@ -3701,6 +3701,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void typeCheckAccessConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
+				|| connectionEnd.eIsProxy()) {
+			// Don't validate if the context or connection end could not be resolved.
+			return;
+		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof AccessConnectionEnd)) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
@@ -3724,6 +3729,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void typeCheckFeatureConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
+				|| connectionEnd.eIsProxy()) {
+			// Don't validate if the context or connection end could not be resolved.
+			return;
+		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof FeatureConnectionEnd)) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
@@ -3747,6 +3757,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void typeCheckFeatureGroupConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
+				|| connectionEnd.eIsProxy()) {
+			// Don't validate if the context or connection end could not be resolved.
+			return;
+		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof FeatureGroupConnectionEnd)) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
@@ -3770,6 +3785,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void typeCheckParameterConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
+				|| connectionEnd.eIsProxy()) {
+			// Don't validate if the context or connection end could not be resolved.
+			return;
+		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof ParameterConnectionEnd)) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
@@ -3808,6 +3828,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void typeCheckPortConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
+				|| connectionEnd.eIsProxy()) {
+			// Don't validate if the context or connection end could not be resolved.
+			return;
+		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof PortConnectionEnd)) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))

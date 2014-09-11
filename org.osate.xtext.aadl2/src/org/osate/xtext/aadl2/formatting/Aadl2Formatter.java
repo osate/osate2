@@ -33,9 +33,26 @@
  */
 package org.osate.xtext.aadl2.formatting;
 
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.formatting.IElementMatcherProvider.IElementMatcher;
+import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
+import org.eclipse.xtext.formatting.impl.AbstractFormattingConfig.ElementLocator;
+import org.eclipse.xtext.formatting.impl.AbstractFormattingConfig.ElementPattern;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.formatting.impl.FormattingConfig.LinewrapLocator;
+import org.eclipse.xtext.formatting.impl.FormattingConfig.SpaceLocator;
+import org.eclipse.xtext.formatting.impl.FormattingConfig2;
+import org.eclipse.xtext.formatting.impl.FormattingConfigBasedStream;
+import org.eclipse.xtext.parsetree.reconstr.IHiddenTokenHelper;
+import org.eclipse.xtext.parsetree.reconstr.ITokenStream;
 import org.eclipse.xtext.util.Pair;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
@@ -90,7 +107,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		}
 		for (Keyword semi : g.findKeywords(";")) {
 			c.setNoSpace().before(semi);
-			c.setLinewrap(1, 1, 2).after(semi);
+			c.setLinewrap(0, 1, 2).after(semi);
 		}
 		for (Keyword dot : g.findKeywords(".")) {
 			c.setNoSpace().around(dot);
@@ -112,7 +129,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		}
 
 		for (String sectionName : new String[] { "prototypes", "subcomponents", "connections", "flows", "calls",
-				"properties" }) {
+		"properties" }) {
 			for (Keyword keyword : g.findKeywords(sectionName)) {
 				c.setLinewrap(1, 1, 2).before(keyword);
 				c.setLinewrap().after(keyword);
@@ -311,54 +328,162 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		c.setIndentationIncrement().after(second);
 	}
 
-//	@Override
-//	public ITokenStream createFormatterStream(String indent, ITokenStream out, boolean preserveWhitespaces) {
-//		return new MyTokenStream(out, indent, getConfig(), createMatcher(), getHiddenTokenHelper(), preserveWhitespaces);
-//	}
-//
-//	@Override
-//	public ITokenStream createFormatterStream(EObject context, String indent, ITokenStream out,
-//			boolean preserveWhitespaces) {
-//		super.createFormatterStream(context, indent, out, preserveWhitespaces);
-//		return new MyTokenStream(out, indent, getConfig(), createMatcher(), getHiddenTokenHelper(), preserveWhitespaces);
-//	}
-//
-//	private static class MyTokenStream extends FormattingConfigBasedStream {
-//
-//		public MyTokenStream(ITokenStream out, String indentation, FormattingConfig cfg,
-//				IElementMatcher<ElementPattern> matcher, IHiddenTokenHelper hiddenTokenHelper, boolean preserveSpaces) {
-//			super(out, indentation, cfg, matcher, hiddenTokenHelper, preserveSpaces);
-//		}
-//
-//		@Override
-//		public MyLineEntry createLineEntry(EObject grammarElement, String value, boolean isHidden,
-//				Set<ElementLocator> beforeLocators, String leadingWS, int indent, ParserRule hiddenTokenDefition) {
-//			return new MyLineEntry(grammarElement, value, isHidden, beforeLocators, leadingWS, indent,
-//					hiddenTokenDefition);
-//		}
-//
-//		protected class MyLineEntry extends FormattingConfigBasedStream.LineEntry {
-//			public MyLineEntry(EObject grammarElement, String value, boolean isHidden,
-//					Set<ElementLocator> beforeLocators, String leadingWS, int indent, ParserRule hiddenTokenDefition) {
-//				super(grammarElement, value, isHidden, beforeLocators, leadingWS, indent, hiddenTokenDefition);
-//			}
-//
-//			@Override
-//			protected boolean isBreakable() {
-//				if (leadingLocators == null) {
-//					return false;
-//				}
-//				for (ElementLocator e : leadingLocators) {
-//					if (e instanceof LinewrapLocator && ((LinewrapLocator) e).getMaxWrap() == 0) {
-//						return false;
-//					// if (e instanceof SpaceLocator)
-//					// 	return false;
-//					}
-//				}
-//				return hiddenTokenHelper.getWhitespaceRuleFor(hiddenTokenDefinition, getLineSeparator()) != null;
-//			}
-//		}
+	// Prevent the formatter from using the same line separator for all files in the workspace
 
+	private class FormattingConfig3 extends FormattingConfig2 {
+		public FormattingConfig3(IGrammarAccess grammarAccess, IHiddenTokenHelper hiddenTokenHelper,
+				IIndentationInformation indentInfo, ILineSeparatorInformation lineSeparatorInfo) {
+			super(grammarAccess, hiddenTokenHelper, indentInfo, lineSeparatorInfo);
+		}
+
+		public void setLineSeparatorInfo(ILineSeparatorInformation lsi) {
+			lineSeparatorInfo = lsi;
+		}
+	}
+
+	@Override
+	protected FormattingConfig createFormattingConfig() {
+		FormattingConfig cfg = new FormattingConfig3(getGrammarAccess(), getHiddenTokenHelper(), getIndentInfo(),
+				getLineSeparatorInfo());
+		cfg.setWhitespaceRule(getWSRule());
+		return cfg;
+	}
+
+	@Override
+	protected synchronized FormattingConfig getConfig() {
+		FormattingConfig3 config = (FormattingConfig3) super.getConfig();
+		config.setLineSeparatorInfo(getLineSeparatorInfo());
+		return config;
+	}
+
+	// The following changes allow newlines when nospace is set
+
+	@Override
+	public ITokenStream createFormatterStream(String indent, ITokenStream out, boolean preserveWhitespaces) {
+		return new Aadl2FormatterTokenStream(out, indent, getConfig(), createMatcher(), getHiddenTokenHelper(),
+				preserveWhitespaces);
+	}
+
+	@Override
+	public ITokenStream createFormatterStream(EObject context, String indent, ITokenStream out,
+			boolean preserveWhitespaces) {
+		super.createFormatterStream(context, indent, out, preserveWhitespaces);
+		return new Aadl2FormatterTokenStream(out, indent, getConfig(), createMatcher(), getHiddenTokenHelper(),
+				preserveWhitespaces);
+	}
+
+	private static class Aadl2FormatterTokenStream extends FormattingConfigBasedStream {
+
+		protected class MyLine extends FormattingConfigBasedStream.Line {
+			protected MyLine(List<LineEntry> initialEntries, int leftover) {
+				super(initialEntries, leftover);
+			}
+
+			@Override
+			public String getSpacesStr(LineEntry e, boolean isLineStart) {
+				MyLineEntry entry = (MyLineEntry) e;
+				if (preserveSpaces && entry.getLeadingWS() != null) {
+					return entry.getLeadingWS();
+				}
+				if (entry.getLeadingLocators() == null) {
+					return null;
+				}
+
+				int def = isLineStart && startWithNL && leftover <= 0 ? 1 : 0, min = def, max = def;
+				boolean noWrap = false;
+				for (ElementLocator leadingLocator : entry.getLeadingLocators()) {
+					if (leadingLocator instanceof LinewrapLocator) {
+						LinewrapLocator l = (LinewrapLocator) leadingLocator;
+						min = Math.max(min, l.getMinWrap());
+						def = Math.max(def, l.getDefaultWrap());
+						max = Math.max(max, l.getMaxWrap());
+						if (l.getMaxWrap() == 0) {
+							noWrap = true;
+						}
+					}
+				}
+				String space = null;
+				for (ElementLocator leadingLocator : entry.getLeadingLocators()) {
+					if (leadingLocator instanceof SpaceLocator) {
+						String s = ((SpaceLocator) leadingLocator).getSpace();
+						if (space == null || s.length() > space.length()) {
+							space = s;
+						}
+					}
+				}
+				if ((noWrap || (min == 0 && !isLineStart)) && space != null) {
+					return space;
+				}
+				if (!noWrap) {
+					if (min != max) {
+						int existing = entry.countExistingLeadingNewlines();
+						if (existing >= 0) {
+							def = existing;
+						}
+					}
+					def = Math.max(min, Math.min(def, max));
+					if (def > 0) {
+						return wrap(def, indent);
+					} else if (isLineStart && indent.length() > 0) {
+						return indent;
+					}
+				}
+				return isLineStart && !startWithNL ? null : " ";
+			}
+
+		}
+
+		protected class MyLineEntry extends FormattingConfigBasedStream.LineEntry {
+			public MyLineEntry(EObject grammarElement, String value, boolean isHidden,
+					Set<ElementLocator> beforeLocators, String leadingWS, int indent, ParserRule hiddenTokenDefition) {
+				super(grammarElement, value, isHidden, beforeLocators, leadingWS, indent, hiddenTokenDefition);
+			}
+
+			@Override
+			protected boolean isBreakable() {
+				if (leadingLocators == null) {
+					return false;
+				}
+				for (ElementLocator e : leadingLocators) {
+					if (e instanceof LinewrapLocator && ((LinewrapLocator) e).getMaxWrap() == 0) {
+						return false;
+					}
+				}
+				return hiddenTokenHelper.getWhitespaceRuleFor(hiddenTokenDefinition, getLineSeparator()) != null;
+			}
+
+			protected String getLeadingWS() {
+				return leadingWS;
+			}
+
+			protected Set<ElementLocator> getLeadingLocators() {
+				return leadingLocators;
+			}
+
+			@Override
+			protected int countExistingLeadingNewlines() {
+				return super.countExistingLeadingNewlines();
+			}
+		}
+
+		public Aadl2FormatterTokenStream(ITokenStream out, String indentation, FormattingConfig cfg,
+				IElementMatcher<ElementPattern> matcher, IHiddenTokenHelper hiddenTokenHelper, boolean preserveSpaces) {
+			super(out, indentation, cfg, matcher, hiddenTokenHelper, preserveSpaces);
+		}
+
+		@Override
+		protected MyLine createLine(List<LineEntry> initialEntries, int leftover) {
+			return new MyLine(initialEntries, leftover);
+		}
+
+		@Override
+		public MyLineEntry createLineEntry(EObject grammarElement, String value, boolean isHidden,
+				Set<ElementLocator> beforeLocators, String leadingWS, int indent, ParserRule hiddenTokenDefition) {
+			return new MyLineEntry(grammarElement, value, isHidden, beforeLocators, leadingWS, indent,
+					hiddenTokenDefition);
+		}
+
+		// potential fix for comment indentations
 //		private EObject previous = null;
 //
 //		@Override
@@ -402,6 +527,6 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 //		public void flush() throws IOException {
 //			super.flush();
 //		}
-//};
+	};
 
 }

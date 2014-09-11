@@ -95,6 +95,7 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
@@ -107,6 +108,8 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
@@ -5807,6 +5810,348 @@ public class Aadl2ScopeProviderTest extends OsateTest {
           };
           ObjectExtensions.<ComponentImplementation>operator_doubleArrow(
             ((ComponentImplementation) _get_1), _function_1);
+        }
+      };
+      ObjectExtensions.<AadlPackage>operator_doubleArrow(((AadlPackage) _parse), _function);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_scope_ModalPath_inModeOrTransition() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("package pack");
+      _builder.newLine();
+      _builder.append("public");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("abstract a1");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("features");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fg1: feature group;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("ep1: in event port;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("da1: provides data access;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("end a1;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("abstract implementation a1.i");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("subcomponents");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("asub1: abstract a1;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("asub2: abstract a2;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("asub3: abstract a2;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("connections");
+      _builder.newLine();
+      _builder.append("  \t");
+      _builder.append("portconn1: port ep1 -> asub1.ep1 in modes (m1, m2, mt1, mt2);");
+      _builder.newLine();
+      _builder.append("  \t");
+      _builder.append("portconn2: port asub2.ep2 -> asub3.ep3;");
+      _builder.newLine();
+      _builder.append("  \t");
+      _builder.append("aconn1: data access da1 -> asub1.da1 in modes (m1, m2, mt1, mt2);");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fgconn1: feature group fg1 <-> fg1 in modes (m1, m2, mt1, mt2);");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fconn1: feature fg1 -> asub1.fg1 in modes (m1, m2, mt1, mt2);");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("paramconn1: parameter da1 -> da1 in modes (m1, m2, mt1, mt2);");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("flows");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("ete1: end to end flow asub2.fsource1 -> portconn2 -> asub3.fsink1 in modes (m1, m2, mt1, mt2);");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("modes");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m1: initial mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m2: mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m3: mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m4: mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt1: m1 -[ep1]-> m2;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt2: m2 -[ep1]-> m3;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt3: m3 -[ep1]-> m4;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt4: m4 -[ep1]-> m1;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("end a1.i;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("abstract a2");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("features");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("ep2: out event port;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("ep3: in event port;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("flows");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fsource1: flow source ep2 in modes (m5, m6, mt5, mt6);");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fsink1: flow sink ep3 in modes (m5, m6, mt5, mt6);");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("modes");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m5: initial mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m6: mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m7: mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("m8: mode;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt5: m5 -[ep3]-> m6;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt6: m6 -[ep3]-> m7;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt7: m7 -[ep3]-> m8;");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("mt8: m8 -[ep3]-> m5;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("end a2;");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("abstract implementation a2.i");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("flows");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fsource1: flow source ep2 in modes (m5, m6, m7, mt5, mt6, mt7);");
+      _builder.newLine();
+      _builder.append("    ");
+      _builder.append("fsink1: flow sink ep3 in modes (m5, m6, m7, mt5, mt6, mt7);");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("end a2.i;");
+      _builder.newLine();
+      _builder.append("end pack;");
+      _builder.newLine();
+      ModelUnit _parse = this._parseHelper.parse(_builder);
+      final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
+        public void apply(final AadlPackage it) {
+          Aadl2ScopeProviderTest.this._validationTestHelper.assertNoIssues(it);
+          String _name = it.getName();
+          Assert.assertEquals("pack", _name);
+          PublicPackageSection _publicSection = it.getPublicSection();
+          EList<Classifier> _ownedClassifiers = _publicSection.getOwnedClassifiers();
+          Classifier _get = _ownedClassifiers.get(1);
+          final Procedure1<AbstractImplementation> _function = new Procedure1<AbstractImplementation>() {
+            public void apply(final AbstractImplementation it) {
+              String _name = it.getName();
+              Assert.assertEquals("a1.i", _name);
+              EList<PortConnection> _ownedPortConnections = it.getOwnedPortConnections();
+              PortConnection _get = _ownedPortConnections.get(0);
+              final Procedure1<PortConnection> _function = new Procedure1<PortConnection>() {
+                public void apply(final PortConnection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("portconn1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4")));
+                }
+              };
+              ObjectExtensions.<PortConnection>operator_doubleArrow(_get, _function);
+              EList<PortConnection> _ownedPortConnections_1 = it.getOwnedPortConnections();
+              PortConnection _get_1 = _ownedPortConnections_1.get(1);
+              final Procedure1<PortConnection> _function_1 = new Procedure1<PortConnection>() {
+                public void apply(final PortConnection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("portconn2", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4")));
+                }
+              };
+              ObjectExtensions.<PortConnection>operator_doubleArrow(_get_1, _function_1);
+              EList<AccessConnection> _ownedAccessConnections = it.getOwnedAccessConnections();
+              AccessConnection _head = IterableExtensions.<AccessConnection>head(_ownedAccessConnections);
+              final Procedure1<AccessConnection> _function_2 = new Procedure1<AccessConnection>() {
+                public void apply(final AccessConnection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("aconn1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4")));
+                }
+              };
+              ObjectExtensions.<AccessConnection>operator_doubleArrow(_head, _function_2);
+              EList<FeatureGroupConnection> _ownedFeatureGroupConnections = it.getOwnedFeatureGroupConnections();
+              FeatureGroupConnection _head_1 = IterableExtensions.<FeatureGroupConnection>head(_ownedFeatureGroupConnections);
+              final Procedure1<FeatureGroupConnection> _function_3 = new Procedure1<FeatureGroupConnection>() {
+                public void apply(final FeatureGroupConnection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fgconn1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4")));
+                }
+              };
+              ObjectExtensions.<FeatureGroupConnection>operator_doubleArrow(_head_1, _function_3);
+              EList<FeatureConnection> _ownedFeatureConnections = it.getOwnedFeatureConnections();
+              FeatureConnection _head_2 = IterableExtensions.<FeatureConnection>head(_ownedFeatureConnections);
+              final Procedure1<FeatureConnection> _function_4 = new Procedure1<FeatureConnection>() {
+                public void apply(final FeatureConnection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fconn1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4")));
+                }
+              };
+              ObjectExtensions.<FeatureConnection>operator_doubleArrow(_head_2, _function_4);
+              EList<ParameterConnection> _ownedParameterConnections = it.getOwnedParameterConnections();
+              ParameterConnection _head_3 = IterableExtensions.<ParameterConnection>head(_ownedParameterConnections);
+              final Procedure1<ParameterConnection> _function_5 = new Procedure1<ParameterConnection>() {
+                public void apply(final ParameterConnection it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("paramconn1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4")));
+                }
+              };
+              ObjectExtensions.<ParameterConnection>operator_doubleArrow(_head_3, _function_5);
+              EList<EndToEndFlow> _ownedEndToEndFlows = it.getOwnedEndToEndFlows();
+              EndToEndFlow _head_4 = IterableExtensions.<EndToEndFlow>head(_ownedEndToEndFlows);
+              final Procedure1<EndToEndFlow> _function_6 = new Procedure1<EndToEndFlow>() {
+                public void apply(final EndToEndFlow it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("ete1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4")));
+                }
+              };
+              ObjectExtensions.<EndToEndFlow>operator_doubleArrow(_head_4, _function_6);
+            }
+          };
+          ObjectExtensions.<AbstractImplementation>operator_doubleArrow(
+            ((AbstractImplementation) _get), _function);
+          PublicPackageSection _publicSection_1 = it.getPublicSection();
+          EList<Classifier> _ownedClassifiers_1 = _publicSection_1.getOwnedClassifiers();
+          Classifier _get_1 = _ownedClassifiers_1.get(2);
+          final Procedure1<AbstractType> _function_1 = new Procedure1<AbstractType>() {
+            public void apply(final AbstractType it) {
+              String _name = it.getName();
+              Assert.assertEquals("a2", _name);
+              EList<FlowSpecification> _ownedFlowSpecifications = it.getOwnedFlowSpecifications();
+              FlowSpecification _get = _ownedFlowSpecifications.get(0);
+              final Procedure1<FlowSpecification> _function = new Procedure1<FlowSpecification>() {
+                public void apply(final FlowSpecification it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fsource1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8")));
+                }
+              };
+              ObjectExtensions.<FlowSpecification>operator_doubleArrow(_get, _function);
+              EList<FlowSpecification> _ownedFlowSpecifications_1 = it.getOwnedFlowSpecifications();
+              FlowSpecification _get_1 = _ownedFlowSpecifications_1.get(1);
+              final Procedure1<FlowSpecification> _function_1 = new Procedure1<FlowSpecification>() {
+                public void apply(final FlowSpecification it) {
+                  String _name = it.getName();
+                  Assert.assertEquals("fsink1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8")));
+                }
+              };
+              ObjectExtensions.<FlowSpecification>operator_doubleArrow(_get_1, _function_1);
+            }
+          };
+          ObjectExtensions.<AbstractType>operator_doubleArrow(
+            ((AbstractType) _get_1), _function_1);
+          PublicPackageSection _publicSection_2 = it.getPublicSection();
+          EList<Classifier> _ownedClassifiers_2 = _publicSection_2.getOwnedClassifiers();
+          Classifier _get_2 = _ownedClassifiers_2.get(3);
+          final Procedure1<AbstractImplementation> _function_2 = new Procedure1<AbstractImplementation>() {
+            public void apply(final AbstractImplementation it) {
+              String _name = it.getName();
+              Assert.assertEquals("a2.i", _name);
+              EList<FlowImplementation> _ownedFlowImplementations = it.getOwnedFlowImplementations();
+              FlowImplementation _get = _ownedFlowImplementations.get(0);
+              final Procedure1<FlowImplementation> _function = new Procedure1<FlowImplementation>() {
+                public void apply(final FlowImplementation it) {
+                  FlowSpecification _specification = it.getSpecification();
+                  String _name = _specification.getName();
+                  Assert.assertEquals("fsource1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8")));
+                }
+              };
+              ObjectExtensions.<FlowImplementation>operator_doubleArrow(_get, _function);
+              EList<FlowImplementation> _ownedFlowImplementations_1 = it.getOwnedFlowImplementations();
+              FlowImplementation _get_1 = _ownedFlowImplementations_1.get(1);
+              final Procedure1<FlowImplementation> _function_1 = new Procedure1<FlowImplementation>() {
+                public void apply(final FlowImplementation it) {
+                  FlowSpecification _specification = it.getSpecification();
+                  String _name = _specification.getName();
+                  Assert.assertEquals("fsink1", _name);
+                  EReference _modalPath_InModeOrTransition = Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition();
+                  Aadl2ScopeProviderTest.this.assertScope(it, _modalPath_InModeOrTransition, Collections.<String>unmodifiableList(Lists.<String>newArrayList("m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8")));
+                }
+              };
+              ObjectExtensions.<FlowImplementation>operator_doubleArrow(_get_1, _function_1);
+            }
+          };
+          ObjectExtensions.<AbstractImplementation>operator_doubleArrow(
+            ((AbstractImplementation) _get_2), _function_2);
         }
       };
       ObjectExtensions.<AadlPackage>operator_doubleArrow(((AadlPackage) _parse), _function);
