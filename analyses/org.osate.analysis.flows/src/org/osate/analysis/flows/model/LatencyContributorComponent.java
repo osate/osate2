@@ -1,12 +1,10 @@
 package org.osate.analysis.flows.model;
 
-import java.util.List;
-
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.instance.ComponentInstance;
 
 /**
@@ -20,17 +18,6 @@ import org.osate.aadl2.instance.ComponentInstance;
  *
  */
 public class LatencyContributorComponent extends LatencyContributor {
-
-	/**
-	 * The sub contributors are basically what are the other
-	 * elements that can incur a latency in addition to the
-	 * related element. A good example is a bus for a 
-	 * connection. The connection is the latency contributor
-	 * and the bus is a sub-contributor (it adds potentially
-	 * some latency).
-	 */
-	private List<LatencyContributorComponent> subContributors;
-
 	public LatencyContributorComponent(NamedElement ci) {
 		super();
 		this.relatedElement = ci;
@@ -42,28 +29,21 @@ public class LatencyContributorComponent extends LatencyContributor {
 
 		if (relatedElement instanceof ComponentInstance) {
 			relatedComponentInstance = (ComponentInstance) relatedElement;
-
-			if (relatedComponentInstance.getCategory() == ComponentCategory.THREAD) {
-				return "Thread";
+			if (relatedComponentInstance.getCategory() == ComponentCategory.VIRTUAL_BUS) {
+				return "Protocol";
 			}
-
-			if (relatedComponentInstance.getCategory() == ComponentCategory.DEVICE) {
-				return "Device";
+			if (relatedComponentInstance.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
+				return "Partition";
 			}
-
-			if (relatedComponentInstance.getCategory() == ComponentCategory.BUS) {
-				return "Bus";
-			}
+			return relatedComponentInstance.getCategory().getName();
+		}
+		if (relatedElement instanceof VirtualBus) {
+			return "Protocol";
 		}
 		if (relatedElement instanceof ComponentClassifier) {
 			relatedComponentType = (ComponentType) relatedElement;
-			relatedComponentType.getCategory().toString();
+			return relatedComponentType.getCategory().getName();
 		}
-
-		if (relatedElement instanceof VirtualBusType) {
-			return "Protocol";
-		}
-
 		return "Component";
 	}
 

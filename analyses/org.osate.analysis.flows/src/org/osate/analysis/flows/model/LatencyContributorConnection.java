@@ -20,10 +20,6 @@ public class LatencyContributorConnection extends LatencyContributor {
 		this.relatedElement = ci;
 	}
 
-	protected String getContributorName() {
-		return relatedElement.getName();
-	}
-
 	protected String getContributorType() {
 		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.DELAYED) {
 			return "Delayed Connection";
@@ -34,7 +30,7 @@ public class LatencyContributorConnection extends LatencyContributor {
 		}
 
 		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.SAMPLED) {
-			return "Sampled Connection";
+			return "Connection";
 		}
 
 		return "Connection";

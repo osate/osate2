@@ -9,7 +9,7 @@ public class Line {
 
 	public Line() {
 		this.content = new ArrayList<ReportedCell>();
-		this.type = ReportSeverity.UNKNOWN;
+		this.type = ReportSeverity.INFO;
 	}
 
 	public void setSeverity(ReportSeverity t) {

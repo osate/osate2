@@ -28,16 +28,21 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	 * editor knows how to save and restore itself.
 	 */
 	public void createFieldEditors() {
-//		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
-//				"Partitioning Policy", 1, new String[][] {
-//						{ "Immediate", Constants.PARTITIONING_POLICY_IMMEDIATE_STR },
-//						{ "Major Frame Delayed", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
-//				getFieldEditorParent(), true);
-//		addField(partitioningPolicy);
 		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
 				"Report Subtotals", 1, new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES },
 						{ "No", Constants.REPORT_SUBTOTALS_NO } }, getFieldEditorParent(), true);
 		addField(reportSubtotals);
+		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
+				"Partition I/O Policy", 1, new String[][] {
+						{ "Partition End", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
+						{ "Major Frame Delayed", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
+				getFieldEditorParent(), true);
+		addField(partitioningPolicy);
+		RadioGroupFieldEditor worrstCaseDeadline = new RadioGroupFieldEditor(Constants.WORST_CASE_DEADLINE,
+				"Use deadline as worst-case processing time", 1, new String[][] {
+						{ "Yes", Constants.WORST_CASE_DEADLINE_YES }, { "No", Constants.WORST_CASE_DEADLINE_NO } },
+				getFieldEditorParent(), true);
+		addField(worrstCaseDeadline);
 		// First tab: configuration of Ocarina
 //		addTab("Flow Analysis");
 

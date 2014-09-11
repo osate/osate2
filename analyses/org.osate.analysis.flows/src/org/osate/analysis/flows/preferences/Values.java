@@ -2,28 +2,25 @@ package org.osate.analysis.flows.preferences;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.analysis.flows.FlowanalysisPlugin;
-import org.osate.analysis.flows.preferences.Constants.PartitioningPolicy;
-import org.osate.analysis.flows.preferences.Constants.ReportSubtotals;
 
 public class Values {
-	public static PartitioningPolicy getPartitioningPolicy() {
+
+	public static boolean doMajorFrameDelay() {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.PARTITONING_POLICY);
-
-		if (policy.equalsIgnoreCase(Constants.PARTITIONING_POLICY_IMMEDIATE_STR)) {
-			return Constants.PartitioningPolicy.IMMEDIATE;
-		}
-		return Constants.PartitioningPolicy.DELAYED;
+		return policy.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
 	}
 
-	public static ReportSubtotals getReportSubtotals() {
+	public static boolean doReportSubtotals() {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.REPORT_SUBTOTALS);
+		return policy.equalsIgnoreCase(Constants.REPORT_SUBTOTALS_YES);
+	}
 
-		if (policy.equalsIgnoreCase(Constants.REPORT_SUBTOTALS_NO)) {
-			return Constants.ReportSubtotals.NO;
-		}
-		return Constants.ReportSubtotals.YES;
+	public static boolean doWorstCaseDeadline() {
+		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
+		String policy = store.getString(Constants.WORST_CASE_DEADLINE);
+		return policy.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
 	}
 
 }

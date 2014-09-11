@@ -12,7 +12,7 @@ public class ReportedCell {
 
 	public ReportedCell(String msg) {
 		this.msg = msg;
-		this.severity = ReportSeverity.UNKNOWN;
+		this.severity = ReportSeverity.INFO;
 	}
 
 	public String getMessage() {
@@ -39,8 +39,8 @@ public class ReportedCell {
 		return this.severity.equals(ReportSeverity.SUCCESS);
 	}
 
-	public boolean isUnknown() {
-		return this.severity.equals(ReportSeverity.UNKNOWN);
+	public boolean isInfo() {
+		return this.severity.equals(ReportSeverity.INFO);
 	}
 
 }

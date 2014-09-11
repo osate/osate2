@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
-import org.osate.analysis.flows.preferences.Constants.ReportSubtotals;
+import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
@@ -37,9 +38,10 @@ public abstract class LatencyContributor {
 	// Queued: latency contribution due to queuing on bus or on recipient queuing ports
 	// Partition frame: Major frame rate of partition
 	// Partition schedule: frame offset
+	// Partition IO: I/O delay to partition window end or major frame
 
 	public enum LatencyContributorMethod {
-		UNKNOWN, DEADLINE, PROCESSING_TIME, IMMEDIATE, LAST_IMMEDIATE, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE
+		UNKNOWN, DEADLINE, PROCESSING_TIME, IMMEDIATE, LAST_IMMEDIATE, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
 	};
 
 	/**
@@ -70,7 +72,12 @@ public abstract class LatencyContributor {
 	/**
 	 * Sampling offset for partition frame
 	 */
-	private double samplingOffset;
+	private double partitionOffset;
+
+	/**
+	 * Partition window length
+	 */
+	private double partitionDuration;
 
 	/**
 	 * Sampling period for SAMPLED, DELAYED, or partition related
@@ -84,10 +91,10 @@ public abstract class LatencyContributor {
 	 * Set if model indicates so. The doSynchronous value is examined if this is not set.
 	 */
 	public enum SynchronizeType {
-		Asynchronous, Synchronous, Unknown
+		ASYNCHRONOUS, SYNCHRONOUS, SYNCUNKNOWN
 	};
 
-	private SynchronizeType isSynchronized = SynchronizeType.Unknown;
+	private SynchronizeType isSynchronized = SynchronizeType.SYNCUNKNOWN;
 
 	/**
 	 * methods represent what is the model elements used
@@ -112,14 +119,15 @@ public abstract class LatencyContributor {
 	public LatencyContributor() {
 		this.worstCaseMethod = LatencyContributorMethod.UNKNOWN;
 		this.bestCaseMethod = LatencyContributorMethod.UNKNOWN;
-		this.isSynchronized = SynchronizeType.Unknown;
+		this.isSynchronized = SynchronizeType.SYNCUNKNOWN;
 		this.minValue = 0.0;
 		this.maxValue = 0.0;
 		this.expectedMax = 0.0;
 		this.expectedMin = 0.0;
 		this.deadline = 0.0;
 		this.samplingPeriod = 0.0;
-		this.samplingOffset = 0.0;
+		this.partitionOffset = 0.0;
+		this.partitionDuration = 0.0;
 		this.subContributors = new ArrayList<LatencyContributor>();
 		this.issues = new ArrayList<ReportedCell>();
 		this.maxSubtotal = 0.0;
@@ -142,7 +150,7 @@ public abstract class LatencyContributor {
 
 	public void reportInfo(String str) {
 		CheckFlowLatency.getInstance().info(this.relatedElement, str);
-		issues.add(new ReportedCell(ReportSeverity.UNKNOWN, str));
+		issues.add(new ReportedCell(ReportSeverity.INFO, str));
 	}
 
 	public void reportWarning(String str) {
@@ -158,30 +166,40 @@ public abstract class LatencyContributor {
 		return relatedElement;
 	}
 
-	protected String getFullContributorName() {
-		return relatedElement.getFullName();
+	protected String getFullComponentContributorName() {
+		if (this instanceof LatencyContributorComponent) {
+			if (relatedElement instanceof InstanceObject) {
+				return ((InstanceObject) relatedElement).getComponentInstancePath();
+			}
+			return relatedElement.getQualifiedName();
+		}
+		return "";
 	}
 
 	protected abstract String getContributorType();
 
 	public void setSynchronous() {
-		this.isSynchronized = SynchronizeType.Synchronous;
+		this.isSynchronized = SynchronizeType.SYNCHRONOUS;
 	}
 
 	public void setAsynchronous() {
-		this.isSynchronized = SynchronizeType.Asynchronous;
+		this.isSynchronized = SynchronizeType.ASYNCHRONOUS;
+	}
+
+	public void setSyncUnknown() {
+		this.isSynchronized = SynchronizeType.SYNCUNKNOWN;
 	}
 
 	public boolean isSynchronous() {
-		return this.isSynchronized.equals(SynchronizeType.Synchronous);
+		return this.isSynchronized.equals(SynchronizeType.SYNCHRONOUS);
 	}
 
 	public boolean isAsynchronous() {
-		return this.isSynchronized.equals(SynchronizeType.Asynchronous);
+		return this.isSynchronized.equals(SynchronizeType.ASYNCHRONOUS);
 	}
 
-	public boolean isUnknown() {
-		return this.isSynchronized.equals(SynchronizeType.Unknown);
+	public boolean isSyncUnknown() {
+		return this.isSynchronized.equals(SynchronizeType.SYNCUNKNOWN);
 	}
 
 	public double getSamplingPeriod() {
@@ -192,16 +210,24 @@ public abstract class LatencyContributor {
 		this.samplingPeriod = val;
 	}
 
-	public double getSamplingOffset() {
-		return this.samplingOffset;
+	public double getPartitionOffset() {
+		return this.partitionOffset;
 	}
 
-	public void setSamplingOffset(double val) {
-		this.samplingOffset = val;
+	public void setPartitionOffset(double val) {
+		this.partitionOffset = val;
+	}
+
+	public double getPartitionDuration() {
+		return this.partitionDuration;
+	}
+
+	public void setPartitionDuration(double val) {
+		this.partitionOffset = val;
 	}
 
 	public double getMaxSubtotal() {
-		return this.maxSubtotal;
+		return this.partitionDuration;
 	}
 
 	public void setMaxSubtotal(double val) {
@@ -214,6 +240,13 @@ public abstract class LatencyContributor {
 
 	public void setMinSubtotal(double val) {
 		this.minSubtotal = val;
+	}
+
+	public void reportSubtotal(double val, boolean doMax) {
+		if (doMax)
+			this.setMaxSubtotal(val);
+		else
+			this.setMinSubtotal(val);
 	}
 
 	public double getDeadline() {
@@ -240,18 +273,26 @@ public abstract class LatencyContributor {
 		return this.bestCaseMethod;
 	}
 
+	public LatencyContributorMethod getLatencyContributorMethod(boolean doWorstcase) {
+		if (doWorstcase)
+			return this.worstCaseMethod;
+		else
+			return this.bestCaseMethod;
+	}
+
+//	UNKNOWN, DEADLINE, PROCESSING_TIME, IMMEDIATE, LAST_IMMEDIATE, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
 	public static String mapMethodToString(LatencyContributorMethod method) {
 		switch (method) {
 		case DEADLINE:
 			return "deadline";
 		case PROCESSING_TIME:
 			return "processing time";
-		case DELAYED:
-			return "delayed sampling";
 		case IMMEDIATE:
 			return "incoming immediate connection";
 		case LAST_IMMEDIATE:
 			return "last immediate connection";
+		case DELAYED:
+			return "delayed sampling";
 		case SPECIFIED:
 			return "specified";
 		case SAMPLED:
@@ -266,6 +307,8 @@ public abstract class LatencyContributor {
 			return "partition schedule";
 		case TRANSMISSION_TIME:
 			return "transmission time";
+		case PARTITION_IO:
+			return "partition I/O";
 		}
 		return "no latency";
 	}
@@ -302,21 +345,30 @@ public abstract class LatencyContributor {
 		return this.maxValue;
 	}
 
+	public double getTotal(boolean doMaximum) {
+		if (doMaximum)
+			return getTotalMaximum();
+		else
+			return getTotalMinimum();
+	}
+
 	public double getTotalMinimum() {
 		double res = this.minValue;
 		for (LatencyContributor lc : subContributors) {
-			res = lc.getTotalMinimum();
+			res = res + lc.getTotalMinimum();
 		}
-
+		if (this instanceof LatencyContributorComponent)
+			reportSubtotal(res, false);
 		return res;
 	}
 
 	public double getTotalMaximum() {
 		double res = this.maxValue;
 		for (LatencyContributor lc : subContributors) {
-			res = lc.getTotalMaximum();
+			res = res + lc.getTotalMaximum();
 		}
-
+		if (this instanceof LatencyContributorComponent)
+			reportSubtotal(res, true);
 		return res;
 	}
 
@@ -351,6 +403,10 @@ public abstract class LatencyContributor {
 		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_SCHEDULE);
 	}
 
+	public boolean isPartitionIODelay() {
+		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_IO);
+	}
+
 	public boolean isSamplingContributor() {
 		return isPartition() || isSamplingTask();
 	}
@@ -378,22 +434,34 @@ public abstract class LatencyContributor {
 	 * If the sender is on a partitioned architecture, then, we might need to add
 	 * We do that only if the preferences selected an major frame delayed flush policy.
 	 */
-//	if (org.osate.analysis.flows.preferences.Values.getPartitioningPolicy() == PartitioningPolicy.DELAYED) {
-
-	public boolean doReportSubtotals() {
-		return org.osate.analysis.flows.preferences.Values.getReportSubtotals() == ReportSubtotals.YES;
-	}
 
 	public List<Line> export() {
+		return export(0);
+	}
+
+	private String levelOpenLabel(int level) {
+		if (level > 0)
+			return "(";
+		return "";
+	}
+
+	private String levelCloseLabel(int level) {
+		if (level > 0)
+			return ")";
+		return "";
+	}
+
+	public List<Line> export(int level) {
 		List<Line> lines;
 		Line myLine;
 
 		lines = new ArrayList<Line>();
 
 		myLine = new Line();
-		myLine.setSeverity(ReportSeverity.UNKNOWN);
+		myLine.setSeverity(ReportSeverity.INFO);
 
-		myLine.addContent(this.getContributorType() + " " + this.getContributorName());
+		myLine.addContent(levelOpenLabel(level) + this.getContributorType() + " "
+				+ this.getFullComponentContributorName() + levelCloseLabel(level));
 		if (this.expectedMin != 0.0) {
 			myLine.addContent(this.expectedMin + "ms");
 		} else {
@@ -403,10 +471,10 @@ public abstract class LatencyContributor {
 				&& !this.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
 			myLine.addContent("0 ms");
 		} else {
-			myLine.addContent(this.getLocalMinimum() + "ms");
+			myLine.addContent(this.getTotalMinimum() + "ms");
 		}
-		if (doReportSubtotals()) {
-			myLine.addContent(this.minSubtotal + "ms");
+		if (Values.doReportSubtotals()) {
+			myLine.addContent(levelOpenLabel(level) + this.minSubtotal + "ms" + levelCloseLabel(level));
 		}
 		myLine.addContent(mapMethodToString(bestCaseMethod));
 		if (this.expectedMax != 0.0) {
@@ -418,10 +486,10 @@ public abstract class LatencyContributor {
 				&& !this.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
 			myLine.addContent(this.getSamplingPeriod() + "ms");
 		} else {
-			myLine.addContent(this.getLocalMaximum() + "ms");
+			myLine.addContent(this.getTotalMaximum() + "ms");
 		}
-		if (doReportSubtotals()) {
-			myLine.addContent(this.minSubtotal + "ms");
+		if (Values.doReportSubtotals()) {
+			myLine.addContent(levelOpenLabel(level) + this.maxSubtotal + "ms" + levelCloseLabel(level));
 		}
 		myLine.addContent(mapMethodToString(worstCaseMethod));
 		myLine.addCells(this.getReportedIssues());
@@ -431,7 +499,7 @@ public abstract class LatencyContributor {
 		 * We also add the lines of all the sub-contributors.
 		 */
 		for (LatencyContributor lc : this.subContributors) {
-			lines.addAll(lc.export());
+			lines.addAll(lc.export(level + 1));
 		}
 		return lines;
 	}

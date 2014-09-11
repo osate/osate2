@@ -40,6 +40,26 @@ public class FlowLatencyLogicConnection {
 		ComponentInstance componentInstanceDestination = InstanceModelUtil
 				.getRelatedComponentDestination(connectionInstance);
 
+		ComponentInstance srcHW = InstanceModelUtil.getHardwareComponent(componentInstanceSource);
+		ComponentInstance dstHW = InstanceModelUtil.getHardwareComponent(componentInstanceDestination);
+		ComponentInstance srcPartition = FlowLatencyUtil.getPartition(componentInstanceSource);
+		ComponentInstance dstPartition = FlowLatencyUtil.getPartition(componentInstanceDestination);
+
+		// if we exit a partition then we may have I/O Delay until the end of the partition window or the end of the major frame
+		if (srcPartition != null && srcPartition != dstPartition) {
+			LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
+			ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_IO);
+			ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_IO);
+			double partitionLatency = FlowLatencyUtil.getPartitionLatency(srcPartition);
+			double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition);
+			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition);
+			ioLatencyContributor.setSamplingPeriod(partitionLatency);
+			ioLatencyContributor.setPartitionOffset(frameOffset);
+			ioLatencyContributor.setPartitionDuration(partitionDuration);
+			entry.addContributor(ioLatencyContributor);
+		}
+
+		// now we deal with communication latency
 		LatencyContributor latencyContributor = new LatencyContributorConnection(connectionInstance);
 
 		processActualConnectionBindings(connectionInstance, relatedConnectionData, latencyContributor);
@@ -58,25 +78,27 @@ public class FlowLatencyLogicConnection {
 				latencyContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
 				latencyContributor.setExpectedMinimum(expectedMin);
 			}
+		} else {
+			latencyContributor.reportInfo("Adding latency subtotal from protocols and bus - shown with ()");
 		}
 		// set synchronous if on same processor
-		ComponentInstance srcHW = InstanceModelUtil.getHardwareComponent(componentInstanceSource);
-		ComponentInstance dstHW = InstanceModelUtil.getHardwareComponent(componentInstanceDestination);
 		if (srcHW != null && dstHW != null) {
+			// we have two hardware components. One or both could be a device
 			if (srcHW == dstHW) {
 				latencyContributor.setSynchronous();
 			} else {
 				latencyContributor.setAsynchronous();
 			}
-		}
-		// set synchronous if in same partition
-		ComponentInstance srcPartition = FlowLatencyUtil.getPartition(componentInstanceSource);
-		ComponentInstance dstPartition = FlowLatencyUtil.getPartition(componentInstanceDestination);
-		if (dstPartition != null && srcPartition != null) {
-			if (srcPartition == dstPartition) {
-				latencyContributor.setSynchronous();
-			} else {
-				latencyContributor.setAsynchronous();
+		} else {
+			// at least one end is not bound to a hardware component
+			// set synchronous if in same partition. This may be the case if the partitions are not bound yet to a processor
+			if (dstPartition != null && srcPartition != null) {
+				if (srcPartition == dstPartition) {
+					latencyContributor.setSynchronous();
+				} else {
+					// no else part: partitions are unbound so we want to have both a sync and async analysis
+					latencyContributor.setSyncUnknown();
+				}
 			}
 		}
 		entry.addContributor(latencyContributor);
@@ -91,7 +113,9 @@ public class FlowLatencyLogicConnection {
 			if (frameOffset != -1) {
 				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition);
 				platencyContributor.setSamplingPeriod(partitionLatency);
-				platencyContributor.setSamplingOffset(frameOffset);
+				platencyContributor.setPartitionOffset(frameOffset);
+				double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition);
+				platencyContributor.setPartitionDuration(partitionDuration);
 				platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 				platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 				entry.addContributor(platencyContributor);
@@ -111,7 +135,7 @@ public class FlowLatencyLogicConnection {
 			res = GetProperties.getPartitionLatencyInMilliSec(ci, 0.0);
 		}
 		double VPres = FlowLatencyUtil.getVirtualProcessorPartitionPeriod(ci);
-		double ARINC653res = FlowLatencyUtil.getARINC653PartitionPeriod(ci);
+		double ARINC653res = FlowLatencyUtil.getARINC653ProcessorMajorFrame(ci);
 		if (res > 0.0 && VPres > 0.0) {
 			// TODO they should be the same
 		}
@@ -129,7 +153,7 @@ public class FlowLatencyLogicConnection {
 		 * we add the bus transmission time as a contributor.
 		 */
 
-		// XXX: dealing with a periodic bus that samples or bus queuing delay
+		// TODO: dealing with a periodic bus that samples or bus queuing delay
 		// a bus has a period value when operating periodically.
 		// we then add sampling latency for the bus
 		// need to do that before the transmission latency
@@ -200,7 +224,8 @@ public class FlowLatencyLogicConnection {
 			for (ComponentInstance componentInstance : bindings) {
 				ComponentCategory cat = componentInstance.getCategory();
 				if (cat.equals(ComponentCategory.BUS) || cat.equals(ComponentCategory.SYSTEM)
-						|| cat.equals(ComponentCategory.ABSTRACT)) {
+						|| cat.equals(ComponentCategory.ABSTRACT) || cat.equals(ComponentCategory.DEVICE)
+						|| cat.equals(ComponentCategory.PROCESSOR)) {
 					/**
 					 * Check if the connection is bound to a bus. If yes, then, we add
 					 * the bus transmission time as a contributor.

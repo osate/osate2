@@ -7,6 +7,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyReportEntry;
+import org.osate.analysis.flows.preferences.Values;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FlowLatencyLogicComponent {
@@ -60,7 +61,7 @@ public class FlowLatencyLogicComponent {
 					latencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
 					latencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
 					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
-					// insert first partition sampling
+					// insert first partition sampling before task sampling. FOr other partitions it is inserted by connection processing
 					ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 					if (firstPartition != null) {
 						double partitionLatency = FlowLatencyUtil.getPartitionLatency(firstPartition);
@@ -69,7 +70,9 @@ public class FlowLatencyLogicComponent {
 							LatencyContributorComponent platencyContributor = new LatencyContributorComponent(
 									firstPartition);
 							platencyContributor.setSamplingPeriod(partitionLatency);
-							platencyContributor.setSamplingOffset(frameOffset);
+							platencyContributor.setPartitionOffset(frameOffset);
+							double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition);
+							platencyContributor.setPartitionDuration(partitionDuration);
 							platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 							platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 							platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
@@ -90,6 +93,29 @@ public class FlowLatencyLogicComponent {
 				}
 			}
 			entry.addContributor(latencyContributor);
+		} else {
+			// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
+			ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
+			if (firstPartition != null) {
+				double partitionLatency = FlowLatencyUtil.getPartitionLatency(firstPartition);
+				double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition);
+				if (frameOffset != -1) {
+					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
+					platencyContributor.setSamplingPeriod(partitionLatency);
+					platencyContributor.setPartitionOffset(frameOffset);
+					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+					platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
+					entry.addContributor(platencyContributor);
+				} else {
+					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
+					platencyContributor.setSamplingPeriod(partitionLatency);
+					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+					platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
+					entry.addContributor(platencyContributor);
+				}
+			}
 		}
 
 		/**
@@ -102,7 +128,8 @@ public class FlowLatencyLogicComponent {
 		double bestCaseValue = 0.0;
 		worstmethod = LatencyContributorMethod.UNKNOWN;
 
-		if (executionTimeHigher != 0.0) {
+		if (executionTimeHigher != 0.0 && !Values.doWorstCaseDeadline()) {
+			// Use deadline for worst-case if specified in preferences
 			worstCaseValue = executionTimeHigher;
 			worstmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
