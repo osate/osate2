@@ -4223,9 +4223,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkFlowFeatureDirection(FlowSpecification flow) {
 		FlowEnd inEnd = flow.getInEnd();
 		if (inEnd != null) {
+			Context inCxt = inEnd.getContext();
 			Feature inFeature = inEnd.getFeature();
-			if (!Aadl2Util.isNull(inFeature)) {
-				Context inCxt = inEnd.getContext();
+			if ((inCxt == null || (!inCxt.eIsProxy() && inCxt instanceof FeatureGroup))
+					&& !Aadl2Util.isNull(inFeature)
+					&& (inFeature instanceof DataAccess || inFeature instanceof AbstractFeature
+							|| inFeature instanceof FeatureGroup || inFeature instanceof Parameter || inFeature instanceof Port)) {
 				boolean oppositeDirection = false;
 				if (inCxt instanceof FeatureGroup) {
 					FeatureGroup fg = (FeatureGroup) inCxt;
@@ -4246,9 +4249,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		FlowEnd outEnd = flow.getOutEnd();
 		if (outEnd != null) {
+			Context outCxt = outEnd.getContext();
 			Feature outFeature = outEnd.getFeature();
-			if (!Aadl2Util.isNull(outFeature)) {
-				Context outCxt = outEnd.getContext();
+			if ((outCxt == null || (!outCxt.eIsProxy() && outCxt instanceof FeatureGroup))
+					&& !Aadl2Util.isNull(outFeature)
+					&& (outFeature instanceof DataAccess || outFeature instanceof AbstractFeature
+							|| outFeature instanceof FeatureGroup || outFeature instanceof Parameter || outFeature instanceof Port)) {
 				boolean oppositeDirection = false;
 				if (outCxt instanceof FeatureGroup) {
 					FeatureGroup fg = (FeatureGroup) outCxt;
