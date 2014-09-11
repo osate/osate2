@@ -310,6 +310,16 @@ public class LatencyReportEntry {
 	public double getActualLatency(boolean doMaximum) {
 		double res = 0.0;
 		for (LatencyContributor lc : contributors) {
+			// do some consistency checking
+			if (lc.getImmediateDeadline() > 0.0) {
+				// No sampling. we are the last of an immediate connection sequence.
+				double cum = this.getCumLatency(lc, doMaximum) + lc.getTotal(doMaximum);
+				if (cum > lc.getImmediateDeadline()) {
+					lc.reportError(getMinMaxLabel(doMaximum) + "immediate latency sequence exceeds deadline "
+							+ lc.getImmediateDeadline() + "ms");
+				}
+			}
+
 			if (lc.getLatencyContributorMethod(doMaximum).equals(LatencyContributorMethod.FIRST_SAMPLED)) {
 				// skip the first sampled if it is the first element in the contributor list
 				// and remember initial sample
@@ -448,15 +458,6 @@ public class LatencyReportEntry {
 				}
 				// remember the partition in all cases as a sampling unit
 				lastSampled = lc;
-			} else if (lc.getLatencyContributorMethod(doMaximum).equals(LatencyContributorMethod.IMMEDIATE)) {
-				// no sampling. We are part of an immediate connection sequence
-			} else if (lc.getLatencyContributorMethod(doMaximum).equals(LatencyContributorMethod.LAST_IMMEDIATE)) {
-				// No sampling. we are the last of an immediate connection sequence.
-				double cum = getCumLatency(lc, doMaximum) + lc.getTotal(doMaximum);
-				if (lc.getDeadline() > 0.0 && cum > lc.getDeadline()) {
-					lc.reportError(getMinMaxLabel(doMaximum) + "immediate latency sequence exceeds deadline "
-							+ lc.getDeadline() + "ms");
-				}
 			} else if (lc.isPartitionIODelay()) {
 				// deal with partition I/O delay, then add communication latency
 				// do it as major frame delay or as partition end delay depending on preference setting
@@ -515,25 +516,18 @@ public class LatencyReportEntry {
 
 	private String getSyncLabel() {
 		if (doSynchronous) {
-			return " (Sync)";
+			return " (S)";
 		} else {
-			return " (Async)";
+			return " (A)";
 		}
 	}
 
 	private String getSyncModeName() {
 		if (doSynchronous) {
-			return "Synchronous";
+			return "synchronous";
 		} else {
-			return "Asynchronous";
+			return "asynchronous";
 		}
-	}
-
-	// skip the contributor as sampled contributor because it just marks an incoming immediate
-	private boolean skipMeInReport(LatencyContributor lc) {
-//		return false;
-		return lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.IMMEDIATE)
-				|| lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.LAST_IMMEDIATE);
 	}
 
 	public Section export() {
@@ -564,10 +558,10 @@ public class LatencyReportEntry {
 			sectionName = "Unnamed flow";
 		}
 
-		section = new Section(sectionName + getSyncModeName());
+		section = new Section(sectionName + getSyncLabel());
 
 		line = new Line();
-		line.addHeaderContent("Latency analysis for " + sectionName + " in " + getSyncLabel() + " system");
+		line.addHeaderContent("Latency analysis for " + sectionName + " in " + getSyncModeName() + " system");
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
@@ -596,10 +590,8 @@ public class LatencyReportEntry {
 
 		// reporting each entry
 		for (LatencyContributor lc : this.contributors) {
-			if (!skipMeInReport(lc)) {
-				for (Line l : lc.export()) {
-					section.addLine(l);
-				}
+			for (Line l : lc.export()) {
+				section.addLine(l);
 			}
 		}
 

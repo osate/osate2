@@ -41,7 +41,7 @@ public abstract class LatencyContributor {
 	// Partition IO: I/O delay to partition window end or major frame
 
 	public enum LatencyContributorMethod {
-		UNKNOWN, DEADLINE, PROCESSING_TIME, IMMEDIATE, LAST_IMMEDIATE, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
+		UNKNOWN, DEADLINE, PROCESSING_TIME, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
 	};
 
 	/**
@@ -67,7 +67,7 @@ public abstract class LatencyContributor {
 	/**
 	 * Hold on to deadline for LAST_IMMEDIATE
 	 */
-	private double deadline;
+	private double immediateDeadline;
 
 	/**
 	 * Sampling offset for partition frame
@@ -124,7 +124,7 @@ public abstract class LatencyContributor {
 		this.maxValue = 0.0;
 		this.expectedMax = 0.0;
 		this.expectedMin = 0.0;
-		this.deadline = 0.0;
+		this.immediateDeadline = 0.0;
 		this.samplingPeriod = 0.0;
 		this.partitionOffset = 0.0;
 		this.partitionDuration = 0.0;
@@ -249,12 +249,12 @@ public abstract class LatencyContributor {
 			this.setMinSubtotal(val);
 	}
 
-	public double getDeadline() {
-		return this.deadline;
+	public double getImmediateDeadline() {
+		return this.immediateDeadline;
 	}
 
-	public void setDeadline(double val) {
-		this.deadline = val;
+	public void setImmediateDeadline(double val) {
+		this.immediateDeadline = val;
 	}
 
 	public void setExpectedMaximum(double d) {
@@ -280,17 +280,13 @@ public abstract class LatencyContributor {
 			return this.bestCaseMethod;
 	}
 
-//	UNKNOWN, DEADLINE, PROCESSING_TIME, IMMEDIATE, LAST_IMMEDIATE, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
+//	UNKNOWN, DEADLINE, PROCESSING_TIME, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
 	public static String mapMethodToString(LatencyContributorMethod method) {
 		switch (method) {
 		case DEADLINE:
 			return "deadline";
 		case PROCESSING_TIME:
 			return "processing time";
-		case IMMEDIATE:
-			return "incoming immediate connection";
-		case LAST_IMMEDIATE:
-			return "last immediate connection";
 		case DELAYED:
 			return "delayed sampling";
 		case SPECIFIED:

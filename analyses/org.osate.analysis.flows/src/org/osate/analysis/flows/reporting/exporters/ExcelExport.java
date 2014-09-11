@@ -147,7 +147,7 @@ public class ExcelExport extends GenericExport {
 			sectionNumber = 0;
 			for (Section section : report.getSections()) {
 //				workbook.createSheet("Flow Analysis" + sectionNumber, sectionNumber);
-				excelSheet = workbook.createSheet(section.getName() + "(flow " + sectionNumber + ")", sectionNumber);
+				excelSheet = workbook.createSheet(section.getName(), sectionNumber);
 
 //				excelSheet = workbook.getSheet(sectionNumber);
 				populateSheet(excelSheet, section);

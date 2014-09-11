@@ -38,61 +38,58 @@ public class FlowLatencyLogicComponent {
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
-
+		boolean checkLastImmediate = false;
 		if (period > 0) {
-			LatencyContributorComponent latencyContributor = new LatencyContributorComponent(componentInstance);
-			latencyContributor.setSamplingPeriod(period);
+			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
+			samplingLatencyContributor.setSamplingPeriod(period);
 			if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
-				latencyContributor.setBestCaseMethod(LatencyContributorMethod.DELAYED);
-				latencyContributor.setWorstCaseMethod(LatencyContributorMethod.DELAYED);
+				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.DELAYED);
+				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.DELAYED);
 			} else if (FlowLatencyUtil.isPreviousConnectionImmediate(etef, flowElementInstance)) {
-				if (FlowLatencyUtil.isNextConnectionImmediate(etef, flowElementInstance)) {
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.IMMEDIATE);
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.IMMEDIATE);
-				} else {
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.LAST_IMMEDIATE);
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.LAST_IMMEDIATE);
-					if (deadline > 0) {
-						latencyContributor.setDeadline(deadline);
-					}
+				// we include this contributor so we can check for consistency for LAST_IMMEDIATE, i.e.,
+				// the cumulative does not exceed the deadline of the last.
+				if (!FlowLatencyUtil.isNextConnectionImmediate(etef, flowElementInstance)) {
+					checkLastImmediate = true;
 				}
 			} else {
 				if (entry.getContributors().isEmpty()) {
-					latencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
+					samplingLatencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
+					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
+					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
 					// insert first partition sampling before task sampling. FOr other partitions it is inserted by connection processing
 					ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 					if (firstPartition != null) {
 						double partitionLatency = FlowLatencyUtil.getPartitionLatency(firstPartition);
 						double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition);
 						if (frameOffset != -1) {
-							LatencyContributorComponent platencyContributor = new LatencyContributorComponent(
+							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition);
-							platencyContributor.setSamplingPeriod(partitionLatency);
-							platencyContributor.setPartitionOffset(frameOffset);
+							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
+							partitionLatencyContributor.setPartitionOffset(frameOffset);
 							double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition);
-							platencyContributor.setPartitionDuration(partitionDuration);
-							platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-							platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-							platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
-							entry.addContributor(platencyContributor);
+							partitionLatencyContributor.setPartitionDuration(partitionDuration);
+							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+							partitionLatencyContributor.reportInfo("Initial " + period
+									+ "ms partition latency not added");
+							entry.addContributor(partitionLatencyContributor);
 						} else {
-							LatencyContributorComponent platencyContributor = new LatencyContributorComponent(
+							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
 									firstPartition);
-							platencyContributor.setSamplingPeriod(partitionLatency);
-							platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-							platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-							platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
-							entry.addContributor(platencyContributor);
+							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
+							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+							partitionLatencyContributor.reportInfo("Initial " + period
+									+ "ms partition latency not added");
+							entry.addContributor(partitionLatencyContributor);
 						}
 					}
 				} else {
-					latencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-					latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
+					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
+					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
 				}
 			}
-			entry.addContributor(latencyContributor);
+			entry.addContributor(samplingLatencyContributor);
 		} else {
 			// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
 			ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
@@ -164,14 +161,18 @@ public class FlowLatencyLogicComponent {
 			bestmethod = LatencyContributorMethod.SPECIFIED;
 		}
 
-		LatencyContributorComponent platencyContributor = new LatencyContributorComponent(componentInstance);
-		platencyContributor.setWorstCaseMethod(worstmethod);
-		platencyContributor.setBestCaseMethod(bestmethod);
-		platencyContributor.setMaximum(worstCaseValue);
-		platencyContributor.setMinimum(bestCaseValue);
-		platencyContributor.setExpectedMaximum(expectedMax);
-		platencyContributor.setExpectedMinimum(expectedMin);
-		platencyContributor.checkConsistency();
-		entry.addContributor(platencyContributor);
+		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance);
+		processingLatencyContributor.setWorstCaseMethod(worstmethod);
+		processingLatencyContributor.setBestCaseMethod(bestmethod);
+		processingLatencyContributor.setMaximum(worstCaseValue);
+		processingLatencyContributor.setMinimum(bestCaseValue);
+		processingLatencyContributor.setExpectedMaximum(expectedMax);
+		processingLatencyContributor.setExpectedMinimum(expectedMin);
+		if (checkLastImmediate && deadline > 0.0) {
+
+			processingLatencyContributor.setImmediateDeadline(deadline);
+		}
+		processingLatencyContributor.checkConsistency();
+		entry.addContributor(processingLatencyContributor);
 	}
 }
