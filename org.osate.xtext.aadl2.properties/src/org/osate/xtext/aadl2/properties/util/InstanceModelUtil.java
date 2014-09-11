@@ -342,23 +342,23 @@ public class InstanceModelUtil {
 	 * @return hw component instance
 	 */
 	public static ComponentInstance getHardwareComponent(ConnectionInstanceEnd cie) {
+		ComponentInstance swci = null;
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
-			ComponentInstance swci = fi.getContainingComponentInstance();
+			swci = fi.getContainingComponentInstance();
 			if (isDevice(swci) || isProcessor(swci) || isBus(swci) || isMemory(swci)) {
 				return swci;
 			}
-			return getBoundPhysicalProcessor(swci);
 		} else if (cie instanceof ComponentInstance) {
-			ComponentInstance ci = (ComponentInstance) cie;
-			if (isBus(ci)) {
-				return ci;
+			swci = (ComponentInstance) cie;
+			if (isBus(swci)) {
+				return swci;
 			}
-			// has to be a data component or subprogram component
-			List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(ci);
-			return ciList.isEmpty() ? null : ciList.get(0);
+//			// has to be a data component or subprogram component
+//			List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(swci);
+//			return ciList.isEmpty() ? null : ciList.get(0);
 		}
-		return null;
+		return getBoundPhysicalProcessor(swci);
 	}
 
 	/**
