@@ -294,6 +294,7 @@
 				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
 				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
 				<contentExtension pattern="org.osate.ui.navigator.content"/>
+				<contentExtension pattern="org.eclipse.ui.navigator.resources.linkHelper"/>
 			</includes>
 		</viewerContentBinding>
   		<viewerActionBinding

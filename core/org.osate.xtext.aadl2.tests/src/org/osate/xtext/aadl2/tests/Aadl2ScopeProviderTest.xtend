@@ -2889,6 +2889,138 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		]
 	}
 	
+	//Tests scope_ModalPath_inModeOrTransition
+	@Test
+	def void test_scope_ModalPath_inModeOrTransition() {
+		('''
+			package pack
+			public
+			  abstract a1
+			  features
+			    fg1: feature group;
+			    ep1: in event port;
+			    da1: provides data access;
+			  end a1;
+			  
+			  abstract implementation a1.i
+			  subcomponents
+			    asub1: abstract a1;
+			    asub2: abstract a2;
+			    asub3: abstract a2;
+			  connections
+			  	portconn1: port ep1 -> asub1.ep1 in modes (m1, m2, mt1, mt2);
+			  	portconn2: port asub2.ep2 -> asub3.ep3;
+			  	aconn1: data access da1 -> asub1.da1 in modes (m1, m2, mt1, mt2);
+			    fgconn1: feature group fg1 <-> fg1 in modes (m1, m2, mt1, mt2);
+			    fconn1: feature fg1 -> asub1.fg1 in modes (m1, m2, mt1, mt2);
+			    paramconn1: parameter da1 -> da1 in modes (m1, m2, mt1, mt2);
+			  flows
+			    ete1: end to end flow asub2.fsource1 -> portconn2 -> asub3.fsink1 in modes (m1, m2, mt1, mt2);
+			  modes
+			    m1: initial mode;
+			    m2: mode;
+			    m3: mode;
+			    m4: mode;
+			    mt1: m1 -[ep1]-> m2;
+			    mt2: m2 -[ep1]-> m3;
+			    mt3: m3 -[ep1]-> m4;
+			    mt4: m4 -[ep1]-> m1;
+			  end a1.i;
+			  
+			  abstract a2
+			  features
+			    ep2: out event port;
+			    ep3: in event port;
+			  flows
+			    fsource1: flow source ep2 in modes (m5, m6, mt5, mt6);
+			    fsink1: flow sink ep3 in modes (m5, m6, mt5, mt6);
+			  modes
+			    m5: initial mode;
+			    m6: mode;
+			    m7: mode;
+			    m8: mode;
+			    mt5: m5 -[ep3]-> m6;
+			    mt6: m6 -[ep3]-> m7;
+			    mt7: m7 -[ep3]-> m8;
+			    mt8: m8 -[ep3]-> m5;
+			  end a2;
+			  
+			  abstract implementation a2.i
+			  flows
+			    fsource1: flow source ep2 in modes (m5, m6, m7, mt5, mt6, mt7);
+			    fsink1: flow sink ep3 in modes (m5, m6, m7, mt5, mt6, mt7);
+			  end a2.i;
+			end pack;
+		'''.parse as AadlPackage) => [
+			assertNoIssues
+			"pack".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
+				"a1.i".assertEquals(name)
+				ownedPortConnections.get(0) => [
+					"portconn1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+				]
+				ownedPortConnections.get(1) => [
+					"portconn2".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+				]
+				ownedAccessConnections.head => [
+					"aconn1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+				]
+				ownedFeatureGroupConnections.head => [
+					"fgconn1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+				]
+				ownedFeatureConnections.head => [
+					"fconn1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+				]
+				ownedParameterConnections.head => [
+					"paramconn1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+				]
+				ownedEndToEndFlows.head => [
+					"ete1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+				]
+			]
+			publicSection.ownedClassifiers.get(2) as AbstractType => [
+				"a2".assertEquals(name)
+				ownedFlowSpecifications.get(0) => [
+					"fsource1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+				]
+				ownedFlowSpecifications.get(1) => [
+					"fsink1".assertEquals(name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+				]
+			]
+			publicSection.ownedClassifiers.get(3) as AbstractImplementation => [
+				"a2.i".assertEquals(name)
+				ownedFlowImplementations.get(0) => [
+					"fsource1".assertEquals(specification.name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+				]
+				ownedFlowImplementations.get(1) => [
+					"fsink1".assertEquals(specification.name)
+					//Tests scope_ModalPath_inModeOrTransition
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+				]
+			]
+		]
+	}
+	
 	def private assertScope(EObject context, EReference reference, Iterable<String> expected) {
 		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString("::")].filter[
 			val separatorIndex = indexOf("::")
