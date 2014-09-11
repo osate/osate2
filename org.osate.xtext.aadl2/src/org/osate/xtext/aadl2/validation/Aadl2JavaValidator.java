@@ -340,8 +340,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFlowSpecification(FlowSpecification flow) {
-		checkFlowFeatureType(flow);
 		checkFlowFeatureDirection(flow);
+	}
+
+	@Check(CheckType.FAST)
+	public void caseFlowEnd(FlowEnd flowEnd) {
+		checkFlowFeatureType(flowEnd);
 	}
 
 	@Check(CheckType.FAST)
@@ -4191,28 +4195,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Checks that the feature of a flow is a DataAccess, FeatureGroup, Parameter, or Port.
 	 * Section 10.1 Naming Rule N2.
 	 */
-	private void checkFlowFeatureType(FlowSpecification flow) {
-		Feature inFeature = null;
-		if (flow.getInEnd() != null) {
-			inFeature = flow.getInEnd().getFeature();
+	private void checkFlowFeatureType(FlowEnd flowEnd) {
+		Context flowEndContext = flowEnd.getContext();
+		Feature flowFeature = flowEnd.getFeature();
+		if ((flowEndContext != null && flowEndContext.eIsProxy()) || flowFeature == null || flowFeature.eIsProxy()) {
+			// Don't validate if the context or feature could not be resolved.
+			return;
 		}
-		Feature outFeature = null;
-		if (flow.getOutEnd() != null) {
-			outFeature = flow.getOutEnd().getFeature();
-		}
-		if (inFeature instanceof BusAccess || inFeature instanceof SubprogramAccess
-				|| inFeature instanceof SubprogramGroupAccess) {
-			error(flow.getInEnd(), '\''
-					+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-					+ inFeature.getName()
-					+ "' must be a port, parameter, data access, feature group, or abstract feature.");
-		}
-		if (outFeature instanceof BusAccess || outFeature instanceof SubprogramAccess
-				|| outFeature instanceof SubprogramGroupAccess) {
-			error(flow.getOutEnd(), '\''
-					+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "")
-					+ outFeature.getName()
-					+ "' must be a port, parameter, data access, feature group, or abstract feature.");
+		if (flowEndContext != null && !(flowEndContext instanceof FeatureGroup)) {
+			error("Anything in " + getEClassDisplayName(flowEndContext.eClass())
+					+ " is not a valid flow specification feature.", flowEnd,
+					Aadl2Package.eINSTANCE.getFlowEnd_Context());
+		} else if (!(flowFeature instanceof DataAccess) && !(flowFeature instanceof AbstractFeature)
+				&& !(flowFeature instanceof FeatureGroup) && !(flowFeature instanceof Parameter)
+				&& !(flowFeature instanceof Port)) {
+			error('\'' + (flowEndContext != null ? flowEndContext.getName() + '.' : "") + flowFeature.getName()
+					+ "' must be a port, parameter, data access, feature group, or abstract feature.", flowEnd,
+					Aadl2Package.eINSTANCE.getFlowEnd_Feature());
 		}
 	}
 
