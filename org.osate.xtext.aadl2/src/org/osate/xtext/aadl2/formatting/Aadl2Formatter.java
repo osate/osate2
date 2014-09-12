@@ -83,18 +83,18 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("(", ")")) {
 			c.setIndentationIncrement().after(pair.getFirst());
 			c.setNoSpace().after(pair.getFirst());
-			c.setLinewrap(0, 1, 1).after(pair.getFirst());
+			c.setLinewrap(0, 0, 1).after(pair.getFirst());
 			c.setIndentationDecrement().before(pair.getSecond());
 			c.setNoSpace().before(pair.getSecond());
-			c.setLinewrap(0, 1, 1).before(pair.getSecond());
+			c.setLinewrap(0, 0, 1).before(pair.getSecond());
 		}
 		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("[", "]")) {
 			c.setIndentationIncrement().after(pair.getFirst());
 			c.setNoSpace().after(pair.getFirst());
-			c.setLinewrap(0, 1, 1).after(pair.getFirst());
+			c.setLinewrap(0, 0, 1).after(pair.getFirst());
 			c.setIndentationDecrement().before(pair.getSecond());
 			c.setNoSpace().before(pair.getSecond());
-			c.setLinewrap(0, 1, 1).before(pair.getSecond());
+			c.setLinewrap(0, 0, 1).before(pair.getSecond());
 		}
 		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("{**", "**}")) {
 			c.setIndentationIncrement().after(pair.getFirst());
@@ -105,15 +105,15 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("{", "}")) {
 			c.setIndentationIncrement().after(pair.getFirst());
 			c.setNoSpace().after(pair.getFirst());
-			c.setLinewrap(0, 1, 1).after(pair.getFirst());
+			c.setLinewrap(0, 0, 1).after(pair.getFirst());
 			c.setIndentationDecrement().before(pair.getSecond());
 			c.setNoSpace().before(pair.getSecond());
-			c.setLinewrap(0, 1, 1).before(pair.getSecond());
+			c.setLinewrap(0, 0, 1).before(pair.getSecond());
 		}
 		for (Keyword comma : g.findKeywords(",")) {
 			c.setNoSpace().before(comma);
 			c.setNoLinewrap().before(comma);
-			c.setLinewrap(0, 1, 1).after(comma);
+			c.setLinewrap(0, 0, 1).after(comma);
 		}
 		for (Keyword semi : g.findKeywords(";")) {
 			c.setNoSpace().before(semi);
@@ -141,7 +141,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 			c.setNoLinewrap().before(right);
 		}
 		for (Keyword arrow : g.findKeywords("->")) {
-			c.setLinewrap(0, 1, 1).after(arrow);
+			c.setLinewrap(0, 0, 1).after(arrow);
 		}
 
 		for (String sectionName : new String[] { "prototypes", "subcomponents", "connections", "flows", "calls",
@@ -158,11 +158,11 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 			c.setLinewrap(1, 1, 2).after(is);
 		}
 		for (Keyword applies : g.findKeywords("applies")) {
-			c.setLinewrap(0, 1, 1).before(applies);
+			c.setLinewrap(0, 0, 1).before(applies);
 			c.setNoLinewrap().after(applies);
 		}
 		for (Keyword in : g.findKeywords("in")) {
-			c.setLinewrap(0, 1, 1).before(in);
+			c.setLinewrap(0, 0, 1).before(in);
 			c.setNoLinewrap().after(in);
 		}
 
@@ -181,48 +181,63 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 
 		// @formatter:off
 		indentInComponent(c, g.getAbstractTypeAccess().getAbstractKeyword_0(), g.getAbstractTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getAbstractTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getAbstractImplementationAccess().getAbstractKeyword_0(), g.getAbstractImplementationAccess().getEndKeyword_17());
-
+		c.setLinewrap(2).after(g.getAbstractImplementationAccess().getSemicolonKeyword_19());
 		indentInComponent(c, g.getBusTypeAccess().getBusKeyword_0(), g.getBusTypeAccess().getEndKeyword_8());
+		c.setLinewrap(2).after(g.getBusTypeAccess().getSemicolonKeyword_10());
 		indentInComponent(c, g.getBusImplementationAccess().getBusKeyword_0(), g.getBusImplementationAccess().getEndKeyword_13());
-
+		c.setLinewrap(2).after( g.getBusImplementationAccess().getSemicolonKeyword_15());
 		indentInComponent(c, g.getDataTypeAccess().getDataKeyword_0(), g.getDataTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getDataTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getDataImplementationAccess().getDataKeyword_1(), g.getDataImplementationAccess().getEndKeyword_16());
-
+		c.setLinewrap(2).after(g.getDataImplementationAccess().getSemicolonKeyword_18());
 		indentInComponent(c, g.getDeviceTypeAccess().getDeviceKeyword_0(), g.getDeviceTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getDeviceTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getDeviceImplementationAccess().getDeviceKeyword_0(), g.getDeviceImplementationAccess().getEndKeyword_16());
-
+		c.setLinewrap(2).after(g.getDeviceImplementationAccess().getSemicolonKeyword_18());
 		indentInComponent(c, g.getMemoryTypeAccess().getMemoryKeyword_0(), g.getMemoryTypeAccess().getEndKeyword_8());
+		c.setLinewrap(2).after(g.getMemoryTypeAccess().getSemicolonKeyword_10());
 		indentInComponent(c, g.getMemoryImplementationAccess().getMemoryKeyword_0(), g.getMemoryImplementationAccess().getEndKeyword_14());
-
+		c.setLinewrap(2).after(g.getMemoryImplementationAccess().getSemicolonKeyword_16());
 		indentInComponent(c, g.getProcessTypeAccess().getProcessKeyword_0(), g.getProcessTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getProcessTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getProcessImplementationAccess().getProcessKeyword_0(), g.getProcessImplementationAccess().getEndKeyword_16());
-
+		c.setLinewrap(2).after(g.getProcessImplementationAccess().getSemicolonKeyword_18());
 		indentInComponent(c, g.getProcessorTypeAccess().getProcessorKeyword_0(), g.getProcessorTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getProcessorTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getProcessorImplementationAccess().getProcessorKeyword_0(), g.getProcessorImplementationAccess().getEndKeyword_15());
-
+		c.setLinewrap(2).after(g.getProcessorImplementationAccess().getSemicolonKeyword_17());
 		indentInComponent(c, g.getSystemTypeAccess().getSystemKeyword_0(), g.getSystemTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getSystemTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getSystemImplementationAccess().getSystemKeyword_0(), g.getSystemImplementationAccess().getEndKeyword_16());
-
+		c.setLinewrap(2).after(g.getSystemImplementationAccess().getSemicolonKeyword_18());
 		indentInComponent(c, g.getSubprogramTypeAccess().getSubprogramKeyword_0(), g.getSubprogramTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getSubprogramTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getSubprogramImplementationAccess().getSubprogramKeyword_0(), g.getSubprogramImplementationAccess().getEndKeyword_17());
-
+		c.setLinewrap(2).after(g.getSubprogramImplementationAccess().getSemicolonKeyword_19());
 		indentInComponent(c, g.getSubprogramGroupTypeAccess().getSubprogramKeyword_0(), g.getSubprogramGroupTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getSubprogramGroupTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getSubprogramGroupImplementationAccess().getSubprogramKeyword_0(), g.getSubprogramGroupImplementationAccess().getEndKeyword_16());
-
+		c.setLinewrap(2).after(g.getSubprogramGroupImplementationAccess().getSemicolonKeyword_18());
 		indentInComponent(c, g.getThreadTypeAccess().getThreadKeyword_0(), g.getThreadTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getThreadTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getThreadImplementationAccess().getThreadKeyword_0(), g.getThreadImplementationAccess().getEndKeyword_17());
-
+		c.setLinewrap(2).after(g.getThreadImplementationAccess().getSemicolonKeyword_19());
 		indentInComponent(c, g.getThreadGroupTypeAccess().getThreadKeyword_0(), g.getThreadGroupTypeAccess().getEndKeyword_10());
+		c.setLinewrap(2).after(g.getThreadGroupTypeAccess().getSemicolonKeyword_12());
 		indentInComponent(c, g.getThreadGroupImplementationAccess().getThreadKeyword_0(), g.getThreadGroupImplementationAccess().getEndKeyword_17());
-
+		c.setLinewrap(2).after(g.getThreadGroupImplementationAccess().getSemicolonKeyword_19());
 		indentInComponent(c, g.getVirtualBusTypeAccess().getVirtualKeyword_0(), g.getVirtualBusTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getVirtualBusTypeAccess().getSemicolonKeyword_11());
 		indentInComponent(c, g.getVirtualBusImplementationAccess().getVirtualKeyword_0(), g.getVirtualBusImplementationAccess().getEndKeyword_14());
-
+		c.setLinewrap(2).after(g.getVirtualBusImplementationAccess().getSemicolonKeyword_16());
 		indentInComponent(c, g.getVirtualProcessorTypeAccess().getVirtualKeyword_0(), g.getVirtualProcessorTypeAccess().getEndKeyword_10());
+		c.setLinewrap(2).after(g.getVirtualProcessorTypeAccess().getSemicolonKeyword_12());
 		indentInComponent(c, g.getVirtualProcessorImplementationAccess().getVirtualKeyword_0(), g.getVirtualProcessorImplementationAccess().getEndKeyword_17());
-
+		c.setLinewrap(2).after(g.getVirtualProcessorImplementationAccess().getSemicolonKeyword_19());
 		indentInComponent(c, g.getFeatureGroupTypeAccess().getFeatureKeyword_0(), g.getFeatureGroupTypeAccess().getEndKeyword_9());
+		c.setLinewrap(2).after(g.getFeatureGroupTypeAccess().getSemicolonKeyword_11());
 		// @formatter:on
 
 		// features section in types
