@@ -34,6 +34,7 @@
 package org.osate.xtext.aadl2.scoping;
 
 import java.util.ArrayList
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
@@ -67,6 +68,8 @@ import org.osate.aadl2.FeatureGroupPrototypeActual
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.FeaturePrototype
 import org.osate.aadl2.FeatureType
+import org.osate.aadl2.FlowEnd
+import org.osate.aadl2.FlowSpecification
 import org.osate.aadl2.MemorySubcomponentType
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.PackageSection
@@ -428,125 +431,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * can access and check the ConnectedElement's Context object.
 	 */
 	def scope_ConnectedElement_connectionEnd(ConnectedElement context, EReference reference) {
-		val containingClassifier = context.getContainerOfType(typeof(Classifier))
-		switch connectionContext : context.context {
-			case null:
-				scope_ConnectedElement_connectionEnd(context.owner as Connection, reference)
-			FeatureGroup: {
-				var featureGroup = connectionContext
-				while (featureGroup.featureGroupType == null && featureGroup.featureGroupPrototype == null && featureGroup.refined instanceof FeatureGroup) {
-					featureGroup = featureGroup.refined as FeatureGroup
-				}
-				val featureGroupType = featureGroup.featureGroupType ?: featureGroup.featureGroupPrototype?.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier)
-				featureGroupType?.getAllFeatures()?.scopeFor ?: IScope::NULLSCOPE
-			}
-			Feature: {
-				var Feature feature = connectionContext
-				while (feature.classifier == null && feature.prototype == null && feature.refined != null) {
-					feature = feature.refined
-				}
-				val featureClassifier = feature.classifier ?: feature.prototype?.findClassifierForComponentPrototype(containingClassifier)
-				featureClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
-			}
-			Subcomponent: {
-				var subcomponent = connectionContext
-				while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
-					subcomponent = subcomponent.refined
-				}
-				val subcomponentClassifier = switch subcomponentType : subcomponent.subcomponentType {
-					ComponentClassifier:
-						subcomponentType
-					ComponentPrototype:
-						subcomponentType.findClassifierForComponentPrototype(containingClassifier)
-				}
-				subcomponentClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
-			}
-			SubprogramCall: {
-				switch calledSubprogram : connectionContext.calledSubprogram {
-					ComponentClassifier:
-						calledSubprogram.allConnectionEnds.scopeFor
-					SubprogramSubcomponent: {
-						var Subcomponent subcomponent = calledSubprogram
-						while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
-							subcomponent = subcomponent.refined
-						}
-						val subcomponentClassifier = switch subcomponentType : subcomponent.subcomponentType {
-							ComponentClassifier:
-								subcomponentType
-							ComponentPrototype:
-								subcomponentType.findClassifierForComponentPrototype(containingClassifier)
-						}
-						subcomponentClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
-					}
-					SubprogramAccess: {
-						var Feature access = calledSubprogram
-						while (access.classifier == null && access.prototype == null && access.refined != null) {
-							access = access.refined
-						}
-						var Classifier accessClassifier
-						if (access.classifier != null) {
-							accessClassifier = access.classifier
-						} else if (access.prototype != null) {
-							accessClassifier = switch callContext : connectionContext.context {
-								ComponentType:
-									access.prototype.findClassifierForComponentPrototype(callContext)
-								FeatureGroup: {
-									var callContextFeatureGroup = callContext
-									while (callContextFeatureGroup.featureGroupType == null && callContextFeatureGroup.featureGroupPrototype == null &&
-										callContextFeatureGroup.refined instanceof FeatureGroup
-									) {
-										callContextFeatureGroup = callContextFeatureGroup.refined as FeatureGroup
-									}
-									val prototypeContext = callContextFeatureGroup.featureGroupType ?:
-										callContextFeatureGroup.featureGroupPrototype?.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier)
-									if (prototypeContext != null) {
-										access.prototype.findClassifierForComponentPrototype(prototypeContext)
-									}
-								}
-								SubprogramGroupAccess: {
-									var Feature callContextAccess = callContext
-									while (callContextAccess.classifier == null && callContextAccess.prototype == null && callContextAccess.refined != null) {
-										callContextAccess = callContextAccess.refined
-									}
-									val prototypeContext = callContextAccess.classifier ?: callContextAccess.prototype?.findClassifierForComponentPrototype(containingClassifier)
-									if (prototypeContext != null) {
-										access.prototype.findClassifierForComponentPrototype(prototypeContext)
-									}
-								}
-								SubprogramGroupSubcomponent: {
-									var Subcomponent callContextSubcomponent = callContext
-									while (callContextSubcomponent.subcomponentType == null && callContextSubcomponent.refined != null) {
-										callContextSubcomponent = callContextSubcomponent.refined
-									}
-									switch callContextSubcomponentType : callContextSubcomponent.subcomponentType {
-										ComponentClassifier: {
-											if (callContextSubcomponent.ownedPrototypeBindings.empty) {
-												access.prototype.findClassifierForComponentPrototype(callContextSubcomponentType)
-											} else {
-												access.prototype.findClassifierForComponentPrototype(callContextSubcomponentType, callContextSubcomponent)
-											}
-										}
-										ComponentPrototype: {
-											var prototypeContext = callContextSubcomponentType.findClassifierForComponentPrototype(containingClassifier)
-											if (prototypeContext != null) {
-												access.prototype.findClassifierForComponentPrototype(prototypeContext)
-											}
-										}
-									}
-								}
-								default: //callContext is null.
-									access.prototype.findClassifierForComponentPrototype(containingClassifier)
-							}
-						}
-						accessClassifier?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
-					}
-					ComponentPrototype:
-						calledSubprogram.findClassifierForComponentPrototype(containingClassifier)?.allConnectionEnds?.scopeFor ?: IScope::NULLSCOPE
-					default:
-						IScope::NULLSCOPE
-				}
-			}
-		}
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [allConnectionEnds]) ?: scope_ConnectedElement_connectionEnd(context.owner as Connection, reference)
 	}
 	
 	//Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and ParameterConnection in Aadl2.xtext
@@ -560,6 +445,31 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 */
 	def scope_ModalPath_inModeOrTransition(ComponentClassifier context, EReference reference) {
 		(context.allModes + context.allModeTransitions).scopeFor
+	}
+	
+	//Reference is from FlowEnd in Aadl2.xtext
+	def scope_FlowEnd_context(ComponentType context, EReference reference) {
+		context.getAllFeatures().filter(typeof(Context)).scopeFor
+	}
+	
+	/*
+	 * Reference is from FlowEnd in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowEnd.  When the FlowEnd
+	 * is a single identifier, e.g. "port1", then the passed context is a FlowSpecification.  In this case, we know that the FlowEnd's Context is null even
+	 * though we can't access it and check it here.  When the Flow end is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a
+	 * FlowEnd, thus calling the other scope method.
+	 */
+	def scope_FlowEnd_feature(FlowSpecification context, EReference reference) {
+		context.getContainerOfType(typeof(Classifier)).getAllFeatures().scopeFor
+	}
+	
+	/*
+	 * Reference is from FlowEnd in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowEnd.  When the FlowEnd
+	 * is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a FlowEnd and we can access and check the FlowEnd's Context object.
+	 */
+	def scope_FlowEnd_feature(FlowEnd context, EReference reference) {
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [getAllFeatures()]) ?:scope_FlowEnd_feature(context.owner as FlowSpecification, reference)
 	}
 	
 	def private static allPrototypes(Classifier classifier) {
@@ -630,6 +540,122 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		PropertiesLinkingService.findClassifierForComponentPrototype(classifierPrototypeContext, subcomponentPrototypeContext, prototype)
 	}
 	
+	def private static scopeForElementsOfContext(Context context, Classifier containingClassifier, extension (Classifier)=>Iterable<? extends EObject> validMemberCollector) {
+		val contextClassifier = switch context {
+			FeatureGroup: {
+				var featureGroup = context
+				while (featureGroup.featureGroupType == null && featureGroup.featureGroupPrototype == null && featureGroup.refined instanceof FeatureGroup) {
+					featureGroup = featureGroup.refined as FeatureGroup
+				}
+				featureGroup.featureGroupType ?: featureGroup.featureGroupPrototype?.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier)
+			}
+			Feature: {
+				var Feature feature = context
+				while (feature.classifier == null && feature.prototype == null && feature.refined != null) {
+					feature = feature.refined
+				}
+				feature.classifier ?: feature.prototype?.findClassifierForComponentPrototype(containingClassifier)
+			}
+			Subcomponent: {
+				var subcomponent = context
+				while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
+					subcomponent = subcomponent.refined
+				}
+				switch subcomponentType : subcomponent.subcomponentType {
+					ComponentClassifier:
+						subcomponentType
+					ComponentPrototype:
+						subcomponentType.findClassifierForComponentPrototype(containingClassifier)
+				}
+			}
+			SubprogramCall: {
+				switch calledSubprogram : context.calledSubprogram {
+					ComponentClassifier:
+						calledSubprogram
+					SubprogramSubcomponent: {
+						var Subcomponent subcomponent = calledSubprogram
+						while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
+							subcomponent = subcomponent.refined
+						}
+						switch subcomponentType : subcomponent.subcomponentType {
+							ComponentClassifier:
+								subcomponentType
+							ComponentPrototype:
+								subcomponentType.findClassifierForComponentPrototype(containingClassifier)
+						}
+					}
+					SubprogramAccess: {
+						var Feature access = calledSubprogram
+						while (access.classifier == null && access.prototype == null && access.refined != null) {
+							access = access.refined
+						}
+						if (access.classifier != null) {
+							access.classifier
+						} else if (access.prototype != null) {
+							switch callContext : context.context {
+								ComponentType:
+									access.prototype.findClassifierForComponentPrototype(callContext)
+								FeatureGroup: {
+									var callContextFeatureGroup = callContext
+									while (callContextFeatureGroup.featureGroupType == null && callContextFeatureGroup.featureGroupPrototype == null &&
+										callContextFeatureGroup.refined instanceof FeatureGroup
+									) {
+										callContextFeatureGroup = callContextFeatureGroup.refined as FeatureGroup
+									}
+									val prototypeContext = callContextFeatureGroup.featureGroupType ?:
+										callContextFeatureGroup.featureGroupPrototype?.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier)
+									if (prototypeContext != null) {
+										access.prototype.findClassifierForComponentPrototype(prototypeContext)
+									}
+								}
+								SubprogramGroupAccess: {
+									var Feature callContextAccess = callContext
+									while (callContextAccess.classifier == null && callContextAccess.prototype == null && callContextAccess.refined != null) {
+										callContextAccess = callContextAccess.refined
+									}
+									val prototypeContext = callContextAccess.classifier ?: callContextAccess.prototype?.findClassifierForComponentPrototype(containingClassifier)
+									if (prototypeContext != null) {
+										access.prototype.findClassifierForComponentPrototype(prototypeContext)
+									}
+								}
+								SubprogramGroupSubcomponent: {
+									var Subcomponent callContextSubcomponent = callContext
+									while (callContextSubcomponent.subcomponentType == null && callContextSubcomponent.refined != null) {
+										callContextSubcomponent = callContextSubcomponent.refined
+									}
+									switch callContextSubcomponentType : callContextSubcomponent.subcomponentType {
+										ComponentClassifier: {
+											if (callContextSubcomponent.ownedPrototypeBindings.empty) {
+												access.prototype.findClassifierForComponentPrototype(callContextSubcomponentType)
+											} else {
+												access.prototype.findClassifierForComponentPrototype(callContextSubcomponentType, callContextSubcomponent)
+											}
+										}
+										ComponentPrototype: {
+											var prototypeContext = callContextSubcomponentType.findClassifierForComponentPrototype(containingClassifier)
+											if (prototypeContext != null) {
+												access.prototype.findClassifierForComponentPrototype(prototypeContext)
+											}
+										}
+									}
+								}
+								default: //callContext is null.
+									access.prototype.findClassifierForComponentPrototype(containingClassifier)
+							}
+						}
+					}
+					ComponentPrototype:
+						calledSubprogram.findClassifierForComponentPrototype(containingClassifier)
+				}
+			}
+		}
+		if (contextClassifier != null) {
+			validMemberCollector.apply(contextClassifier).scopeFor
+		} else {
+			IScope::NULLSCOPE
+		}
+	}
+
 	// mode references
 	def scope_Mode(ModalElement context, EReference reference) {
 		if (reference == Aadl2Package::eINSTANCE.modalElement_InMode) {
