@@ -5425,7 +5425,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (((FeatureGroup) destination).getDirection().equals(DirectionType.OUT)) {
 					error("The direction of the destination " + destination.getName()
-							+ " of a directional feature group connection must not be in", connection,
+							+ " of a directional feature group connection must not be out", connection,
 							Aadl2Package.eINSTANCE.getConnection_Destination());
 				} else if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN_OUT)) {
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.OUT, connection,
