@@ -1,4 +1,4 @@
-//package org.osate.xtext.aadl2.tests
+//package org.osate.core.tests
 //
 //import org.junit.runner.RunWith
 //import org.eclipse.xtext.junit4.XtextRunner

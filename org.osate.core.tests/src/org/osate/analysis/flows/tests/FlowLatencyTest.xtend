@@ -15,7 +15,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager
 import org.osate.analysis.flows.actions.CheckFlowLatency
 import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
-import org.osate.xtext.aadl2.tests.OsateTest
+import org.osate.core.tests.OsateTest
 
 import static org.junit.Assert.*
 

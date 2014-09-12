@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.tests
+package org.osate.core.tests
 
 import com.google.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
