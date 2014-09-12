@@ -127,13 +127,13 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			}
 
 			/*
-			 * 
+			 *
 			 * FIXME: old code by JD to try to handle reference instance
 			 * public String caseConnectionInstance(final ConnectionInstance conn)
 			 * {
 			 * ComponentInstance ci;
 			 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
-			 * 
+			 *
 			 * ci = conn.getContainingComponentInstance();
 			 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
 			 * for (ConnectionReference ref : conn.getConnectionReferences())
@@ -144,11 +144,11 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			 * OsateDebug.osateDebug("connection pa" + pa);
 			 * Property prop = pa.getProperty();
 			 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-			 * 
+			 *
 			 * newPA.setProperty(prop);
 			 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-			 * 
-			 * 
+			 *
+			 *
 			 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
 			 * .hasNext();) {
 			 * Element elem = content.next();
@@ -172,18 +172,18 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			 * if (elem instanceof ReferenceValue) {
 			 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
 			 * EcoreUtil.replace(elem, irv);
-			 * 
+			 *
 			 * ref.removePropertyAssociations(prop);
 			 * ref.getOwnedPropertyAssociations().add(newPA);
 			 * }
 			 * }
-			 * 
-			 * 
-			 * 
+			 *
+			 *
+			 *
 			 * }
 			 * }
 			 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
-			 * 
+			 *
 			 * return DONE;
 			 * }
 			 */
@@ -228,9 +228,10 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 								Element elem = content.next();
 
 								if (elem instanceof ReferenceValue) {
-									// TODO: LW what if ref to connection?
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(fi);
-									EcoreUtil.replace(elem, irv);
+									if (irv != null) {
+										EcoreUtil.replace(elem, irv);
+									}
 								}
 							}
 
@@ -290,9 +291,12 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 							Element elem = content.next();
 
 							if (elem instanceof ReferenceValue) {
+								// TODO: LW what if ref to connection?
 								try {
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
-									EcoreUtil.replace(elem, irv);
+									if (irv != null) {
+										EcoreUtil.replace(elem, irv);
+									}
 								} catch (InvalidModelException e) {
 									error(io, e.getMessage());
 								}
