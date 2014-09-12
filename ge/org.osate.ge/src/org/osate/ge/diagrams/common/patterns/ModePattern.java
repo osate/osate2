@@ -55,6 +55,7 @@ import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.RefactoringService;
+import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
@@ -77,6 +78,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final AadlModificationService modificationService;
 	private final UserInputService userInputService;
 	private final NamingService namingService;
+	private final SerializableReferenceService referenceService;
 	private final BusinessObjectResolutionService bor;
 	private final RefactoringService refactoringService;
 	
@@ -84,7 +86,8 @@ public class ModePattern extends AgeLeafShapePattern {
 	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
-			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService, final BusinessObjectResolutionService bor) {
+			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService, 
+			final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorService = anchorUtil;
 		this.resizeHelper = resizeHelper;
@@ -98,6 +101,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.userInputService = userInputService;
 		this.namingService = namingService;
 		this.refactoringService = refactoringService;
+		this.referenceService = referenceService;
 		this.bor = bor;
 	}
 
@@ -180,7 +184,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			if(connectionBo instanceof ModeTransition) {
 				final ModeTransition mt = (ModeTransition)connectionBo;
 				ModeTransitionPattern.updateControlPoints(connection);
-				ModeTransitionPattern.updateAnchors(connection, mt, anchorService);
+				ModeTransitionPattern.updateAnchors(referenceService, connection, mt, anchorService);
 			}
 		}
 	}
