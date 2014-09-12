@@ -477,6 +477,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.extended?.allFlowSpecifications?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
+	//Reference is from FlowSourceImpl, FlowSinkImpl, and FlowPathImpl in Aadl2.xtext
+	def scope_FlowImplementation_specification(ComponentImplementation context, EReference reference) {
+		context.type?.allFlowSpecifications?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:

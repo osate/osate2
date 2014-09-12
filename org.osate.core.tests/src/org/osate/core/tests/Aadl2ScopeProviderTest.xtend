@@ -2982,9 +2982,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		assertConstraints(issueCollection)
 	}
 	
-	//Tests scope_ModalPath_inModeOrTransition
+	//Tests scope_ModalPath_inModeOrTransition and scope_FlowImplementation_specification
 	@Test
-	def void test_scope_ModalPath_inModeOrTransition() {
+	def void testInModesAndFlows() {
 		('''
 			package pack
 			public
@@ -3102,11 +3102,15 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				"a2.i".assertEquals(name)
 				ownedFlowImplementations.get(0) => [
 					"fsource1".assertEquals(specification.name)
+					//Tests scope_FlowImplementation_specification
+					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsink1", "fsource1"])
 					//Tests scope_ModalPath_inModeOrTransition
 					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
 				]
 				ownedFlowImplementations.get(1) => [
 					"fsink1".assertEquals(specification.name)
+					//Tests scope_FlowImplementation_specification
+					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsource1", "fsink1"])
 					//Tests scope_ModalPath_inModeOrTransition
 					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
 				]
