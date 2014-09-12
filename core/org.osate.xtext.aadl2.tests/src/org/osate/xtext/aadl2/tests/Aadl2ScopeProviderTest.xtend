@@ -89,6 +89,14 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		deleteProject(TEST_PROJECT_NAME)
 	}
 	
+//	@BeforeClass
+//	def static showReferences() {
+//		println
+//		typeof(Aadl2Package).methods.filter[declaringClass == typeof(Aadl2Package) && returnType == typeof(EReference)].map[it -> invoke(Aadl2Package::eINSTANCE) as EReference].
+//			filter[!value.containment && !value.derived].filter[value.EReferenceType == Aadl2Package::eINSTANCE.feature].
+//			forEach[println(key.name.substring(3, key.name.indexOf("_")) + "." + value.name + "->" + value.EReferenceType.name)]
+//	}
+	
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
 	 * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,
