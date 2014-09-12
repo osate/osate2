@@ -63,6 +63,13 @@ import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
  * on how and when to use it
  *
  * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an example
+ *
+ * IMPORTANT:
+ * formatting based on rules does not work properly because the formatter gets confused
+ * about the position in the parse tree when it sees a property association of the form
+ * Period => 10ms;
+ * The formatter interprets that as a numeric range, and after this association formatting
+ * with rules doesn't work any more.
  */
 public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 
@@ -97,39 +104,48 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		}
 		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("{", "}")) {
 			c.setIndentationIncrement().after(pair.getFirst());
+			c.setNoSpace().after(pair.getFirst());
 			c.setLinewrap(0, 1, 1).after(pair.getFirst());
 			c.setIndentationDecrement().before(pair.getSecond());
+			c.setNoSpace().before(pair.getSecond());
 			c.setLinewrap(0, 1, 1).before(pair.getSecond());
 		}
 		for (Keyword comma : g.findKeywords(",")) {
 			c.setNoSpace().before(comma);
+			c.setNoLinewrap().before(comma);
 			c.setLinewrap(0, 1, 1).after(comma);
 		}
 		for (Keyword semi : g.findKeywords(";")) {
 			c.setNoSpace().before(semi);
+			c.setNoLinewrap().before(semi);
 			c.setLinewrap(0, 1, 2).after(semi);
 		}
 		for (Keyword dot : g.findKeywords(".")) {
 			c.setNoSpace().around(dot);
+			c.setNoLinewrap().around(dot);
 		}
 		for (Keyword colon : g.findKeywords(":")) {
 			c.setNoSpace().before(colon);
+			c.setNoLinewrap().before(colon);
 		}
 		for (Keyword doublecolon : g.findKeywords("::")) {
 			c.setNoSpace().around(doublecolon);
+			c.setNoLinewrap().around(doublecolon);
 		}
 		for (Keyword left : g.findKeywords("-[")) {
 			c.setNoSpace().after(left);
+			c.setNoLinewrap().after(left);
 		}
 		for (Keyword right : g.findKeywords("]->")) {
 			c.setNoSpace().before(right);
+			c.setNoLinewrap().before(right);
 		}
 		for (Keyword arrow : g.findKeywords("->")) {
 			c.setLinewrap(0, 1, 1).after(arrow);
 		}
 
 		for (String sectionName : new String[] { "prototypes", "subcomponents", "connections", "flows", "calls",
-		"properties" }) {
+				"properties" }) {
 			for (Keyword keyword : g.findKeywords(sectionName)) {
 				c.setLinewrap(1, 1, 2).before(keyword);
 				c.setLinewrap().after(keyword);
@@ -150,15 +166,18 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 			c.setNoLinewrap().after(in);
 		}
 
+		c.setIndentationIncrement().after(g.getAadlPackageAccess().getPackageKeyword_0());
+		c.setIndentationDecrement().before(g.getAadlPackageAccess().getEndKeyword_4());
+
 		c.setLinewrap().around(g.getPublicPackageSectionAccess().getPublicKeyword_1());
+		c.setIndentationDecrement().before(g.getPublicPackageSectionAccess().getPublicKeyword_1());
+		c.setIndentationIncrement().after(g.getPublicPackageSectionAccess().getPublicKeyword_1());
+
 		c.setLinewrap().around(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
+		c.setIndentationDecrement().before(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
+		c.setIndentationIncrement().after(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
 
 		c.setLinewrap().before(g.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
-
-		// component types and implementations
-		c.setIndentationIncrement().before(g.getClassifierRule());
-		c.setIndentationDecrement().after(g.getClassifierRule());
-		c.setLinewrap(2).after(g.getClassifierRule());
 
 		// @formatter:off
 		indentInComponent(c, g.getAbstractTypeAccess().getAbstractKeyword_0(), g.getAbstractTypeAccess().getEndKeyword_9());
@@ -298,19 +317,93 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		indentSection(c, g.getVirtualBusImplementationAccess().getModesKeyword_11_0());
 		indentSection(c, g.getVirtualProcessorImplementationAccess().getModesKeyword_14_0());
 
+		// set indentation for continuation lines
+		for (Keyword colon : g.findKeywords(":")) {
+			indentTwiceAfter(c, colon);
+		}
+
+		unindentTwiceAfter(c, g.getPrototypeRule());
+
+		unindentTwiceAfter(c, g.getBusAccessRule());
+		unindentTwiceAfter(c, g.getDataAccessRule());
+		unindentTwiceAfter(c, g.getSubprogramAccessRule());
+		unindentTwiceAfter(c, g.getSubprogramGroupAccessRule());
+		unindentTwiceAfter(c, g.getDataPortRule());
+		unindentTwiceAfter(c, g.getEventDataPortRule());
+		unindentTwiceAfter(c, g.getEventPortRule());
+		unindentTwiceAfter(c, g.getFeatureGroupRule());
+		unindentTwiceAfter(c, g.getParameterRule());
+		unindentTwiceAfter(c, g.getAbstractFeatureRule());
+
+		unindentTwiceAfter(c, g.getPortConnectionRule());
+		unindentTwiceAfter(c, g.getAccessConnectionRule());
+		unindentTwiceAfter(c, g.getFeatureGroupConnectionRule());
+		unindentTwiceAfter(c, g.getFeatureConnectionRule());
+		unindentTwiceAfter(c, g.getParameterConnectionRule());
+
+		unindentTwiceAfter(c, g.getFlowSpecificationRule());
+		unindentTwiceAfter(c, g.getFlowImplementationRule());
+		unindentTwiceAfter(c, g.getEndToEndFlowRule());
+
+		unindentTwiceAfter(c, g.getBusSubcomponentRule());
+		unindentTwiceAfter(c, g.getDataSubcomponentRule());
+		unindentTwiceAfter(c, g.getDeviceSubcomponentRule());
+		unindentTwiceAfter(c, g.getMemorySubcomponentRule());
+		unindentTwiceAfter(c, g.getProcessSubcomponentRule());
+		unindentTwiceAfter(c, g.getProcessorSubcomponentRule());
+		unindentTwiceAfter(c, g.getSubprogramGroupSubcomponentRule());
+		unindentTwiceAfter(c, g.getSubprogramSubcomponentRule());
+		unindentTwiceAfter(c, g.getSystemSubcomponentRule());
+		unindentTwiceAfter(c, g.getThreadGroupSubcomponentRule());
+		unindentTwiceAfter(c, g.getThreadSubcomponentRule());
+		unindentTwiceAfter(c, g.getVirtualBusSubcomponentRule());
+		unindentTwiceAfter(c, g.getVirtualProcessorSubcomponentRule());
+
+		unindentTwiceAfter(c, g.getModeRule());
+		unindentTwiceAfter(c, g.getModeTransitionRule());
+
+		unindentTwiceAfter(c, g.getSubprogramCallRule());
+		unindentTwiceAfter(c, g.getSubprogramCallSequenceRule());
+
+		unindentTwiceAfter(c, g.getInternalFeatureRule());
+		unindentTwiceAfter(c, g.getProcessorFeatureRule());
+
+		unindentTwiceAfter(c, g.getPropertyTypeRule());
+		unindentTwiceAfter(c, g.getPropertyDefinitionRule());
+		unindentTwiceAfter(c, g.getPropertyConstantRule());
+		unindentTwiceAfter(c, g.getRecordFieldRule());
+
+		indentTwiceAfter(c, g.getPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1_0());
+		indentTwiceAfter(c, g.getContainedPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1_0());
+		unindentTwiceAfter(c, g.getPropertyAssociationRule());
+		unindentTwiceAfter(c, g.getContainedPropertyAssociationRule());
+
 		// It's usually a good idea to activate the following three statements.
 		// They will add and preserve newlines around comments
 		c.setLinewrap(0, 1, 2).before(g.getSL_COMMENTRule());
-//			c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
-//			c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
+		// c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
+		// c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
+	}
+
+	protected void unindentTwiceAfter(FormattingConfig c, ParserRule rule) {
+		c.setIndentationDecrement().after(rule);
+		c.setIndentationDecrement().after(rule);
+	}
+
+	protected void indentTwiceAfter(FormattingConfig c, Keyword keyword) {
+		c.setIndentationIncrement().after(keyword);
+		c.setIndentationIncrement().after(keyword);
+	}
+
+	protected void unindentTwiceBefore(FormattingConfig c, Keyword keyword) {
+		c.setIndentationDecrement().before(keyword);
+		c.setIndentationDecrement().before(keyword);
 	}
 
 	protected void indentInComponent(FormattingConfig c, Keyword start, Keyword end) {
-		c.setIndentationIncrement().after(start);
-		c.setIndentationIncrement().after(start);
+		indentTwiceAfter(c, start);
 		c.setLinewrap(1, 1, 2).before(end);
-		c.setIndentationDecrement().before(end);
-		c.setIndentationDecrement().before(end);
+		unindentTwiceBefore(c, end);
 	}
 
 	protected void indentSection(FormattingConfig c, Keyword keyword) {
@@ -341,6 +434,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected FormattingConfig createFormattingConfig() {
 		FormattingConfig cfg = new FormattingConfig3(getGrammarAccess(), getHiddenTokenHelper(), getIndentInfo(),
