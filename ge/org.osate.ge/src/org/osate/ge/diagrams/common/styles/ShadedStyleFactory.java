@@ -21,6 +21,7 @@ public class ShadedStyleFactory implements StyleFactory {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
 		style.setBackground(Graphiti.getGaService().manageColor(diagram, ColorConstant.LIGHT_GRAY));
+		style.setTransparency(0.5);
 		return style;
 	}
 }

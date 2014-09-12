@@ -549,41 +549,42 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		ga = gaService.createPlainPolygon(outline, new int[] {
     			width, 0,
     			width, height,
-    			width-padding-3, height-padding-3,
-    			width-padding-3, padding+3});
+    			width-padding, height-padding,
+    			width-padding, padding});
 		ga.setStyle(shadedStyle);
 		ga.setLineVisible(false);
 		
 		ga = gaService.createPlainPolygon(outline, new int[] {
     			width, height,
     			0, height,
-    			padding+3, height-padding-3,
-    			width-padding-3, height-padding-3});
+    			padding, height-padding,
+    			width-padding, height-padding});
 		ga.setStyle(shadedStyle);
 		ga.setLineVisible(false);
-		
+				
 		// Create inner rectangle
 		final GraphicsAlgorithm inner = gaService.createPlainRectangle(outline);
 		gaService.setLocation(inner, padding, padding);
 		gaService.setSize(inner, width-padding*2, height-padding*2);
 		inner.setStyle(style);
+		inner.setFilled(false);
 		
 		// Create additional line segments
 		gaService.createPlainPolyline(outline, new int[] {
     			0, 0,
-    			padding+3, padding+3}).setStyle(style);
+    			padding+1, padding+1}).setStyle(style);
 		
 		gaService.createPlainPolyline(outline, new int[] {
     			width, 0,
-    			width-padding-3, padding+3}).setStyle(style);
+    			width-padding-1, padding+1}).setStyle(style);
 		
 		gaService.createPlainPolyline(outline, new int[] {
-    			width-padding-3, height-padding-3,
+    			width-padding-1, height-padding-1,
     			width, height}).setStyle(style);
 		
 		gaService.createPlainPolyline(outline, new int[] {
     			0, height,
-    			padding+3, height-padding-3}).setStyle(style);
+    			padding+1, height-padding-1}).setStyle(style);
 		
 		return outline;
 	}

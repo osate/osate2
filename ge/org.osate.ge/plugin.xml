@@ -136,7 +136,7 @@
  	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
  	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
  	<factory class="org.osate.ge.diagrams.common.styles.FeatureGroupStyleFactory" styleId="feature-group"/> 	
- 	<factory class="org.osate.ge.diagrams.common.styles.ShadedStyleFactory" styleId="shadded"/>
+ 	<factory class="org.osate.ge.diagrams.common.styles.ShadedStyleFactory" styleId="shaded"/>
  	<factory class="org.osate.ge.diagrams.common.styles.ImplementsStyleFactory" styleId="implements"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="flow_specification"/>
  	<factory class="org.osate.ge.diagrams.common.styles.ExtendsStyleFactory" styleId="extends"/>
