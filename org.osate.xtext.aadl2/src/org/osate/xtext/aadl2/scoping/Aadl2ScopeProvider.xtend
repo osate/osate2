@@ -472,6 +472,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [getAllFeatures()]) ?:scope_FlowEnd_feature(context.owner as FlowSpecification, reference)
 	}
 	
+	//Reference is from FlowSpecRefinement in Aadl2.xtext
+	def scope_FlowSpecification_refined(ComponentType context, EReference reference) {
+		context.extended?.allFlowSpecifications?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
