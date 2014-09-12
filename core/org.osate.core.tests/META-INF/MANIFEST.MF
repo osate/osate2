@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.xtext.aadl2.tests
 Bundle-Vendor: CMU/SEI
 Bundle-Version: 0.0.1.qualifier
-Bundle-SymbolicName: org.osate.xtext.aadl2.tests;singleton:=true
+Bundle-SymbolicName: org.osate.core.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.aadl2;bundle-version="1.0.0",
  org.osate.xtext.aadl2,
