@@ -9,6 +9,32 @@
 package org.osate.ge.util;
 
 public class StringUtil {
+	public interface Converter<I, O> {
+		O convert(final I input);
+	}
+	
+	/**
+	 * Joins a series of objects together. Uses a specified converter to convert each object to a string.
+	 * @param items
+	 * @param del
+	 * @param converter
+	 * @return
+	 */
+	public static <T> String join(final Iterable<T> items, final String del, final Converter<T, String> converter) {
+		String result = "";
+		boolean first = true;
+		for(final T item : items) {
+			if(!first) {
+				result += del;
+			}
+			first = false;
+			
+			result += converter.convert(item);
+		}
+
+		return result;
+	}
+	
 	/**
 	 * Joins together strings with a specified delimiter between the segments
 	 * @param segs an array of strings to be joined together
