@@ -236,7 +236,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 							/*
 							 * FIXME JD
-							 * 
+							 *
 							 * Try to look if the property references a component or not.
 							 * This was done to fix the issue related to the Bound Bus analysis plugin
 							 */
@@ -251,10 +251,10 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 											if (e instanceof ReferenceValue) {
 												PropertyExpression irv = ((ReferenceValue) e).instantiate(conni
 														.getContainingComponentInstance());
-												// EcoreUtil.replace(e, irv);
-												lv.getOwnedListElements().remove(e);
-												lv.getOwnedListElements().add(irv);
-												// ref.removePropertyAssociations(prop);
+												if (irv != null) {
+													lv.getOwnedListElements().remove(e);
+													lv.getOwnedListElements().add(irv);
+												}
 											}
 										}
 									}
@@ -262,8 +262,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								if (elem instanceof ReferenceValue) {
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(conni
 											.getContainingComponentInstance());
-									EcoreUtil.replace(elem, irv);
-
+									if (irv != null) {
+										EcoreUtil.replace(elem, irv);
+									}
 								}
 							}
 
