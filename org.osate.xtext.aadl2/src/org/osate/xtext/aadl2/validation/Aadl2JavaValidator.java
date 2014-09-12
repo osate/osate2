@@ -763,14 +763,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (connNext) {
 				// expecting a connection
 				connNext = !connNext;
-				if (!(fe instanceof Connection)) {
+				if (!fe.eIsProxy() && !(fe instanceof Connection)) {
 					error(flow, "Expected connection, found "
 							+ (fe instanceof FlowSpecification ? "flow spec " : "subcomponent ") + fe.getName());
 				}
 			} else {
 				// expecting a component and flow spec
 				connNext = !connNext;
-				if (!(fe instanceof Subcomponent || (fe instanceof FlowSpecification && flowSegment.getContext() instanceof Subcomponent))) {
+				if (!fe.eIsProxy()
+						&& (flowSegment.getContext() == null || !flowSegment.getContext().eIsProxy())
+						&& !(fe instanceof Subcomponent || (fe instanceof FlowSpecification && flowSegment.getContext() instanceof Subcomponent))) {
 					error(flow,
 							"Expected subcomponent/flow spec, found connection "
 									+ (Aadl2Util.isNull(flowSegment.getContext()) ? "" : flowSegment.getContext()
