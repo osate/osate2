@@ -4273,7 +4273,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow, boolean inverseOf,
 			boolean report) {
 		// Test for L2
-		if (inFeature instanceof Port || inFeature instanceof Parameter) {
+		if (inFeature instanceof Port || inFeature instanceof Parameter || inFeature instanceof AbstractFeature) {
 			DirectionType fDirection = ((DirectedFeature) inFeature).getDirection();
 			if (inverseOf) {
 				fDirection = fDirection.getInverseDirection();
@@ -4349,7 +4349,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow, boolean inverseOf,
 			boolean report) {
 		// Test for L3
-		if (outFeature instanceof Port || outFeature instanceof Parameter) {
+		if (outFeature instanceof Port || outFeature instanceof Parameter || outFeature instanceof AbstractFeature) {
 			DirectionType fDirection = ((DirectedFeature) outFeature).getDirection();
 			if (inverseOf) {
 				fDirection = fDirection.getInverseDirection();
