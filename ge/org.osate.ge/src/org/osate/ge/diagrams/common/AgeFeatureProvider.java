@@ -83,6 +83,7 @@ import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.PrototypeService;
 import org.osate.ge.services.RefactoringService;
+import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleProviderService;
@@ -105,6 +106,7 @@ import org.osate.ge.services.impl.DefaultNamingService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 import org.osate.ge.services.impl.DefaultPrototypeService;
 import org.osate.ge.services.impl.DefaultRefactoringService;
+import org.osate.ge.services.impl.DefaultSerializableReferenceService;
 import org.osate.ge.services.impl.DefaultShapeCreationService;
 import org.osate.ge.services.impl.DefaultShapeService;
 import org.osate.ge.services.impl.DefaultStyleService;
@@ -117,10 +119,11 @@ import org.osgi.framework.FrameworkUtil;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final IEclipseContext context;
+	private final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService();
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
-		setIndependenceSolver(new IndependenceProvider(this));
+		setIndependenceSolver(new IndependenceProvider(serializableReferenceService, this));
 		
 		// Create the eclipse context
 		this.context = createEclipseContext();
@@ -159,6 +162,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Populate the context. 
 		context.set(IFeatureProvider.class, this);
+		context.set(SerializableReferenceService.class, serializableReferenceService);
 		context.set(BusinessObjectResolutionService.class, bor);
 		context.set(DiagramService.class, diagramService);
 		context.set(DiagramModificationService.class, diagramModificationService);

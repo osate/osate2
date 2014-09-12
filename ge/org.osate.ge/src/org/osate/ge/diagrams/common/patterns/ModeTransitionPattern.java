@@ -55,6 +55,7 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
@@ -71,13 +72,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
+	private final SerializableReferenceService referenceService;
 	private final BusinessObjectResolutionService bor;
 	private final PropertyService propertyService;
 	
 	@Inject
 	public ModeTransitionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
-			final UserInputService userInputService, final BusinessObjectResolutionService bor, final PropertyService propertyService) {
+			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService) {
 		super(visibilityHelper);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
@@ -87,6 +89,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
+		this.referenceService = referenceService;
 		this.bor = bor;
 		this.propertyService = propertyService;
 	}
@@ -170,13 +173,15 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
         
 		// Create Label
         final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(connection);
-        final IGaService gaService = Graphiti.getGaService();
-		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
-		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(styleService.getLabelStyle());
- 		gaService.setLocation(text, labelX, labelY);
-	    text.setValue(mt.getName());
-	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(mt));
+        if(mt != null) {
+	        final IGaService gaService = Graphiti.getGaService();
+			final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
+			final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
+			text.setStyle(styleService.getLabelStyle());
+	 		gaService.setLocation(text, labelX, labelY);
+		    text.setValue(mt.getName() == null ? "" : mt.getName());
+		    getFeatureProvider().link(textDecorator, new AadlElementWrapper(mt));
+        }
 	}
 	
 	@Override
@@ -329,32 +334,33 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	}
 	
 	// CLEAN-UP: Should be private and not static. Develop another way for ModePattern to trigger updating of the anchors without causing issues
-	static void updateAnchors(final Connection connection, final ModeTransition mt, final AnchorService anchorUtil) {
+	static void updateAnchors(final SerializableReferenceService referenceService, final Connection connection, final ModeTransition mt, final AnchorService anchorUtil) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
 		final ContainerShape modeShape = getStartModeShape(connection);
 		final ILocation modeLocation = layoutService.getLocationRelativeToDiagram(modeShape);
 		final Point l = getConnectionMidpoint(connection, 0.5);
-		anchorUtil.createOrUpdateFixPointAnchor(modeShape, getTransitionAnchorName(mt), l.x - modeLocation.getX(), l.y - modeLocation.getY());
+		anchorUtil.createOrUpdateFixPointAnchor(modeShape, getTransitionAnchorName(referenceService, mt), l.x - modeLocation.getX(), l.y - modeLocation.getY());
 	}
 	
 	private void updateTriggers(final Connection connection, final ModeTransition mt) {	
-		updateAnchors(connection, mt, anchorService);
-
-		final ContainerShape modeShape = getStartModeShape(connection);
-		final Anchor anchor = anchorService.getAnchorByName(modeShape, getTransitionAnchorName(mt));
-		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
-			final ContainerShape modeTransitionContainer = getModeContainer(connection);	
-			final Anchor eventSourceAnchor = getAnchorForModeTransitionTrigger(trigger, modeTransitionContainer, modeShape, getFeatureProvider());
-			if(eventSourceAnchor != null) {
-				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-				final Connection triggerConnection = peCreateService.createFreeFormConnection(getDiagram());
-				propertyService.setConnectionType(triggerConnection, MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
-				triggerConnection.setStart(eventSourceAnchor);
-				triggerConnection.setEnd(anchor);
-				createTriggerGraphicsAlgorithm(triggerConnection);
+		if(mt != null) {
+			updateAnchors(referenceService, connection, mt, anchorService);
+	
+			final ContainerShape modeShape = getStartModeShape(connection);
+			final Anchor anchor = anchorService.getAnchorByName(modeShape, getTransitionAnchorName(referenceService, mt));
+			for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
+				final ContainerShape modeTransitionContainer = getModeContainer(connection);	
+				final Anchor eventSourceAnchor = getAnchorForModeTransitionTrigger(trigger, modeTransitionContainer, modeShape, getFeatureProvider());
+				if(eventSourceAnchor != null) {
+					final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+					final Connection triggerConnection = peCreateService.createFreeFormConnection(getDiagram());
+					propertyService.setConnectionType(triggerConnection, MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
+					triggerConnection.setStart(eventSourceAnchor);
+					triggerConnection.setEnd(anchor);
+					createTriggerGraphicsAlgorithm(triggerConnection);
+				}
 			}
-		}
-		
+		}		
 	}
 	
 	/**
@@ -362,8 +368,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	 * @param trigger
 	 * @return
 	 */
-	private static String getTransitionAnchorName(final ModeTransition mt) {
-		return mt.getName();
+	private static String getTransitionAnchorName(final SerializableReferenceService referenceService, final ModeTransition mt) {
+		return mt == null ? "null_transition" : referenceService.getReference(mt);
 	}
 
 	@Override
