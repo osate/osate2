@@ -63,6 +63,7 @@ import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.diagrams.common.features.RenameModeTransitionFeature;
 import org.osate.ge.diagrams.common.features.SetDerivedModesFeature;
+import org.osate.ge.diagrams.common.features.SetDimensionsFeature;
 import org.osate.ge.diagrams.common.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
@@ -284,6 +285,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(SetModeTransitionTriggersFeature.class));
 		
 		features.add(make(SetFeatureClassifierFeature.class));
+		features.add(make(SetDimensionsFeature.class));
 		
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
