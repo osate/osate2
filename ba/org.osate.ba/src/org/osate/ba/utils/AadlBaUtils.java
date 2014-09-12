@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright �� 2011 TELECOM ParisTech and CNRS
+ * Copyright © 2011 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -24,6 +24,8 @@ package org.osate.ba.utils;
 import java.lang.System ;
 import java.util.Comparator ;
 import java.util.ListIterator ;
+
+import javax.naming.OperationNotSupportedException ;
 
 import org.eclipse.emf.common.util.EList ;
 import org.osate.aadl2.* ;
@@ -2030,10 +2032,71 @@ public class AadlBaUtils {
       return p ;
     }
   }
-
-  public static Object getPrototype(Target target)
+  
+  /**
+   * If the given PropertyReference object represents a string literal from
+   * a property string list declared in a classifier, it returns the Classifier
+   * object and the StringLiteral object (see DataModelEnumLiteral).
+   * Otherwise, it throws an OperationNotSupportedException.
+   * 
+   * @see DataModelEnumLiteral
+   * @param ref the given PropertyReference object
+   * @return a DataModelEnumLiteral object
+   * @throws OperationNotSupportedException
+   */
+  public static DataModelEnumLiteral toDataModelEnumLiteral(PropertyReference ref)
+                                           throws OperationNotSupportedException
   {
-    // TODO Auto-generated method stub
-    return null ;
+    DataModelEnumLiteral result = new DataModelEnumLiteral() ;
+    
+    if(ref instanceof ClassifierPropertyReference)
+    {
+      ClassifierPropertyReference cpr = (ClassifierPropertyReference) ref ;
+      result.classifier = cpr.getClassifier() ;
+      
+      EList<PropertyNameHolder> properties = cpr.getProperties() ;
+      
+      if(properties.size() == 1)
+      {
+        result.stringLiteral = extractStringLiteral(properties.get(0)) ;
+      }
+      else
+      {
+        throw new OperationNotSupportedException("record fields not supported") ;
+      }
+      
+    }
+    else
+    {
+      throw new OperationNotSupportedException(ref.getClass().getSimpleName() +
+                                               " not supported") ;
+    }
+    
+    return result ;
+  }
+  
+  // If the given PropertyNameHolder object only contains a StringLiteral, 
+  // it returns it. Otherwise it throws an OperationNotSupportedException.
+  private static StringLiteral extractStringLiteral(PropertyNameHolder pnh)
+                                           throws OperationNotSupportedException
+  {
+    if(pnh.getField() != null)
+    {
+      throw new OperationNotSupportedException("property fields not supported");
+    }
+    else
+    {
+      Element el = pnh.getProperty().getElement() ;
+      
+      if(el instanceof StringLiteral)
+      {
+        return (StringLiteral) el ;
+      }
+      else
+      {
+        throw new UnsupportedOperationException(el.getClass().getSimpleName() 
+                                                + " not supported") ;
+      }
+    }
   }
 }
