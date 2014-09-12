@@ -34,16 +34,11 @@
  */
 package org.osate.core.tests
 
-import java.util.List
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.diagnostics.Severity
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.validation.Issue
 import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.After
 import org.junit.Before
-import org.junit.ComparisonFailure
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -54,7 +49,6 @@ import org.osate.aadl2.SubprogramType
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
-import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.junit.Assert.assertEquals
 
 @RunWith(typeof(XtextRunner2))
@@ -3349,16 +3343,7 @@ class Aadl2JavaValidatorTest extends OsateTest {
 				]
 			]
 		]
-		issueCollection.sizeIs(410)
+		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
-	}
-	
-	def private static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection, String... expectedMessages) {
-		val errorsForEObject = allIssues.filter[severity == Severity::ERROR && uriToProblem == eObject.URI]
-		val errorMessagesForEObject = errorsForEObject.map[message]
-		if (errorMessagesForEObject.toSet != expectedMessages.toSet) {
-			throw new ComparisonFailure("", expectedMessages.join("\n"), errorMessagesForEObject.join("\n"))
-		}
-		errorsForEObject.forEach[issueCollection.addIssue(it)]
 	}
 }

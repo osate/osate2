@@ -43,6 +43,7 @@ import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.scoping.IScopeProvider
+import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.After
 import org.junit.Before
@@ -2206,10 +2207,10 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_ConnectedElement_context and scope_ConnectedElement_connectionEnd
+	//Tests scope_ConnectedElement_context, scope_ConnectedElement_connectionEnd, scope_FlowEnd_context, and scope_FlowEnd_feature
 	@Test
-	def void testConnections() {
-		('''
+	def void testConnectedElementsAndFlowEnds() {
+		createFiles("pack.aadl" -> '''
 			package pack
 			public
 			  abstract a1
@@ -2228,6 +2229,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			    af1: feature;
 			    ba1: provides bus access;
 			    da1: provides data access;
+			  flows
+			    fsource1: flow source af1;
+			    fsource2: flow source fg1.af2;
+			    fsource3: flow source fg4.af2;
+			    fsource4: flow source dp1.af3;
+			    fsource5: flow source dp2.af3;
 			  end a1;
 			  
 			  abstract implementation a1.i1
@@ -2384,10 +2391,65 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			    subpa6: provides subprogram access subpproto4;
 			  end subpg1;
 			end pack;
-		'''.parse as AadlPackage) => [
-			assertNoIssues
+		''')
+		suppressSerialization
+		val testFileResult = testFile("pack.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
-			publicSection.ownedClassifiers.get(1) as ComponentImplementation => [
+			publicSection.ownedClassifiers.get(0) as AbstractType => [
+				"a1".assertEquals(name)
+				ownedFlowSpecifications.get(0) => [
+					"fsource1".assertEquals(name)
+					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_context
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+				]
+				ownedFlowSpecifications.get(1) => [
+					"fsource2".assertEquals(name)
+					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_context
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
+				]
+				ownedFlowSpecifications.get(2) => [
+					"fsource3".assertEquals(name)
+					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_context
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
+				]
+				ownedFlowSpecifications.get(3) => [
+					"fsource4".assertEquals(name)
+					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_context
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
+					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
+					outEnd.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid flow specification feature.")
+				]
+				ownedFlowSpecifications.get(4) => [
+					"fsource5".assertEquals(name)
+					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_context
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
+					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
+					outEnd.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid flow specification feature.")
+				]
+			]
+			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a1.i1".assertEquals(name)
 				ownedFeatureGroupConnections.get(0) => [
 					"conn1".assertEquals(name)
@@ -2896,6 +2958,8 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				]
 			]
 		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 	
 	//Tests scope_ModalPath_inModeOrTransition

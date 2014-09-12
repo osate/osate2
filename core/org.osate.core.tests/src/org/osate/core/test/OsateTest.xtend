@@ -1,6 +1,7 @@
 package org.osate.core.test
 
 import java.io.ByteArrayInputStream
+import java.util.List
 import org.apache.log4j.Logger
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IProject
@@ -13,10 +14,17 @@ import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.jobs.IJobManager
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.ui.actions.WorkspaceModifyOperation
+import org.eclipse.xtext.diagnostics.Severity
+import org.eclipse.xtext.validation.Issue
+import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
+import org.junit.ComparisonFailure
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties
 import org.osate.core.AadlNature
+
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 
 /**
  * Add a couple of utility methods for managing files in the test workspace
@@ -139,5 +147,14 @@ class OsateTest extends XtextTest {
 		} catch (InterruptedException e) {
 			// just continue
 		}
+	}
+	
+	def protected static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection, String... expectedMessages) {
+		val errorsForEObject = allIssues.filter[severity == Severity::ERROR && uriToProblem == eObject.URI]
+		val errorMessagesForEObject = errorsForEObject.map[message]
+		if (errorMessagesForEObject.toSet != expectedMessages.toSet) {
+			throw new ComparisonFailure("", expectedMessages.join("\n"), errorMessagesForEObject.join("\n"))
+		}
+		errorsForEObject.forEach[issueCollection.addIssue(it)]
 	}
 }
