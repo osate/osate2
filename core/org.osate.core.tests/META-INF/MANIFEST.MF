@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.xtext.aadl2.tests
+Bundle-Name: org.osate.core.tests
 Bundle-Vendor: CMU/SEI
 Bundle-Version: 0.0.1.qualifier
 Bundle-SymbolicName: org.osate.core.tests;singleton:=true

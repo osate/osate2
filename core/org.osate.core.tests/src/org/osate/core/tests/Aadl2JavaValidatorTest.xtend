@@ -32,7 +32,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.tests
+package org.osate.core.tests
 
 import java.util.List
 import org.eclipse.emf.ecore.EObject
