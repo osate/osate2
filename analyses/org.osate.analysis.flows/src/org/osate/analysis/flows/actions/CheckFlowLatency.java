@@ -44,7 +44,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
@@ -100,13 +99,12 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 			Dialog.showError("Flow Latency Error", "Please select a system implementation instance");
 
 		}
-		OsateDebug.osateDebug("CheckFlowAnalysis", "analyzeInstanceModel in rework");
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, this);
 
 		flas.processPreOrderAll(root);
 
 		if (flas.getReport() != null) {
-			Report report = flas.getReport().export();
+			Report report = flas.getReport().export(som);
 
 			CsvExport csvExport = new CsvExport(report);
 			csvExport.save(root);

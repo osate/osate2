@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -530,7 +531,7 @@ public class LatencyReportEntry {
 		}
 	}
 
-	public Section export() {
+	public Section export(SystemOperationMode som) {
 
 		Section section;
 		Line line;
@@ -557,11 +558,12 @@ public class LatencyReportEntry {
 		} else {
 			sectionName = "Unnamed flow";
 		}
+		String inMode = som == null ? "" : " in mode " + som.getName();
 
-		section = new Section(sectionName + getSyncLabel());
+		section = new Section(sectionName + getSyncLabel() + inMode);
 
 		line = new Line();
-		line.addHeaderContent("Latency analysis for " + sectionName + " in " + getSyncModeName() + " system");
+		line.addHeaderContent("Latency analysis for " + sectionName + inMode + " in " + getSyncModeName() + " system");
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);

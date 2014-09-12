@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
 
@@ -43,16 +44,16 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
-	public Report export() {
+	public Report export(SystemOperationMode som) {
 		Report genericReport;
 
 		genericReport = new Report(this.relatedInstance, "latency", ReportType.TABLE);
 
 		for (LatencyReportEntry re : entries) {
 			re.resetAsynchronous();
-			genericReport.addSection(re.export());
+			genericReport.addSection(re.export(som));
 			re.resetSynchronous();
-			genericReport.addSection(re.export());
+			genericReport.addSection(re.export(som));
 		}
 
 		return genericReport;

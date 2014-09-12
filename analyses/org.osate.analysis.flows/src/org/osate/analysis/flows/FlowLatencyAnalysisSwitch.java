@@ -102,16 +102,4 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		};
 	}
 
-	/**
-	 * convert us to ms if desired
-	 * @param usval value in micro sec
-	 * @return value in milli sec
-	 */
-	private static String convertUStoOutputUnit(final double usval) {
-		if (usval < 1000) {
-			return usval + " us";
-		}
-		return (usval / 1000) + " ms";
-	}
-
 }
