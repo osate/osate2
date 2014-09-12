@@ -726,7 +726,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkConsistentFlowKind(FlowImplementation flowimpl) {
 		FlowKind implkind = flowimpl.getKind();
 		FlowSpecification spec = flowimpl.getSpecification();
-		if (spec != null) {
+		if (spec != null && !spec.eIsProxy()) {
 			FlowKind speckind = spec.getKind();
 			if (implkind != speckind) {
 				error(flowimpl, "Flow implementation " + spec.getName() + " must be a flow " + speckind.getName()
