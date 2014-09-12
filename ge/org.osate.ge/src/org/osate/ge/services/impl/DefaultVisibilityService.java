@@ -24,6 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.VisibilityService;
@@ -123,6 +124,9 @@ public class DefaultVisibilityService implements VisibilityService {
 			if((connectionTypeFilter == null && tmpConnectionType == null) || (connectionTypeFilter != null && connectionTypeFilter.equals(tmpConnectionType))) {
 				boolean ghost = false;
 				final Object bo = bor.getBusinessObjectForPictogramElement(connection);
+				if(bo instanceof NamedElement) {
+					System.err.println(((NamedElement) bo).getQualifiedName());
+				}
 				// If the business object is not valid, ghost the connection
 				if(!(bo instanceof EObject)) {
 					ghost = true;

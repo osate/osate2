@@ -551,7 +551,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final int innerX = featureGa.getX() + (isLeft ? featureWidth : featureGa.getWidth() - featureWidth);
 		final int outerX = featureGa.getX() + (isLeft ? 0 : featureGa.getWidth());
 		final int connectorY = featureGa.getY() + (featureGa.getHeight() / 2);
-		final int flowSpecConnectorY = feature instanceof FeatureGroup ? featureGa.getHeight() - 5 : connectorY;
+		final int flowSpecConnectorY = connectorY;
 		final int offset = isLeft ? 50 : -50;
 
 		// Create anchors		
