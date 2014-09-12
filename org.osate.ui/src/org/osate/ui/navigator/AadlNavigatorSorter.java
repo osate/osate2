@@ -1,5 +1,7 @@
 package org.osate.ui.navigator;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -17,6 +19,12 @@ public class AadlNavigatorSorter extends ViewerSorter {
 		} else if(e2IsPluginResources) {
 			return -1;
 		} else {
+			if(e1 instanceof IFile && e2 instanceof IContainer) {
+				return 1;
+			} else if(e1 instanceof IContainer && e2 instanceof IFile) {
+				return -1;
+			}
+			
 			return super.compare(viewer, e1, e2);
 		}
 	}
