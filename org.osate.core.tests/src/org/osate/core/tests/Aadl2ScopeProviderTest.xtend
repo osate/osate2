@@ -62,7 +62,8 @@ import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SubprogramType
 import org.osate.aadl2.modelsupport.util.AadlUtil
-import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
+import org.osate.core.test.Aadl2UiInjectorProvider
+import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 

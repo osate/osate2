@@ -51,7 +51,8 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.SubprogramImplementation
 import org.osate.aadl2.SubprogramType
-import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
+import org.osate.core.test.Aadl2UiInjectorProvider
+import org.osate.core.test.OsateTest
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.junit.Assert.assertEquals

@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SubprogramImplementation
-import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
+import org.osate.core.test.Aadl2UiInjectorProvider
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
