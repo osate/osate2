@@ -377,13 +377,18 @@ public class LatencyReportEntry {
 				} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc)) || isPreviousConnectionSynchronous(lc))
 						&& wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
-//				     double cumMin = getMinimumCumLatency(lc);
-//				     double framediff = FlowLatencyUtil.roundUp(getMaximumCumLatency(lc), lc.getSamplingPeriod())
-//				       - FlowLatencyUtil.roundUp(cumMin, lc.getSamplingPeriod());
-//				     diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff; //FlowLatencyUtil.roundUp(getMaximumCumLatency(lc), lc.getSamplingPeriod())
-//				     res = res + diff;
-					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());// FlowLatencyUtil.roundUp(getMaximumCumLatency(lc),
-// lc.getSamplingPeriod())
+					double cumMin = getMinimumCumLatency(lc);
+					// for delayed the frame delay for the minimum and the maximum should be the same
+					// if both cumulative are within the same frame we are ok
+					// if one of them goes into the next frame we give a warning
+					double framediff = FlowLatencyUtil.roundUp(getMaximumCumLatency(lc), lc.getSamplingPeriod())
+							- FlowLatencyUtil.roundUp(cumMin, lc.getSamplingPeriod());
+					if (framediff > 0) {
+						lc.reportWarning(getMinMaxLabel(doMaximum)
+								+ "Min and max delay for delayed connection differ by a frame or more");
+					}
+//				     double diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff; 
+					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
 					res = res + diff;
 					lc.reportSubtotal(res, doMaximum);
 					lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
