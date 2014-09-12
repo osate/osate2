@@ -370,7 +370,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_Prototype_refined, scope_Subcomponent_refined, scope_Feature_refined, and scope_Connection_refined
+	//Tests scope_Prototype_refined, scope_Subcomponent_refined, scope_Feature_refined, scope_Connection_refined, and scope_FlowSpecification_refined
 	@Test
 	def void testRefinedElements() {
 		('''
@@ -389,6 +389,8 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			    ba1: provides bus access;
 			    da1: provides data access;
 			    af1: feature;
+			  flows
+			    fsource1: flow source af1;
 			  end a1;
 			  
 			  abstract a2 extends a1
@@ -404,6 +406,9 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			    ba1: refined to provides bus access;
 			    da1: refined to provides data access;
 			    af1: refined to feature;
+			  flows
+			    fsource1: refined to flow source;
+			    fsource2: flow source af1;
 			  end a2;
 			  
 			  feature group fgt1
@@ -533,6 +538,11 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					//Tests scope_Feature_refined
 					assertScope(Aadl2Package::eINSTANCE.feature_Refined, #[])
 				]
+				ownedFlowSpecifications.head => [
+					"fsource1".assertEquals(name)
+					//Tests scope_FlowSpecification_refined
+					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #[])
+				]
 			]
 			publicSection.ownedClassifiers.get(1) as AbstractType => [
 				"a2".assertEquals(name)
@@ -586,6 +596,16 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					"af1".assertEquals(name)
 					//Tests scope_Feature_refined
 					assertScope(Aadl2Package::eINSTANCE.feature_Refined, refinedFeatureScopeForA2)
+				]
+				ownedFlowSpecifications.get(0) => [
+					"fsource1".assertEquals(name)
+					//Tests scope_FlowSpecification_refined
+					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #["fsource1"])
+				]
+				ownedFlowSpecifications.get(1) => [
+					"fsource2".assertEquals(name)
+					//Tests scope_FlowSpecification_refined
+					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #["fsource1"])
 				]
 			]
 			publicSection.ownedClassifiers.get(2) as FeatureGroupType=> [
