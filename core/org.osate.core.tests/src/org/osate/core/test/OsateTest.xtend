@@ -1,4 +1,4 @@
-package org.osate.core.tests
+package org.osate.core.test
 
 import java.io.ByteArrayInputStream
 import org.apache.log4j.Logger

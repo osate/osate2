@@ -15,7 +15,8 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.xtext.aadl2.Aadl2UiInjectorProvider
+import org.osate.core.test.Aadl2UiInjectorProvider
+import org.osate.core.test.OsateTest
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
