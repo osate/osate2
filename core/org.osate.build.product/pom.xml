@@ -47,6 +47,7 @@
           <products>
             <product>
               <id>osate2</id>
+              <archiveFileName>osate2-${unqualifiedVersion}-${buildQualifier}</archiveFileName>
               <rootFolder>osate2</rootFolder>
             </product>
           </products>
