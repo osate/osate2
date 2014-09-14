@@ -324,7 +324,7 @@ public class LatencyReportEntry {
 				}
 				// remember the partition in all cases as a sampling unit
 				lastSampled = lc;
-			} else if (lc.isPartitionIODelay()) {
+			} else if (lc.isPartitionOutputDelay()) {
 				// deal with partition I/O delay, then add communication latency
 				// do it as major frame delay or as partition end delay depending on preference setting
 				if (Values.doMajorFrameDelay()) {

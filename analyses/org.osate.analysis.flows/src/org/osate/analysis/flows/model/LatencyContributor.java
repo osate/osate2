@@ -41,7 +41,7 @@ public abstract class LatencyContributor {
 	// Partition IO: I/O delay to partition window end or major frame
 
 	public enum LatencyContributorMethod {
-		UNKNOWN, DEADLINE, PROCESSING_TIME, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_IO
+		UNKNOWN, DEADLINE, PROCESSING_TIME, DELAYED, SAMPLED, FIRST_SAMPLED, SPECIFIED, QUEUED, TRANSMISSION_TIME, PARTITION_FRAME, PARTITION_SCHEDULE, PARTITION_OUTPUT
 	};
 
 	/**
@@ -303,8 +303,8 @@ public abstract class LatencyContributor {
 			return "partition schedule";
 		case TRANSMISSION_TIME:
 			return "transmission time";
-		case PARTITION_IO:
-			return "partition I/O";
+		case PARTITION_OUTPUT:
+			return "partition output";
 		}
 		return "no latency";
 	}
@@ -399,8 +399,8 @@ public abstract class LatencyContributor {
 		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_SCHEDULE);
 	}
 
-	public boolean isPartitionIODelay() {
-		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_IO);
+	public boolean isPartitionOutputDelay() {
+		return worstCaseMethod.equals(LatencyContributorMethod.PARTITION_OUTPUT);
 	}
 
 	public boolean isSamplingContributor() {

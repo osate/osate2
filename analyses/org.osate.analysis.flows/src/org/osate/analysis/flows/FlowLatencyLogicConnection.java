@@ -48,8 +48,8 @@ public class FlowLatencyLogicConnection {
 		// if we exit a partition then we may have I/O Delay until the end of the partition window or the end of the major frame
 		if (srcPartition != null && srcPartition != dstPartition) {
 			LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition);
-			ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_IO);
-			ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_IO);
+			ioLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
+			ioLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_OUTPUT);
 			double partitionLatency = FlowLatencyUtil.getPartitionLatency(srcPartition);
 			double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(srcPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition);
