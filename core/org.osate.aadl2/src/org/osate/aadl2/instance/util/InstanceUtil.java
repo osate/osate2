@@ -65,6 +65,7 @@ import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 
 /**
  * @author lwrage
@@ -444,6 +445,12 @@ public class InstanceUtil {
 			}
 		}
 		return result;
+	}
+
+	public static final String NORMAL_SOM_NAME = "No Modes";
+
+	public static boolean isNoMode(SystemOperationMode som) {
+		return som.getName().equals(NORMAL_SOM_NAME);
 	}
 
 }
