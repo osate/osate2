@@ -33,7 +33,7 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 						{ "No", Constants.REPORT_SUBTOTALS_NO } }, getFieldEditorParent(), true);
 		addField(reportSubtotals);
 		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
-				"Partition I/O Policy", 1, new String[][] {
+				"Partition Output Policy", 1, new String[][] {
 						{ "Partition End", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
 						{ "Major Frame Delayed", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
 				getFieldEditorParent(), true);

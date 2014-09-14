@@ -304,7 +304,7 @@ public abstract class LatencyContributor {
 		case TRANSMISSION_TIME:
 			return "transmission time";
 		case PARTITION_OUTPUT:
-			return "partition output";
+			return "partition output" + (Values.doMajorFrameDelay() ? " (MF)" : " (PE)");
 		}
 		return "no latency";
 	}

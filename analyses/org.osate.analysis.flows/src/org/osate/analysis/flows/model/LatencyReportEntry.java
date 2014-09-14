@@ -86,6 +86,13 @@ public class LatencyReportEntry {
 		return result;
 	}
 
+	/** 
+	 * get cumulative latency since last sampled component. Ignore any sampling contributors.
+	 * do not include current.
+	 * @param current LatencyContributor
+	 * @param doMax boolean true do max, false do min
+	 * @return sum of latencies
+	 */
 	public double getCumLatency(LatencyContributor current, boolean doMax) {
 		if (doMax)
 			return getMaximumCumLatency(current);
@@ -331,11 +338,23 @@ public class LatencyReportEntry {
 					// round up to next major frame
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
 					res = res + diff;
+					if (doMaximum) {
+						lc.setMaximum(diff);
+					} else {
+						lc.setMinimum(diff);
+					}
+					lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
 				} else {
 					// round up to window duration. Note the cumulative could be more than the window
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod(),
 							lc.getPartitionDuration());
 					res = res + diff;
+					if (doMaximum) {
+						lc.setMaximum(diff);
+					} else {
+						lc.setMinimum(diff);
+					}
+					lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
 				}
 				lc.reportSubtotal(res, doMaximum);
 			} else {
