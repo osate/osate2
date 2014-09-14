@@ -145,6 +145,7 @@ public class FlowLatencyLogicConnection {
 		if (VPres > 0.0 && ARINC653res > 0.0) {
 			// TODO they should be the same
 		}
+		// TODO also compare major frame from schedule against major frame from property of processor
 	}
 
 	public static void processBoundBus(ComponentInstance boundBus, Classifier relatedConnectionData,

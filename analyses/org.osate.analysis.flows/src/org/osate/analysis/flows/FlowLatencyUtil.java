@@ -255,6 +255,9 @@ public class FlowLatencyUtil {
 			Collection<ComponentInstance> procs = InstanceModelUtil.getBoundPhysicalProcessors(vproc);
 			for (ComponentInstance proc : procs) {
 				res = GetProperties.getARINC653ModuleMajorFrame(proc);
+				if (res == 0.0) {
+					res = FlowLatencyUtil.getARINC653ProcessorMajorFrameFromSchedule(proc);
+				}
 				if (res > 0.0) {
 					return vproc;
 				}
@@ -317,6 +320,36 @@ public class FlowLatencyUtil {
 			res = GetProperties.getARINC653ModuleMajorFrame(proc);
 			if (res > 0.0) {
 				return res;
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * Get the major frame from the processor supporting ARINC653 partitions from its schedule
+	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
+	 * @return partition period supported by processor
+	 */
+	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance componentInstance) {
+		double res = 0.0;
+		if (InstanceModelUtil.isProcessor(componentInstance)) {
+			List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(componentInstance);
+			if ((schedule != null) && (schedule.size() > 0)) {
+				for (ARINC653ScheduleWindow window : schedule) {
+					res = res + window.getTime();
+				}
+				return res;
+			}
+		} else {
+			Collection<ComponentInstance> processors = InstanceModelUtil.getBoundPhysicalProcessors(componentInstance);
+			for (ComponentInstance proc : processors) {
+				List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(proc);
+				if ((schedule != null) && (schedule.size() > 0)) {
+					for (ARINC653ScheduleWindow window : schedule) {
+						res = res + window.getTime();
+					}
+					return res;
+				}
 			}
 		}
 		return res;
@@ -533,6 +566,9 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionLatency(ComponentInstance ci) {
 		double res = FlowLatencyUtil.getARINC653ProcessorMajorFrame(ci);
+		if (res == 0.0) {
+			res = FlowLatencyUtil.getARINC653ProcessorMajorFrameFromSchedule(ci);
+		}
 		if (res == 0.0) {
 			res = FlowLatencyUtil.getVirtualProcessorPartitionPeriod(ci);
 		}

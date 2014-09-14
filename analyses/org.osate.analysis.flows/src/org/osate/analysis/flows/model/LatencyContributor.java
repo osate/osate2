@@ -353,8 +353,8 @@ public abstract class LatencyContributor {
 		for (LatencyContributor lc : subContributors) {
 			res = res + lc.getTotalMinimum();
 		}
-		if (this instanceof LatencyContributorComponent)
-			reportSubtotal(res, false);
+//	XXX	if (this instanceof LatencyContributorConnection)
+//			reportSubtotal(res, false);
 		return res;
 	}
 
@@ -363,8 +363,8 @@ public abstract class LatencyContributor {
 		for (LatencyContributor lc : subContributors) {
 			res = res + lc.getTotalMaximum();
 		}
-		if (this instanceof LatencyContributorComponent)
-			reportSubtotal(res, true);
+//		if (this instanceof LatencyContributorComponent)
+//			reportSubtotal(res, true);
 		return res;
 	}
 
@@ -453,6 +453,13 @@ public abstract class LatencyContributor {
 
 		lines = new ArrayList<Line>();
 
+		/**
+		 * We also add the lines of all the sub-contributors.
+		 */
+		for (LatencyContributor lc : this.subContributors) {
+			lines.addAll(lc.export(level + 1));
+		}
+
 		myLine = new Line();
 		myLine.setSeverity(ReportSeverity.INFO);
 
@@ -470,7 +477,12 @@ public abstract class LatencyContributor {
 			myLine.addContent(this.getTotalMinimum() + "ms");
 		}
 		if (Values.doReportSubtotals()) {
-			myLine.addContent(levelOpenLabel(level) + this.minSubtotal + "ms" + levelCloseLabel(level));
+			// don't report subtotals for subcontributors
+			if (level > 0) {
+				myLine.addContent("");
+			} else {
+				myLine.addContent(levelOpenLabel(level) + this.minSubtotal + "ms" + levelCloseLabel(level));
+			}
 		}
 		myLine.addContent(mapMethodToString(bestCaseMethod));
 		if (this.expectedMax != 0.0) {
@@ -485,18 +497,16 @@ public abstract class LatencyContributor {
 			myLine.addContent(this.getTotalMaximum() + "ms");
 		}
 		if (Values.doReportSubtotals()) {
-			myLine.addContent(levelOpenLabel(level) + this.maxSubtotal + "ms" + levelCloseLabel(level));
+			// don't report subtotals for subcontributors
+			if (level > 0) {
+				myLine.addContent("");
+			} else {
+				myLine.addContent(levelOpenLabel(level) + this.maxSubtotal + "ms" + levelCloseLabel(level));
+			}
 		}
 		myLine.addContent(mapMethodToString(worstCaseMethod));
 		myLine.addCells(this.getReportedIssues());
 		lines.add(myLine);
-
-		/**
-		 * We also add the lines of all the sub-contributors.
-		 */
-		for (LatencyContributor lc : this.subContributors) {
-			lines.addAll(lc.export(level + 1));
-		}
 		return lines;
 	}
 }
