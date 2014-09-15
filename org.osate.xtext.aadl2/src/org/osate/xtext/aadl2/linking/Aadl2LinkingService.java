@@ -418,29 +418,9 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getFlowElement() == requiredType) {
 			// look for flow element in flow segment
 			FlowSegment fs = (FlowSegment) context;
-			Context flowContext = fs.getContext();
-			if (Aadl2Util.isNull(flowContext)) {
-				ComponentImplementation cc = fs.getContainingComponentImpl();
-				if (Aadl2Util.isNull(cc)) {
-					return Collections.<EObject> emptyList();
-				}
-				;
-				EObject searchResult = cc.findNamedElement(name);
-				if (searchResult instanceof FlowElement) {
-					return Collections.singletonList(searchResult);
-				}
-			} else {
-				if (flowContext instanceof Subcomponent) {
-					ComponentType cc = ((Subcomponent) flowContext).getComponentType();
-					if (Aadl2Util.isNull(cc)) {
-						return Collections.<EObject> emptyList();
-					}
-					;
-					EObject searchResult = cc.findNamedElement(name);
-					if (searchResult instanceof FlowSpecification) {
-						return Collections.singletonList(searchResult);
-					}
-				}
+			FlowElement flowElement = findElementInContext(fs, fs.getContext(), name, FlowElement.class);
+			if (flowElement != null) {
+				return Collections.singletonList((EObject) flowElement);
 			}
 			return Collections.<EObject> emptyList();
 
