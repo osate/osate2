@@ -261,11 +261,11 @@ public abstract class LatencyContributor {
 	}
 
 	public void setPartitionDuration(double val) {
-		this.partitionOffset = val;
+		this.partitionDuration = val;
 	}
 
 	public double getMaxSubtotal() {
-		return this.partitionDuration;
+		return this.maxSubtotal;
 	}
 
 	public void setMaxSubtotal(double val) {
