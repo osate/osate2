@@ -46,7 +46,7 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 		RadioGroupFieldEditor detailsMarkers = new RadioGroupFieldEditor(Constants.DETAILS_MARKERS,
 				"Generate Latency Details Markers", 1, new String[][] { { "Yes", Constants.DETAILS_MARKERS_YES },
 						{ "No", Constants.DETAILS_MARKERS_NO } }, getFieldEditorParent(), true);
-		addField(reportSubtotals);
+		addField(detailsMarkers);
 		// First tab: configuration of Ocarina
 //		addTab("Flow Analysis");
 
