@@ -61,12 +61,14 @@ import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.SubprogramImplementation
 import org.osate.aadl2.SubprogramType
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.junit.Assert.assertNull
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
@@ -3116,6 +3118,713 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				]
 			]
 		]
+	}
+	
+	//Tests scope_FlowSegment_context and scope_FlowSegment_flowElement
+	@Test
+	def void testFlowSegments() {
+		createFiles("flowSegmentScopeTest.aadl" -> '''
+			package flowSegmentScopeTest
+			public
+				abstract a1
+				prototypes
+					fgproto1: feature group fgt1;
+					aproto1: abstract a2.i;
+					subpproto1: subprogram subp1.i;
+					subpgproto1: subprogram group subpg1;
+				features
+					af1: feature;
+					da1: provides data access;
+					subpa1: provides subprogram access subp1.i;
+					subpa2: provides subprogram access subpproto1;
+					subpga1: provides subprogram group access subpg1;
+					subpga2: provides subprogram group access subpgproto1;
+					dp1: in data port;
+					edp1: in event data port;
+					fg1: feature group fgt1;
+					fg2: feature group fgproto1;
+				flows
+					fsource1: flow source af1;
+					fsource2: flow source af1;
+					fsource3: flow source af1;
+					fsource4: flow source af1;
+					fsource5: flow source af1;
+					fsource6: flow source af1;
+					fsource7: flow source af1;
+					fsource8: flow source af1;
+					fsource9: flow source af1;
+					fsource10: flow source af1;
+					fsource11: flow source af1;
+					fsource12: flow source af1;
+					fsource13: flow source af1;
+					fsource14: flow source af1;
+					fsource15: flow source af1;
+					fsource16: flow source af1;
+					fsource17: flow source af1;
+					fsource18: flow source af1;
+					fsource19: flow source af1;
+				end a1;
+				
+				abstract implementation a1.i
+				subcomponents
+					asub1: abstract a2.i;
+					asub2: abstract aproto1;
+					subpsub1: subprogram subp1.i;
+					subpsub2: subprogram subpproto1;
+					subpgsub1: subprogram group subpg1;
+					subpgsub2: subprogram group subpg1 (subpproto5 => subprogram subp1.i);
+					subpgsub3: subprogram group subpgproto1;
+				calls sequence1: {
+					call1: subprogram subp1.i;
+					call2: subprogram subpsub1;
+					call3: subprogram subpsub2;
+					call4: subprogram subpproto1;
+					call5: subprogram subpa1;
+					call6: subprogram subpa2;
+					call7: subprogram subp1.subpa4;
+					call8: subprogram fg1.subpa3;
+«««					call9: subprogram fg2.subpa3;
+«««					call10: subprogram subpga1.subpa5;
+«««					call11: subprogram subpga2.subpa5;
+					call12: subprogram subpgsub1.subpa5;
+					call13: subprogram subpgsub2.subpa6;
+«««					call14: subprogram subpgsub3.subpa5;
+				};
+				connections
+					fconn1: feature asub1.af2 -> af1;
+				flows
+					fsource1: flow source asub1 -> fconn1 -> af1;
+					fsource2: flow source fg1.da3 -> fconn1 -> af1;
+					fsource3: flow source fg2.da3 -> fconn1 -> af1;
+					fsource4: flow source asub1.fsource20 -> fconn1 -> af1;
+					fsource5: flow source asub2.fsource20 -> fconn1 -> af1;
+					fsource6: flow source call1.da4 -> fconn1 -> af1;
+					fsource7: flow source call2.da4 -> fconn1 -> af1;
+					fsource8: flow source call3.da4 -> fconn1 -> af1;
+					fsource9: flow source call4.da4 -> fconn1 -> af1;
+					fsource10: flow source call5.da4 -> fconn1 -> af1;
+					fsource11: flow source call6.da4 -> fconn1 -> af1;
+					fsource12: flow source call7.da4 -> fconn1 -> af1;
+					fsource13: flow source call8.da4 -> fconn1 -> af1;
+«««					fsource14: flow source call9.da4 -> fconn1 -> af1;
+«««					fsource15: flow source call10.da4 -> fconn1 -> af1;
+«««					fsource16: flow source call11.da4 -> fconn1 -> af1;
+					fsource17: flow source call12.da4 -> fconn1 -> af1;
+					fsource18: flow source call13.da4 -> fconn1 -> af1;
+«««					fsource19: flow source call14.da4 -> fconn1 -> af1;
+				end a1.i;
+				
+				abstract a2
+				features
+					af2: feature;
+					da2: provides data access;
+				flows
+					fsource20: flow source af2;
+				end a2;
+				
+				abstract implementation a2.i
+				subcomponents
+					asub3: abstract;
+				connections
+					fconn2: feature af2 -> af2;
+				end a2.i;
+				
+				feature group fgt1
+				prototypes
+					subpproto2: subprogram subp1.i;
+				features
+					da3: provides data access;
+					subpa3: provides subprogram access subpproto2;
+				end fgt1;
+				
+				subprogram subp1
+				prototypes
+					aproto2: abstract a2.i;
+					subpproto3: subprogram subp1.i;
+				features
+					af3: feature;
+					da4: requires data access;
+					subpa4: requires subprogram access subpproto3;
+					param1: in parameter a2.i;
+					param2: in parameter aproto2;
+				flows
+					fsource21: flow source af3;
+					fsource22: flow source af3;
+				end subp1;
+				
+				subprogram implementation subp1.i
+				subcomponents
+					asub4: abstract a2.i;
+				connections
+					fconn3: feature asub4.af2 -> af3;
+				flows
+					fsource21: flow source param1.da2 -> fconn3 -> af3;
+					fsource22: flow source param2.da2 -> fconn3 -> af3;
+				end subp1.i;
+				
+				subprogram group subpg1
+				prototypes
+					subpproto4: subprogram subp1.i;
+					subpproto5: subprogram;
+				features
+					subpa5: provides subprogram access subpproto4;
+					subpa6: provides subprogram access subpproto5;
+				end subpg1;
+			end flowSegmentScopeTest;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("flowSegmentScopeTest.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"flowSegmentScopeTest".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
+				"a1.i".assertEquals(name)
+				ownedFlowImplementations.get(0) => [
+					"fsource1".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						context.assertNull
+						"asub1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(1) => [
+					"fsource2".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"fg1".assertEquals(context.name)
+						"da3".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Feature Group.Data Access 'fg1.da3'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["da3"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(2) => [
+					"fsource3".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"fg2".assertEquals(context.name)
+						"da3".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Feature Group.Data Access 'fg2.da3'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["da3"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(3) => [
+					"fsource4".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"asub1".assertEquals(context.name)
+						"fsource20".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn2", "fsource20"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(4) => [
+					"fsource5".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"asub2".assertEquals(context.name)
+						"fsource20".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn2", "fsource20"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(5) => [
+					"fsource6".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call1".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call1.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(6) => [
+					"fsource7".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call2".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call2.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(7) => [
+					"fsource8".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call3".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call3.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(8) => [
+					"fsource9".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call4".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call4.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(9) => [
+					"fsource10".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call5".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call5.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(10) => [
+					"fsource11".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call6".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call6.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(11) => [
+					"fsource12".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call7".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call7.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(12) => [
+					"fsource13".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call8".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call8.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(13) => [
+					"fsource17".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call12".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call12.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+					]
+				]
+				ownedFlowImplementations.get(14) => [
+					"fsource18".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+						"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+						"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
+					ownedFlowSegments.get(0) => [
+						"call13".assertEquals(context.name)
+						"da4".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call13.da4'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn1".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fsource1", "fsource10", "fsource11",
+							"fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2", "fsource3",
+							"fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"subpsub2"
+						])
+					]
+				]
+			]
+			publicSection.ownedClassifiers.get(6) as SubprogramImplementation => [
+				"subp1.i".assertEquals(name)
+				ownedFlowImplementations.get(0) => [
+					"fsource21".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					ownedFlowSegments.get(0) => [
+						"param1".assertEquals(context.name)
+						"da2".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Data Access 'param1.da2'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn2", "fsource20"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn3".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+				]
+				ownedFlowImplementations.get(1) => [
+					"fsource22".assertEquals(specification.name)
+					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					ownedFlowSegments.get(0) => [
+						"param2".assertEquals(context.name)
+						"da2".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Data Access 'param2.da2'")
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn2", "fsource20"])
+					]
+					ownedFlowSegments.get(1) => [
+						context.assertNull
+						"fconn3".assertEquals(flowElement.name)
+						//Tests scope_FlowSegment_context
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn3", "fsource21", "fsource22"])
+					]
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 	
 	def private assertScope(EObject context, EReference reference, Iterable<String> expected) {
