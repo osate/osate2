@@ -726,7 +726,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkConsistentFlowKind(FlowImplementation flowimpl) {
 		FlowKind implkind = flowimpl.getKind();
 		FlowSpecification spec = flowimpl.getSpecification();
-		if (spec != null) {
+		if (spec != null && !spec.eIsProxy()) {
 			FlowKind speckind = spec.getKind();
 			if (implkind != speckind) {
 				error(flowimpl, "Flow implementation " + spec.getName() + " must be a flow " + speckind.getName()
@@ -763,20 +763,37 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (connNext) {
 				// expecting a connection
 				connNext = !connNext;
-				if (!(fe instanceof Connection)) {
-					error(flow, "Expected connection, found "
-							+ (fe instanceof FlowSpecification ? "flow spec " : "subcomponent ") + fe.getName());
+				if (!fe.eIsProxy() && !(fe instanceof Connection)) {
+					StringBuilder errorMessage = new StringBuilder("Expected Connection, found ");
+					errorMessage.append(getEClassDisplayName(fe.eClass()));
+					errorMessage.append(" '");
+					errorMessage.append(fe.getName());
+					errorMessage.append("'");
+					error(flowSegment, errorMessage.toString());
 				}
 			} else {
 				// expecting a component and flow spec
 				connNext = !connNext;
-				if (!(fe instanceof Subcomponent || (fe instanceof FlowSpecification && flowSegment.getContext() instanceof Subcomponent))) {
-					error(flow,
-							"Expected subcomponent/flow spec, found connection "
-									+ (Aadl2Util.isNull(flowSegment.getContext()) ? "" : flowSegment.getContext()
-											.getName()) + "." + fe.getName());
+				if (!fe.eIsProxy()
+						&& (flowSegment.getContext() == null || !flowSegment.getContext().eIsProxy())
+						&& !((flowSegment.getContext() == null && (fe instanceof DataAccess || fe instanceof Subcomponent)) || (flowSegment
+								.getContext() instanceof Subcomponent && fe instanceof FlowSpecification))) {
+					StringBuilder errorMessage = new StringBuilder(
+							"Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found ");
+					if (flowSegment.getContext() != null) {
+						errorMessage.append(getEClassDisplayName(flowSegment.getContext().eClass()));
+						errorMessage.append(".");
+					}
+					errorMessage.append(getEClassDisplayName(fe.eClass()));
+					errorMessage.append(" '");
+					if (flowSegment.getContext() != null) {
+						errorMessage.append(flowSegment.getContext().getName());
+						errorMessage.append(".");
+					}
+					errorMessage.append(fe.getName());
+					errorMessage.append("'");
+					error(flowSegment, errorMessage.toString());
 				}
-
 			}
 		}
 	}
@@ -3712,19 +3729,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof AccessConnectionEnd)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " is not a valid access connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
 				|| connectionContext instanceof SubprogramCall) {
 			if (!(connectionEnd instanceof Access)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid access connection end.",
-						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
+						+ " is not a valid access connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else {
-			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 					+ " is not a valid access connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
@@ -3740,19 +3758,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof FeatureConnectionEnd)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " is not a valid feature connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
 				|| connectionContext instanceof SubprogramCall) {
 			if (!(connectionEnd instanceof Feature)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid feature connection end.",
-						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
+						+ " is not a valid feature connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else {
-			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 					+ " is not a valid feature connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
@@ -3768,19 +3787,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof FeatureGroupConnectionEnd)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " is not a valid feature group connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup) {
 			if (!(connectionEnd instanceof FeatureGroupConnectionEnd)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass())
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid feature group connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else {
-			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 					+ " is not a valid feature group connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
@@ -3796,34 +3815,34 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof ParameterConnectionEnd)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " is not a valid parameter connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof Parameter || connectionContext instanceof DataPort
 				|| connectionContext instanceof EventDataPort) {
 			if (!(connectionEnd instanceof DataSubcomponent)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass())
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid parameter connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof SubprogramCall) {
 			if (!(connectionEnd instanceof Parameter)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass())
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid parameter connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof FeatureGroup) {
 			if (!(connectionEnd instanceof ParameterConnectionEnd)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass())
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid parameter connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else {
-			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 					+ " is not a valid parameter connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
@@ -3839,38 +3858,41 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (connectionContext == null) {
 			if (!(connectionEnd instanceof PortConnectionEnd)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass()))
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " is not a valid port connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof FeatureGroup || connectionContext instanceof SubprogramCall) {
 			if (!(connectionEnd instanceof PortConnectionEnd) || connectionEnd instanceof InternalFeature
 					|| connectionEnd instanceof PortProxy) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid port connection end.",
-						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
+						+ " is not a valid port connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof Subcomponent) {
 			if (!(connectionEnd instanceof Port || connectionEnd instanceof DataAccess)
 					&& !(connectionContext instanceof DataSubcomponent && connectionEnd instanceof DataSubcomponent)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid port connection end.",
-						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
+						+ " is not a valid port connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else if (connectionContext instanceof DataPort || connectionContext instanceof EventDataPort) {
 			if (!(connectionEnd instanceof DataSubcomponent)) {
-				error(StringExtensions.toFirstUpper(getEClassDisplayName(connectionEnd.eClass())) + " in "
-						+ getEClassDisplayName(connectionContext.eClass()) + " is not a valid port connection end.",
-						connectedElement, Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
+						+ " is not a valid port connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
 			}
 		} else {
-			error("Anything in " + getEClassDisplayName(connectionContext.eClass())
+			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 					+ " is not a valid port connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
 		}
 	}
 
-	private static String getEClassDisplayName(EClass eClass) {
+	private static String getEClassDisplayNameWithIndefiniteArticle(EClass eClass) {
 		StringBuilder displayName = new StringBuilder(eClass.getName());
 		for (int i = displayName.length() - 1; i > 0; i--) {
 			if (Character.isUpperCase(displayName.charAt(i))) {
@@ -3884,6 +3906,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		displayName.append('\'');
 		return displayName.toString().toLowerCase();
+	}
+
+	private static String getEClassDisplayName(EClass eClass) {
+		StringBuilder displayName = new StringBuilder(eClass.getName());
+		for (int i = displayName.length() - 1; i > 0; i--) {
+			if (Character.isUpperCase(displayName.charAt(i))) {
+				displayName.insert(i, ' ');
+			}
+		}
+		return displayName.toString();
 	}
 
 	/**
@@ -4203,7 +4235,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		if (flowEndContext != null && !(flowEndContext instanceof FeatureGroup)) {
-			error("Anything in " + getEClassDisplayName(flowEndContext.eClass())
+			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(flowEndContext.eClass())
 					+ " is not a valid flow specification feature.", flowEnd,
 					Aadl2Package.eINSTANCE.getFlowEnd_Context());
 		} else if (!(flowFeature instanceof DataAccess) && !(flowFeature instanceof AbstractFeature)
