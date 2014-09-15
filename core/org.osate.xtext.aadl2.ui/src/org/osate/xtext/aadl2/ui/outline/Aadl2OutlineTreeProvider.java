@@ -43,6 +43,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.label.StylerFactory;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -147,6 +148,10 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected boolean _isLeaf(FlowSpecification flowspec) {
+		return true;
+	}
+
+	protected boolean _isLeaf(AnnexSubclause as) {
 		return true;
 	}
 

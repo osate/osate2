@@ -44,6 +44,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.BusAccess;
@@ -322,6 +323,18 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 			return "Property " + ele.getProperty().getName();
 		}
 		return "Property";
+	}
+
+	String text(AnnexSubclause as) {
+
+		String ret;
+
+		ret = "Annex";
+
+		if (as.getName() != null) {
+			ret += " " + as.getName();
+		}
+		return ret;
 	}
 
 	String text(BasicPropertyAssociation ele) {
