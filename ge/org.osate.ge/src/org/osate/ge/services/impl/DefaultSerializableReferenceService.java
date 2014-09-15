@@ -134,12 +134,13 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	}
 	
 	private String getNameForSerialization(final NamedElement ne) {
-		return (ne == null || ne.getName() == null) ? "null" : ne.getName();
+		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
 	}
 	
 	private String buildModeTransitionKey(final ModeTransition mt) {
 		String result = "mode_transition ";
 		result += mt.getContainingClassifier().getQualifiedName();
+		result += " " + getNameForSerialization(mt);
 		result += " " + getNameForSerialization(mt.getSource());
 		result += " " + getNameForSerialization(mt.getDestination());
 		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {

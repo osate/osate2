@@ -124,9 +124,7 @@ public class DefaultVisibilityService implements VisibilityService {
 			if((connectionTypeFilter == null && tmpConnectionType == null) || (connectionTypeFilter != null && connectionTypeFilter.equals(tmpConnectionType))) {
 				boolean ghost = false;
 				final Object bo = bor.getBusinessObjectForPictogramElement(connection);
-				if(bo instanceof NamedElement) {
-					System.err.println(((NamedElement) bo).getQualifiedName());
-				}
+
 				// If the business object is not valid, ghost the connection
 				if(!(bo instanceof EObject)) {
 					ghost = true;
