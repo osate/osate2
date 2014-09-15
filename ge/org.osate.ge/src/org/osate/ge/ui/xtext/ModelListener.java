@@ -19,7 +19,6 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 // Model Listener that delegates the work to registered listeners
 public class ModelListener {
@@ -39,11 +38,6 @@ public class ModelListener {
 	public void removeDocumentInfo(final IXtextDocument document) {
 		for(final Stack<Info> infoStack : packageNameToInfoMap.values()) {
 			if(removeDocumentInfo(infoStack, document)) {
-				// If the last xtext editor was just closed, refresh osate's resource set
-				if(infoStack.size() == 0) {
-					OsateResourceUtil.refreshResourceSet();
-				}
-				
 				break;
 			}
 		}
