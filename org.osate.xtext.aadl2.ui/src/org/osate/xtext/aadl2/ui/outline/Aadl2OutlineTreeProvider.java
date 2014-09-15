@@ -44,7 +44,12 @@ import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.label.StylerFactory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
@@ -53,6 +58,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.AadlConstants;
@@ -84,11 +90,20 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
+
 		for (EObject childElement : modelElement.getChildren()) {
 //			OsateDebug.osateDebug("Aadl2OutlineTreeProvider", "child " + childElement);
 //			OsateDebug.osateDebug("Aadl2OutlineTreeProvider", "child " + childElement);
 
 			if (childElement instanceof Realization) {
+				continue;
+			}
+
+			if (childElement instanceof ImplementationExtension) {
+				continue;
+			}
+
+			if (childElement instanceof ContainmentPathElement) {
 				continue;
 			}
 
@@ -119,8 +134,28 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	}
 
+	protected boolean _isLeaf(ContainmentPathElement cpe) {
+		return true;
+	}
+
+	protected boolean _isLeaf(ContainedNamedElement cpe) {
+		return true;
+	}
+
 	protected boolean _isLeaf(SystemInstance feature) {
 		return false;
+	}
+
+	protected boolean _isLeaf(FlowSpecification flowspec) {
+		return true;
+	}
+
+	protected boolean _isLeaf(FlowImplementation flowimpl) {
+		return true;
+	}
+
+	protected boolean _isLeaf(EndToEndFlowImpl flowimpl) {
+		return true;
 	}
 
 	protected boolean _isLeaf(RangeValue rv) {
