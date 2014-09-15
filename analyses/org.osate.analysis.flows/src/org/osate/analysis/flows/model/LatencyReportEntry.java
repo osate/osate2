@@ -164,13 +164,6 @@ public class LatencyReportEntry {
 		return -1;
 	}
 
-	private String getMinMaxLabel(boolean doMax) {
-		if (doMax) {
-			return "Max: ";
-		} else
-			return "Min: ";
-	}
-
 	public double getActualLatency(boolean doMaximum) {
 		double res = 0.0;
 		for (LatencyContributor lc : contributors) {
@@ -179,8 +172,8 @@ public class LatencyReportEntry {
 				// No sampling. we are the last of an immediate connection sequence.
 				double cum = this.getCumLatency(lc, doMaximum) + lc.getTotal(doMaximum);
 				if (cum > lc.getImmediateDeadline()) {
-					lc.reportError(getMinMaxLabel(doMaximum) + "immediate latency sequence exceeds deadline "
-							+ lc.getImmediateDeadline() + "ms");
+					lc.reportError(doMaximum,
+							"immediate latency sequence exceeds deadline " + lc.getImmediateDeadline() + "ms");
 				}
 			}
 
@@ -198,28 +191,28 @@ public class LatencyReportEntry {
 						if (lc.getSamplingPeriod() > last.getSamplingPeriod()) {
 							double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 							res = res + diff;
-							lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+							lc.reportInfo(doMaximum, "Added " + diff + "ms");
 						} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
-							lc.reportWarning(getMinMaxLabel(doMaximum) + "Task period smaller than partition period");
+							lc.reportWarning(doMaximum, "Task period smaller than partition period");
 						} else {
-							lc.reportInfo(getMinMaxLabel(doMaximum) + "No added latency");
+							lc.reportInfo(doMaximum, "No added latency");
 						}
 					} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc)) || isPreviousConnectionSynchronous(lc))
 							&& wasSampled()) {
 						// there was a previous sampling component. We can to the roundup game.
 						double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
 						res = res + diff;
-						lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+						lc.reportInfo(doMaximum, "Added " + diff + "ms");
 						if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
-							lc.reportInfo(getMinMaxLabel(doMaximum) + "Assume synchronous communication");
+							lc.reportInfo(doMaximum, "Assume synchronous communication");
 						} else {
-							lc.reportInfo(getMinMaxLabel(doMaximum) + "Synchronous communication on same platform");
+							lc.reportInfo(doMaximum, "Synchronous communication on same platform");
 						}
 					} else {
 						res = res + lc.getSamplingPeriod();
 					}
 				} else {
-					lc.reportInfo(getMinMaxLabel(doMaximum) + "Zero sampling latency");
+					lc.reportInfo(doMaximum, "Zero sampling latency");
 				}
 				lc.reportSubtotal(res, doMaximum);
 				lastSampled = lc;
@@ -231,11 +224,11 @@ public class LatencyReportEntry {
 						double diff = lc.getSamplingPeriod() - last.getSamplingPeriod();
 						res = res + diff;
 						lc.reportSubtotal(res, doMaximum);
-						lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+						lc.reportInfo(doMaximum, "Added " + diff + "ms");
 					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
-						lc.reportWarning(getMinMaxLabel(doMaximum) + "Task period smaller than partition period");
+						lc.reportWarning(doMaximum, "Task period smaller than partition period");
 					} else {
-						lc.reportInfo(getMinMaxLabel(doMaximum) + "No added latency");
+						lc.reportInfo(doMaximum, "No added latency");
 					}
 				} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc)) || isPreviousConnectionSynchronous(lc))
 						&& wasSampled()) {
@@ -247,18 +240,18 @@ public class LatencyReportEntry {
 					double framediff = FlowLatencyUtil.roundUp(getMaximumCumLatency(lc), lc.getSamplingPeriod())
 							- FlowLatencyUtil.roundUp(cumMin, lc.getSamplingPeriod());
 					if (framediff > 0) {
-						lc.reportWarning(getMinMaxLabel(doMaximum)
-								+ "Min and max delay for delayed connection differ by a frame or more");
+						lc.reportWarning(doMaximum,
+								"Min and max delay for delayed connection differ by a frame or more");
 					}
 //				     double diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff; 
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
 					res = res + diff;
 					lc.reportSubtotal(res, doMaximum);
-					lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+					lc.reportInfo(doMaximum, "Added " + diff + "ms");
 					if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
-						lc.reportInfo(getMinMaxLabel(doMaximum) + "Assume synchronous communication");
+						lc.reportInfo(doMaximum, "Assume synchronous communication");
 					} else {
-						lc.reportInfo(getMinMaxLabel(doMaximum) + "Synchronous communication on same platform");
+						lc.reportInfo(doMaximum, "Synchronous communication on same platform");
 					}
 				} else {
 					res = res + lc.getSamplingPeriod();
@@ -278,7 +271,7 @@ public class LatencyReportEntry {
 									lc.getSamplingPeriod());
 							res = res + diff;
 							lc.reportSubtotal(res, doMaximum);
-							lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+							lc.reportInfo(doMaximum, "Added " + diff + "ms");
 						} else {
 							// we have a partition offset.
 							double cum = getCumLatency(lc, doMaximum);
@@ -296,8 +289,7 @@ public class LatencyReportEntry {
 									double diff = myOffset - prevPlus;
 									res = res + diff;
 									lc.reportSubtotal(res, doMaximum);
-									lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff
-											+ "ms (offset to offset roundup)");
+									lc.reportInfo(doMaximum, "Added " + diff + "ms (offset to offset roundup)");
 								} else {
 									// the previous one is not based on a schedule
 									// this branch should not be reached since both partitions are on same processor
@@ -305,7 +297,7 @@ public class LatencyReportEntry {
 									double diff = FlowLatencyUtil.roundUpDiff(cum, lc.getSamplingPeriod());
 									res = res + diff;
 									lc.reportSubtotal(res, doMaximum);
-									lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+									lc.reportInfo(doMaximum, "Added " + diff + "ms");
 								}
 							} else {
 								// the current does not have an offset despite being marked as PARTITION_SCHEDULE
@@ -313,13 +305,13 @@ public class LatencyReportEntry {
 								double diff = FlowLatencyUtil.roundUpDiff(cum, lc.getSamplingPeriod());
 								res = res + diff;
 								lc.reportSubtotal(res, doMaximum);
-								lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+								lc.reportInfo(doMaximum, "Added " + diff + "ms");
 							}
 						}
 						if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
-							lc.reportInfo(getMinMaxLabel(doMaximum) + "Assume synchronous communication");
+							lc.reportInfo(doMaximum, "Assume synchronous communication");
 						} else {
-							lc.reportInfo(getMinMaxLabel(doMaximum) + "Synchronous communication on same platform");
+							lc.reportInfo(doMaximum, "Synchronous communication on same platform");
 						}
 					} else {
 						// add the period. Even for partition with offset we have the worst case of a period
@@ -343,7 +335,7 @@ public class LatencyReportEntry {
 					} else {
 						lc.setMinimum(diff);
 					}
-					lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+					lc.reportInfo(doMaximum, "Added " + diff + "ms");
 				} else {
 					// round up to window duration. Note the cumulative could be more than the window
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod(),
@@ -354,7 +346,7 @@ public class LatencyReportEntry {
 					} else {
 						lc.setMinimum(diff);
 					}
-					lc.reportInfo(getMinMaxLabel(doMaximum) + "Added " + diff + "ms");
+					lc.reportInfo(doMaximum, "Added " + diff + "ms");
 				}
 				lc.reportSubtotal(res, doMaximum);
 			} else {
@@ -386,17 +378,14 @@ public class LatencyReportEntry {
 
 	private void reportSummaryError(String str) {
 		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
-		CheckFlowLatency.getInstance().error(relatedEndToEndFlow, str);
 	}
 
-	private void reportSummaryInfo(String str) {
+	private void reportSummarySuccess(String str) {
 		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
-		CheckFlowLatency.getInstance().info(relatedEndToEndFlow, str);
 	}
 
 	private void reportSummaryWarning(String str) {
 		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
-		CheckFlowLatency.getInstance().warning(relatedEndToEndFlow, str);
 	}
 
 	private String getSyncLabel() {
@@ -471,6 +460,7 @@ public class LatencyReportEntry {
 		// will populate the comments section
 		minValue = getActualLatency(false);
 		maxValue = getActualLatency(true);
+
 		minSpecifiedValue = getMinimumSpecifiedLatency();
 		maxSpecifiedValue = getMaximumSpecifiedLatency();
 
@@ -518,7 +508,7 @@ public class LatencyReportEntry {
 			}
 
 			if (minValue < expectedMinLatency) {
-				reportSummaryError("Sum of minimum actual latencies (" + minValue
+				reportSummaryWarning("Sum of minimum actual latencies (" + minValue
 						+ " ms) is less than expected minimum end to end latency (" + expectedMinLatency + "ms)");
 			}
 		}
@@ -548,7 +538,7 @@ public class LatencyReportEntry {
 		 */
 		if ((minValue > 0) && (maxValue > 0) && (expectedMaxLatency > 0) && (expectedMinLatency > 0)
 				&& (minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)) {
-			reportSummaryInfo("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
+			reportSummarySuccess("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
 					+ " calculated from the components is correct with the expected latency specifications");
 		}
 		section.addLine(line);
@@ -560,13 +550,40 @@ public class LatencyReportEntry {
 			for (ReportedCell issue : issues) {
 				line = new Line();
 				String msg = issue.getMessage();
-				issue.setMessage(issue.getSeverity().toString());
-				line.addCell(issue);
+				ReportedCell issueLabel = new ReportedCell(issue.getSeverity(), issue.getSeverity().toString());
+				line.addCell(issueLabel);
 				line.addContent(msg);
 				section.addLine(line);
 			}
 		}
 
 		return section;
+	}
+
+	private String getRelatedObjectLabel() {
+		return this.relatedEndToEndFlow.getComponentInstancePath() + ": ";
+	}
+
+	public void generateMarkers() {
+		List<ReportedCell> doIssues = this.issues;
+		for (ReportedCell reportedCell : doIssues) {
+			if (reportedCell.getSeverity() == ReportSeverity.INFO) {
+//				CheckFlowLatency.getInstance().info(this.relatedEndToEndFlow, reportedCell.getMessage());
+			} else if (reportedCell.getSeverity() == ReportSeverity.SUCCESS) {
+				CheckFlowLatency.getInstance().info(this.relatedEndToEndFlow,
+						getRelatedObjectLabel() + reportedCell.getMessage());
+			} else if (reportedCell.getSeverity() == ReportSeverity.WARNING) {
+				CheckFlowLatency.getInstance().warning(this.relatedEndToEndFlow,
+						getRelatedObjectLabel() + reportedCell.getMessage());
+			} else if (reportedCell.getSeverity() == ReportSeverity.ERROR) {
+				CheckFlowLatency.getInstance().error(this.relatedEndToEndFlow,
+						getRelatedObjectLabel() + reportedCell.getMessage());
+			}
+		}
+		if (Values.doDetailsMarkers()) {
+			for (LatencyContributor lc : this.contributors) {
+				lc.generateMarkers();
+			}
+		}
 	}
 }

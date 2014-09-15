@@ -591,4 +591,11 @@ public class FlowLatencyUtil {
 		return qs * dl;
 	}
 
+	public static String getMinMaxLabel(boolean doMax) {
+		if (doMax) {
+			return "Max: ";
+		} else
+			return "Min: ";
+	}
+
 }

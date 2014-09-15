@@ -54,6 +54,7 @@ public class LatencyReport {
 			genericReport.addSection(re.export(som));
 			re.resetSynchronous();
 			genericReport.addSection(re.export(som));
+			re.generateMarkers();
 		}
 
 		return genericReport;

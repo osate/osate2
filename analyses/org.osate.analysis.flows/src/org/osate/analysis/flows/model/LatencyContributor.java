@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
@@ -139,24 +140,61 @@ public abstract class LatencyContributor {
 	}
 
 	public void reportError(String str) {
-		CheckFlowLatency.getInstance().error(this.relatedElement, str);
 		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
 	}
 
 	public void reportSuccess(String str) {
-		CheckFlowLatency.getInstance().info(this.relatedElement, str);
 		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
 	}
 
 	public void reportInfo(String str) {
-		CheckFlowLatency.getInstance().info(this.relatedElement, str);
 		issues.add(new ReportedCell(ReportSeverity.INFO, str));
 	}
 
 	public void reportWarning(String str) {
-		CheckFlowLatency.getInstance().warning(this.relatedElement, str);
 		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
 	}
+
+	public void reportError(boolean doMaximum, String str) {
+		issues.add(new ReportedCell(ReportSeverity.ERROR, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+	}
+
+	public void reportSuccess(boolean doMaximum, String str) {
+		issues.add(new ReportedCell(ReportSeverity.SUCCESS, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+	}
+
+	public void reportInfo(boolean doMaximum, String str) {
+		issues.add(new ReportedCell(ReportSeverity.INFO, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+	}
+
+	public void reportWarning(boolean doMaximum, String str) {
+		issues.add(new ReportedCell(ReportSeverity.WARNING, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+	}
+
+//
+//	public void reportErrorOnce(boolean doMaximum, String str) {
+//		if (doMaximum)
+//			return;
+//		issues.add(new ReportedCell(ReportSeverity.ERROR, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+//	}
+//
+//	public void reportSuccessOnce(boolean doMaximum, String str) {
+//		if (doMaximum)
+//			return;
+//		issues.add(new ReportedCell(ReportSeverity.SUCCESS, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+//	}
+//
+//	public void reportInfoOnce(boolean doMaximum, String str) {
+//		if (doMaximum)
+//			return;
+//		issues.add(new ReportedCell(ReportSeverity.INFO, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+//	}
+//
+//	public void reportWarningOnce(boolean doMaximum, String str) {
+//		if (doMaximum)
+//			return;
+//		issues.add(new ReportedCell(ReportSeverity.WARNING, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
+//	}
 
 	protected String getContributorName() {
 		return relatedElement.getName();
@@ -416,12 +454,12 @@ public abstract class LatencyContributor {
 	public void checkConsistency() {
 
 		if ((this.expectedMax != 0.0) && (this.maxValue > this.expectedMax)) {
-			reportWarning("max actual latency exceeds max flow latency");
+			reportWarning(true, "actual latency exceeds max flow latency");
 		}
 
 		if ((this.expectedMin != 0.0) && (this.minValue > this.expectedMin)) {
 
-			reportWarning("min actual latency exceeds min flow latency");
+			reportWarning(false, "actual latency exceeds min flow latency");
 		}
 
 	}
@@ -508,5 +546,31 @@ public abstract class LatencyContributor {
 		myLine.addCells(this.getReportedIssues());
 		lines.add(myLine);
 		return lines;
+	}
+
+	private String getRelatedObjectLabel() {
+		if (this.relatedElement instanceof InstanceObject) {
+			return ((InstanceObject) this.relatedElement).getComponentInstancePath() + ": ";
+		} else {
+			return this.relatedElement.getQualifiedName();
+		}
+	}
+
+	public void generateMarkers() {
+		List<ReportedCell> doIssues = this.getReportedIssues();
+		for (ReportedCell reportedCell : doIssues) {
+			if (reportedCell.getSeverity() == ReportSeverity.INFO) {
+//				CheckFlowLatency.getInstance().info(this.relatedElement, getRelatedObjectLabel()+reportedCell.getMessage());
+			} else if (reportedCell.getSeverity() == ReportSeverity.SUCCESS) {
+				CheckFlowLatency.getInstance().info(this.relatedElement,
+						getRelatedObjectLabel() + reportedCell.getMessage());
+			} else if (reportedCell.getSeverity() == ReportSeverity.WARNING) {
+				CheckFlowLatency.getInstance().warning(this.relatedElement,
+						getRelatedObjectLabel() + reportedCell.getMessage());
+			} else if (reportedCell.getSeverity() == ReportSeverity.ERROR) {
+				CheckFlowLatency.getInstance().error(this.relatedElement,
+						getRelatedObjectLabel() + reportedCell.getMessage());
+			}
+		}
 	}
 }

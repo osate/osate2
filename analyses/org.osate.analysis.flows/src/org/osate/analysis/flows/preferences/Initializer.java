@@ -15,6 +15,7 @@ public class Initializer extends AbstractPreferenceInitializer {
 		store.setDefault(Constants.PARTITONING_POLICY, Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
 		store.setDefault(Constants.REPORT_SUBTOTALS, Constants.REPORT_SUBTOTALS_NO);
 		store.setDefault(Constants.WORST_CASE_DEADLINE, Constants.WORST_CASE_DEADLINE_NO);
+		store.setDefault(Constants.DETAILS_MARKERS, Constants.DETAILS_MARKERS_NO);
 
 	}
 

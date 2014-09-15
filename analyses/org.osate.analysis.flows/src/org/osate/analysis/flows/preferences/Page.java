@@ -28,10 +28,6 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	 * editor knows how to save and restore itself.
 	 */
 	public void createFieldEditors() {
-		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
-				"Report Subtotals", 1, new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES },
-						{ "No", Constants.REPORT_SUBTOTALS_NO } }, getFieldEditorParent(), true);
-		addField(reportSubtotals);
 		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
 				"Partition Output Policy", 1, new String[][] {
 						{ "Partition End", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
@@ -43,6 +39,14 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 						{ "Yes", Constants.WORST_CASE_DEADLINE_YES }, { "No", Constants.WORST_CASE_DEADLINE_NO } },
 				getFieldEditorParent(), true);
 		addField(worrstCaseDeadline);
+		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
+				"Report Subtotals", 1, new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES },
+						{ "No", Constants.REPORT_SUBTOTALS_NO } }, getFieldEditorParent(), true);
+		addField(reportSubtotals);
+		RadioGroupFieldEditor detailsMarkers = new RadioGroupFieldEditor(Constants.DETAILS_MARKERS,
+				"Generate Latency Details Markers", 1, new String[][] { { "Yes", Constants.DETAILS_MARKERS_YES },
+						{ "No", Constants.DETAILS_MARKERS_NO } }, getFieldEditorParent(), true);
+		addField(reportSubtotals);
 		// First tab: configuration of Ocarina
 //		addTab("Flow Analysis");
 
