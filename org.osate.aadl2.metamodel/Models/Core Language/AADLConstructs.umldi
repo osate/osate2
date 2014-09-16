@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_zxoH8B4gEd68T5xsdP2ekQ">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_Kn2egJeREdys4pCk7NOt8w">
   <model href="AADLConstructs.uml#_0"/>
   <diagrams xmi:id="_HKg1gEdvEdyOeaOA5AULsA" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_HbDL4EdvEdyOeaOA5AULsA" key="pageFormatName" value="A4"/>
@@ -7269,6 +7269,7 @@
             </semanticModel>
           </contained>
           <contained xsi:type="di:GraphNode" xmi:id="_fdKGqlEMEd6kWIIn_VWR1g" position="0,0" size="-1,-1">
+            <property xmi:id="_cNER4D0IEeSe58Tv4H-Wng" key="font" value="Sans-regular-8"/>
             <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_fdKGq1EMEd6kWIIn_VWR1g" presentation="default">
               <element href="AADLConstructs.uml#Flows-FlowSpecification-kind"/>
             </semanticModel>
@@ -7378,6 +7379,7 @@
             </semanticModel>
           </contained>
           <contained xsi:type="di:GraphNode" xmi:id="_wxE0ENSxEeGrQ5HyNd6P4Q" position="0,0" size="-1,-1">
+            <property xmi:id="_dN_jYD0IEeSe58Tv4H-Wng" key="font" value="Sans-regular-8"/>
             <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_wxE0EdSxEeGrQ5HyNd6P4Q" presentation="default">
               <element href="AADLConstructs.uml#Flows-FlowImplementation-kind"/>
             </semanticModel>

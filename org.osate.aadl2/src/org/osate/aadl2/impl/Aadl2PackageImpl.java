@@ -2829,8 +2829,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContainedNamedElement_ContainmentPathElement() {
+	public EReference getContainedNamedElement_PathElement() {
 		return (EReference) getContainedNamedElement().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContainedNamedElement_ContainmentPathElement() {
+		return (EReference) getContainedNamedElement().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2871,6 +2880,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	public EAttribute getContainmentPathElement_AnnexName() {
 		return (EAttribute) getContainmentPathElement().getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContainmentPathElement_ContainedNamedElement() {
+		return (EReference) getContainmentPathElement().getEStructuralFeatures().get(3);
 	}
 
 	/**

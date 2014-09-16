@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
 
@@ -62,6 +63,7 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getNamedElement <em>Named Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getAnnexName <em>Annex Name</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getContainedNamedElement <em>Contained Named Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,6 +109,16 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * @ordered
 	 */
 	protected String annexName = ANNEX_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getContainedNamedElement() <em>Contained Named Element</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContainedNamedElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected ContainedNamedElement containedNamedElement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -218,11 +230,86 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ContainedNamedElement getContainedNamedElement() {
+		return containedNamedElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetContainedNamedElement(ContainedNamedElement newContainedNamedElement,
+			NotificationChain msgs) {
+		ContainedNamedElement oldContainedNamedElement = containedNamedElement;
+		containedNamedElement = newContainedNamedElement;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, oldContainedNamedElement,
+					newContainedNamedElement);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContainedNamedElement(ContainedNamedElement newContainedNamedElement) {
+		if (newContainedNamedElement != containedNamedElement) {
+			NotificationChain msgs = null;
+			if (containedNamedElement != null)
+				msgs = ((InternalEObject) containedNamedElement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, null, msgs);
+			if (newContainedNamedElement != null)
+				msgs = ((InternalEObject) newContainedNamedElement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, null, msgs);
+			msgs = basicSetContainedNamedElement(newContainedNamedElement, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, newContainedNamedElement,
+					newContainedNamedElement));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContainedNamedElement createContainedNamedElement(EClass eClass) {
+		ContainedNamedElement newContainedNamedElement = (ContainedNamedElement) create(eClass);
+		setContainedNamedElement(newContainedNamedElement);
+		return newContainedNamedElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContainedNamedElement createContainedNamedElement() {
+		return createContainedNamedElement(Aadl2Package.eINSTANCE.getContainedNamedElement());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
 			return ((InternalEList<?>) getArrayRanges()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
+			return basicSetContainedNamedElement(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -243,6 +330,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 			return basicGetNamedElement();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return getAnnexName();
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
+			return getContainedNamedElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -266,6 +355,9 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			setAnnexName((String) newValue);
 			return;
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
+			setContainedNamedElement((ContainedNamedElement) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -287,6 +379,9 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			setAnnexName(ANNEX_NAME_EDEFAULT);
 			return;
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
+			setContainedNamedElement((ContainedNamedElement) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -305,6 +400,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 			return namedElement != null;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return ANNEX_NAME_EDEFAULT == null ? annexName != null : !ANNEX_NAME_EDEFAULT.equals(annexName);
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
+			return containedNamedElement != null;
 		}
 		return super.eIsSet(featureID);
 	}

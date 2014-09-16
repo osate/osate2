@@ -359,8 +359,11 @@
         lowerBound="1" eType="#//Prototype"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContainedNamedElement" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pathElement" lowerBound="1"
+        eType="#//ContainmentPathElement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentPathElement"
-        lowerBound="1" upperBound="-1" eType="#//ContainmentPathElement" containment="true"/>
+        ordered="false" upperBound="-1" eType="#//ContainmentPathElement" changeable="false"
+        volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContainmentPathElement" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arrayRange" upperBound="-1"
@@ -369,6 +372,8 @@
         lowerBound="1" eType="#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="annexName" ordered="false"
         eType="#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containedNamedElement"
+        ordered="false" eType="#//ContainedNamedElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArrayRange" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerBound" ordered="false"
@@ -940,8 +945,7 @@
       <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEndToEndFlowSegment"
-        ordered="false" lowerBound="1" upperBound="-1" eType="#//EndToEndFlowSegment"
-        containment="true"/>
+        ordered="false" upperBound="-1" eType="#//EndToEndFlowSegment" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowSegment" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" unique="false"
@@ -966,8 +970,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupConnection" eSuperTypes="#//Connection"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
         lowerBound="1" eType="#//DirectionType"/>
   </eClassifiers>

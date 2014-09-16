@@ -50,6 +50,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.aadl2.ContainedNamedElement#getPathElement <em>Path Element</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainedNamedElement#getContainmentPathElements <em>Containment Path Element</em>}</li>
  * </ul>
  * </p>
@@ -61,7 +62,42 @@ import org.eclipse.emf.common.util.EList;
 public interface ContainedNamedElement extends Element {
 
 	/**
-	 * Returns the value of the '<em><b>Containment Path Element</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Path Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Path Element</em>' containment reference.
+	 * @see #setPathElement(ContainmentPathElement)
+	 * @see org.osate.aadl2.Aadl2Package#getContainedNamedElement_PathElement()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	ContainmentPathElement getPathElement();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ContainedNamedElement#getPathElement <em>Path Element</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Path Element</em>' containment reference.
+	 * @see #getPathElement()
+	 * @generated
+	 */
+	void setPathElement(ContainmentPathElement value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ContainmentPathElement} and sets the '<em><b>Path Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ContainmentPathElement}.
+	 * @see #getPathElement()
+	 * @generated
+	 */
+	ContainmentPathElement createPathElement();
+
+	/**
+	 * Returns the value of the '<em><b>Containment Path Element</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.ContainmentPathElement}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -72,20 +108,10 @@ public interface ContainedNamedElement extends Element {
 	 * <!-- begin-model-doc -->
 	 * <p>From package AADLProperties::Associations.</p>
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Containment Path Element</em>' containment reference list.
+	 * @return the value of the '<em>Containment Path Element</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getContainedNamedElement_ContainmentPathElement()
-	 * @model containment="true" required="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<ContainmentPathElement> getContainmentPathElements();
-
-	/**
-	 * Creates a new {@link org.osate.aadl2.ContainmentPathElement} and appends it to the '<em><b>Containment Path Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.ContainmentPathElement}.
-	 * @see #getContainmentPathElements()
-	 * @generated
-	 */
-	ContainmentPathElement createContainmentPathElement();
 } // ContainedNamedElement

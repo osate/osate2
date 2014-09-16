@@ -108,7 +108,7 @@ public interface EndToEndFlow extends FlowFeature, ModalPath, EndToEndFlowElemen
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned End To End Flow Segment</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_OwnedEndToEndFlowSegment()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EndToEndFlowSegment> getOwnedEndToEndFlowSegments();

@@ -268,7 +268,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	/**
 	 * Constraint:
-	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange?)
+	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange? containedNamedElement=ContainmentPath?)
 	 */
 	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -277,7 +277,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	/**
 	 * Constraint:
-	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 *     pathElement=ContainmentPathElement
 	 */
 	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -383,7 +383,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	/**
 	 * Constraint:
-	 *     namedElement=[NamedElement|QCLREF]
+	 *     ((namedElement=[NamedElement|QCLREF] | (namedElement=[NamedElement|ID] arrayRange+=ArrayRange?)) containedNamedElement=ContainmentPath?)
 	 */
 	protected void sequence_QualifiedContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -410,11 +410,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         containmentPathElement+=QualifiedContainmentPathElement? 
-	 *         containmentPathElement+=ContainmentPathElement 
-	 *         containmentPathElement+=ContainmentPathElement*
-	 *     )
+	 *     pathElement=QualifiedContainmentPathElement
 	 */
 	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

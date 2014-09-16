@@ -92,6 +92,7 @@ public class ContainedNamedElementItemProvider extends ElementItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainedNamedElement_PathElement());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainedNamedElement_ContainmentPathElement());
 		}
 		return childrenFeatures;
@@ -144,6 +145,7 @@ public class ContainedNamedElementItemProvider extends ElementItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ContainedNamedElement.class)) {
+		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH_ELEMENT:
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -162,9 +164,33 @@ public class ContainedNamedElementItemProvider extends ElementItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getContainedNamedElement_PathElement(),
+				Aadl2Factory.eINSTANCE.createContainmentPathElement()));
+
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getContainedNamedElement_ContainmentPathElement(),
 				Aadl2Factory.eINSTANCE.createContainmentPathElement()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify = childFeature == Aadl2Package.eINSTANCE.getContainedNamedElement_PathElement()
+				|| childFeature == Aadl2Package.eINSTANCE.getContainedNamedElement_ContainmentPathElement();
+
+		if (qualify) {
+			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
+					getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

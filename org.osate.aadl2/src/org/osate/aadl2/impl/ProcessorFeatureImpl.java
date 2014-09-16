@@ -34,41 +34,20 @@
  */
 package org.osate.aadl2.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.Mode;
 import org.osate.aadl2.ProcessorFeature;
-import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Processor Feature</b></em>'.
  * <!-- end-user-doc -->
  * <p>
- * The following features are implemented:
- * <ul>
- *   <li>{@link org.osate.aadl2.impl.ProcessorFeatureImpl#getInModes <em>In Mode</em>}</li>
- * </ul>
  * </p>
  *
  * @generated
  */
 public abstract class ProcessorFeatureImpl extends StructuralFeatureImpl implements ProcessorFeature {
-	/**
-	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInModes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Mode> inModes;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -86,123 +65,6 @@ public abstract class ProcessorFeatureImpl extends StructuralFeatureImpl impleme
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorFeature();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Mode> getInModes() {
-		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.PROCESSOR_FEATURE__IN_MODE);
-		}
-		return inModes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case Aadl2Package.PROCESSOR_FEATURE__IN_MODE:
-			return getInModes();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case Aadl2Package.PROCESSOR_FEATURE__IN_MODE:
-			getInModes().clear();
-			getInModes().addAll((Collection<? extends Mode>) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.PROCESSOR_FEATURE__IN_MODE:
-			getInModes().clear();
-			return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.PROCESSOR_FEATURE__IN_MODE:
-			return inModes != null && !inModes.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == ModalElement.class) {
-			switch (derivedFeatureID) {
-			case Aadl2Package.PROCESSOR_FEATURE__IN_MODE:
-				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
-			default:
-				return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == ModalElement.class) {
-			switch (baseFeatureID) {
-			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
-				return Aadl2Package.PROCESSOR_FEATURE__IN_MODE;
-			default:
-				return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } // ProcessorFeatureImpl
