@@ -54,8 +54,7 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface InternalFeature extends StructuralFeature, ModalElement, FeatureConnectionEnd, PortConnectionEnd,
-		TriggerPort {
+public interface InternalFeature extends StructuralFeature, FeatureConnectionEnd, PortConnectionEnd, TriggerPort {
 
 	/**
 	 * Returns the value of the '<em><b>Direction</b></em>' attribute.

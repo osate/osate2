@@ -1689,12 +1689,12 @@ InternalFeature returns aadl2::InternalFeature:
 	(
 		EventSource | EventDataSource
 	)
-	( 
-		'in' 'modes' '(' (
-			inMode+=[aadl2::Mode|ID] 
-			(',' inMode+=[aadl2::Mode|ID])* 
-		) ')'
-	)?
+//	( 
+//		'in' 'modes' '(' (
+//			inMode+=[aadl2::Mode|ID] 
+//			(',' inMode+=[aadl2::Mode|ID])* 
+//		) ')'
+//	)?
 	(
 		'properties' (
 			(ownedPropertyAssociation+=ContainedPropertyAssociation)+
@@ -1707,12 +1707,12 @@ ProcessorFeature returns aadl2::ProcessorFeature:
 	(
 		PortProxy | SubprogramProxy
 	)
-	( 
-		'in' 'modes' '(' (
-			inMode+=[aadl2::Mode|ID] 
-			(',' inMode+=[aadl2::Mode|ID])* 
-		) ')'
-	)? 
+//	( 
+//		'in' 'modes' '(' (
+//			inMode+=[aadl2::Mode|ID] 
+//			(',' inMode+=[aadl2::Mode|ID])* 
+//		) ')'
+//	)? 
 	(
 		'properties' (
 			(ownedPropertyAssociation+=ContainedPropertyAssociation)+

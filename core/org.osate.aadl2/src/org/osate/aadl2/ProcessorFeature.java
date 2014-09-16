@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface ProcessorFeature extends StructuralFeature, ModalElement {
+public interface ProcessorFeature extends StructuralFeature {
 } // ProcessorFeature
