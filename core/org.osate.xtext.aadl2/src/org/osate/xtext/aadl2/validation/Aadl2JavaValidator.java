@@ -1281,7 +1281,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (int i = 0; i < size; i++) {
 			ConnectionEnd ce = null;
 			Context cxt = null;
-			if (flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement() instanceof Connection) {
+			EndToEndFlowElement flowElement = flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
+			if (i % 2 == 1 && flowElement instanceof Connection && !flowElement.eIsProxy()) {
 				// for connection (every even element) check that it matches up with the preceding flow specification
 				Connection connection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
 				ce = connection.getAllSource();
@@ -1362,7 +1363,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkNestedEndToEndFlows(EndToEndFlow flow) {
 		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
 			EndToEndFlowSegment segment = flow.getOwnedEndToEndFlowSegments().get(i);
-			if (segment.getContext() == null && segment.getFlowElement() instanceof EndToEndFlow
+			if (i % 2 == 0 && segment.getContext() == null && segment.getFlowElement() instanceof EndToEndFlow
 					&& !segment.getFlowElement().eIsProxy()) {
 				EndToEndFlow referencedFlow = (EndToEndFlow) segment.getFlowElement();
 				if (i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
