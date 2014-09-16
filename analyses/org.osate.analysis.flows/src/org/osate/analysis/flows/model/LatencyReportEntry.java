@@ -277,7 +277,7 @@ public class LatencyReportEntry {
 							res = res + diff;
 							lc.setActualValue(diff, doMaximum);
 							lc.reportSubtotal(res, doMaximum);
-							lc.reportInfo(doMaximum, "Added " + diff + "ms");
+							lc.reportInfo(doMaximum, "(S) major frame " + lc.getSamplingPeriod() + "ms");
 						} else {
 							// we have a partition offset.
 							double cum = getCumLatency(lc, doMaximum);
@@ -304,7 +304,7 @@ public class LatencyReportEntry {
 									res = res + diff;
 									lc.setActualValue(diff, doMaximum);
 									lc.reportSubtotal(res, doMaximum);
-									lc.reportInfo(doMaximum, "Added " + diff + "ms");
+									lc.reportInfo(doMaximum, "(S) major frame " + lc.getSamplingPeriod() + "ms");
 								}
 							} else {
 								// the current does not have an offset despite being marked as PARTITION_SCHEDULE
@@ -313,7 +313,7 @@ public class LatencyReportEntry {
 								res = res + diff;
 								lc.setActualValue(diff, doMaximum);
 								lc.reportSubtotal(res, doMaximum);
-								lc.reportInfo(doMaximum, "Added " + diff + "ms");
+								lc.reportWarning(doMaximum, "Partition schedule without partition offset");
 							}
 						}
 						if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
