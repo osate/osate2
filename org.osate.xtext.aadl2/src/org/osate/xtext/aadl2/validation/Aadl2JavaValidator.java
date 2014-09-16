@@ -1362,7 +1362,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkNestedEndToEndFlows(EndToEndFlow flow) {
 		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
 			EndToEndFlowSegment segment = flow.getOwnedEndToEndFlowSegments().get(i);
-			if (segment.getFlowElement() instanceof EndToEndFlow) {
+			if (segment.getContext() == null && segment.getFlowElement() instanceof EndToEndFlow
+					&& !segment.getFlowElement().eIsProxy()) {
 				EndToEndFlow referencedFlow = (EndToEndFlow) segment.getFlowElement();
 				if (i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
 					if (referencedFlow.getOwnedEndToEndFlowSegments()
