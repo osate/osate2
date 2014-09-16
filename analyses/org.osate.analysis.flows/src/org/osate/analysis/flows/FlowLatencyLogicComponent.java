@@ -70,8 +70,6 @@ public class FlowLatencyLogicComponent {
 							partitionLatencyContributor.setPartitionDuration(partitionDuration);
 							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-							partitionLatencyContributor.reportInfo("Initial " + period
-									+ "ms partition latency not added");
 							entry.addContributor(partitionLatencyContributor);
 						} else {
 							LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
@@ -79,14 +77,13 @@ public class FlowLatencyLogicComponent {
 							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
 							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-							partitionLatencyContributor.reportInfo("Initial " + period
-									+ "ms partition latency not added");
 							entry.addContributor(partitionLatencyContributor);
 						}
 					}
 				} else {
 					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
 					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
+					samplingLatencyContributor.setSamplingPeriod(period);
 				}
 			}
 			entry.addContributor(samplingLatencyContributor);
