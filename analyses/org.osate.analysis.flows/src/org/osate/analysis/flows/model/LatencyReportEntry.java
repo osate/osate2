@@ -44,11 +44,17 @@ public class LatencyReportEntry {
 	public void resetSynchronous() {
 		doSynchronous = true;
 		lastSampled = null;
+		for (LatencyContributor lc : contributors) {
+			lc.issues = new ArrayList<ReportedCell>();
+		}
 	}
 
 	public void resetAsynchronous() {
 		doSynchronous = false;
 		lastSampled = null;
+		for (LatencyContributor lc : contributors) {
+			lc.issues = new ArrayList<ReportedCell>();
+		}
 	}
 
 	public boolean doSynchronous() {
@@ -79,9 +85,7 @@ public class LatencyReportEntry {
 		}
 		for (int i = idx + 1; i < me; i++) {
 			LatencyContributor lc = this.contributors.get(i);
-			if (!(lc.isSamplingContributor())) {
-				result = result + lc.getTotalMinimum();
-			}
+			result = result + lc.getTotalMinimum();
 		}
 		return result;
 	}
@@ -111,9 +115,7 @@ public class LatencyReportEntry {
 			return 0;
 		for (int i = idx + 1; i < me; i++) {
 			LatencyContributor lc = this.contributors.get(i);
-			if (!(lc.isSamplingContributor())) {
-				result = result + lc.getTotalMaximum();
-			}
+			result = result + lc.getTotalMaximum();
 		}
 		return result;
 	}
@@ -195,7 +197,7 @@ public class LatencyReportEntry {
 						} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 							lc.reportWarning(doMaximum, "Task period smaller than partition period");
 						} else {
-							lc.reportInfo(doMaximum, "No added latency");
+							lc.reportInfo(doMaximum, "Latency accounted for in partition latency");
 						}
 					} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc)) || isPreviousConnectionSynchronous(lc))
 							&& wasSampled()) {
@@ -204,15 +206,17 @@ public class LatencyReportEntry {
 						res = res + diff;
 						lc.reportInfo(doMaximum, "Added " + diff + "ms");
 						if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
-							lc.reportInfo(doMaximum, "Assume synchronous communication");
+							lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+						} else if (isPreviousConnectionSynchronous(lc)) {
+							lc.reportInfoOnce(doMaximum, "Synchronous communication on same platform");
 						} else {
-							lc.reportInfo(doMaximum, "Synchronous communication on same platform");
+							lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
 						}
 					} else {
 						res = res + lc.getSamplingPeriod();
 					}
 				} else {
-					lc.reportInfo(doMaximum, "Zero sampling latency");
+//	TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
 				}
 				lc.reportSubtotal(res, doMaximum);
 				lastSampled = lc;
@@ -243,15 +247,16 @@ public class LatencyReportEntry {
 						lc.reportWarning(doMaximum,
 								"Min and max delay for delayed connection differ by a frame or more");
 					}
-//				     double diff = FlowLatencyUtil.roundUpDiff(cumMin, lc.getSamplingPeriod()) + framediff; 
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
 					res = res + diff;
 					lc.reportSubtotal(res, doMaximum);
 					lc.reportInfo(doMaximum, "Added " + diff + "ms");
 					if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
-						lc.reportInfo(doMaximum, "Assume synchronous communication");
+						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+					} else if (isPreviousConnectionSynchronous(lc)) {
+						lc.reportInfoOnce(doMaximum, "Synchronous communication on same platform");
 					} else {
-						lc.reportInfo(doMaximum, "Synchronous communication on same platform");
+						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
 					}
 				} else {
 					res = res + lc.getSamplingPeriod();
@@ -270,6 +275,7 @@ public class LatencyReportEntry {
 							double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum),
 									lc.getSamplingPeriod());
 							res = res + diff;
+							lc.setActualValue(diff, doMaximum);
 							lc.reportSubtotal(res, doMaximum);
 							lc.reportInfo(doMaximum, "Added " + diff + "ms");
 						} else {
@@ -288,14 +294,15 @@ public class LatencyReportEntry {
 									}
 									double diff = myOffset - prevPlus;
 									res = res + diff;
+									lc.setActualValue(diff, doMaximum);
 									lc.reportSubtotal(res, doMaximum);
-									lc.reportInfo(doMaximum, "Added " + diff + "ms (offset to offset roundup)");
 								} else {
 									// the previous one is not based on a schedule
 									// this branch should not be reached since both partitions are on same processor
 									// thus they have the same schedule
 									double diff = FlowLatencyUtil.roundUpDiff(cum, lc.getSamplingPeriod());
 									res = res + diff;
+									lc.setActualValue(diff, doMaximum);
 									lc.reportSubtotal(res, doMaximum);
 									lc.reportInfo(doMaximum, "Added " + diff + "ms");
 								}
@@ -304,14 +311,17 @@ public class LatencyReportEntry {
 								// this branch should not be reached
 								double diff = FlowLatencyUtil.roundUpDiff(cum, lc.getSamplingPeriod());
 								res = res + diff;
+								lc.setActualValue(diff, doMaximum);
 								lc.reportSubtotal(res, doMaximum);
 								lc.reportInfo(doMaximum, "Added " + diff + "ms");
 							}
 						}
 						if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
-							lc.reportInfo(doMaximum, "Assume synchronous communication");
+							lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+						} else if (isPreviousConnectionSynchronous(lc)) {
+							lc.reportInfoOnce(doMaximum, "Synchronous communication on same platform");
 						} else {
-							lc.reportInfo(doMaximum, "Synchronous communication on same platform");
+							lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
 						}
 					} else {
 						// add the period. Even for partition with offset we have the worst case of a period
@@ -320,6 +330,9 @@ public class LatencyReportEntry {
 						}
 						lc.reportSubtotal(res, doMaximum);
 					}
+				} else {
+					lc.reportInfo("Initial " + lc.getSamplingPeriod() + "ms partition latency not added");
+
 				}
 				// remember the partition in all cases as a sampling unit
 				lastSampled = lc;
@@ -328,25 +341,18 @@ public class LatencyReportEntry {
 				// do it as major frame delay or as partition end delay depending on preference setting
 				if (Values.doMajorFrameDelay()) {
 					// round up to next major frame
-					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
+					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum) + lc.getPartitionOffset(),
+							lc.getSamplingPeriod());
 					res = res + diff;
-					if (doMaximum) {
-						lc.setMaximum(diff);
-					} else {
-						lc.setMinimum(diff);
-					}
-					lc.reportInfo(doMaximum, "Added " + diff + "ms");
+					lc.setActualValue(diff, doMaximum);
+					lc.reportInfoOnce(doMaximum, "Output at " + lc.getSamplingPeriod() + "ms major frame");
 				} else {
 					// round up to window duration. Note the cumulative could be more than the window
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod(),
 							lc.getPartitionDuration());
 					res = res + diff;
-					if (doMaximum) {
-						lc.setMaximum(diff);
-					} else {
-						lc.setMinimum(diff);
-					}
-					lc.reportInfo(doMaximum, "Added " + diff + "ms");
+					lc.setActualValue(diff, doMaximum);
+					lc.reportInfoOnce(doMaximum, "Output at " + lc.getPartitionDuration() + "ms partition end");
 				}
 				lc.reportSubtotal(res, doMaximum);
 			} else {

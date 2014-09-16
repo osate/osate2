@@ -171,30 +171,29 @@ public abstract class LatencyContributor {
 		issues.add(new ReportedCell(ReportSeverity.WARNING, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
 	}
 
-//
-//	public void reportErrorOnce(boolean doMaximum, String str) {
-//		if (doMaximum)
-//			return;
-//		issues.add(new ReportedCell(ReportSeverity.ERROR, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
-//	}
-//
-//	public void reportSuccessOnce(boolean doMaximum, String str) {
-//		if (doMaximum)
-//			return;
-//		issues.add(new ReportedCell(ReportSeverity.SUCCESS, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
-//	}
-//
-//	public void reportInfoOnce(boolean doMaximum, String str) {
-//		if (doMaximum)
-//			return;
-//		issues.add(new ReportedCell(ReportSeverity.INFO, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
-//	}
-//
-//	public void reportWarningOnce(boolean doMaximum, String str) {
-//		if (doMaximum)
-//			return;
-//		issues.add(new ReportedCell(ReportSeverity.WARNING, FlowLatencyUtil.getMinMaxLabel(doMaximum) + str));
-//	}
+	public void reportErrorOnce(boolean doMaximum, String str) {
+		if (doMaximum)
+			return;
+		issues.add(new ReportedCell(ReportSeverity.ERROR, str));
+	}
+
+	public void reportSuccessOnce(boolean doMaximum, String str) {
+		if (doMaximum)
+			return;
+		issues.add(new ReportedCell(ReportSeverity.SUCCESS, str));
+	}
+
+	public void reportInfoOnce(boolean doMaximum, String str) {
+		if (doMaximum)
+			return;
+		issues.add(new ReportedCell(ReportSeverity.INFO, str));
+	}
+
+	public void reportWarningOnce(boolean doMaximum, String str) {
+		if (doMaximum)
+			return;
+		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
+	}
 
 	protected String getContributorName() {
 		return relatedElement.getName();
@@ -338,7 +337,7 @@ public abstract class LatencyContributor {
 		case PARTITION_FRAME:
 			return "partition major frame";
 		case PARTITION_SCHEDULE:
-			return "partition schedule";
+			return "partition offset";
 		case TRANSMISSION_TIME:
 			return "transmission time";
 		case PARTITION_OUTPUT:
@@ -371,6 +370,15 @@ public abstract class LatencyContributor {
 		this.maxValue = d;
 	}
 
+	public void setActualValue(double d, boolean doMaximum) {
+		if (doMaximum) {
+			this.setMaximum(d);
+		} else {
+			this.setMinimum(d);
+		}
+
+	}
+
 	public double getLocalMinimum() {
 		return this.minValue;
 	}
@@ -391,8 +399,6 @@ public abstract class LatencyContributor {
 		for (LatencyContributor lc : subContributors) {
 			res = res + lc.getTotalMinimum();
 		}
-//	XXX	if (this instanceof LatencyContributorConnection)
-//			reportSubtotal(res, false);
 		return res;
 	}
 
@@ -401,8 +407,6 @@ public abstract class LatencyContributor {
 		for (LatencyContributor lc : subContributors) {
 			res = res + lc.getTotalMaximum();
 		}
-//		if (this instanceof LatencyContributorComponent)
-//			reportSubtotal(res, true);
 		return res;
 	}
 
@@ -508,12 +512,7 @@ public abstract class LatencyContributor {
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		if (this.getSamplingPeriod() > 0.0
-				&& !this.getBestcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
-			myLine.addContent("0 ms");
-		} else {
-			myLine.addContent(this.getTotalMinimum() + "ms");
-		}
+		myLine.addContent(this.getTotalMinimum() + "ms");
 		if (Values.doReportSubtotals()) {
 			// don't report subtotals for subcontributors
 			if (level > 0) {
@@ -528,12 +527,7 @@ public abstract class LatencyContributor {
 		} else {
 			myLine.addContent(""); // the min expected value
 		}
-		if (this.getSamplingPeriod() > 0.0
-				&& !this.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.FIRST_SAMPLED)) {
-			myLine.addContent(this.getSamplingPeriod() + "ms");
-		} else {
-			myLine.addContent(this.getTotalMaximum() + "ms");
-		}
+		myLine.addContent(this.getTotalMaximum() + "ms");
 		if (Values.doReportSubtotals()) {
 			// don't report subtotals for subcontributors
 			if (level > 0) {

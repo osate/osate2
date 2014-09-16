@@ -102,14 +102,12 @@ public class FlowLatencyLogicComponent {
 					platencyContributor.setPartitionOffset(frameOffset);
 					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
 					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-					platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
 					entry.addContributor(platencyContributor);
 				} else {
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition);
 					platencyContributor.setSamplingPeriod(partitionLatency);
 					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
 					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-					platencyContributor.reportInfo("Initial " + period + "ms partition latency not added");
 					entry.addContributor(platencyContributor);
 				}
 			}
@@ -150,7 +148,7 @@ public class FlowLatencyLogicComponent {
 			bestCaseValue = executionTimeLower;
 			bestmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
-//
+// For best case it does not make sense to use deadline
 //		if ((bestCaseValue == 0.0) && isAssignedDeadline) {
 //			bestCaseValue = deadline;
 //			bestmethod = LatencyContributorMethod.DEADLINE;

@@ -28,7 +28,7 @@ public class ReportUtils {
 			path = path.removeFileExtension();
 			filename = path.lastSegment() + "__" + reportType;
 			if (fileSuffix != null) {
-				filename = filename + fileSuffix;
+				filename = filename + "_" + fileSuffix;
 			}
 			path = path.removeLastSegments(1).append("/reports/" + reportType + "/" + filename);
 		} else {

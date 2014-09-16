@@ -540,10 +540,10 @@ public class FlowLatencyUtil {
 	 * @return double
 	 */
 	public static double roundUpDiff(double processingLatency, double samplingLatency, double targetLatency) {
-		double diff = processingLatency % targetLatency;
+		double diff = targetLatency - (processingLatency % targetLatency);
 		// deal with overflow into next frame.
 		int extraslots = (int) (processingLatency / targetLatency);
-		return diff + extraslots * samplingLatency;
+		return diff + (extraslots * samplingLatency);
 	}
 
 	/**

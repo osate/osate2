@@ -2,6 +2,7 @@ package org.osate.analysis.flows.reporting.exporters;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.utils.ReportUtils;
 
@@ -16,7 +17,8 @@ public abstract class GenericExport {
 	// public static IPath getReportPath(EObject root, String subDirectory, String reportType, String fileSuffix,
 
 	public IPath getPath() {
-		return ReportUtils.getReportPath(report.getRelatedObject(), "latency", "latency", "latency", fileExtension);
+		return ReportUtils.getReportPath(report.getRelatedObject(), "latency", "latency",
+				Values.doMajorFrameDelay() ? "MF" : "PE", fileExtension);
 	}
 
 	public abstract void save(EObject relatedObject);
