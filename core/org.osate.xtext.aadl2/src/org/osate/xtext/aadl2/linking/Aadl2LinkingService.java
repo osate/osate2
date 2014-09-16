@@ -275,12 +275,13 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// context
 			// also used in triggerport
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			if (context instanceof ConnectedElement || context instanceof FlowEnd || context instanceof FlowSegment) {
+			if (context instanceof ConnectedElement || context instanceof FlowEnd || context instanceof FlowSegment
+					|| context instanceof EndToEndFlowSegment) {
 				// connection context
 				if (searchResult instanceof Context) {
 					return Collections.singletonList(searchResult);
 				}
-			} else if (context instanceof ModeTransitionTrigger || context instanceof EndToEndFlowSegment) {
+			} else if (context instanceof ModeTransitionTrigger) {
 				if (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup
 						|| searchResult instanceof SubprogramCall) {
 					return Collections.singletonList(searchResult);
