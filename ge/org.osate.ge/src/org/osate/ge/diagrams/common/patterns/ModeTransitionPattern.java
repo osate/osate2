@@ -470,6 +470,9 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 				public ModeTransition modify(final Resource resource, final ComponentClassifier cc) {
 					final ModeTransition newModeTransition = cc.createOwnedModeTransition();
 					
+					// Clear the no modes flag
+					cc.setNoModes(false);
+					
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
 		 			diagramMod.markRelatedDiagramsAsDirty(cc);

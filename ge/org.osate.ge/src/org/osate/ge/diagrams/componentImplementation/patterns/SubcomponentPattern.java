@@ -371,6 +371,10 @@ public class SubcomponentPattern extends AgePattern {
 				final String name = namingService.buildUniqueIdentifier(ci, "new_subcomponent");
 				final Subcomponent sc = createSubcomponent(ci, subcomponentType);
 				sc.setName(name);
+				
+				// Reset the no subcomponents flag
+				ci.setNoSubcomponents(false);
+			
 				return sc;
 			}
 			

@@ -337,6 +337,8 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
      			outFlowEnd.setFeature(outFeature);
      			outFlowEnd.setContext(getContext(outFeatureShape));
      			
+     			ct.setNoFlows(false);
+     			
      			diagramMod.markRelatedDiagramsAsDirty(ct);
 
 				return fs;

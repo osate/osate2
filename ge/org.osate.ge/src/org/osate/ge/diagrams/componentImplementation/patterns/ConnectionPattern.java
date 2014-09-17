@@ -468,6 +468,9 @@ public class ConnectionPattern extends AgeConnectionPattern {
 				if(newAadlConnection == null) {
 					return null;
 				}
+				
+				// Reset the no connections flag
+				ci.setNoConnections(false);
 
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();

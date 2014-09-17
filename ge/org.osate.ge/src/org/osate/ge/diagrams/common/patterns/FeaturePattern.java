@@ -716,6 +716,11 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		 			
 					final NamedElement newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
+					
+					if(classifier instanceof ComponentType) {
+						((ComponentType) classifier).setNoFeatures(false);
+					}
+					
 					return newFeature;
 				}
 				

@@ -96,8 +96,10 @@ public class EditFlowsFeature extends AbstractCustomFeature {
 				for(final Flow flow : dlg.getFlows()) {
 					if(flow instanceof EndToEndFlow) {
 						ci.getOwnedEndToEndFlows().add((EndToEndFlow)flow);
+						ci.setNoFlows(false);
 					} else if(flow instanceof FlowImplementation) {
 						ci.getOwnedFlowImplementations().add((FlowImplementation)flow);
+						ci.setNoFlows(false);
 					}
 				}
 

@@ -183,6 +183,9 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
      			flowEnd.setFeature(feature);
      			flowEnd.setContext(getContext(featureShape));     			
 
+     			// Clear the no flows flag
+     			ct.setNoFlows(false);
+     			
 				diagramMod.markRelatedDiagramsAsDirty(ct);
 
 				return null;

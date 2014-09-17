@@ -363,6 +363,10 @@ public class ModePattern extends AgeLeafShapePattern {
 					final Mode newMode = classifier.createOwnedMode();
 					newMode.setInitial(false);
 					newMode.setName(newModeName);
+					
+					// Clear the no modes flag
+					classifier.setNoModes(false);
+					
 					return newMode;
 				}
 				
@@ -399,7 +403,7 @@ public class ModePattern extends AgeLeafShapePattern {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
 	 			final Classifier classifier = mode.getContainingClassifier();
-	 			diagramMod.markRelatedDiagramsAsDirty(classifier);
+	 			diagramMod.markRelatedDiagramsAsDirty(classifier);	 			
 	 			
 				// Just remove the mode. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.

@@ -22,7 +22,6 @@ import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.NamedElement;
