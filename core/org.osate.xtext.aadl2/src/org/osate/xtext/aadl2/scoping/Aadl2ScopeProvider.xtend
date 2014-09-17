@@ -482,6 +482,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.type?.allFlowSpecifications?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
+	//Reference is from EndToEndFlow in Aadl2.xtext
+	def scope_EndToEndFlow_refined(ComponentImplementation context, EReference reference) {
+		context.extended?.allEndToEndFlows?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
 	//Reference is from SubcomponentFlow in Aadl2.xtext
 	def scope_FlowSegment_context(ComponentImplementation context, EReference reference) {
 		context.allContexts.scopeFor
