@@ -74,6 +74,7 @@ class OsateTest extends XtextTest {
 			}
 		}
 		operation.run(null)
+		waitForBuild
 	}
 
 	/**
@@ -139,7 +140,7 @@ class OsateTest extends XtextTest {
 		file
 	}
 
-	def waitForBuild() {
+	def void waitForBuild() {
 		val IJobManager jobManager = Job.getJobManager();
 		try {
 			jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);

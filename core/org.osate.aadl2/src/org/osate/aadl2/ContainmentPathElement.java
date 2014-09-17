@@ -37,6 +37,7 @@
 package org.osate.aadl2;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -53,6 +54,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getNamedElement <em>Named Element</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getAnnexName <em>Annex Name</em>}</li>
+ *   <li>{@link org.osate.aadl2.ContainmentPathElement#getContainedNamedElement <em>Contained Named Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -147,4 +149,50 @@ public interface ContainmentPathElement extends Element {
 	 * @generated
 	 */
 	void setAnnexName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Contained Named Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Associations.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Contained Named Element</em>' containment reference.
+	 * @see #setContainedNamedElement(ContainedNamedElement)
+	 * @see org.osate.aadl2.Aadl2Package#getContainmentPathElement_ContainedNamedElement()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	ContainedNamedElement getContainedNamedElement();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ContainmentPathElement#getContainedNamedElement <em>Contained Named Element</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Contained Named Element</em>' containment reference.
+	 * @see #getContainedNamedElement()
+	 * @generated
+	 */
+	void setContainedNamedElement(ContainedNamedElement value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ContainedNamedElement} and sets the '<em><b>Contained Named Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param eClass The Ecore class of the {@link org.osate.aadl2.ContainedNamedElement} to create.
+	 * @return The new {@link org.osate.aadl2.ContainedNamedElement}.
+	 * @see #getContainedNamedElement()
+	 * @generated
+	 */
+	ContainedNamedElement createContainedNamedElement(EClass eClass);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ContainedNamedElement} and sets the '<em><b>Contained Named Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ContainedNamedElement}.
+	 * @see #getContainedNamedElement()
+	 * @generated
+	 */
+	ContainedNamedElement createContainedNamedElement();
 } // ContainmentPathElement

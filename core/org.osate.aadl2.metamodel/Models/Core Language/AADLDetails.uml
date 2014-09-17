@@ -2974,9 +2974,6 @@
         <generalization xmi:id="_1_4XYIN2EeOWItHzPgezWw">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
         </generalization>
-        <generalization xmi:id="_wfObYJQCEeO3Kr7sRQhF5w">
-          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModalElement"/>
-        </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_y7R98IN2EeOWItHzPgezWw" name="InternalFeature" isAbstract="true">
         <generalization xmi:id="_2m7JQIN2EeOWItHzPgezWw">
@@ -2987,9 +2984,6 @@
         </generalization>
         <generalization xmi:id="_4ZDeIIOKEeOWItHzPgezWw" general="Connections-PortConnectionEnd"/>
         <generalization xmi:id="_NpoGoJMfEeOjKPnjRLtKFw" general="Connections-FeatureConnectionEnd"/>
-        <generalization xmi:id="_vm-kwJQCEeO3Kr7sRQhF5w">
-          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModalElement"/>
-        </generalization>
         <ownedAttribute xmi:id="_AoQOEJP7EeO4lMXvNCrZDQ" name="direction">
           <type xmi:type="uml:Enumeration" href="AADLConstructs.uml#Features-DirectionType"/>
         </ownedAttribute>
