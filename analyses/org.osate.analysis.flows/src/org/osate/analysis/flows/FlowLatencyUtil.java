@@ -42,11 +42,24 @@ public class FlowLatencyUtil {
 		return etef.getFlowElements().indexOf(flowElementInstance) > 0;
 	}
 
+	public static FeatureInstance getIncomingFeatureInstance(final EndToEndFlowInstance etef,
+			final FlowElementInstance flowElementInstance) {
+		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
+		if ((previousElement != null)) {
+			ConnectionInstanceEnd dst = previousElement.getDestination();
+			if (dst instanceof FeatureInstance) {
+				return (FeatureInstance) dst;
+			}
+		}
+
+		return null;
+	}
+
 	public static boolean isPreviousConnectionImmediate(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.IMMEDIATE);
+		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
+		if ((previousElement != null)) {
+			return (getConnectionType(previousElement) == ConnectionType.IMMEDIATE);
 		}
 
 		return false;
@@ -578,16 +591,11 @@ public class FlowLatencyUtil {
 		return res;
 	}
 
-	public static double getQueueDelayinMilliSec(final ConnectionInstanceEnd conniEnd, final ComponentInstance comp,
-			boolean periodic) {
-		if (conniEnd == null || conniEnd instanceof ComponentInstance)
-			return 0;
-		FeatureInstance port = (FeatureInstance) conniEnd;
-		if (port == null || comp == null) {
-			return 0;
-		}
-		double qs = GetProperties.getQueueSize(port);
-		double dl = periodic ? GetProperties.getPeriodinMS(comp) : GetProperties.getDeadlineinMilliSec(comp);
+	public static double getMaxQueueDelayinMilliSec(final FeatureInstance fi, final ComponentInstance comp,
+			boolean sporadic, boolean doDeadline) {
+		double qs = GetProperties.getQueueSize(fi);
+		double dl = sporadic ? GetProperties.getPeriodinMS(comp) : (doDeadline ? GetProperties
+				.getDeadlineinMilliSec(comp) : GetProperties.getMaximumComputeExecutionTimeinMs(comp));
 		return qs * dl;
 	}
 

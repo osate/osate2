@@ -2,6 +2,8 @@ package org.osate.analysis.flows;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureCategory;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -9,6 +11,7 @@ import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyLogicComponent {
 
@@ -154,6 +157,26 @@ public class FlowLatencyLogicComponent {
 		if ((bestCaseValue == 0.0) && (expectedMin != 0.0)) {
 			bestCaseValue = expectedMin;
 			bestmethod = LatencyContributorMethod.SPECIFIED;
+		}
+
+		// deal with queuing latency
+		if (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) {
+			// take into account queuing delay
+			FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
+			if (fi != null
+					&& (fi.getCategory() == FeatureCategory.EVENT_PORT || fi.getCategory() == FeatureCategory.EVENT_DATA_PORT)) {
+				// take into account queuing delay on event and event data ports.
+				double qs = GetProperties.getQueueSize(fi);
+				double dl = (InstanceModelUtil.isSporadicComponent(componentInstance)
+						|| InstanceModelUtil.isPeriodicComponent(componentInstance) ? period : worstCaseValue);
+				double queuingDelay = qs * dl;
+				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
+				ql.setMaximum(queuingDelay);
+				ql.setMinimum(0.0);
+				ql.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
+				ql.setBestCaseMethod(LatencyContributorMethod.QUEUED);
+				entry.addContributor(ql);
+			}
 		}
 
 		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance);

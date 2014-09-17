@@ -210,7 +210,7 @@ public class FlowLatencyLogicConnection {
 		subContributor.setMinimum(protocolLatencyMinimum);
 		subContributor.setExpectedMaximum(protocolLatencyMaximum);
 		subContributor.setExpectedMinimum(protocolLatencyMinimum);
-		subContributor.reportInfo("Time required by the protocol stack");
+		subContributor.reportInfo("Time required by protocol");
 		latencyContributor.addSubContributor(subContributor);
 		processActualConnectionBindings(vb, relatedConnectionData, latencyContributor);
 	}
