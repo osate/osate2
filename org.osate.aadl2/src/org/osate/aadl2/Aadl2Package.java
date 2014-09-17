@@ -3998,13 +3998,22 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINED_NAMED_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Containment Path Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Path Element</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
+	int CONTAINED_NAMED_ELEMENT__PATH_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Containment Path Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Contained Named Element</em>' class.
@@ -4013,7 +4022,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONTAINED_NAMED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
+	int CONTAINED_NAMED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4061,13 +4070,22 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINMENT_PATH_ELEMENT__ANNEX_NAME = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Contained Named Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT = ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Containment Path Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
+	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -11710,22 +11728,13 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_FEATURE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCESSOR_FEATURE__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Processor Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESSOR_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int PROCESSOR_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -11800,22 +11809,13 @@ public interface Aadl2Package extends EPackage {
 	int INTERNAL_FEATURE__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTERNAL_FEATURE__IN_MODE = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTERNAL_FEATURE__DIRECTION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int INTERNAL_FEATURE__DIRECTION = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Internal Feature</em>' class.
@@ -11824,7 +11824,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERNAL_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
+	int INTERNAL_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -11897,15 +11897,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int EVENT_SOURCE__FEATURING_CLASSIFIER = INTERNAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_SOURCE__IN_MODE = INTERNAL_FEATURE__IN_MODE;
 
 	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
@@ -11996,15 +11987,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int EVENT_DATA_SOURCE__FEATURING_CLASSIFIER = INTERNAL_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_DATA_SOURCE__IN_MODE = INTERNAL_FEATURE__IN_MODE;
 
 	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
@@ -12323,15 +12305,6 @@ public interface Aadl2Package extends EPackage {
 	int PORT_PROXY__FEATURING_CLASSIFIER = PROCESSOR_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT_PROXY__IN_MODE = PROCESSOR_FEATURE__IN_MODE;
-
-	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12429,15 +12402,6 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_PROXY__FEATURING_CLASSIFIER = PROCESSOR_FEATURE__FEATURING_CLASSIFIER;
-
-	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_PROXY__IN_MODE = PROCESSOR_FEATURE__IN_MODE;
 
 	/**
 	 * The feature id for the '<em><b>Subprogram Classifier</b></em>' reference.
@@ -33327,7 +33291,16 @@ public interface Aadl2Package extends EPackage {
 	int REFERENCE_VALUE__OWNED_COMMENT = CONTAINED_NAMED_ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Containment Path Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Path Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_VALUE__PATH_ELEMENT = CONTAINED_NAMED_ELEMENT__PATH_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Containment Path Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -36149,10 +36122,21 @@ public interface Aadl2Package extends EPackage {
 	EClass getContainedNamedElement();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ContainedNamedElement#getContainmentPathElements <em>Containment Path Element</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ContainedNamedElement#getPathElement <em>Path Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Containment Path Element</em>'.
+	 * @return the meta object for the containment reference '<em>Path Element</em>'.
+	 * @see org.osate.aadl2.ContainedNamedElement#getPathElement()
+	 * @see #getContainedNamedElement()
+	 * @generated
+	 */
+	EReference getContainedNamedElement_PathElement();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.ContainedNamedElement#getContainmentPathElements <em>Containment Path Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Containment Path Element</em>'.
 	 * @see org.osate.aadl2.ContainedNamedElement#getContainmentPathElements()
 	 * @see #getContainedNamedElement()
 	 * @generated
@@ -36201,6 +36185,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EAttribute getContainmentPathElement_AnnexName();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ContainmentPathElement#getContainedNamedElement <em>Contained Named Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Contained Named Element</em>'.
+	 * @see org.osate.aadl2.ContainmentPathElement#getContainedNamedElement()
+	 * @see #getContainmentPathElement()
+	 * @generated
+	 */
+	EReference getContainmentPathElement_ContainedNamedElement();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ArrayRange <em>Array Range</em>}'.

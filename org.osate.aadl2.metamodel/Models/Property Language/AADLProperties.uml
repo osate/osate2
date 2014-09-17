@@ -1065,12 +1065,16 @@
         <generalization xmi:id="Associations-ContainedNamedElement-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:id="Associations-ContainedNamedElement-containmentPathElement" name="containmentPathElement" type="Associations-ContainmentPathElement" isOrdered="true" aggregation="composite" association="Associations-A_containedNamedElement_containmentPathElement">
+        <ownedAttribute xmi:id="Associations-ContainedNamedElement-containmentPathElement" name="pathElement" visibility="public" type="Associations-ContainmentPathElement" isOrdered="true" aggregation="composite" association="Associations-A_containedNamedElement_containmentPathElement">
           <ownedComment xmi:id="Associations-ContainedNamedElement-containmentPathElement-_ownedComment.0">
             <body>===TBD===</body>
           </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-ContainedNamedElement-containmentPathElement-_upperValue" value="*"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-ContainedNamedElement-containmentPathElement-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-ContainedNamedElement-containmentPathElement-_lowerValue" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_oV-VsD0OEeSdvMOHIJggqw" name="containmentPathElement" type="Associations-ContainmentPathElement" isReadOnly="true" isDerived="true">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KQmBED0PEeSdvMOHIJggqw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JjfDcD0PEeSdvMOHIJggqw"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_containmentPathElement_arrayRange" name="A_containmentPathElement_arrayRange" memberEnd="Associations-A_containmentPathElement_arrayRange-containmentPathElement Associations-ContainmentPathElement-arrayRange">
@@ -1080,7 +1084,7 @@
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_containmentPathElement_namedElement" name="A_containmentPathElement_namedElement" memberEnd="Associations-A_containmentPathElement_namedElement-containmentPathElement Associations-ContainmentPathElement-namedElement">
-        <ownedEnd xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement" name="containmentPathElement" type="Associations-ContainmentPathElement" association="Associations-A_containmentPathElement_namedElement">
+        <ownedEnd xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement" name="path" type="Associations-ContainmentPathElement" association="Associations-A_containmentPathElement_namedElement">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement-_lowerValue" value="1"/>
         </ownedEnd>
@@ -1111,11 +1115,15 @@
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XyrcsGQsEeOdXdH5C4MU8A"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_ubrlID0NEeSdvMOHIJggqw" name="containedNamedElement" type="Associations-ContainedNamedElement" aggregation="composite" association="_ub9R8D0NEeSdvMOHIJggqw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ubrlIT0NEeSdvMOHIJggqw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ubrlIj0NEeSdvMOHIJggqw"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_containedNamedElement_containmentPathElement" name="A_containedNamedElement_containmentPathElement" memberEnd="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement Associations-ContainedNamedElement-containmentPathElement">
         <ownedEnd xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement" name="containedNamedElement" type="Associations-ContainedNamedElement" association="Associations-A_containedNamedElement_containmentPathElement">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-Classifier" name="Classifier" isAbstract="true">
@@ -1165,6 +1173,12 @@
         <ownedEnd xmi:id="_1BNbO0cjEd-T9JmP5D10wg" name="owner" type="Associations-ModalPropertyValue" association="_1BNbOkcjEd-T9JmP5D10wg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1BNbPEcjEd-T9JmP5D10wg" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1BNbPUcjEd-T9JmP5D10wg"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_ub9R8D0NEeSdvMOHIJggqw" name="A_containmentPathElement_containedNamedElement" memberEnd="_ub9R8T0NEeSdvMOHIJggqw _ubrlID0NEeSdvMOHIJggqw">
+        <ownedEnd xmi:id="_ub9R8T0NEeSdvMOHIJggqw" name="path" type="Associations-ContainmentPathElement" association="_ub9R8D0NEeSdvMOHIJggqw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ub9R8j0NEeSdvMOHIJggqw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ub9R8z0NEeSdvMOHIJggqw"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

@@ -58,6 +58,7 @@ import org.osate.aadl2.ConnectedElement
 import org.osate.aadl2.Connection
 import org.osate.aadl2.ConnectionEnd
 import org.osate.aadl2.Context
+import org.osate.aadl2.DataAccess
 import org.osate.aadl2.DataSubcomponentType
 import org.osate.aadl2.DeviceSubcomponentType
 import org.osate.aadl2.Element
@@ -68,7 +69,10 @@ import org.osate.aadl2.FeatureGroupPrototypeActual
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.FeaturePrototype
 import org.osate.aadl2.FeatureType
+import org.osate.aadl2.FlowElement
 import org.osate.aadl2.FlowEnd
+import org.osate.aadl2.FlowImplementation
+import org.osate.aadl2.FlowSegment
 import org.osate.aadl2.FlowSpecification
 import org.osate.aadl2.MemorySubcomponentType
 import org.osate.aadl2.ModalElement
@@ -404,13 +408,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from ConnectedElement in Aadl2.xtext
 	def scope_ConnectedElement_context(ComponentImplementation context, EReference reference) {
-		val validElements = newArrayList
-		validElements.addAll(context.getAllFeatures().filter(typeof(Context)))
-		validElements.addAll(context.allSubcomponents)
-		if (context instanceof BehavioredImplementation) {
-			validElements.addAll(context.allSubprogramCalls)
-		}
-		validElements.scopeFor
+		context.allContexts.scopeFor
 	}
 	
 	/*
@@ -449,14 +447,14 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FlowEnd in Aadl2.xtext
 	def scope_FlowEnd_context(ComponentType context, EReference reference) {
-		context.getAllFeatures().filter(typeof(Context)).scopeFor
+		context.allContexts.scopeFor
 	}
 	
 	/*
 	 * Reference is from FlowEnd in Aadl2.xtext
 	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowEnd.  When the FlowEnd
 	 * is a single identifier, e.g. "port1", then the passed context is a FlowSpecification.  In this case, we know that the FlowEnd's Context is null even
-	 * though we can't access it and check it here.  When the Flow end is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a
+	 * though we can't access it and check it here.  When the FlowEnd is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a
 	 * FlowEnd, thus calling the other scope method.
 	 */
 	def scope_FlowEnd_feature(FlowSpecification context, EReference reference) {
@@ -469,7 +467,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a FlowEnd and we can access and check the FlowEnd's Context object.
 	 */
 	def scope_FlowEnd_feature(FlowEnd context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [getAllFeatures()]) ?:scope_FlowEnd_feature(context.owner as FlowSpecification, reference)
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [getAllFeatures()]) ?: scope_FlowEnd_feature(context.owner as FlowSpecification, reference)
 	}
 	
 	//Reference is from FlowSpecRefinement in Aadl2.xtext
@@ -482,6 +480,32 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.type?.allFlowSpecifications?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
+	//Reference is from SubcomponentFlow in Aadl2.xtext
+	def scope_FlowSegment_context(ComponentImplementation context, EReference reference) {
+		context.allContexts.scopeFor
+	}
+	
+	/*
+	 * Reference is from SubcomponentFlow and ConnectionFlow in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowSegment.  When the
+	 * FlowSegment is a single identifier, e.g. "conn1", then the passed context is a FlowImplementation.  In this case, we know that the FlowSegment's Context
+	 * is null even though we can't access it and check it here.  When the FlowSegment is a qualified reference, e.g. "subcomponent1.flowpath1", then the
+	 * passed context is a FlowSegment, thus calling the other scope method.
+	 */
+	def scope_FlowSegment_flowElement(FlowImplementation context, EReference reference) {
+		context.getContainerOfType(typeof(Classifier)).allFlowElements.scopeFor
+	}
+	
+	/*
+	 * Reference is from SubcomponentFlow in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowSegment.  When the
+	 * FlowSegment is a qualified reference, e.g. "subcomponent1.flowpath1", then the passed context is a FlowSegment and we can access and check the
+	 * FlowSegment's Context object.
+	 */
+	def scope_FlowSegment_flowElement(FlowSegment context, EReference reference) {
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [allFlowElements]) ?: scope_FlowSegment_flowElement(context.owner as FlowImplementation, reference)
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
@@ -489,6 +513,18 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			FeatureGroupType:
 				classifier.allPrototypes
 		}
+	}
+	
+	def private static allContexts(ComponentClassifier classifier) {
+		val validElements = newArrayList
+		validElements.addAll(classifier.getAllFeatures().filter(typeof(Context)))
+		if (classifier instanceof ComponentImplementation) {
+			validElements.addAll(classifier.allSubcomponents)
+			if (classifier instanceof BehavioredImplementation) {
+				validElements.addAll(classifier.allSubprogramCalls)
+			}
+		}
+		validElements
 	}
 	
 	def private static allSubprogramCalls(BehavioredImplementation implementation) {
@@ -512,6 +548,21 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			connectionEnds.addAll(classifier.allInternalFeatures)
 		}
 		connectionEnds
+	}
+	
+	def private static allFlowElements(Classifier classifier) {
+		val ArrayList<FlowElement> flowElements = newArrayList
+		flowElements.addAll(classifier.getAllFeatures().filter(typeof(DataAccess)))
+		switch classifier {
+			ComponentType:
+				flowElements.addAll(classifier.allFlowSpecifications)
+			ComponentImplementation: {
+				flowElements.addAll(classifier.type.allFlowSpecifications)
+				flowElements.addAll(classifier.allConnections)
+				flowElements.addAll(classifier.allSubcomponents)
+			}
+		}
+		flowElements
 	}
 	
 	def private static allSubprogramProxies(ComponentImplementation implementation) {

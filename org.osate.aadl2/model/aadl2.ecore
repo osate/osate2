@@ -849,8 +849,15 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pathElement" lowerBound="1"
+        eType="#//ContainmentPathElement" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentPathElement"
-        lowerBound="1" upperBound="-1" eType="#//ContainmentPathElement" containment="true">
+        ordered="false" upperBound="-1" eType="#//ContainmentPathElement" changeable="false"
+        volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
       </eAnnotations>
@@ -874,6 +881,12 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="annexName" ordered="false"
         eType="#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containedNamedElement"
+        ordered="false" eType="#//ContainedNamedElement" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
       </eAnnotations>
@@ -2129,8 +2142,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEndToEndFlowSegment"
-        ordered="false" lowerBound="1" upperBound="-1" eType="#//EndToEndFlowSegment"
-        containment="true">
+        ordered="false" upperBound="-1" eType="#//EndToEndFlowSegment" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Flows.&lt;/p>"/>
       </eAnnotations>
@@ -2207,12 +2219,12 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Connections.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//ModalElement #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
+  <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
     </eAnnotations>

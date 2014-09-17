@@ -204,6 +204,9 @@
       <generalization xmi:id="SubprogramType-_generalization.0" general="CallContext"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="CallContext" name="CallContext"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CnWs4D0REeSdvMOHIJggqw" name="ContainedNamedElement">
+      <ownedAttribute xmi:id="_Ms9D4D0REeSdvMOHIJggqw" name="containmentPathElement" isDerived="true"/>
+    </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA"/>
@@ -334,4 +337,6 @@
   <Ecore:EAttribute xmi:id="_210X4E4jEeOhgd3TaVpFAQ" base_Property="ComponentClassifier-derivedModes"/>
   <Ecore:EReference xmi:id="_G4sGQInHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="_0uHzQInGEeOHif2o_nrmYQ"/>
   <Ecore:EReference xmi:id="_ICpX8InHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="_2t9kEInGEeOHif2o_nrmYQ"/>
+  <Standard:Metaclass xmi:id="_JGiW0D0REeSdvMOHIJggqw" base_Class="_CnWs4D0REeSdvMOHIJggqw"/>
+  <Ecore:EReference xmi:id="_oY8CwD0REeSdvMOHIJggqw" isTransient="true" base_Property="_Ms9D4D0REeSdvMOHIJggqw"/>
 </xmi:XMI>
