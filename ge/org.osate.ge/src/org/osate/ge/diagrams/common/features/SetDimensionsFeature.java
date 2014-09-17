@@ -9,7 +9,11 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.ArrayableElement;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.dialogs.EditDimensionsDialog;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.DiagramModificationService;
@@ -30,7 +34,7 @@ public class SetDimensionsFeature extends AbstractCustomFeature {
 	
 	@Override
     public String getName() {
-        return "Set Array Dimensions...";
+        return "Modify Dimensions...";
     }
 	
 	@Override
@@ -51,57 +55,55 @@ public class SetDimensionsFeature extends AbstractCustomFeature {
 			return false;
 		}
 		
-		// Check that the pictogram represents a mode	
+		// Check that the pictogram represents an Arrayable Element
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		if(!(bo instanceof ArrayableElement)) {
 			return false;
 		}
 		
-		// Only allow setting the value if the new value would be different, the classifier contains nodes, and the classifier has not inherited any modes or mode transitions
-		/*final ComponentClassifier cc = (ComponentClassifier)bo;
-		return cc.isDerivedModes() != derivedModes && (cc.getOwnedModes().size() > 0 || cc.getOwnedModeTransitions().size() > 0) && cc.getAllModes().size() == cc.getOwnedModes().size() && cc.getAllModeTransitions().size() == cc.getOwnedModeTransitions().size() ;
-		*/
-		return true;
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		final ArrayableElement ae = (ArrayableElement)bo;
+		return ae.getContainingClassifier() == diagramBo;
 	}
 	
     @Override
     public boolean canExecute(final ICustomContext context) {
-    	/*
-    	// Only allow changing whether the modes are derived if it is being set to false or if there are no mode transitions. Mode transitions are not allowed
-    	// in requires mode clauses
-    	final PictogramElement pe = (PictogramElement)context.getPictogramElements()[0];
-		final ComponentClassifier cc = (ComponentClassifier)bor.getBusinessObjectForPictogramElement(pe);
-    	return !derivedModes || cc.getOwnedModeTransitions().size() == 0;
-    	*/
     	return true;
     }
         
 	@Override
 	public void execute(final ICustomContext context) {
-		/*
 		final PictogramElement pe = (PictogramElement)context.getPictogramElements()[0];
-		final ComponentClassifier cc = (ComponentClassifier)bor.getBusinessObjectForPictogramElement(pe);
+		final ArrayableElement ae = (ArrayableElement)bor.getBusinessObjectForPictogramElement(pe);
 		
-		aadlModService.modify(cc, new AbstractModifier<ComponentClassifier, Object>() {
+		final EditDimensionsDialog dlg = new EditDimensionsDialog(Display.getCurrent().getActiveShell(), ae.getArrayDimensions(), ae instanceof Subcomponent);
+		if(dlg.open() == Dialog.CANCEL) {
+			return;
+		}
+		
+		// Update the dimensions
+		aadlModService.modify(ae, new AbstractModifier<ArrayableElement, Object>() {
 			private DiagramModificationService.Modification diagramMod;    	
 			
 			@Override
-			public Object modify(final Resource resource, final ComponentClassifier cc) {
+			public Object modify(final Resource resource, final ArrayableElement ae) {
 				// Start the diagram modification
      			diagramMod = diagramModService.startModification();
      			
-				cc.setDerivedModes(derivedModes);
-				diagramMod.markRelatedDiagramsAsDirty(cc);
-
+				// Clear existing flows
+				ae.getArrayDimensions().clear();
+				ae.getArrayDimensions().addAll(dlg.getDimensions());
+				
+				diagramMod.markRelatedDiagramsAsDirty(ae.getContainingClassifier());
+				
 				return null;
 			}
 			
 	 		@Override
-			public void beforeCommit(final Resource resource, final ComponentClassifier cc, final Object modificationResult) {
+			public void beforeCommit(final Resource resource, final ArrayableElement ae, final Object modificationResult) {
 				diagramMod.commit();
 			}
 		});
-		*/
 	}
 
 }

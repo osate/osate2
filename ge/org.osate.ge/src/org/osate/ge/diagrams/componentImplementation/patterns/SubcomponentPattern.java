@@ -341,12 +341,10 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	private String getLabelText(final Subcomponent sc) {
-		// TODO: Will need to handle differently depending on whether the shape is for a subcomponent array or a subcomponent array element
 		return getSubcomponentName(sc) + arrayService.getDimensionUserString(sc);
 	}
 	
 	private String getTypeText(final Subcomponent sc) {
-		// TODO: Will need to handle differently depending on whether the shape is for a subcomponent array or a subcomponent array element
 		String retVal = "";
         final SubcomponentType scType = subcomponentService.getAllSubcomponentType(sc);
         

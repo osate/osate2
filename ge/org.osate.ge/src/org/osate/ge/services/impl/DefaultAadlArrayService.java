@@ -6,10 +6,8 @@ import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.ArrayableElement;
-import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RefinableElement;
 import org.osate.ge.services.AadlArrayService;
 
@@ -34,11 +32,11 @@ public class DefaultAadlArrayService implements AadlArrayService {
 	 *
 	 */
 	private static class SimplifiedDimensionSize {
-		private Long dimSize = null;
 		private String dimSizeString;
 		
 		public SimplifiedDimensionSize(final ArrayDimension dim) {
 			final ArraySize size = dim.getSize();
+			Long dimSize = null;
 			
 			if(size == null) {
 				dimSizeString = "";
@@ -48,12 +46,7 @@ public class DefaultAadlArrayService implements AadlArrayService {
 					dimSize = size.getSize();
 				} else {
 					if(sizeProp instanceof PropertyConstant) {
-						final PropertyExpression pe = ((PropertyConstant) sizeProp).getConstantValue();
-						if(pe instanceof IntegerLiteral) {
-							dimSize = ((IntegerLiteral) pe).getValue();
-						} else {
-							dimSizeString = ((PropertyConstant) sizeProp).getQualifiedName();
-						}
+						dimSizeString = ((PropertyConstant) sizeProp).getQualifiedName();
 					} else if(sizeProp instanceof Property) {
 						dimSizeString = ((Property) sizeProp).getQualifiedName();
 					} else {
@@ -67,12 +60,6 @@ public class DefaultAadlArrayService implements AadlArrayService {
 				dimSizeString = Long.toString(dimSize);
 			}
 		}
-		
-		/*
-		public final Long getSize() {
-			return dimSize;
-		}
-		*/
 		
 		public final String getSizeString() {
 			return dimSizeString;
