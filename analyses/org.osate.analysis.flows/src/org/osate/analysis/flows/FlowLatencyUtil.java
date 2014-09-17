@@ -591,14 +591,6 @@ public class FlowLatencyUtil {
 		return res;
 	}
 
-	public static double getMaxQueueDelayinMilliSec(final FeatureInstance fi, final ComponentInstance comp,
-			boolean sporadic, boolean doDeadline) {
-		double qs = GetProperties.getQueueSize(fi);
-		double dl = sporadic ? GetProperties.getPeriodinMS(comp) : (doDeadline ? GetProperties
-				.getDeadlineinMilliSec(comp) : GetProperties.getMaximumComputeExecutionTimeinMs(comp));
-		return qs * dl;
-	}
-
 	public static String getMinMaxLabel(boolean doMax) {
 		if (doMax) {
 			return "Max: ";

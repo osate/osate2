@@ -42,7 +42,10 @@ public class FlowLatencyLogicComponent {
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0) {
+		if (period > 0
+				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) ? !InstanceModelUtil
+				.isSporadicComponent(componentInstance) : true) {
+			// period is set, and if thread or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
 			if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
