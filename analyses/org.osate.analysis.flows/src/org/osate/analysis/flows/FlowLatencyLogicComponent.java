@@ -37,6 +37,16 @@ public class FlowLatencyLogicComponent {
 		boolean isAssignedDeadline = GetProperties.isAsignedDeadline(componentInstance);
 		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
 		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
+		if (Values.doDataSetProcessing()) {
+			FeatureInstance inport = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
+			if (inport != null) {
+				double dim = FlowLatencyUtil.getDimension(inport);
+				if (dim > 1) {
+					executionTimeHigher = executionTimeHigher * dim;
+					executionTimeLower = executionTimeLower * dim;
+				}
+			}
+		}
 
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
@@ -44,7 +54,7 @@ public class FlowLatencyLogicComponent {
 		boolean checkLastImmediate = false;
 		if (period > 0
 				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) ? (!InstanceModelUtil
-				.isSporadicComponent(componentInstance) && !InstanceModelUtil.isTimeComponent(componentInstance))
+				.isSporadicComponent(componentInstance) && !InstanceModelUtil.isTimedComponent(componentInstance))
 				: true) {
 			// period is set, and if thread or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
@@ -169,14 +179,28 @@ public class FlowLatencyLogicComponent {
 			FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
 			if (fi != null
 					&& (fi.getCategory() == FeatureCategory.EVENT_PORT || fi.getCategory() == FeatureCategory.EVENT_DATA_PORT)) {
+				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
 				// take into account queuing delay on event and event data ports.
 				double qs = GetProperties.getQueueSize(fi);
-				double dl = (InstanceModelUtil.isSporadicComponent(componentInstance)
-						|| InstanceModelUtil.isPeriodicComponent(componentInstance) ? period : worstCaseValue);
+				double dl = 0.0;
+				if (InstanceModelUtil.isSporadicComponent(componentInstance)
+						|| InstanceModelUtil.isPeriodicComponent(componentInstance)) {
+					dl = period;
+					ql.reportInfo("Sporadic or periodic has period delay per queue element");
+				} else {
+					dl = worstCaseValue;
+				}
 				double queuingDelay = qs * dl;
-				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
 				ql.setMaximum(queuingDelay);
-				ql.setMinimum(0.0);
+				if (Values.doBestcaseEmptyQueue()) {
+					ql.setMinimum(0.0);
+					ql.reportInfo("Assume empty queue");
+				} else {
+					double mindl = (InstanceModelUtil.isSporadicComponent(componentInstance)
+							|| InstanceModelUtil.isPeriodicComponent(componentInstance) ? period : bestCaseValue);
+					ql.setMinimum(qs * mindl);
+					ql.reportInfo("Assume best case full queue");
+				}
 				ql.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
 				ql.setBestCaseMethod(LatencyContributorMethod.QUEUED);
 				entry.addContributor(ql);

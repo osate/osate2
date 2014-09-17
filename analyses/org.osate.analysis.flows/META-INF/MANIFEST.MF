@@ -12,5 +12,6 @@ Export-Package: org.osate.analysis.flows,
 Require-Bundle: org.osate.aadl2,
  org.osate.aadl2.modelsupport,
  org.osate.ui,
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.osate.contribution.sei
 Eclipse-LazyStart: true

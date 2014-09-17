@@ -29,4 +29,16 @@ public class Values {
 		return policy.equalsIgnoreCase(Constants.DETAILS_MARKERS_YES);
 	}
 
+	public static boolean doDataSetProcessing() {
+		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
+		String policy = store.getString(Constants.DATASET_PROCESSING);
+		return policy.equalsIgnoreCase(Constants.DATASET_PROCESSING_YES);
+	}
+
+	public static boolean doBestcaseEmptyQueue() {
+		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
+		String policy = store.getString(Constants.BESTCASE_EMPTY_QUEUE);
+		return policy.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
+	}
+
 }

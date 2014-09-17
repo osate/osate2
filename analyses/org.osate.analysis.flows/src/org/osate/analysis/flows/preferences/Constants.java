@@ -29,4 +29,14 @@ public class Constants {
 	public static String DETAILS_MARKERS_YES = "yes";
 	public static String DETAILS_MARKERS_NO = "no";
 
+	public static String DATASET_PROCESSING = "org.osate.analysis.flows.dataset_processing";
+
+	public static String DATASET_PROCESSING_YES = "yes";
+	public static String DATASET_PROCESSING_NO = "no";
+
+	public static String BESTCASE_EMPTY_QUEUE = "org.osate.analysis.flows.bestcase_empty_queue";
+
+	public static String BESTCASE_EMPTY_QUEUE_YES = "yes";
+	public static String BESTCASE_EMPTY_QUEUE_NO = "no";
+
 }

@@ -6,6 +6,10 @@ import java.util.List;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -13,6 +17,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.analysis.flows.model.ConnectionType;
+import org.osate.contribution.sei.names.DataModel;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -596,6 +601,21 @@ public class FlowLatencyUtil {
 			return "Max: ";
 		} else
 			return "Min: ";
+	}
+
+	public static double getDimension(final NamedElement ne) {
+		Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = ne.getPropertyValueList(dimension);
+		} catch (Exception e) {
+			return 1.0;
+		}
+		double res = 1.0;
+		for (PropertyExpression propertyExpression : propertyValues) {
+			res = res * ((NumberValue) propertyExpression).getScaledValue();
+		}
+		return res;
 	}
 
 }

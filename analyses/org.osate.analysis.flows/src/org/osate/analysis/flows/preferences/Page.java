@@ -19,7 +19,7 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	public Page() {
 		super(GRID);
 		setPreferenceStore(FlowanalysisPlugin.getDefault().getPreferenceStore());
-		setDescription("Configuration for the Flow Analysis Plugin");
+		setDescription("Configuration for the Latency Analysis Plugin");
 	}
 
 	/**
@@ -34,11 +34,22 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 						{ "Major Frame Delayed", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
 				getFieldEditorParent(), true);
 		addField(partitioningPolicy);
-		RadioGroupFieldEditor worrstCaseDeadline = new RadioGroupFieldEditor(Constants.WORST_CASE_DEADLINE,
+		RadioGroupFieldEditor worstCaseDeadline = new RadioGroupFieldEditor(Constants.WORST_CASE_DEADLINE,
 				"Use deadline as worst-case processing time", 1, new String[][] {
 						{ "Yes", Constants.WORST_CASE_DEADLINE_YES }, { "No", Constants.WORST_CASE_DEADLINE_NO } },
 				getFieldEditorParent(), true);
-		addField(worrstCaseDeadline);
+		addField(worstCaseDeadline);
+		RadioGroupFieldEditor bcEmptyQueue = new RadioGroupFieldEditor(Constants.BESTCASE_EMPTY_QUEUE,
+				"Queuing delay on incoming port queues", 1, new String[][] {
+						{ "Assume empty queue", Constants.BESTCASE_EMPTY_QUEUE_YES },
+						{ "Assume full queue with minimum execution time", Constants.BESTCASE_EMPTY_QUEUE_NO } },
+				getFieldEditorParent(), true);
+		addField(bcEmptyQueue);
+		RadioGroupFieldEditor dsProcessing = new RadioGroupFieldEditor(Constants.DATASET_PROCESSING,
+				"Data set processing: Use Data_model::dimension property as execution time multiplier", 1,
+				new String[][] { { "Yes", Constants.WORST_CASE_DEADLINE_YES },
+						{ "No", Constants.WORST_CASE_DEADLINE_NO } }, getFieldEditorParent(), true);
+		addField(dsProcessing);
 		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
 				"Report Subtotals", 1, new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES },
 						{ "No", Constants.REPORT_SUBTOTALS_NO } }, getFieldEditorParent(), true);
