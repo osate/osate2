@@ -471,7 +471,7 @@ public class GetProperties {
 		}
 	}
 
-	public static double getMaximumTransmissionTimePerByte(final ComponentInstance bus) {
+	public static double getMaximumTransmissionTimePerByte(final NamedElement bus) {
 		RecordValue rv;
 		RangeValue bpa;
 		NumberValue nv;
@@ -487,7 +487,7 @@ public class GetProperties {
 		return 0;
 	}
 
-	public static double getMaximumTransmissionTimeFixed(final ComponentInstance bus) {
+	public static double getMaximumTransmissionTimeFixed(final NamedElement bus) {
 		RecordValue rv;
 		RangeValue bpa;
 		NumberValue nv;
@@ -503,7 +503,7 @@ public class GetProperties {
 		return 0;
 	}
 
-	public static double getMinimumTransmissionTimePerByte(final ComponentInstance bus) {
+	public static double getMinimumTransmissionTimePerByte(final NamedElement bus) {
 		RecordValue rv;
 		RangeValue bpa;
 		NumberValue nv;
@@ -519,7 +519,7 @@ public class GetProperties {
 		return 0;
 	}
 
-	public static double getMinimumTransmissionTimeFixed(final ComponentInstance bus) {
+	public static double getMinimumTransmissionTimeFixed(final NamedElement bus) {
 		RecordValue rv;
 		RangeValue bpa;
 		NumberValue nv;
@@ -535,7 +535,7 @@ public class GetProperties {
 		return 0;
 	}
 
-	public static double getMaximumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+	public static double getMaximumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
 		double dataSize;
 		double speed;
 		double dataTransferTime;
@@ -550,7 +550,7 @@ public class GetProperties {
 		return dataTransferTime + acquisitionTime;
 	}
 
-	public static double getMinimumTimeToTransferData(final ComponentInstance bus, Classifier dataClassifier) {
+	public static double getMinimumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
 		double dataSize;
 		double speed;
 		double dataTransferTime;
