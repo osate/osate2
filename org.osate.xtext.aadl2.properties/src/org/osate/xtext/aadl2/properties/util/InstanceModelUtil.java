@@ -242,6 +242,19 @@ public class InstanceModelUtil {
 	}
 
 	/**
+	 * true if component (thread or device) is aperiodic
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isAperiodicComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.APERIODIC_LITERAL);
+	}
+
+	/**
 	 * true if component (thread or device) is sporadic
 	 * @param subcomponent
 	 * @return
@@ -255,16 +268,42 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * true if component (thread or device) is sporadic
+	 * true if component (thread or device) is timed
 	 * @param subcomponent
 	 * @return
 	 */
-	public static boolean isTimeComponent(final NamedElement subcomponent) {
+	public static boolean isTimedComponent(final NamedElement subcomponent) {
 		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
 		if (dp == null) {
 			return false;
 		}
 		return dp.getName().equalsIgnoreCase(AadlProject.TIMED_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is hybrid
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isHybridComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.HYBRID_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is background
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isBackgroundComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.BACKGROUND_LITERAL);
 	}
 
 	/**
