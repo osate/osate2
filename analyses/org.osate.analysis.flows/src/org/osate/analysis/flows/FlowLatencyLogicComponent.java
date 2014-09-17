@@ -35,8 +35,8 @@ public class FlowLatencyLogicComponent {
 		double period = GetProperties.getPeriodinMS(componentInstance);
 		double deadline = GetProperties.getDeadlineinMilliSec(componentInstance);
 		boolean isAssignedDeadline = GetProperties.isAsignedDeadline(componentInstance);
-		double executionTimeLower = GetProperties.getMinimumComputeExecutionTimeinMs(componentInstance);
-		double executionTimeHigher = GetProperties.getMaximumComputeExecutionTimeinMs(componentInstance);
+		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
+		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
 
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
