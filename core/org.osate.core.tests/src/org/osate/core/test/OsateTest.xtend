@@ -1,6 +1,8 @@
 package org.osate.core.test
 
+import com.google.inject.Inject
 import java.io.ByteArrayInputStream
+import java.util.Comparator
 import java.util.List
 import org.apache.log4j.Logger
 import org.eclipse.core.resources.IFile
@@ -15,25 +17,32 @@ import org.eclipse.core.runtime.jobs.IJobManager
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
 import org.eclipse.ui.actions.WorkspaceModifyOperation
 import org.eclipse.xtext.diagnostics.Severity
+import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.validation.Issue
 import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.ComparisonFailure
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties
+import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.core.AadlNature
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
+import static extension org.junit.Assert.assertEquals
 
 /**
  * Add a couple of utility methods for managing files in the test workspace
  */
 class OsateTest extends XtextTest {
+	@Inject extension IScopeProvider
 
 	static val Logger LOGGER = Logger.getLogger(OsateTest);
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
+	
+	val pluginResourcesNames = workspaceRoot.getProject("Plugin_Resources").members.filter(typeof(IFile)).map[name].filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
 
 	/**
       * Create a project with subdirectories in the current workspace.
@@ -157,5 +166,52 @@ class OsateTest extends XtextTest {
 			throw new ComparisonFailure("", expectedMessages.join("\n"), errorMessagesForEObject.join("\n"))
 		}
 		errorsForEObject.forEach[issueCollection.addIssue(it)]
+	}
+	
+	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
+		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString("::")].filter[
+			val separatorIndex = indexOf("::")
+			if (separatorIndex != -1) {
+				val propertySetName = substring(0, separatorIndex)
+				AadlUtil::isPredeclaredPropertySet(propertySetName) || !pluginResourcesNames.exists[equalsIgnoreCase(propertySetName)]
+			} else {
+				true
+			}
+		].sort(CUSTOM_NAME_COMPARATOR).join(", "))
+	}
+	
+	/*
+	 * Compares two aadl names such that simple names are less than qualified names.
+	 * If the name is qualified then names in predeclared property sets are greater than names in other packages or property sets.
+	 * 
+	 * Example: "id" < "ps::id" < "Memory_Properties::Heap_Size"
+	 */
+	val static CUSTOM_NAME_COMPARATOR = new Comparator<String>() {
+		override compare(String o1, String o2) {
+			val o1SeparatorIndex = o1.indexOf("::")
+			val o2SeparatorIndex = o2.indexOf("::")
+			if (o1SeparatorIndex == -1 && o2SeparatorIndex == -1) {
+				o1.compareTo(o2)
+			} else if (o1SeparatorIndex == -1) {
+				-1
+			} else if (o2SeparatorIndex == -1) {
+				1
+			} else {
+				val o1PsIsPredeclared = AadlUtil::isPredeclaredPropertySet(o1.substring(0, o1SeparatorIndex))
+				val o2PsIsPredeclared = AadlUtil::isPredeclaredPropertySet(o2.substring(0, o2SeparatorIndex))
+				if (o1PsIsPredeclared == o2PsIsPredeclared) {
+					o1.compareTo(o2)
+				} else if (o2PsIsPredeclared) {
+					-1
+				} else {
+					1
+				}
+			}
+		}
+		
+		//Xtend requires this method to be overriden.  I should file a bug with Xtend
+		override equals(Object obj) {
+			class == obj.class
+		}
 	}
 }
