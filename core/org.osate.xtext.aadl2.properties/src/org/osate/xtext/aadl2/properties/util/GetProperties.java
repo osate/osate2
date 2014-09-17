@@ -699,20 +699,38 @@ public class GetProperties {
 			// adjust from sec to milli sec
 			return (mipd / actualProcMips) * 1000;
 		}
-		return getScaledComputeExecutionTimeinMS(threadinstance);
+		return getScaledMaxComputeExecutionTimeinMilliSec(threadinstance);
 	}
 
 	/**
-	 * get execution time scaled in terms of the processor the thread is bound to
+	 * get max execution time scaled in terms of the processor the thread is bound to
 	 * If it is not bound then return the specified execution time
 	 * @param ne thread component instance
 	 * @return scaled time or 0.0
 	 */
-	public static double getScaledComputeExecutionTimeinMS(final NamedElement ne) {
+	public static double getScaledMaxComputeExecutionTimeinMilliSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
+		if (ne instanceof ComponentInstance) {
+			double scale = getProcessorScalingFactor((ComponentInstance) ne);
+			return time * scale;
+		}
+		return time;
+	}
+
+	/**
+	 * get min execution time scaled in terms of the processor the thread is bound to
+	 * If it is not bound then return the specified execution time
+	 * @param ne thread component instance
+	 * @return scaled time or 0.0
+	 */
+	public static double getScaledMinComputeExecutionTimeinMilliSec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, milliSecond, 0.0);
 		if (ne instanceof ComponentInstance) {
 			double scale = getProcessorScalingFactor((ComponentInstance) ne);
 			return time * scale;
