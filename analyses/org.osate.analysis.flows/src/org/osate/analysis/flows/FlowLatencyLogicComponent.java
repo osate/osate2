@@ -43,8 +43,9 @@ public class FlowLatencyLogicComponent {
 		 */
 		boolean checkLastImmediate = false;
 		if (period > 0
-				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) ? !InstanceModelUtil
-				.isSporadicComponent(componentInstance) : true) {
+				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) ? (!InstanceModelUtil
+				.isSporadicComponent(componentInstance) && !InstanceModelUtil.isTimeComponent(componentInstance))
+				: true) {
 			// period is set, and if thread or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
