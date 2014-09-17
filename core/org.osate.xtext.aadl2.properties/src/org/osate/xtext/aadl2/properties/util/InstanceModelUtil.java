@@ -255,6 +255,19 @@ public class InstanceModelUtil {
 	}
 
 	/**
+	 * true if component (thread or device) is sporadic
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isTimeComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.TIMED_LITERAL);
+	}
+
+	/**
 	 * true thread is periodic
 	 * @param subcomponent
 	 * @return
