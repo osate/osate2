@@ -1126,7 +1126,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataSubcomponentAccess().getGroup_5_3(), "rule__DataSubcomponent__Group_5_3__0");
 					put(grammarAccess.getDataSubcomponentAccess().getGroup_5_3_1(), "rule__DataSubcomponent__Group_5_3_1__0");
 					put(grammarAccess.getArrayDimensionAccess().getGroup(), "rule__ArrayDimension__Group__0");
-					put(grammarAccess.getArraySizeAccess().getGroup_0(), "rule__ArraySize__Group_0__0");
 					put(grammarAccess.getComponentImplementationReferenceAccess().getGroup(), "rule__ComponentImplementationReference__Group__0");
 					put(grammarAccess.getComponentImplementationReferenceAccess().getGroup_2(), "rule__ComponentImplementationReference__Group_2__0");
 					put(grammarAccess.getComponentImplementationReferenceAccess().getGroup_2_2(), "rule__ComponentImplementationReference__Group_2_2__0");
@@ -2388,7 +2387,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataSubcomponentAccess().getOwnedModeBindingAssignment_5_3_0(), "rule__DataSubcomponent__OwnedModeBindingAssignment_5_3_0");
 					put(grammarAccess.getDataSubcomponentAccess().getOwnedModeBindingAssignment_5_3_1_1(), "rule__DataSubcomponent__OwnedModeBindingAssignment_5_3_1_1");
 					put(grammarAccess.getArrayDimensionAccess().getSizeAssignment_2(), "rule__ArrayDimension__SizeAssignment_2");
-					put(grammarAccess.getArraySizeAccess().getSizeAssignment_0_1(), "rule__ArraySize__SizeAssignment_0_1");
+					put(grammarAccess.getArraySizeAccess().getSizeAssignment_0(), "rule__ArraySize__SizeAssignment_0");
 					put(grammarAccess.getArraySizeAccess().getSizePropertyAssignment_1(), "rule__ArraySize__SizePropertyAssignment_1");
 					put(grammarAccess.getComponentImplementationReferenceAccess().getImplementationAssignment_1(), "rule__ComponentImplementationReference__ImplementationAssignment_1");
 					put(grammarAccess.getComponentImplementationReferenceAccess().getOwnedPrototypeBindingAssignment_2_1(), "rule__ComponentImplementationReference__OwnedPrototypeBindingAssignment_2_1");

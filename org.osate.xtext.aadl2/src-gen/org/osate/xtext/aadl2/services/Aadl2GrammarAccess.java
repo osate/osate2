@@ -18541,32 +18541,24 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class ArraySizeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ArraySize");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cArraySizeAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Assignment cSizeAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cSizeINTVALUEParserRuleCall_0_1_0 = (RuleCall)cSizeAssignment_0_1.eContents().get(0);
+		private final Assignment cSizeAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cSizeINTVALUEParserRuleCall_0_0 = (RuleCall)cSizeAssignment_0.eContents().get(0);
 		private final Assignment cSizePropertyAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final CrossReference cSizePropertyArraySizePropertyCrossReference_1_0 = (CrossReference)cSizePropertyAssignment_1.eContents().get(0);
 		private final RuleCall cSizePropertyArraySizePropertyQPREFParserRuleCall_1_0_1 = (RuleCall)cSizePropertyArraySizePropertyCrossReference_1_0.eContents().get(1);
 		
 		//ArraySize returns aadl2::ArraySize:
-		//	{aadl2::ArraySize} size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF];
+		//	size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF];
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::ArraySize} size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF]
+		//size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF]
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//{aadl2::ArraySize} size=INTVALUE
-		public Group getGroup_0() { return cGroup_0; }
-
-		//{aadl2::ArraySize}
-		public Action getArraySizeAction_0_0() { return cArraySizeAction_0_0; }
-
 		//size=INTVALUE
-		public Assignment getSizeAssignment_0_1() { return cSizeAssignment_0_1; }
+		public Assignment getSizeAssignment_0() { return cSizeAssignment_0; }
 
 		//INTVALUE
-		public RuleCall getSizeINTVALUEParserRuleCall_0_1_0() { return cSizeINTVALUEParserRuleCall_0_1_0; }
+		public RuleCall getSizeINTVALUEParserRuleCall_0_0() { return cSizeINTVALUEParserRuleCall_0_0; }
 
 		//sizeProperty=[aadl2::ArraySizeProperty|QPREF]
 		public Assignment getSizePropertyAssignment_1() { return cSizePropertyAssignment_1; }
@@ -27388,7 +27380,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ArraySize returns aadl2::ArraySize:
-	//	{aadl2::ArraySize} size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF];
+	//	size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF];
 	public ArraySizeElements getArraySizeAccess() {
 		return (pArraySize != null) ? pArraySize : (pArraySize = new ArraySizeElements());
 	}

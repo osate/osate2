@@ -15665,9 +15665,9 @@ rule__ArraySize__Alternatives
     }
 :
 (
-{ before(grammarAccess.getArraySizeAccess().getGroup_0()); }
-(rule__ArraySize__Group_0__0)
-{ after(grammarAccess.getArraySizeAccess().getGroup_0()); }
+{ before(grammarAccess.getArraySizeAccess().getSizeAssignment_0()); }
+(rule__ArraySize__SizeAssignment_0)
+{ after(grammarAccess.getArraySizeAccess().getSizeAssignment_0()); }
 )
 
     |(
@@ -88160,69 +88160,6 @@ finally {
 
 
 
-rule__ArraySize__Group_0__0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__ArraySize__Group_0__0__Impl
-	rule__ArraySize__Group_0__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ArraySize__Group_0__0__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getArraySizeAccess().getArraySizeAction_0_0()); }
-(
-
-)
-{ after(grammarAccess.getArraySizeAccess().getArraySizeAction_0_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__ArraySize__Group_0__1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__ArraySize__Group_0__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__ArraySize__Group_0__1__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getArraySizeAccess().getSizeAssignment_0_1()); }
-(rule__ArraySize__SizeAssignment_0_1)
-{ after(grammarAccess.getArraySizeAccess().getSizeAssignment_0_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
-
-
-
 rule__ComponentImplementationReference__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -134868,14 +134805,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ArraySize__SizeAssignment_0_1
+rule__ArraySize__SizeAssignment_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_1_0()); }
-	ruleINTVALUE{ after(grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_1_0()); }
+{ before(grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_0()); }
+	ruleINTVALUE{ after(grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_0()); }
 )
 
 ;

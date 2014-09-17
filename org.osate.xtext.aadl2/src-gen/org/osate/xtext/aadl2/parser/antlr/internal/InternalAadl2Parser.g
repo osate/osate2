@@ -25548,31 +25548,25 @@ ruleArraySize returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getArraySizeAccess().getArraySizeAction_0_0(),
-            $current);
-    }
-)(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_1_0()); 
+	        newCompositeNode(grammarAccess.getArraySizeAccess().getSizeINTVALUEParserRuleCall_0_0()); 
 	    }
-		lv_size_1_0=ruleINTVALUE		{
+		lv_size_0_0=ruleINTVALUE		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArraySizeRule());
 	        }
        		set(
        			$current, 
        			"size",
-        		lv_size_1_0, 
+        		lv_size_0_0, 
         		"INTVALUE");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))
+)
     |(
 (
 		{
