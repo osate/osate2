@@ -36,16 +36,13 @@ package org.osate.core.tests
 
 import com.google.inject.Inject
 import java.util.Comparator
-import java.util.List
 import org.eclipse.core.resources.IFile
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipse.xtext.scoping.IScopeProvider
-import org.eclipse.xtext.validation.Issue
 import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.After
@@ -375,7 +372,10 @@ class Aadl2ScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_Prototype_refined, scope_Subcomponent_refined, scope_Feature_refined, scope_Connection_refined, and scope_FlowSpecification_refined
+	/*
+	 * Tests scope_Prototype_refined, scope_Subcomponent_refined, scope_Feature_refined, scope_Connection_refined, scope_FlowSpecification_refined, and
+	 * scope_EndToEndFlow_refined
+	 */
 	@Test
 	def void testRefinedElements() {
 		('''
@@ -396,6 +396,7 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			    af1: feature;
 			  flows
 			    fsource1: flow source af1;
+			    fsink1: flow sink af1;
 			  end a1;
 			  
 			  abstract a2 extends a1
@@ -450,9 +451,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			  
 			  abstract implementation a1.i1
 			  subcomponents
-			    asub1: abstract;
+			    asub1: abstract a1;
 			  connections
 			    fgconn1: feature group fg1 <-> fg1;
+			    fconn1: feature asub1.af1 -> asub1.af1;
+			  flows
+			    etef1: end to end flow asub1.fsource1 -> fconn1 -> asub1.fsink1;
 			  end a1.i1;
 			  
 			  abstract implementation a1.i2 extends a1.i1
@@ -462,6 +466,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 			  connections
 			    fgconn1: refined to feature group;
 			    fgconn2: feature group fg1 <-> fg1;
+			  flows
+			    etef1: refined to end to end flow in modes (m1);
+			    etef2: end to end flow asub1.fsource1 -> fconn1 -> asub1.fsink1;
+			  modes
+			    m1: initial mode;
+			    m2: mode;
 			  end a1.i2;
 			  
 			  subprogram sub1
@@ -543,8 +553,13 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					//Tests scope_Feature_refined
 					assertScope(Aadl2Package::eINSTANCE.feature_Refined, #[])
 				]
-				ownedFlowSpecifications.head => [
+				ownedFlowSpecifications.get(0) => [
 					"fsource1".assertEquals(name)
+					//Tests scope_FlowSpecification_refined
+					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #[])
+				]
+				ownedFlowSpecifications.get(1) => [
+					"fsink1".assertEquals(name)
 					//Tests scope_FlowSpecification_refined
 					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #[])
 				]
@@ -605,12 +620,12 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedFlowSpecifications.get(0) => [
 					"fsource1".assertEquals(name)
 					//Tests scope_FlowSpecification_refined
-					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #["fsource1"])
+					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #["fsink1", "fsource1"])
 				]
 				ownedFlowSpecifications.get(1) => [
 					"fsource2".assertEquals(name)
 					//Tests scope_FlowSpecification_refined
-					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #["fsource1"])
+					assertScope(Aadl2Package::eINSTANCE.flowSpecification_Refined, #["fsink1", "fsource1"])
 				]
 			]
 			publicSection.ownedClassifiers.get(2) as FeatureGroupType=> [
@@ -737,10 +752,20 @@ class Aadl2ScopeProviderTest extends OsateTest {
 					//Tests scope_Subcomponent_refined
 					assertScope(Aadl2Package::eINSTANCE.subcomponent_Refined, #[])
 				]
-				ownedConnections.head => [
+				ownedFeatureGroupConnections.head => [
 					"fgconn1".assertEquals(name)
 					//Tests scope_Connection_refined
 					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #[])
+				]
+				ownedFeatureConnections.head => [
+					"fconn1".assertEquals(name)
+					//Tests scope_Connection_refined
+					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #[])
+				]
+				ownedEndToEndFlows.head => [
+					"etef1".assertEquals(name)
+					//Tests scope_EndToEndFlow_refined
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlow_Refined, #[])
 				]
 			]
 			publicSection.ownedClassifiers.get(5) as ComponentImplementation => [
@@ -758,12 +783,22 @@ class Aadl2ScopeProviderTest extends OsateTest {
 				ownedConnections.get(0) => [
 					"fgconn1".assertEquals(name)
 					//Tests scope_Connection_refined
-					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #["fgconn1"])
+					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #["fconn1", "fgconn1"])
 				]
 				ownedConnections.get(1) => [
 					"fgconn2".assertEquals(name)
 					//Tests scope_Connection_refined
-					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #["fgconn1"])
+					assertScope(Aadl2Package::eINSTANCE.connection_Refined, #["fconn1", "fgconn1"])
+				]
+				ownedEndToEndFlows.get(0) => [
+					"etef1".assertEquals(name)
+					//Tests scope_EndToEndFlow_refined
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlow_Refined, #["etef1"])
+				]
+				ownedEndToEndFlows.get(1) => [
+					"etef2".assertEquals(name)
+					//Tests scope_EndToEndFlow_refined
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlow_Refined, #["etef1"])
 				]
 			]
 			publicSection.ownedClassifiers.get(6) as SubprogramType => [
