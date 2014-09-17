@@ -234,7 +234,24 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicComponent(final NamedElement subcomponent) {
-		return isPeriodicThread(subcomponent) || isPeriodicDevice(subcomponent);
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is sporadic
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isSporadicComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL);
 	}
 
 	/**

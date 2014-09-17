@@ -775,8 +775,8 @@ public class GetProperties {
 	public static double getMaximumComputeExecutionTimeinMs(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
-		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
-		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
+		UnitLiteral millisecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, millisecond, 0.0);
 		return time;
 	}
 
