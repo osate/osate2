@@ -62,6 +62,8 @@ import org.osate.aadl2.DataAccess
 import org.osate.aadl2.DataSubcomponentType
 import org.osate.aadl2.DeviceSubcomponentType
 import org.osate.aadl2.Element
+import org.osate.aadl2.EndToEndFlow
+import org.osate.aadl2.EndToEndFlowSegment
 import org.osate.aadl2.Feature
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.FeatureGroupPrototype
@@ -506,6 +508,33 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [allFlowElements]) ?: scope_FlowSegment_flowElement(context.owner as FlowImplementation, reference)
 	}
 	
+	//Reference is from ETESubcomponentFlow in Aadl2.xtext
+	def scope_EndToEndFlowSegment_context(ComponentImplementation context, EReference reference) {
+		context.allContexts.scopeFor
+	}
+	
+	/*
+	 * Reference is from ETESubcomponentFlow and ETEConnectionFlow in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the EndToEndFlowSegment.  When
+	 * the EndToEndFlowSegment is a single identifier, e.g. "conn1", then the passed context is an EndToEndFlow.  In this case, we know that the
+	 * EndToEndFlowSegment's Context is null even though we can't access it and check it here.  When the EndToEndFlowSegment is a qualified reference, e.g.
+	 * "subcomponent1.flowpath1", then the passed context is an EndToEndFlowSegment, thus calling the other scope method.
+	 */
+	def scope_EndToEndFlowSegment_flowElement(EndToEndFlow context, EReference reference) {
+		context.getContainerOfType(typeof(Classifier)).allEndToEndFlowElements.scopeFor
+	}
+	
+	/*
+	 * Reference is from ETESubcomponentFlow in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the EndToEndFlowSegment.  When
+	 * the EndToEndFlowSegment is a qualified reference, e.g. "subcomponent1.flowpath1", then the passed context is an EndToEndFlowSegment and we can access
+	 * and check the EndToEndFlowSegment's Context object.
+	 */
+	def scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment context, EReference reference) {
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(typeof(Classifier)), [allEndToEndFlowElements]) ?:
+			scope_EndToEndFlowSegment_flowElement(context.owner as EndToEndFlow, reference)
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
@@ -561,6 +590,15 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				flowElements.addAll(classifier.allConnections)
 				flowElements.addAll(classifier.allSubcomponents)
 			}
+		}
+		flowElements
+	}
+	
+	def private static allEndToEndFlowElements(Classifier classifier) {
+		val flowElements = newArrayList
+		flowElements.addAll(classifier.allFlowElements)
+		if (classifier instanceof ComponentImplementation) {
+			flowElements.addAll(classifier.allEndToEndFlows)
 		}
 		flowElements
 	}
