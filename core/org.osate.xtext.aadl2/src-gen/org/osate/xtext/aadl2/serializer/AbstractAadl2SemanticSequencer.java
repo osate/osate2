@@ -1661,7 +1661,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     size=INTVALUE
+	 *     (size=INTVALUE | sizeProperty=[ArraySizeProperty|QPREF])
 	 */
 	protected void sequence_ArraySize(EObject context, ArraySize semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

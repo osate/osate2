@@ -1546,7 +1546,7 @@ ArrayDimension returns aadl2::ArrayDimension:
 ;
 
 ArraySize returns aadl2::ArraySize:
-	{aadl2::ArraySize} size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF] 
+	size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF] 
 ;
 
 
