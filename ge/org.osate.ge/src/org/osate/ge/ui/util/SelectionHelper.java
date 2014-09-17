@@ -73,10 +73,13 @@ public class SelectionHelper {
 										.getEObject(resource);
 							}
 						} else {
-							targetElement = eObjectAtOffsetHelper
-									.resolveElementAt(resource,
-											((ITextSelection) selection)
-													.getOffset());
+							final int offset = ((ITextSelection) selection).getOffset();
+							targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource, offset);
+
+							// If there isn't a selected element, that usually means the selection is outside of the root package. Get the first EObject in the resource
+							if(targetElement == null && resource.getContents().size() > 0) {
+								targetElement = resource.getContents().get(0);								
+							}
 						}
 
 						return targetElement;
