@@ -42,6 +42,7 @@ public class DefaultAadlArrayService implements AadlArrayService {
 				dimSizeString = "";
 			} else {
 				final ArraySizeProperty sizeProp = size.getSizeProperty();
+				
 				if(sizeProp == null) {
 					dimSize = size.getSize();
 				} else {
