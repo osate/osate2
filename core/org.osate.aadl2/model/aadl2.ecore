@@ -335,8 +335,8 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
-        lowerBound="1" eType="#//PropertyType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedPropertyType"
+        ordered="false" eType="#//PropertyType">
       <eAnnotations source="redefines" references="#//TypedElement/type"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
@@ -344,7 +344,13 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
         eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//BasicProperty/propertyType"/>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
+        unique="false" lowerBound="1" eType="#//PropertyType" changeable="false" volatile="true"
+        transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
       </eAnnotations>
@@ -4727,12 +4733,11 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedUnitsType" ordered="false"
         eType="#//UnitsType" containment="true">
-      <eAnnotations source="subsets" references="#//NumberType/unitsType"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Types.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="unitsType" ordered="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedUnitsType" ordered="false"
         eType="#//UnitsType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Types.&lt;/p>"/>
@@ -4740,6 +4745,13 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="range" ordered="false"
         eType="#//NumericRange" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLProperties::Types.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unitsType" ordered="false"
+        unique="false" lowerBound="1" eType="#//UnitsType" changeable="false" volatile="true"
+        transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Types.&lt;/p>"/>
       </eAnnotations>

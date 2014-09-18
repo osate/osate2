@@ -139,14 +139,15 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BasicProperty" eSuperTypes="#//TypedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
-        lowerBound="1" eType="#//PropertyType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedPropertyType"
+        ordered="false" eType="#//PropertyType">
       <eAnnotations source="redefines" references="#//TypedElement/type"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
-        eType="#//PropertyType" containment="true">
-      <eAnnotations source="subsets" references="#//BasicProperty/propertyType"/>
-    </eStructuralFeatures>
+        eType="#//PropertyType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
+        unique="false" lowerBound="1" eType="#//PropertyType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypedElement" abstract="true" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
@@ -2188,13 +2189,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="AadlInteger" eSuperTypes="#//NumberType"/>
   <eClassifiers xsi:type="ecore:EClass" name="NumberType" abstract="true" eSuperTypes="#//NonListType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedUnitsType" ordered="false"
-        eType="#//UnitsType" containment="true">
-      <eAnnotations source="subsets" references="#//NumberType/unitsType"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="unitsType" ordered="false"
+        eType="#//UnitsType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedUnitsType" ordered="false"
         eType="#//UnitsType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="range" ordered="false"
         eType="#//NumericRange" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unitsType" ordered="false"
+        unique="false" lowerBound="1" eType="#//UnitsType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnitsType" eSuperTypes="#//EnumerationType">
     <eAnnotations source="duplicates">

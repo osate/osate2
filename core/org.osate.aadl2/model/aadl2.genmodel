@@ -170,9 +170,11 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//BasicProperty">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicProperty/propertyType"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicProperty/referencedPropertyType"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicProperty/ownedPropertyType"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicProperty/propertyType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//TypedElement">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -1329,9 +1331,11 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/ownedUnitsType"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/unitsType"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/referencedUnitsType"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/range"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/unitsType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//UnitsType"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EnumerationType">
