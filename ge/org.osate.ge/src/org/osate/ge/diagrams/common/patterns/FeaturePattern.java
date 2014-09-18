@@ -35,6 +35,7 @@ import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -310,6 +311,16 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		if(labelShape != null) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
 			labelGa.setX(isLeftLayout ? labelPadding : shapeGa.getWidth()-labelGa.getWidth()-labelPadding);
+			
+			// Adjust the alignment.
+			for(final GraphicsAlgorithm labelChildGa : labelGa.getGraphicsAlgorithmChildren()) {
+				final Text labelTxt = (Text)labelChildGa;
+		        if(isLeftLayout) {
+		        	labelTxt.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
+		        } else {
+		        	labelTxt.setHorizontalAlignment(Orientation.ALIGNMENT_RIGHT);
+		        }
+			}    
 		}	
 		
 		// Position the annotation shape
@@ -400,9 +411,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
         final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, labelTxt);
-        
+
         // Set the sizes        
         final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
+        labelSize.setWidth((int)(labelSize.getWidth()*1.06));
 		gaService.setLocationAndSize(label, 0, 0, labelSize.getWidth(), labelSize.getHeight());		
 		gaService.setLocationAndSize(labelBackground, 0, 0, labelSize.getWidth(), labelSize.getHeight());
 		
@@ -537,8 +549,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
      	highlightingService.highlight(feature, possibleContext instanceof Context ? (Context)possibleContext : null, featureShape.getGraphicsAlgorithm());		
      	
         // Set size as appropriate
-        gaService.setSize(ga, Math.max(getWidth(annotationBackground)+annotationPadding, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm()))), 
-        		Math.max(getHeight(annotationBackground), Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm()))));
+     	final int maxWidth =  Math.max(getWidth(annotationBackground)+annotationPadding, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())));
+     	final int maxHeight = Math.max(getHeight(annotationBackground), Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
+        gaService.setSize(ga, maxWidth,	maxHeight);
      		
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
 	}

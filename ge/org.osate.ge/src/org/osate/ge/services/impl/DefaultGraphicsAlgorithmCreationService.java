@@ -278,7 +278,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
         ga.setStyle(style);
         gaService.setSize(ga,  width, height);
         graphicsAlgorithmUtil.shrink(ga);
-        
+
         return ga;
 	}
 	
