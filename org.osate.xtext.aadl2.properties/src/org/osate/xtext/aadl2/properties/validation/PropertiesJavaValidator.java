@@ -379,13 +379,15 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				ReferenceType ptrt = (ReferenceType) pt;
 				ReferenceValue pvrv = (ReferenceValue) pv;
 				EList<ContainmentPathElement> cpes = pvrv.getContainmentPathElements();
-				NamedElement ne = cpes.get(cpes.size() - 1).getNamedElement();
-				for (MetaclassReference mcri : ptrt.getNamedElementReferences()) {
-					if (mcri.getMetaclass().isSuperTypeOf(ne.eClass())) {
-						return;
+				if (!cpes.isEmpty()) {
+					NamedElement ne = cpes.get(cpes.size() - 1).getNamedElement();
+					for (MetaclassReference mcri : ptrt.getNamedElementReferences()) {
+						if (mcri.getMetaclass().isSuperTypeOf(ne.eClass())) {
+							return;
+						}
 					}
+					error(holder, prefix + "Assigning reference value with incorrect Named Element class" + msg);
 				}
-				error(holder, prefix + "Assigning reference value with incorrect Named Element class" + msg);
 			}
 		} else if (pv instanceof NamedValue) {
 			AbstractNamedValue nv = ((NamedValue) pv).getNamedValue();
