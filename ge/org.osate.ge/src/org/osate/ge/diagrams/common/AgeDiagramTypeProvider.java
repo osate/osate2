@@ -10,6 +10,7 @@ package org.osate.ge.diagrams.common;
 
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.osate.ge.services.impl.DefaultPropertyService;
 
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	public AgeDiagramTypeProvider() {			
@@ -25,7 +26,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	@Override
     public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
         if (toolBehaviorProviders == null) {
-            toolBehaviorProviders = new IToolBehaviorProvider[] { new AgeToolBehaviorProvider(this) };
+            toolBehaviorProviders = new IToolBehaviorProvider[] { new AgeToolBehaviorProvider(this, new DefaultPropertyService()) };
         }
         return toolBehaviorProviders;
     }

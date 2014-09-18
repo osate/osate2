@@ -66,6 +66,7 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.NamingService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
@@ -86,6 +87,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	private final ShapeService shapeService;
 	private final UserInputService userInputService;
 	private final EClass connectionType;
+	private final PropertyService propertyService;
 	private static LinkedHashMap<EClass, String> connectionTypeToMethodNameMap = new LinkedHashMap<EClass, String>();
 	
 	/**
@@ -107,7 +109,8 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	@Inject
 	public ConnectionPattern(final AadlFeatureService featureService, final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, 
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
-			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final @Named("Connection Type") EClass connectionType) {
+			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
+			final @Named("Connection Type") EClass connectionType) {
 		super(visibilityHelper);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
@@ -119,7 +122,8 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		this.connectionType = connectionType;
 		this.diagramModService = diagramModService;
 		this.shapeService = shapeService;
-		this.userInputService = userInputService;
+		this.userInputService = userInputService;		
+		this.propertyService = propertyService;
 	}
 
 	@Override
@@ -268,11 +272,13 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		
 		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
 		for(; shape != null; shape = shape.getContainer()) {
-			final Object bo = bor.getBusinessObjectForPictogramElement(shape);
-			if(bo instanceof ConnectionEnd) {
-				ce.setConnectionEnd((ConnectionEnd)bo);
-				break;
-			}			
+			if(!propertyService.isInnerShape(shape)) {
+				final Object bo = bor.getBusinessObjectForPictogramElement(shape);
+				if(bo instanceof ConnectionEnd) {
+					ce.setConnectionEnd((ConnectionEnd)bo);
+					break;
+				}			
+			}
 		}
 		
 		if(ce.getConnectionEnd() == null) {

@@ -380,6 +380,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
         	gaService.createInvisibleRectangle(featureShape);
         	visibilityHelper.ghostInvalidShapes(featureShape);
         }
+        
+        // Set the feature shape as an inner shape
+        propertyUtil.setIsInnerShape(featureShape, true);
 
 		if(callDepth > 2) {
 			return;
@@ -517,6 +520,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Create annotation label
 		final String annotationTxt = getAnnotationText(feature);
         final Shape annotationShape = peCreateService.createShape(shape, false);
+        propertyUtil.setIsManuallyPositioned(annotationShape, true);
         this.link(annotationShape, new AadlElementWrapper(feature));
         propertyUtil.setName(annotationShape, annotationShapeName);
         final GraphicsAlgorithm annotationBackground = graphicsAlgorithmCreator.createTextBackground(annotationShape);
@@ -546,6 +550,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final NamedElement feature = (NamedElement)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));		
 		final GraphicsAlgorithm featureGa = getFeatureShape(shape).getGraphicsAlgorithm();
 		final boolean isLeft = isLeft(shape);
+		final ContainerShape featureShape = getFeatureShape(shape);
 		
 		final int featureWidth = feature instanceof FeatureGroup ? featureGroupSymbolWidth : featureGa.getWidth();
 		final int innerX = featureGa.getX() + (isLeft ? featureWidth : featureGa.getWidth() - featureWidth);
@@ -554,7 +559,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final int flowSpecConnectorY = connectorY;
 		final int offset = isLeft ? 50 : -50;
 
-		// Create anchors		
+		// Create anchors
+		// Feature shape anchor
+		anchorUtil.createOrUpdateChopboxAnchor(featureShape, chopboxAnchorName);
+	
 		// Special cases for event out features
 		if(feature instanceof EventPort && ((EventPort)feature).getDirection() == DirectionType.OUT) {
 			anchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, outerX, connectorY);

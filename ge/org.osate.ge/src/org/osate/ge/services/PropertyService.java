@@ -59,5 +59,9 @@ public interface PropertyService {
 	
 	String getConnectionType(Connection c);
 	void setConnectionType(Connection c, String type);
+	
+	// Inner objects may have parents with the same business object as themselves. It is best to get the business object from the parent.
+	boolean isInnerShape(PictogramElement pe);
+	void setIsInnerShape(PictogramElement pe, boolean value);
 
 }

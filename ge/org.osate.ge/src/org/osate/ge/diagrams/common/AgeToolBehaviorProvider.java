@@ -28,10 +28,14 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
+import org.osate.ge.services.PropertyService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
-	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider) {
+	private final PropertyService propertyService;
+	
+	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService) {
 		super(diagramTypeProvider);
+		this.propertyService = propertyService;
 	}
 
 	@Override
@@ -72,7 +76,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		if(originalPe instanceof Shape) {
 			// Return the first shape that has a business object
 			Shape shape = (Shape)originalPe;
-			while(getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null && shape != null) {
+			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null || propertyService.isInnerShape(shape))) {
 				shape = shape.getContainer();
 			}
 			

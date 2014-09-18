@@ -24,6 +24,7 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm
 	private static final String IS_MANUALLY_POSITIONED_KEY = "is_manually_positioned"; // Whether the shape should be ignored by the automatic layout algorithm
 	private static final String IS_GHOST_KEY = "is_ghost"; // Whether the pictogram element is a ghost. A ghost is an element that has been hidden because the corresponding business object is no longer valid.
+	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
 	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.PropertyService#getName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
@@ -159,5 +160,15 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public void setConnectionType(final Connection c, final String value) {
 		Graphiti.getPeService().setPropertyValue(c, CONNECTION_TYPE_KEY, value);
+	}
+	
+	@Override
+	public boolean isInnerShape(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_INNER_SHAPE_KEY));
+	}
+	
+	@Override
+	public void setIsInnerShape(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_INNER_SHAPE_KEY, value ? "true" : "false");
 	}
 }
