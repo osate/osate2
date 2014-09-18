@@ -2067,22 +2067,22 @@ UnitLiteralConversion returns aadl2::UnitLiteral:
 
 RealType returns aadl2::AadlReal:
 	name=ID ':' 'type' 
-	'aadlreal' (range=RealRange)? ( (ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
+	'aadlreal' (range=RealRange)? ( (ownedUnitsType=UnnamedUnitsType| ('units' referencedUnitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 UnnamedRealType returns aadl2::AadlReal:
 	{aadl2::AadlReal}
-	'aadlreal' (range=RealRange)? ((ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
+	'aadlreal' (range=RealRange)? ((ownedUnitsType=UnnamedUnitsType| ('units' referencedUnitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 IntegerType returns aadl2::AadlInteger:
 	name=ID ':' 'type' 
-	'aadlinteger' (range=IntegerRange)? ((ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
+	'aadlinteger' (range=IntegerRange)? ((ownedUnitsType=UnnamedUnitsType| ('units' referencedUnitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 UnnamedIntegerType returns aadl2::AadlInteger:
 	{aadl2::AadlInteger}
-	'aadlinteger' (range=IntegerRange)? ( (ownedUnitsType=UnnamedUnitsType| ('units' unitsType=[aadl2::UnitsType|QPREF])))?
+	'aadlinteger' (range=IntegerRange)? ( (ownedUnitsType=UnnamedUnitsType| ('units' referencedUnitsType=[aadl2::UnitsType|QPREF])))?
 	 ;
 
 RangeType returns aadl2::RangeType:
@@ -2147,7 +2147,7 @@ UnnamedRecordType returns aadl2::RecordType:
 RecordField returns aadl2::BasicProperty:
 	name=ID ':'
 //	('list' 'of')* is handled as part of UnnamedPropertytype
-	(propertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
+	(referencedPropertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
 	';'
 	 ;
 
@@ -2158,7 +2158,7 @@ PropertyDefinition returns aadl2::Property:
 	name=ID ':'
 	(inherit?='inherit')?
 //	('list' 'of')* is handled as part of UnnamedPropertytype
-	(propertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
+	(referencedPropertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
 	('=>' defaultValue=PropertyExpression)?
 	'applies' 'to' '('
 	((appliesTo+=PropertyOwner (',' appliesTo+=PropertyOwner)*)|

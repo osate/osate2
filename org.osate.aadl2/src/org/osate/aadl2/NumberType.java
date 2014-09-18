@@ -48,8 +48,9 @@ package org.osate.aadl2;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.NumberType#getOwnedUnitsType <em>Owned Units Type</em>}</li>
- *   <li>{@link org.osate.aadl2.NumberType#getUnitsType <em>Units Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.NumberType#getReferencedUnitsType <em>Referenced Units Type</em>}</li>
  *   <li>{@link org.osate.aadl2.NumberType#getRange <em>Range</em>}</li>
+ *   <li>{@link org.osate.aadl2.NumberType#getUnitsType <em>Units Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -60,12 +61,6 @@ package org.osate.aadl2;
 public interface NumberType extends NonListType {
 	/**
 	 * Returns the value of the '<em><b>Owned Units Type</b></em>' containment reference.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.NumberType#getUnitsType() <em>Units Type</em>}'</li>
-	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Units Type</em>' containment reference isn't clear,
@@ -104,6 +99,31 @@ public interface NumberType extends NonListType {
 	UnitsType createOwnedUnitsType();
 
 	/**
+	 * Returns the value of the '<em><b>Referenced Units Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Referenced Units Type</em>' reference.
+	 * @see #setReferencedUnitsType(UnitsType)
+	 * @see org.osate.aadl2.Aadl2Package#getNumberType_ReferencedUnitsType()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	UnitsType getReferencedUnitsType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.NumberType#getReferencedUnitsType <em>Referenced Units Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Referenced Units Type</em>' reference.
+	 * @see #getReferencedUnitsType()
+	 * @generated
+	 */
+	void setReferencedUnitsType(UnitsType value);
+
+	/**
 	 * Returns the value of the '<em><b>Units Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -115,22 +135,11 @@ public interface NumberType extends NonListType {
 	 * <p>From package AADLProperties::Types.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Units Type</em>' reference.
-	 * @see #setUnitsType(UnitsType)
 	 * @see org.osate.aadl2.Aadl2Package#getNumberType_UnitsType()
-	 * @model ordered="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	UnitsType getUnitsType();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.NumberType#getUnitsType <em>Units Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Units Type</em>' reference.
-	 * @see #getUnitsType()
-	 * @generated
-	 */
-	void setUnitsType(UnitsType value);
 
 	/**
 	 * Returns the value of the '<em><b>Range</b></em>' containment reference.

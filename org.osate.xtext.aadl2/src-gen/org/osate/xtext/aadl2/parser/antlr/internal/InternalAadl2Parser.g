@@ -33290,7 +33290,7 @@ ruleRealType returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getRealTypeAccess().getUnitsTypeUnitsTypeCrossReference_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getRealTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_5_1_1_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -33379,7 +33379,7 @@ ruleUnnamedRealType returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getUnnamedRealTypeAccess().getUnitsTypeUnitsTypeCrossReference_3_1_1_0()); 
+	        newCompositeNode(grammarAccess.getUnnamedRealTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_3_1_1_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -33490,7 +33490,7 @@ ruleIntegerType returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getIntegerTypeAccess().getUnitsTypeUnitsTypeCrossReference_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getIntegerTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_5_1_1_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -33579,7 +33579,7 @@ ruleUnnamedIntegerType returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getUnnamedIntegerTypeAccess().getUnitsTypeUnitsTypeCrossReference_3_1_1_0()); 
+	        newCompositeNode(grammarAccess.getUnnamedIntegerTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_3_1_1_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -34487,7 +34487,7 @@ ruleRecordField returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getRecordFieldAccess().getPropertyTypePropertyTypeCrossReference_2_0_0()); 
+	        newCompositeNode(grammarAccess.getRecordFieldAccess().getReferencedPropertyTypePropertyTypeCrossReference_2_0_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -34586,7 +34586,7 @@ rulePropertyDefinition returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPropertyDefinitionAccess().getPropertyTypePropertyTypeCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getPropertyDefinitionAccess().getReferencedPropertyTypePropertyTypeCrossReference_3_0_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();

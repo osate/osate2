@@ -207,14 +207,14 @@
           <body>A number type.</body>
         </ownedComment>
         <generalization xmi:id="Types-NumberType-_generalization.0" general="Types-PropertyType"/>
-        <ownedAttribute xmi:id="Types-NumberType-ownedUnitsType" name="ownedUnitsType" type="Types-UnitsType" aggregation="composite" subsettedProperty="Types-NumberType-unitsType" association="Types-A_numberType_ownedUnitsType">
+        <ownedAttribute xmi:id="Types-NumberType-ownedUnitsType" name="ownedUnitsType" type="Types-UnitsType" aggregation="composite" association="Types-A_numberType_ownedUnitsType">
           <ownedComment xmi:id="Types-NumberType-ownedUnitsType-_ownedComment.0">
             <body>Specifies an anonymous units type for this number type.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-NumberType-ownedUnitsType-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-NumberType-ownedUnitsType-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Types-NumberType-unitsType" name="unitsType" type="Types-UnitsType" association="Types-A_numberType_unitsType">
+        <ownedAttribute xmi:id="Types-NumberType-unitsType" name="referencedUnitsType" type="Types-UnitsType" association="Types-A_numberType_unitsType">
           <ownedComment xmi:id="Types-NumberType-unitsType-_ownedComment.0">
             <body>References a units type for this number type.</body>
           </ownedComment>
@@ -228,6 +228,10 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-NumberType-range-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-NumberType-range-_lowerValue"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_JJZRpD9CEeSMi-ARKmUa4A" name="unitsType" type="Types-UnitsType" isUnique="false" isReadOnly="true" isDerived="true" association="_JJZRoD9CEeSMi-ARKmUa4A">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JJZRpT9CEeSMi-ARKmUa4A" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JJZRpj9CEeSMi-ARKmUa4A" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_numberType_ownedUnitsType" name="A_numberType_ownedUnitsType" memberEnd="Types-A_numberType_ownedUnitsType-owner Types-NumberType-ownedUnitsType">
         <ownedEnd xmi:id="Types-A_numberType_ownedUnitsType-owner" name="owner" type="Types-NumberType" association="Types-A_numberType_ownedUnitsType">
@@ -235,7 +239,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_numberType_ownedUnitsType-owner-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Types-A_numberType_unitsType" name="A_numberType_unitsType" memberEnd="Types-A_numberType_unitsType-numberType Types-NumberType-unitsType">
+      <packagedElement xmi:type="uml:Association" xmi:id="Types-A_numberType_unitsType" name="A_numberType_referencedUnitsType" memberEnd="Types-A_numberType_unitsType-numberType Types-NumberType-unitsType">
         <ownedEnd xmi:id="Types-A_numberType_unitsType-numberType" name="numberType" type="Types-NumberType" association="Types-A_numberType_unitsType">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_numberType_unitsType-numberType-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_numberType_unitsType-numberType-_lowerValue"/>
@@ -448,6 +452,12 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BQBT3bPNEeCbu5xxv1E8KA" value="1"/>
         </ownedEnd>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_JJZRoD9CEeSMi-ARKmUa4A" name="A_numberType_unitsType" memberEnd="_JJZRoT9CEeSMi-ARKmUa4A _JJZRpD9CEeSMi-ARKmUa4A">
+        <ownedEnd xmi:id="_JJZRoT9CEeSMi-ARKmUa4A" name="numberType" type="Types-NumberType" association="_JJZRoD9CEeSMi-ARKmUa4A">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JJZRoj9CEeSMi-ARKmUa4A" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JJZRoz9CEeSMi-ARKmUa4A"/>
+        </ownedEnd>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Definitions" name="Definitions">
       <ownedComment xmi:id="Definitions-_ownedComment.0">
@@ -515,7 +525,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_property_appliesTo-owner-_lowerValue" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_basicProperty_type" name="A_basicProperty_propertyType" memberEnd="Definitions-A_basicProperty_type-propertyDefinition Definitions-BasicProperty-type">
+      <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_basicProperty_type" name="A_basicProperty_referencedPropertyType" memberEnd="Definitions-A_basicProperty_type-propertyDefinition Definitions-BasicProperty-type">
         <ownedEnd xmi:id="Definitions-A_basicProperty_type-propertyDefinition" name="propertyDefinition" type="Definitions-BasicProperty" association="Definitions-A_basicProperty_type">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_basicProperty_type-propertyDefinition-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_basicProperty_type-propertyDefinition-_lowerValue"/>
@@ -540,20 +550,24 @@
         <generalization xmi:id="Definitions-BasicProperty-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#TypedElement"/>
         </generalization>
-        <ownedAttribute xmi:id="Definitions-BasicProperty-type" name="propertyType" type="_v97TQLMDEeCzMYz5ww7glA" association="Definitions-A_basicProperty_type">
+        <ownedAttribute xmi:id="Definitions-BasicProperty-type" name="referencedPropertyType" type="_v97TQLMDEeCzMYz5ww7glA" association="Definitions-A_basicProperty_type">
           <ownedComment xmi:id="Definitions-BasicProperty-type-_ownedComment.0">
             <body>References the type of this property.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-BasicProperty-type-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-BasicProperty-type-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-BasicProperty-type-_lowerValue"/>
           <redefinedProperty href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Definitions-BasicProperty-ownedType" name="ownedPropertyType" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="Definitions-BasicProperty-type" association="Definitions-A_basicProperty_ownedType">
+        <ownedAttribute xmi:id="Definitions-BasicProperty-ownedType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" association="Definitions-A_basicProperty_ownedType">
           <ownedComment xmi:id="Definitions-BasicProperty-ownedType-_ownedComment.0">
             <body>Specifies an anonymous type for this property.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-BasicProperty-ownedType-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-BasicProperty-ownedType-_lowerValue"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_Vfm11D9BEeSMi-ARKmUa4A" name="propertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isUnique="false" isReadOnly="true" isDerived="true" association="_Vfm10D9BEeSMi-ARKmUa4A">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Vfm11T9BEeSMi-ARKmUa4A" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Vfm11j9BEeSMi-ARKmUa4A" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_property_appliesToMetaclass" name="A_property_appliesToMetaclass" memberEnd="Definitions-A_property_appliesToMetaclass-property Definitions-Property-appliesToMetaclass">
@@ -566,6 +580,12 @@
         <ownedEnd xmi:id="Definitions-A_property_appliesToClassifier-property" name="property" type="Definitions-Property" association="Definitions-A_property_appliesToClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_property_appliesToClassifier-property-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_property_appliesToClassifier-property-_lowerValue"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_Vfm10D9BEeSMi-ARKmUa4A" name="A_basicProperty_propertyType" memberEnd="_Vfm10T9BEeSMi-ARKmUa4A _Vfm11D9BEeSMi-ARKmUa4A">
+        <ownedEnd xmi:id="_Vfm10T9BEeSMi-ARKmUa4A" name="property" type="Definitions-BasicProperty" association="_Vfm10D9BEeSMi-ARKmUa4A">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Vfm10j9BEeSMi-ARKmUa4A" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Vfm10z9BEeSMi-ARKmUa4A"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

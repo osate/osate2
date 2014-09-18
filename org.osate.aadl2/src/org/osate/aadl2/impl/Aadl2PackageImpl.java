@@ -2286,8 +2286,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBasicProperty_PropertyType() {
+	public EReference getBasicProperty_ReferencedPropertyType() {
 		return (EReference) getBasicProperty().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBasicProperty_PropertyType() {
+		return (EReference) getBasicProperty().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -8896,8 +8905,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getNumberType_UnitsType() {
+	public EReference getNumberType_ReferencedUnitsType() {
 		return (EReference) getNumberType().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNumberType_UnitsType() {
+		return (EReference) getNumberType().getEStructuralFeatures().get(3);
 	}
 
 	/**

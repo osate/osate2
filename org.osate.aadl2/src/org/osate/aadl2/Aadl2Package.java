@@ -530,13 +530,13 @@ public interface Aadl2Package extends EPackage {
 	int BASIC_PROPERTY__TYPE = TYPED_ELEMENT__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Property Type</b></em>' reference.
+	 * The feature id for the '<em><b>Referenced Property Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_PROPERTY__PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 0;
+	int BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
@@ -548,13 +548,22 @@ public interface Aadl2Package extends EPackage {
 	int BASIC_PROPERTY__OWNED_PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Property Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_PROPERTY__PROPERTY_TYPE = TYPED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Basic Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_PROPERTY_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 2;
+	int BASIC_PROPERTY_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyImpl <em>Property</em>}' class.
@@ -621,13 +630,13 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY__TYPE = BASIC_PROPERTY__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Property Type</b></em>' reference.
+	 * The feature id for the '<em><b>Referenced Property Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__PROPERTY_TYPE = BASIC_PROPERTY__PROPERTY_TYPE;
+	int PROPERTY__REFERENCED_PROPERTY_TYPE = BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
@@ -637,6 +646,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROPERTY__OWNED_PROPERTY_TYPE = BASIC_PROPERTY__OWNED_PROPERTY_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Property Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY__PROPERTY_TYPE = BASIC_PROPERTY__PROPERTY_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Inherit</b></em>' attribute.
@@ -34269,13 +34287,13 @@ public interface Aadl2Package extends EPackage {
 	int NUMBER_TYPE__OWNED_UNITS_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Units Type</b></em>' reference.
+	 * The feature id for the '<em><b>Referenced Units Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE__UNITS_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 1;
+	int NUMBER_TYPE__REFERENCED_UNITS_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Range</b></em>' containment reference.
@@ -34287,13 +34305,22 @@ public interface Aadl2Package extends EPackage {
 	int NUMBER_TYPE__RANGE = NON_LIST_TYPE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Units Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMBER_TYPE__UNITS_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Number Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NUMBER_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 3;
+	int NUMBER_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlIntegerImpl <em>Aadl Integer</em>}' class.
@@ -34360,13 +34387,13 @@ public interface Aadl2Package extends EPackage {
 	int AADL_INTEGER__OWNED_UNITS_TYPE = NUMBER_TYPE__OWNED_UNITS_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Units Type</b></em>' reference.
+	 * The feature id for the '<em><b>Referenced Units Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_INTEGER__UNITS_TYPE = NUMBER_TYPE__UNITS_TYPE;
+	int AADL_INTEGER__REFERENCED_UNITS_TYPE = NUMBER_TYPE__REFERENCED_UNITS_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Range</b></em>' containment reference.
@@ -34376,6 +34403,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int AADL_INTEGER__RANGE = NUMBER_TYPE__RANGE;
+
+	/**
+	 * The feature id for the '<em><b>Units Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AADL_INTEGER__UNITS_TYPE = NUMBER_TYPE__UNITS_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Aadl Integer</em>' class.
@@ -34688,13 +34724,13 @@ public interface Aadl2Package extends EPackage {
 	int AADL_REAL__OWNED_UNITS_TYPE = NUMBER_TYPE__OWNED_UNITS_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Units Type</b></em>' reference.
+	 * The feature id for the '<em><b>Referenced Units Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AADL_REAL__UNITS_TYPE = NUMBER_TYPE__UNITS_TYPE;
+	int AADL_REAL__REFERENCED_UNITS_TYPE = NUMBER_TYPE__REFERENCED_UNITS_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Range</b></em>' containment reference.
@@ -34704,6 +34740,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int AADL_REAL__RANGE = NUMBER_TYPE__RANGE;
+
+	/**
+	 * The feature id for the '<em><b>Units Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AADL_REAL__UNITS_TYPE = NUMBER_TYPE__UNITS_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Aadl Real</em>' class.
@@ -35025,13 +35070,13 @@ public interface Aadl2Package extends EPackage {
 	int RECORD_FIELD__TYPE = BASIC_PROPERTY__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Property Type</b></em>' reference.
+	 * The feature id for the '<em><b>Referenced Property Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECORD_FIELD__PROPERTY_TYPE = BASIC_PROPERTY__PROPERTY_TYPE;
+	int RECORD_FIELD__REFERENCED_PROPERTY_TYPE = BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
@@ -35041,6 +35086,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int RECORD_FIELD__OWNED_PROPERTY_TYPE = BASIC_PROPERTY__OWNED_PROPERTY_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Property Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECORD_FIELD__PROPERTY_TYPE = BASIC_PROPERTY__PROPERTY_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Record Field</em>' class.
@@ -35580,6 +35634,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getBasicProperty();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.BasicProperty#getReferencedPropertyType <em>Referenced Property Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Referenced Property Type</em>'.
+	 * @see org.osate.aadl2.BasicProperty#getReferencedPropertyType()
+	 * @see #getBasicProperty()
+	 * @generated
+	 */
+	EReference getBasicProperty_ReferencedPropertyType();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.BasicProperty#getPropertyType <em>Property Type</em>}'.
@@ -42235,6 +42300,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getNumberType_OwnedUnitsType();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.NumberType#getReferencedUnitsType <em>Referenced Units Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Referenced Units Type</em>'.
+	 * @see org.osate.aadl2.NumberType#getReferencedUnitsType()
+	 * @see #getNumberType()
+	 * @generated
+	 */
+	EReference getNumberType_ReferencedUnitsType();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.NumberType#getUnitsType <em>Units Type</em>}'.

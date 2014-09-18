@@ -200,9 +200,8 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public void setInherit(boolean newInherit) {
 		boolean oldInherit = inherit;
 		inherit = newInherit;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__INHERIT, oldInherit, inherit));
-		}
 	}
 
 	/**
@@ -226,11 +225,10 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.PROPERTY__DEFAULT_VALUE, oldDefaultValue, newDefaultValue);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -244,22 +242,18 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public void setDefaultValue(PropertyExpression newDefaultValue) {
 		if (newDefaultValue != defaultValue) {
 			NotificationChain msgs = null;
-			if (defaultValue != null) {
+			if (defaultValue != null)
 				msgs = ((InternalEObject) defaultValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
-			}
-			if (newDefaultValue != null) {
+			if (newDefaultValue != null)
 				msgs = ((InternalEObject) newDefaultValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
-			}
 			msgs = basicSetDefaultValue(newDefaultValue, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__DEFAULT_VALUE,
 					newDefaultValue, newDefaultValue));
-		}
 	}
 
 	/**
@@ -307,10 +301,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public void setEmptyListDefault(boolean newEmptyListDefault) {
 		boolean oldEmptyListDefault = emptyListDefault;
 		emptyListDefault = newEmptyListDefault;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__EMPTY_LIST_DEFAULT,
 					oldEmptyListDefault, emptyListDefault));
-		}
 	}
 
 	/**
@@ -498,9 +491,8 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (inherit: ");
