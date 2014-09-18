@@ -458,14 +458,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (context instanceof ContainmentPathElement) {
 				EObject res = null;
 				ContainedNamedElement path = (ContainedNamedElement) context.eContainer();
-				while (path.getOwner() instanceof ContainmentPathElement) {
-					path = (ContainedNamedElement) path.getOwner().getOwner();
-				}
-				EList<ContainmentPathElement> list = path.getContainmentPathElements();
-				int idx = list.indexOf(context);
-				if (idx > 0) {
+				if (path.getOwner() instanceof ContainmentPathElement) {
 					// find next element in namespace of previous element
-					ContainmentPathElement el = list.get(idx - 1);
+					ContainmentPathElement el = (ContainmentPathElement) path.getOwner();
 					NamedElement ne = el.getNamedElement();
 					if (ne instanceof Subcomponent) {
 						Classifier ns = ((Subcomponent) ne).getClassifier();
