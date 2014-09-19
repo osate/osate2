@@ -2195,8 +2195,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="range" ordered="false"
         eType="#//NumericRange" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="unitsType" ordered="false"
-        unique="false" lowerBound="1" eType="#//UnitsType" changeable="false" volatile="true"
-        transient="true" derived="true"/>
+        unique="false" eType="#//UnitsType" changeable="false" volatile="true" transient="true"
+        derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnitsType" eSuperTypes="#//EnumerationType">
     <eAnnotations source="duplicates">
