@@ -1685,6 +1685,7 @@ FeatureGroupType returns aadl2::FeatureGroupType:
 
 // ********* internal features
 
+//This rule is dead code in the grammar, but it is needed by the formatter.
 InternalFeature returns aadl2::InternalFeature:
 	(
 		EventSource | EventDataSource
@@ -1703,6 +1704,7 @@ InternalFeature returns aadl2::InternalFeature:
 	';' 
 ;
 
+//This rule is dead code in the grammar, but it is needed by the formatter.
 ProcessorFeature returns aadl2::ProcessorFeature:
 	(
 		PortProxy | SubprogramProxy
