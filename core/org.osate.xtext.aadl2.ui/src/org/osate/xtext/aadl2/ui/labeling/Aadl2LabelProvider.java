@@ -539,7 +539,7 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	String text(RangeValue ele) {
 		RangeValue rv;
 
-		rv = (RangeValue) ele;
+		rv = ele;
 
 //		OsateDebug.osateDebug("bla" + rv.getMaximumValue().getUnit().getName());
 
@@ -569,11 +569,11 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(AadlInteger ele) {
-		return "aadlinteger";
+		return "Property Type" + ele.getName();
 	}
 
 	String text(AadlReal ele) {
-		return "aadlreal";
+		return "Property Type" + ele.getName();
 	}
 
 	String image(NamedElement ele) {
