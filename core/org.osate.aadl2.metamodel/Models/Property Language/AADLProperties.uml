@@ -230,7 +230,7 @@
         </ownedAttribute>
         <ownedAttribute xmi:id="_JJZRpD9CEeSMi-ARKmUa4A" name="unitsType" type="Types-UnitsType" isUnique="false" isReadOnly="true" isDerived="true" association="_JJZRoD9CEeSMi-ARKmUa4A">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JJZRpT9CEeSMi-ARKmUa4A" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JJZRpj9CEeSMi-ARKmUa4A" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JJZRpj9CEeSMi-ARKmUa4A"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_numberType_ownedUnitsType" name="A_numberType_ownedUnitsType" memberEnd="Types-A_numberType_ownedUnitsType-owner Types-NumberType-ownedUnitsType">

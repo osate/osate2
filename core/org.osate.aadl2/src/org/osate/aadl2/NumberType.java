@@ -136,7 +136,7 @@ public interface NumberType extends NonListType {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Units Type</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getNumberType_UnitsType()
-	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	UnitsType getUnitsType();
