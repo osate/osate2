@@ -31,6 +31,7 @@ import org.osate.core.AadlNature
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.junit.Assert.assertEquals
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 
 /**
  * Add a couple of utility methods for managing files in the test workspace
@@ -52,10 +53,8 @@ class OsateTest extends XtextTest {
 		val project = workspaceRoot.getProject(projectName)
 		val operation = new WorkspaceModifyOperation() {
 			override def execute(IProgressMonitor monitor) {
-				PredeclaredProperties.initPluginContributedAadl()
-				val plugin_resources = workspaceRoot.getProject("Plugin_Resources")
-
-				Assert.isTrue(plugin_resources.exists, "Plugin_Resources project does not exist")
+				PredeclaredProperties.initPluginContributedAadl
+				val plugin_resources = pluginResources
 				if (!project.exists) {
 					project.create(monitor)
 					project.open(monitor)
@@ -92,10 +91,6 @@ class OsateTest extends XtextTest {
 	 */
 	def buildProject(String name, boolean wait) {
 		val project = workspaceRoot.getProject(name)
-		var int i;
-		for (; !project.exists && i < 20; i++) {
-			Thread.sleep(500);
-		}
 		Assert.isTrue(project.exists, "Project " + name + " does not exist in the workspace")
 		buildProject(project, wait)
 	}
@@ -104,6 +99,7 @@ class OsateTest extends XtextTest {
 	 * Build a given project. Optionally wait until the build is done.
 	 */
 	def buildProject(IProject project, boolean wait) {
+		pluginResources
 		try {
 			project.build(IncrementalProjectBuilder.CLEAN_BUILD, null)
 		} catch (CoreException e) {
@@ -113,6 +109,20 @@ class OsateTest extends XtextTest {
 		if (wait) {
 			waitForBuild
 		}
+	}
+
+	/**
+	 * Check if plugin resources exists, wait up to 10s. Return project.
+	 */
+	def getPluginResources() {
+		val project = workspaceRoot.getProject(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)
+		var int i;
+		for (; !project.exists && i < 20; i++) {
+			Thread.sleep(500);
+		}
+		Assert.isTrue(project.exists,
+			"Project " + OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME + " does not exist in the workspace")
+		project
 	}
 
 	/**
