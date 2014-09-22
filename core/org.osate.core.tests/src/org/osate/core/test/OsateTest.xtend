@@ -41,8 +41,9 @@ class OsateTest extends XtextTest {
 	static val Logger LOGGER = Logger.getLogger(OsateTest);
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
-	
-	val pluginResourcesNames = workspaceRoot.getProject("Plugin_Resources").members.filter(typeof(IFile)).map[name].filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
+
+	val pluginResourcesNames = workspaceRoot.getProject("Plugin_Resources").members.filter(typeof(IFile)).map[name].
+		filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
 
 	/**
       * Create a project with subdirectories in the current workspace.
@@ -91,6 +92,10 @@ class OsateTest extends XtextTest {
 	 */
 	def buildProject(String name, boolean wait) {
 		val project = workspaceRoot.getProject(name)
+		var int i;
+		for (; !project.exists && i < 20; i++) {
+			Thread.sleep(500);
+		}
 		Assert.isTrue(project.exists, "Project " + name + " does not exist in the workspace")
 		buildProject(project, wait)
 	}
@@ -158,8 +163,9 @@ class OsateTest extends XtextTest {
 			// just continue
 		}
 	}
-	
-	def protected static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection, String... expectedMessages) {
+
+	def protected static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
+		String... expectedMessages) {
 		val errorsForEObject = allIssues.filter[severity == Severity::ERROR && uriToProblem == eObject.URI]
 		val errorMessagesForEObject = errorsForEObject.map[message]
 		if (errorMessagesForEObject.toSet != expectedMessages.toSet) {
@@ -167,19 +173,21 @@ class OsateTest extends XtextTest {
 		}
 		errorsForEObject.forEach[issueCollection.addIssue(it)]
 	}
-	
+
 	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
-		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(context.getScope(reference).allElements.map[name.toString("::")].filter[
-			val separatorIndex = indexOf("::")
-			if (separatorIndex != -1) {
-				val propertySetName = substring(0, separatorIndex)
-				AadlUtil::isPredeclaredPropertySet(propertySetName) || !pluginResourcesNames.exists[equalsIgnoreCase(propertySetName)]
-			} else {
-				true
-			}
-		].sort(CUSTOM_NAME_COMPARATOR).join(", "))
+		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(
+			context.getScope(reference).allElements.map[name.toString("::")].filter [
+				val separatorIndex = indexOf("::")
+				if (separatorIndex != -1) {
+					val propertySetName = substring(0, separatorIndex)
+					AadlUtil::isPredeclaredPropertySet(propertySetName) ||
+						!pluginResourcesNames.exists[equalsIgnoreCase(propertySetName)]
+				} else {
+					true
+				}
+			].sort(CUSTOM_NAME_COMPARATOR).join(", "))
 	}
-	
+
 	/*
 	 * Compares two aadl names such that simple names are less than qualified names.
 	 * If the name is qualified then names in predeclared property sets are greater than names in other packages or property sets.
@@ -208,7 +216,7 @@ class OsateTest extends XtextTest {
 				}
 			}
 		}
-		
+
 		//Xtend requires this method to be overriden.  I should file a bug with Xtend
 		override equals(Object obj) {
 			class == obj.class
