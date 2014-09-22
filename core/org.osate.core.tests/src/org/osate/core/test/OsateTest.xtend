@@ -43,7 +43,7 @@ class OsateTest extends XtextTest {
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
 
-	val pluginResourcesNames = workspaceRoot.getProject("Plugin_Resources").members.filter(typeof(IFile)).map[name].
+	val pluginResourcesNames = pluginResources.members.filter(typeof(IFile)).map[name].
 		filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
 
 	/**
@@ -90,6 +90,7 @@ class OsateTest extends XtextTest {
 	 * Build the named project. Optionally wait until the build is done.
 	 */
 	def buildProject(String name, boolean wait) {
+		pluginResources
 		val project = workspaceRoot.getProject(name)
 		Assert.isTrue(project.exists, "Project " + name + " does not exist in the workspace")
 		buildProject(project, wait)
