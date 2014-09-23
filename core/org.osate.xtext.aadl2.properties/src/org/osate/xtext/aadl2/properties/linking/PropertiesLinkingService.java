@@ -60,7 +60,6 @@ import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
-import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentPrototype;
@@ -112,7 +111,6 @@ import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.ThreadSubcomponent;
@@ -499,82 +497,44 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						if (ns != null) {
 							res = ns.findNamedElement(name);
 						}
-					} else if (ne instanceof Feature) {
-						Classifier ns = ((Feature) ne).getAllClassifier();
-						if (ns != null) {
-							res = ns.findNamedElement(name);
-						}
-					} else if (ne instanceof SubprogramCall) {
-						// looking inside a subprogram that is being called
-						CalledSubprogram called = ((SubprogramCall) ne).getCalledSubprogram();
-						if (called instanceof SubprogramImplementation) {
-							res = ((SubprogramImplementation) called).findNamedElement(name);
-						} else if (called instanceof SubprogramSubcomponent) {
-							Classifier ns = ((SubprogramSubcomponent) called).getAllClassifier();
-							res = ns.findNamedElement(name);
-						}
 					}
 				} else {
 					// the first containment path element
 					Classifier ns = null;
-					// need to make sure we look in the correct name space
-					if (AadlUtil.getContainingSubcomponent(context) != null) {
-						Subcomponent subcomponent = AadlUtil.getContainingSubcomponent(context);
-						while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
-							subcomponent = subcomponent.getRefined();
+					PropertyAssociation containingPropertyAssociation = AadlUtil
+							.getContainingPropertyAssociation(context);
+					if (containingPropertyAssociation != null) {
+						// need to make sure we look in the correct name space
+						if (containingPropertyAssociation.getOwner() instanceof Classifier) {
+							ns = (Classifier) containingPropertyAssociation.getOwner();
+						} else if (containingPropertyAssociation.getOwner() instanceof Subcomponent) {
+							Subcomponent subcomponent = (Subcomponent) containingPropertyAssociation.getOwner();
+							while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+								subcomponent = subcomponent.getRefined();
+							}
+							if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+								ns = (ComponentClassifier) subcomponent.getSubcomponentType();
+							} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+								ns = ResolvePrototypeUtil.resolveComponentPrototype(
+										(ComponentPrototype) subcomponent.getSubcomponentType(),
+										AadlUtil.getContainingClassifier(context));
+							}
+						} else if (containingPropertyAssociation.getOwner() instanceof FeatureGroup) {
+							FeatureGroup fg = (FeatureGroup) containingPropertyAssociation.getOwner();
+							while (fg.getFeatureType() == null && fg.getRefined() instanceof FeatureGroup) {
+								fg = (FeatureGroup) fg.getRefined();
+							}
+							if (fg.getFeatureType() instanceof FeatureGroupType) {
+								ns = (FeatureGroupType) fg.getFeatureType();
+							} else if (fg.getFeatureType() instanceof FeatureGroupPrototype) {
+								ns = ResolvePrototypeUtil.resolveFeatureGroupPrototype(
+										(FeatureGroupPrototype) fg.getFeatureType(),
+										AadlUtil.getContainingClassifier(context));
+							}
 						}
-						if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
-							ns = (ComponentClassifier) subcomponent.getSubcomponentType();
-						} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
-							ns = ResolvePrototypeUtil.resolveComponentPrototype(
-									(ComponentPrototype) subcomponent.getSubcomponentType(),
-									AadlUtil.getContainingClassifier(context));
-						}
-					} else {
-						ns = AadlUtil.getContainingClassifier(context);
 					}
 					if (ns != null) {
 						res = ns.findNamedElement(name);
-					}
-				}
-				if (res == null) {
-					FeatureGroup fg = AadlUtil.getContainingFeatureGroup(context);
-					if (fg != null) {
-						while (fg.getFeatureType() == null && fg.getRefined() instanceof FeatureGroup) {
-							fg = (FeatureGroup) fg.getRefined();
-						}
-						FeatureGroupType ns = null;
-						if (fg.getFeatureType() instanceof FeatureGroupType) {
-							ns = (FeatureGroupType) fg.getFeatureType();
-						} else if (fg.getFeatureType() instanceof FeatureGroupPrototype) {
-							ns = ResolvePrototypeUtil.resolveFeatureGroupPrototype(
-									(FeatureGroupPrototype) fg.getFeatureType(),
-									AadlUtil.getContainingClassifier(context));
-						}
-						if (ns != null) {
-							res = ns.findNamedElement(name);
-						}
-					}
-				}
-				if (res == null) {
-					Feature feature = AadlUtil.getContainingFeature(context);
-					if (feature != null) {
-						Classifier fcl = feature.getAllClassifier();
-						if (fcl != null) {
-							res = fcl.findNamedElement(name);
-						}
-					}
-				}
-				if (res == null) {
-					SubprogramCall subcall = AadlUtil.getContainingSubprogramCall(context);
-					if (subcall != null) {
-						CalledSubprogram called = subcall.getCalledSubprogram();
-						if (called instanceof SubprogramImplementation) {
-							res = ((SubprogramImplementation) called).findNamedElement(name);
-						} else if (called instanceof SubprogramSubcomponent) {
-							Classifier ns = ((SubprogramSubcomponent) called).getAllClassifier();
-							res = ns.findNamedElement(name);
-						}
 					}
 				}
 				if (res != null && res instanceof NamedElement) {
