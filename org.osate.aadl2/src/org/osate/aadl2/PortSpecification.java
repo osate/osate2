@@ -52,6 +52,8 @@ package org.osate.aadl2;
  *   <li>{@link org.osate.aadl2.PortSpecification#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.PortSpecification#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.PortSpecification#getComponentPrototype <em>Component Prototype</em>}</li>
+ *   <li>{@link org.osate.aadl2.PortSpecification#isIn <em>In</em>}</li>
+ *   <li>{@link org.osate.aadl2.PortSpecification#isOut <em>Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,23 +76,11 @@ public interface PortSpecification extends FeaturePrototypeActual {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see org.osate.aadl2.DirectionType
-	 * @see #setDirection(DirectionType)
 	 * @see org.osate.aadl2.Aadl2Package#getPortSpecification_Direction()
-	 * @model required="true" ordered="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	DirectionType getDirection();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.PortSpecification#getDirection <em>Direction</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Direction</em>' attribute.
-	 * @see org.osate.aadl2.DirectionType
-	 * @see #getDirection()
-	 * @generated
-	 */
-	void setDirection(DirectionType value);
 
 	/**
 	 * Returns the value of the '<em><b>Category</b></em>' attribute.
@@ -181,5 +171,55 @@ public interface PortSpecification extends FeaturePrototypeActual {
 	 * @generated
 	 */
 	void setComponentPrototype(ComponentPrototype value);
+
+	/**
+	 * Returns the value of the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>In</em>' attribute.
+	 * @see #setIn(boolean)
+	 * @see org.osate.aadl2.Aadl2Package#getPortSpecification_In()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isIn();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortSpecification#isIn <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>In</em>' attribute.
+	 * @see #isIn()
+	 * @generated
+	 */
+	void setIn(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Templates.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Out</em>' attribute.
+	 * @see #setOut(boolean)
+	 * @see org.osate.aadl2.Aadl2Package#getPortSpecification_Out()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isOut();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortSpecification#isOut <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Out</em>' attribute.
+	 * @see #isOut()
+	 * @generated
+	 */
+	void setOut(boolean value);
 
 } // PortSpecification

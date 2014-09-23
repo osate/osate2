@@ -678,7 +678,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="CallContext" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="DirectedFeature" abstract="true" eSuperTypes="#//Feature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType" defaultValueLiteral="inOut"/>
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DirectionType">
     <eLiterals name="in"/>
@@ -847,9 +852,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototype" eSuperTypes="#//Prototype">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType" defaultValueLiteral="inOut"/>
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
         ordered="false" eType="#//ComponentClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype #//FeatureType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingFeatureGroupType"
@@ -974,7 +984,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature"/>
   <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventSource" eSuperTypes="#//InternalFeature"/>
   <eClassifiers xsi:type="ecore:EClass" name="EventDataSource" eSuperTypes="#//InternalFeature">
@@ -984,9 +999,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DataSubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortProxy" eSuperTypes="#//ProcessorFeature #//FeatureConnectionEnd #//PortConnectionEnd #//TriggerPort">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
         eType="#//DataClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramProxy" eSuperTypes="#//ProcessorFeature #//AccessConnectionEnd #//CalledSubprogram">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramClassifier" ordered="false"
@@ -1174,19 +1194,29 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PortSpecification" eSuperTypes="#//FeaturePrototypeActual">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
         lowerBound="1" eType="#//PortCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
         eType="#//ComponentClassifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentPrototype" ordered="false"
         eType="#//ComponentPrototype"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeReference" eSuperTypes="#//FeaturePrototypeActual">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
         lowerBound="1" eType="#//FeaturePrototype"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallSequence" eSuperTypes="#//BehavioralFeature #//ModalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramCall" upperBound="-1"

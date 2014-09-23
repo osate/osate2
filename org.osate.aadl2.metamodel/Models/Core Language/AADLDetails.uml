@@ -2984,8 +2984,14 @@
         </generalization>
         <generalization xmi:id="_4ZDeIIOKEeOWItHzPgezWw" general="Connections-PortConnectionEnd"/>
         <generalization xmi:id="_NpoGoJMfEeOjKPnjRLtKFw" general="Connections-FeatureConnectionEnd"/>
-        <ownedAttribute xmi:id="_AoQOEJP7EeO4lMXvNCrZDQ" name="direction">
+        <ownedAttribute xmi:id="_AoQOEJP7EeO4lMXvNCrZDQ" name="direction" isReadOnly="true" isDerived="true">
           <type xmi:type="uml:Enumeration" href="AADLConstructs.uml#Features-DirectionType"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_2DMkEEM3EeSo7dNc7Eb1Kg" name="in">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_2xIBEEM3EeSo7dNc7Eb1Kg" name="out">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_3_pPsIN2EeOWItHzPgezWw" name="A_componentImplementation_ownedProcessorFeature" memberEnd="_3_pPsYN2EeOWItHzPgezWw _3_HrQIN2EeOWItHzPgezWw">
@@ -3026,12 +3032,18 @@
         </generalization>
         <generalization xmi:id="_SmJSkIOKEeOWItHzPgezWw" general="Connections-PortConnectionEnd"/>
         <generalization xmi:id="_Ojvlg5MfEeOjKPnjRLtKFw" general="Connections-FeatureConnectionEnd"/>
-        <ownedAttribute xmi:id="_yJiP0JP8EeO4lMXvNCrZDQ" name="direction">
+        <ownedAttribute xmi:id="_yJiP0JP8EeO4lMXvNCrZDQ" name="direction" isReadOnly="true" isDerived="true">
           <type xmi:type="uml:Enumeration" href="AADLConstructs.uml#Features-DirectionType"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_p3oydJP5EeO4lMXvNCrZDQ" name="dataClassifier" type="Components-Data-DataClassifier" association="_p3oycJP5EeO4lMXvNCrZDQ">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_p3oydZP5EeO4lMXvNCrZDQ" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_p3oydpP5EeO4lMXvNCrZDQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_3p0joEM3EeSo7dNc7Eb1Kg" name="in">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_4DwtoEM3EeSo7dNc7Eb1Kg" name="out">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_9DkewIOFEeOWItHzPgezWw" name="A_componentImplementation_ownedEventSource" memberEnd="_9DkewYOFEeOWItHzPgezWw _9C3UIIOFEeOWItHzPgezWw">

@@ -1243,7 +1243,7 @@ FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:
 FeaturePrototype returns aadl2::FeaturePrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::FeaturePrototype|REFINEDNAME] ':' 'refined' 'to'))
-	(direction=InOutDirection)?  // only in or out not inout
+	(in ?= 'in' | out ?= 'out')? // only in or out not inout
 	'feature'
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	;
@@ -1274,7 +1274,8 @@ FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
 	;
 
 PortSpecification returns aadl2::PortSpecification:
-	direction=PortDirection category=PortCategory 'port' (classifier=[aadl2::ComponentClassifier|QCREF])?
+	(in ?= 'in')? (out ?= 'out')? 
+	category=PortCategory 'port' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 	
 AccessSpecification returns aadl2::AccessSpecification:
@@ -1283,7 +1284,7 @@ AccessSpecification returns aadl2::AccessSpecification:
 
 	
 FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
-	direction=InOutDirection? 'feature' prototype=[aadl2::FeaturePrototype|ID]
+	(in ?= 'in' | out ?= 'out')? 'feature' prototype=[aadl2::FeaturePrototype|ID]
 	;
 
 
@@ -1564,7 +1565,7 @@ DataPort returns aadl2::DataPort:
 	{aadl2::DataPort}
 	((name=ID ':' )|
 	(refined=[aadl2::DataPort|REFINEDNAME] ':' 'refined' 'to'))
-	direction=PortDirection 
+	(in ?= 'in')? (out ?= 'out')? 
 	'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
@@ -1575,7 +1576,7 @@ EventDataPort returns aadl2::EventDataPort:
 	{aadl2::EventDataPort}
 	((name=ID ':' )|
 	(refined=[aadl2::EventDataPort|REFINEDNAME] ':' 'refined' 'to'))
-	direction=PortDirection 
+	(in ?= 'in')? (out ?= 'out')? 
 	'event' 'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
@@ -1586,7 +1587,7 @@ EventPort returns aadl2::EventPort:
 	{aadl2::EventPort}
 	((name=ID ':' )|
 	(refined=[aadl2::EventPort|REFINEDNAME] ':' 'refined' 'to'))
-	direction=PortDirection 
+	(in ?= 'in')? (out ?= 'out')? 
 	'event' 'port' 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
@@ -1597,7 +1598,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 		// default is inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::FeatureGroup|REFINEDNAME] ':' 'refined' 'to'))
-	(direction=InOutDirection)? 'feature' 'group' 
+	(in ?= 'in' | out ?= 'out')? 'feature' 'group' 
 	(( inverse?='inverse' 'of')?
 	featureType=[aadl2::FeatureType|QCREF] )?
 	(arrayDimension+=ArrayDimension)?
@@ -1607,7 +1608,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 Parameter returns aadl2::Parameter:
 	((name=ID ':' )|
 	(refined=[aadl2::Parameter|REFINEDNAME] ':' 'refined' 'to'))
-	direction=PortDirection 'parameter' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
+	(in ?= 'in')? (out ?= 'out')? 'parameter' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;
@@ -1649,7 +1650,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 	// default is inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::AbstractFeature|REFINEDNAME] ':' 'refined' 'to'))
-	(direction=InOutDirection)? 'feature' (featurePrototype=[aadl2::FeaturePrototype|QCREF])? 
+	(in ?= 'in' | out ?= 'out')? 'feature' (featurePrototype=[aadl2::FeaturePrototype|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;

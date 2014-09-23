@@ -53,6 +53,8 @@ import org.osate.aadl2.PortProxy;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#getDataClassifier <em>Data Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#isIn <em>In</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#isOut <em>Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,16 +71,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 */
 	protected static final DirectionType DIRECTION_EDEFAULT = DirectionType.IN;
 	/**
-	 * The cached value of the '{@link #getDirection() <em>Direction</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDirection()
-	 * @generated
-	 * @ordered
-	 */
-	protected DirectionType direction = DIRECTION_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,6 +79,43 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * @ordered
 	 */
 	protected DataClassifier dataClassifier;
+
+	/**
+	 * The default value of the '{@link #isIn() <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIn()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IN_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isIn() <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIn()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean in = IN_EDEFAULT;
+	/**
+	 * The default value of the '{@link #isOut() <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOut()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OUT_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isOut() <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOut()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean out = OUT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -110,23 +139,23 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public DirectionType getDirection() {
-		return direction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDirection(DirectionType newDirection) {
-		DirectionType oldDirection = direction;
-		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_PROXY__DIRECTION, oldDirection,
-					direction));
+		// DONE: implement this method to return the 'Direction' attribute
+		if (in) {
+			if (out) {
+				return DirectionType.IN_OUT;
+			} else {
+				return DirectionType.IN;
+			}
+		} else {
+			if (out) {
+				return DirectionType.IN;
+			} else {
+				return DirectionType.IN_OUT;
+			}
+		}
 	}
 
 	/**
@@ -174,6 +203,48 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isIn() {
+		return in;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIn(boolean newIn) {
+		boolean oldIn = in;
+		in = newIn;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_PROXY__IN, oldIn, in));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOut() {
+		return out;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOut(boolean newOut) {
+		boolean oldOut = out;
+		out = newOut;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_PROXY__OUT, oldOut, out));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -183,6 +254,10 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 			if (resolve)
 				return getDataClassifier();
 			return basicGetDataClassifier();
+		case Aadl2Package.PORT_PROXY__IN:
+			return isIn();
+		case Aadl2Package.PORT_PROXY__OUT:
+			return isOut();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -195,11 +270,14 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.PORT_PROXY__DIRECTION:
-			setDirection((DirectionType) newValue);
-			return;
 		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
 			setDataClassifier((DataClassifier) newValue);
+			return;
+		case Aadl2Package.PORT_PROXY__IN:
+			setIn((Boolean) newValue);
+			return;
+		case Aadl2Package.PORT_PROXY__OUT:
+			setOut((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -213,11 +291,14 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PORT_PROXY__DIRECTION:
-			setDirection(DIRECTION_EDEFAULT);
-			return;
 		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
 			setDataClassifier((DataClassifier) null);
+			return;
+		case Aadl2Package.PORT_PROXY__IN:
+			setIn(IN_EDEFAULT);
+			return;
+		case Aadl2Package.PORT_PROXY__OUT:
+			setOut(OUT_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -232,9 +313,13 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
-			return direction != DIRECTION_EDEFAULT;
+			return getDirection() != DIRECTION_EDEFAULT;
 		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
 			return dataClassifier != null;
+		case Aadl2Package.PORT_PROXY__IN:
+			return in != IN_EDEFAULT;
+		case Aadl2Package.PORT_PROXY__OUT:
+			return out != OUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -250,8 +335,10 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (direction: ");
-		result.append(direction);
+		result.append(" (in: ");
+		result.append(in);
+		result.append(", out: ");
+		result.append(out);
 		result.append(')');
 		return result.toString();
 	}

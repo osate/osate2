@@ -114,11 +114,10 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH_ELEMENT, oldPathElement, newPathElement);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -132,22 +131,18 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	public void setPathElement(ContainmentPathElement newPathElement) {
 		if (newPathElement != pathElement) {
 			NotificationChain msgs = null;
-			if (pathElement != null) {
+			if (pathElement != null)
 				msgs = ((InternalEObject) pathElement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH_ELEMENT, null, msgs);
-			}
-			if (newPathElement != null) {
+			if (newPathElement != null)
 				msgs = ((InternalEObject) newPathElement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH_ELEMENT, null, msgs);
-			}
 			msgs = basicSetPathElement(newPathElement, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH_ELEMENT,
 					newPathElement, newPathElement));
-		}
 	}
 
 	/**

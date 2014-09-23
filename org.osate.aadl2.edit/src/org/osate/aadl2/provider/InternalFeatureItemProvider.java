@@ -75,6 +75,8 @@ public class InternalFeatureItemProvider extends StructuralFeatureItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addDirectionPropertyDescriptor(object);
+			addInPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -93,6 +95,38 @@ public class InternalFeatureItemProvider extends StructuralFeatureItemProvider {
 				getString("_UI_PropertyDescriptor_description", "_UI_InternalFeature_direction_feature",
 						"_UI_InternalFeature_type"), Aadl2Package.eINSTANCE.getInternalFeature_Direction(), true,
 				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_InternalFeature_in_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_InternalFeature_in_feature",
+						"_UI_InternalFeature_type"), Aadl2Package.eINSTANCE.getInternalFeature_In(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Out feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_InternalFeature_out_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_InternalFeature_out_feature",
+						"_UI_InternalFeature_type"), Aadl2Package.eINSTANCE.getInternalFeature_Out(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -121,6 +155,8 @@ public class InternalFeatureItemProvider extends StructuralFeatureItemProvider {
 
 		switch (notification.getFeatureID(InternalFeature.class)) {
 		case Aadl2Package.INTERNAL_FEATURE__DIRECTION:
+		case Aadl2Package.INTERNAL_FEATURE__IN:
+		case Aadl2Package.INTERNAL_FEATURE__OUT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

@@ -78,6 +78,8 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 
 			addDirectionPropertyDescriptor(object);
 			addConstrainingClassifierPropertyDescriptor(object);
+			addInPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,6 +114,38 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototype_constrainingClassifier_feature",
 						"_UI_FeaturePrototype_type"), Aadl2Package.eINSTANCE
 						.getFeaturePrototype_ConstrainingClassifier(), true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeaturePrototype_in_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototype_in_feature",
+						"_UI_FeaturePrototype_type"), Aadl2Package.eINSTANCE.getFeaturePrototype_In(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Out feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeaturePrototype_out_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototype_out_feature",
+						"_UI_FeaturePrototype_type"), Aadl2Package.eINSTANCE.getFeaturePrototype_Out(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -151,6 +185,8 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 
 		switch (notification.getFeatureID(FeaturePrototype.class)) {
 		case Aadl2Package.FEATURE_PROTOTYPE__DIRECTION:
+		case Aadl2Package.FEATURE_PROTOTYPE__IN:
+		case Aadl2Package.FEATURE_PROTOTYPE__OUT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

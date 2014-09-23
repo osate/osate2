@@ -79,6 +79,8 @@ public class FeaturePrototypeReferenceItemProvider extends FeaturePrototypeActua
 
 			addDirectionPropertyDescriptor(object);
 			addPrototypePropertyDescriptor(object);
+			addInPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -114,6 +116,40 @@ public class FeaturePrototypeReferenceItemProvider extends FeaturePrototypeActua
 				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototypeReference_prototype_feature",
 						"_UI_FeaturePrototypeReference_type"), Aadl2Package.eINSTANCE
 						.getFeaturePrototypeReference_Prototype(), true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeaturePrototypeReference_in_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototypeReference_in_feature",
+						"_UI_FeaturePrototypeReference_type"),
+				Aadl2Package.eINSTANCE.getFeaturePrototypeReference_In(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Out feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeaturePrototypeReference_out_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototypeReference_out_feature",
+						"_UI_FeaturePrototypeReference_type"), Aadl2Package.eINSTANCE
+						.getFeaturePrototypeReference_Out(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -154,6 +190,8 @@ public class FeaturePrototypeReferenceItemProvider extends FeaturePrototypeActua
 
 		switch (notification.getFeatureID(FeaturePrototypeReference.class)) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION:
+		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__IN:
+		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__OUT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

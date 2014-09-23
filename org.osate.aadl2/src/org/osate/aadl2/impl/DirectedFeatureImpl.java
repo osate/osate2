@@ -51,6 +51,8 @@ import org.osate.aadl2.DirectionType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DirectedFeatureImpl#getDirection <em>Direction</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.DirectedFeatureImpl#isIn <em>In</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.DirectedFeatureImpl#isOut <em>Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -65,17 +67,47 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DirectionType DIRECTION_EDEFAULT = DirectionType.IN_OUT;
+	protected static final DirectionType DIRECTION_EDEFAULT = DirectionType.IN;
 
 	/**
-	 * The cached value of the '{@link #getDirection() <em>Direction</em>}' attribute.
+	 * The default value of the '{@link #isIn() <em>In</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDirection()
+	 * @see #isIn()
 	 * @generated
 	 * @ordered
 	 */
-	protected DirectionType direction = DIRECTION_EDEFAULT;
+	protected static final boolean IN_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIn() <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIn()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean in = IN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isOut() <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOut()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OUT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOut() <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOut()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean out = OUT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -99,10 +131,23 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public DirectionType getDirection() {
-		return direction;
+		// DONE: implement this method to return the 'Direction' attribute
+		if (in) {
+			if (out) {
+				return DirectionType.IN_OUT;
+			} else {
+				return DirectionType.IN;
+			}
+		} else {
+			if (out) {
+				return DirectionType.IN;
+			} else {
+				return DirectionType.IN_OUT;
+			}
+		}
 	}
 
 	/**
@@ -110,12 +155,41 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDirection(DirectionType newDirection) {
-		DirectionType oldDirection = direction;
-		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
+	public boolean isIn() {
+		return in;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIn(boolean newIn) {
+		boolean oldIn = in;
+		in = newIn;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DIRECTED_FEATURE__DIRECTION,
-					oldDirection, direction));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DIRECTED_FEATURE__IN, oldIn, in));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOut() {
+		return out;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOut(boolean newOut) {
+		boolean oldOut = out;
+		out = newOut;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DIRECTED_FEATURE__OUT, oldOut, out));
 	}
 
 	/**
@@ -128,6 +202,10 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
 			return getDirection();
+		case Aadl2Package.DIRECTED_FEATURE__IN:
+			return isIn();
+		case Aadl2Package.DIRECTED_FEATURE__OUT:
+			return isOut();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,8 +218,11 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
-			setDirection((DirectionType) newValue);
+		case Aadl2Package.DIRECTED_FEATURE__IN:
+			setIn((Boolean) newValue);
+			return;
+		case Aadl2Package.DIRECTED_FEATURE__OUT:
+			setOut((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -155,8 +236,11 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
-			setDirection(DIRECTION_EDEFAULT);
+		case Aadl2Package.DIRECTED_FEATURE__IN:
+			setIn(IN_EDEFAULT);
+			return;
+		case Aadl2Package.DIRECTED_FEATURE__OUT:
+			setOut(OUT_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -171,7 +255,11 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
-			return direction != DIRECTION_EDEFAULT;
+			return getDirection() != DIRECTION_EDEFAULT;
+		case Aadl2Package.DIRECTED_FEATURE__IN:
+			return in != IN_EDEFAULT;
+		case Aadl2Package.DIRECTED_FEATURE__OUT:
+			return out != OUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -187,8 +275,10 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (direction: ");
-		result.append(direction);
+		result.append(" (in: ");
+		result.append(in);
+		result.append(", out: ");
+		result.append(out);
 		result.append(')');
 		return result.toString();
 	}
