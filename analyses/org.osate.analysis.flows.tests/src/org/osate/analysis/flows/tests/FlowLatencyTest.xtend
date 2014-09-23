@@ -23,14 +23,15 @@ import static org.junit.Assert.*
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class FlowLatencyTest extends OsateTest {
 
-	val projectRoot = "platform:/resource/test/"
+	val projectName = "test"
+	val projectRoot = "platform:/resource/" + projectName +"/"
 
 	/**
 	 *  Must build workspace before running any test. Otherwise we get exceptions.
 	 */
 	@Before
 	def setUp() {
-		val test_project = createProject("test", "packages")
+		val test_project = createProject(projectName, "packages")
 		buildProject("Plugin_Resources", true)
 		setResourceRoot(projectRoot + "packages")
 	}
