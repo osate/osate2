@@ -64,7 +64,6 @@ import org.osate.aadl2.RecordType
 import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.UnitsType
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
@@ -84,7 +83,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	def scope_Classifier(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
 		val renameScopeElements = newArrayList()
-		val packageSection = context.getContainerOfType(typeof(PackageSection))
+		val packageSection = context.getContainerOfType(PackageSection)
 		if (packageSection != null) {
 			packageSection.ownedComponentTypeRenames.filter[reference.EReferenceType.isSuperTypeOf(renamedComponentType.eClass)].forEach[
 				renameScopeElements.add(new EObjectDescription(QualifiedName::create(name ?: renamedComponentType.name), renamedComponentType, null))
@@ -110,7 +109,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	def scope_ModalElement_inMode(Element context, EReference reference) {
 		var scope = IScope::NULLSCOPE
-		val containingPropertyAssociation = context.getContainerOfType(typeof(PropertyAssociation))
+		val containingPropertyAssociation = context.getContainerOfType(PropertyAssociation)
 		if (containingPropertyAssociation != null) {
 			if (!containingPropertyAssociation.appliesTos.empty) {
 				scope = (containingPropertyAssociation.appliesTos.get(0).containmentPathElements.findLast[namedElement instanceof Subcomponent].namedElement as Subcomponent)?.
@@ -120,7 +119,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 			}
 		}
 		if (scope == IScope::NULLSCOPE) {
-			scope = context.getContainerOfType(typeof(ComponentClassifier)).allModes.scopeFor
+			scope = context.getContainerOfType(ComponentClassifier).allModes.scopeFor
 		}
 		scope
 	}
@@ -130,18 +129,18 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		var scope = delegateGetScope(context, reference)
 		var PropertyType propertyType = null;
 		//Inner value of a record value.
-		propertyType = context.getContainerOfType(typeof(BasicPropertyAssociation))?.property?.propertyType
+		propertyType = context.getContainerOfType(BasicPropertyAssociation)?.property?.propertyType
 		if (propertyType == null) {
 			//Value of the property constant.
-			propertyType = context.getContainerOfType(typeof(PropertyConstant))?.propertyType
+			propertyType = context.getContainerOfType(PropertyConstant)?.propertyType
 		}
 		if (propertyType == null) {
 			//Default value of a property definition.
-			propertyType = context.getContainerOfType(typeof(Property))?.propertyType
+			propertyType = context.getContainerOfType(Property)?.propertyType
 		}
 		if (propertyType == null) {
 			//Value of an association.
-			propertyType = context.getContainerOfType(typeof(PropertyAssociation))?.property?.propertyType
+			propertyType = context.getContainerOfType(PropertyAssociation)?.property?.propertyType
 		}
 		propertyType = propertyType.basePropertyType
 		if (propertyType instanceof EnumerationType) {
@@ -185,7 +184,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		val Classifier namespace = switch context {
 			ReferenceValue: {
 				//Scoping for first element of a reference value when providing the scope for content assist
-				context.getContainerOfType(typeof(PropertyAssociation))?.namespaceForPropertyAssociation
+				context.getContainerOfType(PropertyAssociation)?.namespaceForPropertyAssociation
 			}
 			PropertyAssociation: {
 				//Scoping for first element of the applies to when providing the scope for content assist
@@ -196,25 +195,18 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 					//Scoping for first element of the chain when providing the scope for quick fix
 					if (context.owner instanceof ReferenceValue) {
 						//Scoping for first element of a reference value
-						context.getContainerOfType(typeof(PropertyAssociation))?.namespaceForPropertyAssociation
+						context.getContainerOfType(PropertyAssociation)?.namespaceForPropertyAssociation
 					} else if (context.owner.owner instanceof PropertyAssociation) {
 						//Scoping for first element of the applies to
 						(context.owner.owner as PropertyAssociation).namespaceForPropertyAssociation
 					} else if (context.owner.owner instanceof ContainmentPathElement) {
 						//Scoping for chained element after the first element when providing the scope for quick fix
 						(context.owner.owner as ContainmentPathElement).classifierForPreviousContainmentPathElement
-					} else {
-						println("Need to check structure")
-						null as ComponentClassifier
 					}
 				} else {
 					//Scoping for chained element after the first element when providing the scope for content assist
 					context.classifierForPreviousContainmentPathElement
 				}
-			}
-			default: {
-				println("Unhandled context: " + context)
-				null
 			}
 		}
 		namespace?.allMembers?.scopeFor ?: IScope::NULLSCOPE
@@ -260,18 +252,6 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
 	}
 	
-	def static private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
-		val baseType = type.basePropertyType
-		var UnitsType unitsType = null
-		switch baseType {
-			NumberType:
-				unitsType = baseType.unitsType
-			RangeType:
-				unitsType = baseType.numberType.unitsType
-		}
-		unitsType?.ownedLiterals?.scopeFor ?: IScope::NULLSCOPE
-	}
-	
 	def protected static allSubprogramCalls(BehavioredImplementation implementation) {
 		val allSubprogramCalls = newArrayList
 		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
@@ -281,6 +261,22 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 			}
 		}
 		allSubprogramCalls
+	}
+	
+	def protected static allFeatureType(FeatureGroup featureGroup) {
+		var refinedFeatureGroup = featureGroup
+		while (refinedFeatureGroup.featureType == null && refinedFeatureGroup.refined instanceof FeatureGroup) {
+			refinedFeatureGroup = refinedFeatureGroup.refined as FeatureGroup
+		}
+		refinedFeatureGroup.featureType
+	}
+	
+	def protected static allSubcomponentType(Subcomponent subcomponent) {
+		var refinedSubcomponent = subcomponent
+		while (refinedSubcomponent.subcomponentType == null && refinedSubcomponent.refined != null) {
+			refinedSubcomponent = refinedSubcomponent.refined
+		}
+		refinedSubcomponent.subcomponentType
 	}
 	
 	def private static allMembers(Classifier classifier) {
@@ -298,16 +294,21 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		]
 	}
 	
+	def static private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
+		switch baseType : type.basePropertyType {
+			NumberType:
+				baseType.unitsType
+			RangeType:
+				baseType.numberType.unitsType
+		}?.ownedLiterals?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
 	def private static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
 		switch container : propertyAssociation.owner {
 			Classifier:
 				container
 			FeatureGroup: {
-				var featureGroup = container
-				while (featureGroup.featureType == null && featureGroup.refined instanceof FeatureGroup) {
-					featureGroup = featureGroup.refined as FeatureGroup
-				}
-				switch featureType : featureGroup.featureType {
+				switch featureType : container.allFeatureType {
 					FeatureGroupType:
 						featureType
 					FeatureGroupPrototype:
@@ -315,19 +316,13 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				}
 			}
 			Subcomponent: {
-				var subcomponent = container
-				while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
-					subcomponent = subcomponent.refined
-				}
-				switch subcomponentType : subcomponent.subcomponentType {
+				switch subcomponentType : container.allSubcomponentType {
 					ComponentClassifier:
 						subcomponentType
 					ComponentPrototype:
 						subcomponentType.resolveComponentPrototype(propertyAssociation.getContainerOfType(Classifier))
 				}
 			}
-			default:
-				null
 		}
 	}
 	
@@ -338,11 +333,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				//Don't provide a scope if the previous element could not be resolved
 				null
 			Subcomponent: {
-				var subcomponent = previousElement
-				while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
-					subcomponent = subcomponent.refined
-				}
-				switch subcomponentType : subcomponent.subcomponentType {
+				switch subcomponentType : previousElement.allSubcomponentType {
 					ComponentClassifier:
 						subcomponentType
 					ComponentPrototype:
@@ -350,11 +341,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				}
 			}
 			FeatureGroup: {
-				var featureGroup = previousElement
-				while (featureGroup.featureType == null && featureGroup.refined instanceof FeatureGroup) {
-					featureGroup = featureGroup.refined as FeatureGroup
-				}
-				switch featureType : featureGroup.featureType {
+				switch featureType : previousElement.allFeatureType {
 					FeatureGroupType:
 						featureType
 					FeatureGroupPrototype:
