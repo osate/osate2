@@ -157,7 +157,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 			}
 		} else {
 			if (out) {
-				return DirectionType.IN;
+				return DirectionType.OUT;
 			} else {
 				return DirectionType.IN_OUT;
 			}

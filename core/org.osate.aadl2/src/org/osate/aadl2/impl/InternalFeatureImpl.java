@@ -137,7 +137,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 			}
 		} else {
 			if (out) {
-				return DirectionType.IN;
+				return DirectionType.OUT;
 			} else {
 				return DirectionType.IN_OUT;
 			}

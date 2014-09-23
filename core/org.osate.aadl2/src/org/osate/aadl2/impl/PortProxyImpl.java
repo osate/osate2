@@ -151,7 +151,7 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 			}
 		} else {
 			if (out) {
-				return DirectionType.IN;
+				return DirectionType.OUT;
 			} else {
 				return DirectionType.IN_OUT;
 			}
