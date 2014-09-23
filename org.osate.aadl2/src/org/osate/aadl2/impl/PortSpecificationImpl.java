@@ -191,7 +191,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 			}
 		} else {
 			if (out) {
-				return DirectionType.IN;
+				return DirectionType.OUT;
 			} else {
 				return DirectionType.IN_OUT;
 			}

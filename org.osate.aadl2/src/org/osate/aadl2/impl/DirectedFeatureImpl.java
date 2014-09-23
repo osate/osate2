@@ -143,7 +143,7 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 			}
 		} else {
 			if (out) {
-				return DirectionType.IN;
+				return DirectionType.OUT;
 			} else {
 				return DirectionType.IN_OUT;
 			}
