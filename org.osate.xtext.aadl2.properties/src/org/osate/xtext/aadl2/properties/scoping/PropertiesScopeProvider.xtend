@@ -42,9 +42,17 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.BasicPropertyAssociation
+import org.osate.aadl2.BehavioredImplementation
+import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentPrototype
+import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.Element
 import org.osate.aadl2.EnumerationType
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupPrototype
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
@@ -53,12 +61,16 @@ import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
 import org.osate.aadl2.RecordType
+import org.osate.aadl2.ReferenceValue
+import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitsType
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
+import static extension org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil.resolveComponentPrototype
+import static extension org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil.resolveFeatureGroupPrototype
 
 /**
  * This class contains custom scoping description.
@@ -169,89 +181,44 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	//Reference is from ContainmentPathElement and QualifiedContainmentPathElement in Properties.xtext
-//	def scope_ContainmentPathElement_namedElement(Element context, EReference reference) {
-//		var scope = IScope::NULLSCOPE
-//		if (context instanceof ContainmentPathElement) {
-//			val path = context.owner as ContainedNamedElement
-//			val list = path.containmentPathElements
-//			val idx = list.indexOf(context)
-//			if (idx > 0) {
-//				//find next element in namespace of previous element
-//				val el = list.get(idx - 1)
-//				val ne = el.namedElement
-//				switch ne {
-//					Subcomponent: {
-//						var ns = ne.classifier
-//						if (!Aadl2Util::isNull(ns)) {
-//							val ArrayList<EList<? extends NamedElement>> elementsInScope = newArrayList(ns.members)
-//							//need to look for subprogram calls inside call sequences
-//							if ((ne instanceof ThreadSubcomponent && ns instanceof ThreadImplementation) || (ne instanceof SubprogramSubcomponent && ns instanceof SubprogramImplementation)) {
-//								elementsInScope.add((ns as BehavioredImplementation).subprogramCalls())
-//							}
-//							scope = Scopes::scopeFor(elementsInScope.flatten)
-//						} else {
-//							//look in prototype actuals
-//							ns = ResolvePrototypeUtil::resolveComponentPrototype(ne.prototype, el)
-//							if (ns != null) {
-//								scope = Scopes::scopeFor(ns.members)
-//							}
-//						}
-//					}
-//					FeatureGroup: {
-//						var ns = ne.allFeatureGroupType
-//						if (ns != null) {
-//							scope = Scopes::scopeFor(ns.members)
-//						} else {
-//							//look in prototype actuals
-//							ns = ResolvePrototypeUtil::resolveFeatureGroupPrototype(ne.featureGroupPrototype, el)
-//							if (ns != null) {
-//								scope = Scopes::scopeFor(ns.members)
-//							}
-//						}
-//					}
-//					Feature: {
-//						val ns = ne.classifier
-//						if (ns != null) {
-//							scope = Scopes::scopeFor(ns.members)
-//						}
-//					}
-//					SubprogramCall: {
-//						//looking inside a subprogram that is being called
-//						val called = ne.calledSubprogram
-//						switch called {
-//							SubprogramImplementation:
-//								scope = Scopes::scopeFor(called.members)
-//							SubprogramSubcomponent:
-//								scope = Scopes::scopeFor(called.allClassifier.members)
-//						}
-//					}
-//				}
-//			} else {
-//				//the first containment path element
-//				//need to make sure we look in the correct name space
-//				val containingSubcomponent = EcoreUtil2::getContainerOfType(context, typeof(Subcomponent))
-//				if (containingSubcomponent != null && containingSubcomponent.allClassifier != null) {
-//					scope = Scopes::scopeFor(containingSubcomponent.allClassifier.members)
-//				} else {
-//					val containingFeature = EcoreUtil2::getContainerOfType(context, typeof(Feature))
-//					if (containingFeature != null && containingFeature.allClassifier != null) {
-//						scope = Scopes::scopeFor(containingFeature.allClassifier.members)
-//					} else {
-//						val containingSubprogramCall = EcoreUtil2::getContainerOfType(context, typeof(SubprogramCall))
-//						switch containingSubprogramCall {
-//							SubprogramImplementation:
-//								scope = Scopes::scopeFor(containingSubprogramCall.members)
-//							SubprogramSubcomponent:
-//								scope = Scopes::scopeFor(containingSubprogramCall.allClassifier.members)
-//						}
-//					}
-//				}
-//			}
-//		} else {
-//			println("Not a ContainmentPathElement: " + context.eClass.name)
-//		}
-//		scope
-//	}
+	def scope_ContainmentPathElement_namedElement(Element context, EReference reference) {
+		val Classifier namespace = switch context {
+			ReferenceValue: {
+				//Scoping for first element of a reference value when providing the scope for content assist
+				context.getContainerOfType(typeof(PropertyAssociation))?.namespaceForPropertyAssociation
+			}
+			PropertyAssociation: {
+				//Scoping for first element of the applies to when providing the scope for content assist
+				context.namespaceForPropertyAssociation
+			}
+			ContainmentPathElement: {
+				if (context.namedElement == null || context.namedElement.eIsProxy) {
+					//Scoping for first element of the chain when providing the scope for quick fix
+					if (context.owner instanceof ReferenceValue) {
+						//Scoping for first element of a reference value
+						context.getContainerOfType(typeof(PropertyAssociation))?.namespaceForPropertyAssociation
+					} else if (context.owner.owner instanceof PropertyAssociation) {
+						//Scoping for first element of the applies to
+						(context.owner.owner as PropertyAssociation).namespaceForPropertyAssociation
+					} else if (context.owner.owner instanceof ContainmentPathElement) {
+						//Scoping for chained element after the first element when providing the scope for quick fix
+						(context.owner.owner as ContainmentPathElement).classifierForPreviousContainmentPathElement
+					} else {
+						println("Need to check structure")
+						null as ComponentClassifier
+					}
+				} else {
+					//Scoping for chained element after the first element when providing the scope for content assist
+					context.classifierForPreviousContainmentPathElement
+				}
+			}
+			default: {
+				println("Unhandled context: " + context)
+				null
+			}
+		}
+		namespace?.allMembers?.scopeFor ?: IScope::NULLSCOPE
+	}
 	
 //	override getScope(EObject context, EReference reference) {
 //		println('''
@@ -293,7 +260,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
 	}
 	
-	def private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
+	def static private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
 		val baseType = type.basePropertyType
 		var UnitsType unitsType = null
 		switch baseType {
@@ -303,5 +270,97 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				unitsType = baseType.numberType.unitsType
 		}
 		unitsType?.ownedLiterals?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
+	def protected static allSubprogramCalls(BehavioredImplementation implementation) {
+		val allSubprogramCalls = newArrayList
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+			//Should always be a BehavioredImplementation unless we have a malformed model.
+			if (currentImplementation instanceof BehavioredImplementation) {
+				allSubprogramCalls.addAll(currentImplementation.subprogramCalls())
+			}
+		}
+		allSubprogramCalls
+	}
+	
+	def private static allMembers(Classifier classifier) {
+		val allMembers = newArrayList
+		allMembers.addAll(classifier.members)
+		if (classifier instanceof BehavioredImplementation) {
+			allMembers.addAll(classifier.allSubprogramCalls)
+		}
+		allMembers.filter[
+			if (it instanceof RefinableElement) {
+				refinedElement == null
+			} else {
+				true
+			}
+		]
+	}
+	
+	def private static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
+		switch container : propertyAssociation.owner {
+			Classifier:
+				container
+			FeatureGroup: {
+				var featureGroup = container
+				while (featureGroup.featureType == null && featureGroup.refined instanceof FeatureGroup) {
+					featureGroup = featureGroup.refined as FeatureGroup
+				}
+				switch featureType : featureGroup.featureType {
+					FeatureGroupType:
+						featureType
+					FeatureGroupPrototype:
+						featureType.resolveFeatureGroupPrototype(propertyAssociation.getContainerOfType(Classifier))
+				}
+			}
+			Subcomponent: {
+				var subcomponent = container
+				while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
+					subcomponent = subcomponent.refined
+				}
+				switch subcomponentType : subcomponent.subcomponentType {
+					ComponentClassifier:
+						subcomponentType
+					ComponentPrototype:
+						subcomponentType.resolveComponentPrototype(propertyAssociation.getContainerOfType(Classifier))
+				}
+			}
+			default:
+				null
+		}
+	}
+	
+	def private static getClassifierForPreviousContainmentPathElement(ContainmentPathElement previousCpe) {
+		switch previousElement : previousCpe.namedElement {
+			case null,
+			case previousElement.eIsProxy:
+				//Don't provide a scope if the previous element could not be resolved
+				null
+			Subcomponent: {
+				var subcomponent = previousElement
+				while (subcomponent.subcomponentType == null && subcomponent.refined != null) {
+					subcomponent = subcomponent.refined
+				}
+				switch subcomponentType : subcomponent.subcomponentType {
+					ComponentClassifier:
+						subcomponentType
+					ComponentPrototype:
+						subcomponentType.resolveComponentPrototype(previousCpe)
+				}
+			}
+			FeatureGroup: {
+				var featureGroup = previousElement
+				while (featureGroup.featureType == null && featureGroup.refined instanceof FeatureGroup) {
+					featureGroup = featureGroup.refined as FeatureGroup
+				}
+				switch featureType : featureGroup.featureType {
+					FeatureGroupType:
+						featureType
+					FeatureGroupPrototype:
+						featureType.resolveFeatureGroupPrototype(previousCpe)
+				}
+			}
+		}
 	}
 }
