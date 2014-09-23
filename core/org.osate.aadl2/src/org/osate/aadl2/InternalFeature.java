@@ -47,6 +47,8 @@ package org.osate.aadl2;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.InternalFeature#getDirection <em>Direction</em>}</li>
+ *   <li>{@link org.osate.aadl2.InternalFeature#isIn <em>In</em>}</li>
+ *   <li>{@link org.osate.aadl2.InternalFeature#isOut <em>Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,21 +72,59 @@ public interface InternalFeature extends StructuralFeature, FeatureConnectionEnd
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see org.osate.aadl2.DirectionType
-	 * @see #setDirection(DirectionType)
 	 * @see org.osate.aadl2.Aadl2Package#getInternalFeature_Direction()
-	 * @model required="true" ordered="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	DirectionType getDirection();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.InternalFeature#getDirection <em>Direction</em>}' attribute.
+	 * Returns the value of the '<em><b>In</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Direction</em>' attribute.
-	 * @see org.osate.aadl2.DirectionType
-	 * @see #getDirection()
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>In</em>' attribute.
+	 * @see #setIn(boolean)
+	 * @see org.osate.aadl2.Aadl2Package#getInternalFeature_In()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 * @generated
 	 */
-	void setDirection(DirectionType value);
+	boolean isIn();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.InternalFeature#isIn <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>In</em>' attribute.
+	 * @see #isIn()
+	 * @generated
+	 */
+	void setIn(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Out</em>' attribute.
+	 * @see #setOut(boolean)
+	 * @see org.osate.aadl2.Aadl2Package#getInternalFeature_Out()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isOut();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.InternalFeature#isOut <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Out</em>' attribute.
+	 * @see #isOut()
+	 * @generated
+	 */
+	void setOut(boolean value);
 } // InternalFeature

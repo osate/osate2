@@ -77,6 +77,8 @@ public class DirectedFeatureItemProvider extends FeatureItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addDirectionPropertyDescriptor(object);
+			addInPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -95,6 +97,38 @@ public class DirectedFeatureItemProvider extends FeatureItemProvider {
 				getString("_UI_PropertyDescriptor_description", "_UI_DirectedFeature_direction_feature",
 						"_UI_DirectedFeature_type"), Aadl2Package.eINSTANCE.getDirectedFeature_Direction(), true,
 				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_DirectedFeature_in_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_DirectedFeature_in_feature",
+						"_UI_DirectedFeature_type"), Aadl2Package.eINSTANCE.getDirectedFeature_In(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Out feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_DirectedFeature_out_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_DirectedFeature_out_feature",
+						"_UI_DirectedFeature_type"), Aadl2Package.eINSTANCE.getDirectedFeature_Out(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -123,6 +157,8 @@ public class DirectedFeatureItemProvider extends FeatureItemProvider {
 
 		switch (notification.getFeatureID(DirectedFeature.class)) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
+		case Aadl2Package.DIRECTED_FEATURE__IN:
+		case Aadl2Package.DIRECTED_FEATURE__OUT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

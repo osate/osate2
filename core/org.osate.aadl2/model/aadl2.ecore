@@ -1553,7 +1553,20 @@
       <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType" defaultValueLiteral="inOut">
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
       </eAnnotations>
@@ -1916,13 +1929,26 @@
       <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType" defaultValueLiteral="inOut">
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
         ordered="false" eType="#//ComponentClassifier">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
       </eAnnotations>
@@ -2235,7 +2261,20 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType">
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
       </eAnnotations>
@@ -2267,13 +2306,26 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType">
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" ordered="false"
         eType="#//DataClassifier">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLDetails::Special Features.&lt;/p>"/>
       </eAnnotations>
@@ -2684,7 +2736,8 @@
       <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType">
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
       </eAnnotations>
@@ -2707,19 +2760,44 @@
         <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeReference" eSuperTypes="#//FeaturePrototypeActual">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType">
+        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
+        transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
         lowerBound="1" eType="#//FeaturePrototype">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="in" ordered="false" lowerBound="1"
+        eType="#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="out" ordered="false" lowerBound="1"
+        eType="#//Boolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
       </eAnnotations>

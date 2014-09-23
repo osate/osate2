@@ -76,6 +76,8 @@ public class PortProxyItemProvider extends ProcessorFeatureItemProvider {
 
 			addDirectionPropertyDescriptor(object);
 			addDataClassifierPropertyDescriptor(object);
+			addInPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -111,6 +113,36 @@ public class PortProxyItemProvider extends ProcessorFeatureItemProvider {
 				getString("_UI_PropertyDescriptor_description", "_UI_PortProxy_dataClassifier_feature",
 						"_UI_PortProxy_type"), Aadl2Package.eINSTANCE.getPortProxy_DataClassifier(), true, false, true,
 				null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_PortProxy_in_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortProxy_in_feature", "_UI_PortProxy_type"),
+				Aadl2Package.eINSTANCE.getPortProxy_In(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Out feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_PortProxy_out_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortProxy_out_feature", "_UI_PortProxy_type"),
+				Aadl2Package.eINSTANCE.getPortProxy_Out(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -150,6 +182,8 @@ public class PortProxyItemProvider extends ProcessorFeatureItemProvider {
 
 		switch (notification.getFeatureID(PortProxy.class)) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
+		case Aadl2Package.PORT_PROXY__IN:
+		case Aadl2Package.PORT_PROXY__OUT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

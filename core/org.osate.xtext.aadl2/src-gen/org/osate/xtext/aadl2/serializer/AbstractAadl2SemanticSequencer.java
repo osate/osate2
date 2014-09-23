@@ -1473,7 +1473,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[AbstractFeature|REFINEDNAME]) 
-	 *         direction=InOutDirection? 
+	 *         (in?='in' | out?='out')? 
 	 *         featurePrototype=[FeaturePrototype|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -1899,7 +1899,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[DataPort|REFINEDNAME]) 
-	 *         direction=PortDirection 
+	 *         in?='in'? 
+	 *         out?='out'? 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -2166,7 +2167,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[EventDataPort|REFINEDNAME]) 
-	 *         direction=PortDirection 
+	 *         in?='in'? 
+	 *         out?='out'? 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -2199,7 +2201,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[EventPort|REFINEDNAME]) 
-	 *         direction=PortDirection 
+	 *         in?='in'? 
+	 *         out?='out'? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
@@ -2334,7 +2337,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[FeatureGroup|REFINEDNAME]) 
-	 *         direction=InOutDirection? 
+	 *         (in?='in' | out?='out')? 
 	 *         (inverse?='inverse'? featureType=[FeatureType|QCREF])? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -2356,7 +2359,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (direction=InOutDirection? prototype=[FeaturePrototype|ID])
+	 *     ((in?='in' | out?='out')? prototype=[FeaturePrototype|ID])
 	 */
 	protected void sequence_FeaturePrototypeReference(EObject context, FeaturePrototypeReference semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2365,7 +2368,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     ((name=ID | refined=[FeaturePrototype|REFINEDNAME]) direction=InOutDirection? constrainingClassifier=[ComponentClassifier|QCREF]?)
+	 *     ((name=ID | refined=[FeaturePrototype|REFINEDNAME]) (in?='in' | out?='out')? constrainingClassifier=[ComponentClassifier|QCREF]?)
 	 */
 	protected void sequence_FeaturePrototype(EObject context, FeaturePrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2376,7 +2379,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[FeaturePrototype|REFINEDNAME]) 
-	 *         direction=InOutDirection? 
+	 *         (in?='in' | out?='out')? 
 	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
@@ -2722,7 +2725,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[Parameter|REFINEDNAME]) 
-	 *         direction=PortDirection 
+	 *         in?='in'? 
+	 *         out?='out'? 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -2766,7 +2770,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (direction=PortDirection category=PortCategory classifier=[ComponentClassifier|QCREF]?)
+	 *     (in?='in'? out?='out'? category=PortCategory classifier=[ComponentClassifier|QCREF]?)
 	 */
 	protected void sequence_PortSpecification(EObject context, PortSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

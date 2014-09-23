@@ -81,6 +81,8 @@ public class PortSpecificationItemProvider extends FeaturePrototypeActualItemPro
 			addCategoryPropertyDescriptor(object);
 			addClassifierPropertyDescriptor(object);
 			addComponentPrototypePropertyDescriptor(object);
+			addInPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -150,6 +152,38 @@ public class PortSpecificationItemProvider extends FeaturePrototypeActualItemPro
 	}
 
 	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_PortSpecification_in_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortSpecification_in_feature",
+						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE.getPortSpecification_In(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Out feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_PortSpecification_out_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortSpecification_out_feature",
+						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE.getPortSpecification_Out(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
 	 * This returns PortSpecification.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -188,6 +222,8 @@ public class PortSpecificationItemProvider extends FeaturePrototypeActualItemPro
 		switch (notification.getFeatureID(PortSpecification.class)) {
 		case Aadl2Package.PORT_SPECIFICATION__DIRECTION:
 		case Aadl2Package.PORT_SPECIFICATION__CATEGORY:
+		case Aadl2Package.PORT_SPECIFICATION__IN:
+		case Aadl2Package.PORT_SPECIFICATION__OUT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

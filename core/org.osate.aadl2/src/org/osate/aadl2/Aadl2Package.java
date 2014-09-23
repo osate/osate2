@@ -6769,13 +6769,31 @@ public interface Aadl2Package extends EPackage {
 	int DIRECTED_FEATURE__DIRECTION = FEATURE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__IN = FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_FEATURE__OUT = FEATURE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Directed Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIRECTED_FEATURE_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 1;
+	int DIRECTED_FEATURE_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6902,6 +6920,24 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_GROUP__DIRECTION = DIRECTED_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__IN = DIRECTED_FEATURE__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__OUT = DIRECTED_FEATURE__OUT;
 
 	/**
 	 * The feature id for the '<em><b>Inverse</b></em>' attribute.
@@ -8344,6 +8380,24 @@ public interface Aadl2Package extends EPackage {
 	int PORT__DIRECTION = DIRECTED_FEATURE__DIRECTION;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__IN = DIRECTED_FEATURE__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT__OUT = DIRECTED_FEATURE__OUT;
+
+	/**
 	 * The feature id for the '<em><b>Category</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8486,6 +8540,24 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DATA_PORT__DIRECTION = PORT__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__IN = PORT__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_PORT__OUT = PORT__OUT;
 
 	/**
 	 * The feature id for the '<em><b>Category</b></em>' attribute.
@@ -8641,6 +8713,24 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_DATA_PORT__DIRECTION = PORT__DIRECTION;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__IN = PORT__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_PORT__OUT = PORT__OUT;
+
+	/**
 	 * The feature id for the '<em><b>Category</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8794,6 +8884,24 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_PORT__DIRECTION = PORT__DIRECTION;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__IN = PORT__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PORT__OUT = PORT__OUT;
+
+	/**
 	 * The feature id for the '<em><b>Category</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8936,6 +9044,24 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PARAMETER__DIRECTION = DIRECTED_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__IN = DIRECTED_FEATURE__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__OUT = DIRECTED_FEATURE__OUT;
 
 	/**
 	 * The feature id for the '<em><b>Data Feature Classifier</b></em>' reference.
@@ -9604,6 +9730,24 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_FEATURE__DIRECTION = DIRECTED_FEATURE__DIRECTION;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__IN = DIRECTED_FEATURE__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__OUT = DIRECTED_FEATURE__OUT;
+
+	/**
 	 * The feature id for the '<em><b>Feature Prototype</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9721,13 +9865,31 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER = PROTOTYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__IN = PROTOTYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE__OUT = PROTOTYPE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Feature Prototype</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 2;
+	int FEATURE_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -11836,13 +11998,31 @@ public interface Aadl2Package extends EPackage {
 	int INTERNAL_FEATURE__DIRECTION = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_FEATURE__IN = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERNAL_FEATURE__OUT = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Internal Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTERNAL_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int INTERNAL_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -11924,6 +12104,24 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int EVENT_SOURCE__DIRECTION = INTERNAL_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE__IN = INTERNAL_FEATURE__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SOURCE__OUT = INTERNAL_FEATURE__OUT;
 
 	/**
 	 * The number of structural features of the '<em>Event Source</em>' class.
@@ -12014,6 +12212,24 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int EVENT_DATA_SOURCE__DIRECTION = INTERNAL_FEATURE__DIRECTION;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE__IN = INTERNAL_FEATURE__IN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_DATA_SOURCE__OUT = INTERNAL_FEATURE__OUT;
 
 	/**
 	 * The feature id for the '<em><b>Data Classifier</b></em>' reference.
@@ -12341,13 +12557,31 @@ public interface Aadl2Package extends EPackage {
 	int PORT_PROXY__DATA_CLASSIFIER = PROCESSOR_FEATURE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_PROXY__IN = PROCESSOR_FEATURE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_PROXY__OUT = PROCESSOR_FEATURE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Port Proxy</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 2;
+	int PORT_PROXY_FEATURE_COUNT = PROCESSOR_FEATURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -14078,13 +14312,31 @@ public interface Aadl2Package extends EPackage {
 	int PORT_SPECIFICATION__COMPONENT_PROTOTYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__IN = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__OUT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Port Specification</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 4;
+	int PORT_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -14132,13 +14384,31 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE__IN = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE__OUT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Feature Prototype Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
+	int FEATURE_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -36907,6 +37177,28 @@ public interface Aadl2Package extends EPackage {
 	EAttribute getDirectedFeature_Direction();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.DirectedFeature#isIn <em>In</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In</em>'.
+	 * @see org.osate.aadl2.DirectedFeature#isIn()
+	 * @see #getDirectedFeature()
+	 * @generated
+	 */
+	EAttribute getDirectedFeature_In();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.DirectedFeature#isOut <em>Out</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Out</em>'.
+	 * @see org.osate.aadl2.DirectedFeature#isOut()
+	 * @see #getDirectedFeature()
+	 * @generated
+	 */
+	EAttribute getDirectedFeature_Out();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Feature <em>Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38447,6 +38739,28 @@ public interface Aadl2Package extends EPackage {
 	EAttribute getInternalFeature_Direction();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.InternalFeature#isIn <em>In</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In</em>'.
+	 * @see org.osate.aadl2.InternalFeature#isIn()
+	 * @see #getInternalFeature()
+	 * @generated
+	 */
+	EAttribute getInternalFeature_In();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.InternalFeature#isOut <em>Out</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Out</em>'.
+	 * @see org.osate.aadl2.InternalFeature#isOut()
+	 * @see #getInternalFeature()
+	 * @generated
+	 */
+	EAttribute getInternalFeature_Out();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.EventSource <em>Event Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38508,6 +38822,28 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getPortProxy_DataClassifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PortProxy#isIn <em>In</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In</em>'.
+	 * @see org.osate.aadl2.PortProxy#isIn()
+	 * @see #getPortProxy()
+	 * @generated
+	 */
+	EAttribute getPortProxy_In();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PortProxy#isOut <em>Out</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Out</em>'.
+	 * @see org.osate.aadl2.PortProxy#isOut()
+	 * @see #getPortProxy()
+	 * @generated
+	 */
+	EAttribute getPortProxy_Out();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.SubprogramProxy <em>Subprogram Proxy</em>}'.
@@ -41488,6 +41824,28 @@ public interface Aadl2Package extends EPackage {
 	EReference getFeaturePrototype_ConstrainingClassifier();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.FeaturePrototype#isIn <em>In</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In</em>'.
+	 * @see org.osate.aadl2.FeaturePrototype#isIn()
+	 * @see #getFeaturePrototype()
+	 * @generated
+	 */
+	EAttribute getFeaturePrototype_In();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.FeaturePrototype#isOut <em>Out</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Out</em>'.
+	 * @see org.osate.aadl2.FeaturePrototype#isOut()
+	 * @see #getFeaturePrototype()
+	 * @generated
+	 */
+	EAttribute getFeaturePrototype_Out();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.FeaturePrototypeBinding <em>Feature Prototype Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -41627,6 +41985,28 @@ public interface Aadl2Package extends EPackage {
 	EReference getPortSpecification_ComponentPrototype();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PortSpecification#isIn <em>In</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In</em>'.
+	 * @see org.osate.aadl2.PortSpecification#isIn()
+	 * @see #getPortSpecification()
+	 * @generated
+	 */
+	EAttribute getPortSpecification_In();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.PortSpecification#isOut <em>Out</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Out</em>'.
+	 * @see org.osate.aadl2.PortSpecification#isOut()
+	 * @see #getPortSpecification()
+	 * @generated
+	 */
+	EAttribute getPortSpecification_Out();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.FeaturePrototypeReference <em>Feature Prototype Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -41657,6 +42037,28 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getFeaturePrototypeReference_Prototype();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.FeaturePrototypeReference#isIn <em>In</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In</em>'.
+	 * @see org.osate.aadl2.FeaturePrototypeReference#isIn()
+	 * @see #getFeaturePrototypeReference()
+	 * @generated
+	 */
+	EAttribute getFeaturePrototypeReference_In();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.FeaturePrototypeReference#isOut <em>Out</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Out</em>'.
+	 * @see org.osate.aadl2.FeaturePrototypeReference#isOut()
+	 * @see #getFeaturePrototypeReference()
+	 * @generated
+	 */
+	EAttribute getFeaturePrototypeReference_Out();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.SubprogramCall <em>Subprogram Call</em>}'.

@@ -55,6 +55,8 @@ import org.osate.aadl2.FeaturePrototype;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#getConstrainingClassifier <em>Constraining Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#isIn <em>In</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#isOut <em>Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,17 +71,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DirectionType DIRECTION_EDEFAULT = DirectionType.IN_OUT;
-
-	/**
-	 * The cached value of the '{@link #getDirection() <em>Direction</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDirection()
-	 * @generated
-	 * @ordered
-	 */
-	protected DirectionType direction = DIRECTION_EDEFAULT;
+	protected static final DirectionType DIRECTION_EDEFAULT = DirectionType.IN;
 
 	/**
 	 * The cached value of the '{@link #getConstrainingClassifier() <em>Constraining Classifier</em>}' reference.
@@ -90,6 +82,46 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * @ordered
 	 */
 	protected ComponentClassifier constrainingClassifier;
+
+	/**
+	 * The default value of the '{@link #isIn() <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIn()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IN_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIn() <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIn()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean in = IN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isOut() <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOut()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OUT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOut() <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOut()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean out = OUT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -113,23 +145,23 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public DirectionType getDirection() {
-		return direction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDirection(DirectionType newDirection) {
-		DirectionType oldDirection = direction;
-		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE__DIRECTION,
-					oldDirection, direction));
+		// DONE: implement this method to return the 'Direction' attribute
+		if (in) {
+			if (out) {
+				return DirectionType.IN_OUT;
+			} else {
+				return DirectionType.IN;
+			}
+		} else {
+			if (out) {
+				return DirectionType.IN;
+			} else {
+				return DirectionType.IN_OUT;
+			}
+		}
 	}
 
 	/**
@@ -179,6 +211,48 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isIn() {
+		return in;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIn(boolean newIn) {
+		boolean oldIn = in;
+		in = newIn;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE__IN, oldIn, in));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOut() {
+		return out;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOut(boolean newOut) {
+		boolean oldOut = out;
+		out = newOut;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE__OUT, oldOut, out));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -188,6 +262,10 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 			if (resolve)
 				return getConstrainingClassifier();
 			return basicGetConstrainingClassifier();
+		case Aadl2Package.FEATURE_PROTOTYPE__IN:
+			return isIn();
+		case Aadl2Package.FEATURE_PROTOTYPE__OUT:
+			return isOut();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -200,11 +278,14 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE_PROTOTYPE__DIRECTION:
-			setDirection((DirectionType) newValue);
-			return;
 		case Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER:
 			setConstrainingClassifier((ComponentClassifier) newValue);
+			return;
+		case Aadl2Package.FEATURE_PROTOTYPE__IN:
+			setIn((Boolean) newValue);
+			return;
+		case Aadl2Package.FEATURE_PROTOTYPE__OUT:
+			setOut((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -218,11 +299,14 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FEATURE_PROTOTYPE__DIRECTION:
-			setDirection(DIRECTION_EDEFAULT);
-			return;
 		case Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER:
 			setConstrainingClassifier((ComponentClassifier) null);
+			return;
+		case Aadl2Package.FEATURE_PROTOTYPE__IN:
+			setIn(IN_EDEFAULT);
+			return;
+		case Aadl2Package.FEATURE_PROTOTYPE__OUT:
+			setOut(OUT_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -237,9 +321,13 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE__DIRECTION:
-			return direction != DIRECTION_EDEFAULT;
+			return getDirection() != DIRECTION_EDEFAULT;
 		case Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER:
 			return constrainingClassifier != null;
+		case Aadl2Package.FEATURE_PROTOTYPE__IN:
+			return in != IN_EDEFAULT;
+		case Aadl2Package.FEATURE_PROTOTYPE__OUT:
+			return out != OUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -255,8 +343,10 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (direction: ");
-		result.append(direction);
+		result.append(" (in: ");
+		result.append(in);
+		result.append(", out: ");
+		result.append(out);
 		result.append(')');
 		return result.toString();
 	}
