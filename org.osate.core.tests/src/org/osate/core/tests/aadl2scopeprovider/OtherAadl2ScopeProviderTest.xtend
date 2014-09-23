@@ -59,8 +59,8 @@ import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(typeof(XtextRunner2))
-@InjectWith(typeof(Aadl2UiInjectorProvider))
+@RunWith(XtextRunner2)
+@InjectWith(Aadl2UiInjectorProvider)
 class OtherAadl2ScopeProviderTest extends OsateTest {
 	@Inject extension ParseHelper<ModelUnit>
 	@Inject extension ValidationTestHelper

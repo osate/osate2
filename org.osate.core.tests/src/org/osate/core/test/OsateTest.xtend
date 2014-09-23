@@ -184,7 +184,7 @@ class OsateTest extends XtextTest {
 
 	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
 		// Not a class field because the workspace is not necessarily initialized when OsateTest is instantiated
-		val pluginResourcesNames = pluginResources.members.filter(typeof(IFile)).map[name].filter[
+		val pluginResourcesNames = pluginResources.members.filter(IFile).map[name].filter[
 			toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
 
 		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(
