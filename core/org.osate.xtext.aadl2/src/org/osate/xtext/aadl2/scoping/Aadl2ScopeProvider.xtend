@@ -561,17 +561,6 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		validElements
 	}
 	
-	def private static allSubprogramCalls(BehavioredImplementation implementation) {
-		val allSubprogramCalls = newArrayList
-		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
-			//Should always be a BehavioredImplementation unless we have a malformed model.
-			if (currentImplementation instanceof BehavioredImplementation) {
-				allSubprogramCalls.addAll(currentImplementation.subprogramCalls())
-			}
-		}
-		allSubprogramCalls
-	}
-	
 	def private static allConnectionEnds(Classifier classifier) {
 		val connectionEnds = newArrayList
 		connectionEnds.addAll(classifier.getAllFeatures())
