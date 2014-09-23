@@ -14717,53 +14717,69 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class PortSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PortSpecification");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cInAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cInInKeyword_0_0 = (Keyword)cInAssignment_0.eContents().get(0);
-		private final Assignment cOutAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cOutOutKeyword_1_0 = (Keyword)cOutAssignment_1.eContents().get(0);
-		private final Assignment cCategoryAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cCategoryPortCategoryParserRuleCall_2_0 = (RuleCall)cCategoryAssignment_2.eContents().get(0);
-		private final Keyword cPortKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cClassifierAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cClassifierComponentClassifierCrossReference_4_0 = (CrossReference)cClassifierAssignment_4.eContents().get(0);
-		private final RuleCall cClassifierComponentClassifierQCREFParserRuleCall_4_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_4_0.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cInAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final Keyword cInInKeyword_0_0_0_0 = (Keyword)cInAssignment_0_0_0.eContents().get(0);
+		private final Assignment cOutAssignment_0_0_1 = (Assignment)cGroup_0_0.eContents().get(1);
+		private final Keyword cOutOutKeyword_0_0_1_0 = (Keyword)cOutAssignment_0_0_1.eContents().get(0);
+		private final Assignment cOutAssignment_0_1 = (Assignment)cAlternatives_0.eContents().get(1);
+		private final Keyword cOutOutKeyword_0_1_0 = (Keyword)cOutAssignment_0_1.eContents().get(0);
+		private final Assignment cCategoryAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cCategoryPortCategoryParserRuleCall_1_0 = (RuleCall)cCategoryAssignment_1.eContents().get(0);
+		private final Keyword cPortKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cClassifierComponentClassifierCrossReference_3_0 = (CrossReference)cClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
 		
 		//PortSpecification returns aadl2::PortSpecification:
-		//	in?="in"? out?="out"? category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
+		//	(in?="in" out?="out"? | out?="out") category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
 		public ParserRule getRule() { return rule; }
 
-		//in?="in"? out?="out"? category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?
+		//(in?="in" out?="out"? | out?="out") category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?
 		public Group getGroup() { return cGroup; }
 
-		//in?="in"?
-		public Assignment getInAssignment_0() { return cInAssignment_0; }
+		//in?="in" out?="out"? | out?="out"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//in?="in" out?="out"?
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
+		//in?="in"
+		public Assignment getInAssignment_0_0_0() { return cInAssignment_0_0_0; }
 
 		//"in"
-		public Keyword getInInKeyword_0_0() { return cInInKeyword_0_0; }
+		public Keyword getInInKeyword_0_0_0_0() { return cInInKeyword_0_0_0_0; }
 
 		//out?="out"?
-		public Assignment getOutAssignment_1() { return cOutAssignment_1; }
+		public Assignment getOutAssignment_0_0_1() { return cOutAssignment_0_0_1; }
 
 		//"out"
-		public Keyword getOutOutKeyword_1_0() { return cOutOutKeyword_1_0; }
+		public Keyword getOutOutKeyword_0_0_1_0() { return cOutOutKeyword_0_0_1_0; }
+
+		//out?="out"
+		public Assignment getOutAssignment_0_1() { return cOutAssignment_0_1; }
+
+		//"out"
+		public Keyword getOutOutKeyword_0_1_0() { return cOutOutKeyword_0_1_0; }
 
 		//category=PortCategory
-		public Assignment getCategoryAssignment_2() { return cCategoryAssignment_2; }
+		public Assignment getCategoryAssignment_1() { return cCategoryAssignment_1; }
 
 		//PortCategory
-		public RuleCall getCategoryPortCategoryParserRuleCall_2_0() { return cCategoryPortCategoryParserRuleCall_2_0; }
+		public RuleCall getCategoryPortCategoryParserRuleCall_1_0() { return cCategoryPortCategoryParserRuleCall_1_0; }
 
 		//"port"
-		public Keyword getPortKeyword_3() { return cPortKeyword_3; }
+		public Keyword getPortKeyword_2() { return cPortKeyword_2; }
 
 		//classifier=[aadl2::ComponentClassifier|QCREF]?
-		public Assignment getClassifierAssignment_4() { return cClassifierAssignment_4; }
+		public Assignment getClassifierAssignment_3() { return cClassifierAssignment_3; }
 
 		//[aadl2::ComponentClassifier|QCREF]
-		public CrossReference getClassifierComponentClassifierCrossReference_4_0() { return cClassifierComponentClassifierCrossReference_4_0; }
+		public CrossReference getClassifierComponentClassifierCrossReference_3_0() { return cClassifierComponentClassifierCrossReference_3_0; }
 
 		//QCREF
-		public RuleCall getClassifierComponentClassifierQCREFParserRuleCall_4_0_1() { return cClassifierComponentClassifierQCREFParserRuleCall_4_0_1; }
+		public RuleCall getClassifierComponentClassifierQCREFParserRuleCall_3_0_1() { return cClassifierComponentClassifierQCREFParserRuleCall_3_0_1; }
 	}
 
 	public class AccessSpecificationElements extends AbstractParserRuleElementFinder {
@@ -18684,34 +18700,38 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1_1_1 = (Keyword)cGroup_1_1.eContents().get(1);
 		private final Keyword cRefinedKeyword_1_1_2 = (Keyword)cGroup_1_1.eContents().get(2);
 		private final Keyword cToKeyword_1_1_3 = (Keyword)cGroup_1_1.eContents().get(3);
-		private final Assignment cInAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Keyword cInInKeyword_2_0 = (Keyword)cInAssignment_2.eContents().get(0);
-		private final Assignment cOutAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final Keyword cOutOutKeyword_3_0 = (Keyword)cOutAssignment_3.eContents().get(0);
-		private final Keyword cDataKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cPortKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cDataFeatureClassifierAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0 = (CrossReference)cDataFeatureClassifierAssignment_6.eContents().get(0);
-		private final RuleCall cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_6_0_1 = (RuleCall)cDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0.eContents().get(1);
-		private final Assignment cArrayDimensionAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_7_0 = (RuleCall)cArrayDimensionAssignment_7.eContents().get(0);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cLeftCurlyBracketKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_8_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8_2 = (Keyword)cGroup_8.eContents().get(2);
-		private final Keyword cSemicolonKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Assignment cInAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
+		private final Keyword cInInKeyword_2_0_0_0 = (Keyword)cInAssignment_2_0_0.eContents().get(0);
+		private final Assignment cOutAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final Keyword cOutOutKeyword_2_0_1_0 = (Keyword)cOutAssignment_2_0_1.eContents().get(0);
+		private final Assignment cOutAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
+		private final Keyword cOutOutKeyword_2_1_0 = (Keyword)cOutAssignment_2_1.eContents().get(0);
+		private final Keyword cDataKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cPortKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cDataFeatureClassifierAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cDataFeatureClassifierDataSubcomponentTypeCrossReference_5_0 = (CrossReference)cDataFeatureClassifierAssignment_5.eContents().get(0);
+		private final RuleCall cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_5_0_1 = (RuleCall)cDataFeatureClassifierDataSubcomponentTypeCrossReference_5_0.eContents().get(1);
+		private final Assignment cArrayDimensionAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_6_0 = (RuleCall)cArrayDimensionAssignment_6.eContents().get(0);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cLeftCurlyBracketKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_7_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
+		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//// ******** Features
 		//DataPort returns aadl2::DataPort:
-		//	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"?
-		//	"data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
-		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+		//	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? |
+		//	out?="out") "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension?
+		//	("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"? "data"
-		//"port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
-		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+		//{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? |
+		//out?="out") "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::DataPort}
@@ -18753,56 +18773,68 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"to"
 		public Keyword getToKeyword_1_1_3() { return cToKeyword_1_1_3; }
 
-		//in?="in"?
-		public Assignment getInAssignment_2() { return cInAssignment_2; }
+		//in?="in" out?="out"? | out?="out"
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//in?="in" out?="out"?
+		public Group getGroup_2_0() { return cGroup_2_0; }
+
+		//in?="in"
+		public Assignment getInAssignment_2_0_0() { return cInAssignment_2_0_0; }
 
 		//"in"
-		public Keyword getInInKeyword_2_0() { return cInInKeyword_2_0; }
+		public Keyword getInInKeyword_2_0_0_0() { return cInInKeyword_2_0_0_0; }
 
 		//out?="out"?
-		public Assignment getOutAssignment_3() { return cOutAssignment_3; }
+		public Assignment getOutAssignment_2_0_1() { return cOutAssignment_2_0_1; }
 
 		//"out"
-		public Keyword getOutOutKeyword_3_0() { return cOutOutKeyword_3_0; }
+		public Keyword getOutOutKeyword_2_0_1_0() { return cOutOutKeyword_2_0_1_0; }
+
+		//out?="out"
+		public Assignment getOutAssignment_2_1() { return cOutAssignment_2_1; }
+
+		//"out"
+		public Keyword getOutOutKeyword_2_1_0() { return cOutOutKeyword_2_1_0; }
 
 		//"data"
-		public Keyword getDataKeyword_4() { return cDataKeyword_4; }
+		public Keyword getDataKeyword_3() { return cDataKeyword_3; }
 
 		//"port"
-		public Keyword getPortKeyword_5() { return cPortKeyword_5; }
+		public Keyword getPortKeyword_4() { return cPortKeyword_4; }
 
 		//dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
-		public Assignment getDataFeatureClassifierAssignment_6() { return cDataFeatureClassifierAssignment_6; }
+		public Assignment getDataFeatureClassifierAssignment_5() { return cDataFeatureClassifierAssignment_5; }
 
 		//[aadl2::DataSubcomponentType|QCREF]
-		public CrossReference getDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0() { return cDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0; }
+		public CrossReference getDataFeatureClassifierDataSubcomponentTypeCrossReference_5_0() { return cDataFeatureClassifierDataSubcomponentTypeCrossReference_5_0; }
 
 		//QCREF
-		public RuleCall getDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_6_0_1() { return cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_6_0_1; }
+		public RuleCall getDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_5_0_1() { return cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_5_0_1; }
 
 		//arrayDimension+=ArrayDimension?
-		public Assignment getArrayDimensionAssignment_7() { return cArrayDimensionAssignment_7; }
+		public Assignment getArrayDimensionAssignment_6() { return cArrayDimensionAssignment_6; }
 
 		//ArrayDimension
-		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_7_0() { return cArrayDimensionArrayDimensionParserRuleCall_7_0; }
+		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_6_0() { return cArrayDimensionArrayDimensionParserRuleCall_6_0; }
 
 		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
-		public Group getGroup_8() { return cGroup_8; }
+		public Group getGroup_7() { return cGroup_7; }
 
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_8_0() { return cLeftCurlyBracketKeyword_8_0; }
+		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_8_1() { return cOwnedPropertyAssociationAssignment_8_1; }
+		public Assignment getOwnedPropertyAssociationAssignment_7_1() { return cOwnedPropertyAssociationAssignment_7_1; }
 
 		//ContainedPropertyAssociation
-		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0; }
+		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_8_2() { return cRightCurlyBracketKeyword_8_2; }
+		public Keyword getRightCurlyBracketKeyword_7_2() { return cRightCurlyBracketKeyword_7_2; }
 
 		//";"
-		public Keyword getSemicolonKeyword_9() { return cSemicolonKeyword_9; }
+		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
 	}
 
 	public class EventDataPortElements extends AbstractParserRuleElementFinder {
@@ -18821,33 +18853,37 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1_1_1 = (Keyword)cGroup_1_1.eContents().get(1);
 		private final Keyword cRefinedKeyword_1_1_2 = (Keyword)cGroup_1_1.eContents().get(2);
 		private final Keyword cToKeyword_1_1_3 = (Keyword)cGroup_1_1.eContents().get(3);
-		private final Assignment cInAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Keyword cInInKeyword_2_0 = (Keyword)cInAssignment_2.eContents().get(0);
-		private final Assignment cOutAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final Keyword cOutOutKeyword_3_0 = (Keyword)cOutAssignment_3.eContents().get(0);
-		private final Keyword cEventKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cDataKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Keyword cPortKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cDataFeatureClassifierAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final CrossReference cDataFeatureClassifierDataSubcomponentTypeCrossReference_7_0 = (CrossReference)cDataFeatureClassifierAssignment_7.eContents().get(0);
-		private final RuleCall cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_7_0_1 = (RuleCall)cDataFeatureClassifierDataSubcomponentTypeCrossReference_7_0.eContents().get(1);
-		private final Assignment cArrayDimensionAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_8_0 = (RuleCall)cArrayDimensionAssignment_8.eContents().get(0);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cLeftCurlyBracketKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_9_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_9_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_9_2 = (Keyword)cGroup_9.eContents().get(2);
-		private final Keyword cSemicolonKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Assignment cInAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
+		private final Keyword cInInKeyword_2_0_0_0 = (Keyword)cInAssignment_2_0_0.eContents().get(0);
+		private final Assignment cOutAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final Keyword cOutOutKeyword_2_0_1_0 = (Keyword)cOutAssignment_2_0_1.eContents().get(0);
+		private final Assignment cOutAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
+		private final Keyword cOutOutKeyword_2_1_0 = (Keyword)cOutAssignment_2_1.eContents().get(0);
+		private final Keyword cEventKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cDataKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cPortKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cDataFeatureClassifierAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0 = (CrossReference)cDataFeatureClassifierAssignment_6.eContents().get(0);
+		private final RuleCall cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_6_0_1 = (RuleCall)cDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0.eContents().get(1);
+		private final Assignment cArrayDimensionAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_7_0 = (RuleCall)cArrayDimensionAssignment_7.eContents().get(0);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Keyword cLeftCurlyBracketKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_8_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_8_2 = (Keyword)cGroup_8.eContents().get(2);
+		private final Keyword cSemicolonKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//EventDataPort returns aadl2::EventDataPort:
-		//	{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to") in?="in"?
-		//	out?="out"? "event" "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
+		//	{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to") (in?="in"
+		//	out?="out"? | out?="out") "event" "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
 		//	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to") in?="in"?
-		//out?="out"? "event" "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
+		//{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to") (in?="in"
+		//out?="out"? | out?="out") "event" "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
 		//arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
@@ -18890,59 +18926,71 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"to"
 		public Keyword getToKeyword_1_1_3() { return cToKeyword_1_1_3; }
 
-		//in?="in"?
-		public Assignment getInAssignment_2() { return cInAssignment_2; }
+		//in?="in" out?="out"? | out?="out"
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//in?="in" out?="out"?
+		public Group getGroup_2_0() { return cGroup_2_0; }
+
+		//in?="in"
+		public Assignment getInAssignment_2_0_0() { return cInAssignment_2_0_0; }
 
 		//"in"
-		public Keyword getInInKeyword_2_0() { return cInInKeyword_2_0; }
+		public Keyword getInInKeyword_2_0_0_0() { return cInInKeyword_2_0_0_0; }
 
 		//out?="out"?
-		public Assignment getOutAssignment_3() { return cOutAssignment_3; }
+		public Assignment getOutAssignment_2_0_1() { return cOutAssignment_2_0_1; }
 
 		//"out"
-		public Keyword getOutOutKeyword_3_0() { return cOutOutKeyword_3_0; }
+		public Keyword getOutOutKeyword_2_0_1_0() { return cOutOutKeyword_2_0_1_0; }
+
+		//out?="out"
+		public Assignment getOutAssignment_2_1() { return cOutAssignment_2_1; }
+
+		//"out"
+		public Keyword getOutOutKeyword_2_1_0() { return cOutOutKeyword_2_1_0; }
 
 		//"event"
-		public Keyword getEventKeyword_4() { return cEventKeyword_4; }
+		public Keyword getEventKeyword_3() { return cEventKeyword_3; }
 
 		//"data"
-		public Keyword getDataKeyword_5() { return cDataKeyword_5; }
+		public Keyword getDataKeyword_4() { return cDataKeyword_4; }
 
 		//"port"
-		public Keyword getPortKeyword_6() { return cPortKeyword_6; }
+		public Keyword getPortKeyword_5() { return cPortKeyword_5; }
 
 		//dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
-		public Assignment getDataFeatureClassifierAssignment_7() { return cDataFeatureClassifierAssignment_7; }
+		public Assignment getDataFeatureClassifierAssignment_6() { return cDataFeatureClassifierAssignment_6; }
 
 		//[aadl2::DataSubcomponentType|QCREF]
-		public CrossReference getDataFeatureClassifierDataSubcomponentTypeCrossReference_7_0() { return cDataFeatureClassifierDataSubcomponentTypeCrossReference_7_0; }
+		public CrossReference getDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0() { return cDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0; }
 
 		//QCREF
-		public RuleCall getDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_7_0_1() { return cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_7_0_1; }
+		public RuleCall getDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_6_0_1() { return cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_6_0_1; }
 
 		//arrayDimension+=ArrayDimension?
-		public Assignment getArrayDimensionAssignment_8() { return cArrayDimensionAssignment_8; }
+		public Assignment getArrayDimensionAssignment_7() { return cArrayDimensionAssignment_7; }
 
 		//ArrayDimension
-		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_8_0() { return cArrayDimensionArrayDimensionParserRuleCall_8_0; }
+		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_7_0() { return cArrayDimensionArrayDimensionParserRuleCall_7_0; }
 
 		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
-		public Group getGroup_9() { return cGroup_9; }
+		public Group getGroup_8() { return cGroup_8; }
 
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_9_0() { return cLeftCurlyBracketKeyword_9_0; }
+		public Keyword getLeftCurlyBracketKeyword_8_0() { return cLeftCurlyBracketKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_9_1() { return cOwnedPropertyAssociationAssignment_9_1; }
+		public Assignment getOwnedPropertyAssociationAssignment_8_1() { return cOwnedPropertyAssociationAssignment_8_1; }
 
 		//ContainedPropertyAssociation
-		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_9_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_9_1_0; }
+		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_9_2() { return cRightCurlyBracketKeyword_9_2; }
+		public Keyword getRightCurlyBracketKeyword_8_2() { return cRightCurlyBracketKeyword_8_2; }
 
 		//";"
-		public Keyword getSemicolonKeyword_10() { return cSemicolonKeyword_10; }
+		public Keyword getSemicolonKeyword_9() { return cSemicolonKeyword_9; }
 	}
 
 	public class EventPortElements extends AbstractParserRuleElementFinder {
@@ -18961,28 +19009,34 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1_1_1 = (Keyword)cGroup_1_1.eContents().get(1);
 		private final Keyword cRefinedKeyword_1_1_2 = (Keyword)cGroup_1_1.eContents().get(2);
 		private final Keyword cToKeyword_1_1_3 = (Keyword)cGroup_1_1.eContents().get(3);
-		private final Assignment cInAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Keyword cInInKeyword_2_0 = (Keyword)cInAssignment_2.eContents().get(0);
-		private final Assignment cOutAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final Keyword cOutOutKeyword_3_0 = (Keyword)cOutAssignment_3.eContents().get(0);
-		private final Keyword cEventKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cPortKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cArrayDimensionAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_6_0 = (RuleCall)cArrayDimensionAssignment_6.eContents().get(0);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cLeftCurlyBracketKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_7_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
-		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Assignment cInAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
+		private final Keyword cInInKeyword_2_0_0_0 = (Keyword)cInAssignment_2_0_0.eContents().get(0);
+		private final Assignment cOutAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final Keyword cOutOutKeyword_2_0_1_0 = (Keyword)cOutAssignment_2_0_1.eContents().get(0);
+		private final Assignment cOutAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
+		private final Keyword cOutOutKeyword_2_1_0 = (Keyword)cOutAssignment_2_1.eContents().get(0);
+		private final Keyword cEventKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cPortKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cArrayDimensionAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_5_0 = (RuleCall)cArrayDimensionAssignment_5.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cLeftCurlyBracketKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_6_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//EventPort returns aadl2::EventPort:
-		//	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"?
-		//	"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+		//	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? |
+		//	out?="out") "event" "port" arrayDimension+=ArrayDimension? ("{"
+		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"?
-		//"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
+		//{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? |
+		//out?="out") "event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+
+		//"}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::EventPort}
@@ -19024,47 +19078,59 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"to"
 		public Keyword getToKeyword_1_1_3() { return cToKeyword_1_1_3; }
 
-		//in?="in"?
-		public Assignment getInAssignment_2() { return cInAssignment_2; }
+		//in?="in" out?="out"? | out?="out"
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//in?="in" out?="out"?
+		public Group getGroup_2_0() { return cGroup_2_0; }
+
+		//in?="in"
+		public Assignment getInAssignment_2_0_0() { return cInAssignment_2_0_0; }
 
 		//"in"
-		public Keyword getInInKeyword_2_0() { return cInInKeyword_2_0; }
+		public Keyword getInInKeyword_2_0_0_0() { return cInInKeyword_2_0_0_0; }
 
 		//out?="out"?
-		public Assignment getOutAssignment_3() { return cOutAssignment_3; }
+		public Assignment getOutAssignment_2_0_1() { return cOutAssignment_2_0_1; }
 
 		//"out"
-		public Keyword getOutOutKeyword_3_0() { return cOutOutKeyword_3_0; }
+		public Keyword getOutOutKeyword_2_0_1_0() { return cOutOutKeyword_2_0_1_0; }
+
+		//out?="out"
+		public Assignment getOutAssignment_2_1() { return cOutAssignment_2_1; }
+
+		//"out"
+		public Keyword getOutOutKeyword_2_1_0() { return cOutOutKeyword_2_1_0; }
 
 		//"event"
-		public Keyword getEventKeyword_4() { return cEventKeyword_4; }
+		public Keyword getEventKeyword_3() { return cEventKeyword_3; }
 
 		//"port"
-		public Keyword getPortKeyword_5() { return cPortKeyword_5; }
+		public Keyword getPortKeyword_4() { return cPortKeyword_4; }
 
 		//arrayDimension+=ArrayDimension?
-		public Assignment getArrayDimensionAssignment_6() { return cArrayDimensionAssignment_6; }
+		public Assignment getArrayDimensionAssignment_5() { return cArrayDimensionAssignment_5; }
 
 		//ArrayDimension
-		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_6_0() { return cArrayDimensionArrayDimensionParserRuleCall_6_0; }
+		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_5_0() { return cArrayDimensionArrayDimensionParserRuleCall_5_0; }
 
 		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
-		public Group getGroup_7() { return cGroup_7; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
+		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_7_1() { return cOwnedPropertyAssociationAssignment_7_1; }
+		public Assignment getOwnedPropertyAssociationAssignment_6_1() { return cOwnedPropertyAssociationAssignment_6_1; }
 
 		//ContainedPropertyAssociation
-		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0; }
+		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_7_2() { return cRightCurlyBracketKeyword_7_2; }
+		public Keyword getRightCurlyBracketKeyword_6_2() { return cRightCurlyBracketKeyword_6_2; }
 
 		//";"
-		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 	}
 
 	public class FeatureGroupElements extends AbstractParserRuleElementFinder {
@@ -19241,31 +19307,35 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_0_1_1 = (Keyword)cGroup_0_1.eContents().get(1);
 		private final Keyword cRefinedKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
 		private final Keyword cToKeyword_0_1_3 = (Keyword)cGroup_0_1.eContents().get(3);
-		private final Assignment cInAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cInInKeyword_1_0 = (Keyword)cInAssignment_1.eContents().get(0);
-		private final Assignment cOutAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Keyword cOutOutKeyword_2_0 = (Keyword)cOutAssignment_2.eContents().get(0);
-		private final Keyword cParameterKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cDataFeatureClassifierAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cDataFeatureClassifierDataSubcomponentTypeCrossReference_4_0 = (CrossReference)cDataFeatureClassifierAssignment_4.eContents().get(0);
-		private final RuleCall cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_4_0_1 = (RuleCall)cDataFeatureClassifierDataSubcomponentTypeCrossReference_4_0.eContents().get(1);
-		private final Assignment cArrayDimensionAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_5_0 = (RuleCall)cArrayDimensionAssignment_5.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cLeftCurlyBracketKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_6_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
-		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Assignment cInAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
+		private final Keyword cInInKeyword_1_0_0_0 = (Keyword)cInAssignment_1_0_0.eContents().get(0);
+		private final Assignment cOutAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final Keyword cOutOutKeyword_1_0_1_0 = (Keyword)cOutAssignment_1_0_1.eContents().get(0);
+		private final Assignment cOutAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
+		private final Keyword cOutOutKeyword_1_1_0 = (Keyword)cOutAssignment_1_1.eContents().get(0);
+		private final Keyword cParameterKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cDataFeatureClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cDataFeatureClassifierDataSubcomponentTypeCrossReference_3_0 = (CrossReference)cDataFeatureClassifierAssignment_3.eContents().get(0);
+		private final RuleCall cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_3_0_1 = (RuleCall)cDataFeatureClassifierDataSubcomponentTypeCrossReference_3_0.eContents().get(1);
+		private final Assignment cArrayDimensionAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_4_0 = (RuleCall)cArrayDimensionAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cLeftCurlyBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//Parameter returns aadl2::Parameter:
-		//	(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"? "parameter"
-		//	dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+		//	(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? | out?="out")
+		//	"parameter" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"? "parameter"
-		//dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+		//(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? | out?="out")
+		//"parameter" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
@@ -19305,53 +19375,65 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"to"
 		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
 
-		//in?="in"?
-		public Assignment getInAssignment_1() { return cInAssignment_1; }
+		//in?="in" out?="out"? | out?="out"
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//in?="in" out?="out"?
+		public Group getGroup_1_0() { return cGroup_1_0; }
+
+		//in?="in"
+		public Assignment getInAssignment_1_0_0() { return cInAssignment_1_0_0; }
 
 		//"in"
-		public Keyword getInInKeyword_1_0() { return cInInKeyword_1_0; }
+		public Keyword getInInKeyword_1_0_0_0() { return cInInKeyword_1_0_0_0; }
 
 		//out?="out"?
-		public Assignment getOutAssignment_2() { return cOutAssignment_2; }
+		public Assignment getOutAssignment_1_0_1() { return cOutAssignment_1_0_1; }
 
 		//"out"
-		public Keyword getOutOutKeyword_2_0() { return cOutOutKeyword_2_0; }
+		public Keyword getOutOutKeyword_1_0_1_0() { return cOutOutKeyword_1_0_1_0; }
+
+		//out?="out"
+		public Assignment getOutAssignment_1_1() { return cOutAssignment_1_1; }
+
+		//"out"
+		public Keyword getOutOutKeyword_1_1_0() { return cOutOutKeyword_1_1_0; }
 
 		//"parameter"
-		public Keyword getParameterKeyword_3() { return cParameterKeyword_3; }
+		public Keyword getParameterKeyword_2() { return cParameterKeyword_2; }
 
 		//dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
-		public Assignment getDataFeatureClassifierAssignment_4() { return cDataFeatureClassifierAssignment_4; }
+		public Assignment getDataFeatureClassifierAssignment_3() { return cDataFeatureClassifierAssignment_3; }
 
 		//[aadl2::DataSubcomponentType|QCREF]
-		public CrossReference getDataFeatureClassifierDataSubcomponentTypeCrossReference_4_0() { return cDataFeatureClassifierDataSubcomponentTypeCrossReference_4_0; }
+		public CrossReference getDataFeatureClassifierDataSubcomponentTypeCrossReference_3_0() { return cDataFeatureClassifierDataSubcomponentTypeCrossReference_3_0; }
 
 		//QCREF
-		public RuleCall getDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_4_0_1() { return cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_4_0_1; }
+		public RuleCall getDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_3_0_1() { return cDataFeatureClassifierDataSubcomponentTypeQCREFParserRuleCall_3_0_1; }
 
 		//arrayDimension+=ArrayDimension?
-		public Assignment getArrayDimensionAssignment_5() { return cArrayDimensionAssignment_5; }
+		public Assignment getArrayDimensionAssignment_4() { return cArrayDimensionAssignment_4; }
 
 		//ArrayDimension
-		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_5_0() { return cArrayDimensionArrayDimensionParserRuleCall_5_0; }
+		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0; }
 
 		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
-		public Group getGroup_6() { return cGroup_6; }
+		public Group getGroup_5() { return cGroup_5; }
 
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
+		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_6_1() { return cOwnedPropertyAssociationAssignment_6_1; }
+		public Assignment getOwnedPropertyAssociationAssignment_5_1() { return cOwnedPropertyAssociationAssignment_5_1; }
 
 		//ContainedPropertyAssociation
-		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0; }
+		public RuleCall getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0() { return cOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_6_2() { return cRightCurlyBracketKeyword_6_2; }
+		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
 		//";"
-		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class SubprogramAccessElements extends AbstractParserRuleElementFinder {
@@ -27182,7 +27264,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PortSpecification returns aadl2::PortSpecification:
-	//	in?="in"? out?="out"? category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
+	//	(in?="in" out?="out"? | out?="out") category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
 	public PortSpecificationElements getPortSpecificationAccess() {
 		return (pPortSpecification != null) ? pPortSpecification : (pPortSpecification = new PortSpecificationElements());
 	}
@@ -27492,9 +27574,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//// ******** Features
 	//DataPort returns aadl2::DataPort:
-	//	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"?
-	//	"data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
-	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+	//	{aadl2::DataPort} (name=ID ":" | refined=[aadl2::DataPort|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? |
+	//	out?="out") "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension?
+	//	("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public DataPortElements getDataPortAccess() {
 		return (pDataPort != null) ? pDataPort : (pDataPort = new DataPortElements());
 	}
@@ -27504,8 +27586,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EventDataPort returns aadl2::EventDataPort:
-	//	{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to") in?="in"?
-	//	out?="out"? "event" "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
+	//	{aadl2::EventDataPort} (name=ID ":" | refined=[aadl2::EventDataPort|REFINEDNAME] ":" "refined" "to") (in?="in"
+	//	out?="out"? | out?="out") "event" "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
 	//	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public EventDataPortElements getEventDataPortAccess() {
 		return (pEventDataPort != null) ? pEventDataPort : (pEventDataPort = new EventDataPortElements());
@@ -27516,8 +27598,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EventPort returns aadl2::EventPort:
-	//	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"?
-	//	"event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
+	//	{aadl2::EventPort} (name=ID ":" | refined=[aadl2::EventPort|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? |
+	//	out?="out") "event" "port" arrayDimension+=ArrayDimension? ("{"
+	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public EventPortElements getEventPortAccess() {
 		return (pEventPort != null) ? pEventPort : (pEventPort = new EventPortElements());
 	}
@@ -27540,8 +27623,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Parameter returns aadl2::Parameter:
-	//	(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") in?="in"? out?="out"? "parameter"
-	//	dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
+	//	(name=ID ":" | refined=[aadl2::Parameter|REFINEDNAME] ":" "refined" "to") (in?="in" out?="out"? | out?="out")
+	//	"parameter" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public ParameterElements getParameterAccess() {
 		return (pParameter != null) ? pParameter : (pParameter = new ParameterElements());

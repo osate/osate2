@@ -1274,7 +1274,7 @@ FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
 	;
 
 PortSpecification returns aadl2::PortSpecification:
-	(in ?= 'in')? (out ?= 'out')? 
+	(in ?= 'in' out ?= 'out'? | out ?= 'out') 
 	category=PortCategory 'port' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 	
@@ -1565,7 +1565,7 @@ DataPort returns aadl2::DataPort:
 	{aadl2::DataPort}
 	((name=ID ':' )|
 	(refined=[aadl2::DataPort|REFINEDNAME] ':' 'refined' 'to'))
-	(in ?= 'in')? (out ?= 'out')? 
+	(in ?= 'in' out ?= 'out'? | out ?= 'out') 
 	'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
@@ -1576,7 +1576,7 @@ EventDataPort returns aadl2::EventDataPort:
 	{aadl2::EventDataPort}
 	((name=ID ':' )|
 	(refined=[aadl2::EventDataPort|REFINEDNAME] ':' 'refined' 'to'))
-	(in ?= 'in')? (out ?= 'out')? 
+	(in ?= 'in' out ?= 'out'? | out ?= 'out') 
 	'event' 'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
@@ -1587,7 +1587,7 @@ EventPort returns aadl2::EventPort:
 	{aadl2::EventPort}
 	((name=ID ':' )|
 	(refined=[aadl2::EventPort|REFINEDNAME] ':' 'refined' 'to'))
-	(in ?= 'in')? (out ?= 'out')? 
+	(in ?= 'in' out ?= 'out'? | out ?= 'out') 
 	'event' 'port' 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
@@ -1608,7 +1608,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 Parameter returns aadl2::Parameter:
 	((name=ID ':' )|
 	(refined=[aadl2::Parameter|REFINEDNAME] ':' 'refined' 'to'))
-	(in ?= 'in')? (out ?= 'out')? 'parameter' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
+	(in ?= 'in' out ?= 'out'? | out ?= 'out') 'parameter' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;

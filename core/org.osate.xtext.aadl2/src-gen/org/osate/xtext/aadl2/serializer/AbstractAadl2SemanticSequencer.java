@@ -1899,8 +1899,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[DataPort|REFINEDNAME]) 
-	 *         in?='in'? 
-	 *         out?='out'? 
+	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -2167,8 +2166,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[EventDataPort|REFINEDNAME]) 
-	 *         in?='in'? 
-	 *         out?='out'? 
+	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -2201,8 +2199,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[EventPort|REFINEDNAME]) 
-	 *         in?='in'? 
-	 *         out?='out'? 
+	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
@@ -2725,8 +2722,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[Parameter|REFINEDNAME]) 
-	 *         in?='in'? 
-	 *         out?='out'? 
+	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
@@ -2770,7 +2766,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (in?='in'? out?='out'? category=PortCategory classifier=[ComponentClassifier|QCREF]?)
+	 *     (((in?='in' out?='out'?) | out?='out') category=PortCategory classifier=[ComponentClassifier|QCREF]?)
 	 */
 	protected void sequence_PortSpecification(EObject context, PortSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
