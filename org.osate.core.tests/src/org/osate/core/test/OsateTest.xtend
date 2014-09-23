@@ -43,9 +43,6 @@ class OsateTest extends XtextTest {
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
 
-	val pluginResourcesNames = pluginResources.members.filter(typeof(IFile)).map[name].
-		filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
-
 	/**
       * Create a project with subdirectories in the current workspace.
       */
@@ -186,6 +183,10 @@ class OsateTest extends XtextTest {
 	}
 
 	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
+		// Not a class field because the workspace is not necessarily initialized when OsateTest is instantiated
+		val pluginResourcesNames = pluginResources.members.filter(typeof(IFile)).map[name].filter[
+			toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
+
 		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(
 			context.getScope(reference).allElements.map[name.toString("::")].filter [
 				val separatorIndex = indexOf("::")
