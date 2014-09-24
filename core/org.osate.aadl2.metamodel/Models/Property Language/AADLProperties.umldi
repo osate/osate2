@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_MHyOcBBqEd25IYkJxAOvAQ" activeDiagram="_82YZUBrPEd2VF_4RMWHbOg">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_MHyOcBBqEd25IYkJxAOvAQ" activeDiagram="_MWNisB6-Ed6lku1vKLt0eg">
   <model href="AADLProperties.uml#_0"/>
   <diagrams xmi:id="_mS3toCN2Ed2QgNjfZP9I5g" position="0,0" size="100,100" name="Property Language Packages" viewport="0,0">
     <property xmi:id="_mW5SACN2Ed2QgNjfZP9I5g" key="pageFormatName" value="A0"/>
@@ -2791,7 +2791,7 @@
   </subdiagrams>
   <subdiagrams xmi:id="_S-aLoCN8Ed2QgNjfZP9I5g">
     <model href="AADLProperties.uml#Definitions"/>
-    <diagrams xmi:id="_S_AokCN8Ed2QgNjfZP9I5g" position="0,0" size="100,100" name="Property Definitions" viewport="0,28">
+    <diagrams xmi:id="_S_AokCN8Ed2QgNjfZP9I5g" position="0,0" size="100,100" name="Property Definitions" viewport="0,99">
       <property xmi:id="_TAf2UCN8Ed2QgNjfZP9I5g" key="pageFormatName" value="A4"/>
       <property xmi:id="_TAf2USN8Ed2QgNjfZP9I5g" key="diagramWidth" value="840"/>
       <property xmi:id="_TAf2UiN8Ed2QgNjfZP9I5g" key="diagramHeight" value="1188"/>
@@ -2887,7 +2887,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oqjhhDF-Ed2nqJ5Wh2hrQw" id="srcNameEdgeObject" uDistance="10" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oqjhhTF-Ed2nqJ5Wh2hrQw" id="srcCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oqjhhjF-Ed2nqJ5Wh2hrQw" id="targetNameEdgeObject" uDistance="16" vDistance="9"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_oqjhhzF-Ed2nqJ5Wh2hrQw" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_oqjhhzF-Ed2nqJ5Wh2hrQw" id="targetCountEdgeObject" uDistance="17" vDistance="-6"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_oqjhiDF-Ed2nqJ5Wh2hrQw" visible="false" id="middleNameEdgeObject" offset="0,10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_oqjhiTF-Ed2nqJ5Wh2hrQw" id="stereotypeEdgeObject" offset="0,-10"/>
         <waypoints>[-1, 104, 205, 0]</waypoints>
@@ -2966,10 +2966,10 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_O16yh8FMEd26duRt8FNSag" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_O16yiMFMEd26duRt8FNSag" visible="false" id="middleNameEdgeObject" offset="0,10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_O16yicFMEd26duRt8FNSag" id="stereotypeEdgeObject" offset="14,-10"/>
-        <waypoints>[-248, 0, -126, -269]</waypoints>
-        <waypoints>[-248, 269, -126, 0]</waypoints>
+        <waypoints>[-249, 1, -126, -231]</waypoints>
+        <waypoints>[-249, 236, -126, 4]</waypoints>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_EPvUoMFlEd26duRt8FNSag" position="348,492" size="196,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_EPvUoMFlEd26duRt8FNSag" position="347,456" size="196,-1">
         <property xmi:id="_8Ag8Q31kEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
         <anchorage xmi:id="_G-FKMMFlEd26duRt8FNSag" graphEdge="_O16ygMFMEd26duRt8FNSag _b10LQM3gEd2WOvOC0LVzPw"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_EPvUocFlEd26duRt8FNSag" presentation="default">
@@ -3068,7 +3068,7 @@
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_DJjF2c3gEd2WOvOC0LVzPw" visible="false" id="middleNameEdgeObject" offset="100,9"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_DJjF2s3gEd2WOvOC0LVzPw" id="stereotypeEdgeObject" offset="0,-10"/>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_3QZtkM3fEd2WOvOC0LVzPw" position="517,396" size="104,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_3QZtkM3fEd2WOvOC0LVzPw" position="516,360" size="104,-1">
         <property xmi:id="_8Ag8Qn1kEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
         <anchorage xmi:id="_9ZfDUM3tEd2WOvOC0LVzPw" graphEdge="_DJjF0c3gEd2WOvOC0LVzPw _b10LQM3gEd2WOvOC0LVzPw _Gd4cAM3uEd2WOvOC0LVzPw _5AI_UfnxEd29ytDHZ1L1JA"/>
         <anchorage xmi:id="_DJjF0M3gEd2WOvOC0LVzPw"/>
@@ -3094,7 +3094,7 @@
         </semanticModel>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_b10LQs3gEd2WOvOC0LVzPw" id="stereotypeEdgeObject"/>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_EuHukM3uEd2WOvOC0LVzPw" position="599,506" size="125,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_EuHukM3uEd2WOvOC0LVzPw" position="598,470" size="125,-1">
         <property xmi:id="_8AhjUH1kEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
         <anchorage xmi:id="_EuRfks3uEd2WOvOC0LVzPw" graphEdge="_EuRfk83uEd2WOvOC0LVzPw _Gd4cAM3uEd2WOvOC0LVzPw"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_EuHukc3uEd2WOvOC0LVzPw" presentation="default">
@@ -3131,7 +3131,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_EuRfms3uEd2WOvOC0LVzPw" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_EuRfm83uEd2WOvOC0LVzPw" visible="false" id="middleNameEdgeObject" offset="0,10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_EuRfnM3uEd2WOvOC0LVzPw" id="stereotypeEdgeObject" offset="0,-10"/>
-        <waypoints>[241, 0, 0, 269]</waypoints>
+        <waypoints>[242, 0, 0, 233]</waypoints>
       </contained>
       <contained xsi:type="di:GraphEdge" xmi:id="_Gd4cAM3uEd2WOvOC0LVzPw" anchor="_EuRfks3uEd2WOvOC0LVzPw _9ZfDUM3tEd2WOvOC0LVzPw">
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Gd4cAc3uEd2WOvOC0LVzPw" presentation="default">
@@ -3139,7 +3139,7 @@
         </semanticModel>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_Gd4cAs3uEd2WOvOC0LVzPw" id="stereotypeEdgeObject"/>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_0uarcPnxEd29ytDHZ1L1JA" position="681,387" size="174,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_0uarcPnxEd29ytDHZ1L1JA" position="680,351" size="174,-1">
         <property xmi:id="_8Ag8QX1kEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
         <anchorage xmi:id="_5AI_UPnxEd29ytDHZ1L1JA" graphEdge="_5AI_UfnxEd29ytDHZ1L1JA"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_0uarcfnxEd29ytDHZ1L1JA" presentation="default">
@@ -3207,7 +3207,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_VfL_ET9BEeSMi-ARKmUa4A" id="srcNameEdgeObject" uDistance="15"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_VfL_Ej9BEeSMi-ARKmUa4A" id="srcPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_VfL_Ez9BEeSMi-ARKmUa4A" id="srcCountEdgeObject" uDistance="1" vDistance="-17"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_VfL_FD9BEeSMi-ARKmUa4A" id="targetNameEdgeObject" uDistance="19"/>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_VfL_FD9BEeSMi-ARKmUa4A" id="targetNameEdgeObject" uDistance="40" vDistance="4"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_VfL_FT9BEeSMi-ARKmUa4A" id="targetPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_VfL_Fj9BEeSMi-ARKmUa4A" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_VfL_Fz9BEeSMi-ARKmUa4A" visible="false" id="middleNameEdgeObject" offset="-52,-5"/>
@@ -3909,7 +3909,7 @@
       </contained>
       <contained xsi:type="di:GraphNode" xmi:id="_oT2SSB6-Ed6lku1vKLt0eg" position="104,156" size="449,-1">
         <property xmi:id="_POrPsH1kEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
-        <anchorage xmi:id="_oUJNPB6-Ed6lku1vKLt0eg" graphEdge="_oUJNPR6-Ed6lku1vKLt0eg _oUS-MB6-Ed6lku1vKLt0eg _ubyS0D0NEeSdvMOHIJggqw"/>
+        <anchorage xmi:id="_oUJNPB6-Ed6lku1vKLt0eg" graphEdge="_oUJNPR6-Ed6lku1vKLt0eg _oUS-MB6-Ed6lku1vKLt0eg"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_oT2SSR6-Ed6lku1vKLt0eg" presentation="default">
           <element href="AADLProperties.uml#Associations-ContainedNamedElement"/>
         </semanticModel>
@@ -3940,7 +3940,7 @@
       <contained xsi:type="di:GraphNode" xmi:id="_oT2SUB6-Ed6lku1vKLt0eg" position="230,287" size="176,-1">
         <property xmi:id="_POrPsn1kEeOnMLJqAh0THw" key="font" value="Sans-bold-8"/>
         <anchorage xmi:id="_oUJNMB6-Ed6lku1vKLt0eg" graphEdge="_oUJNMh6-Ed6lku1vKLt0eg _oUJNPR6-Ed6lku1vKLt0eg _oUS-Ox6-Ed6lku1vKLt0eg _ubyS0D0NEeSdvMOHIJggqw"/>
-        <anchorage xmi:id="_ubv2kD0NEeSdvMOHIJggqw"/>
+        <anchorage xmi:id="_ubv2kD0NEeSdvMOHIJggqw" graphEdge="_ubyS0D0NEeSdvMOHIJggqw"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_oT2SUR6-Ed6lku1vKLt0eg" presentation="default">
           <element href="AADLProperties.uml#Associations-ContainmentPathElement"/>
         </semanticModel>
@@ -4046,7 +4046,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oUJNPx6-Ed6lku1vKLt0eg" id="srcNameEdgeObject" uDistance="10" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oUJNQB6-Ed6lku1vKLt0eg" id="srcPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oUJNQR6-Ed6lku1vKLt0eg" id="srcCountEdgeObject" uDistance="10" vDistance="-10"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_oUJNQh6-Ed6lku1vKLt0eg" id="targetNameEdgeObject" uDistance="21" vDistance="10"/>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_oUJNQh6-Ed6lku1vKLt0eg" id="targetNameEdgeObject" uDistance="18" vDistance="22"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oUJNQx6-Ed6lku1vKLt0eg" id="targetPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_oUJNRB6-Ed6lku1vKLt0eg" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_oUJNRR6-Ed6lku1vKLt0eg" visible="false" id="middleNameEdgeObject" offset="0,10"/>
@@ -4080,7 +4080,7 @@
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_oUS-Qx6-Ed6lku1vKLt0eg" visible="false" id="middleNameEdgeObject" offset="0,10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_oUS-RB6-Ed6lku1vKLt0eg" id="stereotypeEdgeObject" offset="0,-10"/>
       </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_ubyS0D0NEeSdvMOHIJggqw" anchor="_oUJNMB6-Ed6lku1vKLt0eg _oUJNPB6-Ed6lku1vKLt0eg">
+      <contained xsi:type="di:GraphEdge" xmi:id="_ubyS0D0NEeSdvMOHIJggqw" anchor="_oUJNMB6-Ed6lku1vKLt0eg _ubv2kD0NEeSdvMOHIJggqw">
         <property xmi:id="_z-6kMD0NEeSdvMOHIJggqw" key="font" value="Sans-regular-8"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_ubyS0T0NEeSdvMOHIJggqw" presentation="default">
           <element href="AADLProperties.uml#_ub9R8D0NEeSdvMOHIJggqw"/>
@@ -4088,13 +4088,14 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_ubyS0j0NEeSdvMOHIJggqw" id="srcNameEdgeObject" uDistance="13" vDistance="-15"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_ubyS0z0NEeSdvMOHIJggqw" id="srcPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_ubyS1D0NEeSdvMOHIJggqw" id="srcCountEdgeObject" uDistance="14" vDistance="13"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_ubyS1T0NEeSdvMOHIJggqw" id="targetNameEdgeObject" uDistance="-52" vDistance="-27"/>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_ubyS1T0NEeSdvMOHIJggqw" id="targetNameEdgeObject" uDistance="9" vDistance="-14"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_ubyS1j0NEeSdvMOHIJggqw" id="targetPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_ubyS1z0NEeSdvMOHIJggqw" id="targetCountEdgeObject" uDistance="8" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_ubyS2D0NEeSdvMOHIJggqw" visible="false" id="middleNameEdgeObject" offset="0,10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_ubyS2T0NEeSdvMOHIJggqw" id="stereotypeEdgeObject" offset="0,-10"/>
-        <waypoints>[-266, 0, -266, 131]</waypoints>
-        <waypoints>[-266, -131, -266, 0]</waypoints>
+        <waypoints>[-96, 53, -96, 53]</waypoints>
+        <waypoints>[-161, 53, -161, 53]</waypoints>
+        <waypoints>[-161, 0, -161, 0]</waypoints>
       </contained>
     </diagrams>
   </subdiagrams>
