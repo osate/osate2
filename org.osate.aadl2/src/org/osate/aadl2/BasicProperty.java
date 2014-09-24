@@ -62,12 +62,6 @@ import org.eclipse.emf.ecore.EClass;
 public interface BasicProperty extends TypedElement {
 	/**
 	 * Returns the value of the '<em><b>Referenced Property Type</b></em>' reference.
-	 * <p>
-	 * This feature redefines the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.TypedElement#getType() <em>Type</em>}'</li>
-	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -93,6 +87,12 @@ public interface BasicProperty extends TypedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Property Type</b></em>' reference.
+	 * <p>
+	 * This feature redefines the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.TypedElement#getType() <em>Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Property Type</em>' reference isn't clear,

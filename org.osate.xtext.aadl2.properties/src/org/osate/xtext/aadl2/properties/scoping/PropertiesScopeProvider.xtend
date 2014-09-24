@@ -200,9 +200,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 					} else if (context.owner.owner instanceof PropertyAssociation) {
 						//Scoping for first element of the applies to
 						(context.owner.owner as PropertyAssociation).namespaceForPropertyAssociation
-					} else if (context.owner.owner instanceof ContainmentPathElement) {
+					} else if (context.owner instanceof ContainmentPathElement) {
 						//Scoping for chained element after the first element when providing the scope for quick fix
-						(context.owner.owner as ContainmentPathElement).classifierForPreviousContainmentPathElement
+						(context.owner as ContainmentPathElement).classifierForPreviousContainmentPathElement
 					}
 				} else {
 					//Scoping for chained element after the first element when providing the scope for content assist

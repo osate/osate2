@@ -455,10 +455,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			// containment path element
 			if (context instanceof ContainmentPathElement) {
 				EObject res = null;
-				ContainedNamedElement path = (ContainedNamedElement) context.eContainer();
-				if (path.getOwner() instanceof ContainmentPathElement) {
+				if (((ContainmentPathElement) context).getOwner() instanceof ContainmentPathElement) {
 					// find next element in namespace of previous element
-					ContainmentPathElement el = (ContainmentPathElement) path.getOwner();
+					ContainmentPathElement el = (ContainmentPathElement) ((ContainmentPathElement) context).getOwner();
 					NamedElement ne = el.getNamedElement();
 					if (ne instanceof Subcomponent) {
 						Subcomponent subcomponent = (Subcomponent) ne;
