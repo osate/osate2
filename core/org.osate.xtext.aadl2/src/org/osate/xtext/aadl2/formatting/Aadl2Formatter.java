@@ -153,10 +153,6 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 				c.setIndentationIncrement().after(keyword);
 			}
 		}
-		for (Keyword is : g.findKeywords("is")) {
-			c.setIndentationIncrement().after(is);
-			c.setLinewrap(1, 1, 2).after(is);
-		}
 		for (Keyword applies : g.findKeywords("applies")) {
 			c.setLinewrap(0, 0, 1).before(applies);
 			c.setNoLinewrap().after(applies);
@@ -169,15 +165,15 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		c.setIndentationIncrement().after(g.getAadlPackageAccess().getPackageKeyword_0());
 		c.setIndentationDecrement().before(g.getAadlPackageAccess().getEndKeyword_4());
 
-		c.setLinewrap().around(g.getPublicPackageSectionAccess().getPublicKeyword_1());
+		c.setLinewrap(1, 1, 2).around(g.getPublicPackageSectionAccess().getPublicKeyword_1());
 		c.setIndentationDecrement().before(g.getPublicPackageSectionAccess().getPublicKeyword_1());
 		c.setIndentationIncrement().after(g.getPublicPackageSectionAccess().getPublicKeyword_1());
 
-		c.setLinewrap().around(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
+		c.setLinewrap(1, 1, 2).around(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
 		c.setIndentationDecrement().before(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
 		c.setIndentationIncrement().after(g.getPrivatePackageSectionAccess().getPrivateKeyword_1());
 
-		c.setLinewrap().before(g.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
+		c.setLinewrap(1, 1, 2).around(g.getPublicPackageSectionAccess().getSemicolonKeyword_2_0_3());
 
 		// @formatter:off
 		indentInComponent(c, g.getAbstractTypeAccess().getAbstractKeyword_0(), g.getAbstractTypeAccess().getEndKeyword_9());
@@ -392,6 +388,12 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		indentTwiceAfter(c, g.getContainedPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1_0());
 		unindentTwiceAfter(c, g.getPropertyAssociationRule());
 		unindentTwiceAfter(c, g.getContainedPropertyAssociationRule());
+
+		// Property sets
+		c.setIndentationIncrement().after(g.getPropertySetAccess().getIsKeyword_3());
+		c.setLinewrap(1, 1, 2).after(g.getPropertySetAccess().getIsKeyword_3());
+		c.setIndentationDecrement().before(g.getPropertySetAccess().getEndKeyword_7());
+		c.setLinewrap(1, 1, 2).before(g.getPropertySetAccess().getEndKeyword_7());
 
 		// It's usually a good idea to activate the following three statements.
 		// They will add and preserve newlines around comments
