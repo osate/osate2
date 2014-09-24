@@ -4016,13 +4016,13 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINED_NAMED_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Path Element</b></em>' containment reference.
+	 * The feature id for the '<em><b>Path</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTAINED_NAMED_ELEMENT__PATH_ELEMENT = ELEMENT_FEATURE_COUNT + 0;
+	int CONTAINED_NAMED_ELEMENT__PATH = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Containment Path Element</b></em>' reference list.
@@ -4088,13 +4088,13 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINMENT_PATH_ELEMENT__ANNEX_NAME = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Contained Named Element</b></em>' containment reference.
+	 * The feature id for the '<em><b>Path</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT = ELEMENT_FEATURE_COUNT + 3;
+	int CONTAINMENT_PATH_ELEMENT__PATH = ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Containment Path Element</em>' class.
@@ -33579,13 +33579,13 @@ public interface Aadl2Package extends EPackage {
 	int REFERENCE_VALUE__OWNED_COMMENT = CONTAINED_NAMED_ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Path Element</b></em>' containment reference.
+	 * The feature id for the '<em><b>Path</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_VALUE__PATH_ELEMENT = CONTAINED_NAMED_ELEMENT__PATH_ELEMENT;
+	int REFERENCE_VALUE__PATH = CONTAINED_NAMED_ELEMENT__PATH;
 
 	/**
 	 * The feature id for the '<em><b>Containment Path Element</b></em>' reference list.
@@ -36457,15 +36457,15 @@ public interface Aadl2Package extends EPackage {
 	EClass getContainedNamedElement();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ContainedNamedElement#getPathElement <em>Path Element</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ContainedNamedElement#getPath <em>Path</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Path Element</em>'.
-	 * @see org.osate.aadl2.ContainedNamedElement#getPathElement()
+	 * @return the meta object for the containment reference '<em>Path</em>'.
+	 * @see org.osate.aadl2.ContainedNamedElement#getPath()
 	 * @see #getContainedNamedElement()
 	 * @generated
 	 */
-	EReference getContainedNamedElement_PathElement();
+	EReference getContainedNamedElement_Path();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.osate.aadl2.ContainedNamedElement#getContainmentPathElements <em>Containment Path Element</em>}'.
@@ -36522,15 +36522,15 @@ public interface Aadl2Package extends EPackage {
 	EAttribute getContainmentPathElement_AnnexName();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ContainmentPathElement#getContainedNamedElement <em>Contained Named Element</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ContainmentPathElement#getPath <em>Path</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Contained Named Element</em>'.
-	 * @see org.osate.aadl2.ContainmentPathElement#getContainedNamedElement()
+	 * @return the meta object for the containment reference '<em>Path</em>'.
+	 * @see org.osate.aadl2.ContainmentPathElement#getPath()
 	 * @see #getContainmentPathElement()
 	 * @generated
 	 */
-	EReference getContainmentPathElement_ContainedNamedElement();
+	EReference getContainmentPathElement_Path();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ArrayRange <em>Array Range</em>}'.

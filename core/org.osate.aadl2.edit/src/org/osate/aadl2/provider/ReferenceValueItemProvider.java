@@ -133,7 +133,7 @@ public class ReferenceValueItemProvider extends ContainedNamedElementItemProvide
 		Object childFeature = feature;
 		Object childObject = child;
 
-		boolean qualify = childFeature == Aadl2Package.eINSTANCE.getContainedNamedElement_PathElement()
+		boolean qualify = childFeature == Aadl2Package.eINSTANCE.getContainedNamedElement_Path()
 				|| childFeature == Aadl2Package.eINSTANCE.getContainedNamedElement_ContainmentPathElement();
 
 		if (qualify) {

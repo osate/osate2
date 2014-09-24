@@ -300,7 +300,7 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ContainedNamedElement">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainedNamedElement/pathElement"/>
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainedNamedElement/path"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainedNamedElement/containmentPathElement"/>
     </genClasses>
@@ -311,7 +311,7 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainmentPathElement/namedElement"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ContainmentPathElement/annexName"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainmentPathElement/containedNamedElement"/>
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainmentPathElement/path"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ArrayRange">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ArrayRange/lowerBound"/>

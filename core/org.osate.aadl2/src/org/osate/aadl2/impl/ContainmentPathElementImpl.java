@@ -49,7 +49,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
 
@@ -63,7 +62,7 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getNamedElement <em>Named Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getAnnexName <em>Annex Name</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getContainedNamedElement <em>Contained Named Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getPath <em>Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -111,14 +110,14 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	protected String annexName = ANNEX_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getContainedNamedElement() <em>Contained Named Element</em>}' containment reference.
+	 * The cached value of the '{@link #getPath() <em>Path</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getContainedNamedElement()
+	 * @see #getPath()
 	 * @generated
 	 * @ordered
 	 */
-	protected ContainedNamedElement containedNamedElement;
+	protected ContainmentPathElement path;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -230,8 +229,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ContainedNamedElement getContainedNamedElement() {
-		return containedNamedElement;
+	public ContainmentPathElement getPath() {
+		return path;
 	}
 
 	/**
@@ -239,14 +238,12 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetContainedNamedElement(ContainedNamedElement newContainedNamedElement,
-			NotificationChain msgs) {
-		ContainedNamedElement oldContainedNamedElement = containedNamedElement;
-		containedNamedElement = newContainedNamedElement;
+	public NotificationChain basicSetPath(ContainmentPathElement newPath, NotificationChain msgs) {
+		ContainmentPathElement oldPath = path;
+		path = newPath;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, oldContainedNamedElement,
-					newContainedNamedElement);
+					Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, oldPath, newPath);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -260,22 +257,21 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContainedNamedElement(ContainedNamedElement newContainedNamedElement) {
-		if (newContainedNamedElement != containedNamedElement) {
+	public void setPath(ContainmentPathElement newPath) {
+		if (newPath != path) {
 			NotificationChain msgs = null;
-			if (containedNamedElement != null)
-				msgs = ((InternalEObject) containedNamedElement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, null, msgs);
-			if (newContainedNamedElement != null)
-				msgs = ((InternalEObject) newContainedNamedElement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, null, msgs);
-			msgs = basicSetContainedNamedElement(newContainedNamedElement, msgs);
+			if (path != null)
+				msgs = ((InternalEObject) path).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
+			if (newPath != null)
+				msgs = ((InternalEObject) newPath).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
+			msgs = basicSetPath(newPath, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT, newContainedNamedElement,
-					newContainedNamedElement));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, newPath,
+					newPath));
 	}
 
 	/**
@@ -283,19 +279,11 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ContainedNamedElement createContainedNamedElement(EClass eClass) {
-		ContainedNamedElement newContainedNamedElement = (ContainedNamedElement) create(eClass);
-		setContainedNamedElement(newContainedNamedElement);
-		return newContainedNamedElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ContainedNamedElement createContainedNamedElement() {
-		return createContainedNamedElement(Aadl2Package.eINSTANCE.getContainedNamedElement());
+	public ContainmentPathElement createPath() {
+		ContainmentPathElement newPath = (ContainmentPathElement) create(Aadl2Package.eINSTANCE
+				.getContainmentPathElement());
+		setPath(newPath);
+		return newPath;
 	}
 
 	/**
@@ -308,8 +296,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		switch (featureID) {
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
 			return ((InternalEList<?>) getArrayRanges()).basicRemove(otherEnd, msgs);
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
-			return basicSetContainedNamedElement(null, msgs);
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH:
+			return basicSetPath(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -330,8 +318,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 			return basicGetNamedElement();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return getAnnexName();
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
-			return getContainedNamedElement();
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH:
+			return getPath();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -355,8 +343,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			setAnnexName((String) newValue);
 			return;
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
-			setContainedNamedElement((ContainedNamedElement) newValue);
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH:
+			setPath((ContainmentPathElement) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -379,8 +367,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			setAnnexName(ANNEX_NAME_EDEFAULT);
 			return;
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
-			setContainedNamedElement((ContainedNamedElement) null);
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH:
+			setPath((ContainmentPathElement) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -400,8 +388,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 			return namedElement != null;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return ANNEX_NAME_EDEFAULT == null ? annexName != null : !ANNEX_NAME_EDEFAULT.equals(annexName);
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
-			return containedNamedElement != null;
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH:
+			return path != null;
 		}
 		return super.eIsSet(featureID);
 	}
