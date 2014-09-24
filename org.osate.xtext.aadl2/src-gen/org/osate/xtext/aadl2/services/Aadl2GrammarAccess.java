@@ -28829,13 +28829,24 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	////	( 'annex' containmentPathElement+=AnnexPath )?
 	//ContainmentPath returns aadl2::ContainedNamedElement:
-	//	{aadl2::ContainedNamedElement} pathElement=ContainmentPathElement;
+	//	{aadl2::ContainedNamedElement} path=ContainmentPathElement;
 	public PropertiesGrammarAccess.ContainmentPathElements getContainmentPathAccess() {
 		return gaProperties.getContainmentPathAccess();
 	}
 	
 	public ParserRule getContainmentPathRule() {
 		return getContainmentPathAccess().getRule();
+	}
+
+	////	( 'annex' containmentPathElement+=AnnexPath )?
+	//Path returns aadl2::ContainmentPathElement:
+	//	path=ContainmentPathElement;
+	public PropertiesGrammarAccess.PathElements getPathAccess() {
+		return gaProperties.getPathAccess();
+	}
+	
+	public ParserRule getPathRule() {
+		return getPathAccess().getRule();
 	}
 
 	////AnnexPath returns aadl2::ContainmentPathElement:
@@ -28914,7 +28925,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
-	//	"reference" "(" pathElement=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
+	//	"reference" "(" path=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
 	//	//	containmentPathElement+=ContainmentPathElement
 	//	//	( '.' containmentPathElement+=ContainmentPathElement)*
 	//	//	'**}')?
@@ -28991,7 +29002,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//// need to add annex path element
 	////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	//ContainmentPathElement returns aadl2::ContainmentPathElement:
-	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." containedNamedElement=ContainmentPath)?;
+	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." path=Path)?;
 	public PropertiesGrammarAccess.ContainmentPathElementElements getContainmentPathElementAccess() {
 		return gaProperties.getContainmentPathElementAccess();
 	}
@@ -29002,7 +29013,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//QualifiedContainmentPathElement returns aadl2::ContainmentPathElement:
 	//	(namedElement=[aadl2::NamedElement|QCLREF] | namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("."
-	//	containedNamedElement=ContainmentPath)?;
+	//	path=Path)?;
 	public PropertiesGrammarAccess.QualifiedContainmentPathElementElements getQualifiedContainmentPathElementAccess() {
 		return gaProperties.getQualifiedContainmentPathElementAccess();
 	}

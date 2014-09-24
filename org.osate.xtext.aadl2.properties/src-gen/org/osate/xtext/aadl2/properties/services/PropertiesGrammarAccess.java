@@ -341,25 +341,42 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ContainmentPath");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cContainedNamedElementAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cPathElementAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cPathElementContainmentPathElementParserRuleCall_1_0 = (RuleCall)cPathElementAssignment_1.eContents().get(0);
+		private final Assignment cPathAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cPathContainmentPathElementParserRuleCall_1_0 = (RuleCall)cPathAssignment_1.eContents().get(0);
 		
 		////	( 'annex' containmentPathElement+=AnnexPath )?
 		//ContainmentPath returns aadl2::ContainedNamedElement:
-		//	{aadl2::ContainedNamedElement} pathElement=ContainmentPathElement;
+		//	{aadl2::ContainedNamedElement} path=ContainmentPathElement;
 		public ParserRule getRule() { return rule; }
 
-		//{aadl2::ContainedNamedElement} pathElement=ContainmentPathElement
+		//{aadl2::ContainedNamedElement} path=ContainmentPathElement
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::ContainedNamedElement}
 		public Action getContainedNamedElementAction_0() { return cContainedNamedElementAction_0; }
 
-		//pathElement=ContainmentPathElement
-		public Assignment getPathElementAssignment_1() { return cPathElementAssignment_1; }
+		//path=ContainmentPathElement
+		public Assignment getPathAssignment_1() { return cPathAssignment_1; }
 
 		//ContainmentPathElement
-		public RuleCall getPathElementContainmentPathElementParserRuleCall_1_0() { return cPathElementContainmentPathElementParserRuleCall_1_0; }
+		public RuleCall getPathContainmentPathElementParserRuleCall_1_0() { return cPathContainmentPathElementParserRuleCall_1_0; }
+	}
+
+	public class PathElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Path");
+		private final Assignment cPathAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cPathContainmentPathElementParserRuleCall_0 = (RuleCall)cPathAssignment.eContents().get(0);
+		
+		////	( 'annex' containmentPathElement+=AnnexPath )?
+		//Path returns aadl2::ContainmentPathElement:
+		//	path=ContainmentPathElement;
+		public ParserRule getRule() { return rule; }
+
+		//path=ContainmentPathElement
+		public Assignment getPathAssignment() { return cPathAssignment; }
+
+		//ContainmentPathElement
+		public RuleCall getPathContainmentPathElementParserRuleCall_0() { return cPathContainmentPathElementParserRuleCall_0; }
 	}
 
 	public class ModalPropertyValueElements extends AbstractParserRuleElementFinder {
@@ -660,19 +677,19 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cReferenceKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cPathElementAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cPathElementQualifiedContainmentPathElementParserRuleCall_2_0 = (RuleCall)cPathElementAssignment_2.eContents().get(0);
+		private final Assignment cPathAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cPathQualifiedContainmentPathElementParserRuleCall_2_0 = (RuleCall)cPathAssignment_2.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ReferenceTerm returns aadl2::ReferenceValue:
-		//	"reference" "(" pathElement=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
+		//	"reference" "(" path=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
 		//	//	containmentPathElement+=ContainmentPathElement
 		//	//	( '.' containmentPathElement+=ContainmentPathElement)*
 		//	//	'**}')?
 		//	")";
 		public ParserRule getRule() { return rule; }
 
-		//"reference" "(" pathElement=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
+		//"reference" "(" path=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
 		////	containmentPathElement+=ContainmentPathElement
 		////	( '.' containmentPathElement+=ContainmentPathElement)*
 		////	'**}')?
@@ -685,11 +702,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 
-		//pathElement=QualifiedContainmentPathElement
-		public Assignment getPathElementAssignment_2() { return cPathElementAssignment_2; }
+		//path=QualifiedContainmentPathElement
+		public Assignment getPathAssignment_2() { return cPathAssignment_2; }
 
 		//QualifiedContainmentPathElement
-		public RuleCall getPathElementQualifiedContainmentPathElementParserRuleCall_2_0() { return cPathElementQualifiedContainmentPathElementParserRuleCall_2_0; }
+		public RuleCall getPathQualifiedContainmentPathElementParserRuleCall_2_0() { return cPathQualifiedContainmentPathElementParserRuleCall_2_0; }
 
 		////	( 'annex' ID '{**' 
 		////	containmentPathElement+=ContainmentPathElement
@@ -926,17 +943,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArrayRangeArrayRangeParserRuleCall_0_1_0 = (RuleCall)cArrayRangeAssignment_0_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cContainedNamedElementAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cContainedNamedElementContainmentPathParserRuleCall_1_1_0 = (RuleCall)cContainedNamedElementAssignment_1_1.eContents().get(0);
+		private final Assignment cPathAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cPathPathParserRuleCall_1_1_0 = (RuleCall)cPathAssignment_1_1.eContents().get(0);
 		
 		//// from AADL2
 		//// need to add annex path element
 		////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 		//ContainmentPathElement returns aadl2::ContainmentPathElement:
-		//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." containedNamedElement=ContainmentPath)?;
+		//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." path=Path)?;
 		public ParserRule getRule() { return rule; }
 
-		//(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." containedNamedElement=ContainmentPath)?
+		//(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." path=Path)?
 		public Group getGroup() { return cGroup; }
 
 		//namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?
@@ -957,17 +974,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayRange
 		public RuleCall getArrayRangeArrayRangeParserRuleCall_0_1_0() { return cArrayRangeArrayRangeParserRuleCall_0_1_0; }
 
-		//("." containedNamedElement=ContainmentPath)?
+		//("." path=Path)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"."
 		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
 
-		//containedNamedElement=ContainmentPath
-		public Assignment getContainedNamedElementAssignment_1_1() { return cContainedNamedElementAssignment_1_1; }
+		//path=Path
+		public Assignment getPathAssignment_1_1() { return cPathAssignment_1_1; }
 
-		//ContainmentPath
-		public RuleCall getContainedNamedElementContainmentPathParserRuleCall_1_1_0() { return cContainedNamedElementContainmentPathParserRuleCall_1_1_0; }
+		//Path
+		public RuleCall getPathPathParserRuleCall_1_1_0() { return cPathPathParserRuleCall_1_1_0; }
 	}
 
 	public class QualifiedContainmentPathElementElements extends AbstractParserRuleElementFinder {
@@ -985,16 +1002,16 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArrayRangeArrayRangeParserRuleCall_0_1_1_0 = (RuleCall)cArrayRangeAssignment_0_1_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cContainedNamedElementAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cContainedNamedElementContainmentPathParserRuleCall_1_1_0 = (RuleCall)cContainedNamedElementAssignment_1_1.eContents().get(0);
+		private final Assignment cPathAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cPathPathParserRuleCall_1_1_0 = (RuleCall)cPathAssignment_1_1.eContents().get(0);
 		
 		//QualifiedContainmentPathElement returns aadl2::ContainmentPathElement:
 		//	(namedElement=[aadl2::NamedElement|QCLREF] | namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("."
-		//	containedNamedElement=ContainmentPath)?;
+		//	path=Path)?;
 		public ParserRule getRule() { return rule; }
 
 		//(namedElement=[aadl2::NamedElement|QCLREF] | namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("."
-		//containedNamedElement=ContainmentPath)?
+		//path=Path)?
 		public Group getGroup() { return cGroup; }
 
 		//namedElement=[aadl2::NamedElement|QCLREF] | namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?
@@ -1027,17 +1044,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayRange
 		public RuleCall getArrayRangeArrayRangeParserRuleCall_0_1_1_0() { return cArrayRangeArrayRangeParserRuleCall_0_1_1_0; }
 
-		//("." containedNamedElement=ContainmentPath)?
+		//("." path=Path)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"."
 		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
 
-		//containedNamedElement=ContainmentPath
-		public Assignment getContainedNamedElementAssignment_1_1() { return cContainedNamedElementAssignment_1_1; }
+		//path=Path
+		public Assignment getPathAssignment_1_1() { return cPathAssignment_1_1; }
 
-		//ContainmentPath
-		public RuleCall getContainedNamedElementContainmentPathParserRuleCall_1_1_0() { return cContainedNamedElementContainmentPathParserRuleCall_1_1_0; }
+		//Path
+		public RuleCall getPathPathParserRuleCall_1_1_0() { return cPathPathParserRuleCall_1_1_0; }
 	}
 
 	public class ANNEXREFElements extends AbstractParserRuleElementFinder {
@@ -1539,6 +1556,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	private PropertyAssociationElements pPropertyAssociation;
 	private BasicPropertyAssociationElements pBasicPropertyAssociation;
 	private ContainmentPathElements pContainmentPath;
+	private PathElements pPath;
 	private ModalPropertyValueElements pModalPropertyValue;
 	private OptionalModalPropertyValueElements pOptionalModalPropertyValue;
 	private PropertyValueElements pPropertyValue;
@@ -1660,13 +1678,24 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	////	( 'annex' containmentPathElement+=AnnexPath )?
 	//ContainmentPath returns aadl2::ContainedNamedElement:
-	//	{aadl2::ContainedNamedElement} pathElement=ContainmentPathElement;
+	//	{aadl2::ContainedNamedElement} path=ContainmentPathElement;
 	public ContainmentPathElements getContainmentPathAccess() {
 		return (pContainmentPath != null) ? pContainmentPath : (pContainmentPath = new ContainmentPathElements());
 	}
 	
 	public ParserRule getContainmentPathRule() {
 		return getContainmentPathAccess().getRule();
+	}
+
+	////	( 'annex' containmentPathElement+=AnnexPath )?
+	//Path returns aadl2::ContainmentPathElement:
+	//	path=ContainmentPathElement;
+	public PathElements getPathAccess() {
+		return (pPath != null) ? pPath : (pPath = new PathElements());
+	}
+	
+	public ParserRule getPathRule() {
+		return getPathAccess().getRule();
 	}
 
 	////AnnexPath returns aadl2::ContainmentPathElement:
@@ -1745,7 +1774,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
-	//	"reference" "(" pathElement=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
+	//	"reference" "(" path=QualifiedContainmentPathElement //	( 'annex' ID '{**' 
 	//	//	containmentPathElement+=ContainmentPathElement
 	//	//	( '.' containmentPathElement+=ContainmentPathElement)*
 	//	//	'**}')?
@@ -1822,7 +1851,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	//// need to add annex path element
 	////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	//ContainmentPathElement returns aadl2::ContainmentPathElement:
-	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." containedNamedElement=ContainmentPath)?;
+	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." path=Path)?;
 	public ContainmentPathElementElements getContainmentPathElementAccess() {
 		return (pContainmentPathElement != null) ? pContainmentPathElement : (pContainmentPathElement = new ContainmentPathElementElements());
 	}
@@ -1833,7 +1862,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//QualifiedContainmentPathElement returns aadl2::ContainmentPathElement:
 	//	(namedElement=[aadl2::NamedElement|QCLREF] | namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("."
-	//	containedNamedElement=ContainmentPath)?;
+	//	path=Path)?;
 	public QualifiedContainmentPathElementElements getQualifiedContainmentPathElementAccess() {
 		return (pQualifiedContainmentPathElement != null) ? pQualifiedContainmentPathElement : (pQualifiedContainmentPathElement = new QualifiedContainmentPathElementElements());
 	}

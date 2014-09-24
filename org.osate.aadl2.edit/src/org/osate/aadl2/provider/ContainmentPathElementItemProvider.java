@@ -130,7 +130,7 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainmentPathElement_ArrayRange());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainmentPathElement_ContainedNamedElement());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainmentPathElement_Path());
 		}
 		return childrenFeatures;
 	}
@@ -188,7 +188,7 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider {
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__CONTAINED_NAMED_ELEMENT:
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -209,13 +209,8 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getContainmentPathElement_ArrayRange(),
 				Aadl2Factory.eINSTANCE.createArrayRange()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getContainmentPathElement_ContainedNamedElement(),
-				Aadl2Factory.eINSTANCE.createContainedNamedElement()));
-
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getContainmentPathElement_ContainedNamedElement(),
-				Aadl2Factory.eINSTANCE.createReferenceValue()));
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getContainmentPathElement_Path(),
+				Aadl2Factory.eINSTANCE.createContainmentPathElement()));
 	}
 
 }

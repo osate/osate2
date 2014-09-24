@@ -150,15 +150,6 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetReferencedPropertyType() {
-		return referencedPropertyType != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
@@ -173,6 +164,15 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	public PropertyType basicGetPropertyType() {
 		return (ownedPropertyType != null) ? ownedPropertyType : referencedPropertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPropertyType() {
+		return basicGetPropertyType() != null;
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	@Override
 	public Type getType() {
-		return getReferencedPropertyType();
+		return getPropertyType();
 	}
 
 	/**
@@ -270,7 +270,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	@Override
 	public Type basicGetType() {
-		return basicGetReferencedPropertyType();
+		return basicGetPropertyType();
 	}
 
 	/**
@@ -280,10 +280,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 */
 	@Override
 	public void setType(Type newType) {
-		if (newType != null && !(newType instanceof PropertyType)) {
-			throw new IllegalArgumentException("newType must be an instance of PropertyType");
-		}
-		setReferencedPropertyType((PropertyType) newType);
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -364,11 +361,11 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		case Aadl2Package.BASIC_PROPERTY__TYPE:
 			return isSetType();
 		case Aadl2Package.BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE:
-			return isSetReferencedPropertyType();
+			return referencedPropertyType != null;
 		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
 			return ownedPropertyType != null;
 		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
-			return basicGetPropertyType() != null;
+			return isSetPropertyType();
 		}
 		return super.eIsSet(featureID);
 	}
