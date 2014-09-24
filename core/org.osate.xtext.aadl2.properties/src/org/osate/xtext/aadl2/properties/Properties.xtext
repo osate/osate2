@@ -45,12 +45,6 @@ BasicPropertyAssociation returns aadl2::PropertyAssociation:
 	;
 
 ContainmentPath returns aadl2::ContainedNamedElement:
-	{aadl2::ContainedNamedElement}
-	path=ContainmentPathElement
-//	( 'annex' containmentPathElement+=AnnexPath )?
-;
-
-Path returns aadl2::ContainmentPathElement:
 	path=ContainmentPathElement
 //	( 'annex' containmentPathElement+=AnnexPath )?
 ;
@@ -102,7 +96,7 @@ ConstantValue returns aadl2::NamedValue:
 
 ReferenceTerm returns aadl2::ReferenceValue:
   'reference' '(' 	
-  path=QualifiedContainmentPathElement
+  path=ContainmentPathElement
 //	( 'annex' ID '{**' 
 //	containmentPathElement+=ContainmentPathElement
 //	( '.' containmentPathElement+=ContainmentPathElement)*
@@ -157,19 +151,9 @@ ContainmentPathElement returns aadl2::ContainmentPathElement:
 			namedElement=[aadl2::NamedElement|ID]
 	 		(arrayRange+=ArrayRange)?
 		) 
-		('.' path=Path)?
+		('.' path=ContainmentPathElement)?
 //	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	)
-;
-QualifiedContainmentPathElement returns aadl2::ContainmentPathElement:
-	(
-		namedElement=[aadl2::NamedElement|QCLREF]
-		|	(
-				namedElement=[aadl2::NamedElement|ID]
-	 			(arrayRange+=ArrayRange)?
-			) 
-	)
-	('.' path=Path)?
 ;
 
 ANNEXREF :

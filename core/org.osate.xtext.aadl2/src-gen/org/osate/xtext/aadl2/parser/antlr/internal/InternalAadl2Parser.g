@@ -36759,59 +36759,14 @@ ruleContainmentPath returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getContainmentPathAccess().getContainedNamedElementAction_0(),
-            $current);
-    }
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getContainmentPathAccess().getPathContainmentPathElementParserRuleCall_1_0()); 
-	    }
-		lv_path_1_0=ruleContainmentPathElement		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getContainmentPathRule());
-	        }
-       		set(
-       			$current, 
-       			"path",
-        		lv_path_1_0, 
-        		"ContainmentPathElement");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-;
-
-
-
-
-
-// Entry rule entryRulePath
-entryRulePath returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getPathRule()); }
-	 iv_rulePath=rulePath 
-	 { $current=$iv_rulePath.current; } 
-	 EOF 
-;
-
-// Rule Path
-rulePath returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPathAccess().getPathContainmentPathElementParserRuleCall_0()); 
+	        newCompositeNode(grammarAccess.getContainmentPathAccess().getPathContainmentPathElementParserRuleCall_0()); 
 	    }
 		lv_path_0_0=ruleContainmentPathElement		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPathRule());
+	            $current = createModelElementForParent(grammarAccess.getContainmentPathRule());
 	        }
        		set(
        			$current, 
@@ -37238,9 +37193,9 @@ ruleReferenceTerm returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getReferenceTermAccess().getPathQualifiedContainmentPathElementParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getReferenceTermAccess().getPathContainmentPathElementParserRuleCall_2_0()); 
 	    }
-		lv_path_2_0=ruleQualifiedContainmentPathElement		{
+		lv_path_2_0=ruleContainmentPathElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getReferenceTermRule());
 	        }
@@ -37248,7 +37203,7 @@ ruleReferenceTerm returns [EObject current=null]
        			$current, 
        			"path",
         		lv_path_2_0, 
-        		"QualifiedContainmentPathElement");
+        		"ContainmentPathElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37614,9 +37569,9 @@ ruleContainmentPathElement returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getPathPathParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getPathContainmentPathElementParserRuleCall_1_1_0()); 
 	    }
-		lv_path_3_0=rulePath		{
+		lv_path_3_0=ruleContainmentPathElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
 	        }
@@ -37624,98 +37579,7 @@ ruleContainmentPathElement returns [EObject current=null]
        			$current, 
        			"path",
         		lv_path_3_0, 
-        		"Path");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))?)
-;
-
-
-
-
-
-// Entry rule entryRuleQualifiedContainmentPathElement
-entryRuleQualifiedContainmentPathElement returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getQualifiedContainmentPathElementRule()); }
-	 iv_ruleQualifiedContainmentPathElement=ruleQualifiedContainmentPathElement 
-	 { $current=$iv_ruleQualifiedContainmentPathElement.current; } 
-	 EOF 
-;
-
-// Rule QualifiedContainmentPathElement
-ruleQualifiedContainmentPathElement returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getQualifiedContainmentPathElementRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getQualifiedContainmentPathElementAccess().getNamedElementNamedElementCrossReference_0_0_0()); 
-	    }
-		ruleQCLREF		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-    |((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getQualifiedContainmentPathElementRule());
-	        }
-        }
-	otherlv_1=RULE_ID
-	{
-		newLeafNode(otherlv_1, grammarAccess.getQualifiedContainmentPathElementAccess().getNamedElementNamedElementCrossReference_0_1_0_0()); 
-	}
-
-)
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getQualifiedContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_0_1_1_0()); 
-	    }
-		lv_arrayRange_2_0=ruleArrayRange		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getQualifiedContainmentPathElementRule());
-	        }
-       		add(
-       			$current, 
-       			"arrayRange",
-        		lv_arrayRange_2_0, 
-        		"ArrayRange");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?))(
-	otherlv_3=KEYWORD_7
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getQualifiedContainmentPathElementAccess().getFullStopKeyword_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getQualifiedContainmentPathElementAccess().getPathPathParserRuleCall_1_1_0()); 
-	    }
-		lv_path_4_0=rulePath		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getQualifiedContainmentPathElementRule());
-	        }
-       		set(
-       			$current, 
-       			"path",
-        		lv_path_4_0, 
-        		"Path");
+        		"ContainmentPathElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -38326,46 +38190,6 @@ ruleINTVALUE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     ;
 
 
-
-
-
-// Entry rule entryRuleQCLREF
-entryRuleQCLREF returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getQCLREFRule()); } 
-	 iv_ruleQCLREF=ruleQCLREF 
-	 { $current=$iv_ruleQCLREF.current.getText(); }  
-	 EOF 
-;
-
-// Rule QCLREF
-ruleQCLREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getQCLREFAccess().getIDTerminalRuleCall_0()); 
-    }
-
-	kw=KEYWORD_17 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getQCLREFAccess().getColonColonKeyword_1()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getQCLREFAccess().getIDTerminalRuleCall_2()); 
-    }
-)
-    ;
 
 
 
