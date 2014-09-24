@@ -50,9 +50,6 @@ public class LatencyReport {
 		genericReport = new Report(this.relatedInstance, "latency", ReportType.TABLE);
 
 		for (LatencyReportEntry re : entries) {
-			re.resetAsynchronous();
-			genericReport.addSection(re.export(som));
-			re.resetSynchronous();
 			genericReport.addSection(re.export(som));
 			re.generateMarkers();
 		}

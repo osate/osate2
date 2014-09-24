@@ -18,6 +18,7 @@ public class Initializer extends AbstractPreferenceInitializer {
 		store.setDefault(Constants.DETAILS_MARKERS, Constants.DETAILS_MARKERS_NO);
 		store.setDefault(Constants.DATASET_PROCESSING, Constants.DATASET_PROCESSING_NO);
 		store.setDefault(Constants.BESTCASE_EMPTY_QUEUE, Constants.BESTCASE_EMPTY_QUEUE_YES);
+		store.setDefault(Constants.SYNCHRONOUS_SYSTEM, Constants.SYNCHRONOUS_SYSTEM_NO);
 
 	}
 

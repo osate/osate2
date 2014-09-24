@@ -17,8 +17,13 @@ public abstract class GenericExport {
 	// public static IPath getReportPath(EObject root, String subDirectory, String reportType, String fileSuffix,
 
 	public IPath getPath() {
-		return ReportUtils.getReportPath(report.getRelatedObject(), "latency", "latency",
-				Values.doMajorFrameDelay() ? "MF" : "PE", fileExtension);
+		return ReportUtils.getReportPath(report.getRelatedObject(), "latency", "latency", getPreferencesSuffix(),
+				fileExtension);
+	}
+
+	public String getPreferencesSuffix() {
+		return Values.getSynchronousSystemLabel() + "-" + Values.getMajorFrameDelayLabel() + "-"
+				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
 	}
 
 	public abstract void save(EObject relatedObject);

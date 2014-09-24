@@ -28,26 +28,32 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	 * editor knows how to save and restore itself.
 	 */
 	public void createFieldEditors() {
+		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.SYNCHRONOUS_SYSTEM,
+				"Treat unbound as synchronous or asynchronous system", 1, new String[][] {
+						{ "Asynchronous system (AS)", Constants.SYNCHRONOUS_SYSTEM_NO },
+						{ "Synchronous system (SS)", Constants.SYNCHRONOUS_SYSTEM_YES } }, getFieldEditorParent(), true);
+		addField(synchronousSystem);
 		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
 				"Partition Output Policy", 1, new String[][] {
-						{ "Partition End", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
-						{ "Major Frame Delayed", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
+						{ "Partition End (PE)", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
+						{ "Major Frame Delayed (MF)", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
 				getFieldEditorParent(), true);
 		addField(partitioningPolicy);
 		RadioGroupFieldEditor worstCaseDeadline = new RadioGroupFieldEditor(Constants.WORST_CASE_DEADLINE,
-				"Use deadline as worst-case processing time", 1, new String[][] {
-						{ "Yes", Constants.WORST_CASE_DEADLINE_YES }, { "No", Constants.WORST_CASE_DEADLINE_NO } },
+				"Use deadline or maximum compute execution time as worst-case processing time", 1, new String[][] {
+						{ "Deadline (DL)", Constants.WORST_CASE_DEADLINE_YES },
+						{ "Maximum compute execution time (ET)", Constants.WORST_CASE_DEADLINE_NO } },
 				getFieldEditorParent(), true);
 		addField(worstCaseDeadline);
 		RadioGroupFieldEditor bcEmptyQueue = new RadioGroupFieldEditor(Constants.BESTCASE_EMPTY_QUEUE,
 				"Queuing delay on incoming port queues", 1, new String[][] {
-						{ "Assume empty queue", Constants.BESTCASE_EMPTY_QUEUE_YES },
-						{ "Assume full queue with minimum execution time", Constants.BESTCASE_EMPTY_QUEUE_NO } },
+						{ "Assume empty queue (EQ)", Constants.BESTCASE_EMPTY_QUEUE_YES },
+						{ "Assume full queue with minimum execution time (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
 				getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
 		RadioGroupFieldEditor dsProcessing = new RadioGroupFieldEditor(Constants.DATASET_PROCESSING,
 				"Data set processing: Use Data_model::dimension property as execution time multiplier", 1,
-				new String[][] { { "Yes", Constants.WORST_CASE_DEADLINE_YES },
+				new String[][] { { "Yes (DS)", Constants.WORST_CASE_DEADLINE_YES },
 						{ "No", Constants.WORST_CASE_DEADLINE_NO } }, getFieldEditorParent(), true);
 		addField(dsProcessing);
 		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,

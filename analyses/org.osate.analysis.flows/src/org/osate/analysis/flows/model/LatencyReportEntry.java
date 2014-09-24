@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.analysis.flows.FlowLatencyUtil;
@@ -28,7 +29,6 @@ public class LatencyReportEntry {
 	List<LatencyContributor> contributors;
 	EndToEndFlowInstance relatedEndToEndFlow;
 	List<ReportedCell> issues;
-	boolean doSynchronous = false;
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
 
@@ -41,24 +41,8 @@ public class LatencyReportEntry {
 		this.relatedEndToEndFlow = etef;
 	}
 
-	public void resetSynchronous() {
-		doSynchronous = true;
-		lastSampled = null;
-		for (LatencyContributor lc : contributors) {
-			lc.issues = new ArrayList<ReportedCell>();
-		}
-	}
-
-	public void resetAsynchronous() {
-		doSynchronous = false;
-		lastSampled = null;
-		for (LatencyContributor lc : contributors) {
-			lc.issues = new ArrayList<ReportedCell>();
-		}
-	}
-
 	public boolean doSynchronous() {
-		return doSynchronous;
+		return Values.doSynchronousSystem();
 	}
 
 	public void addContributor(LatencyContributor lc) {
@@ -407,22 +391,6 @@ public class LatencyReportEntry {
 		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
 	}
 
-	private String getSyncLabel() {
-		if (doSynchronous) {
-			return " (S)";
-		} else {
-			return " (A)";
-		}
-	}
-
-	private String getSyncModeName() {
-		if (doSynchronous) {
-			return "synchronous";
-		} else {
-			return "asynchronous";
-		}
-	}
-
 	public Section export(SystemOperationMode som) {
 
 		Section section;
@@ -450,12 +418,17 @@ public class LatencyReportEntry {
 		} else {
 			sectionName = "Unnamed flow";
 		}
+		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
+		String systemName = si.getComponentClassifier().getName();
 		String inMode = som == null || InstanceUtil.isNoMode(som) ? "" : " in mode " + som.getName();
 
-		section = new Section(sectionName + getSyncLabel() + inMode);
-
+		section = new Section(sectionName + inMode);
+		String dspostfix = Values.getDataSetProcessingLabel();
 		line = new Line();
-		line.addHeaderContent("Latency analysis for " + sectionName + inMode + " in " + getSyncModeName() + " system");
+		line.addHeaderContent("Latency analysis for '" + sectionName + "' of system '" + systemName + "'" + inMode
+				+ " with latency preference stettings " + Values.getSynchronousSystemLabel() + ", "
+				+ Values.getMajorFrameDelayLabel() + ", " + Values.getWorstCaseDeadlineLabel() + ", "
+				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : ", " + dspostfix));
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);

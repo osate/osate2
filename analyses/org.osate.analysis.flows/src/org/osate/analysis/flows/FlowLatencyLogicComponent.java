@@ -182,6 +182,10 @@ public class FlowLatencyLogicComponent {
 				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
 				// take into account queuing delay on event and event data ports.
 				double qs = GetProperties.getQueueSize(fi);
+				if (qs > 0) {
+					// subtract one since the arriving element becomes the last element
+					qs = qs - 1;
+				}
 				double dl = 0.0;
 				if (InstanceModelUtil.isSporadicComponent(componentInstance)
 						|| InstanceModelUtil.isPeriodicComponent(componentInstance)) {
@@ -194,7 +198,7 @@ public class FlowLatencyLogicComponent {
 				ql.setMaximum(queuingDelay);
 				if (Values.doBestcaseEmptyQueue()) {
 					ql.setMinimum(0.0);
-					ql.reportInfo("Assume empty queue");
+					ql.reportInfo("Assume best case empty queue");
 				} else {
 					double mindl = (InstanceModelUtil.isSporadicComponent(componentInstance)
 							|| InstanceModelUtil.isPeriodicComponent(componentInstance) ? period : bestCaseValue);
