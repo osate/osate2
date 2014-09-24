@@ -64,6 +64,7 @@ import org.osate.aadl2.RecordType
 import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.parsesupport.AObject
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
@@ -209,7 +210,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 				}
 			}
 		}
-		namespace?.allMembers?.scopeFor ?: IScope::NULLSCOPE
+		namespace?.allMembers?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 //	override getScope(EObject context, EReference reference) {
@@ -252,6 +253,16 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
 	}
 	
+	def protected static <T extends AObject> filterRefined(Iterable<T> unfiltered) {
+		unfiltered.filter[member |
+			if (member instanceof RefinableElement) {
+				!unfiltered.filter(RefinableElement).exists[it.refinedElement == member]
+			} else {
+				true
+			}
+		]
+	}
+	
 	def protected static allSubprogramCalls(BehavioredImplementation implementation) {
 		val allSubprogramCalls = newArrayList
 		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
@@ -285,13 +296,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		if (classifier instanceof BehavioredImplementation) {
 			allMembers.addAll(classifier.allSubprogramCalls)
 		}
-		allMembers.filter[
-			if (it instanceof RefinableElement) {
-				refinedElement == null
-			} else {
-				true
-			}
-		]
+		allMembers
 	}
 	
 	def static private createUnitLiteralsScopeFromPropertyType(PropertyType type) {

@@ -143,7 +143,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from SubprogramCall in Aadl2.xtext
 	def scope_SubprogramCall_context(Element context, EReference reference) {
 		var scope = scope_Classifier(context, reference)
-		context.getContainerOfType(BehavioredImplementation)?.members?.filter(CallContext).scopeFor(scope) ?: scope
+		context.getContainerOfType(BehavioredImplementation)?.members?.filter(CallContext)?.filterRefined?.scopeFor(scope) ?: scope
 	}
 	
 	//Reference is from SubprogramCall in Aadl2.xtext
@@ -152,7 +152,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		val callContext = context.getContainerOfType(SubprogramCall)?.context
 		if (callContext == null) {
 			//No call context.  Add prototypes, subprogram accesses, and subprogram subcomponents from the classifier to the scope.
-			scope = context.getContainerOfType(Classifier).members.filter(CalledSubprogram).scopeFor(scope)
+			scope = context.getContainerOfType(Classifier).members.filter(CalledSubprogram).filterRefined.scopeFor(scope)
 		} else {
 			scope = IScope::NULLSCOPE
 			var Classifier callContextNamespace
@@ -178,7 +178,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				FeatureGroup:
 					callContextNamespace = callContext.featureGroupType
 			}
-			scope = callContextNamespace?.members?.filter(CalledSubprogram).scopeFor(scope) ?: scope
+			scope = callContextNamespace?.members?.filter(CalledSubprogram)?.filterRefined?.scopeFor(scope) ?: scope
 		}
 		scope
 	}
@@ -195,7 +195,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * FeatureGroupPrototype and FeaturePrototype in Aadl2.xtext
 	 */
 	def scope_Prototype_refined(Classifier context, EReference reference) {
-		context.extended?.allPrototypes?.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.allPrototypes?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from FeaturePrototype in Aadl2.xtext
@@ -207,7 +207,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	def scope_PrototypeBinding_formal(ComponentPrototypeActual context, EReference reference) {
 		val subcomponentType = context.subcomponentType
 		if (subcomponentType instanceof ComponentClassifier) {
-			subcomponentType.allPrototypes.scopeFor
+			subcomponentType.allPrototypes.filterRefined.scopeFor
 		} else {
 			IScope::NULLSCOPE
 		}
@@ -217,7 +217,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	def scope_PrototypeBinding_formal(FeatureGroupPrototypeActual context, EReference reference) {
 		val featureType = context.featureType
 		if (featureType instanceof FeatureGroupType) {
-			featureType.allPrototypes.scopeFor
+			featureType.allPrototypes.filterRefined.scopeFor
 		} else {
 			IScope::NULLSCOPE
 		}
@@ -225,22 +225,22 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(ComponentImplementationReference context, EReference reference) {
-		context.implementation?.allPrototypes?.scopeFor ?: IScope::NULLSCOPE
+		context.implementation?.allPrototypes?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(Subcomponent context, EReference reference) {
-		context.allClassifier?.allPrototypes?.scopeFor ?: IScope::NULLSCOPE
+		context.allClassifier?.allPrototypes?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from FeatureGroupPrototypeBinding, FeaturePrototypeBinding, and ComponentPrototypeBinding in Aadl2.xtext
 	def scope_PrototypeBinding_formal(Classifier context, EReference reference) {
-		context.generals.map[allPrototypes].flatten.toSet.scopeFor
+		context.generals.map[allPrototypes].flatten.toSet.filterRefined.scopeFor
 	}
 	
 	//Reference is from FeatureGroupPrototypeActual in Aadl2.xtext
 	def scope_FeatureGroupPrototypeActual_featureType(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(FeatureGroupPrototype).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(FeatureGroupPrototype).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from PortSpecification in Aadl2.xtext
@@ -255,12 +255,12 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FeaturePrototypeReference in Aadl2.xtext
 	def scope_FeaturePrototypeReference_prototype(Classifier context, EReference reference) {
-		context.allPrototypes.filter(FeaturePrototype).scopeFor
+		context.allPrototypes.filter(FeaturePrototype).filterRefined.scopeFor
 	}
 	
 	//Reference is from ComponentReference in Aadl2.xtext
 	def scope_ComponentPrototypeActual_subcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(SubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(SubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	/*
@@ -270,127 +270,127 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * VirtualBusSubcomponent, and DataSubcomponent in Aadl2.xtext
 	 */
 	def scope_Subcomponent_refined(ComponentImplementation context, EReference reference) {
-		context.extended?.allSubcomponents?.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.allSubcomponents?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from AbstractSubcomponent in Aadl2.xtext
 	def scope_AbstractSubcomponent_abstractSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(AbstractSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(AbstractSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SystemSubcomponent in Aadl2.xtext
 	def scope_SystemSubcomponent_systemSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(SystemSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(SystemSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ProcessSubcomponent in Aadl2.xtext
 	def scope_ProcessSubcomponent_processSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ProcessSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ProcessSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ThreadGroupSubcomponent in Aadl2.xtext
 	def scope_ThreadGroupSubcomponent_threadGroupSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ThreadGroupSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ThreadGroupSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ThreadSubcomponent in Aadl2.xtext
 	def scope_ThreadSubcomponent_threadSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ThreadSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ThreadSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramSubcomponent in Aadl2.xtext
 	def scope_SubprogramSubcomponent_subprogramSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(SubprogramSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(SubprogramSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramGroupSubcomponent in Aadl2.xtext
 	def scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(SubprogramGroupSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(SubprogramGroupSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from ProcessorSubcomponent in Aadl2.xtext
 	def scope_ProcessorSubcomponent_processorSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ProcessorSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(ProcessorSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from VirtualProcessorSubcomponent in Aadl2.xtext
 	def scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(VirtualProcessorSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(VirtualProcessorSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DeviceSubcomponent in Aadl2.xtext
 	def scope_DeviceSubcomponent_deviceSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(DeviceSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(DeviceSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from MemorySubcomponent in Aadl2.xtext
 	def scope_MemorySubcomponent_memorySubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(MemorySubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(MemorySubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from BusSubcomponent in Aadl2.xtext
 	def scope_BusSubcomponent_busSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(BusSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(BusSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from VirtualBusSubcomponent in Aadl2.xtext
 	def scope_VirtualBusSubcomponent_virtualBusSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(VirtualBusSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(VirtualBusSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DataSubcomponent in Aadl2.xtext
 	def scope_DataSubcomponent_dataSubcomponentType(Element context, EReference reference) {
-		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(DataSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(ComponentImplementation).allPrototypes.filter(DataSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DataPort, EventDataPort, EventPort, FeatureGroup, Parameter, SubprogramAccess, SubprogramGroupAccess, BusAccess, DataAccess, and AbstractFeature in Aadl2.xtext
 	def scope_Feature_refined(Classifier context, EReference reference) {
-		context.extended?.getAllFeatures()?.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.getAllFeatures()?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from DataPort in Aadl2.xtext
 	def scope_DataPort_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from EventDataPort in Aadl2.xtext
 	def scope_EventDataPort_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from FeatureGroup in Aadl2.xtext
 	def scope_FeatureGroup_featureType(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(FeatureType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(FeatureType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from Parameter in Aadl2.xtext
 	def scope_Parameter_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramAccess in Aadl2.xtext
 	def scope_SubprogramAccess_subprogramFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(SubprogramSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(SubprogramSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from SubprogramGroupAccess in Aadl2.xtext
 	def scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(SubprogramGroupSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(SubprogramGroupSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from BusAccess in Aadl2.xtext
 	def scope_BusAccess_busFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(BusSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(BusSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DataAccess in Aadl2.xtext
 	def scope_DataAccess_dataFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(DataSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from AbstractFeature in Aadl2.xtext
 	def scope_AbstractFeature_featurePrototype(Classifier context, EReference reference) {
-		context.allPrototypes.filter(FeaturePrototype).scopeFor
+		context.allPrototypes.filter(FeaturePrototype).filterRefined.scopeFor
 	}
 	
 	//Reference is from EventDataSource in Aadl2.xtext
@@ -410,7 +410,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from ConnectedElement in Aadl2.xtext
 	def scope_ConnectedElement_context(ComponentImplementation context, EReference reference) {
-		context.allContexts.scopeFor
+		context.allContexts.filterRefined.scopeFor
 	}
 	
 	/*
@@ -421,7 +421,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * scope method.
 	 */
 	def scope_ConnectedElement_connectionEnd(Connection context, EReference reference) {
-		context.getContainerOfType(Classifier).allConnectionEnds.scopeFor
+		context.getContainerOfType(Classifier).allConnectionEnds.filterRefined.scopeFor
 	}
 	
 	/*
@@ -431,12 +431,12 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * can access and check the ConnectedElement's Context object.
 	 */
 	def scope_ConnectedElement_connectionEnd(ConnectedElement context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allConnectionEnds]) ?: scope_ConnectedElement_connectionEnd(context.owner as Connection, reference)
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allConnectionEnds.filterRefined]) ?: scope_ConnectedElement_connectionEnd(context.owner as Connection, reference)
 	}
 	
 	//Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and ParameterConnection in Aadl2.xtext
 	def scope_Connection_refined(ComponentImplementation context, EReference reference) {
-		context.extended?.allConnections?.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.allConnections?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	/*
@@ -449,7 +449,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from FlowEnd in Aadl2.xtext
 	def scope_FlowEnd_context(ComponentType context, EReference reference) {
-		context.allContexts.scopeFor
+		context.allContexts.filterRefined.scopeFor
 	}
 	
 	/*
@@ -460,7 +460,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * FlowEnd, thus calling the other scope method.
 	 */
 	def scope_FlowEnd_feature(FlowSpecification context, EReference reference) {
-		context.getContainerOfType(Classifier).getAllFeatures().scopeFor
+		context.getContainerOfType(Classifier).getAllFeatures().filterRefined.scopeFor
 	}
 	
 	/*
@@ -469,27 +469,27 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a FlowEnd and we can access and check the FlowEnd's Context object.
 	 */
 	def scope_FlowEnd_feature(FlowEnd context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [getAllFeatures()]) ?: scope_FlowEnd_feature(context.owner as FlowSpecification, reference)
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [getAllFeatures().filterRefined]) ?: scope_FlowEnd_feature(context.owner as FlowSpecification, reference)
 	}
 	
 	//Reference is from FlowSpecRefinement in Aadl2.xtext
 	def scope_FlowSpecification_refined(ComponentType context, EReference reference) {
-		context.extended?.allFlowSpecifications?.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.allFlowSpecifications?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from FlowSourceImpl, FlowSinkImpl, and FlowPathImpl in Aadl2.xtext
 	def scope_FlowImplementation_specification(ComponentImplementation context, EReference reference) {
-		context.type?.allFlowSpecifications?.scopeFor ?: IScope::NULLSCOPE
+		context.type?.allFlowSpecifications?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from EndToEndFlow in Aadl2.xtext
 	def scope_EndToEndFlow_refined(ComponentImplementation context, EReference reference) {
-		context.extended?.allEndToEndFlows?.scopeFor ?: IScope::NULLSCOPE
+		context.extended?.allEndToEndFlows?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
 	//Reference is from SubcomponentFlow in Aadl2.xtext
 	def scope_FlowSegment_context(ComponentImplementation context, EReference reference) {
-		context.allContexts.scopeFor
+		context.allContexts.filterRefined.scopeFor
 	}
 	
 	/*
@@ -500,7 +500,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * passed context is a FlowSegment, thus calling the other scope method.
 	 */
 	def scope_FlowSegment_flowElement(FlowImplementation context, EReference reference) {
-		context.getContainerOfType(Classifier).allFlowElements.scopeFor
+		context.getContainerOfType(Classifier).allFlowElements.filterRefined.scopeFor
 	}
 	
 	/*
@@ -510,12 +510,12 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * FlowSegment's Context object.
 	 */
 	def scope_FlowSegment_flowElement(FlowSegment context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allFlowElements]) ?: scope_FlowSegment_flowElement(context.owner as FlowImplementation, reference)
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allFlowElements.filterRefined]) ?: scope_FlowSegment_flowElement(context.owner as FlowImplementation, reference)
 	}
 	
 	//Reference is from ETESubcomponentFlow in Aadl2.xtext
 	def scope_EndToEndFlowSegment_context(ComponentImplementation context, EReference reference) {
-		context.allContexts.scopeFor
+		context.allContexts.filterRefined.scopeFor
 	}
 	
 	/*
@@ -526,7 +526,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * "subcomponent1.flowpath1", then the passed context is an EndToEndFlowSegment, thus calling the other scope method.
 	 */
 	def scope_EndToEndFlowSegment_flowElement(EndToEndFlow context, EReference reference) {
-		context.getContainerOfType(Classifier).allEndToEndFlowElements.scopeFor
+		context.getContainerOfType(Classifier).allEndToEndFlowElements.filterRefined.scopeFor
 	}
 	
 	/*
@@ -536,7 +536,8 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * and check the EndToEndFlowSegment's Context object.
 	 */
 	def scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allEndToEndFlowElements]) ?: scope_EndToEndFlowSegment_flowElement(context.owner as EndToEndFlow, reference)
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allEndToEndFlowElements.filterRefined]) ?:
+			scope_EndToEndFlowSegment_flowElement(context.owner as EndToEndFlow, reference)
 	}
 	
 	def private static allPrototypes(Classifier classifier) {
