@@ -540,6 +540,16 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			scope_EndToEndFlowSegment_flowElement(context.owner as EndToEndFlow, reference)
 	}
 	
+	//Reference is from ModeTransition in Aadl2.xtext
+	def scope_ModeTransition_source(ComponentClassifier context, EReference reference) {
+		context.allModes.scopeFor
+	}
+	
+	//Reference is from ModeTransition in Aadl2.xtext
+	def scope_ModeTransition_destination(ComponentClassifier context, EReference reference) {
+		context.allModes.scopeFor
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
