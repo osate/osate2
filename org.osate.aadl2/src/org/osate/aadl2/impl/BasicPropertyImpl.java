@@ -276,11 +276,11 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setType(Type newType) {
-		throw new UnsupportedOperationException();
+		// do nothing
 	}
 
 	/**
