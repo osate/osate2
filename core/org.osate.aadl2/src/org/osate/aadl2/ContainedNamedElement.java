@@ -50,7 +50,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.ContainedNamedElement#getPathElement <em>Path Element</em>}</li>
+ *   <li>{@link org.osate.aadl2.ContainedNamedElement#getPath <em>Path</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainedNamedElement#getContainmentPathElements <em>Containment Path Element</em>}</li>
  * </ul>
  * </p>
@@ -62,39 +62,39 @@ import org.eclipse.emf.common.util.EList;
 public interface ContainedNamedElement extends Element {
 
 	/**
-	 * Returns the value of the '<em><b>Path Element</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Path</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * <p>From package AADLProperties::Associations.</p>
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Path Element</em>' containment reference.
-	 * @see #setPathElement(ContainmentPathElement)
-	 * @see org.osate.aadl2.Aadl2Package#getContainedNamedElement_PathElement()
+	 * @return the value of the '<em>Path</em>' containment reference.
+	 * @see #setPath(ContainmentPathElement)
+	 * @see org.osate.aadl2.Aadl2Package#getContainedNamedElement_Path()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	ContainmentPathElement getPathElement();
+	ContainmentPathElement getPath();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.ContainedNamedElement#getPathElement <em>Path Element</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.aadl2.ContainedNamedElement#getPath <em>Path</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Path Element</em>' containment reference.
-	 * @see #getPathElement()
+	 * @param value the new value of the '<em>Path</em>' containment reference.
+	 * @see #getPath()
 	 * @generated
 	 */
-	void setPathElement(ContainmentPathElement value);
+	void setPath(ContainmentPathElement value);
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.ContainmentPathElement} and sets the '<em><b>Path Element</b></em>' containment reference.
+	 * Creates a new {@link org.osate.aadl2.ContainmentPathElement} and sets the '<em><b>Path</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return The new {@link org.osate.aadl2.ContainmentPathElement}.
-	 * @see #getPathElement()
+	 * @see #getPath()
 	 * @generated
 	 */
-	ContainmentPathElement createPathElement();
+	ContainmentPathElement createPath();
 
 	/**
 	 * Returns the value of the '<em><b>Containment Path Element</b></em>' reference list.

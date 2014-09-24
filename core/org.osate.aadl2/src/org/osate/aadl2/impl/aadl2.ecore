@@ -140,14 +140,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BasicProperty" eSuperTypes="#//TypedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedPropertyType"
-        ordered="false" eType="#//PropertyType">
-      <eAnnotations source="redefines" references="#//TypedElement/type"/>
-    </eStructuralFeatures>
+        ordered="false" eType="#//PropertyType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
         eType="#//PropertyType" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
         unique="false" lowerBound="1" eType="#//PropertyType" changeable="false" volatile="true"
-        transient="true" derived="true"/>
+        transient="true" derived="true">
+      <eAnnotations source="redefines" references="#//TypedElement/type"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypedElement" abstract="true" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
@@ -360,8 +360,8 @@
         lowerBound="1" eType="#//Prototype"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContainedNamedElement" eSuperTypes="#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pathElement" lowerBound="1"
-        eType="#//ContainmentPathElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="path" lowerBound="1" eType="#//ContainmentPathElement"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentPathElement"
         ordered="false" upperBound="-1" eType="#//ContainmentPathElement" changeable="false"
         volatile="true" transient="true" derived="true"/>
@@ -373,8 +373,8 @@
         lowerBound="1" eType="#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="annexName" ordered="false"
         eType="#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="containedNamedElement"
-        ordered="false" eType="#//ContainedNamedElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="path" ordered="false" eType="#//ContainmentPathElement"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArrayRange" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerBound" ordered="false"

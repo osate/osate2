@@ -2838,7 +2838,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContainedNamedElement_PathElement() {
+	public EReference getContainedNamedElement_Path() {
 		return (EReference) getContainedNamedElement().getEStructuralFeatures().get(0);
 	}
 
@@ -2896,7 +2896,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContainmentPathElement_ContainedNamedElement() {
+	public EReference getContainmentPathElement_Path() {
 		return (EReference) getContainmentPathElement().getEStructuralFeatures().get(3);
 	}
 
