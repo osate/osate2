@@ -70,7 +70,7 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 
 	@Override
 	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
-		return org.osate.xtext.aadl2.ui.editor.autoedit.Aadl2AutoEditStrategyPprovider.class;
+		return org.osate.xtext.aadl2.ui.editor.autoedit.Aadl2AutoEditStrategyProvider.class;
 	}
 
 	@SuppressWarnings("restriction")
