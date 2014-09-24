@@ -220,7 +220,7 @@ public class ResolvePrototypeUtil {
 	}
 
 	public static ContainmentPathElement getPrevious(ContainmentPathElement cpe) {
-		Element parent = cpe.getOwner().getOwner();
+		Element parent = cpe.getOwner();
 		if (parent instanceof ContainmentPathElement) {
 			return (ContainmentPathElement) parent;
 		} else {
