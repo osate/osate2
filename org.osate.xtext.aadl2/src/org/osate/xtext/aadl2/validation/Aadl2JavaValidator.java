@@ -3919,22 +3919,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	private static String getEClassDisplayNameWithIndefiniteArticle(EClass eClass) {
-		StringBuilder displayName = new StringBuilder(eClass.getName());
-		for (int i = displayName.length() - 1; i > 0; i--) {
-			if (Character.isUpperCase(displayName.charAt(i))) {
-				displayName.insert(i, ' ');
-			}
-		}
-		if ("AEIOU".indexOf(displayName.charAt(0)) == -1) {
-			displayName.insert(0, "a '");
-		} else {
-			displayName.insert(0, "an '");
-		}
-		displayName.append('\'');
-		return displayName.toString().toLowerCase();
-	}
-
 	private static String getEClassDisplayName(EClass eClass) {
 		StringBuilder displayName = new StringBuilder(eClass.getName());
 		for (int i = displayName.length() - 1; i > 0; i--) {
