@@ -29,7 +29,7 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	 */
 	public void createFieldEditors() {
 		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.SYNCHRONOUS_SYSTEM,
-				"Treat unbound as synchronous or asynchronous system", 1, new String[][] {
+				"Treat as synchronous or asynchronous system", 1, new String[][] {
 						{ "Asynchronous system (AS)", Constants.SYNCHRONOUS_SYSTEM_NO },
 						{ "Synchronous system (SS)", Constants.SYNCHRONOUS_SYSTEM_YES } }, getFieldEditorParent(), true);
 		addField(synchronousSystem);
@@ -40,16 +40,15 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 				getFieldEditorParent(), true);
 		addField(partitioningPolicy);
 		RadioGroupFieldEditor worstCaseDeadline = new RadioGroupFieldEditor(Constants.WORST_CASE_DEADLINE,
-				"Use deadline or maximum compute execution time as worst-case processing time", 1, new String[][] {
+				"For worst-case processing time use", 1, new String[][] {
 						{ "Deadline (DL)", Constants.WORST_CASE_DEADLINE_YES },
 						{ "Maximum compute execution time (ET)", Constants.WORST_CASE_DEADLINE_NO } },
 				getFieldEditorParent(), true);
 		addField(worstCaseDeadline);
 		RadioGroupFieldEditor bcEmptyQueue = new RadioGroupFieldEditor(Constants.BESTCASE_EMPTY_QUEUE,
-				"Queuing delay on incoming port queues", 1, new String[][] {
+				"Best case queuing latency on incoming ports", 1, new String[][] {
 						{ "Assume empty queue (EQ)", Constants.BESTCASE_EMPTY_QUEUE_YES },
-						{ "Assume full queue with minimum execution time (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
-				getFieldEditorParent(), true);
+						{ "Assume full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } }, getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
 		RadioGroupFieldEditor dsProcessing = new RadioGroupFieldEditor(Constants.DATASET_PROCESSING,
 				"Data set processing: Use Data_model::dimension property as execution time multiplier", 1,
