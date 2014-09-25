@@ -18,10 +18,12 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -104,8 +106,13 @@ public class SetFeatureDirectionFeature extends AbstractCustomFeature{
 			final DirectedFeature df1 = (DirectedFeature)bo;
 			aadlModService.modify(df1, new AbstractModifier<org.osate.aadl2.DirectedFeature, Object>() {
 				public Object modify(final Resource res, final DirectedFeature df) {
-					df.setDirection(featDir);
-
+					if(df instanceof AbstractFeature || df instanceof FeatureGroup) {
+				        df.setIn(featDir != DirectionType.IN_OUT && featDir == DirectionType.IN);
+				        df.setOut(featDir != DirectionType.IN_OUT && featDir == DirectionType.OUT);
+				    } else {
+				        df.setIn(featDir == DirectionType.IN_OUT || featDir == DirectionType.IN);
+				        df.setOut(featDir == DirectionType.IN_OUT || featDir == DirectionType.OUT);
+				    }
 					return null;
 				}
 			});

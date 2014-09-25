@@ -99,7 +99,10 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
 					newFeature.setRefined(feature);
 					
 					if(feature instanceof DirectedFeature) {
-						((DirectedFeature)newFeature).setDirection(((DirectedFeature)feature).getDirection());
+						final DirectedFeature refinedDirectedFeature= (DirectedFeature)feature;
+						final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;						
+						newDirectedFeature.setIn(refinedDirectedFeature.isIn());
+						newDirectedFeature.setOut(refinedDirectedFeature.isOut());
 					} else if(feature instanceof Access) {
 						((Access)newFeature).setKind(((Access)feature).getKind());
 					}
