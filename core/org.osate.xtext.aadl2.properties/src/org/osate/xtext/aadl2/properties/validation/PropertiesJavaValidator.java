@@ -39,6 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -46,6 +47,8 @@ import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
 import org.osate.aadl2.AadlPackage;
@@ -63,6 +66,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MetaclassReference;
@@ -74,6 +78,7 @@ import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
@@ -121,6 +126,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	@Check(CheckType.FAST)
 	public void caseClassifierValue(ClassifierValue nt) {
 		checkClassifierReferenceInWith(nt.getClassifier(), nt);
+	}
+
+	@Check(CheckType.FAST)
+	public void caseContainmentPathElement(ContainmentPathElement pathElement) {
+		typeCheckContainmentPathElement(pathElement);
 	}
 
 	// checking methods
@@ -464,6 +474,32 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 						EcoreUtil.getURI(contextNS).toString());
 			}
 		}
+	}
+
+	private void typeCheckContainmentPathElement(ContainmentPathElement pathElement) {
+		if (pathElement.getOwner() instanceof ContainmentPathElement
+				&& (pathElement.getNamedElement() instanceof InternalFeature || pathElement.getNamedElement() instanceof ProcessorFeature)) {
+			error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(pathElement.getNamedElement()
+					.eClass()))
+					+ " is not visible outside of its component implementation or extending implementations.",
+					pathElement, Aadl2Package.eINSTANCE.getContainmentPathElement_NamedElement());
+		}
+	}
+
+	protected static String getEClassDisplayNameWithIndefiniteArticle(EClass eClass) {
+		StringBuilder displayName = new StringBuilder(eClass.getName());
+		for (int i = displayName.length() - 1; i > 0; i--) {
+			if (Character.isUpperCase(displayName.charAt(i))) {
+				displayName.insert(i, ' ');
+			}
+		}
+		if ("AEIOU".indexOf(displayName.charAt(0)) == -1) {
+			displayName.insert(0, "a '");
+		} else {
+			displayName.insert(0, "an '");
+		}
+		displayName.append('\'');
+		return displayName.toString().toLowerCase();
 	}
 
 	// helper methods
