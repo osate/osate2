@@ -73,7 +73,6 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
@@ -275,17 +274,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// context
 			// also used in triggerport
 			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			if (context instanceof ConnectedElement || context instanceof FlowEnd || context instanceof FlowSegment
-					|| context instanceof EndToEndFlowSegment) {
-				// connection context
-				if (searchResult instanceof Context) {
-					return Collections.singletonList(searchResult);
-				}
-			} else if (context instanceof ModeTransitionTrigger) {
-				if (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup
-						|| searchResult instanceof SubprogramCall) {
-					return Collections.singletonList(searchResult);
-				}
+			if (searchResult instanceof Context) {
+				return Collections.singletonList(searchResult);
 			}
 			return Collections.<EObject> emptyList();
 
