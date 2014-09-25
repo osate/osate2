@@ -34,9 +34,7 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
-import com.google.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.After
 import org.junit.Before
@@ -56,8 +54,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
 class FeaturesAndSubcomponentsTest extends OsateTest {
-	@Inject extension ValidationTestHelper
-	
 	static val TEST_PROJECT_NAME = "Aadl2_Scope_Provider_Test"
 	
 	@Before
@@ -727,14 +723,11 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 			'''
 		)
 		suppressSerialization
-		testFile("pack2.aadl").resource.contents.head.assertNoIssues
-		testFile("pack3.aadl").resource.contents.head.assertNoIssues
-		testFile("pack4.aadl").resource.contents.head.assertNoIssues
-		testFile("pack5.aadl").resource.contents.head.assertNoIssues
-		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
-		pack1.assertNoIssues
-		
-		pack1 => [
+		testFile("pack2.aadl")
+		testFile("pack3.aadl")
+		testFile("pack4.aadl")
+		testFile("pack5.aadl")
+		testFile("pack1.aadl").resource.contents.head as AadlPackage => [
 			"pack1".assertEquals(name)
 			publicSection.ownedClassifiers.get(0) as AbstractType => [
 				"container".assertEquals(name)
