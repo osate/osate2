@@ -192,6 +192,7 @@ public class FlowLatencyLogicComponent {
 					if (qs > 0) {
 						// subtract one since the arriving element becomes the last element
 						qs = qs - 1;
+						ql.reportInfo("Sporadic or periodic has queue delay reduced by one. It is accounted for in the sampling delay");
 					}
 				} else {
 					dl = worstCaseValue;
