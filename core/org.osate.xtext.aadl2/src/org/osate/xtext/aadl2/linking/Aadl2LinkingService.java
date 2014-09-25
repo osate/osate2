@@ -210,33 +210,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
-			EObject searchResult = AadlUtil.getContainingClassifier(context).findNamedElement(name);
-			if (searchResult == null) {
-				if (context instanceof ModeTransitionTrigger) {
-					// we are a mode transition trigger
-					Context triggerContext = ((ModeTransitionTrigger) context).getContext();
-					Classifier ns = null;
-					if (triggerContext instanceof Subcomponent) {
-						// look up the feature in the ComponentType
-						ComponentType ct = ((Subcomponent) triggerContext).getComponentType();
-						if (ct != null) {
-							ns = ct;
-						}
-					}
-					if (triggerContext instanceof FeatureGroup) {
-						// look up the feature in the FeaturegroupType
-						FeatureGroupType ct = ((FeatureGroup) triggerContext).getFeatureGroupType();
-						if (ct != null) {
-							ns = ct;
-						}
-					}
-					if (ns != null) {
-						searchResult = AadlUtil.findNamedElementInList(ns.getAllFeatures(), name);
-					}
-				}
+			ModeTransitionTrigger trigger = (ModeTransitionTrigger) context;
+			TriggerPort triggerPort = findElementInContext(trigger, trigger.getContext(), name, TriggerPort.class);
+			if (triggerPort != null) {
+				return Collections.singletonList((EObject) triggerPort);
 			}
-			return (searchResult instanceof TriggerPort) ? Collections.singletonList(searchResult) : Collections
-					.<EObject> emptyList();
+			return Collections.emptyList();
 		} else if (Aadl2Package.eINSTANCE.getPort().isSuperTypeOf(requiredType)) {
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
