@@ -573,6 +573,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkAadlinteger(ai);
 	}
 
+	@Check(CheckType.FAST)
+	public void caseModeTransitionTrigger(ModeTransitionTrigger trigger) {
+		typeCheckModeTransitionTrigger(trigger);
+	}
+
 	/**
 	 * check ID at after 'end'
 	 */
@@ -3916,6 +3921,28 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 					+ " is not a valid port connection end.", connectedElement,
 					Aadl2Package.eINSTANCE.getConnectedElement_Context());
+		}
+	}
+
+	private void typeCheckModeTransitionTrigger(ModeTransitionTrigger trigger) {
+		Context triggerContext = trigger.getContext();
+		TriggerPort triggerPort = trigger.getTriggerPort();
+		if ((triggerContext != null && triggerContext.eIsProxy()) || triggerPort == null || triggerPort.eIsProxy()) {
+			// Don't validate if the context or trigger port could not be resolved.
+			return;
+		}
+		if (triggerContext instanceof Subcomponent || triggerContext instanceof FeatureGroup
+				|| triggerContext instanceof SubprogramCall) {
+			if (!(triggerPort instanceof AbstractFeature || triggerPort instanceof Port)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(triggerPort.eClass()))
+						+ " in " + getEClassDisplayName(triggerContext.eClass())
+						+ " is not a valid mode transition trigger.", trigger,
+						Aadl2Package.eINSTANCE.getModeTransitionTrigger_TriggerPort());
+			}
+		} else if (triggerContext != null) {
+			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(triggerContext.eClass())
+					+ " is not a valid mode transition trigger.", trigger,
+					Aadl2Package.eINSTANCE.getModeTransitionTrigger_Context());
 		}
 	}
 
