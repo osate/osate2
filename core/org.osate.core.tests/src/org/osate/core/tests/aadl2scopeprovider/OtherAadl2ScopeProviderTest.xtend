@@ -271,24 +271,20 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			'''
 		)
 		suppressSerialization
-		testFile("pack2.aadl").resource.contents.head.assertNoIssues
-		testFile("pack3.aadl").resource.contents.head.assertNoIssues
-		testFile("pack4.aadl").resource.contents.head.assertNoIssues
-		testFile("pack5.aadl").resource.contents.head.assertNoIssues
-		val pack1 = testFile("pack1.aadl").resource.contents.head as AadlPackage
-		pack1.assertNoIssues
-		
-		val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data",
-			"renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i",
-			"pack1::subp1", "pack1::subp1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack2::subp2", "pack2::subp2.i", "pack3::a4",
-			"pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack3::subp3", "pack3::subp3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i",
-			"pack4::subp4", "pack4::subp4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "pack5::subp5",
-			"pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i",
-			"renamed_package::subp4", "renamed_package::subp4.i"
-		]
-		
-		pack1 => [
+		testFile("pack2.aadl")
+		testFile("pack3.aadl")
+		testFile("pack4.aadl")
+		testFile("pack5.aadl")
+		testFile("pack1.aadl").resource.contents.head as AadlPackage => [
 			"pack1".assertEquals(name)
+			val componentClassifierScopeForPack1 = #["a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract",
+				"renamed_data", "renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1",
+				"pack1::d1.i", "pack1::subp1", "pack1::subp1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack2::subp2", "pack2::subp2.i",
+				"pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack3::subp3", "pack3::subp3.i", "pack4::a5", "pack4::a5.i", "pack4::d4",
+				"pack4::d4.i", "pack4::subp4", "pack4::subp4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i",
+				"pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4",
+				"renamed_package::d4.i", "renamed_package::subp4", "renamed_package::subp4.i"
+			]
 			publicSection.ownedClassifiers.get(0) => [
 				"a1".assertEquals(name)
 				ownedPrototypes.get(0) => [
@@ -622,11 +618,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			'''
 		)
 		suppressSerialization
-		testFile("ps.aadl").resource.contents.head.assertNoIssues
-		val pack = testFile("pack.aadl").resource.contents.head as AadlPackage
-		pack.assertNoIssues
-		
-		pack => [
+		testFile("ps.aadl")
+		testFile("pack.aadl").resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.head as ComponentType => [
 				"a".assertEquals(name)

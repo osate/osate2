@@ -180,7 +180,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 	}
 	
-	//Reference is from ContainmentPathElement and QualifiedContainmentPathElement in Properties.xtext
+	//Reference is from ContainmentPathElement in Properties.xtext
 	def scope_ContainmentPathElement_namedElement(Element context, EReference reference) {
 		val Classifier namespace = switch context {
 			ReferenceValue: {
