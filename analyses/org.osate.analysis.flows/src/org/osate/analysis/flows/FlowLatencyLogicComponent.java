@@ -182,15 +182,17 @@ public class FlowLatencyLogicComponent {
 				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
 				// take into account queuing delay on event and event data ports.
 				double qs = GetProperties.getQueueSize(fi);
-				if (qs > 0) {
-					// subtract one since the arriving element becomes the last element
-					qs = qs - 1;
-				}
 				double dl = 0.0;
 				if (InstanceModelUtil.isSporadicComponent(componentInstance)
 						|| InstanceModelUtil.isPeriodicComponent(componentInstance)) {
 					dl = period;
 					ql.reportInfo("Sporadic or periodic has period delay per queue element");
+//					in some circumstances we may want to subtract one element
+					// Example: Periodic or Sporadic thread samples, thus its sampling latency reflects the first element waiting
+					if (qs > 0) {
+						// subtract one since the arriving element becomes the last element
+						qs = qs - 1;
+					}
 				} else {
 					dl = worstCaseValue;
 				}
