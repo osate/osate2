@@ -139,7 +139,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		/*
 		 * (non-Javadoc)
-		 *
+		 * 
 		 * @see java.lang.Object#clone()
 		 */
 		@Override
@@ -428,7 +428,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			addLeafElement(ci, etei, leaf);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 		} else {
-			List<ConnectionInstance> connis = collectConnectionInstances(ci.getSystemInstance(), etei);
+			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei);
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
@@ -510,7 +510,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			addLeafElement(ci, etei, da);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 		} else {
-			List<ConnectionInstance> connis = collectConnectionInstances(ci.getSystemInstance(), etei);
+			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei);
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
@@ -698,7 +698,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 		} else {
-			List<ConnectionInstance> connis = collectConnectionInstances(ci.getSystemInstance(), etei);
+			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei);
 
 			if (connis.isEmpty()) {
 				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
@@ -898,7 +898,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private List<ConnectionInstance> collectConnectionInstances(ComponentInstance ci, EndToEndFlowInstance etei) {
 		List<ConnectionInstance> result = new ArrayList<ConnectionInstance>();
 
-		for (ConnectionInstance conni : ci.getSystemInstance().getAllConnectionInstances()) {
+		for (ConnectionInstance conni : ci.allEnclosingConnectionInstances()) {
 			if (testConnection(conni, etei)) {
 				result.add(conni);
 			}
