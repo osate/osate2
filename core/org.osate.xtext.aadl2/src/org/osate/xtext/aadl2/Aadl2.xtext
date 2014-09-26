@@ -1568,7 +1568,7 @@ DataPort returns aadl2::DataPort:
 	(in ?= 'in' out ?= 'out'? | out ?= 'out') 
 	'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? 
 	';' 
 	;
 
@@ -1579,7 +1579,7 @@ EventDataPort returns aadl2::EventDataPort:
 	(in ?= 'in' out ?= 'out'? | out ?= 'out') 
 	'event' 'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? 
 	';' 
 	;
 
@@ -1590,7 +1590,7 @@ EventPort returns aadl2::EventPort:
 	(in ?= 'in' out ?= 'out'? | out ?= 'out') 
 	'event' 'port' 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? 
 	';' 
 	;
 
@@ -1610,7 +1610,7 @@ Parameter returns aadl2::Parameter:
 	(refined=[aadl2::Parameter|REFINEDNAME] ':' 'refined' 'to'))
 	(in ?= 'in' out ?= 'out'? | out ?= 'out') 'parameter' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';' 
 	;
 
 // AccessCategory not set (is encoded in type)
@@ -1620,7 +1620,7 @@ SubprogramAccess returns aadl2::SubprogramAccess:
 	kind=AccessDirection 
 	'subprogram' 'access' (subprogramFeatureClassifier=[aadl2::SubprogramSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';' 
 ;
 SubprogramGroupAccess returns aadl2::SubprogramGroupAccess: 
 	((name=ID ':' )|
@@ -1628,7 +1628,7 @@ SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
 	kind=AccessDirection 
 	'subprogram' 'group' 'access' (subprogramGroupFeatureClassifier=[aadl2::SubprogramGroupSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';' 
 ;
 BusAccess returns aadl2::BusAccess: 
 	((name=ID ':' )|
@@ -1636,7 +1636,7 @@ BusAccess returns aadl2::BusAccess:
 	kind=AccessDirection  
 	'bus' 'access' (busFeatureClassifier=[aadl2::BusSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';' 
 ;
 DataAccess returns aadl2::DataAccess: 
 	((name=ID ':' )|
@@ -1644,7 +1644,7 @@ DataAccess returns aadl2::DataAccess:
 	kind=AccessDirection 
 	'data' 'access' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';' 
 ;
 AbstractFeature returns aadl2::AbstractFeature:
 	// default is inout if no direction
@@ -1652,7 +1652,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 	(refined=[aadl2::AbstractFeature|REFINEDNAME] ':' 'refined' 'to'))
 	(in ?= 'in' | out ?= 'out')? 'feature' (featurePrototype=[aadl2::FeaturePrototype|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';' 
 	;
 
 
@@ -1691,15 +1691,9 @@ InternalFeature returns aadl2::InternalFeature:
 	(
 		EventSource | EventDataSource
 	)
-//	( 
-//		'in' 'modes' '(' (
-//			inMode+=[aadl2::Mode|ID] 
-//			(',' inMode+=[aadl2::Mode|ID])* 
-//		) ')'
-//	)?
 	(
 		'properties' (
-			(ownedPropertyAssociation+=ContainedPropertyAssociation)+
+			(ownedPropertyAssociation+=PropertyAssociation)+
 		)
 	)?
 	';' 
@@ -1710,15 +1704,9 @@ ProcessorFeature returns aadl2::ProcessorFeature:
 	(
 		PortProxy | SubprogramProxy
 	)
-//	( 
-//		'in' 'modes' '(' (
-//			inMode+=[aadl2::Mode|ID] 
-//			(',' inMode+=[aadl2::Mode|ID])* 
-//		) ')'
-//	)? 
 	(
 		'properties' (
-			(ownedPropertyAssociation+=ContainedPropertyAssociation)+
+			(ownedPropertyAssociation+=PropertyAssociation)+
 		)
 	)?
 	';'
