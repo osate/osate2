@@ -15,7 +15,6 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DirectionType;
@@ -87,7 +86,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
 			// containment path element
 			if (context instanceof ContainmentPathElement) {
-				ContainedNamedElement path = (ContainedNamedElement) context.eContainer();
+				ContainmentPathElement path = (ContainmentPathElement) context;
 				Element cxtElement = (Element) context;
 				FeatureGroupType cxtFGT = null;
 				String epFGPrefix = "";
