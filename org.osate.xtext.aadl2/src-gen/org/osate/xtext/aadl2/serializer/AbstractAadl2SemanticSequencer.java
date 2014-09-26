@@ -1472,7 +1472,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (in?='in' | out?='out')? 
 	 *         featurePrototype=[FeaturePrototype|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_AbstractFeature(EObject context, AbstractFeature semanticObject) {
@@ -1680,7 +1680,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         kind=AccessDirection 
 	 *         busFeatureClassifier=[BusSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_BusAccess(EObject context, BusAccess semanticObject) {
@@ -1855,7 +1855,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         kind=AccessDirection 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_DataAccess(EObject context, DataAccess semanticObject) {
@@ -1898,7 +1898,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_DataPort(EObject context, DataPort semanticObject) {
@@ -2165,7 +2165,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_EventDataPort(EObject context, EventDataPort semanticObject) {
@@ -2184,7 +2184,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=ContainedPropertyAssociation*)
+	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
 	 */
 	protected void sequence_EventDataSource_InternalFeature(EObject context, EventDataSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2197,7 +2197,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (name=ID | refined=[EventPort|REFINEDNAME]) 
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_EventPort(EObject context, EventPort semanticObject) {
@@ -2216,7 +2216,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID ownedPropertyAssociation+=ContainedPropertyAssociation*)
+	 *     (name=ID ownedPropertyAssociation+=PropertyAssociation*)
 	 */
 	protected void sequence_EventSource_InternalFeature(EObject context, EventSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2721,7 +2721,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
@@ -2753,7 +2753,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=ContainedPropertyAssociation*)
+	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
 	 */
 	protected void sequence_PortProxy_ProcessorFeature(EObject context, PortProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2901,7 +2901,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID subprogramClassifier=[SubprogramClassifier|QCREF]? ownedPropertyAssociation+=ContainedPropertyAssociation*)
+	 *     (name=ID subprogramClassifier=[SubprogramClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
 	 */
 	protected void sequence_ProcessorFeature_SubprogramProxy(EObject context, SubprogramProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -3320,7 +3320,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         kind=AccessDirection 
 	 *         subprogramFeatureClassifier=[SubprogramSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_SubprogramAccess(EObject context, SubprogramAccess semanticObject) {
@@ -3361,7 +3361,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         kind=AccessDirection 
 	 *         subprogramGroupFeatureClassifier=[SubprogramGroupSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
-	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_SubprogramGroupAccess(EObject context, SubprogramGroupAccess semanticObject) {

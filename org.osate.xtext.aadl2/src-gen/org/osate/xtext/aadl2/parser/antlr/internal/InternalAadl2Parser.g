@@ -25917,9 +25917,9 @@ ruleDataPort returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0()); 
+	        newCompositeNode(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_7_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_15_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_15_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDataPortRule());
 	        }
@@ -25927,7 +25927,7 @@ ruleDataPort returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_15_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26128,9 +26128,9 @@ ruleEventDataPort returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEventDataPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0()); 
+	        newCompositeNode(grammarAccess.getEventDataPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_8_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_16_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_16_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEventDataPortRule());
 	        }
@@ -26138,7 +26138,7 @@ ruleEventDataPort returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_16_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26319,9 +26319,9 @@ ruleEventPort returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEventPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getEventPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_14_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_14_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEventPortRule());
 	        }
@@ -26329,7 +26329,7 @@ ruleEventPort returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_14_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26719,9 +26719,9 @@ ruleParameter returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getParameterAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getParameterAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_13_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_13_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getParameterRule());
 	        }
@@ -26729,7 +26729,7 @@ ruleParameter returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_13_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26888,9 +26888,9 @@ ruleSubprogramAccess returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_12_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramAccessRule());
 	        }
@@ -26898,7 +26898,7 @@ ruleSubprogramAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27062,9 +27062,9 @@ ruleSubprogramGroupAccess returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_7_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_13_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_13_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupAccessRule());
 	        }
@@ -27072,7 +27072,7 @@ ruleSubprogramGroupAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_13_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27231,9 +27231,9 @@ ruleBusAccess returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_12_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getBusAccessRule());
 	        }
@@ -27241,7 +27241,7 @@ ruleBusAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27400,9 +27400,9 @@ ruleDataAccess returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDataAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getDataAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_12_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDataAccessRule());
 	        }
@@ -27410,7 +27410,7 @@ ruleDataAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27579,9 +27579,9 @@ ruleAbstractFeature returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_12_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAbstractFeatureRule());
 	        }
@@ -27589,7 +27589,7 @@ ruleAbstractFeature returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"ContainedPropertyAssociation");
+        		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 

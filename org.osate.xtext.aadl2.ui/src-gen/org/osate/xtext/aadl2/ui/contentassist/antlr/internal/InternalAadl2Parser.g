@@ -135061,8 +135061,8 @@ rule__DataPort__OwnedPropertyAssociationAssignment_7_1
     }
 :
 (
-{ before(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0()); }
+{ before(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_7_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_7_1_0()); }
 )
 
 ;
@@ -135213,8 +135213,8 @@ rule__EventDataPort__OwnedPropertyAssociationAssignment_8_1
     }
 :
 (
-{ before(grammarAccess.getEventDataPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getEventDataPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_8_1_0()); }
+{ before(grammarAccess.getEventDataPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_8_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getEventDataPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_8_1_0()); }
 )
 
 ;
@@ -135346,8 +135346,8 @@ rule__EventPort__OwnedPropertyAssociationAssignment_6_1
     }
 :
 (
-{ before(grammarAccess.getEventPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getEventPortAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
+{ before(grammarAccess.getEventPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getEventPortAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
 )
 
 ;
@@ -135650,8 +135650,8 @@ rule__Parameter__OwnedPropertyAssociationAssignment_5_1
     }
 :
 (
-{ before(grammarAccess.getParameterAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getParameterAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0()); }
+{ before(grammarAccess.getParameterAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getParameterAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); }
 )
 
 ;
@@ -135748,8 +135748,8 @@ rule__SubprogramAccess__OwnedPropertyAssociationAssignment_6_1
     }
 :
 (
-{ before(grammarAccess.getSubprogramAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getSubprogramAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
+{ before(grammarAccess.getSubprogramAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getSubprogramAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
 )
 
 ;
@@ -135846,8 +135846,8 @@ rule__SubprogramGroupAccess__OwnedPropertyAssociationAssignment_7_1
     }
 :
 (
-{ before(grammarAccess.getSubprogramGroupAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getSubprogramGroupAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0()); }
+{ before(grammarAccess.getSubprogramGroupAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_7_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getSubprogramGroupAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_7_1_0()); }
 )
 
 ;
@@ -135944,8 +135944,8 @@ rule__BusAccess__OwnedPropertyAssociationAssignment_6_1
     }
 :
 (
-{ before(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
+{ before(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
 )
 
 ;
@@ -136042,8 +136042,8 @@ rule__DataAccess__OwnedPropertyAssociationAssignment_6_1
     }
 :
 (
-{ before(grammarAccess.getDataAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getDataAccessAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); }
+{ before(grammarAccess.getDataAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getDataAccessAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); }
 )
 
 ;
@@ -136171,8 +136171,8 @@ rule__AbstractFeature__OwnedPropertyAssociationAssignment_5_1
     }
 :
 (
-{ before(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0()); }
-	ruleContainedPropertyAssociation{ after(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_5_1_0()); }
+{ before(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); }
+	rulePropertyAssociation{ after(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); }
 )
 
 ;
