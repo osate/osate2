@@ -671,6 +671,27 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
+	 * find EObject by name in EObjectDescription list
+	 * @param edl EObjectDescription list
+	 * @param name String qualified name of EObject to be found
+	 * @return EObject
+	 */
+	public static EObject getDottedEObjectOfType(EClass eObjectType, String name) {
+		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		Iterable<IEObjectDescription> edlist = rds.getExportedObjectsByType(eObjectType);
+		for (IEObjectDescription eod : edlist) {
+			if (eod.getName().toString().equalsIgnoreCase(name)) {
+				EObject res = eod.getEObjectOrProxy();
+				res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+				if (!Aadl2Util.isNull(res)) {
+					return res;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * get the Classifier by looking it up in EMF index 
 	 * @param cname String name of classifier, which must be qualified with a package name
 	 * @return Classifier or null
