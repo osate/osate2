@@ -758,11 +758,20 @@ public class EMFIndexRetrieval {
 
 	/**
 	 * Gets an object by qualified name by looking it up in the EMF Index
+	 * @param name the qualified name of the object to find
+	 * @return the object or null if it can not be found.
+	 */
+	public static EObject getObjectByQualifiedName(EObject context, final String name) {
+		return getObjectByQualifiedName(name, context.eResource().getResourceSet());
+	}
+
+	/**
+	 * Gets an object by qualified name by looking it up in the EMF Index
 	 * @param name the qualified name of the object
 	 * @param resourceSet the resource set that contains the model
 	 * @return the object or null
 	 */
-	public static EObject getObjectByQualifiedName(final String name, final XtextResourceSet resourceSet) {
+	public static EObject getObjectByQualifiedName(final String name, final ResourceSet resourceSet) {
 		final IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
 		final Iterable<IEObjectDescription> objects = rds.getExportedObjects();
 		for (final IEObjectDescription eod : objects) {
