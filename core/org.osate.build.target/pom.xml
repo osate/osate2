@@ -32,7 +32,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>luna.target</file>
+									<file>luna-SR1.target</file>
 									<type>target</type>
 									<classifier>luna</classifier>
 								</artifact>
