@@ -176,9 +176,8 @@
 					<target>
 						<artifact>
 							<groupId>org.osate</groupId>
-							<artifactId>org.osate.build.target</artifactId>
+							<artifactId>osate2-platform</artifactId>
 							<version>2.0.0-SNAPSHOT</version>
-							<classifier>luna</classifier>
 						</artifact>
 					</target>
 					<ignoreTychoRepositories>true</ignoreTychoRepositories>
