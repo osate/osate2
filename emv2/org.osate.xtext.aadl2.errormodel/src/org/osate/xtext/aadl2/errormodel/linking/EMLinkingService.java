@@ -33,6 +33,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -126,6 +127,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 							}
 						}
 						epFGPrefix = EMV2Util.getPrintName((ErrorPropagation) ne) + ".";
+						cxtElement = ne;
+					} else if (ne instanceof ErrorFlow) {
+						cxtElement = ne;
 					}
 				} else {
 					Classifier found = ((ContainmentPathElement) context).getContainingClassifier();
