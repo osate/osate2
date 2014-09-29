@@ -479,39 +479,39 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
 						appliesTos.head.path => [
 							"af4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 							path.assertNull
 						]
 					]
 					ownedPropertyAssociations.get(1) => [
 						"ps::ref2".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"fg7".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 								path => [
 									"af6".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -519,11 +519,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg7".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 							path => [
 								"af6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -531,18 +531,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(2) => [
 						"ps::ref3".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"fg8".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 								path => [
 									"af6".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -550,11 +550,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg8".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 							path => [
 								"af6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -562,18 +562,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(3) => [
 						"ps::ref4".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"fg9".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 								path => [
 									"af6".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -581,11 +581,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg9".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 							path => [
 								"af6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -596,39 +596,39 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
 						appliesTos.head.path => [
 							"af4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 							path.assertNull
 						]
 					]
 					ownedPropertyAssociations.get(1) => [
 						"ps::ref2".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"fg7".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 								path => [
 									"af6".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -636,11 +636,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg7".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 							path => [
 								"af6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -648,18 +648,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(2) => [
 						"ps::ref3".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"fg8".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 								path => [
 									"af6".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -667,11 +667,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg8".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 							path => [
 								"af6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -679,18 +679,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(3) => [
 						"ps::ref4".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"fg9".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 								path => [
 									"af6".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -698,11 +698,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg9".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af6"])
 							path => [
 								"af6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -716,51 +716,51 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"af3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
 						appliesTos.head.path => [
 							"af3".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 							path.assertNull
 						]
 					]
 					ownedPropertyAssociations.get(1) => [
 						"ps::ref2".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -768,11 +768,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -780,24 +780,24 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(2) => [
 						"ps::ref3".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -805,11 +805,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub5".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -817,24 +817,24 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(3) => [
 						"ps::ref4".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -842,11 +842,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub6".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -857,51 +857,51 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"af3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
 						appliesTos.head.path => [
 							"af3".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 							path.assertNull
 						]
 					]
 					ownedPropertyAssociations.get(1) => [
 						"ps::ref2".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -909,11 +909,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -921,24 +921,24 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(2) => [
 						"ps::ref3".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -946,11 +946,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub5".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -958,24 +958,24 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(3) => [
 						"ps::ref4".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -983,11 +983,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub6".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -998,24 +998,24 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub7".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1023,11 +1023,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub7".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1036,20 +1036,20 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(0) => [
 					"ps::ref1".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
@@ -1059,7 +1059,7 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
@@ -1069,27 +1069,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(1) => [
 					"ps::ref2".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path.assertNull
 							]
 						]
@@ -1097,14 +1097,14 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"asub4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path.assertNull
 						]
 					]
@@ -1112,27 +1112,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(2) => [
 					"ps::ref3".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub2".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path.assertNull
 							]
 						]
@@ -1140,14 +1140,14 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub2".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"asub4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path.assertNull
 						]
 					]
@@ -1155,24 +1155,24 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(3) => [
 					"ps::ref4".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"fg1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1180,11 +1180,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						path => [
 							"af4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 							path.assertNull
 						]
 					]
@@ -1192,24 +1192,24 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(4) => [
 					"ps::ref5".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"fg2".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1217,11 +1217,11 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg2".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 						path => [
 							"af4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 							path.assertNull
 						]
 					]
@@ -1229,31 +1229,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(5) => [
 					"ps::ref6".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1262,18 +1262,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"asub4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1282,31 +1282,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(6) => [
 					"ps::ref7".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1315,18 +1315,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"asub5".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1335,31 +1335,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(7) => [
 					"ps::ref8".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1368,18 +1368,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"asub6".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1388,31 +1388,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(8) => [
 					"ps::ref9".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub3".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"asub7".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 								path => [
 									"af5".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1421,18 +1421,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub3".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"asub7".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af5", "fpath3"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af5", "fpath3"])
 							path => [
 								"af5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1441,31 +1441,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(9) => [
 					"ps::ref10".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"fg3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 								path => [
 									"af4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1474,18 +1474,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"fg3".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1494,31 +1494,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(10) => [
 					"ps::ref11".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"fg4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 								path => [
 									"af4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1527,18 +1527,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"fg4".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1547,31 +1547,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(11) => [
 					"ps::ref12".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"fg5".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 								path => [
 									"af4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1580,18 +1580,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"fg5".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1600,31 +1600,31 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(12) => [
 					"ps::ref13".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub3".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								"fg6".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 								path => [
 									"af4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 									path.assertNull
 								]
 							]
@@ -1633,18 +1633,18 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub3".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							"fg6".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af4", "fg7", "fg8", "fg9", "fgproto5", "fgproto6"])
 							path => [
 								"af4".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 								path.assertNull
 							]
 						]
@@ -1653,20 +1653,20 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(13) => [
 					"ps::ref14".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3",
 								"call1", "call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4",
 								"mt1", "mt2", "pp1", "sequence1", "sequence2"
 							])
@@ -1676,7 +1676,7 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
@@ -1686,27 +1686,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(14) => [
 					"ps::ref15".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 						"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 						"pp1", "sequence1", "sequence2"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
 								assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2",
 									"asub4", "asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6",
 									"fgproto2", "fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 								])
@@ -1717,14 +1717,14 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 							"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2", "fgproto3",
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
 							assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
@@ -1745,32 +1745,32 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg2".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg4".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg5".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg6".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -1781,23 +1781,23 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg2".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg5".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg6".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -1811,32 +1811,32 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg8".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg9".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg10".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg11".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg12".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -1847,23 +1847,23 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg8".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg9".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg10".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg11".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg12".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -1877,32 +1877,32 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg14".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg15".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg16".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg17".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg18".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -1913,23 +1913,23 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"fg14".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg15".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg16".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg17".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg18".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -1941,40 +1941,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(0) => [
 					"ps::ref1".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
 						"fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
 							"fgproto6"
 						])
 						path => [
 							"fg1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg2".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg4".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg5".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg6".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -1986,27 +1986,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						path => [
 							"fg2".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg5".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg6".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2018,40 +2018,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(1) => [
 					"ps::ref2".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
 						"fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
 							"fgproto6"
 						])
 						path => [
 							"fg7".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg8".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg9".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg10".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg11".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg12".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2063,27 +2063,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg7".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						path => [
 							"fg8".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg9".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg10".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg11".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg12".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2095,40 +2095,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(2) => [
 					"ps::ref3".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
 						"fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "fg1", "fg13", "fg7", "fgproto1",
 							"fgproto6"
 						])
 						path => [
 							"fg13".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg14".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg15".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg16".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg17".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg18".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2140,27 +2140,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg13".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						path => [
 							"fg14".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg15".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg16".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg17".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg18".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2177,40 +2177,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 								"asub20", "asub8"
 							])
 							path => [
 								"asub2".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub3".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub4".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub5".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub6".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2221,29 +2221,29 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub2".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub5".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub6".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2257,40 +2257,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 								"asub20", "asub8"
 							])
 							path => [
 								"asub8".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub9".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub10".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub11".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub12".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2301,29 +2301,29 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub8".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub9".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub10".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub11".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub12".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2337,40 +2337,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 								"asub20", "asub8"
 							])
 							path => [
 								"asub14".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub15".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub16".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub17".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub18".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2381,29 +2381,29 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub14".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub15".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub16".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub17".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub18".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2417,40 +2417,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 					ownedPropertyAssociations.get(0) => [
 						"ps::ref1".assertEquals(property.getQualifiedName())
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						ownedValues.head.ownedValue as ReferenceValue => [
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 								"asub20", "asub8"
 							])
 							path => [
 								"asub20".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub21".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub22".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub23".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub24".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2461,29 +2461,29 @@ class PropertiesScopeProviderTest extends OsateTest {
 						appliesTos.head.path => [
 							"asub20".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub21".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub22".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub23".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub24".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2495,40 +2495,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(0) => [
 					"ps::ref4".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 						"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 							"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 						])
 						path => [
 							"fg1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg2".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg3".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg4".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg5".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg6".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2540,27 +2540,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						path => [
 							"fg2".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg5".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg6".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2572,40 +2572,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(1) => [
 					"ps::ref5".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 						"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 							"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 						])
 						path => [
 							"fg7".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg8".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg9".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg10".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg11".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg12".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2617,27 +2617,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg7".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						path => [
 							"fg8".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg9".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg10".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg11".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg12".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2649,40 +2649,40 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(2) => [
 					"ps::ref6".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 						"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 							"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 						])
 						path => [
 							"fg13".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 							path => [
 								"fg14".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 								path => [
 									"fg15".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 									path => [
 										"fg16".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10",
 											"fgproto5"
 										])
 										path => [
 											"fg17".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 											path => [
 												"fg18".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2694,27 +2694,27 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"fg13".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg14", "fg2", "fg8", "fgproto2", "fgproto7"])
 						path => [
 							"fg14".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg15", "fg3", "fg9", "fgproto3", "fgproto8"])
 							path => [
 								"fg15".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg10", "fg16", "fg4", "fgproto4", "fgproto9"])
 								path => [
 									"fg16".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg11", "fg17", "fg5", "fgproto10", "fgproto5"])
 									path => [
 										"fg17".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["fg12", "fg18", "fg6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["fg12", "fg18", "fg6"])
 										path => [
 											"fg18".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2726,46 +2726,46 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(3) => [
 					"ps::ref7".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 						"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 							"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 						])
 						path => [
 							"asub1".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 								"asub20", "asub8"
 							])
 							path => [
 								"asub2".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub3".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub4".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub5".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub6".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2777,35 +2777,35 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub1".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						path => [
 							"asub2".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub3".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub4".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub5".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub6".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2817,46 +2817,46 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(4) => [
 					"ps::ref8".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 						"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 							"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 						])
 						path => [
 							"asub7".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 								"asub20", "asub8"
 							])
 							path => [
 								"asub8".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub9".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub10".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub11".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub12".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2868,35 +2868,35 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub7".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						path => [
 							"asub8".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub9".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub10".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub11".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub12".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2908,46 +2908,46 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(5) => [
 					"ps::ref9".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 						"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 							"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 						])
 						path => [
 							"asub13".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2"
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2"
 								, "asub20", "asub8"
 							])
 							path => [
 								"asub14".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub15".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub16".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub17".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub18".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -2959,35 +2959,35 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub13".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						path => [
 							"asub14".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub15".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub16".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub17".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub18".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]
@@ -2999,46 +2999,46 @@ class PropertiesScopeProviderTest extends OsateTest {
 				ownedPropertyAssociations.get(6) => [
 					"ps::ref10".assertEquals(property.getQualifiedName())
 					//Tests scope_ContainmentPathElement_namedElement
-					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+					assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 						"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 					])
 					ownedValues.head.ownedValue as ReferenceValue => [
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto1", "aproto6", "asub1", "asub13", "asub19", "asub7",
 							"fg1", "fg13", "fg7", "fgproto1", "fgproto6"
 						])
 						path => [
 							"asub19".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 								"asub20", "asub8"
 							])
 							path => [
 								"asub20".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 									"asub9"
 								])
 								path => [
 									"asub21".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 										"asub16", "asub22", "asub4"
 									])
 									path => [
 										"asub22".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 											"asub23", "asub5"
 										])
 										path => [
 											"asub23".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 											path => [
 												"asub24".assertEquals(namedElement.name)
 												//Tests scope_ContainmentPathElement_namedElement
-												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+												assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 												path.assertNull
 											]
 										]
@@ -3050,35 +3050,35 @@ class PropertiesScopeProviderTest extends OsateTest {
 					appliesTos.head.path => [
 						"asub19".assertEquals(namedElement.name)
 						//Tests scope_ContainmentPathElement_namedElement
-						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
+						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto11", "aproto2", "aproto7", "asub14", "asub2",
 							"asub20", "asub8"
 						])
 						path => [
 							"asub20".assertEquals(namedElement.name)
 							//Tests scope_ContainmentPathElement_namedElement
-							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
+							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto3", "aproto8", "asub15", "asub21", "asub3",
 								"asub9"
 							])
 							path => [
 								"asub21".assertEquals(namedElement.name)
 								//Tests scope_ContainmentPathElement_namedElement
-								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto12", "aproto4", "aproto9", "asub10",
+								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto12", "aproto4", "aproto9", "asub10",
 									"asub16", "asub22", "asub4"
 								])
 								path => [
 									"asub22".assertEquals(namedElement.name)
 									//Tests scope_ContainmentPathElement_namedElement
-									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["aproto10", "aproto5", "asub11", "asub17",
+									assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["aproto10", "aproto5", "asub11", "asub17",
 										"asub23", "asub5"
 									])
 									path => [
 										"asub23".assertEquals(namedElement.name)
 										//Tests scope_ContainmentPathElement_namedElement
-										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #["asub12", "asub18", "asub24", "asub6"])
+										assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["asub12", "asub18", "asub24", "asub6"])
 										path => [
 											"asub24".assertEquals(namedElement.name)
 											//Tests scope_ContainmentPathElement_namedElement
-											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, #[])
+											assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #[])
 											path.assertNull
 										]
 									]

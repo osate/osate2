@@ -229,119 +229,119 @@ class ModeTransitionsTest extends OsateTest {
 				ownedModeTransitions.head => [
 					"mt1".assertEquals(name)
 					//Tests scope_ModeTransition_source
-					assertScope(Aadl2Package::eINSTANCE.modeTransition_Source, #["m1", "m2"])
+					assertScope(Aadl2Package::eINSTANCE.modeTransition_Source, false, #["m1", "m2"])
 					//Tests scope_ModeTransitionTrigger_context
-					assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+					assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 						"call4", "call5", "call6", "call7", "call8", "dp1", "dp2", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransition, EReference)
-					assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af1", "dp1", "dp2", "ep1", "es1", "pp1"])
+					assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af1", "dp1", "dp2", "ep1", "es1", "pp1"])
 					ownedTriggers.get(0) => [
 						context.assertNull
 						"af1".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af1", "dp1", "dp2", "ep1", "es1", "pp1"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af1", "dp1", "dp2", "ep1", "es1", "pp1"])
 					]
 					ownedTriggers.get(1) => [
 						"fg1".assertEquals(context.name)
 						"af3".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af3", "ep3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af3", "ep3"])
 					]
 					ownedTriggers.get(2) => [
 						"fg2".assertEquals(context.name)
 						"af3".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af3", "ep3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af3", "ep3"])
 					]
 					ownedTriggers.get(3) => [
 						"dp1".assertEquals(context.name)
 						"af2".assertEquals(triggerPort.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid mode transition trigger.")
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af2", "ep2", "es2", "pp2"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af2", "ep2", "es2", "pp2"])
 					]
 					ownedTriggers.get(4) => [
 						"dp2".assertEquals(context.name)
 						"af2".assertEquals(triggerPort.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid mode transition trigger.")
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af2", "ep2", "es2", "pp2"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af2", "ep2", "es2", "pp2"])
 					]
 					ownedTriggers.get(5) => [
 						"asub1".assertEquals(context.name)
 						"af2".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af2", "ep2", "es2", "pp2"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af2", "ep2", "es2", "pp2"])
 					]
 					ownedTriggers.get(6) => [
 						"asub2".assertEquals(context.name)
 						"af2".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af2", "ep2", "es2", "pp2"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af2", "ep2", "es2", "pp2"])
 					]
 					ownedTriggers.get(7) => [
 						"call1".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(8) => [
 						"call2".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(9) => [
 						"call3".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(10) => [
 						"call4".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(11) => [
 						"call5".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(12) => [
 						"call6".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(13) => [
 						"call7".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(14) => [
 						"call8".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(15) => [
 						"call12".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					ownedTriggers.get(16) => [
 						"call13".assertEquals(context.name)
 						"af4".assertEquals(triggerPort.name)
 						//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger, EReference)
-						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af4", "ep4", "es3", "pp3"])
+						assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, false, #["af4", "ep4", "es3", "pp3"])
 					]
 					//Tests scope_ModeTransition_destination
-					assertScope(Aadl2Package::eINSTANCE.modeTransition_Destination, #["m1", "m2"])
+					assertScope(Aadl2Package::eINSTANCE.modeTransition_Destination, false, #["m1", "m2"])
 				]
 			]
 		]

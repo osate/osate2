@@ -200,7 +200,7 @@ abstract class OsateTest extends XtextTest {
 		errorsForEObject.forEach[issueCollection.addIssue(it)]
 	}
 	
-	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
+	def protected assertScope(EObject context, EReference reference, boolean applyFilterToUnqualifiedNames, Iterable<String> expected) {
 		if (pluginResourcesNames == null) {
 			pluginResourcesNames = pluginResources.members.filter(IFile).map[name].filter[
 			toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
@@ -208,16 +208,19 @@ abstract class OsateTest extends XtextTest {
 		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(
 			context.getScope(reference).allElements.map[name.toString("::")].filter [
 				val separatorIndex = indexOf("::")
-				if (separatorIndex != -1) {
-					val propertySetName = substring(0, separatorIndex)
-					AadlUtil::isPredeclaredPropertySet(propertySetName) ||
-						!pluginResourcesNames.exists[equalsIgnoreCase(propertySetName)]
+				if (separatorIndex != -1 || applyFilterToUnqualifiedNames) {
+					val modelUnitName = if (separatorIndex != -1) {
+						substring(0, separatorIndex)
+					} else {
+						it
+					}
+					AadlUtil::isPredeclaredPropertySet(modelUnitName) || !pluginResourcesNames.exists[equalsIgnoreCase(modelUnitName)]
 				} else {
 					true
 				}
 			].sort(CUSTOM_NAME_COMPARATOR).join(", "))
 	}
-
+	
 	/*
 	 * Compares two aadl names such that simple names are less than qualified names.
 	 * If the name is qualified then names in predeclared property sets are greater than names in other packages or property sets.
