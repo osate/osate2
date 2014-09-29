@@ -38,8 +38,6 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.scoping.Scopes
-import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractSubcomponentType
 import org.osate.aadl2.AccessType
@@ -77,7 +75,6 @@ import org.osate.aadl2.FlowImplementation
 import org.osate.aadl2.FlowSegment
 import org.osate.aadl2.FlowSpecification
 import org.osate.aadl2.MemorySubcomponentType
-import org.osate.aadl2.ModalElement
 import org.osate.aadl2.ModeTransition
 import org.osate.aadl2.ModeTransitionTrigger
 import org.osate.aadl2.PackageSection
@@ -580,6 +577,21 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			scope_ModeTransitionTrigger_triggerPort(context.owner as ModeTransition, reference)
 	}
 	
+	//Reference is from ModeRef in Aadl2.xtext
+	def scope_ModeBinding_parentMode(ComponentImplementation context, EReference reference) {
+		context.allModes.scopeFor
+	}
+	
+	//Reference is from ModeRef in Aadl2.xtext
+	def scope_ModeBinding_derivedMode(Subcomponent context, EReference reference) {
+		switch subcomponentType : context.allSubcomponentType {
+			ComponentClassifier:
+				subcomponentType
+			ComponentPrototype:
+				subcomponentType.findClassifierForComponentPrototype(context.getContainerOfType(Classifier))
+		}?.allModes?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
@@ -795,33 +807,6 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			validMemberCollector.apply(contextClassifier).scopeFor
 		} else {
 			IScope::NULLSCOPE
-		}
-	}
-
-	// mode references
-	def scope_Mode(ModalElement context, EReference reference) {
-		if (reference == Aadl2Package::eINSTANCE.modalElement_InMode) {
-			val classifier = context.containingClassifier
-
-			val modes = switch (classifier) {
-				ComponentClassifier: classifier.allModes
-				default: #[]
-			}
-
-			Scopes::scopeFor(modes)
-		}
-	}
-
-	def scope_Mode(Subcomponent context, EReference reference) {
-		switch reference {
-			case Aadl2Package::eINSTANCE.modeBinding_DerivedMode: {
-				val modes = context.classifier.allModes
-				Scopes::scopeFor(modes)
-			}
-			case Aadl2Package::eINSTANCE.modeBinding_ParentMode: {
-				val modes = context.containingComponentImpl.allModes
-				Scopes::scopeFor(modes)
-			}
 		}
 	}
 }

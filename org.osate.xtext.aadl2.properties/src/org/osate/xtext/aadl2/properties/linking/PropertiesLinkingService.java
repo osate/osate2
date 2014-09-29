@@ -412,9 +412,20 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (reference == Aadl2Package.eINSTANCE.getModeBinding_ParentMode()) {
 					res = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 				} else if (reference == Aadl2Package.eINSTANCE.getModeBinding_DerivedMode()) {
-					Classifier sub = AadlUtil.getContainingSubcomponentClassifier(context);
-					if (sub != null) {
-						res = sub.findNamedElement(name);
+					Subcomponent subcomponent = AadlUtil.getContainingSubcomponent(context);
+					while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+						subcomponent = subcomponent.getRefined();
+					}
+					ComponentClassifier subcomponentClassifier = null;
+					if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+						subcomponentClassifier = ((ComponentClassifier) subcomponent.getSubcomponentType());
+					} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+						subcomponentClassifier = findClassifierForComponentPrototype(
+								AadlUtil.getContainingClassifier(context),
+								((ComponentPrototype) subcomponent.getSubcomponentType()));
+					}
+					if (subcomponentClassifier != null) {
+						res = subcomponentClassifier.findNamedElement(name);
 					}
 				}
 			} else {
@@ -879,13 +890,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	/*
 	 * TODO: Check for circular dependencies with prototypes. Example:
-	 *
+	 * 
 	 * abstract a prototypes p1: subprogram group; p2: subprogram group; end a;
-	 *
+	 * 
 	 * abstract implementation a.i ( p1 => p2, p2 => p1) subcomponents sub:
 	 * subprogram group p1; calls sequence1: { call1: subprogram
 	 * sub.access_feature_1; end a.i;
-	 *
+	 * 
 	 * This will cause a stack overflow!
 	 */
 	public static ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier,
