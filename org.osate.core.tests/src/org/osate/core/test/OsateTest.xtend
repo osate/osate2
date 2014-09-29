@@ -24,19 +24,21 @@ import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.validation.Issue
 import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
+import org.junit.After
+import org.junit.Before
 import org.junit.ComparisonFailure
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.core.AadlNature
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.junit.Assert.assertEquals
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 
 /**
  * Add a couple of utility methods for managing files in the test workspace
  */
-class OsateTest extends XtextTest {
+abstract class OsateTest extends XtextTest {
 	@Inject extension IScopeProvider
 
 	static val Logger LOGGER = Logger.getLogger(OsateTest);
@@ -44,6 +46,20 @@ class OsateTest extends XtextTest {
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
 	
 	var Iterable<String> pluginResourcesNames = null
+	
+	@Before
+	def setUp() {
+		createProject(projectName)
+		buildProject("Plugin_Resources", true)
+		setResourceRoot("platform:/resource/" + projectName)
+	}
+	
+	@After
+	def cleanUp() {
+		deleteProject(projectName)
+	}
+	
+	def String getProjectName()
 
 	/**
       * Create a project with subdirectories in the current workspace.

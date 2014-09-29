@@ -37,8 +37,6 @@ package org.osate.core.tests.aadl2scopeprovider
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -54,18 +52,8 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
 class ConnectedElementsAndFlowEndsTest extends OsateTest {
-	static val TEST_PROJECT_NAME = "Aadl2_Scope_Provider_Test"
-	
-	@Before
-	def setUp() {
-		createProject(TEST_PROJECT_NAME, "packages")
-		buildProject("Plugin_Resources", true)
-		setResourceRoot("platform:/resource/" + TEST_PROJECT_NAME + "/packages")
-	}
-	
-	@After
-	def cleanUp() {
-		deleteProject(TEST_PROJECT_NAME)
+	override getProjectName() {
+		"Connected_Elements_And_Flow_Ends_Test"
 	}
 	
 	//Tests scope_ConnectedElement_context, scope_ConnectedElement_connectionEnd, scope_FlowEnd_context, and scope_FlowEnd_feature

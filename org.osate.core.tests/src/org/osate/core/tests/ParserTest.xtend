@@ -5,7 +5,6 @@ import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -20,13 +19,8 @@ class ParserTest extends OsateTest {
 
 	@Inject extension ParseHelper<ModelUnit>
 
-	val projectRoot = "platform:/resource/test/"
-
-	@Before
-	def setUp() {
-		val test_project = createProject("test", "packages")
-		buildProject("Plugin_Resources", true)
-		setResourceRoot(projectRoot + "packages")
+	override getProjectName() {
+		"test"
 	}
 
 	@Test

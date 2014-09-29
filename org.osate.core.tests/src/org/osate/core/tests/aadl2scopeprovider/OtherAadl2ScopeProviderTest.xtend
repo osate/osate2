@@ -39,8 +39,6 @@ import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -64,19 +62,9 @@ import static extension org.junit.Assert.assertEquals
 class OtherAadl2ScopeProviderTest extends OsateTest {
 	@Inject extension ParseHelper<ModelUnit>
 	@Inject extension ValidationTestHelper
-	
-	static val TEST_PROJECT_NAME = "Aadl2_Scope_Provider_Test"
-	
-	@Before
-	def setUp() {
-		createProject(TEST_PROJECT_NAME, "packages")
-		buildProject("Plugin_Resources", true)
-		setResourceRoot("platform:/resource/" + TEST_PROJECT_NAME + "/packages")
-	}
-	
-	@After
-	def cleanUp() {
-		deleteProject(TEST_PROJECT_NAME)
+
+	override getProjectName() {
+		"Other_Aadl2_Scope_Provider_Test"
 	}
 	
 //	@BeforeClass
