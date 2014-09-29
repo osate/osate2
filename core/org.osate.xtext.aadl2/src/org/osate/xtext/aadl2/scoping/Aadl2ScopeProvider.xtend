@@ -78,6 +78,8 @@ import org.osate.aadl2.FlowSegment
 import org.osate.aadl2.FlowSpecification
 import org.osate.aadl2.MemorySubcomponentType
 import org.osate.aadl2.ModalElement
+import org.osate.aadl2.ModeTransition
+import org.osate.aadl2.ModeTransitionTrigger
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.PrivatePackageSection
 import org.osate.aadl2.ProcessSubcomponentType
@@ -94,6 +96,7 @@ import org.osate.aadl2.SubprogramSubcomponentType
 import org.osate.aadl2.SystemSubcomponentType
 import org.osate.aadl2.ThreadGroupSubcomponentType
 import org.osate.aadl2.ThreadSubcomponentType
+import org.osate.aadl2.TriggerPort
 import org.osate.aadl2.VirtualBusSubcomponentType
 import org.osate.aadl2.VirtualProcessorSubcomponentType
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
@@ -550,6 +553,33 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.allModes.scopeFor
 	}
 	
+	//Reference is from Trigger in Aadl2.xtext
+	def scope_ModeTransitionTrigger_context(ComponentClassifier context, EReference reference) {
+		context.allContexts.filterRefined.scopeFor
+	}
+	
+	/*
+	 * Reference is from Trigger in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ModeTransitionTrigger.  When
+	 * the ModeTransitionTrigger is a single identifier, e.g. "eventport1", then the passed context is a ModeTransition.  In this case, we know that the
+	 * ModeTransitionTrigger's Context is null even though we can't access it and check it here.  When the ModeTransitionTrigger is a qualified reference, e.g.
+	 * "featuregroup1.eventport1", then the passed context is a ModeTransitionTrigger, thus calling the other scope method.
+	 */
+	def scope_ModeTransitionTrigger_triggerPort(ModeTransition context, EReference reference) {
+		context.getContainerOfType(Classifier).allTriggerPorts.filterRefined.scopeFor
+	}
+	
+	/*
+	 * Reference is from Trigger in Aadl2.xtext
+	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ModeTransitionTrigger.  When
+	 * the ModeTransitionTrigger is a qualified reference, e.g. "featuregroup1.eventport1", then the passed context is a ModeTransitionTrigger and we can
+	 * access and check the ModeTransitionTrigger's Context object.
+	 */
+	def scope_ModeTransitionTrigger_triggerPort(ModeTransitionTrigger context, EReference reference) {
+		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allTriggerPorts.filterRefined]) ?:
+			scope_ModeTransitionTrigger_triggerPort(context.owner as ModeTransition, reference)
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
@@ -605,6 +635,16 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			flowElements.addAll(classifier.allEndToEndFlows)
 		}
 		flowElements
+	}
+	
+	def private static allTriggerPorts(Classifier classifier) {
+		val triggerPorts = newArrayList
+		triggerPorts.addAll(classifier.getAllFeatures().filter(TriggerPort))
+		if (classifier instanceof ComponentImplementation) {
+			triggerPorts.addAll(classifier.allInternalFeatures)
+			triggerPorts.addAll(classifier.allPortProxies)
+		}
+		triggerPorts
 	}
 	
 	def private static allSubprogramProxies(ComponentImplementation implementation) {
