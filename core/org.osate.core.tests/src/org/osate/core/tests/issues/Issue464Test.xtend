@@ -2,7 +2,6 @@ package org.osate.core.tests.issues
 
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -16,18 +15,8 @@ import static org.junit.Assert.*
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class Issue464Test extends OsateTest {
-
-	val projectName = "issue464"
-	val projectRoot = "platform:/resource/" + projectName + "/"
-
-	/**
-	 *  Must build workspace before running any test. Otherwise we get exceptions.
-	 */
-	@Before
-	def setUp() {
-		createProject(projectName, "packages")
-		buildProject("Plugin_Resources", true)
-		setResourceRoot(projectRoot + "packages")
+	override getProjectName() {
+		"issue464"
 	}
 
 	@Test
