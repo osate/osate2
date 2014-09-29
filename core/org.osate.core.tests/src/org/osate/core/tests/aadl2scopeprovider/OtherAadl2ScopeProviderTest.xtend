@@ -56,6 +56,7 @@ import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.junit.Assert.assertNull
 
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
@@ -852,6 +853,87 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsource1", "fsink1"])
 					//Tests scope_ModalPath_inModeOrTransition
 					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+				]
+			]
+		]
+	}
+	
+	//Tests scope_ModeBinding_parentMode and scope_ModeBinding_derivedMode
+	@Test
+	def void testModeBindings() {
+		('''
+			package pack
+			public
+				abstract a1
+				prototypes
+					aproto1: abstract a2;
+					aproto2: abstract;
+				end a1;
+				
+				abstract implementation a1.i (aproto2 => abstract a2)
+				subcomponents
+					asub1: abstract in modes (m1);
+					asub2: abstract a2 in modes (m1 => m3);
+					asub3: abstract aproto1 in modes (m1 => m3);
+					asub4: abstract aproto2 in modes (m1 => m3);
+				modes
+					m1: initial mode;
+					m2: mode;
+				end a1.i;
+				
+				abstract a2
+				requires modes
+					m3: initial mode;
+					m4: mode;
+				end a2;
+			end pack;
+		'''.parse as AadlPackage) => [
+			assertNoIssues
+			"pack".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
+				ownedAbstractSubcomponents.get(0) => [
+					"asub1".assertEquals(name)
+					ownedModeBindings.head => [
+						"m1".assertEquals(parentMode.name)
+						derivedMode.assertNull
+						//Tests scope_ModeBinding_parentMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						//Tests scope_ModeBinding_derivedMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #[])
+					]
+				]
+				ownedAbstractSubcomponents.get(1) => [
+					"asub2".assertEquals(name)
+					ownedModeBindings.head => [
+						"m1".assertEquals(parentMode.name)
+						"m3".assertEquals(derivedMode.name)
+						//Tests scope_ModeBinding_parentMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						//Tests scope_ModeBinding_derivedMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #["m3", "m4"])
+					]
+				]
+				ownedAbstractSubcomponents.get(2) => [
+					"asub3".assertEquals(name)
+					ownedModeBindings.head => [
+						"m1".assertEquals(parentMode.name)
+						"m3".assertEquals(derivedMode.name)
+						//Tests scope_ModeBinding_parentMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						//Tests scope_ModeBinding_derivedMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #["m3", "m4"])
+					]
+				]
+				ownedAbstractSubcomponents.get(3) => [
+					"asub4".assertEquals(name)
+					ownedModeBindings.head => [
+						"m1".assertEquals(parentMode.name)
+						"m3".assertEquals(derivedMode.name)
+						//Tests scope_ModeBinding_parentMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						//Tests scope_ModeBinding_derivedMode
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #["m3", "m4"])
+					]
 				]
 			]
 		]
