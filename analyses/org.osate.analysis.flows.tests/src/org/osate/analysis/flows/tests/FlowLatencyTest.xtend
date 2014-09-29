@@ -6,7 +6,6 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.util.Files
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -22,18 +21,8 @@ import static org.junit.Assert.*
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class FlowLatencyTest extends OsateTest {
-
-	val projectName = "test"
-	val projectRoot = "platform:/resource/" + projectName +"/"
-
-	/**
-	 *  Must build workspace before running any test. Otherwise we get exceptions.
-	 */
-	@Before
-	def setUp() {
-		val test_project = createProject(projectName, "packages")
-		buildProject("Plugin_Resources", true)
-		setResourceRoot(projectRoot + "packages")
+	override getProjectName() {
+		"test"
 	}
 
 	@Test
@@ -60,7 +49,7 @@ class FlowLatencyTest extends OsateTest {
 
 		// read csv
 		val uri = URI.createURI(
-			projectRoot + "instances/reports/latency/pullprotocols_stub_i_Instance__latencylatency.csv")
+			resourceRoot + "/instances/reports/latency/pullprotocols_stub_i_Instance__latencylatency.csv")
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
