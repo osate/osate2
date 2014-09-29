@@ -15,8 +15,10 @@
 
    <launcherArgs>
       <programArgs>--launcher.XXPermSize 64M
---launcher.XXMaxPermSize 256M</programArgs>
-      <vmArgs>-XX:PermSize=64m -XX:MaxPermSize=256m -Xms40m -Xmx768m</vmArgs>
+--launcher.XXMaxPermSize 256M
+      </programArgs>
+      <vmArgs>-XX:PermSize=64m -XX:MaxPermSize=256m -Xms40m -Xmx768m
+      </vmArgs>
    </launcherArgs>
 
    <windowImages i16="icons/16aadl.jpg" i32="icons/32aadl.jpg"/>
@@ -78,6 +80,7 @@
       <feature id="org.eclipse.team.svn.mylyn" version="2.0.0.I20140609-1700"/>
       <feature id="org.eclipse.uml2" version="5.0.0.v20140910-1354"/>
       <feature id="org.eclipse.zest" version="1.5.100.201405261516"/>
+      <feature id="org.eclipse.xtext.redist" version="2.6.2.v201407030533"/>
    </features>
 
    <configurations>
