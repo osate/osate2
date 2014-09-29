@@ -52,6 +52,7 @@ import org.osate.aadl2.FeatureGroupPrototypeBinding
 import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.PropertySet
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
@@ -279,12 +280,12 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypes.get(0) => [
 					"proto1".assertEquals(name)
 					//Tests scope_ComponentPrototype_constrainingClassifier
-					assertScope(Aadl2Package::eINSTANCE.componentPrototype_ConstrainingClassifier, componentClassifierScopeForPack1)
+					assertScope(Aadl2Package::eINSTANCE.componentPrototype_ConstrainingClassifier, false, componentClassifierScopeForPack1)
 				]
 				ownedPrototypes.get(1) => [
 					"proto2".assertEquals(name)
 					//Tests scope_FeaturePrototype_constrainingClassifier
-					assertScope(Aadl2Package::eINSTANCE.featurePrototype_ConstrainingClassifier, componentClassifierScopeForPack1)
+					assertScope(Aadl2Package::eINSTANCE.featurePrototype_ConstrainingClassifier, false, componentClassifierScopeForPack1)
 				]
 			]
 			publicSection.ownedClassifiers.get(1) => [
@@ -292,24 +293,24 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) as FeatureGroupPrototypeBinding => [
 					"proto3".assertEquals(formal.name)
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt3", "fgt5", "proto3",
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, false, #["fgt1", "fgt3", "fgt5", "proto3",
 						"renamed_feature_group", "pack1::fgt1", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "renamed_package::fgt4"
 					])
 				]
 				ownedPrototypeBindings.get(1) as FeaturePrototypeBinding => [
 					"proto4".assertEquals(formal.name)
 					//Tests scope_PortSpecification_classifier
-					actual.assertScope(Aadl2Package::eINSTANCE.portSpecification_Classifier, componentClassifierScopeForPack1)
+					actual.assertScope(Aadl2Package::eINSTANCE.portSpecification_Classifier, false, componentClassifierScopeForPack1)
 				]
 				ownedPrototypeBindings.get(2) as FeaturePrototypeBinding => [
 					"proto5".assertEquals(formal.name)
 					//Tests scope_AccessSpecification_classifier
-					actual.assertScope(Aadl2Package::eINSTANCE.accessSpecification_Classifier, componentClassifierScopeForPack1)
+					actual.assertScope(Aadl2Package::eINSTANCE.accessSpecification_Classifier, false, componentClassifierScopeForPack1)
 				]
 				ownedPrototypeBindings.get(3) as ComponentPrototypeBinding => [
 					"proto6".assertEquals(formal.name)
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["proto1", "proto6"] + componentClassifierScopeForPack1)
+					actuals.get(0).assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, false, #["proto1", "proto6"] + componentClassifierScopeForPack1)
 				]
 			]
 			publicSection.ownedClassifiers.get(2) as ComponentImplementation => [
@@ -317,7 +318,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedEventDataSources.head => [
 					"eds1".assertEquals(name)
 					//Tests scope_EventDataSource_dataClassifier
-					assertScope(Aadl2Package::eINSTANCE.eventDataSource_DataClassifier, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
+					assertScope(Aadl2Package::eINSTANCE.eventDataSource_DataClassifier, false, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
 						"pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i",
 						"pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i"
 					])
@@ -325,7 +326,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPortProxies.head => [
 					"pp1".assertEquals(name)
 					//Tests scope_PortProxy_dataClassifier
-					assertScope(Aadl2Package::eINSTANCE.portProxy_DataClassifier, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
+					assertScope(Aadl2Package::eINSTANCE.portProxy_DataClassifier, false, #["d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1",
 						"pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i",
 						"pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i"
 					])
@@ -333,9 +334,9 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedSubprogramProxies.head => [
 					"sp1".assertEquals(name)
 					//Tests scope_SubprogramProxy_subprogramClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramProxy_SubprogramClassifier, #["renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i",
-						"subp5", "pack1::subp1", "pack1::subp1.i", "pack2::subp2", "pack2::subp2.i", "pack3::subp3", "pack3::subp3.i", "pack4::subp4",
-						"pack4::subp4.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::subp4",
+					assertScope(Aadl2Package::eINSTANCE.subprogramProxy_SubprogramClassifier, false, #["renamed_subprogram", "subp1", "subp1.i", "subp3",
+						"subp3.i", "subp5", "pack1::subp1", "pack1::subp1.i", "pack2::subp2", "pack2::subp2.i", "pack3::subp3", "pack3::subp3.i",
+						"pack4::subp4", "pack4::subp4.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::subp4",
 						"renamed_package::subp4.i"
 					])
 				]
@@ -431,34 +432,34 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
 					"proto1".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					actuals.head => [
 						"a3".assertEquals(subcomponentType.name)
 						//Tests scope_ComponentPrototypeActual_subcomponentType
-						assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3", "a3.i1",
-							"proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
+						assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, false, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3",
+							"a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
 						])
 						bindings.head => [
 							"proto2".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(ComponentPrototypeActual, EReference)
-							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto2"])
+							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto2"])
 						]
 					]
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 					"proto3".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					actual => [
 						"fgt1".assertEquals((featureType as NamedElement).name)
 						//Tests scope_FeatureGroupPrototypeActual_featureType
-						assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto3", "proto5", "pack::fgt1",
+						assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, false, #["fgt1", "fgt2", "proto3", "proto5", "pack::fgt1",
 							"pack::fgt2"
 						])
 						bindings.head => [
 							"proto4".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(FeatureGroupPrototypeActual, EReference)
-							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
+							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto10", "proto12", "proto4", "proto6"])
 						]
 					]
 				]
@@ -472,7 +473,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 						ownedPrototypeBindings.head => [
 							"proto2".assertEquals(formal.name)
 							//Tests scope_PrototypeBinding_formal(ComponentImplementationReference, EReference)
-							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto2"])
+							assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto2"])
 						]
 					]
 				]
@@ -481,7 +482,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					ownedPrototypeBindings.head => [
 						"proto2".assertEquals(formal.name)
 						//Tests scope_PrototypeBinding_formal(Subcomponent, EReference)
-						assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto2"])
+						assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto2"])
 					]
 				]
 			]
@@ -490,44 +491,44 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
 					"proto1".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3",
-						"a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, false, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2",
+						"a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
 					])
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 					"proto3".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto3", "proto5", "pack::fgt1",
-						"pack::fgt2"
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, false, #["fgt1", "fgt2", "proto3", "proto5",
+						"pack::fgt1", "pack::fgt2"
 					])
 				]
 				ownedPrototypeBindings.get(2) as FeatureGroupPrototypeBinding => [
 					"proto5".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto3", "proto5", "pack::fgt1",
-						"pack::fgt2"
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, false, #["fgt1", "fgt2", "proto3", "proto5",
+						"pack::fgt1", "pack::fgt2"
 					])
 				]
 				ownedPrototypeBindings.get(3) as FeaturePrototypeBinding => [
 					"proto8".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_FeaturePrototypeReference_prototype
-					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, #["proto8", "proto9"])
+					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, false, #["proto8", "proto9"])
 				]
 				ownedPrototypeBindings.get(4) as ComponentPrototypeBinding => [
 					"proto11".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3",
-						"a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, false, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2",
+						"a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
 					])
 				]
 			]
@@ -536,10 +537,10 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
 					"proto1".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto1", "proto11", "proto3", "proto5", "proto8", "proto9"])
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3",
-						"a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, false, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2",
+						"a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
 					])
 				]
 			]
@@ -548,31 +549,31 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPrototypeBindings.get(0) => [
 					"proto4".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto10", "proto12", "proto4", "proto6"])
 				]
 				ownedPrototypeBindings.get(1) as FeatureGroupPrototypeBinding => [
 					"proto6".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto10", "proto12", "proto4", "proto6"])
 					//Tests scope_FeatureGroupPrototypeActual_featureType
-					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, #["fgt1", "fgt2", "proto6", "proto7", "pack::fgt1",
-						"pack::fgt2"
+					actual.assertScope(Aadl2Package::eINSTANCE.featureGroupPrototypeActual_FeatureType, false, #["fgt1", "fgt2", "proto6", "proto7",
+						"pack::fgt1", "pack::fgt2"
 					])
 				]
 				ownedPrototypeBindings.get(2) as FeaturePrototypeBinding => [
 					"proto10".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto10", "proto12", "proto4", "proto6"])
 					//Tests scope_FeaturePrototypeReference_prototype
-					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, #["proto10", "proto4"])
+					actual.assertScope(Aadl2Package::eINSTANCE.featurePrototypeReference_Prototype, false, #["proto10", "proto4"])
 				]
 				ownedPrototypeBindings.get(3) as ComponentPrototypeBinding => [
 					"proto12".assertEquals(formal.name)
 					//Tests scope_PrototypeBinding_formal(Classifier, EReference)
-					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, #["proto10", "proto12", "proto4", "proto6"])
+					assertScope(Aadl2Package::eINSTANCE.prototypeBinding_Formal, false, #["proto10", "proto12", "proto4", "proto6"])
 					//Tests scope_ComponentPrototypeActual_subcomponentType
-					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2", "a3",
-						"a3.i1", "proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
+					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, false, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2",
+						"a3", "a3.i1", "proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
 					])
 				]
 			]
@@ -581,10 +582,11 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	
 	/*
 	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
-	 * The scope for this rule is automatically provided, so there is no scoping method to test here.
+	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.
+	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
 	 */
 	@Test
-	def void testArraySizeProperty() {
+	def void testGlobalPropertySetReferences() {
 		createFiles(
 			"pack.aadl" -> '''
 				package pack
@@ -607,7 +609,13 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			'''
 		)
 		suppressSerialization
-		testFile("ps.aadl")
+		testFile("ps.aadl").resource.contents.head as PropertySet => [
+			"ps".assertEquals(name)
+			//Tests the reference PropertySet_ImportedUnit
+			assertScope(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, true, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
+				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack", "ps"
+			])
+		]
 		testFile("pack.aadl").resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.head as ComponentType => [
@@ -617,7 +625,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					arrayDimensions.head.size => [
 						"ps::def".assertEquals((sizeProperty as NamedElement).qualifiedName())
 						//Tests the reference ArraySize_SizeProperty
-						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
+						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, false, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
 							"Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
 							"Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol", "Actual_Connection_Binding",
 							"Actual_Function_Binding", "Actual_Latency", "Actual_Memory_Binding", "Actual_Processor_Binding", "Actual_Subprogram_Call",
@@ -792,37 +800,37 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedPortConnections.get(0) => [
 					"portconn1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
 				]
 				ownedPortConnections.get(1) => [
 					"portconn2".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
 				]
 				ownedAccessConnections.head => [
 					"aconn1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
 				]
 				ownedFeatureGroupConnections.head => [
 					"fgconn1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
 				]
 				ownedFeatureConnections.head => [
 					"fconn1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
 				]
 				ownedParameterConnections.head => [
 					"paramconn1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
 				]
 				ownedEndToEndFlows.head => [
 					"ete1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m1", "m2", "m3", "m4", "mt1", "mt2", "mt3", "mt4"])
 				]
 			]
 			publicSection.ownedClassifiers.get(2) as AbstractType => [
@@ -830,12 +838,12 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedFlowSpecifications.get(0) => [
 					"fsource1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
 				]
 				ownedFlowSpecifications.get(1) => [
 					"fsink1".assertEquals(name)
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
 				]
 			]
 			publicSection.ownedClassifiers.get(3) as AbstractImplementation => [
@@ -843,16 +851,16 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedFlowImplementations.get(0) => [
 					"fsource1".assertEquals(specification.name)
 					//Tests scope_FlowImplementation_specification
-					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsink1", "fsource1"])
+					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, false, #["fsink1", "fsource1"])
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
 				]
 				ownedFlowImplementations.get(1) => [
 					"fsink1".assertEquals(specification.name)
 					//Tests scope_FlowImplementation_specification
-					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsource1", "fsink1"])
+					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, false, #["fsource1", "fsink1"])
 					//Tests scope_ModalPath_inModeOrTransition
-					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, false, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
 				]
 			]
 		]
@@ -897,9 +905,9 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 						"m1".assertEquals(parentMode.name)
 						derivedMode.assertNull
 						//Tests scope_ModeBinding_parentMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, false, #["m1", "m2"])
 						//Tests scope_ModeBinding_derivedMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #[])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, false, #[])
 					]
 				]
 				ownedAbstractSubcomponents.get(1) => [
@@ -908,9 +916,9 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 						"m1".assertEquals(parentMode.name)
 						"m3".assertEquals(derivedMode.name)
 						//Tests scope_ModeBinding_parentMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, false, #["m1", "m2"])
 						//Tests scope_ModeBinding_derivedMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #["m3", "m4"])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, false, #["m3", "m4"])
 					]
 				]
 				ownedAbstractSubcomponents.get(2) => [
@@ -919,9 +927,9 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 						"m1".assertEquals(parentMode.name)
 						"m3".assertEquals(derivedMode.name)
 						//Tests scope_ModeBinding_parentMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, false, #["m1", "m2"])
 						//Tests scope_ModeBinding_derivedMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #["m3", "m4"])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, false, #["m3", "m4"])
 					]
 				]
 				ownedAbstractSubcomponents.get(3) => [
@@ -930,9 +938,9 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 						"m1".assertEquals(parentMode.name)
 						"m3".assertEquals(derivedMode.name)
 						//Tests scope_ModeBinding_parentMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, #["m1", "m2"])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_ParentMode, false, #["m1", "m2"])
 						//Tests scope_ModeBinding_derivedMode
-						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, #["m3", "m4"])
+						assertScope(Aadl2Package::eINSTANCE.modeBinding_DerivedMode, false, #["m3", "m4"])
 					]
 				]
 			]
