@@ -54,6 +54,7 @@ import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.RecordType
 import org.osate.aadl2.UnitsType
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
@@ -588,7 +589,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	 * Tests the reference ClassifierValue_classifier used in the parser rule QCReference.
 	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
 	 * 
-	 * Tests scope_UnitLiteral_baseUnit, scope_NumberType_referencedUnitsType, and scope_RangeType_numberType
+	 * Tests scope_UnitLiteral_baseUnit, scope_NumberType_referencedUnitsType, scope_RangeType_numberType, and scope_BasicProperty_referencedPropertyType
 	 */
 	@Test
 	def void testPropertySetReferences() {
@@ -601,6 +602,10 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  pt1: type aadlreal units ps::ut1;
 				  pt2: type aadlinteger units ps::ut1;
 				  pt3: type range of ps::pt1;
+				  pt4: type record (
+				    f1: ps::pt1;
+				    f2: ps::pt2;
+				  );
 				  
 				  def1: aadlinteger applies to (all);
 				  def2: aadlreal units ps::ut1 applies to (all);
@@ -688,6 +693,51 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				assertScope(Aadl2Package::eINSTANCE.rangeType_NumberType, false, #["Data_Volume", "Size", "Time", "ps::pt1", "ps::pt2",
 					"AADL_Project::Data_Volume", "Memory_Properties::Size", "Timing_Properties::Time"
 				])
+			]
+			ownedPropertyTypes.get(4) as RecordType => [
+				"pt4".assertEquals(name)
+				ownedFields.get(0) => [
+					"f1".assertEquals(name)
+					//Tests scope_BasicProperty_referencedPropertyType
+					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
+						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
+						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
+						"Supported_Distributions", "Supported_Hardware_Source_Languages", "Supported_Queue_Processing_Protocols",
+						"Supported_Scheduling_Protocols", "Supported_Source_Languages", "Time", "Time_Range", "Time_Units", "ps::pt1", "ps::pt2", "ps::pt3",
+						"ps::pt4", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume", "AADL_Project::Data_Volume_Units",
+						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Supported_Active_Thread_Handling_Protocols",
+						"AADL_Project::Supported_Classifier_Substitutions", "AADL_Project::Supported_Concurrency_Control_Protocols",
+						"AADL_Project::Supported_Connection_Patterns", "AADL_Project::Supported_Connection_QoS", "AADL_Project::Supported_Dispatch_Protocols",
+						"AADL_Project::Supported_Distributions", "AADL_Project::Supported_Hardware_Source_Languages",
+						"AADL_Project::Supported_Queue_Processing_Protocols", "AADL_Project::Supported_Scheduling_Protocols",
+						"AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units", "Communication_Properties::Connection_Pair",
+						"Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec", "Communication_Properties::Rate_Spec",
+						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Memory_Properties::Size",
+						"Memory_Properties::Size_Range", "Timing_Properties::Time", "Timing_Properties::Time_Range"
+					])
+				]
+				ownedFields.get(1) => [
+					"f2".assertEquals(name)
+					//Tests scope_BasicProperty_referencedPropertyType
+					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
+						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
+						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
+						"Supported_Distributions", "Supported_Hardware_Source_Languages", "Supported_Queue_Processing_Protocols",
+						"Supported_Scheduling_Protocols", "Supported_Source_Languages", "Time", "Time_Range", "Time_Units", "ps::pt1", "ps::pt2", "ps::pt3",
+						"ps::pt4", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume", "AADL_Project::Data_Volume_Units",
+						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Supported_Active_Thread_Handling_Protocols",
+						"AADL_Project::Supported_Classifier_Substitutions", "AADL_Project::Supported_Concurrency_Control_Protocols",
+						"AADL_Project::Supported_Connection_Patterns", "AADL_Project::Supported_Connection_QoS", "AADL_Project::Supported_Dispatch_Protocols",
+						"AADL_Project::Supported_Distributions", "AADL_Project::Supported_Hardware_Source_Languages",
+						"AADL_Project::Supported_Queue_Processing_Protocols", "AADL_Project::Supported_Scheduling_Protocols",
+						"AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units", "Communication_Properties::Connection_Pair",
+						"Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec", "Communication_Properties::Rate_Spec",
+						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Memory_Properties::Size",
+						"Memory_Properties::Size_Range", "Timing_Properties::Time", "Timing_Properties::Time_Range"
+					])
+				]
 			]
 			ownedProperties.get(1) => [
 				"def2".assertEquals(name)
