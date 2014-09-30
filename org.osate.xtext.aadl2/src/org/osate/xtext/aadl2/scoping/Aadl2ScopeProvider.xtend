@@ -615,6 +615,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
 	}
 	
+	//Reference is from ListType in Aadl2.xtext
+	def scope_ListType_elementType(Element context, EReference reference) {
+		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
+	}
+	
 	def private static allPrototypes(Classifier classifier) {
 		switch classifier {
 			ComponentClassifier:
