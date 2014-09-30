@@ -45,6 +45,7 @@ import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
+import org.osate.aadl2.ClassifierValue
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentPrototypeBinding
 import org.osate.aadl2.ComponentType
@@ -584,6 +585,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	/*
 	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
 	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.
+	 * Tests the reference ClassifierValue_classifier used in the parser rule QCReference.
 	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
 	 * 
 	 * Tests scope_UnitLiteral_baseUnit, scope_NumberType_referencedUnitsType, and scope_RangeType_numberType
@@ -592,6 +594,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	def void testPropertySetReferences() {
 		createFiles("ps.aadl" -> '''
 				property set ps is
+				  with pack2;
+				  
 				  ut1: type units (ul1, ul2 => ul1 * 10, ul3 => ul2 * 10, ul4 => ul3 * 10);
 				  
 				  pt1: type aadlreal units ps::ut1;
@@ -602,30 +606,42 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  def2: aadlreal units ps::ut1 applies to (all);
 				  def3: aadlinteger units ps::ut1 applies to (all);
 				  def4: range of ps::pt1 applies to (all);
+				  def5: aadlboolean applies to (pack2::a2.i);
 				  
 				  const: constant aadlinteger => 10;
 				end ps;
 			''',
-			"pack.aadl" -> '''
-				package pack
+			"pack1.aadl" -> '''
+				package pack1
 				public
 				  with ps;
 				  
-				  abstract a
+				  abstract a1
 				  features
 				    af: feature[ps::def1];
 				  properties
 				    ps::def1 => 4;
-				  end a;
-				end pack;
+				  end a1;
+				end pack1;
+			''',
+			"pack2.aadl" -> '''
+				package pack2
+				public
+				  abstract a2
+				  end a2;
+				  
+				  abstract implementation a2.i
+				  end a2.i;
+				end pack2;
 			'''
 		)
 		suppressSerialization
+		testFile("pack2.aadl")
 		testFile("ps.aadl").resource.contents.head as PropertySet => [
 			"ps".assertEquals(name)
 			//Tests the reference PropertySet_ImportedUnit
 			assertScope(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, true, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
-				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack", "ps"
+				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack1", "pack2", "ps"
 			])
 			ownedPropertyTypes.get(0) as UnitsType => [
 				"ut1".assertEquals(name)
@@ -702,11 +718,19 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					])
 				]
 			]
+			ownedProperties.get(4) => [
+				"def5".assertEquals(name)
+				appliesTos.head as ClassifierValue => [
+					"pack2::a2.i".assertEquals(classifier.getQualifiedName())
+					//Tests the reference ClassifierValue_classifier
+					assertScope(Aadl2Package::eINSTANCE.classifierValue_Classifier, false, #["pack1::a1", "pack2::a2", "pack2::a2.i"])
+				]
+			]
 		]
-		testFile("pack.aadl").resource.contents.head as AadlPackage => [
-			"pack".assertEquals(name)
+		testFile("pack1.aadl").resource.contents.head as AadlPackage => [
+			"pack1".assertEquals(name)
 			publicSection.ownedClassifiers.head as ComponentType => [
-				"a".assertEquals(name)
+				"a1".assertEquals(name)
 				ownedAbstractFeatures.head => [
 					"af".assertEquals(name)
 					arrayDimensions.head.size => [
@@ -744,7 +768,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 							"Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language",
 							"Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing",
 							"Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const",
-							"ps::def1", "ps::def2", "ps::def3", "ps::def4", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
+							"ps::def1", "ps::def2", "ps::def3", "ps::def4", "ps::def5", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
 							"AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer",
 							"AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume",
 							"AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches",
