@@ -512,6 +512,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Check(CheckType.FAST)
+	public void caseUnitLiteral(final UnitLiteral ul) {
+		if (ul.getBaseUnit() != null && !ul.getBaseUnit().eIsProxy()) {
+			EList<EnumerationLiteral> literals = ((UnitsType) ul.getOwner()).getOwnedLiterals();
+			if (ul.equals(ul.getBaseUnit())) {
+				error('\'' + ul.getName() + "' cannot be its own base unit", ul,
+						Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+			} else if (literals.indexOf(ul.getBaseUnit()) >= literals.indexOf(ul)) {
+				error('\'' + ul.getBaseUnit().getName() + "' is not declared before '" + ul.getName() + '\'', ul,
+						Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+			}
+		}
+	}
+
+	@Check(CheckType.FAST)
 	public void caseEnumerationType(final EnumerationType et) {
 		final EList<EnumerationLiteral> literals = et.getOwnedLiterals();
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
