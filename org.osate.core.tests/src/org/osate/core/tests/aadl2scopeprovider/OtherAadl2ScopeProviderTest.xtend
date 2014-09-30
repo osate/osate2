@@ -584,8 +584,9 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	/*
 	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
 	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.
-	 * Tests scope_UnitLiteral_baseUnit and scope_NumberType_referencedUnitsType
 	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
+	 * 
+	 * Tests scope_UnitLiteral_baseUnit, scope_NumberType_referencedUnitsType, and scope_RangeType_numberType
 	 */
 	@Test
 	def void testPropertySetReferences() {
@@ -595,10 +596,12 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  
 				  pt1: type aadlreal units ps::ut1;
 				  pt2: type aadlinteger units ps::ut1;
+				  pt3: type range of ps::pt1;
 				  
 				  def1: aadlinteger applies to (all);
 				  def2: aadlreal units ps::ut1 applies to (all);
 				  def3: aadlinteger units ps::ut1 applies to (all);
+				  def4: range of ps::pt1 applies to (all);
 				  
 				  const: constant aadlinteger => 10;
 				end ps;
@@ -663,6 +666,13 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
 				])
 			]
+			ownedPropertyTypes.get(3) => [
+				"pt3".assertEquals(name)
+				//Tests scope_RangeType_numberType
+				assertScope(Aadl2Package::eINSTANCE.rangeType_NumberType, false, #["Data_Volume", "Size", "Time", "ps::pt1", "ps::pt2",
+					"AADL_Project::Data_Volume", "Memory_Properties::Size", "Timing_Properties::Time"
+				])
+			]
 			ownedProperties.get(1) => [
 				"def2".assertEquals(name)
 				ownedPropertyType => [
@@ -680,6 +690,15 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units",
 						"Processor_Speed_Units", "Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
 						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
+					])
+				]
+			]
+			ownedProperties.get(3) => [
+				"def4".assertEquals(name)
+				ownedPropertyType => [
+					//Tests scope_RangeType_numberType
+					assertScope(Aadl2Package::eINSTANCE.rangeType_NumberType, false, #["Data_Volume", "Size", "Time", "ps::pt1", "ps::pt2",
+						"AADL_Project::Data_Volume", "Memory_Properties::Size", "Timing_Properties::Time"
 					])
 				]
 			]
@@ -725,7 +744,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 							"Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language",
 							"Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing",
 							"Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const",
-							"ps::def1", "ps::def2", "ps::def3", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
+							"ps::def1", "ps::def2", "ps::def3", "ps::def4", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
 							"AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer",
 							"AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume",
 							"AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches",
