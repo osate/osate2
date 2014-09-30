@@ -41,7 +41,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
+import org.osate.aadl2.UnitsType
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
@@ -686,6 +688,37 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						//Tests typeCheckModeTransitionTrigger
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid mode transition trigger.")
 					]
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	//Tests caseUnitLiteral
+	@Test
+	def void testUnitLiterals() {
+		createFiles("ps.aadl" -> '''
+			property set ps is
+				ut1: type units (ul1, ul2 => ul1 * 10, ul3 => ul4 * 10, ul4 => ul4 * 10);
+			end ps;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("ps.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as PropertySet => [
+			"ps".assertEquals(name)
+			ownedPropertyTypes.head as UnitsType => [
+				"ut1".assertEquals(name)
+				ownedLiterals.get(2) => [
+					"ul3".assertEquals(name)
+					//Tests caseUnitLiteral
+					assertError(testFileResult.issues, issueCollection, "'ul4' is not declared before 'ul3'")
+				]
+				ownedLiterals.get(3) => [
+					"ul4".assertEquals(name)
+					//Tests caseUnitLiteral
+					assertError(testFileResult.issues, issueCollection, "'ul4' cannot be its own base unit")
 				]
 			]
 		]
