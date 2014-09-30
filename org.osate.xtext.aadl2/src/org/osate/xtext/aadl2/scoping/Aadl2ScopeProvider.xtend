@@ -94,6 +94,7 @@ import org.osate.aadl2.SystemSubcomponentType
 import org.osate.aadl2.ThreadGroupSubcomponentType
 import org.osate.aadl2.ThreadSubcomponentType
 import org.osate.aadl2.TriggerPort
+import org.osate.aadl2.UnitsType
 import org.osate.aadl2.VirtualBusSubcomponentType
 import org.osate.aadl2.VirtualProcessorSubcomponentType
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
@@ -590,6 +591,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			ComponentPrototype:
 				subcomponentType.findClassifierForComponentPrototype(context.getContainerOfType(Classifier))
 		}?.allModes?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
+	//Reference is from UnitLiteralConversion in Aadl2.xtext
+	def scope_UnitLiteral_baseUnit(UnitsType context, EReference reference) {
+		context.ownedLiterals.scopeFor
 	}
 	
 	def private static allPrototypes(Classifier classifier) {
