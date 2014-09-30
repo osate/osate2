@@ -47,6 +47,7 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
@@ -54,6 +55,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -709,7 +711,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return canOwnFeatureType((Classifier)diagramBo, featureType);
+		return isClassifierDiagram() && canOwnFeatureType((Classifier)diagramBo, featureType);
 	}	
 
 	@Override
@@ -751,6 +753,14 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		 			
 					final NamedElement newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
+					
+					if(newFeature instanceof DirectedFeature) {
+						if(!(newFeature instanceof AbstractFeature || newFeature instanceof FeatureGroup)) {
+							final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;
+							newDirectedFeature.setIn(true);
+							newDirectedFeature.setOut(true);
+						}
+					}
 					
 					if(classifier instanceof ComponentType) {
 						((ComponentType) classifier).setNoFeatures(false);
