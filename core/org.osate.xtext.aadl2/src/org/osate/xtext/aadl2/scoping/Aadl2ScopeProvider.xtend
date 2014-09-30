@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractSubcomponentType
 import org.osate.aadl2.AccessType
@@ -97,6 +98,7 @@ import org.osate.aadl2.TriggerPort
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.VirtualBusSubcomponentType
 import org.osate.aadl2.VirtualProcessorSubcomponentType
+import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
@@ -596,6 +598,11 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	//Reference is from UnitLiteralConversion in Aadl2.xtext
 	def scope_UnitLiteral_baseUnit(UnitsType context, EReference reference) {
 		context.ownedLiterals.scopeFor
+	}
+	
+	//Reference is from RealType, UnnamedRealType, IntegerType, and UnnamedIntegerType in Aadl2.xtext
+	def scope_NumberType_referencedUnitsType(Element context, EReference reference) {
+		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
 	}
 	
 	def private static allPrototypes(Classifier classifier) {
