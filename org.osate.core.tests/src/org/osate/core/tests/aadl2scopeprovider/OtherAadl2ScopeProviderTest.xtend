@@ -74,7 +74,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 //	def static showReferences() {
 //		println
 //		typeof(Aadl2Package).methods.filter[declaringClass == typeof(Aadl2Package) && returnType == typeof(EReference)].map[it -> invoke(Aadl2Package::eINSTANCE) as EReference].
-//			filter[!value.containment && !value.derived].filter[value.EReferenceType == Aadl2Package::eINSTANCE.feature].
+//			filter[!value.containment && !value.derived].filter[value.EReferenceType == Aadl2Package::eINSTANCE.propertyType].
 //			forEach[println(key.name.substring(3, key.name.indexOf("_")) + "." + value.name + "->" + value.EReferenceType.name)]
 //	}
 	
@@ -584,12 +584,25 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	/*
 	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
 	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.
-	 * Tests scope_UnitLiteral_baseUnit.
+	 * Tests scope_UnitLiteral_baseUnit and scope_NumberType_referencedUnitsType
 	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
 	 */
 	@Test
 	def void testPropertySetReferences() {
-		createFiles(
+		createFiles("ps.aadl" -> '''
+				property set ps is
+				  ut1: type units (ul1, ul2 => ul1 * 10, ul3 => ul2 * 10, ul4 => ul3 * 10);
+				  
+				  pt1: type aadlreal units ps::ut1;
+				  pt2: type aadlinteger units ps::ut1;
+				  
+				  def1: aadlinteger applies to (all);
+				  def2: aadlreal units ps::ut1 applies to (all);
+				  def3: aadlinteger units ps::ut1 applies to (all);
+				  
+				  const: constant aadlinteger => 10;
+				end ps;
+			''',
 			"pack.aadl" -> '''
 				package pack
 				public
@@ -597,18 +610,11 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  
 				  abstract a
 				  features
-				    af: feature[ps::def];
+				    af: feature[ps::def1];
 				  properties
-				    ps::def => 4;
+				    ps::def1 => 4;
 				  end a;
 				end pack;
-			''',
-			"ps.aadl" -> '''
-				property set ps is
-				  ut1: type units (ul1, ul2 => ul1 * 10, ul3 => ul2 * 10, ul4 => ul3 * 10);
-				  def: aadlinteger applies to (all);
-				  const: constant aadlinteger => 10;
-				end ps;
 			'''
 		)
 		suppressSerialization
@@ -618,7 +624,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			assertScope(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, true, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
 				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack", "ps"
 			])
-			ownedPropertyTypes.head as UnitsType => [
+			ownedPropertyTypes.get(0) as UnitsType => [
 				"ut1".assertEquals(name)
 				ownedLiterals.get(0) => [
 					"ul1".assertEquals(name)
@@ -641,6 +647,42 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
 				]
 			]
+			ownedPropertyTypes.get(1) => [
+				"pt1".assertEquals(name)
+				//Tests scope_NumberType_referencedUnitsType
+				assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units", "Processor_Speed_Units",
+					"Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
+					"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
+				])
+			]
+			ownedPropertyTypes.get(2) => [
+				"pt2".assertEquals(name)
+				//Tests scope_NumberType_referencedUnitsType
+				assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units", "Processor_Speed_Units",
+					"Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
+					"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
+				])
+			]
+			ownedProperties.get(1) => [
+				"def2".assertEquals(name)
+				ownedPropertyType => [
+					//Tests scope_NumberType_referencedUnitsType
+					assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units",
+						"Processor_Speed_Units", "Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
+						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
+					])
+				]
+			]
+			ownedProperties.get(2) => [
+				"def3".assertEquals(name)
+				ownedPropertyType => [
+					//Tests scope_NumberType_referencedUnitsType
+					assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units",
+						"Processor_Speed_Units", "Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
+						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
+					])
+				]
+			]
 		]
 		testFile("pack.aadl").resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
@@ -649,7 +691,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				ownedAbstractFeatures.head => [
 					"af".assertEquals(name)
 					arrayDimensions.head.size => [
-						"ps::def".assertEquals((sizeProperty as NamedElement).qualifiedName())
+						"ps::def1".assertEquals((sizeProperty as NamedElement).qualifiedName())
 						//Tests the reference ArraySize_SizeProperty
 						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, false, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
 							"Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
@@ -683,7 +725,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 							"Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language",
 							"Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing",
 							"Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const",
-							"ps::def", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
+							"ps::def1", "ps::def2", "ps::def3", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
 							"AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer",
 							"AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume",
 							"AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches",
