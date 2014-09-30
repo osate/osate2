@@ -53,6 +53,7 @@ import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.UnitsType
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
@@ -583,10 +584,11 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	/*
 	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
 	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.
+	 * Tests scope_UnitLiteral_baseUnit.
 	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
 	 */
 	@Test
-	def void testGlobalPropertySetReferences() {
+	def void testPropertySetReferences() {
 		createFiles(
 			"pack.aadl" -> '''
 				package pack
@@ -603,6 +605,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			''',
 			"ps.aadl" -> '''
 				property set ps is
+				  ut1: type units (ul1, ul2 => ul1 * 10, ul3 => ul2 * 10, ul4 => ul3 * 10);
 				  def: aadlinteger applies to (all);
 				  const: constant aadlinteger => 10;
 				end ps;
@@ -615,6 +618,29 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			assertScope(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, true, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
 				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack", "ps"
 			])
+			ownedPropertyTypes.head as UnitsType => [
+				"ut1".assertEquals(name)
+				ownedLiterals.get(0) => [
+					"ul1".assertEquals(name)
+					//Tests scope_UnitLiteral_baseUnit
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+				]
+				ownedLiterals.get(1) => [
+					"ul2".assertEquals(name)
+					//Tests scope_UnitLiteral_baseUnit
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+				]
+				ownedLiterals.get(2) => [
+					"ul3".assertEquals(name)
+					//Tests scope_UnitLiteral_baseUnit
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+				]
+				ownedLiterals.get(3) => [
+					"ul4".assertEquals(name)
+					//Tests scope_UnitLiteral_baseUnit
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+				]
+			]
 		]
 		testFile("pack.aadl").resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
