@@ -426,9 +426,9 @@ public class LatencyReportEntry {
 		String dspostfix = Values.getDataSetProcessingLabel();
 		line = new Line();
 		line.addHeaderContent("Latency analysis for '" + sectionName + "' of system '" + systemName + "'" + inMode
-				+ " with latency preference stettings " + Values.getSynchronousSystemLabel() + ", "
-				+ Values.getMajorFrameDelayLabel() + ", " + Values.getWorstCaseDeadlineLabel() + ", "
-				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : ", " + dspostfix));
+				+ " with latency preference stettings " + Values.getSynchronousSystemLabel() + "-"
+				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
+				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix));
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
