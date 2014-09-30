@@ -51,6 +51,7 @@ import org.osate.aadl2.ComponentPrototypeBinding
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupPrototypeBinding
 import org.osate.aadl2.FeaturePrototypeBinding
+import org.osate.aadl2.ListType
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PropertySet
@@ -589,7 +590,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	 * Tests the reference ClassifierValue_classifier used in the parser rule QCReference.
 	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
 	 * 
-	 * Tests scope_UnitLiteral_baseUnit, scope_NumberType_referencedUnitsType, scope_RangeType_numberType, and scope_BasicProperty_referencedPropertyType
+	 * Tests scope_UnitLiteral_baseUnit, scope_NumberType_referencedUnitsType, scope_RangeType_numberType, scope_BasicProperty_referencedPropertyType, and
+	 * scope_ListType_elementType
 	 */
 	@Test
 	def void testPropertySetReferences() {
@@ -613,6 +615,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				  def4: range of ps::pt1 applies to (all);
 				  def5: aadlboolean applies to (pack2::a2.i);
 				  def6: ps::pt1 applies to (all);
+				  def7: list of ps::pt1 applies to (all);
 				  
 				  const: constant aadlinteger => 10;
 				end ps;
@@ -797,6 +800,30 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					"Memory_Properties::Size", "Memory_Properties::Size_Range", "Timing_Properties::Time", "Timing_Properties::Time_Range"
 				])
 			]
+			ownedProperties.get(6) => [
+				"def7".assertEquals(name)
+				ownedPropertyType as ListType => [
+					"ps::pt1".assertEquals(elementType.getQualifiedName())
+					//Tests scope_ListType_elementType
+					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
+						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
+						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
+						"Supported_Distributions", "Supported_Hardware_Source_Languages", "Supported_Queue_Processing_Protocols",
+						"Supported_Scheduling_Protocols", "Supported_Source_Languages", "Time", "Time_Range", "Time_Units", "ps::pt1", "ps::pt2", "ps::pt3",
+						"ps::pt4", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume", "AADL_Project::Data_Volume_Units",
+						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Supported_Active_Thread_Handling_Protocols",
+						"AADL_Project::Supported_Classifier_Substitutions", "AADL_Project::Supported_Concurrency_Control_Protocols",
+						"AADL_Project::Supported_Connection_Patterns", "AADL_Project::Supported_Connection_QoS", "AADL_Project::Supported_Dispatch_Protocols",
+						"AADL_Project::Supported_Distributions", "AADL_Project::Supported_Hardware_Source_Languages",
+						"AADL_Project::Supported_Queue_Processing_Protocols", "AADL_Project::Supported_Scheduling_Protocols",
+						"AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units", "Communication_Properties::Connection_Pair",
+						"Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec", "Communication_Properties::Rate_Spec",
+						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Memory_Properties::Size",
+						"Memory_Properties::Size_Range", "Timing_Properties::Time", "Timing_Properties::Time_Range"
+					])
+				]
+			]
 		]
 		testFile("pack1.aadl").resource.contents.head as AadlPackage => [
 			"pack1".assertEquals(name)
@@ -839,7 +866,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 							"Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language",
 							"Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing",
 							"Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const",
-							"ps::def1", "ps::def2", "ps::def3", "ps::def4", "ps::def5", "ps::def6", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
+							"ps::def1", "ps::def2", "ps::def3", "ps::def4", "ps::def5", "ps::def6", "ps::def7", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
 							"AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer",
 							"AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume",
 							"AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches",
