@@ -213,16 +213,6 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		namespace?.allMembers?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
-//	override getScope(EObject context, EReference reference) {
-//		println('''
-//		other scope
-//			«context»
-//			«reference»
-//			«reference.EReferenceType»
-//		''')
-//		super.getScope(context, reference)
-//	}
-	
 	//Reference is from IntegerTerm and RealTerm in Properties.xtext
 	def scope_NumberValue_unit(NumberType context, EReference reference) {
 		//Lower bound or upper bound values of a number property type.
