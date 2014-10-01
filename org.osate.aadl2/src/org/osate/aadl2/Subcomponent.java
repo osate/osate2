@@ -293,7 +293,7 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 
 	/**
 	 * returns the component implementation object of a given subcomponent
-	 * 
+	 *
 	 * @return Component implementation
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup

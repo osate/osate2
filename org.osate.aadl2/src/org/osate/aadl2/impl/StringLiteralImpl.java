@@ -100,6 +100,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -109,11 +110,13 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.STRING_LITERAL__VALUE, oldValue, value));
+		}
 	}
 
 	/**
@@ -181,8 +184,9 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (value: ");
@@ -204,18 +208,23 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 		if (!Aadl2Util.getUseTunedEqualsMethods()) {
 			return super.equals(obj);
 		}
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		StringLiteralImpl other = (StringLiteralImpl) obj;
 		if (value == null) {
-			if (other.value != null)
+			if (other.value != null) {
 				return false;
-		} else if (!value.equals(other.value))
+			}
+		} else if (!value.equals(other.value)) {
 			return false;
+		}
 		return true;
 	}
 

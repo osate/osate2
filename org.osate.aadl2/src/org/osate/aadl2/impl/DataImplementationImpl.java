@@ -152,6 +152,7 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
 			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
@@ -165,6 +166,7 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
 		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
 				.getDataSubcomponent());
@@ -177,6 +179,7 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
 			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
@@ -190,6 +193,7 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
 		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramSubcomponent());
@@ -213,6 +217,7 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -339,6 +344,7 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 				|| eIsSet(Aadl2Package.DATA_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DATA;
 	}

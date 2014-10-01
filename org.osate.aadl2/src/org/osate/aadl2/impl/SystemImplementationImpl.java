@@ -260,6 +260,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
 			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
@@ -273,6 +274,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusSubcomponent createOwnedBusSubcomponent() {
 		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
@@ -284,6 +286,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
 			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
@@ -297,6 +300,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
 		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
 				.getDataSubcomponent());
@@ -309,6 +313,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DeviceSubcomponent> getOwnedDeviceSubcomponents() {
 		if (ownedDeviceSubcomponents == null) {
 			ownedDeviceSubcomponents = new EObjectContainmentEList<DeviceSubcomponent>(DeviceSubcomponent.class, this,
@@ -322,6 +327,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DeviceSubcomponent createOwnedDeviceSubcomponent() {
 		DeviceSubcomponent newOwnedDeviceSubcomponent = (DeviceSubcomponent) create(Aadl2Package.eINSTANCE
 				.getDeviceSubcomponent());
@@ -334,6 +340,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MemorySubcomponent> getOwnedMemorySubcomponents() {
 		if (ownedMemorySubcomponents == null) {
 			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(MemorySubcomponent.class, this,
@@ -347,6 +354,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MemorySubcomponent createOwnedMemorySubcomponent() {
 		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(Aadl2Package.eINSTANCE
 				.getMemorySubcomponent());
@@ -359,6 +367,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ProcessSubcomponent> getOwnedProcessSubcomponents() {
 		if (ownedProcessSubcomponents == null) {
 			ownedProcessSubcomponents = new EObjectContainmentEList<ProcessSubcomponent>(ProcessSubcomponent.class,
@@ -372,6 +381,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessSubcomponent createOwnedProcessSubcomponent() {
 		ProcessSubcomponent newOwnedProcessSubcomponent = (ProcessSubcomponent) create(Aadl2Package.eINSTANCE
 				.getProcessSubcomponent());
@@ -384,6 +394,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ProcessorSubcomponent> getOwnedProcessorSubcomponents() {
 		if (ownedProcessorSubcomponents == null) {
 			ownedProcessorSubcomponents = new EObjectContainmentEList<ProcessorSubcomponent>(
@@ -397,6 +408,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessorSubcomponent createOwnedProcessorSubcomponent() {
 		ProcessorSubcomponent newOwnedProcessorSubcomponent = (ProcessorSubcomponent) create(Aadl2Package.eINSTANCE
 				.getProcessorSubcomponent());
@@ -409,6 +421,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
 			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
@@ -423,6 +436,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
 		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramSubcomponent());
@@ -435,6 +449,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
 			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
@@ -449,6 +464,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
 		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupSubcomponent());
@@ -461,6 +477,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemSubcomponent> getOwnedSystemSubcomponents() {
 		if (ownedSystemSubcomponents == null) {
 			ownedSystemSubcomponents = new EObjectContainmentEList<SystemSubcomponent>(SystemSubcomponent.class, this,
@@ -474,6 +491,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemSubcomponent createOwnedSystemSubcomponent() {
 		SystemSubcomponent newOwnedSystemSubcomponent = (SystemSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSystemSubcomponent());
@@ -486,6 +504,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
@@ -500,6 +519,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
 		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualBusSubcomponent());
@@ -512,6 +532,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
 		if (ownedVirtualProcessorSubcomponents == null) {
 			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
@@ -526,6 +547,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
 		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualProcessorSubcomponent());
@@ -549,6 +571,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -802,6 +825,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 				|| eIsSet(Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SYSTEM;
 	}

@@ -150,6 +150,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
 			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
@@ -163,6 +164,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramAccess());
@@ -175,6 +177,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
 			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
@@ -189,6 +192,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupAccess());
@@ -296,6 +300,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM_GROUP;
 	}

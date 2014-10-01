@@ -184,6 +184,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyType> getOwnedPropertyTypes() {
 		if (ownedPropertyTypes == null) {
 			ownedPropertyTypes = new EObjectContainmentEList<PropertyType>(PropertyType.class, this,
@@ -197,6 +198,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType createOwnedPropertyType(EClass eClass) {
 		PropertyType newOwnedPropertyType = (PropertyType) create(eClass);
 		getOwnedPropertyTypes().add(newOwnedPropertyType);
@@ -208,6 +210,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Property> getOwnedProperties() {
 		if (ownedProperties == null) {
 			ownedProperties = new EObjectContainmentEList<Property>(Property.class, this,
@@ -221,6 +224,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Property createOwnedProperty() {
 		Property newOwnedProperty = (Property) create(Aadl2Package.eINSTANCE.getProperty());
 		getOwnedProperties().add(newOwnedProperty);
@@ -232,6 +236,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyConstant> getOwnedPropertyConstants() {
 		if (ownedPropertyConstants == null) {
 			ownedPropertyConstants = new EObjectContainmentEList<PropertyConstant>(PropertyConstant.class, this,
@@ -245,6 +250,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyConstant createOwnedPropertyConstant() {
 		PropertyConstant newOwnedPropertyConstant = (PropertyConstant) create(Aadl2Package.eINSTANCE
 				.getPropertyConstant());
@@ -257,6 +263,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
 			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
@@ -270,6 +277,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AnnexSubclause> getOwnedAnnexSubclauses() {
 		if (ownedAnnexSubclauses == null) {
 			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(AnnexSubclause.class, this,
@@ -283,6 +291,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexSubclause createOwnedAnnexSubclause(EClass eClass) {
 		AnnexSubclause newOwnedAnnexSubclause = (AnnexSubclause) create(eClass);
 		getOwnedAnnexSubclauses().add(newOwnedAnnexSubclause);
@@ -294,6 +303,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexSubclause createOwnedAnnexSubclause() {
 		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
 	}

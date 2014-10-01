@@ -97,14 +97,16 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getClassifier() {
 		if (classifier != null && ((EObject) classifier).eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject) classifier;
 			classifier = (Classifier) eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER, oldClassifier, classifier));
+				}
 			}
 		}
 		return classifier;
@@ -124,12 +126,14 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassifier(Classifier newClassifier) {
 		Classifier oldClassifier = classifier;
 		classifier = newClassifier;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
 					oldClassifier, classifier));
+		}
 	}
 
 	/**
@@ -141,8 +145,9 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getClassifier();
+			}
 			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -192,6 +197,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx) {
 		return new EvaluatedProperty(this);
 	}
@@ -218,18 +224,23 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 			return super.equals(obj);
 		}
 
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ClassifierValueImpl other = (ClassifierValueImpl) obj;
 		if (classifier == null) {
-			if (other.classifier != null)
+			if (other.classifier != null) {
 				return false;
-		} else if (!classifier.equals(other.classifier))
+			}
+		} else if (!classifier.equals(other.classifier)) {
 			return false;
+		}
 		return true;
 	}
 

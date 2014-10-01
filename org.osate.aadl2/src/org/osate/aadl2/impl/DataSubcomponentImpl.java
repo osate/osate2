@@ -120,15 +120,17 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponentType getDataSubcomponentType() {
 		if (dataSubcomponentType != null && ((EObject) dataSubcomponentType).eIsProxy()) {
 			InternalEObject oldDataSubcomponentType = (InternalEObject) dataSubcomponentType;
 			dataSubcomponentType = (DataSubcomponentType) eResolveProxy(oldDataSubcomponentType);
 			if (dataSubcomponentType != oldDataSubcomponentType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE, oldDataSubcomponentType,
 							dataSubcomponentType));
+				}
 			}
 		}
 		return dataSubcomponentType;
@@ -148,13 +150,15 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataSubcomponentType(DataSubcomponentType newDataSubcomponentType) {
 		DataSubcomponentType oldDataSubcomponentType = dataSubcomponentType;
 		dataSubcomponentType = newDataSubcomponentType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE, oldDataSubcomponentType,
 					dataSubcomponentType));
+		}
 	}
 
 	/**
@@ -166,8 +170,9 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getDataSubcomponentType();
+			}
 			return basicGetDataSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -229,6 +234,7 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcom
 		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DATA;
 	}

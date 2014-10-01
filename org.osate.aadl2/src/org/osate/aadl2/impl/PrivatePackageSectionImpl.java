@@ -82,6 +82,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PublicPackageSection getPublicSection() {
 		PublicPackageSection publicSection = basicGetPublicSection();
 		return publicSection != null && ((EObject) publicSection).eIsProxy() ? (PublicPackageSection) eResolveProxy((InternalEObject) publicSection)
@@ -117,8 +118,9 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PRIVATE_PACKAGE_SECTION__PUBLIC_SECTION:
-			if (resolve)
+			if (resolve) {
 				return getPublicSection();
+			}
 			return basicGetPublicSection();
 		}
 		return super.eGet(featureID, resolve, coreType);

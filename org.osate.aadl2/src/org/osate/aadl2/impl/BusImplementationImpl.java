@@ -151,6 +151,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -194,6 +195,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
@@ -207,6 +209,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
 		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualBusSubcomponent());
@@ -289,6 +292,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 				|| eIsSet(Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.BUS;
 	}

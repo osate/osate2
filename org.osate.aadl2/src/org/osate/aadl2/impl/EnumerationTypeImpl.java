@@ -136,6 +136,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
 			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(EnumerationLiteral.class, this,
@@ -149,6 +150,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnumerationLiteral createOwnedLiteral(EClass eClass) {
 		EnumerationLiteral newOwnedLiteral = (EnumerationLiteral) create(eClass);
 		getOwnedLiterals().add(newOwnedLiteral);
@@ -160,6 +162,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnumerationLiteral createOwnedLiteral() {
 		return createOwnedLiteral(Aadl2Package.eINSTANCE.getEnumerationLiteral());
 	}
@@ -169,6 +172,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean conformsTo(Type other) {
 		return TypeOperations.conformsTo(this, other);
 	}
@@ -264,6 +268,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	 * 
 	 * @see org.osate.aadl2.EnumerationType#findLiteral(java.lang.String)
 	 */
+	@Override
 	public EnumerationLiteral findLiteral(String literalName) {
 		for (EnumerationLiteral literal : getOwnedLiterals()) {
 			if (literal.getName().equalsIgnoreCase(literalName)) {
