@@ -195,6 +195,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
 			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
@@ -208,6 +209,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventDataPort createOwnedEventDataPort() {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
@@ -219,6 +221,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
 			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
@@ -232,6 +235,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventPort createOwnedEventPort() {
 		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
@@ -243,6 +247,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Parameter> getOwnedParameters() {
 		if (ownedParameters == null) {
 			ownedParameters = new EObjectContainmentEList<Parameter>(Parameter.class, this,
@@ -256,6 +261,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Parameter createOwnedParameter() {
 		Parameter newOwnedParameter = (Parameter) create(Aadl2Package.eINSTANCE.getParameter());
 		getOwnedParameters().add(newOwnedParameter);
@@ -267,6 +273,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
 			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
@@ -280,6 +287,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataAccess createOwnedDataAccess() {
 		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
@@ -291,6 +299,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
 			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
@@ -304,6 +313,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramAccess());
@@ -316,6 +326,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
 			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
@@ -329,6 +340,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupAccess());
@@ -492,6 +504,7 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 				|| eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM;
 	}

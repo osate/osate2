@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,21 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- * 
+ *
  *
  * $Id: ContainmentPathElementImpl.java,v 1.6 2009-01-12 16:25:09 jseibel Exp $
  */
@@ -143,6 +143,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayRange> getArrayRanges() {
 		if (arrayRanges == null) {
 			arrayRanges = new EObjectContainmentEList<ArrayRange>(ArrayRange.class, this,
@@ -156,6 +157,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArrayRange createArrayRange() {
 		ArrayRange newArrayRange = (ArrayRange) create(Aadl2Package.eINSTANCE.getArrayRange());
 		getArrayRanges().add(newArrayRange);
@@ -167,14 +169,16 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedElement getNamedElement() {
 		if (namedElement != null && ((EObject) namedElement).eIsProxy()) {
 			InternalEObject oldNamedElement = (InternalEObject) namedElement;
 			namedElement = (NamedElement) eResolveProxy(oldNamedElement);
 			if (namedElement != oldNamedElement) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT, oldNamedElement, namedElement));
+				}
 			}
 		}
 		return namedElement;
@@ -194,12 +198,14 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNamedElement(NamedElement newNamedElement) {
 		NamedElement oldNamedElement = namedElement;
 		namedElement = newNamedElement;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
 					oldNamedElement, namedElement));
+		}
 	}
 
 	/**
@@ -207,6 +213,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAnnexName() {
 		return annexName;
 	}
@@ -216,12 +223,14 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAnnexName(String newAnnexName) {
 		String oldAnnexName = annexName;
 		annexName = newAnnexName;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME,
 					oldAnnexName, annexName));
+		}
 	}
 
 	/**
@@ -229,6 +238,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainmentPathElement getPath() {
 		return path;
 	}
@@ -244,10 +254,11 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, oldPath, newPath);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -257,21 +268,26 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPath(ContainmentPathElement newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;
-			if (path != null)
+			if (path != null) {
 				msgs = ((InternalEObject) path).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
-			if (newPath != null)
+			}
+			if (newPath != null) {
 				msgs = ((InternalEObject) newPath).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
+			}
 			msgs = basicSetPath(newPath, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, newPath,
 					newPath));
+		}
 	}
 
 	/**
@@ -279,6 +295,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainmentPathElement createPath() {
 		ContainmentPathElement newPath = (ContainmentPathElement) create(Aadl2Package.eINSTANCE
 				.getContainmentPathElement());
@@ -313,8 +330,9 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
 			return getArrayRanges();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
-			if (resolve)
+			if (resolve) {
 				return getNamedElement();
+			}
 			return basicGetNamedElement();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return getAnnexName();
@@ -401,8 +419,9 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (annexName: ");

@@ -84,6 +84,7 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getSources() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -142,6 +143,7 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getTargets() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {

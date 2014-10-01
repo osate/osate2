@@ -156,6 +156,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getGeneral() {
 		Classifier general = basicGetGeneral();
 		return general != null && ((EObject) general).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general)
@@ -176,6 +177,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public Classifier getSpecific() {
 		// DONE: implement this method to return the 'Specific' container
 		// reference
@@ -197,6 +199,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpecific(Classifier newSpecific) {
 		// TODO: implement this method to set the 'Specific' reference
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -212,12 +215,14 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.GENERALIZATION__GENERAL:
-			if (resolve)
+			if (resolve) {
 				return getGeneral();
+			}
 			return basicGetGeneral();
 		case Aadl2Package.GENERALIZATION__SPECIFIC:
-			if (resolve)
+			if (resolve) {
 				return getSpecific();
+			}
 			return basicGetSpecific();
 		}
 		return super.eGet(featureID, resolve, coreType);

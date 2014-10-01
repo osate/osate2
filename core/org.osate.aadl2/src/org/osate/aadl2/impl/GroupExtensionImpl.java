@@ -120,14 +120,16 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupType getExtended() {
 		if (extended != null && ((EObject) extended).eIsProxy()) {
 			InternalEObject oldExtended = (InternalEObject) extended;
 			extended = (FeatureGroupType) eResolveProxy(oldExtended);
 			if (extended != oldExtended) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.GROUP_EXTENSION__EXTENDED,
 							oldExtended, extended));
+				}
 			}
 		}
 		return extended;
@@ -147,12 +149,14 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExtended(FeatureGroupType newExtended) {
 		FeatureGroupType oldExtended = extended;
 		extended = newExtended;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.GROUP_EXTENSION__EXTENDED, oldExtended,
 					extended));
+		}
 	}
 
 	/**
@@ -164,8 +168,9 @@ public class GroupExtensionImpl extends GeneralizationImpl implements GroupExten
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.GROUP_EXTENSION__EXTENDED:
-			if (resolve)
+			if (resolve) {
 				return getExtended();
+			}
 			return basicGetExtended();
 		}
 		return super.eGet(featureID, resolve, coreType);

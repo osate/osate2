@@ -82,6 +82,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
 		return refinementContext != null && ((EObject) refinementContext).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) refinementContext)
@@ -104,6 +105,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
@@ -128,12 +130,14 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
-			if (resolve)
+			if (resolve) {
 				return getRefinedElement();
+			}
 			return basicGetRefinedElement();
 		case Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT:
-			if (resolve)
+			if (resolve) {
 				return getRefinementContext();
+			}
 			return basicGetRefinementContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -167,10 +171,11 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public String getName() {
 		if (name == null) { // DB Avoids stack trace overflow when a component refines itself (seems to be supported by OSATE)
-			if (!Aadl2Util.isNull(getRefinedElement()) && getRefinedElement() != this)
+			if (!Aadl2Util.isNull(getRefinedElement()) && getRefinedElement() != this) {
 				return getRefinedElement().getName();
-			else
+			} else {
 				return "";
+			}
 		}
 		return name;
 	}

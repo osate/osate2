@@ -95,6 +95,7 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
 			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
@@ -108,6 +109,7 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArrayDimension createArrayDimension() {
 		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
 		getArrayDimensions().add(newArrayDimension);

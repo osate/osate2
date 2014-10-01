@@ -186,7 +186,7 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 
 	/**
 	 * Evaluate a referenced property.
-	 * 
+	 *
 	 * @param sign
 	 * 			  The <code>referenceSign</code> value from the containing
 	 * 			  Operation.

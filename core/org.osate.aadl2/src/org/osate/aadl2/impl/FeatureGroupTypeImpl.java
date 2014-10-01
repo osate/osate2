@@ -301,6 +301,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Feature> getOwnedFeatures() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -430,6 +431,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupType getExtended() {
 		FeatureGroupType extended = basicGetExtended();
 		return extended != null && ((EObject) extended).eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) extended)
@@ -452,6 +454,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExtended(FeatureGroupType newExtended) {
 		// TODO: implement this method to set the 'Extended' reference
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -463,14 +466,16 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroupType getInverse() {
 		if (inverse != null && ((EObject) inverse).eIsProxy()) {
 			InternalEObject oldInverse = (InternalEObject) inverse;
 			inverse = (FeatureGroupType) eResolveProxy(oldInverse);
 			if (inverse != oldInverse) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE_GROUP_TYPE__INVERSE,
 							oldInverse, inverse));
+				}
 			}
 		}
 		return inverse;
@@ -490,12 +495,14 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInverse(FeatureGroupType newInverse) {
 		FeatureGroupType oldInverse = inverse;
 		inverse = newInverse;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP_TYPE__INVERSE, oldInverse,
 					inverse));
+		}
 	}
 
 	/**
@@ -503,6 +510,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GroupExtension getOwnedExtension() {
 		return ownedExtension;
 	}
@@ -518,10 +526,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, oldOwnedExtension, newOwnedExtension);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -531,21 +540,26 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedExtension(GroupExtension newOwnedExtension) {
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
-			if (ownedExtension != null)
+			if (ownedExtension != null) {
 				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
-			if (newOwnedExtension != null)
+			}
+			if (newOwnedExtension != null) {
 				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
+			}
 			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION,
 					newOwnedExtension, newOwnedExtension));
+		}
 	}
 
 	/**
@@ -553,6 +567,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GroupExtension createOwnedExtension() {
 		GroupExtension newOwnedExtension = (GroupExtension) create(Aadl2Package.eINSTANCE.getGroupExtension());
 		setOwnedExtension(newOwnedExtension);
@@ -564,6 +579,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
 			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
@@ -577,6 +593,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusAccess createOwnedBusAccess() {
 		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
 		getOwnedBusAccesses().add(newOwnedBusAccess);
@@ -588,6 +605,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
 			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
@@ -601,6 +619,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataAccess createOwnedDataAccess() {
 		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
@@ -612,6 +631,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
 			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
@@ -625,6 +645,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataPort createOwnedDataPort() {
 		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
 		getOwnedDataPorts().add(newOwnedDataPort);
@@ -636,6 +657,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
 			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
@@ -649,6 +671,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventDataPort createOwnedEventDataPort() {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
@@ -660,6 +683,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
 			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
@@ -673,6 +697,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventPort createOwnedEventPort() {
 		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
@@ -684,6 +709,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FeatureGroup> getOwnedFeatureGroups() {
 		if (ownedFeatureGroups == null) {
 			ownedFeatureGroups = new EObjectContainmentEList<FeatureGroup>(FeatureGroup.class, this,
@@ -697,6 +723,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureGroup createOwnedFeatureGroup() {
 		FeatureGroup newOwnedFeatureGroup = (FeatureGroup) create(Aadl2Package.eINSTANCE.getFeatureGroup());
 		getOwnedFeatureGroups().add(newOwnedFeatureGroup);
@@ -708,6 +735,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Parameter> getOwnedParameters() {
 		if (ownedParameters == null) {
 			ownedParameters = new EObjectContainmentEList<Parameter>(Parameter.class, this,
@@ -721,6 +749,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Parameter createOwnedParameter() {
 		Parameter newOwnedParameter = (Parameter) create(Aadl2Package.eINSTANCE.getParameter());
 		getOwnedParameters().add(newOwnedParameter);
@@ -732,6 +761,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
 			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
@@ -745,6 +775,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramAccess());
@@ -757,6 +788,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
 			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
@@ -770,6 +802,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupAccess());
@@ -782,6 +815,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AbstractFeature> getOwnedAbstractFeatures() {
 		if (ownedAbstractFeatures == null) {
 			ownedAbstractFeatures = new EObjectContainmentEList<AbstractFeature>(AbstractFeature.class, this,
@@ -795,6 +829,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractFeature createOwnedAbstractFeature() {
 		AbstractFeature newOwnedAbstractFeature = (AbstractFeature) create(Aadl2Package.eINSTANCE.getAbstractFeature());
 		getOwnedAbstractFeatures().add(newOwnedAbstractFeature);
@@ -846,12 +881,14 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 			return getOwnedFeatures();
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
-			if (resolve)
+			if (resolve) {
 				return getExtended();
+			}
 			return basicGetExtended();
 		case Aadl2Package.FEATURE_GROUP_TYPE__INVERSE:
-			if (resolve)
+			if (resolve) {
 				return getInverse();
+			}
 			return basicGetInverse();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
 			return getOwnedExtension();
@@ -1101,8 +1138,9 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	@Override
 	public NamedElement findNamedElement(String name) {
 		NamedElement searchResult = super.findNamedElement(name);
-		if (searchResult != null)
+		if (searchResult != null) {
 			return searchResult;
+		}
 		if (getOwnedFeatures().isEmpty() && getInverse() != null) {
 			return getInverse().findNamedElement(name);
 		}
@@ -1115,6 +1153,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @return boolean true if they are inverse of each other
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public boolean isInverseOf(FeatureGroupType pgt) {
 		if (pgt == null) {
 			OsateDebug.osateDebug("[FeatureGroupTypeImpl] isInverseOf, warning, null pgt arg");
@@ -1134,6 +1173,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @return int index of feature or -1 if not found
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public int getIndexOf(Feature feature) {
 		EList<Feature> flist = getAllFeatures();
 		return flist.indexOf(feature);
@@ -1146,6 +1186,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @return A list of Feature objects
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public EList<Feature> getAllFeatures() {
 		EList<Feature> local = getOwnedFeatures();
 		FeatureGroupType curPGT = this;
@@ -1164,9 +1205,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 			for (Iterator<Feature> i = local.iterator(); i.hasNext();) {
 				Feature fe = i.next();
 				Feature rfe = fe.getRefined();
-				if (rfe != null)
-					if (!result.remove(rfe))
+				if (rfe != null) {
+					if (!result.remove(rfe)) {
 						Activator.internalError("Inconsistent refines reference " + rfe.getName());
+					}
+				}
 				result.add(fe);
 			}
 		} else {
@@ -1176,6 +1219,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		return result;
 	}
 
+	@Override
 	public EList<Prototype> getAllPrototypes() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
@@ -1187,8 +1231,9 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 				for (Iterator<Prototype> i = currentItems.iterator(); i.hasNext();) {
 					final Prototype fe = i.next();
 					final Prototype rfe = fe.getRefined();
-					if (rfe != null)
+					if (rfe != null) {
 						returnlist.remove(rfe);
+					}
 					returnlist.add(fe);
 				}
 			}
@@ -1201,15 +1246,17 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * feature group type descends from another feature group type if they are the same
 	 * type, it extends the other type, or it extends a descendant of the other
 	 * type. A feature group type never descends from a component classifier.
-	 * 
+	 *
 	 * @return Whether this classifier descends from the given classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public final boolean isDescendentOf(Classifier c) {
 		FeatureGroupType current = this;
 		do {
-			if (current == c)
+			if (current == c) {
 				return true;
+			}
 			current = current.getExtended();
 			// avoid loops by stopping if we extend ourself
 		} while (current != null && current != this);
@@ -1217,6 +1264,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc paa,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		/*

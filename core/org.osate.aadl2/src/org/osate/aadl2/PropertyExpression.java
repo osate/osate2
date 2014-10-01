@@ -56,7 +56,7 @@ import org.osate.aadl2.properties.InvalidModelException;
 public interface PropertyExpression extends Element {
 	/**
 	 * Evaluate a property value.
-	 * 
+	 *
 	 * @param context
 	 *            The context in which to look up any property value references.
 	 * @param modes

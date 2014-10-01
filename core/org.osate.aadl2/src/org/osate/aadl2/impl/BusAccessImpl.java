@@ -119,15 +119,17 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusSubcomponentType getBusFeatureClassifier() {
 		if (busFeatureClassifier != null && ((EObject) busFeatureClassifier).eIsProxy()) {
 			InternalEObject oldBusFeatureClassifier = (InternalEObject) busFeatureClassifier;
 			busFeatureClassifier = (BusSubcomponentType) eResolveProxy(oldBusFeatureClassifier);
 			if (busFeatureClassifier != oldBusFeatureClassifier) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER, oldBusFeatureClassifier,
 							busFeatureClassifier));
+				}
 			}
 		}
 		return busFeatureClassifier;
@@ -147,12 +149,14 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBusFeatureClassifier(BusSubcomponentType newBusFeatureClassifier) {
 		BusSubcomponentType oldBusFeatureClassifier = busFeatureClassifier;
 		busFeatureClassifier = newBusFeatureClassifier;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER,
 					oldBusFeatureClassifier, busFeatureClassifier));
+		}
 	}
 
 	/**
@@ -164,8 +168,9 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getBusFeatureClassifier();
+			}
 			return basicGetBusFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
