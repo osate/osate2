@@ -49,141 +49,140 @@ class FlowLatencyTest extends OsateTest {
 
 		// read csv
 		val uri = URI.createURI(
-			resourceRoot + "/instances/reports/latency/pullprotocols_stub_i_Instance__latencylatency.csv")
+			resourceRoot + "/instances/reports/latency/pullprotocols_stub_i_Instance__latency_AS-MF-ET-EQ.csv")
 		val file = workspaceRoot.getFile(new Path(uri.toPlatformString(true)))
 		val actual = Files.readStreamIntoString(file.contents)
 		assertEquals('error', expected.trim, actual.trim)
 	}
 
 	val pullprotocolsText = '''
-	package PullProtocols
+	package pullprotocols
 	public
 	
-	virtual bus DCFMInputPullProtocol
-	properties
-	Transmission_Type => pull;
-	Latency => 300 ms .. 300 ms ; -- should be allowed on virtual bus
-	-- Implemented_As => classifier (PullDCFMInputDataset.CrossPartition);
-	-- implemented_as wants a system implementation or an abstract implementation
-	-- On the other hand latency analysis currently assumes that threads sit inside processes for one way of recognizing partition boundaries.
-	end DCFMInputPullProtocol;
-	
 	process PullDCFMInputDataset
-	features
-	SenderData: in data port ;
-	ReceiverData: out data port ;
-	flows
-	Xfer: flow path SenderData -> ReceiverData;
-	end PullDCFMInputDataset; 
-	
+		features
+			SenderData: in data port ;
+			ReceiverData: out data port ;
+		flows
+			Xfer: flow path SenderData -> ReceiverData;
+	end PullDCFMInputDataset;
+
 	process implementation PullDCFMInputDataset.CrossPartition
-	subcomponents
-	 sender: thread PullDCFMDataSetSender;
-	 requestor: thread PullDCFMDataSetRequestor;
-	 connections
-	 	incoming: port SenderData -> sender.SenderData;
-	 	outgoing: port requestor.ReceiverData -> ReceiverData;
-	 	STRequest: port requestor.SourceTracksRequest -> sender.SourceTracksRequest;
-	 	STReply: port sender.SendSourceTrackSet -> requestor.ReceivedSourceTrackSet
-	 		{Required_Virtual_Bus_Class => (classifier (PullProtocols::DCFMInputPullProtocol));};
-	 	CTRequest: port requestor.CorrelatedTracksRequest -> sender.CorrelatedTracksRequest;
-	 	CTReply: port sender.SendCorrelatedTrackSet -> requestor.ReceivedCorrelatedTrackSet;
-	 	APRequest: port requestor.OwnAircraftPositionRequest -> sender.OwnAircraftPositionRequest;
-	 	APReply: port sender.SendOwnAircraftPosition -> requestor.ReceivedOwnAircraftPosition;
-	 flows
-	 -- flow to measure latency of protocol. The result is to be reflected in the latency property of the virtual bus it implements
-	 	XferOnly: end to end flow sender.SourceTrackFlow -> STReply -> requestor.SourceTrackReceivedFlow -> CTRequest ->
-	 		sender.CorrelatedFlow -> CTReply -> requestor.CorrelatedTrackReceivedFlow -> 
-	 		APRequest -> sender.AircraftPositionFlow -> APReply -> requestor.AircraftPositionReceivedFlow
-	 		;--{Latency => 10 ms .. 10 ms;};
-	 -- flow to be used when abstract implementation is used in the transfer instead of a protocol binding 
-	 	Xfer: flow path SenderData -> incoming -> sender.SenderDataSetFLow -> STReply -> requestor.SourceTrackReceivedFlow -> CTRequest ->
-	 		sender.CorrelatedFlow -> CTReply -> requestor.CorrelatedTrackReceivedFlow -> APRequest -> sender.AircraftPositionFlow -> APReply -> requestor.ReceivedDataSetFlow
-	 		-> outgoing -> ReceiverData;
-	 	properties
-	 	-- alternating immediate/delayed emulates partition slots and communication within a frame.
-	 	-- making all dealeyd emulates frame delayed corss partition communication.
-	 	-- we could also indicates partitions by tagging the process as SEI::isPartition and a SEI::Partition_Latency
-	 	-- Alternatively we can use virtual processor and the ARINC653 properties or the period on the virtual processor
-	 		Timing => Immediate applies to STRequest,CTRequest,APRequest;
-	 		Timing => Delayed applies to STReply,CTReply,APReply;
-	 		Latency => 10 ms .. 10 ms applies to XferOnly;
-	 		Period => 100 ms applies to sender, requestor;
-	 		Dispatch_Protocol => Periodic applies to sender, requestor;
+		subcomponents
+			sender: thread PullDCFMDataSetSender;
+			requestor: thread PullDCFMDataSetRequestor;
+		connections
+			incoming: port SenderData -> sender.SenderData;
+			outgoing: port requestor.ReceiverData -> ReceiverData;
+			STRequest: port requestor.SourceTracksRequest -> sender.SourceTracksRequest { Timing => immediate; };
+			STReply: port sender.SendSourceTrackSet -> requestor.ReceivedSourceTrackSet { Timing => delayed; };
+			CTRequest: port requestor.CorrelatedTracksRequest -> sender.CorrelatedTracksRequest { Timing => immediate; };
+			CTReply: port sender.SendCorrelatedTrackSet -> requestor.ReceivedCorrelatedTrackSet { Timing => delayed; };
+			APRequest: port requestor.OwnAircraftPositionRequest -> sender.OwnAircraftPositionRequest { Timing => immediate; };
+			APReply: port sender.SendOwnAircraftPosition -> requestor.ReceivedOwnAircraftPosition { Timing => delayed; };
+		flows
+			XferOnly: end to end flow requestor.SourceTrackRequestFlow -> STRequest -> sender.SourceTrackFlowpath -> STReply ->
+					requestor.SourceTrackReceivedFlow -> CTRequest -> sender.CorrelatedFlow -> CTReply -> requestor.
+					CorrelatedTrackReceivedFlow -> APRequest -> sender.AircraftPositionFlow -> APReply -> requestor.
+					AircraftPositionReceivedFlow;
+			Xfer: flow path SenderData -> incoming -> sender.SenderDataSetFLow -> STReply -> requestor.SourceTrackReceivedFlow
+					-> CTRequest -> sender.CorrelatedFlow -> CTReply -> requestor.CorrelatedTrackReceivedFlow -> APRequest -> sender.
+					AircraftPositionFlow -> APReply -> requestor.ReceivedDataSetFlow -> outgoing -> ReceiverData;
+		properties
+			Latency => 10 ms .. 10 ms applies to XferOnly;
 	end PullDCFMInputDataset.CrossPartition;
-	
+
+
+	thread PullDCFMDataSetSender
+		features
+		-- data to be transferred
+			SenderData: in data port ;
+			-- protocol interaction ports
+			SourceTracksRequest: in data port;
+			SendSourceTrackSet: out data port ;
+			CorrelatedTracksRequest: in data port;
+			SendCorrelatedTrackSet: out data port ;
+			OwnAircraftPositionRequest: in data port;
+			SendOwnAircraftPosition: out data port ;
+		flows
+			SenderDataSetFLow: flow path SenderData -> SendSourceTrackSet;
+			SourceTrackFlow: flow source SendSourceTrackSet;
+			SourceTrackFlowpath: flow path SourceTracksRequest -> SendSourceTrackSet;
+			CorrelatedFlow: flow path CorrelatedTracksRequest -> SendCorrelatedTrackSet;
+			AircraftPositionFlow: flow path OwnAircraftPositionRequest -> SendOwnAircraftPosition;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 100 ms;
+	end PullDCFMDataSetSender;
+
+	thread PullDCFMDataSetRequestor
+		features
+		-- data being transferred
+			ReceiverData: out data port ;
+			-- protocol interaction ports
+			SourceTracksRequest: out data port;
+			ReceivedSourceTrackSet: in data port ;
+			CorrelatedTracksRequest: out data port;
+			ReceivedCorrelatedTrackSet: in data port ;
+			OwnAircraftPositionRequest: out data port;
+			ReceivedOwnAircraftPosition: in data port;
+		flows
+			SourceTrackRequestFlow: flow source SourceTracksRequest;
+			SourceTrackReceivedFlow: flow path ReceivedSourceTrackSet -> CorrelatedTracksRequest;
+			SourceTrackReceivedSink: flow sink ReceivedSourceTrackSet;
+			CorrelatedTrackReceivedFlow: flow path ReceivedCorrelatedTrackSet -> OwnAircraftPositionRequest;
+			AircraftPositionReceivedFlow: flow sink ReceivedOwnAircraftPosition;
+			ReceivedDataSetFlow: flow path ReceivedOwnAircraftPosition -> ReceiverData;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 100 ms;
+	end PullDCFMDataSetRequestor;
+
 	system stub
 	end stub;
-	
+
 	system implementation stub.i
-	subcomponents
-	 prot: process PullDCFMInputDataset.CrossPartition;
+		subcomponents
+			prot: process PullDCFMInputDataset.CrossPartition;
 	end stub.i;
 	
-	thread PullDCFMDataSetSender
-	features
-	-- data to be transferred
-	SenderData: in data port  ;
-	-- protocol interaction ports
-	SourceTracksRequest: in data port;
-	SendSourceTrackSet: out data port ;
-	CorrelatedTracksRequest: in data port;
-	SendCorrelatedTrackSet: out data port ;
-	OwnAircraftPositionRequest: in data port;
-	SendOwnAircraftPosition: out data port  ;
-	flows
-		SenderDataSetFLow: flow path SenderData -> SendSourceTrackSet;
-		SourceTrackFlow: flow source SendSourceTrackSet;
-		SourceTrackFlowpath: flow path SourceTracksRequest->SendSourceTrackSet;
-		CorrelatedFlow: flow path CorrelatedTracksRequest -> SendCorrelatedTrackSet;
-		AircraftPositionFlow: flow path OwnAircraftPositionRequest -> SendOwnAircraftPosition;
-	properties
-		Dispatch_Protocol => Periodic;
-	end PullDCFMDataSetSender;
-	
-	thread PullDCFMDataSetRequestor
-	features
-	-- data being transferred
-	ReceiverData: out data port  ;
-	-- protocol interaction ports
-	SourceTracksRequest: out data port;
-	ReceivedSourceTrackSet: in data port ;
-	CorrelatedTracksRequest: out data port;
-	ReceivedCorrelatedTrackSet: in data port ;
-	OwnAircraftPositionRequest: out data port;
-	ReceivedOwnAircraftPosition: in data port  ;
-	flows
-		SourceTrackRequestFlow: flow source SourceTracksRequest;
-		SourceTrackReceivedFlow: flow path ReceivedSourceTrackSet -> CorrelatedTracksRequest;
-		CorrelatedTrackReceivedFlow: flow path ReceivedCorrelatedTrackSet -> OwnAircraftPositionRequest;
-		AircraftPositionReceivedFlow: flow sink ReceivedOwnAircraftPosition ;
-		ReceivedDataSetFlow: flow path ReceivedOwnAircraftPosition -> ReceiverData;
-	properties
-		Dispatch_Protocol => Periodic;
-	end PullDCFMDataSetRequestor;
-	
-	end PullProtocols;'''
+	end pullprotocols;
+	'''
 
 	val expected = '''
 Latency Analysis Report
 
-Flow analysis for end to end flow XferOnly
+Flow analysis for end to end flow prot.XferOnly
+Latency analysis for 'prot.XferOnly' of system 'stub.i' with latency preference stettings AS-MF-ET-EQ,
+
 Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
-Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
-Delayed Connection sender.SendSourceTrackSet -> requestor.ReceivedSourceTrackSet,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
-Protocol DCFMInputPullProtocol,,300.0ms,specified,,300.0ms,specified,Time required by the protocol stack,
-Thread requestor,,0.0ms,immediate connection,,0.0ms,immediate connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,
-Immediate Connection requestor.CorrelatedTracksRequest -> sender.CorrelatedTracksRequest,,0.0ms,unknown,,0.0ms,unknown,,
-Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
-Delayed Connection sender.SendCorrelatedTrackSet -> requestor.ReceivedCorrelatedTrackSet,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
-Thread requestor,,0.0ms,immediate connection,,0.0ms,immediate connection,The connection is immediate and both parts are synchronized. Using either the min/max execution or assume execution time is negligible,
-Immediate Connection requestor.OwnAircraftPositionRequest -> sender.OwnAircraftPositionRequest,,0.0ms,unknown,,0.0ms,unknown,,
-Thread sender,,100.0ms,deadline,,100.0ms,deadline,Time to take to send the data over the network,
-Delayed Connection sender.SendOwnAircraftPosition -> requestor.ReceivedOwnAircraftPosition,,0.0ms,period,,100.0ms,period,Data might arrive at dispatch time or next frame,
-Thread requestor,,100.0ms,deadline,,100.0ms,deadline,,
-Total,0.0ms,700.0ms,,0.0ms,900.0ms,,
-Flow Specification,,0.0ms,,,0.0ms,,
-Informations,the minimal latency is not specified,
-,the maximal latency is not specified,
+thread prot.requestor,,0.0ms,first sampling,,0.0ms,first sampling,Initial 100.0ms sampling latency not added,
+thread prot.requestor,,0.0ms,no latency,,0.0ms,no latency,
+Immediate Connection ,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
+Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.requestor,,100.0ms,delayed sampling,,100.0ms,delayed sampling,Min: Sampling period 100.0ms,Max: Sampling period 100.0ms,
+thread prot.requestor,,0.0ms,no latency,,0.0ms,no latency,
+Immediate Connection ,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
+Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.requestor,,100.0ms,delayed sampling,,100.0ms,delayed sampling,Min: Sampling period 100.0ms,Max: Sampling period 100.0ms,
+thread prot.requestor,,0.0ms,no latency,,0.0ms,no latency,
+Immediate Connection ,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.sender,,0.0ms,no latency,,0.0ms,no latency,
+Delayed Connection ,,0.0ms,no latency,,0.0ms,no latency,
+thread prot.requestor,,100.0ms,delayed sampling,,100.0ms,delayed sampling,Min: Sampling period 100.0ms,Max: Sampling period 100.0ms,
+thread prot.requestor,,0.0ms,no latency,,0.0ms,no latency,
+Latency Total,0.0ms,300.0ms,,0.0ms,300.0ms,,
+End to End Latency,,10.0ms,,,10.0ms,,
+End to end Latency Summary,
+WARNING,Sum of minimum specified latencies (0.0 ms) is less than expected minimum end to end latency (10.0ms),
+ERROR,Sum of maximum actual latencies (300.0ms) exceeds end to end latency (10.0ms),
+
+
+
 	'''
 }
