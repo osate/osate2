@@ -43,6 +43,7 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
@@ -52,7 +53,17 @@ import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
 import org.osate.ge.diagrams.common.features.ChangeFeatureTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentImplementationToTypeFeature;
@@ -68,7 +79,35 @@ import org.osate.ge.diagrams.common.features.SetDimensionsFeature;
 import org.osate.ge.diagrams.common.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
+import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
+import org.osate.ge.diagrams.common.patterns.FlowSpecificationPattern;
+import org.osate.ge.diagrams.common.patterns.ModePattern;
+import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
+import org.osate.ge.diagrams.componentImplementation.features.ChangeSubcomponentTypeFeature;
+import org.osate.ge.diagrams.componentImplementation.features.ComponentImplementationUpdateDiagramFeature;
+import org.osate.ge.diagrams.componentImplementation.features.EditFlowsFeature;
+import org.osate.ge.diagrams.componentImplementation.features.RefineConnectionFeature;
+import org.osate.ge.diagrams.componentImplementation.features.RefineSubcomponentFeature;
+import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFeature;
+import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
+import org.osate.ge.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
+import org.osate.ge.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
+import org.osate.ge.diagrams.componentImplementation.patterns.ConnectionPattern;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubcomponentPattern;
+import org.osate.ge.diagrams.pkg.features.PackageSetExtendedClassifierFeature;
+import org.osate.ge.diagrams.pkg.features.PackageUpdateDiagramFeature;
+import org.osate.ge.diagrams.pkg.patterns.PackageClassifierPattern;
+import org.osate.ge.diagrams.pkg.patterns.PackageGeneralizationPattern;
+import org.osate.ge.diagrams.type.features.CreateSimpleFlowSpecificationFeature;
+import org.osate.ge.diagrams.type.features.RefineFeatureFeature;
+import org.osate.ge.diagrams.type.features.RefineFlowSpecificationFeature;
+import org.osate.ge.diagrams.type.features.RenameFlowSpecificationFeature;
+import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
+import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
+import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
+import org.osate.ge.diagrams.type.features.TypeUpdateDiagramFeature;
+import org.osate.ge.diagrams.type.patterns.TypeClassifierPattern;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -131,6 +170,24 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Create the eclipse context
 		this.context = createEclipseContext();
+		
+		// Add patterns
+		addAadlFeaturePatterns();
+		addConnectionPattern(make(FlowSpecificationPattern.class));
+		addPattern(make(ModePattern.class));
+		addConnectionPattern(make(ModeTransitionPattern.class));
+		
+		// Package
+		addConnectionPattern(make(PackageGeneralizationPattern.class));
+		addClassifierPatterns();
+		
+		// Component Implementation
+		addPattern(make(ComponentImplementationPattern.class));
+		addSubcomponentPatterns();
+		addAadlConnectionPatterns();
+		
+		// Type Diagram
+		addPattern(make(TypeClassifierPattern.class));
 	}
 	
 	private IEclipseContext createEclipseContext() {
@@ -264,8 +321,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final ArrayList<ICustomFeature> features = new ArrayList<ICustomFeature>();
 		addCustomFeatures(features);
 		return features.toArray(new ICustomFeature[] {});
-	}
-	
+	}	
 	
 	/**
 	 * Method used to additively build a list of custom features. Subclasses can override to add additional custom features while including those supported by parent classes.
@@ -294,6 +350,37 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			childCtx.set("Feature Type", featureType);
 			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));	
 		}
+		
+		// Component Implementation
+		features.add(make(EditFlowsFeature.class));
+		features.add(make(SetSubcomponentClassifierFeature.class));
+		features.add(make(RefineSubcomponentFeature.class));
+		features.add(make(RefineConnectionFeature.class));
+		
+		for(final EClass subcomponentType : SubcomponentPattern.getSubcomponentTypes()) {
+			final IEclipseContext childCtx = getContext().createChild();
+			childCtx.set("Subcomponent Type", subcomponentType);
+			features.add(ContextInjectionFactory.make(ChangeSubcomponentTypeFeature.class, childCtx));	
+		}
+		
+		features.add(createSetConnectionBidirectionalityFeature(false));
+		features.add(createSetConnectionBidirectionalityFeature(true));
+		
+		// Package
+		features.add(make(PackageSetExtendedClassifierFeature.class));
+		
+		// Type
+		features.add(make(RefineFeatureFeature.class));
+		features.add(make(RefineFlowSpecificationFeature.class));
+		features.add(createSetFeatureGroupInverseFeature(true));
+		features.add(createSetFeatureGroupInverseFeature(false));
+		features.add(createSetFeatureDirectionFeature(DirectionType.IN));
+		features.add(createSetFeatureDirectionFeature(DirectionType.OUT));
+		features.add(createSetFeatureDirectionFeature(DirectionType.IN_OUT));		
+		features.add(createSetFeatureKindFeature(AccessType.PROVIDES));
+		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));		
+		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE));
+		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SINK));
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
@@ -311,6 +398,21 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {	
 		PictogramElement pictogramElement = context.getPictogramElement();
+		
+		if(pictogramElement instanceof Diagram) {
+			final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+			if(bor != null) {
+				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+				if(bo instanceof ComponentImplementation) {
+					return make(ComponentImplementationUpdateDiagramFeature.class);					
+				} else if(bo instanceof AadlPackage) {
+					return make(PackageUpdateDiagramFeature.class);
+				} else if(bo instanceof FeatureGroupType || bo instanceof ComponentType) {
+					return make(TypeUpdateDiagramFeature.class);
+				}
+			}
+		}
+		   
 		// As of 2013-07-08 Graphiti doesn't support connection patterns handling updates so check if the pattern implements IUpdate and return a feature based on the pattern
 		if(pictogramElement instanceof Connection) {
 			for(final IConnectionPattern conPattern : getConnectionPatterns()) {
@@ -366,34 +468,37 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 		if(bor != null) {
-			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-			if(bo instanceof ModeTransition) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());			
+			if(bo instanceof org.osate.aadl2.Connection) {
+				return make(RenameConnectionFeature.class);
+			} else if(bo instanceof ModeTransition) {
 				return make(RenameModeTransitionFeature.class);
+			} else if(bo instanceof FlowSpecification) {
+				return make(RenameFlowSpecificationFeature.class);
 			}
 		}
 
 		return super.getDirectEditingFeatureAdditional(context);
 	}
 	
-	protected boolean allowConnectionCreation(final IConnectionPattern conPattern) {
-		return true;
-	}
-	
 	/**
-	 * Override of getCreateConnectionFeatures() that borrows code from DefaultFeatureProviderWithPatterns but allows connection creation to be disabled for a connection pattern by overriding allowConnectionCreation()
+	 * Override of getCreateConnectionFeatures() that allow connection patterns to be hidden by implementing isPaletteApplicable()
+	 * As of 2014-09-18 Graphiti's connection pattern interface does not contain such a mechanism.
 	 */
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-		ICreateConnectionFeature[] ret = new ICreateConnectionFeature[0];
-		List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
+		final ICreateConnectionFeature[] ret = new ICreateConnectionFeature[0];
+		final List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
 
 		for (IConnectionPattern conPattern : getConnectionPatterns()) {
-			if(allowConnectionCreation(conPattern)) {
-				retList.add(new CreateConnectionFeatureForPattern(this, conPattern));
+			if(conPattern instanceof AgeConnectionPattern) {
+				if(((AgeConnectionPattern) conPattern).isPaletteApplicable()) {
+					retList.add(new CreateConnectionFeatureForPattern(this, conPattern));					
+				}
 			}
 		}
 
-		ICreateConnectionFeature[] a = getCreateConnectionFeaturesAdditional();
+		final ICreateConnectionFeature[] a = getCreateConnectionFeaturesAdditional();
 		for (ICreateConnectionFeature element : a) {
 			retList.add(element);
 		}
@@ -462,5 +567,113 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 		return bor.getBusinessObjectForPictogramElement(pe) instanceof org.osate.aadl2.Connection;
+	}
+	
+	// ComponentImplementation
+	/**
+	 * Creates and adds patterns related to AADL Connections
+	 */
+	private void addAadlConnectionPatterns() {
+		// Create the connection patterns
+		for(final EClass connectionType : ConnectionPattern.getConnectionTypes()) {
+			addConnectionPattern(createConnectionPattern(connectionType));
+		}
+	}
+	
+	private IConnectionPattern createConnectionPattern(final EClass connectionType) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Connection Type", connectionType);
+		return ContextInjectionFactory.make(ConnectionPattern.class, childCtx);
+	}
+	
+	private IPattern createSubcomponentPattern(final EClass scType) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Subcomponent Type", scType);
+		return ContextInjectionFactory.make(SubcomponentPattern.class, childCtx);
+	}
+		
+	/**
+	 * Creates and adds patterns related to AADL Features
+	 */
+	protected final void addSubcomponentPatterns() {
+		// Create the subcomponent patterns
+		for(final EClass scType : SubcomponentPattern.getSubcomponentTypes()) {
+			this.addPattern(createSubcomponentPattern(scType));	
+		}
+	}
+	
+	private ICustomFeature createSetConnectionBidirectionalityFeature(final Boolean bidirectionalityValue) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Value", bidirectionalityValue);
+		return ContextInjectionFactory.make(SetConnectionBidirectionalityFeature.class, childCtx);
+	}
+	
+	// Package
+	private void addClassifierPatterns() {
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		addPattern(createPackageClassifierPattern(p.getAbstractType()));
+		addPattern(createPackageClassifierPattern(p.getAbstractImplementation()));
+		addPattern(createPackageClassifierPattern(p.getBusType()));
+		addPattern(createPackageClassifierPattern(p.getBusImplementation()));
+		addPattern(createPackageClassifierPattern(p.getDataType()));
+		addPattern(createPackageClassifierPattern(p.getDataImplementation()));
+		addPattern(createPackageClassifierPattern(p.getDeviceType()));
+		addPattern(createPackageClassifierPattern(p.getDeviceImplementation()));
+		addPattern(createPackageClassifierPattern(p.getFeatureGroupType()));
+		addPattern(createPackageClassifierPattern(p.getMemoryType()));
+		addPattern(createPackageClassifierPattern(p.getMemoryImplementation()));
+		addPattern(createPackageClassifierPattern(p.getProcessType()));
+		addPattern(createPackageClassifierPattern(p.getProcessImplementation()));
+		addPattern(createPackageClassifierPattern(p.getProcessorType()));
+		addPattern(createPackageClassifierPattern(p.getProcessorImplementation()));
+		addPattern(createPackageClassifierPattern(p.getSubprogramType()));
+		addPattern(createPackageClassifierPattern(p.getSubprogramImplementation()));
+		addPattern(createPackageClassifierPattern(p.getSubprogramGroupType()));
+		addPattern(createPackageClassifierPattern(p.getSubprogramGroupImplementation()));
+		addPattern(createPackageClassifierPattern(p.getSystemType()));
+		addPattern(createPackageClassifierPattern(p.getSystemImplementation()));
+		addPattern(createPackageClassifierPattern(p.getThreadType()));
+		addPattern(createPackageClassifierPattern(p.getThreadImplementation()));
+		addPattern(createPackageClassifierPattern(p.getThreadGroupType()));
+		addPattern(createPackageClassifierPattern(p.getThreadGroupImplementation()));
+		addPattern(createPackageClassifierPattern(p.getVirtualBusType()));
+		addPattern(createPackageClassifierPattern(p.getVirtualBusImplementation()));
+		addPattern(createPackageClassifierPattern(p.getVirtualProcessorType()));
+		addPattern(createPackageClassifierPattern(p.getVirtualProcessorImplementation()));	
+	}
+	
+	private IPattern createPackageClassifierPattern(final EClass classifierType) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Classifier Type", classifierType);
+		return ContextInjectionFactory.make(PackageClassifierPattern.class, childCtx);
+	}
+	
+	// Type
+	private SetFeatureDirectionFeature createSetFeatureDirectionFeature(final DirectionType dirType) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Direction", dirType);
+		return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
+	}
+	
+	private SetFeatureGroupInverseFeature createSetFeatureGroupInverseFeature(final boolean inverse) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Inverse", inverse);
+		return ContextInjectionFactory.make(SetFeatureGroupInverseFeature.class, childCtx);
+	}
+	
+	private SetAccessFeatureKindFeature createSetFeatureKindFeature(final AccessType accType) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Access", accType);
+		return ContextInjectionFactory.make(SetAccessFeatureKindFeature.class, childCtx);
+	}
+	
+	private CreateSimpleFlowSpecificationFeature createCreateSimpleFlowSpecificationFeature(final FlowKind flowKind) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Kind", flowKind);
+		return ContextInjectionFactory.make(CreateSimpleFlowSpecificationFeature.class, childCtx);
 	}
 }

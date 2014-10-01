@@ -173,4 +173,8 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	@Override
 	public void postDelete(final IDeleteContext context) {
 	}
+	
+	public boolean isPaletteApplicable() {
+		return true;
+	}
 }

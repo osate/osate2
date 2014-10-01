@@ -47,7 +47,7 @@
          point="org.eclipse.graphiti.ui.diagramTypeProviders">
       <diagramTypeProvider
             name="AADL Package Diagram Type Provider"
-            class="org.osate.ge.diagrams.pkg.PackageDiagramTypeProvider"
+            class="org.osate.ge.diagrams.common.AgeDiagramTypeProvider"
             id="org.osate.ge.aadlPackageDiagramTypeProvider">
          <diagramType
                id="org.osate.ge.aadlPackageDiagramType">
@@ -59,7 +59,7 @@
       
       <diagramTypeProvider
             name="AADL Type Diagram Type Provider"
-            class="org.osate.ge.diagrams.type.TypeDiagramTypeProvider"
+            class="org.osate.ge.diagrams.common.AgeDiagramTypeProvider"
             id="org.osate.ge.aadlTypeDiagramTypeProvider">
          <diagramType
                id="org.osate.ge.aadlTypeDiagramType">
@@ -71,7 +71,7 @@
       
       <diagramTypeProvider
             name="AADL Component Implementation Diagram Type Provider"
-            class="org.osate.ge.diagrams.componentImplementation.ComponentImplementationDiagramTypeProvider"
+            class="org.osate.ge.diagrams.common.AgeDiagramTypeProvider"
             id="org.osate.ge.aadlComponentImplementationDiagramTypeProvider">
          <diagramType
                id="org.osate.ge.aadlComponentImplementationDiagramType">

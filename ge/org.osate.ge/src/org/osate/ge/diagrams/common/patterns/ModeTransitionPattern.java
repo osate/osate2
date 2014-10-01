@@ -101,6 +101,12 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof ModeTransition;
 	}
+	
+	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
+		return diagramBo instanceof ComponentClassifier;
+	}
 
 	/**
 	 * Overridden to create a curved connection for the mode transition

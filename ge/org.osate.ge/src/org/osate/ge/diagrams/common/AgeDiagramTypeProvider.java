@@ -13,7 +13,8 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.ge.services.impl.DefaultPropertyService;
 
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
-	public AgeDiagramTypeProvider() {			
+	public AgeDiagramTypeProvider() {	
+		setFeatureProvider(new AgeFeatureProvider(this));
 	}
 	
 	@Override

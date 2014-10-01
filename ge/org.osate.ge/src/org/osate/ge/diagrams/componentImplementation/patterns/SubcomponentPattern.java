@@ -158,6 +158,13 @@ public class SubcomponentPattern extends AgePattern {
 	}
 
 	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return diagramBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)diagramBo, subcomponentType) : false;
+	}
+	
+	
+	@Override
 	public boolean canAdd(final IAddContext context) {
 		return isMainBusinessObjectApplicable(context.getNewObject());
 	}
@@ -380,12 +387,6 @@ public class SubcomponentPattern extends AgePattern {
 		return retVal;
 	}
 
-	@Override
-	public boolean isPaletteApplicable() {
-		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return diagramBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)diagramBo, subcomponentType) : false;
-	}
-	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());

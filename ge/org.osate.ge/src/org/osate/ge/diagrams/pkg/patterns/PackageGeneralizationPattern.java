@@ -91,6 +91,12 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	}
 
 	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
+		return diagramBo instanceof AadlPackage;
+	}
+	
+	@Override
 	protected void createDecorators(final Connection connection) {
 		connection.getConnectionDecorators().clear();
 

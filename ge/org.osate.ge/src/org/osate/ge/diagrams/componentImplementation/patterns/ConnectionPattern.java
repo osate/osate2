@@ -143,6 +143,12 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		return connectionType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
 	}
 	
+	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
+		return diagramBo instanceof ComponentImplementation;
+	}
+	
 	private org.osate.aadl2.Connection getAadlConnection(final Connection connection) {
 		return (org.osate.aadl2.Connection)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 	}

@@ -100,6 +100,12 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	}
 
 	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
+		return diagramBo instanceof ComponentType;
+	}
+	
+	@Override
 	protected void createDecorators(final Connection connection) {
 		final FlowSpecification fs = getFlowSpecification(connection);
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();

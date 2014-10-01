@@ -106,9 +106,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject)	{
-		final Object bo = AadlElementWrapper.unwrap(mainBusinessObject);
-
-		return classifierType.isInstance(bo);
+		return isPackageDiagram() && classifierType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
+	}
+	
+	@Override
+	public boolean isPaletteApplicable() {
+		return isPackageDiagram();
 	}
 
 	@Override
