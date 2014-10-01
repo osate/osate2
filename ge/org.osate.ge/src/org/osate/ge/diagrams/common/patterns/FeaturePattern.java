@@ -47,7 +47,6 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
@@ -711,7 +710,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return isClassifierDiagram() && canOwnFeatureType((Classifier)diagramBo, featureType);
+		return canOwnFeatureType((Classifier)diagramBo, featureType);
 	}	
 
 	@Override
