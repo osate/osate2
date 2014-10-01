@@ -34,12 +34,15 @@
  */
 package org.osate.xtext.aadl2.properties.scoping;
 
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.BehavioredImplementation
@@ -67,7 +70,6 @@ import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.parsesupport.AObject
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 import static extension org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil.resolveComponentPrototype
 import static extension org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil.resolveFeatureGroupPrototype
@@ -99,7 +101,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 					renameScopeElements.add(new EObjectDescription(QualifiedName::create(if (packageRename.renameAll) #[classifier.name] else #[packageRename.name, classifier.name]), classifier, null))
 				]
 			]
-			scope = new SimpleScope(scope, renameScopeElements)
+			scope = new SimpleScope(scope, renameScopeElements, true)
 		}
 		scope
 	}
@@ -241,6 +243,18 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	def scope_NumberValue_unit(BasicPropertyAssociation context, EReference reference) {
 		//Inner value of a record value.
 		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
+	}
+	
+	def protected static scopeFor(Iterable<? extends EObject> elements) {
+		elements.scopeFor(IScope::NULLSCOPE)
+	}
+	
+	def protected static scopeFor(Iterable<? extends EObject> elements, IScope outer) {
+		new SimpleScope(outer, Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+	}
+	
+	def protected static <T extends EObject> scopeFor(Iterable<? extends T> elements, (T)=>QualifiedName nameComputation, IScope outer) {
+		new SimpleScope(outer, Scopes::scopedElementsFor(elements, nameComputation), true)
 	}
 	
 	def protected static <T extends AObject> filterRefined(Iterable<T> unfiltered) {

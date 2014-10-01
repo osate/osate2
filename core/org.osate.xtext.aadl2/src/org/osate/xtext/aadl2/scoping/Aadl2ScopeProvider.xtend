@@ -103,7 +103,6 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 
 /**
  * This class contains custom scoping description.
@@ -602,27 +601,27 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from RealType, UnnamedRealType, IntegerType, and UnnamedIntegerType in Aadl2.xtext
 	def scope_NumberType_referencedUnitsType(Element context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
+		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)], true)
 	}
 	
 	//Reference is from RangeType and UnnamedRangeType in Aadl2.xtext
 	def scope_RangeType_numberType(Element context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
+		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)], true)
 	}
 	
 	//Reference is from RecordField in Aadl2.xtext
 	def scope_BasicProperty_referencedPropertyType(Element context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
+		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)], true)
 	}
 	
 	//Reference is from ListType in Aadl2.xtext
 	def scope_ListType_elementType(Element context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
+		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)], true)
 	}
 	
 	//Reference is from PropertyConstant in Aadl2.xtext
 	def scope_PropertyConstant_propertyType(Element context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)])
+		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)], true)
 	}
 	
 	def private static allPrototypes(Classifier classifier) {
