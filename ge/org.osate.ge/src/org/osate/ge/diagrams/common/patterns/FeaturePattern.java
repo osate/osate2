@@ -712,8 +712,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return canOwnFeatureType((Classifier)diagramBo, featureType);
-	}	
+		return isClassifierDiagram() && canOwnFeatureType((Classifier)diagramBo, featureType);
+	}
 
 	@Override
 	public boolean canCreate(final ICreateContext context) {
