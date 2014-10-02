@@ -477,7 +477,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
 					boolean found = false;
 					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
-						if (ebt.getSource() == ebs) {
+						if ((ebt.getSource() == ebs) || (ebt.getTarget() == ebs)) {
 							found = true;
 						}
 					}
