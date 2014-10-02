@@ -114,6 +114,7 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentCategory getCategory() {
 		return category;
 	}
@@ -123,12 +124,14 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(ComponentCategory newCategory) {
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY,
 					oldCategory, category));
+		}
 	}
 
 	/**
@@ -136,15 +139,17 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentType getRenamedComponentType() {
 		if (renamedComponentType != null && ((EObject) renamedComponentType).eIsProxy()) {
 			InternalEObject oldRenamedComponentType = (InternalEObject) renamedComponentType;
 			renamedComponentType = (ComponentType) eResolveProxy(oldRenamedComponentType);
 			if (renamedComponentType != oldRenamedComponentType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE, oldRenamedComponentType,
 							renamedComponentType));
+				}
 			}
 		}
 		return renamedComponentType;
@@ -164,13 +169,15 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenamedComponentType(ComponentType newRenamedComponentType) {
 		ComponentType oldRenamedComponentType = renamedComponentType;
 		renamedComponentType = newRenamedComponentType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE, oldRenamedComponentType,
 					renamedComponentType));
+		}
 	}
 
 	/**
@@ -184,8 +191,9 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
 			return getCategory();
 		case Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getRenamedComponentType();
+			}
 			return basicGetRenamedComponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -250,8 +258,9 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (category: ");

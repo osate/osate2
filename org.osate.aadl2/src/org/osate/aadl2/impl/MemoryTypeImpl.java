@@ -172,6 +172,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
 			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
@@ -185,6 +186,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusAccess createOwnedBusAccess() {
 		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
 		getOwnedBusAccesses().add(newOwnedBusAccess);
@@ -196,6 +198,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
 			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
@@ -209,6 +212,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataPort createOwnedDataPort() {
 		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
 		getOwnedDataPorts().add(newOwnedDataPort);
@@ -220,6 +224,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
 			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
@@ -233,6 +238,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventDataPort createOwnedEventDataPort() {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
@@ -244,6 +250,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
 			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
@@ -257,6 +264,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventPort createOwnedEventPort() {
 		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
@@ -391,6 +399,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 				|| eIsSet(Aadl2Package.MEMORY_TYPE__OWNED_EVENT_PORT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.MEMORY;
 	}

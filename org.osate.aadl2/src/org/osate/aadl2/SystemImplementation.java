@@ -457,6 +457,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
+	@Override
 	SystemType getType();
 
 } // SystemImplementation

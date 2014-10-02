@@ -137,6 +137,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnumerationLiteral createOwnedLiteral() {
 		UnitLiteral newOwnedLiteral = (UnitLiteral) create(Aadl2Package.eINSTANCE.getUnitLiteral());
 		getOwnedLiterals().add(newOwnedLiteral);

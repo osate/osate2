@@ -120,15 +120,17 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponentType getDataFeatureClassifier() {
 		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
 			dataFeatureClassifier = (DataSubcomponentType) eResolveProxy(oldDataFeatureClassifier);
 			if (dataFeatureClassifier != oldDataFeatureClassifier) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
 							dataFeatureClassifier));
+				}
 			}
 		}
 		return dataFeatureClassifier;
@@ -148,12 +150,14 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER,
 					oldDataFeatureClassifier, dataFeatureClassifier));
+		}
 	}
 
 	/**
@@ -165,8 +169,9 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getDataFeatureClassifier();
+			}
 			return basicGetDataFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);

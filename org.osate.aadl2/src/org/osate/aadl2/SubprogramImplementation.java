@@ -133,6 +133,7 @@ public interface SubprogramImplementation extends BehavioredImplementation, Subp
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
+	@Override
 	SubprogramType getType();
 
 } // SubprogramImplementation

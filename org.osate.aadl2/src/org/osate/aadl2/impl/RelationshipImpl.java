@@ -82,6 +82,7 @@ public abstract class RelationshipImpl extends ElementImpl implements Relationsh
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getRelatedElements() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
