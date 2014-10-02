@@ -2035,9 +2035,10 @@ public class AadlBaUtils {
   
   /**
    * If the given PropertyReference object represents a string literal from
-   * a property string list declared in a classifier, it returns the Classifier
-   * object and the StringLiteral object (see DataModelEnumLiteral).
-   * Otherwise, it throws an OperationNotSupportedException.
+   * a property string list declared in a classifier (property Enumerators), it
+   * returns the Classifier object and the StringLiteral object
+   * (see DataModelEnumLiteral). Otherwise, it throws an
+   * OperationNotSupportedException.
    * 
    * @see DataModelEnumLiteral
    * @param ref the given PropertyReference object
@@ -2056,13 +2057,16 @@ public class AadlBaUtils {
       
       EList<PropertyNameHolder> properties = cpr.getProperties() ;
       
-      if(properties.size() == 1)
+      if(properties.size() == 2)
       {
-        result.stringLiteral = extractStringLiteral(properties.get(0)) ;
+        // The first property name is supposed to be a property association 
+        // Enumerators. Don't need to check it. 
+        
+        result.stringLiteral = extractStringLiteral(properties.get(1)) ;
       }
       else
       {
-        throw new OperationNotSupportedException("record fields not supported") ;
+        throw new OperationNotSupportedException("this property reference not supported") ;
       }
       
     }
