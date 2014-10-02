@@ -237,7 +237,7 @@ public interface Property extends BasicProperty, AbstractNamedValue, ArraySizePr
 
 	/**
 	 * Evaluate a referenced property.
-	 * 
+	 *
 	 * @return The evaluated property values, one per append operation.
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.

@@ -120,15 +120,17 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusSubcomponentType getBusSubcomponentType() {
 		if (busSubcomponentType != null && ((EObject) busSubcomponentType).eIsProxy()) {
 			InternalEObject oldBusSubcomponentType = (InternalEObject) busSubcomponentType;
 			busSubcomponentType = (BusSubcomponentType) eResolveProxy(oldBusSubcomponentType);
 			if (busSubcomponentType != oldBusSubcomponentType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE, oldBusSubcomponentType,
 							busSubcomponentType));
+				}
 			}
 		}
 		return busSubcomponentType;
@@ -148,12 +150,14 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBusSubcomponentType(BusSubcomponentType newBusSubcomponentType) {
 		BusSubcomponentType oldBusSubcomponentType = busSubcomponentType;
 		busSubcomponentType = newBusSubcomponentType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE,
 					oldBusSubcomponentType, busSubcomponentType));
+		}
 	}
 
 	/**
@@ -165,8 +169,9 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getBusSubcomponentType();
+			}
 			return basicGetBusSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -228,6 +233,7 @@ public class BusSubcomponentImpl extends SubcomponentImpl implements BusSubcompo
 		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.BUS;
 	}

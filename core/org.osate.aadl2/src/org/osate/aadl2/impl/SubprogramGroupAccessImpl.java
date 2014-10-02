@@ -119,15 +119,17 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupSubcomponentType getSubprogramGroupFeatureClassifier() {
 		if (subprogramGroupFeatureClassifier != null && ((EObject) subprogramGroupFeatureClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramGroupFeatureClassifier = (InternalEObject) subprogramGroupFeatureClassifier;
 			subprogramGroupFeatureClassifier = (SubprogramGroupSubcomponentType) eResolveProxy(oldSubprogramGroupFeatureClassifier);
 			if (subprogramGroupFeatureClassifier != oldSubprogramGroupFeatureClassifier) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER,
 							oldSubprogramGroupFeatureClassifier, subprogramGroupFeatureClassifier));
+				}
 			}
 		}
 		return subprogramGroupFeatureClassifier;
@@ -147,13 +149,15 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType newSubprogramGroupFeatureClassifier) {
 		SubprogramGroupSubcomponentType oldSubprogramGroupFeatureClassifier = subprogramGroupFeatureClassifier;
 		subprogramGroupFeatureClassifier = newSubprogramGroupFeatureClassifier;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER,
 					oldSubprogramGroupFeatureClassifier, subprogramGroupFeatureClassifier));
+		}
 	}
 
 	/**
@@ -165,8 +169,9 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getSubprogramGroupFeatureClassifier();
+			}
 			return basicGetSubprogramGroupFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);

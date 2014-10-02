@@ -76,8 +76,9 @@ public class BehavioredImplementationOperations extends ComponentImplementationO
 	 */
 	public static EList<SubprogramCall> subprogramCalls(BehavioredImplementation behavioredImplementation) {
 		EList<SubprogramCall> allCalls = new BasicInternalEList<SubprogramCall>(SubprogramCall.class);
-		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences())
+		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences()) {
 			allCalls.addAll(callSequence.getOwnedSubprogramCalls());
+		}
 		return allCalls;
 	}
 

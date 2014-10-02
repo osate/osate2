@@ -103,6 +103,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getValue() {
 		return value;
 	}
@@ -112,11 +113,13 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(double newValue) {
 		double oldValue = value;
 		value = newValue;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
+		}
 	}
 
 	/**
@@ -184,8 +187,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (value: ");
@@ -196,11 +200,12 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/**
 	 * @author dionisio
-	 * 
-	 * set the value by parsing the string. 	 * 
+	 *
+	 * set the value by parsing the string. 	 *
 	 * @param s string with number to parse
 	 */
 
+	@Override
 	public void setValue(String s) {
 		setValue(ParseUtil.parseAadlReal(s));
 	}
@@ -210,6 +215,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
+	@Override
 	public NumberValue cloneAndInvert() {
 		final RealLiteral newVal = Aadl2Factory.eINSTANCE.createRealLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -225,6 +231,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
+	@Override
 	public final NumberValue cloneNumber() {
 		final RealLiteral newVal = Aadl2Factory.eINSTANCE.createRealLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -267,11 +274,13 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 			return super.equals(obj);
 		}
 
-		if (this == obj)
+		if (this == obj) {
 			return true;
+		}
 
-		if (obj == null || getClass() != obj.getClass() || !super.equals(obj))
+		if (obj == null || getClass() != obj.getClass() || !super.equals(obj)) {
 			return false;
+		}
 		RealLiteralImpl other = (RealLiteralImpl) obj;
 		return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
 	}

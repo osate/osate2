@@ -119,15 +119,17 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramSubcomponentType getSubprogramFeatureClassifier() {
 		if (subprogramFeatureClassifier != null && ((EObject) subprogramFeatureClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramFeatureClassifier = (InternalEObject) subprogramFeatureClassifier;
 			subprogramFeatureClassifier = (SubprogramSubcomponentType) eResolveProxy(oldSubprogramFeatureClassifier);
 			if (subprogramFeatureClassifier != oldSubprogramFeatureClassifier) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER,
 							oldSubprogramFeatureClassifier, subprogramFeatureClassifier));
+				}
 			}
 		}
 		return subprogramFeatureClassifier;
@@ -147,13 +149,15 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSubprogramFeatureClassifier(SubprogramSubcomponentType newSubprogramFeatureClassifier) {
 		SubprogramSubcomponentType oldSubprogramFeatureClassifier = subprogramFeatureClassifier;
 		subprogramFeatureClassifier = newSubprogramFeatureClassifier;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER, oldSubprogramFeatureClassifier,
 					subprogramFeatureClassifier));
+		}
 	}
 
 	/**
@@ -165,8 +169,9 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getSubprogramFeatureClassifier();
+			}
 			return basicGetSubprogramFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);

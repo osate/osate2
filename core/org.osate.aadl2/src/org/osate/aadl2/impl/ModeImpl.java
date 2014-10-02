@@ -116,6 +116,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInitial() {
 		return initial;
 	}
@@ -125,11 +126,13 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitial(boolean newInitial) {
 		boolean oldInitial = initial;
 		initial = newInitial;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE__INITIAL, oldInitial, initial));
+		}
 	}
 
 	/**
@@ -137,6 +140,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public boolean isDerived() {
 		// DONE: implement this method to return the 'Derived' attribute
 		return ((ComponentClassifier) getOwner()).isDerivedModes();
@@ -211,8 +215,9 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (initial: ");
@@ -222,6 +227,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	}
 
 	// Cannot make this final because I need to override in SystemOperationMode
+	@Override
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();

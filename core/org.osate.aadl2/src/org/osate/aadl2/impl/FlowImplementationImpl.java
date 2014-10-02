@@ -138,6 +138,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public EList<Classifier> getFeaturingClassifiers() {
 		// BasicEList<Classifier> list = new BasicEList<Classifier>();
 		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
@@ -151,14 +152,16 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecification getSpecification() {
 		if (specification != null && ((EObject) specification).eIsProxy()) {
 			InternalEObject oldSpecification = (InternalEObject) specification;
 			specification = (FlowSpecification) eResolveProxy(oldSpecification);
 			if (specification != oldSpecification) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION, oldSpecification, specification));
+				}
 			}
 		}
 		return specification;
@@ -178,12 +181,14 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpecification(FlowSpecification newSpecification) {
 		FlowSpecification oldSpecification = specification;
 		specification = newSpecification;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
 					oldSpecification, specification));
+		}
 	}
 
 	/**
@@ -191,6 +196,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FlowSegment> getOwnedFlowSegments() {
 		if (ownedFlowSegments == null) {
 			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(FlowSegment.class, this,
@@ -204,6 +210,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSegment createOwnedFlowSegment() {
 		FlowSegment newOwnedFlowSegment = (FlowSegment) create(Aadl2Package.eINSTANCE.getFlowSegment());
 		getOwnedFlowSegments().add(newOwnedFlowSegment);
@@ -229,6 +236,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowKind getKind() {
 		return kind;
 	}
@@ -238,11 +246,13 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(FlowKind newKind) {
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
+		}
 	}
 
 	/**
@@ -258,8 +268,9 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			return getKind();
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
-			if (resolve)
+			if (resolve) {
 				return getSpecification();
+			}
 			return basicGetSpecification();
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
 			return getOwnedFlowSegments();
@@ -386,8 +397,9 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (kind: ");

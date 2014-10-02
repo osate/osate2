@@ -397,8 +397,8 @@ public class NamedElementOperations extends ElementOperations {
 	 * When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.
 	 * if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then
 	 *   self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))
-	 * else 
-	 *   '' 
+	 * else
+	 *   ''
 	 * endif
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * <!-- end-model-doc -->
@@ -408,16 +408,19 @@ public class NamedElementOperations extends ElementOperations {
 		if (namedElement.hasName()) {
 			Namespace namespace = namedElement.getNamespace();
 			if (namespace != null) {
-				if (namespace instanceof PropertySet && namespace.hasName())
+				if (namespace instanceof PropertySet && namespace.hasName()) {
 					return namespace.getName() + "::" + namedElement.getName();
-				else if (namespace instanceof PackageSection && ((AadlPackage) namespace.getOwner()).hasName())
+				} else if (namespace instanceof PackageSection && ((AadlPackage) namespace.getOwner()).hasName()) {
 					return ((AadlPackage) namespace.getOwner()).getName() + "::" + namedElement.getName();
-				else
+				} else {
 					return qualifiedName(namespace) + '.' + namedElement.getName();
-			} else
+				}
+			} else {
 				return namedElement.getName();
-		} else
+			}
+		} else {
 			return null;
+		}
 	}
 
 	/**
@@ -433,7 +436,7 @@ public class NamedElementOperations extends ElementOperations {
 
 		try {
 			if (property.isList()) {
-				result.addAll((Collection<PropertyExpression>) namedElement.getPropertyValueList(property));
+				result.addAll(namedElement.getPropertyValueList(property));
 			} else {
 				result.add(namedElement.getSimplePropertyValue(property));
 			}

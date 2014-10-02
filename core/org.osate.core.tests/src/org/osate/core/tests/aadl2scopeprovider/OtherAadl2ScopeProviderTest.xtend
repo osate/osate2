@@ -47,12 +47,10 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentPrototypeBinding
-import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupPrototypeBinding
 import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
-import org.osate.aadl2.PropertySet
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
@@ -68,14 +66,6 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	override getProjectName() {
 		"Other_Aadl2_Scope_Provider_Test"
 	}
-	
-//	@BeforeClass
-//	def static showReferences() {
-//		println
-//		typeof(Aadl2Package).methods.filter[declaringClass == typeof(Aadl2Package) && returnType == typeof(EReference)].map[it -> invoke(Aadl2Package::eINSTANCE) as EReference].
-//			filter[!value.containment && !value.derived].filter[value.EReferenceType == Aadl2Package::eINSTANCE.feature].
-//			forEach[println(key.name.substring(3, key.name.indexOf("_")) + "." + value.name + "->" + value.EReferenceType.name)]
-//	}
 	
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
@@ -575,156 +565,6 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					actuals.head.assertScope(Aadl2Package::eINSTANCE.componentPrototypeActual_SubcomponentType, false, #["a1", "a1.i1", "a1.i2", "a1.i3", "a2",
 						"a3", "a3.i1", "proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a1.i3", "pack::a2", "pack::a3", "pack::a3.i1"
 					])
-				]
-			]
-		]
-	}
-	
-	/*
-	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
-	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.
-	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
-	 */
-	@Test
-	def void testGlobalPropertySetReferences() {
-		createFiles(
-			"pack.aadl" -> '''
-				package pack
-				public
-				  with ps;
-				  
-				  abstract a
-				  features
-				    af: feature[ps::def];
-				  properties
-				    ps::def => 4;
-				  end a;
-				end pack;
-			''',
-			"ps.aadl" -> '''
-				property set ps is
-				  def: aadlinteger applies to (all);
-				  const: constant aadlinteger => 10;
-				end ps;
-			'''
-		)
-		suppressSerialization
-		testFile("ps.aadl").resource.contents.head as PropertySet => [
-			"ps".assertEquals(name)
-			//Tests the reference PropertySet_ImportedUnit
-			assertScope(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, true, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
-				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack", "ps"
-			])
-		]
-		testFile("pack.aadl").resource.contents.head as AadlPackage => [
-			"pack".assertEquals(name)
-			publicSection.ownedClassifiers.head as ComponentType => [
-				"a".assertEquals(name)
-				ownedAbstractFeatures.head => [
-					"af".assertEquals(name)
-					arrayDimensions.head.size => [
-						"ps::def".assertEquals((sizeProperty as NamedElement).qualifiedName())
-						//Tests the reference ArraySize_SizeProperty
-						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, false, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
-							"Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
-							"Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol", "Actual_Connection_Binding",
-							"Actual_Function_Binding", "Actual_Latency", "Actual_Memory_Binding", "Actual_Processor_Binding", "Actual_Subprogram_Call",
-							"Actual_Subprogram_Call_Binding", "Allowed_Connection_Binding", "Allowed_Connection_Binding_Class", "Allowed_Connection_Type",
-							"Allowed_Dispatch_Protocol", "Allowed_Memory_Binding", "Allowed_Memory_Binding_Class", "Allowed_Message_Size", "Allowed_Period",
-							"Allowed_Physical_Access", "Allowed_Physical_Access_Class", "Allowed_Processor_Binding", "Allowed_Processor_Binding_Class",
-							"Allowed_Subprogram_Call", "Allowed_Subprogram_Call_Binding", "Assign_Time", "Base_Address", "Byte_Count",
-							"Classifier_Matching_Rule", "Classifier_Substitution_Rule", "Client_Subprogram_Execution_Time", "Clock_Jitter", "Clock_Period",
-							"Clock_Period_Range", "Code_Size", "Collocated", "Compute_Deadline", "Compute_Entrypoint", "Compute_Entrypoint_Call_Sequence",
-							"Compute_Entrypoint_Source_Text", "Compute_Execution_Time", "Concurrency_Control_Protocol", "Connection_Pattern", "Connection_Set",
-							"Criticality", "Data_Rate", "Data_Size", "Deactivate_Dealing", "Deactivate_Entrypoint", "Deactivate_Entrypoint_Call_Sequence",
-							"Deactivate_Entrypoint_Source_Text", "Deactivate_Execution_Time", "Deactivation_Policy", "Deadline", "Dequeue_Protocol",
-							"Dequeued_Items", "Device_Driver", "Device_Register_Address", "Dispatch_Able", "Dispatch_Jitter", "Dispatch_Offset",
-							"Dispatch_Protocol", "Dispatch_Trigger", "Execution_Time", "Fan_Out_Policy", "Finalize_Deadline", "Finalize_Entrypoint",
-							"Finalize_Entrypoint_Call_Sequence", "Finalize_Entrypoint_Source_Text", "Finalize_Execution_Time", "First_Dispatch_Time",
-							"Frame_Period", "Hardware_Description_Source_Text", "Hardware_Source_Language", "Heap_Size", "Implemented_As",
-							"Initialize_Deadline", "Initialize_Entrypoint", "Initialize_Entrypoint_Call_Sequence", "Initialize_Entrypoint_Source_Text",
-							"Initialize_Execution_Time", "Input_Rate", "Input_Time", "Latency", "Load_Deadline", "Load_Time", "Max_Aadlinteger",
-							"Max_Base_Address", "Max_Byte_Count", "Max_Memory_Size", "Max_Queue_Size", "Max_Target_Integer", "Max_Thread_Limit", "Max_Time",
-							"Max_Urgency", "Max_Volume", "Max_Word_Space", "Memory_Protocol", "Memory_Size", "Mode_Transition_Response", "Not_Collocated",
-							"Output_Rate", "Output_Time", "Overflow_Handling_Protocol", "POSIX_Scheduling_Policy", "Period", "Preemptive_Scheduler",
-							"Priority", "Priority_Map", "Priority_Range", "Process_Swap_Execution_Time", "Processor_Capacity", "Prototype_Substitution_Rule",
-							"Provided_Connection_Quality_Of_Service", "Provided_Virtual_Bus_Class", "Queue_Processing_Protocol", "Queue_Size", "Read_Time",
-							"Recover_Deadline", "Recover_Entrypoint", "Recover_Entrypoint_Call_Sequence", "Recover_Entrypoint_Source_Text",
-							"Recover_Execution_Time", "Reference_Processor", "Required_Connection", "Required_Connection_Quality_Of_Service",
-							"Required_Virtual_Bus_Class", "Resumption_Policy", "Runtime_Protection", "Runtime_Protection_Support", "Scheduler_Quantum",
-							"Scheduling_Protocol", "Slot_Time", "Source_Language", "Source_Name", "Source_Text", "Stack_Size", "Startup_Deadline",
-							"Startup_Execution_Time", "Subprogram_Call_Rate", "Subprogram_Call_Type", "Supported_Classifier_Complement_Matches",
-							"Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language",
-							"Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing",
-							"Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const",
-							"ps::def", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count",
-							"AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer",
-							"AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume",
-							"AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches",
-							"AADL_Project::Supported_Classifier_Equivalence_Matches", "AADL_Project::Supported_Classifier_Subset_Matches",
-							"AADL_Project::Supported_Type_Conversions", "Communication_Properties::Actual_Latency",
-							"Communication_Properties::Connection_Pattern", "Communication_Properties::Connection_Set", "Communication_Properties::Data_Rate",
-							"Communication_Properties::Fan_Out_Policy", "Communication_Properties::Input_Rate", "Communication_Properties::Input_Time",
-							"Communication_Properties::Latency", "Communication_Properties::Output_Rate", "Communication_Properties::Output_Time",
-							"Communication_Properties::Overflow_Handling_Protocol", "Communication_Properties::Queue_Processing_Protocol",
-							"Communication_Properties::Queue_Size", "Communication_Properties::Required_Connection",
-							"Communication_Properties::Subprogram_Call_Rate", "Communication_Properties::Timing",
-							"Communication_Properties::Transmission_Time", "Communication_Properties::Transmission_Type",
-							"Deployment_Properties::Actual_Connection_Binding", "Deployment_Properties::Actual_Function_Binding",
-							"Deployment_Properties::Actual_Memory_Binding", "Deployment_Properties::Actual_Processor_Binding",
-							"Deployment_Properties::Actual_Subprogram_Call", "Deployment_Properties::Actual_Subprogram_Call_Binding",
-							"Deployment_Properties::Allowed_Connection_Binding", "Deployment_Properties::Allowed_Connection_Binding_Class",
-							"Deployment_Properties::Allowed_Connection_Type", "Deployment_Properties::Allowed_Dispatch_Protocol",
-							"Deployment_Properties::Allowed_Memory_Binding", "Deployment_Properties::Allowed_Memory_Binding_Class",
-							"Deployment_Properties::Allowed_Period", "Deployment_Properties::Allowed_Physical_Access",
-							"Deployment_Properties::Allowed_Physical_Access_Class", "Deployment_Properties::Allowed_Processor_Binding",
-							"Deployment_Properties::Allowed_Processor_Binding_Class", "Deployment_Properties::Allowed_Subprogram_Call",
-							"Deployment_Properties::Allowed_Subprogram_Call_Binding", "Deployment_Properties::Collocated",
-							"Deployment_Properties::Memory_Protocol", "Deployment_Properties::Not_Collocated", "Deployment_Properties::Preemptive_Scheduler",
-							"Deployment_Properties::Priority_Map", "Deployment_Properties::Priority_Range",
-							"Deployment_Properties::Provided_Connection_Quality_Of_Service", "Deployment_Properties::Provided_Virtual_Bus_Class",
-							"Deployment_Properties::Required_Connection_Quality_Of_Service", "Deployment_Properties::Required_Virtual_Bus_Class",
-							"Deployment_Properties::Runtime_Protection_Support", "Deployment_Properties::Scheduling_Protocol",
-							"Deployment_Properties::Thread_Limit", "Memory_Properties::Access_Right", "Memory_Properties::Access_Time",
-							"Memory_Properties::Allowed_Message_Size", "Memory_Properties::Assign_Time", "Memory_Properties::Base_Address",
-							"Memory_Properties::Byte_Count", "Memory_Properties::Code_Size", "Memory_Properties::Data_Size",
-							"Memory_Properties::Device_Register_Address", "Memory_Properties::Heap_Size", "Memory_Properties::Memory_Size",
-							"Memory_Properties::Read_Time", "Memory_Properties::Stack_Size", "Memory_Properties::Word_Size", "Memory_Properties::Word_Space",
-							"Memory_Properties::Write_Time", "Modeling_Properties::Acceptable_Array_Size", "Modeling_Properties::Classifier_Matching_Rule",
-							"Modeling_Properties::Classifier_Substitution_Rule", "Modeling_Properties::Implemented_As",
-							"Modeling_Properties::Prototype_Substitution_Rule", "Programming_Properties::Activate_Entrypoint",
-							"Programming_Properties::Activate_Entrypoint_Call_Sequence", "Programming_Properties::Activate_Entrypoint_Source_Text",
-							"Programming_Properties::Compute_Entrypoint", "Programming_Properties::Compute_Entrypoint_Call_Sequence",
-							"Programming_Properties::Compute_Entrypoint_Source_Text", "Programming_Properties::Deactivate_Entrypoint",
-							"Programming_Properties::Deactivate_Entrypoint_Call_Sequence", "Programming_Properties::Deactivate_Entrypoint_Source_Text",
-							"Programming_Properties::Device_Driver", "Programming_Properties::Finalize_Entrypoint",
-							"Programming_Properties::Finalize_Entrypoint_Call_Sequence", "Programming_Properties::Finalize_Entrypoint_Source_Text",
-							"Programming_Properties::Hardware_Description_Source_Text", "Programming_Properties::Hardware_Source_Language",
-							"Programming_Properties::Initialize_Entrypoint", "Programming_Properties::Initialize_Entrypoint_Call_Sequence",
-							"Programming_Properties::Initialize_Entrypoint_Source_Text", "Programming_Properties::Recover_Entrypoint",
-							"Programming_Properties::Recover_Entrypoint_Call_Sequence", "Programming_Properties::Recover_Entrypoint_Source_Text",
-							"Programming_Properties::Source_Language", "Programming_Properties::Source_Name", "Programming_Properties::Source_Text",
-							"Programming_Properties::Supported_Source_Language", "Programming_Properties::Type_Source_Name",
-							"Thread_Properties::Active_Thread_Handling_Protocol", "Thread_Properties::Active_Thread_Queue_Handling_Protocol",
-							"Thread_Properties::Concurrency_Control_Protocol", "Thread_Properties::Criticality", "Thread_Properties::Deactivation_Policy",
-							"Thread_Properties::Dequeue_Protocol", "Thread_Properties::Dequeued_Items", "Thread_Properties::Dispatch_Able",
-							"Thread_Properties::Dispatch_Protocol", "Thread_Properties::Dispatch_Trigger", "Thread_Properties::Mode_Transition_Response",
-							"Thread_Properties::POSIX_Scheduling_Policy", "Thread_Properties::Priority", "Thread_Properties::Resumption_Policy",
-							"Thread_Properties::Runtime_Protection", "Thread_Properties::Subprogram_Call_Type", "Thread_Properties::Synchronized_Component",
-							"Thread_Properties::Time_Slot", "Thread_Properties::Urgency", "Timing_Properties::Activate_Deadline",
-							"Timing_Properties::Activate_Execution_Time", "Timing_Properties::Client_Subprogram_Execution_Time",
-							"Timing_Properties::Clock_Jitter", "Timing_Properties::Clock_Period", "Timing_Properties::Clock_Period_Range",
-							"Timing_Properties::Compute_Deadline", "Timing_Properties::Compute_Execution_Time", "Timing_Properties::Deactivate_Dealing",
-							"Timing_Properties::Deactivate_Execution_Time", "Timing_Properties::Deadline", "Timing_Properties::Dispatch_Jitter",
-							"Timing_Properties::Dispatch_Offset", "Timing_Properties::Execution_Time", "Timing_Properties::Finalize_Deadline",
-							"Timing_Properties::Finalize_Execution_Time", "Timing_Properties::First_Dispatch_Time", "Timing_Properties::Frame_Period",
-							"Timing_Properties::Initialize_Deadline", "Timing_Properties::Initialize_Execution_Time", "Timing_Properties::Load_Deadline",
-							"Timing_Properties::Load_Time", "Timing_Properties::Period", "Timing_Properties::Process_Swap_Execution_Time",
-							"Timing_Properties::Processor_Capacity", "Timing_Properties::Recover_Deadline", "Timing_Properties::Recover_Execution_Time",
-							"Timing_Properties::Reference_Processor", "Timing_Properties::Scheduler_Quantum", "Timing_Properties::Slot_Time",
-							"Timing_Properties::Startup_Deadline", "Timing_Properties::Startup_Execution_Time", "Timing_Properties::Thread_Swap_Execution_Time"
-						])
-					]
 				]
 			]
 		]

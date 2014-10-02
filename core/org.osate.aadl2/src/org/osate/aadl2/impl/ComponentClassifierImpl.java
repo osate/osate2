@@ -246,6 +246,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Mode> getOwnedModes() {
 		if (ownedModes == null) {
 			ownedModes = new EObjectContainmentEList<Mode>(Mode.class, this,
@@ -259,6 +260,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Mode createOwnedMode() {
 		Mode newOwnedMode = (Mode) create(Aadl2Package.eINSTANCE.getMode());
 		getOwnedModes().add(newOwnedMode);
@@ -270,6 +272,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransition> getOwnedModeTransitions() {
 		if (ownedModeTransitions == null) {
 			ownedModeTransitions = new EObjectContainmentEList<ModeTransition>(ModeTransition.class, this,
@@ -283,6 +286,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModeTransition createOwnedModeTransition() {
 		ModeTransition newOwnedModeTransition = (ModeTransition) create(Aadl2Package.eINSTANCE.getModeTransition());
 		getOwnedModeTransitions().add(newOwnedModeTransition);
@@ -294,6 +298,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDerivedModes() {
 		return derivedModes;
 	}
@@ -303,12 +308,14 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDerivedModes(boolean newDerivedModes) {
 		boolean oldDerivedModes = derivedModes;
 		derivedModes = newDerivedModes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_CLASSIFIER__DERIVED_MODES,
 					oldDerivedModes, derivedModes));
+		}
 	}
 
 	/**
@@ -316,6 +323,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoFlows() {
 		return noFlows;
 	}
@@ -325,12 +333,14 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoFlows(boolean newNoFlows) {
 		boolean oldNoFlows = noFlows;
 		noFlows = newNoFlows;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS,
 					oldNoFlows, noFlows));
+		}
 	}
 
 	/**
@@ -338,6 +348,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoModes() {
 		return noModes;
 	}
@@ -347,12 +358,14 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoModes(boolean newNoModes) {
 		boolean oldNoModes = noModes;
 		noModes = newNoModes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES,
 					oldNoModes, noModes));
+		}
 	}
 
 	/**
@@ -483,8 +496,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (derivedModes: ");
