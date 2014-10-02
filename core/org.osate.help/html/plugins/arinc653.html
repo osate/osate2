@@ -65,7 +65,7 @@ using the <em>Actual_Processor_Binding</em> property.
 </p>
 <p>
 Then, the processor itself must describe its scheduling policy using the
-properties <em>ARINC653::Partition_Slots</em>, <em>ARINC653::Slots_Allocation</em>
+properties <em>ARINC653::Module_Schedule</em>
 and <em>ARINC653::Module_Major_Frame</em>.
 </p>
 <p>
@@ -79,112 +79,10 @@ associated to the bus used in the connection.
 </p>
 
 
-<h3>Model example</h3>
+<h3>Model examples</h3>
 <p>
-The following model can be used to test the ARINC653 validation functions.
-</p>
-<pre>
-package simple_module
-
-public
-
-with ARINC653;
-with Base_Types;
-
--- Simple module with two partitions that communicates at different levels
-
-process dummy
-end dummy;
-
-process sender
-features
-	dataout : out event data port Base_Types::Integer;
-end sender;
-
-
-process receiver
-features
-	datain : in event data port Base_Types::Integer;
-end receiver;
-
-virtual processor partition_a
-properties
-	ARINC653::Criticality => LEVEL_A;
-end partition_a;
-
-virtual processor partition_b
-properties
-	ARINC653::Criticality => LEVEL_B;
-end partition_b;
-
-
-virtual processor partition_c
-properties
-	ARINC653::Criticality => LEVEL_C;
-end partition_c;
-
-virtual processor partition_d
-properties
-	ARINC653::Criticality => LEVEL_D;
-end partition_d;
-
-processor arinc_execution_platform
-end arinc_execution_platform;
-
-processor implementation arinc_execution_platform.i
-subcomponents
-	p1 : virtual processor partition_a;
-	p2 : virtual processor partition_b;
-	p3 : virtual processor partition_b;
-	p4 : virtual processor partition_b;
-properties
-	ARINC653::Partition_Slots => (100ms, 100ms, 200ms, 300ms);
-	ARINC653::Slots_Allocation => (reference (p1), reference (p4), reference (p3), reference (p2));
-	ARINC653::Module_Major_Frame => 700ms;
-end arinc_execution_platform.i;
-
-system arinc_producer_consumer
-end arinc_producer_consumer;
-
-memory segment
-end segment;
-
-memory arinc_memory
-end arinc_memory;
-
-memory implementation arinc_memory.i
-subcomponents
-	s1 : memory segment;
-	s2 : memory segment;
-	
-	s3 : memory segment;
-	s4 : memory segment;
-end arinc_memory.i;
-
-
-system implementation arinc_producer_consumer.i
-subcomponents
-	producer : process sender;
-	consumer : process receiver;
-	dummy1 : process dummy;
-	dummy2 : process dummy;
-	execution_platform : processor arinc_execution_platform.i;
-	mem                : memory    arinc_memory.i;
-connections
-	port producer.dataout -> consumer.datain;
-properties
-	Actual_Processor_Binding => (reference (execution_platform.p1)) applies to producer;
-	Actual_Processor_Binding => (reference (execution_platform.p2)) applies to consumer;
-	Actual_Processor_Binding => (reference (execution_platform.p3)) applies to dummy1;
-	Actual_Processor_Binding => (reference (execution_platform.p4)) applies to dummy2;
-	Actual_Memory_Binding => (reference (mem.s1)) applies to producer;
-	Actual_Memory_Binding => (reference (mem.s2)) applies to consumer;
-	Actual_Memory_Binding => (reference (mem.s3)) applies to dummy1;
-	Actual_Memory_Binding => (reference (mem.s4)) applies to dummy2;
-end arinc_producer_consumer.i;
-
-end simple_module;
-</pre>
-
+Examples of models compliant with the ARINC653 properties
+are available on the public <a href="https://github.com/osate/examples/">git example repository
+and especially the <a href="https://github.com/osate/examples/tree/master/core-examples/arinc653-basic">core examples</a>.
 </body>
 </html>
