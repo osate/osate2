@@ -38,12 +38,15 @@ import org.osate.aadl2.Element ;
 import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.NamedValue ;
+import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.modelsupport.AadlConstants ;
 import org.osate.aadl2.modelsupport.UnparseText ;
 import org.osate.aadl2.parsesupport.AObject ;
+import org.osate.aadl2.util.Aadl2Validator ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.Any ;
 import org.osate.ba.aadlba.AssignmentAction ;
@@ -1067,7 +1070,24 @@ public class AadlBaUnparser
 
       public String caseClassifierPropertyReference(ClassifierPropertyReference object)
       {
-        aadlbaText.addOutput(object.getClassifier().getQualifiedName()) ;
+        org.osate.aadl2.Classifier c = object.getClassifier() ;
+        
+        String toAdd = null ;
+        
+        String classifierPackageName = c.getElementRoot().getName() ;
+        
+        String propertyRefPackageName = object.getElementRoot().getName() ;
+        
+        if(false == classifierPackageName.equalsIgnoreCase(propertyRefPackageName))
+        {
+          toAdd = c.getQualifiedName() ;
+        }
+        else
+        {
+          toAdd = c.getName() ;
+        }
+        
+        aadlbaText.addOutput(toAdd) ;
         aadlbaText.addOutput("#");
         processEList(object.getProperties(), ".") ;
         return DONE ;
