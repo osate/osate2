@@ -71,7 +71,13 @@ class SCProperties {
 	}
 
 	public PropertyAssociation retrieveSCProperty(ConnectionInstance conni, Property prop, Connection conn) {
-		return get(get(scProps, conni), prop).get(conn);
+		PropertyAssociation result = null;
+
+		while (conn != null && result == null) {
+			result = get(get(scProps, conni), prop).get(conn);
+			conn = conn.getRefined();
+		}
+		return result;
 	}
 
 	public Map<Property, Map<Connection, PropertyAssociation>> get(ConnectionInstance sc) {
