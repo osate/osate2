@@ -5,14 +5,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -23,22 +23,26 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.properties.PropertyAcc;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.ui.MyAadl2Activator;
 
 /**
@@ -80,6 +84,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	final List<PropSet> inputLeaked = Collections.unmodifiableList(input);
 
 	private final ISerializer serializer;
+	private final IScopeProvider scopeProvider;
 	private RebuildModelJob rebuildModelJob = new RebuildModelJob();
 
 	// Inner Classes
@@ -328,8 +333,9 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 	}
 
-	public PropertyViewModel(final ISerializer serializer) {
+	public PropertyViewModel(final ISerializer serializer, final IScopeProvider scopeProvider) {
 		this.serializer = serializer;
+		this.scopeProvider = scopeProvider;
 	}
 
 	private String getValueAsString(PropertyExpression expression) {
@@ -345,8 +351,9 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		} else {
 			String value;
 			synchronized (serializer) {
-				value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
+				value = serializer.serialize(expression);
 			}
+			value = value.replaceAll("\n", "").replaceAll("\t", "");
 			// TODO: Test this to see what cleanup is truly necessary.
 			return value;
 		}
@@ -378,9 +385,11 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			} else if (subExpression instanceof ListValue) {
 				result.append(serializeListWithInstanceReferenceValue((ListValue) subExpression));
 			} else {
+				String serializedSubExpression;
 				synchronized (serializer) {
-					result.append(serializer.serialize(subExpression).replaceAll("\n", "").replaceAll("\t", ""));
+					serializedSubExpression = serializer.serialize(subExpression);
 				}
+				result.append(serializedSubExpression.replaceAll("\n", "").replaceAll("\t", ""));
 			}
 			if (iter.hasNext()) {
 				result.append(", ");
@@ -610,100 +619,129 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			 * Walk through all the property sets, and query the component for
 			 * each property.
 			 */
-			// get a sorted set of all the property sets
-			final EList<IEObjectDescription> propSets = EMFIndexRetrieval.getAllPropertySetsInWorkspace(element);
-			if (monitor.isCanceled()) {
-				return Status.CANCEL_STATUS;
+			IScope scope = null;
+			if (element instanceof AadlPackage) {
+				PackageSection ownedSection = ((AadlPackage) element).getOwnedPublicSection();
+				if (ownedSection == null) {
+					ownedSection = ((AadlPackage) element).getOwnedPrivateSection();
+				}
+				if (ownedSection != null) {
+					scope = scopeProvider.getScope(ownedSection,
+							Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit());
+				}
+			} else {
+				PackageSection containingPackageSection = EcoreUtil2.getContainerOfType(element, PackageSection.class);
+				if (containingPackageSection != null) {
+					scope = scopeProvider.getScope(containingPackageSection,
+							Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit());
+				} else {
+					PropertySet containingPropertySet = EcoreUtil2.getContainerOfType(element, PropertySet.class);
+					if (containingPropertySet != null) {
+						scope = scopeProvider.getScope(containingPropertySet,
+								Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit());
+					}
+				}
 			}
-			final SortedSet<PropertySet> alphabetizedPropSets = new TreeSet<PropertySet>(
-					PropertySetNameComparator.prototype);
-			for (IEObjectDescription description : propSets) {
-				if (monitor.isCanceled()) {
-					return Status.CANCEL_STATUS;
+			if (scope != null) {
+				ArrayList<PropertySet> alphabetizedPropSets = new ArrayList<PropertySet>();
+				for (IEObjectDescription modelUnitDescription : scope.getAllElements()) {
+					if (monitor.isCanceled()) {
+						return Status.CANCEL_STATUS;
+					}
+					EObject modelUnit = modelUnitDescription.getEObjectOrProxy();
+					if (modelUnit.eIsProxy()) {
+						modelUnit = EcoreUtil.resolve(modelUnit, element);
+					}
+					if (!modelUnit.eIsProxy() && modelUnit instanceof PropertySet) {
+						alphabetizedPropSets.add((PropertySet) modelUnit);
+					}
 				}
-				alphabetizedPropSets.add((PropertySet) OsateResourceUtil.getResourceSet().getEObject(
-						description.getEObjectURI(), true));
-			}
-
-			final Iterator<PropertySet> i = alphabetizedPropSets.iterator();
-			while (i.hasNext()) {
-				if (monitor.isCanceled()) {
-					return Status.CANCEL_STATUS;
-				}
-				final PropertySet ps = i.next();
-				if (ps.getName() == null) {
-					continue;
-				}
-				final PropSet propSet = new PropSet(ps);
-				final EList<Property> pnList = ps.getOwnedProperties();
-				if (pnList != null) {
-					final Iterator<Property> j = pnList.iterator();
-					while (j.hasNext()) {
-						if (monitor.isCanceled()) {
-							return Status.CANCEL_STATUS;
-						}
-						final Property pn = j.next();
-						if (pn != null && element.acceptsProperty(pn)) {
-							// Don't worry about PropertyDoesNotApplyToHolderException,
-							// we already check if property is acceptable
-							final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
-							PropertyAssociation firstAssociation = propertyAccumulator.first();
-							if (firstAssociation != null) {
-								if (firstAssociation.isModal() && element instanceof ComponentClassifier) {
-									final ModedProperty prop = new ModedProperty(propSet, pn);
-									EList<Mode> elementModes = ((ComponentClassifier) element).getAllModes();
-									for (ModalPropertyValue mpv : firstAssociation.getOwnedValues()) {
-										if (monitor.isCanceled()) {
-											return Status.CANCEL_STATUS;
-										}
-										if (mpv.getAllInModes().size() == 0) {
-											if (firstAssociation.getOwner() == element) {
-												new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
-											} else {
-												new InheritedMode(prop, mpv.getOwnedValue(), elementModes);
+				Collections.sort(alphabetizedPropSets, new Comparator<PropertySet>() {
+					@Override
+					public int compare(PropertySet o1, PropertySet o2) {
+						return o1.getName().toUpperCase().compareTo(o2.getName().toUpperCase());
+					}
+				});
+				final Iterator<PropertySet> i = alphabetizedPropSets.iterator();
+				while (i.hasNext()) {
+					if (monitor.isCanceled()) {
+						return Status.CANCEL_STATUS;
+					}
+					final PropertySet ps = i.next();
+					if (ps.getName() == null) {
+						continue;
+					}
+					final PropSet propSet = new PropSet(ps);
+					final EList<Property> pnList = ps.getOwnedProperties();
+					if (pnList != null) {
+						final Iterator<Property> j = pnList.iterator();
+						while (j.hasNext()) {
+							if (monitor.isCanceled()) {
+								return Status.CANCEL_STATUS;
+							}
+							final Property pn = j.next();
+							if (pn != null && element.acceptsProperty(pn)) {
+								// Don't worry about PropertyDoesNotApplyToHolderException,
+								// we already check if property is acceptable
+								final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
+								PropertyAssociation firstAssociation = propertyAccumulator.first();
+								if (firstAssociation != null) {
+									if (firstAssociation.isModal() && element instanceof ComponentClassifier) {
+										final ModedProperty prop = new ModedProperty(propSet, pn);
+										EList<Mode> elementModes = ((ComponentClassifier) element).getAllModes();
+										for (ModalPropertyValue mpv : firstAssociation.getOwnedValues()) {
+											if (monitor.isCanceled()) {
+												return Status.CANCEL_STATUS;
 											}
-											elementModes.clear();
-										} else {
-											if (firstAssociation.getOwner() == element) {
-												new ValuedMode(prop, mpv);
+											if (mpv.getAllInModes().size() == 0) {
+												if (firstAssociation.getOwner() == element) {
+													new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
+												} else {
+													new InheritedMode(prop, mpv.getOwnedValue(), elementModes);
+												}
+												elementModes.clear();
 											} else {
-												new InheritedMode(prop, mpv);
+												if (firstAssociation.getOwner() == element) {
+													new ValuedMode(prop, mpv);
+												} else {
+													new InheritedMode(prop, mpv);
+												}
+												elementModes.removeAll(mpv.getAllInModes());
 											}
-											elementModes.removeAll(mpv.getAllInModes());
 										}
-									}
-									/*
-									 * If prop has no children (i.e., undefined
-									 * in all modes, remove from the property
-									 * set (don't show it)
-									 */
-									if (prop.getModes().length == 0) {
-										propSet.removeProperty(prop);
-									} else if (!elementModes.isEmpty()) {
-										if (pn.getDefaultValue() != null) {
-											new DefaultMode(prop, elementModes);
-										} else {
-											new UndefinedMode(prop, elementModes);
+										/*
+										 * If prop has no children (i.e., undefined
+										 * in all modes, remove from the property
+										 * set (don't show it)
+										 */
+										if (prop.getModes().length == 0) {
+											propSet.removeProperty(prop);
+										} else if (!elementModes.isEmpty()) {
+											if (pn.getDefaultValue() != null) {
+												new DefaultMode(prop, elementModes);
+											} else {
+												new UndefinedMode(prop, elementModes);
+											}
 										}
+									} else if (firstAssociation.getOwner() == element) {
+										new ValuedProperty(propSet, pn, firstAssociation);
+									} else {
+										new InheritedProperty(propSet, pn, firstAssociation);
 									}
-								} else if (firstAssociation.getOwner() == element) {
-									new ValuedProperty(propSet, pn, firstAssociation);
 								} else {
-									new InheritedProperty(propSet, pn, firstAssociation);
-								}
-							} else {
-								if (pn.getDefaultValue() != null) {
-									new DefaultProperty(propSet, pn);
-								} else if (showUndefined) {
-									new UndefinedProperty(propSet, pn);
+									if (pn.getDefaultValue() != null) {
+										new DefaultProperty(propSet, pn);
+									} else if (showUndefined) {
+										new UndefinedProperty(propSet, pn);
+									}
 								}
 							}
 						}
 					}
-				}
-				// Don't add property sets that have no children
-				if (propSet.properties.size() > 0) {
-					localInput.add(propSet);
+					// Don't add property sets that have no children
+					if (propSet.properties.size() > 0) {
+						localInput.add(propSet);
+					}
 				}
 			}
 			if (monitor.isCanceled()) {
@@ -713,37 +751,6 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			input.addAll(localInput);
 			Display.getDefault().syncExec(uiUpdate);
 			return Status.OK_STATUS;
-		}
-	}
-
-	/**
-	 * Comparator that compares the names of two property sets and sorts
-	 * them alphabetically, ignoring case.
-	 */
-	private static final class PropertySetNameComparator implements Comparator<PropertySet> {
-		public static final PropertySetNameComparator prototype = new PropertySetNameComparator();
-
-		/**
-		 * Private constructor to enforce singleton pattern.
-		 */
-		private PropertySetNameComparator() {
-			// empty
-		}
-
-		@Override
-		public int compare(PropertySet ps1, PropertySet ps2) {
-			/*
-			 * PropertySet object may be incomplete: null object or
-			 * object with null name is greater than non-null object
-			 * or object with non-null name.
-			 */
-			final boolean firstNull = ps1 == null || ps1.getName() == null;
-			final boolean secondNull = ps2 == null || ps2.getName() == null;
-			if (firstNull) {
-				return secondNull ? 0 : 1;
-			} else {
-				return secondNull ? -1 : ps1.getName().compareToIgnoreCase(ps2.getName());
-			}
 		}
 	}
 }
