@@ -24,7 +24,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
@@ -257,8 +256,7 @@ public class AadlPropertyView extends ViewPart {
 
 	private void buildNewModel(NamedElement element) {
 		if (element != null) {
-			model.rebuildModel(element);
-			Display.getDefault().asyncExec(new Runnable() {
+			model.rebuildModel(element, new Runnable() {
 				@Override
 				public void run() {
 					treeViewer.refresh();
