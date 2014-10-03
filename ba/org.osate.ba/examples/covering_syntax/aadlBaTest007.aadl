@@ -177,8 +177,12 @@ thread MyThread
 
 end MyThread ;
 
-thread implementation MyThread.impl
- (myDataPrototype => requires data access MyData)
+thread MyThreadv2 extends MyThread
+(myDataPrototype => requires data access MyData)
+
+end MyThreadv2 ;
+
+thread implementation MyThreadv2.impl
   
  subcomponents
  
@@ -474,44 +478,8 @@ transitions
     a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.int};
     a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.listRec[0].int} ;
     a -[]-> a {int := subMyData#aComplexListOfList.aComplexRecordDefined.listRec.aSimpleRecordDefined.int} ;
-
- -- Error tests
- 
-   -- Property Set
-   
-     -- with default value undefined.
-    
-    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleList[0]} ;
-    a -[]-> a {str := #AadlBaTestPropertySet::aSimpleList.hello} ;
-    
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecord.listRec.aSimpleRecord.int} ; 
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexRecord.listRec[0].int} ;
-    
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList[0].int} ;
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList[0].listRec[0].int} ;
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList[0].listRec.aSimpleRecord.int} ;
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList.aComplexRecord.int};
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList.aComplexRecord.listRec[0].int} ;
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexList.aComplexRecord.listRec.aSimpleRecord.int} ;
-    
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList[0][0].int};
-    
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList[0][0].listRec[0].int} ;
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList[0][0].listRec.aSimpleRecordDefined.int} ;
-    
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.int};
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.listRec[0].int} ;
-    a -[]-> a {int := #AadlBaTestPropertySet::aComplexListOfList.aComplexRecord.listRec.aSimpleRecord.int} ;
-    
-   -- Classifier
-    
-    a -[]-> a {int := MyThread#Period} ;
-    
-   -- Unbinded prototype
-   
-    a -[]-> a {int := featGrp.unbindedPrototype#aSimpleValue} ;
 **};  
 
-end MyThread.impl ;
+end MyThreadv2.impl ;
 
 end PropertyReferenceTest;

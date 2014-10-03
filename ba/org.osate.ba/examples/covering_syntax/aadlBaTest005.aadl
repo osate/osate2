@@ -214,11 +214,14 @@ thread thread1
     protoGrp : feature group MyPrototGroupConcrete ;
 end thread1;
 --------------------------------------------------------------------------------
-
-thread implementation thread1.impl
+thread thread2 extends thread1
 (
   threadGrpProt => thread group MyThreadGroup.impl
 )
+end thread2 ;
+
+thread implementation thread2.impl
+
   subcomponents
     spg1 : subprogram procedure ;
     spg2 : subprogram multiplication;
@@ -364,7 +367,7 @@ annex behavior_specification
     a -[]-> a {dataAccessGrp.recursiveGrp.dataAccess !>} ;
 **};  
 
-end thread1.impl;
+end thread2.impl;
 --------------------------------------------------------------------------------
 
 process process1
