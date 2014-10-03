@@ -522,6 +522,9 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 		// sequence
 		EndToEndFlow refined = getRefined();
 		while (refined != null) {
+			if (!fromInstanceSlaveCall && pas.addLocalContained(refined, refined.getContainingClassifier())) {
+				return;
+			}
 			if (pas.addLocal(refined)) {
 				return;
 			}

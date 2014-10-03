@@ -507,7 +507,6 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return cc;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
@@ -520,6 +519,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		// values from refined features
 		Feature refined = getRefined();
 		while (refined != null) {
+			if (pas.addLocalContained(refined, refined.getContainingClassifier())) {
+				return;
+			}
 			if (pas.addLocal(refined)) {
 				return;
 			}

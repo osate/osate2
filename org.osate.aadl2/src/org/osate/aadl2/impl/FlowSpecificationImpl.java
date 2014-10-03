@@ -783,13 +783,19 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();
 
-		if (paa.addLocalContained(this, owner) || paa.addLocal(this)) {
+		if (!fromInstanceSlaveCall && paa.addLocalContained(this, owner)) {
+			return;
+		}
+		if (paa.addLocal(refined)) {
 			return;
 		}
 
 		// values from refined flow specifications
 		FlowSpecification refined = getRefined();
 		while (refined != null) {
+			if (!fromInstanceSlaveCall && paa.addLocalContained(refined, refined.getContainingClassifier())) {
+				return;
+			}
 			if (paa.addLocal(refined)) {
 				return;
 			}
@@ -807,5 +813,4 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 			}
 		}
 	}
-
 } // FlowSpecificationImpl

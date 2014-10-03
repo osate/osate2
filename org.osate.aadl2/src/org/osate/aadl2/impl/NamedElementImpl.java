@@ -441,23 +441,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			PropertyDoesNotApplyToHolderException, PropertyIsListException {
 
 		return getNonModalPropertyValue(property);
-		/*
-		 * FIX-JD
-		 * The following code has been commented because there is
-		 * no reason for not retrieving non-list values here.
-		 */
-
-		/*
-		 * if (!property.isList()) {
-		 * return getNonModalPropertyValue(property);
-		 * } else {
-		 * throw new PropertyIsListException(this, property,
-		 * "A simple property lookup method was called for a list property."
-		 * + "  This occurred when looking up Property "
-		 * + property.getName() + " on NamedElement "
-		 * + getName() + ".");
-		 * }
-		 */
 	}
 
 	/**
@@ -581,9 +564,13 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		return false;
 	}
 
+	// TODO-lw: check if fromInstanceSlaveCall is still needed and if it's correctly implemented
 	@Override
 	public void getPropertyValueInternal(final Property pn, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
+		if (!fromInstanceSlaveCall && pas.addLocalContained(this, getContainingClassifier())) {
+			return;
+		}
 		pas.addLocal(this);
 	}
 

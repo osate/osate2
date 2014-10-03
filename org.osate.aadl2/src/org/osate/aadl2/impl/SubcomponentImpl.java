@@ -886,6 +886,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 	}
 
+	// TODO-lw: Why don't we return immediately if a pa was found?
 	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {
@@ -902,6 +903,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		// collect values from refined subcomponents
 		Subcomponent refined = getRefined();
 		while (refined != null) {
+			if (!fromInstanceSlaveCall) {
+				pas.addLocalContained(refined, refined.getContainingClassifier());
+			}
 			pas.addLocal(refined);
 			refined = refined.getRefined();
 		}
