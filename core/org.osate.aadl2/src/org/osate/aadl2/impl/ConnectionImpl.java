@@ -758,14 +758,12 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refine
 	 * @return ConnectionEnd the source (feature, data/bus access end or parameter end)
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	@Override
 	public ConnectionEnd getAllSource() {
 		ConnectedElement end = getRootConnection().getSource();
 		return (end instanceof ConnectedElement) ? end.getConnectionEnd() : null;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public Connection getRootConnection() {
 		Connection conn = this;
 		Connection refined = getRefined();
@@ -781,7 +779,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refined
 	 * @return Context
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	@Override
 	public Context getAllDestinationContext() {
 		ConnectedElement end = getRootConnection().getDestination();
@@ -793,7 +790,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refined
 	 * @return ConnectionEnd the destination (feature, data/bus access end or parameter end)
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	@Override
 	public ConnectionEnd getAllDestination() {
 		ConnectedElement end = getRootConnection().getDestination();
@@ -805,14 +801,12 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refined
 	 * @return Context
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	@Override
 	public Context getAllSourceContext() {
 		ConnectedElement end = getRootConnection().getSource();
 		return end.getContext();
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {
@@ -836,6 +830,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		// sequence
 		Connection refined = getRefined();
 		while (refined != null) {
+			if (!fromInstanceSlaveCall && pas.addLocalContained(refined, refined.getContainingClassifier())) {
+				return;
+			}
 			if (pas.addLocal(refined)) {
 				return;
 			}
@@ -853,7 +850,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.Connection#getAllSrcContextComponent()
 	 */
 	@Override
@@ -868,7 +865,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.Connection#getAllDstContextComponent()
 	 */
 	@Override
