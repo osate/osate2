@@ -496,13 +496,13 @@ public class LatencyReportEntry {
 		boolean didError = false;
 		if (expectedMaxLatency > 0) {
 			if (minSpecifiedValue > expectedMaxLatency) {
-				reportSummaryError("Minimum specified latency total (" + minSpecifiedValue
-						+ " ms) exceeds expected maximum end to end latency (" + expectedMaxLatency + "ms)");
+				reportSummaryError("Minimum specified latency total " + minSpecifiedValue
+						+ " ms exceeds expected maximum end to end latency " + expectedMaxLatency + "ms");
 				didError = true;
 			}
 			if (minValue > expectedMaxLatency) {
-				reportSummaryError("Minimum actual latency total (" + minValue
-						+ " ms) exceeds expected maximum end to end latency (" + expectedMaxLatency + "ms)");
+				reportSummaryError("Minimum actual latency total " + minValue
+						+ " ms exceeds expected maximum end to end latency " + expectedMaxLatency + "ms");
 				didError = true;
 			}
 			if (minSpecifiedValue < expectedMinLatency) {
@@ -534,13 +534,13 @@ public class LatencyReportEntry {
 			}
 
 			if (expectedMaxLatency < maxSpecifiedValue) {
-				reportSummaryError("Sum of maximum specified latency (" + maxSpecifiedValue
-						+ "ms) exceeds end to end latency (" + expectedMaxLatency + "ms)");
+				reportSummaryError("Maximum specified latency total " + maxSpecifiedValue
+						+ "ms exceeds expected end to end latency " + expectedMaxLatency + "ms");
 			}
 
 			if (expectedMaxLatency < maxValue) {
-				reportSummaryError("Sum of maximum actual latencies (" + maxValue + "ms) exceeds end to end latency ("
-						+ expectedMaxLatency + "ms)");
+				reportSummaryError("Maximum actual latency " + maxValue + "ms exceeds expected end to end latency "
+						+ expectedMaxLatency + "ms");
 			}
 			if (maxValue > 0) {
 				if ((minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)) {
