@@ -493,22 +493,46 @@ public class LatencyReportEntry {
 		/*
 		 * In that case, the end to end flow has a minimum latency
 		 */
-		if (expectedMinLatency >= 0) {
+		boolean didError = false;
+		if (expectedMaxLatency > 0) {
+			if (minSpecifiedValue > expectedMaxLatency) {
+				reportSummaryError("Minimum specified latency total (" + minSpecifiedValue
+						+ " ms) exceeds expected maximum end to end latency (" + expectedMaxLatency + "ms)");
+				didError = true;
+			}
+			if (minValue > expectedMaxLatency) {
+				reportSummaryError("Minimum actual latency total (" + minValue
+						+ " ms) exceeds expected maximum end to end latency (" + expectedMaxLatency + "ms)");
+				didError = true;
+			}
 			if (minSpecifiedValue < expectedMinLatency) {
-				reportSummaryWarning("Sum of minimum specified latencies (" + minSpecifiedValue
-						+ " ms) is less than expected minimum end to end latency (" + expectedMinLatency + "ms)");
+				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
+					reportSummaryError("Jitter of specified latency total "
+							+ (maxSpecifiedValue - minSpecifiedValue)
+							+ " ms exceeds expected end to end latency jitter "
+							+ (expectedMaxLatency - expectedMinLatency)
+							+ "ms with minimum specified latency total less then expected minimum (better response time)");
+					didError = true;
+				}
 			}
 
 			if (minValue < expectedMinLatency) {
-				reportSummaryWarning("Sum of minimum actual latencies (" + minValue
-						+ " ms) is less than expected minimum end to end latency (" + expectedMinLatency + "ms)");
+				if (maxValue - minValue > expectedMaxLatency - expectedMinLatency) {
+					reportSummaryError("Jitter of actual latency total " + (maxValue - minValue)
+							+ " ms exceeds expected end to end latency jitter "
+							+ (expectedMaxLatency - expectedMinLatency)
+							+ "ms with minimum actual latency total less then expected minimum (better response time)");
+					didError = true;
+				}
 			}
-		}
+			if (!didError) {
+				if (minValue > expectedMinLatency) {
+					reportSummaryWarning("Minimum actual latency total " + minValue
+							+ " ms is less than expected minimum end to end latency " + expectedMinLatency
+							+ "ms (Higher minimum response time");
+				}
+			}
 
-		/**
-		 * Here, the max latency value has been defined
-		 */
-		if (expectedMaxLatency > 0) {
 			if (expectedMaxLatency < maxSpecifiedValue) {
 				reportSummaryError("Sum of maximum specified latency (" + maxSpecifiedValue
 						+ "ms) exceeds end to end latency (" + expectedMaxLatency + "ms)");
@@ -518,21 +542,22 @@ public class LatencyReportEntry {
 				reportSummaryError("Sum of maximum actual latencies (" + maxValue + "ms) exceeds end to end latency ("
 						+ expectedMaxLatency + "ms)");
 			}
+			if (maxValue > 0) {
+				if ((minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)) {
+					reportSummarySuccess("Actual end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
+							+ " is within specified end to end latency");
+				}
+				if ((minValue <= expectedMinLatency) && (expectedMaxLatency >= maxValue)
+						&& ((expectedMaxLatency - expectedMinLatency) > (maxValue - minValue))) {
+					reportSummarySuccess("Actual end-to-end flow latency jitter for "
+							+ this.relatedEndToEndFlow.getName()
+							+ " is within specified end to end latency jitter and minimum reposne time is better");
+				}
+			}
 		} else {
-			reportSummaryWarning("End to end latency is not specified");
+			reportSummaryWarning("Expected end to end latency is not specified");
 		}
 
-		/**
-		 * If the expected latency is defined and consistent with the max value, everything should be ok
-		 * It means that the number calculated from the component is correct and less than
-		 * the latency specifications.
-		 * In case of Min latency the actual sum should be higher.
-		 */
-		if ((minValue > 0) && (maxValue > 0) && (expectedMaxLatency > 0) && (expectedMinLatency > 0)
-				&& (minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)) {
-			reportSummarySuccess("end-to-end flow latency for " + this.relatedEndToEndFlow.getName()
-					+ " calculated from the components is correct with the expected latency specifications");
-		}
 		section.addLine(line);
 
 		if (issues.size() > 0) {
