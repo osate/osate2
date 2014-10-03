@@ -564,7 +564,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-BasicProperty-ownedType-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-BasicProperty-ownedType-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_Vfm11D9BEeSMi-ARKmUa4A" name="propertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isUnique="false" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="_Vfm10D9BEeSMi-ARKmUa4A">
+        <ownedAttribute xmi:id="_Vfm11D9BEeSMi-ARKmUa4A" name="propertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isUnique="false" isReadOnly="true" isDerived="true" association="_Vfm10D9BEeSMi-ARKmUa4A">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Vfm11T9BEeSMi-ARKmUa4A" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Vfm11j9BEeSMi-ARKmUa4A" value="1"/>
           <redefinedProperty href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
@@ -914,7 +914,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-PropertyConstant-ownedExpression-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-ownedExpression-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_tOMkJEjbEeSxuezI2uZpxA" name="propertyType" type="_v97TQLMDEeCzMYz5ww7glA" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="_tOMkIEjbEeSxuezI2uZpxA">
+        <ownedAttribute xmi:id="_tOMkJEjbEeSxuezI2uZpxA" name="propertyType" type="_v97TQLMDEeCzMYz5ww7glA" isReadOnly="true" isDerived="true" association="_tOMkIEjbEeSxuezI2uZpxA">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tOMkJUjbEeSxuezI2uZpxA" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tOMkJkjbEeSxuezI2uZpxA" value="1"/>
           <redefinedProperty href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
