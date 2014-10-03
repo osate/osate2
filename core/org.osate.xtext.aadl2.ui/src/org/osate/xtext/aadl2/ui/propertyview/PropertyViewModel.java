@@ -61,7 +61,6 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 
 	private static final String UNDEFINED = "undefined";
 	private static final String EQUALS = " => ";
-	private static final String EMPTY = "";
 
 	// Locals
 
@@ -90,32 +89,22 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	// Inner Classes
 
 	private class PropSet {
-		final PropertySet ps;
-		final List<AbstractModelProperty> properties;
+		private final PropertySet ps;
+		private final List<AbstractModelProperty> properties;
 
 		public PropSet(final PropertySet ps) {
 			this.ps = ps;
 			properties = new ArrayList<AbstractModelProperty>();
 		}
-
-		public void addProperty(final AbstractModelProperty prop) {
-			properties.add(prop);
-		}
-
-		public void removeProperty(final AbstractModelProperty prop) {
-			properties.remove(prop);
-		}
-
-		public Object[] getProperties() {
-			return properties.toArray();
-		}
 	}
 
 	private abstract class InMode {
-		final String modeName;
-		final AbstractModelProperty parent;
+		private final String modeName;
+		private final AbstractModelProperty parent;
+		private final String value;
+		private final Color color;
 
-		public InMode(final ModedProperty mp, final List<Mode> modes) {
+		public InMode(final ModedProperty mp, final List<Mode> modes, String value, Color color) {
 			final StringBuilder sb = new StringBuilder();
 			for (Iterator<Mode> iter = modes.iterator(); iter.hasNext();) {
 				sb.append(iter.next().getName());
@@ -125,211 +114,95 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			}
 			modeName = sb.toString();
 			parent = mp;
-			mp.addMode(this);
+			this.value = value;
+			this.color = color;
+			mp.modes.add(this);
 		}
-
-		public abstract String getValue();
-
-		public abstract Color getColor();
 	}
 
 	private class UndefinedMode extends InMode {
 		public UndefinedMode(final ModedProperty mp, final List<Mode> modes) {
-			super(mp, modes);
-		}
-
-		@Override
-		public String getValue() {
-			return UNDEFINED;
-		}
-
-		@Override
-		public Color getColor() {
-			return Display.getDefault().getSystemColor(SWT.COLOR_RED);
+			super(mp, modes, UNDEFINED, Display.getDefault().getSystemColor(SWT.COLOR_RED));
 		}
 	}
 
 	private class ValuedMode extends InMode {
-		final String value;
-
 		public ValuedMode(ModedProperty prop, PropertyExpression expression, List<Mode> elementModes) {
-			super(prop, elementModes);
-			value = getValueAsString(expression);
+			super(prop, elementModes, getValueAsString(expression), null);
 		}
 
 		public ValuedMode(ModedProperty prop, ModalPropertyValue mpv) {
 			this(prop, mpv.getOwnedValue(), mpv.getAllInModes());
 		}
-
-		@Override
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public Color getColor() {
-			return null;
-		}
 	}
 
 	private class InheritedMode extends InMode {
-		final String value;
 
 		public InheritedMode(ModedProperty prop, PropertyExpression expression, List<Mode> elementModes) {
-			super(prop, elementModes);
-			value = getValueAsString(expression);
+			super(prop, elementModes, getValueAsString(expression), null);
 		}
 
 		public InheritedMode(ModedProperty prop, ModalPropertyValue mpv) {
 			this(prop, mpv.getOwnedValue(), mpv.getAllInModes());
 		}
-
-		@Override
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public Color getColor() {
-			return null;
-		}
 	}
 
 	private class DefaultMode extends InMode {
-		final String value;
 
 		public DefaultMode(final ModedProperty prop, final List<Mode> modes) {
-			super(prop, modes);
-			value = getValueAsString(prop.definition.getDefaultValue());
-		}
-
-		@Override
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public Color getColor() {
-			return null;
+			super(prop, modes, getValueAsString(prop.definition.getDefaultValue()), null);
 		}
 	}
 
 	private abstract class AbstractModelProperty {
-		final String propertyName;
-		final boolean isList;
-		final PropSet parent;
+		private final String propertyName;
+		private final boolean isList;
+		private final PropSet parent;
 		final Property definition;
+		private final String value;
+		private final Color color;
 
-		public AbstractModelProperty(final PropSet ps, final Property pn) {
+		public AbstractModelProperty(final PropSet ps, final Property pn, final String value, final Color color) {
 			propertyName = pn.getName();
 			isList = pn.isList();
 			parent = ps;
 			definition = pn;
-			ps.addProperty(this);
+			this.value = value;
+			this.color = color;
+			ps.properties.add(this);
 		}
-
-		public abstract String getValue();
-
-		public abstract Color getColor();
 	}
 
 	private class ModedProperty extends AbstractModelProperty {
 		final List<InMode> modes;
 
 		public ModedProperty(final PropSet ps, final Property pn) {
-			super(ps, pn);
+			super(ps, pn, "", null);
 			modes = new ArrayList<InMode>();
-		}
-
-		public void addMode(final InMode mode) {
-			modes.add(mode);
-		}
-
-		@Override
-		public String getValue() {
-			return EMPTY;
-		}
-
-		@Override
-		public Color getColor() {
-			return null;
-		}
-
-		public Object[] getModes() {
-			return modes.toArray();
 		}
 	}
 
 	private class UndefinedProperty extends AbstractModelProperty {
 		public UndefinedProperty(final PropSet ps, final Property pn) {
-			super(ps, pn);
-		}
-
-		@Override
-		public String getValue() {
-			return UNDEFINED;
-		}
-
-		@Override
-		public Color getColor() {
-			return Display.getDefault().getSystemColor(SWT.COLOR_RED);
+			super(ps, pn, UNDEFINED, Display.getDefault().getSystemColor(SWT.COLOR_RED));
 		}
 	}
 
 	private class ValuedProperty extends AbstractModelProperty {
-		final String value;
-
 		public ValuedProperty(final PropSet ps, final Property pn, final PropertyAssociation pa) {
-			super(ps, pn);
-			value = getValueAsString(pa.getOwnedValues().get(0).getOwnedValue());
-		}
-
-		@Override
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public Color getColor() {
-			return null;
+			super(ps, pn, getValueAsString(pa.getOwnedValues().get(0).getOwnedValue()), null);
 		}
 	}
 
 	private class InheritedProperty extends AbstractModelProperty {
-		final String value;
-
 		public InheritedProperty(final PropSet ps, final Property pn, final PropertyAssociation pa) {
-			super(ps, pn);
-			value = getValueAsString(pa.getOwnedValues().get(0).getOwnedValue());
-		}
-
-		@Override
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public Color getColor() {
-			return null;
+			super(ps, pn, getValueAsString(pa.getOwnedValues().get(0).getOwnedValue()), null);
 		}
 	}
 
 	private class DefaultProperty extends AbstractModelProperty {
-		final String value;
-
 		public DefaultProperty(final PropSet ps, final Property pn) {
-			super(ps, pn);
-			value = getValueAsString(pn.getDefaultValue());
-		}
-
-		@Override
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public Color getColor() {
-			return null;
+			super(ps, pn, getValueAsString(pn.getDefaultValue()), null);
 		}
 	}
 
@@ -451,11 +324,11 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			final StringBuilder sb = new StringBuilder();
 			sb.append(((AbstractModelProperty) element).propertyName);
 			sb.append(EQUALS);
-			sb.append(((AbstractModelProperty) element).getValue());
+			sb.append(((AbstractModelProperty) element).value);
 			return sb.toString();
 		} else if (element instanceof InMode) {
 			final StringBuilder sb = new StringBuilder();
-			sb.append(((InMode) element).getValue());
+			sb.append(((InMode) element).value);
 			sb.append(" in modes (");
 			sb.append(((InMode) element).modeName);
 			sb.append(")");
@@ -512,9 +385,9 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	@Override
 	public Color getForeground(Object element) {
 		if (element instanceof AbstractModelProperty) {
-			return ((AbstractModelProperty) element).getColor();
+			return ((AbstractModelProperty) element).color;
 		} else if (element instanceof InMode) {
-			return ((InMode) element).getColor();
+			return ((InMode) element).color;
 		} else {
 			return null;
 		}
@@ -533,9 +406,9 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof PropSet) {
-			return ((PropSet) parentElement).getProperties();
+			return ((PropSet) parentElement).properties.toArray();
 		} else if (parentElement instanceof ModedProperty) {
-			return ((ModedProperty) parentElement).getModes();
+			return ((ModedProperty) parentElement).modes.toArray();
 		} else {
 			return null;
 		}
@@ -714,8 +587,8 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 										 * in all modes, remove from the property
 										 * set (don't show it)
 										 */
-										if (prop.getModes().length == 0) {
-											propSet.removeProperty(prop);
+										if (prop.modes.isEmpty()) {
+											propSet.properties.remove(prop);
 										} else if (!elementModes.isEmpty()) {
 											if (pn.getDefaultValue() != null) {
 												new DefaultMode(prop, elementModes);
