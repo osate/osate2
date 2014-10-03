@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IColorProvider;
@@ -69,19 +73,14 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	/** Cached Icon for modes */
 	private Image modeImage = null;
 
-	/**
-	 * Selected NamedElement in the editor or outline.  This field is set
-	 * in rebuildModel() and used in getColumnText().
-	 */
-	private NamedElement currentElement = null;
-
 	/** Model is a List of PropSet items */
-	final List<PropSet> input = new ArrayList<PropSet>();
+	final List<PropSet> input = Collections.synchronizedList(new ArrayList<PropSet>());
 
 	/** Immutable wrapped root list for external use */
 	final List<PropSet> inputLeaked = Collections.unmodifiableList(input);
 
 	private final ISerializer serializer;
+	private RebuildModelJob rebuildModelJob = new RebuildModelJob();
 
 	// Inner Classes
 
@@ -274,12 +273,10 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 
 	private class ValuedProperty extends AbstractModelProperty {
 		final String value;
-		final PropertyAssociation pa;
 
 		public ValuedProperty(final PropSet ps, final Property pn, final PropertyAssociation pa) {
 			super(ps, pn);
 			value = getValueAsString(pa.getOwnedValues().get(0).getOwnedValue());
-			this.pa = pa;
 		}
 
 		@Override
@@ -295,12 +292,10 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 
 	private class InheritedProperty extends AbstractModelProperty {
 		final String value;
-		final PropertyAssociation pa;
 
 		public InheritedProperty(final PropSet ps, final Property pn, final PropertyAssociation pa) {
 			super(ps, pn);
 			value = getValueAsString(pa.getOwnedValues().get(0).getOwnedValue());
-			this.pa = pa;
 		}
 
 		@Override
@@ -348,7 +343,10 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		} else if (expression instanceof ListValue && hasInstanceReferenceValue((ListValue) expression)) {
 			return serializeListWithInstanceReferenceValue((ListValue) expression);
 		} else {
-			String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
+			String value;
+			synchronized (serializer) {
+				value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
+			}
 			// TODO: Test this to see what cleanup is truly necessary.
 			return value;
 		}
@@ -380,7 +378,9 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			} else if (subExpression instanceof ListValue) {
 				result.append(serializeListWithInstanceReferenceValue((ListValue) subExpression));
 			} else {
-				result.append(serializer.serialize(subExpression).replaceAll("\n", "").replaceAll("\t", ""));
+				synchronized (serializer) {
+					result.append(serializer.serialize(subExpression).replaceAll("\n", "").replaceAll("\t", ""));
+				}
 			}
 			if (iter.hasNext()) {
 				result.append(", ");
@@ -580,103 +580,140 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	 * Rebuild list of property values.
 	 * @param element
 	 *            The property holder whose property values are to be displayed
-	 * @return Whether the property values were successfully retrieved or not.
-	 *         If this method returns <code>false</code>, then the displayed
-	 *         tree is empty.
+	 * @param uiUpdate
+	 * 			  Runnable which refreshes the treeViewer.  uiUpdate is called in the UI thread after the model is rebuilt.
 	 */
-	public void rebuildModel(final NamedElement element) {
-		currentElement = element;
-//		try {
-		input.clear();
+	public void rebuildModel(final NamedElement element, final Runnable uiUpdate) {
+		if (rebuildModelJob.getState() != Job.NONE) {
+			rebuildModelJob.cancel();
+			rebuildModelJob = new RebuildModelJob();
+		}
+		rebuildModelJob.element = element;
+		rebuildModelJob.uiUpdate = uiUpdate;
+		rebuildModelJob.schedule();
+	}
 
-		/*
-		 * Walk through all the property sets, and query the component for
-		 * each property.
-		 */
-		// get a sorted set of all the property sets
-		final EList<IEObjectDescription> propSets = EMFIndexRetrieval.getAllPropertySetsInWorkspace(element);
-		final SortedSet<PropertySet> alphabetizedPropSets = new TreeSet<PropertySet>(
-				PropertySetNameComparator.prototype);
-		for (IEObjectDescription description : propSets) {
-			alphabetizedPropSets.add((PropertySet) OsateResourceUtil.getResourceSet().getEObject(
-					description.getEObjectURI(), true));
+	private class RebuildModelJob extends Job {
+		private volatile NamedElement element;
+		private volatile Runnable uiUpdate;
+
+		public RebuildModelJob() {
+			super("Updating Property View");
+			setPriority(SHORT);
 		}
 
-		final Iterator<PropertySet> i = alphabetizedPropSets.iterator();
-		while (i.hasNext()) {
-			final PropertySet ps = i.next();
-			if (ps.getName() == null) {
-				continue;
+		@Override
+		protected IStatus run(IProgressMonitor monitor) {
+			ArrayList<PropSet> localInput = new ArrayList<PropSet>();
+
+			/*
+			 * Walk through all the property sets, and query the component for
+			 * each property.
+			 */
+			// get a sorted set of all the property sets
+			final EList<IEObjectDescription> propSets = EMFIndexRetrieval.getAllPropertySetsInWorkspace(element);
+			if (monitor.isCanceled()) {
+				return Status.CANCEL_STATUS;
 			}
-			final PropSet propSet = new PropSet(ps);
-			final EList<Property> pnList = ps.getOwnedProperties();
-			if (pnList != null) {
-				final Iterator<Property> j = pnList.iterator();
-				while (j.hasNext()) {
-					final Property pn = j.next();
-					if (pn != null && element.acceptsProperty(pn)) {
-//							try {
-						// Don't worry about PropertyDoesNotApplyToHolderException,
-						// we already check if property is acceptable
-						final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
-						PropertyAssociation firstAssociation = propertyAccumulator.first();
-						if (firstAssociation != null) {
-							if (firstAssociation.isModal() && element instanceof ComponentClassifier) {
-								final ModedProperty prop = new ModedProperty(propSet, pn);
-								EList<Mode> elementModes = ((ComponentClassifier) element).getAllModes();
-								for (ModalPropertyValue mpv : firstAssociation.getOwnedValues()) {
-									if (mpv.getAllInModes().size() == 0) {
-										if (firstAssociation.getOwner() == element) {
-											new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
-										} else {
-											new InheritedMode(prop, mpv.getOwnedValue(), elementModes);
+			final SortedSet<PropertySet> alphabetizedPropSets = new TreeSet<PropertySet>(
+					PropertySetNameComparator.prototype);
+			for (IEObjectDescription description : propSets) {
+				if (monitor.isCanceled()) {
+					return Status.CANCEL_STATUS;
+				}
+				alphabetizedPropSets.add((PropertySet) OsateResourceUtil.getResourceSet().getEObject(
+						description.getEObjectURI(), true));
+			}
+
+			final Iterator<PropertySet> i = alphabetizedPropSets.iterator();
+			while (i.hasNext()) {
+				if (monitor.isCanceled()) {
+					return Status.CANCEL_STATUS;
+				}
+				final PropertySet ps = i.next();
+				if (ps.getName() == null) {
+					continue;
+				}
+				final PropSet propSet = new PropSet(ps);
+				final EList<Property> pnList = ps.getOwnedProperties();
+				if (pnList != null) {
+					final Iterator<Property> j = pnList.iterator();
+					while (j.hasNext()) {
+						if (monitor.isCanceled()) {
+							return Status.CANCEL_STATUS;
+						}
+						final Property pn = j.next();
+						if (pn != null && element.acceptsProperty(pn)) {
+							// Don't worry about PropertyDoesNotApplyToHolderException,
+							// we already check if property is acceptable
+							final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
+							PropertyAssociation firstAssociation = propertyAccumulator.first();
+							if (firstAssociation != null) {
+								if (firstAssociation.isModal() && element instanceof ComponentClassifier) {
+									final ModedProperty prop = new ModedProperty(propSet, pn);
+									EList<Mode> elementModes = ((ComponentClassifier) element).getAllModes();
+									for (ModalPropertyValue mpv : firstAssociation.getOwnedValues()) {
+										if (monitor.isCanceled()) {
+											return Status.CANCEL_STATUS;
 										}
-										elementModes.clear();
-									} else {
-										if (firstAssociation.getOwner() == element) {
-											new ValuedMode(prop, mpv);
+										if (mpv.getAllInModes().size() == 0) {
+											if (firstAssociation.getOwner() == element) {
+												new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
+											} else {
+												new InheritedMode(prop, mpv.getOwnedValue(), elementModes);
+											}
+											elementModes.clear();
 										} else {
-											new InheritedMode(prop, mpv);
+											if (firstAssociation.getOwner() == element) {
+												new ValuedMode(prop, mpv);
+											} else {
+												new InheritedMode(prop, mpv);
+											}
+											elementModes.removeAll(mpv.getAllInModes());
 										}
-										elementModes.removeAll(mpv.getAllInModes());
 									}
-								}
-								/*
-								 * If prop has no children (i.e., undefined
-								 * in all modes, remove from the property
-								 * set (don't show it)
-								 */
-								if (prop.getModes().length == 0) {
-									propSet.removeProperty(prop);
-								} else if (!elementModes.isEmpty()) {
-									if (pn.getDefaultValue() != null) {
-										new DefaultMode(prop, elementModes);
-									} else if (showUndefined) {
-										new UndefinedMode(prop, elementModes);
+									/*
+									 * If prop has no children (i.e., undefined
+									 * in all modes, remove from the property
+									 * set (don't show it)
+									 */
+									if (prop.getModes().length == 0) {
+										propSet.removeProperty(prop);
+									} else if (!elementModes.isEmpty()) {
+										if (pn.getDefaultValue() != null) {
+											new DefaultMode(prop, elementModes);
+										} else {
+											new UndefinedMode(prop, elementModes);
+										}
 									}
+								} else if (firstAssociation.getOwner() == element) {
+									new ValuedProperty(propSet, pn, firstAssociation);
+								} else {
+									new InheritedProperty(propSet, pn, firstAssociation);
 								}
-							} else if (firstAssociation.getOwner() == element) {
-								new ValuedProperty(propSet, pn, firstAssociation);
 							} else {
-								new InheritedProperty(propSet, pn, firstAssociation);
-							}
-						} else {
-							if (pn.getDefaultValue() != null) {
-								new DefaultProperty(propSet, pn);
-							} else if (showUndefined) {
-								new UndefinedProperty(propSet, pn);
+								if (pn.getDefaultValue() != null) {
+									new DefaultProperty(propSet, pn);
+								} else if (showUndefined) {
+									new UndefinedProperty(propSet, pn);
+								}
 							}
 						}
-//							}
 					}
 				}
+				// Don't add property sets that have no children
+				if (propSet.properties.size() > 0) {
+					localInput.add(propSet);
+				}
 			}
-			// Don't add property sets that have no children
-			if (propSet.properties.size() > 0) {
-				input.add(propSet);
+			if (monitor.isCanceled()) {
+				return Status.CANCEL_STATUS;
 			}
+			input.clear();
+			input.addAll(localInput);
+			Display.getDefault().syncExec(uiUpdate);
+			return Status.OK_STATUS;
 		}
-//		}
 	}
 
 	/**
