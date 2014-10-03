@@ -568,7 +568,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	@Override
 	public void getPropertyValueInternal(final Property pn, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
-		if (!fromInstanceSlaveCall && pas.addLocalContained(this, getContainingClassifier())) {
+		if (!fromInstanceSlaveCall && getContainingClassifier() != null
+				&& pas.addLocalContained(this, getContainingClassifier())) {
 			return;
 		}
 		pas.addLocal(this);
