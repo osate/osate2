@@ -337,12 +337,14 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedPropertyType"
         ordered="false" eType="#//PropertyType">
+      <eAnnotations source="subsets" references="#//BasicProperty/propertyType"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyType" ordered="false"
         eType="#//PropertyType" containment="true">
+      <eAnnotations source="subsets" references="#//BasicProperty/propertyType"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
       </eAnnotations>
@@ -4487,9 +4489,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLProperties::Constants.&lt;/p>"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
-        lowerBound="1" eType="#//PropertyType">
-      <eAnnotations source="redefines" references="#//TypedElement/type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedPropertyType"
+        ordered="false" eType="#//PropertyType">
+      <eAnnotations source="subsets" references="#//PropertyConstant/propertyType"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Constants.&lt;/p>"/>
       </eAnnotations>
@@ -4503,6 +4505,14 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constantValue" ordered="false"
         eType="#//PropertyExpression" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLProperties::Constants.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" ordered="false"
+        lowerBound="1" eType="#//PropertyType" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="redefines" references="#//TypedElement/type"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Constants.&lt;/p>"/>
       </eAnnotations>

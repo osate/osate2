@@ -25241,9 +25241,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cConstantKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Assignment cPropertyTypeAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
-		private final CrossReference cPropertyTypePropertyTypeCrossReference_3_0_0 = (CrossReference)cPropertyTypeAssignment_3_0.eContents().get(0);
-		private final RuleCall cPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1 = (RuleCall)cPropertyTypePropertyTypeCrossReference_3_0_0.eContents().get(1);
+		private final Assignment cReferencedPropertyTypeAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final CrossReference cReferencedPropertyTypePropertyTypeCrossReference_3_0_0 = (CrossReference)cReferencedPropertyTypeAssignment_3_0.eContents().get(0);
+		private final RuleCall cReferencedPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1 = (RuleCall)cReferencedPropertyTypePropertyTypeCrossReference_3_0_0.eContents().get(1);
 		private final Assignment cOwnedPropertyTypeAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
 		private final RuleCall cOwnedPropertyTypeUnnamedPropertyTypeParserRuleCall_3_1_0 = (RuleCall)cOwnedPropertyTypeAssignment_3_1.eContents().get(0);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
@@ -25252,11 +25252,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//PropertyConstant returns aadl2::PropertyConstant:
-		//	name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+		//	name=ID ":" "constant" (referencedPropertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 		//	| ownedPropertyType=UnnamedPropertyType) "=>" constantValue=ConstantPropertyExpression ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+		//name=ID ":" "constant" (referencedPropertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 		//| ownedPropertyType=UnnamedPropertyType) "=>" constantValue=ConstantPropertyExpression ";"
 		public Group getGroup() { return cGroup; }
 
@@ -25272,18 +25272,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"constant"
 		public Keyword getConstantKeyword_2() { return cConstantKeyword_2; }
 
-		//propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+		//referencedPropertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 		//| ownedPropertyType=UnnamedPropertyType
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//propertyType=[aadl2::PropertyType|QPREF]
-		public Assignment getPropertyTypeAssignment_3_0() { return cPropertyTypeAssignment_3_0; }
+		//referencedPropertyType=[aadl2::PropertyType|QPREF]
+		public Assignment getReferencedPropertyTypeAssignment_3_0() { return cReferencedPropertyTypeAssignment_3_0; }
 
 		//[aadl2::PropertyType|QPREF]
-		public CrossReference getPropertyTypePropertyTypeCrossReference_3_0_0() { return cPropertyTypePropertyTypeCrossReference_3_0_0; }
+		public CrossReference getReferencedPropertyTypePropertyTypeCrossReference_3_0_0() { return cReferencedPropertyTypePropertyTypeCrossReference_3_0_0; }
 
 		//QPREF
-		public RuleCall getPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1() { return cPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1; }
+		public RuleCall getReferencedPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1() { return cReferencedPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1; }
 
 		//ownedPropertyType=UnnamedPropertyType
 		public Assignment getOwnedPropertyTypeAssignment_3_1() { return cOwnedPropertyTypeAssignment_3_1; }
@@ -28578,7 +28578,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyConstant returns aadl2::PropertyConstant:
-	//	name=ID ":" "constant" (propertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
+	//	name=ID ":" "constant" (referencedPropertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 	//	| ownedPropertyType=UnnamedPropertyType) "=>" constantValue=ConstantPropertyExpression ";";
 	public PropertyConstantElements getPropertyConstantAccess() {
 		return (pPropertyConstant != null) ? pPropertyConstant : (pPropertyConstant = new PropertyConstantElements());

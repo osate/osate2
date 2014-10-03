@@ -165,7 +165,12 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * @generated NOT
 	 */
 	public PropertyType basicGetPropertyType() {
-		return (ownedPropertyType != null) ? ownedPropertyType : referencedPropertyType;
+		// DONE: implement this method to return the 'Property Type' reference
+		if (eIsSet(Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE)) {
+			return getOwnedPropertyType();
+		} else {
+			return basicGetReferencedPropertyType();
+		}
 	}
 
 	/**
@@ -296,7 +301,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * @generated
 	 */
 	public boolean isSetType() {
-		return false;
+		return isSetPropertyType();
 	}
 
 	/**

@@ -62,6 +62,12 @@ import org.eclipse.emf.ecore.EClass;
 public interface BasicProperty extends TypedElement {
 	/**
 	 * Returns the value of the '<em><b>Referenced Property Type</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.BasicProperty#getPropertyType() <em>Property Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -111,6 +117,12 @@ public interface BasicProperty extends TypedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Owned Property Type</b></em>' containment reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.BasicProperty#getPropertyType() <em>Property Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Property Type</em>' containment reference isn't clear,

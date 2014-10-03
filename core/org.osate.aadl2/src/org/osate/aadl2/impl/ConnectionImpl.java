@@ -853,7 +853,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.Connection#getAllSrcContextComponent()
 	 */
 	@Override
@@ -868,7 +868,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.Connection#getAllDstContextComponent()
 	 */
 	@Override

@@ -1244,11 +1244,13 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertyConstant">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/propertyType"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/referencedPropertyType"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/ownedPropertyType"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/constantValue"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/propertyType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//StringLiteral">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//StringLiteral/value"/>
