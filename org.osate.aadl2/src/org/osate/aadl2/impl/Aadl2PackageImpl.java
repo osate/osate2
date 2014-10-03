@@ -8136,8 +8136,18 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
-	public EReference getPropertyConstant_PropertyType() {
+	public EReference getPropertyConstant_ReferencedPropertyType() {
 		return (EReference) propertyConstantEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPropertyConstant_PropertyType() {
+		return (EReference) propertyConstantEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -9887,9 +9897,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEReference(basicPropertyAssociationEClass, BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE);
 
 		propertyConstantEClass = createEClass(PROPERTY_CONSTANT);
-		createEReference(propertyConstantEClass, PROPERTY_CONSTANT__PROPERTY_TYPE);
+		createEReference(propertyConstantEClass, PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE);
 		createEReference(propertyConstantEClass, PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE);
 		createEReference(propertyConstantEClass, PROPERTY_CONSTANT__CONSTANT_VALUE);
+		createEReference(propertyConstantEClass, PROPERTY_CONSTANT__PROPERTY_TYPE);
 
 		stringLiteralEClass = createEClass(STRING_LITERAL);
 		createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
@@ -12438,15 +12449,18 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(propertyConstantEClass, PropertyConstant.class, "PropertyConstant", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropertyConstant_PropertyType(), getPropertyType(), null, "propertyType", null, 1, 1,
-				PropertyConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPropertyConstant_ReferencedPropertyType(), getPropertyType(), null, "referencedPropertyType",
+				null, 0, 1, PropertyConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getPropertyConstant_OwnedPropertyType(), getPropertyType(), null, "ownedPropertyType", null, 0,
 				1, PropertyConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getPropertyConstant_ConstantValue(), getPropertyExpression(), null, "constantValue", null, 0, 1,
 				PropertyConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPropertyConstant_PropertyType(), getPropertyType(), null, "propertyType", null, 1, 1,
+				PropertyConstant.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12838,6 +12852,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		String source = "subsets";
 		addAnnotation(getElement_OwnedComment(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
 				.appendFragment("//Element/ownedElement") });
+		addAnnotation(getBasicProperty_ReferencedPropertyType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//BasicProperty/propertyType") });
+		addAnnotation(getBasicProperty_OwnedPropertyType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
+				.appendFragment("//BasicProperty/propertyType") });
 		addAnnotation(getClassifier_ClassifierFeature(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
 				.appendFragment("//Namespace/member") });
 		addAnnotation(getClassifier_InheritedMember(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
@@ -13311,6 +13329,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getVirtualProcessorImplementation_OwnedVirtualProcessorSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getPropertyConstant_ReferencedPropertyType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//PropertyConstant/propertyType") });
 		addAnnotation(getPropertyConstant_OwnedPropertyType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//PropertyConstant/propertyType") });
 		addAnnotation(getPropertySet_OwnedPropertyType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)

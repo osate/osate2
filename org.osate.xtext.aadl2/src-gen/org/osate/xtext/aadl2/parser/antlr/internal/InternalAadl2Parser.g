@@ -35055,7 +35055,7 @@ rulePropertyConstant returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPropertyConstantAccess().getPropertyTypePropertyTypeCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypePropertyTypeCrossReference_3_0_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
