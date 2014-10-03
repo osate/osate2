@@ -466,7 +466,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @param property Property
 	 * @return The property expression or null if the property has no value.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public PropertyExpression getNonModalPropertyValue(final Property property) throws InvalidModelException,
 			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
@@ -572,7 +571,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 					return true;
 				}
 				if (appliesTo instanceof ClassifierValue) {
-					ClassifierValue cv = (ClassifierValue) appliesTo;
 					return true;
 				}
 			} catch (Exception e) {
@@ -619,7 +617,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	/**
 	 * Check that the proposed association is legal.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public void checkPropertyAssociation(final Property pd, final Collection<? extends PropertyExpression> vals) {
 		// Check that the property applies to this element
@@ -652,7 +649,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public final void removePropertyAssociations(final Property pd) {
 		final EList<PropertyAssociation> pal = getOwnedPropertyAssociations();
@@ -668,7 +664,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public final void removePropertyAssociations(final Property pd, final List<? extends Mode> modes) {
 		final EList<PropertyAssociation> pal = getOwnedPropertyAssociations();
@@ -704,7 +699,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public final PropertyAssociation setPropertyValue(final Property pd, final List<? extends PropertyExpression> pvl,
 			final List<? extends Mode> modes) {
