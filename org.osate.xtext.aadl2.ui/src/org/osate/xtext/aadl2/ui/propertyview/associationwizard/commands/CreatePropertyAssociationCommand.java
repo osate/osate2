@@ -58,6 +58,10 @@ public class CreatePropertyAssociationCommand extends AbstractCommand {
 
 	@Override
 	public void execute() {
+		PropertyAssociation oldpa = AadlUtil.findOwnedPropertyAssociation(holder, definition);
+		if (oldpa != null) {
+			holder.getOwnedPropertyAssociations().remove(oldpa);
+		}
 		newAssociation = holder.createOwnedPropertyAssociation();
 		newAssociation.setProperty(definition);
 		ModalPropertyValue mpv = newAssociation.createOwnedValue();
