@@ -121,6 +121,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
@@ -863,7 +864,7 @@ public final class AadlUtil {
 		 * there is zero or one implementation It may be desirable to allow the
 		 * desintation to be a type while the source specifies an implementation
 		 * indicating that the recipient can handle any implementation
-		 *
+		 * 
 		 * Currently we do match type only if one of the two side has a type
 		 * only
 		 */
@@ -2274,4 +2275,25 @@ public final class AadlUtil {
 		return res;
 	}
 
+	public static PropertyAssociation findOwnedPropertyAssociation(NamedElement ne, String propName) {
+		EList<PropertyAssociation> res = ne.getOwnedPropertyAssociations();
+		for (PropertyAssociation propertyAssociation : res) {
+			String pname = propertyAssociation.getProperty().getFullName();
+			if (propName.equalsIgnoreCase(pname)) {
+				return propertyAssociation;
+			}
+		}
+		return null;
+	}
+
+	public static PropertyAssociation findOwnedPropertyAssociation(NamedElement ne, Property def) {
+		EList<PropertyAssociation> res = ne.getOwnedPropertyAssociations();
+		for (PropertyAssociation propertyAssociation : res) {
+			Property pdef = propertyAssociation.getProperty();
+			if (pdef.getFullName().equalsIgnoreCase(def.getFullName())) {
+				return propertyAssociation;
+			}
+		}
+		return null;
+	}
 }
