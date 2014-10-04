@@ -87,6 +87,11 @@ public class PropertyAssociationWizard extends Wizard {
 		@Override
 		public void process(XtextResource state) throws Exception {
 			final NamedElement holder = (NamedElement) state.getResourceSet().getEObject(holderuri, true);
+			PropertyAssociation oldpa = AadlUtil.findOwnedPropertyAssociation(holder,
+					propertyDefinitionWizardPage.getSelectedDefinition());
+			if (oldpa != null) {
+				holder.getOwnedPropertyAssociations().remove(oldpa);
+			}
 			PropertyAssociation newAssociation = holder.createOwnedPropertyAssociation();
 			newAssociation.setProperty(propertyDefinitionWizardPage.getSelectedDefinition());
 			ModalPropertyValue mpv = newAssociation.createOwnedValue();
