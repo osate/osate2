@@ -8906,8 +8906,18 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
-	public EReference getListType_ElementType() {
+	public EReference getListType_ReferencedElementType() {
 		return (EReference) listTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getListType_ElementType() {
+		return (EReference) listTypeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -10005,6 +10015,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		listTypeEClass = createEClass(LIST_TYPE);
 		createEReference(listTypeEClass, LIST_TYPE__OWNED_ELEMENT_TYPE);
+		createEReference(listTypeEClass, LIST_TYPE__REFERENCED_ELEMENT_TYPE);
 		createEReference(listTypeEClass, LIST_TYPE__ELEMENT_TYPE);
 
 		// Create enums
@@ -12676,9 +12687,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getListType_OwnedElementType(), getPropertyType(), null, "ownedElementType", null, 0, 1,
 				ListType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getListType_ReferencedElementType(), getPropertyType(), null, "referencedElementType", null, 0,
+				1, ListType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getListType_ElementType(), getPropertyType(), null, "elementType", null, 1, 1, ListType.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(flowKindEEnum, FlowKind.class, "FlowKind");
@@ -13350,6 +13364,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addAnnotation(getRecordType_OwnedField(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
 				.appendFragment("//Namespace/ownedMember") });
 		addAnnotation(getListType_OwnedElementType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
+				.appendFragment("//ListType/elementType") });
+		addAnnotation(getListType_ReferencedElementType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
 				.appendFragment("//ListType/elementType") });
 	}
 

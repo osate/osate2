@@ -35,12 +35,12 @@ package org.osate.aadl2.properties;
 
 /**
  * Exception raised when a mode setting is required but not found.
- * 
+ *
  * @author aarong
  */
 public class ModeNotSpecifiedException extends RuntimeException {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 

@@ -333,7 +333,7 @@ public interface PackageSection extends Namespace {
 	EList<ModelUnit> getImportedUnits();
 
 	/**
-	 * name lookup from within package. 
+	 * name lookup from within package.
 	 * It searches through all internally visible elements resolving renames as appropriate
 	 */
 	NamedElement findInternallyVisibleNamedElement(String name);

@@ -39,7 +39,7 @@ import org.osate.aadl2.Property;
 /**
  * Exception indicating that a simple property lookup method was called for
  * a property that is modal.
- * 
+ *
  * @author jseibel
  *
  */

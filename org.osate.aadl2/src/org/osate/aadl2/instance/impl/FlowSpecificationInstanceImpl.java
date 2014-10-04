@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,21 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- * 
+ *
  *
  * $Id: FlowSpecificationInstanceImpl.java,v 1.2 2010-05-12 20:09:22 lwrage Exp $
  */
@@ -147,14 +147,16 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInstance getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject) source;
 			source = (FeatureInstance) eResolveProxy(oldSource);
 			if (source != oldSource) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE, oldSource, source));
+				}
 			}
 		}
 		return source;
@@ -180,10 +182,11 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE, oldSource, newSource);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -193,21 +196,26 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(FeatureInstance newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
-			if (source != null)
+			if (source != null) {
 				msgs = ((InternalEObject) source).eInverseRemove(this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 						FeatureInstance.class, msgs);
-			if (newSource != null)
+			}
+			if (newSource != null) {
 				msgs = ((InternalEObject) newSource).eInverseAdd(this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 						FeatureInstance.class, msgs);
+			}
 			msgs = basicSetSource(newSource, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE,
 					newSource, newSource));
+		}
 	}
 
 	/**
@@ -215,14 +223,16 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInstance getDestination() {
 		if (destination != null && destination.eIsProxy()) {
 			InternalEObject oldDestination = (InternalEObject) destination;
 			destination = (FeatureInstance) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION, oldDestination, destination));
+				}
 			}
 		}
 		return destination;
@@ -248,10 +258,11 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION, oldDestination, newDestination);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -261,21 +272,26 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDestination(FeatureInstance newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
-			if (destination != null)
+			if (destination != null) {
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
 						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC, FeatureInstance.class, msgs);
-			if (newDestination != null)
+			}
+			if (newDestination != null) {
 				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
 						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC, FeatureInstance.class, msgs);
+			}
 			msgs = basicSetDestination(newDestination, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION, newDestination, newDestination));
+		}
 	}
 
 	/**
@@ -283,15 +299,17 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecification getFlowSpecification() {
 		if (flowSpecification != null && ((EObject) flowSpecification).eIsProxy()) {
 			InternalEObject oldFlowSpecification = (InternalEObject) flowSpecification;
 			flowSpecification = (FlowSpecification) eResolveProxy(oldFlowSpecification);
 			if (flowSpecification != oldFlowSpecification) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION, oldFlowSpecification,
 							flowSpecification));
+				}
 			}
 		}
 		return flowSpecification;
@@ -311,13 +329,15 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFlowSpecification(FlowSpecification newFlowSpecification) {
 		FlowSpecification oldFlowSpecification = flowSpecification;
 		flowSpecification = newFlowSpecification;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION, oldFlowSpecification,
 					flowSpecification));
+		}
 	}
 
 	/**
@@ -325,6 +345,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
 			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
@@ -338,6 +359,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
 			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
@@ -355,14 +377,16 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
-			if (source != null)
+			if (source != null) {
 				msgs = ((InternalEObject) source).eInverseRemove(this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 						FeatureInstance.class, msgs);
+			}
 			return basicSetSource((FeatureInstance) otherEnd, msgs);
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION:
-			if (destination != null)
+			if (destination != null) {
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
 						InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC, FeatureInstance.class, msgs);
+			}
 			return basicSetDestination((FeatureInstance) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -393,16 +417,19 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
-			if (resolve)
+			if (resolve) {
 				return getSource();
+			}
 			return basicGetSource();
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION:
-			if (resolve)
+			if (resolve) {
 				return getDestination();
+			}
 			return basicGetDestination();
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION:
-			if (resolve)
+			if (resolve) {
 				return getFlowSpecification();
+			}
 			return basicGetFlowSpecification();
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE:
 			return getInModes();
@@ -491,15 +518,18 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public final List<SystemOperationMode> getExistsInModes() {
 		// Modes always exist
 		return null;
 	}
 
+	@Override
 	public List<FlowSpecification> getInstantiatedObjects() {
 		return Collections.singletonList(getFlowSpecification());
 	}
 
+	@Override
 	public boolean isActive(SystemOperationMode som) {
 		if (getInModes().isEmpty()) {
 			return getContainingComponentInstance().isActive(som);
@@ -520,7 +550,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		 * This return the appropriate value to add the flow specifications
 		 * in the list of the elements to add properties.
 		 * Can create side effects, to be double checked.
-		 * 
+		 *
 		 * FIX bug #205
 		 */
 		if (ranges.size() == 0) {

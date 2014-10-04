@@ -144,6 +144,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
+	@Override
 	ComponentType getExtended();
 
 	/**
@@ -311,7 +312,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * get list of all flow specs of a component type, including ancestor
 	 * features In case of refined flow specs the refined flow spec is returned
 	 * in the list.
-	 * 
+	 *
 	 * @return List of flow specs
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.

@@ -265,7 +265,7 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.EnumerationType#findLiteral(java.lang.String)
 	 */
 	@Override

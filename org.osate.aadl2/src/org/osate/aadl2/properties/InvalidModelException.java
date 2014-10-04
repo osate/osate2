@@ -38,12 +38,12 @@ import org.osate.aadl2.Element;
 /**
  * Exception to be thrown that indicates that an action couldn't complete
  * because the model is incomplete or otherwise invalid.
- * 
+ *
  * @author aarong
  */
 public class InvalidModelException extends PropertyLookupException {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	/** The model element that caused the problem. */

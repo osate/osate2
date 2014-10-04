@@ -92,7 +92,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	protected InstanceObjectImpl() {
@@ -101,7 +101,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -239,7 +239,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * construct a string path from the systeminstance as root
-	 *
+	 * 
 	 * @return path as string
 	 */
 	@Override
@@ -255,7 +255,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstancePath()
 	 */
 	@Override
@@ -349,7 +349,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstance()
 	 */
 	@Override
@@ -377,7 +377,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.impl.NamedElementImpl#acceptsProperty(edu.cmu.
 	 * sei.aadl.aadl2.Property)
@@ -465,7 +465,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
 	@Override
@@ -507,7 +507,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

@@ -74,6 +74,7 @@ public abstract class TypeImpl extends NamedElementImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean conformsTo(Type other) {
 		return TypeOperations.conformsTo(this, other);
 	}

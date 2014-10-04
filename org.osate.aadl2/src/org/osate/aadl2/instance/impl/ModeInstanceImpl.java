@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -178,6 +178,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransitionInstance> getSrcModeTransitions() {
 		if (srcModeTransitions == null) {
 			srcModeTransitions = new EObjectWithInverseResolvingEList<ModeTransitionInstance>(
@@ -192,6 +193,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeTransitionInstance> getDstModeTransitions() {
 		if (dstModeTransitions == null) {
 			dstModeTransitions = new EObjectWithInverseResolvingEList<ModeTransitionInstance>(
@@ -206,14 +208,16 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Mode getMode() {
 		if (mode != null && ((EObject) mode).eIsProxy()) {
 			InternalEObject oldMode = (InternalEObject) mode;
 			mode = (Mode) eResolveProxy(oldMode);
 			if (mode != oldMode) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstancePackage.MODE_INSTANCE__MODE,
 							oldMode, mode));
+				}
 			}
 		}
 		return mode;
@@ -233,11 +237,13 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMode(Mode newMode) {
 		Mode oldMode = mode;
 		mode = newMode;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_INSTANCE__MODE, oldMode, mode));
+		}
 	}
 
 	/**
@@ -245,6 +251,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDerived() {
 		return derived;
 	}
@@ -254,12 +261,14 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDerived(boolean newDerived) {
 		boolean oldDerived = derived;
 		derived = newDerived;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_INSTANCE__DERIVED, oldDerived,
 					derived));
+		}
 	}
 
 	/**
@@ -267,6 +276,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeInstance> getParents() {
 		if (parents == null) {
 			parents = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
@@ -315,6 +325,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInitial() {
 		return initial;
 	}
@@ -324,12 +335,14 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitial(boolean newInitial) {
 		boolean oldInitial = initial;
 		initial = newInitial;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_INSTANCE__INITIAL, oldInitial,
 					initial));
+		}
 	}
 
 	/**
@@ -347,8 +360,9 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 		case InstancePackage.MODE_INSTANCE__INITIAL:
 			return isInitial();
 		case InstancePackage.MODE_INSTANCE__MODE:
-			if (resolve)
+			if (resolve) {
 				return getMode();
+			}
 			return basicGetMode();
 		case InstancePackage.MODE_INSTANCE__DERIVED:
 			return isDerived();
@@ -453,8 +467,9 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (initial: "); //$NON-NLS-1$
@@ -466,16 +481,19 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public final List<SystemOperationMode> getExistsInModes() {
 		// Modes always exist
 		return null;
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public List<Mode> getInstantiatedObjects() {
 		return Collections.singletonList(getMode());
 	}
 
+	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return getContainingComponentInstance().isActive(som);
 	}

@@ -17057,9 +17057,9 @@ rule__ListType__Alternatives_2
     }
 :
 (
-{ before(grammarAccess.getListTypeAccess().getElementTypeAssignment_2_0()); }
-(rule__ListType__ElementTypeAssignment_2_0)
-{ after(grammarAccess.getListTypeAccess().getElementTypeAssignment_2_0()); }
+{ before(grammarAccess.getListTypeAccess().getReferencedElementTypeAssignment_2_0()); }
+(rule__ListType__ReferencedElementTypeAssignment_2_0)
+{ after(grammarAccess.getListTypeAccess().getReferencedElementTypeAssignment_2_0()); }
 )
 
     |(
@@ -139697,18 +139697,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ListType__ElementTypeAssignment_2_0
+rule__ListType__ReferencedElementTypeAssignment_2_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getListTypeAccess().getElementTypePropertyTypeCrossReference_2_0_0()); }
+{ before(grammarAccess.getListTypeAccess().getReferencedElementTypePropertyTypeCrossReference_2_0_0()); }
 (
-{ before(grammarAccess.getListTypeAccess().getElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
-	ruleQPREF{ after(grammarAccess.getListTypeAccess().getElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
+{ before(grammarAccess.getListTypeAccess().getReferencedElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
+	ruleQPREF{ after(grammarAccess.getListTypeAccess().getReferencedElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1()); }
 )
-{ after(grammarAccess.getListTypeAccess().getElementTypePropertyTypeCrossReference_2_0_0()); }
+{ after(grammarAccess.getListTypeAccess().getReferencedElementTypePropertyTypeCrossReference_2_0_0()); }
 )
 
 ;

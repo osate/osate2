@@ -2164,7 +2164,7 @@ AllReference returns aadl2::MetaclassReference:
 
 ListType returns aadl2::ListType:
 	 'list' 'of'  
-	(elementType=[aadl2::PropertyType|QPREF]|ownedElementType=UnnamedPropertyType)
+	(referencedElementType=[aadl2::PropertyType|QPREF]|ownedElementType=UnnamedPropertyType)
 ;
 
 

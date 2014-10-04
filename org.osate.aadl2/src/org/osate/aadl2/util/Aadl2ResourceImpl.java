@@ -63,7 +63,7 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl#useUUIDs()
 	 */
 	@Override

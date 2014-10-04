@@ -313,7 +313,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * @generated
 	 */
 	public boolean isSetType() {
-		return isSetPropertyType();
+		return false;
 	}
 
 	/**

@@ -36,7 +36,7 @@ package org.osate.aadl2.properties;
 /**
  * Exception indicating there was a problem with retrieving, evaluating,
  * or instantiating an AADL property value.
- * 
+ *
  * @author aarong
  */
 public abstract class PropertyLookupException extends RuntimeException {
