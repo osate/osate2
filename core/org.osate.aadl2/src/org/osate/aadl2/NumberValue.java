@@ -87,7 +87,7 @@ public interface NumberValue extends PropertyValue {
 
 	/**
 	 * @author dionisio
-	 * 
+	 *
 	 * set the value by parsing the string.
 	 * @param s string with number to parse
 	 */

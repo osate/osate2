@@ -154,7 +154,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>No Calls</em>' attribute.
 	 * @see #setNoCalls(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_NoCalls()
@@ -169,7 +169,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * {@link org.osate.aadl2.ComponentImplementation#isNoCalls
 	 * <em>No Calls</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>No Calls</em>' attribute.
 	 * @see #isNoCalls()
 	 * @generated
@@ -378,7 +378,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>No Connections</em>' attribute.
 	 * @see #setNoConnections(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_NoConnections()
@@ -448,6 +448,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
+	@Override
 	ComponentImplementation getExtended();
 
 	/**
@@ -455,7 +456,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * {@link org.osate.aadl2.ComponentImplementation#getExtended
 	 * <em>Extended</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Extended</em>' reference.
 	 * @see #getExtended()
 	 * @generated
@@ -881,7 +882,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * get list of all connection objects of a component implementation,
 	 * including ancestor features In case of refined connections the refined
 	 * connection is returned in the list.
-	 * 
+	 *
 	 * @return List of connection objects
 	 */
 	EList<Connection> getAllConnections();
@@ -889,7 +890,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * get ingoing connections to subcomponents from a specified feature of the
 	 * component impl
-	 * 
+	 *
 	 * @param feature component impl feature that is the source of a connection
 	 * @return EList connections with feature as source
 	 */
@@ -899,7 +900,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * get list of all subcomponents of a component impl, including ancestor
 	 * features In case of refined connections the refined connection is
 	 * returned in the list.
-	 * 
+	 *
 	 * @return List of connections
 	 */
 	EList<Subcomponent> getAllSubcomponents();
@@ -907,21 +908,21 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * Get all end to end flows, including inherited. In case of refined
 	 * end to end flows the refined end to end flow is returned in the list.
-	 * 
+	 *
 	 * @return the list of end to end flows
 	 */
 	EList<EndToEndFlow> getAllEndToEndFlows();
 
 	/**
 	 * Get all flow implementations, including inherited.
-	 * 
+	 *
 	 * @return Lis of end to end flows
 	 */
 	EList<FlowImplementation> getAllFlowImplementations();
 
 	/**
 	 * Returns the connection objects of a given implementation for a given mode.
-	 * 
+	 *
 	 * @param mode Mode for which connections are retrieved.
 	 * @return EList of connection objects (possibly empty).
 	 */
@@ -930,7 +931,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	/**
 	 * Get list of all connections of a component implementation in a given mode, including ancestor
 	 * implementations.  In case of refined connections the refined connection is returned in the list.
-	 * 
+	 *
 	 * @param mode Mode for which connections are to be retrieved.
 	 * @return List of connections
 	 */

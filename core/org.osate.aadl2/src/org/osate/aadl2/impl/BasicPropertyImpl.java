@@ -301,7 +301,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * @generated
 	 */
 	public boolean isSetType() {
-		return isSetPropertyType();
+		return false;
 	}
 
 	/**

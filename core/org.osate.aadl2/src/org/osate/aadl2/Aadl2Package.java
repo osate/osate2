@@ -35522,13 +35522,22 @@ public interface Aadl2Package extends EPackage {
 	int LIST_TYPE__OWNED_ELEMENT_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Referenced Element Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_TYPE__REFERENCED_ELEMENT_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Element Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_TYPE__ELEMENT_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int LIST_TYPE__ELEMENT_TYPE = PROPERTY_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>List Type</em>' class.
@@ -35537,7 +35546,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 2;
+	int LIST_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.DirectionType <em>Direction Type</em>}' enum.
@@ -42954,6 +42963,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getListType_OwnedElementType();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.ListType#getReferencedElementType <em>Referenced Element Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Referenced Element Type</em>'.
+	 * @see org.osate.aadl2.ListType#getReferencedElementType()
+	 * @see #getListType()
+	 * @generated
+	 */
+	EReference getListType_ReferencedElementType();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.ListType#getElementType <em>Element Type</em>}'.

@@ -78,11 +78,11 @@ public class InstanceUtil {
 	// TODO-LW: handle arrays
 	public static class InstantiatedClassifier {
 		/**
-		 * 
+		 *
 		 */
 		public Classifier classifier;
 		/**
-		 * 
+		 *
 		 */
 		public EList<PrototypeBinding> bindings;
 
@@ -100,7 +100,7 @@ public class InstanceUtil {
 	/**
 	 * Get the component type of a component instance. Resolve prototypes if
 	 * needed.
-	 * 
+	 *
 	 * @param ci the component instance
 	 * @param index the index of the instance object in an array
 	 * @param classifierCache an optional cache of known instantiated
@@ -134,7 +134,7 @@ public class InstanceUtil {
 	/**
 	 * Get the component implementation of a component instance. Resolve
 	 * prototypes if needed.
-	 * 
+	 *
 	 * @param ci the component instance
 	 * @param index the index of the instance object in an array
 	 * @param classifierCache an optional cache of known instantiated
@@ -163,7 +163,7 @@ public class InstanceUtil {
 	/**
 	 * Get the component classifier of a component instance. Resolve
 	 * prototypes if needed.
-	 * 
+	 *
 	 * @param ci the component instance
 	 * @param index the index of the instance object in an array
 	 * @param classifierCache an optional cache of known instantiated
@@ -188,7 +188,7 @@ public class InstanceUtil {
 	/**
 	 * Get the feature group classifier of a feature instance. Resolve
 	 * prototypes if needed.
-	 * 
+	 *
 	 * @param fi the feature instance
 	 * @param index the index of the instance object in an array
 	 * @param classifierCache an optional cache of known instantiated
@@ -211,7 +211,7 @@ public class InstanceUtil {
 	/**
 	 * Get the component or feature group classifier that is instantiated by an
 	 * instance object. Resolve prototypes if needed.
-	 * 
+	 *
 	 * @param iobj the instance object
 	 * @param index the index of the instance object in an array
 	 * @return the instantiated classifier together with bindings for anonymous
@@ -224,7 +224,7 @@ public class InstanceUtil {
 	/**
 	 * Get the component or feature group classifier that is instantiated by an
 	 * instance object. Resolve prototypes if needed.
-	 * 
+	 *
 	 * @param iobj the instance object
 	 * @param index the index of the instance object in an array
 	 * @param classifierCache an optional cache of known instantiated
@@ -304,7 +304,7 @@ public class InstanceUtil {
 
 	/**
 	 * Find the binding for a given component prototype.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context in which the prototype is used, e.g., a
 	 *            subcomponent instance
@@ -339,7 +339,7 @@ public class InstanceUtil {
 
 	/**
 	 * Find the binding for a given feature group prototype.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context in which the prototype is used, e.g., a
 	 *            subcomponent instance
@@ -371,7 +371,7 @@ public class InstanceUtil {
 
 	/**
 	 * Find the binding for a given feature prototype.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context in which the prototype is used, e.g., a
 	 *            subcomponent instance
@@ -398,7 +398,7 @@ public class InstanceUtil {
 
 	/**
 	 * Find the binding for a given prototype.
-	 * 
+	 *
 	 * @param proto the prototype to resolve
 	 * @param context the context in which the prototype is used, e.g., a
 	 *            subcomponent instance

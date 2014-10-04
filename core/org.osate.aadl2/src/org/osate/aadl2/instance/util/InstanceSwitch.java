@@ -93,216 +93,286 @@ public class InstanceSwitch<T> extends Switch<T> {
 		case InstancePackage.FEATURE_INSTANCE: {
 			FeatureInstance featureInstance = (FeatureInstance) theEObject;
 			T result = caseFeatureInstance(featureInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseConnectionInstanceEnd(featureInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseInstanceObject(featureInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(featureInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(featureInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.INSTANCE_OBJECT: {
 			InstanceObject instanceObject = (InstanceObject) theEObject;
 			T result = caseInstanceObject(instanceObject);
-			if (result == null)
+			if (result == null) {
 				result = caseNamedElement(instanceObject);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(instanceObject);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.ANNEX_INSTANCE: {
 			AnnexInstance annexInstance = (AnnexInstance) theEObject;
 			T result = caseAnnexInstance(annexInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseNamedElement(annexInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(annexInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.CONNECTION_INSTANCE_END: {
 			ConnectionInstanceEnd connectionInstanceEnd = (ConnectionInstanceEnd) theEObject;
 			T result = caseConnectionInstanceEnd(connectionInstanceEnd);
-			if (result == null)
+			if (result == null) {
 				result = caseInstanceObject(connectionInstanceEnd);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(connectionInstanceEnd);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(connectionInstanceEnd);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.CONNECTION_INSTANCE: {
 			ConnectionInstance connectionInstance = (ConnectionInstance) theEObject;
 			T result = caseConnectionInstance(connectionInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseFlowElementInstance(connectionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseInstanceObject(connectionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(connectionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(connectionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.FLOW_ELEMENT_INSTANCE: {
 			FlowElementInstance flowElementInstance = (FlowElementInstance) theEObject;
 			T result = caseFlowElementInstance(flowElementInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseInstanceObject(flowElementInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(flowElementInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(flowElementInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.SYSTEM_OPERATION_MODE: {
 			SystemOperationMode systemOperationMode = (SystemOperationMode) theEObject;
 			T result = caseSystemOperationMode(systemOperationMode);
-			if (result == null)
+			if (result == null) {
 				result = caseMode(systemOperationMode);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseModeFeature(systemOperationMode);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseClassifierFeature(systemOperationMode);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(systemOperationMode);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(systemOperationMode);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.MODE_INSTANCE: {
 			ModeInstance modeInstance = (ModeInstance) theEObject;
 			T result = caseModeInstance(modeInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseInstanceObject(modeInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(modeInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(modeInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.MODE_TRANSITION_INSTANCE: {
 			ModeTransitionInstance modeTransitionInstance = (ModeTransitionInstance) theEObject;
 			T result = caseModeTransitionInstance(modeTransitionInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseConnectionInstanceEnd(modeTransitionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseInstanceObject(modeTransitionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(modeTransitionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(modeTransitionInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.CONNECTION_REFERENCE: {
 			ConnectionReference connectionReference = (ConnectionReference) theEObject;
 			T result = caseConnectionReference(connectionReference);
-			if (result == null)
+			if (result == null) {
 				result = caseInstanceObject(connectionReference);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(connectionReference);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(connectionReference);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.COMPONENT_INSTANCE: {
 			ComponentInstance componentInstance = (ComponentInstance) theEObject;
 			T result = caseComponentInstance(componentInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseConnectionInstanceEnd(componentInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseFlowElementInstance(componentInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseInstanceObject(componentInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(componentInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(componentInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE: {
 			FlowSpecificationInstance flowSpecificationInstance = (FlowSpecificationInstance) theEObject;
 			T result = caseFlowSpecificationInstance(flowSpecificationInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseFlowElementInstance(flowSpecificationInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseInstanceObject(flowSpecificationInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(flowSpecificationInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(flowSpecificationInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.END_TO_END_FLOW_INSTANCE: {
 			EndToEndFlowInstance endToEndFlowInstance = (EndToEndFlowInstance) theEObject;
 			T result = caseEndToEndFlowInstance(endToEndFlowInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseFlowElementInstance(endToEndFlowInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseInstanceObject(endToEndFlowInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(endToEndFlowInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(endToEndFlowInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.SYSTEM_INSTANCE: {
 			SystemInstance systemInstance = (SystemInstance) theEObject;
 			T result = caseSystemInstance(systemInstance);
-			if (result == null)
+			if (result == null) {
 				result = caseComponentInstance(systemInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseConnectionInstanceEnd(systemInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseFlowElementInstance(systemInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseInstanceObject(systemInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseNamedElement(systemInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(systemInstance);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		case InstancePackage.INSTANCE_REFERENCE_VALUE: {
 			InstanceReferenceValue instanceReferenceValue = (InstanceReferenceValue) theEObject;
 			T result = caseInstanceReferenceValue(instanceReferenceValue);
-			if (result == null)
+			if (result == null) {
 				result = casePropertyValue(instanceReferenceValue);
-			if (result == null)
+			}
+			if (result == null) {
 				result = casePropertyExpression(instanceReferenceValue);
-			if (result == null)
+			}
+			if (result == null) {
 				result = caseElement(instanceReferenceValue);
-			if (result == null)
+			}
+			if (result == null) {
 				result = defaultCase(theEObject);
+			}
 			return result;
 		}
 		default:

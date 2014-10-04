@@ -129,7 +129,7 @@ public interface BasicPropertyAssociation extends Element {
 	void setOwnedValue(PropertyExpression value);
 
 	/**
-	 * 
+	 *
 	 */
 	PropertyExpression getValue();
 } // BasicPropertyAssociation

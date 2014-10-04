@@ -51,6 +51,7 @@ package org.osate.aadl2;
  */
 public interface UnitsType extends EnumerationType {
 
+	@Override
 	UnitLiteral findLiteral(String literalName);
 
 } // UnitsType

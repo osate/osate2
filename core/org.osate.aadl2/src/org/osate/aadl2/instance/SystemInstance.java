@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -69,7 +69,7 @@ public interface SystemInstance extends ComponentInstance {
 	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>System Operation Mode</em>' containment
 	 *         reference list.
 	 * @see org.osate.aadl2.instance.InstancePackage#getSystemInstance_SystemOperationMode()
@@ -103,6 +103,7 @@ public interface SystemInstance extends ComponentInstance {
 	 */
 	SystemImplementation getSystemImplementation();
 
+	@Override
 	SystemImplementation getComponentClassifier();
 
 	/**
@@ -117,7 +118,7 @@ public interface SystemInstance extends ComponentInstance {
 
 	/**
 	 * get all SOMs that contain the ModeInstance list
-	 * 
+	 *
 	 * @param mis List of mode instances
 	 * @return SOM that match the ModeInstance list
 	 */
@@ -131,7 +132,7 @@ public interface SystemInstance extends ComponentInstance {
 	 * current system operation mode of the root system instance is non-
 	 * <code>null</code>, then the "current mode" state of the component
 	 * instances in the model match that state.
-	 * 
+	 *
 	 * @param som SystemOperationMode whose values are used to set the
 	 *            currentMode in the instance model
 	 * @see #clearCurrentSystemOperationMode()
@@ -158,7 +159,7 @@ public interface SystemInstance extends ComponentInstance {
 	 * <p>
 	 * This method is sensitive to the {@link #getCurrentSystemOperationMode()
 	 * current system operation mode}.
-	 * 
+	 *
 	 * @param srcFI source feature instance
 	 * @param dstFI destination feature instance
 	 * @return Connection instance with the specified source and destination, or
@@ -168,12 +169,12 @@ public interface SystemInstance extends ComponentInstance {
 	ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI);
 
 	/**
-	 * Find all connection instances that pass through two declarative connections in 
+	 * Find all connection instances that pass through two declarative connections in
 	 * the same order as given in the parameters.
 	 * <p>
 	 * This method is sensitive to the {@link #getCurrentSystemOperationMode()
 	 * current system operation mode}.
-	 * 
+	 *
 	 * @param first the first connection that should occur in the connection instance
 	 * @param second the connection that should occur after the first in the connection instance
 	 * @return the list of connection instances
@@ -182,7 +183,7 @@ public interface SystemInstance extends ComponentInstance {
 
 	/**
 	 * Get the system operation modes containing the given mode instance.
-	 * 
+	 *
 	 * @param mi The mode instance to look for
 	 * @return The system operation modes containing the given mode instance.
 	 */

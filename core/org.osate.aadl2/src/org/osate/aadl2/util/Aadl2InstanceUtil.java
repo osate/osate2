@@ -54,8 +54,9 @@ public class Aadl2InstanceUtil {
 				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
 				for (ConnectionReference connectionReference : connreflist) {
 					ComponentInstance pci = connectionReference.getContext();
-					if (pci == ci.getContainingComponentInstance())
+					if (pci == ci.getContainingComponentInstance()) {
 						result.add(connectionReference);
+					}
 				}
 			}
 		}
@@ -95,8 +96,9 @@ public class Aadl2InstanceUtil {
 				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
 				for (ConnectionReference connectionReference : connreflist) {
 					ComponentInstance pci = connectionReference.getContext();
-					if (pci == ci)
+					if (pci == ci) {
 						result.add(connectionReference);
+					}
 				}
 			}
 		}
@@ -151,8 +153,9 @@ public class Aadl2InstanceUtil {
 					ComponentInstance pci = connectionReference.getContext();
 					Connection conn = connectionReference.getConnection();
 					ConnectionEnd ce = conn.getAllSource();
-					if (pci == ci.getContainingComponentInstance() && ce == f)
+					if (pci == ci.getContainingComponentInstance() && ce == f) {
 						result.add(connectionInstance);
+					}
 				}
 			}
 		}
@@ -177,8 +180,9 @@ public class Aadl2InstanceUtil {
 
 	public static boolean containedIn(InstanceObject element, InstanceObject parent) {
 		while (element != null) {
-			if (element == parent)
+			if (element == parent) {
 				return true;
+			}
 			element = (InstanceObject) element.getOwner();
 		}
 		return false;
@@ -244,8 +248,9 @@ public class Aadl2InstanceUtil {
 		FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) up.getOwner()).getFeature()).getFeatureGroupType();
 		FeatureGroupType downfgt = ((FeatureGroup) ((FeatureInstance) down.getOwner()).getFeature())
 				.getFeatureGroupType();
-		if (upfgt == null || downfgt == null)
+		if (upfgt == null || downfgt == null) {
 			return false;
+		}
 		if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 			return (getFeatureIndex(up) == getFeatureIndex(down));
 		}

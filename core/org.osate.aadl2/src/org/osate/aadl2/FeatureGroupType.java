@@ -122,6 +122,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
+	@Override
 	FeatureGroupType getExtended();
 
 	/**

@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -86,7 +86,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * The cached value of the '{@link #getSystemOperationModes()
 	 * <em>System Operation Mode</em>}' containment reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSystemOperationModes()
 	 * @generated
 	 * @ordered
@@ -105,7 +105,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/**
 	 * The current system operation mode.
-	 * 
+	 *
 	 * @see #setCurrentSystemOperationMode
 	 */
 	private SystemOperationMode currentSOM = null;
@@ -131,6 +131,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemOperationMode> getSystemOperationModes() {
 		if (systemOperationModes == null) {
 			systemOperationModes = new EObjectContainmentEList<SystemOperationMode>(SystemOperationMode.class, this,
@@ -143,6 +144,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemOperationMode createSystemOperationMode() {
 		SystemOperationMode newSystemOperationMode = (SystemOperationMode) create(InstancePackage.Literals.SYSTEM_OPERATION_MODE);
 		getSystemOperationModes().add(newSystemOperationMode);
@@ -154,20 +156,23 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemImplementation getSystemImplementation() {
 		if (systemImplementation != null && ((EObject) systemImplementation).eIsProxy()) {
 			InternalEObject oldSystemImplementation = (InternalEObject) systemImplementation;
 			systemImplementation = (SystemImplementation) eResolveProxy(oldSystemImplementation);
 			if (systemImplementation != oldSystemImplementation) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION, oldSystemImplementation,
 							systemImplementation));
+				}
 			}
 		}
 		return systemImplementation;
 	}
 
+	@Override
 	public SystemImplementation getComponentClassifier() {
 		return getSystemImplementation();
 	}
@@ -186,13 +191,15 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSystemImplementation(SystemImplementation newSystemImplementation) {
 		SystemImplementation oldSystemImplementation = systemImplementation;
 		systemImplementation = newSystemImplementation;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION, oldSystemImplementation,
 					systemImplementation));
+		}
 	}
 
 	/**
@@ -218,8 +225,9 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
 			return getSystemOperationModes();
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION:
-			if (resolve)
+			if (resolve) {
 				return getSystemImplementation();
+			}
 			return basicGetSystemImplementation();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -278,19 +286,22 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/**
 	 * get all SOMs that contain the ModeInstance list
-	 * 
+	 *
 	 * @param mis List of mode instances
 	 * @return SOM that match the ModeInstance list
 	 */
+	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(List<ModeInstance> mis) {
 		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (SystemOperationMode som : getSystemOperationModes()) {
-			if (som.getCurrentModes().containsAll(mis))
+			if (som.getCurrentModes().containsAll(mis)) {
 				output.add(som);
+			}
 		}
 		return Collections.unmodifiableList(output);
 	}
 
+	@Override
 	public void setCurrentSystemOperationMode(SystemOperationMode som) {
 		clearCurrentSystemOperationMode();
 		for (final Iterator<ModeInstance> i = som.getCurrentModes().iterator(); i.hasNext();) {
@@ -301,6 +312,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		currentSOM = som;
 	}
 
+	@Override
 	public SystemOperationMode getCurrentSystemOperationMode() {
 		return currentSOM;
 	}
@@ -309,6 +321,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * Clear the mode states for a given SystemInstance. That is, the modal
 	 * adapters for the model all have their modes set to <code>null</code>.
 	 */
+	@Override
 	public void clearCurrentSystemOperationMode() {
 		/*
 		 * Just walk the whole tree and clear the modes of all the components.
@@ -332,6 +345,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * You may want to call on AadlUtil.findConnectionInstance as it can handle any endpoint, not just
 	 * features on port connections.
 	 */
+	@Override
 	public ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI) {
 		EList<ConnectionInstance> subcl = getAllConnectionInstances();
 		for (Iterator<ConnectionInstance> it = subcl.iterator(); it.hasNext();) {
@@ -342,9 +356,11 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 				if (srci instanceof FeatureInstance) {
 					ConnectionInstanceEnd dsti = conni.getDestination();
 					if (dsti instanceof FeatureInstance) {
-						if (leadsOutof(conni, (FeatureInstance) srci, srcFI))
-							if (leadsOutof(conni, (FeatureInstance) dsti, dstFI))
+						if (leadsOutof(conni, (FeatureInstance) srci, srcFI)) {
+							if (leadsOutof(conni, (FeatureInstance) dsti, dstFI)) {
 								return conni;
+							}
+						}
 					}
 				}
 			}
@@ -354,11 +370,12 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)
 	 */
+	@Override
 	public List<ConnectionInstance> findConnectionInstances(Connection first, Connection second) {
 		List<ConnectionInstance> result = new LinkedList<ConnectionInstance>();
 
@@ -384,25 +401,28 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	/**
 	 * Does the connection instance lead out of the flow specific feature
 	 * instance The connection may start in a subcomponent
-	 * 
+	 *
 	 * @param conni ConnectionInstance
 	 * @param cfi FeatureInstance the source feature instance
 	 * @param ffi The feature instance involved in the flow
 	 * @return true if connection goes through the ffi
 	 */
 	private boolean leadsOutof(ConnectionInstance conni, FeatureInstance cfi, FeatureInstance ffi) {
-		if (cfi == ffi)
+		if (cfi == ffi) {
 			return true;
+		}
 		ComponentInstance flowci = ffi.getContainingComponentInstance();
 		ComponentInstance connci = cfi.getContainingComponentInstance();
 		while (connci != null) {
-			if (flowci == connci)
+			if (flowci == connci) {
 				return true;
+			}
 			connci = connci.getContainingComponentInstance();
 		}
 		return false;
 	}
 
+	@Override
 	public final List<SystemOperationMode> getExistsInModes() {
 		// System always exists
 		return null;
@@ -410,33 +430,38 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/**
 	 * get all SOMs that contain the mode instance
-	 * 
+	 *
 	 * @param mi Mode Instance
 	 * @return List of SOM that contains the mode instance
 	 */
+	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(final ModeInstance mi) {
 		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
 			final SystemOperationMode som = i.next();
-			if (som.getCurrentModes().contains(mi))
+			if (som.getCurrentModes().contains(mi)) {
 				output.add(som);
+			}
 		}
 		return Collections.unmodifiableList(output);
 	}
 
+	@Override
 	public final List<SystemImplementation> getInstantiatedObjects() {
 		return Collections.singletonList(getSystemImplementation());
 	}
 
 	private SystemOperationMode initialMode = null;
 
+	@Override
 	public final SystemOperationMode getInitialSystemOperationMode() {
 		if (initialMode == null) {
-			final List soms = this.getSystemOperationModes();
+			final List soms = getSystemOperationModes();
 			for (final Iterator i = soms.iterator(); i.hasNext();) {
 				final SystemOperationMode som = (SystemOperationMode) i.next();
-				if (som.isInitial())
+				if (som.isInitial()) {
 					return som;
+				}
 			}
 			// Should only get here if the model is malformed.
 			throw new IllegalStateException("Couldn't find initial system operation mode");
@@ -444,6 +469,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return initialMode;
 	}
 
+	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return true;
 	}

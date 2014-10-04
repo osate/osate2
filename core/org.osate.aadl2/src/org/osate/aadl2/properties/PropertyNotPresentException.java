@@ -39,7 +39,7 @@ import org.osate.aadl2.Property;
 /**
  * Exception indicating that a PropertyValue was not found when looking up
  * a Property for a specific NamedElement
- * 
+ *
  * @author jseibel
  *
  */

@@ -81,24 +81,24 @@ public class LocationReference {
 	 * any field may be null
 	 */
 	public LocationReference(String fn, int ln) {
-		this.filename = fn;
-		this.linenumber = ln;
+		filename = fn;
+		linenumber = ln;
 	}
 
 	public void setFilename(String in) {
-		this.filename = in;
+		filename = in;
 	}
 
 	public void setLine(int in) {
-		this.linenumber = in;
+		linenumber = in;
 	}
 
 	public String getFilename() {
-		return this.filename;
+		return filename;
 	}
 
 	public int getLine() {
-		return this.linenumber;
+		return linenumber;
 	}
 
 }

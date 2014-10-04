@@ -22,8 +22,9 @@ public class ParseUtil {
 		if ((annexName != null) && (annexNSName != null)) {
 //			OsateDebug.osateDebug("called setAnnexNSURI with " + annexName + annexNSName);
 			annexName = annexName.toLowerCase();
-			if (annexNS.get(annexName) == null)
+			if (annexNS.get(annexName) == null) {
 				annexNS.put(annexName, annexNSName);
+			}
 		}
 	}
 
@@ -43,7 +44,7 @@ public class ParseUtil {
 	 * @param stringValue The string to parse.
 	 * @return An array of length 2: the first element is the base
 	 * and the second element is the value.
-	 * @exception IllegalArgumentException thrown if there is some kind of 
+	 * @exception IllegalArgumentException thrown if there is some kind of
 	 * parsing error.
 	 */
 	public static long[] parseAadlInteger(final String stringValue) {
@@ -152,15 +153,16 @@ public class ParseUtil {
 			}
 		}
 
-		if (isNegative)
+		if (isNegative) {
 			value = -value;
+		}
 
 		return new long[] { base, value };
 	}
 
 	/**
 	 * Parse a string representation of an aadlreal.
-	 * 
+	 *
 	 * @param stringValue
 	 *            The real value to resolve.
 	 * @return The value
@@ -178,7 +180,7 @@ public class ParseUtil {
 	/**
 	 * Remove the underlines, &ldquo; <code>_</code>,&rdquo; from the numeric
 	 * literal and forces letters to be uppercase.
-	 * 
+	 *
 	 * @param value
 	 *            The string to process
 	 * @return The provided string with all the underlines removed, returned as

@@ -25173,17 +25173,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cListKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cOfKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cElementTypeAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final CrossReference cElementTypePropertyTypeCrossReference_2_0_0 = (CrossReference)cElementTypeAssignment_2_0.eContents().get(0);
-		private final RuleCall cElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1 = (RuleCall)cElementTypePropertyTypeCrossReference_2_0_0.eContents().get(1);
+		private final Assignment cReferencedElementTypeAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
+		private final CrossReference cReferencedElementTypePropertyTypeCrossReference_2_0_0 = (CrossReference)cReferencedElementTypeAssignment_2_0.eContents().get(0);
+		private final RuleCall cReferencedElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1 = (RuleCall)cReferencedElementTypePropertyTypeCrossReference_2_0_0.eContents().get(1);
 		private final Assignment cOwnedElementTypeAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
 		private final RuleCall cOwnedElementTypeUnnamedPropertyTypeParserRuleCall_2_1_0 = (RuleCall)cOwnedElementTypeAssignment_2_1.eContents().get(0);
 		
 		//ListType returns aadl2::ListType:
-		//	"list" "of" (elementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType);
+		//	"list" "of" (referencedElementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType);
 		public ParserRule getRule() { return rule; }
 
-		//"list" "of" (elementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType)
+		//"list" "of" (referencedElementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType)
 		public Group getGroup() { return cGroup; }
 
 		//"list"
@@ -25192,17 +25192,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"of"
 		public Keyword getOfKeyword_1() { return cOfKeyword_1; }
 
-		//elementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType
+		//referencedElementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//elementType=[aadl2::PropertyType|QPREF]
-		public Assignment getElementTypeAssignment_2_0() { return cElementTypeAssignment_2_0; }
+		//referencedElementType=[aadl2::PropertyType|QPREF]
+		public Assignment getReferencedElementTypeAssignment_2_0() { return cReferencedElementTypeAssignment_2_0; }
 
 		//[aadl2::PropertyType|QPREF]
-		public CrossReference getElementTypePropertyTypeCrossReference_2_0_0() { return cElementTypePropertyTypeCrossReference_2_0_0; }
+		public CrossReference getReferencedElementTypePropertyTypeCrossReference_2_0_0() { return cReferencedElementTypePropertyTypeCrossReference_2_0_0; }
 
 		//QPREF
-		public RuleCall getElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1() { return cElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1; }
+		public RuleCall getReferencedElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1() { return cReferencedElementTypePropertyTypeQPREFParserRuleCall_2_0_0_1; }
 
 		//ownedElementType=UnnamedPropertyType
 		public Assignment getOwnedElementTypeAssignment_2_1() { return cOwnedElementTypeAssignment_2_1; }
@@ -28558,7 +28558,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ListType returns aadl2::ListType:
-	//	"list" "of" (elementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType);
+	//	"list" "of" (referencedElementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType);
 	public ListTypeElements getListTypeAccess() {
 		return (pListType != null) ? pListType : (pListType = new ListTypeElements());
 	}

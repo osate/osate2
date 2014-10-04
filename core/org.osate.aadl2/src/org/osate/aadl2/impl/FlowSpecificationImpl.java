@@ -786,7 +786,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 		if (!fromInstanceSlaveCall && paa.addLocalContained(this, owner)) {
 			return;
 		}
-		if (paa.addLocal(refined)) {
+		if (paa.addLocal(this)) {
 			return;
 		}
 

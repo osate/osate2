@@ -160,7 +160,7 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	/*
 	 * Get the feature group type of given feature group or its refinement ancestor, if it has
 	 * one, otherwise null.
-	 * 
+	 *
 	 * @return The FeatureGroupType, or <code>null</code> if none.
 	 */
 	FeatureGroupType getAllFeatureGroupType();

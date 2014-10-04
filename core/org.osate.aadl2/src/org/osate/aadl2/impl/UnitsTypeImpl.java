@@ -195,7 +195,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.impl.EnumerationTypeImpl#findLiteral(java.lang.String)
 	 */
 	@Override
