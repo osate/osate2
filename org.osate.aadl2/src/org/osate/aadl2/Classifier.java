@@ -501,7 +501,7 @@ public interface Classifier extends Namespace, Type {
 	 * classifier <code>B</code> that extends classifier <code>A</code>,
 	 * then the list will contain classifiers <code>C</code>, <code>B</code>, and <code>A</code>
 	 * in that order.
-	 * 
+	 *
 	 * <p>Although a well-formed model should not contain loops in the extension
 	 * hierarchy, they may arise from erroneous editors or through badly formed
 	 * AAXL files.  This method is safe to use even if a cycle exists.  In such
@@ -544,7 +544,7 @@ public interface Classifier extends Namespace, Type {
 	 * extends the other feature group type, or it extends a descendant of the
 	 * other feature group type. A feature group type type never descends from another
 	 * component type or implementation.
-	 * 
+	 *
 	 * @return Whether this classifier descends from the given classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
@@ -553,7 +553,7 @@ public interface Classifier extends Namespace, Type {
 	/**
 	 * Check whether the applies to classifiers in a property definition
 	 * describe this classifier.
-	 * 
+	 *
 	 * @param property
 	 * 			  The property definition
 	 * @return Whether this classifier is a descendant of one of
@@ -565,7 +565,7 @@ public interface Classifier extends Namespace, Type {
 	/**
 	 * Get all the property associations, including those from any ancestor
 	 * classifiers.
-	 * 
+	 *
 	 * @return A list of the property associations. Property associations from
 	 * 		   an ancestor component classifier will appear before those of any
 	 * 		   descendents.

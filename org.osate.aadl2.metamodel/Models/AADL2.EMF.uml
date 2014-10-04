@@ -210,6 +210,9 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_Fyg_8D9DEeSMi-ARKmUa4A" name="BasicProperty">
       <ownedAttribute xmi:id="_LYlQkD9DEeSMi-ARKmUa4A" name="propertyType" isDerived="true"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_UPg50EscEeSXJZycUfbgZg" name="PropertyConstant">
+      <ownedAttribute xmi:id="_UPg50UscEeSXJZycUfbgZg" name="propertyType" isDerived="true"/>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_PG-08D9DEeSMi-ARKmUa4A" name="NumberType">
       <ownedAttribute xmi:id="_VuxBQD9DEeSMi-ARKmUa4A" name="unitsType" isDerived="true"/>
     </packagedElement>
@@ -379,4 +382,6 @@
   <Ecore:EAttribute xmi:id="_qFCeEEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_Ir3S4UM5EeSo7dNc7Eb1Kg"/>
   <Ecore:EAttribute xmi:id="_rDlJ8EM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_JMc3cUM5EeSo7dNc7Eb1Kg"/>
   <Ecore:EAttribute xmi:id="_s0S5oEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_J2bBgEM5EeSo7dNc7Eb1Kg"/>
+  <Ecore:EReference xmi:id="_be2OUEscEeSXJZycUfbgZg" isTransient="true" isVolatile="true" base_Property="_UPg50UscEeSXJZycUfbgZg"/>
+  <Standard:Metaclass xmi:id="_ctXP4EscEeSXJZycUfbgZg" base_Class="_UPg50EscEeSXJZycUfbgZg"/>
 </xmi:XMI>

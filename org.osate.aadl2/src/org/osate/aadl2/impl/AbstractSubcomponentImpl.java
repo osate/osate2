@@ -120,15 +120,17 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractSubcomponentType getAbstractSubcomponentType() {
 		if (abstractSubcomponentType != null && ((EObject) abstractSubcomponentType).eIsProxy()) {
 			InternalEObject oldAbstractSubcomponentType = (InternalEObject) abstractSubcomponentType;
 			abstractSubcomponentType = (AbstractSubcomponentType) eResolveProxy(oldAbstractSubcomponentType);
 			if (abstractSubcomponentType != oldAbstractSubcomponentType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE,
 							oldAbstractSubcomponentType, abstractSubcomponentType));
+				}
 			}
 		}
 		return abstractSubcomponentType;
@@ -148,13 +150,15 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAbstractSubcomponentType(AbstractSubcomponentType newAbstractSubcomponentType) {
 		AbstractSubcomponentType oldAbstractSubcomponentType = abstractSubcomponentType;
 		abstractSubcomponentType = newAbstractSubcomponentType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE, oldAbstractSubcomponentType,
 					abstractSubcomponentType));
+		}
 	}
 
 	/**
@@ -166,8 +170,9 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getAbstractSubcomponentType();
+			}
 			return basicGetAbstractSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -229,6 +234,7 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.ABSTRACT;
 	}

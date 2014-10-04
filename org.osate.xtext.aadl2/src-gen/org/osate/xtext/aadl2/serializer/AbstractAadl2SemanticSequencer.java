@@ -3041,7 +3041,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (propertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType) constantValue=ConstantPropertyExpression)
+	 *     (name=ID (referencedPropertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType) constantValue=ConstantPropertyExpression)
 	 */
 	protected void sequence_PropertyConstant(EObject context, PropertyConstant semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

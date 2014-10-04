@@ -17101,9 +17101,9 @@ rule__PropertyConstant__Alternatives_3
     }
 :
 (
-{ before(grammarAccess.getPropertyConstantAccess().getPropertyTypeAssignment_3_0()); }
-(rule__PropertyConstant__PropertyTypeAssignment_3_0)
-{ after(grammarAccess.getPropertyConstantAccess().getPropertyTypeAssignment_3_0()); }
+{ before(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypeAssignment_3_0()); }
+(rule__PropertyConstant__ReferencedPropertyTypeAssignment_3_0)
+{ after(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypeAssignment_3_0()); }
 )
 
     |(
@@ -139746,18 +139746,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__PropertyConstant__PropertyTypeAssignment_3_0
+rule__PropertyConstant__ReferencedPropertyTypeAssignment_3_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getPropertyConstantAccess().getPropertyTypePropertyTypeCrossReference_3_0_0()); }
+{ before(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypePropertyTypeCrossReference_3_0_0()); }
 (
-{ before(grammarAccess.getPropertyConstantAccess().getPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1()); }
-	ruleQPREF{ after(grammarAccess.getPropertyConstantAccess().getPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1()); }
+{ before(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1()); }
+	ruleQPREF{ after(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypePropertyTypeQPREFParserRuleCall_3_0_0_1()); }
 )
-{ after(grammarAccess.getPropertyConstantAccess().getPropertyTypePropertyTypeCrossReference_3_0_0()); }
+{ after(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypePropertyTypeCrossReference_3_0_0()); }
 )
 
 ;

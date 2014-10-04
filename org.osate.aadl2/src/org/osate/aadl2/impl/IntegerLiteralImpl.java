@@ -124,6 +124,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getBase() {
 		return base;
 	}
@@ -133,11 +134,13 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBase(long newBase) {
 		long oldBase = base;
 		base = newBase;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__BASE, oldBase, base));
+		}
 	}
 
 	/**
@@ -145,6 +148,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getValue() {
 		return value;
 	}
@@ -154,11 +158,13 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(long newValue) {
 		long oldValue = value;
 		value = newValue;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__VALUE, oldValue, value));
+		}
 	}
 
 	/**
@@ -236,8 +242,9 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (base: ");
@@ -250,10 +257,10 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/**
 	 * @author dionisio
-	 * 
+	 *
 	 * set the value by parsing the string. This can contain the a base part and an exponent
 	 * e.g. "base#number#exponent" as well as underscore separators, e.g. "12_345"
-	 * 
+	 *
 	 * @param s string with number to parse
 	 */
 	public static int parseInt(String s) {
@@ -299,9 +306,10 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#setValue(java.lang.String)
 	 */
+	@Override
 	public void setValue(String s) {
 		long[] res = ParseUtil.parseAadlInteger(s);
 		Long.valueOf(res[1]);
@@ -311,9 +319,10 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
+	@Override
 	public NumberValue cloneAndInvert() {
 		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -328,9 +337,10 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
+	@Override
 	public final NumberValue cloneNumber() {
 		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -343,7 +353,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#getScaledValue()
 	 * DB: Moved to NumberValueOperations
 	 */
@@ -356,7 +366,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2
 	 * .UnitLiteral)
@@ -374,10 +384,12 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 		if (!Aadl2Util.getUseTunedEqualsMethods()) {
 			return super.equals(obj);
 		}
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null || getClass() != obj.getClass() || !super.equals(obj))
+		}
+		if (obj == null || getClass() != obj.getClass() || !super.equals(obj)) {
 			return false;
+		}
 		IntegerLiteralImpl other = (IntegerLiteralImpl) obj;
 		return base == other.base && value == other.value;
 	}

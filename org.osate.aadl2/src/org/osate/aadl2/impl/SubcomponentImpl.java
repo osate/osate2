@@ -392,9 +392,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public void setAllModes(boolean newAllModes) {
 		boolean oldAllModes = allModes;
 		allModes = newAllModes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__ALL_MODES, oldAllModes,
 					allModes));
+		}
 	}
 
 	/**
@@ -435,9 +436,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Subcomponent) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBCOMPONENT__REFINED,
 							oldRefined, refined));
+				}
 			}
 		}
 		return refined;
@@ -517,14 +519,16 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
 			return getArrayDimensions();
 		case Aadl2Package.SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getSubcomponentType();
+			}
 			return basicGetSubcomponentType();
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			return getOwnedPrototypeBindings();
 		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
-			if (resolve)
+			if (resolve) {
 				return getPrototype();
+			}
 			return basicGetPrototype();
 		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
 			return getOwnedModeBindings();
@@ -533,12 +537,14 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
 			return getImplementationReferences();
 		case Aadl2Package.SUBCOMPONENT__REFINED:
-			if (resolve)
+			if (resolve) {
 				return getRefined();
+			}
 			return basicGetRefined();
 		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getClassifier();
+			}
 			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -745,8 +751,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (allModes: ");
@@ -879,6 +886,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 	}
 
+	// TODO-lw: Why don't we return immediately if a pa was found?
 	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall) throws InvalidModelException {
@@ -895,6 +903,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		// collect values from refined subcomponents
 		Subcomponent refined = getRefined();
 		while (refined != null) {
+			if (!fromInstanceSlaveCall) {
+				pas.addLocalContained(refined, refined.getContainingClassifier());
+			}
 			pas.addLocal(refined);
 			refined = refined.getRefined();
 		}
@@ -913,7 +924,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.Subcomponent#getPrototypeActual(org.osate.aadl2.Prototype
 	 * )

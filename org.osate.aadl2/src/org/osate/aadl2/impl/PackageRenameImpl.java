@@ -113,14 +113,16 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AadlPackage getRenamedPackage() {
 		if (renamedPackage != null && ((EObject) renamedPackage).eIsProxy()) {
 			InternalEObject oldRenamedPackage = (InternalEObject) renamedPackage;
 			renamedPackage = (AadlPackage) eResolveProxy(oldRenamedPackage);
 			if (renamedPackage != oldRenamedPackage) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE, oldRenamedPackage, renamedPackage));
+				}
 			}
 		}
 		return renamedPackage;
@@ -140,12 +142,14 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenamedPackage(AadlPackage newRenamedPackage) {
 		AadlPackage oldRenamedPackage = renamedPackage;
 		renamedPackage = newRenamedPackage;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE,
 					oldRenamedPackage, renamedPackage));
+		}
 	}
 
 	/**
@@ -153,6 +157,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isRenameAll() {
 		return renameAll;
 	}
@@ -162,12 +167,14 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRenameAll(boolean newRenameAll) {
 		boolean oldRenameAll = renameAll;
 		renameAll = newRenameAll;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAME_ALL,
 					oldRenameAll, renameAll));
+		}
 	}
 
 	/**
@@ -179,8 +186,9 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
-			if (resolve)
+			if (resolve) {
 				return getRenamedPackage();
+			}
 			return basicGetRenamedPackage();
 		case Aadl2Package.PACKAGE_RENAME__RENAME_ALL:
 			return isRenameAll();
@@ -247,8 +255,9 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (renameAll: ");

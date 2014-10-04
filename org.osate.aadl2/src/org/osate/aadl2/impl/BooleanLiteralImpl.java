@@ -100,10 +100,12 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isValue() {
 		return value;
 	}
 
+	@Override
 	public boolean getValue() {
 		return isValue();
 	}
@@ -113,11 +115,13 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(boolean newValue) {
 		boolean oldValue = value;
 		value = newValue;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
+		}
 	}
 
 	/**
@@ -185,8 +189,9 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (value: ");
@@ -209,15 +214,19 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 			return super.equals(obj);
 		}
 
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		BooleanLiteralImpl other = (BooleanLiteralImpl) obj;
-		if (value != other.value)
+		if (value != other.value) {
 			return false;
+		}
 		return true;
 	}
 

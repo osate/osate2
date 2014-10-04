@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2011 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,21 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- * 
+ *
  */
 package org.osate.aadl2.impl;
 
@@ -124,6 +124,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
 			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
@@ -137,6 +138,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArrayDimension createArrayDimension() {
 		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
 		getArrayDimensions().add(newArrayDimension);
@@ -149,6 +151,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @generated NOT
 	 */
 	// TODO-LW: Why did emf generate @Override here?
+	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
@@ -169,6 +172,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public Classifier getClassifier() {
 		EObject classifier = getFeatureClassifier();
 		return (ComponentClassifier) (classifier instanceof ComponentClassifier && !classifier.eIsProxy() ? classifier
@@ -191,6 +195,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public ComponentPrototype getPrototype() {
 		EObject prototype = getFeatureClassifier();
 		return (ComponentPrototype) (prototype instanceof ComponentPrototype && !prototype.eIsProxy() ? prototype
@@ -213,14 +218,16 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Feature) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE__REFINED,
 							oldRefined, refined));
+				}
 			}
 		}
 		return refined;
@@ -240,11 +247,13 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(Feature newRefined) {
 		Feature oldRefined = refined;
 		refined = newRefined;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE__REFINED, oldRefined, refined));
+		}
 	}
 
 	/**
@@ -272,20 +281,24 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			return getArrayDimensions();
 		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getFeatureClassifier();
+			}
 			return basicGetFeatureClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
-			if (resolve)
+			if (resolve) {
 				return getPrototype();
+			}
 			return basicGetPrototype();
 		case Aadl2Package.FEATURE__REFINED:
-			if (resolve)
+			if (resolve) {
 				return getRefined();
+			}
 			return basicGetRefined();
 		case Aadl2Package.FEATURE__CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getClassifier();
+			}
 			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -465,6 +478,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
+	@Override
 	public EList<Feature> getAllFeatureRefinements() {
 		BasicEList<Feature> returnlist = new BasicEList<Feature>();
 		Feature more = this;
@@ -482,6 +496,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public Classifier getAllClassifier() {
 		Classifier cc = getClassifier();
 		Feature f = this;
@@ -492,7 +507,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		return cc;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
 		Classifier owner = getContainingClassifier();
@@ -504,6 +519,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		// values from refined features
 		Feature refined = getRefined();
 		while (refined != null) {
+			if (pas.addLocalContained(refined, refined.getContainingClassifier())) {
+				return;
+			}
 			if (pas.addLocal(refined)) {
 				return;
 			}

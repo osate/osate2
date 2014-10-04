@@ -165,6 +165,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
 			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
@@ -178,6 +179,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusSubcomponent createOwnedBusSubcomponent() {
 		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
@@ -189,6 +191,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
 			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
@@ -202,6 +205,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
 		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
 				.getDataSubcomponent());
@@ -214,6 +218,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
@@ -228,6 +233,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
 		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualBusSubcomponent());
@@ -251,6 +257,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -391,6 +398,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DEVICE;
 	}

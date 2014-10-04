@@ -182,6 +182,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ContainedNamedElement> getAppliesTos() {
 		if (appliesTos == null) {
 			appliesTos = new EObjectContainmentEList<ContainedNamedElement>(ContainedNamedElement.class, this,
@@ -195,6 +196,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainedNamedElement createAppliesTo(EClass eClass) {
 		ContainedNamedElement newAppliesTo = (ContainedNamedElement) create(eClass);
 		getAppliesTos().add(newAppliesTo);
@@ -206,6 +208,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainedNamedElement createAppliesTo() {
 		return createAppliesTo(Aadl2Package.eINSTANCE.getContainedNamedElement());
 	}
@@ -215,6 +218,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> getInBindings() {
 		if (inBindings == null) {
 			inBindings = new EObjectResolvingEList<Classifier>(Classifier.class, this,
@@ -228,6 +232,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isAppend() {
 		return append;
 	}
@@ -237,12 +242,14 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAppend(boolean newAppend) {
 		boolean oldAppend = append;
 		append = newAppend;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_ASSOCIATION__APPEND, oldAppend,
 					append));
+		}
 	}
 
 	/**
@@ -250,6 +257,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isConstant() {
 		return constant;
 	}
@@ -259,12 +267,14 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstant(boolean newConstant) {
 		boolean oldConstant = constant;
 		constant = newConstant;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_ASSOCIATION__CONSTANT,
 					oldConstant, constant));
+		}
 	}
 
 	/**
@@ -272,6 +282,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModalPropertyValue> getOwnedValues() {
 		if (ownedValues == null) {
 			ownedValues = new EObjectContainmentEList<ModalPropertyValue>(ModalPropertyValue.class, this,
@@ -285,6 +296,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModalPropertyValue createOwnedValue() {
 		ModalPropertyValue newOwnedValue = (ModalPropertyValue) create(Aadl2Package.eINSTANCE.getModalPropertyValue());
 		getOwnedValues().add(newOwnedValue);
@@ -296,14 +308,16 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Property getProperty() {
 		if (property != null && ((EObject) property).eIsProxy()) {
 			InternalEObject oldProperty = (InternalEObject) property;
 			property = (Property) eResolveProxy(oldProperty);
 			if (property != oldProperty) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY, oldProperty, property));
+				}
 			}
 		}
 		return property;
@@ -323,12 +337,14 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProperty(Property newProperty) {
 		Property oldProperty = property;
 		property = newProperty;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY,
 					oldProperty, property));
+		}
 	}
 
 	/**
@@ -356,8 +372,9 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY:
-			if (resolve)
+			if (resolve) {
 				return getProperty();
+			}
 			return basicGetProperty();
 		case Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO:
 			return getAppliesTos();
@@ -468,8 +485,9 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (append: ");
@@ -480,6 +498,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 		return result.toString();
 	}
 
+	@Override
 	public boolean isModal() {
 		int count = getOwnedValues().size();
 
@@ -492,6 +511,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 		return getOwnedValues().get(0).getInModes() != null && !getOwnedValues().get(0).getInModes().isEmpty();
 	}
 
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		EvaluatedProperty result = new EvaluatedProperty();
 		for (ModalPropertyValue mpv : ownedValues) {

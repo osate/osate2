@@ -24,7 +24,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
@@ -38,6 +37,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
@@ -122,6 +122,9 @@ public class AadlPropertyView extends ViewPart {
 	@Inject
 	private ILinker linker;
 
+	@Inject
+	private IScopeProvider scopeProvider;
+
 	private PropertyViewSelectionListener selectionListener = new PropertyViewSelectionListener();
 
 	private PropertyViewPartListener partListener = new PropertyViewPartListener();
@@ -141,7 +144,7 @@ public class AadlPropertyView extends ViewPart {
 		noPropertiesLabel.setAlignment(SWT.CENTER);
 		noPropertiesLabel.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 
-		model = new PropertyViewModel(serializer);
+		model = new PropertyViewModel(serializer, scopeProvider);
 		model.setShowUndefined(false);
 		treeViewer = new TreeViewer(pageBook, SWT.H_SCROLL | SWT.V_SCROLL);
 		Tree tree = treeViewer.getTree();
@@ -257,8 +260,7 @@ public class AadlPropertyView extends ViewPart {
 
 	private void buildNewModel(NamedElement element) {
 		if (element != null) {
-			model.rebuildModel(element);
-			Display.getDefault().asyncExec(new Runnable() {
+			model.rebuildModel(element, new Runnable() {
 				@Override
 				public void run() {
 					treeViewer.refresh();

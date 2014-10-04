@@ -95,14 +95,16 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnitLiteral getUnit() {
 		if (unit != null && ((EObject) unit).eIsProxy()) {
 			InternalEObject oldUnit = (InternalEObject) unit;
 			unit = (UnitLiteral) eResolveProxy(oldUnit);
 			if (unit != oldUnit) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit,
 							unit));
+				}
 			}
 		}
 		return unit;
@@ -122,11 +124,13 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnit(UnitLiteral newUnit) {
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
+		}
 	}
 
 	/**
@@ -134,6 +138,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getScaledValue(UnitLiteral target) {
 		return NumberValueOperations.getScaledValue(this, target);
 	}
@@ -143,6 +148,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public double getScaledValue() {
 		return NumberValueOperations.getScaledValue(this);
 	}
@@ -156,8 +162,9 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
-			if (resolve)
+			if (resolve) {
 				return getUnit();
+			}
 			return basicGetUnit();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -214,26 +221,31 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 			return super.equals(obj);
 		}
 
-		if (this == obj)
+		if (this == obj) {
 			return true;
+		}
 
-		if (obj == null)
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		NumberValueImpl other = (NumberValueImpl) obj;
 		if (unit == null) {
-			if (other.unit != null)
+			if (other.unit != null) {
 				return false;
-		} else if (!unit.equals(other.unit))
+			}
+		} else if (!unit.equals(other.unit)) {
 			return false;
+		}
 		return true;
 	}
 
 	/*
 	 * DB Added for OCL
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#getScaledValue(java.lang.String)
 	 */
 	@Override

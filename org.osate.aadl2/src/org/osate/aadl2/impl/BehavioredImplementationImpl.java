@@ -232,6 +232,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public EList<SubprogramCall> getSubprogramCalls() {
 		// TODO: implement this method to return the 'Subprogram Call' reference list
 		return BehavioredImplementationOperations.subprogramCalls(this);
@@ -242,6 +243,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramCallSequence> getOwnedSubprogramCallSequences() {
 		if (ownedSubprogramCallSequences == null) {
 			ownedSubprogramCallSequences = new EObjectContainmentEList<SubprogramCallSequence>(
@@ -256,6 +258,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramCallSequence createOwnedSubprogramCallSequence() {
 		SubprogramCallSequence newOwnedSubprogramCallSequence = (SubprogramCallSequence) create(Aadl2Package.eINSTANCE
 				.getSubprogramCallSequence());
@@ -268,6 +271,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramCall> subprogramCalls() {
 		return BehavioredImplementationOperations.subprogramCalls(this);
 	}

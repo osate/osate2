@@ -81,6 +81,7 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public EList<Classifier> getFeaturingClassifiers() {
 		// DB This should be an EStructuralFeature.Setting
 		// final EList<Classifier> list = new BasicEList<Classifier>();
