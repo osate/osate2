@@ -90,6 +90,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getMembers() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -113,6 +114,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -180,6 +182,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean members_distinguishable(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return NamespaceOperations.members_distinguishable(this, diagnostics, context);
 	}
@@ -189,6 +192,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getNamesOfMember(NamedElement element) {
 		return NamespaceOperations.getNamesOfMember(this, element);
 	}
@@ -198,6 +202,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean membersAreDistinguishable() {
 		return NamespaceOperations.membersAreDistinguishable(this);
 	}
@@ -271,11 +276,13 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 *@param String name
 	 *@return NamedElement
 	 */
+	@Override
 	public NamedElement findNamedElement(String name) {
 		for (NamedElement ne : getMembers()) { // XXX was getMembers()
 			String neName = Aadl2Util.getName(ne);
-			if (neName != null && neName.equalsIgnoreCase(name))
+			if (neName != null && neName.equalsIgnoreCase(name)) {
 				return ne;
+			}
 		}
 		return null;
 	}

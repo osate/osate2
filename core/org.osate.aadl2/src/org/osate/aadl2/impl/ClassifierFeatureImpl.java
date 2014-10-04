@@ -80,6 +80,7 @@ public abstract class ClassifierFeatureImpl extends NamedElementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public EList<Classifier> getFeaturingClassifiers() {
 		// DB This should be an EStructuralFeature.Setting
 		// final EList<Classifier> list = new BasicEList<Classifier>();

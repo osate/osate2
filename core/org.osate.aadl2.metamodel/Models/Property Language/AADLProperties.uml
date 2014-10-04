@@ -550,14 +550,14 @@
         <generalization xmi:id="Definitions-BasicProperty-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#TypedElement"/>
         </generalization>
-        <ownedAttribute xmi:id="Definitions-BasicProperty-type" name="referencedPropertyType" type="_v97TQLMDEeCzMYz5ww7glA" association="Definitions-A_basicProperty_type">
+        <ownedAttribute xmi:id="Definitions-BasicProperty-type" name="referencedPropertyType" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_Vfm11D9BEeSMi-ARKmUa4A" association="Definitions-A_basicProperty_type">
           <ownedComment xmi:id="Definitions-BasicProperty-type-_ownedComment.0">
             <body>References the type of this property.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-BasicProperty-type-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-BasicProperty-type-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Definitions-BasicProperty-ownedType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" association="Definitions-A_basicProperty_ownedType">
+        <ownedAttribute xmi:id="Definitions-BasicProperty-ownedType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_Vfm11D9BEeSMi-ARKmUa4A" association="Definitions-A_basicProperty_ownedType">
           <ownedComment xmi:id="Definitions-BasicProperty-ownedType-_ownedComment.0">
             <body>Specifies an anonymous type for this property.</body>
           </ownedComment>
@@ -893,15 +893,14 @@
         </generalization>
         <generalization xmi:id="_5wmQw64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
         <generalization xmi:id="_lAMNYLOSEeCzMYz5ww7glA" general="_JIGFILOSEeCzMYz5ww7glA"/>
-        <ownedAttribute xmi:id="Constants-PropertyConstant-type" name="propertyType" type="_v97TQLMDEeCzMYz5ww7glA" association="Constants-A_propertyConstant_type">
+        <ownedAttribute xmi:id="Constants-PropertyConstant-type" name="referencedPropertyType" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_tOMkJEjbEeSxuezI2uZpxA" association="Constants-A_propertyConstant_type">
           <ownedComment xmi:id="Constants-PropertyConstant-type-_ownedComment.0">
             <body>References the type of this constant.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-PropertyConstant-type-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-type-_lowerValue" value="1"/>
-          <redefinedProperty href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-type-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Constants-PropertyConstant-ownedType" name="ownedPropertyType" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="Constants-PropertyConstant-type" association="Constants-A_propertyConstant_ownedType">
+        <ownedAttribute xmi:id="Constants-PropertyConstant-ownedType" name="ownedPropertyType" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_tOMkJEjbEeSxuezI2uZpxA" association="Constants-A_propertyConstant_ownedType">
           <ownedComment xmi:id="Constants-PropertyConstant-ownedType-_ownedComment.0">
             <body>Specifies an anonymous type for this constant.</body>
           </ownedComment>
@@ -915,8 +914,13 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-PropertyConstant-ownedExpression-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-ownedExpression-_lowerValue"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_tOMkJEjbEeSxuezI2uZpxA" name="propertyType" type="_v97TQLMDEeCzMYz5ww7glA" isReadOnly="true" isDerived="true" association="_tOMkIEjbEeSxuezI2uZpxA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tOMkJUjbEeSxuezI2uZpxA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tOMkJkjbEeSxuezI2uZpxA" value="1"/>
+          <redefinedProperty href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
+        </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Constants-A_propertyConstant_type" name="A_propertyConstant_propertyType" memberEnd="Constants-A_propertyConstant_type-propertyConstant Constants-PropertyConstant-type">
+      <packagedElement xmi:type="uml:Association" xmi:id="Constants-A_propertyConstant_type" name="A_propertyConstant_referencedPropertyType" memberEnd="Constants-A_propertyConstant_type-propertyConstant Constants-PropertyConstant-type">
         <ownedEnd xmi:id="Constants-A_propertyConstant_type-propertyConstant" name="propertyConstant" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_type">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-A_propertyConstant_type-propertyConstant-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-A_propertyConstant_type-propertyConstant-_lowerValue"/>
@@ -932,6 +936,12 @@
         <ownedEnd xmi:id="Constants-A_propertyConstant_ownedPropertyExpression-owner" name="owner" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_ownedPropertyExpression">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-A_propertyConstant_ownedPropertyExpression-owner-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-A_propertyConstant_ownedPropertyExpression-owner-_lowerValue"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_tOMkIEjbEeSxuezI2uZpxA" name="A_propertyConstant_propertyType" memberEnd="_tOMkIUjbEeSxuezI2uZpxA _tOMkJEjbEeSxuezI2uZpxA">
+        <ownedEnd xmi:id="_tOMkIUjbEeSxuezI2uZpxA" name="propertyConstant" type="Constants-PropertyConstant" association="_tOMkIEjbEeSxuezI2uZpxA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tOMkIkjbEeSxuezI2uZpxA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tOMkI0jbEeSxuezI2uZpxA"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

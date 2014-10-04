@@ -2178,7 +2178,7 @@ PropertyOwner returns aadl2::PropertyOwner:
 PropertyConstant returns aadl2::PropertyConstant:
 	name=ID ':' 'constant'
 //	('list' 'of')* is handled as part of UnnamedPropertytype
-	(propertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
+	(referencedPropertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
 	'=>' constantValue=ConstantPropertyExpression  
 	';'
 	 ;

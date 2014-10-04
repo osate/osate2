@@ -136,6 +136,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BasicProperty> getOwnedFields() {
 		if (ownedFields == null) {
 			ownedFields = new EObjectContainmentEList<BasicProperty>(BasicProperty.class, this,
@@ -149,6 +150,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BasicProperty createOwnedField(EClass eClass) {
 		BasicProperty newOwnedField = (BasicProperty) create(eClass);
 		getOwnedFields().add(newOwnedField);
@@ -160,6 +162,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BasicProperty createOwnedField() {
 		return createOwnedField(Aadl2Package.eINSTANCE.getBasicProperty());
 	}
@@ -169,6 +172,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean conformsTo(Type other) {
 		return TypeOperations.conformsTo(this, other);
 	}

@@ -154,6 +154,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
@@ -168,6 +169,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
 		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualBusSubcomponent());
@@ -180,6 +182,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
 		if (ownedVirtualProcessorSubcomponents == null) {
 			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
@@ -194,6 +197,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
 		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualProcessorSubcomponent());
@@ -217,6 +221,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -345,6 +350,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.VIRTUAL_PROCESSOR;
 	}

@@ -107,9 +107,10 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 			InternalEObject oldBaseUnit = (InternalEObject) baseUnit;
 			baseUnit = (UnitLiteral) eResolveProxy(oldBaseUnit);
 			if (baseUnit != oldBaseUnit) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.UNIT_LITERAL__BASE_UNIT,
 							oldBaseUnit, baseUnit));
+				}
 			}
 		}
 		return baseUnit;
@@ -131,9 +132,10 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	public void setBaseUnit(UnitLiteral newBaseUnit) {
 		UnitLiteral oldBaseUnit = baseUnit;
 		baseUnit = newBaseUnit;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.UNIT_LITERAL__BASE_UNIT, oldBaseUnit,
 					baseUnit));
+		}
 	}
 
 	/**
@@ -155,10 +157,11 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.UNIT_LITERAL__FACTOR, oldFactor, newFactor);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -171,18 +174,22 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	public void setFactor(NumberValue newFactor) {
 		if (newFactor != factor) {
 			NotificationChain msgs = null;
-			if (factor != null)
+			if (factor != null) {
 				msgs = ((InternalEObject) factor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.UNIT_LITERAL__FACTOR, null, msgs);
-			if (newFactor != null)
+			}
+			if (newFactor != null) {
 				msgs = ((InternalEObject) newFactor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.UNIT_LITERAL__FACTOR, null, msgs);
+			}
 			msgs = basicSetFactor(newFactor, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.UNIT_LITERAL__FACTOR, newFactor,
 					newFactor));
+		}
 	}
 
 	/**
@@ -217,8 +224,9 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.UNIT_LITERAL__BASE_UNIT:
-			if (resolve)
+			if (resolve) {
 				return getBaseUnit();
+			}
 			return basicGetBaseUnit();
 		case Aadl2Package.UNIT_LITERAL__FACTOR:
 			return getFactor();
@@ -277,7 +285,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor()
 	 */
 	@Override
@@ -295,7 +303,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor(org.osate.aadl2.UnitLiteral)
 	 */
 	@Override

@@ -98,14 +98,16 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Prototype) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE__REFINED,
 							oldRefined, refined));
+				}
 			}
 		}
 		return refined;
@@ -125,11 +127,13 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRefined(Prototype newRefined) {
 		Prototype oldRefined = refined;
 		refined = newRefined;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
+		}
 	}
 
 	/**
@@ -137,6 +141,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return PrototypeOperations.categoryConstraint(this, diagnostics, context);
 	}
@@ -150,8 +155,9 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
-			if (resolve)
+			if (resolve) {
 				return getRefined();
+			}
 			return basicGetRefined();
 		}
 		return super.eGet(featureID, resolve, coreType);

@@ -120,15 +120,17 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements MemorySu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MemorySubcomponentType getMemorySubcomponentType() {
 		if (memorySubcomponentType != null && ((EObject) memorySubcomponentType).eIsProxy()) {
 			InternalEObject oldMemorySubcomponentType = (InternalEObject) memorySubcomponentType;
 			memorySubcomponentType = (MemorySubcomponentType) eResolveProxy(oldMemorySubcomponentType);
 			if (memorySubcomponentType != oldMemorySubcomponentType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.MEMORY_SUBCOMPONENT__MEMORY_SUBCOMPONENT_TYPE, oldMemorySubcomponentType,
 							memorySubcomponentType));
+				}
 			}
 		}
 		return memorySubcomponentType;
@@ -148,13 +150,15 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements MemorySu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMemorySubcomponentType(MemorySubcomponentType newMemorySubcomponentType) {
 		MemorySubcomponentType oldMemorySubcomponentType = memorySubcomponentType;
 		memorySubcomponentType = newMemorySubcomponentType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.MEMORY_SUBCOMPONENT__MEMORY_SUBCOMPONENT_TYPE, oldMemorySubcomponentType,
 					memorySubcomponentType));
+		}
 	}
 
 	/**
@@ -166,8 +170,9 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements MemorySu
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MEMORY_SUBCOMPONENT__MEMORY_SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getMemorySubcomponentType();
+			}
 			return basicGetMemorySubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -229,6 +234,7 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements MemorySu
 		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.MEMORY_SUBCOMPONENT__MEMORY_SUBCOMPONENT_TYPE);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.MEMORY;
 	}

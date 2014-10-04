@@ -230,7 +230,7 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	/**
 	 * Returns all the mode objects of a given classifier, including
 	 * ancestor.
-	 * 
+	 *
 	 * @return EList of all mode objects
 	 */
 	EList<Mode> getAllModes();
@@ -238,14 +238,14 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	/**
 	 * Returns all the mode transition objects of a given classifier,
 	 * including ancestor.
-	 * 
+	 *
 	 * @return EList of all mode transition objects
 	 */
 	EList<ModeTransition> getAllModeTransitions();
 
 	/**
 	 * Returns all the prototypes, including  ancestor.
-	 * 
+	 *
 	 * @return EList of all mode objects
 	 */
 	EList<Prototype> getAllPrototypes();

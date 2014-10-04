@@ -620,7 +620,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	//Reference is from PropertyConstant in Aadl2.xtext
-	def scope_PropertyConstant_propertyType(Element context, EReference reference) {
+	def scope_PropertyConstant_referencedPropertyType(Element context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)], true)
 	}
 	

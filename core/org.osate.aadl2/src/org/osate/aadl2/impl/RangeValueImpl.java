@@ -122,6 +122,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getMinimum() {
 		return minimum;
 	}
@@ -137,10 +138,11 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.RANGE_VALUE__MINIMUM, oldMinimum, newMinimum);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -150,21 +152,26 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinimum(PropertyExpression newMinimum) {
 		if (newMinimum != minimum) {
 			NotificationChain msgs = null;
-			if (minimum != null)
+			if (minimum != null) {
 				msgs = ((InternalEObject) minimum).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.RANGE_VALUE__MINIMUM, null, msgs);
-			if (newMinimum != null)
+			}
+			if (newMinimum != null) {
 				msgs = ((InternalEObject) newMinimum).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.RANGE_VALUE__MINIMUM, null, msgs);
+			}
 			msgs = basicSetMinimum(newMinimum, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.RANGE_VALUE__MINIMUM, newMinimum,
 					newMinimum));
+		}
 	}
 
 	/**
@@ -172,6 +179,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression createMinimum(EClass eClass) {
 		PropertyExpression newMinimum = (PropertyExpression) create(eClass);
 		setMinimum(newMinimum);
@@ -183,6 +191,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getMaximum() {
 		return maximum;
 	}
@@ -198,10 +207,11 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.RANGE_VALUE__MAXIMUM, oldMaximum, newMaximum);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -211,21 +221,26 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaximum(PropertyExpression newMaximum) {
 		if (newMaximum != maximum) {
 			NotificationChain msgs = null;
-			if (maximum != null)
+			if (maximum != null) {
 				msgs = ((InternalEObject) maximum).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.RANGE_VALUE__MAXIMUM, null, msgs);
-			if (newMaximum != null)
+			}
+			if (newMaximum != null) {
 				msgs = ((InternalEObject) newMaximum).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.RANGE_VALUE__MAXIMUM, null, msgs);
+			}
 			msgs = basicSetMaximum(newMaximum, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.RANGE_VALUE__MAXIMUM, newMaximum,
 					newMaximum));
+		}
 	}
 
 	/**
@@ -233,6 +248,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression createMaximum(EClass eClass) {
 		PropertyExpression newMaximum = (PropertyExpression) create(eClass);
 		setMaximum(newMaximum);
@@ -244,6 +260,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getDelta() {
 		return delta;
 	}
@@ -259,10 +276,11 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.RANGE_VALUE__DELTA, oldDelta, newDelta);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -272,20 +290,25 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDelta(PropertyExpression newDelta) {
 		if (newDelta != delta) {
 			NotificationChain msgs = null;
-			if (delta != null)
+			if (delta != null) {
 				msgs = ((InternalEObject) delta).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.RANGE_VALUE__DELTA, null, msgs);
-			if (newDelta != null)
+			}
+			if (newDelta != null) {
 				msgs = ((InternalEObject) newDelta).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.RANGE_VALUE__DELTA, null, msgs);
+			}
 			msgs = basicSetDelta(newDelta, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.RANGE_VALUE__DELTA, newDelta, newDelta));
+		}
 	}
 
 	/**
@@ -293,6 +316,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression createDelta(EClass eClass) {
 		PropertyExpression newDelta = (PropertyExpression) create(eClass);
 		setDelta(newDelta);
@@ -395,6 +419,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public final EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		/*
 		 * The min, max, and delta attributes can refer to PropertyReferences to
@@ -494,27 +519,30 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getMinimumValue()
 	 */
+	@Override
 	public NumberValue getMinimumValue() {
 		return getNumberValue(getMinimum());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getMaximumValue()
 	 */
+	@Override
 	public NumberValue getMaximumValue() {
 		return getNumberValue(getMaximum());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getDeltaValue()
 	 */
+	@Override
 	public NumberValue getDeltaValue() {
 		return getNumberValue(getDelta());
 	}
@@ -551,29 +579,38 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			return super.equals(obj);
 		}
 
-		if (this == obj)
+		if (this == obj) {
 			return true;
+		}
 
-		if (obj == null)
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		RangeValueImpl other = (RangeValueImpl) obj;
 		if (delta == null) {
-			if (other.delta != null)
+			if (other.delta != null) {
 				return false;
-		} else if (!delta.equals(other.delta))
+			}
+		} else if (!delta.equals(other.delta)) {
 			return false;
+		}
 		if (maximum == null) {
-			if (other.maximum != null)
+			if (other.maximum != null) {
 				return false;
-		} else if (!maximum.equals(other.maximum))
+			}
+		} else if (!maximum.equals(other.maximum)) {
 			return false;
+		}
 		if (minimum == null) {
-			if (other.minimum != null)
+			if (other.minimum != null) {
 				return false;
-		} else if (!minimum.equals(other.minimum))
+			}
+		} else if (!minimum.equals(other.minimum)) {
 			return false;
+		}
 		return true;
 	}
 

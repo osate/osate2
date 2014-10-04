@@ -70,6 +70,7 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 		return Aadl2Package.eINSTANCE.getPropertyExpression();
 	}
 
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx) {
 		return new EvaluatedProperty(this);
 	}

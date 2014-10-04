@@ -284,6 +284,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
 			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
@@ -297,6 +298,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BusSubcomponent createOwnedBusSubcomponent() {
 		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
@@ -308,6 +310,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
 			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
@@ -321,6 +324,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
 		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
 				.getDataSubcomponent());
@@ -333,6 +337,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DeviceSubcomponent> getOwnedDeviceSubcomponents() {
 		if (ownedDeviceSubcomponents == null) {
 			ownedDeviceSubcomponents = new EObjectContainmentEList<DeviceSubcomponent>(DeviceSubcomponent.class, this,
@@ -346,6 +351,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DeviceSubcomponent createOwnedDeviceSubcomponent() {
 		DeviceSubcomponent newOwnedDeviceSubcomponent = (DeviceSubcomponent) create(Aadl2Package.eINSTANCE
 				.getDeviceSubcomponent());
@@ -358,6 +364,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MemorySubcomponent> getOwnedMemorySubcomponents() {
 		if (ownedMemorySubcomponents == null) {
 			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(MemorySubcomponent.class, this,
@@ -371,6 +378,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MemorySubcomponent createOwnedMemorySubcomponent() {
 		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(Aadl2Package.eINSTANCE
 				.getMemorySubcomponent());
@@ -383,6 +391,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ProcessSubcomponent> getOwnedProcessSubcomponents() {
 		if (ownedProcessSubcomponents == null) {
 			ownedProcessSubcomponents = new EObjectContainmentEList<ProcessSubcomponent>(ProcessSubcomponent.class,
@@ -396,6 +405,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessSubcomponent createOwnedProcessSubcomponent() {
 		ProcessSubcomponent newOwnedProcessSubcomponent = (ProcessSubcomponent) create(Aadl2Package.eINSTANCE
 				.getProcessSubcomponent());
@@ -408,6 +418,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ProcessorSubcomponent> getOwnedProcessorSubcomponents() {
 		if (ownedProcessorSubcomponents == null) {
 			ownedProcessorSubcomponents = new EObjectContainmentEList<ProcessorSubcomponent>(
@@ -422,6 +433,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessorSubcomponent createOwnedProcessorSubcomponent() {
 		ProcessorSubcomponent newOwnedProcessorSubcomponent = (ProcessorSubcomponent) create(Aadl2Package.eINSTANCE
 				.getProcessorSubcomponent());
@@ -434,6 +446,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemSubcomponent> getOwnedSystemSubcomponents() {
 		if (ownedSystemSubcomponents == null) {
 			ownedSystemSubcomponents = new EObjectContainmentEList<SystemSubcomponent>(SystemSubcomponent.class, this,
@@ -447,6 +460,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemSubcomponent createOwnedSystemSubcomponent() {
 		SystemSubcomponent newOwnedSystemSubcomponent = (SystemSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSystemSubcomponent());
@@ -459,6 +473,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
 			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
@@ -473,6 +488,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
 		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramSubcomponent());
@@ -485,6 +501,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
 			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
@@ -499,6 +516,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
 		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupSubcomponent());
@@ -511,6 +529,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ThreadSubcomponent> getOwnedThreadSubcomponents() {
 		if (ownedThreadSubcomponents == null) {
 			ownedThreadSubcomponents = new EObjectContainmentEList<ThreadSubcomponent>(ThreadSubcomponent.class, this,
@@ -524,6 +543,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ThreadSubcomponent createOwnedThreadSubcomponent() {
 		ThreadSubcomponent newOwnedThreadSubcomponent = (ThreadSubcomponent) create(Aadl2Package.eINSTANCE
 				.getThreadSubcomponent());
@@ -536,6 +556,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ThreadGroupSubcomponent> getOwnedThreadGroupSubcomponents() {
 		if (ownedThreadGroupSubcomponents == null) {
 			ownedThreadGroupSubcomponents = new EObjectContainmentEList<ThreadGroupSubcomponent>(
@@ -550,6 +571,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ThreadGroupSubcomponent createOwnedThreadGroupSubcomponent() {
 		ThreadGroupSubcomponent newOwnedThreadGroupSubcomponent = (ThreadGroupSubcomponent) create(Aadl2Package.eINSTANCE
 				.getThreadGroupSubcomponent());
@@ -562,6 +584,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
@@ -576,6 +599,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
 		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualBusSubcomponent());
@@ -588,6 +612,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
 		if (ownedVirtualProcessorSubcomponents == null) {
 			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
@@ -602,6 +627,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
 		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualProcessorSubcomponent());
@@ -625,6 +651,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public AbstractType basicGetType() {
 		// DB: Avoid stack trace overflow
 		ComponentType ct = super.basicGetType();
@@ -907,6 +934,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 				|| eIsSet(Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.ABSTRACT;
 	}
