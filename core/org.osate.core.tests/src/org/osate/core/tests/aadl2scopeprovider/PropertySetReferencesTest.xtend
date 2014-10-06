@@ -66,7 +66,7 @@ class PropertySetReferencesTest extends OsateTest {
 	 * The scope for these rules are automatically provided, so there is no scoping method to test here.
 	 * 
 	 * Tests scope_UnitLiteral_baseUnit, scope_NumberType_referencedUnitsType, scope_RangeType_numberType, scope_BasicProperty_referencedPropertyType,
-	 * scope_ListType_elementType, scope_PropertyConstant_referencedPropertyType
+	 * scope_ListType_referencedElementType, scope_PropertyConstant_referencedPropertyType
 	 */
 	@Test
 	def void testPropertySetReferences() {
@@ -280,8 +280,8 @@ class PropertySetReferencesTest extends OsateTest {
 				"def7".assertEquals(name)
 				ownedPropertyType as ListType => [
 					"ps::pt1".assertEquals(elementType.getQualifiedName())
-					//Tests scope_ListType_elementType
-					assertScope(Aadl2Package::eINSTANCE.listType_ElementType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+					//Tests scope_ListType_referencedElementType
+					assertScope(Aadl2Package::eINSTANCE.listType_ReferencedElementType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
 						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
 						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
