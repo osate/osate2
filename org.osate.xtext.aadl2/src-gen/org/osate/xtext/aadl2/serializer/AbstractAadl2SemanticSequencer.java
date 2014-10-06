@@ -1557,7 +1557,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[SystemSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[AbstractSubcomponent|REFINEDNAME]) 
 	 *         (abstractSubcomponentType=[AbstractSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -1676,7 +1676,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[BusAccess|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         kind=AccessDirection 
 	 *         busFeatureClassifier=[BusSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -1734,7 +1734,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[BusSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (busSubcomponentType=[BusSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -1851,7 +1851,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[DataAccess|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         kind=AccessDirection 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -1894,7 +1894,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[DataPort|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -1932,7 +1932,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[DataSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (dataSubcomponentType=[DataSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -2057,7 +2057,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[DeviceSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (deviceSubcomponentType=[DeviceSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -2161,7 +2161,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[EventDataPort|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -2194,7 +2194,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[EventPort|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
@@ -2329,7 +2329,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[FeatureGroup|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         (in?='in' | out?='out')? 
 	 *         (inverse?='inverse'? featureType=[FeatureType|QCREF])? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -2616,7 +2616,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[MemorySubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (memorySubcomponentType=[MemorySubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -2717,7 +2717,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[Parameter|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         ((in?='in' out?='out'?) | out?='out') 
 	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -2854,7 +2854,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[ProcessSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (processSubcomponentType=[ProcessSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -2982,7 +2982,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[ProcessorSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (
 	 *             processorSubcomponentType=[ProcessorSubcomponentType|QCREF] 
 	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
@@ -3252,7 +3252,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     implemented=[SystemType|ID]
+	 *     implemented=[ComponentType|ID]
 	 */
 	protected void sequence_Realization(EObject context, Realization semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -3316,7 +3316,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[SubprogramAccess|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         kind=AccessDirection 
 	 *         subprogramFeatureClassifier=[SubprogramSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -3357,7 +3357,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[SubprogramGroupAccess|REFINEDNAME]) 
+	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         kind=AccessDirection 
 	 *         subprogramGroupFeatureClassifier=[SubprogramGroupSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
@@ -3414,7 +3414,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[SubprogramGroupSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (
 	 *             subprogramGroupSubcomponentType=[SubprogramGroupSubcomponentType|QCREF] 
 	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
@@ -3514,7 +3514,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[SubprogramSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (
 	 *             subprogramSubcomponentType=[SubprogramSubcomponentType|QCREF] 
 	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
@@ -3621,7 +3621,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[SystemSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (systemSubcomponentType=[SystemSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -3720,7 +3720,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[ThreadGroupSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (
 	 *             threadGroupSubcomponentType=[ThreadGroupSubcomponentType|QCREF] 
 	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
@@ -3821,7 +3821,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[ThreadSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (threadSubcomponentType=[ThreadSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -4033,7 +4033,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[VirtualBusSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (virtualBusSubcomponentType=[VirtualBusClassifier|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
 	 *             arrayDimension+=ArrayDimension+ 
@@ -4124,7 +4124,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=ID | refined=[VirtualProcessorSubcomponent|REFINEDNAME]) 
+	 *         (name=ID | refined=[Subcomponent|REFINEDNAME]) 
 	 *         (
 	 *             virtualProcessorSubcomponentType=[VirtualProcessorSubcomponentType|QCREF] 
 	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
