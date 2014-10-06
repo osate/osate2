@@ -615,7 +615,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	//Reference is from ListType in Aadl2.xtext
-	def scope_ListType_elementType(Element context, EReference reference) {
+	def scope_ListType_referencedElementType(Element context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.filter[name == qualifiedName || AadlUtil::isPredeclaredPropertySet(qualifiedName.firstSegment)], true)
 	}
 	
