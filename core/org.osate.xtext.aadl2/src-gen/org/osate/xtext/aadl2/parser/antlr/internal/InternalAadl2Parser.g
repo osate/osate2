@@ -9001,7 +9001,7 @@ ruleRealization returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getRealizationAccess().getImplementedSystemTypeCrossReference_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getRealizationAccess().getImplementedComponentTypeCrossReference_0()); 
 	}
 
 )
@@ -21240,7 +21240,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractSubcomponentAccess().getRefinedSystemSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getAbstractSubcomponentAccess().getRefinedAbstractSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -21549,7 +21549,7 @@ ruleSystemSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSystemSubcomponentAccess().getRefinedSystemSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSystemSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -21858,7 +21858,7 @@ ruleProcessSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getProcessSubcomponentAccess().getRefinedProcessSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -22167,7 +22167,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getThreadGroupSubcomponentAccess().getRefinedThreadGroupSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadGroupSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -22481,7 +22481,7 @@ ruleThreadSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getThreadSubcomponentAccess().getRefinedThreadSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getThreadSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -22790,7 +22790,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramSubcomponentAccess().getRefinedSubprogramSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -23099,7 +23099,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupSubcomponentAccess().getRefinedSubprogramGroupSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -23413,7 +23413,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getProcessorSubcomponentAccess().getRefinedProcessorSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getProcessorSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -23722,7 +23722,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualProcessorSubcomponentAccess().getRefinedVirtualProcessorSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getVirtualProcessorSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -24036,7 +24036,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getDeviceSubcomponentAccess().getRefinedDeviceSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getDeviceSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -24345,7 +24345,7 @@ ruleMemorySubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getMemorySubcomponentAccess().getRefinedMemorySubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getMemorySubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -24654,7 +24654,7 @@ ruleBusSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getBusSubcomponentAccess().getRefinedBusSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getBusSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -24963,7 +24963,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVirtualBusSubcomponentAccess().getRefinedVirtualBusSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getVirtualBusSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -25277,7 +25277,7 @@ ruleDataSubcomponent returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getDataSubcomponentAccess().getRefinedDataSubcomponentCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getDataSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -25795,7 +25795,7 @@ ruleDataPort returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getDataPortAccess().getRefinedDataPortCrossReference_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getDataPortAccess().getRefinedFeatureCrossReference_1_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -26001,7 +26001,7 @@ ruleEventDataPort returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getEventDataPortAccess().getRefinedEventDataPortCrossReference_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getEventDataPortAccess().getRefinedFeatureCrossReference_1_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -26212,7 +26212,7 @@ ruleEventPort returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getEventPortAccess().getRefinedEventPortCrossReference_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getEventPortAccess().getRefinedFeatureCrossReference_1_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -26397,7 +26397,7 @@ ruleFeatureGroup returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getRefinedFeatureGroupCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -26602,7 +26602,7 @@ ruleParameter returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getParameterAccess().getRefinedParameterCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getParameterAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -26797,7 +26797,7 @@ ruleSubprogramAccess returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramAccessAccess().getRefinedSubprogramAccessCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -26966,7 +26966,7 @@ ruleSubprogramGroupAccess returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSubprogramGroupAccessAccess().getRefinedSubprogramGroupAccessCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSubprogramGroupAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -27140,7 +27140,7 @@ ruleBusAccess returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getBusAccessAccess().getRefinedBusAccessCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getBusAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
@@ -27309,7 +27309,7 @@ ruleDataAccess returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getDataAccessAccess().getRefinedDataAccessCrossReference_0_1_0_0()); 
+	        newCompositeNode(grammarAccess.getDataAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
 		ruleREFINEDNAME		{ 
 	        afterParserOrEnumRuleCall();
