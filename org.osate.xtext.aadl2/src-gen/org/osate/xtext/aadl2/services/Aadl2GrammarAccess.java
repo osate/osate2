@@ -25995,216 +25995,416 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSinkSinkKeyword_2_0() { return cSinkSinkKeyword_2_0; }
 	}
 	
-	private ModelElements pModel;
-	private AadlPackageElements pAadlPackage;
-	private PublicPackageSectionElements pPublicPackageSection;
-	private PrivatePackageSectionElements pPrivatePackageSection;
-	private PackageRenameElements pPackageRename;
-	private RenameAllElements pRenameAll;
-	private FGTRenameElements pFGTRename;
-	private CTRenameElements pCTRename;
-	private TypeExtensionElements pTypeExtension;
-	private ImplementationExtensionElements pImplementationExtension;
-	private GroupExtensionElements pGroupExtension;
-	private ComponentCategoryElements pComponentCategory;
-	private ClassifierElements pClassifier;
-	private ComponentTypeElements pComponentType;
-	private AbstractTypeElements pAbstractType;
-	private SystemTypeElements pSystemType;
-	private ProcessTypeElements pProcessType;
-	private ThreadGroupTypeElements pThreadGroupType;
-	private ThreadTypeElements pThreadType;
-	private SubprogramTypeElements pSubprogramType;
-	private SubprogramGroupTypeElements pSubprogramGroupType;
-	private ProcessorTypeElements pProcessorType;
-	private DeviceTypeElements pDeviceType;
-	private MemoryTypeElements pMemoryType;
-	private BusTypeElements pBusType;
-	private VirtualBusTypeElements pVirtualBusType;
-	private VirtualProcessorTypeElements pVirtualProcessorType;
-	private DataTypeElements pDataType;
-	private ComponentImplementationElements pComponentImplementation;
-	private RealizationElements pRealization;
-	private AbstractImplementationElements pAbstractImplementation;
-	private SystemImplementationElements pSystemImplementation;
-	private ProcessImplementationElements pProcessImplementation;
-	private ThreadGroupImplementationElements pThreadGroupImplementation;
-	private ThreadImplementationElements pThreadImplementation;
-	private SubprogramImplementationElements pSubprogramImplementation;
-	private SubprogramGroupImplementationElements pSubprogramGroupImplementation;
-	private ProcessorImplementationElements pProcessorImplementation;
-	private VirtualProcessorImplementationElements pVirtualProcessorImplementation;
-	private DeviceImplementationElements pDeviceImplementation;
-	private MemoryImplementationElements pMemoryImplementation;
-	private BusImplementationElements pBusImplementation;
-	private VirtualBusImplementationElements pVirtualBusImplementation;
-	private DataImplementationElements pDataImplementation;
-	private SubprogramCallSequenceElements pSubprogramCallSequence;
-	private SubprogramCallElements pSubprogramCall;
-	private PrototypeElements pPrototype;
-	private ComponentPrototypeElements pComponentPrototype;
-	private AbstractPrototypeElements pAbstractPrototype;
-	private BusPrototypeElements pBusPrototype;
-	private DataPrototypeElements pDataPrototype;
-	private DevicePrototypeElements pDevicePrototype;
-	private MemoryPrototypeElements pMemoryPrototype;
-	private ProcessPrototypeElements pProcessPrototype;
-	private ProcessorPrototypeElements pProcessorPrototype;
-	private SubprogramPrototypeElements pSubprogramPrototype;
-	private SubprogramGroupPrototypeElements pSubprogramGroupPrototype;
-	private SystemPrototypeElements pSystemPrototype;
-	private ThreadPrototypeElements pThreadPrototype;
-	private ThreadGroupPrototypeElements pThreadGroupPrototype;
-	private VirtualBusPrototypeElements pVirtualBusPrototype;
-	private VirtualProcessorPrototypeElements pVirtualProcessorPrototype;
-	private FeatureGroupPrototypeElements pFeatureGroupPrototype;
-	private FeaturePrototypeElements pFeaturePrototype;
-	private PrototypeBindingElements pPrototypeBinding;
-	private FeatureGroupPrototypeBindingElements pFeatureGroupPrototypeBinding;
-	private FeatureGroupPrototypeActualElements pFeatureGroupPrototypeActual;
-	private FeaturePrototypeBindingElements pFeaturePrototypeBinding;
-	private PortSpecificationElements pPortSpecification;
-	private AccessSpecificationElements pAccessSpecification;
-	private FeaturePrototypeReferenceElements pFeaturePrototypeReference;
-	private ComponentPrototypeBindingElements pComponentPrototypeBinding;
-	private ComponentReferenceElements pComponentReference;
-	private AbstractSubcomponentElements pAbstractSubcomponent;
-	private SystemSubcomponentElements pSystemSubcomponent;
-	private ProcessSubcomponentElements pProcessSubcomponent;
-	private ThreadGroupSubcomponentElements pThreadGroupSubcomponent;
-	private ThreadSubcomponentElements pThreadSubcomponent;
-	private SubprogramSubcomponentElements pSubprogramSubcomponent;
-	private SubprogramGroupSubcomponentElements pSubprogramGroupSubcomponent;
-	private ProcessorSubcomponentElements pProcessorSubcomponent;
-	private VirtualProcessorSubcomponentElements pVirtualProcessorSubcomponent;
-	private DeviceSubcomponentElements pDeviceSubcomponent;
-	private MemorySubcomponentElements pMemorySubcomponent;
-	private BusSubcomponentElements pBusSubcomponent;
-	private VirtualBusSubcomponentElements pVirtualBusSubcomponent;
-	private DataSubcomponentElements pDataSubcomponent;
-	private ArrayDimensionElements pArrayDimension;
-	private ArraySizeElements pArraySize;
-	private ComponentImplementationReferenceElements pComponentImplementationReference;
-	private DataPortElements pDataPort;
-	private EventDataPortElements pEventDataPort;
-	private EventPortElements pEventPort;
-	private FeatureGroupElements pFeatureGroup;
-	private ParameterElements pParameter;
-	private SubprogramAccessElements pSubprogramAccess;
-	private SubprogramGroupAccessElements pSubprogramGroupAccess;
-	private BusAccessElements pBusAccess;
-	private DataAccessElements pDataAccess;
-	private AbstractFeatureElements pAbstractFeature;
-	private PortDirectionElements pPortDirection;
-	private InOutDirectionElements pInOutDirection;
-	private AccessDirectionElements pAccessDirection;
-	private PortCategoryElements pPortCategory;
-	private FeatureGroupTypeElements pFeatureGroupType;
-	private InternalFeatureElements pInternalFeature;
-	private ProcessorFeatureElements pProcessorFeature;
-	private EventSourceElements pEventSource;
-	private EventDataSourceElements pEventDataSource;
-	private PortProxyElements pPortProxy;
-	private SubprogramProxyElements pSubprogramProxy;
-	private ConnectedElementElements pConnectedElement;
-	private ProcessorPortElements pProcessorPort;
-	private ProcessorSubprogramElements pProcessorSubprogram;
-	private InternalEventElements pInternalEvent;
-	private AbstractConnectionEndElements pAbstractConnectionEnd;
-	private ProcessorConnectionEndElements pProcessorConnectionEnd;
-	private AccessConnectionEndElements pAccessConnectionEnd;
-	private PortConnectionElements pPortConnection;
-	private AccessConnectionElements pAccessConnection;
-	private FeatureGroupConnectionElements pFeatureGroupConnection;
-	private FeatureConnectionElements pFeatureConnection;
-	private ParameterConnectionElements pParameterConnection;
-	private AccessCategoryElements pAccessCategory;
-	private FlowKindElements unknownRuleFlowKind;
-	private FlowSourceElements pFlowSource;
-	private FlowSinkElements pFlowSink;
-	private FlowPathElements pFlowPath;
-	private FlowSpecificationElements pFlowSpecification;
-	private FlowSourceSpecElements pFlowSourceSpec;
-	private FlowSinkSpecElements pFlowSinkSpec;
-	private FlowPathSpecElements pFlowPathSpec;
-	private FlowEndElements pFlowEnd;
-	private FlowSpecRefinementElements pFlowSpecRefinement;
-	private FlowImplementationElements pFlowImplementation;
-	private FlowSourceImplElements pFlowSourceImpl;
-	private FlowSinkImplElements pFlowSinkImpl;
-	private FlowPathImplElements pFlowPathImpl;
-	private EndToEndFlowElements pEndToEndFlow;
-	private SubcomponentFlowElements pSubcomponentFlow;
-	private ConnectionFlowElements pConnectionFlow;
-	private ETESubcomponentFlowElements pETESubcomponentFlow;
-	private ETEConnectionFlowElements pETEConnectionFlow;
-	private ModeElements pMode;
-	private ModeTransitionElements pModeTransition;
-	private TriggerElements pTrigger;
-	private ModeRefElements pModeRef;
-	private AnnexLibraryElements pAnnexLibrary;
-	private DefaultAnnexLibraryElements pDefaultAnnexLibrary;
-	private AnnexSubclauseElements pAnnexSubclause;
-	private DefaultAnnexSubclauseElements pDefaultAnnexSubclause;
-	private PropertySetElements pPropertySet;
-	private PropertyTypeElements pPropertyType;
-	private UnnamedPropertyTypeElements pUnnamedPropertyType;
-	private BooleanTypeElements pBooleanType;
-	private UnnamedBooleanTypeElements pUnnamedBooleanType;
-	private StringTypeElements pStringType;
-	private UnnamedStringTypeElements pUnnamedStringType;
-	private EnumerationTypeElements pEnumerationType;
-	private UnnamedEnumerationTypeElements pUnnamedEnumerationType;
-	private EnumerationLiteralElements pEnumerationLiteral;
-	private UnitsTypeElements pUnitsType;
-	private UnnamedUnitsTypeElements pUnnamedUnitsType;
-	private UnitLiteralElements pUnitLiteral;
-	private UnitLiteralConversionElements pUnitLiteralConversion;
-	private RealTypeElements pRealType;
-	private UnnamedRealTypeElements pUnnamedRealType;
-	private IntegerTypeElements pIntegerType;
-	private UnnamedIntegerTypeElements pUnnamedIntegerType;
-	private RangeTypeElements pRangeType;
-	private UnnamedRangeTypeElements pUnnamedRangeType;
-	private ClassifierTypeElements pClassifierType;
-	private UnnamedClassifierTypeElements pUnnamedClassifierType;
-	private QMReferenceElements pQMReference;
-	private QCReferenceElements pQCReference;
-	private ReferenceTypeElements pReferenceType;
-	private UnnamedReferenceTypeElements pUnnamedReferenceType;
-	private RecordTypeElements pRecordType;
-	private UnnamedRecordTypeElements pUnnamedRecordType;
-	private RecordFieldElements pRecordField;
-	private PropertyDefinitionElements pPropertyDefinition;
-	private AllReferenceElements pAllReference;
-	private ListTypeElements pListType;
-	private PropertyOwnerElements pPropertyOwner;
-	private PropertyConstantElements pPropertyConstant;
-	private NumberValueElements pNumberValue;
-	private RealLitElements pRealLit;
-	private IntegerLitElements pIntegerLit;
-	private ConstantPropertyExpressionElements pConstantPropertyExpression;
-	private IntegerRangeElements pIntegerRange;
-	private RealRangeElements pRealRange;
-	private CoreKeyWordElements pCoreKeyWord;
-	private PNAMEElements pPNAME;
-	private FLOWOUTElements pFLOWOUT;
-	private FLOWINElements pFLOWIN;
-	private FQCREFElements pFQCREF;
-	private INAMEElements pINAME;
-	private FULLINAMEElements pFULLINAME;
-	private REFINEDNAMEElements pREFINEDNAME;
-	private TerminalRule tANNEXTEXT;
+	private final ModelElements pModel;
+	private final AadlPackageElements pAadlPackage;
+	private final PublicPackageSectionElements pPublicPackageSection;
+	private final PrivatePackageSectionElements pPrivatePackageSection;
+	private final PackageRenameElements pPackageRename;
+	private final RenameAllElements pRenameAll;
+	private final FGTRenameElements pFGTRename;
+	private final CTRenameElements pCTRename;
+	private final TypeExtensionElements pTypeExtension;
+	private final ImplementationExtensionElements pImplementationExtension;
+	private final GroupExtensionElements pGroupExtension;
+	private final ComponentCategoryElements pComponentCategory;
+	private final ClassifierElements pClassifier;
+	private final ComponentTypeElements pComponentType;
+	private final AbstractTypeElements pAbstractType;
+	private final SystemTypeElements pSystemType;
+	private final ProcessTypeElements pProcessType;
+	private final ThreadGroupTypeElements pThreadGroupType;
+	private final ThreadTypeElements pThreadType;
+	private final SubprogramTypeElements pSubprogramType;
+	private final SubprogramGroupTypeElements pSubprogramGroupType;
+	private final ProcessorTypeElements pProcessorType;
+	private final DeviceTypeElements pDeviceType;
+	private final MemoryTypeElements pMemoryType;
+	private final BusTypeElements pBusType;
+	private final VirtualBusTypeElements pVirtualBusType;
+	private final VirtualProcessorTypeElements pVirtualProcessorType;
+	private final DataTypeElements pDataType;
+	private final ComponentImplementationElements pComponentImplementation;
+	private final RealizationElements pRealization;
+	private final AbstractImplementationElements pAbstractImplementation;
+	private final SystemImplementationElements pSystemImplementation;
+	private final ProcessImplementationElements pProcessImplementation;
+	private final ThreadGroupImplementationElements pThreadGroupImplementation;
+	private final ThreadImplementationElements pThreadImplementation;
+	private final SubprogramImplementationElements pSubprogramImplementation;
+	private final SubprogramGroupImplementationElements pSubprogramGroupImplementation;
+	private final ProcessorImplementationElements pProcessorImplementation;
+	private final VirtualProcessorImplementationElements pVirtualProcessorImplementation;
+	private final DeviceImplementationElements pDeviceImplementation;
+	private final MemoryImplementationElements pMemoryImplementation;
+	private final BusImplementationElements pBusImplementation;
+	private final VirtualBusImplementationElements pVirtualBusImplementation;
+	private final DataImplementationElements pDataImplementation;
+	private final SubprogramCallSequenceElements pSubprogramCallSequence;
+	private final SubprogramCallElements pSubprogramCall;
+	private final PrototypeElements pPrototype;
+	private final ComponentPrototypeElements pComponentPrototype;
+	private final AbstractPrototypeElements pAbstractPrototype;
+	private final BusPrototypeElements pBusPrototype;
+	private final DataPrototypeElements pDataPrototype;
+	private final DevicePrototypeElements pDevicePrototype;
+	private final MemoryPrototypeElements pMemoryPrototype;
+	private final ProcessPrototypeElements pProcessPrototype;
+	private final ProcessorPrototypeElements pProcessorPrototype;
+	private final SubprogramPrototypeElements pSubprogramPrototype;
+	private final SubprogramGroupPrototypeElements pSubprogramGroupPrototype;
+	private final SystemPrototypeElements pSystemPrototype;
+	private final ThreadPrototypeElements pThreadPrototype;
+	private final ThreadGroupPrototypeElements pThreadGroupPrototype;
+	private final VirtualBusPrototypeElements pVirtualBusPrototype;
+	private final VirtualProcessorPrototypeElements pVirtualProcessorPrototype;
+	private final FeatureGroupPrototypeElements pFeatureGroupPrototype;
+	private final FeaturePrototypeElements pFeaturePrototype;
+	private final PrototypeBindingElements pPrototypeBinding;
+	private final FeatureGroupPrototypeBindingElements pFeatureGroupPrototypeBinding;
+	private final FeatureGroupPrototypeActualElements pFeatureGroupPrototypeActual;
+	private final FeaturePrototypeBindingElements pFeaturePrototypeBinding;
+	private final PortSpecificationElements pPortSpecification;
+	private final AccessSpecificationElements pAccessSpecification;
+	private final FeaturePrototypeReferenceElements pFeaturePrototypeReference;
+	private final ComponentPrototypeBindingElements pComponentPrototypeBinding;
+	private final ComponentReferenceElements pComponentReference;
+	private final AbstractSubcomponentElements pAbstractSubcomponent;
+	private final SystemSubcomponentElements pSystemSubcomponent;
+	private final ProcessSubcomponentElements pProcessSubcomponent;
+	private final ThreadGroupSubcomponentElements pThreadGroupSubcomponent;
+	private final ThreadSubcomponentElements pThreadSubcomponent;
+	private final SubprogramSubcomponentElements pSubprogramSubcomponent;
+	private final SubprogramGroupSubcomponentElements pSubprogramGroupSubcomponent;
+	private final ProcessorSubcomponentElements pProcessorSubcomponent;
+	private final VirtualProcessorSubcomponentElements pVirtualProcessorSubcomponent;
+	private final DeviceSubcomponentElements pDeviceSubcomponent;
+	private final MemorySubcomponentElements pMemorySubcomponent;
+	private final BusSubcomponentElements pBusSubcomponent;
+	private final VirtualBusSubcomponentElements pVirtualBusSubcomponent;
+	private final DataSubcomponentElements pDataSubcomponent;
+	private final ArrayDimensionElements pArrayDimension;
+	private final ArraySizeElements pArraySize;
+	private final ComponentImplementationReferenceElements pComponentImplementationReference;
+	private final DataPortElements pDataPort;
+	private final EventDataPortElements pEventDataPort;
+	private final EventPortElements pEventPort;
+	private final FeatureGroupElements pFeatureGroup;
+	private final ParameterElements pParameter;
+	private final SubprogramAccessElements pSubprogramAccess;
+	private final SubprogramGroupAccessElements pSubprogramGroupAccess;
+	private final BusAccessElements pBusAccess;
+	private final DataAccessElements pDataAccess;
+	private final AbstractFeatureElements pAbstractFeature;
+	private final PortDirectionElements pPortDirection;
+	private final InOutDirectionElements pInOutDirection;
+	private final AccessDirectionElements pAccessDirection;
+	private final PortCategoryElements pPortCategory;
+	private final FeatureGroupTypeElements pFeatureGroupType;
+	private final InternalFeatureElements pInternalFeature;
+	private final ProcessorFeatureElements pProcessorFeature;
+	private final EventSourceElements pEventSource;
+	private final EventDataSourceElements pEventDataSource;
+	private final PortProxyElements pPortProxy;
+	private final SubprogramProxyElements pSubprogramProxy;
+	private final ConnectedElementElements pConnectedElement;
+	private final ProcessorPortElements pProcessorPort;
+	private final ProcessorSubprogramElements pProcessorSubprogram;
+	private final InternalEventElements pInternalEvent;
+	private final AbstractConnectionEndElements pAbstractConnectionEnd;
+	private final ProcessorConnectionEndElements pProcessorConnectionEnd;
+	private final AccessConnectionEndElements pAccessConnectionEnd;
+	private final PortConnectionElements pPortConnection;
+	private final AccessConnectionElements pAccessConnection;
+	private final FeatureGroupConnectionElements pFeatureGroupConnection;
+	private final FeatureConnectionElements pFeatureConnection;
+	private final ParameterConnectionElements pParameterConnection;
+	private final AccessCategoryElements pAccessCategory;
+	private final FlowKindElements unknownRuleFlowKind;
+	private final FlowSourceElements pFlowSource;
+	private final FlowSinkElements pFlowSink;
+	private final FlowPathElements pFlowPath;
+	private final FlowSpecificationElements pFlowSpecification;
+	private final FlowSourceSpecElements pFlowSourceSpec;
+	private final FlowSinkSpecElements pFlowSinkSpec;
+	private final FlowPathSpecElements pFlowPathSpec;
+	private final FlowEndElements pFlowEnd;
+	private final FlowSpecRefinementElements pFlowSpecRefinement;
+	private final FlowImplementationElements pFlowImplementation;
+	private final FlowSourceImplElements pFlowSourceImpl;
+	private final FlowSinkImplElements pFlowSinkImpl;
+	private final FlowPathImplElements pFlowPathImpl;
+	private final EndToEndFlowElements pEndToEndFlow;
+	private final SubcomponentFlowElements pSubcomponentFlow;
+	private final ConnectionFlowElements pConnectionFlow;
+	private final ETESubcomponentFlowElements pETESubcomponentFlow;
+	private final ETEConnectionFlowElements pETEConnectionFlow;
+	private final ModeElements pMode;
+	private final ModeTransitionElements pModeTransition;
+	private final TriggerElements pTrigger;
+	private final ModeRefElements pModeRef;
+	private final AnnexLibraryElements pAnnexLibrary;
+	private final DefaultAnnexLibraryElements pDefaultAnnexLibrary;
+	private final AnnexSubclauseElements pAnnexSubclause;
+	private final DefaultAnnexSubclauseElements pDefaultAnnexSubclause;
+	private final PropertySetElements pPropertySet;
+	private final PropertyTypeElements pPropertyType;
+	private final UnnamedPropertyTypeElements pUnnamedPropertyType;
+	private final BooleanTypeElements pBooleanType;
+	private final UnnamedBooleanTypeElements pUnnamedBooleanType;
+	private final StringTypeElements pStringType;
+	private final UnnamedStringTypeElements pUnnamedStringType;
+	private final EnumerationTypeElements pEnumerationType;
+	private final UnnamedEnumerationTypeElements pUnnamedEnumerationType;
+	private final EnumerationLiteralElements pEnumerationLiteral;
+	private final UnitsTypeElements pUnitsType;
+	private final UnnamedUnitsTypeElements pUnnamedUnitsType;
+	private final UnitLiteralElements pUnitLiteral;
+	private final UnitLiteralConversionElements pUnitLiteralConversion;
+	private final RealTypeElements pRealType;
+	private final UnnamedRealTypeElements pUnnamedRealType;
+	private final IntegerTypeElements pIntegerType;
+	private final UnnamedIntegerTypeElements pUnnamedIntegerType;
+	private final RangeTypeElements pRangeType;
+	private final UnnamedRangeTypeElements pUnnamedRangeType;
+	private final ClassifierTypeElements pClassifierType;
+	private final UnnamedClassifierTypeElements pUnnamedClassifierType;
+	private final QMReferenceElements pQMReference;
+	private final QCReferenceElements pQCReference;
+	private final ReferenceTypeElements pReferenceType;
+	private final UnnamedReferenceTypeElements pUnnamedReferenceType;
+	private final RecordTypeElements pRecordType;
+	private final UnnamedRecordTypeElements pUnnamedRecordType;
+	private final RecordFieldElements pRecordField;
+	private final PropertyDefinitionElements pPropertyDefinition;
+	private final AllReferenceElements pAllReference;
+	private final ListTypeElements pListType;
+	private final PropertyOwnerElements pPropertyOwner;
+	private final PropertyConstantElements pPropertyConstant;
+	private final NumberValueElements pNumberValue;
+	private final RealLitElements pRealLit;
+	private final IntegerLitElements pIntegerLit;
+	private final ConstantPropertyExpressionElements pConstantPropertyExpression;
+	private final IntegerRangeElements pIntegerRange;
+	private final RealRangeElements pRealRange;
+	private final CoreKeyWordElements pCoreKeyWord;
+	private final PNAMEElements pPNAME;
+	private final FLOWOUTElements pFLOWOUT;
+	private final FLOWINElements pFLOWIN;
+	private final FQCREFElements pFQCREF;
+	private final INAMEElements pINAME;
+	private final FULLINAMEElements pFULLINAME;
+	private final REFINEDNAMEElements pREFINEDNAME;
+	private final TerminalRule tANNEXTEXT;
 	
 	private final Grammar grammar;
 
-	private PropertiesGrammarAccess gaProperties;
+	private final PropertiesGrammarAccess gaProperties;
 
 	@Inject
 	public Aadl2GrammarAccess(GrammarProvider grammarProvider,
 		PropertiesGrammarAccess gaProperties) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaProperties = gaProperties;
+		this.pModel = new ModelElements();
+		this.pAadlPackage = new AadlPackageElements();
+		this.pPublicPackageSection = new PublicPackageSectionElements();
+		this.pPrivatePackageSection = new PrivatePackageSectionElements();
+		this.pPackageRename = new PackageRenameElements();
+		this.pRenameAll = new RenameAllElements();
+		this.pFGTRename = new FGTRenameElements();
+		this.pCTRename = new CTRenameElements();
+		this.pTypeExtension = new TypeExtensionElements();
+		this.pImplementationExtension = new ImplementationExtensionElements();
+		this.pGroupExtension = new GroupExtensionElements();
+		this.pComponentCategory = new ComponentCategoryElements();
+		this.pClassifier = new ClassifierElements();
+		this.pComponentType = new ComponentTypeElements();
+		this.pAbstractType = new AbstractTypeElements();
+		this.pSystemType = new SystemTypeElements();
+		this.pProcessType = new ProcessTypeElements();
+		this.pThreadGroupType = new ThreadGroupTypeElements();
+		this.pThreadType = new ThreadTypeElements();
+		this.pSubprogramType = new SubprogramTypeElements();
+		this.pSubprogramGroupType = new SubprogramGroupTypeElements();
+		this.pProcessorType = new ProcessorTypeElements();
+		this.pDeviceType = new DeviceTypeElements();
+		this.pMemoryType = new MemoryTypeElements();
+		this.pBusType = new BusTypeElements();
+		this.pVirtualBusType = new VirtualBusTypeElements();
+		this.pVirtualProcessorType = new VirtualProcessorTypeElements();
+		this.pDataType = new DataTypeElements();
+		this.pComponentImplementation = new ComponentImplementationElements();
+		this.pRealization = new RealizationElements();
+		this.pAbstractImplementation = new AbstractImplementationElements();
+		this.pSystemImplementation = new SystemImplementationElements();
+		this.pProcessImplementation = new ProcessImplementationElements();
+		this.pThreadGroupImplementation = new ThreadGroupImplementationElements();
+		this.pThreadImplementation = new ThreadImplementationElements();
+		this.pSubprogramImplementation = new SubprogramImplementationElements();
+		this.pSubprogramGroupImplementation = new SubprogramGroupImplementationElements();
+		this.pProcessorImplementation = new ProcessorImplementationElements();
+		this.pVirtualProcessorImplementation = new VirtualProcessorImplementationElements();
+		this.pDeviceImplementation = new DeviceImplementationElements();
+		this.pMemoryImplementation = new MemoryImplementationElements();
+		this.pBusImplementation = new BusImplementationElements();
+		this.pVirtualBusImplementation = new VirtualBusImplementationElements();
+		this.pDataImplementation = new DataImplementationElements();
+		this.pSubprogramCallSequence = new SubprogramCallSequenceElements();
+		this.pSubprogramCall = new SubprogramCallElements();
+		this.pPrototype = new PrototypeElements();
+		this.pComponentPrototype = new ComponentPrototypeElements();
+		this.pAbstractPrototype = new AbstractPrototypeElements();
+		this.pBusPrototype = new BusPrototypeElements();
+		this.pDataPrototype = new DataPrototypeElements();
+		this.pDevicePrototype = new DevicePrototypeElements();
+		this.pMemoryPrototype = new MemoryPrototypeElements();
+		this.pProcessPrototype = new ProcessPrototypeElements();
+		this.pProcessorPrototype = new ProcessorPrototypeElements();
+		this.pSubprogramPrototype = new SubprogramPrototypeElements();
+		this.pSubprogramGroupPrototype = new SubprogramGroupPrototypeElements();
+		this.pSystemPrototype = new SystemPrototypeElements();
+		this.pThreadPrototype = new ThreadPrototypeElements();
+		this.pThreadGroupPrototype = new ThreadGroupPrototypeElements();
+		this.pVirtualBusPrototype = new VirtualBusPrototypeElements();
+		this.pVirtualProcessorPrototype = new VirtualProcessorPrototypeElements();
+		this.pFeatureGroupPrototype = new FeatureGroupPrototypeElements();
+		this.pFeaturePrototype = new FeaturePrototypeElements();
+		this.pPrototypeBinding = new PrototypeBindingElements();
+		this.pFeatureGroupPrototypeBinding = new FeatureGroupPrototypeBindingElements();
+		this.pFeatureGroupPrototypeActual = new FeatureGroupPrototypeActualElements();
+		this.pFeaturePrototypeBinding = new FeaturePrototypeBindingElements();
+		this.pPortSpecification = new PortSpecificationElements();
+		this.pAccessSpecification = new AccessSpecificationElements();
+		this.pFeaturePrototypeReference = new FeaturePrototypeReferenceElements();
+		this.pComponentPrototypeBinding = new ComponentPrototypeBindingElements();
+		this.pComponentReference = new ComponentReferenceElements();
+		this.pAbstractSubcomponent = new AbstractSubcomponentElements();
+		this.pSystemSubcomponent = new SystemSubcomponentElements();
+		this.pProcessSubcomponent = new ProcessSubcomponentElements();
+		this.pThreadGroupSubcomponent = new ThreadGroupSubcomponentElements();
+		this.pThreadSubcomponent = new ThreadSubcomponentElements();
+		this.pSubprogramSubcomponent = new SubprogramSubcomponentElements();
+		this.pSubprogramGroupSubcomponent = new SubprogramGroupSubcomponentElements();
+		this.pProcessorSubcomponent = new ProcessorSubcomponentElements();
+		this.pVirtualProcessorSubcomponent = new VirtualProcessorSubcomponentElements();
+		this.pDeviceSubcomponent = new DeviceSubcomponentElements();
+		this.pMemorySubcomponent = new MemorySubcomponentElements();
+		this.pBusSubcomponent = new BusSubcomponentElements();
+		this.pVirtualBusSubcomponent = new VirtualBusSubcomponentElements();
+		this.pDataSubcomponent = new DataSubcomponentElements();
+		this.pArrayDimension = new ArrayDimensionElements();
+		this.pArraySize = new ArraySizeElements();
+		this.pComponentImplementationReference = new ComponentImplementationReferenceElements();
+		this.pDataPort = new DataPortElements();
+		this.pEventDataPort = new EventDataPortElements();
+		this.pEventPort = new EventPortElements();
+		this.pFeatureGroup = new FeatureGroupElements();
+		this.pParameter = new ParameterElements();
+		this.pSubprogramAccess = new SubprogramAccessElements();
+		this.pSubprogramGroupAccess = new SubprogramGroupAccessElements();
+		this.pBusAccess = new BusAccessElements();
+		this.pDataAccess = new DataAccessElements();
+		this.pAbstractFeature = new AbstractFeatureElements();
+		this.pPortDirection = new PortDirectionElements();
+		this.pInOutDirection = new InOutDirectionElements();
+		this.pAccessDirection = new AccessDirectionElements();
+		this.pPortCategory = new PortCategoryElements();
+		this.pFeatureGroupType = new FeatureGroupTypeElements();
+		this.pInternalFeature = new InternalFeatureElements();
+		this.pProcessorFeature = new ProcessorFeatureElements();
+		this.pEventSource = new EventSourceElements();
+		this.pEventDataSource = new EventDataSourceElements();
+		this.pPortProxy = new PortProxyElements();
+		this.pSubprogramProxy = new SubprogramProxyElements();
+		this.pConnectedElement = new ConnectedElementElements();
+		this.pProcessorPort = new ProcessorPortElements();
+		this.pProcessorSubprogram = new ProcessorSubprogramElements();
+		this.pInternalEvent = new InternalEventElements();
+		this.pAbstractConnectionEnd = new AbstractConnectionEndElements();
+		this.pProcessorConnectionEnd = new ProcessorConnectionEndElements();
+		this.pAccessConnectionEnd = new AccessConnectionEndElements();
+		this.pPortConnection = new PortConnectionElements();
+		this.pAccessConnection = new AccessConnectionElements();
+		this.pFeatureGroupConnection = new FeatureGroupConnectionElements();
+		this.pFeatureConnection = new FeatureConnectionElements();
+		this.pParameterConnection = new ParameterConnectionElements();
+		this.pAccessCategory = new AccessCategoryElements();
+		this.unknownRuleFlowKind = new FlowKindElements();
+		this.pFlowSource = new FlowSourceElements();
+		this.pFlowSink = new FlowSinkElements();
+		this.pFlowPath = new FlowPathElements();
+		this.pFlowSpecification = new FlowSpecificationElements();
+		this.pFlowSourceSpec = new FlowSourceSpecElements();
+		this.pFlowSinkSpec = new FlowSinkSpecElements();
+		this.pFlowPathSpec = new FlowPathSpecElements();
+		this.pFlowEnd = new FlowEndElements();
+		this.pFlowSpecRefinement = new FlowSpecRefinementElements();
+		this.pFlowImplementation = new FlowImplementationElements();
+		this.pFlowSourceImpl = new FlowSourceImplElements();
+		this.pFlowSinkImpl = new FlowSinkImplElements();
+		this.pFlowPathImpl = new FlowPathImplElements();
+		this.pEndToEndFlow = new EndToEndFlowElements();
+		this.pSubcomponentFlow = new SubcomponentFlowElements();
+		this.pConnectionFlow = new ConnectionFlowElements();
+		this.pETESubcomponentFlow = new ETESubcomponentFlowElements();
+		this.pETEConnectionFlow = new ETEConnectionFlowElements();
+		this.pMode = new ModeElements();
+		this.pModeTransition = new ModeTransitionElements();
+		this.pTrigger = new TriggerElements();
+		this.pModeRef = new ModeRefElements();
+		this.pAnnexLibrary = new AnnexLibraryElements();
+		this.pDefaultAnnexLibrary = new DefaultAnnexLibraryElements();
+		this.pAnnexSubclause = new AnnexSubclauseElements();
+		this.pDefaultAnnexSubclause = new DefaultAnnexSubclauseElements();
+		this.pPropertySet = new PropertySetElements();
+		this.pPropertyType = new PropertyTypeElements();
+		this.pUnnamedPropertyType = new UnnamedPropertyTypeElements();
+		this.pBooleanType = new BooleanTypeElements();
+		this.pUnnamedBooleanType = new UnnamedBooleanTypeElements();
+		this.pStringType = new StringTypeElements();
+		this.pUnnamedStringType = new UnnamedStringTypeElements();
+		this.pEnumerationType = new EnumerationTypeElements();
+		this.pUnnamedEnumerationType = new UnnamedEnumerationTypeElements();
+		this.pEnumerationLiteral = new EnumerationLiteralElements();
+		this.pUnitsType = new UnitsTypeElements();
+		this.pUnnamedUnitsType = new UnnamedUnitsTypeElements();
+		this.pUnitLiteral = new UnitLiteralElements();
+		this.pUnitLiteralConversion = new UnitLiteralConversionElements();
+		this.pRealType = new RealTypeElements();
+		this.pUnnamedRealType = new UnnamedRealTypeElements();
+		this.pIntegerType = new IntegerTypeElements();
+		this.pUnnamedIntegerType = new UnnamedIntegerTypeElements();
+		this.pRangeType = new RangeTypeElements();
+		this.pUnnamedRangeType = new UnnamedRangeTypeElements();
+		this.pClassifierType = new ClassifierTypeElements();
+		this.pUnnamedClassifierType = new UnnamedClassifierTypeElements();
+		this.pQMReference = new QMReferenceElements();
+		this.pQCReference = new QCReferenceElements();
+		this.pReferenceType = new ReferenceTypeElements();
+		this.pUnnamedReferenceType = new UnnamedReferenceTypeElements();
+		this.pRecordType = new RecordTypeElements();
+		this.pUnnamedRecordType = new UnnamedRecordTypeElements();
+		this.pRecordField = new RecordFieldElements();
+		this.pPropertyDefinition = new PropertyDefinitionElements();
+		this.pAllReference = new AllReferenceElements();
+		this.pListType = new ListTypeElements();
+		this.pPropertyOwner = new PropertyOwnerElements();
+		this.pPropertyConstant = new PropertyConstantElements();
+		this.pNumberValue = new NumberValueElements();
+		this.pRealLit = new RealLitElements();
+		this.pIntegerLit = new IntegerLitElements();
+		this.pConstantPropertyExpression = new ConstantPropertyExpressionElements();
+		this.pIntegerRange = new IntegerRangeElements();
+		this.pRealRange = new RealRangeElements();
+		this.pCoreKeyWord = new CoreKeyWordElements();
+		this.pPNAME = new PNAMEElements();
+		this.pFLOWOUT = new FLOWOUTElements();
+		this.pFLOWIN = new FLOWINElements();
+		this.pFQCREF = new FQCREFElements();
+		this.pINAME = new INAMEElements();
+		this.pFULLINAME = new FULLINAMEElements();
+		this.pREFINEDNAME = new REFINEDNAMEElements();
+		this.tANNEXTEXT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ANNEXTEXT");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -26238,7 +26438,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//Model returns aadl2::ModelUnit:
 	//	(AadlPackage | PropertySet)?;
 	public ModelElements getModelAccess() {
-		return (pModel != null) ? pModel : (pModel = new ModelElements());
+		return pModel;
 	}
 	
 	public ParserRule getModelRule() {
@@ -26251,7 +26451,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
 	//	| "none" ";"))? "end" PNAME ";";
 	public AadlPackageElements getAadlPackageAccess() {
-		return (pAadlPackage != null) ? pAadlPackage : (pAadlPackage = new AadlPackageElements());
+		return pAadlPackage;
 	}
 	
 	public ParserRule getAadlPackageRule() {
@@ -26264,7 +26464,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 	//	ownedAnnexLibrary+=AnnexLibrary)*;
 	public PublicPackageSectionElements getPublicPackageSectionAccess() {
-		return (pPublicPackageSection != null) ? pPublicPackageSection : (pPublicPackageSection = new PublicPackageSectionElements());
+		return pPublicPackageSection;
 	}
 	
 	public ParserRule getPublicPackageSectionRule() {
@@ -26277,7 +26477,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 	//	ownedAnnexLibrary+=AnnexLibrary)*;
 	public PrivatePackageSectionElements getPrivatePackageSectionAccess() {
-		return (pPrivatePackageSection != null) ? pPrivatePackageSection : (pPrivatePackageSection = new PrivatePackageSectionElements());
+		return pPrivatePackageSection;
 	}
 	
 	public ParserRule getPrivatePackageSectionRule() {
@@ -26287,7 +26487,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PackageRename returns aadl2::PackageRename:
 	//	name=ID "renames" "package" renamedPackage=[aadl2::AadlPackage|PNAME] ("::" renameAll?="all")? ";";
 	public PackageRenameElements getPackageRenameAccess() {
-		return (pPackageRename != null) ? pPackageRename : (pPackageRename = new PackageRenameElements());
+		return pPackageRename;
 	}
 	
 	public ParserRule getPackageRenameRule() {
@@ -26297,7 +26497,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//RenameAll returns aadl2::PackageRename:
 	//	"renames" renamedPackage=[aadl2::AadlPackage|PNAME] "::" renameAll?="all" ";";
 	public RenameAllElements getRenameAllAccess() {
-		return (pRenameAll != null) ? pRenameAll : (pRenameAll = new RenameAllElements());
+		return pRenameAll;
 	}
 	
 	public ParserRule getRenameAllRule() {
@@ -26307,7 +26507,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FGTRename returns aadl2::FeatureGroupTypeRename:
 	//	name=ID? "renames" "feature" "group" renamedFeatureGroupType=[aadl2::FeatureGroupType|QCREF] ";";
 	public FGTRenameElements getFGTRenameAccess() {
-		return (pFGTRename != null) ? pFGTRename : (pFGTRename = new FGTRenameElements());
+		return pFGTRename;
 	}
 	
 	public ParserRule getFGTRenameRule() {
@@ -26317,7 +26517,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//CTRename returns aadl2::ComponentTypeRename:
 	//	name=ID? "renames" category=ComponentCategory renamedComponentType=[aadl2::ComponentType|QCREF] ";";
 	public CTRenameElements getCTRenameAccess() {
-		return (pCTRename != null) ? pCTRename : (pCTRename = new CTRenameElements());
+		return pCTRename;
 	}
 	
 	public ParserRule getCTRenameRule() {
@@ -26327,7 +26527,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//TypeExtension returns aadl2::TypeExtension:
 	//	"extends" extended=[aadl2::ComponentType|QCREF];
 	public TypeExtensionElements getTypeExtensionAccess() {
-		return (pTypeExtension != null) ? pTypeExtension : (pTypeExtension = new TypeExtensionElements());
+		return pTypeExtension;
 	}
 	
 	public ParserRule getTypeExtensionRule() {
@@ -26337,7 +26537,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ImplementationExtension returns aadl2::ImplementationExtension:
 	//	"extends" extended=[aadl2::ComponentImplementation|QCREF];
 	public ImplementationExtensionElements getImplementationExtensionAccess() {
-		return (pImplementationExtension != null) ? pImplementationExtension : (pImplementationExtension = new ImplementationExtensionElements());
+		return pImplementationExtension;
 	}
 	
 	public ParserRule getImplementationExtensionRule() {
@@ -26347,7 +26547,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//GroupExtension returns aadl2::GroupExtension:
 	//	"extends" extended=[aadl2::FeatureGroupType|QCREF];
 	public GroupExtensionElements getGroupExtensionAccess() {
-		return (pGroupExtension != null) ? pGroupExtension : (pGroupExtension = new GroupExtensionElements());
+		return pGroupExtension;
 	}
 	
 	public ParserRule getGroupExtensionRule() {
@@ -26358,7 +26558,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
 	//	"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor";
 	public ComponentCategoryElements getComponentCategoryAccess() {
-		return (pComponentCategory != null) ? pComponentCategory : (pComponentCategory = new ComponentCategoryElements());
+		return pComponentCategory;
 	}
 	
 	public ParserRule getComponentCategoryRule() {
@@ -26368,7 +26568,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//Classifier returns aadl2::Classifier:
 	//	ComponentType | ComponentImplementation | FeatureGroupType;
 	public ClassifierElements getClassifierAccess() {
-		return (pClassifier != null) ? pClassifier : (pClassifier = new ClassifierElements());
+		return pClassifier;
 	}
 	
 	public ParserRule getClassifierRule() {
@@ -26379,7 +26579,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	AbstractType | SystemType | VirtualProcessorType | SubprogramGroupType | DataType | BusType | VirtualBusType |
 	//	MemoryType | ProcessorType | ProcessType | ThreadGroupType | ThreadType | DeviceType | SubprogramType;
 	public ComponentTypeElements getComponentTypeAccess() {
-		return (pComponentType != null) ? pComponentType : (pComponentType = new ComponentTypeElements());
+		return pComponentType;
 	}
 	
 	public ParserRule getComponentTypeRule() {
@@ -26398,7 +26598,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public AbstractTypeElements getAbstractTypeAccess() {
-		return (pAbstractType != null) ? pAbstractType : (pAbstractType = new AbstractTypeElements());
+		return pAbstractType;
 	}
 	
 	public ParserRule getAbstractTypeRule() {
@@ -26417,7 +26617,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public SystemTypeElements getSystemTypeAccess() {
-		return (pSystemType != null) ? pSystemType : (pSystemType = new SystemTypeElements());
+		return pSystemType;
 	}
 	
 	public ParserRule getSystemTypeRule() {
@@ -26436,7 +26636,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ProcessTypeElements getProcessTypeAccess() {
-		return (pProcessType != null) ? pProcessType : (pProcessType = new ProcessTypeElements());
+		return pProcessType;
 	}
 	
 	public ParserRule getProcessTypeRule() {
@@ -26455,7 +26655,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ThreadGroupTypeElements getThreadGroupTypeAccess() {
-		return (pThreadGroupType != null) ? pThreadGroupType : (pThreadGroupType = new ThreadGroupTypeElements());
+		return pThreadGroupType;
 	}
 	
 	public ParserRule getThreadGroupTypeRule() {
@@ -26474,7 +26674,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ThreadTypeElements getThreadTypeAccess() {
-		return (pThreadType != null) ? pThreadType : (pThreadType = new ThreadTypeElements());
+		return pThreadType;
 	}
 	
 	public ParserRule getThreadTypeRule() {
@@ -26493,7 +26693,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public SubprogramTypeElements getSubprogramTypeAccess() {
-		return (pSubprogramType != null) ? pSubprogramType : (pSubprogramType = new SubprogramTypeElements());
+		return pSubprogramType;
 	}
 	
 	public ParserRule getSubprogramTypeRule() {
@@ -26509,7 +26709,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	";"))? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public SubprogramGroupTypeElements getSubprogramGroupTypeAccess() {
-		return (pSubprogramGroupType != null) ? pSubprogramGroupType : (pSubprogramGroupType = new SubprogramGroupTypeElements());
+		return pSubprogramGroupType;
 	}
 	
 	public ParserRule getSubprogramGroupTypeRule() {
@@ -26528,7 +26728,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public ProcessorTypeElements getProcessorTypeAccess() {
-		return (pProcessorType != null) ? pProcessorType : (pProcessorType = new ProcessorTypeElements());
+		return pProcessorType;
 	}
 	
 	public ParserRule getProcessorTypeRule() {
@@ -26547,7 +26747,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public DeviceTypeElements getDeviceTypeAccess() {
-		return (pDeviceType != null) ? pDeviceType : (pDeviceType = new DeviceTypeElements());
+		return pDeviceType;
 	}
 	
 	public ParserRule getDeviceTypeRule() {
@@ -26564,7 +26764,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public MemoryTypeElements getMemoryTypeAccess() {
-		return (pMemoryType != null) ? pMemoryType : (pMemoryType = new MemoryTypeElements());
+		return pMemoryType;
 	}
 	
 	public ParserRule getMemoryTypeRule() {
@@ -26581,7 +26781,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public BusTypeElements getBusTypeAccess() {
-		return (pBusType != null) ? pBusType : (pBusType = new BusTypeElements());
+		return pBusType;
 	}
 	
 	public ParserRule getBusTypeRule() {
@@ -26598,7 +26798,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public VirtualBusTypeElements getVirtualBusTypeAccess() {
-		return (pVirtualBusType != null) ? pVirtualBusType : (pVirtualBusType = new VirtualBusTypeElements());
+		return pVirtualBusType;
 	}
 	
 	public ParserRule getVirtualBusTypeRule() {
@@ -26617,7 +26817,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public VirtualProcessorTypeElements getVirtualProcessorTypeAccess() {
-		return (pVirtualProcessorType != null) ? pVirtualProcessorType : (pVirtualProcessorType = new VirtualProcessorTypeElements());
+		return pVirtualProcessorType;
 	}
 	
 	public ParserRule getVirtualProcessorTypeRule() {
@@ -26635,7 +26835,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public DataTypeElements getDataTypeAccess() {
-		return (pDataType != null) ? pDataType : (pDataType = new DataTypeElements());
+		return pDataType;
 	}
 	
 	public ParserRule getDataTypeRule() {
@@ -26649,7 +26849,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	VirtualProcessorImplementation | VirtualBusImplementation | MemoryImplementation | SubprogramImplementation |
 	//	SubprogramGroupImplementation | DataImplementation;
 	public ComponentImplementationElements getComponentImplementationAccess() {
-		return (pComponentImplementation != null) ? pComponentImplementation : (pComponentImplementation = new ComponentImplementationElements());
+		return pComponentImplementation;
 	}
 	
 	public ParserRule getComponentImplementationRule() {
@@ -26659,7 +26859,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//Realization returns aadl2::Realization:
 	//	implemented=[aadl2::SystemType];
 	public RealizationElements getRealizationAccess() {
-		return (pRealization != null) ? pRealization : (pRealization = new RealizationElements());
+		return pRealization;
 	}
 	
 	public ParserRule getRealizationRule() {
@@ -26688,7 +26888,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public AbstractImplementationElements getAbstractImplementationAccess() {
-		return (pAbstractImplementation != null) ? pAbstractImplementation : (pAbstractImplementation = new AbstractImplementationElements());
+		return pAbstractImplementation;
 	}
 	
 	public ParserRule getAbstractImplementationRule() {
@@ -26715,7 +26915,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public SystemImplementationElements getSystemImplementationAccess() {
-		return (pSystemImplementation != null) ? pSystemImplementation : (pSystemImplementation = new SystemImplementationElements());
+		return pSystemImplementation;
 	}
 	
 	public ParserRule getSystemImplementationRule() {
@@ -26739,7 +26939,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public ProcessImplementationElements getProcessImplementationAccess() {
-		return (pProcessImplementation != null) ? pProcessImplementation : (pProcessImplementation = new ProcessImplementationElements());
+		return pProcessImplementation;
 	}
 	
 	public ParserRule getProcessImplementationRule() {
@@ -26763,7 +26963,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public ThreadGroupImplementationElements getThreadGroupImplementationAccess() {
-		return (pThreadGroupImplementation != null) ? pThreadGroupImplementation : (pThreadGroupImplementation = new ThreadGroupImplementationElements());
+		return pThreadGroupImplementation;
 	}
 	
 	public ParserRule getThreadGroupImplementationRule() {
@@ -26787,7 +26987,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public ThreadImplementationElements getThreadImplementationAccess() {
-		return (pThreadImplementation != null) ? pThreadImplementation : (pThreadImplementation = new ThreadImplementationElements());
+		return pThreadImplementation;
 	}
 	
 	public ParserRule getThreadImplementationRule() {
@@ -26811,7 +27011,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public SubprogramImplementationElements getSubprogramImplementationAccess() {
-		return (pSubprogramImplementation != null) ? pSubprogramImplementation : (pSubprogramImplementation = new SubprogramImplementationElements());
+		return pSubprogramImplementation;
 	}
 	
 	public ParserRule getSubprogramImplementationRule() {
@@ -26833,7 +27033,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public SubprogramGroupImplementationElements getSubprogramGroupImplementationAccess() {
-		return (pSubprogramGroupImplementation != null) ? pSubprogramGroupImplementation : (pSubprogramGroupImplementation = new SubprogramGroupImplementationElements());
+		return pSubprogramGroupImplementation;
 	}
 	
 	public ParserRule getSubprogramGroupImplementationRule() {
@@ -26856,7 +27056,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public ProcessorImplementationElements getProcessorImplementationAccess() {
-		return (pProcessorImplementation != null) ? pProcessorImplementation : (pProcessorImplementation = new ProcessorImplementationElements());
+		return pProcessorImplementation;
 	}
 	
 	public ParserRule getProcessorImplementationRule() {
@@ -26880,7 +27080,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public VirtualProcessorImplementationElements getVirtualProcessorImplementationAccess() {
-		return (pVirtualProcessorImplementation != null) ? pVirtualProcessorImplementation : (pVirtualProcessorImplementation = new VirtualProcessorImplementationElements());
+		return pVirtualProcessorImplementation;
 	}
 	
 	public ParserRule getVirtualProcessorImplementationRule() {
@@ -26903,7 +27103,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public DeviceImplementationElements getDeviceImplementationAccess() {
-		return (pDeviceImplementation != null) ? pDeviceImplementation : (pDeviceImplementation = new DeviceImplementationElements());
+		return pDeviceImplementation;
 	}
 	
 	public ParserRule getDeviceImplementationRule() {
@@ -26923,7 +27123,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public MemoryImplementationElements getMemoryImplementationAccess() {
-		return (pMemoryImplementation != null) ? pMemoryImplementation : (pMemoryImplementation = new MemoryImplementationElements());
+		return pMemoryImplementation;
 	}
 	
 	public ParserRule getMemoryImplementationRule() {
@@ -26940,7 +27140,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	noModes?="none" ";"))? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none"
 	//	";"))? ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public BusImplementationElements getBusImplementationAccess() {
-		return (pBusImplementation != null) ? pBusImplementation : (pBusImplementation = new BusImplementationElements());
+		return pBusImplementation;
 	}
 	
 	public ParserRule getBusImplementationRule() {
@@ -26957,7 +27157,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	noModes?="none" ";"))? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none"
 	//	";"))? ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public VirtualBusImplementationElements getVirtualBusImplementationAccess() {
-		return (pVirtualBusImplementation != null) ? pVirtualBusImplementation : (pVirtualBusImplementation = new VirtualBusImplementationElements());
+		return pVirtualBusImplementation;
 	}
 	
 	public ParserRule getVirtualBusImplementationRule() {
@@ -26978,7 +27178,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public DataImplementationElements getDataImplementationAccess() {
-		return (pDataImplementation != null) ? pDataImplementation : (pDataImplementation = new DataImplementationElements());
+		return pDataImplementation;
 	}
 	
 	public ParserRule getDataImplementationRule() {
@@ -26989,7 +27189,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "{" ownedSubprogramCall+=SubprogramCall+ "}" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 	//	("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
 	public SubprogramCallSequenceElements getSubprogramCallSequenceAccess() {
-		return (pSubprogramCallSequence != null) ? pSubprogramCallSequence : (pSubprogramCallSequence = new SubprogramCallSequenceElements());
+		return pSubprogramCallSequence;
 	}
 	
 	public ParserRule getSubprogramCallSequenceRule() {
@@ -27004,7 +27204,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	| calledSubprogram=[aadl2::CalledSubprogram|PNAME] | "processor" "." calledSubprogram=[aadl2::SubprogramProxy]) ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public SubprogramCallElements getSubprogramCallAccess() {
-		return (pSubprogramCall != null) ? pSubprogramCall : (pSubprogramCall = new SubprogramCallElements());
+		return pSubprogramCall;
 	}
 	
 	public ParserRule getSubprogramCallRule() {
@@ -27016,7 +27216,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(ComponentPrototype constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?="[" "]")? |
 	//	FeatureGroupPrototype | FeaturePrototype) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public PrototypeElements getPrototypeAccess() {
-		return (pPrototype != null) ? pPrototype : (pPrototype = new PrototypeElements());
+		return pPrototype;
 	}
 	
 	public ParserRule getPrototypeRule() {
@@ -27028,7 +27228,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype |
 	//	VirtualProcessorPrototype | SystemPrototype | DataPrototype;
 	public ComponentPrototypeElements getComponentPrototypeAccess() {
-		return (pComponentPrototype != null) ? pComponentPrototype : (pComponentPrototype = new ComponentPrototypeElements());
+		return pComponentPrototype;
 	}
 	
 	public ParserRule getComponentPrototypeRule() {
@@ -27038,7 +27238,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AbstractPrototype returns aadl2::AbstractPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "abstract";
 	public AbstractPrototypeElements getAbstractPrototypeAccess() {
-		return (pAbstractPrototype != null) ? pAbstractPrototype : (pAbstractPrototype = new AbstractPrototypeElements());
+		return pAbstractPrototype;
 	}
 	
 	public ParserRule getAbstractPrototypeRule() {
@@ -27048,7 +27248,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//BusPrototype returns aadl2::BusPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "bus";
 	public BusPrototypeElements getBusPrototypeAccess() {
-		return (pBusPrototype != null) ? pBusPrototype : (pBusPrototype = new BusPrototypeElements());
+		return pBusPrototype;
 	}
 	
 	public ParserRule getBusPrototypeRule() {
@@ -27058,7 +27258,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//DataPrototype returns aadl2::DataPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "data";
 	public DataPrototypeElements getDataPrototypeAccess() {
-		return (pDataPrototype != null) ? pDataPrototype : (pDataPrototype = new DataPrototypeElements());
+		return pDataPrototype;
 	}
 	
 	public ParserRule getDataPrototypeRule() {
@@ -27068,7 +27268,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//DevicePrototype returns aadl2::DevicePrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "device";
 	public DevicePrototypeElements getDevicePrototypeAccess() {
-		return (pDevicePrototype != null) ? pDevicePrototype : (pDevicePrototype = new DevicePrototypeElements());
+		return pDevicePrototype;
 	}
 	
 	public ParserRule getDevicePrototypeRule() {
@@ -27078,7 +27278,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//MemoryPrototype returns aadl2::MemoryPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "memory";
 	public MemoryPrototypeElements getMemoryPrototypeAccess() {
-		return (pMemoryPrototype != null) ? pMemoryPrototype : (pMemoryPrototype = new MemoryPrototypeElements());
+		return pMemoryPrototype;
 	}
 	
 	public ParserRule getMemoryPrototypeRule() {
@@ -27088,7 +27288,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ProcessPrototype returns aadl2::ProcessPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "process";
 	public ProcessPrototypeElements getProcessPrototypeAccess() {
-		return (pProcessPrototype != null) ? pProcessPrototype : (pProcessPrototype = new ProcessPrototypeElements());
+		return pProcessPrototype;
 	}
 	
 	public ParserRule getProcessPrototypeRule() {
@@ -27098,7 +27298,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ProcessorPrototype returns aadl2::ProcessorPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "processor";
 	public ProcessorPrototypeElements getProcessorPrototypeAccess() {
-		return (pProcessorPrototype != null) ? pProcessorPrototype : (pProcessorPrototype = new ProcessorPrototypeElements());
+		return pProcessorPrototype;
 	}
 	
 	public ParserRule getProcessorPrototypeRule() {
@@ -27108,7 +27308,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//SubprogramPrototype returns aadl2::SubprogramPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram";
 	public SubprogramPrototypeElements getSubprogramPrototypeAccess() {
-		return (pSubprogramPrototype != null) ? pSubprogramPrototype : (pSubprogramPrototype = new SubprogramPrototypeElements());
+		return pSubprogramPrototype;
 	}
 	
 	public ParserRule getSubprogramPrototypeRule() {
@@ -27118,7 +27318,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "subprogram" "group";
 	public SubprogramGroupPrototypeElements getSubprogramGroupPrototypeAccess() {
-		return (pSubprogramGroupPrototype != null) ? pSubprogramGroupPrototype : (pSubprogramGroupPrototype = new SubprogramGroupPrototypeElements());
+		return pSubprogramGroupPrototype;
 	}
 	
 	public ParserRule getSubprogramGroupPrototypeRule() {
@@ -27128,7 +27328,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//SystemPrototype returns aadl2::SystemPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "system";
 	public SystemPrototypeElements getSystemPrototypeAccess() {
-		return (pSystemPrototype != null) ? pSystemPrototype : (pSystemPrototype = new SystemPrototypeElements());
+		return pSystemPrototype;
 	}
 	
 	public ParserRule getSystemPrototypeRule() {
@@ -27138,7 +27338,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ThreadPrototype returns aadl2::ThreadPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread";
 	public ThreadPrototypeElements getThreadPrototypeAccess() {
-		return (pThreadPrototype != null) ? pThreadPrototype : (pThreadPrototype = new ThreadPrototypeElements());
+		return pThreadPrototype;
 	}
 	
 	public ParserRule getThreadPrototypeRule() {
@@ -27148,7 +27348,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "thread" "group";
 	public ThreadGroupPrototypeElements getThreadGroupPrototypeAccess() {
-		return (pThreadGroupPrototype != null) ? pThreadGroupPrototype : (pThreadGroupPrototype = new ThreadGroupPrototypeElements());
+		return pThreadGroupPrototype;
 	}
 	
 	public ParserRule getThreadGroupPrototypeRule() {
@@ -27158,7 +27358,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//VirtualBusPrototype returns aadl2::VirtualBusPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "bus";
 	public VirtualBusPrototypeElements getVirtualBusPrototypeAccess() {
-		return (pVirtualBusPrototype != null) ? pVirtualBusPrototype : (pVirtualBusPrototype = new VirtualBusPrototypeElements());
+		return pVirtualBusPrototype;
 	}
 	
 	public ParserRule getVirtualBusPrototypeRule() {
@@ -27168,7 +27368,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
 	//	(name=ID ":" | refined=[aadl2::ComponentPrototype|REFINEDNAME] ":" "refined" "to") "virtual" "processor";
 	public VirtualProcessorPrototypeElements getVirtualProcessorPrototypeAccess() {
-		return (pVirtualProcessorPrototype != null) ? pVirtualProcessorPrototype : (pVirtualProcessorPrototype = new VirtualProcessorPrototypeElements());
+		return pVirtualProcessorPrototype;
 	}
 	
 	public ParserRule getVirtualProcessorPrototypeRule() {
@@ -27179,7 +27379,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(name=ID ":" | refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ":" "refined" "to") "feature" "group"
 	//	constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF]?;
 	public FeatureGroupPrototypeElements getFeatureGroupPrototypeAccess() {
-		return (pFeatureGroupPrototype != null) ? pFeatureGroupPrototype : (pFeatureGroupPrototype = new FeatureGroupPrototypeElements());
+		return pFeatureGroupPrototype;
 	}
 	
 	public ParserRule getFeatureGroupPrototypeRule() {
@@ -27190,7 +27390,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(name=ID ":" | refined=[aadl2::FeaturePrototype|REFINEDNAME] ":" "refined" "to") (in?="in" | out?="out")? // only in or out not inout
 	//	"feature" constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?;
 	public FeaturePrototypeElements getFeaturePrototypeAccess() {
-		return (pFeaturePrototype != null) ? pFeaturePrototype : (pFeaturePrototype = new FeaturePrototypeElements());
+		return pFeaturePrototype;
 	}
 	
 	public ParserRule getFeaturePrototypeRule() {
@@ -27202,7 +27402,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	// * / PrototypeBinding returns aadl2::PrototypeBinding:
 	//	FeatureGroupPrototypeBinding | FeaturePrototypeBinding | ComponentPrototypeBinding;
 	public PrototypeBindingElements getPrototypeBindingAccess() {
-		return (pPrototypeBinding != null) ? pPrototypeBinding : (pPrototypeBinding = new PrototypeBindingElements());
+		return pPrototypeBinding;
 	}
 	
 	public ParserRule getPrototypeBindingRule() {
@@ -27212,7 +27412,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FeatureGroupPrototypeBinding returns aadl2::FeatureGroupPrototypeBinding:
 	//	formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupPrototypeActual;
 	public FeatureGroupPrototypeBindingElements getFeatureGroupPrototypeBindingAccess() {
-		return (pFeatureGroupPrototypeBinding != null) ? pFeatureGroupPrototypeBinding : (pFeatureGroupPrototypeBinding = new FeatureGroupPrototypeBindingElements());
+		return pFeatureGroupPrototypeBinding;
 	}
 	
 	public ParserRule getFeatureGroupPrototypeBindingRule() {
@@ -27222,7 +27422,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FeatureGroupPrototypeActual returns aadl2::FeatureGroupPrototypeActual:
 	//	featureType=[aadl2::FeatureType|QCREF] ("(" binding+=PrototypeBinding ("," binding+=PrototypeBinding)* ")")?;
 	public FeatureGroupPrototypeActualElements getFeatureGroupPrototypeActualAccess() {
-		return (pFeatureGroupPrototypeActual != null) ? pFeatureGroupPrototypeActual : (pFeatureGroupPrototypeActual = new FeatureGroupPrototypeActualElements());
+		return pFeatureGroupPrototypeActual;
 	}
 	
 	public ParserRule getFeatureGroupPrototypeActualRule() {
@@ -27232,7 +27432,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
 	//	formal=[aadl2::Prototype] "=>" actual=(PortSpecification | AccessSpecification | FeaturePrototypeReference);
 	public FeaturePrototypeBindingElements getFeaturePrototypeBindingAccess() {
-		return (pFeaturePrototypeBinding != null) ? pFeaturePrototypeBinding : (pFeaturePrototypeBinding = new FeaturePrototypeBindingElements());
+		return pFeaturePrototypeBinding;
 	}
 	
 	public ParserRule getFeaturePrototypeBindingRule() {
@@ -27242,7 +27442,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PortSpecification returns aadl2::PortSpecification:
 	//	(in?="in" out?="out"? | out?="out") category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
 	public PortSpecificationElements getPortSpecificationAccess() {
-		return (pPortSpecification != null) ? pPortSpecification : (pPortSpecification = new PortSpecificationElements());
+		return pPortSpecification;
 	}
 	
 	public ParserRule getPortSpecificationRule() {
@@ -27252,7 +27452,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AccessSpecification returns aadl2::AccessSpecification:
 	//	kind=AccessDirection category=AccessCategory "access" classifier=[aadl2::ComponentClassifier|QCREF]?;
 	public AccessSpecificationElements getAccessSpecificationAccess() {
-		return (pAccessSpecification != null) ? pAccessSpecification : (pAccessSpecification = new AccessSpecificationElements());
+		return pAccessSpecification;
 	}
 	
 	public ParserRule getAccessSpecificationRule() {
@@ -27262,7 +27462,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
 	//	(in?="in" | out?="out")? "feature" prototype=[aadl2::FeaturePrototype];
 	public FeaturePrototypeReferenceElements getFeaturePrototypeReferenceAccess() {
-		return (pFeaturePrototypeReference != null) ? pFeaturePrototypeReference : (pFeaturePrototypeReference = new FeaturePrototypeReferenceElements());
+		return pFeaturePrototypeReference;
 	}
 	
 	public ParserRule getFeaturePrototypeReferenceRule() {
@@ -27273,7 +27473,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	formal=[aadl2::Prototype] "=>" (actual+=ComponentReference | "(" actual+=ComponentReference (","
 	//	actual+=ComponentReference)* ")");
 	public ComponentPrototypeBindingElements getComponentPrototypeBindingAccess() {
-		return (pComponentPrototypeBinding != null) ? pComponentPrototypeBinding : (pComponentPrototypeBinding = new ComponentPrototypeBindingElements());
+		return pComponentPrototypeBinding;
 	}
 	
 	public ParserRule getComponentPrototypeBindingRule() {
@@ -27284,7 +27484,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	category=ComponentCategory subcomponentType=[aadl2::SubcomponentType|QCREF] ("(" binding+=PrototypeBinding (","
 	//	binding+=PrototypeBinding)* ")")?;
 	public ComponentReferenceElements getComponentReferenceAccess() {
-		return (pComponentReference != null) ? pComponentReference : (pComponentReference = new ComponentReferenceElements());
+		return pComponentReference;
 	}
 	
 	public ParserRule getComponentReferenceRule() {
@@ -27302,7 +27502,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public AbstractSubcomponentElements getAbstractSubcomponentAccess() {
-		return (pAbstractSubcomponent != null) ? pAbstractSubcomponent : (pAbstractSubcomponent = new AbstractSubcomponentElements());
+		return pAbstractSubcomponent;
 	}
 	
 	public ParserRule getAbstractSubcomponentRule() {
@@ -27318,7 +27518,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public SystemSubcomponentElements getSystemSubcomponentAccess() {
-		return (pSystemSubcomponent != null) ? pSystemSubcomponent : (pSystemSubcomponent = new SystemSubcomponentElements());
+		return pSystemSubcomponent;
 	}
 	
 	public ParserRule getSystemSubcomponentRule() {
@@ -27334,7 +27534,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public ProcessSubcomponentElements getProcessSubcomponentAccess() {
-		return (pProcessSubcomponent != null) ? pProcessSubcomponent : (pProcessSubcomponent = new ProcessSubcomponentElements());
+		return pProcessSubcomponent;
 	}
 	
 	public ParserRule getProcessSubcomponentRule() {
@@ -27350,7 +27550,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public ThreadGroupSubcomponentElements getThreadGroupSubcomponentAccess() {
-		return (pThreadGroupSubcomponent != null) ? pThreadGroupSubcomponent : (pThreadGroupSubcomponent = new ThreadGroupSubcomponentElements());
+		return pThreadGroupSubcomponent;
 	}
 	
 	public ParserRule getThreadGroupSubcomponentRule() {
@@ -27366,7 +27566,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public ThreadSubcomponentElements getThreadSubcomponentAccess() {
-		return (pThreadSubcomponent != null) ? pThreadSubcomponent : (pThreadSubcomponent = new ThreadSubcomponentElements());
+		return pThreadSubcomponent;
 	}
 	
 	public ParserRule getThreadSubcomponentRule() {
@@ -27382,7 +27582,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public SubprogramSubcomponentElements getSubprogramSubcomponentAccess() {
-		return (pSubprogramSubcomponent != null) ? pSubprogramSubcomponent : (pSubprogramSubcomponent = new SubprogramSubcomponentElements());
+		return pSubprogramSubcomponent;
 	}
 	
 	public ParserRule getSubprogramSubcomponentRule() {
@@ -27398,7 +27598,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public SubprogramGroupSubcomponentElements getSubprogramGroupSubcomponentAccess() {
-		return (pSubprogramGroupSubcomponent != null) ? pSubprogramGroupSubcomponent : (pSubprogramGroupSubcomponent = new SubprogramGroupSubcomponentElements());
+		return pSubprogramGroupSubcomponent;
 	}
 	
 	public ParserRule getSubprogramGroupSubcomponentRule() {
@@ -27414,7 +27614,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public ProcessorSubcomponentElements getProcessorSubcomponentAccess() {
-		return (pProcessorSubcomponent != null) ? pProcessorSubcomponent : (pProcessorSubcomponent = new ProcessorSubcomponentElements());
+		return pProcessorSubcomponent;
 	}
 	
 	public ParserRule getProcessorSubcomponentRule() {
@@ -27430,7 +27630,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public VirtualProcessorSubcomponentElements getVirtualProcessorSubcomponentAccess() {
-		return (pVirtualProcessorSubcomponent != null) ? pVirtualProcessorSubcomponent : (pVirtualProcessorSubcomponent = new VirtualProcessorSubcomponentElements());
+		return pVirtualProcessorSubcomponent;
 	}
 	
 	public ParserRule getVirtualProcessorSubcomponentRule() {
@@ -27446,7 +27646,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public DeviceSubcomponentElements getDeviceSubcomponentAccess() {
-		return (pDeviceSubcomponent != null) ? pDeviceSubcomponent : (pDeviceSubcomponent = new DeviceSubcomponentElements());
+		return pDeviceSubcomponent;
 	}
 	
 	public ParserRule getDeviceSubcomponentRule() {
@@ -27462,7 +27662,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public MemorySubcomponentElements getMemorySubcomponentAccess() {
-		return (pMemorySubcomponent != null) ? pMemorySubcomponent : (pMemorySubcomponent = new MemorySubcomponentElements());
+		return pMemorySubcomponent;
 	}
 	
 	public ParserRule getMemorySubcomponentRule() {
@@ -27478,7 +27678,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public BusSubcomponentElements getBusSubcomponentAccess() {
-		return (pBusSubcomponent != null) ? pBusSubcomponent : (pBusSubcomponent = new BusSubcomponentElements());
+		return pBusSubcomponent;
 	}
 	
 	public ParserRule getBusSubcomponentRule() {
@@ -27494,7 +27694,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public VirtualBusSubcomponentElements getVirtualBusSubcomponentAccess() {
-		return (pVirtualBusSubcomponent != null) ? pVirtualBusSubcomponent : (pVirtualBusSubcomponent = new VirtualBusSubcomponentElements());
+		return pVirtualBusSubcomponent;
 	}
 	
 	public ParserRule getVirtualBusSubcomponentRule() {
@@ -27510,7 +27710,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
 	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public DataSubcomponentElements getDataSubcomponentAccess() {
-		return (pDataSubcomponent != null) ? pDataSubcomponent : (pDataSubcomponent = new DataSubcomponentElements());
+		return pDataSubcomponent;
 	}
 	
 	public ParserRule getDataSubcomponentRule() {
@@ -27520,7 +27720,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ArrayDimension returns aadl2::ArrayDimension:
 	//	{aadl2::ArrayDimension} "[" size=ArraySize? "]";
 	public ArrayDimensionElements getArrayDimensionAccess() {
-		return (pArrayDimension != null) ? pArrayDimension : (pArrayDimension = new ArrayDimensionElements());
+		return pArrayDimension;
 	}
 	
 	public ParserRule getArrayDimensionRule() {
@@ -27530,7 +27730,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ArraySize returns aadl2::ArraySize:
 	//	size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF];
 	public ArraySizeElements getArraySizeAccess() {
-		return (pArraySize != null) ? pArraySize : (pArraySize = new ArraySizeElements());
+		return pArraySize;
 	}
 	
 	public ParserRule getArraySizeRule() {
@@ -27541,7 +27741,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	{aadl2::ComponentImplementationReference} implementation=[aadl2::ComponentImplementation|QCREF] ("("
 	//	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?;
 	public ComponentImplementationReferenceElements getComponentImplementationReferenceAccess() {
-		return (pComponentImplementationReference != null) ? pComponentImplementationReference : (pComponentImplementationReference = new ComponentImplementationReferenceElements());
+		return pComponentImplementationReference;
 	}
 	
 	public ParserRule getComponentImplementationReferenceRule() {
@@ -27554,7 +27754,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	out?="out") "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension?
 	//	("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public DataPortElements getDataPortAccess() {
-		return (pDataPort != null) ? pDataPort : (pDataPort = new DataPortElements());
+		return pDataPort;
 	}
 	
 	public ParserRule getDataPortRule() {
@@ -27566,7 +27766,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	out?="out"? | out?="out") "event" "data" "port" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]?
 	//	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public EventDataPortElements getEventDataPortAccess() {
-		return (pEventDataPort != null) ? pEventDataPort : (pEventDataPort = new EventDataPortElements());
+		return pEventDataPort;
 	}
 	
 	public ParserRule getEventDataPortRule() {
@@ -27578,7 +27778,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	out?="out") "event" "port" arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 	//	";";
 	public EventPortElements getEventPortAccess() {
-		return (pEventPort != null) ? pEventPort : (pEventPort = new EventPortElements());
+		return pEventPort;
 	}
 	
 	public ParserRule getEventPortRule() {
@@ -27591,7 +27791,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	((inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF])? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public FeatureGroupElements getFeatureGroupAccess() {
-		return (pFeatureGroup != null) ? pFeatureGroup : (pFeatureGroup = new FeatureGroupElements());
+		return pFeatureGroup;
 	}
 	
 	public ParserRule getFeatureGroupRule() {
@@ -27603,7 +27803,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	"parameter" dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public ParameterElements getParameterAccess() {
-		return (pParameter != null) ? pParameter : (pParameter = new ParameterElements());
+		return pParameter;
 	}
 	
 	public ParserRule getParameterRule() {
@@ -27616,7 +27816,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	"access" subprogramFeatureClassifier=[aadl2::SubprogramSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public SubprogramAccessElements getSubprogramAccessAccess() {
-		return (pSubprogramAccess != null) ? pSubprogramAccess : (pSubprogramAccess = new SubprogramAccessElements());
+		return pSubprogramAccess;
 	}
 	
 	public ParserRule getSubprogramAccessRule() {
@@ -27628,7 +27828,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	"subprogram" "group" "access" subprogramGroupFeatureClassifier=[aadl2::SubprogramGroupSubcomponentType|QCREF]?
 	//	arrayDimension+=ArrayDimension? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public SubprogramGroupAccessElements getSubprogramGroupAccessAccess() {
-		return (pSubprogramGroupAccess != null) ? pSubprogramGroupAccess : (pSubprogramGroupAccess = new SubprogramGroupAccessElements());
+		return pSubprogramGroupAccess;
 	}
 	
 	public ParserRule getSubprogramGroupAccessRule() {
@@ -27640,7 +27840,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	busFeatureClassifier=[aadl2::BusSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public BusAccessElements getBusAccessAccess() {
-		return (pBusAccess != null) ? pBusAccess : (pBusAccess = new BusAccessElements());
+		return pBusAccess;
 	}
 	
 	public ParserRule getBusAccessRule() {
@@ -27652,7 +27852,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public DataAccessElements getDataAccessAccess() {
-		return (pDataAccess != null) ? pDataAccess : (pDataAccess = new DataAccessElements());
+		return pDataAccess;
 	}
 	
 	public ParserRule getDataAccessRule() {
@@ -27665,7 +27865,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public AbstractFeatureElements getAbstractFeatureAccess() {
-		return (pAbstractFeature != null) ? pAbstractFeature : (pAbstractFeature = new AbstractFeatureElements());
+		return pAbstractFeature;
 	}
 	
 	public ParserRule getAbstractFeatureRule() {
@@ -27675,7 +27875,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PortDirection returns aadl2::DirectionType:
 	//	"in" | "out" | "in" "out";
 	public PortDirectionElements getPortDirectionAccess() {
-		return (pPortDirection != null) ? pPortDirection : (pPortDirection = new PortDirectionElements());
+		return pPortDirection;
 	}
 	
 	public ParserRule getPortDirectionRule() {
@@ -27685,7 +27885,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//InOutDirection returns aadl2::DirectionType:
 	//	"in" | "out";
 	public InOutDirectionElements getInOutDirectionAccess() {
-		return (pInOutDirection != null) ? pInOutDirection : (pInOutDirection = new InOutDirectionElements());
+		return pInOutDirection;
 	}
 	
 	public ParserRule getInOutDirectionRule() {
@@ -27695,7 +27895,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AccessDirection returns aadl2::AccessType:
 	//	"requires" | "provides";
 	public AccessDirectionElements getAccessDirectionAccess() {
-		return (pAccessDirection != null) ? pAccessDirection : (pAccessDirection = new AccessDirectionElements());
+		return pAccessDirection;
 	}
 	
 	public ParserRule getAccessDirectionRule() {
@@ -27705,7 +27905,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PortCategory returns aadl2::PortCategory:
 	//	"data" | "event" | "event" "data";
 	public PortCategoryElements getPortCategoryAccess() {
-		return (pPortCategory != null) ? pPortCategory : (pPortCategory = new PortCategoryElements());
+		return pPortCategory;
 	}
 	
 	public ParserRule getPortCategoryRule() {
@@ -27723,7 +27923,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	inverse=[aadl2::FeatureGroupType|QCREF])? ("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ |
 	//	noProperties?="none" ";"))? ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public FeatureGroupTypeElements getFeatureGroupTypeAccess() {
-		return (pFeatureGroupType != null) ? pFeatureGroupType : (pFeatureGroupType = new FeatureGroupTypeElements());
+		return pFeatureGroupType;
 	}
 	
 	public ParserRule getFeatureGroupTypeRule() {
@@ -27735,7 +27935,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//InternalFeature returns aadl2::InternalFeature:
 	//	(EventSource | EventDataSource) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";";
 	public InternalFeatureElements getInternalFeatureAccess() {
-		return (pInternalFeature != null) ? pInternalFeature : (pInternalFeature = new InternalFeatureElements());
+		return pInternalFeature;
 	}
 	
 	public ParserRule getInternalFeatureRule() {
@@ -27746,7 +27946,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ProcessorFeature returns aadl2::ProcessorFeature:
 	//	(PortProxy | SubprogramProxy) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";";
 	public ProcessorFeatureElements getProcessorFeatureAccess() {
-		return (pProcessorFeature != null) ? pProcessorFeature : (pProcessorFeature = new ProcessorFeatureElements());
+		return pProcessorFeature;
 	}
 	
 	public ParserRule getProcessorFeatureRule() {
@@ -27756,7 +27956,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//EventSource returns aadl2::EventSource:
 	//	name=ID ":" "event" ";";
 	public EventSourceElements getEventSourceAccess() {
-		return (pEventSource != null) ? pEventSource : (pEventSource = new EventSourceElements());
+		return pEventSource;
 	}
 	
 	public ParserRule getEventSourceRule() {
@@ -27766,7 +27966,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//EventDataSource returns aadl2::EventDataSource:
 	//	name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
 	public EventDataSourceElements getEventDataSourceAccess() {
-		return (pEventDataSource != null) ? pEventDataSource : (pEventDataSource = new EventDataSourceElements());
+		return pEventDataSource;
 	}
 	
 	public ParserRule getEventDataSourceRule() {
@@ -27776,7 +27976,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PortProxy returns aadl2::PortProxy:
 	//	name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
 	public PortProxyElements getPortProxyAccess() {
-		return (pPortProxy != null) ? pPortProxy : (pPortProxy = new PortProxyElements());
+		return pPortProxy;
 	}
 	
 	public ParserRule getPortProxyRule() {
@@ -27786,7 +27986,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//SubprogramProxy returns aadl2::SubprogramProxy:
 	//	name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ";";
 	public SubprogramProxyElements getSubprogramProxyAccess() {
-		return (pSubprogramProxy != null) ? pSubprogramProxy : (pSubprogramProxy = new SubprogramProxyElements());
+		return pSubprogramProxy;
 	}
 	
 	public ParserRule getSubprogramProxyRule() {
@@ -27797,7 +27997,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ConnectedElement returns aadl2::ConnectedElement:
 	//	(context=[aadl2::Context] ".")? connectionEnd=[aadl2::ConnectionEnd];
 	public ConnectedElementElements getConnectedElementAccess() {
-		return (pConnectedElement != null) ? pConnectedElement : (pConnectedElement = new ConnectedElementElements());
+		return pConnectedElement;
 	}
 	
 	public ParserRule getConnectedElementRule() {
@@ -27807,7 +28007,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ProcessorPort returns aadl2::ConnectedElement:
 	//	"processor" "." connectionEnd=[aadl2::PortProxy];
 	public ProcessorPortElements getProcessorPortAccess() {
-		return (pProcessorPort != null) ? pProcessorPort : (pProcessorPort = new ProcessorPortElements());
+		return pProcessorPort;
 	}
 	
 	public ParserRule getProcessorPortRule() {
@@ -27817,7 +28017,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ProcessorSubprogram returns aadl2::ConnectedElement:
 	//	"processor" "." connectionEnd=[aadl2::SubprogramProxy];
 	public ProcessorSubprogramElements getProcessorSubprogramAccess() {
-		return (pProcessorSubprogram != null) ? pProcessorSubprogram : (pProcessorSubprogram = new ProcessorSubprogramElements());
+		return pProcessorSubprogram;
 	}
 	
 	public ParserRule getProcessorSubprogramRule() {
@@ -27827,7 +28027,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//InternalEvent returns aadl2::ConnectedElement:
 	//	"self" "." connectionEnd=[aadl2::InternalFeature];
 	public InternalEventElements getInternalEventAccess() {
-		return (pInternalEvent != null) ? pInternalEvent : (pInternalEvent = new InternalEventElements());
+		return pInternalEvent;
 	}
 	
 	public ParserRule getInternalEventRule() {
@@ -27837,7 +28037,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AbstractConnectionEnd returns aadl2::ConnectedElement:
 	//	ConnectedElement | ProcessorPort | InternalEvent;
 	public AbstractConnectionEndElements getAbstractConnectionEndAccess() {
-		return (pAbstractConnectionEnd != null) ? pAbstractConnectionEnd : (pAbstractConnectionEnd = new AbstractConnectionEndElements());
+		return pAbstractConnectionEnd;
 	}
 	
 	public ParserRule getAbstractConnectionEndRule() {
@@ -27847,7 +28047,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ProcessorConnectionEnd returns aadl2::ConnectedElement:
 	//	ConnectedElement | ProcessorPort;
 	public ProcessorConnectionEndElements getProcessorConnectionEndAccess() {
-		return (pProcessorConnectionEnd != null) ? pProcessorConnectionEnd : (pProcessorConnectionEnd = new ProcessorConnectionEndElements());
+		return pProcessorConnectionEnd;
 	}
 	
 	public ParserRule getProcessorConnectionEndRule() {
@@ -27857,7 +28057,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AccessConnectionEnd returns aadl2::ConnectedElement:
 	//	ConnectedElement | ProcessorSubprogram;
 	public AccessConnectionEndElements getAccessConnectionEndAccess() {
-		return (pAccessConnectionEnd != null) ? pAccessConnectionEnd : (pAccessConnectionEnd = new AccessConnectionEndElements());
+		return pAccessConnectionEnd;
 	}
 	
 	public ParserRule getAccessConnectionEndRule() {
@@ -27870,7 +28070,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] (","
 	//	inModeOrTransition+=[aadl2::ModeFeature])*) ")")? ";";
 	public PortConnectionElements getPortConnectionAccess() {
-		return (pPortConnection != null) ? pPortConnection : (pPortConnection = new PortConnectionElements());
+		return pPortConnection;
 	}
 	
 	public ParserRule getPortConnectionRule() {
@@ -27883,7 +28083,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	accessCategory=AccessCategory "access") ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
 	//	(inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")? ";";
 	public AccessConnectionElements getAccessConnectionAccess() {
-		return (pAccessConnection != null) ? pAccessConnection : (pAccessConnection = new AccessConnectionElements());
+		return pAccessConnection;
 	}
 	
 	public ParserRule getAccessConnectionRule() {
@@ -27896,7 +28096,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] (","
 	//	inModeOrTransition+=[aadl2::ModeFeature])*) ")")? ";";
 	public FeatureGroupConnectionElements getFeatureGroupConnectionAccess() {
-		return (pFeatureGroupConnection != null) ? pFeatureGroupConnection : (pFeatureGroupConnection = new FeatureGroupConnectionElements());
+		return pFeatureGroupConnection;
 	}
 	
 	public ParserRule getFeatureGroupConnectionRule() {
@@ -27909,7 +28109,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] (","
 	//	inModeOrTransition+=[aadl2::ModeFeature])*) ")")? ";";
 	public FeatureConnectionElements getFeatureConnectionAccess() {
-		return (pFeatureConnection != null) ? pFeatureConnection : (pFeatureConnection = new FeatureConnectionElements());
+		return pFeatureConnection;
 	}
 	
 	public ParserRule getFeatureConnectionRule() {
@@ -27922,7 +28122,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] (","
 	//	inModeOrTransition+=[aadl2::ModeFeature])*) ")")? ";";
 	public ParameterConnectionElements getParameterConnectionAccess() {
-		return (pParameterConnection != null) ? pParameterConnection : (pParameterConnection = new ParameterConnectionElements());
+		return pParameterConnection;
 	}
 	
 	public ParserRule getParameterConnectionRule() {
@@ -27932,7 +28132,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AccessCategory returns aadl2::AccessCategory:
 	//	"bus" | "data" | "subprogram" | "subprogram" "group";
 	public AccessCategoryElements getAccessCategoryAccess() {
-		return (pAccessCategory != null) ? pAccessCategory : (pAccessCategory = new AccessCategoryElements());
+		return pAccessCategory;
 	}
 	
 	public ParserRule getAccessCategoryRule() {
@@ -27943,7 +28143,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//enum FlowKind returns aadl2::FlowKind:
 	//	source | path | sink;
 	public FlowKindElements getFlowKindAccess() {
-		return (unknownRuleFlowKind != null) ? unknownRuleFlowKind : (unknownRuleFlowKind = new FlowKindElements());
+		return unknownRuleFlowKind;
 	}
 	
 	public EnumRule getFlowKindRule() {
@@ -27953,7 +28153,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSource returns aadl2::FlowKind:
 	//	"source";
 	public FlowSourceElements getFlowSourceAccess() {
-		return (pFlowSource != null) ? pFlowSource : (pFlowSource = new FlowSourceElements());
+		return pFlowSource;
 	}
 	
 	public ParserRule getFlowSourceRule() {
@@ -27963,7 +28163,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSink returns aadl2::FlowKind:
 	//	"sink";
 	public FlowSinkElements getFlowSinkAccess() {
-		return (pFlowSink != null) ? pFlowSink : (pFlowSink = new FlowSinkElements());
+		return pFlowSink;
 	}
 	
 	public ParserRule getFlowSinkRule() {
@@ -27973,7 +28173,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowPath returns aadl2::FlowKind:
 	//	"path";
 	public FlowPathElements getFlowPathAccess() {
-		return (pFlowPath != null) ? pFlowPath : (pFlowPath = new FlowPathElements());
+		return pFlowPath;
 	}
 	
 	public ParserRule getFlowPathRule() {
@@ -27985,7 +28185,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
 	//	inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
 	public FlowSpecificationElements getFlowSpecificationAccess() {
-		return (pFlowSpecification != null) ? pFlowSpecification : (pFlowSpecification = new FlowSpecificationElements());
+		return pFlowSpecification;
 	}
 	
 	public ParserRule getFlowSpecificationRule() {
@@ -27995,7 +28195,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSourceSpec returns aadl2::FlowSpecification:
 	//	name=ID ":" "flow" kind=FlowSource outEnd=FlowEnd;
 	public FlowSourceSpecElements getFlowSourceSpecAccess() {
-		return (pFlowSourceSpec != null) ? pFlowSourceSpec : (pFlowSourceSpec = new FlowSourceSpecElements());
+		return pFlowSourceSpec;
 	}
 	
 	public ParserRule getFlowSourceSpecRule() {
@@ -28005,7 +28205,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSinkSpec returns aadl2::FlowSpecification:
 	//	name=ID ":" "flow" kind=FlowSink InEnd=FlowEnd;
 	public FlowSinkSpecElements getFlowSinkSpecAccess() {
-		return (pFlowSinkSpec != null) ? pFlowSinkSpec : (pFlowSinkSpec = new FlowSinkSpecElements());
+		return pFlowSinkSpec;
 	}
 	
 	public ParserRule getFlowSinkSpecRule() {
@@ -28015,7 +28215,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowPathSpec returns aadl2::FlowSpecification:
 	//	name=ID ":" "flow" kind=FlowPath InEnd=FlowEnd "->" outEnd=FlowEnd;
 	public FlowPathSpecElements getFlowPathSpecAccess() {
-		return (pFlowPathSpec != null) ? pFlowPathSpec : (pFlowPathSpec = new FlowPathSpecElements());
+		return pFlowPathSpec;
 	}
 	
 	public ParserRule getFlowPathSpecRule() {
@@ -28025,7 +28225,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowEnd returns aadl2::FlowEnd:
 	//	(context=[aadl2::Context] ".")? feature=[aadl2::Feature];
 	public FlowEndElements getFlowEndAccess() {
-		return (pFlowEnd != null) ? pFlowEnd : (pFlowEnd = new FlowEndElements());
+		return pFlowEnd;
 	}
 	
 	public ParserRule getFlowEndRule() {
@@ -28035,7 +28235,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSpecRefinement returns aadl2::FlowSpecification:
 	//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind;
 	public FlowSpecRefinementElements getFlowSpecRefinementAccess() {
-		return (pFlowSpecRefinement != null) ? pFlowSpecRefinement : (pFlowSpecRefinement = new FlowSpecRefinementElements());
+		return pFlowSpecRefinement;
 	}
 	
 	public ParserRule getFlowSpecRefinementRule() {
@@ -28046,7 +28246,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
 	//	"(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
 	public FlowImplementationElements getFlowImplementationAccess() {
-		return (pFlowImplementation != null) ? pFlowImplementation : (pFlowImplementation = new FlowImplementationElements());
+		return pFlowImplementation;
 	}
 	
 	public ParserRule getFlowImplementationRule() {
@@ -28057,7 +28257,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	specification=[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedFlowSegment+=SubcomponentFlow "->"
 	//	ownedFlowSegment+=ConnectionFlow "->")* FLOWOUT;
 	public FlowSourceImplElements getFlowSourceImplAccess() {
-		return (pFlowSourceImpl != null) ? pFlowSourceImpl : (pFlowSourceImpl = new FlowSourceImplElements());
+		return pFlowSourceImpl;
 	}
 	
 	public ParserRule getFlowSourceImplRule() {
@@ -28069,7 +28269,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink FLOWIN ("->" ownedFlowSegment+=ConnectionFlow "->"
 	//	ownedFlowSegment+=SubcomponentFlow)*;
 	public FlowSinkImplElements getFlowSinkImplAccess() {
-		return (pFlowSinkImpl != null) ? pFlowSinkImpl : (pFlowSinkImpl = new FlowSinkImplElements());
+		return pFlowSinkImpl;
 	}
 	
 	public ParserRule getFlowSinkImplRule() {
@@ -28081,7 +28281,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath FLOWIN (("->" ownedFlowSegment+=ConnectionFlow "->"
 	//	ownedFlowSegment+=SubcomponentFlow)* "->" ownedFlowSegment+=ConnectionFlow)? "->" FLOWOUT;
 	public FlowPathImplElements getFlowPathImplAccess() {
-		return (pFlowPathImpl != null) ? pFlowPathImpl : (pFlowPathImpl = new FlowPathImplElements());
+		return pFlowPathImpl;
 	}
 	
 	public ParserRule getFlowPathImplRule() {
@@ -28095,7 +28295,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
 	//	inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
 	public EndToEndFlowElements getEndToEndFlowAccess() {
-		return (pEndToEndFlow != null) ? pEndToEndFlow : (pEndToEndFlow = new EndToEndFlowElements());
+		return pEndToEndFlow;
 	}
 	
 	public ParserRule getEndToEndFlowRule() {
@@ -28106,7 +28306,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//SubcomponentFlow returns aadl2::FlowSegment:
 	//	(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::FlowElement];
 	public SubcomponentFlowElements getSubcomponentFlowAccess() {
-		return (pSubcomponentFlow != null) ? pSubcomponentFlow : (pSubcomponentFlow = new SubcomponentFlowElements());
+		return pSubcomponentFlow;
 	}
 	
 	public ParserRule getSubcomponentFlowRule() {
@@ -28116,7 +28316,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ConnectionFlow returns aadl2::FlowSegment:
 	//	flowElement=[aadl2::Connection];
 	public ConnectionFlowElements getConnectionFlowAccess() {
-		return (pConnectionFlow != null) ? pConnectionFlow : (pConnectionFlow = new ConnectionFlowElements());
+		return pConnectionFlow;
 	}
 	
 	public ParserRule getConnectionFlowRule() {
@@ -28126,7 +28326,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ETESubcomponentFlow returns aadl2::EndToEndFlowSegment:
 	//	(context=[aadl2::Subcomponent] ".")? flowElement=[aadl2::EndToEndFlowElement];
 	public ETESubcomponentFlowElements getETESubcomponentFlowAccess() {
-		return (pETESubcomponentFlow != null) ? pETESubcomponentFlow : (pETESubcomponentFlow = new ETESubcomponentFlowElements());
+		return pETESubcomponentFlow;
 	}
 	
 	public ParserRule getETESubcomponentFlowRule() {
@@ -28136,7 +28336,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
 	//	flowElement=[aadl2::Connection];
 	public ETEConnectionFlowElements getETEConnectionFlowAccess() {
-		return (pETEConnectionFlow != null) ? pETEConnectionFlow : (pETEConnectionFlow = new ETEConnectionFlowElements());
+		return pETEConnectionFlow;
 	}
 	
 	public ParserRule getETEConnectionFlowRule() {
@@ -28147,7 +28347,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//Mode returns aadl2::Mode:
 	//	name=ID ":" initial?="initial"? "mode" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public ModeElements getModeAccess() {
-		return (pMode != null) ? pMode : (pMode = new ModeElements());
+		return pMode;
 	}
 	
 	public ParserRule getModeRule() {
@@ -28158,7 +28358,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(name=ID ":")? source=[aadl2::Mode] "-[" ownedTrigger+=Trigger ("," ownedTrigger+=Trigger)* "]->"
 	//	destination=[aadl2::Mode] ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public ModeTransitionElements getModeTransitionAccess() {
-		return (pModeTransition != null) ? pModeTransition : (pModeTransition = new ModeTransitionElements());
+		return pModeTransition;
 	}
 	
 	public ParserRule getModeTransitionRule() {
@@ -28169,7 +28369,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(context=[aadl2::Context] ".")? triggerPort=[aadl2::Port] | "self" "." triggerPort=[aadl2::InternalFeature] |
 	//	"processor" "." triggerPort=[aadl2::PortProxy];
 	public TriggerElements getTriggerAccess() {
-		return (pTrigger != null) ? pTrigger : (pTrigger = new TriggerElements());
+		return pTrigger;
 	}
 	
 	public ParserRule getTriggerRule() {
@@ -28180,7 +28380,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ModeRef returns aadl2::ModeBinding:
 	//	parentMode=[aadl2::Mode] ("=>" derivedMode=[aadl2::Mode])?;
 	public ModeRefElements getModeRefAccess() {
-		return (pModeRef != null) ? pModeRef : (pModeRef = new ModeRefElements());
+		return pModeRef;
 	}
 	
 	public ParserRule getModeRefRule() {
@@ -28190,7 +28390,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AnnexLibrary returns aadl2::AnnexLibrary:
 	//	DefaultAnnexLibrary;
 	public AnnexLibraryElements getAnnexLibraryAccess() {
-		return (pAnnexLibrary != null) ? pAnnexLibrary : (pAnnexLibrary = new AnnexLibraryElements());
+		return pAnnexLibrary;
 	}
 	
 	public ParserRule getAnnexLibraryRule() {
@@ -28200,7 +28400,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
 	//	"annex" name=ID sourceText=ANNEXTEXT ";";
 	public DefaultAnnexLibraryElements getDefaultAnnexLibraryAccess() {
-		return (pDefaultAnnexLibrary != null) ? pDefaultAnnexLibrary : (pDefaultAnnexLibrary = new DefaultAnnexLibraryElements());
+		return pDefaultAnnexLibrary;
 	}
 	
 	public ParserRule getDefaultAnnexLibraryRule() {
@@ -28210,7 +28410,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//AnnexSubclause returns aadl2::AnnexSubclause:
 	//	DefaultAnnexSubclause;
 	public AnnexSubclauseElements getAnnexSubclauseAccess() {
-		return (pAnnexSubclause != null) ? pAnnexSubclause : (pAnnexSubclause = new AnnexSubclauseElements());
+		return pAnnexSubclause;
 	}
 	
 	public ParserRule getAnnexSubclauseRule() {
@@ -28220,7 +28420,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	//	"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
 	public DefaultAnnexSubclauseElements getDefaultAnnexSubclauseAccess() {
-		return (pDefaultAnnexSubclause != null) ? pDefaultAnnexSubclause : (pDefaultAnnexSubclause = new DefaultAnnexSubclauseElements());
+		return pDefaultAnnexSubclause;
 	}
 	
 	public ParserRule getDefaultAnnexSubclauseRule() {
@@ -28234,7 +28434,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public PropertySetElements getPropertySetAccess() {
-		return (pPropertySet != null) ? pPropertySet : (pPropertySet = new PropertySetElements());
+		return pPropertySet;
 	}
 	
 	public ParserRule getPropertySetRule() {
@@ -28245,7 +28445,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(BooleanType | StringType | EnumerationType | UnitsType | RealType | IntegerType | RangeType | ClassifierType |
 	//	ReferenceType | RecordType) ";";
 	public PropertyTypeElements getPropertyTypeAccess() {
-		return (pPropertyType != null) ? pPropertyType : (pPropertyType = new PropertyTypeElements());
+		return pPropertyType;
 	}
 	
 	public ParserRule getPropertyTypeRule() {
@@ -28256,7 +28456,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	ListType | UnnamedBooleanType | UnnamedStringType | UnnamedEnumerationType | UnnamedUnitsType | UnnamedRealType |
 	//	UnnamedIntegerType | UnnamedRangeType | UnnamedClassifierType | UnnamedReferenceType | UnnamedRecordType;
 	public UnnamedPropertyTypeElements getUnnamedPropertyTypeAccess() {
-		return (pUnnamedPropertyType != null) ? pUnnamedPropertyType : (pUnnamedPropertyType = new UnnamedPropertyTypeElements());
+		return pUnnamedPropertyType;
 	}
 	
 	public ParserRule getUnnamedPropertyTypeRule() {
@@ -28266,7 +28466,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//BooleanType returns aadl2::AadlBoolean:
 	//	name=ID ":" "type" "aadlboolean";
 	public BooleanTypeElements getBooleanTypeAccess() {
-		return (pBooleanType != null) ? pBooleanType : (pBooleanType = new BooleanTypeElements());
+		return pBooleanType;
 	}
 	
 	public ParserRule getBooleanTypeRule() {
@@ -28276,7 +28476,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnnamedBooleanType returns aadl2::AadlBoolean:
 	//	{aadl2::AadlBoolean} "aadlboolean";
 	public UnnamedBooleanTypeElements getUnnamedBooleanTypeAccess() {
-		return (pUnnamedBooleanType != null) ? pUnnamedBooleanType : (pUnnamedBooleanType = new UnnamedBooleanTypeElements());
+		return pUnnamedBooleanType;
 	}
 	
 	public ParserRule getUnnamedBooleanTypeRule() {
@@ -28286,7 +28486,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//StringType returns aadl2::AadlString:
 	//	name=ID ":" "type" "aadlstring";
 	public StringTypeElements getStringTypeAccess() {
-		return (pStringType != null) ? pStringType : (pStringType = new StringTypeElements());
+		return pStringType;
 	}
 	
 	public ParserRule getStringTypeRule() {
@@ -28296,7 +28496,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnnamedStringType returns aadl2::AadlString:
 	//	{aadl2::AadlString} "aadlstring";
 	public UnnamedStringTypeElements getUnnamedStringTypeAccess() {
-		return (pUnnamedStringType != null) ? pUnnamedStringType : (pUnnamedStringType = new UnnamedStringTypeElements());
+		return pUnnamedStringType;
 	}
 	
 	public ParserRule getUnnamedStringTypeRule() {
@@ -28306,7 +28506,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//EnumerationType returns aadl2::EnumerationType:
 	//	name=ID ":" "type" "enumeration" "(" ownedLiteral+=EnumerationLiteral ("," ownedLiteral+=EnumerationLiteral)* ")";
 	public EnumerationTypeElements getEnumerationTypeAccess() {
-		return (pEnumerationType != null) ? pEnumerationType : (pEnumerationType = new EnumerationTypeElements());
+		return pEnumerationType;
 	}
 	
 	public ParserRule getEnumerationTypeRule() {
@@ -28316,7 +28516,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnnamedEnumerationType returns aadl2::EnumerationType:
 	//	"enumeration" "(" ownedLiteral+=EnumerationLiteral ("," ownedLiteral+=EnumerationLiteral)* ")";
 	public UnnamedEnumerationTypeElements getUnnamedEnumerationTypeAccess() {
-		return (pUnnamedEnumerationType != null) ? pUnnamedEnumerationType : (pUnnamedEnumerationType = new UnnamedEnumerationTypeElements());
+		return pUnnamedEnumerationType;
 	}
 	
 	public ParserRule getUnnamedEnumerationTypeRule() {
@@ -28326,7 +28526,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//EnumerationLiteral returns aadl2::EnumerationLiteral:
 	//	name=ID;
 	public EnumerationLiteralElements getEnumerationLiteralAccess() {
-		return (pEnumerationLiteral != null) ? pEnumerationLiteral : (pEnumerationLiteral = new EnumerationLiteralElements());
+		return pEnumerationLiteral;
 	}
 	
 	public ParserRule getEnumerationLiteralRule() {
@@ -28336,7 +28536,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnitsType returns aadl2::UnitsType:
 	//	name=ID ":" "type" "units" "(" ownedLiteral+=UnitLiteral ("," ownedLiteral+=UnitLiteralConversion)* ")";
 	public UnitsTypeElements getUnitsTypeAccess() {
-		return (pUnitsType != null) ? pUnitsType : (pUnitsType = new UnitsTypeElements());
+		return pUnitsType;
 	}
 	
 	public ParserRule getUnitsTypeRule() {
@@ -28346,7 +28546,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnnamedUnitsType returns aadl2::UnitsType:
 	//	"units" "(" ownedLiteral+=UnitLiteral ("," ownedLiteral+=UnitLiteralConversion)* ")";
 	public UnnamedUnitsTypeElements getUnnamedUnitsTypeAccess() {
-		return (pUnnamedUnitsType != null) ? pUnnamedUnitsType : (pUnnamedUnitsType = new UnnamedUnitsTypeElements());
+		return pUnnamedUnitsType;
 	}
 	
 	public ParserRule getUnnamedUnitsTypeRule() {
@@ -28356,7 +28556,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnitLiteral returns aadl2::UnitLiteral:
 	//	name=ID;
 	public UnitLiteralElements getUnitLiteralAccess() {
-		return (pUnitLiteral != null) ? pUnitLiteral : (pUnitLiteral = new UnitLiteralElements());
+		return pUnitLiteral;
 	}
 	
 	public ParserRule getUnitLiteralRule() {
@@ -28366,7 +28566,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnitLiteralConversion returns aadl2::UnitLiteral:
 	//	name=ID "=>" baseUnit=[aadl2::UnitLiteral] STAR factor=NumberValue;
 	public UnitLiteralConversionElements getUnitLiteralConversionAccess() {
-		return (pUnitLiteralConversion != null) ? pUnitLiteralConversion : (pUnitLiteralConversion = new UnitLiteralConversionElements());
+		return pUnitLiteralConversion;
 	}
 	
 	public ParserRule getUnitLiteralConversionRule() {
@@ -28377,7 +28577,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "type" "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
 	//	referencedUnitsType=[aadl2::UnitsType|QPREF])?;
 	public RealTypeElements getRealTypeAccess() {
-		return (pRealType != null) ? pRealType : (pRealType = new RealTypeElements());
+		return pRealType;
 	}
 	
 	public ParserRule getRealTypeRule() {
@@ -28388,7 +28588,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	{aadl2::AadlReal} "aadlreal" range=RealRange? (ownedUnitsType=UnnamedUnitsType | "units"
 	//	referencedUnitsType=[aadl2::UnitsType|QPREF])?;
 	public UnnamedRealTypeElements getUnnamedRealTypeAccess() {
-		return (pUnnamedRealType != null) ? pUnnamedRealType : (pUnnamedRealType = new UnnamedRealTypeElements());
+		return pUnnamedRealType;
 	}
 	
 	public ParserRule getUnnamedRealTypeRule() {
@@ -28399,7 +28599,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "type" "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
 	//	referencedUnitsType=[aadl2::UnitsType|QPREF])?;
 	public IntegerTypeElements getIntegerTypeAccess() {
-		return (pIntegerType != null) ? pIntegerType : (pIntegerType = new IntegerTypeElements());
+		return pIntegerType;
 	}
 	
 	public ParserRule getIntegerTypeRule() {
@@ -28410,7 +28610,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	{aadl2::AadlInteger} "aadlinteger" range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | "units"
 	//	referencedUnitsType=[aadl2::UnitsType|QPREF])?;
 	public UnnamedIntegerTypeElements getUnnamedIntegerTypeAccess() {
-		return (pUnnamedIntegerType != null) ? pUnnamedIntegerType : (pUnnamedIntegerType = new UnnamedIntegerTypeElements());
+		return pUnnamedIntegerType;
 	}
 	
 	public ParserRule getUnnamedIntegerTypeRule() {
@@ -28421,7 +28621,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "type" "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
 	//	numberType=[aadl2::NumberType|QPREF]);
 	public RangeTypeElements getRangeTypeAccess() {
-		return (pRangeType != null) ? pRangeType : (pRangeType = new RangeTypeElements());
+		return pRangeType;
 	}
 	
 	public ParserRule getRangeTypeRule() {
@@ -28432,7 +28632,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	{aadl2::RangeType} "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
 	//	numberType=[aadl2::NumberType|QPREF]);
 	public UnnamedRangeTypeElements getUnnamedRangeTypeAccess() {
-		return (pUnnamedRangeType != null) ? pUnnamedRangeType : (pUnnamedRangeType = new UnnamedRangeTypeElements());
+		return pUnnamedRangeType;
 	}
 	
 	public ParserRule getUnnamedRangeTypeRule() {
@@ -28442,7 +28642,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ClassifierType returns aadl2::ClassifierType:
 	//	name=ID ":" "type" "classifier" ("(" classifierReference+=QMReference ("," classifierReference+=QMReference)* ")")?;
 	public ClassifierTypeElements getClassifierTypeAccess() {
-		return (pClassifierType != null) ? pClassifierType : (pClassifierType = new ClassifierTypeElements());
+		return pClassifierType;
 	}
 	
 	public ParserRule getClassifierTypeRule() {
@@ -28453,7 +28653,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	{aadl2::ClassifierType} "classifier" ("(" classifierReference+=QMReference ("," classifierReference+=QMReference)*
 	//	")")?;
 	public UnnamedClassifierTypeElements getUnnamedClassifierTypeAccess() {
-		return (pUnnamedClassifierType != null) ? pUnnamedClassifierType : (pUnnamedClassifierType = new UnnamedClassifierTypeElements());
+		return pUnnamedClassifierType;
 	}
 	
 	public ParserRule getUnnamedClassifierTypeRule() {
@@ -28463,7 +28663,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//QMReference returns aadl2::MetaclassReference:
 	//	("{" annexName=ID "}" STAR STAR)? metaclassName+=(CoreKeyWord | ID)+;
 	public QMReferenceElements getQMReferenceAccess() {
-		return (pQMReference != null) ? pQMReference : (pQMReference = new QMReferenceElements());
+		return pQMReference;
 	}
 	
 	public ParserRule getQMReferenceRule() {
@@ -28473,7 +28673,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//QCReference returns aadl2::ClassifierValue:
 	//	classifier=[aadl2::ComponentClassifier|FQCREF];
 	public QCReferenceElements getQCReferenceAccess() {
-		return (pQCReference != null) ? pQCReference : (pQCReference = new QCReferenceElements());
+		return pQCReference;
 	}
 	
 	public ParserRule getQCReferenceRule() {
@@ -28484,7 +28684,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "type" "reference" ("(" namedElementReference+=QMReference ("," namedElementReference+=QMReference)*
 	//	")")?;
 	public ReferenceTypeElements getReferenceTypeAccess() {
-		return (pReferenceType != null) ? pReferenceType : (pReferenceType = new ReferenceTypeElements());
+		return pReferenceType;
 	}
 	
 	public ParserRule getReferenceTypeRule() {
@@ -28495,7 +28695,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	"reference" {aadl2::ReferenceType} ("(" namedElementReference+=QMReference ("," namedElementReference+=QMReference)*
 	//	")")?;
 	public UnnamedReferenceTypeElements getUnnamedReferenceTypeAccess() {
-		return (pUnnamedReferenceType != null) ? pUnnamedReferenceType : (pUnnamedReferenceType = new UnnamedReferenceTypeElements());
+		return pUnnamedReferenceType;
 	}
 	
 	public ParserRule getUnnamedReferenceTypeRule() {
@@ -28505,7 +28705,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//RecordType returns aadl2::RecordType:
 	//	name=ID ":" "type" "record" "(" ownedField+=RecordField+ ")";
 	public RecordTypeElements getRecordTypeAccess() {
-		return (pRecordType != null) ? pRecordType : (pRecordType = new RecordTypeElements());
+		return pRecordType;
 	}
 	
 	public ParserRule getRecordTypeRule() {
@@ -28515,7 +28715,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//UnnamedRecordType returns aadl2::RecordType:
 	//	"record" "(" ownedField+=RecordField+ ")";
 	public UnnamedRecordTypeElements getUnnamedRecordTypeAccess() {
-		return (pUnnamedRecordType != null) ? pUnnamedRecordType : (pUnnamedRecordType = new UnnamedRecordTypeElements());
+		return pUnnamedRecordType;
 	}
 	
 	public ParserRule getUnnamedRecordTypeRule() {
@@ -28526,7 +28726,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" (referencedPropertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 	//	| ownedPropertyType=UnnamedPropertyType) ";";
 	public RecordFieldElements getRecordFieldAccess() {
-		return (pRecordField != null) ? pRecordField : (pRecordField = new RecordFieldElements());
+		return pRecordField;
 	}
 	
 	public ParserRule getRecordFieldRule() {
@@ -28539,7 +28739,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	| ownedPropertyType=UnnamedPropertyType) ("=>" defaultValue=PropertyExpression)? "applies" "to" "("
 	//	(appliesTo+=PropertyOwner ("," appliesTo+=PropertyOwner)* | appliesTo+=AllReference) ")" ";";
 	public PropertyDefinitionElements getPropertyDefinitionAccess() {
-		return (pPropertyDefinition != null) ? pPropertyDefinition : (pPropertyDefinition = new PropertyDefinitionElements());
+		return pPropertyDefinition;
 	}
 	
 	public ParserRule getPropertyDefinitionRule() {
@@ -28550,7 +28750,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	metaclassName+= // &&&&& actually set it to NamedElement using ALL rule returning "named element" as string
 	//	"all";
 	public AllReferenceElements getAllReferenceAccess() {
-		return (pAllReference != null) ? pAllReference : (pAllReference = new AllReferenceElements());
+		return pAllReference;
 	}
 	
 	public ParserRule getAllReferenceRule() {
@@ -28560,7 +28760,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//ListType returns aadl2::ListType:
 	//	"list" "of" (referencedElementType=[aadl2::PropertyType|QPREF] | ownedElementType=UnnamedPropertyType);
 	public ListTypeElements getListTypeAccess() {
-		return (pListType != null) ? pListType : (pListType = new ListTypeElements());
+		return pListType;
 	}
 	
 	public ParserRule getListTypeRule() {
@@ -28570,7 +28770,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PropertyOwner returns aadl2::PropertyOwner: // classifier value is always qualified by a package name
 	//	QMReference | QCReference;
 	public PropertyOwnerElements getPropertyOwnerAccess() {
-		return (pPropertyOwner != null) ? pPropertyOwner : (pPropertyOwner = new PropertyOwnerElements());
+		return pPropertyOwner;
 	}
 	
 	public ParserRule getPropertyOwnerRule() {
@@ -28581,7 +28781,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "constant" (referencedPropertyType=[aadl2::PropertyType|QPREF] //	('list' 'of')* is handled as part of UnnamedPropertytype
 	//	| ownedPropertyType=UnnamedPropertyType) "=>" constantValue=ConstantPropertyExpression ";";
 	public PropertyConstantElements getPropertyConstantAccess() {
-		return (pPropertyConstant != null) ? pPropertyConstant : (pPropertyConstant = new PropertyConstantElements());
+		return pPropertyConstant;
 	}
 	
 	public ParserRule getPropertyConstantRule() {
@@ -28591,7 +28791,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//NumberValue returns aadl2::NumberValue:
 	//	RealLit | IntegerLit;
 	public NumberValueElements getNumberValueAccess() {
-		return (pNumberValue != null) ? pNumberValue : (pNumberValue = new NumberValueElements());
+		return pNumberValue;
 	}
 	
 	public ParserRule getNumberValueRule() {
@@ -28601,7 +28801,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//RealLit returns aadl2::RealLiteral:
 	//	value=SignedReal;
 	public RealLitElements getRealLitAccess() {
-		return (pRealLit != null) ? pRealLit : (pRealLit = new RealLitElements());
+		return pRealLit;
 	}
 	
 	public ParserRule getRealLitRule() {
@@ -28611,7 +28811,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//IntegerLit returns aadl2::IntegerLiteral:
 	//	value=SignedInt;
 	public IntegerLitElements getIntegerLitAccess() {
-		return (pIntegerLit != null) ? pIntegerLit : (pIntegerLit = new IntegerLitElements());
+		return pIntegerLit;
 	}
 	
 	public ParserRule getIntegerLitRule() {
@@ -28622,7 +28822,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm | ListTerm
 	//	| BooleanLiteral | LiteralorReferenceTerm;
 	public ConstantPropertyExpressionElements getConstantPropertyExpressionAccess() {
-		return (pConstantPropertyExpression != null) ? pConstantPropertyExpression : (pConstantPropertyExpression = new ConstantPropertyExpressionElements());
+		return pConstantPropertyExpression;
 	}
 	
 	public ParserRule getConstantPropertyExpressionRule() {
@@ -28633,7 +28833,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	lowerBound=(IntegerTerm | SignedConstant | ConstantValue) ".." upperBound=(IntegerTerm | SignedConstant |
 	//	ConstantValue);
 	public IntegerRangeElements getIntegerRangeAccess() {
-		return (pIntegerRange != null) ? pIntegerRange : (pIntegerRange = new IntegerRangeElements());
+		return pIntegerRange;
 	}
 	
 	public ParserRule getIntegerRangeRule() {
@@ -28643,7 +28843,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//RealRange returns aadl2::NumericRange:
 	//	lowerBound=(RealTerm | SignedConstant | ConstantValue) ".." upperBound=(RealTerm | SignedConstant | ConstantValue);
 	public RealRangeElements getRealRangeAccess() {
-		return (pRealRange != null) ? pRealRange : (pRealRange = new RealRangeElements());
+		return pRealRange;
 	}
 	
 	public ParserRule getRealRangeRule() {
@@ -28659,7 +28859,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	"provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" | "subcomponents" |
 	//	"subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with";
 	public CoreKeyWordElements getCoreKeyWordAccess() {
-		return (pCoreKeyWord != null) ? pCoreKeyWord : (pCoreKeyWord = new CoreKeyWordElements());
+		return pCoreKeyWord;
 	}
 	
 	public ParserRule getCoreKeyWordRule() {
@@ -28670,7 +28870,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PNAME:
 	//	ID ("::" ID)*;
 	public PNAMEElements getPNAMEAccess() {
-		return (pPNAME != null) ? pPNAME : (pPNAME = new PNAMEElements());
+		return pPNAME;
 	}
 	
 	public ParserRule getPNAMERule() {
@@ -28680,7 +28880,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FLOWOUT:
 	//	(ID ".")? ID;
 	public FLOWOUTElements getFLOWOUTAccess() {
-		return (pFLOWOUT != null) ? pFLOWOUT : (pFLOWOUT = new FLOWOUTElements());
+		return pFLOWOUT;
 	}
 	
 	public ParserRule getFLOWOUTRule() {
@@ -28690,7 +28890,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FLOWIN:
 	//	(ID ".")? ID;
 	public FLOWINElements getFLOWINAccess() {
-		return (pFLOWIN != null) ? pFLOWIN : (pFLOWIN = new FLOWINElements());
+		return pFLOWIN;
 	}
 	
 	public ParserRule getFLOWINRule() {
@@ -28701,7 +28901,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FQCREF:
 	//	(ID "::")+ ID ("." ID)?;
 	public FQCREFElements getFQCREFAccess() {
-		return (pFQCREF != null) ? pFQCREF : (pFQCREF = new FQCREFElements());
+		return pFQCREF;
 	}
 	
 	public ParserRule getFQCREFRule() {
@@ -28712,7 +28912,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//INAME:
 	//	ID;
 	public INAMEElements getINAMEAccess() {
-		return (pINAME != null) ? pINAME : (pINAME = new INAMEElements());
+		return pINAME;
 	}
 	
 	public ParserRule getINAMERule() {
@@ -28723,7 +28923,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FULLINAME:
 	//	ID "." ID;
 	public FULLINAMEElements getFULLINAMEAccess() {
-		return (pFULLINAME != null) ? pFULLINAME : (pFULLINAME = new FULLINAMEElements());
+		return pFULLINAME;
 	}
 	
 	public ParserRule getFULLINAMERule() {
@@ -28734,7 +28934,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//REFINEDNAME:
 	//	ID;
 	public REFINEDNAMEElements getREFINEDNAMEAccess() {
-		return (pREFINEDNAME != null) ? pREFINEDNAME : (pREFINEDNAME = new REFINEDNAMEElements());
+		return pREFINEDNAME;
 	}
 	
 	public ParserRule getREFINEDNAMERule() {
@@ -28744,7 +28944,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//terminal ANNEXTEXT:
 	//	"{**"->"**}";
 	public TerminalRule getANNEXTEXTRule() {
-		return (tANNEXTEXT != null) ? tANNEXTEXT : (tANNEXTEXT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ANNEXTEXT"));
+		return tANNEXTEXT;
 	} 
 
 	//PModel returns aadl2::Element: //| BasicPropertyAssociation | PropertyAssociation

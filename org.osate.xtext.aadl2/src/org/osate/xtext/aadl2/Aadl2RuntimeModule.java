@@ -35,10 +35,13 @@
 package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.findReferences.IReferenceFinder;
+import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
 import org.eclipse.xtext.resource.IFragmentProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
+import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProviderDelegate;
@@ -76,7 +79,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	 * // It has some problems. It recurses on the package in the outline view
 	 * DB: Fixing the reference problem. Reviewed getName() on PublicPackageSection to fix the recurses problem.
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
 	 */
 	@Override
@@ -126,9 +129,24 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2ScopeProvider.class;
 	}
 
+	@SuppressWarnings("restriction")
+	public Class<? extends IReferenceFinder> bindIReferenceFinder() {
+		return Aadl2ReferenceFinder.class;
+	}
+
 	@Override
 	public void configureIScopeProviderDelegate(Binder binder) {
 		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
-		.to(Aadl2ScopeProviderDelegate.class);
+				.to(Aadl2ScopeProviderDelegate.class);
+	}
+
+	/**
+	 * Turn this feature off because it breaks proxy resolution in OSATE. No idea why.
+	 * TODO: find root cause for breakage and re-enable fragment index
+	 */
+	@Override
+	public void configureUseIndexFragmentsForLazyLinking(com.google.inject.Binder binder) {
+		binder.bind(Boolean.TYPE).annotatedWith(Names.named(LazyURIEncoder.USE_INDEXED_FRAGMENTS_BINDING))
+				.toInstance(Boolean.FALSE);
 	}
 }
