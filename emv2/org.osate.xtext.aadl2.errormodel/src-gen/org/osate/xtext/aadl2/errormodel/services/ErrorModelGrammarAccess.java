@@ -4480,87 +4480,158 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
-	private ErrorModelGrammarRootElements pErrorModelGrammarRoot;
-	private AnnexLibraryElements pAnnexLibrary;
-	private AnnexSubclauseElements pAnnexSubclause;
-	private NamedElementElements pNamedElement;
-	private ModalElementElements pModalElement;
-	private ElementElements pElement;
-	private ErrorModelSubclauseElements pErrorModelSubclause;
-	private ErrorModelLibraryElements pErrorModelLibrary;
-	private ErrorTypesElements pErrorTypes;
-	private TypeDefinitionElements pTypeDefinition;
-	private TypeSetDefinitionElements pTypeSetDefinition;
-	private TypeSetConstructorElements pTypeSetConstructor;
-	private TypeSetReferenceElements pTypeSetReference;
-	private TypeSetElementElements pTypeSetElement;
-	private NoErrorTypeSetElements pNoErrorTypeSet;
-	private NoErrorTypeTokenElements pNoErrorTypeToken;
-	private TypeTokenElements pTypeToken;
-	private TypeTokenOrNoErrorElements pTypeTokenOrNoError;
-	private TypeTokenConstraintElements pTypeTokenConstraint;
-	private TypeTokenConstraintNoErrorElements pTypeTokenConstraintNoError;
-	private TypeTransformationSetElements pTypeTransformationSet;
-	private TypeTransformationElements pTypeTransformation;
-	private TypeMappingSetElements pTypeMappingSet;
-	private TypeMappingElements pTypeMapping;
-	private ErrorPropagationElements pErrorPropagation;
-	private FeatureorPPReferenceElements pFeatureorPPReference;
-	private PropagationDirectionElements pPropagationDirection;
-	private PropagationKindElements pPropagationKind;
-	private ErrorFlowElements pErrorFlow;
-	private ErrorSourceElements pErrorSource;
-	private ErrorBehaviorStateOrTypeSetElements pErrorBehaviorStateOrTypeSet;
-	private ErrorSinkElements pErrorSink;
-	private ErrorPathElements pErrorPath;
-	private ErrorPropagationPointElements pErrorPropagationPoint;
-	private PropagationPointElements pPropagationPoint;
-	private PropagationPathElements pPropagationPath;
-	private QualifiedPropagationPointElements pQualifiedPropagationPoint;
-	private ErrorBehaviorStateMachineElements pErrorBehaviorStateMachine;
-	private ErrorBehaviorEventElements pErrorBehaviorEvent;
-	private ErrorEventElements pErrorEvent;
-	private RepairEventElements pRepairEvent;
-	private RecoverEventElements pRecoverEvent;
-	private ErrorBehaviorStateElements pErrorBehaviorState;
-	private ErrorBehaviorTransitionElements pErrorBehaviorTransition;
-	private TransitionBranchElements pTransitionBranch;
-	private BranchValueElements pBranchValue;
-	private ConnectionErrorSourceElements pConnectionErrorSource;
-	private TypeUseContextElements pTypeUseContext;
-	private ConditionExpressionElements pConditionExpression;
-	private AndExpressionElements pAndExpression;
-	private OrmoreExpressionElements pOrmoreExpression;
-	private OrlessExpressionElements pOrlessExpression;
-	private ConditionTermElements pConditionTerm;
-	private ConditionElementElements pConditionElement;
-	private EventOrPropagationElements pEventOrPropagation;
-	private OutgoingPropagationConditionElements pOutgoingPropagationCondition;
-	private ErrorDetectionElements pErrorDetection;
-	private ErrorCodeValueElements pErrorCodeValue;
-	private ErrorStateToModeMappingElements pErrorStateToModeMapping;
-	private InternalPortElements pInternalPort;
-	private CompositeStateElements pCompositeState;
-	private SConditionExpressionElements pSConditionExpression;
-	private SAndExpressionElements pSAndExpression;
-	private SOrmoreExpressionElements pSOrmoreExpression;
-	private SOrlessExpressionElements pSOrlessExpression;
-	private SConditionTermElements pSConditionTerm;
-	private SConditionElementElements pSConditionElement;
-	private SubcomponentElementElements pSubcomponentElement;
-	private TerminalRule tSL_COMMENT;
-	private TerminalRule tINTEGER_LIT;
-	private QEMREFElements pQEMREF;
+	private final ErrorModelGrammarRootElements pErrorModelGrammarRoot;
+	private final AnnexLibraryElements pAnnexLibrary;
+	private final AnnexSubclauseElements pAnnexSubclause;
+	private final NamedElementElements pNamedElement;
+	private final ModalElementElements pModalElement;
+	private final ElementElements pElement;
+	private final ErrorModelSubclauseElements pErrorModelSubclause;
+	private final ErrorModelLibraryElements pErrorModelLibrary;
+	private final ErrorTypesElements pErrorTypes;
+	private final TypeDefinitionElements pTypeDefinition;
+	private final TypeSetDefinitionElements pTypeSetDefinition;
+	private final TypeSetConstructorElements pTypeSetConstructor;
+	private final TypeSetReferenceElements pTypeSetReference;
+	private final TypeSetElementElements pTypeSetElement;
+	private final NoErrorTypeSetElements pNoErrorTypeSet;
+	private final NoErrorTypeTokenElements pNoErrorTypeToken;
+	private final TypeTokenElements pTypeToken;
+	private final TypeTokenOrNoErrorElements pTypeTokenOrNoError;
+	private final TypeTokenConstraintElements pTypeTokenConstraint;
+	private final TypeTokenConstraintNoErrorElements pTypeTokenConstraintNoError;
+	private final TypeTransformationSetElements pTypeTransformationSet;
+	private final TypeTransformationElements pTypeTransformation;
+	private final TypeMappingSetElements pTypeMappingSet;
+	private final TypeMappingElements pTypeMapping;
+	private final ErrorPropagationElements pErrorPropagation;
+	private final FeatureorPPReferenceElements pFeatureorPPReference;
+	private final PropagationDirectionElements pPropagationDirection;
+	private final PropagationKindElements pPropagationKind;
+	private final ErrorFlowElements pErrorFlow;
+	private final ErrorSourceElements pErrorSource;
+	private final ErrorBehaviorStateOrTypeSetElements pErrorBehaviorStateOrTypeSet;
+	private final ErrorSinkElements pErrorSink;
+	private final ErrorPathElements pErrorPath;
+	private final ErrorPropagationPointElements pErrorPropagationPoint;
+	private final PropagationPointElements pPropagationPoint;
+	private final PropagationPathElements pPropagationPath;
+	private final QualifiedPropagationPointElements pQualifiedPropagationPoint;
+	private final ErrorBehaviorStateMachineElements pErrorBehaviorStateMachine;
+	private final ErrorBehaviorEventElements pErrorBehaviorEvent;
+	private final ErrorEventElements pErrorEvent;
+	private final RepairEventElements pRepairEvent;
+	private final RecoverEventElements pRecoverEvent;
+	private final ErrorBehaviorStateElements pErrorBehaviorState;
+	private final ErrorBehaviorTransitionElements pErrorBehaviorTransition;
+	private final TransitionBranchElements pTransitionBranch;
+	private final BranchValueElements pBranchValue;
+	private final ConnectionErrorSourceElements pConnectionErrorSource;
+	private final TypeUseContextElements pTypeUseContext;
+	private final ConditionExpressionElements pConditionExpression;
+	private final AndExpressionElements pAndExpression;
+	private final OrmoreExpressionElements pOrmoreExpression;
+	private final OrlessExpressionElements pOrlessExpression;
+	private final ConditionTermElements pConditionTerm;
+	private final ConditionElementElements pConditionElement;
+	private final EventOrPropagationElements pEventOrPropagation;
+	private final OutgoingPropagationConditionElements pOutgoingPropagationCondition;
+	private final ErrorDetectionElements pErrorDetection;
+	private final ErrorCodeValueElements pErrorCodeValue;
+	private final ErrorStateToModeMappingElements pErrorStateToModeMapping;
+	private final InternalPortElements pInternalPort;
+	private final CompositeStateElements pCompositeState;
+	private final SConditionExpressionElements pSConditionExpression;
+	private final SAndExpressionElements pSAndExpression;
+	private final SOrmoreExpressionElements pSOrmoreExpression;
+	private final SOrlessExpressionElements pSOrlessExpression;
+	private final SConditionTermElements pSConditionTerm;
+	private final SConditionElementElements pSConditionElement;
+	private final SubcomponentElementElements pSubcomponentElement;
+	private final TerminalRule tSL_COMMENT;
+	private final TerminalRule tINTEGER_LIT;
+	private final QEMREFElements pQEMREF;
 	
 	private final Grammar grammar;
 
-	private PropertiesGrammarAccess gaProperties;
+	private final PropertiesGrammarAccess gaProperties;
 
 	@Inject
 	public ErrorModelGrammarAccess(GrammarProvider grammarProvider,
 		PropertiesGrammarAccess gaProperties) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaProperties = gaProperties;
+		this.pErrorModelGrammarRoot = new ErrorModelGrammarRootElements();
+		this.pAnnexLibrary = new AnnexLibraryElements();
+		this.pAnnexSubclause = new AnnexSubclauseElements();
+		this.pNamedElement = new NamedElementElements();
+		this.pModalElement = new ModalElementElements();
+		this.pElement = new ElementElements();
+		this.pErrorModelSubclause = new ErrorModelSubclauseElements();
+		this.pErrorModelLibrary = new ErrorModelLibraryElements();
+		this.pErrorTypes = new ErrorTypesElements();
+		this.pTypeDefinition = new TypeDefinitionElements();
+		this.pTypeSetDefinition = new TypeSetDefinitionElements();
+		this.pTypeSetConstructor = new TypeSetConstructorElements();
+		this.pTypeSetReference = new TypeSetReferenceElements();
+		this.pTypeSetElement = new TypeSetElementElements();
+		this.pNoErrorTypeSet = new NoErrorTypeSetElements();
+		this.pNoErrorTypeToken = new NoErrorTypeTokenElements();
+		this.pTypeToken = new TypeTokenElements();
+		this.pTypeTokenOrNoError = new TypeTokenOrNoErrorElements();
+		this.pTypeTokenConstraint = new TypeTokenConstraintElements();
+		this.pTypeTokenConstraintNoError = new TypeTokenConstraintNoErrorElements();
+		this.pTypeTransformationSet = new TypeTransformationSetElements();
+		this.pTypeTransformation = new TypeTransformationElements();
+		this.pTypeMappingSet = new TypeMappingSetElements();
+		this.pTypeMapping = new TypeMappingElements();
+		this.pErrorPropagation = new ErrorPropagationElements();
+		this.pFeatureorPPReference = new FeatureorPPReferenceElements();
+		this.pPropagationDirection = new PropagationDirectionElements();
+		this.pPropagationKind = new PropagationKindElements();
+		this.pErrorFlow = new ErrorFlowElements();
+		this.pErrorSource = new ErrorSourceElements();
+		this.pErrorBehaviorStateOrTypeSet = new ErrorBehaviorStateOrTypeSetElements();
+		this.pErrorSink = new ErrorSinkElements();
+		this.pErrorPath = new ErrorPathElements();
+		this.pErrorPropagationPoint = new ErrorPropagationPointElements();
+		this.pPropagationPoint = new PropagationPointElements();
+		this.pPropagationPath = new PropagationPathElements();
+		this.pQualifiedPropagationPoint = new QualifiedPropagationPointElements();
+		this.pErrorBehaviorStateMachine = new ErrorBehaviorStateMachineElements();
+		this.pErrorBehaviorEvent = new ErrorBehaviorEventElements();
+		this.pErrorEvent = new ErrorEventElements();
+		this.pRepairEvent = new RepairEventElements();
+		this.pRecoverEvent = new RecoverEventElements();
+		this.pErrorBehaviorState = new ErrorBehaviorStateElements();
+		this.pErrorBehaviorTransition = new ErrorBehaviorTransitionElements();
+		this.pTransitionBranch = new TransitionBranchElements();
+		this.pBranchValue = new BranchValueElements();
+		this.pConnectionErrorSource = new ConnectionErrorSourceElements();
+		this.pTypeUseContext = new TypeUseContextElements();
+		this.pConditionExpression = new ConditionExpressionElements();
+		this.pAndExpression = new AndExpressionElements();
+		this.pOrmoreExpression = new OrmoreExpressionElements();
+		this.pOrlessExpression = new OrlessExpressionElements();
+		this.pConditionTerm = new ConditionTermElements();
+		this.pConditionElement = new ConditionElementElements();
+		this.pEventOrPropagation = new EventOrPropagationElements();
+		this.pOutgoingPropagationCondition = new OutgoingPropagationConditionElements();
+		this.pErrorDetection = new ErrorDetectionElements();
+		this.pErrorCodeValue = new ErrorCodeValueElements();
+		this.pErrorStateToModeMapping = new ErrorStateToModeMappingElements();
+		this.pInternalPort = new InternalPortElements();
+		this.pCompositeState = new CompositeStateElements();
+		this.pSConditionExpression = new SConditionExpressionElements();
+		this.pSAndExpression = new SAndExpressionElements();
+		this.pSOrmoreExpression = new SOrmoreExpressionElements();
+		this.pSOrlessExpression = new SOrlessExpressionElements();
+		this.pSConditionTerm = new SConditionTermElements();
+		this.pSConditionElement = new SConditionElementElements();
+		this.pSubcomponentElement = new SubcomponentElementElements();
+		this.tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT");
+		this.tINTEGER_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER_LIT");
+		this.pQEMREF = new QEMREFElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -4598,7 +4669,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorModelGrammarRoot:
 	//	"library" eml=ErrorModelLibrary | emsc=ErrorModelSubclause;
 	public ErrorModelGrammarRootElements getErrorModelGrammarRootAccess() {
-		return (pErrorModelGrammarRoot != null) ? pErrorModelGrammarRoot : (pErrorModelGrammarRoot = new ErrorModelGrammarRootElements());
+		return pErrorModelGrammarRoot;
 	}
 	
 	public ParserRule getErrorModelGrammarRootRule() {
@@ -4608,7 +4679,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//AnnexLibrary returns aadl2::AnnexLibrary:
 	//	ErrorModelLibrary;
 	public AnnexLibraryElements getAnnexLibraryAccess() {
-		return (pAnnexLibrary != null) ? pAnnexLibrary : (pAnnexLibrary = new AnnexLibraryElements());
+		return pAnnexLibrary;
 	}
 	
 	public ParserRule getAnnexLibraryRule() {
@@ -4618,7 +4689,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//AnnexSubclause returns aadl2::AnnexSubclause:
 	//	ErrorModelSubclause;
 	public AnnexSubclauseElements getAnnexSubclauseAccess() {
-		return (pAnnexSubclause != null) ? pAnnexSubclause : (pAnnexSubclause = new AnnexSubclauseElements());
+		return pAnnexSubclause;
 	}
 	
 	public ParserRule getAnnexSubclauseRule() {
@@ -4631,7 +4702,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
 	//	EventOrPropagation;
 	public NamedElementElements getNamedElementAccess() {
-		return (pNamedElement != null) ? pNamedElement : (pNamedElement = new NamedElementElements());
+		return pNamedElement;
 	}
 	
 	public ParserRule getNamedElementRule() {
@@ -4641,7 +4712,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ModalElement returns aadl2::ModalElement:
 	//	ErrorModelSubclause;
 	public ModalElementElements getModalElementAccess() {
-		return (pModalElement != null) ? pModalElement : (pModalElement = new ModalElementElements());
+		return pModalElement;
 	}
 	
 	public ParserRule getModalElementRule() {
@@ -4654,7 +4725,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
 	//	FeatureorPPReference | TypeUseContext;
 	public ElementElements getElementAccess() {
-		return (pElement != null) ? pElement : (pElement = new ElementElements());
+		return pElement;
 	}
 	
 	public ParserRule getElementRule() {
@@ -4676,7 +4747,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
 	//	("properties" properties+=ContainedPropertyAssociation+)?;
 	public ErrorModelSubclauseElements getErrorModelSubclauseAccess() {
-		return (pErrorModelSubclause != null) ? pErrorModelSubclause : (pErrorModelSubclause = new ErrorModelSubclauseElements());
+		return pErrorModelSubclause;
 	}
 	
 	public ParserRule getErrorModelSubclauseRule() {
@@ -4690,7 +4761,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
 	//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*;
 	public ErrorModelLibraryElements getErrorModelLibraryAccess() {
-		return (pErrorModelLibrary != null) ? pErrorModelLibrary : (pErrorModelLibrary = new ErrorModelLibraryElements());
+		return pErrorModelLibrary;
 	}
 	
 	public ParserRule getErrorModelLibraryRule() {
@@ -4700,7 +4771,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorTypes:
 	//	TypeDefinition | TypeSetDefinition;
 	public ErrorTypesElements getErrorTypesAccess() {
-		return (pErrorTypes != null) ? pErrorTypes : (pErrorTypes = new ErrorTypesElements());
+		return pErrorTypes;
 	}
 	
 	public ParserRule getErrorTypesRule() {
@@ -4710,7 +4781,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeDefinition returns ErrorType:
 	//	name=ID (":" "type" ("extends" superType=[ErrorType|QEMREF])? | "renames" "type" aliasedType=[ErrorType|QEMREF]) ";";
 	public TypeDefinitionElements getTypeDefinitionAccess() {
-		return (pTypeDefinition != null) ? pTypeDefinition : (pTypeDefinition = new TypeDefinitionElements());
+		return pTypeDefinition;
 	}
 	
 	public ParserRule getTypeDefinitionRule() {
@@ -4721,7 +4792,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID (":" "type" "set" "{" typeTokens+=TypeSetElement ("," typeTokens+=TypeSetElement)* "}" | "renames" "type"
 	//	"set" aliasedType=[TypeSet|QEMREF]) ";";
 	public TypeSetDefinitionElements getTypeSetDefinitionAccess() {
-		return (pTypeSetDefinition != null) ? pTypeSetDefinition : (pTypeSetDefinition = new TypeSetDefinitionElements());
+		return pTypeSetDefinition;
 	}
 	
 	public ParserRule getTypeSetDefinitionRule() {
@@ -4731,7 +4802,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeSetConstructor returns TypeSet:
 	//	"{" typeTokens+=TypeSetElement ("," typeTokens+=TypeSetElement)* "}";
 	public TypeSetConstructorElements getTypeSetConstructorAccess() {
-		return (pTypeSetConstructor != null) ? pTypeSetConstructor : (pTypeSetConstructor = new TypeSetConstructorElements());
+		return pTypeSetConstructor;
 	}
 	
 	public ParserRule getTypeSetConstructorRule() {
@@ -4741,7 +4812,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeSetReference returns TypeSet:
 	//	TypeSetConstructor;
 	public TypeSetReferenceElements getTypeSetReferenceAccess() {
-		return (pTypeSetReference != null) ? pTypeSetReference : (pTypeSetReference = new TypeSetReferenceElements());
+		return pTypeSetReference;
 	}
 	
 	public ParserRule getTypeSetReferenceRule() {
@@ -4751,7 +4822,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeSetElement returns TypeToken:
 	//	type+=[ErrorTypes|QEMREF] ("*" type+=[ErrorType|QEMREF])*;
 	public TypeSetElementElements getTypeSetElementAccess() {
-		return (pTypeSetElement != null) ? pTypeSetElement : (pTypeSetElement = new TypeSetElementElements());
+		return pTypeSetElement;
 	}
 	
 	public ParserRule getTypeSetElementRule() {
@@ -4761,7 +4832,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//NoErrorTypeSet returns TypeSet:
 	//	{TypeSet} "{" typeTokens+=NoErrorTypeToken "}";
 	public NoErrorTypeSetElements getNoErrorTypeSetAccess() {
-		return (pNoErrorTypeSet != null) ? pNoErrorTypeSet : (pNoErrorTypeSet = new NoErrorTypeSetElements());
+		return pNoErrorTypeSet;
 	}
 	
 	public ParserRule getNoErrorTypeSetRule() {
@@ -4771,7 +4842,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//NoErrorTypeToken returns TypeToken:
 	//	{TypeToken} noError?="noerror";
 	public NoErrorTypeTokenElements getNoErrorTypeTokenAccess() {
-		return (pNoErrorTypeToken != null) ? pNoErrorTypeToken : (pNoErrorTypeToken = new NoErrorTypeTokenElements());
+		return pNoErrorTypeToken;
 	}
 	
 	public ParserRule getNoErrorTypeTokenRule() {
@@ -4782,7 +4853,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	{TypeToken} //     ('(' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* ')')
 	//	("{" type+=[ErrorTypes|QEMREF] ("*" type+=[ErrorTypes|QEMREF])* "}");
 	public TypeTokenElements getTypeTokenAccess() {
-		return (pTypeToken != null) ? pTypeToken : (pTypeToken = new TypeTokenElements());
+		return pTypeToken;
 	}
 	
 	public ParserRule getTypeTokenRule() {
@@ -4792,7 +4863,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeTokenOrNoError returns TypeToken: //| '(' NoErrorTypeToken ')' 
 	//	TypeToken | "{" NoErrorTypeToken "}";
 	public TypeTokenOrNoErrorElements getTypeTokenOrNoErrorAccess() {
-		return (pTypeTokenOrNoError != null) ? pTypeTokenOrNoError : (pTypeTokenOrNoError = new TypeTokenOrNoErrorElements());
+		return pTypeTokenOrNoError;
 	}
 	
 	public ParserRule getTypeTokenOrNoErrorRule() {
@@ -4802,7 +4873,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeTokenConstraint returns TypeSet:
 	//	TypeSetReference;
 	public TypeTokenConstraintElements getTypeTokenConstraintAccess() {
-		return (pTypeTokenConstraint != null) ? pTypeTokenConstraint : (pTypeTokenConstraint = new TypeTokenConstraintElements());
+		return pTypeTokenConstraint;
 	}
 	
 	public ParserRule getTypeTokenConstraintRule() {
@@ -4812,7 +4883,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeTokenConstraintNoError returns TypeSet:
 	//	TypeSetReference | NoErrorTypeSet;
 	public TypeTokenConstraintNoErrorElements getTypeTokenConstraintNoErrorAccess() {
-		return (pTypeTokenConstraintNoError != null) ? pTypeTokenConstraintNoError : (pTypeTokenConstraintNoError = new TypeTokenConstraintNoErrorElements());
+		return pTypeTokenConstraintNoError;
 	}
 	
 	public ParserRule getTypeTokenConstraintNoErrorRule() {
@@ -4823,7 +4894,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	"type" "transformations" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? transformation+=TypeTransformation+ "end" "transformations" ";";
 	public TypeTransformationSetElements getTypeTransformationSetAccess() {
-		return (pTypeTransformationSet != null) ? pTypeTransformationSet : (pTypeTransformationSet = new TypeTransformationSetElements());
+		return pTypeTransformationSet;
 	}
 	
 	public ParserRule getTypeTransformationSetRule() {
@@ -4834,7 +4905,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	(source=TypeTokenConstraintNoError | allSources?="all") "-[" contributor=TypeTokenConstraintNoError? "]->"
 	//	target=TypeToken ";";
 	public TypeTransformationElements getTypeTransformationAccess() {
-		return (pTypeTransformation != null) ? pTypeTransformation : (pTypeTransformation = new TypeTransformationElements());
+		return pTypeTransformation;
 	}
 	
 	public ParserRule getTypeTransformationRule() {
@@ -4845,7 +4916,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	"type" "mappings" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? mapping+=TypeMapping+ "end" "mappings" ";";
 	public TypeMappingSetElements getTypeMappingSetAccess() {
-		return (pTypeMappingSet != null) ? pTypeMappingSet : (pTypeMappingSet = new TypeMappingSetElements());
+		return pTypeMappingSet;
 	}
 	
 	public ParserRule getTypeMappingSetRule() {
@@ -4855,7 +4926,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeMapping:
 	//	source=TypeTokenConstraint "->" target=TypeToken ";";
 	public TypeMappingElements getTypeMappingAccess() {
-		return (pTypeMapping != null) ? pTypeMapping : (pTypeMapping = new TypeMappingElements());
+		return pTypeMapping;
 	}
 	
 	public ParserRule getTypeMappingRule() {
@@ -4870,7 +4941,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	featureorPPRefs+=FeatureorPPReference)*) ":" not?="not"? direction=PropagationDirection "propagation"
 	//	typeSet=TypeSetReference ";";
 	public ErrorPropagationElements getErrorPropagationAccess() {
-		return (pErrorPropagation != null) ? pErrorPropagation : (pErrorPropagation = new ErrorPropagationElements());
+		return pErrorPropagation;
 	}
 	
 	public ParserRule getErrorPropagationRule() {
@@ -4880,7 +4951,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//FeatureorPPReference:
 	//	featureorPP=[aadl2::NamedElement];
 	public FeatureorPPReferenceElements getFeatureorPPReferenceAccess() {
-		return (pFeatureorPPReference != null) ? pFeatureorPPReference : (pFeatureorPPReference = new FeatureorPPReferenceElements());
+		return pFeatureorPPReference;
 	}
 	
 	public ParserRule getFeatureorPPReferenceRule() {
@@ -4890,7 +4961,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//PropagationDirection returns aadl2::DirectionType:
 	//	"in" | "out";
 	public PropagationDirectionElements getPropagationDirectionAccess() {
-		return (pPropagationDirection != null) ? pPropagationDirection : (pPropagationDirection = new PropagationDirectionElements());
+		return pPropagationDirection;
 	}
 	
 	public ParserRule getPropagationDirectionRule() {
@@ -4900,7 +4971,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//PropagationKind:
 	//	"processor" | "memory" | "connection" | "binding" | "bindings" | "access";
 	public PropagationKindElements getPropagationKindAccess() {
-		return (pPropagationKind != null) ? pPropagationKind : (pPropagationKind = new PropagationKindElements());
+		return pPropagationKind;
 	}
 	
 	public ParserRule getPropagationKindRule() {
@@ -4914,7 +4985,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorFlow:
 	//	ErrorSource | ErrorSink | ErrorPath;
 	public ErrorFlowElements getErrorFlowAccess() {
-		return (pErrorFlow != null) ? pErrorFlow : (pErrorFlow = new ErrorFlowElements());
+		return pErrorFlow;
 	}
 	
 	public ParserRule getErrorFlowRule() {
@@ -4926,7 +4997,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
 	//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
 	public ErrorSourceElements getErrorSourceAccess() {
-		return (pErrorSource != null) ? pErrorSource : (pErrorSource = new ErrorSourceElements());
+		return pErrorSource;
 	}
 	
 	public ParserRule getErrorSourceRule() {
@@ -4936,7 +5007,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorBehaviorStateOrTypeSet:
 	//	ErrorBehaviorState | TypeSetDefinition;
 	public ErrorBehaviorStateOrTypeSetElements getErrorBehaviorStateOrTypeSetAccess() {
-		return (pErrorBehaviorStateOrTypeSet != null) ? pErrorBehaviorStateOrTypeSet : (pErrorBehaviorStateOrTypeSet = new ErrorBehaviorStateOrTypeSetElements());
+		return pErrorBehaviorStateOrTypeSet;
 	}
 	
 	public ParserRule getErrorBehaviorStateOrTypeSetRule() {
@@ -4947,7 +5018,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "error" "sink" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
 	//	typeTokenConstraint=TypeTokenConstraint? ";";
 	public ErrorSinkElements getErrorSinkAccess() {
-		return (pErrorSink != null) ? pErrorSink : (pErrorSink = new ErrorSinkElements());
+		return pErrorSink;
 	}
 	
 	public ParserRule getErrorSinkRule() {
@@ -4959,7 +5030,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
 	//	(targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
 	public ErrorPathElements getErrorPathAccess() {
-		return (pErrorPath != null) ? pErrorPath : (pErrorPath = new ErrorPathElements());
+		return pErrorPath;
 	}
 	
 	public ParserRule getErrorPathRule() {
@@ -4970,7 +5041,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorPropagationPoint:
 	//	PropagationKind | ID ("." ID)*;
 	public ErrorPropagationPointElements getErrorPropagationPointAccess() {
-		return (pErrorPropagationPoint != null) ? pErrorPropagationPoint : (pErrorPropagationPoint = new ErrorPropagationPointElements());
+		return pErrorPropagationPoint;
 	}
 	
 	public ParserRule getErrorPropagationPointRule() {
@@ -4980,7 +5051,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//PropagationPoint:
 	//	name=ID ":" "propagation" "point" ";";
 	public PropagationPointElements getPropagationPointAccess() {
-		return (pPropagationPoint != null) ? pPropagationPoint : (pPropagationPoint = new PropagationPointElements());
+		return pPropagationPoint;
 	}
 	
 	public ParserRule getPropagationPointRule() {
@@ -4990,7 +5061,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//PropagationPath:
 	//	(name=ID ":")? source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";";
 	public PropagationPathElements getPropagationPathAccess() {
-		return (pPropagationPath != null) ? pPropagationPath : (pPropagationPath = new PropagationPathElements());
+		return pPropagationPath;
 	}
 	
 	public ParserRule getPropagationPathRule() {
@@ -5000,7 +5071,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//QualifiedPropagationPoint:
 	//	(subcomponents+=SubcomponentElement ".")+ propagationPoint=[PropagationPoint];
 	public QualifiedPropagationPointElements getQualifiedPropagationPointAccess() {
-		return (pQualifiedPropagationPoint != null) ? pQualifiedPropagationPoint : (pQualifiedPropagationPoint = new QualifiedPropagationPointElements());
+		return pQualifiedPropagationPoint;
 	}
 	
 	public ParserRule getQualifiedPropagationPointRule() {
@@ -5014,7 +5085,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	("states" states+=ErrorBehaviorState+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("properties"
 	//	properties+=ContainedPropertyAssociation+)? "end" "behavior" ";";
 	public ErrorBehaviorStateMachineElements getErrorBehaviorStateMachineAccess() {
-		return (pErrorBehaviorStateMachine != null) ? pErrorBehaviorStateMachine : (pErrorBehaviorStateMachine = new ErrorBehaviorStateMachineElements());
+		return pErrorBehaviorStateMachine;
 	}
 	
 	public ParserRule getErrorBehaviorStateMachineRule() {
@@ -5024,7 +5095,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorBehaviorEvent:
 	//	ErrorEvent | RepairEvent | RecoverEvent;
 	public ErrorBehaviorEventElements getErrorBehaviorEventAccess() {
-		return (pErrorBehaviorEvent != null) ? pErrorBehaviorEvent : (pErrorBehaviorEvent = new ErrorBehaviorEventElements());
+		return pErrorBehaviorEvent;
 	}
 	
 	public ParserRule getErrorBehaviorEventRule() {
@@ -5035,7 +5106,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorEvent:
 	//	name=ID ":" "error" "event" typeSet=TypeSetReference? ("when" condition=STRING)? ";";
 	public ErrorEventElements getErrorEventAccess() {
-		return (pErrorEvent != null) ? pErrorEvent : (pErrorEvent = new ErrorEventElements());
+		return pErrorEvent;
 	}
 	
 	public ParserRule getErrorEventRule() {
@@ -5045,7 +5116,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//RepairEvent:
 	//	name=ID ":" "repair" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";";
 	public RepairEventElements getRepairEventAccess() {
-		return (pRepairEvent != null) ? pRepairEvent : (pRepairEvent = new RepairEventElements());
+		return pRepairEvent;
 	}
 	
 	public ParserRule getRepairEventRule() {
@@ -5056,7 +5127,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//RecoverEvent:
 	//	name=ID ":" "recover" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";";
 	public RecoverEventElements getRecoverEventAccess() {
-		return (pRecoverEvent != null) ? pRecoverEvent : (pRecoverEvent = new RecoverEventElements());
+		return pRecoverEvent;
 	}
 	
 	public ParserRule getRecoverEventRule() {
@@ -5066,7 +5137,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorBehaviorState:
 	//	name=ID ":" intial?="initial"? "state" typeSet=TypeSetReference? ";";
 	public ErrorBehaviorStateElements getErrorBehaviorStateAccess() {
-		return (pErrorBehaviorState != null) ? pErrorBehaviorState : (pErrorBehaviorState = new ErrorBehaviorStateElements());
+		return pErrorBehaviorState;
 	}
 	
 	public ParserRule getErrorBehaviorStateRule() {
@@ -5078,7 +5149,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
 	//	| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";";
 	public ErrorBehaviorTransitionElements getErrorBehaviorTransitionAccess() {
-		return (pErrorBehaviorTransition != null) ? pErrorBehaviorTransition : (pErrorBehaviorTransition = new ErrorBehaviorTransitionElements());
+		return pErrorBehaviorTransition;
 	}
 	
 	public ParserRule getErrorBehaviorTransitionRule() {
@@ -5088,7 +5159,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TransitionBranch:
 	//	(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state") "with" value=BranchValue;
 	public TransitionBranchElements getTransitionBranchAccess() {
-		return (pTransitionBranch != null) ? pTransitionBranch : (pTransitionBranch = new TransitionBranchElements());
+		return pTransitionBranch;
 	}
 	
 	public ParserRule getTransitionBranchRule() {
@@ -5099,7 +5170,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//BranchValue:
 	//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::Property|QEMREF] | others?="others");
 	public BranchValueElements getBranchValueAccess() {
-		return (pBranchValue != null) ? pBranchValue : (pBranchValue = new BranchValueElements());
+		return pBranchValue;
 	}
 	
 	public ParserRule getBranchValueRule() {
@@ -5110,7 +5181,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ":" "error" "source" (connection=[aadl2::Connection] | all?="all") typeTokenConstraint=TypeTokenConstraint?
 	//	("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
 	public ConnectionErrorSourceElements getConnectionErrorSourceAccess() {
-		return (pConnectionErrorSource != null) ? pConnectionErrorSource : (pConnectionErrorSource = new ConnectionErrorSourceElements());
+		return pConnectionErrorSource;
 	}
 	
 	public ParserRule getConnectionErrorSourceRule() {
@@ -5120,7 +5191,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//TypeUseContext:
 	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorModelSubclause;
 	public TypeUseContextElements getTypeUseContextAccess() {
-		return (pTypeUseContext != null) ? pTypeUseContext : (pTypeUseContext = new TypeUseContextElements());
+		return pTypeUseContext;
 	}
 	
 	public ParserRule getTypeUseContextRule() {
@@ -5132,7 +5203,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ConditionExpression:
 	//	AndExpression ({OrExpression.operands+=current} "or" operands+=AndExpression)*;
 	public ConditionExpressionElements getConditionExpressionAccess() {
-		return (pConditionExpression != null) ? pConditionExpression : (pConditionExpression = new ConditionExpressionElements());
+		return pConditionExpression;
 	}
 	
 	public ParserRule getConditionExpressionRule() {
@@ -5142,7 +5213,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//AndExpression returns ConditionExpression:
 	//	ConditionTerm ({AndExpression.operands+=current} "and" operands+=ConditionTerm)*;
 	public AndExpressionElements getAndExpressionAccess() {
-		return (pAndExpression != null) ? pAndExpression : (pAndExpression = new AndExpressionElements());
+		return pAndExpression;
 	}
 	
 	public ParserRule getAndExpressionRule() {
@@ -5152,7 +5223,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//OrmoreExpression:
 	//	count=INTVALUE "ormore" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")";
 	public OrmoreExpressionElements getOrmoreExpressionAccess() {
-		return (pOrmoreExpression != null) ? pOrmoreExpression : (pOrmoreExpression = new OrmoreExpressionElements());
+		return pOrmoreExpression;
 	}
 	
 	public ParserRule getOrmoreExpressionRule() {
@@ -5162,7 +5233,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//OrlessExpression:
 	//	count=INTVALUE "orless" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")";
 	public OrlessExpressionElements getOrlessExpressionAccess() {
-		return (pOrlessExpression != null) ? pOrlessExpression : (pOrlessExpression = new OrlessExpressionElements());
+		return pOrlessExpression;
 	}
 	
 	public ParserRule getOrlessExpressionRule() {
@@ -5172,7 +5243,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ConditionTerm returns ConditionExpression:
 	//	ConditionElement | OrmoreExpression | OrlessExpression | "(" ConditionExpression ")";
 	public ConditionTermElements getConditionTermAccess() {
-		return (pConditionTerm != null) ? pConditionTerm : (pConditionTerm = new ConditionTermElements());
+		return pConditionTerm;
 	}
 	
 	public ParserRule getConditionTermRule() {
@@ -5182,7 +5253,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ConditionElement: // ( subcomponent=[Subcomponent|ID] '.' )* or ?
 	//	incoming=[EventOrPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?;
 	public ConditionElementElements getConditionElementAccess() {
-		return (pConditionElement != null) ? pConditionElement : (pConditionElement = new ConditionElementElements());
+		return pConditionElement;
 	}
 	
 	public ParserRule getConditionElementRule() {
@@ -5192,7 +5263,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//EventOrPropagation:
 	//	ErrorBehaviorEvent | ErrorPropagation;
 	public EventOrPropagationElements getEventOrPropagationAccess() {
-		return (pEventOrPropagation != null) ? pEventOrPropagation : (pEventOrPropagation = new EventOrPropagationElements());
+		return pEventOrPropagation;
 	}
 	
 	public ParserRule getEventOrPropagationRule() {
@@ -5204,7 +5275,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all")
 	//	typeToken=TypeTokenOrNoError?) ";";
 	public OutgoingPropagationConditionElements getOutgoingPropagationConditionAccess() {
-		return (pOutgoingPropagationCondition != null) ? pOutgoingPropagationCondition : (pOutgoingPropagationCondition = new OutgoingPropagationConditionElements());
+		return pOutgoingPropagationCondition;
 	}
 	
 	public ParserRule getOutgoingPropagationConditionRule() {
@@ -5216,7 +5287,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	condition=ConditionExpression? "]->" (internalDetectionPort=InternalPort | detectionReportingPort=[aadl2::Port]) "!"
 	//	errorCode=ErrorCodeValue? ";";
 	public ErrorDetectionElements getErrorDetectionAccess() {
-		return (pErrorDetection != null) ? pErrorDetection : (pErrorDetection = new ErrorDetectionElements());
+		return pErrorDetection;
 	}
 	
 	public ParserRule getErrorDetectionRule() {
@@ -5226,7 +5297,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorCodeValue:
 	//	intValue=INTEGER_LIT | constant=[aadl2::PropertyConstant|QPREF] | enumLiteral=STRING;
 	public ErrorCodeValueElements getErrorCodeValueAccess() {
-		return (pErrorCodeValue != null) ? pErrorCodeValue : (pErrorCodeValue = new ErrorCodeValueElements());
+		return pErrorCodeValue;
 	}
 	
 	public ParserRule getErrorCodeValueRule() {
@@ -5237,7 +5308,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	errorState=[ErrorBehaviorState] typeToken=TypeToken? "in" "modes" "(" mappedModes+=[aadl2::Mode] (","
 	//	mappedModes+=[aadl2::Mode])* ")" ";";
 	public ErrorStateToModeMappingElements getErrorStateToModeMappingAccess() {
-		return (pErrorStateToModeMapping != null) ? pErrorStateToModeMapping : (pErrorStateToModeMapping = new ErrorStateToModeMappingElements());
+		return pErrorStateToModeMapping;
 	}
 	
 	public ParserRule getErrorStateToModeMappingRule() {
@@ -5247,7 +5318,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//InternalPort returns aadl2::InternalFeature:
 	//	"self" "." name=ID;
 	public InternalPortElements getInternalPortAccess() {
-		return (pInternalPort != null) ? pInternalPort : (pInternalPort = new InternalPortElements());
+		return pInternalPort;
 	}
 	
 	public ParserRule getInternalPortRule() {
@@ -5258,7 +5329,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	(name=ID ":")? "[" (condition=SConditionExpression | others?="others") "]->" state=[ErrorBehaviorState]
 	//	typedToken=TypeToken? ";";
 	public CompositeStateElements getCompositeStateAccess() {
-		return (pCompositeState != null) ? pCompositeState : (pCompositeState = new CompositeStateElements());
+		return pCompositeState;
 	}
 	
 	public ParserRule getCompositeStateRule() {
@@ -5270,7 +5341,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//SConditionExpression returns ConditionExpression:
 	//	SAndExpression ({SOrExpression.operands+=current} "or" operands+=SAndExpression)*;
 	public SConditionExpressionElements getSConditionExpressionAccess() {
-		return (pSConditionExpression != null) ? pSConditionExpression : (pSConditionExpression = new SConditionExpressionElements());
+		return pSConditionExpression;
 	}
 	
 	public ParserRule getSConditionExpressionRule() {
@@ -5280,7 +5351,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//SAndExpression returns ConditionExpression:
 	//	SConditionTerm ({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*;
 	public SAndExpressionElements getSAndExpressionAccess() {
-		return (pSAndExpression != null) ? pSAndExpression : (pSAndExpression = new SAndExpressionElements());
+		return pSAndExpression;
 	}
 	
 	public ParserRule getSAndExpressionRule() {
@@ -5290,7 +5361,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//SOrmoreExpression returns OrmoreExpression:
 	//	count=INTVALUE "ormore" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")";
 	public SOrmoreExpressionElements getSOrmoreExpressionAccess() {
-		return (pSOrmoreExpression != null) ? pSOrmoreExpression : (pSOrmoreExpression = new SOrmoreExpressionElements());
+		return pSOrmoreExpression;
 	}
 	
 	public ParserRule getSOrmoreExpressionRule() {
@@ -5300,7 +5371,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//SOrlessExpression returns OrlessExpression:
 	//	count=INTVALUE "orless" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")";
 	public SOrlessExpressionElements getSOrlessExpressionAccess() {
-		return (pSOrlessExpression != null) ? pSOrlessExpression : (pSOrlessExpression = new SOrlessExpressionElements());
+		return pSOrlessExpression;
 	}
 	
 	public ParserRule getSOrlessExpressionRule() {
@@ -5310,7 +5381,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//SConditionTerm returns ConditionExpression:
 	//	SConditionElement | SOrmoreExpression | SOrlessExpression | "(" SConditionExpression ")";
 	public SConditionTermElements getSConditionTermAccess() {
-		return (pSConditionTerm != null) ? pSConditionTerm : (pSConditionTerm = new SConditionTermElements());
+		return pSConditionTerm;
 	}
 	
 	public ParserRule getSConditionTermRule() {
@@ -5321,7 +5392,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
 	//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
 	public SConditionElementElements getSConditionElementAccess() {
-		return (pSConditionElement != null) ? pSConditionElement : (pSConditionElement = new SConditionElementElements());
+		return pSConditionElement;
 	}
 	
 	public ParserRule getSConditionElementRule() {
@@ -5331,7 +5402,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//SubcomponentElement:
 	//	subcomponent=[aadl2::Subcomponent];
 	public SubcomponentElementElements getSubcomponentElementAccess() {
-		return (pSubcomponentElement != null) ? pSubcomponentElement : (pSubcomponentElement = new SubcomponentElementElements());
+		return pSubcomponentElement;
 	}
 	
 	public ParserRule getSubcomponentElementRule() {
@@ -5341,20 +5412,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//terminal SL_COMMENT:
 	//	"--" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
-		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
+		return tSL_COMMENT;
 	} 
 
 	//terminal INTEGER_LIT:
 	//	"0".."9"+;
 	public TerminalRule getINTEGER_LITRule() {
-		return (tINTEGER_LIT != null) ? tINTEGER_LIT : (tINTEGER_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER_LIT"));
+		return tINTEGER_LIT;
 	} 
 
 	////('.' ID )?;
 	//QEMREF:
 	//	(ID "::")* ID;
 	public QEMREFElements getQEMREFAccess() {
-		return (pQEMREF != null) ? pQEMREF : (pQEMREF = new QEMREFElements());
+		return pQEMREF;
 	}
 	
 	public ParserRule getQEMREFRule() {
