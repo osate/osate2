@@ -95,7 +95,7 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 		val Color color
 
 		new(PropertyViewModel.ModedProperty mp, List<Mode> modes, String value, Color color) {
-			modeName = modes.join(", ")
+			modeName = modes.map[name].join(", ")
 			parent = mp
 			this.value = value
 			this.color = color
@@ -427,49 +427,52 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 					// Don't worry about PropertyDoesNotApplyToHolderException,
 					// we already check if property is acceptable
 					val firstAssociation = element.getPropertyValue(it).first
-					if (firstAssociation != null) {
-						switch element {
-							ComponentClassifier case firstAssociation.modal: {
-								val prop = new PropertyViewModel.ModedProperty(propSet, it)
-								val elementModes = (element as ComponentClassifier).allModes
-								firstAssociation.ownedValues.forEach(monitor, [
-									if (allInModes.size == 0) {
-										if (firstAssociation.owner == element) {
-											new PropertyViewModel.ValuedMode(prop, ownedValue, elementModes, serializer)
+					if (firstAssociation != null && !firstAssociation.ownedValues.empty) {
+						//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
+						if (!firstAssociation.ownedValues.empty && firstAssociation.ownedValues.forall[ownedValue != null]) {
+							switch element {
+								ComponentClassifier case firstAssociation.modal: {
+									val prop = new PropertyViewModel.ModedProperty(propSet, it)
+									val elementModes = (element as ComponentClassifier).allModes
+									firstAssociation.ownedValues.forEach(monitor, [
+										if (allInModes.size == 0) {
+											if (firstAssociation.owner == element) {
+												new PropertyViewModel.ValuedMode(prop, ownedValue, elementModes, serializer)
+											} else {
+												new PropertyViewModel.InheritedMode(prop, ownedValue, elementModes, serializer)
+											}
+											elementModes.clear
 										} else {
-											new PropertyViewModel.InheritedMode(prop, ownedValue, elementModes, serializer)
+											if (firstAssociation.owner == element) {
+												new PropertyViewModel.ValuedMode(prop, it, serializer)
+											} else {
+												new PropertyViewModel.InheritedMode(prop, it, serializer)
+											}
+											elementModes.removeAll(allInModes)
 										}
-										elementModes.clear
-									} else {
-										if (firstAssociation.owner == element) {
-											new PropertyViewModel.ValuedMode(prop, it, serializer)
-										} else {
-											new PropertyViewModel.InheritedMode(prop, it, serializer)
-										}
-										elementModes.removeAll(allInModes)
-									}
-								])
-								if (!monitor.canceled) {
-									/*
-									 * If prop has no children (i.e., undefined
-									 * in all modes, remove from the property
-									 * set (don't show it)
-									 */
-									if (prop.modes.empty) {
-										propSet.properties.remove(prop)
-									} else if (!elementModes.empty) {
-										if (defaultValue != null) {
-											new PropertyViewModel.DefaultMode(prop, elementModes, serializer)
-										} else {
-											new PropertyViewModel.UndefinedMode(prop, elementModes)
+									])
+									if (!monitor.canceled) {
+										/*
+										 * If prop has no children (i.e., undefined
+										 * in all modes, remove from the property
+										 * set (don't show it)
+										 */
+										if (prop.modes.empty) {
+											propSet.properties.remove(prop)
+										} else if (!elementModes.empty) {
+											if (defaultValue != null) {
+												new PropertyViewModel.DefaultMode(prop, elementModes, serializer)
+											} else if (showUndefined) {
+												new PropertyViewModel.UndefinedMode(prop, elementModes)
+											}
 										}
 									}
 								}
+								case firstAssociation.owner:
+									new PropertyViewModel.ValuedProperty(propSet, it, firstAssociation, serializer)
+								default:
+									new PropertyViewModel.InheritedProperty(propSet, it, firstAssociation, serializer)
 							}
-							case firstAssociation.owner:
-								new PropertyViewModel.ValuedProperty(propSet, it, firstAssociation, serializer)
-							default:
-								new PropertyViewModel.InheritedProperty(propSet, it, firstAssociation, serializer)
 						}
 					} else {
 						if (defaultValue != null) {
