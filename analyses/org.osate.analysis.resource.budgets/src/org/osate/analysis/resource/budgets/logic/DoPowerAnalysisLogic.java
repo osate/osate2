@@ -101,7 +101,7 @@ public class DoPowerAnalysisLogic {
 					ComponentInstance ci = (ComponentInstance) aobj;
 					capacity = GetProperties.getPowerCapacity(ci, 0.0);
 					if (capacity > 0) {
-						OsateLogger.log(somName + "Computing Power for Bus " + ci.getName());
+						OsateLogger.log(somName + "Computing Power for " + ci.getName());
 					} else {
 						return;
 					}
@@ -111,7 +111,7 @@ public class DoPowerAnalysisLogic {
 						if (!fi.getDstConnectionInstances().isEmpty()) {
 							double supply = GetProperties.getPowerBudget(fi, 0.0);
 							if (supply > 0) {
-								OsateLogger.log(somName + "  Supply " + supply + " from Bus "
+								OsateLogger.log(somName + "  Supply " + supply + " from "
 										+ fi.getContainingComponentInstance().getName());
 								supplyTotal += supply;
 							}
@@ -141,7 +141,7 @@ public class DoPowerAnalysisLogic {
 			DoCapacity.processPreOrderComponentInstance(si, category);
 		}
 		if (si.getSystemOperationModes().size() == 1 && msg.length() > 0) {
-			//Also report the results using a message dialog
+			// Also report the results using a message dialog
 			Dialog.showInfo(resourceCategory + " Budget Statistics", msg.toString());
 		} else if (hasPower == 0) {
 			Dialog.showInfo(resourceCategory + " Budget Statistics", "No components with power.");
@@ -191,14 +191,14 @@ public class DoPowerAnalysisLogic {
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		Feature f = fi.getFeature();
 		FeatureGroup fg = null;
-		if (fi.eContainer() instanceof FeatureInstance){
-			fg = (FeatureGroup)((FeatureInstance)fi.eContainer()).getFeature();
+		if (fi.eContainer() instanceof FeatureInstance) {
+			fg = (FeatureGroup) ((FeatureInstance) fi.eContainer()).getFeature();
 		}
 		InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(ci, 0);
 		Classifier cc = (ic != null) ? ic.classifier : null;
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation cimpl = (ComponentImplementation) cc;
-			for (Connection conn : AadlUtil.getIngoingConnections(cimpl,f)) {
+			for (Connection conn : AadlUtil.getIngoingConnections(cimpl, f)) {
 				NamedElement dstf = conn.getAllDestination();
 				if (dstf instanceof BusAccess) {
 					BusAccess ba = (BusAccess) dstf;
@@ -270,7 +270,7 @@ public class DoPowerAnalysisLogic {
 		if (budget > available) {
 			errManager.error(ci, somName + modelStats);
 		} else {
-			errManager.info(ci, somName+ modelStats);
+			errManager.info(ci, somName + modelStats);
 		}
 		msg.append(modelStats + (modelExceeds.length() > 0 ? "\n***" + modelExceeds : "") + "\n");
 	}
