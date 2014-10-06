@@ -16,61 +16,61 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_28 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
+Classifier : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 
-KEYWORD_27 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+Reference : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
 
-KEYWORD_26 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
+Constant : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
 
-KEYWORD_23 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+Applies : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
 
-KEYWORD_24 : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
+Binding : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
 
-KEYWORD_25 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
+Compute : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
 
-KEYWORD_20 : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
+Delta : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
 
-KEYWORD_21 : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
+False : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
-KEYWORD_22 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
+Modes : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
 
-KEYWORD_19 : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
+True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
-KEYWORD_18 : '+''=''>';
+PlusSignEqualsSignGreaterThanSign : '+''=''>';
 
-KEYWORD_13 : '.''.';
+FullStopFullStop : '.''.';
 
-KEYWORD_14 : ':'':';
+ColonColon : ':'':';
 
-KEYWORD_15 : '=''>';
+EqualsSignGreaterThanSign : '=''>';
 
-KEYWORD_16 : ('I'|'i')('N'|'n');
+In : ('I'|'i')('N'|'n');
 
-KEYWORD_17 : ('T'|'t')('O'|'o');
+To : ('T'|'t')('O'|'o');
 
-KEYWORD_1 : '(';
+LeftParenthesis : '(';
 
-KEYWORD_2 : ')';
+RightParenthesis : ')';
 
-KEYWORD_3 : '*';
+Asterisk : '*';
 
-KEYWORD_4 : '+';
+PlusSign : '+';
 
-KEYWORD_5 : ',';
+Comma : ',';
 
-KEYWORD_6 : '-';
+HyphenMinus : '-';
 
-KEYWORD_7 : '.';
+FullStop : '.';
 
-KEYWORD_8 : ';';
+Semicolon : ';';
 
-KEYWORD_9 : '[';
+LeftSquareBracket : '[';
 
-KEYWORD_10 : ']';
+RightSquareBracket : ']';
 
-KEYWORD_11 : '{';
+LeftCurlyBracket : '{';
 
-KEYWORD_12 : '}';
+RightCurlyBracket : '}';
 
 
 
