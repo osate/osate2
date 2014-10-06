@@ -52,8 +52,8 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 		addField(bcEmptyQueue);
 		RadioGroupFieldEditor dsProcessing = new RadioGroupFieldEditor(Constants.DATASET_PROCESSING,
 				"Data set processing: Use Data_model::dimension property as execution time multiplier", 1,
-				new String[][] { { "Yes (DS)", Constants.WORST_CASE_DEADLINE_YES },
-						{ "No", Constants.WORST_CASE_DEADLINE_NO } }, getFieldEditorParent(), true);
+				new String[][] { { "Yes (DS)", Constants.DATASET_PROCESSING_YES },
+						{ "No", Constants.DATASET_PROCESSING_NO } }, getFieldEditorParent(), true);
 		addField(dsProcessing);
 		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
 				"Report Subtotals", 1, new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES },
