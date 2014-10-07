@@ -11,6 +11,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IPostSelectionProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -23,6 +24,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
@@ -152,10 +154,19 @@ public class AadlPropertyView extends ViewPart {
 		tree.setLayout(tableLayout);
 		tree.setLinesVisible(true);
 		tree.setHeaderVisible(true);
-		new TreeColumn(tree, SWT.LEFT).setText("Property Association");
+		new TreeColumn(tree, SWT.LEFT).setText("Property");
 		tableLayout.addColumnData(new ColumnWeightData(1, true));
-		new TreeColumn(tree, SWT.LEFT).setText("Status of the Association");
-		tableLayout.addColumnData(new ColumnWeightData(1, true));
+		new TreeColumn(tree, SWT.LEFT).setText("Status");
+		GC gc = new GC(tree);
+		tableLayout.addColumnData(new ColumnPixelData(Math.max(
+				Math.max(
+						Math.max(gc.stringExtent(PropertyViewModel.STATUS_LOCAL).x,
+								gc.stringExtent(PropertyViewModel.STATUS_INHERITED).x),
+						gc.stringExtent(PropertyViewModel.STATUS_DEFAULT).x),
+				gc.stringExtent(PropertyViewModel.UNDEFINED).x) + 5, true, true));
+		gc.dispose();
+		new TreeColumn(tree, SWT.LEFT).setText("Value");
+		tableLayout.addColumnData(new ColumnWeightData(2, true));
 		treeViewer.setLabelProvider(model);
 		treeViewer.setContentProvider(model);
 		treeViewer.setInput(model.getInput());
@@ -166,7 +177,6 @@ public class AadlPropertyView extends ViewPart {
 		getSite().getPage().addPartListener(partListener);
 		createActions();
 		fillToolbar();
-//		createContextMenu();
 	}
 
 	@Override
@@ -263,8 +273,10 @@ public class AadlPropertyView extends ViewPart {
 			model.rebuildModel(element, new Runnable() {
 				@Override
 				public void run() {
-					treeViewer.refresh();
-					treeViewer.expandAll();
+					if (!treeViewer.getTree().isDisposed()) {
+						treeViewer.refresh();
+						treeViewer.expandAll();
+					}
 				}
 			});
 		}
