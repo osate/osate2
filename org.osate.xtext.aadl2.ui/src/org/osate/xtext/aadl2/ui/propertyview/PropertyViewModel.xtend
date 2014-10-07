@@ -49,8 +49,10 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 
 	// Constants
 
-	val static UNDEFINED = "undefined"
-	val static EQUALS = " => "
+	val public static UNDEFINED = "undefined"
+	val public static STATUS_LOCAL = "local"
+	val public static STATUS_INHERITED = "inherited"
+	val public static STATUS_DEFAULT = "default"
 
 	// Locals
 
@@ -264,9 +266,9 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 			PropertyViewModel.PropSet:
 				element.ps.name
 			PropertyViewModel.AbstractModelProperty:
-				element.propertyName + EQUALS + element.value
+				element.propertyName
 			PropertyViewModel.InMode:
-				'''«element.value» in modes («element.modeName»)'''
+				'''in modes («element.modeName»)'''
 		}
 	}
 
@@ -277,13 +279,21 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 			case 1: {
 				switch element {
 					PropertyViewModel.ValuedProperty, PropertyViewModel.ValuedMode:
-						"Property exists locally."
+						STATUS_LOCAL
 					PropertyViewModel.InheritedProperty, PropertyViewModel.InheritedMode:
-						"Property is inherited"
+						STATUS_INHERITED
 					PropertyViewModel.DefaultProperty, PropertyViewModel.DefaultMode:
-						"Property taking default value."
+						STATUS_DEFAULT
 					PropertyViewModel.UndefinedProperty, PropertyViewModel.UndefinedMode:
-						"No property value is defined."
+						UNDEFINED
+				}
+			}
+			case 2: {
+				switch element {
+					AbstractModelProperty:
+						element.value
+					InMode:
+						element.value
 				}
 			}
 		}
