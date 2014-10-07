@@ -41,12 +41,7 @@ import static extension org.osate.xtext.aadl2.ui.propertyview.PropertyViewModel.
  *
  * @author aarong
  */
-class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeContentProvider, ITableLabelProvider {
-	val static MODE_ICON = "icons/propertyview/mode.gif"
-	val static SCALAR_ICON = "icons/propertyview/scalar.gif"
-	val static LIST_ICON = "icons/propertyview/list.gif"
-	val static PROPERTY_SET_ICON = "icons/propertyview/property_set.gif"
-
+class PropertyViewModel {
 	// Constants
 
 	val public static UNDEFINED = "undefined"
@@ -58,15 +53,6 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 
 	/** Flag to indicate whether we should show undefined properties */
 	var boolean showUndefined = false
-
-	/** Cached Icon for property set nodes */
-	var Image propSetImage = null
-	/** Cached Icon for list property value nodes */
-	var Image listImage = null
-	/** Cached Icon for scalar property value nodes */
-	var Image scalarImage = null
-	/** Cached Icon for modes */
-	var Image modeImage = null
 
 	/** Model is a List of PropSet items */
 	val List<PropertyViewModel.PropSet> input = Collections.synchronizedList(newArrayList)
@@ -236,130 +222,6 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 		])
 	}
 
-	// Label Provider Methods
-
-	override getImage(Object element) {
-		switch element {
-			PropertyViewModel.PropSet:
-				propSetImage ?: (propSetImage = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON).createImage)
-			PropertyViewModel.AbstractModelProperty: {
-				if (element.isList) {
-					listImage ?: (listImage = MyAadl2Activator.getImageDescriptor(LIST_ICON).createImage)
-				} else {
-					scalarImage ?: (scalarImage = MyAadl2Activator.getImageDescriptor(SCALAR_ICON).createImage)
-				}
-			}
-			PropertyViewModel.InMode: {
-				modeImage ?: (modeImage = MyAadl2Activator.getImageDescriptor(MODE_ICON).createImage)
-			}
-		}
-	}
-
-	override getColumnImage(Object element, int columnIndex) {
-		if (columnIndex == 0) {
-			return getImage(element)
-		}
-	}
-
-	override getText(Object element) {
-		switch element {
-			PropertyViewModel.PropSet:
-				element.ps.name
-			PropertyViewModel.AbstractModelProperty:
-				element.propertyName
-			PropertyViewModel.InMode:
-				'''in modes («element.modeName»)'''
-		}
-	}
-
-	override getColumnText(Object element, int columnIndex) {
-		switch columnIndex {
-			case 0:
-				getText(element)
-			case 1: {
-				switch element {
-					PropertyViewModel.ValuedProperty, PropertyViewModel.ValuedMode:
-						STATUS_LOCAL
-					PropertyViewModel.InheritedProperty, PropertyViewModel.InheritedMode:
-						STATUS_INHERITED
-					PropertyViewModel.DefaultProperty, PropertyViewModel.DefaultMode:
-						STATUS_DEFAULT
-					PropertyViewModel.UndefinedProperty, PropertyViewModel.UndefinedMode:
-						UNDEFINED
-				}
-			}
-			case 2: {
-				switch element {
-					AbstractModelProperty:
-						element.value
-					InMode:
-						element.value
-				}
-			}
-		}
-	}
-
-	// BAD: same dispose for the label provider and content provider...
-	override dispose() {
-		propSetImage?.dispose
-		propSetImage = null
-		listImage?.dispose
-		listImage = null
-		scalarImage?.dispose
-		scalarImage = null
-		modeImage?.dispose
-		modeImage = null
-	}
-
-	// Color Provider Methods
-
-	override getForeground(Object element) {
-		switch element {
-			PropertyViewModel.AbstractModelProperty:
-				element.color
-			PropertyViewModel.InMode:
-				element.color
-		}
-	}
-
-	/**
-	 * Return <code>null</code>; always use the default color.
-	 */
-	override getBackground(Object element) {
-		return null;
-	}
-
-	// Content Provider methods
-
-	override getChildren(Object parentElement) {
-		switch parentElement {
-			PropertyViewModel.PropSet:
-				parentElement.properties
-			PropertyViewModel.ModedProperty:
-				parentElement.modes
-		}
-	}
-
-	override getParent(Object element) {
-		switch element {
-			PropertyViewModel.AbstractModelProperty:
-				element.parent
-			PropertyViewModel.InMode:
-				element.parent
-		}
-	}
-
-	override hasChildren(Object element) {
-		element instanceof PropertyViewModel.PropSet || element instanceof PropertyViewModel.ModedProperty
-	}
-
-	override getElements(Object inputElement) {
-		inputElement as List<PropertyViewModel.PropSet>
-	}
-
-	override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-	}
-
 	// model management
 
 	def getInput() {
@@ -443,7 +305,7 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 							switch element {
 								ComponentClassifier case firstAssociation.modal: {
 									val prop = new PropertyViewModel.ModedProperty(propSet, it)
-									val elementModes = (element as ComponentClassifier).allModes
+									val elementModes = element.allModes
 									firstAssociation.ownedValues.forEach(monitor, [
 										if (allInModes.size == 0) {
 											if (firstAssociation.owner == element) {
@@ -514,6 +376,144 @@ class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeCo
 			while (iterator.hasNext && !monitor.canceled) {
 				procedure.apply(iterator.next)
 			}
+		}
+	}
+	
+	package static class PropertyViewContentProvider implements ITreeContentProvider {
+		override getChildren(Object parentElement) {
+			switch parentElement {
+				PropertyViewModel.PropSet:
+					parentElement.properties
+				PropertyViewModel.ModedProperty:
+					parentElement.modes
+			}
+		}
+		
+		override getElements(Object inputElement) {
+			inputElement as List<PropertyViewModel.PropSet>
+		}
+		
+		override getParent(Object element) {
+			switch element {
+				PropertyViewModel.AbstractModelProperty:
+					element.parent
+				PropertyViewModel.InMode:
+					element.parent
+			}
+		}
+		
+		override hasChildren(Object element) {
+			element instanceof PropertyViewModel.PropSet || element instanceof PropertyViewModel.ModedProperty
+		}
+		
+		override dispose() {
+		}
+		
+		override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+	}
+	
+	package static class PropertyViewLabelProvider extends LabelProvider implements ITableLabelProvider, IColorProvider {
+		val static MODE_ICON = "icons/propertyview/mode.gif"
+		val static SCALAR_ICON = "icons/propertyview/scalar.gif"
+		val static LIST_ICON = "icons/propertyview/list.gif"
+		val static PROPERTY_SET_ICON = "icons/propertyview/property_set.gif"
+	
+		/** Cached Icon for property set nodes */
+		var Image propSetImage = null
+		/** Cached Icon for list property value nodes */
+		var Image listImage = null
+		/** Cached Icon for scalar property value nodes */
+		var Image scalarImage = null
+		/** Cached Icon for modes */
+		var Image modeImage = null
+		
+		override getImage(Object element) {
+			switch element {
+				PropertyViewModel.PropSet:
+					propSetImage ?: (propSetImage = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON).createImage)
+				PropertyViewModel.AbstractModelProperty: {
+					if (element.isList) {
+						listImage ?: (listImage = MyAadl2Activator.getImageDescriptor(LIST_ICON).createImage)
+					} else {
+						scalarImage ?: (scalarImage = MyAadl2Activator.getImageDescriptor(SCALAR_ICON).createImage)
+					}
+				}
+				PropertyViewModel.InMode: {
+					modeImage ?: (modeImage = MyAadl2Activator.getImageDescriptor(MODE_ICON).createImage)
+				}
+			}
+		}
+		
+		override getColumnImage(Object element, int columnIndex) {
+			if (columnIndex == 0) {
+				return getImage(element)
+			}
+		}
+		
+		override getText(Object element) {
+			switch element {
+				PropertyViewModel.PropSet:
+					element.ps.name
+				PropertyViewModel.AbstractModelProperty:
+					element.propertyName
+				PropertyViewModel.InMode:
+					'''in modes («element.modeName»)'''
+			}
+		}
+		
+		override getColumnText(Object element, int columnIndex) {
+			switch columnIndex {
+				case 0:
+					getText(element)
+				case 1: {
+					switch element {
+						PropertyViewModel.ValuedProperty, PropertyViewModel.ValuedMode:
+							STATUS_LOCAL
+						PropertyViewModel.InheritedProperty, PropertyViewModel.InheritedMode:
+							STATUS_INHERITED
+						PropertyViewModel.DefaultProperty, PropertyViewModel.DefaultMode:
+							STATUS_DEFAULT
+						PropertyViewModel.UndefinedProperty, PropertyViewModel.UndefinedMode:
+							UNDEFINED
+					}
+				}
+				case 2: {
+					switch element {
+						AbstractModelProperty:
+							element.value
+						InMode:
+							element.value
+					}
+				}
+			}
+		}
+		
+		/**
+		 * Return <code>null</code>; always use the default color.
+		 */
+		override getBackground(Object element) {
+			null
+		}
+		
+		override getForeground(Object element) {
+			switch element {
+				PropertyViewModel.AbstractModelProperty:
+					element.color
+				PropertyViewModel.InMode:
+					element.color
+			}
+		}
+		
+		override dispose() {
+			propSetImage.dispose
+			propSetImage = null
+			listImage.dispose
+			listImage = null
+			scalarImage.dispose
+			scalarImage = null
+			modeImage.dispose
+			modeImage = null
 		}
 	}
 }

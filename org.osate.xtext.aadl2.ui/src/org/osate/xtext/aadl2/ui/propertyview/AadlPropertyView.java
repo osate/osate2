@@ -167,8 +167,8 @@ public class AadlPropertyView extends ViewPart {
 		gc.dispose();
 		new TreeColumn(tree, SWT.LEFT).setText("Value");
 		tableLayout.addColumnData(new ColumnWeightData(2, true));
-		treeViewer.setLabelProvider(model);
-		treeViewer.setContentProvider(model);
+		treeViewer.setLabelProvider(new PropertyViewModel.PropertyViewLabelProvider());
+		treeViewer.setContentProvider(new PropertyViewModel.PropertyViewContentProvider());
 		treeViewer.setInput(model.getInput());
 
 		// Show the "nothing to show" page by default
