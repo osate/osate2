@@ -58,7 +58,7 @@ class PropertyViewModel {
 	val List<PropertyViewModel.PropSet> input = Collections.synchronizedList(newArrayList)
 
 	/** Immutable wrapped root list for external use */
-	val inputLeaked = Collections.unmodifiableList(input)
+	val Object inputLeaked = input.unmodifiableView
 
 	val ISerializer serializer
 	val IScopeProvider scopeProvider
@@ -506,13 +506,13 @@ class PropertyViewModel {
 		}
 		
 		override dispose() {
-			propSetImage.dispose
+			propSetImage?.dispose
 			propSetImage = null
-			listImage.dispose
+			listImage?.dispose
 			listImage = null
-			scalarImage.dispose
+			scalarImage?.dispose
 			scalarImage = null
-			modeImage.dispose
+			modeImage?.dispose
 			modeImage = null
 		}
 	}
