@@ -46,7 +46,6 @@ public class Aadl2TransientValueService extends DefaultTransientValueService {
 	public boolean isTransient(EObject owner, EStructuralFeature feature, int index) {
 		if (feature == Aadl2Package.eINSTANCE.getAadlPackage_PublicSection()
 				|| feature == Aadl2Package.eINSTANCE.getAadlPackage_PrivateSection()
-				|| feature == Aadl2Package.eINSTANCE.getSubprogramCall_Context()
 				|| (feature == Aadl2Package.eINSTANCE.getModalElement_InMode() && !(owner instanceof DefaultAnnexSubclause))
 				|| feature == Aadl2Package.eINSTANCE.getElement_OwnedComment()
 				|| feature == Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_ParsedAnnexLibrary()
