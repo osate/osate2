@@ -57,9 +57,6 @@ class PropertyViewModel {
 	/** Model is a List of PropSet items */
 	val List<PropertyViewModel.PropSet> input = Collections.synchronizedList(newArrayList)
 
-	/** Immutable wrapped root list for external use */
-	val Object inputLeaked = input.unmodifiableView
-
 	val ISerializer serializer
 	val IScopeProvider scopeProvider
 	var PropertyViewModel.RebuildModelJob rebuildModelJob = null
@@ -224,8 +221,12 @@ class PropertyViewModel {
 
 	// model management
 
-	def getInput() {
-		inputLeaked
+	def Object getInput() {
+		if (showUndefined) {
+			input.unmodifiableView
+		} else {
+			input.filter[properties.exists[!(it instanceof UndefinedProperty)]].toList.unmodifiableView
+		}
 	}
 
 	def setShowUndefined(boolean flag) {
@@ -254,7 +255,6 @@ class PropertyViewModel {
 		}
 		rebuildModelJob.element = element
 		rebuildModelJob.uiUpdate = uiUpdate
-		rebuildModelJob.showUndefined = showUndefined
 		rebuildModelJob.schedule(200)
 	}
 
@@ -265,7 +265,6 @@ class PropertyViewModel {
 		
 		var volatile NamedElement element
 		var volatile Runnable uiUpdate
-		var volatile boolean showUndefined
 
 		new(IScopeProvider scopeProvider, ISerializer serializer, List<PropertyViewModel.PropSet> input) {
 			super("Updating Property View")
@@ -328,7 +327,7 @@ class PropertyViewModel {
 										} else if (!elementModes.empty) {
 											if (defaultValue != null) {
 												new PropertyViewModel.DefaultMode(prop, elementModes, serializer)
-											} else if (showUndefined) {
+											} else {
 												new PropertyViewModel.UndefinedMode(prop, elementModes)
 											}
 										}
@@ -343,7 +342,7 @@ class PropertyViewModel {
 					} else {
 						if (defaultValue != null) {
 							new PropertyViewModel.DefaultProperty(propSet, it, serializer)
-						} else if (showUndefined) {
+						} else {
 							new PropertyViewModel.UndefinedProperty(propSet, it)
 						}
 					}
@@ -373,14 +372,24 @@ class PropertyViewModel {
 		}
 	}
 	
-	def static getContentProvider() {
+	def static getContentProvider(PropertyViewModel propertyViewModel) {
 		new ITreeContentProvider {
 			override getChildren(Object parentElement) {
 				switch parentElement {
-					PropertyViewModel.PropSet:
-						parentElement.properties
-					PropertyViewModel.ModedProperty:
-						parentElement.modes
+					PropertyViewModel.PropSet: {
+						if (propertyViewModel.showUndefined) {
+							parentElement.properties
+						} else {
+							parentElement.properties.filter[!(it instanceof UndefinedProperty)]
+						}
+					}
+					PropertyViewModel.ModedProperty: {
+						if (propertyViewModel.showUndefined) {
+							parentElement.modes
+						} else {
+							parentElement.modes.filter[!(it instanceof UndefinedMode)]
+						}
+					}
 				}
 			}
 			
