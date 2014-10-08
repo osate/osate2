@@ -110,7 +110,6 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -196,9 +195,9 @@ public class InstantiateModel {
 	 * Create an instantiate object. Tracks who to report errors to - the
 	 * resource that contains si. It also holds on to the property definition
 	 * filter to be used for caching properties in the instance model
-	 *
+	 * 
 	 * @param pm
-	 *
+	 * 
 	 * @param errMgr
 	 */
 	public InstantiateModel(final IProgressMonitor pm) {
@@ -224,27 +223,27 @@ public class InstantiateModel {
 	 * well. The Osate resource set is the shared resource set maintained by
 	 * OsateResourceUtil. THe operation is performed in a transactional editing
 	 * domain
-	 *
+	 * 
 	 * @param si system implementation
-	 *
+	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) throws Exception {
+	public static SystemInstance buildInstanceModelFile(final ComponentImplementation ci) throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
-		SystemImplementation isi = si;
-		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(si);
-		if (eobj instanceof SystemImplementation) {
-			isi = (SystemImplementation) eobj;
+		ComponentImplementation ici = ci;
+		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(ci);
+		if (eobj instanceof ComponentImplementation) {
+			ici = (ComponentImplementation) eobj;
 		}
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(isi);
+		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ici);
 		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
+		SystemInstance root = instantiateModel.createSystemInstance(ici, aadlResource);
 		if (root == null) {
 			errorMessage = InstantiateModel.getErrorMessage();
 		}
@@ -256,24 +255,24 @@ public class InstantiateModel {
 	 * its root object The method will make sure the declarative models are up
 	 * to date. The Osate resource set is the shared resource set maintained by
 	 * OsateResourceUtil
-	 *
+	 * 
 	 * @param si system implementation
-	 *
+	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		Resource res = OsateResourceUtil.getResource(ires);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
-		SystemImplementation si = target.getSystemImplementation();
-		URI uri = EcoreUtil.getURI(si);
+		ComponentImplementation ci = target.getComponentImplementation();
+		URI uri = EcoreUtil.getURI(ci);
 		res.unload();
 		OsateResourceUtil.refreshResourceSet();
-		si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
+		ci = (ComponentImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
 		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		SystemInstance root = instantiateModel.createSystemInstance(si, res);
+		SystemInstance root = instantiateModel.createSystemInstance(ci, res);
 
 		return root;
 	}
@@ -290,35 +289,35 @@ public class InstantiateModel {
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 			Resource res = OsateResourceUtil.getResource(ires);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
-			SystemImplementation si = target.getSystemImplementation();
-			URI uri = EcoreUtil.getURI(si);
+			ComponentImplementation ci = target.getComponentImplementation();
+			URI uri = EcoreUtil.getURI(ci);
 			instanceRoots.add(uri);
 			instanceIResources.add(ires);
 			res.unload();
 		}
 		OsateResourceUtil.refreshResourceSet();
 		for (int i = 0; i < instanceRoots.size(); i++) {
-			SystemImplementation si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(
+			ComponentImplementation ci = (ComponentImplementation) OsateResourceUtil.getResourceSet().getEObject(
 					instanceRoots.get(i), true);
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 							AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 			Resource res = OsateResourceUtil.getResource(instanceIResources.get(i));
-			instantiateModel.createSystemInstance(si, res);
+			instantiateModel.createSystemInstance(ci, res);
 		}
 	}
 
 	/**
 	 * create a system instance into the provided (empty) resource and save it
 	 * This is performed as a transactional operation
-	 * @param si
+	 * @param ci
 	 * @param aadlResource
 	 * @return
 	 * @throws RollbackException
 	 * @throws InterruptedException
 	 */
 	@SuppressWarnings("unchecked")
-	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource)
+	public SystemInstance createSystemInstance(final ComponentImplementation ci, final Resource aadlResource)
 			throws Exception {
 		List<SystemInstance> resultList;
 		SystemInstance result;
@@ -334,7 +333,7 @@ public class InstantiateModel {
 
 			@Override
 			protected void doExecute() {
-				instance = createSystemInstanceInt(si, aadlResource);
+				instance = createSystemInstanceInt(ci, aadlResource);
 			}
 
 			@Override
@@ -352,19 +351,19 @@ public class InstantiateModel {
 
 	/*
 	 * instantiate SystemImpl as root of instance tree and save the model
-	 *
+	 * 
 	 * @param si SystemImpl the root of the system instance
-	 *
+	 * 
 	 * @param aadlResource the Resource to store the instance model in
-	 *
+	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
+	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource) {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
-		final String instanceName = si.getTypeName() + "_" + si.getImplementationName()
+		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
 
-		root.setSystemImplementation(si);
+		root.setComponentImplementation(ci);
 		root.setName(instanceName);
 		root.setCategory(ComponentCategory.SYSTEM);
 		aadlResource.getContents().add(root);
@@ -604,7 +603,7 @@ public class InstantiateModel {
 
 	/*
 	 * @param ci
-	 *
+	 * 
 	 * @param impl
 	 */
 	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl) {
@@ -912,7 +911,7 @@ public class InstantiateModel {
 
 	/*
 	 * expand out feature instances for elements of a port group
-	 *
+	 * 
 	 * @param fi Feature Instance that is a port group
 	 */
 	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse) {
@@ -1870,7 +1869,7 @@ public class InstantiateModel {
 	public EList<Property> getAllUsedPropertyDefinitions(SystemInstance root) {
 		EList<Property> result = new UniqueEList<Property>();
 
-		addUsedProperties(root.getSystemImplementation(), result);
+		addUsedProperties(root.getComponentImplementation(), result);
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		// collect topdown component impl. do it and its type to find PA
 		while (it.hasNext()) {
@@ -2001,15 +2000,15 @@ public class InstantiateModel {
 	 * Recursively enumerate all the system operation modes given an array of
 	 * component instances that are modal. The system operation mode objects are
 	 * created and added to the given system instance object.
-	 *
+	 * 
 	 * @param root The system instance object to which the SOMs are attached.
-	 *
+	 * 
 	 * @param instances An array of component instances that should be all the
 	 * modal components in <code>root</code>.
-	 *
+	 * 
 	 * @param currentInstance The index of the component instance in
 	 * <code>instances</code> that is to have its modes enumerated
-	 *
+	 * 
 	 * @param modeState A list used as a dynamic workspace by the method. Should
 	 * initially be empty. When <code>currentInstance</code> equals the lenght
 	 * of <code>instances</code>, this list holds the modal instances that
@@ -2045,15 +2044,15 @@ public class InstantiateModel {
 	 * Recursively enumerate all the system operation modes given an array of
 	 * component instances that are modal. The system operation mode objects are
 	 * created and added to the given system instance object.
-	 *
+	 * 
 	 * @param root The system instance object to which the SOMs are attached.
-	 *
+	 * 
 	 * @param instances An array of component instances that should be all the
 	 * modal components in <code>root</code>.
-	 *
+	 * 
 	 * @param currentInstance The index of the component instance in
 	 * <code>instances</code> that is to have its modes enumerated
-	 *
+	 * 
 	 * @param modeState A list used as a dynamic workspace by the method. Should
 	 * initially be empty. When <code>currentInstance</code> equals the lenght
 	 * of <code>instances</code>, this list holds the modal instances that

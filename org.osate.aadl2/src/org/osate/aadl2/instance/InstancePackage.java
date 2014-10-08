@@ -55,6 +55,7 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @see org.osate.aadl2.instance.InstanceFactory
  * @model kind="package"
+ *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='aadl2Instance'"
  * @generated
  */
 public interface InstancePackage extends EPackage {
@@ -1761,13 +1762,13 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE = COMPONENT_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>System Implementation</b></em>' reference.
+	 * The feature id for the '<em><b>Component Implementation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION = COMPONENT_INSTANCE_FEATURE_COUNT + 1;
+	int SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION = COMPONENT_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>System Instance</em>' class.
@@ -2579,15 +2580,15 @@ public interface InstancePackage extends EPackage {
 	EReference getSystemInstance_SystemOperationMode();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.SystemInstance#getSystemImplementation <em>System Implementation</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.SystemInstance#getComponentImplementation <em>Component Implementation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>System Implementation</em>'.
-	 * @see org.osate.aadl2.instance.SystemInstance#getSystemImplementation()
+	 * @return the meta object for the reference '<em>Component Implementation</em>'.
+	 * @see org.osate.aadl2.instance.SystemInstance#getComponentImplementation()
 	 * @see #getSystemInstance()
 	 * @generated
 	 */
-	EReference getSystemInstance_SystemImplementation();
+	EReference getSystemInstance_ComponentImplementation();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.InstanceReferenceValue <em>Reference Value</em>}'.
@@ -3232,12 +3233,12 @@ public interface InstancePackage extends EPackage {
 		EReference SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE = eINSTANCE.getSystemInstance_SystemOperationMode();
 
 		/**
-		 * The meta object literal for the '<em><b>System Implementation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Component Implementation</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION = eINSTANCE.getSystemInstance_SystemImplementation();
+		EReference SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION = eINSTANCE.getSystemInstance_ComponentImplementation();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.InstanceReferenceValueImpl <em>Reference Value</em>}' class.

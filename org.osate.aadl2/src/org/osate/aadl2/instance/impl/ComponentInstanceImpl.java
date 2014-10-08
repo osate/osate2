@@ -231,7 +231,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * projected into, or <code>null</code> if the component instance has not
 	 * been projected into any mode.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	private ModeInstance currentMode = null;
 
 	/**
@@ -1059,7 +1058,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -1075,7 +1074,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
 	@Override
@@ -1098,7 +1097,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

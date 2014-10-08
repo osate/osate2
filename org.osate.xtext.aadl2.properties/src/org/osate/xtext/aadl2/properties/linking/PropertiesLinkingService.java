@@ -62,6 +62,7 @@ import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
@@ -112,7 +113,6 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
@@ -157,8 +157,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (context.eResource() instanceof Aadl2ResourceImpl) {
 				Element root = context.getElementRoot();
 				if (root instanceof SystemInstance) {
-					SystemImplementation si = ((SystemInstance) root).getSystemImplementation();
-					LazyLinkingResource r = (LazyLinkingResource) si.eResource();
+					ComponentImplementation ci = ((SystemInstance) root).getComponentImplementation();
+					LazyLinkingResource r = (LazyLinkingResource) ci.eResource();
 					eInstance = (PropertiesLinkingService) r.getLinkingService();
 				}
 			} else {
@@ -890,13 +890,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	/*
 	 * TODO: Check for circular dependencies with prototypes. Example:
-	 *
+	 * 
 	 * abstract a prototypes p1: subprogram group; p2: subprogram group; end a;
-	 *
+	 * 
 	 * abstract implementation a.i ( p1 => p2, p2 => p1) subcomponents sub:
 	 * subprogram group p1; calls sequence1: { call1: subprogram
 	 * sub.access_feature_1; end a.i;
-	 *
+	 * 
 	 * This will cause a stack overflow!
 	 */
 	public static ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier,

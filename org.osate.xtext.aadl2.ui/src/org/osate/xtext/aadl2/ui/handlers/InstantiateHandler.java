@@ -62,7 +62,8 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
@@ -151,11 +152,19 @@ public class InstantiateHandler extends AbstractHandler {
 						if (targetElement != null) {
 							if (targetElement instanceof Element) {
 								ComponentImplementation cc = ((Element) targetElement).getContainingComponentImpl();
-								if (cc instanceof SystemImplementation) {
-									SystemImplementation si = (SystemImplementation) cc;
-									System.out.println("instantiate " + si.getName());
+								if (!(cc instanceof ComponentImplementation)) {
+									Dialog.showInfo("Model Instantiation",
+											"Only component implementations can be instantiated..\n" + "Selected "
+													+ targetElement.eClass().getName());
+								} else if (cc instanceof SubprogramImplementation
+										|| cc instanceof SubprogramGroupImplementation) {
+									Dialog.showInfo("Model Instantiation",
+											"Components of categories subprogram and subprogram group cannot be instantiated.\n"
+													+ "Selected " + targetElement.eClass().getName());
+								} else {
+									System.out.println("instantiate " + cc.getName());
 									try {
-										SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
+										SystemInstance sinst = InstantiateModel.buildInstanceModelFile(cc);
 										if (sinst == null) {
 											String message;
 											message = "Error when instantiating the model";
@@ -172,11 +181,6 @@ public class InstantiateHandler extends AbstractHandler {
 										other.printStackTrace();
 										Dialog.showError("Model Instantiate", "Error when instantiating the model");
 									}
-
-								} else {
-									Dialog.showInfo("Model Instantiation",
-											"Must select a system implementation. Selected "
-													+ targetElement.eClass().getName() + " " + targetElement.toString());
 								}
 							} else {
 								Dialog.showInfo("Model Instantiation",

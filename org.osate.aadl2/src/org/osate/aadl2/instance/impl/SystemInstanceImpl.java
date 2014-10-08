@@ -55,8 +55,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -75,7 +75,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.SystemInstanceImpl#getSystemOperationModes <em>System Operation Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.impl.SystemInstanceImpl#getSystemImplementation <em>System Implementation</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.SystemInstanceImpl#getComponentImplementation <em>Component Implementation</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,14 +94,14 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	protected EList<SystemOperationMode> systemOperationModes;
 
 	/**
-	 * The cached value of the '{@link #getSystemImplementation() <em>System Implementation</em>}' reference.
+	 * The cached value of the '{@link #getComponentImplementation() <em>Component Implementation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSystemImplementation()
+	 * @see #getComponentImplementation()
 	 * @generated
 	 * @ordered
 	 */
-	protected SystemImplementation systemImplementation;
+	protected ComponentImplementation componentImplementation;
 
 	/**
 	 * The current system operation mode.
@@ -157,24 +157,19 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @generated
 	 */
 	@Override
-	public SystemImplementation getSystemImplementation() {
-		if (systemImplementation != null && ((EObject) systemImplementation).eIsProxy()) {
-			InternalEObject oldSystemImplementation = (InternalEObject) systemImplementation;
-			systemImplementation = (SystemImplementation) eResolveProxy(oldSystemImplementation);
-			if (systemImplementation != oldSystemImplementation) {
+	public ComponentImplementation getComponentImplementation() {
+		if (componentImplementation != null && ((EObject) componentImplementation).eIsProxy()) {
+			InternalEObject oldComponentImplementation = (InternalEObject) componentImplementation;
+			componentImplementation = (ComponentImplementation) eResolveProxy(oldComponentImplementation);
+			if (componentImplementation != oldComponentImplementation) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION, oldSystemImplementation,
-							systemImplementation));
+							InstancePackage.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, oldComponentImplementation,
+							componentImplementation));
 				}
 			}
 		}
-		return systemImplementation;
-	}
-
-	@Override
-	public SystemImplementation getComponentClassifier() {
-		return getSystemImplementation();
+		return componentImplementation;
 	}
 
 	/**
@@ -182,8 +177,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SystemImplementation basicGetSystemImplementation() {
-		return systemImplementation;
+	public ComponentImplementation basicGetComponentImplementation() {
+		return componentImplementation;
 	}
 
 	/**
@@ -192,14 +187,19 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @generated
 	 */
 	@Override
-	public void setSystemImplementation(SystemImplementation newSystemImplementation) {
-		SystemImplementation oldSystemImplementation = systemImplementation;
-		systemImplementation = newSystemImplementation;
+	public void setComponentImplementation(ComponentImplementation newComponentImplementation) {
+		ComponentImplementation oldComponentImplementation = componentImplementation;
+		componentImplementation = newComponentImplementation;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION, oldSystemImplementation,
-					systemImplementation));
+					InstancePackage.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, oldComponentImplementation,
+					componentImplementation));
 		}
+	}
+
+	@Override
+	public ComponentImplementation getComponentClassifier() {
+		return getComponentImplementation();
 	}
 
 	/**
@@ -224,11 +224,11 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
 			return getSystemOperationModes();
-		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION:
+		case InstancePackage.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION:
 			if (resolve) {
-				return getSystemImplementation();
+				return getComponentImplementation();
 			}
-			return basicGetSystemImplementation();
+			return basicGetComponentImplementation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -245,8 +245,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 			getSystemOperationModes().clear();
 			getSystemOperationModes().addAll((Collection<? extends SystemOperationMode>) newValue);
 			return;
-		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION:
-			setSystemImplementation((SystemImplementation) newValue);
+		case InstancePackage.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION:
+			setComponentImplementation((ComponentImplementation) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -262,8 +262,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
 			getSystemOperationModes().clear();
 			return;
-		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION:
-			setSystemImplementation((SystemImplementation) null);
+		case InstancePackage.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION:
+			setComponentImplementation((ComponentImplementation) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -278,8 +278,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
 			return systemOperationModes != null && !systemOperationModes.isEmpty();
-		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION:
-			return systemImplementation != null;
+		case InstancePackage.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION:
+			return componentImplementation != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -370,7 +370,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)
@@ -447,8 +447,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	}
 
 	@Override
-	public final List<SystemImplementation> getInstantiatedObjects() {
-		return Collections.singletonList(getSystemImplementation());
+	public final List<ComponentImplementation> getInstantiatedObjects() {
+		return Collections.singletonList(getComponentImplementation());
 	}
 
 	private SystemOperationMode initialMode = null;
@@ -456,9 +456,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	@Override
 	public final SystemOperationMode getInitialSystemOperationMode() {
 		if (initialMode == null) {
-			final List soms = getSystemOperationModes();
-			for (final Iterator i = soms.iterator(); i.hasNext();) {
-				final SystemOperationMode som = (SystemOperationMode) i.next();
+			final List<SystemOperationMode> soms = getSystemOperationModes();
+			for (SystemOperationMode som : soms) {
 				if (som.isInitial()) {
 					return som;
 				}
@@ -476,7 +475,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	@Override
 	public Iterable<ConnectionInstance> allConnectionInstances() {
-		final TreeIterator iter = EcoreUtil.getAllContents(this, true);
+		final TreeIterator<Object> iter = EcoreUtil.getAllContents(this, true);
 
 		return new Iterable<ConnectionInstance>() {
 

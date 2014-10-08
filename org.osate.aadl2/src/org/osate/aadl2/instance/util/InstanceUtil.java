@@ -112,7 +112,7 @@ public class InstanceUtil {
 		ComponentType type = null;
 
 		if (ci instanceof SystemInstance) {
-			type = ((SystemInstance) ci).getSystemImplementation().getType();
+			type = ((SystemInstance) ci).getComponentImplementation().getType();
 		} else {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(ci, index, classifierCache);
 
@@ -145,7 +145,7 @@ public class InstanceUtil {
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentImplementation impl = null;
 		if (ci instanceof SystemInstance) {
-			impl = ((SystemInstance) ci).getSystemImplementation();
+			impl = ((SystemInstance) ci).getComponentImplementation();
 		} else {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(ci, index, classifierCache);
 
@@ -174,7 +174,7 @@ public class InstanceUtil {
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentClassifier cc = null;
 		if (ci instanceof SystemInstance) {
-			cc = ((SystemInstance) ci).getSystemImplementation();
+			cc = ((SystemInstance) ci).getComponentImplementation();
 		} else {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(ci, index, classifierCache);
 
@@ -243,7 +243,7 @@ public class InstanceUtil {
 			return ic;
 		}
 		if (iobj instanceof SystemInstance) {
-			ic = new InstantiatedClassifier(((SystemInstance) iobj).getSystemImplementation(), null);
+			ic = new InstantiatedClassifier(((SystemInstance) iobj).getComponentImplementation(), null);
 		}
 		if (ic == null) {
 			Classifier classifier = null;
@@ -414,7 +414,7 @@ public class InstanceUtil {
 
 		// prototype binding may be attached to parent (anonymous component classifier)
 		if (parent instanceof SystemInstance) {
-			ComponentImplementation impl = ((SystemInstance) parent).getSystemImplementation();
+			ComponentImplementation impl = ((SystemInstance) parent).getComponentImplementation();
 
 			if (impl == null) {
 				return null;
