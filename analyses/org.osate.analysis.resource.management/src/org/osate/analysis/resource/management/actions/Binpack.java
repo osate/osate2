@@ -1,42 +1,42 @@
 /*
-*
-* <copyright>
-* Copyright � 2004 by Carnegie Mellon University, all rights reserved.
-*
-* Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
-* at http://www.eclipse.org/legal/cpl-v10.html.
-*
-* NO WARRANTY
-*
-* ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
-* CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE �DELIVERABLES�) ARE ON AN �AS-IS� BASIS.
-* CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
-* BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
-* NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
-* CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
-* REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
-* MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
-* APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
-*
-* Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
-* employees, and agents from all claims or demands made against them (and any related losses, expenses, or
-* attorney�s fees) arising out of, or relating to Licensee�s and/or its sub licensees� negligent use or willful
-* misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
-* assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
-* product liability, personal injury, death, damage to property, or violation of any laws or regulations.
-*
-* Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
-* of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
-* under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
-* documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
-* under the contract clause at 252.227.7013.
-*
-* </copyright>
-*
-*
-* %W%
-* @version %I% %H%
-*/
+ *
+ * <copyright>
+ * Copyright � 2004 by Carnegie Mellon University, all rights reserved.
+ *
+ * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
+ * at http://www.eclipse.org/legal/cpl-v10.html.
+ *
+ * NO WARRANTY
+ *
+ * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE �DELIVERABLES�) ARE ON AN �AS-IS� BASIS.
+ * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
+ * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
+ * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+ * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
+ * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
+ * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
+ * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+ *
+ * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
+ * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
+ * attorney�s fees) arising out of, or relating to Licensee�s and/or its sub licensees� negligent use or willful
+ * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
+ * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
+ * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
+ *
+ * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+ * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+ * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
+ * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
+ * under the contract clause at 252.227.7013.
+ *
+ * </copyright>
+ *
+ *
+ * %W%
+ * @version %I% %H%
+ */
 package org.osate.analysis.resource.management.actions;
 
 import java.util.Collection;
@@ -64,7 +64,6 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.ListValue;
-import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.PropertyExpression;
@@ -85,7 +84,6 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -128,22 +126,20 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	private static final int IMMEDIATE_PARTITION = 0;
 	private static final int DEFER_EXEC_TIME = 1;
 	private static final int DEFER_BANDWIDTH = 2;
-	
+
 	private int partitionChoice;
-	
-	
-	
+
 	protected void initPropertyReferences() {
 	}
-	
+
 	protected Bundle getBundle() {
 		return ResourcemanagementPlugin.getDefault().getBundle();
 	}
-	
+
 	protected String getMarkerType() {
 		return "org.osate.analysis.resource.management.BinpackObjectMarker";
 	}
-	
+
 	protected String getActionName() {
 		return "Bind threads to processors";
 	}
@@ -152,73 +148,69 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	protected boolean analyzeInSingleModeOnly() {
 		return true;
 	}
-	
+
 	@Override
 	protected boolean initializeAction(NamedElement obj) {
-    	setCSVLog("Binpacking", obj);
-    	
+		setCSVLog("Binpacking", obj);
+
 		// Select the bin packing strategy
-		partitionChoice = org.osate.ui.dialogs.Dialog.askQuestion(
-				"Choose partitioning algorithm",
-                "This bin packing algorithm groups threads that "+
-                "communicate with each other in groups and try to fit them "+
-                "together. If it is not possible it will partition the groups.\n\n"+
-                "Two main partitioning strategies exist: \n"+
-                "(1) Partition group as soon as they are discovered not to fit.\n"+
-                "(2) Put them aside and continue packing all groups that fit and after "+
-                "partition those that did not fit. Additionally it can select the "+
-                "group to partition based on the amount of data being communicated or "+
-                "the amount of computing cycles required by the group.",
-                new String[] {
-						"Immediate Partition of Groups",
-						"Defer Partition of Groups Based on Exec. Time",
-						"Defer Partition of Groups Based on Comm. Bandwidth" },
-				IMMEDIATE_PARTITION);
+		partitionChoice = org.osate.ui.dialogs.Dialog.askQuestion("Choose partitioning algorithm",
+				"This bin packing algorithm groups threads that "
+						+ "communicate with each other in groups and try to fit them "
+						+ "together. If it is not possible it will partition the groups.\n\n"
+						+ "Two main partitioning strategies exist: \n"
+						+ "(1) Partition group as soon as they are discovered not to fit.\n"
+						+ "(2) Put them aside and continue packing all groups that fit and after "
+						+ "partition those that did not fit. Additionally it can select the "
+						+ "group to partition based on the amount of data being communicated or "
+						+ "the amount of computing cycles required by the group.", new String[] {
+						"Immediate Partition of Groups", "Defer Partition of Groups Based on Exec. Time",
+						"Defer Partition of Groups Based on Comm. Bandwidth" }, IMMEDIATE_PARTITION);
 		return partitionChoice != -1;
 	}
-	
+
 	@Override
-	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, Element declarativeObject) {
-		org.osate.ui.dialogs.Dialog.showError(
-				"Binding Error",
-				"Can only SW/HW bind (binpack) system instances");
+	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+			Element declarativeObject) {
+		org.osate.ui.dialogs.Dialog.showError("Binding Error", "Can only SW/HW bind (binpack) system instances");
 	}
-	
-	protected void checkBuses(ComponentInstance obj){
+
+	protected void checkBuses(ComponentInstance obj) {
 		ComponentInstance bi = (ComponentInstance) obj;
 		final RecordValue transTime = GetProperties.getTransmissionTime(bi);
 		if (transTime == null) {
-			logWarning("Bus "+bi.getComponentInstancePath()+" is missing Transmission Time property. Using default of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
+			logWarning("Bus " + bi.getComponentInstancePath()
+					+ " is missing Transmission Time property. Using default of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
 		}
 
 	}
 
 	@Override
-	protected void analyzeInstanceModel(final IProgressMonitor monitor,
-			final AnalysisErrorReporterManager errManager,
+	protected void analyzeInstanceModel(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
 		try {
-			monitor.beginTask("Binding threads to processors in " + root.getName(),
-					IProgressMonitor.UNKNOWN);
-			
+			monitor.beginTask("Binding threads to processors in " + root.getName(), IProgressMonitor.UNKNOWN);
+
 			logInfo("Binpacker Analysis Report\n");
-			/* Verify that all the busses have a transmission time
+			/*
+			 * Verify that all the busses have a transmission time
 			 */
 			final ForAllElement addBuses = new ForAllElement(errManager) {
-				public void process(Element obj){				
-					checkBuses((ComponentInstance)obj);
+				public void process(Element obj) {
+					checkBuses((ComponentInstance) obj);
 				}
 			};
-			addBuses.processPreOrderComponentInstance(root,ComponentCategory.BUS);				
-			
-			/* Find and report all thread and device instances that don't have a 
+			addBuses.processPreOrderComponentInstance(root, ComponentCategory.BUS);
+
+			/*
+			 * Find and report all thread and device instances that don't have a
 			 * period specified.
 			 */
-			EList incompletethreads = new ForAllElement(){
-				protected boolean suchThat(Element obj){
+			EList incompletethreads = new ForAllElement() {
+				protected boolean suchThat(Element obj) {
 					final ComponentCategory cat = ((ComponentInstance) obj).getCategory();
-					if (cat == ComponentCategory.THREAD|| cat == ComponentCategory.DEVICE) {
-							return GetProperties.getPeriodinMS((ComponentInstance) obj) == 0.0;
+					if (cat == ComponentCategory.THREAD || cat == ComponentCategory.DEVICE) {
+						return GetProperties.getPeriodinMS((ComponentInstance) obj) == 0.0;
 					} else {
 						return false;
 					}
@@ -226,48 +218,54 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			}.processPreOrderComponentInstance(root);
 			for (final Iterator i = incompletethreads.iterator(); i.hasNext();) {
 				final ComponentInstance o = (ComponentInstance) i.next();
-				logWarning((InstanceModelUtil.isThread(o)?"Thread ":"Device ")+o.getComponentInstancePath()+" is missing period property. Using default of 1 ns");
-			} 
-			
-			/* Find and report all thread instances that don't have a 
+				logWarning((InstanceModelUtil.isThread(o) ? "Thread " : "Device ") + o.getComponentInstancePath()
+						+ " is missing period property. Using default of 1 ns");
+			}
+
+			/*
+			 * Find and report all thread instances that don't have a
 			 * compute execution time specified.
 			 */
-			incompletethreads = new ForAllElement(){
-				protected boolean suchThat(Element obj){
-						return GetProperties.getThreadExecutioninMilliSec((ComponentInstance)obj) == 0.0;
+			incompletethreads = new ForAllElement() {
+				protected boolean suchThat(Element obj) {
+					return GetProperties.getThreadExecutioninMilliSec((ComponentInstance) obj) == 0.0;
 				}
-			}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
+			}.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 			for (final Iterator i = incompletethreads.iterator(); i.hasNext();) {
 				final ComponentInstance o = (ComponentInstance) i.next();
-				logWarning("Thread "+o.getComponentInstancePath()+" is missing compute_execution_time or InstructionsPerDispatch property. Using default of 0 ns");
-			} 
+				logWarning("Thread "
+						+ o.getComponentInstancePath()
+						+ " is missing compute_execution_time or InstructionsPerDispatch property. Using default of 0 ns");
+			}
 
-			/* Find if all the port connections have data size
+			/*
+			 * Find if all the port connections have data size
 			 */
-			final ForAllElement addThreadConnections = new ForAllElement(errManager){
-				public void process(Element obj){
-					if (obj instanceof ConnectionInstance){
+			final ForAllElement addThreadConnections = new ForAllElement(errManager) {
+				public void process(Element obj) {
+					if (obj instanceof ConnectionInstance) {
 						final ConnectionInstance connInst = (ConnectionInstance) obj;
-						if (connInst.getKind() == ConnectionKind.PORT_CONNECTION && 
-								connInst.getSource() instanceof ConnectionInstanceEnd){
+						if (connInst.getKind() == ConnectionKind.PORT_CONNECTION
+								&& connInst.getSource() instanceof ConnectionInstanceEnd) {
 							final FeatureInstance src = (FeatureInstance) connInst.getSource();
 
-							Feature srcAP =  src.getFeature();
+							Feature srcAP = src.getFeature();
 							Classifier cl = srcAP.getClassifier();
-							if (cl instanceof DataClassifier){
+							if (cl instanceof DataClassifier) {
 								DataClassifier srcDC = (DataClassifier) cl;
-								if (GetProperties.getSourceDataSizeInBytes(srcDC)==0){
-									logWarning("Data size of connection source port "+src.getComponentInstancePath()+" not specified");
+								if (GetProperties.getSourceDataSizeInBytes(srcDC) == 0) {
+									logWarning("Data size of connection source port " + src.getComponentInstancePath()
+											+ " not specified");
 								}
 							}
 						}
 					}
 				}
 			};
-			addThreadConnections.processPreOrderAll(root); 
+			addThreadConnections.processPreOrderAll(root);
 
 			/* The partitionChoice is set in initializeANalysis() */
-			NoExpansionExpansor expansor = new NoExpansionExpansor(); 
+			NoExpansionExpansor expansor = new NoExpansionExpansor();
 			LowLevelBinPacker packer = null;
 			if (partitionChoice == IMMEDIATE_PARTITION) {
 				packer = new BFCPBinPacker(expansor);
@@ -275,14 +273,12 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				packer = new DFCPBinPacker(expansor);
 			} else if (partitionChoice == DEFER_BANDWIDTH) {
 				packer = new DFBPBinPacker(expansor);
-			}		
-			
-			AssignmentResult result= binPackSystem(root,  expansor, packer, errManager, som);
-			
-			
-			reportResults(som,result);
+			}
 
-			
+			AssignmentResult result = binPackSystem(root, expansor, packer, errManager, som);
+
+			reportResults(som, result);
+
 			if (result.success) {
 				showResults(som, root, result);
 			} else {
@@ -292,76 +288,76 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			error(e.getElement(), e.getMessage());
 		}
 	}
-		
-	protected EList getExecutionUnits(SystemInstance root){
-		return new ForAllElement().processPreOrderComponentInstance(root,
-				ComponentCategory.THREAD);
+
+	protected EList getExecutionUnits(SystemInstance root) {
+		return new ForAllElement().processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 	}
 
-	
-	protected AssignmentResult binPackSystem(
-			final SystemInstance root,
-			Expansor expansor, LowLevelBinPacker packer,
-			final AnalysisErrorReporterManager errManager,
-			final SystemOperationMode som) {
-		/* Map from AADL ComponentInstances representing threads to
+	protected AssignmentResult binPackSystem(final SystemInstance root, Expansor expansor, LowLevelBinPacker packer,
+			final AnalysisErrorReporterManager errManager, final SystemOperationMode som) {
+		/*
+		 * Map from AADL ComponentInstances representing threads to
 		 * the bin packing SoftwareNode that models the thread.
-		 */ 
+		 */
 		final Map threadToSoftwareNode = new HashMap();
-		/* Set of thread components.  This is is the keySet of
+		/*
+		 * Set of thread components. This is is the keySet of
 		 * threadToSoftwareNode.
 		 */
 		final Set threads = threadToSoftwareNode.keySet();
-		/* Map from AADL ComponentInstances representing threads to
+		/*
+		 * Map from AADL ComponentInstances representing threads to
 		 * the set of AADL ComponentInstances that cannot be collocated
 		 * with it.
 		 */
 		final Map notCollocated = new HashMap();
-		
-		/* Map from AADL ComponentInstance representing processors to
+
+		/*
+		 * Map from AADL ComponentInstance representing processors to
 		 * the bin packing Processor that models them.
 		 */
 		final Map procToHardware = new HashMap();
-		
-		/* Map from AADL BusInstance representing Buses to
+
+		/*
+		 * Map from AADL BusInstance representing Buses to
 		 * The bin packing Link that models them.
 		 */
 		final Map busToHardware = new HashMap();
-			
-		
-		/* One site to rule them all!  We don't care about the site
+
+		/*
+		 * One site to rule them all! We don't care about the site
 		 * architecture, so just create one site to hold everything.
 		 * We aren't worried about power or space issues either, so
 		 * we just set them to 100.0 because those are nice values.
-		 * The site accepts AADL processors. 
+		 * The site accepts AADL processors.
 		 */
 		final SiteArchitecture siteArchitecture = new SiteArchitecture();
 		AADLProcessor ap = AADLProcessor.PROTOTYPE;
-		final Site theSite = new Site(
-				100.0, 100.0, new SiteGuest[] { ap });
+		final Site theSite = new Site(100.0, 100.0, new SiteGuest[] { ap });
 		siteArchitecture.addSite(theSite);
 
-		/* The hardware is fixed based on the AADL specification, so we 
+		/*
+		 * The hardware is fixed based on the AADL specification, so we
 		 * use the NoExpansionExpansor to keep the hardware from being
 		 * generated for us.
 		 */
-		
+
 		expansor.setSiteArchitecture(siteArchitecture);
 
-		/* Populate the problem space based on the AADL specification.  First
-		 * we walk the instance model and add all the processors.  Then we 
+		/*
+		 * Populate the problem space based on the AADL specification. First
+		 * we walk the instance model and add all the processors. Then we
 		 * walk the instance model again to add all the threads.
 		 */
-		OutDegreeAssignmentProblem problem1 = new OutDegreeAssignmentProblem(
-				new OutDegreeComparator(), new BandwidthComparator(),
-				new CapacityComparator());
+		OutDegreeAssignmentProblem problem1 = new OutDegreeAssignmentProblem(new OutDegreeComparator(),
+				new BandwidthComparator(), new CapacityComparator());
 		problem1.setErrorReporter(new BinPackErrorReporter());
 		final OutDegreeAssignmentProblem problem = problem1;
 		// Add procs
 		final ForAllElement addProcessors = new ForAllElement(errManager) {
-			public void process(Element obj) {			
+			public void process(Element obj) {
 				ComponentInstance ci = (ComponentInstance) obj;
-				if( GetProperties.getMIPSCapacityInMIPS(ci, 0)>0) {
+				if (GetProperties.getMIPSCapacityInMIPS(ci, 0) > 0) {
 					final AADLProcessor proc = AADLProcessor.createInstance(ci);
 					if (proc != null) {
 						siteArchitecture.addSiteGuest(proc, theSite);
@@ -371,54 +367,55 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 					}
 				} else {
 					// report processor without capacity
-					warning(ci, "Processor "+ci.getComponentInstancePath()+"has no MIPS capacity. Not used in allocation.");
+					warning(ci, "Processor " + ci.getComponentInstancePath()
+							+ "has no MIPS capacity. Not used in allocation.");
 
 				}
 			}
 		};
-		addProcessors.processPreOrderComponentInstance(
-				root, ComponentCategory.PROCESSOR);
-		
-		/*   Get all the links 
+		addProcessors.processPreOrderComponentInstance(root, ComponentCategory.PROCESSOR);
+
+		/*
+		 * Get all the links
 		 */
-		
-		
+
 		final ForAllElement addBuses = new ForAllElement(errManager) {
-			public void process(Element obj){				
+			public void process(Element obj) {
 				ComponentInstance bi = (ComponentInstance) obj;
-				
+
 				final AADLBus bus = AADLBus.createInstance(bi);
-				busToHardware.put(bi,bus);
+				busToHardware.put(bi, bus);
 			}
 		};
-		
-		addBuses.processPreOrderComponentInstance(root,ComponentCategory.BUS);
-		
-		/* create the links between processors and busses
+
+		addBuses.processPreOrderComponentInstance(root, ComponentCategory.BUS);
+
+		/*
+		 * create the links between processors and busses
 		 * (i.e., process connections)
 		 */
 		for (final Iterator i = root.getAllConnectionInstances().iterator(); i.hasNext();) {
 			final ConnectionInstance connInst = (ConnectionInstance) i.next();
-			if (connInst.getKind() == ConnectionKind.ACCESS_CONNECTION){
+			if (connInst.getKind() == ConnectionKind.ACCESS_CONNECTION) {
 				InstanceObject src = connInst.getSource();
 				InstanceObject dst = connInst.getDestination();
 
-				AADLBus bus=null;
-				AADLProcessor processor=null;
+				AADLBus bus = null;
+				AADLProcessor processor = null;
 
 				// swap if i got them in the opposite order
-				if (src instanceof FeatureInstance){
+				if (src instanceof FeatureInstance) {
 					InstanceObject tmp = dst;
 					dst = src;
 					src = tmp;
 				}
-				
+
 				bus = (AADLBus) busToHardware.get(src);
 				FeatureInstance fi = (FeatureInstance) dst;
 
 				processor = (AADLProcessor) procToHardware.get(fi.getContainingComponentInstance());
 
-				if (bus != null && processor != null){
+				if (bus != null && processor != null) {
 					bus.add(processor);
 					processor.attachToLink(bus);
 				}
@@ -427,56 +424,53 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
 		// Now add all the links so the connectivity matrix in the problem is
 		// updated correctly
-		
-		for (Iterator iBus = busToHardware.values().iterator(); iBus.hasNext();){
+
+		for (Iterator iBus = busToHardware.values().iterator(); iBus.hasNext();) {
 			AADLBus bus = (AADLBus) iBus.next();
 			problem.addLink(bus);
-			siteArchitecture.addSiteGuest(bus,theSite);			
+			siteArchitecture.addSiteGuest(bus, theSite);
 		}
-		
-		
+
 		// Add threads
 		final ForAllElement addThreads = new ForAllElement(errManager) {
 			public void process(Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
-				
+
 				/**
 				 * JD - check the modes according to what was
 				 * suggested by Dave.
 				 */
 				boolean selected = true;
-				
-				if (som.getCurrentModes().size() > 0)
-				{
+
+				if (som.getCurrentModes().size() > 0) {
 					selected = false;
-					for (ModeInstance mi : ci.getInModes())
-					{
-						if (mi == som.getCurrentModes().get(0))
-						{
+					for (ModeInstance mi : ci.getInModes()) {
+						if (mi == som.getCurrentModes().get(0)) {
 							selected = true;
 						}
 					}
 				}
-				
-				if (! selected)
-				{
+
+				if (!selected) {
 					return;
 				}
-				
+
 				final AADLThread thread = AADLThread.createInstance(ci);
 				problem.softwareGraph.add(thread);
 //				logInfo(thread.getReport());
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
 
-				// Process NOT_COLLOCATED property. 
+				// Process NOT_COLLOCATED property.
 				RecordValue disjunctFrom = GetProperties.getNotCollocated(ci);
-				if (disjunctFrom == null) return;
+				if (disjunctFrom == null)
+					return;
 				final Set disjunctSet = new HashSet();
-				ListValue tvl = (ListValue)PropertyUtils.getRecordFieldValue(disjunctFrom, "Targets");
-				for (PropertyExpression ref: tvl.getOwnedListElements()) {
-					/* Add all the instances rooted at the named instance.
-					 * For example, the thread may be declared to be disjunct 
+				ListValue tvl = (ListValue) PropertyUtils.getRecordFieldValue(disjunctFrom, "Targets");
+				for (PropertyExpression ref : tvl.getOwnedListElements()) {
+					/*
+					 * Add all the instances rooted at the named instance.
+					 * For example, the thread may be declared to be disjunct
 					 * from another process, so we really want to be disjunct
 					 * from the other threads contained in that process.
 					 */
@@ -489,141 +483,139 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				}
 			}
 		};
-		addThreads.processPreOrderComponentInstance(
-				root, ComponentCategory.THREAD);
-		
+		addThreads.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
+
 		// Add thread connections (Messages)
 		for (final Iterator i = root.getAllConnectionInstances().iterator(); i.hasNext();) {
 			final ConnectionInstance connInst = (ConnectionInstance) i.next();
-			if (connInst.getKind() == ConnectionKind.PORT_CONNECTION ){
+			if (connInst.getKind() == ConnectionKind.PORT_CONNECTION) {
 				final ConnectionInstance portConnInst = (ConnectionInstance) connInst;
 				if (!(portConnInst.getSource() instanceof FeatureInstance && portConnInst.getDestination() instanceof FeatureInstance))
-						continue;
+					continue;
 				final FeatureInstance src = (FeatureInstance) portConnInst.getSource();
 				final FeatureInstance dst = (FeatureInstance) portConnInst.getDestination();
-				
+
 				final ComponentInstance ci = src.getContainingComponentInstance();
 				AADLThread t1 = (AADLThread) threadToSoftwareNode.get(ci);
 				AADLThread t2 = (AADLThread) threadToSoftwareNode.get(dst.getContainingComponentInstance());
 				if (t1 != null && t2 != null) {
-					Feature srcAP =  src.getFeature();
+					Feature srcAP = src.getFeature();
 					// TODO: get the property directly
 					Classifier cl = srcAP.getClassifier();
-					if (cl instanceof DataClassifier){
-						DataClassifier srcDC  = (DataClassifier) cl;
-						double dataSize=0.0;
-						double threadPeriod=0.0;
+					if (cl instanceof DataClassifier) {
+						DataClassifier srcDC = (DataClassifier) cl;
+						double dataSize = 0.0;
+						double threadPeriod = 0.0;
 						try {
-							dataSize= GetProperties.getSourceDataSizeInBytes(srcDC);
-						} catch (Exception e){
+							dataSize = GetProperties.getSourceDataSizeInBytes(srcDC);
+						} catch (Exception e) {
 							errManager.warning(connInst, "No Data Size for connection");
 						}
-						try{
+						try {
 							threadPeriod = GetProperties.getPeriodinNS(ci);
-						} catch (Exception e){
+						} catch (Exception e) {
 							errManager.warning(connInst, "No Period for connection");
 						}
-		
+
 						// Now I can create the Message
-						
-						Message msg = new Message((long) dataSize, (long)threadPeriod, (long)threadPeriod, t1, t2);
-						System.out.println(">>>>>>>>>> Adding message ("+Long.toString((long)dataSize)+"/"+
-								Long.toString((long)threadPeriod)+") between " + t1.getName() + " and " + t2.getName() + " based on connection " + portConnInst.getName());
-						problem.addMessage(msg);						
+
+						Message msg = new Message((long) dataSize, (long) threadPeriod, (long) threadPeriod, t1, t2);
+						System.out.println(">>>>>>>>>> Adding message (" + Long.toString((long) dataSize) + "/"
+								+ Long.toString((long) threadPeriod) + ") between " + t1.getName() + " and "
+								+ t2.getName() + " based on connection " + portConnInst.getName());
+						problem.addMessage(msg);
 					} else {
 						errManager.warning(connInst, "No Data Classifier for connection");
 					}
 				}
 			}
 		}
-		
-		
+
 		// Add collocation constraints
 		for (final Iterator constrained = notCollocated.keySet().iterator(); constrained.hasNext();) {
 			final ComponentInstance ci = (ComponentInstance) constrained.next();
 			final SoftwareNode sn = (SoftwareNode) threadToSoftwareNode.get(ci);
 			final Set disjunctFrom = (Set) notCollocated.get(ci);
-			for(final Iterator dfIter = disjunctFrom.iterator(); dfIter.hasNext();) {
-				/* Items in the disjunctFrom set do not have to be thread 
+			for (final Iterator dfIter = disjunctFrom.iterator(); dfIter.hasNext();) {
+				/*
+				 * Items in the disjunctFrom set do not have to be thread
 				 * instances because of the way we add items to it (see above).
-				 * We are only interested in the thread instances here, in 
+				 * We are only interested in the thread instances here, in
 				 * particular because we only create SoftwareNodes for the
-				 * thread instances, and we don't want to get null return 
+				 * thread instances, and we don't want to get null return
 				 * values from the threadToSoftwareNode map.
-				 */ 
+				 */
 				final ComponentInstance ci2 = (ComponentInstance) dfIter.next();
 				if (ci2.getCategory() == ComponentCategory.THREAD) {
 					final SoftwareNode sn2 = (SoftwareNode) threadToSoftwareNode.get(ci2);
 					final SoftwareNode[] disjunction = new SoftwareNode[] { sn, sn2 };
 					problem.addConstraint(new Disjoint(disjunction));
 				}
-			}			
+			}
 		}
-		
-		/* Add Allowed_Processor_Binding and
+
+		/*
+		 * Add Allowed_Processor_Binding and
 		 * Allowed_Processor_Binding_Class constraints
 		 */
 		for (final Iterator i = threads.iterator(); i.hasNext();) {
 			final ComponentInstance thr = (ComponentInstance) i.next();
 			final SoftwareNode thrSN = (SoftwareNode) threadToSoftwareNode.get(thr);
 			Collection allowed = getActualProcessorBindings(thr);
-			if (allowed.size() == 0){
+			if (allowed.size() == 0) {
 				allowed = getAllowedProcessorBindings(thr);
 			}
-			if (allowed.size() >0){
+			if (allowed.size() > 0) {
 				final Object[] allowedProcs = new Object[allowed.size()];
 				int idx = 0;
 				for (Iterator j = allowed.iterator(); j.hasNext(); idx++) {
 					final ComponentInstance proc = (ComponentInstance) j.next();
 					allowedProcs[idx] = procToHardware.get(proc);
 				}
-				problem.addConstraint(
-						new SetConstraint(new SoftwareNode[] { thrSN }, allowedProcs));
+				problem.addConstraint(new SetConstraint(new SoftwareNode[] { thrSN }, allowedProcs));
 			}
 		}
-		
-				
+
 		// Try to bin pack
 		final NFCHoBinPacker highPacker = new NFCHoBinPacker(packer);
 		final boolean res = highPacker.solve(problem);
 		return new AssignmentResult(problem, res);
 	}
-	
+
 	private abstract static class ShowDialog implements Runnable {
 		public volatile int result;
 	}
-	
-	String getBindingText(final Map threadsToProc){
-		String bindings ="";		
-		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
+
+	String getBindingText(final Map threadsToProc) {
+		String bindings = "";
+		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final ComponentInstance proc = (ComponentInstance) threadsToProc.get(thread);
-			bindings += "Actual_Processor_Binding => reference ("+proc.getInstanceObjectPath()+") applies to "+thread.getInstanceObjectPath()+";\n";
+			bindings += "Actual_Processor_Binding => reference (" + proc.getInstanceObjectPath() + ") applies to "
+					+ thread.getInstanceObjectPath() + ";\n";
 		}
-		
+
 		return bindings;
 	}
-	
-	public void showResults(final SystemOperationMode som, final SystemInstance root,
-			final AssignmentResult result) {
+
+	public void showResults(final SystemOperationMode som, final SystemInstance root, final AssignmentResult result) {
 		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
-		
-		final String propText = getBindingText(threadsToProc); 
+
+		final String propText = getBindingText(threadsToProc);
 		boolean done = false;
 		while (!done) {
-			final Dialog d = new PackingSuccessfulDialog(getShell(), som,
-					root.getSystemImplementation().getName(), threadsToProc, 
-					result.problem.hardwareGraph, propText);
+			final Dialog d = new PackingSuccessfulDialog(getShell(), som, root.getComponentImplementation().getName(),
+					threadsToProc, result.problem.hardwareGraph, propText);
 			final ShowDialog sd = new ShowDialog() {
 				public void run() {
 					this.result = d.open();
 				}
 			};
 			Display.getDefault().syncExec(sd);
-			
+
 			if (sd.result == PackingSuccessfulDialog.INSTANCE_ID) {
 				setInstanceModelBindings(root, threadsToProc);
-			} 
+			}
 			// XXX: Don't set properties in the declarative model any more?
 //				else if (button == PackingSuccessfulDialog.DECLARATIVE_ID) {
 //					setDeclarativeBindings(root, threadsToProc);
@@ -633,13 +625,10 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			}
 		}
 	}
-	
-	public void showNoResults(
-			final SystemOperationMode som){
-		org.osate.ui.dialogs.Dialog.showError(
-				"Application Binding Results",
-				"In system operation mode " + som.getName() + 
-				"the application system is not schedulable");	
+
+	public void showNoResults(final SystemOperationMode som) {
+		org.osate.ui.dialogs.Dialog.showError("Application Binding Results",
+				"In system operation mode " + som.getName() + "the application system is not schedulable");
 	}
 
 	private Map getThreadBindings(final Set hardware) {
@@ -650,7 +639,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				SoftwareNode m = (SoftwareNode) taskSet.next();
 				if (m instanceof CompositeSoftNode) {
 					final Set set = ((CompositeSoftNode) m).getBasicComponents();
-					for (Iterator software = set.iterator(); software.hasNext(); ) {
+					for (Iterator software = set.iterator(); software.hasNext();) {
 						final SoftwareNode sn = (SoftwareNode) software.next();
 						threadsToProc.put(sn.getSemanticObject(), n.getSemanticObject());
 					}
@@ -663,44 +652,42 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		}
 		return threadsToProc;
 	}
-	
-	public void reportResults(SystemOperationMode som,final AssignmentResult result) {
+
+	public void reportResults(SystemOperationMode som, final AssignmentResult result) {
 		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
 
-		logInfo("\nBinpacking results"+(!som.getName().equalsIgnoreCase("No Modes")?" for SOM "+som.getName():"")+": "+(result.success?"Success":"FAILED") );
+		logInfo("\nBinpacking results"
+				+ (!som.getName().equalsIgnoreCase("No Modes") ? " for SOM " + som.getName() : "") + ": "
+				+ (result.success ? "Success" : "FAILED"));
 		for (final Iterator i = result.problem.hardwareGraph.iterator(); i.hasNext();) {
 			final HardwareNode hn = (HardwareNode) i.next();
 			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
 			double load = hn.cyclesPerSecond - hn.getAvailableCapacity();
-			load /= hn.cyclesPerSecond ;
+			load /= hn.cyclesPerSecond;
 			load *= 100.0;
 			long longLoad = (long) Math.ceil(load);
-			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond );
-			overload /= hn.cyclesPerSecond ;
+			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond);
+			overload /= hn.cyclesPerSecond;
 			overload *= 100.0;
 			long longOverload = (long) Math.ceil(overload);
 			long available = longOverload * -1;
-			logInfo("Processor "+proc.getInstanceObjectPath()+" ("+hn.cyclesPerSecond/1000000+" MIPS) Load: "+
-					Long.toString(longLoad) + "%" +" Available: "+
-					Long.toString(available) + "%" );
+			logInfo("Processor " + proc.getInstanceObjectPath() + " (" + hn.cyclesPerSecond / 1000000 + " MIPS) Load: "
+					+ Long.toString(longLoad) + "%" + " Available: " + Long.toString(available) + "%");
 		}
 		logInfo("\nThread to Processor Bindings");
-		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
+		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final ComponentInstance proc = (ComponentInstance) threadsToProc.get(thread);
-			  double threadMips = GetProperties.getThreadExecutioninMIPS(thread);
-			  double cpumips = GetProperties.getMIPSCapacityInMIPS(proc, 0);
+			double threadMips = GetProperties.getThreadExecutioninMIPS(thread);
+			double cpumips = GetProperties.getMIPSCapacityInMIPS(proc, 0);
 
-			logInfo("Thread "+thread.getInstanceObjectPath()+" ==> Processor "+proc.getInstanceObjectPath()
-					+(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
+			logInfo("Thread " + thread.getInstanceObjectPath() + " ==> Processor " + proc.getInstanceObjectPath()
+					+ (cpumips > 0 ? (" Utilization " + threadMips / cpumips * 100 + "%") : " No CPU capacity"));
 		}
 	}
 
-	
-	private void setInstanceModelBindings(
-			final SystemInstance root, final Map threadsToProc) {
-		final EditingDomain editingDomain =
-			AdapterFactoryEditingDomain.getEditingDomainFor(root);
+	private void setInstanceModelBindings(final SystemInstance root, final Map threadsToProc) {
+		final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(root);
 		if (editingDomain != null) {
 			final CommandStack cmdStack = editingDomain.getCommandStack();
 			final Command setBindings = new SetInstanceModelBindings(threadsToProc);
@@ -709,9 +696,10 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			internalError("Couldn't get editing domain");
 		}
 
-		/* XXX: Keep this around for now.  May want to keep the ability to
+		/*
+		 * XXX: Keep this around for now. May want to keep the ability to
 		 * modify the model directly so that we can use this action without
-		 * using an editor. 
+		 * using an editor.
 		 */
 //		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
 //			final ComponentInstance thread = (ComponentInstance) iter.next();
@@ -721,8 +709,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 //			thread.setPropertyValue(Binpack.actualProcessorBinding, val);
 //		}
 	}
-	
-	/* We don't want to do this anymore?  Keep the code around for the moment
+
+	/*
+	 * We don't want to do this anymore? Keep the code around for the moment
 	 * though.
 	 */
 //	/** @deprecated */
@@ -777,8 +766,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	 */
 	public Collection getActualProcessorBindings(final ComponentInstance thread) {
 		if (thread.getCategory() != ComponentCategory.THREAD) {
-			throw new IllegalArgumentException("Component \""
-					+ thread.getName() + "\" is not a thread.");
+			throw new IllegalArgumentException("Component \"" + thread.getName() + "\" is not a thread.");
 		}
 		return InstanceModelUtil.getBoundPhysicalProcessors(thread);
 	}
@@ -800,27 +788,20 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	 */
 	public Set getAllowedProcessorBindings(final ComponentInstance thread) {
 		if (thread.getCategory() != ComponentCategory.THREAD) {
-			throw new IllegalArgumentException("Component \""
-					+ thread.getName() + "\" is not a thread.");
+			throw new IllegalArgumentException("Component \"" + thread.getName() + "\" is not a thread.");
 		}
 		List allowedBindingsVals;
-		try
-		{
+		try {
 			allowedBindingsVals = GetProperties.getAllowedProcessorBinding(thread);
-		}
-		catch (PropertyNotPresentException e)
-		{
-			//Ignore this situation and move on.
+		} catch (PropertyNotPresentException e) {
+			// Ignore this situation and move on.
 			allowedBindingsVals = Collections.EMPTY_LIST;
 		}
 		List allowedClassVals;
-		try
-		{
+		try {
 			allowedClassVals = GetProperties.getAllowedProcessorBindingClass(thread);
-		}
-		catch (PropertyNotPresentException e)
-		{
-			//Ignore this situation and move on.
+		} catch (PropertyNotPresentException e) {
+			// Ignore this situation and move on.
 			allowedClassVals = Collections.EMPTY_LIST;
 		}
 		final Set searchRoots = new HashSet();
@@ -837,9 +818,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		for (final Iterator i = allowedClassVals.iterator(); i.hasNext();) {
 			final ClassifierValue cv = (ClassifierValue) i.next();
 			final ComponentClassifier cc = (ComponentClassifier) cv.getClassifier();
-			if (cc instanceof ProcessorClassifier){ //ComponentCategory.PROCESSOR) {
+			if (cc instanceof ProcessorClassifier) { // ComponentCategory.PROCESSOR) {
 				allowedProcClassifiers.add(cc);
-			} else if (cc instanceof SystemClassifier){//cv.getValue() == ComponentCategory.SYSTEM_LITERAL) {
+			} else if (cc instanceof SystemClassifier) {// cv.getValue() == ComponentCategory.SYSTEM_LITERAL) {
 				allowedSystemClassifiers.add(cc);
 			} else {
 				internalError("Ill-formed allowed_processor_binding_class value: got a non-system non-processor component classifier");
@@ -848,8 +829,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final Set allowedProcs = new HashSet();
 		for (final Iterator i = searchRoots.iterator(); i.hasNext();) {
 			final ComponentInstance ci = (ComponentInstance) i.next();
-			getAllowedProcessorBindings(ci, allowedProcs,
-					allowedProcClassifiers, allowedSystemClassifiers);
+			getAllowedProcessorBindings(ci, allowedProcs, allowedProcClassifiers, allowedSystemClassifiers);
 		}
 		return Collections.unmodifiableSet(allowedProcs);
 	}
@@ -874,8 +854,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	 * @param allowedSystemClassifiers
 	 *                 The of component classifiers describing allowable systems.
 	 */
-	private void getAllowedProcessorBindings(
-			final ComponentInstance searchRoot, final Set allowedProcs,
+	private void getAllowedProcessorBindings(final ComponentInstance searchRoot, final Set allowedProcs,
 			final Set allowedProcClassifiers, final Set allowedSystemClassifiers) {
 		if (searchRoot.getCategory() == ComponentCategory.PROCESSOR) {
 			/* If it's a processor, only add it if the classifier is okay. */
@@ -883,14 +862,13 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				allowedProcs.add(searchRoot);
 			}
 		} else if (searchRoot.getCategory() == ComponentCategory.SYSTEM) {
-			/* If it's a system then we look inside it for processors and other
+			/*
+			 * If it's a system then we look inside it for processors and other
 			 * systems. But only look if the classifiers match.
 			 */
 			if (testClassifier(searchRoot, allowedSystemClassifiers)) {
-				for (final Iterator i = searchRoot.getComponentInstances()
-						.iterator(); i.hasNext();) {
-					getAllowedProcessorBindings((ComponentInstance) i.next(),
-							allowedProcs, allowedProcClassifiers,
+				for (final Iterator i = searchRoot.getComponentInstances().iterator(); i.hasNext();) {
+					getAllowedProcessorBindings((ComponentInstance) i.next(), allowedProcs, allowedProcClassifiers,
 							allowedSystemClassifiers);
 				}
 			}
@@ -898,7 +876,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			// Do nothing, not interested in non-processor, non-system instance
 		}
 	}
-	
+
 	/**
 	 * Test a component against a set of classifiers.
 	 * 
