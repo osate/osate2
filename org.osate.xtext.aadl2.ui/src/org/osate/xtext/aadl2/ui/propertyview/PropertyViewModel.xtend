@@ -128,7 +128,7 @@ class PropertyViewModel {
 		val boolean isList
 		val PropertyViewModel.PropSet parent
 		val public Property definition
-		val String value
+		val public String value
 		val Color color
 
 		new(PropertyViewModel.PropSet ps, Property pn, String value, Color color) {
@@ -196,7 +196,7 @@ class PropertyViewModel {
 			default: {
 				synchronized (serializer) {
 					serializer.serialize(expression)
-				}.replaceAll("\n", "").replaceAll("\t", "")
+				}.replaceAll("\n", "").replaceAll("\t", "").trim
 				// TODO: Test this to see what cleanup is truly necessary.
 			}
 		}
@@ -287,13 +287,13 @@ class PropertyViewModel {
 				element.getContainerOfType(PackageSection)?.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit) ?:
 					element.getContainerOfType(PropertySet)?.getScope(Aadl2Package.eINSTANCE.propertySet_ImportedUnit)
 			}
-			scope?.allElements.map[
+			scope?.allElements?.map[
 				if (EObjectOrProxy.eIsProxy) {
 					EcoreUtil.resolve(EObjectOrProxy, element)
 				} else {
 					EObjectOrProxy
 				}
-			].filter[!eIsProxy].filter(PropertySet).sortBy[name.toUpperCase].forEach(monitor, [
+			]?.filter[!eIsProxy]?.filter(PropertySet)?.sortBy[name.toUpperCase]?.forEach(monitor, [
 				val propSet = new PropertyViewModel.PropSet(it)
 				ownedProperties.filterNull.filter[element.acceptsProperty(it)].forEach(monitor, [
 					// Don't worry about PropertyDoesNotApplyToHolderException,
@@ -379,7 +379,7 @@ class PropertyViewModel {
 		}
 	}
 	
-	package static class PropertyViewContentProvider implements ITreeContentProvider {
+	static class PropertyViewContentProvider implements ITreeContentProvider {
 		override getChildren(Object parentElement) {
 			switch parentElement {
 				PropertyViewModel.PropSet:
@@ -413,7 +413,7 @@ class PropertyViewModel {
 		}
 	}
 	
-	package static class PropertyViewLabelProvider extends LabelProvider implements ITableLabelProvider, IColorProvider {
+	static class PropertyViewLabelProvider extends LabelProvider implements ITableLabelProvider, IColorProvider {
 		val static MODE_ICON = "icons/propertyview/mode.gif"
 		val static SCALAR_ICON = "icons/propertyview/scalar.gif"
 		val static LIST_ICON = "icons/propertyview/list.gif"
@@ -516,4 +516,24 @@ class PropertyViewModel {
 			modeImage = null
 		}
 	}
+	
+//	def static getValueEditingSupport(TreeViewer treeViewer) {
+//		new EditingSupport(treeViewer) {
+//			override protected canEdit(Object element) {
+//				element instanceof ValuedProperty
+//			}
+//			
+//			override protected getCellEditor(Object element) {
+//				new ExtendedComboBoxCellEditor(treeViewer.tree, #["true", "false"], new LabelProvider)
+//			}
+//			
+//			override protected getValue(Object element) {
+//				(element as ValuedProperty).value
+//			}
+//			
+//			override protected setValue(Object element, Object value) {
+//				println("Setting " + value + " for " + element)
+//			}
+//		}
+//	}
 }

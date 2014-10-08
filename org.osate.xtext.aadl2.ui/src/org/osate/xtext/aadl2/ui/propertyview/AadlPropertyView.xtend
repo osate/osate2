@@ -19,13 +19,13 @@ import org.eclipse.jface.viewers.ISelectionChangedListener
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.TableLayout
 import org.eclipse.jface.viewers.TreeViewer
+import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.window.Window
 import org.eclipse.jface.wizard.WizardDialog
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
-import org.eclipse.swt.widgets.TreeColumn
 import org.eclipse.ui.IPartListener
 import org.eclipse.ui.ISelectionListener
 import org.eclipse.ui.IWorkbenchPart
@@ -177,16 +177,16 @@ class AadlPropertyView extends ViewPart {
 			showUndefined = false
 		]
 		
-		treeViewer = new TreeViewer(pageBook, SWT.H_SCROLL.bitwiseOr(SWT.V_SCROLL)) => [
-			labelProvider = new PropertyViewModel.PropertyViewLabelProvider
-			contentProvider = new PropertyViewModel.PropertyViewContentProvider
-			input = model.input
+		treeViewer = new TreeViewer(pageBook, SWT.H_SCROLL.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [
+			new TreeViewerColumn(it, SWT.LEFT).column.text = "Property"
+			new TreeViewerColumn(it, SWT.LEFT).column.text = "Status"
+			new TreeViewerColumn(it, SWT.LEFT) => [viewerColumn |
+				viewerColumn.column.text = "Value"
+//				viewerColumn.editingSupport = PropertyViewModel.getValueEditingSupport(it)
+			]
 			tree => [
 				linesVisible = true
 				headerVisible = true
-				new TreeColumn(it, SWT.LEFT).text = "Property"
-				new TreeColumn(it, SWT.LEFT).text = "Status"
-				new TreeColumn(it, SWT.LEFT).text = "Value"
 				val gc = new GC(it)
 				layout = new TableLayout => [
 					addColumnData(new ColumnWeightData(1, true))
@@ -197,6 +197,9 @@ class AadlPropertyView extends ViewPart {
 				]
 				gc.dispose
 			]
+			labelProvider = new PropertyViewModel.PropertyViewLabelProvider
+			contentProvider = new PropertyViewModel.PropertyViewContentProvider
+			input = model.input
 		]
 
 		// Show the "nothing to show" page by default
