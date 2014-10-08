@@ -213,6 +213,10 @@ class AadlPropertyView extends ViewPart {
 	override dispose() {
 		site.page.removeSelectionListener(selectionListener)
 		site.page.removePartListener(partListener)
+		val editorSelectionProvider = activeEditor?.internalSourceViewer?.selectionProvider
+		if (editorSelectionProvider instanceof IPostSelectionProvider) {
+			editorSelectionProvider.removePostSelectionChangedListener(selectionChangedListener);
+		}
 	}
 
 	def private createActions() {
