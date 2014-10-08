@@ -106,7 +106,7 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 			    call1: subprogram subp1;
 			    call13: subprogram subpgsub1.subpa5;
 			    call14: subprogram subpgsub2.subpa6;
-«»			  };
+			  };
 			  connections
 			    conn1: feature group asub1.fg2 <-> asub1.fg2;
 			    conn2: feature group asub2.fg2 <-> asub1.fg2;
@@ -122,7 +122,7 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 			    conn12: subprogram access processor.sp1 <-> asub1.subpa1;
 			    conn24: parameter dsub1 -> call13.param1;
 			    conn25: parameter dsub1 -> call14.param1;
-«»			  end a1.i1;
+			  end a1.i1;
 			  
 			  abstract a2
 			  features
@@ -183,7 +183,7 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 			    call9: subprogram fg4.subpa4;
 «««			    call10: subprogram fg5.subpa4;
 «««				call11: subprogram subpga1.subpa5;
-«»			  };
+			  };
 			  connections
 			    conn13: parameter param1 -> call2.param1;
 			    conn14: parameter param1 -> call3.param1;
@@ -195,7 +195,7 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 			    conn20: parameter param1 -> call9.param1;
 «««			    conn21: parameter param1 -> call10.param1;
 «««				conn22: parameter param1 -> call11.param1;
-«»			  end subp1.i1;
+			  end subp1.i1;
 			  
 			  subprogram implementation subp1.i2
 			  subcomponents

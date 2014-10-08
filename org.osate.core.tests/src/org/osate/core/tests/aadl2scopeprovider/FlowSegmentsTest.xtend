@@ -121,9 +121,9 @@ class FlowSegmentsTest extends OsateTest {
 					call8: subprogram fg1.subpa3;
 «««					call9: subprogram fg2.subpa3;
 «««					call10: subprogram subpga1.subpa5;
-«»					call12: subprogram subpgsub1.subpa5;
+					call12: subprogram subpgsub1.subpa5;
 					call13: subprogram subpgsub2.subpa6;
-«»				};
+				};
 				connections
 					fconn1: feature asub1.af2 -> af1;
 					fconn2: feature asub1.af2 -> asub1.af2;
@@ -143,9 +143,9 @@ class FlowSegmentsTest extends OsateTest {
 					fsource13: flow source call8.da4 -> fconn1 -> af1;
 «««					fsource14: flow source call9.da4 -> fconn1 -> af1;
 «««					fsource15: flow source call10.da4 -> fconn1 -> af1;
-«»					fsource17: flow source call12.da4 -> fconn1 -> af1;
+					fsource17: flow source call12.da4 -> fconn1 -> af1;
 					fsource18: flow source call13.da4 -> fconn1 -> af1;
-«»					
+					
 					etef1: end to end flow asub1.fsource20 -> fconn2 -> asub2.fsink1;
 					etef2: end to end flow fg1.da3 -> fconn2 -> asub1.fsink1;
 					etef3: end to end flow fg2.da3 -> fconn2 -> asub1.fsink1;
@@ -159,9 +159,9 @@ class FlowSegmentsTest extends OsateTest {
 					etef11: end to end flow call8.da4 -> fconn2 -> asub1.fsink1;
 «««					etef12: end to end flow call9.da4 -> fconn2 -> asub1.fsink1;
 «««					etef13: end to end flow call10.da4 -> fconn2 -> asub1.fsink1;
-«»					etef15: end to end flow call12.da4 -> fconn2 -> asub1.fsink1;
+					etef15: end to end flow call12.da4 -> fconn2 -> asub1.fsink1;
 					etef16: end to end flow call13.da4 -> fconn2 -> asub1.fsink1;
-«»				end a1.i;
+				end a1.i;
 				
 				abstract a2
 				features
