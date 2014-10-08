@@ -1,6 +1,7 @@
 package org.osate.xtext.aadl2.ui.editor.autoedit;
 
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.xtext.ui.editor.autoedit.CompoundMultiLineTerminalsEditStrategy;
 import org.eclipse.xtext.ui.editor.autoedit.DefaultAutoEditStrategyProvider;
 
 public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvider {
@@ -15,6 +16,7 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 		configureCurlyBracesBlock(acceptor);
 		configureMultilineComments(acceptor);
 		configureCompoundBracesBlocks(acceptor);
+		configureKeywordIndent(acceptor);
 	}
 
 	@Override
@@ -31,6 +33,17 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 
 	protected void configureAnnexBracesBlock(IEditStrategyAcceptor acceptor) {
 		acceptor.accept(singleLineTerminals.newInstance("{**", "**};"), IDocument.DEFAULT_CONTENT_TYPE);
+	}
+
+	protected void configureKeywordIndent(IEditStrategyAcceptor acceptor) {
+		String[] keywords = { "public", "private", "abstract", "bus", "data", "device", "feature", "memory",
+				"subprogram", "system", "thread", "process", "processor", "calls", "connections", "features", "flows",
+				"modes", "properties", "prototypes", "subcomponents" };
+		CompoundMultiLineTerminalsEditStrategy strategy = compoundMultiLineTerminals.newInstanceFor("is", ";");
+		for (String keyword : keywords) {
+			strategy = strategy.and(keyword, ";");
+		}
+		acceptor.accept(strategy, IDocument.DEFAULT_CONTENT_TYPE);
 	}
 
 }
