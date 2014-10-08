@@ -19,13 +19,11 @@ import org.eclipse.swt.widgets.Display
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.ISerializer
 import org.osate.aadl2.Aadl2Package
-import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ListValue
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.Mode
 import org.osate.aadl2.NamedElement
-import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyExpression
@@ -33,7 +31,6 @@ import org.osate.aadl2.PropertySet
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
-import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.ui.propertyview.PropertyViewModel.*
 
 /**
@@ -281,19 +278,13 @@ class PropertyViewModel {
 			 * Walk through all the property sets, and query the component for
 			 * each property.
 			 */
-			val scope = if (element instanceof AadlPackage) {
-				(element.ownedPublicSection ?: element.ownedPrivateSection)?.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit)
-			} else {
-				element.getContainerOfType(PackageSection)?.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit) ?:
-					element.getContainerOfType(PropertySet)?.getScope(Aadl2Package.eINSTANCE.propertySet_ImportedUnit)
-			}
-			scope?.allElements?.map[
+			element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
 				if (EObjectOrProxy.eIsProxy) {
 					EcoreUtil.resolve(EObjectOrProxy, element)
 				} else {
 					EObjectOrProxy
 				}
-			]?.filter[!eIsProxy]?.filter(PropertySet)?.sortBy[name.toUpperCase]?.forEach(monitor, [
+			].filter[!eIsProxy].filter(PropertySet).sortBy[name.toUpperCase].forEach(monitor, [
 				val propSet = new PropertyViewModel.PropSet(it)
 				ownedProperties.filterNull.filter[element.acceptsProperty(it)].forEach(monitor, [
 					// Don't worry about PropertyDoesNotApplyToHolderException,
