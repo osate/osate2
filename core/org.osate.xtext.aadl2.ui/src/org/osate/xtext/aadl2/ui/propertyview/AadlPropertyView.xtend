@@ -178,10 +178,17 @@ class AadlPropertyView extends ViewPart {
 		]
 		
 		treeViewer = new TreeViewer(pageBook, SWT.H_SCROLL.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [
-			new TreeViewerColumn(it, SWT.LEFT).column.text = "Property"
-			new TreeViewerColumn(it, SWT.LEFT).column.text = "Status"
+			new TreeViewerColumn(it, SWT.LEFT) => [
+				column.text = "Property"
+				labelProvider = PropertyViewModel.getPropertyColumnLabelProvider
+			]
+			new TreeViewerColumn(it, SWT.LEFT) => [
+				column.text = "Status"
+				labelProvider = PropertyViewModel.getStatusColumnLabelProvider
+			]
 			new TreeViewerColumn(it, SWT.LEFT) => [viewerColumn |
 				viewerColumn.column.text = "Value"
+				viewerColumn.labelProvider = PropertyViewModel.getValueColumnLabelProvider
 //				viewerColumn.editingSupport = PropertyViewModel.getValueEditingSupport(it)
 			]
 			tree => [
@@ -197,8 +204,7 @@ class AadlPropertyView extends ViewPart {
 				]
 				gc.dispose
 			]
-			labelProvider = new PropertyViewModel.PropertyViewLabelProvider
-			contentProvider = new PropertyViewModel.PropertyViewContentProvider
+			contentProvider = PropertyViewModel.getContentProvider
 			input = model.input
 		]
 
