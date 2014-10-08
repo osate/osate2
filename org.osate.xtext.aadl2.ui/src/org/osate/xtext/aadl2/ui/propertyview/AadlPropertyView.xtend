@@ -206,11 +206,9 @@ class AadlPropertyView extends ViewPart {
 					].map[gc.stringExtent(it).x].max + 5, true, true))
 					gc.dispose
 				]
-				
 				tree.linesVisible = true
 				tree.headerVisible = true
-				contentProvider = PropertyViewModel.getContentProvider
-				input = model.input
+				contentProvider = PropertyViewModel.getContentProvider(model)
 			]
 		]
 		
@@ -236,7 +234,8 @@ class AadlPropertyView extends ViewPart {
 			override run() {
 				model.toggleShowUndefined
 				updateActionStates
-				buildNewModel(currentElement)
+				treeViewer.input = model.input
+				treeViewer.expandAll
 			}
 		} => [
 			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/nonexistent_property.gif")
@@ -296,7 +295,6 @@ class AadlPropertyView extends ViewPart {
 	def private updateView() {
 		if (currentSelectionUri != null) {
 			buildNewModel(currentElement)
-//			pageBook.showPage(treeViewer.tree)
 			pageBook.showPage(treeViewerComposite)
 			addNewPropertyAssociationToolbarAction.enabled = true
 		} else {
@@ -309,7 +307,7 @@ class AadlPropertyView extends ViewPart {
 		if (element != null && element.eResource != null) {
 			model.rebuildModel(element, [|
 				if (!treeViewer.tree.disposed) {
-					treeViewer.refresh
+					treeViewer.input = model.input
 					treeViewer.expandAll
 				}
 			])
