@@ -235,7 +235,8 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 
 		// local contained value
 		if (!inType && !fromInstanceSlaveCall) {
-			if (pas.addLocalContained(this, owner)) {
+			// owner could be null if we are looking up a property on a SystemOperationMode, which does not have a containing classifier.
+			if (owner != null && pas.addLocalContained(this, owner)) {
 				return;
 			}
 		}

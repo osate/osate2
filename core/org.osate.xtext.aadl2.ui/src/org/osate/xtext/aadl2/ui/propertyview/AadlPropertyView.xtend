@@ -289,7 +289,7 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def private buildNewModel(NamedElement element) {
-		if (element != null) {
+		if (element != null && element.eResource != null) {
 			model.rebuildModel(element, [|
 				if (!treeViewer.tree.disposed) {
 					treeViewer.refresh
