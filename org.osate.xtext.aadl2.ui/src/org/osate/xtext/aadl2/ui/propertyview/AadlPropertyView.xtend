@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain
 import org.eclipse.emf.edit.domain.EditingDomain
 import org.eclipse.jface.action.Action
+import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.text.ITextSelection
 import org.eclipse.jface.viewers.ColumnPixelData
 import org.eclipse.jface.viewers.ColumnWeightData
@@ -17,7 +18,6 @@ import org.eclipse.jface.viewers.IPostSelectionProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
 import org.eclipse.jface.viewers.IStructuredSelection
-import org.eclipse.jface.viewers.TableLayout
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.window.Window
@@ -69,6 +69,8 @@ class AadlPropertyView extends ViewPart {
 	 * {@link List} of {@link PropertySet} objects.
 	 */
 	var TreeViewer treeViewer = null
+	
+	var Composite treeViewerComposite = null
 
 	/**
 	 * The label for the no results message.
@@ -177,37 +179,41 @@ class AadlPropertyView extends ViewPart {
 			showUndefined = false
 		]
 		
-		treeViewer = new TreeViewer(pageBook, SWT.H_SCROLL.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [
-			new TreeViewerColumn(it, SWT.LEFT) => [
-				column.text = "Property"
-				labelProvider = PropertyViewModel.getPropertyColumnLabelProvider
-			]
-			new TreeViewerColumn(it, SWT.LEFT) => [
-				column.text = "Status"
-				labelProvider = PropertyViewModel.getStatusColumnLabelProvider
-			]
-			new TreeViewerColumn(it, SWT.LEFT) => [viewerColumn |
-				viewerColumn.column.text = "Value"
-				viewerColumn.labelProvider = PropertyViewModel.getValueColumnLabelProvider
-//				viewerColumn.editingSupport = PropertyViewModel.getValueEditingSupport(it)
-			]
-			tree => [
-				linesVisible = true
-				headerVisible = true
-				val gc = new GC(it)
-				layout = new TableLayout => [
-					addColumnData(new ColumnWeightData(1, true))
-					addColumnData(new ColumnPixelData(#[
+		treeViewerComposite = new Composite(pageBook, SWT.NULL) => [
+			val treeColumnLayout = new TreeColumnLayout
+			layout = treeColumnLayout
+			treeViewer = new TreeViewer(it, SWT.H_SCROLL.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [
+				new TreeViewerColumn(it, SWT.LEFT) => [
+					column.text = "Property"
+					column.moveable = true
+					labelProvider = PropertyViewModel.getPropertyColumnLabelProvider
+					treeColumnLayout.setColumnData(column, new ColumnWeightData(1, true))
+				]
+				new TreeViewerColumn(it, SWT.LEFT) => [
+					column.text = "Value"
+					column.moveable = true
+					labelProvider = PropertyViewModel.getValueColumnLabelProvider
+					treeColumnLayout.setColumnData(column, new ColumnWeightData(2, true))
+//					tvColumn.editingSupport = PropertyViewModel.getValueEditingSupport(treeViewer)
+				]
+				new TreeViewerColumn(it, SWT.LEFT) => [
+					column.text = "Status"
+					column.moveable = true
+					labelProvider = PropertyViewModel.getStatusColumnLabelProvider
+					val gc = new GC(column.parent)
+					treeColumnLayout.setColumnData(column, new ColumnPixelData(#[
 						PropertyViewModel.STATUS_LOCAL, PropertyViewModel.STATUS_INHERITED, PropertyViewModel.STATUS_DEFAULT, PropertyViewModel.UNDEFINED
 					].map[gc.stringExtent(it).x].max + 5, true, true))
-					addColumnData(new ColumnWeightData(2, true))
+					gc.dispose
 				]
-				gc.dispose
+				
+				tree.linesVisible = true
+				tree.headerVisible = true
+				contentProvider = PropertyViewModel.getContentProvider
+				input = model.input
 			]
-			contentProvider = PropertyViewModel.getContentProvider
-			input = model.input
 		]
-
+		
 		// Show the "nothing to show" page by default
 		pageBook.showPage(noPropertiesLabel)
 		site.page.addSelectionListener(selectionListener)
@@ -290,7 +296,8 @@ class AadlPropertyView extends ViewPart {
 	def private updateView() {
 		if (currentSelectionUri != null) {
 			buildNewModel(currentElement)
-			pageBook.showPage(treeViewer.tree)
+//			pageBook.showPage(treeViewer.tree)
+			pageBook.showPage(treeViewerComposite)
 			addNewPropertyAssociationToolbarAction.enabled = true
 		} else {
 			pageBook.showPage(noPropertiesLabel)
