@@ -101,7 +101,7 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
 	@Override

@@ -76,27 +76,27 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSystemImplementationPropertyDescriptor(object);
+			addComponentImplementationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the System Implementation feature.
+	 * This adds a property descriptor for the Component Implementation feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSystemImplementationPropertyDescriptor(Object object) {
+	protected void addComponentImplementationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
 						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
-						getString("_UI_SystemInstance_systemImplementation_feature"), //$NON-NLS-1$
+						getString("_UI_SystemInstance_componentImplementation_feature"), //$NON-NLS-1$
 						getString(
-								"_UI_PropertyDescriptor_description", "_UI_SystemInstance_systemImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION, true, false, true, null, null,
-						null));
+								"_UI_PropertyDescriptor_description", "_UI_SystemInstance_componentImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, true, false, true, null,
+						null, null));
 	}
 
 	/**

@@ -38,8 +38,8 @@ package org.osate.aadl2.instance;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.SystemImplementation;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
@@ -49,7 +49,7 @@ import org.osate.aadl2.SystemImplementation;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.SystemInstance#getSystemOperationModes <em>System Operation Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.SystemInstance#getSystemImplementation <em>System Implementation</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.SystemInstance#getComponentImplementation <em>Component Implementation</em>}</li>
  * </ul>
  * </p>
  *
@@ -88,33 +88,33 @@ public interface SystemInstance extends ComponentInstance {
 	SystemOperationMode createSystemOperationMode();
 
 	/**
-	 * Returns the value of the '<em><b>System Implementation</b></em>' reference.
+	 * Returns the value of the '<em><b>Component Implementation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>System Implementation</em>' reference isn't clear,
+	 * If the meaning of the '<em>Component Implementation</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>System Implementation</em>' reference.
-	 * @see #setSystemImplementation(SystemImplementation)
-	 * @see org.osate.aadl2.instance.InstancePackage#getSystemInstance_SystemImplementation()
+	 * @return the value of the '<em>Component Implementation</em>' reference.
+	 * @see #setComponentImplementation(ComponentImplementation)
+	 * @see org.osate.aadl2.instance.InstancePackage#getSystemInstance_ComponentImplementation()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	SystemImplementation getSystemImplementation();
-
-	@Override
-	SystemImplementation getComponentClassifier();
+	ComponentImplementation getComponentImplementation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.instance.SystemInstance#getSystemImplementation <em>System Implementation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.instance.SystemInstance#getComponentImplementation <em>Component Implementation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>System Implementation</em>' reference.
-	 * @see #getSystemImplementation()
+	 * @param value the new value of the '<em>Component Implementation</em>' reference.
+	 * @see #getComponentImplementation()
 	 * @generated
 	 */
-	void setSystemImplementation(SystemImplementation value);
+	void setComponentImplementation(ComponentImplementation value);
+
+	@Override
+	ComponentImplementation getComponentClassifier();
 
 	/**
 	 * get all SOMs that contain the ModeInstance list

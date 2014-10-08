@@ -113,7 +113,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			public String caseComponentInstance(final ComponentInstance ci) {
 				final int size;
 				if (ci instanceof SystemInstance) {
-					size = ((SystemInstance) ci).getSystemImplementation().getOwnedPropertyAssociations().size();
+					size = ((SystemInstance) ci).getComponentImplementation().getOwnedPropertyAssociations().size();
 					monitor.subTask("Caching " + size + " property associations");
 				} else if (ci.getContainingComponentInstance() instanceof SystemInstance) {
 					monitor.subTask("Caching property associations in " + ci.getName());
@@ -236,7 +236,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 							/*
 							 * FIXME JD
-							 *
+							 * 
 							 * Try to look if the property references a component or not.
 							 * This was done to fix the issue related to the Bound Bus analysis plugin
 							 */
@@ -421,12 +421,12 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
 									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
 
-									for (ModeInstance mi : holderModes) {
-										if (mi.getMode() == mode) {
-											inSOMs.addAll(mode2som.get(mi));
-											break;
-										}
-									}
+							for (ModeInstance mi : holderModes) {
+								if (mi.getMode() == mode) {
+									inSOMs.addAll(mode2som.get(mi));
+									break;
+								}
+							}
 						}
 					}
 				}

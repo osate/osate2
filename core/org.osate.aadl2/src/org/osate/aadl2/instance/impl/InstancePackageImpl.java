@@ -940,7 +940,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getSystemInstance_SystemImplementation() {
+	public EReference getSystemInstance_ComponentImplementation() {
 		return (EReference) systemInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1096,7 +1096,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 
 		systemInstanceEClass = createEClass(SYSTEM_INSTANCE);
 		createEReference(systemInstanceEClass, SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
-		createEReference(systemInstanceEClass, SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION);
+		createEReference(systemInstanceEClass, SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION);
 
 		instanceReferenceValueEClass = createEClass(INSTANCE_REFERENCE_VALUE);
 		createEReference(instanceReferenceValueEClass, INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT);
@@ -1461,10 +1461,10 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"systemOperationMode", null, 0, -1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(
-				getSystemInstance_SystemImplementation(),
-				theAadl2Package.getSystemImplementation(),
+				getSystemInstance_ComponentImplementation(),
+				theAadl2Package.getComponentImplementation(),
 				null,
-				"systemImplementation", null, 1, 1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"componentImplementation", null, 1, 1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(instanceReferenceValueEClass, InstanceReferenceValue.class,
 				"InstanceReferenceValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1497,6 +1497,22 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// http://www.eclipse.org/uml2/2.0.0/UML
+		createUMLAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/uml2/2.0.0/UML</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createUMLAnnotations() {
+		String source = "http://www.eclipse.org/uml2/2.0.0/UML"; //$NON-NLS-1$
+		addAnnotation(this, source, new String[] { "originalName", "aadl2Instance" //$NON-NLS-1$ //$NON-NLS-2$
+		});
 	}
 
 } // InstancePackageImpl

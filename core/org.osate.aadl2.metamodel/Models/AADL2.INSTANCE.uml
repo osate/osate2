@@ -457,11 +457,11 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="SystemInstance-systemOperationMode-_upperValue" value="*"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="SystemInstance-systemOperationMode-_lowerValue"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_WJ-kYFhmEd-rYOZ3UaShDA" name="systemImplementation" association="_WJ-kXFhmEd-rYOZ3UaShDA">
+      <ownedAttribute xmi:id="_WJ-kYFhmEd-rYOZ3UaShDA" name="componentImplementation" association="_WJ-kXFhmEd-rYOZ3UaShDA">
         <ownedComment xmi:id="_ioi1UFn8Ed-39ebAzHAVCA">
           <body>Reference to the system implementation that is instantiated.</body>
         </ownedComment>
-        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#SystemImplementation"/>
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#ComponentImplementation"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WJ-kYVhmEd-rYOZ3UaShDA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WJ-kYlhmEd-rYOZ3UaShDA" value="1"/>
       </ownedAttribute>
@@ -525,7 +525,7 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_F2JJf1hmEd-rYOZ3UaShDA"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_WJ-kXFhmEd-rYOZ3UaShDA" name="A_systemInstance_systemImplementation" memberEnd="_WJ-kXVhmEd-rYOZ3UaShDA _WJ-kYFhmEd-rYOZ3UaShDA">
+    <packagedElement xmi:type="uml:Association" xmi:id="_WJ-kXFhmEd-rYOZ3UaShDA" name="A_systemInstance_componentImplementation" memberEnd="_WJ-kXVhmEd-rYOZ3UaShDA _WJ-kYFhmEd-rYOZ3UaShDA">
       <ownedEnd xmi:id="_WJ-kXVhmEd-rYOZ3UaShDA" name="instance" type="SystemInstance" association="_WJ-kXFhmEd-rYOZ3UaShDA">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WJ-kXlhmEd-rYOZ3UaShDA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WJ-kX1hmEd-rYOZ3UaShDA" value="1"/>

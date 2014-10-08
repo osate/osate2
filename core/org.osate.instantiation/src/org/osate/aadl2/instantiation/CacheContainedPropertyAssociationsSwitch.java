@@ -98,7 +98,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			@Override
 			public String caseSystemInstance(final SystemInstance si) {
 				monitor.subTask("Caching system instance contained property associations");
-				processContainedPropertyAssociations(si, si, si.getSystemImplementation().getAllPropertyAssociations());
+				processContainedPropertyAssociations(si, si, si.getComponentImplementation()
+						.getAllPropertyAssociations());
 				return DONE;
 			}
 
@@ -127,13 +128,13 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			}
 
 			/*
-			 *
+			 * 
 			 * FIXME: old code by JD to try to handle reference instance
 			 * public String caseConnectionInstance(final ConnectionInstance conn)
 			 * {
 			 * ComponentInstance ci;
 			 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
-			 *
+			 * 
 			 * ci = conn.getContainingComponentInstance();
 			 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
 			 * for (ConnectionReference ref : conn.getConnectionReferences())
@@ -144,11 +145,11 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			 * OsateDebug.osateDebug("connection pa" + pa);
 			 * Property prop = pa.getProperty();
 			 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-			 *
+			 * 
 			 * newPA.setProperty(prop);
 			 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-			 *
-			 *
+			 * 
+			 * 
 			 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
 			 * .hasNext();) {
 			 * Element elem = content.next();
@@ -172,18 +173,18 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			 * if (elem instanceof ReferenceValue) {
 			 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
 			 * EcoreUtil.replace(elem, irv);
-			 *
+			 * 
 			 * ref.removePropertyAssociations(prop);
 			 * ref.getOwnedPropertyAssociations().add(newPA);
 			 * }
 			 * }
-			 *
-			 *
-			 *
+			 * 
+			 * 
+			 * 
 			 * }
 			 * }
 			 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
-			 *
+			 * 
 			 * return DONE;
 			 * }
 			 */
