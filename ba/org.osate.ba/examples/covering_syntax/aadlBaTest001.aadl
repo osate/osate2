@@ -257,6 +257,7 @@ transitions
  a -[]-> a {multiplication ! (0, 0, tmp)} ;
  a -[]-> a {multiplication ! (#AadlBaTestPropertySet::aValue, tmp, tmp)} ;
  a -[]-> a {multiplication ! (AadlBaTest::Types::Integer.v1#aSimpleValue, tmp, tmp)} ;
+ a -[]-> a {multiplication ! (1, thread1.impl#Period, tmp)} ;
  a -[]-> a {multiplication.impl ! (0, 0, tmp)} ;
  a -[]-> a {NamesResolutionTest::procedure !} ;
  a -[]-> a {NamesResolutionTest::multiplication ! (0, 0, tmp)} ;
