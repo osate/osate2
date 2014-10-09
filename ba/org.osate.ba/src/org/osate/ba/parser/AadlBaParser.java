@@ -239,11 +239,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_annex(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_annex(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Behavior_annexContext behavior_annex() throws RecognitionException {
@@ -362,11 +357,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_variable_list(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_variable_list(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -488,11 +478,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_variable(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_variable(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Behavior_variableContext behavior_variable() throws RecognitionException {
@@ -560,11 +545,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitQualifiable_named_element(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitQualifiable_named_element(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -641,11 +621,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitUnique_component_classifier_reference(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitUnique_component_classifier_reference(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Unique_component_classifier_referenceContext unique_component_classifier_reference() throws RecognitionException {
@@ -704,11 +679,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_state_list(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_state_list(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -866,11 +836,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_transition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_transition(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1031,11 +996,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_action_block(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_action_block(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Behavior_action_blockContext behavior_action_block() throws RecognitionException {
@@ -1094,11 +1054,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitAction_block(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitAction_block(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1198,11 +1153,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_condition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_condition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Behavior_conditionContext behavior_condition() throws RecognitionException {
@@ -1282,11 +1232,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitExecute_condition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitExecute_condition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Execute_conditionContext execute_condition() throws RecognitionException {
@@ -1359,11 +1304,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitInteger_value_constant(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitInteger_value_constant(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Integer_value_constantContext integer_value_constant() throws RecognitionException {
@@ -1430,11 +1370,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitDispatch_condition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitDispatch_condition(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1542,11 +1477,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitDispatch_trigger_condition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitDispatch_trigger_condition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Dispatch_trigger_conditionContext dispatch_trigger_condition() throws RecognitionException {
@@ -1623,11 +1553,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitDispatch_trigger_logical_expression(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitDispatch_trigger_logical_expression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Dispatch_trigger_logical_expressionContext dispatch_trigger_logical_expression() throws RecognitionException {
@@ -1688,11 +1613,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitDispatch_conjunction(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitDispatch_conjunction(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1761,11 +1681,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_actions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_actions(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1956,11 +1871,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_action(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_action(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Behavior_actionContext behavior_action() throws RecognitionException {
@@ -2075,11 +1985,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitIf_statement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitIf_statement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2266,11 +2171,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitElsif_statement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitElsif_statement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Elsif_statementContext elsif_statement() throws RecognitionException {
@@ -2377,11 +2277,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitFor_statement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitFor_statement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2495,11 +2390,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitFor_condition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitFor_condition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final For_conditionContext for_condition() throws RecognitionException {
@@ -2604,11 +2494,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitForall_statement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitForall_statement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2722,11 +2607,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitForall_condition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitForall_condition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Forall_conditionContext forall_condition() throws RecognitionException {
@@ -2831,11 +2711,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitWhile_statement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitWhile_statement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2943,11 +2818,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitWhile_condition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitWhile_condition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final While_conditionContext while_condition() throws RecognitionException {
@@ -3053,11 +2923,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitDountil_statement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitDountil_statement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Dountil_statementContext dountil_statement() throws RecognitionException {
@@ -3156,11 +3021,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitElement_values(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitElement_values(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Element_valuesContext element_values() throws RecognitionException {
@@ -3216,11 +3076,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBasic_action(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBasic_action(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3284,11 +3139,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitAssignment_action(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitAssignment_action(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3370,11 +3220,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitTarget(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitTarget(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TargetContext target() throws RecognitionException {
@@ -3424,11 +3269,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitQualified_named_element(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitQualified_named_element(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3537,11 +3377,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitCommunication_action(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitCommunication_action(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3824,11 +3659,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitTimed_action(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitTimed_action(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Timed_actionContext timed_action() throws RecognitionException {
@@ -3961,11 +3791,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitIn_binding(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitIn_binding(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final In_bindingContext in_binding(TimedAction ta) throws RecognitionException {
@@ -4061,11 +3886,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitProcessor_parameter_list(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitProcessor_parameter_list(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Processor_parameter_listContext processor_parameter_list() throws RecognitionException {
@@ -4102,11 +3922,11 @@ public class AadlBaParser extends Parser {
 				          try
 				          {
 				            notifyErrorListeners(_localctx.unique_component_classifier_reference(_localctx.count -1).getStop(),
-				                                 "missing subprogram parameter separator \',\'", null);
+				                                 "missing processor parameter separator \',\'", null);
 				          }
 				          catch(Exception e)
 				          {
-				            notifyErrorListeners("missing subprogram parameter separator \',\'") ;
+				            notifyErrorListeners("missing processor parameter separator \',\'") ;
 				          }
 				        }
 				        else
@@ -4158,11 +3978,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitSubprogram_parameter_list(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitSubprogram_parameter_list(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4248,11 +4063,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitParameter_label(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitParameter_label(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Parameter_labelContext parameter_label() throws RecognitionException {
@@ -4298,11 +4108,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitReference(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitReference(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4370,11 +4175,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitArray_identifier(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitArray_identifier(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Array_identifierContext array_identifier() throws RecognitionException {
@@ -4438,11 +4238,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitValue_constant(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitValue_constant(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4526,11 +4321,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitValue(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4641,11 +4431,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitValue_variable(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitValue_variable(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4766,11 +4551,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitValue_expression(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitValue_expression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Value_expressionContext value_expression() throws RecognitionException {
@@ -4830,11 +4610,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitRelation(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitRelation(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4896,11 +4671,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitSimple_expression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitSimple_expression(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4976,11 +4746,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitTerm(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TermContext term() throws RecognitionException {
@@ -5048,11 +4813,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitFactor(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitFactor(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5131,11 +4891,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitLogical_operator(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitLogical_operator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Logical_operatorContext logical_operator() throws RecognitionException {
@@ -5185,11 +4940,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitRelational_operator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitRelational_operator(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5278,11 +5028,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBinary_adding_operator(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBinary_adding_operator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Binary_adding_operatorContext binary_adding_operator() throws RecognitionException {
@@ -5326,11 +5071,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitUnary_adding_operator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitUnary_adding_operator(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5378,11 +5118,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitMultiplying_operator(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitMultiplying_operator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Multiplying_operatorContext multiplying_operator() throws RecognitionException {
@@ -5426,11 +5161,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBinary_numeric_operator(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBinary_numeric_operator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Binary_numeric_operatorContext binary_numeric_operator() throws RecognitionException {
@@ -5467,11 +5197,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitUnary_numeric_operator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitUnary_numeric_operator(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5510,11 +5235,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitUnary_boolean_operator(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitUnary_boolean_operator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Unary_boolean_operatorContext unary_boolean_operator() throws RecognitionException {
@@ -5552,11 +5272,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBoolean_literal(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBoolean_literal(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5607,11 +5322,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitInteger_range(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitInteger_range(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Integer_rangeContext integer_range() throws RecognitionException {
@@ -5655,11 +5365,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitInteger_value(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitInteger_value(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5711,11 +5416,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitBehavior_time(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitBehavior_time(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5774,11 +5474,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitProperty_reference(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitProperty_reference(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5890,11 +5585,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitProperty_name(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitProperty_name(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Property_nameContext property_name() throws RecognitionException {
@@ -5973,11 +5663,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitNumeric_literal(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitNumeric_literal(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Numeric_literalContext numeric_literal() throws RecognitionException {
@@ -6028,11 +5713,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitReal_literal(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitReal_literal(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Real_literalContext real_literal() throws RecognitionException {
@@ -6072,11 +5752,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitInteger_literal(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitInteger_literal(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -6118,11 +5793,6 @@ public class AadlBaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitString_literal(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitString_literal(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final String_literalContext string_literal() throws RecognitionException {
@@ -6159,11 +5829,6 @@ public class AadlBaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AadlBaListener ) ((AadlBaListener)listener).exitNumeral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AadlBaVisitor ) return ((AadlBaVisitor<? extends T>)visitor).visitNumeral(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 

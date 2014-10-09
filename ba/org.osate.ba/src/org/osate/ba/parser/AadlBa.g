@@ -1082,11 +1082,11 @@ processor_parameter_list returns [EList<ProcessorClassifier> result] locals[int 
           try
           {
             notifyErrorListeners($ctx.unique_component_classifier_reference($count -1).getStop(),
-                                 "missing subprogram parameter separator \',\'", null);
+                                 "missing processor parameter separator \',\'", null);
           }
           catch(Exception e)
           {
-            notifyErrorListeners("missing subprogram parameter separator \',\'") ;
+            notifyErrorListeners("missing processor parameter separator \',\'") ;
           }
         }
         else
