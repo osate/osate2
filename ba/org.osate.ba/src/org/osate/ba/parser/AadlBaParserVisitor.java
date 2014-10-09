@@ -1718,7 +1718,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       BehaviorActionCollection tmp = null ;
       
-      if(ctx.SEMICOLON() != null)
+      if(ctx.SEMICOLON().size() > 0)
       {
         tmp = _fact.createBehaviorActionSequence() ;
       }
