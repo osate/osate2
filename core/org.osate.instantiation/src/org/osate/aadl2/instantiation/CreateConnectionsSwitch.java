@@ -67,7 +67,6 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -891,50 +890,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (srcEnd instanceof ComponentInstance && dstEnd instanceof ComponentInstance) {
 			// TODO-LW: error
-		} else if (srcEnd instanceof ComponentInstance || dstEnd instanceof ComponentInstance) {
-			addConnectionInstance(parentci.getSystemInstance(), connInfo, dstEnd);
 		} else {
-			expandFeatureGroupConnection(parentci, connInfo, srcEnd, dstEnd);
+			addConnectionInstance(parentci.getSystemInstance(), connInfo, dstEnd);
 		}
-	}
-
-	/**
-	 * @param parentci
-	 * @param connInfo
-	 * @param srcEnd
-	 * @param dstEnd
-	 */
-	private void expandFeatureGroupConnection(final ComponentInstance parentci, final ConnectionInfo connInfo,
-			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd) {
-		ConnectionInstanceEnd oldSrc = connInfo.src;
-
-		if (srcEnd instanceof FeatureInstance && dstEnd instanceof FeatureInstance) {
-			Iterator<FeatureInstance> srcIter = ((FeatureInstance) srcEnd).getFeatureInstances().iterator();
-
-			if (srcIter.hasNext()) {
-				Iterator<FeatureInstance> dstIter = ((FeatureInstance) dstEnd).getFeatureInstances().iterator();
-
-				while (srcIter.hasNext() && dstIter.hasNext()) {
-					ConnectionInstanceEnd src = srcIter.next();
-					ConnectionInstanceEnd dst = dstIter.next();
-
-					if (src instanceof FeatureInstance && !((FeatureInstance) src).getFeatureInstances().isEmpty()) {
-						expandFeatureGroupConnection(parentci, connInfo, src, dst);
-					} else {
-						if (((FeatureInstance) src).getDirection() != DirectionType.IN) {
-							connInfo.src = src;
-							addConnectionInstance(parentci.getSystemInstance(), connInfo, dst);
-						} else if (((FeatureInstance) dst).getDirection() != DirectionType.OUT) {
-							connInfo.src = dst;
-							addConnectionInstance(parentci.getSystemInstance(), connInfo, src);
-						}
-					}
-				}
-			} else {
-				addConnectionInstance(parentci.getSystemInstance(), connInfo, dstEnd);
-			}
-		}
-		connInfo.src = oldSrc;
 	}
 
 	/**
