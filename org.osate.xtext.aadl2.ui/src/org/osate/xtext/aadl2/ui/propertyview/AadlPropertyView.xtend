@@ -220,6 +220,14 @@ class AadlPropertyView extends ViewPart {
 		pageForSelectionAndPartListeners = site.page
 		pageForSelectionAndPartListeners.addSelectionListener(selectionListener)
 		pageForSelectionAndPartListeners.addPartListener(partListener)
+		val editor = pageForSelectionAndPartListeners.activeEditor
+		if (editor instanceof XtextEditor) {
+			activeEditor = editor
+			val editorSelectionProvider = activeEditor.internalSourceViewer.selectionProvider
+			if (editorSelectionProvider instanceof IPostSelectionProvider) {
+				editorSelectionProvider.addPostSelectionChangedListener(selectionChangedListener)
+			}
+		}
 		createActions
 	}
 
