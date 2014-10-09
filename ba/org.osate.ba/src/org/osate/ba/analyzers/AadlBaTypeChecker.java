@@ -963,8 +963,6 @@ public class AadlBaTypeChecker
   // reports error and returns null.
   private ValueAndTypeHolder valueCheck(Value v)
   {
-    // Ambiguity between property constant and name without array index
-    // has already been resolved in the name resolution phase.
     if(v instanceof ValueConstant)
     {
       return valueConstantCheck((ValueConstant) v) ;
