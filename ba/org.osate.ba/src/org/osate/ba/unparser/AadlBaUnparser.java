@@ -43,7 +43,6 @@ import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.modelsupport.AadlConstants ;
 import org.osate.aadl2.modelsupport.UnparseText ;
-import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.Any ;
 import org.osate.ba.aadlba.AssignmentAction ;
@@ -202,7 +201,29 @@ public class AadlBaUnparser
 
     return this.getOutput() ;
   }
-
+  
+  public final String process(NamedElement el, BehaviorElement ref)
+  {
+    String toAdd = null ;
+    
+    String refPackageName = ref.getElementRoot().getName() ;
+    
+    String elPackageName = el.getElementRoot().getName() ;
+    
+    if(false == refPackageName.equalsIgnoreCase(elPackageName))
+    {
+      toAdd = el.getQualifiedName() ;
+    }
+    else
+    {
+      toAdd = el.getName() ;
+    }
+    
+    aadlbaText.addOutput(toAdd) ;
+    
+    return null ;
+  }
+  
   /** 
    * This method checks notCancelled() after each element in the
    * list, and terminates the processing if the traversal has been cancelled.
@@ -225,7 +246,8 @@ public class AadlBaUnparser
    */
   @SuppressWarnings("rawtypes")
   public void processEList(EList list,
-                           String separator)
+                           String separator,
+                           BehaviorElement ref)
   {
     boolean first = true ;
     for(Iterator it = list.iterator() ; it.hasNext() ;)
@@ -247,13 +269,32 @@ public class AadlBaUnparser
       {
         o = ((FeatureMap.Entry) o).getValue() ;
       }
-      if(o instanceof AObject)
+      if(o instanceof BehaviorElement)
+      {
         this.process((BehaviorElement) o) ;
+      }
+      else if(o instanceof NamedElement)
+      {
+        this.process((NamedElement) o, ref) ;
+      }
       else if(o instanceof AbstractEnumerator)
         aadlbaText.addOutput(((AbstractEnumerator) o).getName().toLowerCase()) ;
       else
         aadlbaText.addOutput("processEList: oh my, oh my!!") ;
     }
+  }
+  
+  /**
+   * Does processing of list with separators
+   * 
+   * @param list
+   * @param separator
+   */
+  @SuppressWarnings("rawtypes")
+  public void processEList(EList list,
+                           String separator)
+  {
+    processEList(list, separator, null) ;
   }
 
   /**
@@ -652,6 +693,16 @@ public class AadlBaUnparser
           process(object.getUpperTime()) ;
         }
         aadlbaText.addOutput(")") ;
+        
+        if(object.isSetProcessorClassifier())
+        {
+          aadlbaText.addOutput(" in binding (");
+          
+          processEList(object.getProcessorClassifier(), ", ", object) ;
+          
+          aadlbaText.addOutput(")");
+        }
+        
         return DONE ;
       }
 
@@ -1069,22 +1120,8 @@ public class AadlBaUnparser
       {
         org.osate.aadl2.Classifier c = object.getClassifier() ;
         
-        String toAdd = null ;
+        process(c, object) ;
         
-        String classifierPackageName = c.getElementRoot().getName() ;
-        
-        String propertyRefPackageName = object.getElementRoot().getName() ;
-        
-        if(false == classifierPackageName.equalsIgnoreCase(propertyRefPackageName))
-        {
-          toAdd = c.getQualifiedName() ;
-        }
-        else
-        {
-          toAdd = c.getName() ;
-        }
-        
-        aadlbaText.addOutput(toAdd) ;
         aadlbaText.addOutput("#");
         processEList(object.getProperties(), ".") ;
         return DONE ;

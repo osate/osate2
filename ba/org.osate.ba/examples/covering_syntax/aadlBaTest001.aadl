@@ -27,8 +27,11 @@ public
 abstract MyAbstractComponent
 end MyAbstractComponent ;
 
-Processor p
-end p ;
+Processor untel
+end untel ;
+
+Processor park
+end park ;
 
 subprogram procedure
 end procedure ;
@@ -281,7 +284,7 @@ transitions
 
  a -[]-> a {computation (2hr)} ;
  a -[]-> a {computation (1min .. 300 sec)} ;
- a -[]-> a {computation (100 ms) in binding (p, p)} ;
+ a -[]-> a {computation (100 ms) in binding (untel, park)} ;
 
       -- Assignement actions tests --
 
