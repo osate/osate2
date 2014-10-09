@@ -734,7 +734,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				(inContextName != null && Aadl2Util.isNull(specContext) && inContextName.equalsIgnoreCase(specFeature
 						.getName())) ||
 		// if the context names don't match
-		(inContextName != null && !inContextName.equalsIgnoreCase(specContext.getName())))) {
+		(inContextName != null && specContext != null && !inContextName.equalsIgnoreCase(specContext.getName())))) {
 			error(flow,
 					'\'' + (inContextName != null ? inContextName + '.' : "") + inFeatureName
 							+ "' does not match the in flow feature identifier '"
