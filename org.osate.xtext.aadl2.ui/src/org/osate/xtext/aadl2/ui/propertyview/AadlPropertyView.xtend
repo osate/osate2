@@ -58,6 +58,8 @@ class AadlPropertyView extends ViewPart {
 	val static SHOW_UNDEFINED_FALSE_TOOL_TIP = "Click to show undefined properties"
 
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
+	val static UNABLE_TO_GET_MODEL = "Unable to lookup properties based upon current selection."
+	val static POPULATING_VIEW = "Populating AADL Property Values view."
 
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
@@ -77,6 +79,10 @@ class AadlPropertyView extends ViewPart {
 	 * The label for the no results message.
 	 */
 	var Label noPropertiesLabel = null
+	
+	var Label unableToGetModelLabel = null
+	
+	var Label populatingViewLabel = null
 
 	/**
 	 * Action for toggling the display of nonexistent properties
@@ -174,6 +180,18 @@ class AadlPropertyView extends ViewPart {
 
 		noPropertiesLabel = new Label(pageBook, SWT.LEFT) => [
 			text = NO_PROPERTIES_TO_SHOW
+			alignment = SWT.CENTER
+			background = parent.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND)
+		]
+		
+		unableToGetModelLabel = new Label(pageBook, SWT.LEFT) => [
+			text = UNABLE_TO_GET_MODEL
+			alignment = SWT.CENTER
+			background = parent.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND)
+		]
+		
+		populatingViewLabel = new Label(pageBook, SWT.LEFT) => [
+			text = POPULATING_VIEW
 			alignment = SWT.CENTER
 			background = parent.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND)
 		]
@@ -293,16 +311,19 @@ class AadlPropertyView extends ViewPart {
 			val currentElement = if (currentSelectionUri != null) {
 				(resourceSetFromModelListener ?: OsateResourceUtil.getResourceSet).getEObject(currentSelectionUri, true) as NamedElement
 			}
-			if (currentElement != null && currentElement.eResource != null) {
+			if (currentElement != null) {
+				pageBook.showPage(populatingViewLabel)
 				model.rebuildModel(currentElement, [|
 					if (!treeViewer.tree.disposed) {
 						treeViewer.input = model.input
 						treeViewer.expandAll
+						pageBook.showPage(treeViewerComposite)
+						addNewPropertyAssociationToolbarAction.enabled = true
 					}
 				])
+			} else {
+				pageBook.showPage(unableToGetModelLabel)
 			}
-			pageBook.showPage(treeViewerComposite)
-			addNewPropertyAssociationToolbarAction.enabled = true
 		} else {
 			pageBook.showPage(noPropertiesLabel)
 			addNewPropertyAssociationToolbarAction.enabled = false
