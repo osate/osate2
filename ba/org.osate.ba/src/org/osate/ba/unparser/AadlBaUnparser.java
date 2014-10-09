@@ -523,12 +523,12 @@ public class AadlBaUnparser
       {
         aadlbaText.addOutput("{") ;
         process(object.getContent()) ;
+        aadlbaText.addOutput("}") ;
         if(object.getTimeout() != null)
         {
           aadlbaText.addOutput(" timeout ") ;
           process(object.getTimeout()) ;
         }
-        aadlbaText.addOutput("}") ;
         return DONE ;
       }
 
