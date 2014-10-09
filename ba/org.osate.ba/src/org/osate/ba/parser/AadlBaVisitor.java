@@ -23,8 +23,8 @@
   
   package org.osate.ba.parser;
   
-  import org.antlr.v4.runtime.misc.NotNull ;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor ;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
