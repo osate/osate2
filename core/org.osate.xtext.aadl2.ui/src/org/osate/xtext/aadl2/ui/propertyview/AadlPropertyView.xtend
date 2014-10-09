@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
 import org.eclipse.ui.ISelectionListener
+import org.eclipse.ui.IWorkbenchPage
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
@@ -119,6 +120,8 @@ class AadlPropertyView extends ViewPart {
 
 	@Inject
 	var IScopeProvider scopeProvider
+	
+	var IWorkbenchPage pageForSelectionAndPartListeners = null
 
 	val ISelectionListener selectionListener = [part, selection |
 		/*
@@ -214,15 +217,15 @@ class AadlPropertyView extends ViewPart {
 		
 		// Show the "nothing to show" page by default
 		pageBook.showPage(noPropertiesLabel)
-		site.page.addSelectionListener(selectionListener)
-		site.page.addPartListener(partListener)
+		pageForSelectionAndPartListeners = site.page
+		pageForSelectionAndPartListeners.addSelectionListener(selectionListener)
+		pageForSelectionAndPartListeners.addPartListener(partListener)
 		createActions
-		fillToolbar
 	}
 
 	override dispose() {
-		site.page.removeSelectionListener(selectionListener)
-		site.page.removePartListener(partListener)
+		pageForSelectionAndPartListeners.removeSelectionListener(selectionListener)
+		pageForSelectionAndPartListeners.removePartListener(partListener)
 		val editorSelectionProvider = activeEditor?.internalSourceViewer?.selectionProvider
 		if (editorSelectionProvider instanceof IPostSelectionProvider) {
 			editorSelectionProvider.removePostSelectionChangedListener(selectionChangedListener);
@@ -239,6 +242,7 @@ class AadlPropertyView extends ViewPart {
 			}
 		} => [
 			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/nonexistent_property.gif")
+			viewSite.actionBars.toolBarManager.add(it)
 		]
 
 		addNewPropertyAssociationToolbarAction = new Action {
@@ -253,6 +257,7 @@ class AadlPropertyView extends ViewPart {
 			toolTipText = "New Property Association"
 			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/new_pa.gif")
 			enabled = currentSelectionUri != null
+			viewSite.actionBars.toolBarManager.add(it)
 		]
 
 		updateActionStates
@@ -268,25 +273,8 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 
-	def private fillToolbar() {
-		viewSite.actionBars.toolBarManager => [
-			add(showUndefinedAction)
-			add(addNewPropertyAssociationToolbarAction)
-		]
-	}
-
 	override setFocus() {
 		treeViewer.tree.setFocus
-	}
-
-	def private getCurrentElement() {
-		if (currentSelectionUri != null) {
-			(if (xtextDocument == null || resourceSetFromModelListener == null) {
-				OsateResourceUtil.getResourceSet
-			} else {
-				resourceSetFromModelListener
-			}).getEObject(currentSelectionUri, true) as NamedElement
-		}
 	}
 
 	/**
@@ -294,7 +282,17 @@ class AadlPropertyView extends ViewPart {
 	 */
 	def private updateView() {
 		if (currentSelectionUri != null) {
-			buildNewModel(currentElement)
+			val currentElement = if (currentSelectionUri != null) {
+				(resourceSetFromModelListener ?: OsateResourceUtil.getResourceSet).getEObject(currentSelectionUri, true) as NamedElement
+			}
+			if (currentElement != null && currentElement.eResource != null) {
+				model.rebuildModel(currentElement, [|
+					if (!treeViewer.tree.disposed) {
+						treeViewer.input = model.input
+						treeViewer.expandAll
+					}
+				])
+			}
 			pageBook.showPage(treeViewerComposite)
 			addNewPropertyAssociationToolbarAction.enabled = true
 		} else {
@@ -303,19 +301,9 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 
-	def private buildNewModel(NamedElement element) {
-		if (element != null && element.eResource != null) {
-			model.rebuildModel(element, [|
-				if (!treeViewer.tree.disposed) {
-					treeViewer.input = model.input
-					treeViewer.expandAll
-				}
-			])
-		}
-	}
-
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
 		xtextDocument?.removeModelListener(xtextModelListener)
+		resourceSetFromModelListener = null
 		val currentSelection = switch selection {
 			case selection.isEmpty: {
 				null
