@@ -4459,10 +4459,11 @@ public class AadlBaParser extends Parser {
 				setState(841); numeric_literal();
 				}
 				break;
-			case STRING_LITERAL:
+			case HASH:
+			case IDENT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(842); string_literal();
+				setState(842); property_reference();
 				}
 				break;
 			case FALSE:
@@ -4472,11 +4473,10 @@ public class AadlBaParser extends Parser {
 				setState(843); boolean_literal();
 				}
 				break;
-			case HASH:
-			case IDENT:
+			case STRING_LITERAL:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(844); property_reference();
+				setState(844); string_literal();
 				}
 				break;
 			default:
@@ -4544,13 +4544,13 @@ public class AadlBaParser extends Parser {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(847); value_variable();
+				setState(847); value_constant();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(848); value_constant();
+				setState(848); value_variable();
 				}
 				break;
 			case 3:
@@ -6521,10 +6521,10 @@ public class AadlBaParser extends Parser {
 		"O\3\2\2\2\u0340\u033e\3\2\2\2\u0341\u0348\7O\2\2\u0342\u0343\7*\2\2\u0343"+
 		"\u0344\5v<\2\u0344\u0345\7+\2\2\u0345\u0347\3\2\2\2\u0346\u0342\3\2\2"+
 		"\2\u0347\u034a\3\2\2\2\u0348\u0346\3\2\2\2\u0348\u0349\3\2\2\2\u0349Q"+
-		"\3\2\2\2\u034a\u0348\3\2\2\2\u034b\u0350\5~@\2\u034c\u0350\5\u0084C\2"+
-		"\u034d\u0350\5r:\2\u034e\u0350\5z>\2\u034f\u034b\3\2\2\2\u034f\u034c\3"+
+		"\3\2\2\2\u034a\u0348\3\2\2\2\u034b\u0350\5~@\2\u034c\u0350\5z>\2\u034d"+
+		"\u0350\5r:\2\u034e\u0350\5\u0084C\2\u034f\u034b\3\2\2\2\u034f\u034c\3"+
 		"\2\2\2\u034f\u034d\3\2\2\2\u034f\u034e\3\2\2\2\u0350S\3\2\2\2\u0351\u0365"+
-		"\5V,\2\u0352\u0365\5R*\2\u0353\u0354\7/\2\2\u0354\u0355\5X-\2\u0355\u0356"+
+		"\5R*\2\u0352\u0365\5V,\2\u0353\u0354\7/\2\2\u0354\u0355\5X-\2\u0355\u0356"+
 		"\7\60\2\2\u0356\u0365\3\2\2\2\u0357\u0359\7/\2\2\u0358\u0357\3\2\2\2\u0359"+
 		"\u035a\3\2\2\2\u035a\u0358\3\2\2\2\u035a\u035b\3\2\2\2\u035b\u035c\3\2"+
 		"\2\2\u035c\u035e\5X-\2\u035d\u035f\7\60\2\2\u035e\u035d\3\2\2\2\u035f"+

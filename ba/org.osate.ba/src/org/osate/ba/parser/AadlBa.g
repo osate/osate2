@@ -1204,11 +1204,11 @@ value_constant returns [ValueConstant result]
    
        numeric_literal
      |
-       string_literal
+       property_reference
      |
        boolean_literal
      |
-       property_reference
+       string_literal
 ;
 
 /** 
@@ -1225,9 +1225,9 @@ value_constant returns [ValueConstant result]
 // | ( value_expression )
 value returns [Value result]
   :
-     value_variable
+     value_constant
    |  
-     value_constant 
+     value_variable
    |
      LPAREN value_expression RPAREN
    |

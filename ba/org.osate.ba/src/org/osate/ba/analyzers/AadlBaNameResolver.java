@@ -2355,78 +2355,9 @@ public class AadlBaNameResolver
    
   private boolean valueResolver(Value value)
   {
-    // Ambiguous case.
-    if(value instanceof NamedValue)
+    if(value instanceof ValueVariable)
     {
-      Reference ref = ((NamedValue) value).getReference() ;
-      
-      return refResolver(ref) ;
-    }
-    else if(value instanceof Reference)
-    {
-      // Ambiguous case : unqualified propertysets (constant or value) 
-      // are parsed as reference without array index.
-      
-      Reference ref = (Reference) value ;
-      
-      EList<ArrayableIdentifier> ids = ref.getIds() ;
-      
-      // Unqualified propertysets only have one id.
-      if(ids.size() > 1)
-      {
-        return valueVariableResolver(value, (ValueVariable) value) ;
-      }
-      else
-      {
-        ArrayableIdentifier id = ids.get(0) ;
-        
-        // Unqualified propertysets can't have array index.
-        if(id.isSetArrayIndexes())
-        {
-          return valueVariableResolver(value, (ValueVariable) value) ;
-        }
-        else
-        {
-          // At the point, we will test if value can be resolved as an value 
-          // variable or an unqualified propertyset (constant or value).
-          
-          QualifiedNamedElement qne =
-                DeclarativeFactory.eINSTANCE.createQualifiedNamedElement() ;
-          
-          // Clone the identifier as object reference in the most of the AADLBA
-          // Front End emf meta model classes are unique (the containment
-          // attribute set to true).
-          Identifier idClone = DeclarativeFactory.eINSTANCE.createIdentifier();
-          idClone.setLocationReference(id.getLocationReference()) ;
-          idClone.setId(id.getId()) ;
-          
-          qne.setBaName(idClone) ;
-          qne.setBaNamespace(null) ;
-          qne.setLocationReference(id.getLocationReference()) ;
-
-          if(qualifiedNamedElementResolver(qne, false))
-          {
-            Factor parentContainer = (Factor) value.eContainer() ;
-
-            // Set the property object instead of the Reference object
-            // into the parent container.
-            if(parentContainer.getFirstValue().equals(value))
-            {
-              parentContainer.setFirstValue(qne) ;
-            }
-            else
-            {
-              parentContainer.setSecondValue(qne) ;
-            }
-
-            return true ;
-          }
-          else
-          {
-            return valueVariableResolver(ref, ref) ;
-          }
-        }
-      }
+      return valueVariableResolver(value, (ValueVariable) value) ;
     }
     else if(value instanceof ValueConstant)
     {
