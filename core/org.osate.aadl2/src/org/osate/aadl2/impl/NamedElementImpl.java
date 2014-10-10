@@ -549,6 +549,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			// for (MetaclassReference metaclassReference :
 			// property.getAppliesToMetaclasses())
 			try {
+				if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(eClass())) {
+					return true;
+				}
 				if (appliesTo instanceof MetaclassReference
 						&& ((MetaclassReference) appliesTo).getMetaclass().isSuperTypeOf(eClass())) {
 					return true;
@@ -756,7 +759,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	/*
 	 * DB: Added for OCL to call this method instead of reimplementing the property lookup algo.
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
 	 */
 	@Override
