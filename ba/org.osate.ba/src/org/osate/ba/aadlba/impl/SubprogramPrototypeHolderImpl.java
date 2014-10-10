@@ -28,9 +28,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.PrototypeHolder ;
 import org.osate.ba.aadlba.SubprogramPrototypeHolder ;
 
@@ -128,7 +130,7 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototype(Prototype prototype)
+  public void setPrototype(final Prototype prototype )
   {
     element = prototype ;
   }
@@ -141,6 +143,26 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
   public Prototype getPrototype()
   {
     return (Prototype) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
   }
 
   /**
@@ -218,6 +240,13 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     if (baseClass == PrototypeHolder.class)
     {
       switch (derivedFeatureID)
@@ -237,6 +266,13 @@ public class SubprogramPrototypeHolderImpl extends CalledSubprogramHolderImpl im
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
     if (baseClass == PrototypeHolder.class)
     {
       switch (baseFeatureID)

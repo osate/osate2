@@ -130,7 +130,7 @@ public class PortPrototypeHolderImpl extends PortHolderImpl implements PortProto
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototype(Prototype prototype)
+  public void setPrototype(final Prototype prototype )
   {
     element = prototype ;
   }

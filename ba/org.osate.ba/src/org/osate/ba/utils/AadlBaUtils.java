@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright �� 2011 TELECOM ParisTech and CNRS
+ * Copyright © 2011 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -24,6 +24,8 @@ package org.osate.ba.utils;
 import java.lang.System ;
 import java.util.Comparator ;
 import java.util.ListIterator ;
+
+import javax.naming.OperationNotSupportedException ;
 
 import org.eclipse.emf.common.util.EList ;
 import org.osate.aadl2.* ;
@@ -111,14 +113,12 @@ public class AadlBaUtils {
    * Returns the data representation associated to the given PropertyType
    * object.
    * <BR><BR>
-   * Note : this method doesn't support the following property types :
-   * <BR>_ ClassifierType
-   * <BR>_ EnumerationType
-   * <BR>_ NumberType
-   * <BR>_ RangeType
-   * <BR>_ RecordType
-   * <BR>_ ReferenceType
-   * <BR>_ UnitsType
+   * Note : this method only supports the following property types :
+   * <BR>_ Aadl integer
+   * <BR>_ Aadl real
+   * <BR>_ Aadl string
+   * <BR>_ Aadl boolean
+   * <BR>_ Enumeration
    * <BR><BR>
    * @param type the given PropertyType object.
    * @return the data representation associated to the given PropertyType 
@@ -129,29 +129,81 @@ public class AadlBaUtils {
   {
     if(type instanceof AadlInteger)
       return DataRepresentation.INTEGER ;
+    else if(type instanceof AadlReal)
+      return DataRepresentation.FLOAT ;
+    else if (type instanceof AadlString)
+      return DataRepresentation.STRING ;
+    else if(type instanceof AadlBoolean)
+      return DataRepresentation.BOOLEAN ;
+    else if(type instanceof EnumerationType)
+      return DataRepresentation.ENUM ;
     else
-      if(type instanceof AadlReal)
-        return DataRepresentation.FLOAT ;
-      else
-        if (type instanceof AadlString)
-          return DataRepresentation.STRING ;
-        else
-          if(type instanceof AadlBoolean)
-            return DataRepresentation.BOOLEAN ;
-          else
-          {
-            // TODO to be implemented ? :
-              // ClassifierType, EnumerationType, NumberType, RangeType,
-            // RecordType, ReferenceType, UnitsType cases.
-            String errorMsg = "getDataRepresentation : " +
-                type.getClass().getSimpleName()+
-                " from " + type.eContainer().toString() +
-                " is not supported yet." ;
-            System.err.println(errorMsg) ;
-            throw new UnsupportedOperationException(errorMsg) ;
-          }
+    {
+      // Not implemented:
+      // ClassifierType, EnumerationType, ListType, NonListType, NumberType,
+      // RangeType, RecordType, ReferenceType, UnitsType
+      String errorMsg = "getDataRepresentation: " +
+                        type.getClass().getSimpleName()+
+                        " from " + type.eContainer().toString() +
+                        " is not supported yet." ;
+      throw new UnsupportedOperationException(errorMsg) ;
+    }
   }
-
+  
+  /**
+   * Returns the data representation associated to the given PropertyAssociation
+   * object.
+   * <BR><BR>
+   * Note : {@link #getDataRepresentation(PropertyExpression)} to see restrictions.
+   * @param pa the given PropertyAssociation object.
+   * @return the data representation associated to the given PropertyAssociation 
+   * object
+   * @exception UnsupportedOperationException for the unsupported types
+   */
+  public static DataRepresentation getDataRepresentation(PropertyAssociation pa)
+  {
+    ModalPropertyValue mpv = pa.getOwnedValues().get(pa.getOwnedValues().size()-1);
+    return getDataRepresentation(mpv.getOwnedValue());
+  }
+  
+  /**
+   * Returns the data representation associated to the given PropertyExpression
+   * object.
+   * <BR><BR>
+   * Note : this method only supports the following property types :
+   * <BR>_ Boolean literal
+   * <BR>_ Integer literal
+   * <BR>_ Real literal
+   * <BR>_ String literal
+   * <BR><BR>
+   * @param pe the given PropertyExpression object.
+   * @return the data representation associated to the given PropertyExpression 
+   * object
+   * @exception UnsupportedOperationException for the unsupported types
+   */
+  public static DataRepresentation getDataRepresentation(PropertyExpression pe)
+  {
+    int type = pe.eClass().getClassifierID() ;
+    switch(type)
+    {
+      case Aadl2Package.BOOLEAN_LITERAL: return DataRepresentation.BOOLEAN ;
+      case Aadl2Package.INTEGER_LITERAL: return DataRepresentation.INTEGER ;
+      case Aadl2Package.REAL_LITERAL: return DataRepresentation.FLOAT ;
+      case Aadl2Package.STRING_LITERAL: return DataRepresentation.STRING ;
+      
+      default:
+      {
+        // Not implemented:
+        // ClassifierValue, ComputedValue, InstanceReferenceValue,
+        // ListValue, NamedValue, NumberValue, Operation, PropertyValue,
+        // RangeValue, RecordValue, ReferenceValue
+        String errorMsg = "getDataRepresentation: " + pe.getClass().getSimpleName() +
+            " from " + pe.eContainer().toString() + " is not supported yet." ;
+        throw new UnsupportedOperationException(errorMsg) ;
+      }
+    }
+  }
+  
   /**
    * Returns the data representation associated to the given
    * BehaviorPropertyConstant object <BR><BR>
@@ -169,19 +221,81 @@ public class AadlBaUtils {
   }
 
   /**
-   * Returns the data representation associated to the given BehaviorPropertyValue
+   * Returns the data representation associated to the given PropertyReference
    * object <BR><BR>
-   * Note : {@link #getDataRepresentation(PropertyType)} to see restrictions. 
+   * Note : {@link #getDataRepresentation(PropertyType)} and 
+   * {@link #getDataRepresentation(PropertyExpression)} to see restrictions. 
    * <BR><BR>
-   * @param pv the given BehaviorPropertyValue object
+   * @param pv the given PropertyReference object
    * @return the data representation associated to the given
-   * BehaviorPropertyValue object
+   * PropertyReference object
    * @exception UnsupportedOperationException for the unsupported types
    */
-  public static DataRepresentation getDataRepresentation(
-                                                       BehaviorPropertyValue pv)
+  public static DataRepresentation getDataRepresentation(PropertyReference pr)
   {
-    return getDataRepresentation(pv.getProperty().getPropertyType()) ;
+    EList<PropertyNameHolder> holders = pr.getProperties() ;
+    PropertyNameHolder last = holders.get(holders.size()-1);
+    Element el = last.getProperty().getElement() ;
+    
+    if(el instanceof PropertyType || el instanceof BasicProperty)
+    {
+      return getDataRepresentation(((BasicProperty) el).getPropertyType()) ;
+    }
+    else if(el instanceof PropertyAssociation)
+    {
+      return getDataRepresentation((PropertyAssociation) el) ;
+    }
+    else if(el instanceof PropertyExpression)
+    {
+      return getDataRepresentation((PropertyExpression) el) ;
+    }
+    else if(el instanceof EnumerationLiteral)
+    {
+      return DataRepresentation.ENUM_LITERAL ;
+    }
+    else
+    {
+      String errorMsg = "getDataRepresentation: " + el.getClass().getSimpleName() +
+                        " is not supported yet." ;
+      System.err.println(errorMsg) ;
+      throw new UnsupportedOperationException(errorMsg) ;
+    }
+  }
+  
+  /**
+   * Returns the PropertyType object associated to the given PropertyElementHolder
+   * given object.
+   * @param holder the PropertyElementHolder given object
+   * @return the associated PropertyType object
+   */
+  public static PropertyType getPropertyType(PropertyElementHolder holder)
+  {
+    PropertyType result = null ;
+    
+    Element el = holder.getElement() ;
+    
+    if(el instanceof PropertyType)
+    {
+      result = (PropertyType) el ;
+    }
+    else if(el instanceof BasicProperty)
+    {
+      result = ((BasicProperty)el).getPropertyType() ;
+    }
+    else if(el instanceof PropertyAssociation)
+    {
+      result = ((PropertyAssociation)el).getProperty().getPropertyType() ;
+    }
+    else if(el instanceof PropertyExpression)
+    {
+      result = PropertyUtils.getContainingProperty((PropertyExpression) el).
+                                                             getPropertyType() ;
+    }
+    else if(el instanceof EnumerationLiteral)
+    {
+      result = (EnumerationType) el.eContainer() ;
+    }
+    return result ;
   }
 
   /**
@@ -201,10 +315,10 @@ public class AadlBaUtils {
     {
       return getDataRepresentation((BehaviorPropertyConstant) v)  ;
     }
-    else if (v instanceof BehaviorPropertyValue) 
+    else if (v instanceof PropertyReference) 
     {
-      return getDataRepresentation((BehaviorPropertyValue) v)  ;
-    }   
+      return getDataRepresentation((PropertyReference) v)  ;
+    }
     else if(v instanceof BehaviorIntegerLiteral)
     {
       return DataRepresentation.INTEGER ;
@@ -278,8 +392,12 @@ public class AadlBaUtils {
         DataHolder lastElement = dcr.getData().get(dcr.getData().size()-1) ;
         el = lastElement.getElement() ;
       }
-
-      if(el instanceof Feature)
+      
+      if(el instanceof Abstract)
+      {
+        return DataRepresentation.UNKNOWN ;
+      }
+      else if(el instanceof Feature)
       {
         Classifier c = ((Feature) el).getClassifier() ;
         
@@ -615,13 +733,13 @@ public class AadlBaUtils {
    *  Notes: <BR><BR>
    *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
    *                                 to see the restrictions.
-   *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
-   *  the others value constants return {@code null}.
+   *  <BR>_ ValueConstant : Property constant and property reference are not supported:
+   *  returns {@code null}.
    *  <BR><BR>
    * 
    * @param v the given Value object
    * @return the binded component's DataClassifier object or {@code null} for
-   * the ValueConstant objects (excepted BehaviorEnumerationLiteral object)
+   * the ValueConstant objects
    * @exception UnsupportedOperationException for unsupported binded 
    * object types.
    */
@@ -630,12 +748,27 @@ public class AadlBaUtils {
     return getDataClassifier(v, null) ;
   }
   
+  /**
+   * Returns the DataClassifier object associated to the given Target object.  
+   * 
+   * @param t the given Target object
+   * @return the DataClassifier object
+   * @exception UnsupportedOperationException for unsupported cases
+   */
   public static DataClassifier getDataClassifier(Target t)
   {
     return getDataClassifier(t, null);
   }
   
-  // DOC ME
+  /**
+   * Returns the DataClassifier object associated to the given Target object.
+   * 
+   * @param t the given Target object
+   * @param parentContainer the object that contains the element binded to the
+   * given Target Object (and not the Target container)
+   * @return the DataClassifier object
+   * @exception UnsupportedOperationException for unsupported cases
+   */
   public static DataClassifier getDataClassifier(Target t, NamedElement parentContainer)
   {
     NamedElement result ;
@@ -706,16 +839,15 @@ public class AadlBaUtils {
    *  Notes: <BR><BR>
    *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
    *                                 to see the restrictions.
-   *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
-   *  the others value constants return {@code null}.
+   *  <BR>_ ValueConstant : Property constant and property reference are not supported:
+   *  returns {@code null}.
    *  <BR><BR>
    * 
    * @param v the given Value object
    * @param parentContainer only for AADLBA declarative objects which have no
    * parent set, yet
    * @return the binded component's DataClassifier object or {@code null} for
-   * the ValueConstant objects (excepted BehaviorEnumerationLiteral object) and
-   * for the Abstract components objects.
+   * the ValueConstant objects and for the Abstract components objects.
    * @exception UnsupportedOperationException for unsupported binded 
    * object types.
    */
@@ -748,12 +880,7 @@ public class AadlBaUtils {
       
       result = getClassifier(el, parentContainer) ;
     }
-    else if (v instanceof BehaviorEnumerationLiteral)
-    {
-      BehaviorEnumerationLiteral bel = (BehaviorEnumerationLiteral) v ;
-      result = bel.getComponent() ; 
-    }
-    else
+    else // Property constant and property reference are not supported.
     {
       result = null ;
     }
@@ -768,68 +895,6 @@ public class AadlBaUtils {
     }
   }
 
-  /**
-   * Returns the DataClassifier of the element binded to the given 
-   * Value object. A target instance can be given to this method as 
-   * Target instance can be cast into ValueVariable reference.
-   * <BR><BR>
-   *  Notes: <BR><BR>
-   *  <BR>_ ValueVariable : {@link #getClassifier(Element, ComponentClassifier)} 
-   *                                 to see the restrictions.
-   *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
-   *  the others value constants return {@code null}.
-   *  <BR><BR>
-   * 
-   * @param v the given Value object
-   * @return the binded component's DataClassifier object or {@code null} for
-   * the ValueConstant objects (excepted BehaviorEnumerationLiteral object)
-   * @exception UnsupportedOperationException for unsupported binded 
-   * object types.
-   */
-  /*public static DataClassifier getDataClassifier(Value v)
-  {
-    if(v instanceof ValueVariable)
-    {
-      // Either ElementHolder or DataComponentReference object.
-      Element el = null ;
-      
-      if(v instanceof ElementHolder)
-      {
-        el = ((ElementHolder)v).getElement() ;
-      }
-      else // DataComponentReference case.
-      {
-        DataComponentReference dcr = (DataComponentReference) v ;
-        
-        DataHolder lastElement = dcr.getData().get(dcr.getData().size()-1) ;
-        el = lastElement.getElement() ;
-      }
-      
-      // Fetch ba's parent component in order to resolve prototype.
-      EObject tmp = v.eContainer() ;
-      while(tmp.eClass().getClassifierID() != AadlBaPackage.BEHAVIOR_ANNEX)
-      {
-        tmp = tmp.eContainer() ;
-      }
-      ComponentClassifier parentComponent = (ComponentClassifier) 
-                                                              tmp.eContainer() ;
-      
-      return (DataClassifier) getClassifier(el, parentComponent) ;
-    }
-    else if (v instanceof BehaviorEnumerationLiteral)
-    {
-      BehaviorEnumerationLiteral bel = (BehaviorEnumerationLiteral) v ;
-
-      return (DataClassifier) bel.getComponent() ;
-    }
-    else
-    {
-      return null ;
-    }
-  }
-  
-  */
-  
   private static TypeHolder getTypeHolder(DataClassifier klass)
   {
     TypeHolder result = new TypeHolder() ;
@@ -873,12 +938,8 @@ public class AadlBaUtils {
     {
       result.klass = getDataClassifier(v, parentContainer) ;
     }
-    else if (v instanceof BehaviorEnumerationLiteral) 
-    {
-      // ValueConstant doesn't have any Classifier, excepted the
-      // behavior enumeration literal.
-      result.klass = getDataClassifier(v, parentContainer) ;
-    }
+    // else: nothing.
+    // getDataClassifier doesn't support property constant and property reference
 
     return result ;
   }
@@ -1533,6 +1594,14 @@ public class AadlBaUtils {
       return FeatureType.DATA_SUBCOMPONENT ;
     else if (el instanceof DataClassifier)
       return FeatureType.DATA_CLASSIFIER ;
+    else if (el instanceof ProcessorClassifier)
+    {
+      return FeatureType.PROCESSOR_CLASSIFIER ;
+    }
+    else if (el instanceof ProcessClassifier)
+    {
+      return FeatureType.PROCESS_CLASSIFIER ;
+    }
 
     String errorMsg = "getFeatureType : " + el.getClass().getSimpleName()+ 
         " is not supported yet at line " +
@@ -1967,10 +2036,75 @@ public class AadlBaUtils {
       return p ;
     }
   }
-
-  public static Object getPrototype(Target target)
+  
+  /**
+   * If the given PropertyReference object represents a string literal from
+   * a property string list declared in a classifier (property Enumerators), it
+   * returns the Classifier object and the StringLiteral object
+   * (see DataModelEnumLiteral). Otherwise, it throws an
+   * OperationNotSupportedException.
+   * 
+   * @see DataModelEnumLiteral
+   * @param ref the given PropertyReference object
+   * @return a DataModelEnumLiteral object
+   * @throws OperationNotSupportedException
+   */
+  public static DataModelEnumLiteral toDataModelEnumLiteral(PropertyReference ref)
+                                           throws OperationNotSupportedException
   {
-    // TODO Auto-generated method stub
-    return null ;
+    DataModelEnumLiteral result = new DataModelEnumLiteral() ;
+    
+    if(ref instanceof ClassifierPropertyReference)
+    {
+      ClassifierPropertyReference cpr = (ClassifierPropertyReference) ref ;
+      result.classifier = cpr.getClassifier() ;
+      
+      EList<PropertyNameHolder> properties = cpr.getProperties() ;
+      
+      if(properties.size() == 2)
+      {
+        // The first property name is supposed to be a property association 
+        // Enumerators. Don't need to check it. 
+        
+        result.stringLiteral = extractStringLiteral(properties.get(1)) ;
+      }
+      else
+      {
+        throw new OperationNotSupportedException("this property reference not supported") ;
+      }
+      
+    }
+    else
+    {
+      throw new OperationNotSupportedException(ref.getClass().getSimpleName() +
+                                               " not supported") ;
+    }
+    
+    return result ;
+  }
+  
+  // If the given PropertyNameHolder object only contains a StringLiteral, 
+  // it returns it. Otherwise it throws an OperationNotSupportedException.
+  private static StringLiteral extractStringLiteral(PropertyNameHolder pnh)
+                                           throws OperationNotSupportedException
+  {
+    if(pnh.getField() != null)
+    {
+      throw new OperationNotSupportedException("property fields not supported");
+    }
+    else
+    {
+      Element el = pnh.getProperty().getElement() ;
+      
+      if(el instanceof StringLiteral)
+      {
+        return (StringLiteral) el ;
+      }
+      else
+      {
+        throw new UnsupportedOperationException(el.getClass().getSimpleName() 
+                                                + " not supported") ;
+      }
+    }
   }
 }

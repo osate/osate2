@@ -36,9 +36,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.CalledSubprogramHolder ;
-import org.osate.ba.aadlba.DataAccessHolder ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.SubprogramCallAction ;
+import org.osate.ba.aadlba.SubprogramHolderProxy;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,7 +49,7 @@ import org.osate.ba.aadlba.SubprogramCallAction ;
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl#getSubprogram <em>Subprogram</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl#getParameterLabels <em>Parameter Labels</em>}</li>
- *   <li>{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl#getDataAccess <em>Data Access</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl#getProxy <em>Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,14 +78,14 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
   protected EList<ParameterLabel> parameterLabels;
 
   /**
-   * The cached value of the '{@link #getDataAccess() <em>Data Access</em>}' containment reference.
+   * The cached value of the '{@link #getProxy() <em>Proxy</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDataAccess()
+   * @see #getProxy()
    * @generated
    * @ordered
    */
-  protected DataAccessHolder dataAccess;
+  protected SubprogramHolderProxy proxy;
 
   /**
    * <!-- begin-user-doc -->
@@ -195,9 +195,9 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
-  public DataAccessHolder getDataAccess()
+  public SubprogramHolderProxy getProxy()
   {
-    return dataAccess;
+    return proxy;
   }
 
   /**
@@ -205,13 +205,13 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDataAccess(DataAccessHolder newDataAccess, NotificationChain msgs)
+  public NotificationChain basicSetProxy(SubprogramHolderProxy newProxy, NotificationChain msgs)
   {
-    DataAccessHolder oldDataAccess = dataAccess;
-    dataAccess = newDataAccess;
+    SubprogramHolderProxy oldProxy = proxy;
+    proxy = newProxy;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, oldDataAccess, newDataAccess);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY, oldProxy, newProxy);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -222,20 +222,20 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDataAccess(DataAccessHolder newDataAccess)
+  public void setProxy(SubprogramHolderProxy newProxy)
   {
-    if (newDataAccess != dataAccess)
+    if (newProxy != proxy)
     {
       NotificationChain msgs = null;
-      if (dataAccess != null)
-        msgs = ((InternalEObject)dataAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, null, msgs);
-      if (newDataAccess != null)
-        msgs = ((InternalEObject)newDataAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, null, msgs);
-      msgs = basicSetDataAccess(newDataAccess, msgs);
+      if (proxy != null)
+        msgs = ((InternalEObject)proxy).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY, null, msgs);
+      if (newProxy != null)
+        msgs = ((InternalEObject)newProxy).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY, null, msgs);
+      msgs = basicSetProxy(newProxy, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, newDataAccess, newDataAccess));
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY, newProxy, newProxy));
   }
 
   /**
@@ -252,8 +252,8 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
         return basicSetSubprogram(null, msgs);
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
         return ((InternalEList<?>)getParameterLabels()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        return basicSetDataAccess(null, msgs);
+      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY:
+        return basicSetProxy(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -272,8 +272,8 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
         return getSubprogram();
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
         return getParameterLabels();
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        return getDataAccess();
+      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY:
+        return getProxy();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -296,8 +296,8 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
         getParameterLabels().clear();
         getParameterLabels().addAll((Collection<? extends ParameterLabel>)newValue);
         return;
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        setDataAccess((DataAccessHolder)newValue);
+      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY:
+        setProxy((SubprogramHolderProxy)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -319,8 +319,8 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
         unsetParameterLabels();
         return;
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        setDataAccess((DataAccessHolder)null);
+      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY:
+        setProxy((SubprogramHolderProxy)null);
         return;
     }
     super.eUnset(featureID);
@@ -340,8 +340,8 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
         return subprogram != null;
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
         return isSetParameterLabels();
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        return dataAccess != null;
+      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PROXY:
+        return proxy != null;
     }
     return super.eIsSet(featureID);
   }

@@ -107,13 +107,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         ActualPortHolder actualPortHolder = (ActualPortHolder)theEObject;
         T result = caseActualPortHolder(actualPortHolder);
         if (result == null) result = casePortHolder(actualPortHolder);
-        if (result == null) result = caseIndexableElement(actualPortHolder);
-        if (result == null) result = caseElementHolder(actualPortHolder);
-        if (result == null) result = caseGroupableElement(actualPortHolder);
         if (result == null) result = caseIntegerValueVariable(actualPortHolder);
+        if (result == null) result = caseFeatureHolder(actualPortHolder);
         if (result == null) result = caseValueVariable(actualPortHolder);
         if (result == null) result = caseValue(actualPortHolder);
         if (result == null) result = caseIntegerValue(actualPortHolder);
+        if (result == null) result = caseClassifierFeatureHolder(actualPortHolder);
+        if (result == null) result = caseIndexableElement(actualPortHolder);
+        if (result == null) result = caseGroupableElement(actualPortHolder);
+        if (result == null) result = caseElementHolder(actualPortHolder);
         if (result == null) result = caseBehaviorElement(actualPortHolder);
         if (result == null) result = caseElement(actualPortHolder);
         if (result == null) result = defaultCase(theEObject);
@@ -153,6 +155,17 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(basicAction);
         if (result == null) result = caseBehaviorElement(basicAction);
         if (result == null) result = caseElement(basicAction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.BASIC_PROPERTY_HOLDER:
+      {
+        BasicPropertyHolder basicPropertyHolder = (BasicPropertyHolder)theEObject;
+        T result = caseBasicPropertyHolder(basicPropertyHolder);
+        if (result == null) result = casePropertyElementHolder(basicPropertyHolder);
+        if (result == null) result = caseIndexableElement(basicPropertyHolder);
+        if (result == null) result = caseBehaviorElement(basicPropertyHolder);
+        if (result == null) result = caseElement(basicPropertyHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -264,20 +277,6 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL:
-      {
-        BehaviorEnumerationLiteral behaviorEnumerationLiteral = (BehaviorEnumerationLiteral)theEObject;
-        T result = caseBehaviorEnumerationLiteral(behaviorEnumerationLiteral);
-        if (result == null) result = caseLiteral(behaviorEnumerationLiteral);
-        if (result == null) result = caseIntegerValueConstant(behaviorEnumerationLiteral);
-        if (result == null) result = caseValueConstant(behaviorEnumerationLiteral);
-        if (result == null) result = caseValue(behaviorEnumerationLiteral);
-        if (result == null) result = caseIntegerValue(behaviorEnumerationLiteral);
-        if (result == null) result = caseBehaviorElement(behaviorEnumerationLiteral);
-        if (result == null) result = caseElement(behaviorEnumerationLiteral);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case AadlBaPackage.BEHAVIOR_INTEGER_LITERAL:
       {
         BehaviorIntegerLiteral behaviorIntegerLiteral = (BehaviorIntegerLiteral)theEObject;
@@ -307,44 +306,16 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AadlBaPackage.BEHAVIOR_PROPERTY:
-      {
-        BehaviorProperty behaviorProperty = (BehaviorProperty)theEObject;
-        T result = caseBehaviorProperty(behaviorProperty);
-        if (result == null) result = caseIntegerValueConstant(behaviorProperty);
-        if (result == null) result = caseValueConstant(behaviorProperty);
-        if (result == null) result = caseValue(behaviorProperty);
-        if (result == null) result = caseIntegerValue(behaviorProperty);
-        if (result == null) result = caseBehaviorElement(behaviorProperty);
-        if (result == null) result = caseElement(behaviorProperty);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT:
       {
         BehaviorPropertyConstant behaviorPropertyConstant = (BehaviorPropertyConstant)theEObject;
         T result = caseBehaviorPropertyConstant(behaviorPropertyConstant);
-        if (result == null) result = caseBehaviorProperty(behaviorPropertyConstant);
         if (result == null) result = caseIntegerValueConstant(behaviorPropertyConstant);
         if (result == null) result = caseValueConstant(behaviorPropertyConstant);
         if (result == null) result = caseValue(behaviorPropertyConstant);
         if (result == null) result = caseIntegerValue(behaviorPropertyConstant);
         if (result == null) result = caseBehaviorElement(behaviorPropertyConstant);
         if (result == null) result = caseElement(behaviorPropertyConstant);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.BEHAVIOR_PROPERTY_VALUE:
-      {
-        BehaviorPropertyValue behaviorPropertyValue = (BehaviorPropertyValue)theEObject;
-        T result = caseBehaviorPropertyValue(behaviorPropertyValue);
-        if (result == null) result = caseBehaviorProperty(behaviorPropertyValue);
-        if (result == null) result = caseIntegerValueConstant(behaviorPropertyValue);
-        if (result == null) result = caseValueConstant(behaviorPropertyValue);
-        if (result == null) result = caseValue(behaviorPropertyValue);
-        if (result == null) result = caseIntegerValue(behaviorPropertyValue);
-        if (result == null) result = caseBehaviorElement(behaviorPropertyValue);
-        if (result == null) result = caseElement(behaviorPropertyValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -435,6 +406,8 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseIndexableElement(behaviorVariableHolder);
         if (result == null) result = caseTarget(behaviorVariableHolder);
         if (result == null) result = caseElementValues(behaviorVariableHolder);
+        if (result == null) result = caseSubprogramHolderProxy(behaviorVariableHolder);
+        if (result == null) result = caseClassifierFeatureHolder(behaviorVariableHolder);
         if (result == null) result = caseElementHolder(behaviorVariableHolder);
         if (result == null) result = caseIntegerValueVariable(behaviorVariableHolder);
         if (result == null) result = caseParameterLabel(behaviorVariableHolder);
@@ -455,6 +428,30 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseGroupableElement(calledSubprogramHolder);
         if (result == null) result = caseBehaviorElement(calledSubprogramHolder);
         if (result == null) result = caseElement(calledSubprogramHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.CLASSIFIER_FEATURE_HOLDER:
+      {
+        ClassifierFeatureHolder classifierFeatureHolder = (ClassifierFeatureHolder)theEObject;
+        T result = caseClassifierFeatureHolder(classifierFeatureHolder);
+        if (result == null) result = caseElementHolder(classifierFeatureHolder);
+        if (result == null) result = caseBehaviorElement(classifierFeatureHolder);
+        if (result == null) result = caseElement(classifierFeatureHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE:
+      {
+        ClassifierPropertyReference classifierPropertyReference = (ClassifierPropertyReference)theEObject;
+        T result = caseClassifierPropertyReference(classifierPropertyReference);
+        if (result == null) result = casePropertyReference(classifierPropertyReference);
+        if (result == null) result = caseIntegerValueConstant(classifierPropertyReference);
+        if (result == null) result = caseValueConstant(classifierPropertyReference);
+        if (result == null) result = caseValue(classifierPropertyReference);
+        if (result == null) result = caseIntegerValue(classifierPropertyReference);
+        if (result == null) result = caseBehaviorElement(classifierPropertyReference);
+        if (result == null) result = caseElement(classifierPropertyReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -482,6 +479,20 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE:
+      {
+        ClassifierFeaturePropertyReference classifierFeaturePropertyReference = (ClassifierFeaturePropertyReference)theEObject;
+        T result = caseClassifierFeaturePropertyReference(classifierFeaturePropertyReference);
+        if (result == null) result = casePropertyReference(classifierFeaturePropertyReference);
+        if (result == null) result = caseIntegerValueConstant(classifierFeaturePropertyReference);
+        if (result == null) result = caseValueConstant(classifierFeaturePropertyReference);
+        if (result == null) result = caseValue(classifierFeaturePropertyReference);
+        if (result == null) result = caseIntegerValue(classifierFeaturePropertyReference);
+        if (result == null) result = caseBehaviorElement(classifierFeaturePropertyReference);
+        if (result == null) result = caseElement(classifierFeaturePropertyReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.COND_STATEMENT:
       {
         CondStatement condStatement = (CondStatement)theEObject;
@@ -498,13 +509,16 @@ public class AadlBaSwitch<T> extends Switch<T>
         DataAccessHolder dataAccessHolder = (DataAccessHolder)theEObject;
         T result = caseDataAccessHolder(dataAccessHolder);
         if (result == null) result = caseDataHolder(dataAccessHolder);
-        if (result == null) result = caseGroupableElement(dataAccessHolder);
-        if (result == null) result = caseIndexableElement(dataAccessHolder);
         if (result == null) result = caseTarget(dataAccessHolder);
         if (result == null) result = caseElementValues(dataAccessHolder);
-        if (result == null) result = caseElementHolder(dataAccessHolder);
+        if (result == null) result = caseSubprogramHolderProxy(dataAccessHolder);
+        if (result == null) result = caseFeatureHolder(dataAccessHolder);
         if (result == null) result = caseIntegerValueVariable(dataAccessHolder);
         if (result == null) result = caseParameterLabel(dataAccessHolder);
+        if (result == null) result = caseClassifierFeatureHolder(dataAccessHolder);
+        if (result == null) result = caseIndexableElement(dataAccessHolder);
+        if (result == null) result = caseGroupableElement(dataAccessHolder);
+        if (result == null) result = caseElementHolder(dataAccessHolder);
         if (result == null) result = caseIntegerValue(dataAccessHolder);
         if (result == null) result = caseValueVariable(dataAccessHolder);
         if (result == null) result = caseElement(dataAccessHolder);
@@ -519,13 +533,14 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = caseDataAccessPrototypeHolder(dataAccessPrototypeHolder);
         if (result == null) result = caseDataHolder(dataAccessPrototypeHolder);
         if (result == null) result = casePrototypeHolder(dataAccessPrototypeHolder);
-        if (result == null) result = caseIndexableElement(dataAccessPrototypeHolder);
         if (result == null) result = caseTarget(dataAccessPrototypeHolder);
         if (result == null) result = caseElementValues(dataAccessPrototypeHolder);
-        if (result == null) result = caseGroupableElement(dataAccessPrototypeHolder);
-        if (result == null) result = caseElementHolder(dataAccessPrototypeHolder);
         if (result == null) result = caseIntegerValueVariable(dataAccessPrototypeHolder);
+        if (result == null) result = caseIndexableElement(dataAccessPrototypeHolder);
+        if (result == null) result = caseGroupableElement(dataAccessPrototypeHolder);
+        if (result == null) result = caseClassifierFeatureHolder(dataAccessPrototypeHolder);
         if (result == null) result = caseParameterLabel(dataAccessPrototypeHolder);
+        if (result == null) result = caseElementHolder(dataAccessPrototypeHolder);
         if (result == null) result = caseIntegerValue(dataAccessPrototypeHolder);
         if (result == null) result = caseValueVariable(dataAccessPrototypeHolder);
         if (result == null) result = caseElement(dataAccessPrototypeHolder);
@@ -572,13 +587,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseTarget(dataPortHolder);
         if (result == null) result = casePortHolder(dataPortHolder);
         if (result == null) result = caseParameterLabel(dataPortHolder);
-        if (result == null) result = caseIndexableElement(dataPortHolder);
-        if (result == null) result = caseElementHolder(dataPortHolder);
-        if (result == null) result = caseGroupableElement(dataPortHolder);
         if (result == null) result = caseIntegerValueVariable(dataPortHolder);
+        if (result == null) result = caseFeatureHolder(dataPortHolder);
         if (result == null) result = caseValueVariable(dataPortHolder);
         if (result == null) result = caseValue(dataPortHolder);
         if (result == null) result = caseIntegerValue(dataPortHolder);
+        if (result == null) result = caseClassifierFeatureHolder(dataPortHolder);
+        if (result == null) result = caseIndexableElement(dataPortHolder);
+        if (result == null) result = caseGroupableElement(dataPortHolder);
+        if (result == null) result = caseElementHolder(dataPortHolder);
         if (result == null) result = caseBehaviorElement(dataPortHolder);
         if (result == null) result = caseElement(dataPortHolder);
         if (result == null) result = defaultCase(theEObject);
@@ -589,13 +606,16 @@ public class AadlBaSwitch<T> extends Switch<T>
         DataSubcomponentHolder dataSubcomponentHolder = (DataSubcomponentHolder)theEObject;
         T result = caseDataSubcomponentHolder(dataSubcomponentHolder);
         if (result == null) result = caseDataHolder(dataSubcomponentHolder);
-        if (result == null) result = caseGroupableElement(dataSubcomponentHolder);
-        if (result == null) result = caseIndexableElement(dataSubcomponentHolder);
         if (result == null) result = caseTarget(dataSubcomponentHolder);
         if (result == null) result = caseElementValues(dataSubcomponentHolder);
-        if (result == null) result = caseElementHolder(dataSubcomponentHolder);
+        if (result == null) result = caseSubprogramHolderProxy(dataSubcomponentHolder);
+        if (result == null) result = caseSubcomponentHolder(dataSubcomponentHolder);
         if (result == null) result = caseIntegerValueVariable(dataSubcomponentHolder);
         if (result == null) result = caseParameterLabel(dataSubcomponentHolder);
+        if (result == null) result = caseClassifierFeatureHolder(dataSubcomponentHolder);
+        if (result == null) result = caseIndexableElement(dataSubcomponentHolder);
+        if (result == null) result = caseGroupableElement(dataSubcomponentHolder);
+        if (result == null) result = caseElementHolder(dataSubcomponentHolder);
         if (result == null) result = caseIntegerValue(dataSubcomponentHolder);
         if (result == null) result = caseValueVariable(dataSubcomponentHolder);
         if (result == null) result = caseElement(dataSubcomponentHolder);
@@ -701,6 +721,17 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.ENUM_LITERAL_HOLDER:
+      {
+        EnumLiteralHolder enumLiteralHolder = (EnumLiteralHolder)theEObject;
+        T result = caseEnumLiteralHolder(enumLiteralHolder);
+        if (result == null) result = casePropertyElementHolder(enumLiteralHolder);
+        if (result == null) result = caseIndexableElement(enumLiteralHolder);
+        if (result == null) result = caseBehaviorElement(enumLiteralHolder);
+        if (result == null) result = caseElement(enumLiteralHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.EVENT_DATA_PORT_HOLDER:
       {
         EventDataPortHolder eventDataPortHolder = (EventDataPortHolder)theEObject;
@@ -711,13 +742,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseTarget(eventDataPortHolder);
         if (result == null) result = casePortHolder(eventDataPortHolder);
         if (result == null) result = caseParameterLabel(eventDataPortHolder);
-        if (result == null) result = caseIndexableElement(eventDataPortHolder);
-        if (result == null) result = caseElementHolder(eventDataPortHolder);
-        if (result == null) result = caseGroupableElement(eventDataPortHolder);
         if (result == null) result = caseIntegerValueVariable(eventDataPortHolder);
+        if (result == null) result = caseFeatureHolder(eventDataPortHolder);
         if (result == null) result = caseValueVariable(eventDataPortHolder);
         if (result == null) result = caseValue(eventDataPortHolder);
         if (result == null) result = caseIntegerValue(eventDataPortHolder);
+        if (result == null) result = caseClassifierFeatureHolder(eventDataPortHolder);
+        if (result == null) result = caseIndexableElement(eventDataPortHolder);
+        if (result == null) result = caseGroupableElement(eventDataPortHolder);
+        if (result == null) result = caseElementHolder(eventDataPortHolder);
         if (result == null) result = caseBehaviorElement(eventDataPortHolder);
         if (result == null) result = caseElement(eventDataPortHolder);
         if (result == null) result = defaultCase(theEObject);
@@ -732,13 +765,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseTarget(eventPortHolder);
         if (result == null) result = casePortHolder(eventPortHolder);
         if (result == null) result = caseParameterLabel(eventPortHolder);
-        if (result == null) result = caseIndexableElement(eventPortHolder);
-        if (result == null) result = caseElementHolder(eventPortHolder);
-        if (result == null) result = caseGroupableElement(eventPortHolder);
         if (result == null) result = caseIntegerValueVariable(eventPortHolder);
+        if (result == null) result = caseFeatureHolder(eventPortHolder);
         if (result == null) result = caseValueVariable(eventPortHolder);
         if (result == null) result = caseValue(eventPortHolder);
         if (result == null) result = caseIntegerValue(eventPortHolder);
+        if (result == null) result = caseClassifierFeatureHolder(eventPortHolder);
+        if (result == null) result = caseIndexableElement(eventPortHolder);
+        if (result == null) result = caseGroupableElement(eventPortHolder);
+        if (result == null) result = caseElementHolder(eventPortHolder);
         if (result == null) result = caseBehaviorElement(eventPortHolder);
         if (result == null) result = caseElement(eventPortHolder);
         if (result == null) result = defaultCase(theEObject);
@@ -774,19 +809,33 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.FEATURE_HOLDER:
+      {
+        FeatureHolder featureHolder = (FeatureHolder)theEObject;
+        T result = caseFeatureHolder(featureHolder);
+        if (result == null) result = caseClassifierFeatureHolder(featureHolder);
+        if (result == null) result = caseIndexableElement(featureHolder);
+        if (result == null) result = caseGroupableElement(featureHolder);
+        if (result == null) result = caseElementHolder(featureHolder);
+        if (result == null) result = caseBehaviorElement(featureHolder);
+        if (result == null) result = caseElement(featureHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER:
       {
         FeaturePrototypeHolder featurePrototypeHolder = (FeaturePrototypeHolder)theEObject;
         T result = caseFeaturePrototypeHolder(featurePrototypeHolder);
         if (result == null) result = caseDataHolder(featurePrototypeHolder);
         if (result == null) result = casePrototypeHolder(featurePrototypeHolder);
-        if (result == null) result = caseIndexableElement(featurePrototypeHolder);
         if (result == null) result = caseTarget(featurePrototypeHolder);
         if (result == null) result = caseElementValues(featurePrototypeHolder);
-        if (result == null) result = caseGroupableElement(featurePrototypeHolder);
-        if (result == null) result = caseElementHolder(featurePrototypeHolder);
         if (result == null) result = caseIntegerValueVariable(featurePrototypeHolder);
+        if (result == null) result = caseIndexableElement(featurePrototypeHolder);
+        if (result == null) result = caseGroupableElement(featurePrototypeHolder);
+        if (result == null) result = caseClassifierFeatureHolder(featurePrototypeHolder);
         if (result == null) result = caseParameterLabel(featurePrototypeHolder);
+        if (result == null) result = caseElementHolder(featurePrototypeHolder);
         if (result == null) result = caseIntegerValue(featurePrototypeHolder);
         if (result == null) result = caseValueVariable(featurePrototypeHolder);
         if (result == null) result = caseElement(featurePrototypeHolder);
@@ -833,7 +882,6 @@ public class AadlBaSwitch<T> extends Switch<T>
         GroupPrototypeHolder groupPrototypeHolder = (GroupPrototypeHolder)theEObject;
         T result = caseGroupPrototypeHolder(groupPrototypeHolder);
         if (result == null) result = caseGroupHolder(groupPrototypeHolder);
-        if (result == null) result = casePrototypeHolder(groupPrototypeHolder);
         if (result == null) result = caseElementHolder(groupPrototypeHolder);
         if (result == null) result = caseIndexableElement(groupPrototypeHolder);
         if (result == null) result = caseBehaviorElement(groupPrototypeHolder);
@@ -971,6 +1019,16 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.LOWER_BOUND:
+      {
+        LowerBound lowerBound = (LowerBound)theEObject;
+        T result = caseLowerBound(lowerBound);
+        if (result == null) result = casePropertyNameField(lowerBound);
+        if (result == null) result = caseBehaviorElement(lowerBound);
+        if (result == null) result = caseElement(lowerBound);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.NUMERIC_LITERAL:
       {
         NumericLiteral numericLiteral = (NumericLiteral)theEObject;
@@ -1004,13 +1062,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         ParameterHolder parameterHolder = (ParameterHolder)theEObject;
         T result = caseParameterHolder(parameterHolder);
         if (result == null) result = caseDataHolder(parameterHolder);
-        if (result == null) result = caseGroupableElement(parameterHolder);
-        if (result == null) result = caseIndexableElement(parameterHolder);
         if (result == null) result = caseTarget(parameterHolder);
         if (result == null) result = caseElementValues(parameterHolder);
-        if (result == null) result = caseElementHolder(parameterHolder);
+        if (result == null) result = caseFeatureHolder(parameterHolder);
         if (result == null) result = caseIntegerValueVariable(parameterHolder);
         if (result == null) result = caseParameterLabel(parameterHolder);
+        if (result == null) result = caseClassifierFeatureHolder(parameterHolder);
+        if (result == null) result = caseIndexableElement(parameterHolder);
+        if (result == null) result = caseGroupableElement(parameterHolder);
+        if (result == null) result = caseElementHolder(parameterHolder);
         if (result == null) result = caseIntegerValue(parameterHolder);
         if (result == null) result = caseValueVariable(parameterHolder);
         if (result == null) result = caseElement(parameterHolder);
@@ -1034,13 +1094,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = casePortCountValue(portCountValue);
         if (result == null) result = caseActualPortHolder(portCountValue);
         if (result == null) result = casePortHolder(portCountValue);
-        if (result == null) result = caseIndexableElement(portCountValue);
-        if (result == null) result = caseElementHolder(portCountValue);
-        if (result == null) result = caseGroupableElement(portCountValue);
         if (result == null) result = caseIntegerValueVariable(portCountValue);
+        if (result == null) result = caseFeatureHolder(portCountValue);
         if (result == null) result = caseValueVariable(portCountValue);
         if (result == null) result = caseValue(portCountValue);
         if (result == null) result = caseIntegerValue(portCountValue);
+        if (result == null) result = caseClassifierFeatureHolder(portCountValue);
+        if (result == null) result = caseIndexableElement(portCountValue);
+        if (result == null) result = caseGroupableElement(portCountValue);
+        if (result == null) result = caseElementHolder(portCountValue);
         if (result == null) result = caseBehaviorElement(portCountValue);
         if (result == null) result = caseElement(portCountValue);
         if (result == null) result = defaultCase(theEObject);
@@ -1065,13 +1127,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = casePortDequeueValue(portDequeueValue);
         if (result == null) result = caseActualPortHolder(portDequeueValue);
         if (result == null) result = casePortHolder(portDequeueValue);
-        if (result == null) result = caseIndexableElement(portDequeueValue);
-        if (result == null) result = caseElementHolder(portDequeueValue);
-        if (result == null) result = caseGroupableElement(portDequeueValue);
         if (result == null) result = caseIntegerValueVariable(portDequeueValue);
+        if (result == null) result = caseFeatureHolder(portDequeueValue);
         if (result == null) result = caseValueVariable(portDequeueValue);
         if (result == null) result = caseValue(portDequeueValue);
         if (result == null) result = caseIntegerValue(portDequeueValue);
+        if (result == null) result = caseClassifierFeatureHolder(portDequeueValue);
+        if (result == null) result = caseIndexableElement(portDequeueValue);
+        if (result == null) result = caseGroupableElement(portDequeueValue);
+        if (result == null) result = caseElementHolder(portDequeueValue);
         if (result == null) result = caseBehaviorElement(portDequeueValue);
         if (result == null) result = caseElement(portDequeueValue);
         if (result == null) result = defaultCase(theEObject);
@@ -1085,15 +1149,17 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseCommunicationAction(portFreezeAction);
         if (result == null) result = casePortHolder(portFreezeAction);
         if (result == null) result = caseBasicAction(portFreezeAction);
-        if (result == null) result = caseIndexableElement(portFreezeAction);
-        if (result == null) result = caseElementHolder(portFreezeAction);
-        if (result == null) result = caseGroupableElement(portFreezeAction);
         if (result == null) result = caseIntegerValueVariable(portFreezeAction);
+        if (result == null) result = caseFeatureHolder(portFreezeAction);
         if (result == null) result = caseBehaviorAction(portFreezeAction);
         if (result == null) result = caseValueVariable(portFreezeAction);
         if (result == null) result = caseValue(portFreezeAction);
         if (result == null) result = caseIntegerValue(portFreezeAction);
+        if (result == null) result = caseClassifierFeatureHolder(portFreezeAction);
+        if (result == null) result = caseIndexableElement(portFreezeAction);
+        if (result == null) result = caseGroupableElement(portFreezeAction);
         if (result == null) result = caseBehaviorActions(portFreezeAction);
+        if (result == null) result = caseElementHolder(portFreezeAction);
         if (result == null) result = caseBehaviorElement(portFreezeAction);
         if (result == null) result = caseElement(portFreezeAction);
         if (result == null) result = defaultCase(theEObject);
@@ -1105,13 +1171,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = casePortFreshValue(portFreshValue);
         if (result == null) result = caseActualPortHolder(portFreshValue);
         if (result == null) result = casePortHolder(portFreshValue);
-        if (result == null) result = caseIndexableElement(portFreshValue);
-        if (result == null) result = caseElementHolder(portFreshValue);
-        if (result == null) result = caseGroupableElement(portFreshValue);
         if (result == null) result = caseIntegerValueVariable(portFreshValue);
+        if (result == null) result = caseFeatureHolder(portFreshValue);
         if (result == null) result = caseValueVariable(portFreshValue);
         if (result == null) result = caseValue(portFreshValue);
         if (result == null) result = caseIntegerValue(portFreshValue);
+        if (result == null) result = caseClassifierFeatureHolder(portFreshValue);
+        if (result == null) result = caseIndexableElement(portFreshValue);
+        if (result == null) result = caseGroupableElement(portFreshValue);
+        if (result == null) result = caseElementHolder(portFreshValue);
         if (result == null) result = caseBehaviorElement(portFreshValue);
         if (result == null) result = caseElement(portFreshValue);
         if (result == null) result = defaultCase(theEObject);
@@ -1121,13 +1189,15 @@ public class AadlBaSwitch<T> extends Switch<T>
       {
         PortHolder portHolder = (PortHolder)theEObject;
         T result = casePortHolder(portHolder);
-        if (result == null) result = caseIndexableElement(portHolder);
-        if (result == null) result = caseElementHolder(portHolder);
-        if (result == null) result = caseGroupableElement(portHolder);
         if (result == null) result = caseIntegerValueVariable(portHolder);
+        if (result == null) result = caseFeatureHolder(portHolder);
         if (result == null) result = caseValueVariable(portHolder);
         if (result == null) result = caseValue(portHolder);
         if (result == null) result = caseIntegerValue(portHolder);
+        if (result == null) result = caseClassifierFeatureHolder(portHolder);
+        if (result == null) result = caseIndexableElement(portHolder);
+        if (result == null) result = caseGroupableElement(portHolder);
+        if (result == null) result = caseElementHolder(portHolder);
         if (result == null) result = caseBehaviorElement(portHolder);
         if (result == null) result = caseElement(portHolder);
         if (result == null) result = defaultCase(theEObject);
@@ -1140,14 +1210,16 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = casePortHolder(portPrototypeHolder);
         if (result == null) result = casePrototypeHolder(portPrototypeHolder);
         if (result == null) result = caseTarget(portPrototypeHolder);
-        if (result == null) result = caseIndexableElement(portPrototypeHolder);
-        if (result == null) result = caseElementHolder(portPrototypeHolder);
-        if (result == null) result = caseGroupableElement(portPrototypeHolder);
         if (result == null) result = caseIntegerValueVariable(portPrototypeHolder);
+        if (result == null) result = caseFeatureHolder(portPrototypeHolder);
         if (result == null) result = caseParameterLabel(portPrototypeHolder);
         if (result == null) result = caseValueVariable(portPrototypeHolder);
         if (result == null) result = caseValue(portPrototypeHolder);
         if (result == null) result = caseIntegerValue(portPrototypeHolder);
+        if (result == null) result = caseClassifierFeatureHolder(portPrototypeHolder);
+        if (result == null) result = caseIndexableElement(portPrototypeHolder);
+        if (result == null) result = caseGroupableElement(portPrototypeHolder);
+        if (result == null) result = caseElementHolder(portPrototypeHolder);
         if (result == null) result = caseBehaviorElement(portPrototypeHolder);
         if (result == null) result = caseElement(portPrototypeHolder);
         if (result == null) result = defaultCase(theEObject);
@@ -1166,10 +1238,102 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.PROPERTY_NAME_FIELD:
+      {
+        PropertyNameField propertyNameField = (PropertyNameField)theEObject;
+        T result = casePropertyNameField(propertyNameField);
+        if (result == null) result = caseBehaviorElement(propertyNameField);
+        if (result == null) result = caseElement(propertyNameField);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_NAME_HOLDER:
+      {
+        PropertyNameHolder propertyNameHolder = (PropertyNameHolder)theEObject;
+        T result = casePropertyNameHolder(propertyNameHolder);
+        if (result == null) result = caseBehaviorElement(propertyNameHolder);
+        if (result == null) result = caseElement(propertyNameHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_ELEMENT_HOLDER:
+      {
+        PropertyElementHolder propertyElementHolder = (PropertyElementHolder)theEObject;
+        T result = casePropertyElementHolder(propertyElementHolder);
+        if (result == null) result = caseIndexableElement(propertyElementHolder);
+        if (result == null) result = caseBehaviorElement(propertyElementHolder);
+        if (result == null) result = caseElement(propertyElementHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_ASSOCIATION_HOLDER:
+      {
+        PropertyAssociationHolder propertyAssociationHolder = (PropertyAssociationHolder)theEObject;
+        T result = casePropertyAssociationHolder(propertyAssociationHolder);
+        if (result == null) result = casePropertyElementHolder(propertyAssociationHolder);
+        if (result == null) result = caseIndexableElement(propertyAssociationHolder);
+        if (result == null) result = caseBehaviorElement(propertyAssociationHolder);
+        if (result == null) result = caseElement(propertyAssociationHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_EXPRESSION_HOLDER:
+      {
+        PropertyExpressionHolder propertyExpressionHolder = (PropertyExpressionHolder)theEObject;
+        T result = casePropertyExpressionHolder(propertyExpressionHolder);
+        if (result == null) result = casePropertyElementHolder(propertyExpressionHolder);
+        if (result == null) result = caseIndexableElement(propertyExpressionHolder);
+        if (result == null) result = caseBehaviorElement(propertyExpressionHolder);
+        if (result == null) result = caseElement(propertyExpressionHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_TYPE_HOLDER:
+      {
+        PropertyTypeHolder propertyTypeHolder = (PropertyTypeHolder)theEObject;
+        T result = casePropertyTypeHolder(propertyTypeHolder);
+        if (result == null) result = casePropertyElementHolder(propertyTypeHolder);
+        if (result == null) result = caseIndexableElement(propertyTypeHolder);
+        if (result == null) result = caseBehaviorElement(propertyTypeHolder);
+        if (result == null) result = caseElement(propertyTypeHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_REFERENCE:
+      {
+        PropertyReference propertyReference = (PropertyReference)theEObject;
+        T result = casePropertyReference(propertyReference);
+        if (result == null) result = caseIntegerValueConstant(propertyReference);
+        if (result == null) result = caseValueConstant(propertyReference);
+        if (result == null) result = caseValue(propertyReference);
+        if (result == null) result = caseIntegerValue(propertyReference);
+        if (result == null) result = caseBehaviorElement(propertyReference);
+        if (result == null) result = caseElement(propertyReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE:
+      {
+        PropertySetPropertyReference propertySetPropertyReference = (PropertySetPropertyReference)theEObject;
+        T result = casePropertySetPropertyReference(propertySetPropertyReference);
+        if (result == null) result = casePropertyReference(propertySetPropertyReference);
+        if (result == null) result = caseIntegerValueConstant(propertySetPropertyReference);
+        if (result == null) result = caseValueConstant(propertySetPropertyReference);
+        if (result == null) result = caseValue(propertySetPropertyReference);
+        if (result == null) result = caseIntegerValue(propertySetPropertyReference);
+        if (result == null) result = caseBehaviorElement(propertySetPropertyReference);
+        if (result == null) result = caseElement(propertySetPropertyReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.PROTOTYPE_HOLDER:
       {
         PrototypeHolder prototypeHolder = (PrototypeHolder)theEObject;
         T result = casePrototypeHolder(prototypeHolder);
+        if (result == null) result = caseIndexableElement(prototypeHolder);
+        if (result == null) result = caseGroupableElement(prototypeHolder);
+        if (result == null) result = caseClassifierFeatureHolder(prototypeHolder);
+        if (result == null) result = caseElementHolder(prototypeHolder);
         if (result == null) result = caseBehaviorElement(prototypeHolder);
         if (result == null) result = caseElement(prototypeHolder);
         if (result == null) result = defaultCase(theEObject);
@@ -1236,17 +1400,32 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.SUBCOMPONENT_HOLDER:
+      {
+        SubcomponentHolder subcomponentHolder = (SubcomponentHolder)theEObject;
+        T result = caseSubcomponentHolder(subcomponentHolder);
+        if (result == null) result = caseClassifierFeatureHolder(subcomponentHolder);
+        if (result == null) result = caseIndexableElement(subcomponentHolder);
+        if (result == null) result = caseGroupableElement(subcomponentHolder);
+        if (result == null) result = caseElementHolder(subcomponentHolder);
+        if (result == null) result = caseBehaviorElement(subcomponentHolder);
+        if (result == null) result = caseElement(subcomponentHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER:
       {
         SubprogramAccessHolder subprogramAccessHolder = (SubprogramAccessHolder)theEObject;
         T result = caseSubprogramAccessHolder(subprogramAccessHolder);
         if (result == null) result = caseDispatchTriggerCondition(subprogramAccessHolder);
         if (result == null) result = caseCalledSubprogramHolder(subprogramAccessHolder);
-        if (result == null) result = caseElementHolder(subprogramAccessHolder);
+        if (result == null) result = caseFeatureHolder(subprogramAccessHolder);
         if (result == null) result = caseIndexableElement(subprogramAccessHolder);
         if (result == null) result = caseGroupableElement(subprogramAccessHolder);
+        if (result == null) result = caseClassifierFeatureHolder(subprogramAccessHolder);
         if (result == null) result = caseBehaviorElement(subprogramAccessHolder);
         if (result == null) result = caseElement(subprogramAccessHolder);
+        if (result == null) result = caseElementHolder(subprogramAccessHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1276,17 +1455,42 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.SUBPROGRAM_HOLDER_PROXY:
+      {
+        SubprogramHolderProxy subprogramHolderProxy = (SubprogramHolderProxy)theEObject;
+        T result = caseSubprogramHolderProxy(subprogramHolderProxy);
+        if (result == null) result = caseBehaviorElement(subprogramHolderProxy);
+        if (result == null) result = caseElement(subprogramHolderProxy);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.SUBPROGRAM_PROTOTYPE_HOLDER:
       {
         SubprogramPrototypeHolder subprogramPrototypeHolder = (SubprogramPrototypeHolder)theEObject;
         T result = caseSubprogramPrototypeHolder(subprogramPrototypeHolder);
         if (result == null) result = caseCalledSubprogramHolder(subprogramPrototypeHolder);
         if (result == null) result = casePrototypeHolder(subprogramPrototypeHolder);
-        if (result == null) result = caseElementHolder(subprogramPrototypeHolder);
         if (result == null) result = caseIndexableElement(subprogramPrototypeHolder);
         if (result == null) result = caseGroupableElement(subprogramPrototypeHolder);
+        if (result == null) result = caseClassifierFeatureHolder(subprogramPrototypeHolder);
+        if (result == null) result = caseElementHolder(subprogramPrototypeHolder);
         if (result == null) result = caseBehaviorElement(subprogramPrototypeHolder);
         if (result == null) result = caseElement(subprogramPrototypeHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.SUBPROGRAM_SUBCOMPONENT_HOLDER:
+      {
+        SubprogramSubcomponentHolder subprogramSubcomponentHolder = (SubprogramSubcomponentHolder)theEObject;
+        T result = caseSubprogramSubcomponentHolder(subprogramSubcomponentHolder);
+        if (result == null) result = caseSubcomponentHolder(subprogramSubcomponentHolder);
+        if (result == null) result = caseCalledSubprogramHolder(subprogramSubcomponentHolder);
+        if (result == null) result = caseClassifierFeatureHolder(subprogramSubcomponentHolder);
+        if (result == null) result = caseIndexableElement(subprogramSubcomponentHolder);
+        if (result == null) result = caseGroupableElement(subprogramSubcomponentHolder);
+        if (result == null) result = caseElementHolder(subprogramSubcomponentHolder);
+        if (result == null) result = caseBehaviorElement(subprogramSubcomponentHolder);
+        if (result == null) result = caseElement(subprogramSubcomponentHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1332,6 +1536,16 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(unlockAction);
         if (result == null) result = caseBehaviorElement(unlockAction);
         if (result == null) result = caseElement(unlockAction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.UPPER_BOUND:
+      {
+        UpperBound upperBound = (UpperBound)theEObject;
+        T result = caseUpperBound(upperBound);
+        if (result == null) result = casePropertyNameField(upperBound);
+        if (result == null) result = caseBehaviorElement(upperBound);
+        if (result == null) result = caseElement(upperBound);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1454,6 +1668,22 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBasicAction(BasicAction object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Basic Property Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Basic Property Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBasicPropertyHolder(BasicPropertyHolder object)
   {
     return null;
   }
@@ -1619,22 +1849,6 @@ public class AadlBaSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Behavior Enumeration Literal</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Behavior Enumeration Literal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseBehaviorEnumerationLiteral(BehaviorEnumerationLiteral object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Behavior Integer Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1667,22 +1881,6 @@ public class AadlBaSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Behavior Property</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Behavior Property</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseBehaviorProperty(BehaviorProperty object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Behavior Property Constant</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1694,22 +1892,6 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBehaviorPropertyConstant(BehaviorPropertyConstant object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Behavior Property Value</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Behavior Property Value</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseBehaviorPropertyValue(BehaviorPropertyValue object)
   {
     return null;
   }
@@ -1843,6 +2025,22 @@ public class AadlBaSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Classifier Feature Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Classifier Feature Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassifierFeatureHolder(ClassifierFeatureHolder object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Communication Action</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1870,6 +2068,22 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCompletionRelativeTimeout(CompletionRelativeTimeout object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Classifier Feature Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Classifier Feature Property Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassifierFeaturePropertyReference(ClassifierFeaturePropertyReference object)
   {
     return null;
   }
@@ -2142,6 +2356,22 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseElseStatement(ElseStatement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Enum Literal Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Enum Literal Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEnumLiteralHolder(EnumLiteralHolder object)
   {
     return null;
   }
@@ -2675,6 +2905,102 @@ public class AadlBaSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Name Field</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Name Field</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyNameField(PropertyNameField object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Name Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Name Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyNameHolder(PropertyNameHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Element Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Element Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyElementHolder(PropertyElementHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Association Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Association Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyAssociationHolder(PropertyAssociationHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Expression Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Expression Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyExpressionHolder(PropertyExpressionHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Type Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Type Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyTypeHolder(PropertyTypeHolder object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Prototype Holder</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -2814,6 +3140,22 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSubprogramHolder(SubprogramHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Subprogram Holder Proxy</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Subprogram Holder Proxy</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSubprogramHolderProxy(SubprogramHolderProxy object)
   {
     return null;
   }
@@ -2974,6 +3316,134 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseWhileOrDoUntilStatement(WhileOrDoUntilStatement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Set Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Set Property Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertySetPropertyReference(PropertySetPropertyReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Subcomponent Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Subcomponent Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSubcomponentHolder(SubcomponentHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Subprogram Subcomponent Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Subprogram Subcomponent Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSubprogramSubcomponentHolder(SubprogramSubcomponentHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Feature Holder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Feature Holder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFeatureHolder(FeatureHolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Classifier Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Classifier Property Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClassifierPropertyReference(ClassifierPropertyReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyReference(PropertyReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Upper Bound</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Upper Bound</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUpperBound(UpperBound object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Lower Bound</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Lower Bound</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLowerBound(LowerBound object)
   {
     return null;
   }

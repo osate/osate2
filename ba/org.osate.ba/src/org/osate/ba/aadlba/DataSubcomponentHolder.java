@@ -31,7 +31,7 @@ import org.osate.aadl2.DataSubcomponent;
  * @model
  * @generated
  */
-public interface DataSubcomponentHolder extends DataHolder, GroupableElement, IndexableElement, Target, ElementValues
+public interface DataSubcomponentHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, SubcomponentHolder
 {
   /**
    * <!-- begin-user-doc -->

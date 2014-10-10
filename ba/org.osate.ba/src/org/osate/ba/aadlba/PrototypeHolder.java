@@ -38,7 +38,7 @@ import org.osate.aadl2.PrototypeBinding;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface PrototypeHolder extends BehaviorElement
+public interface PrototypeHolder extends IndexableElement, GroupableElement, ClassifierFeatureHolder
 {
   /**
    * Returns the value of the '<em><b>Prototype Binding</b></em>' reference.

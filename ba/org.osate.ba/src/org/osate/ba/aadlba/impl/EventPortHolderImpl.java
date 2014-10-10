@@ -63,7 +63,7 @@ public class EventPortHolderImpl extends ActualPortHolderImpl implements EventPo
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEventPort(EventPort eventPort)
+  public void setEventPort(final EventPort eventPort )
   {
     element = eventPort ;
   }

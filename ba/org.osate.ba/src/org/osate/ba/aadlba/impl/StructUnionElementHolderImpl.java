@@ -125,7 +125,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setStructUnionElement(StructUnionElement structUnionElement)
+  public void setStructUnionElement(final StructUnionElement structUnionElement )
   {
     element = structUnionElement ;
   }

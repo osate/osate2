@@ -32,15 +32,20 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.Feature;
 import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.DataAccessHolder ;
 import org.osate.ba.aadlba.ElementValues ;
+import org.osate.ba.aadlba.FeatureHolder;
 import org.osate.ba.aadlba.GroupHolder ;
 import org.osate.ba.aadlba.GroupableElement ;
 import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.ParameterLabel ;
+import org.osate.ba.aadlba.SubprogramHolderProxy;
 import org.osate.ba.aadlba.Target ;
 
 /**
@@ -50,8 +55,8 @@ import org.osate.ba.aadlba.Target ;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.DataAccessHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.DataAccessHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,16 +64,6 @@ import org.osate.ba.aadlba.Target ;
  */
 public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHolder
 {
-  /**
-   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getGroupHolders()
-   * @generated
-   * @ordered
-   */
-  protected EList<GroupHolder> groupHolders;
-
   /**
    * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -78,6 +73,16 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * @ordered
    */
   protected EList<IntegerValue> arrayIndexes;
+
+  /**
+   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGroupHolders()
+   * @generated
+   * @ordered
+   */
+  protected EList<GroupHolder> groupHolders;
 
   /**
    * <!-- begin-user-doc -->
@@ -173,7 +178,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDataAccess(DataAccess dataAccess)
+  public void setDataAccess(final DataAccess dataAccess )
   {
     element = dataAccess ;
   }
@@ -193,15 +198,55 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  public void setFeature(final Feature feature)
+  {
+    element = feature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Feature getFeature()
+  {
+    return (Feature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
-        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
       case AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES:
         return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
+        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -216,10 +261,10 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
-        return getGroupHolders();
       case AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES:
         return getArrayIndexes();
+      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
+        return getGroupHolders();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -235,13 +280,13 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
-        getGroupHolders().clear();
-        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
-        return;
       case AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES:
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+        return;
+      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
+        getGroupHolders().clear();
+        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -257,11 +302,11 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
-        unsetGroupHolders();
-        return;
       case AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES:
         unsetArrayIndexes();
+        return;
+      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
+        unsetGroupHolders();
         return;
     }
     super.eUnset(featureID);
@@ -277,10 +322,10 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
   {
     switch (featureID)
     {
-      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
-        return isSetGroupHolders();
       case AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES:
         return isSetArrayIndexes();
+      case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS:
+        return isSetGroupHolders();
     }
     return super.eIsSet(featureID);
   }
@@ -293,22 +338,6 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == GroupableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    if (baseClass == IndexableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
     if (baseClass == ParameterLabel.class)
     {
       switch (derivedFeatureID)
@@ -324,6 +353,43 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
       }
     }
     if (baseClass == ElementValues.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == SubprogramHolderProxy.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == IndexableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
+        default: return -1;
+      }
+    }
+    if (baseClass == FeatureHolder.class)
     {
       switch (derivedFeatureID)
       {
@@ -341,22 +407,6 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == GroupableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    if (baseClass == IndexableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
     if (baseClass == ParameterLabel.class)
     {
       switch (baseFeatureID)
@@ -372,6 +422,43 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
       }
     }
     if (baseClass == ElementValues.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == SubprogramHolderProxy.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == IndexableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.DATA_ACCESS_HOLDER__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == GroupableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.DATA_ACCESS_HOLDER__GROUP_HOLDERS;
+        default: return -1;
+      }
+    }
+    if (baseClass == FeatureHolder.class)
     {
       switch (baseFeatureID)
       {

@@ -26,7 +26,7 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
             uri="https://github.com/osate/osate2-ba.git/aadlba"
-            class="org.osate.ba.edit.provider.AadlBaItemProviderAdapterFactory"
+            class="org.osate.ba.aadlba.provider.AadlBaItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider

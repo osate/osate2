@@ -62,7 +62,7 @@ public class IterativeVariableHolderImpl extends DataHolderImpl implements Itera
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setIterativeVariable(IterativeVariable itV)
+  public void setIterativeVariable(final IterativeVariable itV )
   {
     element = itV ;
   }

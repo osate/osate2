@@ -30,6 +30,6 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface SubprogramPrototypeHolder extends CalledSubprogramHolder, PrototypeHolder, GroupableElement
+public interface SubprogramPrototypeHolder extends CalledSubprogramHolder, PrototypeHolder
 {
 } // SubprogramPrototypeHolder

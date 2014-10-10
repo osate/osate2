@@ -19,6 +19,9 @@
  */
 package org.osate.ba.aadlba;
 
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ProcessorClassifier;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +33,7 @@ package org.osate.ba.aadlba;
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.TimedAction#getLowerTime <em>Lower Time</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.TimedAction#getUpperTime <em>Upper Time</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,5 +94,44 @@ public interface TimedAction extends BasicAction
    * @generated
    */
   void setUpperTime(BehaviorTime value);
+
+  /**
+   * Returns the value of the '<em><b>Processor Classifier</b></em>' reference list.
+   * The list contents are of type {@link org.osate.aadl2.ProcessorClassifier}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Processor Classifier</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Processor Classifier</em>' reference list.
+   * @see #isSetProcessorClassifier()
+   * @see #unsetProcessorClassifier()
+   * @see org.osate.ba.aadlba.AadlBaPackage#getTimedAction_ProcessorClassifier()
+   * @model unsettable="true"
+   * @generated
+   */
+  EList<ProcessorClassifier> getProcessorClassifier();
+
+  /**
+   * Unsets the value of the '{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSetProcessorClassifier()
+   * @see #getProcessorClassifier()
+   * @generated
+   */
+  void unsetProcessorClassifier();
+
+  /**
+   * Returns whether the value of the '{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}' reference list is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Processor Classifier</em>' reference list is set.
+   * @see #unsetProcessorClassifier()
+   * @see #getProcessorClassifier()
+   * @generated
+   */
+  boolean isSetProcessorClassifier();
 
 } // TimedAction

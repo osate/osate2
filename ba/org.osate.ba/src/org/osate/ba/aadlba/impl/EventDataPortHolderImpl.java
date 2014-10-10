@@ -63,7 +63,7 @@ public class EventDataPortHolderImpl extends ActualPortHolderImpl implements Eve
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEventDataPort(EventDataPort eventDataPort)
+  public void setEventDataPort(final EventDataPort eventDataPort )
   {
     element = eventDataPort ;
   }

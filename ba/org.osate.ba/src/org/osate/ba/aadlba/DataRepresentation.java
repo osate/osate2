@@ -144,7 +144,15 @@ public enum DataRepresentation implements Enumerator
    * @generated
    * @ordered
    */
-  UNION(10, "Union", "union");
+  UNION(10, "Union", "union"), /**
+   * The '<em><b>ENUM LITERAL</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #ENUM_LITERAL_VALUE
+   * @generated
+   * @ordered
+   */
+  ENUM_LITERAL(11, "ENUM_LITERAL", "enumeration literal");
 
   /**
    * The '<em><b>Unknown</b></em>' literal value.
@@ -312,6 +320,21 @@ public enum DataRepresentation implements Enumerator
   public static final int UNION_VALUE = 10;
 
   /**
+   * The '<em><b>ENUM LITERAL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>ENUM LITERAL</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #ENUM_LITERAL
+   * @model literal="enumeration literal"
+   * @generated
+   * @ordered
+   */
+  public static final int ENUM_LITERAL_VALUE = 11;
+
+  /**
    * An array of all the '<em><b>Data Representation</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -331,6 +354,7 @@ public enum DataRepresentation implements Enumerator
       STRING,
       STRUCT,
       UNION,
+      ENUM_LITERAL,
     };
 
   /**
@@ -400,6 +424,7 @@ public enum DataRepresentation implements Enumerator
       case STRING_VALUE: return STRING;
       case STRUCT_VALUE: return STRUCT;
       case UNION_VALUE: return UNION;
+      case ENUM_LITERAL_VALUE: return ENUM_LITERAL;
     }
     return null;
   }

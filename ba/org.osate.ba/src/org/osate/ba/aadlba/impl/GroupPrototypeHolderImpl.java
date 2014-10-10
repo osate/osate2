@@ -32,7 +32,6 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.GroupPrototypeHolder ;
-import org.osate.ba.aadlba.PrototypeHolder ;
 
 /**
  * <!-- begin-user-doc -->
@@ -128,7 +127,7 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPrototype(Prototype prototype)
+  public void setPrototype(final Prototype prototype )
   {
     element = prototype ;
   }
@@ -208,44 +207,6 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
         return prototypeBinding != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.GROUP_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
   }
 
 } //GroupPrototypeHolderImpl

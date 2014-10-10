@@ -63,7 +63,7 @@ public class DataPortHolderImpl extends ActualPortHolderImpl implements DataPort
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDataPort(DataPort dataPort)
+  public void setDataPort(final DataPort dataPort )
   {
     element = dataPort ;
   }
