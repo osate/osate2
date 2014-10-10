@@ -237,7 +237,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (parentci instanceof SystemInstance) {
 			monitor.subTask("Creating connections in  " + ci.getName());
-			// do externally incoming connections starting with system instance
 		}
 
 		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
@@ -303,22 +302,29 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	/**
 	 * Create all connection instances that with an incoming port of the SystemInstance.
 	 *
-	 * @param ci The component that is the ultimate source;
+	 * @param si The component that is the ultimate source;
 	 */
-	private void instantiateExternalConnections(final SystemInstance ci) {
-		List<Connection> sysConns = InstanceUtil.getComponentImplementation(ci, 0, classifierCache).getAllConnections();
+	private void instantiateExternalConnections(final SystemInstance si) {
+		List<Connection> sysConns = InstanceUtil.getComponentImplementation(si, 0, classifierCache).getAllConnections();
 
-		for (FeatureInstance featurei : ci.getFeatureInstances()) {
-			if (featurei.getDirection().incoming()) {
-				if (featurei.getIndex() == 1) {
-					List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
-					for (Connection conn : inConns) {
-						boolean opposite = isOpposite(featurei.getFeature(), conn);
+		for (FeatureInstance featurei : si.getFeatureInstances()) {
+			processIncomingFeature(featurei, si, sysConns);
+			for (FeatureInstance contained : featurei.getFeatureInstances()) {
+				processIncomingFeature(contained, si, sysConns);
+			}
+		}
+	}
 
-						appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, ci, opposite);
-						if (monitor.isCanceled()) {
-							return;
-						}
+	private void processIncomingFeature(FeatureInstance featurei, SystemInstance si, List<Connection> sysConns) {
+		if (featurei.getDirection().incoming()) {
+			if (featurei.getIndex() <= 1) {
+				List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
+				for (Connection conn : inConns) {
+					boolean opposite = isOpposite(featurei.getFeature(), conn);
+
+					appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, si, opposite);
+					if (monitor.isCanceled()) {
+						return;
 					}
 				}
 			}
