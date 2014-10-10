@@ -356,6 +356,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		unindentTwiceAfter(c, g.getFlowImplementationRule());
 		unindentTwiceAfter(c, g.getEndToEndFlowRule());
 
+		unindentTwiceAfter(c, g.getAbstractSubcomponentRule());
 		unindentTwiceAfter(c, g.getBusSubcomponentRule());
 		unindentTwiceAfter(c, g.getDataSubcomponentRule());
 		unindentTwiceAfter(c, g.getDeviceSubcomponentRule());
