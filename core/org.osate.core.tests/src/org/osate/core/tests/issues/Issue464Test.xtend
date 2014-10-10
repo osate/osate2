@@ -20,7 +20,7 @@ class Issue464Test extends OsateTest {
 	}
 
 	@Test
-	def void flows_pullprotocols() {
+	def void issue464() {
 		val aadlFile = "issue464.aadl"
 		createFiles(aadlFile -> aadlText)
 		suppressSerialization
@@ -31,17 +31,17 @@ class Issue464Test extends OsateTest {
 		assertTrue('System implementation "SensorProssessing.impl2" not found', cls.exists[name == 'SensorProcessing.impl2'])
 
 		// instantiate
-		val sysImpl = cls.filter[name == 'SensorProcessing.impl2'].head as SystemImplementation
+		val sysImpl = cls.findFirst[name == 'SensorProcessing.impl2'] as SystemImplementation
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 		assertEquals('SensorProcessing_impl2_Instance', instance.name)
 
 		// check if e2e flows are instantiated exactly once
-		val p1 = instance.componentInstances.filter[name == 'datasetProcessing'].head
+		val p1 = instance.componentInstances.findFirst[name == 'datasetProcessing']
 		val e2e1 =	 p1.endToEndFlows
 		assertTrue('In datasetProcessing: Expected one e2e flow but found ' + e2e1.size, e2e1.size == 1)
 		assertTrue('In datasetProcessing: Expected flow processingFlow but found ' + e2e1.head.name, e2e1.head.name == 'processingflow')
 
-		val p2 = instance.componentInstances.filter[name == 'datasetProcessing2'].head
+		val p2 = instance.componentInstances.findFirst[name == 'datasetProcessing2']
 		val e2e2 =	 p2.endToEndFlows
 		assertTrue('In datasetProcessing2: Expected one e2e flow but found ' + e2e2.size, e2e2.size == 1)
 		assertTrue('In datasetProcessing2: Expected flow processingFlow but found ' + e2e2.head.name, e2e2.head.name == 'processingflow')

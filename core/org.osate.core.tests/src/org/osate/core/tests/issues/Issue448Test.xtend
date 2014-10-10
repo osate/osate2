@@ -31,7 +31,7 @@ class Issue448Test extends OsateTest {
 		assertTrue('System implementation "test_sys.impl2" not found', cls.exists[name == 'test_sys.impl2'])
 
 		// instantiate
-		val sysImpl = cls.filter[name == 'test_sys.impl2'].head as SystemImplementation
+		val sysImpl = cls.findFirst[name == 'test_sys.impl2'] as SystemImplementation
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 		assertEquals('test_sys_impl2_Instance', instance.name)
 
