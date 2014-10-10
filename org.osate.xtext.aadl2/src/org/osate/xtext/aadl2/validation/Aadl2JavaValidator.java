@@ -5654,9 +5654,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} catch (PropertyNotPresentException e) {
 			classifierMatchingRuleValue = null;
 		}
-		// sibling connection
-		if (connection.getAllSourceContext() instanceof Subcomponent
-				&& connection.getAllDestinationContext() instanceof Subcomponent) {
+		Context srcContext = connection.getAllSourceContext();
+		Context dstContext = connection.getAllDestinationContext();
+		// connection across or through a component
+		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent
+				|| (srcContext == null || srcContext instanceof FeatureGroup)
+				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
 			if (classifierMatchingRuleValue == null
 					|| ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())
 					|| ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())
@@ -5675,16 +5678,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							+ "' is not supported for feature group connections. Using rule '"
 							+ ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				}
-				if (!testIfFeatureGroupTypesAreInverses(source, sourceType, destination, destinationType)) {
-					if (testIfFeatureGroupTypeExtensionsAreInverses(source, sourceType, destination, destinationType)) {
-						warning(connection,
-								"The feature group type of '" + source.getName() + "' and '" + destination.getName()
-										+ "' do not match, but their ancestors are inverse types.");
-					} else {
-						error(connection,
-								"The feature group types of '" + source.getName() + "' and '" + destination.getName()
-										+ "' are not inverse types.");
-					}
+				if (!testIfFeatureGroupsAreInverses(source, srcContext, destination, dstContext)) {
+					error(connection, "The feature groups '" + source.getName() + "' and '" + destination.getName()
+							+ "' are not inverses of each other.");
 				}
 			}
 //	XXX TODO should have the EQUIVALENCE test for across with inverse
@@ -5696,7 +5692,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //				}
 //			}
 			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-				if (!testIfFeatureGroupTypesAreInverses(source, sourceType, destination, destinationType)
+				if (!testIfFeatureGroupsAreInverses(source, srcContext, destination, dstContext)
 						&& !checkIfFeatureGroupTypesAreSiblingSubsets(sourceType, source.isInverse(), destinationType,
 								destination.isInverse())) {
 					error(connection,
@@ -5838,20 +5834,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	private boolean testIfFeatureGroupTypesAreInverses(FeatureGroup source, FeatureGroupType sourceType,
-			FeatureGroup destination, FeatureGroupType destinationType) {
-		if (sourceType.isInverseOf(destinationType)) {
-			if (source.isInverse() || destination.isInverse()) {
-				return false;
-			}
-		} else if (sourceType == destinationType) {
-			if (source.isInverse() == destination.isInverse()) {
-				return false;
-			}
-		} else {
-			return false;
+	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, Context sourceContext,
+			FeatureGroup destination, Context destinationContext) {
+		return isInverse(source, sourceContext) ^ isInverse(destination, destinationContext);
+	}
+
+	private boolean isInverse(FeatureGroup fg, Context context) {
+		boolean result = fg.isInverse();
+
+		result ^= fg.getAllFeatureGroupType().getInverse() != null;
+
+		if (context instanceof FeatureGroup) {
+			FeatureGroup parent = (FeatureGroup) context;
+			result ^= parent.isInverse();
+			FeatureGroupType parentType = parent.getAllFeatureGroupType();
+			result ^= parentType.getInverse() != null;
 		}
-		return true;
+		return result;
 	}
 
 	private boolean testIfFeatureGroupTypeExtensionsAreInverses(FeatureGroup source, FeatureGroupType sourceType,
