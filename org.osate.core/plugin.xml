@@ -41,4 +41,10 @@
             extension="aadl">
       </fileTypes>
    </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.osate.core.Startup">
+      </startup>
+   </extension>
  </plugin>
