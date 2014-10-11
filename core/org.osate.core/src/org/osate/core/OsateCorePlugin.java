@@ -51,7 +51,6 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.ui.IDecoratorManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
@@ -113,9 +112,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-
-		IDecoratorManager mgr = getDefault().getWorkbench().getDecoratorManager();
-		mgr.setEnabled("org.eclipse.xtext.builder.nature.overlay", false);
 	}
 
 	/**
