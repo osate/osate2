@@ -74,10 +74,30 @@ import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.core.OsateCorePlugin;
 
+import org.osate.aadl2.modelsupport.errorreporting.MarkerParseErrorReporter.Factory ;
+
 import antlr.RecognitionException;
 
 public class AnnexParserAgent extends LazyLinker {
+  
+  private final ParseErrorReporterFactory parseErrorLoggerFactory = 
+      new LogParseErrorReporter.Factory(OsateCorePlugin.getDefault().
+                                                        getBundle());
+  private Factory factory = new MarkerParseErrorReporter.Factory(
+                     "org.osate.aadl2.modelsupport.ParseErrorMarker",
+                                           parseErrorLoggerFactory) ;
 
+  // Instantiating parseErrManager when afterModelLinked is recursively called
+  // (see l244) deletes the error markers (see ParseErrorReporterManager at l120) 
+  // of the annexes not built with xtext(for example BA).
+  // That why parseErrManager is an class attribut.
+  private final ParseErrorReporterManager parseErrManager = new 
+                                  ParseErrorReporterManager(factory);
+
+  // Control flag for cleaning the error markers from the previous stack of recursive
+  // calls of afterModelLinked.  
+  private boolean hasToClean = true ;
+  
 	/*
 	 * (non-Javadoc)
 	 *
@@ -89,12 +109,16 @@ public class AnnexParserAgent extends LazyLinker {
 		String filename = model.eResource().getURI().lastSegment();
 		// set up reporter for ParseErrors
 		IResource file = OsateResourceUtil.convertToIResource(model.eResource());
-		final ParseErrorReporterFactory parseErrorLoggerFactory = new LogParseErrorReporter.Factory(OsateCorePlugin
-				.getDefault().getBundle());
-
-		final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(
-				new MarkerParseErrorReporter.Factory("org.osate.aadl2.modelsupport.ParseErrorMarker",
-						parseErrorLoggerFactory));
+		
+		boolean hasToRestoreCleanFlag = false ;
+    
+    if(hasToClean) // Don't clean the error markers after the first recursive call of this method.
+    {
+      parseErrManager.clean();
+      hasToRestoreCleanFlag = true ;
+      hasToClean = false ;
+    }
+		
 		final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
 		if (errReporter instanceof MarkerParseErrorReporter) {
 			((MarkerParseErrorReporter) errReporter).setContextResource(model.eResource());
@@ -228,6 +252,14 @@ public class AnnexParserAgent extends LazyLinker {
 				}
 			}
 		}
+		
+		// The first recursive call of this method reset the flag for others
+    // stacks of recursive calls of this method.
+    if(hasToRestoreCleanFlag)
+    {
+      hasToClean = true ;
+      hasToRestoreCleanFlag = false ;
+    }
 	}
 
 	// Compute the number of line between the token "annex" and the token "{**".
