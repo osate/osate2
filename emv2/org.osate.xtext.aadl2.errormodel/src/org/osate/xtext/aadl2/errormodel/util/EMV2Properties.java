@@ -476,14 +476,10 @@ public class EMV2Properties {
 				// we are past the component portion of the path
 				NamedElement typeelement = null;
 				NamedElement lastel = null;
-				if (ts != null) {
-					if (cpes.size() < 2)
-						continue;
+				if (cpes.size() > 1) {
 					typeelement = cpes.get(cpes.size() - 1).getNamedElement();
 					lastel = cpes.get(cpes.size() - 2).getNamedElement();
-				} else {
-					if (cpes.size() < 1)
-						continue;
+				} else if (cpes.size() > 0) {
 					lastel = cpes.get(cpes.size() - 1).getNamedElement();
 				}
 				if (typeelement != null) {
