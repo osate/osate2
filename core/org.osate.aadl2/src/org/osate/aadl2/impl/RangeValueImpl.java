@@ -519,7 +519,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getMinimumValue()
 	 */
 	@Override
@@ -529,7 +529,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getMaximumValue()
 	 */
 	@Override
@@ -539,7 +539,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getDeltaValue()
 	 */
 	@Override

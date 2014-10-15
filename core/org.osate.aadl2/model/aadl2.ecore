@@ -1711,7 +1711,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access #//Bus">
+  <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1763,18 +1763,18 @@
     <eLiterals name="subprogram" value="2"/>
     <eLiterals name="subprogramGroup" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Bus" abstract="true" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponentType" abstract="true"
       eSuperTypes="#//Bus #//SubcomponentType #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//Data #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="Bus" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1797,13 +1797,13 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Connections.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentType" abstract="true"
+      eSuperTypes="#//Data #//SubcomponentType #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentType" abstract="true"
-      eSuperTypes="#//Data #//SubcomponentType #//FeatureClassifier">
+  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
     </eAnnotations>
@@ -1869,7 +1869,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//Subprogram">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//CalledSubprogram">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1881,18 +1881,18 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Subprogram" abstract="true" eSuperTypes="#//NamedElement #//CalledSubprogram">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentType" abstract="true"
       eSuperTypes="#//SubcomponentType #//Subprogram #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//SubprogramGroup #//CallContext">
+  <eClassifiers xsi:type="ecore:EClass" name="Subprogram" abstract="true" eSuperTypes="#//NamedElement #//CalledSubprogram">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//CallContext">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1904,13 +1904,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
+      eSuperTypes="#//SubcomponentType #//SubprogramGroup #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//SubprogramGroup #//FeatureClassifier">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
     </eAnnotations>
