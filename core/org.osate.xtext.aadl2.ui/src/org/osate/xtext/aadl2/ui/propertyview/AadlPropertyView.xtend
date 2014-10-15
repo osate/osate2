@@ -61,6 +61,7 @@ import org.eclipse.xtext.linking.ILinker
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.aadl2.ListValue
+import org.eclipse.jface.action.IAction
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -506,9 +507,8 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def private createActions() {
-		showUndefinedAction = new Action {
+		showUndefinedAction = new Action(null, IAction.AS_CHECK_BOX) {
 			override run() {
-				showUndefinedAction.checked = !showUndefinedAction.checked
 				showUndefinedAction.toolTipText = if (showUndefinedAction.checked) {
 					HIDE_UNDEFINED_TOOL_TIP
 				} else {
