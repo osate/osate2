@@ -1,51 +1,66 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
-import com.google.inject.Inject
 import java.util.List
-import org.eclipse.core.runtime.IAdaptable
-import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain
-import org.eclipse.emf.edit.domain.EditingDomain
-import org.eclipse.jface.action.Action
 import org.eclipse.jface.layout.TreeColumnLayout
-import org.eclipse.jface.text.ITextSelection
 import org.eclipse.jface.viewers.ColumnPixelData
 import org.eclipse.jface.viewers.ColumnWeightData
 import org.eclipse.jface.viewers.IPostSelectionProvider
-import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
-import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
-import org.eclipse.jface.window.Window
-import org.eclipse.jface.wizard.WizardDialog
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
 import org.eclipse.ui.ISelectionListener
-import org.eclipse.ui.IWorkbenchPage
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
-import org.eclipse.xtext.linking.ILinker
-import org.eclipse.xtext.resource.EObjectAtOffsetHelper
-import org.eclipse.xtext.scoping.IScopeProvider
-import org.eclipse.xtext.serializer.ISerializer
 import org.eclipse.xtext.ui.editor.XtextEditor
-import org.eclipse.xtext.ui.editor.model.IXtextDocument
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener
-import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PropertySet
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
+import org.eclipse.jface.viewers.ISelection
+import org.eclipse.jface.text.ITextSelection
+import org.eclipse.xtext.resource.EObjectAtOffsetHelper
+import org.eclipse.jface.viewers.IStructuredSelection
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
+import org.eclipse.core.runtime.IAdaptable
+import org.eclipse.core.runtime.jobs.Job
+import org.eclipse.core.runtime.IProgressMonitor
+import org.osate.aadl2.Aadl2Package
+import com.google.inject.Inject
+import org.eclipse.xtext.scoping.IScopeProvider
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.PropertyAssociation
+import org.osate.aadl2.Property
+import java.util.Map
+import org.eclipse.core.runtime.Status
+import java.util.Collections
+import java.util.HashMap
+import org.eclipse.jface.viewers.ILazyTreePathContentProvider
+import org.eclipse.jface.viewers.Viewer
+import org.eclipse.jface.viewers.TreePath
+import org.eclipse.jface.viewers.ColumnLabelProvider
+import org.eclipse.swt.graphics.Image
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
+import org.eclipse.xtext.serializer.ISerializer
+import org.osate.aadl2.ModalPropertyValue
+import org.osate.aadl2.ComponentClassifier
+import java.util.ArrayList
+import org.eclipse.jface.action.Action
+import org.eclipse.emf.edit.domain.EditingDomain
+import org.eclipse.xtext.ui.editor.model.IXtextDocument
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain
+import org.eclipse.jface.wizard.WizardDialog
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.PropertyAssociationWizard
+import org.eclipse.jface.window.Window
+import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
+import org.eclipse.xtext.linking.ILinker
+import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.instance.InstanceReferenceValue
+import org.osate.aadl2.ListValue
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -54,13 +69,22 @@ import org.osate.xtext.aadl2.ui.propertyview.associationwizard.PropertyAssociati
  * @author aarong
  */
 class AadlPropertyView extends ViewPart {
-	val static SHOW_UNDEFINED_TRUE_TOOL_TIP = "Click to hide undefined properties"
-	val static SHOW_UNDEFINED_FALSE_TOOL_TIP = "Click to show undefined properties"
+	val static HIDE_UNDEFINED_TOOL_TIP = "Click to hide undefined properties"
+	val static SHOW_UNDEFINED_TOOL_TIP = "Click to show undefined properties"
 
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
-	val static UNABLE_TO_GET_MODEL = "Unable to lookup properties based upon current selection."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
-
+	
+	val static MODE_ICON = "icons/propertyview/mode.gif"
+	val static SCALAR_ICON = "icons/propertyview/scalar.gif"
+	val static LIST_ICON = "icons/propertyview/list.gif"
+	val static PROPERTY_SET_ICON = "icons/propertyview/property_set.gif"
+	
+	val static STATUS_UNDEFINED = "undefined"
+	val static STATUS_LOCAL = "local"
+	val static STATUS_INHERITED = "inherited"
+	val static STATUS_DEFAULT = "default"
+	
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
 	 * message.
@@ -80,8 +104,6 @@ class AadlPropertyView extends ViewPart {
 	 */
 	var Label noPropertiesLabel = null
 	
-	var Label unableToGetModelLabel = null
-	
 	var Label populatingViewLabel = null
 
 	/**
@@ -96,20 +118,7 @@ class AadlPropertyView extends ViewPart {
 	var Action addNewPropertyAssociationToolbarAction = null
 
 	/**
-	 * Model
-	 */
-	var PropertyViewModel model = null
-
-	/**
-	 * The currently viewed model element
-	 */
-	/*
-	 * This variable is used to carry the current selection across reloads
-	 */
-	var URI currentSelectionUri = null
-
-	/**
-	 * The editing domain for {@link #getCurrentElement()}.
+	 * The editing domain for the viewer's input
 	 */
 	var EditingDomain editingDomain = null
 
@@ -127,8 +136,12 @@ class AadlPropertyView extends ViewPart {
 	@Inject
 	var IScopeProvider scopeProvider
 	
-	var IWorkbenchPage pageForSelectionAndPartListeners = null
-
+	var NamedElement previousSelection = null
+	
+	var CachePropertyLookupJob cachePropertyLookupJob = null
+	
+	val Map<PropertySet, HashMap<Property, PropertyAssociation>> cachedPropertyAssociations = Collections.synchronizedMap(newHashMap)
+	
 	val ISelectionListener selectionListener = [part, selection |
 		/*
 		 * Change the view when the selection changes.
@@ -149,31 +162,277 @@ class AadlPropertyView extends ViewPart {
 			}
 		}
 
-		override public void partClosed(IWorkbenchPart part) {
+		override partClosed(IWorkbenchPart part) {
 		}
 
-		override public void partBroughtToTop(IWorkbenchPart part) {
+		override partBroughtToTop(IWorkbenchPart part) {
 		}
 
-		override public void partActivated(IWorkbenchPart part) {
+		override partActivated(IWorkbenchPart part) {
 			if (part instanceof XtextEditor) {
 				val selectionProvider = part.internalSourceViewer.selectionProvider
 				if (selectionProvider instanceof IPostSelectionProvider) {
 					selectionProvider.addPostSelectionChangedListener(selectionChangedListener)
-					activeEditor = part
 				}
 			}
 		}
 	}
 
-	val ISelectionChangedListener selectionChangedListener = [updateSelection(activeEditor, selection)]
+	val ISelectionChangedListener selectionChangedListener = [updateSelection(site.workbenchWindow.activePage.activeEditor as XtextEditor, selection)]
 
-	val IXtextModelListener xtextModelListener = [resourceSetFromModelListener = resourceSet]
-
-	var ResourceSet resourceSetFromModelListener = null
+	val propertyColumnLabelProvider = new ColumnLabelProvider {
+		/** Cached Icon for property set nodes */
+		var Image propSetImage = null
+		/** Cached Icon for list property value nodes */
+		var Image listImage = null
+		/** Cached Icon for scalar property value nodes */
+		var Image scalarImage = null
+		/** Cached Icon for modes */
+		var Image modeImage = null
+		
+		override getText(Object element) {
+			switch element {
+				PropertySet: {
+					element.name
+				}
+				Property: {
+					element.name
+				}
+				ModalPropertyValue: {
+					val modes = if (element.allInModes.empty) {
+						//This ModalPropertyValue exists in all modes that are not listed for other ModalPropertyValues
+						val selectedClassifierModes = new ArrayList(((treeViewer.input as NamedElementHolder).namedElement as ComponentClassifier).allModes)
+						selectedClassifierModes.removeAll((element.owner as PropertyAssociation).ownedValues.map[allInModes].flatten)
+						selectedClassifierModes
+					} else {
+						element.allInModes
+					}
+					'''in modes («modes.map[name].join(", ")»)'''
+				}
+			}
+		}
+		
+		override getForeground(Object element) {
+			switch element {
+				Property case cachedPropertyAssociations.get(element.owner).get(element) == null && element.defaultValue == null: {
+					site.shell.display.getSystemColor(SWT.COLOR_RED)
+				}
+			}
+		}
+		
+		override getImage(Object element) {
+			switch element {
+				PropertySet: {
+					propSetImage ?: (propSetImage = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON).createImage)
+				}
+				Property case element.list: {
+					listImage ?: (listImage = MyAadl2Activator.getImageDescriptor(LIST_ICON).createImage)
+				}
+				Property case !element.list: {
+					scalarImage ?: (scalarImage = MyAadl2Activator.getImageDescriptor(SCALAR_ICON).createImage)
+				}
+				ModalPropertyValue: {
+					modeImage ?: (modeImage = MyAadl2Activator.getImageDescriptor(MODE_ICON).createImage)
+				}
+			}
+		}
+		
+		override dispose() {
+			propSetImage?.dispose
+			propSetImage = null
+			listImage?.dispose
+			listImage = null
+			scalarImage?.dispose
+			scalarImage = null
+			modeImage?.dispose
+			modeImage = null
+			super.dispose
+		}
+	}
 	
-	var XtextEditor activeEditor = null
-
+	val valueColumnLabelProvider = new ColumnLabelProvider {
+		override getText(Object element) {
+			switch element {
+				Property: {
+					val association = cachedPropertyAssociations.get(element.owner).get(element)
+					if (association != null) {
+						if (!association.modal) {
+							association.ownedValues.head.ownedValue.getValueAsString(serializer)
+						}
+					} else if (element.defaultValue != null) {
+						val resolvedProperty = if (element.eIsProxy) {
+							EcoreUtil.resolve(element, (treeViewer.input as NamedElementHolder).namedElement) as Property
+						} else {
+							element
+						}
+						resolvedProperty.defaultValue.getValueAsString(serializer)
+					}
+				}
+				ModalPropertyValue: {
+					element.ownedValue.getValueAsString(serializer)
+				}
+			}
+		}
+	}
+	
+	val statusColumnLabelProvider = new ColumnLabelProvider {
+		override getText(Object element) {
+			switch element {
+				Property: {
+					val association = cachedPropertyAssociations.get(element.owner).get(element)
+					if (association != null) {
+						if ((treeViewer.input as NamedElementHolder).namedElement == association.owner) {
+							STATUS_LOCAL
+						} else {
+							STATUS_INHERITED
+						}
+					} else {
+						if (element.defaultValue != null) {
+							STATUS_DEFAULT
+						} else {
+							STATUS_UNDEFINED
+						}
+					}
+				}
+			}
+		}
+		
+		override getForeground(Object element) {
+			switch element {
+				Property case cachedPropertyAssociations.get(element.owner).get(element) == null && element.defaultValue == null: {
+					site.shell.display.getSystemColor(SWT.COLOR_RED)
+				}
+			}
+		}
+	}
+	
+	val propertyViewContentProvider = new ILazyTreePathContentProvider {
+		override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+		
+		override updateHasChildren(TreePath path) {
+			val hasChildren = switch lastSegment : path.lastSegment {
+				case null: {
+					if (showUndefinedAction.checked) {
+						!cachedPropertyAssociations.empty
+					} else {
+						!cachedPropertyAssociations.filter[propertySet, associationsForPropertySet | associationsForPropertySet.entrySet.exists[value != null || key.defaultValue != null]].empty
+					}
+				}
+				PropertySet: {
+					if (showUndefinedAction.checked) {
+						!cachedPropertyAssociations.get(lastSegment).empty
+					} else {
+						!cachedPropertyAssociations.get(lastSegment).filter[property, propertyAssociation | propertyAssociation != null || property.defaultValue != null].empty
+					}
+				}
+				Property: {
+					cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment).modal
+				}
+				ModalPropertyValue: {
+					false
+				}
+				default: {
+					println("updateHasChildren: " + path)
+					throw new UnsupportedOperationException("TODO: auto-generated method stub")
+				}
+			}
+			treeViewer.setHasChildren(path, hasChildren)
+		}
+		
+		override updateChildCount(TreePath treePath, int currentChildCount) {
+			val childCount = switch lastSegment : treePath.lastSegment {
+				case null: {
+					if (showUndefinedAction.checked) {
+						cachedPropertyAssociations.size
+					} else {
+						cachedPropertyAssociations.filter[propertySet, associationsForPropertySet | associationsForPropertySet.entrySet.exists[value != null || key.defaultValue != null]].size
+					}
+				}
+				PropertySet: {
+					if (showUndefinedAction.checked) {
+						cachedPropertyAssociations.get(lastSegment).size
+					} else {
+						cachedPropertyAssociations.get(lastSegment).filter[property, propertyAssociation | propertyAssociation != null || property.defaultValue != null].size
+					}
+				}
+				Property: {
+					val association = cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment)
+					if (association != null && association.modal) {
+						association.ownedValues.size
+					} else {
+						0
+					}
+				}
+				ModalPropertyValue: {
+					0
+				}
+				default: {
+					println("updateChildCount: " + treePath + " currentCount: " + currentChildCount + " treePathSegmentCount: " + treePath.segmentCount + " lastSegment: " + lastSegment)
+					throw new UnsupportedOperationException("TODO: auto-generated method stub")
+				}
+			}
+			if (currentChildCount != childCount) {
+				treeViewer.setChildCount(treePath, childCount)
+			}
+		}
+		
+		override updateElement(TreePath parentPath, int index) {
+			val childElement = switch lastSegment : parentPath.lastSegment {
+				case null: {
+					val filteredAssociations = if (showUndefinedAction.checked) {
+						cachedPropertyAssociations
+					} else {
+						cachedPropertyAssociations.filter[propertySet, associationsForPropertySet | associationsForPropertySet.entrySet.exists[value != null || key.defaultValue != null]]
+					}
+					filteredAssociations.keySet.sortBy[name.toUpperCase].get(index)
+				}
+				PropertySet: {
+					val filteredAssociations = if (showUndefinedAction.checked) {
+						cachedPropertyAssociations.get(lastSegment)
+					} else {
+						cachedPropertyAssociations.get(lastSegment).filter[property, propertyAssociation | propertyAssociation != null || property.defaultValue != null]
+					}
+					filteredAssociations.keySet.sortBy[name.toUpperCase].get(index)
+				}
+				Property: {
+					cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment).ownedValues.get(index)
+				}
+				default: {
+					println("updateElement: " + parentPath + " pathCount: " + parentPath.segmentCount + " index: " + index + " lastSegment: " + lastSegment)
+					throw new UnsupportedOperationException("TODO: auto-generated method stub")
+				}
+			}
+			treeViewer.replace(parentPath, index, childElement)
+			updateChildCount(parentPath.createChildPath(childElement), -1)
+		}
+		
+		override getParents(Object element) {
+			switch element {
+				PropertySet: {
+					#[TreePath.EMPTY]
+				}
+				Property: {
+					#[new TreePath(#[element.owner])]
+				}
+				ModalPropertyValue: {
+					val property = (element.owner as PropertyAssociation).property
+					#[new TreePath(#[property.owner as PropertySet, property])]
+				}
+				default: {
+					println("getParents: " + element)
+					throw new UnsupportedOperationException("TODO: auto-generated method stub")
+				}
+			}
+		}
+		
+		override dispose() {
+		}
+	}
+	
+	new() {
+		cachePropertyLookupJob = createCachePropertyLookupJob
+	}
 	
 	override createPartControl(Composite parent) {
 		pageBook = new PageBook(parent, SWT.NULL)
@@ -184,64 +443,47 @@ class AadlPropertyView extends ViewPart {
 			background = parent.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND)
 		]
 		
-		unableToGetModelLabel = new Label(pageBook, SWT.LEFT) => [
-			text = UNABLE_TO_GET_MODEL
-			alignment = SWT.CENTER
-			background = parent.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND)
-		]
-		
 		populatingViewLabel = new Label(pageBook, SWT.LEFT) => [
 			text = POPULATING_VIEW
 			alignment = SWT.CENTER
 			background = parent.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND)
 		]
-
-		model = new PropertyViewModel(serializer, scopeProvider) => [
-			showUndefined = false
-		]
 		
 		treeViewerComposite = new Composite(pageBook, SWT.NULL) => [
 			val treeColumnLayout = new TreeColumnLayout
 			layout = treeColumnLayout
-			treeViewer = new TreeViewer(it, SWT.H_SCROLL.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [
+			treeViewer = new TreeViewer(it, SWT.VIRTUAL.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [
 				new TreeViewerColumn(it, SWT.LEFT) => [
 					column.text = "Property"
-					column.moveable = true
-					labelProvider = PropertyViewModel.getPropertyColumnLabelProvider
 					treeColumnLayout.setColumnData(column, new ColumnWeightData(1, true))
+					labelProvider = propertyColumnLabelProvider
 				]
 				new TreeViewerColumn(it, SWT.LEFT) => [
 					column.text = "Value"
-					column.moveable = true
-					labelProvider = PropertyViewModel.getValueColumnLabelProvider
 					treeColumnLayout.setColumnData(column, new ColumnWeightData(2, true))
-//					tvColumn.editingSupport = PropertyViewModel.getValueEditingSupport(treeViewer)
+					labelProvider = valueColumnLabelProvider
 				]
 				new TreeViewerColumn(it, SWT.LEFT) => [
 					column.text = "Status"
-					column.moveable = true
-					labelProvider = PropertyViewModel.getStatusColumnLabelProvider
 					val gc = new GC(column.parent)
-					treeColumnLayout.setColumnData(column, new ColumnPixelData(#[
-						PropertyViewModel.STATUS_LOCAL, PropertyViewModel.STATUS_INHERITED, PropertyViewModel.STATUS_DEFAULT, PropertyViewModel.UNDEFINED
-					].map[gc.stringExtent(it).x].max + 5, true, true))
+					treeColumnLayout.setColumnData(column, new ColumnPixelData(#[STATUS_LOCAL, STATUS_INHERITED, STATUS_DEFAULT, STATUS_UNDEFINED].map[gc.stringExtent(it).x].max + 5, true, true))
 					gc.dispose
+					labelProvider = statusColumnLabelProvider
 				]
 				tree.linesVisible = true
 				tree.headerVisible = true
-				contentProvider = PropertyViewModel.getContentProvider(model)
+				useHashlookup = true
+				contentProvider = propertyViewContentProvider
 			]
 		]
 		
 		// Show the "nothing to show" page by default
 		pageBook.showPage(noPropertiesLabel)
-		pageForSelectionAndPartListeners = site.page
-		pageForSelectionAndPartListeners.addSelectionListener(selectionListener)
-		pageForSelectionAndPartListeners.addPartListener(partListener)
-		val editor = pageForSelectionAndPartListeners.activeEditor
+		site.page.addSelectionListener(selectionListener)
+		site.page.addPartListener(partListener)
+		val editor = site.page.activeEditor
 		if (editor instanceof XtextEditor) {
-			activeEditor = editor
-			val editorSelectionProvider = activeEditor.internalSourceViewer.selectionProvider
+			val editorSelectionProvider = editor.internalSourceViewer.selectionProvider
 			if (editorSelectionProvider instanceof IPostSelectionProvider) {
 				editorSelectionProvider.addPostSelectionChangedListener(selectionChangedListener)
 			}
@@ -250,95 +492,70 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	override dispose() {
-		pageForSelectionAndPartListeners.removeSelectionListener(selectionListener)
-		pageForSelectionAndPartListeners.removePartListener(partListener)
-		val editorSelectionProvider = activeEditor?.internalSourceViewer?.selectionProvider
-		if (editorSelectionProvider instanceof IPostSelectionProvider) {
-			editorSelectionProvider.removePostSelectionChangedListener(selectionChangedListener);
+		cachePropertyLookupJob.cancel
+		site.page.removeSelectionListener(selectionListener)
+		site.page.removePartListener(partListener)
+		val editor = site.page.activeEditor
+		if (editor instanceof XtextEditor) {
+			val editorSelectionProvider = editor.internalSourceViewer.selectionProvider
+			if (editorSelectionProvider instanceof IPostSelectionProvider) {
+				editorSelectionProvider.removePostSelectionChangedListener(selectionChangedListener)
+			}
 		}
+		super.dispose
 	}
 
 	def private createActions() {
 		showUndefinedAction = new Action {
 			override run() {
-				model.toggleShowUndefined
-				updateActionStates
-				treeViewer.input = model.input
-				treeViewer.expandAll
+				showUndefinedAction.checked = !showUndefinedAction.checked
+				showUndefinedAction.toolTipText = if (showUndefinedAction.checked) {
+					HIDE_UNDEFINED_TOOL_TIP
+				} else {
+					SHOW_UNDEFINED_TOOL_TIP
+				}
+				treeViewer.refresh
 			}
 		} => [
 			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/nonexistent_property.gif")
 			viewSite.actionBars.toolBarManager.add(it)
+			toolTipText = SHOW_UNDEFINED_TOOL_TIP
 		]
 
 		addNewPropertyAssociationToolbarAction = new Action {
 			override run() {
 				if (new WizardDialog(viewSite.workbenchWindow.shell,
-					new PropertyAssociationWizard(xtextDocument, editingDomain?.commandStack, currentSelectionUri, serializer, aadl2Parser, linker)
+					new PropertyAssociationWizard(xtextDocument, editingDomain?.commandStack, (treeViewer.input as NamedElementHolder).namedElement, serializer, aadl2Parser, linker)
 				).open == Window.OK) {
-					updateView
+					if (cachePropertyLookupJob.state != Job.NONE) {
+						cachePropertyLookupJob.cancel
+						cachePropertyLookupJob = createCachePropertyLookupJob
+					}
+					cachePropertyLookupJob.element = (treeViewer.input as NamedElementHolder).namedElement
+					pageBook.showPage(populatingViewLabel)
+					addNewPropertyAssociationToolbarAction.enabled = false
+					cachePropertyLookupJob.schedule
 				}
 			}
 		} => [
 			toolTipText = "New Property Association"
 			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/new_pa.gif")
-			enabled = currentSelectionUri != null
+			enabled = false
 			viewSite.actionBars.toolBarManager.add(it)
 		]
-
-		updateActionStates
-	}
-
-	def private updateActionStates() {
-		val flag = model.showUndefined
-		showUndefinedAction.checked = flag
-		showUndefinedAction.toolTipText = if (flag) {
-			SHOW_UNDEFINED_TRUE_TOOL_TIP
-		} else {
-			SHOW_UNDEFINED_FALSE_TOOL_TIP
-		}
 	}
 
 	override setFocus() {
 		treeViewer.tree.setFocus
 	}
 
-	/**
-	 * Update the view's contents.
-	 */
-	def private updateView() {
-		if (currentSelectionUri != null) {
-			val currentElement = if (currentSelectionUri != null) {
-				(resourceSetFromModelListener ?: OsateResourceUtil.getResourceSet).getEObject(currentSelectionUri, true) as NamedElement
-			}
-			if (currentElement != null) {
-				pageBook.showPage(populatingViewLabel)
-				model.rebuildModel(currentElement, [|
-					if (!treeViewer.tree.disposed) {
-						treeViewer.input = model.input
-						treeViewer.expandAll
-						pageBook.showPage(treeViewerComposite)
-						addNewPropertyAssociationToolbarAction.enabled = true
-					}
-				])
-			} else {
-				pageBook.showPage(unableToGetModelLabel)
-			}
-		} else {
-			pageBook.showPage(noPropertiesLabel)
-			addNewPropertyAssociationToolbarAction.enabled = false
-		}
-	}
-
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
-		xtextDocument?.removeModelListener(xtextModelListener)
-		resourceSetFromModelListener = null
 		val currentSelection = switch selection {
-			case selection.isEmpty: {
+			case selection.empty: {
 				null
 			}
 			ITextSelection case part instanceof XtextEditor: {
-				xtextDocument = (part as XtextEditor).document
+				xtextDocument = (part as XtextEditor).document;
 				xtextDocument.readOnly[new EObjectAtOffsetHelper().resolveContainedElementAt(it, selection.offset)]
 			}
 			IStructuredSelection case selection.size == 1: {
@@ -361,16 +578,153 @@ class AadlPropertyView extends ViewPart {
 				}
 			}
 		}
-		if (currentSelection instanceof NamedElement && currentSelection.eResource != null) {
-			currentSelectionUri = EcoreUtil.getURI(currentSelection)
+		if (currentSelection instanceof NamedElement) {
 			editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection)
+			if (currentSelection == previousSelection) {
+				pageBook.showPage(treeViewerComposite)
+			} else {
+				previousSelection = currentSelection
+				if (cachePropertyLookupJob.state != Job.NONE) {
+					cachePropertyLookupJob.cancel
+					cachePropertyLookupJob = createCachePropertyLookupJob
+				}
+				cachePropertyLookupJob.element = currentSelection
+				pageBook.showPage(populatingViewLabel)
+				addNewPropertyAssociationToolbarAction.enabled = false
+				cachePropertyLookupJob.schedule(200)
+			}
 		} else {
-			currentSelectionUri = null
+			cachePropertyLookupJob.cancel
+			pageBook.showPage(noPropertiesLabel)
+			addNewPropertyAssociationToolbarAction.enabled = false
 			editingDomain = null
 		}
-		xtextDocument?.addModelListener(xtextModelListener)
-
-		// Update the view page
-		updateView
+	}
+	
+	def private createCachePropertyLookupJob() {
+		new CachePropertyLookupJob(this, [|
+			treeViewer.input = new NamedElementHolder(cachePropertyLookupJob.element)
+			pageBook.showPage(treeViewerComposite)
+			addNewPropertyAssociationToolbarAction.enabled = true
+		])
+	}
+	
+	def private static getValueAsString(PropertyExpression expression, ISerializer serializer) {
+		switch expression {
+			InstanceReferenceValue:
+				expression.referencedInstanceObject?.instanceObjectPath ?: "null"
+			ListValue case expression.hasInstanceReferenceValue:
+				expression.serializeListWithInstanceReferenceValue(serializer)
+			default: {
+				synchronized (serializer) {
+					serializer.serialize(expression)
+				}.replaceAll("\n", "").replaceAll("\t", "").trim
+				// TODO: Test this to see what cleanup is truly necessary.
+			}
+		}
+	}
+	
+	def private static boolean hasInstanceReferenceValue(ListValue topList) {
+		topList.ownedListElements.exists[it instanceof InstanceReferenceValue || (it instanceof ListValue && (it as ListValue).hasInstanceReferenceValue)]
+	}
+	
+	def private static String serializeListWithInstanceReferenceValue(ListValue topList, ISerializer serializer) {
+		topList.ownedListElements.join("(", ", ", ")", [
+			switch it {
+				InstanceReferenceValue:
+					referencedInstanceObject?.instanceObjectPath ?: "null"
+				ListValue:
+					serializeListWithInstanceReferenceValue(serializer)
+				default: {
+					synchronized (serializer) {
+						serializer.serialize(it)
+					}.replaceAll("\n", "").replaceAll("\t", "")
+				}
+			}
+		])
+	}
+	
+	private static class CachePropertyLookupJob extends Job {
+		val AadlPropertyView propertyView
+		val Runnable uiUpdate
+		
+		var volatile NamedElement element
+		
+		new(AadlPropertyView propertyView, Runnable uiUpdate) {
+			super("Updating Property View")
+			this.propertyView = propertyView
+			this.uiUpdate = uiUpdate
+			priority = SHORT
+		}
+		
+		override protected run(IProgressMonitor monitor) {
+			val extension scopeProvider = propertyView.scopeProvider
+			//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
+			val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
+				if (EObjectOrProxy.eIsProxy) {
+					EcoreUtil.resolve(EObjectOrProxy, element)
+				} else {
+					EObjectOrProxy
+				}
+			].filter[!eIsProxy].filter(PropertySet)
+			/* 
+			 * Build a map from PropertySets to a collection of their owned Properties.  Properties that do not apply to the selected element are filtered out.
+			 * PropertySets without any applicable properties are filtered out.
+			 */
+			val properties = propertySets.toInvertedMap[ownedProperties.filter[element.acceptsProperty(it)]].filter[propertySet, acceptableProperties | !acceptableProperties.empty]
+			/*
+			 * Build a map from PropertySets to a map from Properties to PropertyAssociations (Map<PropertySet, Map<Property, PropertyAssociation>>).  This is
+			 * where the property lookup actually happens.  Entries for the PropertyAssociation could be null which means that the Property is undefined,
+			 * taking the default value, or the model is incomplete.  In the case that the model is incomplete, we treat the property like it is undefined or
+			 * taking the default value.  This whole expression is wrapped in a construction of a new HashMap so that all of the lazy parts of the expression
+			 * will be evaluated before we check if the monitor is canceled.  
+			 */
+			val propertyAssociations = new HashMap(properties.mapValues[
+				/*
+				 * This whole expression is wrapped in a construction of a new HashMap so that all of the lazy parts of the expression will be evaluated before
+				 * we check if the monitor is canceled.
+				 */
+				new HashMap(toInvertedMap[element.getPropertyValue(it).first].mapValues[
+					//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
+					if (it != null && (ownedValues.empty || ownedValues.exists[ownedValue == null])) {
+						null
+					} else {
+						it
+					}
+				])
+			])
+			if (monitor.canceled) {
+				Status.CANCEL_STATUS
+			} else {
+				propertyView.cachedPropertyAssociations.clear
+				propertyView.cachedPropertyAssociations.putAll(propertyAssociations)
+				propertyView.site.shell.display.syncExec(uiUpdate)
+				Status.OK_STATUS
+			}
+		}
+	}
+	
+	/*
+	 * This class is here to make sure that the treeViewer's input is not a NamedElement.  This is necessary because a TreeViewer does not work if its input is
+	 * also one of the child elements of the tree.
+	 */
+	private static class NamedElementHolder {
+		val NamedElement namedElement
+		
+		new(NamedElement namedElement) {
+			this.namedElement = namedElement
+		}
+		
+		override hashCode() {
+			namedElement.hashCode
+		}
+		
+		override equals(Object obj) {
+			obj instanceof NamedElementHolder && namedElement == (obj as NamedElementHolder).namedElement
+		}
+		
+		override toString() {
+			namedElement.toString
+		}
 	}
 }

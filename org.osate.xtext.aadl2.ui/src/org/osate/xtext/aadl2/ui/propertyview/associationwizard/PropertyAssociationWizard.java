@@ -2,7 +2,6 @@ package org.osate.xtext.aadl2.ui.propertyview.associationwizard;
 
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
@@ -42,7 +41,7 @@ import org.osate.xtext.aadl2.ui.propertyview.associationwizard.commands.CreatePr
  *
  */
 public class PropertyAssociationWizard extends Wizard {
-	private final URI holderuri;
+	private final NamedElement holder;
 	private final boolean shouldDisplayModeChooserWizardPage;
 	private final IXtextDocument xtextDocument;
 	private CommandStack commandStack;
@@ -61,19 +60,19 @@ public class PropertyAssociationWizard extends Wizard {
 	 * <code>PropertyAssociation</code>.
 	 *
 	 * @param commandStack The command stack of the editor.
-	 * @param holderURI The <code>NamedElement</code> that will contain the new
+	 * @param holder The <code>NamedElement</code> that will contain the new
 	 * 				<code>PropertyAssociation</code>.
 	 */
-	public PropertyAssociationWizard(IXtextDocument xtextDocument, CommandStack commandStack, URI holderURI,
+	public PropertyAssociationWizard(IXtextDocument xtextDocument, CommandStack commandStack, NamedElement holder,
 			ISerializer serializer, Aadl2Parser aadl2Parser, ILinker linker) {
 		this.xtextDocument = xtextDocument;
 		this.commandStack = commandStack;
-		holderuri = holderURI;
+		this.holder = holder;
 		this.serializer = serializer;
 		this.aadl2Parser = aadl2Parser;
 		this.linker = linker;
 		setWindowTitle("New Property Association");
-		EList<? extends Mode> modes = ModeChooserWizardPage.getModesForHolder(getHolder());
+		EList<? extends Mode> modes = ModeChooserWizardPage.getModesForHolder(holder);
 		shouldDisplayModeChooserWizardPage = modes != null && modes.size() > 0;
 	}
 
@@ -86,7 +85,6 @@ public class PropertyAssociationWizard extends Wizard {
 
 		@Override
 		public void process(XtextResource state) throws Exception {
-			final NamedElement holder = (NamedElement) state.getResourceSet().getEObject(holderuri, true);
 			PropertyAssociation oldpa = AadlUtil.findOwnedPropertyAssociation(holder,
 					propertyDefinitionWizardPage.getSelectedDefinition());
 			if (oldpa != null) {
@@ -129,7 +127,6 @@ public class PropertyAssociationWizard extends Wizard {
 				xtextDocument.modify(new AddPropertyUnitOfWork(activePropertyValueWizardPage));
 			}
 		} else {
-			final NamedElement holder = getHolder();
 			// If the command stack is null, a new temporary editing domain will be created to edit the resource
 			TransactionalEditingDomain createdEditingDomain = null;
 			if (commandStack == null) {
@@ -167,30 +164,6 @@ public class PropertyAssociationWizard extends Wizard {
 		return true;
 	}
 
-	private NamedElement getHolder() {
-		NamedElement aobj = null;
-		if (holderuri != null) {
-			aobj = null;
-
-			// If an xtext document has been provided, try to get the holder from it first. If the xtext document has not been serialized, it will not be
-// available through the resource set
-			// provided by OsateResourceUtil.
-			if (xtextDocument != null) {
-				aobj = xtextDocument.readOnly(new IUnitOfWork<NamedElement, XtextResource>() {
-					@Override
-					public NamedElement exec(final XtextResource res) throws Exception {
-						return (NamedElement) res.getResourceSet().getEObject(holderuri, true);
-					}
-				});
-			}
-
-			if (aobj == null) {
-				aobj = (NamedElement) OsateResourceUtil.getResourceSet().getEObject(holderuri, true);
-			}
-		}
-		return aobj;
-	}
-
 	@Override
 	public boolean canFinish() {
 		if (propertyDefinitionWizardPage.isPageComplete()) {
@@ -202,7 +175,6 @@ public class PropertyAssociationWizard extends Wizard {
 
 	@Override
 	public void addPages() {
-		NamedElement holder = getHolder();
 		propertyDefinitionWizardPage = new PropertyDefinitionWizardPage(holder, serializer,
 				new PropertyDefinitionSelectionChangedListener() {
 					@Override
@@ -255,7 +227,6 @@ public class PropertyAssociationWizard extends Wizard {
 
 	// TODO: Consider nested lists.
 	private AbstractPropertyValueWizardPage getActivePropertyValueWizardPage() {
-		NamedElement holder = getHolder();
 //		if (holder instanceof InstanceObject && propertyDefinitionWizardPage.getSelectedDefinition().getPropertyType() instanceof ReferenceType) {
 //			if (propertyDefinitionWizardPage.getSelectedDefinition().isList())
 //				return listOfInstanceReferenceValueWizardPage;
