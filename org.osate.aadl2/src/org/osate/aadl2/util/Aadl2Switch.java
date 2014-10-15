@@ -1232,9 +1232,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseAccess(busAccess);
 			}
 			if (result == null) {
-				result = caseBus(busAccess);
-			}
-			if (result == null) {
 				result = caseFeature(busAccess);
 			}
 			if (result == null) {
@@ -1324,20 +1321,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.BUS: {
-			Bus bus = (Bus) theEObject;
-			T result = caseBus(bus);
-			if (result == null) {
-				result = caseNamedElement(bus);
-			}
-			if (result == null) {
-				result = caseElement(bus);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.BUS_SUBCOMPONENT_TYPE: {
 			BusSubcomponentType busSubcomponentType = (BusSubcomponentType) theEObject;
 			T result = caseBusSubcomponentType(busSubcomponentType);
@@ -1364,14 +1347,25 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.BUS: {
+			Bus bus = (Bus) theEObject;
+			T result = caseBus(bus);
+			if (result == null) {
+				result = caseNamedElement(bus);
+			}
+			if (result == null) {
+				result = caseElement(bus);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.DATA_ACCESS: {
 			DataAccess dataAccess = (DataAccess) theEObject;
 			T result = caseDataAccess(dataAccess);
 			if (result == null) {
 				result = caseAccess(dataAccess);
-			}
-			if (result == null) {
-				result = caseData(dataAccess);
 			}
 			if (result == null) {
 				result = caseFlowElement(dataAccess);
@@ -1454,20 +1448,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.DATA: {
-			Data data = (Data) theEObject;
-			T result = caseData(data);
-			if (result == null) {
-				result = caseNamedElement(data);
-			}
-			if (result == null) {
-				result = caseElement(data);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE: {
 			DataSubcomponentType dataSubcomponentType = (DataSubcomponentType) theEObject;
 			T result = caseDataSubcomponentType(dataSubcomponentType);
@@ -1488,6 +1468,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(dataSubcomponentType);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.DATA: {
+			Data data = (Data) theEObject;
+			T result = caseData(data);
+			if (result == null) {
+				result = caseNamedElement(data);
+			}
+			if (result == null) {
+				result = caseElement(data);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1748,16 +1742,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseAccess(subprogramAccess);
 			}
 			if (result == null) {
-				result = caseSubprogram(subprogramAccess);
+				result = caseCalledSubprogram(subprogramAccess);
 			}
 			if (result == null) {
 				result = caseFeature(subprogramAccess);
 			}
 			if (result == null) {
 				result = caseAccessConnectionEnd(subprogramAccess);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(subprogramAccess);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(subprogramAccess);
@@ -1782,23 +1773,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(subprogramAccess);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM: {
-			Subprogram subprogram = (Subprogram) theEObject;
-			T result = caseSubprogram(subprogram);
-			if (result == null) {
-				result = caseNamedElement(subprogram);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(subprogram);
-			}
-			if (result == null) {
-				result = caseElement(subprogram);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1834,14 +1808,28 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.SUBPROGRAM: {
+			Subprogram subprogram = (Subprogram) theEObject;
+			T result = caseSubprogram(subprogram);
+			if (result == null) {
+				result = caseNamedElement(subprogram);
+			}
+			if (result == null) {
+				result = caseCalledSubprogram(subprogram);
+			}
+			if (result == null) {
+				result = caseElement(subprogram);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS: {
 			SubprogramGroupAccess subprogramGroupAccess = (SubprogramGroupAccess) theEObject;
 			T result = caseSubprogramGroupAccess(subprogramGroupAccess);
 			if (result == null) {
 				result = caseAccess(subprogramGroupAccess);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(subprogramGroupAccess);
 			}
 			if (result == null) {
 				result = caseCallContext(subprogramGroupAccess);
@@ -1881,20 +1869,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.SUBPROGRAM_GROUP: {
-			SubprogramGroup subprogramGroup = (SubprogramGroup) theEObject;
-			T result = caseSubprogramGroup(subprogramGroup);
-			if (result == null) {
-				result = caseNamedElement(subprogramGroup);
-			}
-			if (result == null) {
-				result = caseElement(subprogramGroup);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE: {
 			SubprogramGroupSubcomponentType subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) theEObject;
 			T result = caseSubprogramGroupSubcomponentType(subprogramGroupSubcomponentType);
@@ -1915,6 +1889,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(subprogramGroupSubcomponentType);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_GROUP: {
+			SubprogramGroup subprogramGroup = (SubprogramGroup) theEObject;
+			T result = caseSubprogramGroup(subprogramGroup);
+			if (result == null) {
+				result = caseNamedElement(subprogramGroup);
+			}
+			if (result == null) {
+				result = caseElement(subprogramGroup);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);

@@ -235,7 +235,7 @@ public class DataPortImpl extends PortImpl implements DataPort {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
 	 */
 	@Override

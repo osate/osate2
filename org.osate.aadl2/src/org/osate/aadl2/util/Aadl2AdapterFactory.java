@@ -442,13 +442,13 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseBus(Bus object) {
-			return createBusAdapter();
+		public Adapter caseBusSubcomponentType(BusSubcomponentType object) {
+			return createBusSubcomponentTypeAdapter();
 		}
 
 		@Override
-		public Adapter caseBusSubcomponentType(BusSubcomponentType object) {
-			return createBusSubcomponentTypeAdapter();
+		public Adapter caseBus(Bus object) {
+			return createBusAdapter();
 		}
 
 		@Override
@@ -467,13 +467,13 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseData(Data object) {
-			return createDataAdapter();
+		public Adapter caseDataSubcomponentType(DataSubcomponentType object) {
+			return createDataSubcomponentTypeAdapter();
 		}
 
 		@Override
-		public Adapter caseDataSubcomponentType(DataSubcomponentType object) {
-			return createDataSubcomponentTypeAdapter();
+		public Adapter caseData(Data object) {
+			return createDataAdapter();
 		}
 
 		@Override
@@ -507,13 +507,13 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogram(Subprogram object) {
-			return createSubprogramAdapter();
+		public Adapter caseSubprogramSubcomponentType(SubprogramSubcomponentType object) {
+			return createSubprogramSubcomponentTypeAdapter();
 		}
 
 		@Override
-		public Adapter caseSubprogramSubcomponentType(SubprogramSubcomponentType object) {
-			return createSubprogramSubcomponentTypeAdapter();
+		public Adapter caseSubprogram(Subprogram object) {
+			return createSubprogramAdapter();
 		}
 
 		@Override
@@ -522,13 +522,13 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramGroup(SubprogramGroup object) {
-			return createSubprogramGroupAdapter();
+		public Adapter caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
+			return createSubprogramGroupSubcomponentTypeAdapter();
 		}
 
 		@Override
-		public Adapter caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
-			return createSubprogramGroupSubcomponentTypeAdapter();
+		public Adapter caseSubprogramGroup(SubprogramGroup object) {
+			return createSubprogramGroupAdapter();
 		}
 
 		@Override

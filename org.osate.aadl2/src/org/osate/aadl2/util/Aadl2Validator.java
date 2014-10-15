@@ -327,20 +327,20 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateAccess((Access) value, diagnostics, context);
 		case Aadl2Package.ACCESS_CONNECTION_END:
 			return validateAccessConnectionEnd((AccessConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.BUS:
-			return validateBus((Bus) value, diagnostics, context);
 		case Aadl2Package.BUS_SUBCOMPONENT_TYPE:
 			return validateBusSubcomponentType((BusSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.BUS:
+			return validateBus((Bus) value, diagnostics, context);
 		case Aadl2Package.DATA_ACCESS:
 			return validateDataAccess((DataAccess) value, diagnostics, context);
 		case Aadl2Package.PARAMETER_CONNECTION_END:
 			return validateParameterConnectionEnd((ParameterConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.PORT_CONNECTION_END:
 			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.DATA:
-			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE:
 			return validateDataSubcomponentType((DataSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.DATA:
+			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.DATA_PORT:
 			return validateDataPort((DataPort) value, diagnostics, context);
 		case Aadl2Package.PORT:
@@ -353,17 +353,17 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateParameter((Parameter) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_ACCESS:
 			return validateSubprogramAccess((SubprogramAccess) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM:
-			return validateSubprogram((Subprogram) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT_TYPE:
 			return validateSubprogramSubcomponentType((SubprogramSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM:
+			return validateSubprogram((Subprogram) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
 			return validateSubprogramGroupAccess((SubprogramGroupAccess) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_GROUP:
-			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
 			return validateSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) value, diagnostics,
 					context);
+		case Aadl2Package.SUBPROGRAM_GROUP:
+			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_FEATURE:
 			return validateAbstractFeature((AbstractFeature) value, diagnostics, context);
 		case Aadl2Package.FEATURE_PROTOTYPE:

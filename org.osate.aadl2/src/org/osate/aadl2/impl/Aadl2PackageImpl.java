@@ -9343,9 +9343,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		accessConnectionEndEClass = createEClass(ACCESS_CONNECTION_END);
 
-		busEClass = createEClass(BUS);
-
 		busSubcomponentTypeEClass = createEClass(BUS_SUBCOMPONENT_TYPE);
+
+		busEClass = createEClass(BUS);
 
 		dataAccessEClass = createEClass(DATA_ACCESS);
 		createEReference(dataAccessEClass, DATA_ACCESS__DATA_FEATURE_CLASSIFIER);
@@ -9354,9 +9354,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		portConnectionEndEClass = createEClass(PORT_CONNECTION_END);
 
-		dataEClass = createEClass(DATA);
-
 		dataSubcomponentTypeEClass = createEClass(DATA_SUBCOMPONENT_TYPE);
+
+		dataEClass = createEClass(DATA);
 
 		dataPortEClass = createEClass(DATA_PORT);
 		createEReference(dataPortEClass, DATA_PORT__DATA_FEATURE_CLASSIFIER);
@@ -9375,16 +9375,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		subprogramAccessEClass = createEClass(SUBPROGRAM_ACCESS);
 		createEReference(subprogramAccessEClass, SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER);
 
-		subprogramEClass = createEClass(SUBPROGRAM);
-
 		subprogramSubcomponentTypeEClass = createEClass(SUBPROGRAM_SUBCOMPONENT_TYPE);
+
+		subprogramEClass = createEClass(SUBPROGRAM);
 
 		subprogramGroupAccessEClass = createEClass(SUBPROGRAM_GROUP_ACCESS);
 		createEReference(subprogramGroupAccessEClass, SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER);
 
-		subprogramGroupEClass = createEClass(SUBPROGRAM_GROUP);
-
 		subprogramGroupSubcomponentTypeEClass = createEClass(SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE);
+
+		subprogramGroupEClass = createEClass(SUBPROGRAM_GROUP);
 
 		abstractFeatureEClass = createEClass(ABSTRACT_FEATURE);
 		createEReference(abstractFeatureEClass, ABSTRACT_FEATURE__FEATURE_PROTOTYPE);
@@ -10142,25 +10142,23 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		featureGroupTypeEClass.getESuperTypes().add(getFeatureType());
 		groupExtensionEClass.getESuperTypes().add(getGeneralization());
 		busAccessEClass.getESuperTypes().add(getAccess());
-		busAccessEClass.getESuperTypes().add(getBus());
 		accessEClass.getESuperTypes().add(getFeature());
 		accessEClass.getESuperTypes().add(getAccessConnectionEnd());
 		accessConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
-		busEClass.getESuperTypes().add(getNamedElement());
 		busSubcomponentTypeEClass.getESuperTypes().add(getBus());
 		busSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		busSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		busEClass.getESuperTypes().add(getNamedElement());
 		dataAccessEClass.getESuperTypes().add(getAccess());
-		dataAccessEClass.getESuperTypes().add(getData());
 		dataAccessEClass.getESuperTypes().add(getFlowElement());
 		dataAccessEClass.getESuperTypes().add(getParameterConnectionEnd());
 		dataAccessEClass.getESuperTypes().add(getPortConnectionEnd());
 		parameterConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
 		portConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
-		dataEClass.getESuperTypes().add(getNamedElement());
 		dataSubcomponentTypeEClass.getESuperTypes().add(getData());
 		dataSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		dataSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		dataEClass.getESuperTypes().add(getNamedElement());
 		dataPortEClass.getESuperTypes().add(getPort());
 		dataPortEClass.getESuperTypes().add(getContext());
 		dataPortEClass.getESuperTypes().add(getData());
@@ -10177,19 +10175,18 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		parameterEClass.getESuperTypes().add(getContext());
 		parameterEClass.getESuperTypes().add(getParameterConnectionEnd());
 		subprogramAccessEClass.getESuperTypes().add(getAccess());
-		subprogramAccessEClass.getESuperTypes().add(getSubprogram());
-		subprogramEClass.getESuperTypes().add(getNamedElement());
-		subprogramEClass.getESuperTypes().add(getCalledSubprogram());
+		subprogramAccessEClass.getESuperTypes().add(getCalledSubprogram());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getSubprogram());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		subprogramEClass.getESuperTypes().add(getNamedElement());
+		subprogramEClass.getESuperTypes().add(getCalledSubprogram());
 		subprogramGroupAccessEClass.getESuperTypes().add(getAccess());
-		subprogramGroupAccessEClass.getESuperTypes().add(getSubprogramGroup());
 		subprogramGroupAccessEClass.getESuperTypes().add(getCallContext());
-		subprogramGroupEClass.getESuperTypes().add(getNamedElement());
 		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getSubprogramGroup());
 		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		subprogramGroupEClass.getESuperTypes().add(getNamedElement());
 		abstractFeatureEClass.getESuperTypes().add(getDirectedFeature());
 		abstractFeatureEClass.getESuperTypes().add(getTriggerPort());
 		featurePrototypeEClass.getESuperTypes().add(getPrototype());
@@ -11257,10 +11254,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(accessConnectionEndEClass, AccessConnectionEnd.class, "AccessConnectionEnd", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(busEClass, Bus.class, "Bus", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(busSubcomponentTypeEClass, BusSubcomponentType.class, "BusSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(busEClass, Bus.class, "Bus", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(dataAccessEClass, DataAccess.class, "DataAccess", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11274,10 +11271,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(portConnectionEndEClass, PortConnectionEnd.class, "PortConnectionEnd", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(dataEClass, Data.class, "Data", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(dataSubcomponentTypeEClass, DataSubcomponentType.class, "DataSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(dataEClass, Data.class, "Data", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(dataPortEClass, DataPort.class, "DataPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataPort_DataFeatureClassifier(), getDataSubcomponentType(), null, "dataFeatureClassifier",
@@ -11309,11 +11306,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				"subprogramFeatureClassifier", null, 0, 1, SubprogramAccess.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(subprogramEClass, Subprogram.class, "Subprogram", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(subprogramSubcomponentTypeEClass, SubprogramSubcomponentType.class, "SubprogramSubcomponentType",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(subprogramEClass, Subprogram.class, "Subprogram", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(subprogramGroupAccessEClass, SubprogramGroupAccess.class, "SubprogramGroupAccess", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11322,11 +11319,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				SubprogramGroupAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(subprogramGroupEClass, SubprogramGroup.class, "SubprogramGroup", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(subprogramGroupSubcomponentTypeEClass, SubprogramGroupSubcomponentType.class,
 				"SubprogramGroupSubcomponentType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(subprogramGroupEClass, SubprogramGroup.class, "SubprogramGroup", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(abstractFeatureEClass, AbstractFeature.class, "AbstractFeature", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
