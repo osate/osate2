@@ -14,7 +14,7 @@ import org.osate.aadl2.NamedElement;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent#getEventInitiator <em>Event Initiator</em>}</li>
  * </ul>
  * </p>
  *
@@ -25,19 +25,19 @@ import org.osate.aadl2.NamedElement;
 public interface RepairEvent extends ErrorBehaviorEvent
 {
   /**
-   * Returns the value of the '<em><b>Condition</b></em>' reference list.
+   * Returns the value of the '<em><b>Event Initiator</b></em>' reference list.
    * The list contents are of type {@link org.osate.aadl2.NamedElement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Condition</em>' reference list isn't clear,
+   * If the meaning of the '<em>Event Initiator</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition</em>' reference list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getRepairEvent_Condition()
+   * @return the value of the '<em>Event Initiator</em>' reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getRepairEvent_EventInitiator()
    * @model
    * @generated
    */
-  EList<NamedElement> getCondition();
+  EList<NamedElement> getEventInitiator();
 
 } // RepairEvent

@@ -2643,12 +2643,31 @@ ruleErrorSource returns [EObject current=null]
 	    }
 
 )
-)))?
-	otherlv_12=Semicolon
-    {
-    	newLeafNode(otherlv_12, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
-    }
+)))?((
+(
+		lv_condition_12_0=RULE_CONDITION
+		{
+			newLeafNode(lv_condition_12_0, grammarAccess.getErrorSourceAccess().getConditionCONDITIONTerminalRuleCall_7_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getErrorSourceRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"condition",
+        		lv_condition_12_0, 
+        		"CONDITION");
+	    }
+
 )
+)
+    |
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7_1());
+    }
+))
 ;
 
 
@@ -3567,16 +3586,11 @@ ruleErrorEvent returns [EObject current=null]
 	    }
 
 )
-)?(
-	otherlv_5=When
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getErrorEventAccess().getWhenKeyword_5_0());
-    }
+)?((
 (
-(
-		lv_condition_6_0=RULE_STRING
+		lv_condition_5_0=RULE_CONDITION
 		{
-			newLeafNode(lv_condition_6_0, grammarAccess.getErrorEventAccess().getConditionSTRINGTerminalRuleCall_5_1_0()); 
+			newLeafNode(lv_condition_5_0, grammarAccess.getErrorEventAccess().getConditionCONDITIONTerminalRuleCall_5_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3585,17 +3599,18 @@ ruleErrorEvent returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"condition",
-        		lv_condition_6_0, 
-        		"STRING");
+        		lv_condition_5_0, 
+        		"CONDITION");
 	    }
 
 )
-))?
-	otherlv_7=Semicolon
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getErrorEventAccess().getSemicolonKeyword_6());
-    }
 )
+    |
+	otherlv_6=Semicolon
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getErrorEventAccess().getSemicolonKeyword_5_1());
+    }
+))
 ;
 
 
@@ -3663,7 +3678,7 @@ ruleRepairEvent returns [EObject current=null]
         }
 	otherlv_5=RULE_ID
 	{
-		newLeafNode(otherlv_5, grammarAccess.getRepairEventAccess().getConditionNamedElementCrossReference_4_1_0()); 
+		newLeafNode(otherlv_5, grammarAccess.getRepairEventAccess().getEventInitiatorNamedElementCrossReference_4_1_0()); 
 	}
 
 )
@@ -3681,7 +3696,7 @@ ruleRepairEvent returns [EObject current=null]
         }
 	otherlv_7=RULE_ID
 	{
-		newLeafNode(otherlv_7, grammarAccess.getRepairEventAccess().getConditionNamedElementCrossReference_4_2_1_0()); 
+		newLeafNode(otherlv_7, grammarAccess.getRepairEventAccess().getEventInitiatorNamedElementCrossReference_4_2_1_0()); 
 	}
 
 )
@@ -3758,7 +3773,7 @@ ruleRecoverEvent returns [EObject current=null]
         }
 	otherlv_5=RULE_ID
 	{
-		newLeafNode(otherlv_5, grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_1_0()); 
+		newLeafNode(otherlv_5, grammarAccess.getRecoverEventAccess().getEventInitiatorNamedElementCrossReference_4_1_0()); 
 	}
 
 )
@@ -3776,16 +3791,35 @@ ruleRecoverEvent returns [EObject current=null]
         }
 	otherlv_7=RULE_ID
 	{
-		newLeafNode(otherlv_7, grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_2_1_0()); 
+		newLeafNode(otherlv_7, grammarAccess.getRecoverEventAccess().getEventInitiatorNamedElementCrossReference_4_2_1_0()); 
 	}
 
 )
-))*)?
-	otherlv_8=Semicolon
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getRecoverEventAccess().getSemicolonKeyword_5());
-    }
+))*)?((
+(
+		lv_condition_8_0=RULE_CONDITION
+		{
+			newLeafNode(lv_condition_8_0, grammarAccess.getRecoverEventAccess().getConditionCONDITIONTerminalRuleCall_5_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRecoverEventRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"condition",
+        		lv_condition_8_0, 
+        		"CONDITION");
+	    }
+
 )
+)
+    |
+	otherlv_9=Semicolon
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getRecoverEventAccess().getSemicolonKeyword_5_1());
+    }
+))
 ;
 
 
@@ -4422,12 +4456,31 @@ ruleConnectionErrorSource returns [EObject current=null]
 	    }
 
 )
-)))?
-	otherlv_10=Semicolon
-    {
-    	newLeafNode(otherlv_10, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_7());
-    }
+)))?((
+(
+		lv_condition_10_0=RULE_CONDITION
+		{
+			newLeafNode(lv_condition_10_0, grammarAccess.getConnectionErrorSourceAccess().getConditionCONDITIONTerminalRuleCall_7_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"condition",
+        		lv_condition_10_0, 
+        		"CONDITION");
+	    }
+
 )
+)
+    |
+	otherlv_11=Semicolon
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_7_1());
+    }
+))
 ;
 
 

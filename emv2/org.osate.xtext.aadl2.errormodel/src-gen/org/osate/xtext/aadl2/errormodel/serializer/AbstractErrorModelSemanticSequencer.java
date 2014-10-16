@@ -681,7 +681,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID 
 	 *         (connection=[Connection|ID] | all?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         (failureModeType=TypeSetConstructor | failureModeDescription=STRING)?
+	 *         (failureModeType=TypeSetConstructor | failureModeDescription=STRING)? 
+	 *         condition=CONDITION?
 	 *     )
 	 */
 	protected void sequence_ConnectionErrorSource(EObject context, ConnectionErrorSource semanticObject) {
@@ -768,7 +769,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID typeSet=TypeSetReference? condition=STRING?)
+	 *     (name=ID typeSet=TypeSetReference? condition=CONDITION?)
 	 */
 	protected void sequence_ErrorEvent(EObject context, ErrorEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -877,7 +878,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             (failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetReference?) | 
 	 *             failureModeType=TypeSetConstructor | 
 	 *             failureModeDescription=STRING
-	 *         )?
+	 *         )? 
+	 *         condition=CONDITION?
 	 *     )
 	 */
 	protected void sequence_ErrorSource(EObject context, ErrorSource semanticObject) {
@@ -1010,7 +1012,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (condition+=[NamedElement|ID] condition+=[NamedElement|ID]*)?)
+	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)? condition=CONDITION?)
 	 */
 	protected void sequence_RecoverEvent(EObject context, RecoverEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1019,7 +1021,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (condition+=[NamedElement|ID] condition+=[NamedElement|ID]*)?)
+	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)?)
 	 */
 	protected void sequence_RepairEvent(EObject context, RepairEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

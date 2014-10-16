@@ -188,6 +188,8 @@ RightCurlyBracket : '}';
 
 
 
+RULE_CONDITION : 'if' ( options {greedy=false;} : . )*'*;';
+
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
 RULE_INTEGER_LIT : ('0'..'9')+;

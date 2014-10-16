@@ -244,7 +244,8 @@ ErrorSource returns ErrorSource:
   	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetReference )?) 
   	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
   	) )?
-  ';';
+     ((condition=CONDITION)|';')
+  ;
  
 ErrorBehaviorStateOrTypeSet: ErrorBehaviorState | TypeSetDefinition;
 
@@ -297,22 +298,23 @@ ErrorBehaviorEvent returns ErrorBehaviorEvent:
 ErrorEvent returns ErrorEvent:
     name=ID ':' 'error' 'event' 
     (typeSet=TypeSetReference)?
-    ('when' condition=STRING)?
-    ';'; // add event condition 
+  	((condition=CONDITION)|';')
+; // add event condition 
     
 RepairEvent returns RepairEvent:
     name=ID ':' 'repair' 'event' 
-    ('when' condition+=[aadl2::NamedElement|ID]
-    	( "," condition+=[aadl2::NamedElement|ID])*
+    ('when' eventInitiator+=[aadl2::NamedElement|ID]
+    	( "," eventInitiator+=[aadl2::NamedElement|ID])*
     )?
     ';';  
     
 RecoverEvent returns RecoverEvent:
     name=ID ':' 'recover' 'event' 
-    ('when' condition+=[aadl2::NamedElement|ID]
-    	( "," condition+=[aadl2::NamedElement|ID])*
+    ('when' eventInitiator+=[aadl2::NamedElement|ID]
+    	( "," eventInitiator+=[aadl2::NamedElement|ID])*
     )?
-    ';'; //add recover initiator 
+         ((condition=CONDITION)|';')
+; //add recover initiator 
 
 ErrorBehaviorState returns ErrorBehaviorState: 
     name=ID ':' (intial?='initial')? 'state'
@@ -346,7 +348,7 @@ ConnectionErrorSource returns ConnectionErrorSource:
 	(typeTokenConstraint=TypeTokenConstraint)?
   	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
   	)?
-  	';'
+     ((condition=CONDITION)|';')
 ;
 
 TypeUseContext returns TypeUseContext:
@@ -472,6 +474,10 @@ SConditionElement returns ConditionElement:
 SubcomponentElement returns SubcomponentElement:
 	subcomponent = [aadl2::Subcomponent|ID]
 ;
+
+
+terminal CONDITION:
+	'if'->'*;';
 
 
 terminal SL_COMMENT:

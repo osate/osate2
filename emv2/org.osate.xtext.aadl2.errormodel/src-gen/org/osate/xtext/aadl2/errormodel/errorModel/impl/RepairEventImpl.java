@@ -22,7 +22,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RepairEventImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RepairEventImpl#getEventInitiator <em>Event Initiator</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,14 +31,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEvent
 {
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
+   * The cached value of the '{@link #getEventInitiator() <em>Event Initiator</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCondition()
+   * @see #getEventInitiator()
    * @generated
    * @ordered
    */
-  protected EList<NamedElement> condition;
+  protected EList<NamedElement> eventInitiator;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,13 +66,13 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<NamedElement> getCondition()
+  public EList<NamedElement> getEventInitiator()
   {
-    if (condition == null)
+    if (eventInitiator == null)
     {
-      condition = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.REPAIR_EVENT__CONDITION);
+      eventInitiator = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.REPAIR_EVENT__EVENT_INITIATOR);
     }
-    return condition;
+    return eventInitiator;
   }
 
   /**
@@ -85,8 +85,8 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
   {
     switch (featureID)
     {
-      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-        return getCondition();
+      case ErrorModelPackage.REPAIR_EVENT__EVENT_INITIATOR:
+        return getEventInitiator();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -102,9 +102,9 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
   {
     switch (featureID)
     {
-      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-        getCondition().clear();
-        getCondition().addAll((Collection<? extends NamedElement>)newValue);
+      case ErrorModelPackage.REPAIR_EVENT__EVENT_INITIATOR:
+        getEventInitiator().clear();
+        getEventInitiator().addAll((Collection<? extends NamedElement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -120,8 +120,8 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
   {
     switch (featureID)
     {
-      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-        getCondition().clear();
+      case ErrorModelPackage.REPAIR_EVENT__EVENT_INITIATOR:
+        getEventInitiator().clear();
         return;
     }
     super.eUnset(featureID);
@@ -137,8 +137,8 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
   {
     switch (featureID)
     {
-      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-        return condition != null && !condition.isEmpty();
+      case ErrorModelPackage.REPAIR_EVENT__EVENT_INITIATOR:
+        return eventInitiator != null && !eventInitiator.isEmpty();
     }
     return super.eIsSet(featureID);
   }
