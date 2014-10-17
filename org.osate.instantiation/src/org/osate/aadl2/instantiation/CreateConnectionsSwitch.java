@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -839,7 +840,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/**
-	 * Handle the case where one of the ends (or both) is a port group. Create
+	 * Handle the case where one of the ends (or both) is a feature group. Create
 	 * multiple connection instances.
 	 *
 	 * @param parentci
@@ -905,6 +906,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/**
+	 * Expand feature groups as much as possible
+	 * 
 	 * @param parentci
 	 * @param connInfo
 	 * @param srcEnd
@@ -914,33 +917,52 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd) {
 		ConnectionInstanceEnd oldSrc = connInfo.src;
 
+		/*
+		 * One of three possible situations
+		 * - both ends are feature groups without or with an empty type
+		 * - one end is empty and the other is not
+		 * - both ends are not empty, in this case they have the same internal structure
+		 * TODO-lw: what about feature group subset/equivalence?
+		 */
+
 		if (srcEnd instanceof FeatureInstance && dstEnd instanceof FeatureInstance) {
-			Iterator<FeatureInstance> srcIter = ((FeatureInstance) srcEnd).getFeatureInstances().iterator();
+			FeatureInstance srcFi = (FeatureInstance) srcEnd;
+			FeatureInstance dstFi = (FeatureInstance) dstEnd;
 
-			if (srcIter.hasNext()) {
-				Iterator<FeatureInstance> dstIter = ((FeatureInstance) dstEnd).getFeatureInstances().iterator();
-
-				while (srcIter.hasNext() && dstIter.hasNext()) {
-					ConnectionInstanceEnd src = srcIter.next();
-					ConnectionInstanceEnd dst = dstIter.next();
-
-					if (src instanceof FeatureInstance && !((FeatureInstance) src).getFeatureInstances().isEmpty()) {
-						expandFeatureGroupConnection(parentci, connInfo, src, dst);
-					} else {
-						if (((FeatureInstance) src).getDirection() != DirectionType.IN) {
-							connInfo.src = src;
-							addConnectionInstance(parentci.getSystemInstance(), connInfo, dst);
-						} else if (((FeatureInstance) dst).getDirection() != DirectionType.OUT) {
-							connInfo.src = dst;
-							addConnectionInstance(parentci.getSystemInstance(), connInfo, src);
-						}
-					}
+			if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
+				// both ends are empty
+				if (srcFi.getDirection() != DirectionType.IN) {
+					connInfo.src = srcFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+				}
+				if (dstFi.getDirection() != DirectionType.OUT) {
+					connInfo.src = dstFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, srcFi);
+				}
+			} else if (isLeafFeature(srcFi)) {
+				for (FeatureInstance dst : dstFi.getFeatureInstances()) {
+					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
+				}
+			} else if (isLeafFeature(dstFi)) {
+				for (FeatureInstance src : srcFi.getFeatureInstances()) {
+					expandFeatureGroupConnection(parentci, connInfo, src, dstFi);
 				}
 			} else {
-				addConnectionInstance(parentci.getSystemInstance(), connInfo, dstEnd);
+				Iterator<FeatureInstance> srcIter = srcFi.getFeatureInstances().iterator();
+				Iterator<FeatureInstance> dstIter = dstFi.getFeatureInstances().iterator();
+
+				while (srcIter.hasNext() && dstIter.hasNext()) {
+					expandFeatureGroupConnection(parentci, connInfo, srcIter.next(), dstIter.next());
+				}
+				Assert.isTrue(!srcIter.hasNext() && !dstIter.hasNext(),
+						"Connected feature groups do not have the same number of features");
 			}
 		}
 		connInfo.src = oldSrc;
+	}
+
+	private boolean isLeafFeature(FeatureInstance fi) {
+		return fi.getFeatureInstances().isEmpty();
 	}
 
 	/**
