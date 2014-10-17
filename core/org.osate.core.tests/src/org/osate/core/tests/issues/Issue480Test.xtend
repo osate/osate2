@@ -20,7 +20,7 @@ class Issue480Test extends OsateTest {
 	}
 
 	@Test
-	def void flows_pullprotocols() {
+	def void issue480() {
 		val aadlFile = "issue480.aadl"
 		createFiles(aadlFile -> aadlText)
 		suppressSerialization
