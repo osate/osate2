@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface BusPrototype extends ComponentPrototype, BusSubcomponentType {
+public interface BusPrototype extends ComponentPrototype, Bus, BusSubcomponentType {
 } // BusPrototype

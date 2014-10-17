@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface DevicePrototype extends ComponentPrototype, DeviceSubcomponentType {
+public interface DevicePrototype extends ComponentPrototype, Device, DeviceSubcomponentType {
 } // DevicePrototype

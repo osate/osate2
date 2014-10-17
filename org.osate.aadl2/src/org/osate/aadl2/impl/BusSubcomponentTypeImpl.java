@@ -37,8 +37,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusSubcomponentType;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,7 +47,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class BusSubcomponentTypeImpl extends BusImpl implements BusSubcomponentType {
+public abstract class BusSubcomponentTypeImpl extends SubcomponentTypeImpl implements BusSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,16 +65,6 @@ public abstract class BusSubcomponentTypeImpl extends BusImpl implements BusSubc
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBusSubcomponentType();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
 	}
 
 } // BusSubcomponentTypeImpl

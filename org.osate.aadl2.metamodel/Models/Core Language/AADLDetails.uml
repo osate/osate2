@@ -232,6 +232,7 @@
           <generalization xmi:id="_DGpXoLRkEeCUlOZHyZaJRw" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
           <generalization xmi:id="_KO07QLRkEeCUlOZHyZaJRw" general="_5cLfQKfzEeCYEIHXYlP5sg"/>
           <generalization xmi:id="_QvlSgLRkEeCUlOZHyZaJRw" general="_UmL5oKfMEeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_v9BokFYmEeSRb9SpMTlLYA" general="Components-Abstract-Abstract"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-Abstract-A_abstractImplementation_abstractType" name="A_abstractImplementation_abstractType" memberEnd="Components-Abstract-A_abstractImplementation_abstractType-implementation Components-Abstract-AbstractImplementation-type" isDerived="true">
           <ownedEnd xmi:id="Components-Abstract-A_abstractImplementation_abstractType-implementation" name="implementation" type="Components-Abstract-AbstractImplementation" association="Components-Abstract-A_abstractImplementation_abstractType">
@@ -396,7 +397,6 @@
           <generalization xmi:id="_lCjo0Kf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
-          <generalization xmi:id="_LM9nAKf5EeCYEIHXYlP5sg" general="Components-Abstract-Abstract"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_j713cKc8EeCYEIHXYlP5sg" name="AbstractPrototype">
           <generalization xmi:id="_tZufcKdCEeCYEIHXYlP5sg" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
@@ -416,6 +416,7 @@
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
           <generalization xmi:id="_KoluoKf5EeCYEIHXYlP5sg" general="_fTRw4Kc8EeCYEIHXYlP5sg"/>
+          <generalization xmi:id="_LM9nAKf5EeCYEIHXYlP5sg" general="Components-Abstract-Abstract"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Bus" name="Bus">
@@ -429,6 +430,7 @@
           <generalization xmi:id="Components-Bus-BusClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_cp1goFYmEeSRb9SpMTlLYA" general="Components-Bus-Bus"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Bus-BusSubcomponent" name="BusSubcomponent">
           <generalization xmi:id="Components-Bus-BusSubcomponent-_generalization.0" general="Components-Bus-Bus"/>
@@ -510,7 +512,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_9O0w4Kc3EeCYEIHXYlP5sg" name="BusSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_Rk214Kc4EeCYEIHXYlP5sg" general="Components-Bus-Bus"/>
           <generalization xmi:id="_SKEe8Kc8EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -523,6 +524,7 @@
           <generalization xmi:id="_U-cEAKc8EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_Rk214Kc4EeCYEIHXYlP5sg" general="Components-Bus-Bus"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_LqWp8MjwEeC-j-B11sm6hg" name="A_busType_ownedDataPort" memberEnd="_LqWp8cjwEeC-j-B11sm6hg _Lp26sMjwEeC-j-B11sm6hg">
           <ownedEnd xmi:id="_LqWp8cjwEeC-j-B11sm6hg" name="owner" type="Components-Bus-BusType" association="_LqWp8MjwEeC-j-B11sm6hg">
@@ -563,6 +565,7 @@
           <generalization xmi:id="Components-Data-DataClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_7_7ZwFYmEeSRb9SpMTlLYA" general="Components-Data-Data"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Data-Data" name="Data" isAbstract="true">
           <generalization xmi:id="_fXl_RFEOEd6kWIIn_VWR1g">
@@ -655,7 +658,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_5cLfQKfzEeCYEIHXYlP5sg" name="DataSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_EilL8Kf0EeCYEIHXYlP5sg" general="Components-Data-Data"/>
           <generalization xmi:id="_5xadgKf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -668,6 +670,7 @@
           <generalization xmi:id="_Z3OOQKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_EilL8Kf0EeCYEIHXYlP5sg" general="Components-Data-Data"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Device" name="Device">
@@ -681,6 +684,7 @@
           <generalization xmi:id="Components-Device-DeviceClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_GEaWcFYnEeSRb9SpMTlLYA" general="Components-Device-Device"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Device-DeviceSubcomponent" name="DeviceSubcomponent">
           <generalization xmi:id="Components-Device-DeviceSubcomponent-_generalization.0" general="Components-Device-Device"/>
@@ -823,7 +827,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_hHzVYKfzEeCYEIHXYlP5sg" name="DeviceSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_ymA4sKfzEeCYEIHXYlP5sg" general="Components-Device-Device"/>
           <generalization xmi:id="_6V64wKf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -833,6 +836,7 @@
           <generalization xmi:id="_aRnrQKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_ymA4sKfzEeCYEIHXYlP5sg" general="Components-Device-Device"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Memory" name="Memory">
@@ -846,6 +850,7 @@
           <generalization xmi:id="Components-Memory-MemoryClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_PJrR0FYnEeSRb9SpMTlLYA" general="Components-Memory-Memory"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Memory-MemoryType" name="MemoryType">
           <generalization xmi:id="Components-Memory-MemoryType-_generalization.0" general="Components-Memory-MemoryClassifier"/>
@@ -940,9 +945,9 @@
           <generalization xmi:id="_i5ccsKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_Wcvg4KfzEeCYEIHXYlP5sg" general="Components-Memory-Memory"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_EHpY4KfzEeCYEIHXYlP5sg" name="MemorySubcomponentType" isAbstract="true">
-          <generalization xmi:id="_Wcvg4KfzEeCYEIHXYlP5sg" general="Components-Memory-Memory"/>
           <generalization xmi:id="_67uUgKf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -977,6 +982,7 @@
           <generalization xmi:id="Components-Process-ProcessClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_Y6r44FYnEeSRb9SpMTlLYA" general="Components-Process-Process"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Process-ProcessType" name="ProcessType">
           <generalization xmi:id="Components-Process-ProcessType-_generalization.0" general="Components-Process-ProcessClassifier"/>
@@ -1140,7 +1146,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_t5WKsKfyEeCYEIHXYlP5sg" name="ProcessSubcomponentType" isAbstract="true">
-          <generalization xmi:id="__sElcKfyEeCYEIHXYlP5sg" general="Components-Process-Process"/>
           <generalization xmi:id="_GRMX8Kf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -1150,6 +1155,7 @@
           <generalization xmi:id="_jSAtsKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="__sElcKfyEeCYEIHXYlP5sg" general="Components-Process-Process"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Processor" name="Processor">
@@ -1163,6 +1169,7 @@
           <generalization xmi:id="Components-Processor-ProcessorClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_lEEskFYnEeSRb9SpMTlLYA" general="Components-Processor-Processor"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Processor-ProcessorType" name="ProcessorType">
           <generalization xmi:id="Components-Processor-ProcessorType-_generalization.0" general="Components-Processor-ProcessorClassifier"/>
@@ -1315,7 +1322,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_UmL5oKfMEeCYEIHXYlP5sg" name="ProcessorSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_h3y5oKfMEeCYEIHXYlP5sg" general="Components-Processor-Processor"/>
           <generalization xmi:id="_MgMQ0Kf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -1325,6 +1331,7 @@
           <generalization xmi:id="_jvWJ8Kf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_h3y5oKfMEeCYEIHXYlP5sg" general="Components-Processor-Processor"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Subprogram" name="Subprogram">
@@ -1342,6 +1349,7 @@
           <generalization xmi:id="Components-Subprogram-SubprogramClassifier-_generalization.2">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_wG_ncFYnEeSRb9SpMTlLYA" general="Components-Subprogram-Subprogram"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Subprogram-SubprogramSubcomponent" name="SubprogramSubcomponent">
           <generalization xmi:id="Components-Subprogram-SubprogramSubcomponent-_generalization.0" general="Components-Subprogram-Subprogram"/>
@@ -1465,7 +1473,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_5fL3IKfLEeCYEIHXYlP5sg" name="SubprogramSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_KYJ_YKfMEeCYEIHXYlP5sg" general="Components-Subprogram-Subprogram"/>
           <generalization xmi:id="_ViuoUKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -1478,6 +1485,7 @@
           <generalization xmi:id="_5aAfkKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_KYJ_YKfMEeCYEIHXYlP5sg" general="Components-Subprogram-Subprogram"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_Tgv_AMdHEeGwWPoqa14yHw" name="A_subprogramImplementation_owbedSubprogramSubcomponent" memberEnd="_Tgv_AcdHEeGwWPoqa14yHw _TgOakMdHEeGwWPoqa14yHw">
           <ownedEnd xmi:id="_Tgv_AcdHEeGwWPoqa14yHw" name="owner" type="Components-Subprogram-SubprogramImplementation" association="_Tgv_AMdHEeGwWPoqa14yHw">
@@ -1497,6 +1505,7 @@
           <generalization xmi:id="Components-SubprogramGroup-SubprogramGroupClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_5pOLoFYnEeSRb9SpMTlLYA" general="Components-SubprogramGroup-SubprogramGroup"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-SubprogramGroup-SubprogramGroupType" name="SubprogramGroupType">
           <generalization xmi:id="Components-SubprogramGroup-SubprogramGroupType-_generalization.0" general="Components-SubprogramGroup-SubprogramGroupClassifier"/>
@@ -1591,7 +1600,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_0HeJ0KdCEeCYEIHXYlP5sg" name="SubprogramGroupSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_K1KpwKdDEeCYEIHXYlP5sg" general="Components-SubprogramGroup-SubprogramGroup"/>
           <generalization xmi:id="_UOq_cKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -1604,6 +1612,7 @@
           <generalization xmi:id="_4_wMgKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_K1KpwKdDEeCYEIHXYlP5sg" general="Components-SubprogramGroup-SubprogramGroup"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_2ZX_QG6pEeGwj9GUWxrxWw" name="A_subprogramGroupImplementation_ownedDataSubcomponent" memberEnd="_2ZX_QW6pEeGwj9GUWxrxWw _2YqNkG6pEeGwj9GUWxrxWw">
           <ownedEnd xmi:id="_2ZX_QW6pEeGwj9GUWxrxWw" name="owner" type="Components-SubprogramGroup-SubprogramGroupImplementation" association="_2ZX_QG6pEeGwj9GUWxrxWw">
@@ -1623,6 +1632,7 @@
           <generalization xmi:id="Components-System-SystemClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_35sc0FYpEeSRb9SpMTlLYA" general="Components-System-System"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-System-SystemType" name="SystemType">
           <generalization xmi:id="Components-System-SystemType-_generalization.0" general="Components-System-SystemClassifier"/>
@@ -1863,7 +1873,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_M2iDIKfIEeCYEIHXYlP5sg" name="SystemSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_gM73IKfIEeCYEIHXYlP5sg" general="Components-System-System"/>
           <generalization xmi:id="_eeuS8Kf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -1873,6 +1882,7 @@
           <generalization xmi:id="_557VwKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_gM73IKfIEeCYEIHXYlP5sg" general="Components-System-System"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Thread" name="Thread">
@@ -1886,6 +1896,7 @@
           <generalization xmi:id="Components-Thread-ThreadClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_COXKkFYqEeSRb9SpMTlLYA" general="Components-Thread-Thread"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Thread-ThreadType" name="ThreadType">
           <generalization xmi:id="Components-Thread-ThreadType-_generalization.0" general="Components-Thread-ThreadClassifier"/>
@@ -2025,7 +2036,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_mRbloKfHEeCYEIHXYlP5sg" name="ThreadSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_FdVA8KfIEeCYEIHXYlP5sg" general="Components-Thread-Thread"/>
           <generalization xmi:id="_e23tMKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -2035,6 +2045,7 @@
           <generalization xmi:id="_6WRTgKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_FdVA8KfIEeCYEIHXYlP5sg" general="Components-Thread-Thread"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-ThreadGroup" name="ThreadGroup">
@@ -2048,6 +2059,7 @@
           <generalization xmi:id="Components-ThreadGroup-ThreadGroupClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_Ks9HgFYqEeSRb9SpMTlLYA" general="Components-ThreadGroup-ThreadGroup"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-ThreadGroup-ThreadGroupType" name="ThreadGroupType">
           <generalization xmi:id="Components-ThreadGroup-ThreadGroupType-_generalization.0" general="Components-ThreadGroup-ThreadGroupClassifier"/>
@@ -2211,7 +2223,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_DoCvwKfHEeCYEIHXYlP5sg" name="ThreadGroupSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_Q7uMUKfHEeCYEIHXYlP5sg" general="Components-ThreadGroup-ThreadGroup"/>
           <generalization xmi:id="_fN-loKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -2221,6 +2232,7 @@
           <generalization xmi:id="_6vY-IKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_Q7uMUKfHEeCYEIHXYlP5sg" general="Components-ThreadGroup-ThreadGroup"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-VirtualBus" name="VirtualBus">
@@ -2234,6 +2246,7 @@
           <generalization xmi:id="Components-VirtualBus-VirtualBusClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_S9L4UFYqEeSRb9SpMTlLYA" general="Components-VirtualBus-VirtualBus"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualBus-VirtualBusType" name="VirtualBusType">
           <generalization xmi:id="Components-VirtualBus-VirtualBusType-_generalization.0" general="Components-VirtualBus-VirtualBusClassifier"/>
@@ -2306,9 +2319,9 @@
           <generalization xmi:id="_IFmKQKf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_x3thsKfGEeCYEIHXYlP5sg" general="Components-VirtualBus-VirtualBus"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_TgY98KfGEeCYEIHXYlP5sg" name="VirtualBusSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_x3thsKfGEeCYEIHXYlP5sg" general="Components-VirtualBus-VirtualBus"/>
           <generalization xmi:id="_ovkQoKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -2343,6 +2356,7 @@
           <generalization xmi:id="Components-VirtualProcessor-VirtualProcessorClassifier-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentClassifier"/>
           </generalization>
+          <generalization xmi:id="_jN3RgFYqEeSRb9SpMTlLYA" general="Components-VirtualProcessor-VirtualProcessor"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualProcessor-VirtualProcessorSubcomponent" name="VirtualProcessorSubcomponent">
           <generalization xmi:id="Components-VirtualProcessor-VirtualProcessorSubcomponent-_generalization.0" general="Components-VirtualProcessor-VirtualProcessor"/>
@@ -2462,7 +2476,6 @@
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_yOYr0KdDEeCYEIHXYlP5sg" name="VirtualProcessorSubcomponentType" isAbstract="true">
-          <generalization xmi:id="_-QsAEKdDEeCYEIHXYlP5sg" general="Components-VirtualProcessor-VirtualProcessor"/>
           <generalization xmi:id="_pNkbQKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
@@ -2472,6 +2485,7 @@
           <generalization xmi:id="_IdTfoKf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+          <generalization xmi:id="_-QsAEKdDEeCYEIHXYlP5sg" general="Components-VirtualProcessor-VirtualProcessor"/>
         </packagedElement>
       </packagedElement>
     </packagedElement>
