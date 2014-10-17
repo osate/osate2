@@ -31,6 +31,10 @@ import org.eclipse.core.runtime.CoreException;
  * @see IAadlModelStatus
  */
 public class AadlModelException extends CoreException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	CoreException nestedCoreException;
 
 	/**
@@ -59,15 +63,6 @@ public class AadlModelException extends CoreException {
 	public AadlModelException(CoreException exception) {
 		super(exception.getStatus());
 		nestedCoreException = exception;
-	}
-
-	/**
-	 * Creates a Java model exception for the given Java-specific status object.
-	 *
-	 * @param status the Java-specific status object
-	 */
-	public AadlModelException(IAadlModelStatus status) {
-		super(status);
 	}
 
 	/**
