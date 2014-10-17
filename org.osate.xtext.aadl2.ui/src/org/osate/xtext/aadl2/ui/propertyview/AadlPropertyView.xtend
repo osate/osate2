@@ -294,7 +294,7 @@ class AadlPropertyView extends ViewPart {
 						element
 					}
 					val serializedNumberValue = resolvedNumberValue.getValueAsString(serializer)
-					serializedNumberValue.substring(0, serializedNumberValue.toUpperCase.lastIndexOf(resolvedNumberValue.unit.name.toUpperCase))
+					serializedNumberValue.substring(0, serializedNumberValue.toUpperCase.lastIndexOf(resolvedNumberValue.unit.name.toUpperCase)).trim
 				}
 				UnitLiteral: {
 					val resolvedUnitLiteral = if (element.eIsProxy) {
@@ -726,9 +726,7 @@ class AadlPropertyView extends ViewPart {
 			ListValue case expression.hasInstanceReferenceValue:
 				expression.serializeListWithInstanceReferenceValue(serializer)
 			default: {
-				synchronized (serializer) {
-					serializer.serialize(expression)
-				}.replaceAll("\n", "").replaceAll("\t", "").trim
+				serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "").trim
 				// TODO: Test this to see what cleanup is truly necessary.
 			}
 		}
@@ -746,9 +744,7 @@ class AadlPropertyView extends ViewPart {
 				ListValue:
 					serializeListWithInstanceReferenceValue(serializer)
 				default: {
-					synchronized (serializer) {
-						serializer.serialize(it)
-					}.replaceAll("\n", "").replaceAll("\t", "")
+					serializer.serialize(it).replaceAll("\n", "").replaceAll("\t", "")
 				}
 			}
 		])
