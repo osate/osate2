@@ -447,11 +447,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseBus(Bus object) {
-			return createBusAdapter();
-		}
-
-		@Override
 		public Adapter caseDataAccess(DataAccess object) {
 			return createDataAccessAdapter();
 		}
@@ -472,11 +467,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseData(Data object) {
-			return createDataAdapter();
-		}
-
-		@Override
 		public Adapter caseDataPort(DataPort object) {
 			return createDataPortAdapter();
 		}
@@ -484,6 +474,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter casePort(Port object) {
 			return createPortAdapter();
+		}
+
+		@Override
+		public Adapter caseData(Data object) {
+			return createDataAdapter();
 		}
 
 		@Override
@@ -512,11 +507,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogram(Subprogram object) {
-			return createSubprogramAdapter();
-		}
-
-		@Override
 		public Adapter caseSubprogramGroupAccess(SubprogramGroupAccess object) {
 			return createSubprogramGroupAccessAdapter();
 		}
@@ -524,11 +514,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
 			return createSubprogramGroupSubcomponentTypeAdapter();
-		}
-
-		@Override
-		public Adapter caseSubprogramGroup(SubprogramGroup object) {
-			return createSubprogramGroupAdapter();
 		}
 
 		@Override
@@ -677,6 +662,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseSubprogram(Subprogram object) {
+			return createSubprogramAdapter();
+		}
+
+		@Override
 		public Adapter caseAnnexLibrary(AnnexLibrary object) {
 			return createAnnexLibraryAdapter();
 		}
@@ -807,18 +797,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVirtualProcessor(VirtualProcessor object) {
-			return createVirtualProcessorAdapter();
-		}
-
-		@Override
 		public Adapter caseVirtualBusSubcomponentType(VirtualBusSubcomponentType object) {
 			return createVirtualBusSubcomponentTypeAdapter();
-		}
-
-		@Override
-		public Adapter caseVirtualBus(VirtualBus object) {
-			return createVirtualBusAdapter();
 		}
 
 		@Override
@@ -827,18 +807,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseThreadGroup(org.osate.aadl2.ThreadGroup object) {
-			return createThreadGroupAdapter();
-		}
-
-		@Override
 		public Adapter caseThreadSubcomponentType(ThreadSubcomponentType object) {
 			return createThreadSubcomponentTypeAdapter();
-		}
-
-		@Override
-		public Adapter caseThread(org.osate.aadl2.Thread object) {
-			return createThreadAdapter();
 		}
 
 		@Override
@@ -847,18 +817,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSystem(org.osate.aadl2.System object) {
-			return createSystemAdapter();
-		}
-
-		@Override
 		public Adapter caseProcessSubcomponentType(ProcessSubcomponentType object) {
 			return createProcessSubcomponentTypeAdapter();
-		}
-
-		@Override
-		public Adapter caseProcess(org.osate.aadl2.Process object) {
-			return createProcessAdapter();
 		}
 
 		@Override
@@ -867,28 +827,13 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseMemory(Memory object) {
-			return createMemoryAdapter();
-		}
-
-		@Override
 		public Adapter caseDeviceSubcomponentType(DeviceSubcomponentType object) {
 			return createDeviceSubcomponentTypeAdapter();
 		}
 
 		@Override
-		public Adapter caseDevice(Device object) {
-			return createDeviceAdapter();
-		}
-
-		@Override
 		public Adapter caseProcessorSubcomponentType(ProcessorSubcomponentType object) {
 			return createProcessorSubcomponentTypeAdapter();
-		}
-
-		@Override
-		public Adapter caseProcessor(Processor object) {
-			return createProcessorAdapter();
 		}
 
 		@Override
@@ -902,6 +847,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseBus(Bus object) {
+			return createBusAdapter();
+		}
+
+		@Override
 		public Adapter caseDataSubcomponent(DataSubcomponent object) {
 			return createDataSubcomponentAdapter();
 		}
@@ -912,8 +862,18 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseDevice(Device object) {
+			return createDeviceAdapter();
+		}
+
+		@Override
 		public Adapter caseMemorySubcomponent(MemorySubcomponent object) {
 			return createMemorySubcomponentAdapter();
+		}
+
+		@Override
+		public Adapter caseMemory(Memory object) {
+			return createMemoryAdapter();
 		}
 
 		@Override
@@ -922,13 +882,28 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseProcess(org.osate.aadl2.Process object) {
+			return createProcessAdapter();
+		}
+
+		@Override
 		public Adapter caseProcessorSubcomponent(ProcessorSubcomponent object) {
 			return createProcessorSubcomponentAdapter();
 		}
 
 		@Override
+		public Adapter caseProcessor(Processor object) {
+			return createProcessorAdapter();
+		}
+
+		@Override
 		public Adapter caseSystemSubcomponent(SystemSubcomponent object) {
 			return createSystemSubcomponentAdapter();
+		}
+
+		@Override
+		public Adapter caseSystem(org.osate.aadl2.System object) {
+			return createSystemAdapter();
 		}
 
 		@Override
@@ -942,8 +917,18 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseSubprogramGroup(SubprogramGroup object) {
+			return createSubprogramGroupAdapter();
+		}
+
+		@Override
 		public Adapter caseThreadSubcomponent(ThreadSubcomponent object) {
 			return createThreadSubcomponentAdapter();
+		}
+
+		@Override
+		public Adapter caseThread(org.osate.aadl2.Thread object) {
+			return createThreadAdapter();
 		}
 
 		@Override
@@ -952,13 +937,28 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseThreadGroup(org.osate.aadl2.ThreadGroup object) {
+			return createThreadGroupAdapter();
+		}
+
+		@Override
 		public Adapter caseVirtualBusSubcomponent(VirtualBusSubcomponent object) {
 			return createVirtualBusSubcomponentAdapter();
 		}
 
 		@Override
+		public Adapter caseVirtualBus(VirtualBus object) {
+			return createVirtualBusAdapter();
+		}
+
+		@Override
 		public Adapter caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
 			return createVirtualProcessorSubcomponentAdapter();
+		}
+
+		@Override
+		public Adapter caseVirtualProcessor(VirtualProcessor object) {
+			return createVirtualProcessorAdapter();
 		}
 
 		@Override

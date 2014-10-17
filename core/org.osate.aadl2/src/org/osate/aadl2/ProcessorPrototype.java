@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ProcessorPrototype extends ComponentPrototype, ProcessorSubcomponentType {
+public interface ProcessorPrototype extends ComponentPrototype, Processor, ProcessorSubcomponentType {
 } // ProcessorPrototype

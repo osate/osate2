@@ -759,7 +759,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	/*
 	 * DB: Added for OCL to call this method instead of reimplementing the property lookup algo.
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
 	 */
 	@Override

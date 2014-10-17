@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface MemoryPrototype extends ComponentPrototype, MemorySubcomponentType {
+public interface MemoryPrototype extends ComponentPrototype, Memory, MemorySubcomponentType {
 } // MemoryPrototype

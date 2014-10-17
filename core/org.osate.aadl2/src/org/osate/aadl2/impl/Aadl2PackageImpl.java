@@ -9345,8 +9345,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		busSubcomponentTypeEClass = createEClass(BUS_SUBCOMPONENT_TYPE);
 
-		busEClass = createEClass(BUS);
-
 		dataAccessEClass = createEClass(DATA_ACCESS);
 		createEReference(dataAccessEClass, DATA_ACCESS__DATA_FEATURE_CLASSIFIER);
 
@@ -9356,13 +9354,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		dataSubcomponentTypeEClass = createEClass(DATA_SUBCOMPONENT_TYPE);
 
-		dataEClass = createEClass(DATA);
-
 		dataPortEClass = createEClass(DATA_PORT);
 		createEReference(dataPortEClass, DATA_PORT__DATA_FEATURE_CLASSIFIER);
 
 		portEClass = createEClass(PORT);
 		createEAttribute(portEClass, PORT__CATEGORY);
+
+		dataEClass = createEClass(DATA);
 
 		eventDataPortEClass = createEClass(EVENT_DATA_PORT);
 		createEReference(eventDataPortEClass, EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER);
@@ -9377,14 +9375,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		subprogramSubcomponentTypeEClass = createEClass(SUBPROGRAM_SUBCOMPONENT_TYPE);
 
-		subprogramEClass = createEClass(SUBPROGRAM);
-
 		subprogramGroupAccessEClass = createEClass(SUBPROGRAM_GROUP_ACCESS);
 		createEReference(subprogramGroupAccessEClass, SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER);
 
 		subprogramGroupSubcomponentTypeEClass = createEClass(SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE);
-
-		subprogramGroupEClass = createEClass(SUBPROGRAM_GROUP);
 
 		abstractFeatureEClass = createEClass(ABSTRACT_FEATURE);
 		createEReference(abstractFeatureEClass, ABSTRACT_FEATURE__FEATURE_PROTOTYPE);
@@ -9487,6 +9481,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEReference(subprogramProxyEClass, SUBPROGRAM_PROXY__SUBPROGRAM_CLASSIFIER);
 
 		subprogramClassifierEClass = createEClass(SUBPROGRAM_CLASSIFIER);
+
+		subprogramEClass = createEClass(SUBPROGRAM);
 
 		annexLibraryEClass = createEClass(ANNEX_LIBRARY);
 
@@ -9597,39 +9593,21 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		virtualProcessorSubcomponentTypeEClass = createEClass(VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE);
 
-		virtualProcessorEClass = createEClass(VIRTUAL_PROCESSOR);
-
 		virtualBusSubcomponentTypeEClass = createEClass(VIRTUAL_BUS_SUBCOMPONENT_TYPE);
-
-		virtualBusEClass = createEClass(VIRTUAL_BUS);
 
 		threadGroupSubcomponentTypeEClass = createEClass(THREAD_GROUP_SUBCOMPONENT_TYPE);
 
-		threadGroupEClass = createEClass(THREAD_GROUP);
-
 		threadSubcomponentTypeEClass = createEClass(THREAD_SUBCOMPONENT_TYPE);
-
-		threadEClass = createEClass(THREAD);
 
 		systemSubcomponentTypeEClass = createEClass(SYSTEM_SUBCOMPONENT_TYPE);
 
-		systemEClass = createEClass(SYSTEM);
-
 		processSubcomponentTypeEClass = createEClass(PROCESS_SUBCOMPONENT_TYPE);
-
-		processEClass = createEClass(PROCESS);
 
 		memorySubcomponentTypeEClass = createEClass(MEMORY_SUBCOMPONENT_TYPE);
 
-		memoryEClass = createEClass(MEMORY);
-
 		deviceSubcomponentTypeEClass = createEClass(DEVICE_SUBCOMPONENT_TYPE);
 
-		deviceEClass = createEClass(DEVICE);
-
 		processorSubcomponentTypeEClass = createEClass(PROCESSOR_SUBCOMPONENT_TYPE);
-
-		processorEClass = createEClass(PROCESSOR);
 
 		abstractImplementationEClass = createEClass(ABSTRACT_IMPLEMENTATION);
 		createEReference(abstractImplementationEClass, ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
@@ -9649,23 +9627,35 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		busSubcomponentEClass = createEClass(BUS_SUBCOMPONENT);
 		createEReference(busSubcomponentEClass, BUS_SUBCOMPONENT__BUS_SUBCOMPONENT_TYPE);
 
+		busEClass = createEClass(BUS);
+
 		dataSubcomponentEClass = createEClass(DATA_SUBCOMPONENT);
 		createEReference(dataSubcomponentEClass, DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE);
 
 		deviceSubcomponentEClass = createEClass(DEVICE_SUBCOMPONENT);
 		createEReference(deviceSubcomponentEClass, DEVICE_SUBCOMPONENT__DEVICE_SUBCOMPONENT_TYPE);
 
+		deviceEClass = createEClass(DEVICE);
+
 		memorySubcomponentEClass = createEClass(MEMORY_SUBCOMPONENT);
 		createEReference(memorySubcomponentEClass, MEMORY_SUBCOMPONENT__MEMORY_SUBCOMPONENT_TYPE);
+
+		memoryEClass = createEClass(MEMORY);
 
 		processSubcomponentEClass = createEClass(PROCESS_SUBCOMPONENT);
 		createEReference(processSubcomponentEClass, PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE);
 
+		processEClass = createEClass(PROCESS);
+
 		processorSubcomponentEClass = createEClass(PROCESSOR_SUBCOMPONENT);
 		createEReference(processorSubcomponentEClass, PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE);
 
+		processorEClass = createEClass(PROCESSOR);
+
 		systemSubcomponentEClass = createEClass(SYSTEM_SUBCOMPONENT);
 		createEReference(systemSubcomponentEClass, SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE);
+
+		systemEClass = createEClass(SYSTEM);
 
 		subprogramSubcomponentEClass = createEClass(SUBPROGRAM_SUBCOMPONENT);
 		createEReference(subprogramSubcomponentEClass, SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE);
@@ -9674,18 +9664,28 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEReference(subprogramGroupSubcomponentEClass,
 				SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE);
 
+		subprogramGroupEClass = createEClass(SUBPROGRAM_GROUP);
+
 		threadSubcomponentEClass = createEClass(THREAD_SUBCOMPONENT);
 		createEReference(threadSubcomponentEClass, THREAD_SUBCOMPONENT__THREAD_SUBCOMPONENT_TYPE);
+
+		threadEClass = createEClass(THREAD);
 
 		threadGroupSubcomponentEClass = createEClass(THREAD_GROUP_SUBCOMPONENT);
 		createEReference(threadGroupSubcomponentEClass, THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE);
 
+		threadGroupEClass = createEClass(THREAD_GROUP);
+
 		virtualBusSubcomponentEClass = createEClass(VIRTUAL_BUS_SUBCOMPONENT);
 		createEReference(virtualBusSubcomponentEClass, VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE);
+
+		virtualBusEClass = createEClass(VIRTUAL_BUS);
 
 		virtualProcessorSubcomponentEClass = createEClass(VIRTUAL_PROCESSOR_SUBCOMPONENT);
 		createEReference(virtualProcessorSubcomponentEClass,
 				VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE);
+
+		virtualProcessorEClass = createEClass(VIRTUAL_PROCESSOR);
 
 		abstractPrototypeEClass = createEClass(ABSTRACT_PROTOTYPE);
 
@@ -10145,20 +10145,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		accessEClass.getESuperTypes().add(getFeature());
 		accessEClass.getESuperTypes().add(getAccessConnectionEnd());
 		accessConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
-		busSubcomponentTypeEClass.getESuperTypes().add(getBus());
 		busSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		busSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
-		busEClass.getESuperTypes().add(getNamedElement());
 		dataAccessEClass.getESuperTypes().add(getAccess());
 		dataAccessEClass.getESuperTypes().add(getFlowElement());
 		dataAccessEClass.getESuperTypes().add(getParameterConnectionEnd());
 		dataAccessEClass.getESuperTypes().add(getPortConnectionEnd());
 		parameterConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
 		portConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
-		dataSubcomponentTypeEClass.getESuperTypes().add(getData());
 		dataSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		dataSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
-		dataEClass.getESuperTypes().add(getNamedElement());
 		dataPortEClass.getESuperTypes().add(getPort());
 		dataPortEClass.getESuperTypes().add(getContext());
 		dataPortEClass.getESuperTypes().add(getData());
@@ -10166,6 +10162,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		portEClass.getESuperTypes().add(getDirectedFeature());
 		portEClass.getESuperTypes().add(getPortConnectionEnd());
 		portEClass.getESuperTypes().add(getTriggerPort());
+		dataEClass.getESuperTypes().add(getNamedElement());
 		eventDataPortEClass.getESuperTypes().add(getPort());
 		eventDataPortEClass.getESuperTypes().add(getContext());
 		eventDataPortEClass.getESuperTypes().add(getData());
@@ -10177,16 +10174,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		subprogramAccessEClass.getESuperTypes().add(getAccess());
 		subprogramAccessEClass.getESuperTypes().add(getCalledSubprogram());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		subprogramSubcomponentTypeEClass.getESuperTypes().add(getSubprogram());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
-		subprogramEClass.getESuperTypes().add(getNamedElement());
-		subprogramEClass.getESuperTypes().add(getCalledSubprogram());
 		subprogramGroupAccessEClass.getESuperTypes().add(getAccess());
 		subprogramGroupAccessEClass.getESuperTypes().add(getCallContext());
 		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getSubprogramGroup());
 		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
-		subprogramGroupEClass.getESuperTypes().add(getNamedElement());
 		abstractFeatureEClass.getESuperTypes().add(getDirectedFeature());
 		abstractFeatureEClass.getESuperTypes().add(getTriggerPort());
 		featurePrototypeEClass.getESuperTypes().add(getPrototype());
@@ -10215,7 +10207,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		abstractSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		abstractSubcomponentEClass.getESuperTypes().add(getAbstract());
 		abstractEClass.getESuperTypes().add(getNamedElement());
-		abstractSubcomponentTypeEClass.getESuperTypes().add(getAbstract());
 		abstractSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		accessConnectionEClass.getESuperTypes().add(getConnection());
 		parameterConnectionEClass.getESuperTypes().add(getConnection());
@@ -10230,6 +10221,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		eventSourceEClass.getESuperTypes().add(getInternalFeature());
 		eventDataSourceEClass.getESuperTypes().add(getInternalFeature());
 		dataClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		dataClassifierEClass.getESuperTypes().add(getData());
 		dataClassifierEClass.getESuperTypes().add(getDataSubcomponentType());
 		portProxyEClass.getESuperTypes().add(getProcessorFeature());
 		portProxyEClass.getESuperTypes().add(getFeatureConnectionEnd());
@@ -10239,7 +10231,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		subprogramProxyEClass.getESuperTypes().add(getAccessConnectionEnd());
 		subprogramProxyEClass.getESuperTypes().add(getCalledSubprogram());
 		subprogramClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		subprogramClassifierEClass.getESuperTypes().add(getSubprogram());
 		subprogramClassifierEClass.getESuperTypes().add(getSubprogramSubcomponentType());
+		subprogramEClass.getESuperTypes().add(getNamedElement());
+		subprogramEClass.getESuperTypes().add(getCalledSubprogram());
 		annexLibraryEClass.getESuperTypes().add(getNamedElement());
 		defaultAnnexLibraryEClass.getESuperTypes().add(getAnnexLibrary());
 		defaultAnnexSubclauseEClass.getESuperTypes().add(getAnnexSubclause());
@@ -10269,6 +10264,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		abstractTypeEClass.getESuperTypes().add(getAbstractClassifier());
 		abstractTypeEClass.getESuperTypes().add(getCallContext());
 		abstractClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		abstractClassifierEClass.getESuperTypes().add(getAbstract());
 		abstractClassifierEClass.getESuperTypes().add(getAbstractSubcomponentType());
 		abstractClassifierEClass.getESuperTypes().add(getBusSubcomponentType());
 		abstractClassifierEClass.getESuperTypes().add(getDataSubcomponentType());
@@ -10284,37 +10280,20 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		abstractClassifierEClass.getESuperTypes().add(getVirtualBusSubcomponentType());
 		abstractClassifierEClass.getESuperTypes().add(getVirtualProcessorSubcomponentType());
 		virtualProcessorSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		virtualProcessorSubcomponentTypeEClass.getESuperTypes().add(getVirtualProcessor());
-		virtualProcessorEClass.getESuperTypes().add(getNamedElement());
 		virtualBusSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		virtualBusSubcomponentTypeEClass.getESuperTypes().add(getVirtualBus());
-		virtualBusEClass.getESuperTypes().add(getNamedElement());
 		threadGroupSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		threadGroupSubcomponentTypeEClass.getESuperTypes().add(getThreadGroup());
-		threadGroupEClass.getESuperTypes().add(getNamedElement());
 		threadSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		threadSubcomponentTypeEClass.getESuperTypes().add(getThread());
-		threadEClass.getESuperTypes().add(getNamedElement());
 		systemSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		systemSubcomponentTypeEClass.getESuperTypes().add(getSystem());
-		systemEClass.getESuperTypes().add(getNamedElement());
-		processSubcomponentTypeEClass.getESuperTypes().add(getProcess());
 		processSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		processEClass.getESuperTypes().add(getNamedElement());
-		memorySubcomponentTypeEClass.getESuperTypes().add(getMemory());
 		memorySubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		memoryEClass.getESuperTypes().add(getNamedElement());
-		deviceSubcomponentTypeEClass.getESuperTypes().add(getDevice());
 		deviceSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		deviceEClass.getESuperTypes().add(getNamedElement());
-		processorSubcomponentTypeEClass.getESuperTypes().add(getProcessor());
 		processorSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		processorEClass.getESuperTypes().add(getNamedElement());
 		abstractImplementationEClass.getESuperTypes().add(getBehavioredImplementation());
 		abstractImplementationEClass.getESuperTypes().add(getAbstractClassifier());
 		busSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		busSubcomponentEClass.getESuperTypes().add(getAccessConnectionEnd());
 		busSubcomponentEClass.getESuperTypes().add(getBus());
+		busEClass.getESuperTypes().add(getNamedElement());
 		dataSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		dataSubcomponentEClass.getESuperTypes().add(getAccessConnectionEnd());
 		dataSubcomponentEClass.getESuperTypes().add(getData());
@@ -10322,14 +10301,19 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		dataSubcomponentEClass.getESuperTypes().add(getPortConnectionEnd());
 		deviceSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		deviceSubcomponentEClass.getESuperTypes().add(getDevice());
+		deviceEClass.getESuperTypes().add(getNamedElement());
 		memorySubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		memorySubcomponentEClass.getESuperTypes().add(getMemory());
+		memoryEClass.getESuperTypes().add(getNamedElement());
 		processSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		processSubcomponentEClass.getESuperTypes().add(getProcess());
+		processEClass.getESuperTypes().add(getNamedElement());
 		processorSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		processorSubcomponentEClass.getESuperTypes().add(getProcessor());
+		processorEClass.getESuperTypes().add(getNamedElement());
 		systemSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		systemSubcomponentEClass.getESuperTypes().add(getSystem());
+		systemEClass.getESuperTypes().add(getNamedElement());
 		subprogramSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		subprogramSubcomponentEClass.getESuperTypes().add(getAccessConnectionEnd());
 		subprogramSubcomponentEClass.getESuperTypes().add(getSubprogram());
@@ -10337,15 +10321,21 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		subprogramGroupSubcomponentEClass.getESuperTypes().add(getAccessConnectionEnd());
 		subprogramGroupSubcomponentEClass.getESuperTypes().add(getSubprogramGroup());
 		subprogramGroupSubcomponentEClass.getESuperTypes().add(getCallContext());
+		subprogramGroupEClass.getESuperTypes().add(getNamedElement());
 		threadSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		threadSubcomponentEClass.getESuperTypes().add(getThread());
+		threadEClass.getESuperTypes().add(getNamedElement());
 		threadGroupSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		threadGroupSubcomponentEClass.getESuperTypes().add(getThreadGroup());
+		threadGroupEClass.getESuperTypes().add(getNamedElement());
 		virtualBusSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		virtualBusSubcomponentEClass.getESuperTypes().add(getVirtualBus());
+		virtualBusEClass.getESuperTypes().add(getNamedElement());
 		virtualProcessorSubcomponentEClass.getESuperTypes().add(getSubcomponent());
 		virtualProcessorSubcomponentEClass.getESuperTypes().add(getVirtualProcessor());
+		virtualProcessorEClass.getESuperTypes().add(getNamedElement());
 		abstractPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		abstractPrototypeEClass.getESuperTypes().add(getAbstract());
 		abstractPrototypeEClass.getESuperTypes().add(getAbstractSubcomponentType());
 		abstractPrototypeEClass.getESuperTypes().add(getBusSubcomponentType());
 		abstractPrototypeEClass.getESuperTypes().add(getDataSubcomponentType());
@@ -10361,12 +10351,14 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		abstractPrototypeEClass.getESuperTypes().add(getVirtualBusSubcomponentType());
 		abstractPrototypeEClass.getESuperTypes().add(getVirtualProcessorSubcomponentType());
 		busClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		busClassifierEClass.getESuperTypes().add(getBus());
 		busClassifierEClass.getESuperTypes().add(getBusSubcomponentType());
 		busTypeEClass.getESuperTypes().add(getComponentType());
 		busTypeEClass.getESuperTypes().add(getBusClassifier());
 		busImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		busImplementationEClass.getESuperTypes().add(getBusClassifier());
 		busPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		busPrototypeEClass.getESuperTypes().add(getBus());
 		busPrototypeEClass.getESuperTypes().add(getBusSubcomponentType());
 		dataTypeEClass.getESuperTypes().add(getComponentType());
 		dataTypeEClass.getESuperTypes().add(getDataClassifier());
@@ -10374,22 +10366,27 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		dataImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		dataImplementationEClass.getESuperTypes().add(getDataClassifier());
 		dataPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		dataPrototypeEClass.getESuperTypes().add(getData());
 		dataPrototypeEClass.getESuperTypes().add(getDataSubcomponentType());
 		deviceClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		deviceClassifierEClass.getESuperTypes().add(getDevice());
 		deviceClassifierEClass.getESuperTypes().add(getDeviceSubcomponentType());
 		deviceTypeEClass.getESuperTypes().add(getComponentType());
 		deviceTypeEClass.getESuperTypes().add(getDeviceClassifier());
 		deviceImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		deviceImplementationEClass.getESuperTypes().add(getDeviceClassifier());
 		devicePrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		devicePrototypeEClass.getESuperTypes().add(getDevice());
 		devicePrototypeEClass.getESuperTypes().add(getDeviceSubcomponentType());
 		memoryClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		memoryClassifierEClass.getESuperTypes().add(getMemory());
 		memoryClassifierEClass.getESuperTypes().add(getMemorySubcomponentType());
 		memoryTypeEClass.getESuperTypes().add(getComponentType());
 		memoryTypeEClass.getESuperTypes().add(getMemoryClassifier());
 		memoryImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		memoryImplementationEClass.getESuperTypes().add(getMemoryClassifier());
 		memoryPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		memoryPrototypeEClass.getESuperTypes().add(getMemory());
 		memoryPrototypeEClass.getESuperTypes().add(getMemorySubcomponentType());
 		subprogramTypeEClass.getESuperTypes().add(getComponentType());
 		subprogramTypeEClass.getESuperTypes().add(getSubprogramClassifier());
@@ -10397,8 +10394,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		subprogramImplementationEClass.getESuperTypes().add(getBehavioredImplementation());
 		subprogramImplementationEClass.getESuperTypes().add(getSubprogramClassifier());
 		subprogramPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		subprogramPrototypeEClass.getESuperTypes().add(getSubprogram());
 		subprogramPrototypeEClass.getESuperTypes().add(getSubprogramSubcomponentType());
 		subprogramGroupClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		subprogramGroupClassifierEClass.getESuperTypes().add(getSubprogramGroup());
 		subprogramGroupClassifierEClass.getESuperTypes().add(getSubprogramGroupSubcomponentType());
 		subprogramGroupTypeEClass.getESuperTypes().add(getComponentType());
 		subprogramGroupTypeEClass.getESuperTypes().add(getSubprogramGroupClassifier());
@@ -10406,62 +10405,77 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		subprogramGroupImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		subprogramGroupImplementationEClass.getESuperTypes().add(getSubprogramGroupClassifier());
 		subprogramGroupPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		subprogramGroupPrototypeEClass.getESuperTypes().add(getSubprogramGroup());
 		subprogramGroupPrototypeEClass.getESuperTypes().add(getSubprogramGroupSubcomponentType());
 		systemClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		systemClassifierEClass.getESuperTypes().add(getSystem());
 		systemClassifierEClass.getESuperTypes().add(getSystemSubcomponentType());
 		systemTypeEClass.getESuperTypes().add(getComponentType());
 		systemTypeEClass.getESuperTypes().add(getSystemClassifier());
 		systemImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		systemImplementationEClass.getESuperTypes().add(getSystemClassifier());
 		systemPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		systemPrototypeEClass.getESuperTypes().add(getSystem());
 		systemPrototypeEClass.getESuperTypes().add(getSystemSubcomponentType());
 		processorClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		processorClassifierEClass.getESuperTypes().add(getProcessor());
 		processorClassifierEClass.getESuperTypes().add(getProcessorSubcomponentType());
 		processorTypeEClass.getESuperTypes().add(getComponentType());
 		processorTypeEClass.getESuperTypes().add(getProcessorClassifier());
 		processorImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		processorImplementationEClass.getESuperTypes().add(getProcessorClassifier());
 		processorPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		processorPrototypeEClass.getESuperTypes().add(getProcessor());
 		processorPrototypeEClass.getESuperTypes().add(getProcessorSubcomponentType());
 		processClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		processClassifierEClass.getESuperTypes().add(getProcess());
 		processClassifierEClass.getESuperTypes().add(getProcessSubcomponentType());
 		processTypeEClass.getESuperTypes().add(getComponentType());
 		processTypeEClass.getESuperTypes().add(getProcessClassifier());
 		processImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		processImplementationEClass.getESuperTypes().add(getProcessClassifier());
 		processPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		processPrototypeEClass.getESuperTypes().add(getProcess());
 		processPrototypeEClass.getESuperTypes().add(getProcessSubcomponentType());
 		threadClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		threadClassifierEClass.getESuperTypes().add(getThread());
 		threadClassifierEClass.getESuperTypes().add(getThreadSubcomponentType());
 		threadTypeEClass.getESuperTypes().add(getComponentType());
 		threadTypeEClass.getESuperTypes().add(getThreadClassifier());
 		threadImplementationEClass.getESuperTypes().add(getBehavioredImplementation());
 		threadImplementationEClass.getESuperTypes().add(getThreadClassifier());
 		threadPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		threadPrototypeEClass.getESuperTypes().add(getThread());
 		threadPrototypeEClass.getESuperTypes().add(getThreadSubcomponentType());
 		threadGroupClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		threadGroupClassifierEClass.getESuperTypes().add(getThreadGroup());
 		threadGroupClassifierEClass.getESuperTypes().add(getThreadGroupSubcomponentType());
 		threadGroupTypeEClass.getESuperTypes().add(getComponentType());
 		threadGroupTypeEClass.getESuperTypes().add(getThreadGroupClassifier());
 		threadGroupImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		threadGroupImplementationEClass.getESuperTypes().add(getThreadGroupClassifier());
 		threadGroupPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		threadGroupPrototypeEClass.getESuperTypes().add(getThreadGroup());
 		threadGroupPrototypeEClass.getESuperTypes().add(getThreadGroupSubcomponentType());
 		virtualBusClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		virtualBusClassifierEClass.getESuperTypes().add(getVirtualBus());
 		virtualBusClassifierEClass.getESuperTypes().add(getVirtualBusSubcomponentType());
 		virtualBusTypeEClass.getESuperTypes().add(getComponentType());
 		virtualBusTypeEClass.getESuperTypes().add(getVirtualBusClassifier());
 		virtualBusImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		virtualBusImplementationEClass.getESuperTypes().add(getVirtualBusClassifier());
 		virtualBusPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		virtualBusPrototypeEClass.getESuperTypes().add(getVirtualBus());
 		virtualBusPrototypeEClass.getESuperTypes().add(getVirtualBusSubcomponentType());
 		virtualProcessorClassifierEClass.getESuperTypes().add(getComponentClassifier());
+		virtualProcessorClassifierEClass.getESuperTypes().add(getVirtualProcessor());
 		virtualProcessorClassifierEClass.getESuperTypes().add(getVirtualProcessorSubcomponentType());
 		virtualProcessorTypeEClass.getESuperTypes().add(getComponentType());
 		virtualProcessorTypeEClass.getESuperTypes().add(getVirtualProcessorClassifier());
 		virtualProcessorImplementationEClass.getESuperTypes().add(getComponentImplementation());
 		virtualProcessorImplementationEClass.getESuperTypes().add(getVirtualProcessorClassifier());
 		virtualProcessorPrototypeEClass.getESuperTypes().add(getComponentPrototype());
+		virtualProcessorPrototypeEClass.getESuperTypes().add(getVirtualProcessor());
 		virtualProcessorPrototypeEClass.getESuperTypes().add(getVirtualProcessorSubcomponentType());
 		basicPropertyAssociationEClass.getESuperTypes().add(getElement());
 		propertyConstantEClass.getESuperTypes().add(getTypedElement());
@@ -11257,8 +11271,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(busSubcomponentTypeEClass, BusSubcomponentType.class, "BusSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(busEClass, Bus.class, "Bus", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(dataAccessEClass, DataAccess.class, "DataAccess", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataAccess_DataFeatureClassifier(), getDataSubcomponentType(), null, "dataFeatureClassifier",
@@ -11274,8 +11286,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(dataSubcomponentTypeEClass, DataSubcomponentType.class, "DataSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(dataEClass, Data.class, "Data", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(dataPortEClass, DataPort.class, "DataPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataPort_DataFeatureClassifier(), getDataSubcomponentType(), null, "dataFeatureClassifier",
 				null, 0, 1, DataPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
@@ -11284,6 +11294,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(portEClass, Port.class, "Port", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPort_Category(), getPortCategory(), "category", null, 1, 1, Port.class, IS_TRANSIENT,
 				IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+
+		initEClass(dataEClass, Data.class, "Data", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(eventDataPortEClass, EventDataPort.class, "EventDataPort", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11309,9 +11321,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(subprogramSubcomponentTypeEClass, SubprogramSubcomponentType.class, "SubprogramSubcomponentType",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(subprogramEClass, Subprogram.class, "Subprogram", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(subprogramGroupAccessEClass, SubprogramGroupAccess.class, "SubprogramGroupAccess", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSubprogramGroupAccess_SubprogramGroupFeatureClassifier(),
@@ -11321,9 +11330,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(subprogramGroupSubcomponentTypeEClass, SubprogramGroupSubcomponentType.class,
 				"SubprogramGroupSubcomponentType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(subprogramGroupEClass, SubprogramGroup.class, "SubprogramGroup", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(abstractFeatureEClass, AbstractFeature.class, "AbstractFeature", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11532,6 +11538,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(subprogramClassifierEClass, SubprogramClassifier.class, "SubprogramClassifier", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(subprogramEClass, Subprogram.class, "Subprogram", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(annexLibraryEClass, AnnexLibrary.class, "AnnexLibrary", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11783,54 +11792,29 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(virtualProcessorSubcomponentTypeEClass, VirtualProcessorSubcomponentType.class,
 				"VirtualProcessorSubcomponentType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(virtualProcessorEClass, VirtualProcessor.class, "VirtualProcessor", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(virtualBusSubcomponentTypeEClass, VirtualBusSubcomponentType.class, "VirtualBusSubcomponentType",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(virtualBusEClass, VirtualBus.class, "VirtualBus", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(threadGroupSubcomponentTypeEClass, ThreadGroupSubcomponentType.class, "ThreadGroupSubcomponentType",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(threadGroupEClass, org.osate.aadl2.ThreadGroup.class, "ThreadGroup", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(threadSubcomponentTypeEClass, ThreadSubcomponentType.class, "ThreadSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(threadEClass, org.osate.aadl2.Thread.class, "Thread", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(systemSubcomponentTypeEClass, SystemSubcomponentType.class, "SystemSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(systemEClass, org.osate.aadl2.System.class, "System", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(processSubcomponentTypeEClass, ProcessSubcomponentType.class, "ProcessSubcomponentType",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(processEClass, org.osate.aadl2.Process.class, "Process", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(memorySubcomponentTypeEClass, MemorySubcomponentType.class, "MemorySubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(memoryEClass, Memory.class, "Memory", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(deviceSubcomponentTypeEClass, DeviceSubcomponentType.class, "DeviceSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(deviceEClass, Device.class, "Device", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(processorSubcomponentTypeEClass, ProcessorSubcomponentType.class, "ProcessorSubcomponentType",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(processorEClass, Processor.class, "Processor", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(abstractImplementationEClass, AbstractImplementation.class, "AbstractImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11882,6 +11866,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				null, 0, 1, BusSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
+		initEClass(busEClass, Bus.class, "Bus", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(dataSubcomponentEClass, DataSubcomponent.class, "DataSubcomponent", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataSubcomponent_DataSubcomponentType(), getDataSubcomponentType(), null,
@@ -11894,11 +11880,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				"deviceSubcomponentType", null, 0, 1, DeviceSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
+		initEClass(deviceEClass, Device.class, "Device", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(memorySubcomponentEClass, MemorySubcomponent.class, "MemorySubcomponent", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMemorySubcomponent_MemorySubcomponentType(), getMemorySubcomponentType(), null,
 				"memorySubcomponentType", null, 0, 1, MemorySubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(memoryEClass, Memory.class, "Memory", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(processSubcomponentEClass, ProcessSubcomponent.class, "ProcessSubcomponent", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11906,17 +11896,26 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				"processSubcomponentType", null, 0, 1, ProcessSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
+		initEClass(processEClass, org.osate.aadl2.Process.class, "Process", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(processorSubcomponentEClass, ProcessorSubcomponent.class, "ProcessorSubcomponent", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getProcessorSubcomponent_ProcessorSubcomponentType(), getProcessorSubcomponentType(), null,
 				"processorSubcomponentType", null, 0, 1, ProcessorSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
+		initEClass(processorEClass, Processor.class, "Processor", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(systemSubcomponentEClass, SystemSubcomponent.class, "SystemSubcomponent", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSystemSubcomponent_SystemSubcomponentType(), getSystemSubcomponentType(), null,
 				"systemSubcomponentType", null, 0, 1, SystemSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(systemEClass, org.osate.aadl2.System.class, "System", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(subprogramSubcomponentEClass, SubprogramSubcomponent.class, "SubprogramSubcomponent", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11931,11 +11930,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				SubprogramGroupSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
+		initEClass(subprogramGroupEClass, SubprogramGroup.class, "SubprogramGroup", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(threadSubcomponentEClass, ThreadSubcomponent.class, "ThreadSubcomponent", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getThreadSubcomponent_ThreadSubcomponentType(), getThreadSubcomponentType(), null,
 				"threadSubcomponentType", null, 0, 1, ThreadSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(threadEClass, org.osate.aadl2.Thread.class, "Thread", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(threadGroupSubcomponentEClass, ThreadGroupSubcomponent.class, "ThreadGroupSubcomponent",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11944,11 +11949,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
 
+		initEClass(threadGroupEClass, org.osate.aadl2.ThreadGroup.class, "ThreadGroup", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(virtualBusSubcomponentEClass, VirtualBusSubcomponent.class, "VirtualBusSubcomponent", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVirtualBusSubcomponent_VirtualBusSubcomponentType(), getVirtualBusSubcomponentType(), null,
 				"virtualBusSubcomponentType", null, 0, 1, VirtualBusSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(virtualBusEClass, VirtualBus.class, "VirtualBus", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(virtualProcessorSubcomponentEClass, VirtualProcessorSubcomponent.class,
 				"VirtualProcessorSubcomponent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11956,6 +11967,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				getVirtualProcessorSubcomponentType(), null, "virtualProcessorSubcomponentType", null, 0, 1,
 				VirtualProcessorSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(virtualProcessorEClass, VirtualProcessor.class, "VirtualProcessor", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(abstractPrototypeEClass, AbstractPrototype.class, "AbstractPrototype", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

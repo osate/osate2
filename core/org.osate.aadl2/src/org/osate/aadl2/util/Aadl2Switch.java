@@ -1325,9 +1325,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			BusSubcomponentType busSubcomponentType = (BusSubcomponentType) theEObject;
 			T result = caseBusSubcomponentType(busSubcomponentType);
 			if (result == null) {
-				result = caseBus(busSubcomponentType);
-			}
-			if (result == null) {
 				result = caseSubcomponentType(busSubcomponentType);
 			}
 			if (result == null) {
@@ -1341,20 +1338,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(busSubcomponentType);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Aadl2Package.BUS: {
-			Bus bus = (Bus) theEObject;
-			T result = caseBus(bus);
-			if (result == null) {
-				result = caseNamedElement(bus);
-			}
-			if (result == null) {
-				result = caseElement(bus);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1452,9 +1435,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			DataSubcomponentType dataSubcomponentType = (DataSubcomponentType) theEObject;
 			T result = caseDataSubcomponentType(dataSubcomponentType);
 			if (result == null) {
-				result = caseData(dataSubcomponentType);
-			}
-			if (result == null) {
 				result = caseSubcomponentType(dataSubcomponentType);
 			}
 			if (result == null) {
@@ -1468,20 +1448,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(dataSubcomponentType);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Aadl2Package.DATA: {
-			Data data = (Data) theEObject;
-			T result = caseData(data);
-			if (result == null) {
-				result = caseNamedElement(data);
-			}
-			if (result == null) {
-				result = caseElement(data);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1582,6 +1548,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(port);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.DATA: {
+			Data data = (Data) theEObject;
+			T result = caseData(data);
+			if (result == null) {
+				result = caseNamedElement(data);
+			}
+			if (result == null) {
+				result = caseElement(data);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1786,39 +1766,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramSubcomponentType);
 			}
 			if (result == null) {
-				result = caseSubprogram(subprogramSubcomponentType);
-			}
-			if (result == null) {
 				result = caseFeatureClassifier(subprogramSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(subprogramSubcomponentType);
 			}
 			if (result == null) {
-				result = caseCalledSubprogram(subprogramSubcomponentType);
-			}
-			if (result == null) {
 				result = caseNamedElement(subprogramSubcomponentType);
 			}
 			if (result == null) {
 				result = caseElement(subprogramSubcomponentType);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM: {
-			Subprogram subprogram = (Subprogram) theEObject;
-			T result = caseSubprogram(subprogram);
-			if (result == null) {
-				result = caseNamedElement(subprogram);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(subprogram);
-			}
-			if (result == null) {
-				result = caseElement(subprogram);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1876,9 +1833,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramGroupSubcomponentType);
 			}
 			if (result == null) {
-				result = caseSubprogramGroup(subprogramGroupSubcomponentType);
-			}
-			if (result == null) {
 				result = caseFeatureClassifier(subprogramGroupSubcomponentType);
 			}
 			if (result == null) {
@@ -1889,20 +1843,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(subprogramGroupSubcomponentType);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM_GROUP: {
-			SubprogramGroup subprogramGroup = (SubprogramGroup) theEObject;
-			T result = caseSubprogramGroup(subprogramGroup);
-			if (result == null) {
-				result = caseNamedElement(subprogramGroup);
-			}
-			if (result == null) {
-				result = caseElement(subprogramGroup);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -2294,9 +2234,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			AbstractSubcomponentType abstractSubcomponentType = (AbstractSubcomponentType) theEObject;
 			T result = caseAbstractSubcomponentType(abstractSubcomponentType);
 			if (result == null) {
-				result = caseAbstract(abstractSubcomponentType);
-			}
-			if (result == null) {
 				result = caseSubcomponentType(abstractSubcomponentType);
 			}
 			if (result == null) {
@@ -2644,6 +2581,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(dataClassifier);
 			}
 			if (result == null) {
+				result = caseData(dataClassifier);
+			}
+			if (result == null) {
 				result = caseDataSubcomponentType(dataClassifier);
 			}
 			if (result == null) {
@@ -2654,9 +2594,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(dataClassifier);
-			}
-			if (result == null) {
-				result = caseData(dataClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(dataClassifier);
@@ -2755,6 +2692,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(subprogramClassifier);
 			}
 			if (result == null) {
+				result = caseSubprogram(subprogramClassifier);
+			}
+			if (result == null) {
 				result = caseSubprogramSubcomponentType(subprogramClassifier);
 			}
 			if (result == null) {
@@ -2767,7 +2707,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseFeatureClassifier(subprogramClassifier);
 			}
 			if (result == null) {
-				result = caseSubprogram(subprogramClassifier);
+				result = caseCalledSubprogram(subprogramClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramClassifier);
@@ -2776,13 +2716,27 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseType(subprogramClassifier);
 			}
 			if (result == null) {
-				result = caseCalledSubprogram(subprogramClassifier);
-			}
-			if (result == null) {
 				result = caseNamedElement(subprogramClassifier);
 			}
 			if (result == null) {
 				result = caseElement(subprogramClassifier);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM: {
+			Subprogram subprogram = (Subprogram) theEObject;
+			T result = caseSubprogram(subprogram);
+			if (result == null) {
+				result = caseNamedElement(subprogram);
+			}
+			if (result == null) {
+				result = caseCalledSubprogram(subprogram);
+			}
+			if (result == null) {
+				result = caseElement(subprogram);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -3205,6 +3159,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(abstractType);
 			}
 			if (result == null) {
+				result = caseAbstract(abstractType);
+			}
+			if (result == null) {
 				result = caseAbstractSubcomponentType(abstractType);
 			}
 			if (result == null) {
@@ -3256,55 +3213,10 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseFeatureClassifier(abstractType);
 			}
 			if (result == null) {
-				result = caseAbstract(abstractType);
-			}
-			if (result == null) {
-				result = caseBus(abstractType);
-			}
-			if (result == null) {
-				result = caseData(abstractType);
-			}
-			if (result == null) {
-				result = caseDevice(abstractType);
-			}
-			if (result == null) {
-				result = caseMemory(abstractType);
-			}
-			if (result == null) {
-				result = caseProcessor(abstractType);
-			}
-			if (result == null) {
-				result = caseProcess(abstractType);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(abstractType);
-			}
-			if (result == null) {
-				result = caseSubprogram(abstractType);
-			}
-			if (result == null) {
-				result = caseSystem(abstractType);
-			}
-			if (result == null) {
-				result = caseThreadGroup(abstractType);
-			}
-			if (result == null) {
-				result = caseThread(abstractType);
-			}
-			if (result == null) {
-				result = caseVirtualBus(abstractType);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(abstractType);
-			}
-			if (result == null) {
 				result = caseNamespace(abstractType);
 			}
 			if (result == null) {
 				result = caseType(abstractType);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(abstractType);
 			}
 			if (result == null) {
 				result = caseNamedElement(abstractType);
@@ -3322,6 +3234,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			T result = caseAbstractClassifier(abstractClassifier);
 			if (result == null) {
 				result = caseComponentClassifier(abstractClassifier);
+			}
+			if (result == null) {
+				result = caseAbstract(abstractClassifier);
 			}
 			if (result == null) {
 				result = caseAbstractSubcomponentType(abstractClassifier);
@@ -3375,55 +3290,10 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseFeatureClassifier(abstractClassifier);
 			}
 			if (result == null) {
-				result = caseAbstract(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseBus(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseData(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseDevice(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseMemory(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseProcessor(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseProcess(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseSubprogram(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseSystem(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseThreadGroup(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseThread(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseVirtualBus(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(abstractClassifier);
-			}
-			if (result == null) {
 				result = caseNamespace(abstractClassifier);
 			}
 			if (result == null) {
 				result = caseType(abstractClassifier);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(abstractClassifier);
 			}
 			if (result == null) {
 				result = caseNamedElement(abstractClassifier);
@@ -3443,9 +3313,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualProcessorSubcomponentType);
 			}
 			if (result == null) {
-				result = caseVirtualProcessor(virtualProcessorSubcomponentType);
-			}
-			if (result == null) {
 				result = caseType(virtualProcessorSubcomponentType);
 			}
 			if (result == null) {
@@ -3459,28 +3326,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.VIRTUAL_PROCESSOR: {
-			VirtualProcessor virtualProcessor = (VirtualProcessor) theEObject;
-			T result = caseVirtualProcessor(virtualProcessor);
-			if (result == null) {
-				result = caseNamedElement(virtualProcessor);
-			}
-			if (result == null) {
-				result = caseElement(virtualProcessor);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT_TYPE: {
 			VirtualBusSubcomponentType virtualBusSubcomponentType = (VirtualBusSubcomponentType) theEObject;
 			T result = caseVirtualBusSubcomponentType(virtualBusSubcomponentType);
 			if (result == null) {
 				result = caseSubcomponentType(virtualBusSubcomponentType);
-			}
-			if (result == null) {
-				result = caseVirtualBus(virtualBusSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(virtualBusSubcomponentType);
@@ -3496,28 +3346,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.VIRTUAL_BUS: {
-			VirtualBus virtualBus = (VirtualBus) theEObject;
-			T result = caseVirtualBus(virtualBus);
-			if (result == null) {
-				result = caseNamedElement(virtualBus);
-			}
-			if (result == null) {
-				result = caseElement(virtualBus);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE: {
 			ThreadGroupSubcomponentType threadGroupSubcomponentType = (ThreadGroupSubcomponentType) theEObject;
 			T result = caseThreadGroupSubcomponentType(threadGroupSubcomponentType);
 			if (result == null) {
 				result = caseSubcomponentType(threadGroupSubcomponentType);
-			}
-			if (result == null) {
-				result = caseThreadGroup(threadGroupSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(threadGroupSubcomponentType);
@@ -3533,28 +3366,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.THREAD_GROUP: {
-			org.osate.aadl2.ThreadGroup threadGroup = (org.osate.aadl2.ThreadGroup) theEObject;
-			T result = caseThreadGroup(threadGroup);
-			if (result == null) {
-				result = caseNamedElement(threadGroup);
-			}
-			if (result == null) {
-				result = caseElement(threadGroup);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE: {
 			ThreadSubcomponentType threadSubcomponentType = (ThreadSubcomponentType) theEObject;
 			T result = caseThreadSubcomponentType(threadSubcomponentType);
 			if (result == null) {
 				result = caseSubcomponentType(threadSubcomponentType);
-			}
-			if (result == null) {
-				result = caseThread(threadSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(threadSubcomponentType);
@@ -3570,28 +3386,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.THREAD: {
-			org.osate.aadl2.Thread thread = (org.osate.aadl2.Thread) theEObject;
-			T result = caseThread(thread);
-			if (result == null) {
-				result = caseNamedElement(thread);
-			}
-			if (result == null) {
-				result = caseElement(thread);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE: {
 			SystemSubcomponentType systemSubcomponentType = (SystemSubcomponentType) theEObject;
 			T result = caseSystemSubcomponentType(systemSubcomponentType);
 			if (result == null) {
 				result = caseSubcomponentType(systemSubcomponentType);
-			}
-			if (result == null) {
-				result = caseSystem(systemSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(systemSubcomponentType);
@@ -3607,26 +3406,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.SYSTEM: {
-			org.osate.aadl2.System system = (org.osate.aadl2.System) theEObject;
-			T result = caseSystem(system);
-			if (result == null) {
-				result = caseNamedElement(system);
-			}
-			if (result == null) {
-				result = caseElement(system);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE: {
 			ProcessSubcomponentType processSubcomponentType = (ProcessSubcomponentType) theEObject;
 			T result = caseProcessSubcomponentType(processSubcomponentType);
-			if (result == null) {
-				result = caseProcess(processSubcomponentType);
-			}
 			if (result == null) {
 				result = caseSubcomponentType(processSubcomponentType);
 			}
@@ -3644,26 +3426,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.PROCESS: {
-			org.osate.aadl2.Process process = (org.osate.aadl2.Process) theEObject;
-			T result = caseProcess(process);
-			if (result == null) {
-				result = caseNamedElement(process);
-			}
-			if (result == null) {
-				result = caseElement(process);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE: {
 			MemorySubcomponentType memorySubcomponentType = (MemorySubcomponentType) theEObject;
 			T result = caseMemorySubcomponentType(memorySubcomponentType);
-			if (result == null) {
-				result = caseMemory(memorySubcomponentType);
-			}
 			if (result == null) {
 				result = caseSubcomponentType(memorySubcomponentType);
 			}
@@ -3681,26 +3446,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.MEMORY: {
-			Memory memory = (Memory) theEObject;
-			T result = caseMemory(memory);
-			if (result == null) {
-				result = caseNamedElement(memory);
-			}
-			if (result == null) {
-				result = caseElement(memory);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE: {
 			DeviceSubcomponentType deviceSubcomponentType = (DeviceSubcomponentType) theEObject;
 			T result = caseDeviceSubcomponentType(deviceSubcomponentType);
-			if (result == null) {
-				result = caseDevice(deviceSubcomponentType);
-			}
 			if (result == null) {
 				result = caseSubcomponentType(deviceSubcomponentType);
 			}
@@ -3718,26 +3466,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.DEVICE: {
-			Device device = (Device) theEObject;
-			T result = caseDevice(device);
-			if (result == null) {
-				result = caseNamedElement(device);
-			}
-			if (result == null) {
-				result = caseElement(device);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE: {
 			ProcessorSubcomponentType processorSubcomponentType = (ProcessorSubcomponentType) theEObject;
 			T result = caseProcessorSubcomponentType(processorSubcomponentType);
-			if (result == null) {
-				result = caseProcessor(processorSubcomponentType);
-			}
 			if (result == null) {
 				result = caseSubcomponentType(processorSubcomponentType);
 			}
@@ -3755,20 +3486,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.PROCESSOR: {
-			Processor processor = (Processor) theEObject;
-			T result = caseProcessor(processor);
-			if (result == null) {
-				result = caseNamedElement(processor);
-			}
-			if (result == null) {
-				result = caseElement(processor);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION: {
 			AbstractImplementation abstractImplementation = (AbstractImplementation) theEObject;
 			T result = caseAbstractImplementation(abstractImplementation);
@@ -3780,6 +3497,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseComponentImplementation(abstractImplementation);
+			}
+			if (result == null) {
+				result = caseAbstract(abstractImplementation);
 			}
 			if (result == null) {
 				result = caseAbstractSubcomponentType(abstractImplementation);
@@ -3827,48 +3547,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(abstractImplementation);
 			}
 			if (result == null) {
-				result = caseAbstract(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseBus(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseData(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseDevice(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseMemory(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseProcessor(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseProcess(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseSubprogram(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseSystem(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseThreadGroup(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseThread(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseVirtualBus(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(abstractImplementation);
-			}
-			if (result == null) {
 				result = caseClassifier(abstractImplementation);
 			}
 			if (result == null) {
@@ -3876,9 +3554,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(abstractImplementation);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(abstractImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(abstractImplementation);
@@ -3941,6 +3616,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(busSubcomponent);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.BUS: {
+			Bus bus = (Bus) theEObject;
+			T result = caseBus(bus);
+			if (result == null) {
+				result = caseNamedElement(bus);
+			}
+			if (result == null) {
+				result = caseElement(bus);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -4047,6 +3736,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.DEVICE: {
+			Device device = (Device) theEObject;
+			T result = caseDevice(device);
+			if (result == null) {
+				result = caseNamedElement(device);
+			}
+			if (result == null) {
+				result = caseElement(device);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.MEMORY_SUBCOMPONENT: {
 			MemorySubcomponent memorySubcomponent = (MemorySubcomponent) theEObject;
 			T result = caseMemorySubcomponent(memorySubcomponent);
@@ -4085,6 +3788,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(memorySubcomponent);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.MEMORY: {
+			Memory memory = (Memory) theEObject;
+			T result = caseMemory(memory);
+			if (result == null) {
+				result = caseNamedElement(memory);
+			}
+			if (result == null) {
+				result = caseElement(memory);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -4135,6 +3852,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.PROCESS: {
+			org.osate.aadl2.Process process = (org.osate.aadl2.Process) theEObject;
+			T result = caseProcess(process);
+			if (result == null) {
+				result = caseNamedElement(process);
+			}
+			if (result == null) {
+				result = caseElement(process);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT: {
 			ProcessorSubcomponent processorSubcomponent = (ProcessorSubcomponent) theEObject;
 			T result = caseProcessorSubcomponent(processorSubcomponent);
@@ -4179,6 +3910,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.PROCESSOR: {
+			Processor processor = (Processor) theEObject;
+			T result = caseProcessor(processor);
+			if (result == null) {
+				result = caseNamedElement(processor);
+			}
+			if (result == null) {
+				result = caseElement(processor);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.SYSTEM_SUBCOMPONENT: {
 			SystemSubcomponent systemSubcomponent = (SystemSubcomponent) theEObject;
 			T result = caseSystemSubcomponent(systemSubcomponent);
@@ -4217,6 +3962,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(systemSubcomponent);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.SYSTEM: {
+			org.osate.aadl2.System system = (org.osate.aadl2.System) theEObject;
+			T result = caseSystem(system);
+			if (result == null) {
+				result = caseNamedElement(system);
+			}
+			if (result == null) {
+				result = caseElement(system);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -4329,6 +4088,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.SUBPROGRAM_GROUP: {
+			SubprogramGroup subprogramGroup = (SubprogramGroup) theEObject;
+			T result = caseSubprogramGroup(subprogramGroup);
+			if (result == null) {
+				result = caseNamedElement(subprogramGroup);
+			}
+			if (result == null) {
+				result = caseElement(subprogramGroup);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.THREAD_SUBCOMPONENT: {
 			ThreadSubcomponent threadSubcomponent = (ThreadSubcomponent) theEObject;
 			T result = caseThreadSubcomponent(threadSubcomponent);
@@ -4367,6 +4140,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(threadSubcomponent);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.THREAD: {
+			org.osate.aadl2.Thread thread = (org.osate.aadl2.Thread) theEObject;
+			T result = caseThread(thread);
+			if (result == null) {
+				result = caseNamedElement(thread);
+			}
+			if (result == null) {
+				result = caseElement(thread);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -4417,6 +4204,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.THREAD_GROUP: {
+			org.osate.aadl2.ThreadGroup threadGroup = (org.osate.aadl2.ThreadGroup) theEObject;
+			T result = caseThreadGroup(threadGroup);
+			if (result == null) {
+				result = caseNamedElement(threadGroup);
+			}
+			if (result == null) {
+				result = caseElement(threadGroup);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT: {
 			VirtualBusSubcomponent virtualBusSubcomponent = (VirtualBusSubcomponent) theEObject;
 			T result = caseVirtualBusSubcomponent(virtualBusSubcomponent);
@@ -4455,6 +4256,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(virtualBusSubcomponent);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.VIRTUAL_BUS: {
+			VirtualBus virtualBus = (VirtualBus) theEObject;
+			T result = caseVirtualBus(virtualBus);
+			if (result == null) {
+				result = caseNamedElement(virtualBus);
+			}
+			if (result == null) {
+				result = caseElement(virtualBus);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -4505,11 +4320,28 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.VIRTUAL_PROCESSOR: {
+			VirtualProcessor virtualProcessor = (VirtualProcessor) theEObject;
+			T result = caseVirtualProcessor(virtualProcessor);
+			if (result == null) {
+				result = caseNamedElement(virtualProcessor);
+			}
+			if (result == null) {
+				result = caseElement(virtualProcessor);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.ABSTRACT_PROTOTYPE: {
 			AbstractPrototype abstractPrototype = (AbstractPrototype) theEObject;
 			T result = caseAbstractPrototype(abstractPrototype);
 			if (result == null) {
 				result = caseComponentPrototype(abstractPrototype);
+			}
+			if (result == null) {
+				result = caseAbstract(abstractPrototype);
 			}
 			if (result == null) {
 				result = caseAbstractSubcomponentType(abstractPrototype);
@@ -4563,48 +4395,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseFeatureClassifier(abstractPrototype);
 			}
 			if (result == null) {
-				result = caseAbstract(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseBus(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseData(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseDevice(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseMemory(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseProcessor(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseProcess(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseSubprogram(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseSystem(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseThreadGroup(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseThread(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseVirtualBus(abstractPrototype);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(abstractPrototype);
-			}
-			if (result == null) {
 				result = caseStructuralFeature(abstractPrototype);
 			}
 			if (result == null) {
@@ -4637,6 +4427,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(busClassifier);
 			}
 			if (result == null) {
+				result = caseBus(busClassifier);
+			}
+			if (result == null) {
 				result = caseBusSubcomponentType(busClassifier);
 			}
 			if (result == null) {
@@ -4647,9 +4440,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(busClassifier);
-			}
-			if (result == null) {
-				result = caseBus(busClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(busClassifier);
@@ -4681,6 +4471,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(busType);
 			}
 			if (result == null) {
+				result = caseBus(busType);
+			}
+			if (result == null) {
 				result = caseBusSubcomponentType(busType);
 			}
 			if (result == null) {
@@ -4691,9 +4484,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(busType);
-			}
-			if (result == null) {
-				result = caseBus(busType);
 			}
 			if (result == null) {
 				result = caseNamespace(busType);
@@ -4725,6 +4515,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(busImplementation);
 			}
 			if (result == null) {
+				result = caseBus(busImplementation);
+			}
+			if (result == null) {
 				result = caseBusSubcomponentType(busImplementation);
 			}
 			if (result == null) {
@@ -4735,9 +4528,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(busImplementation);
-			}
-			if (result == null) {
-				result = caseBus(busImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(busImplementation);
@@ -4763,6 +4553,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(busPrototype);
 			}
 			if (result == null) {
+				result = caseBus(busPrototype);
+			}
+			if (result == null) {
 				result = caseBusSubcomponentType(busPrototype);
 			}
 			if (result == null) {
@@ -4773,9 +4566,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(busPrototype);
-			}
-			if (result == null) {
-				result = caseBus(busPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(busPrototype);
@@ -4819,6 +4609,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(dataType);
 			}
 			if (result == null) {
+				result = caseData(dataType);
+			}
+			if (result == null) {
 				result = caseDataSubcomponentType(dataType);
 			}
 			if (result == null) {
@@ -4829,9 +4622,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(dataType);
-			}
-			if (result == null) {
-				result = caseData(dataType);
 			}
 			if (result == null) {
 				result = caseNamespace(dataType);
@@ -4863,6 +4653,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(dataImplementation);
 			}
 			if (result == null) {
+				result = caseData(dataImplementation);
+			}
+			if (result == null) {
 				result = caseDataSubcomponentType(dataImplementation);
 			}
 			if (result == null) {
@@ -4873,9 +4666,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(dataImplementation);
-			}
-			if (result == null) {
-				result = caseData(dataImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(dataImplementation);
@@ -4901,6 +4691,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(dataPrototype);
 			}
 			if (result == null) {
+				result = caseData(dataPrototype);
+			}
+			if (result == null) {
 				result = caseDataSubcomponentType(dataPrototype);
 			}
 			if (result == null) {
@@ -4911,9 +4704,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(dataPrototype);
-			}
-			if (result == null) {
-				result = caseData(dataPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(dataPrototype);
@@ -4948,6 +4738,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(deviceClassifier);
 			}
 			if (result == null) {
+				result = caseDevice(deviceClassifier);
+			}
+			if (result == null) {
 				result = caseDeviceSubcomponentType(deviceClassifier);
 			}
 			if (result == null) {
@@ -4958,9 +4751,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(deviceClassifier);
-			}
-			if (result == null) {
-				result = caseDevice(deviceClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(deviceClassifier);
@@ -4992,6 +4782,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(deviceType);
 			}
 			if (result == null) {
+				result = caseDevice(deviceType);
+			}
+			if (result == null) {
 				result = caseDeviceSubcomponentType(deviceType);
 			}
 			if (result == null) {
@@ -5002,9 +4795,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(deviceType);
-			}
-			if (result == null) {
-				result = caseDevice(deviceType);
 			}
 			if (result == null) {
 				result = caseNamespace(deviceType);
@@ -5036,6 +4826,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(deviceImplementation);
 			}
 			if (result == null) {
+				result = caseDevice(deviceImplementation);
+			}
+			if (result == null) {
 				result = caseDeviceSubcomponentType(deviceImplementation);
 			}
 			if (result == null) {
@@ -5046,9 +4839,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(deviceImplementation);
-			}
-			if (result == null) {
-				result = caseDevice(deviceImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(deviceImplementation);
@@ -5074,6 +4864,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(devicePrototype);
 			}
 			if (result == null) {
+				result = caseDevice(devicePrototype);
+			}
+			if (result == null) {
 				result = caseDeviceSubcomponentType(devicePrototype);
 			}
 			if (result == null) {
@@ -5084,9 +4877,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(devicePrototype);
-			}
-			if (result == null) {
-				result = caseDevice(devicePrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(devicePrototype);
@@ -5121,6 +4911,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(memoryClassifier);
 			}
 			if (result == null) {
+				result = caseMemory(memoryClassifier);
+			}
+			if (result == null) {
 				result = caseMemorySubcomponentType(memoryClassifier);
 			}
 			if (result == null) {
@@ -5131,9 +4924,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(memoryClassifier);
-			}
-			if (result == null) {
-				result = caseMemory(memoryClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(memoryClassifier);
@@ -5165,6 +4955,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(memoryType);
 			}
 			if (result == null) {
+				result = caseMemory(memoryType);
+			}
+			if (result == null) {
 				result = caseMemorySubcomponentType(memoryType);
 			}
 			if (result == null) {
@@ -5175,9 +4968,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(memoryType);
-			}
-			if (result == null) {
-				result = caseMemory(memoryType);
 			}
 			if (result == null) {
 				result = caseNamespace(memoryType);
@@ -5209,6 +4999,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(memoryImplementation);
 			}
 			if (result == null) {
+				result = caseMemory(memoryImplementation);
+			}
+			if (result == null) {
 				result = caseMemorySubcomponentType(memoryImplementation);
 			}
 			if (result == null) {
@@ -5219,9 +5012,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(memoryImplementation);
-			}
-			if (result == null) {
-				result = caseMemory(memoryImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(memoryImplementation);
@@ -5247,6 +5037,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(memoryPrototype);
 			}
 			if (result == null) {
+				result = caseMemory(memoryPrototype);
+			}
+			if (result == null) {
 				result = caseMemorySubcomponentType(memoryPrototype);
 			}
 			if (result == null) {
@@ -5257,9 +5050,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(memoryPrototype);
-			}
-			if (result == null) {
-				result = caseMemory(memoryPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(memoryPrototype);
@@ -5303,6 +5093,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(subprogramType);
 			}
 			if (result == null) {
+				result = caseSubprogram(subprogramType);
+			}
+			if (result == null) {
 				result = caseSubprogramSubcomponentType(subprogramType);
 			}
 			if (result == null) {
@@ -5315,16 +5108,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseFeatureClassifier(subprogramType);
 			}
 			if (result == null) {
-				result = caseSubprogram(subprogramType);
+				result = caseCalledSubprogram(subprogramType);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramType);
 			}
 			if (result == null) {
 				result = caseType(subprogramType);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(subprogramType);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramType);
@@ -5350,13 +5140,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentImplementation(subprogramImplementation);
 			}
 			if (result == null) {
+				result = caseSubprogram(subprogramImplementation);
+			}
+			if (result == null) {
 				result = caseSubprogramSubcomponentType(subprogramImplementation);
 			}
 			if (result == null) {
 				result = caseComponentClassifier(subprogramImplementation);
 			}
 			if (result == null) {
-				result = caseSubprogram(subprogramImplementation);
+				result = caseCalledSubprogram(subprogramImplementation);
 			}
 			if (result == null) {
 				result = caseClassifier(subprogramImplementation);
@@ -5366,9 +5159,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(subprogramImplementation);
-			}
-			if (result == null) {
-				result = caseCalledSubprogram(subprogramImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramImplementation);
@@ -5394,6 +5184,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(subprogramPrototype);
 			}
 			if (result == null) {
+				result = caseSubprogram(subprogramPrototype);
+			}
+			if (result == null) {
 				result = caseSubprogramSubcomponentType(subprogramPrototype);
 			}
 			if (result == null) {
@@ -5404,9 +5197,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(subprogramPrototype);
-			}
-			if (result == null) {
-				result = caseSubprogram(subprogramPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(subprogramPrototype);
@@ -5441,6 +5231,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(subprogramGroupClassifier);
 			}
 			if (result == null) {
+				result = caseSubprogramGroup(subprogramGroupClassifier);
+			}
+			if (result == null) {
 				result = caseSubprogramGroupSubcomponentType(subprogramGroupClassifier);
 			}
 			if (result == null) {
@@ -5451,9 +5244,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(subprogramGroupClassifier);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(subprogramGroupClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramGroupClassifier);
@@ -5488,6 +5278,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(subprogramGroupType);
 			}
 			if (result == null) {
+				result = caseSubprogramGroup(subprogramGroupType);
+			}
+			if (result == null) {
 				result = caseSubprogramGroupSubcomponentType(subprogramGroupType);
 			}
 			if (result == null) {
@@ -5498,9 +5291,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(subprogramGroupType);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(subprogramGroupType);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramGroupType);
@@ -5532,6 +5322,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(subprogramGroupImplementation);
 			}
 			if (result == null) {
+				result = caseSubprogramGroup(subprogramGroupImplementation);
+			}
+			if (result == null) {
 				result = caseSubprogramGroupSubcomponentType(subprogramGroupImplementation);
 			}
 			if (result == null) {
@@ -5542,9 +5335,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(subprogramGroupImplementation);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(subprogramGroupImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramGroupImplementation);
@@ -5570,6 +5360,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(subprogramGroupPrototype);
 			}
 			if (result == null) {
+				result = caseSubprogramGroup(subprogramGroupPrototype);
+			}
+			if (result == null) {
 				result = caseSubprogramGroupSubcomponentType(subprogramGroupPrototype);
 			}
 			if (result == null) {
@@ -5580,9 +5373,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(subprogramGroupPrototype);
-			}
-			if (result == null) {
-				result = caseSubprogramGroup(subprogramGroupPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(subprogramGroupPrototype);
@@ -5617,6 +5407,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(systemClassifier);
 			}
 			if (result == null) {
+				result = caseSystem(systemClassifier);
+			}
+			if (result == null) {
 				result = caseSystemSubcomponentType(systemClassifier);
 			}
 			if (result == null) {
@@ -5627,9 +5420,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(systemClassifier);
-			}
-			if (result == null) {
-				result = caseSystem(systemClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(systemClassifier);
@@ -5661,6 +5451,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(systemType);
 			}
 			if (result == null) {
+				result = caseSystem(systemType);
+			}
+			if (result == null) {
 				result = caseSystemSubcomponentType(systemType);
 			}
 			if (result == null) {
@@ -5671,9 +5464,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(systemType);
-			}
-			if (result == null) {
-				result = caseSystem(systemType);
 			}
 			if (result == null) {
 				result = caseNamespace(systemType);
@@ -5705,6 +5495,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(systemImplementation);
 			}
 			if (result == null) {
+				result = caseSystem(systemImplementation);
+			}
+			if (result == null) {
 				result = caseSystemSubcomponentType(systemImplementation);
 			}
 			if (result == null) {
@@ -5715,9 +5508,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(systemImplementation);
-			}
-			if (result == null) {
-				result = caseSystem(systemImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(systemImplementation);
@@ -5743,6 +5533,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(systemPrototype);
 			}
 			if (result == null) {
+				result = caseSystem(systemPrototype);
+			}
+			if (result == null) {
 				result = caseSystemSubcomponentType(systemPrototype);
 			}
 			if (result == null) {
@@ -5753,9 +5546,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(systemPrototype);
-			}
-			if (result == null) {
-				result = caseSystem(systemPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(systemPrototype);
@@ -5790,6 +5580,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(processorClassifier);
 			}
 			if (result == null) {
+				result = caseProcessor(processorClassifier);
+			}
+			if (result == null) {
 				result = caseProcessorSubcomponentType(processorClassifier);
 			}
 			if (result == null) {
@@ -5800,9 +5593,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processorClassifier);
-			}
-			if (result == null) {
-				result = caseProcessor(processorClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(processorClassifier);
@@ -5834,6 +5624,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(processorType);
 			}
 			if (result == null) {
+				result = caseProcessor(processorType);
+			}
+			if (result == null) {
 				result = caseProcessorSubcomponentType(processorType);
 			}
 			if (result == null) {
@@ -5844,9 +5637,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processorType);
-			}
-			if (result == null) {
-				result = caseProcessor(processorType);
 			}
 			if (result == null) {
 				result = caseNamespace(processorType);
@@ -5878,6 +5668,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(processorImplementation);
 			}
 			if (result == null) {
+				result = caseProcessor(processorImplementation);
+			}
+			if (result == null) {
 				result = caseProcessorSubcomponentType(processorImplementation);
 			}
 			if (result == null) {
@@ -5888,9 +5681,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processorImplementation);
-			}
-			if (result == null) {
-				result = caseProcessor(processorImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(processorImplementation);
@@ -5916,6 +5706,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(processorPrototype);
 			}
 			if (result == null) {
+				result = caseProcessor(processorPrototype);
+			}
+			if (result == null) {
 				result = caseProcessorSubcomponentType(processorPrototype);
 			}
 			if (result == null) {
@@ -5926,9 +5719,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processorPrototype);
-			}
-			if (result == null) {
-				result = caseProcessor(processorPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(processorPrototype);
@@ -5963,6 +5753,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(processClassifier);
 			}
 			if (result == null) {
+				result = caseProcess(processClassifier);
+			}
+			if (result == null) {
 				result = caseProcessSubcomponentType(processClassifier);
 			}
 			if (result == null) {
@@ -5973,9 +5766,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processClassifier);
-			}
-			if (result == null) {
-				result = caseProcess(processClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(processClassifier);
@@ -6007,6 +5797,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(processType);
 			}
 			if (result == null) {
+				result = caseProcess(processType);
+			}
+			if (result == null) {
 				result = caseProcessSubcomponentType(processType);
 			}
 			if (result == null) {
@@ -6017,9 +5810,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processType);
-			}
-			if (result == null) {
-				result = caseProcess(processType);
 			}
 			if (result == null) {
 				result = caseNamespace(processType);
@@ -6051,6 +5841,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(processImplementation);
 			}
 			if (result == null) {
+				result = caseProcess(processImplementation);
+			}
+			if (result == null) {
 				result = caseProcessSubcomponentType(processImplementation);
 			}
 			if (result == null) {
@@ -6061,9 +5854,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processImplementation);
-			}
-			if (result == null) {
-				result = caseProcess(processImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(processImplementation);
@@ -6089,6 +5879,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(processPrototype);
 			}
 			if (result == null) {
+				result = caseProcess(processPrototype);
+			}
+			if (result == null) {
 				result = caseProcessSubcomponentType(processPrototype);
 			}
 			if (result == null) {
@@ -6099,9 +5892,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(processPrototype);
-			}
-			if (result == null) {
-				result = caseProcess(processPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(processPrototype);
@@ -6136,6 +5926,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(threadClassifier);
 			}
 			if (result == null) {
+				result = caseThread(threadClassifier);
+			}
+			if (result == null) {
 				result = caseThreadSubcomponentType(threadClassifier);
 			}
 			if (result == null) {
@@ -6146,9 +5939,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(threadClassifier);
-			}
-			if (result == null) {
-				result = caseThread(threadClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(threadClassifier);
@@ -6180,6 +5970,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(threadType);
 			}
 			if (result == null) {
+				result = caseThread(threadType);
+			}
+			if (result == null) {
 				result = caseThreadSubcomponentType(threadType);
 			}
 			if (result == null) {
@@ -6190,9 +5983,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(threadType);
-			}
-			if (result == null) {
-				result = caseThread(threadType);
 			}
 			if (result == null) {
 				result = caseNamespace(threadType);
@@ -6224,13 +6014,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentImplementation(threadImplementation);
 			}
 			if (result == null) {
+				result = caseThread(threadImplementation);
+			}
+			if (result == null) {
 				result = caseThreadSubcomponentType(threadImplementation);
 			}
 			if (result == null) {
 				result = caseComponentClassifier(threadImplementation);
-			}
-			if (result == null) {
-				result = caseThread(threadImplementation);
 			}
 			if (result == null) {
 				result = caseClassifier(threadImplementation);
@@ -6265,6 +6055,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(threadPrototype);
 			}
 			if (result == null) {
+				result = caseThread(threadPrototype);
+			}
+			if (result == null) {
 				result = caseThreadSubcomponentType(threadPrototype);
 			}
 			if (result == null) {
@@ -6275,9 +6068,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(threadPrototype);
-			}
-			if (result == null) {
-				result = caseThread(threadPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(threadPrototype);
@@ -6312,6 +6102,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(threadGroupClassifier);
 			}
 			if (result == null) {
+				result = caseThreadGroup(threadGroupClassifier);
+			}
+			if (result == null) {
 				result = caseThreadGroupSubcomponentType(threadGroupClassifier);
 			}
 			if (result == null) {
@@ -6322,9 +6115,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(threadGroupClassifier);
-			}
-			if (result == null) {
-				result = caseThreadGroup(threadGroupClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(threadGroupClassifier);
@@ -6356,6 +6146,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(threadGroupType);
 			}
 			if (result == null) {
+				result = caseThreadGroup(threadGroupType);
+			}
+			if (result == null) {
 				result = caseThreadGroupSubcomponentType(threadGroupType);
 			}
 			if (result == null) {
@@ -6366,9 +6159,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(threadGroupType);
-			}
-			if (result == null) {
-				result = caseThreadGroup(threadGroupType);
 			}
 			if (result == null) {
 				result = caseNamespace(threadGroupType);
@@ -6400,6 +6190,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(threadGroupImplementation);
 			}
 			if (result == null) {
+				result = caseThreadGroup(threadGroupImplementation);
+			}
+			if (result == null) {
 				result = caseThreadGroupSubcomponentType(threadGroupImplementation);
 			}
 			if (result == null) {
@@ -6410,9 +6203,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(threadGroupImplementation);
-			}
-			if (result == null) {
-				result = caseThreadGroup(threadGroupImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(threadGroupImplementation);
@@ -6438,6 +6228,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(threadGroupPrototype);
 			}
 			if (result == null) {
+				result = caseThreadGroup(threadGroupPrototype);
+			}
+			if (result == null) {
 				result = caseThreadGroupSubcomponentType(threadGroupPrototype);
 			}
 			if (result == null) {
@@ -6448,9 +6241,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(threadGroupPrototype);
-			}
-			if (result == null) {
-				result = caseThreadGroup(threadGroupPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(threadGroupPrototype);
@@ -6485,6 +6275,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(virtualBusClassifier);
 			}
 			if (result == null) {
+				result = caseVirtualBus(virtualBusClassifier);
+			}
+			if (result == null) {
 				result = caseVirtualBusSubcomponentType(virtualBusClassifier);
 			}
 			if (result == null) {
@@ -6495,9 +6288,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualBusClassifier);
-			}
-			if (result == null) {
-				result = caseVirtualBus(virtualBusClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualBusClassifier);
@@ -6529,6 +6319,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(virtualBusType);
 			}
 			if (result == null) {
+				result = caseVirtualBus(virtualBusType);
+			}
+			if (result == null) {
 				result = caseVirtualBusSubcomponentType(virtualBusType);
 			}
 			if (result == null) {
@@ -6539,9 +6332,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualBusType);
-			}
-			if (result == null) {
-				result = caseVirtualBus(virtualBusType);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualBusType);
@@ -6573,6 +6363,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(virtualBusImplementation);
 			}
 			if (result == null) {
+				result = caseVirtualBus(virtualBusImplementation);
+			}
+			if (result == null) {
 				result = caseVirtualBusSubcomponentType(virtualBusImplementation);
 			}
 			if (result == null) {
@@ -6583,9 +6376,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualBusImplementation);
-			}
-			if (result == null) {
-				result = caseVirtualBus(virtualBusImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualBusImplementation);
@@ -6611,6 +6401,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(virtualBusPrototype);
 			}
 			if (result == null) {
+				result = caseVirtualBus(virtualBusPrototype);
+			}
+			if (result == null) {
 				result = caseVirtualBusSubcomponentType(virtualBusPrototype);
 			}
 			if (result == null) {
@@ -6621,9 +6414,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualBusPrototype);
-			}
-			if (result == null) {
-				result = caseVirtualBus(virtualBusPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(virtualBusPrototype);
@@ -6658,6 +6448,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(virtualProcessorClassifier);
 			}
 			if (result == null) {
+				result = caseVirtualProcessor(virtualProcessorClassifier);
+			}
+			if (result == null) {
 				result = caseVirtualProcessorSubcomponentType(virtualProcessorClassifier);
 			}
 			if (result == null) {
@@ -6668,9 +6461,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualProcessorClassifier);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(virtualProcessorClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualProcessorClassifier);
@@ -6702,6 +6492,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(virtualProcessorType);
 			}
 			if (result == null) {
+				result = caseVirtualProcessor(virtualProcessorType);
+			}
+			if (result == null) {
 				result = caseVirtualProcessorSubcomponentType(virtualProcessorType);
 			}
 			if (result == null) {
@@ -6712,9 +6505,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualProcessorType);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(virtualProcessorType);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualProcessorType);
@@ -6746,6 +6536,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentClassifier(virtualProcessorImplementation);
 			}
 			if (result == null) {
+				result = caseVirtualProcessor(virtualProcessorImplementation);
+			}
+			if (result == null) {
 				result = caseVirtualProcessorSubcomponentType(virtualProcessorImplementation);
 			}
 			if (result == null) {
@@ -6756,9 +6549,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualProcessorImplementation);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(virtualProcessorImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualProcessorImplementation);
@@ -6784,6 +6574,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseComponentPrototype(virtualProcessorPrototype);
 			}
 			if (result == null) {
+				result = caseVirtualProcessor(virtualProcessorPrototype);
+			}
+			if (result == null) {
 				result = caseVirtualProcessorSubcomponentType(virtualProcessorPrototype);
 			}
 			if (result == null) {
@@ -6794,9 +6587,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseFeatureClassifier(virtualProcessorPrototype);
-			}
-			if (result == null) {
-				result = caseVirtualProcessor(virtualProcessorPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(virtualProcessorPrototype);

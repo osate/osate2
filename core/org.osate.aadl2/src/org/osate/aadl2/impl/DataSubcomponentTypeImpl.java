@@ -37,8 +37,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.DataSubcomponentType;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,7 +47,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class DataSubcomponentTypeImpl extends DataImpl implements DataSubcomponentType {
+public abstract class DataSubcomponentTypeImpl extends SubcomponentTypeImpl implements DataSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,16 +65,6 @@ public abstract class DataSubcomponentTypeImpl extends DataImpl implements DataS
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDataSubcomponentType();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
 	}
 
 } // DataSubcomponentTypeImpl

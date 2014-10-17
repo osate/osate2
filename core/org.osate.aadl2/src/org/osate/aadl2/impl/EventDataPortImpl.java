@@ -236,7 +236,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
 	 */
 	@Override

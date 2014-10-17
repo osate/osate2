@@ -212,7 +212,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	@Override
@@ -228,7 +228,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	@Override
@@ -243,7 +243,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.NumberValue#getScaledValue()
 	 * DB: Moved to NumberValueOperations
 	 */
@@ -256,7 +256,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
 	 * DB: Moved to NumberValueOperations
 	 */
