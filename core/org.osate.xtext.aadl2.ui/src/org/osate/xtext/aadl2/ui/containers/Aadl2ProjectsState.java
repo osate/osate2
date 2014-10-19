@@ -1,7 +1,6 @@
 /*
- *
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2014 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -32,45 +31,45 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.ui;
+package org.osate.xtext.aadl2.ui.containers;
 
-import org.apache.log4j.Logger;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osate.core.OsateCorePlugin;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
-import org.osgi.framework.BundleContext;
+import java.util.Collection;
+import java.util.List;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class MyAadl2Activator extends Aadl2Activator {
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.xtext.ui.containers.AbstractAllContainersState;
+import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
 
-	public static final String PLUGIN_ID = "org.osate.xtext.aadl2.ui";
+@Singleton
+public class Aadl2ProjectsState extends AbstractAllContainersState {
+
+	@Inject
+	private Aadl2ProjectsStateHelper helper;
 
 	@Override
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		try {
-			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_AADL2);
-
-		} catch (Exception e) {
-			Logger.getLogger(getClass()).error(e.getMessage(), e);
-			throw e;
-		}
+	protected String doInitHandle(URI uri) {
+		return helper.initHandle(uri);
 	}
 
 	@Override
-	public Injector getInjector(String languageName) {
-		return OsateCorePlugin.getDefault().getInjector(languageName);
+	protected Collection<URI> doInitContainedURIs(String containerHandle) {
+		return helper.initContainedURIs(containerHandle);
 	}
 
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.osate.xtext.aadl2.ui", path);
+	@Override
+	protected List<String> doInitVisibleHandles(String handle) {
+		return helper.initVisibleHandles(handle);
 	}
 
-	protected void registerInjectorFor(String language) throws Exception {
-		OsateCorePlugin.getDefault().registerInjectorFor(language, createInjector(language));
-//		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
+	public WorkspaceProjectsStateHelper getHelper() {
+		return helper;
+	}
+
+	public void setHelper(Aadl2ProjectsStateHelper helper) {
+		this.helper = helper;
 	}
 
 }

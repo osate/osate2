@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.core.AadlNature;
 import org.osate.pluginsupport.PluginSupportUtil;
 
 public class PredeclaredProperties {
@@ -92,12 +93,10 @@ public class PredeclaredProperties {
 						final Set<String> newNatures = new HashSet<String>(
 								Arrays.asList(pluginResourcesProjectDescription.getNatureIds()));
 						newNatures.add(XtextProjectHelper.NATURE_ID);
+						newNatures.add(AadlNature.ID);
 						pluginResourcesProjectDescription
 								.setNatureIds(newNatures.toArray(new String[newNatures.size()]));
-//						pluginResourcesProjectDescription.setNatureIds(new String[] { //"edu.cmu.sei.osate.core.aadlnature" ,
-//								XtextProjectHelper.NATURE_ID});
 						pluginResourcesProject.setDescription(pluginResourcesProjectDescription, null);
-
 					} catch (IOException e) {
 						throw new InvocationTargetException(e);
 					}

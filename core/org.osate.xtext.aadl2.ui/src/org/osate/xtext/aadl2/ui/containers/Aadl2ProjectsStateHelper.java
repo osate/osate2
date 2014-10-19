@@ -1,7 +1,6 @@
 /*
- *
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2014 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -32,45 +31,78 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.ui;
+package org.osate.xtext.aadl2.ui.containers;
+
+import static org.osate.ui.OsateUiPlugin.AADL_PROJECT;
+import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_DEFAULT;
+import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_HANDLE;
+import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_KEY;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osate.core.OsateCorePlugin;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
-import org.osgi.framework.BundleContext;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
+import org.osate.core.AadlNature;
+import org.osate.ui.OsateUiPlugin;
 
-import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
-public class MyAadl2Activator extends Aadl2Activator {
+@Singleton
+public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 
-	public static final String PLUGIN_ID = "org.osate.xtext.aadl2.ui";
+	private final static Logger log = Logger.getLogger(Aadl2ProjectsStateHelper.class);
+
+	private IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(OsateUiPlugin.PLUGIN_ID);
 
 	@Override
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		try {
-			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_AADL2);
-
-		} catch (Exception e) {
-			Logger.getLogger(getClass()).error(e.getMessage(), e);
-			throw e;
+	public String initHandle(URI uri) {
+		String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
+		if (uri.lastSegment().equals(AADL_PROJECT) && !uri.equals(URI.createPlatformResourceURI(path, true))) {
+			log.debug("skipped " + path);
+			return null;
 		}
+		return super.initHandle(uri);
 	}
 
 	@Override
-	public Injector getInjector(String languageName) {
-		return OsateCorePlugin.getDefault().getInjector(languageName);
+	public Collection<URI> initContainedURIs(String containerHandle) {
+		Collection<URI> result;
+		if (containerHandle.equals(AADL_PROJECT_HANDLE)) {
+			String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
+			result = Collections.singleton(URI.createPlatformResourceURI(path, true));
+			log.debug("added " + path);
+		} else {
+			result = new HashSet<URI>();
+			for (URI uri : super.initContainedURIs(containerHandle)) {
+				if (!uri.lastSegment().equals(AADL_PROJECT)) {
+					result.add(uri);
+				}
+			}
+		}
+		return result;
 	}
 
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.osate.xtext.aadl2.ui", path);
+	@Override
+	public List<String> initVisibleHandles(String handle) {
+		List<String> result = super.initVisibleHandles(handle);
+		result.add(AADL_PROJECT_HANDLE);
+		return result;
 	}
 
-	protected void registerInjectorFor(String language) throws Exception {
-		OsateCorePlugin.getDefault().registerInjectorFor(language, createInjector(language));
-//		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
+	protected boolean isAccessibleAadlProject(IProject project) {
+		try {
+			return isAccessibleXtextProject(project) && project.hasNature(AadlNature.ID);
+		} catch (CoreException e) {
+			log.error(e.getMessage(), e);
+		}
+		return false;
 	}
-
 }
