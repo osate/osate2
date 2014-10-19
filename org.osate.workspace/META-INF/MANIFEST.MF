@@ -32,3 +32,4 @@ Export-Package: antlr,
    org.eclipse.ui.plugin,
    org.osgi.framework"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.xtext.ui.containers
