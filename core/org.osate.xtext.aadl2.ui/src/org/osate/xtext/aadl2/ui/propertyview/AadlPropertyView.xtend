@@ -68,6 +68,7 @@ import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.RealLiteral
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.eclipse.xtext.ui.editor.model.IXtextModelListener
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -146,6 +147,7 @@ class AadlPropertyView extends ViewPart {
 	var NamedElement previousSelection = null
 	
 	var CachePropertyLookupJob cachePropertyLookupJob = null
+	val jobLock = new Object
 	
 	val Map<PropertySet, HashMap<Property, PropertyAssociation>> cachedPropertyAssociations = Collections.synchronizedMap(newHashMap)
 	
@@ -186,6 +188,16 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	val ISelectionChangedListener selectionChangedListener = [updateSelection(site.workbenchWindow.activePage.activeEditor as XtextEditor, selection)]
+	
+	val IXtextModelListener xtextModelListener = [
+		synchronized (jobLock) {
+			if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+				cachePropertyLookupJob.cancel
+			}
+			cachePropertyLookupJob = createCachePropertyLookupJob(input)
+			cachePropertyLookupJob.schedule
+		}
+	]
 
 	val propertyColumnLabelProvider = new ColumnLabelProvider {
 		/** Cached Icon for property set nodes */
@@ -208,7 +220,7 @@ class AadlPropertyView extends ViewPart {
 				ModalPropertyValue: {
 					val modes = if (element.allInModes.empty) {
 						//This ModalPropertyValue exists in all modes that are not listed for other ModalPropertyValues
-						val selectedClassifierModes = new ArrayList(((treeViewer.input as NamedElementHolder).namedElement as ComponentClassifier).allModes)
+						val selectedClassifierModes = new ArrayList((input as ComponentClassifier).allModes)
 						selectedClassifierModes.removeAll((element.owner as PropertyAssociation).ownedValues.map[allInModes].flatten)
 						selectedClassifierModes
 					} else {
@@ -268,41 +280,26 @@ class AadlPropertyView extends ViewPart {
 	
 	val valueColumnLabelProvider = new ColumnLabelProvider {
 		override getText(Object element) {
-			switch element {
+			switch resolvedElement : element.resolveIfProxy {
 				Property: {
-					val association = cachedPropertyAssociations.get(element.owner).get(element)
+					val association = cachedPropertyAssociations.get(resolvedElement.owner).get(resolvedElement)
 					if (association != null) {
 						if (!association.modal) {
 							association.ownedValues.head.ownedValue.getValueAsString(serializer)
 						}
-					} else if (element.defaultValue != null) {
-						val resolvedProperty = if (element.eIsProxy) {
-							EcoreUtil.resolve(element, (treeViewer.input as NamedElementHolder).namedElement) as Property
-						} else {
-							element
-						}
-						resolvedProperty.defaultValue.getValueAsString(serializer)
+					} else if(resolvedElement.defaultValue != null) {
+						resolvedElement.defaultValue.getValueAsString(serializer)
 					}
 				}
 				ModalPropertyValue: {
-					element.ownedValue.getValueAsString(serializer)
+					resolvedElement.ownedValue.getValueAsString(serializer)
 				}
 				NumberValue: {
-					val resolvedNumberValue = if (element.eIsProxy) {
-						EcoreUtil.resolve(element, (treeViewer.input as NamedElementHolder).namedElement) as NumberValue
-					} else {
-						element
-					}
-					val serializedNumberValue = resolvedNumberValue.getValueAsString(serializer)
-					serializedNumberValue.substring(0, serializedNumberValue.toUpperCase.lastIndexOf(resolvedNumberValue.unit.name.toUpperCase)).trim
+					val serializedNumberValue = resolvedElement.getValueAsString(serializer)
+					serializedNumberValue.substring(0, serializedNumberValue.toUpperCase.lastIndexOf(resolvedElement.unit.name.toUpperCase)).trim
 				}
 				UnitLiteral: {
-					val resolvedUnitLiteral = if (element.eIsProxy) {
-						EcoreUtil.resolve(element, (treeViewer.input as NamedElementHolder).namedElement) as UnitLiteral
-					} else {
-						element
-					}
-					resolvedUnitLiteral.name
+					resolvedElement.name
 				}
 			}
 		}
@@ -314,7 +311,7 @@ class AadlPropertyView extends ViewPart {
 				Property: {
 					val association = cachedPropertyAssociations.get(element.owner).get(element)
 					if (association != null) {
-						if ((treeViewer.input as NamedElementHolder).namedElement == association.owner) {
+						if (input == association.owner) {
 							STATUS_LOCAL
 						} else {
 							STATUS_INHERITED
@@ -541,10 +538,6 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 	
-	new() {
-		cachePropertyLookupJob = createCachePropertyLookupJob
-	}
-	
 	override createPartControl(Composite parent) {
 		pageBook = new PageBook(parent, SWT.NULL)
 
@@ -603,7 +596,12 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	override dispose() {
-		cachePropertyLookupJob.cancel
+		synchronized (jobLock) {
+			if (cachePropertyLookupJob != null) {
+				cachePropertyLookupJob.cancel
+				cachePropertyLookupJob = null;
+			}
+		}
 		site.page.removeSelectionListener(selectionListener)
 		site.page.removePartListener(partListener)
 		val editor = site.page.activeEditor
@@ -614,6 +612,14 @@ class AadlPropertyView extends ViewPart {
 			}
 		}
 		super.dispose
+	}
+	
+	override setFocus() {
+		treeViewer.tree.setFocus
+	}
+	
+	def private getInput() {
+		(treeViewer.input as NamedElementHolder)?.namedElement
 	}
 
 	def private createActions() {
@@ -634,17 +640,14 @@ class AadlPropertyView extends ViewPart {
 
 		addNewPropertyAssociationToolbarAction = new Action {
 			override run() {
-				if (new WizardDialog(viewSite.workbenchWindow.shell,
-					new PropertyAssociationWizard(xtextDocument, editingDomain?.commandStack, (treeViewer.input as NamedElementHolder).namedElement, serializer, aadl2Parser, linker)
-				).open == Window.OK) {
-					if (cachePropertyLookupJob.state != Job.NONE) {
-						cachePropertyLookupJob.cancel
-						cachePropertyLookupJob = createCachePropertyLookupJob
+				if (new WizardDialog(viewSite.workbenchWindow.shell, new PropertyAssociationWizard(xtextDocument, editingDomain?.commandStack, input, serializer, aadl2Parser, linker)).open == Window.OK) {
+					synchronized (jobLock) {
+						if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+							cachePropertyLookupJob.cancel
+						}
+						cachePropertyLookupJob = createCachePropertyLookupJob(input)
+						cachePropertyLookupJob.schedule
 					}
-					cachePropertyLookupJob.element = (treeViewer.input as NamedElementHolder).namedElement
-					pageBook.showPage(populatingViewLabel)
-					addNewPropertyAssociationToolbarAction.enabled = false
-					cachePropertyLookupJob.schedule
 				}
 			}
 		} => [
@@ -655,11 +658,19 @@ class AadlPropertyView extends ViewPart {
 		]
 	}
 
-	override setFocus() {
-		treeViewer.tree.setFocus
+	def private resolveIfProxy(Object possibleProxy) {
+		switch possibleProxy {
+			EObject case possibleProxy.eIsProxy: {
+				EcoreUtil.resolve(possibleProxy, input)
+			}
+			default: {
+				possibleProxy
+			}
+		}
 	}
 
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
+		xtextDocument?.removeModelListener(xtextModelListener)
 		val currentSelection = switch selection {
 			case selection.empty: {
 				null
@@ -688,32 +699,40 @@ class AadlPropertyView extends ViewPart {
 				}
 			}
 		}
+		xtextDocument?.addModelListener(xtextModelListener)
 		if (currentSelection instanceof NamedElement) {
 			editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection)
 			if (currentSelection == previousSelection) {
 				pageBook.showPage(treeViewerComposite)
 			} else {
 				previousSelection = currentSelection
-				if (cachePropertyLookupJob.state != Job.NONE) {
-					cachePropertyLookupJob.cancel
-					cachePropertyLookupJob = createCachePropertyLookupJob
+				synchronized (jobLock) {
+					if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+						cachePropertyLookupJob.cancel
+					}
+					cachePropertyLookupJob = createCachePropertyLookupJob(currentSelection)
+					cachePropertyLookupJob.schedule
 				}
-				cachePropertyLookupJob.element = currentSelection
-				pageBook.showPage(populatingViewLabel)
-				addNewPropertyAssociationToolbarAction.enabled = false
-				cachePropertyLookupJob.schedule(200)
 			}
 		} else {
-			cachePropertyLookupJob.cancel
+			synchronized (jobLock) {
+				if (cachePropertyLookupJob != null) {
+					cachePropertyLookupJob.cancel
+					cachePropertyLookupJob = null;
+				}
+			}
 			pageBook.showPage(noPropertiesLabel)
 			addNewPropertyAssociationToolbarAction.enabled = false
 			editingDomain = null
 		}
 	}
 	
-	def private createCachePropertyLookupJob() {
-		new CachePropertyLookupJob(this, [|
-			treeViewer.input = new NamedElementHolder(cachePropertyLookupJob.element)
+	def private createCachePropertyLookupJob(NamedElement element) {
+		new CachePropertyLookupJob(element, this, [|
+			pageBook.showPage(populatingViewLabel)
+			addNewPropertyAssociationToolbarAction.enabled = false
+		], [|
+			treeViewer.input = new NamedElementHolder(element)
 			pageBook.showPage(treeViewerComposite)
 			addNewPropertyAssociationToolbarAction.enabled = true
 		])
@@ -751,19 +770,22 @@ class AadlPropertyView extends ViewPart {
 	}
 	
 	private static class CachePropertyLookupJob extends Job {
+		val NamedElement element
 		val AadlPropertyView propertyView
-		val Runnable uiUpdate
+		val Runnable preUiUpdate
+		val Runnable postUiUpdate
 		
-		var volatile NamedElement element
-		
-		new(AadlPropertyView propertyView, Runnable uiUpdate) {
+		new(NamedElement element, AadlPropertyView propertyView, Runnable preUiUpdate, Runnable postUiUpdate) {
 			super("Updating Property View")
+			this.element = element
 			this.propertyView = propertyView
-			this.uiUpdate = uiUpdate
+			this.preUiUpdate = preUiUpdate
+			this.postUiUpdate = postUiUpdate
 			priority = SHORT
 		}
 		
 		override protected run(IProgressMonitor monitor) {
+			propertyView.site.shell.display.syncExec(preUiUpdate)
 			val extension scopeProvider = propertyView.scopeProvider
 			//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
 			val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
@@ -804,7 +826,7 @@ class AadlPropertyView extends ViewPart {
 			} else {
 				propertyView.cachedPropertyAssociations.clear
 				propertyView.cachedPropertyAssociations.putAll(propertyAssociations)
-				propertyView.site.shell.display.syncExec(uiUpdate)
+				propertyView.site.shell.display.syncExec(postUiUpdate)
 				Status.OK_STATUS
 			}
 		}
