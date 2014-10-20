@@ -37,9 +37,9 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils ;
 import org.osate.aadl2.AbstractFeature ;
 import org.osate.aadl2.AccessConnection ;
 import org.osate.aadl2.BehavioredImplementation ;
+import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentPrototypeActual ;
 import org.osate.aadl2.ComponentPrototypeBinding ;
-import org.osate.aadl2.ComponentType ;
 import org.osate.aadl2.ConnectedElement ;
 import org.osate.aadl2.ConnectionEnd ;
 import org.osate.aadl2.DataAccess ;
@@ -72,12 +72,12 @@ public class Aadl2Utils
   
   /**
    * Returns the sorted (see FeaturePositionComparator) list of features (included
-   * inherited features) owned by the given ComponentType object.
+   * inherited features) owned by the given Classifier object.
    * 
-   * @param cpt the given ComponentType object
+   * @param cpt the given Classifier object
    * @return the sorted list of features owned by the given Component object
    */
-  public static List<Feature> orderFeatures(ComponentType cpt)
+  public static List<Feature> orderFeatures(Classifier cpt)
   {
 	  List<PrototypeBinding> inheritedBindings = Collections.emptyList();
 	  return orderFeatures(cpt, inheritedBindings);
@@ -85,21 +85,20 @@ public class Aadl2Utils
   
   /**
    * Returns the sorted (see FeaturePositionComparator) list of features (included
-   * inherited features) owned by the given ComponentType object.
+   * inherited features) owned by the given Classifier object.
    * 
-   * @param cpt the given ComponentType object
+   * @param cpt the given Classifier object
    * @param inheritedBindings inherited prototype bindings
    * @return the sorted list of features owned by the given Component object
    */
-  public static List<Feature> orderFeatures(ComponentType cpt, List<PrototypeBinding> inheritedBindings)
+  public static List<Feature> orderFeatures(Classifier cpt, List<PrototypeBinding> inheritedBindings)
   {
-    
-	//List<PrototypeBinding> bindings = cpt.getOwnedPrototypeBindings();
-	List<PrototypeBinding> bindings = new ArrayList<PrototypeBinding>();
+	  //List<PrototypeBinding> bindings = cpt.getOwnedPrototypeBindings();
+	  List<PrototypeBinding> bindings = new ArrayList<PrototypeBinding>();
     bindings.addAll(cpt.getOwnedPrototypeBindings());
     bindings.addAll(inheritedBindings);
 	  
-	List<Feature> res = new ArrayList<Feature>() ;
+	  List<Feature> res = new ArrayList<Feature>() ;
     for(Feature f : cpt.getAllFeatures())
     {
     	res.add(getBindedFeature(bindings, f));

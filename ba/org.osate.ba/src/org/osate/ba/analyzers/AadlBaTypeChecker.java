@@ -2326,7 +2326,7 @@ public class AadlBaTypeChecker
     if(sub != null)
     {
       // Gets subprogram type.
-      SubprogramType subprogType = subprogramTypeCheck(comAct) ;
+      Classifier subprogType = subprogramTypeCheck(comAct) ;
       
       // Checks and resolves parameter labels.
       // Event if the subprogram call action doesn't have any parameter labels,
@@ -2443,7 +2443,7 @@ public class AadlBaTypeChecker
                                                 CommAction comAct)
   {
     // Gets subprogram type.
-    SubprogramType subprogType = subprogramTypeCheck(comAct) ;
+    Classifier subprogType = subprogramTypeCheck(comAct) ;
     
     // Checks and resolves parameter labels.
     // Event if the subprogram call action doesn't have any parameter labels,
@@ -2625,10 +2625,10 @@ public class AadlBaTypeChecker
   }
 
   // Recursive method.
-  private SubprogramType getSubprogramType(CalledSubprogram sc)
+  private Classifier getSubprogramType(CalledSubprogram sc)
   {
-    SubprogramType result = null ;
-
+    Classifier result = null ;
+    
     if(sc instanceof SubprogramImplementation)
     {
       result = ((SubprogramImplementation) sc).getType() ;
@@ -2640,13 +2640,12 @@ public class AadlBaTypeChecker
     else if(sc instanceof SubprogramAccess)
     {
       SubprogramAccess sa = (SubprogramAccess) sc ;
-      result = getSubprogramType(sa.getSubprogramFeatureClassifier()) ;
+      result = sa.getClassifier() ;
     }
     else if(sc instanceof SubprogramSubcomponent)
     {
       SubprogramSubcomponent ss = (SubprogramSubcomponent) sc ;
-
-      result = getSubprogramType(ss.getSubprogramSubcomponentType()) ;
+      result = ss.getClassifier() ;
     }
 
     return result ;
@@ -2654,7 +2653,7 @@ public class AadlBaTypeChecker
 
   // Gets subprogram type binded to the given subprogram call action.
   // On error, reports error and returns null.
-  private SubprogramType subprogramTypeCheck(CommAction comAct)
+  private Classifier subprogramTypeCheck(CommAction comAct)
   {
     Element el = null ; 
     
@@ -2667,7 +2666,7 @@ public class AadlBaTypeChecker
       el = comAct.getQualifiedName().getOsateRef() ;
     }
     
-    SubprogramType result = null ;
+    Classifier result = null ;
     String errorMsg = null ;
     
     if(el instanceof ComponentPrototype)
@@ -2728,7 +2727,7 @@ public class AadlBaTypeChecker
       String subprogramName = unparseReference(comAct.getReference()) ;
       reportError(comAct, '\'' + subprogramName + '\'' + errorMsg) ;
     }
-
+    
     return result ;
   }
 
@@ -2748,7 +2747,7 @@ public class AadlBaTypeChecker
    */
   private boolean subprogramParameterListCheck(CommAction comAct,
                                                EList<ParameterLabel> callParams,
-                                               SubprogramType subprogType)
+                                               Classifier subprogType)
   {
     // Fetches sorted subprogram feature list.
     
