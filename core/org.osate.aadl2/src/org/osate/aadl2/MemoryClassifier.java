@@ -49,6 +49,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface MemoryClassifier extends ComponentClassifier, MemorySubcomponentType {
+public interface MemoryClassifier extends ComponentClassifier, Memory, MemorySubcomponentType {
 
 } // MemoryClassifier

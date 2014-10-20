@@ -1711,7 +1711,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access #//Bus">
+  <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1763,18 +1763,13 @@
     <eLiterals name="subprogram" value="2"/>
     <eLiterals name="subprogramGroup" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Bus" abstract="true" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponentType" abstract="true"
-      eSuperTypes="#//Bus #//SubcomponentType #//FeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//Data #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1797,13 +1792,8 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Connections.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentType" abstract="true"
-      eSuperTypes="#//Data #//SubcomponentType #//FeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
     </eAnnotations>
@@ -1840,6 +1830,11 @@
     <eLiterals name="event" value="1"/>
     <eLiterals name="eventData" value="2"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//Data #//ParameterConnectionEnd">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
@@ -1869,7 +1864,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//Subprogram">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//CalledSubprogram">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1881,18 +1876,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Subprogram" abstract="true" eSuperTypes="#//NamedElement #//CalledSubprogram">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//Subprogram #//FeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//SubprogramGroup #//CallContext">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//CallContext">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1904,13 +1894,8 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//SubprogramGroup #//FeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
     </eAnnotations>
@@ -2217,7 +2202,7 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponentType" abstract="true"
-      eSuperTypes="#//Abstract #//SubcomponentType">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Abstract.&lt;/p>"/>
     </eAnnotations>
@@ -2298,7 +2283,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DataSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//Data #//DataSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
     </eAnnotations>
@@ -2345,7 +2330,12 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//SubprogramSubcomponentType">
+      eSuperTypes="#//ComponentClassifier #//Subprogram #//SubprogramSubcomponentType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Subprogram" abstract="true" eSuperTypes="#//NamedElement #//CalledSubprogram">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
     </eAnnotations>
@@ -2914,106 +2904,61 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//AbstractSubcomponentType #//BusSubcomponentType #//DataSubcomponentType #//DeviceSubcomponentType #//MemorySubcomponentType #//ProcessorSubcomponentType #//ProcessSubcomponentType #//SubprogramGroupSubcomponentType #//SubprogramSubcomponentType #//SystemSubcomponentType #//ThreadGroupSubcomponentType #//ThreadSubcomponentType #//VirtualBusSubcomponentType #//VirtualProcessorSubcomponentType">
+      eSuperTypes="#//ComponentClassifier #//Abstract #//AbstractSubcomponentType #//BusSubcomponentType #//DataSubcomponentType #//DeviceSubcomponentType #//MemorySubcomponentType #//ProcessorSubcomponentType #//ProcessSubcomponentType #//SubprogramGroupSubcomponentType #//SubprogramSubcomponentType #//SystemSubcomponentType #//ThreadGroupSubcomponentType #//ThreadSubcomponentType #//VirtualBusSubcomponentType #//VirtualProcessorSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Abstract.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//VirtualProcessor">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualProcessor.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessor" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualProcessor.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//VirtualBus">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//ThreadGroup">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::ThreadGroup.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroup" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::ThreadGroup.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//Thread">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Thread.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Thread" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Thread.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SystemSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//System">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::System.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="System" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::System.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessSubcomponentType" abstract="true"
-      eSuperTypes="#//Process #//SubcomponentType">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Process.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Process" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Process.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemorySubcomponentType" abstract="true"
-      eSuperTypes="#//Memory #//SubcomponentType">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Memory" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeviceSubcomponentType" abstract="true"
-      eSuperTypes="#//Device #//SubcomponentType">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Device.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Device" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Device.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubcomponentType" abstract="true"
-      eSuperTypes="#//Processor #//SubcomponentType">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Processor.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Processor" abstract="true" eSuperTypes="#//NamedElement">
+      eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Processor.&lt;/p>"/>
     </eAnnotations>
@@ -3139,6 +3084,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Bus" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponent" eSuperTypes="#//Subcomponent #//AccessConnectionEnd #//Data #//ParameterConnectionEnd #//PortConnectionEnd">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
@@ -3163,6 +3113,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Device" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Device.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemorySubcomponent" eSuperTypes="#//Subcomponent #//Memory">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
@@ -3174,6 +3129,11 @@
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Memory" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessSubcomponent" eSuperTypes="#//Subcomponent #//Process">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -3187,6 +3147,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Process" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Process.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubcomponent" eSuperTypes="#//Subcomponent #//Processor">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Processor.&lt;/p>"/>
@@ -3199,6 +3164,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Processor" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Processor.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SystemSubcomponent" eSuperTypes="#//Subcomponent #//System">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::System.&lt;/p>"/>
@@ -3210,6 +3180,11 @@
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::System.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="System" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::System.&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponent" eSuperTypes="#//Subcomponent #//AccessConnectionEnd #//Subprogram">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -3235,6 +3210,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadSubcomponent" eSuperTypes="#//Subcomponent #//Thread">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Thread.&lt;/p>"/>
@@ -3246,6 +3226,11 @@
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::Thread.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Thread" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Thread.&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupSubcomponent" eSuperTypes="#//Subcomponent #//ThreadGroup">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -3259,6 +3244,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroup" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::ThreadGroup.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusSubcomponent" eSuperTypes="#//Subcomponent #//VirtualBus">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
@@ -3270,6 +3260,11 @@
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorSubcomponent" eSuperTypes="#//Subcomponent #//VirtualProcessor">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -3283,12 +3278,17 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractPrototype" eSuperTypes="#//ComponentPrototype #//AbstractSubcomponentType #//BusSubcomponentType #//DataSubcomponentType #//DeviceSubcomponentType #//MemorySubcomponentType #//ProcessorSubcomponentType #//ProcessSubcomponentType #//SubprogramGroupSubcomponentType #//SubprogramSubcomponentType #//SystemSubcomponentType #//ThreadGroupSubcomponentType #//ThreadSubcomponentType #//VirtualBusSubcomponentType #//VirtualProcessorSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessor" abstract="true" eSuperTypes="#//NamedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualProcessor.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractPrototype" eSuperTypes="#//ComponentPrototype #//Abstract #//AbstractSubcomponentType #//BusSubcomponentType #//DataSubcomponentType #//DeviceSubcomponentType #//MemorySubcomponentType #//ProcessorSubcomponentType #//ProcessSubcomponentType #//SubprogramGroupSubcomponentType #//SubprogramSubcomponentType #//SystemSubcomponentType #//ThreadGroupSubcomponentType #//ThreadSubcomponentType #//VirtualBusSubcomponentType #//VirtualProcessorSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Abstract.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//BusSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="BusClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//Bus #//BusSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
     </eAnnotations>
@@ -3351,7 +3351,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusPrototype" eSuperTypes="#//ComponentPrototype #//BusSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="BusPrototype" eSuperTypes="#//ComponentPrototype #//Bus #//BusSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
     </eAnnotations>
@@ -3414,12 +3414,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataPrototype" eSuperTypes="#//ComponentPrototype #//DataSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="DataPrototype" eSuperTypes="#//ComponentPrototype #//Data #//DataSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DeviceClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//DeviceSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="DeviceClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//Device #//DeviceSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Device.&lt;/p>"/>
     </eAnnotations>
@@ -3510,12 +3510,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DevicePrototype" eSuperTypes="#//ComponentPrototype #//DeviceSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="DevicePrototype" eSuperTypes="#//ComponentPrototype #//Device #//DeviceSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Device.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MemoryClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//MemorySubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="MemoryClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//Memory #//MemorySubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
     </eAnnotations>
@@ -3585,7 +3585,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MemoryPrototype" eSuperTypes="#//ComponentPrototype #//MemorySubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="MemoryPrototype" eSuperTypes="#//ComponentPrototype #//Memory #//MemorySubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Memory.&lt;/p>"/>
     </eAnnotations>
@@ -3669,13 +3669,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototype" eSuperTypes="#//ComponentPrototype #//SubprogramSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototype" eSuperTypes="#//ComponentPrototype #//Subprogram #//SubprogramSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//SubprogramGroupSubcomponentType">
+      eSuperTypes="#//ComponentClassifier #//SubprogramGroup #//SubprogramGroupSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
     </eAnnotations>
@@ -3738,12 +3738,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupPrototype" eSuperTypes="#//ComponentPrototype #//SubprogramGroupSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupPrototype" eSuperTypes="#//ComponentPrototype #//SubprogramGroup #//SubprogramGroupSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//SystemSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="SystemClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//System #//SystemSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::System.&lt;/p>"/>
     </eAnnotations>
@@ -3897,13 +3897,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemPrototype" eSuperTypes="#//ComponentPrototype #//SystemSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="SystemPrototype" eSuperTypes="#//ComponentPrototype #//System #//SystemSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::System.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//ProcessorSubcomponentType">
+      eSuperTypes="#//ComponentClassifier #//Processor #//ProcessorSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Processor.&lt;/p>"/>
     </eAnnotations>
@@ -4001,12 +4001,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorPrototype" eSuperTypes="#//ComponentPrototype #//ProcessorSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorPrototype" eSuperTypes="#//ComponentPrototype #//Processor #//ProcessorSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Processor.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//ProcessSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//Process #//ProcessSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Process.&lt;/p>"/>
     </eAnnotations>
@@ -4111,12 +4111,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessPrototype" eSuperTypes="#//ComponentPrototype #//ProcessSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessPrototype" eSuperTypes="#//ComponentPrototype #//Process #//ProcessSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Process.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ThreadClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//ThreadSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="ThreadClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//Thread #//ThreadSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Thread.&lt;/p>"/>
     </eAnnotations>
@@ -4207,13 +4207,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ThreadPrototype" eSuperTypes="#//ComponentPrototype #//ThreadSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="ThreadPrototype" eSuperTypes="#//ComponentPrototype #//Thread #//ThreadSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Thread.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//ThreadGroupSubcomponentType">
+      eSuperTypes="#//ComponentClassifier #//ThreadGroup #//ThreadGroupSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::ThreadGroup.&lt;/p>"/>
     </eAnnotations>
@@ -4318,13 +4318,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupPrototype" eSuperTypes="#//ComponentPrototype #//ThreadGroupSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupPrototype" eSuperTypes="#//ComponentPrototype #//ThreadGroup #//ThreadGroupSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::ThreadGroup.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//VirtualBusSubcomponentType">
+      eSuperTypes="#//ComponentClassifier #//VirtualBus #//VirtualBusSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
     </eAnnotations>
@@ -4380,13 +4380,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualBusPrototype" eSuperTypes="#//ComponentPrototype #//VirtualBusSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualBusPrototype" eSuperTypes="#//ComponentPrototype #//VirtualBus #//VirtualBusSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorClassifier" abstract="true"
-      eSuperTypes="#//ComponentClassifier #//VirtualProcessorSubcomponentType">
+      eSuperTypes="#//ComponentClassifier #//VirtualProcessor #//VirtualProcessorSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualProcessor.&lt;/p>"/>
     </eAnnotations>
@@ -4463,7 +4463,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorPrototype" eSuperTypes="#//ComponentPrototype #//VirtualProcessorSubcomponentType">
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorPrototype" eSuperTypes="#//ComponentPrototype #//VirtualProcessor #//VirtualProcessorSubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualProcessor.&lt;/p>"/>
     </eAnnotations>

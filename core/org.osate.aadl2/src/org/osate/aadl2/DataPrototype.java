@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface DataPrototype extends ComponentPrototype, DataSubcomponentType {
+public interface DataPrototype extends ComponentPrototype, Data, DataSubcomponentType {
 } // DataPrototype

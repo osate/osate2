@@ -49,6 +49,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface VirtualBusClassifier extends ComponentClassifier, VirtualBusSubcomponentType {
+public interface VirtualBusClassifier extends ComponentClassifier, VirtualBus, VirtualBusSubcomponentType {
 
 } // VirtualBusClassifier

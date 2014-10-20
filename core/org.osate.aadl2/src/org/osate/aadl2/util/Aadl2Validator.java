@@ -327,8 +327,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateAccess((Access) value, diagnostics, context);
 		case Aadl2Package.ACCESS_CONNECTION_END:
 			return validateAccessConnectionEnd((AccessConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.BUS:
-			return validateBus((Bus) value, diagnostics, context);
 		case Aadl2Package.BUS_SUBCOMPONENT_TYPE:
 			return validateBusSubcomponentType((BusSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.DATA_ACCESS:
@@ -337,14 +335,14 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateParameterConnectionEnd((ParameterConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.PORT_CONNECTION_END:
 			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.DATA:
-			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE:
 			return validateDataSubcomponentType((DataSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.DATA_PORT:
 			return validateDataPort((DataPort) value, diagnostics, context);
 		case Aadl2Package.PORT:
 			return validatePort((Port) value, diagnostics, context);
+		case Aadl2Package.DATA:
+			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.EVENT_DATA_PORT:
 			return validateEventDataPort((EventDataPort) value, diagnostics, context);
 		case Aadl2Package.EVENT_PORT:
@@ -353,14 +351,10 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateParameter((Parameter) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_ACCESS:
 			return validateSubprogramAccess((SubprogramAccess) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM:
-			return validateSubprogram((Subprogram) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT_TYPE:
 			return validateSubprogramSubcomponentType((SubprogramSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
 			return validateSubprogramGroupAccess((SubprogramGroupAccess) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_GROUP:
-			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
 			return validateSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) value, diagnostics,
 					context);
@@ -422,6 +416,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateSubprogramProxy((SubprogramProxy) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_CLASSIFIER:
 			return validateSubprogramClassifier((SubprogramClassifier) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM:
+			return validateSubprogram((Subprogram) value, diagnostics, context);
 		case Aadl2Package.ANNEX_LIBRARY:
 			return validateAnnexLibrary((AnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
@@ -475,68 +471,72 @@ public class Aadl2Validator extends EObjectValidator {
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE:
 			return validateVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType) value, diagnostics,
 					context);
-		case Aadl2Package.VIRTUAL_PROCESSOR:
-			return validateVirtualProcessor((VirtualProcessor) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT_TYPE:
 			return validateVirtualBusSubcomponentType((VirtualBusSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.VIRTUAL_BUS:
-			return validateVirtualBus((VirtualBus) value, diagnostics, context);
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE:
 			return validateThreadGroupSubcomponentType((ThreadGroupSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.THREAD_GROUP:
-			return validateThreadGroup((org.osate.aadl2.ThreadGroup) value, diagnostics, context);
 		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE:
 			return validateThreadSubcomponentType((ThreadSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.THREAD:
-			return validateThread((org.osate.aadl2.Thread) value, diagnostics, context);
 		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE:
 			return validateSystemSubcomponentType((SystemSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.SYSTEM:
-			return validateSystem((org.osate.aadl2.System) value, diagnostics, context);
 		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE:
 			return validateProcessSubcomponentType((ProcessSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.PROCESS:
-			return validateProcess((org.osate.aadl2.Process) value, diagnostics, context);
 		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE:
 			return validateMemorySubcomponentType((MemorySubcomponentType) value, diagnostics, context);
-		case Aadl2Package.MEMORY:
-			return validateMemory((Memory) value, diagnostics, context);
 		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE:
 			return validateDeviceSubcomponentType((DeviceSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.DEVICE:
-			return validateDevice((Device) value, diagnostics, context);
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE:
 			return validateProcessorSubcomponentType((ProcessorSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR:
-			return validateProcessor((Processor) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
 			return validateAbstractImplementation((AbstractImplementation) value, diagnostics, context);
 		case Aadl2Package.BUS_SUBCOMPONENT:
 			return validateBusSubcomponent((BusSubcomponent) value, diagnostics, context);
+		case Aadl2Package.BUS:
+			return validateBus((Bus) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT:
 			return validateDataSubcomponent((DataSubcomponent) value, diagnostics, context);
 		case Aadl2Package.DEVICE_SUBCOMPONENT:
 			return validateDeviceSubcomponent((DeviceSubcomponent) value, diagnostics, context);
+		case Aadl2Package.DEVICE:
+			return validateDevice((Device) value, diagnostics, context);
 		case Aadl2Package.MEMORY_SUBCOMPONENT:
 			return validateMemorySubcomponent((MemorySubcomponent) value, diagnostics, context);
+		case Aadl2Package.MEMORY:
+			return validateMemory((Memory) value, diagnostics, context);
 		case Aadl2Package.PROCESS_SUBCOMPONENT:
 			return validateProcessSubcomponent((ProcessSubcomponent) value, diagnostics, context);
+		case Aadl2Package.PROCESS:
+			return validateProcess((org.osate.aadl2.Process) value, diagnostics, context);
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT:
 			return validateProcessorSubcomponent((ProcessorSubcomponent) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR:
+			return validateProcessor((Processor) value, diagnostics, context);
 		case Aadl2Package.SYSTEM_SUBCOMPONENT:
 			return validateSystemSubcomponent((SystemSubcomponent) value, diagnostics, context);
+		case Aadl2Package.SYSTEM:
+			return validateSystem((org.osate.aadl2.System) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT:
 			return validateSubprogramSubcomponent((SubprogramSubcomponent) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return validateSubprogramGroupSubcomponent((SubprogramGroupSubcomponent) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP:
+			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.THREAD_SUBCOMPONENT:
 			return validateThreadSubcomponent((ThreadSubcomponent) value, diagnostics, context);
+		case Aadl2Package.THREAD:
+			return validateThread((org.osate.aadl2.Thread) value, diagnostics, context);
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT:
 			return validateThreadGroupSubcomponent((ThreadGroupSubcomponent) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP:
+			return validateThreadGroup((org.osate.aadl2.ThreadGroup) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT:
 			return validateVirtualBusSubcomponent((VirtualBusSubcomponent) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS:
+			return validateVirtualBus((VirtualBus) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			return validateVirtualProcessorSubcomponent((VirtualProcessorSubcomponent) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR:
+			return validateVirtualProcessor((VirtualProcessor) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_PROTOTYPE:
 			return validateAbstractPrototype((AbstractPrototype) value, diagnostics, context);
 		case Aadl2Package.BUS_CLASSIFIER:

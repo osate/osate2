@@ -62,6 +62,12 @@ import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.aadl2.ListValue
 import org.eclipse.jface.action.IAction
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.UnitLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RealLiteral
+
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -210,6 +216,15 @@ class AadlPropertyView extends ViewPart {
 					}
 					'''in modes («modes.map[name].join(", ")»)'''
 				}
+				IntegerLiteral: {
+					"aadlinteger"
+				}
+				RealLiteral: {
+					"aadlreal"
+				}
+				UnitLiteral: {
+					"unit"
+				}
 			}
 		}
 		
@@ -272,6 +287,23 @@ class AadlPropertyView extends ViewPart {
 				ModalPropertyValue: {
 					element.ownedValue.getValueAsString(serializer)
 				}
+				NumberValue: {
+					val resolvedNumberValue = if (element.eIsProxy) {
+						EcoreUtil.resolve(element, (treeViewer.input as NamedElementHolder).namedElement) as NumberValue
+					} else {
+						element
+					}
+					val serializedNumberValue = resolvedNumberValue.getValueAsString(serializer)
+					serializedNumberValue.substring(0, serializedNumberValue.toUpperCase.lastIndexOf(resolvedNumberValue.unit.name.toUpperCase)).trim
+				}
+				UnitLiteral: {
+					val resolvedUnitLiteral = if (element.eIsProxy) {
+						EcoreUtil.resolve(element, (treeViewer.input as NamedElementHolder).namedElement) as UnitLiteral
+					} else {
+						element
+					}
+					resolvedUnitLiteral.name
+				}
 			}
 		}
 	}
@@ -328,9 +360,20 @@ class AadlPropertyView extends ViewPart {
 					}
 				}
 				Property: {
-					cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment).modal
+					val association = cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment)
+					(association == null && lastSegment.defaultValue instanceof NumberValue && (lastSegment.defaultValue as NumberValue).unit != null) ||
+							(association != null &&
+								(association.modal || (association.ownedValues.head.ownedValue instanceof NumberValue && (association.ownedValues.head.ownedValue as NumberValue).unit != null))
+							)
+					
 				}
 				ModalPropertyValue: {
+					lastSegment.ownedValue instanceof NumberValue && (lastSegment.ownedValue as NumberValue).unit != null
+				}
+				NumberValue: {
+					false
+				}
+				UnitLiteral: {
 					false
 				}
 				default: {
@@ -359,13 +402,31 @@ class AadlPropertyView extends ViewPart {
 				}
 				Property: {
 					val association = cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment)
-					if (association != null && association.modal) {
-						association.ownedValues.size
+					if (association != null) {
+						if (association.modal) {
+							association.ownedValues.size
+						} else if (association.ownedValues.head.ownedValue instanceof NumberValue && (association.ownedValues.head.ownedValue as NumberValue).unit != null) {
+							2
+						} else {
+							0
+						}
+					} else if (lastSegment.defaultValue instanceof NumberValue && (lastSegment.defaultValue as NumberValue).unit != null) {
+						2
 					} else {
 						0
 					}
 				}
 				ModalPropertyValue: {
+					if (lastSegment.ownedValue instanceof NumberValue && (lastSegment.ownedValue as NumberValue).unit != null) {
+						2
+					} else {
+						0
+					}
+				}
+				NumberValue: {
+					0
+				}
+				UnitLiteral: {
 					0
 				}
 				default: {
@@ -397,7 +458,32 @@ class AadlPropertyView extends ViewPart {
 					filteredAssociations.keySet.sortBy[name.toUpperCase].get(index)
 				}
 				Property: {
-					cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment).ownedValues.get(index)
+					val association = cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment)
+					if (association == null) {
+						//Default NumberValue with units
+						if (index == 0) {
+							lastSegment.defaultValue
+						} else { //index is 1
+							(lastSegment.defaultValue as NumberValue).unit
+						}
+					} else if (association.modal) {
+						association.ownedValues.get(index)
+					} else {
+						//NumberValue with units
+						if (index == 0) {
+							association.ownedValues.head.ownedValue
+						} else { //index is 1
+							(association.ownedValues.head.ownedValue as NumberValue).unit
+						}
+					}
+				}
+				ModalPropertyValue: {
+					//NumberValue with units
+					if (index == 0) {
+						lastSegment.ownedValue
+					} else { //index is 1
+						(lastSegment.ownedValue as NumberValue).unit
+					}
 				}
 				default: {
 					println("updateElement: " + parentPath + " pathCount: " + parentPath.segmentCount + " index: " + index + " lastSegment: " + lastSegment)
@@ -414,11 +500,35 @@ class AadlPropertyView extends ViewPart {
 					#[TreePath.EMPTY]
 				}
 				Property: {
+					//Parent path: PropertySet
 					#[new TreePath(#[element.owner])]
 				}
 				ModalPropertyValue: {
+					//Parent path: PropertySet -> Property
 					val property = (element.owner as PropertyAssociation).property
-					#[new TreePath(#[property.owner as PropertySet, property])]
+					#[new TreePath(#[property.owner, property])]
+				}
+				NumberValue: {
+					if (element.owner instanceof ModalPropertyValue) {
+						//Parent path: PropertySet -> Property -> ModalPropertyValue
+						val property = element.getContainerOfType(PropertyAssociation)?.property
+						#[new TreePath(#[property.owner, property, element.owner])]
+					} else {
+						//Parent path: PropertySet -> Property
+						//There will be a containing PropertyAssociation if the viewer is showing a non-modal property value.  Otherwise, the viewer is showing a default value
+						val property = element.getContainerOfType(PropertyAssociation)?.property ?: element.getContainerOfType(Property)
+						#[new TreePath(#[property.owner, property])]
+					}
+				}
+				UnitLiteral: {
+					/*
+					 * Parent path: PropertySet -> Property
+					 * Unable to retrieve Property from UnitLiteral
+					 * 
+					 * Parent path: PropertySet -> Property -> ModalPropertyValue
+					 * Unable to retrieve ModalPropertyValue from UnitLiteral
+					 */
+					 #[]
 				}
 				default: {
 					println("getParents: " + element)
@@ -616,9 +726,7 @@ class AadlPropertyView extends ViewPart {
 			ListValue case expression.hasInstanceReferenceValue:
 				expression.serializeListWithInstanceReferenceValue(serializer)
 			default: {
-				synchronized (serializer) {
-					serializer.serialize(expression)
-				}.replaceAll("\n", "").replaceAll("\t", "").trim
+				serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "").trim
 				// TODO: Test this to see what cleanup is truly necessary.
 			}
 		}
@@ -636,9 +744,7 @@ class AadlPropertyView extends ViewPart {
 				ListValue:
 					serializeListWithInstanceReferenceValue(serializer)
 				default: {
-					synchronized (serializer) {
-						serializer.serialize(it)
-					}.replaceAll("\n", "").replaceAll("\t", "")
+					serializer.serialize(it).replaceAll("\n", "").replaceAll("\t", "")
 				}
 			}
 		])

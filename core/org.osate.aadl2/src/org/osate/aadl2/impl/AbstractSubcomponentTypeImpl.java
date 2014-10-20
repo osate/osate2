@@ -37,8 +37,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractSubcomponentType;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,7 +47,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class AbstractSubcomponentTypeImpl extends AbstractImpl implements AbstractSubcomponentType {
+public abstract class AbstractSubcomponentTypeImpl extends SubcomponentTypeImpl implements AbstractSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,16 +65,6 @@ public abstract class AbstractSubcomponentTypeImpl extends AbstractImpl implemen
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractSubcomponentType();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
 	}
 
 } // AbstractSubcomponentTypeImpl

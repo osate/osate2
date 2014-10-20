@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface SystemSubcomponentType extends SubcomponentType, org.osate.aadl2.System {
+public interface SystemSubcomponentType extends SubcomponentType {
 } // SystemSubcomponentType

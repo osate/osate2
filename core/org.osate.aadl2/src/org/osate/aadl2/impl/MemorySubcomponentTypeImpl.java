@@ -37,8 +37,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.MemorySubcomponentType;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,7 +47,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class MemorySubcomponentTypeImpl extends MemoryImpl implements MemorySubcomponentType {
+public abstract class MemorySubcomponentTypeImpl extends SubcomponentTypeImpl implements MemorySubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,16 +65,6 @@ public abstract class MemorySubcomponentTypeImpl extends MemoryImpl implements M
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getMemorySubcomponentType();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
 	}
 
 } // MemorySubcomponentTypeImpl
