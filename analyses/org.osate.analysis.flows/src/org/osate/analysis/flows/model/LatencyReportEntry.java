@@ -179,7 +179,8 @@ public class LatencyReportEntry {
 						lc.setActualValue(diff, doMaximum);
 						lc.reportSubtotal(res, doMaximum);
 						lc.reportInfoOnce(doMaximum, "Sampling period " + lc.getSamplingPeriod() + "ms");
-					} else if (lc.getSamplingPeriod() < last.getSamplingPeriod()) {
+					} else if ( // XXX added check for > 0
+					lc.getSamplingPeriod() > 0 && lc.getSamplingPeriod() < last.getSamplingPeriod()) {
 						lc.reportWarningOnce(doMaximum, "Task period smaller than partition period");
 					} else {
 						lc.reportInfoOnce(doMaximum, "Latency accounted for in partition latency");
