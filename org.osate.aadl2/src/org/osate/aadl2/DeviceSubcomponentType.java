@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface DeviceSubcomponentType extends Device, SubcomponentType {
+public interface DeviceSubcomponentType extends SubcomponentType {
 } // DeviceSubcomponentType

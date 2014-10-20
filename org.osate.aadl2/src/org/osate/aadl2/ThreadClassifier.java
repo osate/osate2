@@ -49,6 +49,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface ThreadClassifier extends ComponentClassifier, ThreadSubcomponentType {
+public interface ThreadClassifier extends ComponentClassifier, org.osate.aadl2.Thread, ThreadSubcomponentType {
 
 } // ThreadClassifier

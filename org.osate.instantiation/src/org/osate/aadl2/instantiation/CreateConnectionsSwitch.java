@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -67,6 +68,7 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -838,7 +840,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/**
-	 * Handle the case where one of the ends (or both) is a port group. Create
+	 * Handle the case where one of the ends (or both) is a feature group. Create
 	 * multiple connection instances.
 	 *
 	 * @param parentci
@@ -896,9 +898,71 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (srcEnd instanceof ComponentInstance && dstEnd instanceof ComponentInstance) {
 			// TODO-LW: error
-		} else {
+		} else if (srcEnd instanceof ComponentInstance || dstEnd instanceof ComponentInstance) {
 			addConnectionInstance(parentci.getSystemInstance(), connInfo, dstEnd);
+		} else {
+			expandFeatureGroupConnection(parentci, connInfo, srcEnd, dstEnd);
 		}
+	}
+
+	/**
+	 * Expand feature groups as much as possible
+	 * 
+	 * @param parentci
+	 * @param connInfo
+	 * @param srcEnd
+	 * @param dstEnd
+	 */
+	private void expandFeatureGroupConnection(final ComponentInstance parentci, final ConnectionInfo connInfo,
+			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd) {
+		ConnectionInstanceEnd oldSrc = connInfo.src;
+
+		/*
+		 * One of three possible situations
+		 * - both ends are feature groups without or with an empty type
+		 * - one end is empty and the other is not
+		 * - both ends are not empty, in this case they have the same internal structure
+		 * TODO-lw: what about feature group subset/equivalence?
+		 */
+
+		if (srcEnd instanceof FeatureInstance && dstEnd instanceof FeatureInstance) {
+			FeatureInstance srcFi = (FeatureInstance) srcEnd;
+			FeatureInstance dstFi = (FeatureInstance) dstEnd;
+
+			if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
+				// both ends are empty
+				if (srcFi.getDirection() != DirectionType.IN) {
+					connInfo.src = srcFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+				}
+				if (dstFi.getDirection() != DirectionType.OUT) {
+					connInfo.src = dstFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, srcFi);
+				}
+			} else if (isLeafFeature(srcFi)) {
+				for (FeatureInstance dst : dstFi.getFeatureInstances()) {
+					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
+				}
+			} else if (isLeafFeature(dstFi)) {
+				for (FeatureInstance src : srcFi.getFeatureInstances()) {
+					expandFeatureGroupConnection(parentci, connInfo, src, dstFi);
+				}
+			} else {
+				Iterator<FeatureInstance> srcIter = srcFi.getFeatureInstances().iterator();
+				Iterator<FeatureInstance> dstIter = dstFi.getFeatureInstances().iterator();
+
+				while (srcIter.hasNext() && dstIter.hasNext()) {
+					expandFeatureGroupConnection(parentci, connInfo, srcIter.next(), dstIter.next());
+				}
+				Assert.isTrue(!srcIter.hasNext() && !dstIter.hasNext(),
+						"Connected feature groups do not have the same number of features");
+			}
+		}
+		connInfo.src = oldSrc;
+	}
+
+	private boolean isLeafFeature(FeatureInstance fi) {
+		return fi.getFeatureInstances().isEmpty();
 	}
 
 	/**

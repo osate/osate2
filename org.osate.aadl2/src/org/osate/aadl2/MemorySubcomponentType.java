@@ -48,5 +48,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface MemorySubcomponentType extends Memory, SubcomponentType {
+public interface MemorySubcomponentType extends SubcomponentType {
 } // MemorySubcomponentType
