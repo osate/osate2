@@ -1032,21 +1032,41 @@ public final class AadlUtil {
 		 * if this is an extension because we cannot "extends" another
 		 * type. So, we try to find the extension by using the inverse type.
 		 */
-		if ((origin instanceof FeatureGroupType) && (((FeatureGroupType) origin).getInverse() != null)) {
-			origin = ((FeatureGroupType) origin).getInverse();
+//		if ((origin instanceof FeatureGroupType) && (((FeatureGroupType) origin).getInverse() != null)) {
+//			origin = ((FeatureGroupType) origin).getInverse();
+//		}
+//
+//		if ((extension instanceof FeatureGroupType) && (((FeatureGroupType) extension).getInverse() != null)) {
+//			extension = ((FeatureGroupType) extension).getInverse();
+//		}
+//
+//		while (origin != extension) {
+//			extension = extension.getExtended();
+//			if (extension == null) {
+//				return false;
+//			}
+//		}
+		Classifier ext = extension;
+		while (ext != null) {
+			if (origin == ext) {
+				return true;
+			}
+			ext = ext.getExtended();
 		}
-
-		if ((extension instanceof FeatureGroupType) && (((FeatureGroupType) extension).getInverse() != null)) {
-			extension = ((FeatureGroupType) origin).getInverse();
-		}
-
-		while (origin != extension) {
-			extension = extension.getExtended();
-			if (extension == null) {
-				return false;
+		if (extension instanceof FeatureGroupType && origin instanceof FeatureGroupType) {
+			if (extension.getExtended() == null && ((FeatureGroupType) extension).getInverse() != null
+					&& ((FeatureGroupType) origin).getInverse() != null) {
+				ext = ((FeatureGroupType) extension).getInverse();
+				FeatureGroupType orig = ((FeatureGroupType) origin).getInverse();
+				while (ext != null) {
+					if (orig == ext) {
+						return true;
+					}
+					ext = ext.getExtended();
+				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	/**
