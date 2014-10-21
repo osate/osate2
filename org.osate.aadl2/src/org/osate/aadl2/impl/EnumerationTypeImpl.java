@@ -265,13 +265,14 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.EnumerationType#findLiteral(java.lang.String)
 	 */
 	@Override
 	public EnumerationLiteral findLiteral(String literalName) {
 		for (EnumerationLiteral literal : getOwnedLiterals()) {
-			if (literal.getName().equalsIgnoreCase(literalName)) {
+			// The name could be null if the model is incomplete.
+			if (literal.getName() != null && literal.getName().equalsIgnoreCase(literalName)) {
 				return literal;
 			}
 		}
