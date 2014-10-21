@@ -73,8 +73,8 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 	}
 
 	protected void configureKeywordIndent(IEditStrategyAcceptor acceptor) {
-		String[] keywords = { "public", "private", "abstract", "bus", "data", "device", "feature", "memory",
-				"subprogram", "system", "thread", "process", "processor", "calls", "connections", "features", "flows",
+		String[] keywords = { "public", "private", "abstract", "bus", "data", "device", "feature" /* , "features" */,
+				"memory", "subprogram", "system", "thread", "process", "processor", "calls", "connections", "flows",
 				"modes", "properties", "prototypes", "subcomponents" };
 		for (String keyword : keywords) {
 			acceptor.accept(autoIndent.newInstance(keyword), IDocument.DEFAULT_CONTENT_TYPE);
