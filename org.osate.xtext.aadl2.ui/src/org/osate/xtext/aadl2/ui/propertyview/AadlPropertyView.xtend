@@ -197,8 +197,8 @@ class AadlPropertyView extends ViewPart {
 			if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
 				cachePropertyLookupJob.cancel
 			}
-			cachePropertyLookupJob = createCachePropertyLookupJob(resourceSet.getEObject(currentSelectionUri, true) as NamedElement)
-			cachePropertyLookupJob.schedule
+			cachePropertyLookupJob = (resourceSet.getEObject(currentSelectionUri, true) as NamedElement)?.createCachePropertyLookupJob
+			cachePropertyLookupJob?.schedule
 		}
 	]
 
@@ -791,40 +791,44 @@ class AadlPropertyView extends ViewPart {
 		override protected run(IProgressMonitor monitor) {
 			propertyView.site.shell.display.syncExec(preUiUpdate)
 			val extension scopeProvider = propertyView.scopeProvider
-			//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
-			val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
-				if (EObjectOrProxy.eIsProxy) {
-					EcoreUtil.resolve(EObjectOrProxy, element)
-				} else {
-					EObjectOrProxy
-				}
-			].filter[!eIsProxy].filter(PropertySet)
-			/* 
-			 * Build a map from PropertySets to a collection of their owned Properties.  Properties that do not apply to the selected element are filtered out.
-			 * PropertySets without any applicable properties are filtered out.
-			 */
-			val properties = propertySets.toInvertedMap[ownedProperties.filter[element.acceptsProperty(it)]].filter[propertySet, acceptableProperties | !acceptableProperties.empty]
-			/*
-			 * Build a map from PropertySets to a map from Properties to PropertyAssociations (Map<PropertySet, Map<Property, PropertyAssociation>>).  This is
-			 * where the property lookup actually happens.  Entries for the PropertyAssociation could be null which means that the Property is undefined,
-			 * taking the default value, or the model is incomplete.  In the case that the model is incomplete, we treat the property like it is undefined or
-			 * taking the default value.  This whole expression is wrapped in a construction of a new HashMap so that all of the lazy parts of the expression
-			 * will be evaluated before we check if the monitor is canceled.  
-			 */
-			val propertyAssociations = new HashMap(properties.mapValues[
-				/*
-				 * This whole expression is wrapped in a construction of a new HashMap so that all of the lazy parts of the expression will be evaluated before
-				 * we check if the monitor is canceled.
-				 */
-				new HashMap(toInvertedMap[element.getPropertyValue(it).first].mapValues[
-					//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
-					if (it != null && (ownedValues.empty || ownedValues.exists[ownedValue == null])) {
-						null
+			val propertyAssociations = if (element.eResource == null) {
+				emptyMap
+			} else {
+				//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
+				val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
+					if (EObjectOrProxy.eIsProxy) {
+						EcoreUtil.resolve(EObjectOrProxy, element)
 					} else {
-						it
+						EObjectOrProxy
 					}
+				].filter[!eIsProxy].filter(PropertySet)
+				/* 
+				 * Build a map from PropertySets to a collection of their owned Properties.  Properties that do not apply to the selected element are filtered out.
+				 * PropertySets without any applicable properties are filtered out.
+				 */
+				val properties = propertySets.toInvertedMap[ownedProperties.filter[element.acceptsProperty(it)]].filter[propertySet, acceptableProperties | !acceptableProperties.empty]
+				/*
+				 * Build a map from PropertySets to a map from Properties to PropertyAssociations (Map<PropertySet, Map<Property, PropertyAssociation>>).  This is
+				 * where the property lookup actually happens.  Entries for the PropertyAssociation could be null which means that the Property is undefined,
+				 * taking the default value, or the model is incomplete.  In the case that the model is incomplete, we treat the property like it is undefined or
+				 * taking the default value.  This whole expression is wrapped in a construction of a new HashMap so that all of the lazy parts of the expression
+				 * will be evaluated before we check if the monitor is canceled.  
+				 */
+				new HashMap(properties.mapValues[
+					/*
+					 * This whole expression is wrapped in a construction of a new HashMap so that all of the lazy parts of the expression will be evaluated before
+					 * we check if the monitor is canceled.
+					 */
+					new HashMap(toInvertedMap[element.getPropertyValue(it).first].mapValues[
+						//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
+						if (it != null && (ownedValues.empty || ownedValues.exists[ownedValue == null])) {
+							null
+						} else {
+							it
+						}
+					])
 				])
-			])
+			}
 			if (monitor.canceled) {
 				Status.CANCEL_STATUS
 			} else {
