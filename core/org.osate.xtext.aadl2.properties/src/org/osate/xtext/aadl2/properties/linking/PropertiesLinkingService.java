@@ -1277,7 +1277,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (propertyType instanceof NumberType) {
 					unitsType = ((NumberType) propertyType).getUnitsType();
 				} else if (propertyType instanceof RangeType) {
-					unitsType = ((RangeType) propertyType).getNumberType().getUnitsType();
+					RangeType rangeType = (RangeType) propertyType;
+					// The number type could be null if the model is incomplete.
+					if (rangeType.getNumberType() != null) {
+						unitsType = rangeType.getNumberType().getUnitsType();
+					}
 				}
 			}
 			if (unitsType != null) {
