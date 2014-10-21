@@ -69,6 +69,7 @@ import org.osate.aadl2.RealLiteral
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener
+import org.eclipse.emf.common.util.URI
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -124,6 +125,8 @@ class AadlPropertyView extends ViewPart {
 	 * from this view's selection
 	 */
 	var Action addNewPropertyAssociationToolbarAction = null
+	
+	var URI currentSelectionUri = null
 
 	/**
 	 * The editing domain for the viewer's input
@@ -194,7 +197,7 @@ class AadlPropertyView extends ViewPart {
 			if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
 				cachePropertyLookupJob.cancel
 			}
-			cachePropertyLookupJob = createCachePropertyLookupJob(input)
+			cachePropertyLookupJob = createCachePropertyLookupJob(resourceSet.getEObject(currentSelectionUri, true) as NamedElement)
 			cachePropertyLookupJob.schedule
 		}
 	]
@@ -728,6 +731,7 @@ class AadlPropertyView extends ViewPart {
 	}
 	
 	def private createCachePropertyLookupJob(NamedElement element) {
+		currentSelectionUri = EcoreUtil.getURI(element)
 		new CachePropertyLookupJob(element, this, [|
 			pageBook.showPage(populatingViewLabel)
 			addNewPropertyAssociationToolbarAction.enabled = false
