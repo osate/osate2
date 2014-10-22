@@ -692,8 +692,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								+ dstFi.getContainingComponentInstance().getComponentClassifier().getName()
 								+ ") feature group " + dstFi.getName() + " has no type");
 					}
-					if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty()
-							&& !downfgt.getAllFeatures().isEmpty()) {
+					if (upfgt != null && downfgt != null && upfgt.isInverseOf(downfgt)
+							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
 				} else {
