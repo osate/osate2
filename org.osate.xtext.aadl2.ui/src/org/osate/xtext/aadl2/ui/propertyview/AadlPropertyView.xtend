@@ -70,6 +70,7 @@ import org.osate.aadl2.RealLiteral
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener
 import org.eclipse.emf.common.util.URI
+import org.osate.aadl2.RangeValue
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -240,6 +241,9 @@ class AadlPropertyView extends ViewPart {
 				UnitLiteral: {
 					"unit"
 				}
+				Pair<String, PropertyExpression>: {
+					element.key
+				}
 			}
 		}
 		
@@ -304,6 +308,9 @@ class AadlPropertyView extends ViewPart {
 				UnitLiteral: {
 					resolvedElement.name
 				}
+				Pair<String, PropertyExpression>: {
+					resolvedElement.value.resolveIfProxy.getValueAsString(serializer)
+				}
 			}
 		}
 	}
@@ -361,14 +368,16 @@ class AadlPropertyView extends ViewPart {
 				}
 				Property: {
 					val association = cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment)
-					(association == null && lastSegment.defaultValue instanceof NumberValue && (lastSegment.defaultValue as NumberValue).unit != null) ||
+					(association == null && (lastSegment.defaultValue instanceof NumberValue && (lastSegment.defaultValue as NumberValue).unit != null) || lastSegment.defaultValue instanceof RangeValue) ||
 							(association != null &&
-								(association.modal || (association.ownedValues.head.ownedValue instanceof NumberValue && (association.ownedValues.head.ownedValue as NumberValue).unit != null))
+								(association.modal || (association.ownedValues.head.ownedValue instanceof NumberValue && (association.ownedValues.head.ownedValue as NumberValue).unit != null) ||
+									association.ownedValues.head.ownedValue instanceof RangeValue
+								)
 							)
 					
 				}
 				ModalPropertyValue: {
-					lastSegment.ownedValue instanceof NumberValue && (lastSegment.ownedValue as NumberValue).unit != null
+					(lastSegment.ownedValue instanceof NumberValue && (lastSegment.ownedValue as NumberValue).unit != null) || lastSegment.ownedValue instanceof RangeValue
 				}
 				NumberValue: {
 					false
@@ -407,17 +416,42 @@ class AadlPropertyView extends ViewPart {
 							association.ownedValues.size
 						} else if (association.ownedValues.head.ownedValue instanceof NumberValue && (association.ownedValues.head.ownedValue as NumberValue).unit != null) {
 							2
+						} else if (association.ownedValues.head.ownedValue instanceof RangeValue) {
+							if ((association.ownedValues.head.ownedValue as RangeValue).delta == null) {
+								2
+							} else {
+								3
+							}
 						} else {
 							0
 						}
 					} else if (lastSegment.defaultValue instanceof NumberValue && (lastSegment.defaultValue as NumberValue).unit != null) {
 						2
+					} else if (lastSegment.defaultValue instanceof RangeValue) {
+						if ((lastSegment.defaultValue as RangeValue).delta == null) {
+							2
+						} else {
+							3
+						}
 					} else {
 						0
 					}
 				}
 				ModalPropertyValue: {
 					if (lastSegment.ownedValue instanceof NumberValue && (lastSegment.ownedValue as NumberValue).unit != null) {
+						2
+					} else if (lastSegment.ownedValue instanceof RangeValue) {
+						if ((lastSegment.ownedValue as RangeValue).delta == null) {
+							2
+						} else {
+							3
+						}
+					} else {
+						0
+					}
+				}
+				Pair<String, PropertyExpression>: {
+					if (lastSegment.value instanceof NumberValue && (lastSegment.value as NumberValue).unit != null) {
 						2
 					} else {
 						0
@@ -460,29 +494,67 @@ class AadlPropertyView extends ViewPart {
 				Property: {
 					val association = cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment)
 					if (association == null) {
-						//Default NumberValue with units
-						if (index == 0) {
-							lastSegment.defaultValue
-						} else { //index is 1
-							(lastSegment.defaultValue as NumberValue).unit
+						if (lastSegment.defaultValue instanceof NumberValue) {
+							//Default NumberValue with units
+							if (index == 0) {
+								lastSegment.defaultValue
+							} else { //index is 1
+								(lastSegment.defaultValue as NumberValue).unit
+							}
+						} else if (lastSegment.defaultValue instanceof RangeValue) {
+							val rangeValue = lastSegment.defaultValue as RangeValue
+							if (index == 0) {
+								"minimum" -> rangeValue.minimum
+							} else if (index == 1) {
+								"maximum" -> rangeValue.maximum
+							} else {
+								"delta" -> rangeValue.delta
+							}
 						}
 					} else if (association.modal) {
 						association.ownedValues.get(index)
-					} else {
+					} else if (association.ownedValues.head.ownedValue instanceof NumberValue) {
 						//NumberValue with units
 						if (index == 0) {
 							association.ownedValues.head.ownedValue
 						} else { //index is 1
 							(association.ownedValues.head.ownedValue as NumberValue).unit
 						}
+					} else if (association.ownedValues.head.ownedValue instanceof RangeValue) {
+						val rangeValue = association.ownedValues.head.ownedValue as RangeValue
+						if (index == 0) {
+							"minimum" -> rangeValue.minimum
+						} else if (index == 1) {
+							"maximum" -> rangeValue.maximum
+						} else {
+							"delta" -> rangeValue.delta
+						}
 					}
 				}
 				ModalPropertyValue: {
-					//NumberValue with units
+					if (lastSegment.ownedValue instanceof NumberValue) {
+						//NumberValue with units
+						if (index == 0) {
+							lastSegment.ownedValue
+						} else { //index is 1
+							(lastSegment.ownedValue as NumberValue).unit
+						}
+					} else if (lastSegment.ownedValue instanceof RangeValue) {
+						val rangeValue = lastSegment.ownedValue as RangeValue
+						if (index == 0) {
+							"minimum" -> rangeValue.minimum
+						} else if (index == 1) {
+							"maximum" -> rangeValue.maximum
+						} else {
+							"delta" -> rangeValue.delta
+						}
+					}
+				}
+				Pair<String, PropertyExpression>: {
 					if (index == 0) {
-						lastSegment.ownedValue
-					} else { //index is 1
-						(lastSegment.ownedValue as NumberValue).unit
+						lastSegment.value
+					} else {
+						(lastSegment.value as NumberValue).unit
 					}
 				}
 				default: {
@@ -509,9 +581,28 @@ class AadlPropertyView extends ViewPart {
 					#[new TreePath(#[property.owner, property])]
 				}
 				NumberValue: {
-					if (element.owner instanceof ModalPropertyValue) {
+					if (element.owner instanceof RangeValue) {
+						val rangeValue = element.owner as RangeValue
+						val label = if (rangeValue.minimum == element) {
+								"minimum"
+							} else if (rangeValue.maximum == element) {
+								"maximum"
+							} else {
+								"delta"
+							}
+						if (element.owner.owner instanceof ModalPropertyValue) {
+							//Parent path: PropertySet -> Property -> ModalPropertyValue -> Pair<String, PropertyExpression>
+							val property = element.getContainerOfType(PropertyAssociation).property
+							#[new TreePath(#[property.owner, property, element.owner.owner, label -> element])]
+						} else {
+							//Parent path: PropertySet -> Property -> Pair<String, PropertyExpression>
+							//There will be a containing PropertyAssociation if the viewer is showing a non-modal property value.  Otherwise, the viewer is showing a default value
+							val property = element.getContainerOfType(PropertyAssociation)?.property ?: element.getContainerOfType(Property)
+							#[new TreePath(#[property.owner, property, label -> element])]
+						}
+					} else if (element.owner instanceof ModalPropertyValue) {
 						//Parent path: PropertySet -> Property -> ModalPropertyValue
-						val property = element.getContainerOfType(PropertyAssociation)?.property
+						val property = element.getContainerOfType(PropertyAssociation).property
 						#[new TreePath(#[property.owner, property, element.owner])]
 					} else {
 						//Parent path: PropertySet -> Property
@@ -527,8 +618,26 @@ class AadlPropertyView extends ViewPart {
 					 * 
 					 * Parent path: PropertySet -> Property -> ModalPropertyValue
 					 * Unable to retrieve ModalPropertyValue from UnitLiteral
+					 * 
+					 * Parent path: PropertySet -> Property -> Pair<String, PropertyExpression>
+					 * Unable to retrieve Pair<String, PropertyExpression> from UnitLiteral
+					 * 
+					 * Parent path: PropertySet -> Property -> ModalPropertyValue -> Pair<String, PropertyExpression>
+					 * Unable to retrieve Pair<String, PropertyExpression> from UnitLiteral
 					 */
 					 #[]
+				}
+				Pair<String, PropertyExpression>: {
+					if (element.value.owner.owner instanceof ModalPropertyValue) {
+						//Parent path: PropertySet -> Property -> ModalPropertyValue
+						val property = element.value.getContainerOfType(PropertyAssociation).property
+						#[new TreePath(#[property.owner, property, element.value.owner])]
+					} else {
+						//Parent path: PropertySet -> Property
+						//There will be a containing PropertyAssociation if the viewer is showing a non-modal property value.  Otherwise, the viewer is showing a default value
+						val property = element.value.getContainerOfType(PropertyAssociation)?.property ?: element.value.getContainerOfType(Property)
+						#[new TreePath(#[property.owner, property])]
+					}
 				}
 				default: {
 					println("getParents: " + element)
@@ -661,10 +770,10 @@ class AadlPropertyView extends ViewPart {
 		]
 	}
 
-	def private resolveIfProxy(Object possibleProxy) {
+	def private <T> resolveIfProxy(T possibleProxy) {
 		switch possibleProxy {
 			EObject case possibleProxy.eIsProxy: {
-				EcoreUtil.resolve(possibleProxy, input)
+				EcoreUtil.resolve(possibleProxy, input) as T
 			}
 			default: {
 				possibleProxy
