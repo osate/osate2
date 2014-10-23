@@ -75,6 +75,7 @@ import org.osate.aadl2.RecordValue
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.Element
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator
+import org.osate.aadl2.RecordType
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -393,23 +394,31 @@ class AadlPropertyView extends ViewPart {
 					val association = cachedPropertyAssociations.get(lastSegment.owner).get(lastSegment)
 					(association == null &&
 						((lastSegment.defaultValue instanceof NumberValue && (lastSegment.defaultValue as NumberValue).unit != null) || lastSegment.defaultValue instanceof RangeValue ||
-							lastSegment.defaultValue instanceof RecordValue && !(lastSegment.defaultValue as RecordValue).ownedFieldValues.empty
+							(lastSegment.defaultValue instanceof RecordValue && lastSegment.propertyType instanceof RecordType &&
+								(lastSegment.propertyType as RecordType).ownedFields.exists[fieldInType | (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType]]
+							)
 						)
 					) || (association != null &&
 						(association.modal || (association.ownedValues.head.ownedValue instanceof NumberValue && (association.ownedValues.head.ownedValue as NumberValue).unit != null) ||
 							association.ownedValues.head.ownedValue instanceof RangeValue ||
-							(association.ownedValues.head.ownedValue instanceof RecordValue && (!(association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.empty) ||
-								(lastSegment.defaultValue instanceof RecordValue && !(lastSegment.defaultValue as RecordValue).ownedFieldValues.empty)
+							(association.ownedValues.head.ownedValue instanceof RecordValue && lastSegment.propertyType instanceof RecordType &&
+								(lastSegment.propertyType as RecordType).ownedFields.exists[fieldInType |
+									(association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.exists[property == fieldInType] ||
+										(lastSegment.defaultValue instanceof RecordValue && (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType])
+								]
 							)
 						)
 					)
 				}
 				ModalPropertyValue: {
 					(lastSegment.ownedValue instanceof NumberValue && (lastSegment.ownedValue as NumberValue).unit != null) || lastSegment.ownedValue instanceof RangeValue ||
-						(lastSegment.ownedValue instanceof RecordValue && (!(lastSegment.ownedValue as RecordValue).ownedFieldValues.empty) ||
-							(lastSegment.getContainerOfType(PropertyAssociation).property.defaultValue instanceof RecordValue &&
-								!(lastSegment.getContainerOfType(PropertyAssociation).property.defaultValue as RecordValue).ownedFieldValues.empty
-							)
+						(lastSegment.ownedValue instanceof RecordValue && lastSegment.getContainerOfType(PropertyAssociation).property.propertyType instanceof RecordType &&
+							(lastSegment.getContainerOfType(PropertyAssociation).property.propertyType as RecordType).ownedFields.exists[fieldInType |
+								(lastSegment.ownedValue as RecordValue).ownedFieldValues.exists[property == fieldInType] ||
+									(lastSegment.getContainerOfType(PropertyAssociation).property.defaultValue instanceof RecordValue &&
+										(lastSegment.getContainerOfType(PropertyAssociation).property.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType]
+									)
+							]
 						)
 				}
 				NumberValue: {
@@ -455,14 +464,12 @@ class AadlPropertyView extends ViewPart {
 							} else {
 								3
 							}
-						} else if (association.ownedValues.head.ownedValue instanceof RecordValue) {
-							if (lastSegment.defaultValue instanceof RecordValue) {
-								val localOrInheritedFields = (association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.map[property.name]
-								(association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.size +
-									(lastSegment.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)].size
-							} else {
-								(association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.size
-							}
+						} else if (association.ownedValues.head.ownedValue instanceof RecordValue && lastSegment.propertyType instanceof RecordType) {
+							val recordType = lastSegment.propertyType as RecordType
+							recordType.ownedFields.filter[fieldInType |
+								(association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.exists[property == fieldInType] ||
+									(lastSegment.defaultValue instanceof RecordValue && (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType])
+							].size
 						} else {
 							0
 						}
@@ -474,8 +481,8 @@ class AadlPropertyView extends ViewPart {
 						} else {
 							3
 						}
-					} else if (lastSegment.defaultValue instanceof RecordValue) {
-						(lastSegment.defaultValue as RecordValue).ownedFieldValues.size
+					} else if (lastSegment.defaultValue instanceof RecordValue && lastSegment.propertyType instanceof RecordType) {
+						(lastSegment.propertyType as RecordType).ownedFields.filter[fieldInType | (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType]].size
 					} else {
 						0
 					}
@@ -489,14 +496,12 @@ class AadlPropertyView extends ViewPart {
 						} else {
 							3
 						}
-					} else if (lastSegment.ownedValue instanceof RecordValue) {
-						if (lastSegment.getContainerOfType(PropertyAssociation).property.defaultValue instanceof RecordValue) {
-							val localOrInheritedFields = (lastSegment.ownedValue as RecordValue).ownedFieldValues.map[property.name]
-							(lastSegment.ownedValue as RecordValue).ownedFieldValues.size +
-								(lastSegment.getContainerOfType(PropertyAssociation).property.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)].size
-						} else {
-							(lastSegment.ownedValue as RecordValue).ownedFieldValues.size
-						}
+					} else if (lastSegment.ownedValue instanceof RecordValue && lastSegment.getContainerOfType(PropertyAssociation).property.propertyType instanceof RecordType) {
+						val property = lastSegment.getContainerOfType(PropertyAssociation).property;
+						(property.propertyType as RecordType).ownedFields.filter[fieldInType |
+							(lastSegment.ownedValue as RecordValue).ownedFieldValues.exists[it.property == fieldInType] ||
+								(property.defaultValue instanceof RecordValue && (property.defaultValue as RecordValue).ownedFieldValues.exists[it.property == fieldInType])
+						].size
 					} else {
 						0
 					}
@@ -566,7 +571,9 @@ class AadlPropertyView extends ViewPart {
 								"delta" -> rangeValue.delta
 							}
 						} else if (lastSegment.defaultValue instanceof RecordValue) {
-							(lastSegment.defaultValue as RecordValue).ownedFieldValues.get(index)
+							(lastSegment.propertyType as RecordType).ownedFields.map[fieldInType |
+								(lastSegment.defaultValue as RecordValue).ownedFieldValues.findFirst[property == fieldInType]
+							].filterNull.get(index)
 						}
 					} else if (association.modal) {
 						association.ownedValues.get(index)
@@ -587,13 +594,11 @@ class AadlPropertyView extends ViewPart {
 							"delta" -> rangeValue.delta
 						}
 					} else if (association.ownedValues.head.ownedValue instanceof RecordValue) {
-						val recordValue = association.ownedValues.head.ownedValue as RecordValue
-						if (index < recordValue.ownedFieldValues.size) {
-							recordValue.ownedFieldValues.get(index)
-						} else {
-							val localOrInheritedFields = recordValue.ownedFieldValues.map[property.name]
-							(lastSegment.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)].get(index - recordValue.ownedFieldValues.size)
-						}
+						val recordType = lastSegment.propertyType as RecordType
+						recordType.ownedFields.map[fieldInType |
+							(association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.findFirst[property == fieldInType] ?:
+								(lastSegment.defaultValue as RecordValue).ownedFieldValues.findFirst[property == fieldInType]
+						].filterNull.get(index)
 					}
 				}
 				ModalPropertyValue: {
@@ -614,13 +619,11 @@ class AadlPropertyView extends ViewPart {
 							"delta" -> rangeValue.delta
 						}
 					} else if (lastSegment.ownedValue instanceof RecordValue) {
-						val recordValue = lastSegment.ownedValue as RecordValue
-						if (index < recordValue.ownedFieldValues.size) {
-							recordValue.ownedFieldValues.get(index)
-						} else {
-							val localOrInheritedFields = recordValue.ownedFieldValues.map[property.name]
-							(lastSegment.getContainerOfType(PropertyAssociation).property.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)].get(index - recordValue.ownedFieldValues.size)
-						}
+						val property = lastSegment.getContainerOfType(PropertyAssociation).property;
+						(property.propertyType as RecordType).ownedFields.map[fieldInType |
+							(lastSegment.ownedValue as RecordValue).ownedFieldValues.findFirst[it.property == fieldInType] ?:
+								(property.defaultValue as RecordValue).ownedFieldValues.findFirst[it.property == fieldInType]
+						].filterNull.get(index)
 					}
 				}
 				Pair<String, PropertyExpression>: {
