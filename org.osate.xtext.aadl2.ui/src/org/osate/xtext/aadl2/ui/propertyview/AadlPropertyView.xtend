@@ -301,36 +301,14 @@ class AadlPropertyView extends ViewPart {
 					val association = cachedPropertyAssociations.get(resolvedElement.owner).get(resolvedElement)
 					if (association != null) {
 						if (!association.modal) {
-							if (association.ownedValues.head.ownedValue instanceof RecordValue && resolvedElement.defaultValue instanceof RecordValue) {
-								val localOrInheritedFields = (association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.map[property.name]
-								val remainingDefaultFields = (resolvedElement.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)]
-								if (!remainingDefaultFields.empty) {
-									"[" + (association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.map[getValueAsString(serializer)].join +
-										remainingDefaultFields.map[getValueAsString(serializer)].join + "]"
-								} else {
-									association.ownedValues.head.ownedValue.getValueAsString(serializer)
-								}
-							} else {
-								association.ownedValues.head.ownedValue.getValueAsString(serializer)
-							}
+							association.ownedValues.head.ownedValue.getValueAsString(serializer)
 						}
 					} else if(resolvedElement.defaultValue != null) {
 						resolvedElement.defaultValue.getValueAsString(serializer)
 					}
 				}
 				ModalPropertyValue: {
-					if (resolvedElement.ownedValue instanceof RecordValue && resolvedElement.getContainerOfType(PropertyAssociation).property.defaultValue instanceof RecordValue) {
-						val localOrInheritedFields = (resolvedElement.ownedValue as RecordValue).ownedFieldValues.map[property.name]
-						val remainingDefaultFields = (resolvedElement.getContainerOfType(PropertyAssociation).property.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)]
-						if (!remainingDefaultFields.empty) {
-							"[" + (resolvedElement.ownedValue as RecordValue).ownedFieldValues.map[getValueAsString(serializer)].join +
-								remainingDefaultFields.map[getValueAsString(serializer)].join + "]"
-						} else {
-							resolvedElement.ownedValue.getValueAsString(serializer)
-						}
-					} else {
-						resolvedElement.ownedValue.getValueAsString(serializer)
-					}
+					resolvedElement.ownedValue.getValueAsString(serializer)
 				}
 				NumberValue: {
 					val serializedNumberValue = resolvedElement.getValueAsString(serializer)
