@@ -74,6 +74,7 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.Element
+import org.eclipse.xtext.validation.IConcreteSyntaxValidator
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -201,8 +202,10 @@ class AadlPropertyView extends ViewPart {
 			if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
 				cachePropertyLookupJob.cancel
 			}
-			cachePropertyLookupJob = (resourceSet.getEObject(currentSelectionUri, true) as NamedElement)?.createCachePropertyLookupJob
-			cachePropertyLookupJob?.schedule
+			if (currentSelectionUri != null) {
+				cachePropertyLookupJob = (resourceSet.getEObject(currentSelectionUri, true) as NamedElement)?.createCachePropertyLookupJob
+				cachePropertyLookupJob?.schedule
+			}
 		}
 	]
 
@@ -298,36 +301,14 @@ class AadlPropertyView extends ViewPart {
 					val association = cachedPropertyAssociations.get(resolvedElement.owner).get(resolvedElement)
 					if (association != null) {
 						if (!association.modal) {
-							if (association.ownedValues.head.ownedValue instanceof RecordValue && resolvedElement.defaultValue instanceof RecordValue) {
-								val localOrInheritedFields = (association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.map[property.name]
-								val remainingDefaultFields = (resolvedElement.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)]
-								if (!remainingDefaultFields.empty) {
-									"[" + (association.ownedValues.head.ownedValue as RecordValue).ownedFieldValues.map[getValueAsString(serializer)].join +
-										remainingDefaultFields.map[getValueAsString(serializer)].join + "]"
-								} else {
-									association.ownedValues.head.ownedValue.getValueAsString(serializer)
-								}
-							} else {
-								association.ownedValues.head.ownedValue.getValueAsString(serializer)
-							}
+							association.ownedValues.head.ownedValue.getValueAsString(serializer)
 						}
 					} else if(resolvedElement.defaultValue != null) {
 						resolvedElement.defaultValue.getValueAsString(serializer)
 					}
 				}
 				ModalPropertyValue: {
-					if (resolvedElement.ownedValue instanceof RecordValue && resolvedElement.getContainerOfType(PropertyAssociation).property.defaultValue instanceof RecordValue) {
-						val localOrInheritedFields = (resolvedElement.ownedValue as RecordValue).ownedFieldValues.map[property.name]
-						val remainingDefaultFields = (resolvedElement.getContainerOfType(PropertyAssociation).property.defaultValue as RecordValue).ownedFieldValues.filter[!localOrInheritedFields.contains(property.name)]
-						if (!remainingDefaultFields.empty) {
-							"[" + (resolvedElement.ownedValue as RecordValue).ownedFieldValues.map[getValueAsString(serializer)].join +
-								remainingDefaultFields.map[getValueAsString(serializer)].join + "]"
-						} else {
-							resolvedElement.ownedValue.getValueAsString(serializer)
-						}
-					} else {
-						resolvedElement.ownedValue.getValueAsString(serializer)
-					}
+					resolvedElement.ownedValue.getValueAsString(serializer)
 				}
 				NumberValue: {
 					val serializedNumberValue = resolvedElement.getValueAsString(serializer)
@@ -946,15 +927,19 @@ class AadlPropertyView extends ViewPart {
 	}
 	
 	def private static getValueAsString(Element expression, ISerializer serializer) {
-		switch expression {
-			InstanceReferenceValue:
-				expression.referencedInstanceObject?.instanceObjectPath ?: "null"
-			ListValue case expression.hasInstanceReferenceValue:
-				expression.serializeListWithInstanceReferenceValue(serializer)
-			default: {
-				serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
-				// TODO: Test this to see what cleanup is truly necessary.
+		try {
+			switch expression {
+				InstanceReferenceValue:
+					expression.referencedInstanceObject?.instanceObjectPath ?: "null"
+				ListValue case expression.hasInstanceReferenceValue:
+					expression.serializeListWithInstanceReferenceValue(serializer)
+				default: {
+					serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
+					// TODO: Test this to see what cleanup is truly necessary.
+				}
 			}
+		} catch (IConcreteSyntaxValidator.InvalidConcreteSyntaxException e) {
+			//Simply return null.  Expression could not be serialized because the model is invalid.
 		}
 	}
 	
