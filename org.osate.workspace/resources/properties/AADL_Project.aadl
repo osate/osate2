@@ -75,4 +75,5 @@ property set AADL_Project is
         -- Speed in terms of instructions executed per second
         Processor_Speed_Units: type units (KIPS, MIPS => KIPS * 1000, GIPS => MIPS * 1000);
 
+
 end AADL_Project;
