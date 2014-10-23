@@ -1675,7 +1675,7 @@ public final class AadlUtil {
 		if (!folder.exists()) {
 			makeSureFoldersExist(path);
 			try {
-				folder.create(true, false, null);
+				folder.create(true, true, null);
 			} catch (CoreException e) {
 			}
 		}
