@@ -1,7 +1,6 @@
 package org.osate.analysis.flows.reporting.exporters;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.ecore.EObject;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.utils.ReportUtils;
@@ -26,5 +25,5 @@ public abstract class GenericExport {
 				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
 	}
 
-	public abstract void save(EObject relatedObject);
+	public abstract void save();
 }

@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
@@ -120,7 +119,7 @@ public class ExcelExport extends GenericExport {
 
 	}
 
-	public void save(EObject relatedObject) {
+	public void save() {
 
 		WritableSheet excelSheet;
 		IFile file;

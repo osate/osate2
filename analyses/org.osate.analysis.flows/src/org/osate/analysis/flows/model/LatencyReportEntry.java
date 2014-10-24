@@ -31,18 +31,26 @@ public class LatencyReportEntry {
 	List<ReportedCell> issues;
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
+	SystemOperationMode som = null;
+	double expectedMaxLatency = 0;
+	double expectedMinLatency = 0;
 
-	public LatencyReportEntry() {
+	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som) {
 		this.contributors = new ArrayList<LatencyContributor>();
-	}
-
-	public LatencyReportEntry(EndToEndFlowInstance etef) {
-		this();
 		this.relatedEndToEndFlow = etef;
+		this.som = som;
+
+		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
+		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
+
 	}
 
 	public boolean doSynchronous() {
 		return Values.doSynchronousSystem();
+	}
+
+	public SystemOperationMode getSOM() {
+		return this.som;
 	}
 
 	public void addContributor(LatencyContributor lc) {
@@ -392,7 +400,7 @@ public class LatencyReportEntry {
 		issues.add(new ReportedCell(ReportSeverity.WARNING, str));
 	}
 
-	public Section export(SystemOperationMode som) {
+	public Section export() {
 
 		Section section;
 		Line line;
@@ -411,8 +419,8 @@ public class LatencyReportEntry {
 
 		issues = new ArrayList<ReportedCell>();
 
-		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
-		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
+		expectedMaxLatency = this.expectedMaxLatency;
+		expectedMinLatency = this.expectedMinLatency;
 
 		if (relatedEndToEndFlow != null) {
 			sectionName = relatedEndToEndFlow.getComponentInstancePath();

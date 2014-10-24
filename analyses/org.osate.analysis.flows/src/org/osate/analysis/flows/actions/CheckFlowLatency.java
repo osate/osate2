@@ -41,11 +41,13 @@ package org.osate.analysis.flows.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowanalysisPlugin;
+import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
@@ -55,6 +57,7 @@ import org.osgi.framework.Bundle;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
 	static CheckFlowLatency currentInstance;
+	protected static LatencyReport latreport = null;
 
 	public CheckFlowLatency() {
 		super();
@@ -91,6 +94,28 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
+	protected boolean initializeAnalysis(NamedElement object) {
+		if (object instanceof SystemInstance) {
+			latreport = new LatencyReport((SystemInstance) object);
+			return true;
+		}
+		return false;
+	};
+
+	@Override
+	protected boolean finalizeAnalysis() {
+		if (latreport != null && !latreport.getEntries().isEmpty()) {
+			Report report = latreport.export();
+
+			CsvExport csvExport = new CsvExport(report);
+			csvExport.save();
+			ExcelExport excelExport = new ExcelExport(report);
+			excelExport.save();
+		}
+		return true;
+	};
+
+	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		currentInstance = this;
@@ -99,18 +124,9 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 			Dialog.showError("Flow Latency Error", "Please select a system implementation instance");
 
 		}
-		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, this);
+		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, this, latreport, som);
 
 		flas.processPreOrderAll(root);
-
-		if (flas.getReport() != null) {
-			Report report = flas.getReport().export(som);
-
-			CsvExport csvExport = new CsvExport(report);
-			csvExport.save(root);
-			ExcelExport excelExport = new ExcelExport(report);
-			excelExport.save(root);
-		}
 
 		monitor.done();
 	}

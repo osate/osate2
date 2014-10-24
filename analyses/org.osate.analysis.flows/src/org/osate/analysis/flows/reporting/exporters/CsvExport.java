@@ -6,7 +6,6 @@ import java.io.InputStream;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.flows.reporting.model.Line;
@@ -42,7 +41,7 @@ public class CsvExport extends GenericExport {
 	}
 
 	@Override
-	public void save(EObject relatedObject) {
+	public void save() {
 		IFile file;
 		InputStream input;
 		StringBuffer reportContent;

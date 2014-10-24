@@ -44,6 +44,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.analysis.flows.model.LatencyReport;
@@ -60,16 +61,19 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	AbstractAaxlAction action;
 	LatencyReport report;
+	SystemOperationMode som;
 
-	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, AbstractAaxlAction a) {
+	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, AbstractAaxlAction a,
+			LatencyReport r, SystemOperationMode som) {
 		super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL);
 		this.action = a;
-		this.report = new LatencyReport(si);
+		this.report = r; // new LatencyReport(si)
+		this.som = som;
 	}
 
-	public LatencyReport getReport() {
-		return this.report;
-	}
+//	public LatencyReport getReport() {
+//		return this.report;
+//	}
 
 	protected final void initSwitches() {
 		/* here we are creating the connection checking switches */
@@ -91,7 +95,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
-				entry = new LatencyReportEntry(etef);
+				entry = new LatencyReportEntry(etef, som);
 
 				for (FlowElementInstance fei : etef.getFlowElements()) {
 					FlowLatencyLogic.mapFlowElementInstance(etef, fei, entry);
