@@ -27,7 +27,7 @@ public class CsvExport extends GenericExport {
 		result.append("Latency Analysis Report" + System.lineSeparator() + System.lineSeparator());
 
 		for (Section section : report.getSections()) {
-			result.append("Flow analysis for end to end flow " + section.getName() + System.lineSeparator());
+//			result.append("Flow analysis for end to end flow " + section.getName() + System.lineSeparator());
 			for (Line line : section.getLines()) {
 				for (ReportedCell content : line.getContent()) {
 					result.append(content.getMessage());
