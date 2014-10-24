@@ -77,6 +77,7 @@ import org.osate.aadl2.Element
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.BasicProperty
+import org.eclipse.xtext.util.Wrapper
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -329,6 +330,9 @@ class AadlPropertyView extends ViewPart {
 				BasicPropertyAssociation: {
 					resolvedElement.value.getValueAsString(serializer)
 				}
+				Wrapper<PropertyExpression>: {
+					resolvedElement.get.resolveIfProxy.getValueAsString(serializer)
+				}
 			}
 		}
 	}
@@ -409,7 +413,7 @@ class AadlPropertyView extends ViewPart {
 								} else {
 									(lastSegment.propertyType as RecordType).ownedFields.exists[fieldInType | (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType]]
 								}
-							)
+							) || (lastSegment.defaultValue instanceof ListValue && !(lastSegment.defaultValue as ListValue).ownedListElements.empty)
 						)
 					) || (association != null &&
 						(association.modal || (association.ownedValues.head.ownedValue instanceof NumberValue && (association.ownedValues.head.ownedValue as NumberValue).unit != null) ||
@@ -423,7 +427,7 @@ class AadlPropertyView extends ViewPart {
 											(lastSegment.defaultValue instanceof RecordValue && (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType])
 									]
 								}
-							)
+							) || (association.ownedValues.head.ownedValue instanceof ListValue && !(association.ownedValues.head.ownedValue as ListValue).ownedListElements.empty)
 						)
 					)
 				}
@@ -440,12 +444,15 @@ class AadlPropertyView extends ViewPart {
 										)
 								]
 							}
-						)
+						) || (lastSegment.ownedValue instanceof ListValue && !(lastSegment.ownedValue as ListValue).ownedListElements.empty)
 				}
 				NumberValue: {
 					false
 				}
 				UnitLiteral: {
+					false
+				}
+				Wrapper<PropertyExpression>: {
 					false
 				}
 				default: {
@@ -495,6 +502,8 @@ class AadlPropertyView extends ViewPart {
 										(lastSegment.defaultValue instanceof RecordValue && (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType])
 								].size
 							}
+						} else if (association.ownedValues.head.ownedValue instanceof ListValue) {
+							(association.ownedValues.head.ownedValue as ListValue).ownedListElements.size
 						} else {
 							0
 						}
@@ -512,6 +521,8 @@ class AadlPropertyView extends ViewPart {
 						} else {
 							(lastSegment.propertyType as RecordType).ownedFields.filter[fieldInType | (lastSegment.defaultValue as RecordValue).ownedFieldValues.exists[property == fieldInType]].size
 						}
+					} else if (lastSegment.defaultValue instanceof ListValue) {
+						(lastSegment.defaultValue as ListValue).ownedListElements.size
 					} else {
 						0
 					}
@@ -535,6 +546,8 @@ class AadlPropertyView extends ViewPart {
 									(property.defaultValue instanceof RecordValue && (property.defaultValue as RecordValue).ownedFieldValues.exists[it.property == fieldInType])
 							].size
 						}
+					} else if (lastSegment.ownedValue instanceof ListValue) {
+						(lastSegment.ownedValue as ListValue).ownedListElements.size
 					} else {
 						0
 					}
@@ -556,6 +569,9 @@ class AadlPropertyView extends ViewPart {
 					0
 				}
 				BasicProperty case !(lastSegment instanceof Property): {
+					0
+				}
+				Wrapper<PropertyExpression>: {
 					0
 				}
 				default: {
@@ -614,6 +630,8 @@ class AadlPropertyView extends ViewPart {
 									(lastSegment.defaultValue as RecordValue).ownedFieldValues.findFirst[property == fieldInType]
 								].filterNull.get(index)
 							}
+						} else if (lastSegment.defaultValue instanceof ListValue) {
+							new Wrapper((lastSegment.defaultValue as ListValue).ownedListElements.get(index))
 						}
 					} else if (association.modal) {
 						association.ownedValues.get(index)
@@ -647,6 +665,8 @@ class AadlPropertyView extends ViewPart {
 									(lastSegment.defaultValue as RecordValue)?.ownedFieldValues?.findFirst[property == fieldInType]
 							].filterNull.get(index)
 						}
+					} else if (association.ownedValues.head.ownedValue instanceof ListValue) {
+						new Wrapper((association.ownedValues.head.ownedValue as ListValue).ownedListElements.get(index))
 					}
 				}
 				ModalPropertyValue: {
@@ -680,6 +700,8 @@ class AadlPropertyView extends ViewPart {
 									(property.defaultValue as RecordValue)?.ownedFieldValues?.findFirst[it.property == fieldInType]
 							].filterNull.get(index)
 						}
+					} else if (lastSegment.ownedValue instanceof ListValue) {
+						new Wrapper((lastSegment.ownedValue as ListValue).ownedListElements.get(index))
 					}
 				}
 				Pair<String, PropertyExpression>: {
