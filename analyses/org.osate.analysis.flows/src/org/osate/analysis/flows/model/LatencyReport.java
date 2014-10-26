@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
 
@@ -43,10 +44,16 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
+	public String getPreferencesSuffix() {
+		return Values.getSynchronousSystemLabel() + "-" + Values.getMajorFrameDelayLabel() + "-"
+				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
+	}
+
 	public Report export() {
 		Report genericReport;
 
-		genericReport = new Report(this.relatedInstance, "latency", ReportType.TABLE);
+		genericReport = new Report(this.relatedInstance, "latency", "latency_" + getPreferencesSuffix(),
+				ReportType.TABLE);
 
 		for (LatencyReportEntry re : entries) {
 			genericReport.addSection(re.export());

@@ -22,16 +22,20 @@ public class Report {
 	private StringBuffer textContent;
 	private ReportType type;
 	private NamedElement relatedObject;
+	private String reportFolder;
+	private String reportPostfix;
 
 	public enum ReportType {
 		TABLE, TEXT
 	}
 
-	public Report(NamedElement ne, String name, ReportType rt) {
+	public Report(NamedElement ne, String reportFolder, String reportPostfix, ReportType rt) {
 		this.type = rt;
 		this.relatedObject = ne;
 		this.textContent = new StringBuffer();
 		this.sections = new ArrayList<Section>();
+		this.reportFolder = reportFolder;
+		this.reportPostfix = reportPostfix;
 	}
 
 	public void addSection(Section s) {
@@ -56,6 +60,14 @@ public class Report {
 
 	public NamedElement getRelatedObject() {
 		return this.relatedObject;
+	}
+
+	public String getReportFolder() {
+		return this.reportFolder;
+	}
+
+	public String getReportPostfix() {
+		return this.reportPostfix;
 	}
 
 }

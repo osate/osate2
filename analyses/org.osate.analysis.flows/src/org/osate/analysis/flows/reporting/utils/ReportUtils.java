@@ -17,8 +17,7 @@ public class ReportUtils {
 	 * @param fileExtension - the file extension (.csv, .xls, etc.)
 	 * @return the path for the file.
 	 */
-	public static IPath getReportPath(EObject root, String subDirectory, String reportType, String fileSuffix,
-			String fileExtension) {
+	public static IPath getReportPath(EObject root, String subDirectory, String reportPostfix, String fileExtension) {
 		String filename = null;
 		subDirectory = subDirectory.replaceAll(" ", "");
 		Resource res = root.eResource();
@@ -26,17 +25,11 @@ public class ReportUtils {
 		IPath path = OsateResourceUtil.getOsatePath(uri);
 		if (root instanceof InstanceObject) {
 			path = path.removeFileExtension();
-			filename = path.lastSegment() + "__" + reportType;
-			if (fileSuffix != null) {
-				filename = filename + "_" + fileSuffix;
-			}
-			path = path.removeLastSegments(1).append("/reports/" + reportType + "/" + filename);
+			filename = path.lastSegment() + "__" + reportPostfix;
+			path = path.removeLastSegments(1).append("/reports/" + subDirectory + "/" + filename);
 		} else {
-			filename = path.lastSegment() + reportType;
-			if (fileSuffix != null) {
-				filename = filename + fileSuffix;
-			}
-			path = path.removeLastSegments(1).append("/reports/" + reportType + "/" + filename);
+			filename = path.lastSegment() + reportPostfix;
+			path = path.removeLastSegments(1).append("/reports/" + subDirectory + "/" + filename);
 		}
 
 		path = path.addFileExtension(fileExtension);
