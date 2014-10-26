@@ -33,42 +33,23 @@
  */
 package org.osate.analysis.resource.budgets.logic;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.aadl2.instance.ConnectionKind;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.instance.util.InstanceUtil;
-import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.OsateLogger;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoPowerAnalysisLogic {
-	private static final ComponentCategory category = ComponentCategory.BUS;
 	private static final String resourceCategory = "Power";
 
 	private final AnalysisErrorReporterManager errManager;
@@ -105,23 +86,39 @@ public class DoPowerAnalysisLogic {
 					} else {
 						return;
 					}
-					// supply in form of power budget by this bus on another bus
-					for (Iterator it = ci.getFeatureInstances().iterator(); it.hasNext();) {
-						FeatureInstance fi = (FeatureInstance) it.next();
-						if (!fi.getDstConnectionInstances().isEmpty()) {
-							double supply = GetProperties.getPowerBudget(fi, 0.0);
-							if (supply > 0) {
+					// supply in form of power budget drawn this power supply from other supply
+					for (FeatureInstance fi : ci.getFeatureInstances()) {
+						double supply = GetProperties.getPowerBudget(fi, 0.0);
+						if (supply > 0) {
+							if (!fi.getDstConnectionInstances().isEmpty() || !fi.getSrcConnectionInstances().isEmpty()) {
 								OsateLogger.log(somName + "  Supply " + supply + " from "
 										+ fi.getContainingComponentInstance().getName());
 								supplyTotal += supply;
+							} else {
+								// warning unconnected power requirement
 							}
 						}
 					}
 					// power supply and budget based on access connections to this bus
 					for (ConnectionInstance ac : ci.getSrcConnectionInstances()) {
-						double calc = checkBusAccessPower(ac);
 						// TODO-LW: could throw ClassCastException
 						FeatureInstance dstfi = (FeatureInstance) ac.getDestination();
+						double res = GetProperties.getPowerBudget(dstfi, 0.0);
+						if (res > 0) {
+							OsateLogger.log(somName + "  Budget " + res + " by Component "
+									+ dstfi.getContainingComponentInstance().getName());
+							budgetTotal += res;
+						}
+						res = GetProperties.getPowerSupply(dstfi, 0.0);
+						if (res > 0) {
+							OsateLogger.log(somName + "  Supply " + res + " from Component "
+									+ dstfi.getContainingComponentInstance().getName());
+							supplyTotal += res;
+						}
+					}
+					for (ConnectionInstance ac : ci.getDstConnectionInstances()) {
+						// TODO-LW: could throw ClassCastException
+						FeatureInstance dstfi = (FeatureInstance) ac.getSource();
 						double res = GetProperties.getPowerBudget(dstfi, 0.0);
 						if (res > 0) {
 							OsateLogger.log(somName + "  Budget " + res + " by Component "
@@ -138,7 +135,7 @@ public class DoPowerAnalysisLogic {
 					report(ci, somName, ci.getName() + " " + resourceCategory, capacity, budgetTotal, supplyTotal);
 				}
 			};
-			DoCapacity.processPreOrderComponentInstance(si, category);
+			DoCapacity.processPreOrderComponentInstance(si);
 		}
 		if (si.getSystemOperationModes().size() == 1 && msg.length() > 0) {
 			// Also report the results using a message dialog
@@ -146,89 +143,6 @@ public class DoPowerAnalysisLogic {
 		} else if (hasPower == 0) {
 			Dialog.showInfo(resourceCategory + " Budget Statistics", "No components with power.");
 		}
-	}
-
-	private double checkBusAccessPower(ConnectionInstance aci) {
-		EList<ConnectionReference> connRefs = aci.getConnectionReferences();
-		if (aci.getKind() == ConnectionKind.ACCESS_CONNECTION && connRefs.size() > 1) {
-			ConnectionInstanceEnd srci = aci.getSource();
-			for (ConnectionReference ref : connRefs) {
-				Connection conn = ref.getConnection();
-				Context srcfx = conn.getAllSourceContext();
-				NamedElement srcf = conn.getAllSource();
-				Context dstfx = conn.getAllDestinationContext();
-				NamedElement dstf = conn.getAllDestination();
-				ComponentInstance xi;
-				if (srcf instanceof Subcomponent || srcfx instanceof Subcomponent) {
-					xi = srci.getContainingComponentInstance();
-				} else {
-					// TODO-LW: could throw ClassCastException
-					xi = (ComponentInstance) srci;
-				}
-				if (xi != null) {
-					ComponentInstance dsti;
-					if (dstfx instanceof Subcomponent) {
-						dsti = xi.findSubcomponentInstance((Subcomponent) dstfx);
-					} else {
-						dsti = xi;
-					}
-					if (dsti != null) {
-						FeatureInstance fi = dsti.findFeatureInstance((Feature) dstf);
-						return calcPowerBudget(fi);
-					}
-
-				}
-			}
-		}
-		return 0.0;
-	}
-
-	private double calcPowerBudget(FeatureInstance fi) {
-		double res = 0.0;
-		if (fi == null)
-			return res;
-		double fbud = GetProperties.getPowerBudget(fi, 0.0);
-		ComponentInstance ci = fi.getContainingComponentInstance();
-		Feature f = fi.getFeature();
-		FeatureGroup fg = null;
-		if (fi.eContainer() instanceof FeatureInstance) {
-			fg = (FeatureGroup) ((FeatureInstance) fi.eContainer()).getFeature();
-		}
-		InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(ci, 0);
-		Classifier cc = (ic != null) ? ic.classifier : null;
-		if (cc instanceof ComponentImplementation) {
-			ComponentImplementation cimpl = (ComponentImplementation) cc;
-			for (Connection conn : AadlUtil.getIngoingConnections(cimpl, f)) {
-				NamedElement dstf = conn.getAllDestination();
-				if (dstf instanceof BusAccess) {
-					BusAccess ba = (BusAccess) dstf;
-					NamedElement dstcxt = conn.getAllDstContextComponent();
-					if (dstcxt instanceof Subcomponent) {
-						ComponentInstance subi = ci.findSubcomponentInstance((Subcomponent) dstcxt);
-						if (subi != null) {
-							FeatureInstance bai = subi.findFeatureInstance(ba);
-							res += calcPowerBudget(bai);
-						}
-					}
-				}
-			}
-		}
-		if (fbud > 0) {
-			if (res > 0) {
-				// actual less than budget
-				String myname = fi.getContainingComponentInstance().getName() + "." + fi.getName();
-				if (res < fbud)
-					errManager.warning(fi, myname + ": Sum of actuals " + toString(res) + " is less than budget "
-							+ toString(fbud));
-				if (res > fbud)
-					errManager.warning(fi, myname + ": Sum of actuals " + toString(res) + " is more than budget "
-							+ toString(fbud));
-
-			} else {
-				res = fbud;
-			}
-		}
-		return res;
 	}
 
 	private String toString(double value) {
