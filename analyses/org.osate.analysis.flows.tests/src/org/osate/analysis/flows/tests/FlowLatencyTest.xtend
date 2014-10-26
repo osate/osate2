@@ -150,8 +150,6 @@ class FlowLatencyTest extends OsateTest {
 	'''
 
 	val expected = '''
-Latency Analysis Report
-
 Latency analysis for end-to-end flow 'prot.XferOnly' of system 'stub.i' with latency preference stettings AS-MF-ET-EQ,
 
 Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
