@@ -66,11 +66,11 @@ property set SEI is
   -- ROM budget by an application component
   ROMBudget: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
   -- capacity of a power source
-  PowerCapacity: aadlreal  units SEI::Power_Units applies to (bus, system, device);
+  PowerCapacity: aadlreal  units SEI::Power_Units applies to (bus, system, device, abstract);
   -- power draw (demand) of a component
-  PowerBudget: aadlreal  units SEI::Power_Units applies to (bus access);
+  PowerBudget: aadlreal  units SEI::Power_Units applies to ( feature);
   -- power supply by a component
-  PowerSupply: aadlreal  units SEI::Power_Units applies to (bus access);
+  PowerSupply: aadlreal  units SEI::Power_Units applies to ( feature);
   -- capacity of a bus component for transfer of data
   BandWidthCapacity: aadlreal  units Data_Rate_Units applies to (bus, system);
   -- demand for data transfer by a connection
