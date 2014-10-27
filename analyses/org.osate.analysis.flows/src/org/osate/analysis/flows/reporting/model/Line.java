@@ -24,6 +24,14 @@ public class Line {
 		this.content.add(new ReportedCell(s));
 	}
 
+	public void addError(String s) {
+		this.content.add(new ReportedCell(ReportSeverity.ERROR, s));
+	}
+
+	public void addSuccess(String s) {
+		this.content.add(new ReportedCell(ReportSeverity.SUCCESS, s));
+	}
+
 	public void addHeaderContent(String s) {
 		this.content.add(new ReportedCell(ReportSeverity.HEADER, s));
 	}
