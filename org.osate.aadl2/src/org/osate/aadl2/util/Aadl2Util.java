@@ -14,6 +14,7 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.instance.util.InstanceUtil;
 
 public class Aadl2Util {
 	private static boolean _useTunedEqualsMethods = true;
@@ -179,11 +180,13 @@ public class Aadl2Util {
 	}
 
 	public static String getPrintableSOMName(SystemOperationMode som) {
-		String somName = som.getName();
-		if (somName != null && (somName.equalsIgnoreCase("No Modes") || somName.equalsIgnoreCase("NoModes"))) {
+		if (som == null || InstanceUtil.isNoMode(som))
 			return "";
-		}
-		return "In SystemMode " + somName + ": ";
+		return "In SystemMode " + som.getName() + ": ";
+	}
+
+	public static boolean isPrintableSOMName(SystemOperationMode som) {
+		return (som != null && !InstanceUtil.isNoMode(som));
 	}
 
 	public static String getPrintablePathName(ContainedNamedElement path) {
