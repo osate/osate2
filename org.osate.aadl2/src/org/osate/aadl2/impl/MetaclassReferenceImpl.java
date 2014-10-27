@@ -262,9 +262,8 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 				return metaclass;
 			}
 			if (metaclassName.toString().equalsIgnoreCase("package")) {
-				// Related to bug 241
-				// Make the property taken as for a "all"
-				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
+				// Fix for bug 241
+				metaclass = Aadl2Package.eINSTANCE.getAadlPackage();
 				return metaclass;
 			}
 			EPackage pack = Aadl2Package.eINSTANCE;
