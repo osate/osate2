@@ -2220,7 +2220,7 @@ RealRange returns aadl2::NumericRange:
 
 
 CoreKeyWord :
-	'abstract' |'access' | 'annex'| 'applies' 
+	'abstract' |'access' | 'annex'| 'applies' | 'binding'
 	| 'bus' |'calls' |'classifier'| 'connections' |'constant'| 'data'| 'device'
 	|'end' |'enumeration'|'event'|'extends'
 	| 'feature'|'features'|'flow'|'flows'
