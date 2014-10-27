@@ -7,7 +7,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -429,7 +429,7 @@ public class LatencyReportEntry {
 		}
 		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
 		String systemName = si.getComponentClassifier().getName();
-		String inMode = som == null || InstanceUtil.isNoMode(som) ? "" : " in mode " + som.getName();
+		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName():"";
 
 		section = new Section(sectionName + inMode);
 		String dspostfix = Values.getDataSetProcessingLabel();
