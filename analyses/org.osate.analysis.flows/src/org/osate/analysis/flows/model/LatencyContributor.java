@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyUtil;
-import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
@@ -550,20 +550,17 @@ public abstract class LatencyContributor {
 		}
 	}
 
-	public void generateMarkers() {
+	public void generateMarkers(AnalysisErrorReporterManager errManager) {
 		List<ReportedCell> doIssues = this.getReportedIssues();
 		for (ReportedCell reportedCell : doIssues) {
 			if (reportedCell.getSeverity() == ReportSeverity.INFO) {
-//				CheckFlowLatency.getInstance().info(this.relatedElement, getRelatedObjectLabel()+reportedCell.getMessage());
+//				errManager.info(this.relatedElement, getRelatedObjectLabel()+reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.SUCCESS) {
-				CheckFlowLatency.getInstance().info(this.relatedElement,
-						getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.info(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.WARNING) {
-				CheckFlowLatency.getInstance().warning(this.relatedElement,
-						getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.warning(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.ERROR) {
-				CheckFlowLatency.getInstance().error(this.relatedElement,
-						getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.error(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
 	}

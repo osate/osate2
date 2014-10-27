@@ -7,9 +7,9 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.FlowLatencyUtil;
-import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Line;
@@ -429,7 +429,7 @@ public class LatencyReportEntry {
 		}
 		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
 		String systemName = si.getComponentClassifier().getName();
-		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName():"";
+		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
 		section = new Section(sectionName + inMode);
 		String dspostfix = Values.getDataSetProcessingLabel();
@@ -590,25 +590,22 @@ public class LatencyReportEntry {
 		return this.relatedEndToEndFlow.getComponentInstancePath() + ": ";
 	}
 
-	public void generateMarkers() {
+	public void generateMarkers(AnalysisErrorReporterManager errManager) {
 		List<ReportedCell> doIssues = this.issues;
 		for (ReportedCell reportedCell : doIssues) {
 			if (reportedCell.getSeverity() == ReportSeverity.INFO) {
-//				CheckFlowLatency.getInstance().info(this.relatedEndToEndFlow, reportedCell.getMessage());
+//				errManager.info(this.relatedEndToEndFlow, reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.SUCCESS) {
-				CheckFlowLatency.getInstance().info(this.relatedEndToEndFlow,
-						getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.info(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.WARNING) {
-				CheckFlowLatency.getInstance().warning(this.relatedEndToEndFlow,
-						getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.warning(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.ERROR) {
-				CheckFlowLatency.getInstance().error(this.relatedEndToEndFlow,
-						getRelatedObjectLabel() + reportedCell.getMessage());
+				errManager.error(this.relatedEndToEndFlow, getRelatedObjectLabel() + reportedCell.getMessage());
 			}
 		}
 		if (Values.doDetailsMarkers()) {
 			for (LatencyContributor lc : this.contributors) {
-				lc.generateMarkers();
+				lc.generateMarkers(errManager);
 			}
 		}
 	}

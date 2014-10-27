@@ -56,17 +56,7 @@ import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
-	static CheckFlowLatency currentInstance;
 	protected static LatencyReport latreport = null;
-
-	public CheckFlowLatency() {
-		super();
-		currentInstance = this;
-	}
-
-	public static CheckFlowLatency getInstance() {
-		return currentInstance;
-	}
 
 	@Override
 	protected void initPropertyReferences() {
@@ -105,7 +95,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	@Override
 	protected boolean finalizeAnalysis() {
 		if (latreport != null && !latreport.getEntries().isEmpty()) {
-			Report report = latreport.export();
+			Report report = latreport.export(errManager);
 
 			CsvExport csvExport = new CsvExport(report);
 			csvExport.save();
@@ -118,7 +108,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
-		currentInstance = this;
 		monitor.beginTask(getActionName(), 1);
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport, som);
 

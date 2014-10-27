@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.preferences.Values;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
@@ -49,7 +50,7 @@ public class LatencyReport {
 				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
 	}
 
-	public Report export() {
+	public Report export(AnalysisErrorReporterManager errMgr) {
 		Report genericReport;
 
 		genericReport = new Report(this.relatedInstance, "latency", "latency_" + getPreferencesSuffix(),
@@ -57,7 +58,7 @@ public class LatencyReport {
 
 		for (LatencyReportEntry re : entries) {
 			genericReport.addSection(re.export());
-			re.generateMarkers();
+			re.generateMarkers(errMgr);
 		}
 
 		return genericReport;
