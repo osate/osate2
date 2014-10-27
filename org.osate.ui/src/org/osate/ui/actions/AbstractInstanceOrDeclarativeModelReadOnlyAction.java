@@ -128,14 +128,15 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 							analyzeInstanceModelInMode(monitor, errManager, si, som);
 						}
 					}
+					finalizeAnalysis();
 				}
 			}
 		} else {
 			if (obj instanceof NamedElement && initializeAnalysis((NamedElement) obj)) {
 				analyzeDeclarativeModel(monitor, getErrorManager(), obj);
+				finalizeAnalysis();
 			}
 		}
-		finalizeAnalysis();
 	}
 
 	private void analyzeInstanceModelInMode(final IProgressMonitor monitor,
