@@ -49,7 +49,6 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
-import org.osate.ui.actions.AbstractAaxlAction;
 
 /**
  * @author phf
@@ -58,15 +57,12 @@ import org.osate.ui.actions.AbstractAaxlAction;
  *
  */
 public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress {
-
-	AbstractAaxlAction action;
 	LatencyReport report;
 	SystemOperationMode som;
 
-	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, AbstractAaxlAction a,
-			LatencyReport r, SystemOperationMode som) {
+	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, LatencyReport r,
+			SystemOperationMode som) {
 		super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL);
-		this.action = a;
 		this.report = r; // new LatencyReport(si)
 		this.som = som;
 	}
