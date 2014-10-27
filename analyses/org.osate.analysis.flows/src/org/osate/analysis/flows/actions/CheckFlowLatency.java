@@ -120,11 +120,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 			SystemInstance root, SystemOperationMode som) {
 		currentInstance = this;
 		monitor.beginTask(getActionName(), 1);
-		if (!(root instanceof SystemInstance)) {
-			Dialog.showError("Flow Latency Error", "Please select a system implementation instance");
-
-		}
-		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, this, latreport, som);
+		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport, som);
 
 		flas.processPreOrderAll(root);
 
