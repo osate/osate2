@@ -132,6 +132,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		this.errManager = errManager != null ? errManager : new AnalysisErrorReporterManager(
 				getAnalysisErrorReporterFactory());
 		summaryReport = new StringBuffer();
+		initializeAnalysis(root);
 		analyzeInstanceModel(monitor, errManager, root, som);
+		finalizeAnalysis();
 	}
 }
