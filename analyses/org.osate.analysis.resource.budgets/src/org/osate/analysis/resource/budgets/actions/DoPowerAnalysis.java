@@ -41,15 +41,29 @@ package org.osate.analysis.resource.budgets.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.analysis.flows.reporting.exporters.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.ExcelExport;
+import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.reporting.model.Report.ReportType;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoPowerAnalysisLogic;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
+import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
+public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
-public final class DoPowerAnalysis extends AaxlReadOnlyActionAsJob {
+	static DoPowerAnalysis currentInstance;
+	Report powerReport;
+
+	public DoPowerAnalysis() {
+		super();
+		currentInstance = this;
+	}
 
 	protected Bundle getBundle() {
 		return ResourceBudgetPlugin.getDefault().getBundle();
@@ -66,15 +80,52 @@ public final class DoPowerAnalysis extends AaxlReadOnlyActionAsJob {
 	protected void initPropertyReferences() {
 	}
 
-	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-		//Get the system instance (if any)
-		if (obj instanceof InstanceObject) {
-			SystemInstance si = ((InstanceObject) obj).getSystemInstance();
-			if (si != null) {
-				monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-				new DoPowerAnalysisLogic(getErrorManager()).analyzePowerBudget(si);
-				monitor.done();
-			}
-		}
+//	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
+//		//Get the system instance (if any)
+//		if (obj instanceof InstanceObject) {
+//			SystemInstance si = ((InstanceObject) obj).getSystemInstance();
+//			if (si != null) {
+//				monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
+//				new DoPowerAnalysisLogic(getErrorManager()).analyzePowerBudget(si);
+//				monitor.done();
+//			}
+//		}
+//	}
+
+	@Override
+	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+			Element declarativeObject) {
+		Dialog.showError("Power Analysis Error", "Please select an instance model");
 	}
+
+	@Override
+	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+			SystemInstance root, SystemOperationMode som) {
+		currentInstance = this;
+		monitor.beginTask(getActionName(), 1);
+		DoPowerAnalysisLogic pas = new DoPowerAnalysisLogic(errManager);
+
+		pas.analyzePowerBudget(root, powerReport, som);
+
+		monitor.done();
+	}
+
+	@Override
+	protected boolean initializeAnalysis(NamedElement object) {
+		if (object instanceof SystemInstance) {
+			powerReport = new Report(object, "power", "power", ReportType.TABLE);
+			return true;
+		}
+		return false;
+	};
+
+	@Override
+	protected boolean finalizeAnalysis() {
+		CsvExport csvExport = new CsvExport(powerReport);
+		csvExport.save();
+		ExcelExport excelExport = new ExcelExport(powerReport);
+		excelExport.save();
+		return true;
+	};
+
 }

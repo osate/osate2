@@ -176,7 +176,7 @@
          <actionSet id="org.osate.analysis.resource.budgets.actionSet"/>
       </perspectiveExtension>
    </extension>
-   <extension
+   <!--extension
          point="org.osate.ui.analysis">
       <analysis
             class="org.osate.analysis.resource.budgets.autoanalyses.DoResourceBudgetAutoAnalysis"
@@ -203,6 +203,6 @@
             name="Analyze Load on Switch for Bound Cross-Processor Connections and Loopback">
          <instanceModel selectRootObject="true"/>
       </analysis>
-   </extension>
+   </extension-->
 
 </plugin>

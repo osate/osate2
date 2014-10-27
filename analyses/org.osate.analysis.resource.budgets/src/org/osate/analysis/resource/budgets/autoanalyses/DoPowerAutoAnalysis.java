@@ -37,11 +37,13 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.resource.budgets.logic.DoPowerAnalysisLogic;
 import org.osate.ui.actions.AbstractAnalysis;
 
-
 public class DoPowerAutoAnalysis extends AbstractAnalysis {
 
 	protected boolean runImpl() {
-		new DoPowerAnalysisLogic(getErrorManager()).analyzePowerBudget((SystemInstance) getParameter());
+		DoPowerAnalysisLogic pal = new DoPowerAnalysisLogic(getErrorManager());
+		SystemInstance si = (SystemInstance) getParameter();
+		// TODO will have to create a report and then iterate over the SOMs
+//		pal.analyzePowerBudget(si);
 		return getErrorManager().getNumErrors() == 0;
 	}
 

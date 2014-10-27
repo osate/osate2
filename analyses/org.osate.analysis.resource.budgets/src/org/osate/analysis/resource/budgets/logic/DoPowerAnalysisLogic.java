@@ -33,24 +33,22 @@
  */
 package org.osate.analysis.resource.budgets.logic;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.modelsupport.OsateLogger;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
-import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.analysis.flows.reporting.model.Line;
+import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.reporting.model.Section;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoPowerAnalysisLogic {
-	private static final String resourceCategory = "Power";
 
 	private final AnalysisErrorReporterManager errManager;
 
@@ -59,132 +57,164 @@ public class DoPowerAnalysisLogic {
 	private double budgetTotal = 0;
 	private double supplyTotal = 0;
 	private int hasPower = 0;
-	private EList done;
 
 	public DoPowerAnalysisLogic(AnalysisErrorReporterManager errManager) {
 		this.errManager = errManager;
 	}
 
-	public void analyzePowerBudget(SystemInstance si) {
+	public void analyzePowerBudget(SystemInstance si, Report powerReport, SystemOperationMode som) {
 		hasPower = 0;
-		final SOMIterator soms = new SOMIterator(si);
-		while (soms.hasNext()) {
-			final SystemOperationMode som = soms.nextSOM();
-			final String somName = Aadl2Util.getPrintableSOMName(som);
-			msg = new StringBuffer();
-			ForAllElement DoCapacity = new ForAllElement() {
-				@Override
-				protected void action(Element aobj) {
-					capacity = 0.0;
-					budgetTotal = 0.0;
-					supplyTotal = 0.0;
-					done = new UniqueEList<Element>();
-					ComponentInstance ci = (ComponentInstance) aobj;
-					capacity = GetProperties.getPowerCapacity(ci, 0.0);
-					if (capacity > 0) {
-						OsateLogger.log(somName + "Computing Power for " + ci.getName());
-					} else {
-						return;
-					}
-					// supply in form of power budget drawn this power supply from other supply
-					for (FeatureInstance fi : ci.getFeatureInstances()) {
-						double supply = GetProperties.getPowerBudget(fi, 0.0);
-						if (supply > 0) {
-							if (!fi.getDstConnectionInstances().isEmpty() || !fi.getSrcConnectionInstances().isEmpty()) {
-								OsateLogger.log(somName + "  Supply " + supply + " from "
-										+ fi.getContainingComponentInstance().getName());
-								supplyTotal += supply;
-							} else {
-								// warning unconnected power requirement
-							}
-						}
-					}
-					// power supply and budget based on access connections to this bus
-					for (ConnectionInstance ac : ci.getSrcConnectionInstances()) {
-						// TODO-LW: could throw ClassCastException
-						FeatureInstance dstfi = (FeatureInstance) ac.getDestination();
-						double res = GetProperties.getPowerBudget(dstfi, 0.0);
-						if (res > 0) {
-							OsateLogger.log(somName + "  Budget " + res + " by Component "
-									+ dstfi.getContainingComponentInstance().getName());
-							budgetTotal += res;
-						}
-						res = GetProperties.getPowerSupply(dstfi, 0.0);
-						if (res > 0) {
-							OsateLogger.log(somName + "  Supply " + res + " from Component "
-									+ dstfi.getContainingComponentInstance().getName());
-							supplyTotal += res;
-						}
-					}
-					for (ConnectionInstance ac : ci.getDstConnectionInstances()) {
-						// TODO-LW: could throw ClassCastException
-						FeatureInstance dstfi = (FeatureInstance) ac.getSource();
-						double res = GetProperties.getPowerBudget(dstfi, 0.0);
-						if (res > 0) {
-							OsateLogger.log(somName + "  Budget " + res + " by Component "
-									+ dstfi.getContainingComponentInstance().getName());
-							budgetTotal += res;
-						}
-						res = GetProperties.getPowerSupply(dstfi, 0.0);
-						if (res > 0) {
-							OsateLogger.log(somName + "  Supply " + res + " from Component "
-									+ dstfi.getContainingComponentInstance().getName());
-							supplyTotal += res;
-						}
-					}
-					report(ci, somName, ci.getName() + " " + resourceCategory, capacity, budgetTotal, supplyTotal);
+		final String somName = Aadl2Util.getPrintableSOMName(som);
+		String systemName = si.getComponentClassifier().getName();
+		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
+
+		final Section section = new Section(systemName + inMode);
+		powerReport.addSection(section);
+		msg = new StringBuffer();
+		ForAllElement DoCapacity = new ForAllElement() {
+			@Override
+			protected void action(Element aobj) {
+				capacity = 0.0;
+				budgetTotal = 0.0;
+				supplyTotal = 0.0;
+				ComponentInstance ci = (ComponentInstance) aobj;
+				capacity = GetProperties.getPowerCapacity(ci, 0.0);
+				if (capacity == 0) {
+					return;
 				}
-			};
-			DoCapacity.processPreOrderComponentInstance(si);
-		}
+
+				powerComponentHeader(section, "Computing Electrical Power for " + ci.getName());
+				final Line supplyLine = new Line();
+				section.addLine(supplyLine);
+				final Line budgetLine = new Line();
+				section.addLine(budgetLine);
+				supplyLine.addContent("");
+				budgetLine.addContent("");
+				supplyLine.addContent("Power Supply");
+				budgetLine.addContent("Power Demand");
+
+				// supply in form of power budget drawn this power supply from other supply
+				for (FeatureInstance fi : ci.getFeatureInstances()) {
+					double supply = GetProperties.getPowerBudget(fi, 0.0);
+					if (supply > 0) {
+						if (!fi.getDstConnectionInstances().isEmpty() || !fi.getSrcConnectionInstances().isEmpty()) {
+							supplyLine.addContent(DoPowerAnalysisLogic.this.toString(supply) + " from "
+									+ fi.getContainingComponentInstance().getName());
+							supplyTotal += supply;
+						} else {
+							// warning unconnected power requirement
+						}
+					}
+				}
+				// power supply and budget based on access connections to this bus
+				for (ConnectionInstance ac : ci.getSrcConnectionInstances()) {
+					// TODO-LW: could throw ClassCastException
+					FeatureInstance dstfi = (FeatureInstance) ac.getDestination();
+					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
+					if (budget > 0) {
+						budgetLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " for "
+								+ dstfi.getContainingComponentInstance().getName());
+						budgetTotal += budget;
+					}
+					budget = GetProperties.getPowerSupply(dstfi, 0.0);
+					if (budget > 0) {
+						supplyLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " from "
+								+ dstfi.getContainingComponentInstance().getName());
+						supplyTotal += budget;
+					}
+				}
+				for (ConnectionInstance ac : ci.getDstConnectionInstances()) {
+					// TODO-LW: could throw ClassCastException
+					FeatureInstance dstfi = (FeatureInstance) ac.getSource();
+					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
+					if (budget > 0) {
+						budgetLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " for "
+								+ dstfi.getContainingComponentInstance().getName());
+						budgetTotal += budget;
+					}
+					double supply = GetProperties.getPowerSupply(dstfi, 0.0);
+					if (supply > 0) {
+						supplyLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " from "
+								+ dstfi.getContainingComponentInstance().getName());
+						supplyTotal += supply;
+					}
+				}
+				report(section, ci, somName, ci.getName() + " power", capacity, budgetTotal, supplyTotal);
+			}
+		};
+		DoCapacity.processPreOrderComponentInstance(si);
 		if (si.getSystemOperationModes().size() == 1 && msg.length() > 0) {
 			// Also report the results using a message dialog
-			Dialog.showInfo(resourceCategory + " Budget Statistics", msg.toString());
+			Dialog.showInfo("Power Budget Statistics", msg.toString());
 		} else if (hasPower == 0) {
-			Dialog.showInfo(resourceCategory + " Budget Statistics", "No components with power.");
+			Dialog.showInfo("Power Budget Statistics", "No components with power.");
 		}
+	}
+
+	private void powerComponentHeader(Section s, String header) {
+		Line line = new Line();
+		line.addHeaderContent(header);
+		s.addLine(line);
+	}
+
+	private void powerComponentInfo(Section s, String header) {
+		Line line = new Line();
+		line.addContent(header);
+		s.addLine(line);
+	}
+
+	private void powerComponentSuccess(Section s, String msg) {
+		Line line = new Line();
+		line.addSuccess(msg);
+		s.addLine(line);
+	}
+
+	private void powerComponentError(Section s, String msg) {
+		Line line = new Line();
+		line.addError(msg);
+		s.addLine(line);
 	}
 
 	private String toString(double value) {
 		return value > 2000.0 ? value / 1000 + " W" : value + " mW";
 	}
 
-	private void report(ComponentInstance ci, String somName, String resourceName, double capacity, double budget,
-			double supply) {
+	private void report(Section section, ComponentInstance ci, String somName, String resourceName, double capacity,
+			double budget, double supply) {
+		powerComponentInfo(section, "Capacity: " + toString(capacity) + ", Supply: " + toString(supply) + ", Budget: "
+				+ toString(budget));
 		String modelExceeds = "";
 		String modelStats = "";
-		if (capacity == 0.0 && supply == 0.0 && budget == 0.0) {
-			return;
-		}
 		hasPower++;
 		if (capacity > 0.0 && supply > 0.0) {
 			if (supply > capacity) {
 				modelExceeds = "** " + resourceName + " supply " + toString(supply) + " exceeds capacity "
 						+ toString(capacity);
 				errManager.error(ci, somName + modelExceeds);
+				powerComponentError(section, modelExceeds);
 			}
 		}
 		String suppliedmsg = "";
 		double available = 0.0;
 		if (supply == 0.0) {
 			available = capacity;
+			suppliedmsg = " capacity ";
 		} else {
 			available = supply;
 			suppliedmsg = " supply ";
 		}
-		String resourcemsg = resourceName + ((budget > available) ? " overage:" : "");
 
 		if (available > 2000.0 && budget > 2000.0) {
-			modelStats = resourcemsg + (suppliedmsg.length() > 0 ? suppliedmsg : " capacity ") + available / 1000
-					+ " W vs. budget total " + budget / 1000 + " W";
+			modelStats = suppliedmsg + available / 1000 + " W vs. budget total " + budget / 1000 + " W";
 		} else {
-			modelStats = resourcemsg + (suppliedmsg.length() > 0 ? suppliedmsg : " capacity ") + available
-					+ " mW vs. budget total " + budget + " mW";
+			modelStats = suppliedmsg + available + " mW vs. budget total " + budget + " mW";
 		}
 		if (budget > available) {
-			errManager.error(ci, somName + modelStats);
+			powerComponentError(section, "Overage: " + modelStats);
+			errManager.error(ci, somName + "Overage: " + modelStats);
 		} else {
 			errManager.info(ci, somName + modelStats);
+			powerComponentSuccess(section, modelStats);
 		}
 		msg.append(modelStats + (modelExceeds.length() > 0 ? "\n***" + modelExceeds : "") + "\n");
 	}
