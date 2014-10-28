@@ -573,7 +573,25 @@ class AadlPropertyView extends ViewPart {
 					}
 				}
 				BasicPropertyAssociation: {
-					0
+					if (lastSegment.value instanceof NumberValue && (lastSegment.value as NumberValue).unit != null) {
+						2
+					} else if (lastSegment.value instanceof RangeValue) {
+						if ((lastSegment.value as RangeValue).delta == null) {
+							2
+						} else {
+							3
+						}
+					} else if (lastSegment.value instanceof RecordValue && lastSegment.property.propertyType instanceof RecordType) {
+						if (showUndefinedAction.checked) {
+							(lastSegment.property.propertyType as RecordType).ownedFields.size
+						} else {
+							(lastSegment.property.propertyType as RecordType).ownedFields.filter[fieldInType | (lastSegment.value as RecordValue).ownedFieldValues.exists[property == fieldInType]].size
+						}
+					} else if (lastSegment.value instanceof ListValue) {
+						(lastSegment.value as ListValue).ownedListElements.size
+					} else {
+						0
+					}
 				}
 				NumberValue: {
 					0
@@ -780,6 +798,36 @@ class AadlPropertyView extends ViewPart {
 						}
 					} else if (lastSegment.get instanceof ListValue) {
 						new Wrapper((lastSegment.get as ListValue).ownedListElements.get(index))
+					}
+				}
+				BasicPropertyAssociation: {
+					if (lastSegment.value instanceof NumberValue) {
+						//NumberValue with units
+						if (index == 0) {
+							lastSegment.value
+						} else { //index is 1
+							(lastSegment.value as NumberValue).unit
+						}
+					} else if (lastSegment.value instanceof RangeValue) {
+						val rangeValue = lastSegment.value as RangeValue
+						if (index == 0) {
+							"minimum" -> rangeValue.minimum
+						} else if (index == 1) {
+							"maximum" -> rangeValue.maximum
+						} else {
+							"delta" -> rangeValue.delta
+						}
+					} else if (lastSegment.value instanceof RecordValue) {
+						if (showUndefinedAction.checked) {
+							val fieldInType = (lastSegment.property as RecordType).ownedFields.get(index)
+							(lastSegment.value as RecordValue).ownedFieldValues.findFirst[property == fieldInType] ?: fieldInType
+						} else {
+							(lastSegment.property.propertyType as RecordType).ownedFields.map[
+								fieldInType | (lastSegment.value as RecordValue).ownedFieldValues.findFirst[property == fieldInType]
+							].filterNull.get(index)
+						}
+					} else if (lastSegment.value instanceof ListValue) {
+						new Wrapper((lastSegment.value as ListValue).ownedListElements.get(index))
 					}
 				}
 				default: {
