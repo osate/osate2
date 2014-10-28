@@ -45,7 +45,6 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Section;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoPowerAnalysisLogic {
@@ -84,22 +83,24 @@ public class DoPowerAnalysisLogic {
 				}
 
 				powerComponentHeader(section, "Computing Electrical Power for " + ci.getName());
-				final Line supplyLine = new Line();
-				section.addLine(supplyLine);
-				final Line budgetLine = new Line();
-				section.addLine(budgetLine);
-				supplyLine.addContent("");
-				budgetLine.addContent("");
-				supplyLine.addContent("Power Supply");
-				budgetLine.addContent("Power Demand");
-
+//				final Line supplyLine = new Line();
+//				section.addLine(supplyLine);
+//				final Line budgetLine = new Line();
+//				section.addLine(budgetLine);
+//				supplyLine.addContent("");
+//				budgetLine.addContent("");
+//				supplyLine.addContent("Power Supply");
+//				budgetLine.addContent("Power Demand");
+				String supplyLine = "";
+				String budgetLine = "";
 				// supply in form of power budget drawn this power supply from other supply
 				for (FeatureInstance fi : ci.getFeatureInstances()) {
 					double supply = GetProperties.getPowerBudget(fi, 0.0);
 					if (supply > 0) {
 						if (!fi.getDstConnectionInstances().isEmpty() || !fi.getSrcConnectionInstances().isEmpty()) {
-							supplyLine.addContent(DoPowerAnalysisLogic.this.toString(supply) + " from "
-									+ fi.getContainingComponentInstance().getName());
+							supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
+									+ DoPowerAnalysisLogic.this.toString(supply) + " from "
+									+ fi.getContainingComponentInstance().getName();
 							supplyTotal += supply;
 						} else {
 							// warning unconnected power requirement
@@ -112,14 +113,16 @@ public class DoPowerAnalysisLogic {
 					FeatureInstance dstfi = (FeatureInstance) ac.getDestination();
 					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 					if (budget > 0) {
-						budgetLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " for "
-								+ dstfi.getContainingComponentInstance().getName());
+						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
+								+ DoPowerAnalysisLogic.this.toString(budget) + " for "
+								+ dstfi.getContainingComponentInstance().getName();
 						budgetTotal += budget;
 					}
 					budget = GetProperties.getPowerSupply(dstfi, 0.0);
 					if (budget > 0) {
-						supplyLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " from "
-								+ dstfi.getContainingComponentInstance().getName());
+						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
+								+ DoPowerAnalysisLogic.this.toString(budget) + " from "
+								+ dstfi.getContainingComponentInstance().getName();
 						supplyTotal += budget;
 					}
 				}
@@ -128,27 +131,30 @@ public class DoPowerAnalysisLogic {
 					FeatureInstance dstfi = (FeatureInstance) ac.getSource();
 					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 					if (budget > 0) {
-						budgetLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " for "
-								+ dstfi.getContainingComponentInstance().getName());
+						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
+								+ DoPowerAnalysisLogic.this.toString(budget) + " for "
+								+ dstfi.getContainingComponentInstance().getName();
 						budgetTotal += budget;
 					}
 					double supply = GetProperties.getPowerSupply(dstfi, 0.0);
 					if (supply > 0) {
-						supplyLine.addContent(DoPowerAnalysisLogic.this.toString(budget) + " from "
-								+ dstfi.getContainingComponentInstance().getName());
+						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
+								+ DoPowerAnalysisLogic.this.toString(budget) + " from "
+								+ dstfi.getContainingComponentInstance().getName();
 						supplyTotal += supply;
 					}
 				}
-				report(section, ci, somName, ci.getName() + " power", capacity, budgetTotal, supplyTotal);
+				report(section, ci, somName, ci.getName() + " power", capacity, budgetTotal, supplyTotal, budgetLine,
+						supplyLine);
 			}
 		};
 		DoCapacity.processPreOrderComponentInstance(si);
-		if (si.getSystemOperationModes().size() == 1 && msg.length() > 0) {
-			// Also report the results using a message dialog
-			Dialog.showInfo("Power Budget Statistics", msg.toString());
-		} else if (hasPower == 0) {
-			Dialog.showInfo("Power Budget Statistics", "No components with power.");
-		}
+//		if (si.getSystemOperationModes().size() == 1 && msg.length() > 0) {
+//			// Also report the results using a message dialog
+//			Dialog.showInfo("Power Budget Statistics", msg.toString());
+//		} else if (hasPower == 0) {
+//			Dialog.showInfo("Power Budget Statistics", "No components with power.");
+//		}
 	}
 
 	private void powerComponentHeader(Section s, String header) {
@@ -157,9 +163,12 @@ public class DoPowerAnalysisLogic {
 		s.addLine(line);
 	}
 
-	private void powerComponentInfo(Section s, String header) {
+	private void powerComponentInfo(Section s, String header, String optional) {
 		Line line = new Line();
-		line.addContent(header);
+		line.addHeaderContent(header);
+		if (!optional.isEmpty()) {
+			line.addContent(optional);
+		}
 		s.addLine(line);
 	}
 
@@ -180,9 +189,10 @@ public class DoPowerAnalysisLogic {
 	}
 
 	private void report(Section section, ComponentInstance ci, String somName, String resourceName, double capacity,
-			double budget, double supply) {
-		powerComponentInfo(section, "Capacity: " + toString(capacity) + ", Supply: " + toString(supply) + ", Budget: "
-				+ toString(budget));
+			double budget, double supply, String budgetDetail, String supplyDetails) {
+		powerComponentInfo(section, "Capacity: " + toString(capacity), "");
+		powerComponentInfo(section, "Supply: " + toString(supply), supplyDetails);
+		powerComponentInfo(section, "Budget: " + toString(budget), budgetDetail);
 		String modelExceeds = "";
 		String modelStats = "";
 		hasPower++;
@@ -216,6 +226,9 @@ public class DoPowerAnalysisLogic {
 			errManager.info(ci, somName + modelStats);
 			powerComponentSuccess(section, modelStats);
 		}
+		Line l = new Line();
+		l.addContent("");
+		section.addLine(l);
 		msg.append(modelStats + (modelExceeds.length() > 0 ? "\n***" + modelExceeds : "") + "\n");
 	}
 }
