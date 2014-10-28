@@ -35,7 +35,6 @@
 package org.osate.xtext.aadl2.properties.scoping;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -173,11 +172,11 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
                 boolean _isRenameAll = packageRename.isRenameAll();
                 if (_isRenameAll) {
                   String _name = classifier.getName();
-                  _xifexpression = Collections.<String>unmodifiableList(Lists.<String>newArrayList(_name));
+                  _xifexpression = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList(_name));
                 } else {
                   String _name_1 = packageRename.getName();
                   String _name_2 = classifier.getName();
-                  _xifexpression = Collections.<String>unmodifiableList(Lists.<String>newArrayList(_name_1, _name_2));
+                  _xifexpression = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList(_name_1, _name_2));
                 }
                 QualifiedName _create = QualifiedName.create(_xifexpression);
                 EObjectDescription _eObjectDescription = new EObjectDescription(_create, classifier, null);
@@ -348,25 +347,9 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
         _switchResult = context;
       }
       Element parent = _switchResult;
-      boolean _and = false;
-      boolean _notEquals = (!Objects.equal(parent, null));
-      if (!_notEquals) {
-        _and = false;
-      } else {
-        _and = (!((((parent instanceof BasicPropertyAssociation) || (parent instanceof PropertyAssociation)) || (parent instanceof Property)) || (parent instanceof PropertyConstant)));
-      }
-      boolean _while = _and;
-      while (_while) {
+      while (((!Objects.equal(parent, null)) && (!((((parent instanceof BasicPropertyAssociation) || (parent instanceof PropertyAssociation)) || (parent instanceof Property)) || (parent instanceof PropertyConstant))))) {
         Element _owner = parent.getOwner();
         parent = _owner;
-        boolean _and_1 = false;
-        boolean _notEquals_1 = (!Objects.equal(parent, null));
-        if (!_notEquals_1) {
-          _and_1 = false;
-        } else {
-          _and_1 = (!((((parent instanceof BasicPropertyAssociation) || (parent instanceof PropertyAssociation)) || (parent instanceof Property)) || (parent instanceof PropertyConstant)));
-        }
-        _while = _and_1;
       }
       PropertyType propertyType = null;
       boolean _matched_1 = false;

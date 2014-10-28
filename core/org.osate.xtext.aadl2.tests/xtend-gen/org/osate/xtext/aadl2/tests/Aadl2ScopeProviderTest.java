@@ -35,7 +35,6 @@ package org.osate.xtext.aadl2.tests;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,6 +54,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
@@ -658,7 +658,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
     EObject _head = IterableExtensions.<EObject>head(_contents);
     final AadlPackage pack1 = ((AadlPackage) _head);
     this.assertAllCrossReferencesResolvable(pack1);
-    final List<String> componentClassifierScopeForPack1 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data", "renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack1::subp1", "pack1::subp1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack2::subp2", "pack2::subp2.i", "pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack3::subp3", "pack3::subp3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack4::subp4", "pack4::subp4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i", "renamed_package::subp4", "renamed_package::subp4.i"));
+    final List<String> componentClassifierScopeForPack1 = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a2", "a2.i", "a4", "a4.i", "a6", "d1", "d1.i", "d3", "d3.i", "d5", "renamed_abstract", "renamed_data", "renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::a1", "pack1::a2", "pack1::a2.i", "pack1::d1", "pack1::d1.i", "pack1::subp1", "pack1::subp1.i", "pack2::a3", "pack2::a3.i", "pack2::d2", "pack2::d2.i", "pack2::subp2", "pack2::subp2.i", "pack3::a4", "pack3::a4.i", "pack3::d3", "pack3::d3.i", "pack3::subp3", "pack3::subp3.i", "pack4::a5", "pack4::a5.i", "pack4::d4", "pack4::d4.i", "pack4::subp4", "pack4::subp4.i", "pack5::a6", "pack5::a7", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::a5", "renamed_package::a5.i", "renamed_package::d4", "renamed_package::d4.i", "renamed_package::subp4", "renamed_package::subp4.i"));
     final Procedure1<AadlPackage> _function = new Procedure1<AadlPackage>() {
       public void apply(final AadlPackage it) {
         String _name = it.getName();
@@ -711,7 +711,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 Assert.assertEquals("proto3", _name);
                 FeatureGroupPrototypeActual _actual = it.getActual();
                 EReference _featureGroupPrototypeActual_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual_FeatureType();
-                Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgt1", "fgt3", "fgt5", "proto3", "renamed_feature_group", "pack1::fgt1", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "renamed_package::fgt4")));
+                Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fgt1", "fgt3", "fgt5", "proto3", "renamed_feature_group", "pack1::fgt1", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "renamed_package::fgt4")));
               }
             };
             ObjectExtensions.<FeatureGroupPrototypeBinding>operator_doubleArrow(
@@ -754,7 +754,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 EList<ComponentPrototypeActual> _actuals = it.getActuals();
                 ComponentPrototypeActual _get = _actuals.get(0);
                 EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                Iterable<String> _plus = Iterables.<String>concat(Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto6")), componentClassifierScopeForPack1);
+                Iterable<String> _plus = Iterables.<String>concat(Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto6")), componentClassifierScopeForPack1);
                 Aadl2ScopeProviderTest.this.assertScope(_get, _componentPrototypeActual_SubcomponentType, _plus);
               }
             };
@@ -777,7 +777,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("eds1", _name);
                 EReference _eventDataSource_DataClassifier = Aadl2Package.eINSTANCE.getEventDataSource_DataClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataSource_DataClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1", "pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataSource_DataClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1", "pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<EventDataSource>operator_doubleArrow(_head, _function);
@@ -788,7 +788,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("pp1", _name);
                 EReference _portProxy_DataClassifier = Aadl2Package.eINSTANCE.getPortProxy_DataClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _portProxy_DataClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1", "pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _portProxy_DataClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("d1", "d1.i", "d3", "d3.i", "d5", "renamed_data", "pack1::d1", "pack1::d1.i", "pack2::d2", "pack2::d2.i", "pack3::d3", "pack3::d3.i", "pack4::d4", "pack4::d4.i", "pack5::d5", "pack5::d5.i", "pack5::d6", "pack5::d6.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<PortProxy>operator_doubleArrow(_head_1, _function_1);
@@ -799,7 +799,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("sp1", _name);
                 EReference _subprogramProxy_SubprogramClassifier = Aadl2Package.eINSTANCE.getSubprogramProxy_SubprogramClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramProxy_SubprogramClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::subp1", "pack1::subp1.i", "pack2::subp2", "pack2::subp2.i", "pack3::subp3", "pack3::subp3.i", "pack4::subp4", "pack4::subp4.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::subp4", "renamed_package::subp4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramProxy_SubprogramClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("renamed_subprogram", "subp1", "subp1.i", "subp3", "subp3.i", "subp5", "pack1::subp1", "pack1::subp1.i", "pack2::subp2", "pack2::subp2.i", "pack3::subp3", "pack3::subp3.i", "pack4::subp4", "pack4::subp4.i", "pack5::subp5", "pack5::subp5.i", "pack5::subp6", "pack5::subp6.i", "renamed_package::subp4", "renamed_package::subp4.i")));
               }
             };
             ObjectExtensions.<SubprogramProxy>operator_doubleArrow(_head_2, _function_2);
@@ -1122,7 +1122,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("proto1", _name);
                   EReference _prototype_Refined = Aadl2Package.eINSTANCE.getPrototype_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<Prototype>operator_doubleArrow(_head, _function);
@@ -1133,7 +1133,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("dport1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<DataPort>operator_doubleArrow(_head_1, _function_1);
@@ -1144,7 +1144,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("edport1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_2, _function_2);
@@ -1155,7 +1155,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("eport1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<EventPort>operator_doubleArrow(_head_3, _function_3);
@@ -1166,7 +1166,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("fg1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_4, _function_4);
@@ -1177,7 +1177,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("suba1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_5, _function_5);
@@ -1188,7 +1188,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("subga1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_6, _function_6);
@@ -1199,7 +1199,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("ba1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<BusAccess>operator_doubleArrow(_head_7, _function_7);
@@ -1210,7 +1210,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("da1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<DataAccess>operator_doubleArrow(_head_8, _function_8);
@@ -1221,7 +1221,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("af1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_9, _function_9);
@@ -1243,11 +1243,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("proto1", _name);
                   EReference _prototype_Refined = Aadl2Package.eINSTANCE.getPrototype_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1")));
                 }
               };
               ObjectExtensions.<Prototype>operator_doubleArrow(_head, _function);
-              final List<String> refinedFeatureScopeForA2 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("af1", "ba1", "da1", "dport1", "edport1", "eport1", "fg1", "suba1", "subga1"));
+              final List<String> refinedFeatureScopeForA2 = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("af1", "ba1", "da1", "dport1", "edport1", "eport1", "fg1", "suba1", "subga1"));
               EList<DataPort> _ownedDataPorts = it.getOwnedDataPorts();
               DataPort _head_1 = IterableExtensions.<DataPort>head(_ownedDataPorts);
               final Procedure1<DataPort> _function_1 = new Procedure1<DataPort>() {
@@ -1365,7 +1365,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("proto2", _name);
                   EReference _prototype_Refined = Aadl2Package.eINSTANCE.getPrototype_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<Prototype>operator_doubleArrow(_head, _function);
@@ -1376,7 +1376,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("dport2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<DataPort>operator_doubleArrow(_head_1, _function_1);
@@ -1387,7 +1387,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("edport2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_2, _function_2);
@@ -1398,7 +1398,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("eport2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<EventPort>operator_doubleArrow(_head_3, _function_3);
@@ -1409,7 +1409,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("fg2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_4, _function_4);
@@ -1420,7 +1420,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("param1", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<Parameter>operator_doubleArrow(_head_5, _function_5);
@@ -1431,7 +1431,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("suba2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_6, _function_6);
@@ -1442,7 +1442,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("subga2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_7, _function_7);
@@ -1453,7 +1453,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("ba2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<BusAccess>operator_doubleArrow(_head_8, _function_8);
@@ -1464,7 +1464,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("da2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<DataAccess>operator_doubleArrow(_head_9, _function_9);
@@ -1475,7 +1475,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("af2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_10, _function_10);
@@ -1497,11 +1497,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("proto2", _name);
                   EReference _prototype_Refined = Aadl2Package.eINSTANCE.getPrototype_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto2")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototype_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto2")));
                 }
               };
               ObjectExtensions.<Prototype>operator_doubleArrow(_head, _function);
-              final List<String> refinedFeatureScopeForFgt2 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("af2", "ba2", "da2", "dport2", "edport2", "eport2", "fg2", "param1", "suba2", "subga2"));
+              final List<String> refinedFeatureScopeForFgt2 = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("af2", "ba2", "da2", "dport2", "edport2", "eport2", "fg2", "param1", "suba2", "subga2"));
               EList<DataPort> _ownedDataPorts = it.getOwnedDataPorts();
               DataPort _head_1 = IterableExtensions.<DataPort>head(_ownedDataPorts);
               final Procedure1<DataPort> _function_1 = new Procedure1<DataPort>() {
@@ -1630,7 +1630,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("asub1", _name);
                   EReference _subcomponent_Refined = Aadl2Package.eINSTANCE.getSubcomponent_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<Subcomponent>operator_doubleArrow(_head, _function);
@@ -1652,7 +1652,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("asub1", _name);
                   EReference _subcomponent_Refined = Aadl2Package.eINSTANCE.getSubcomponent_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1")));
                 }
               };
               ObjectExtensions.<Subcomponent>operator_doubleArrow(_get, _function);
@@ -1663,7 +1663,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("asub2", _name);
                   EReference _subcomponent_Refined = Aadl2Package.eINSTANCE.getSubcomponent_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _subcomponent_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1")));
                 }
               };
               ObjectExtensions.<Subcomponent>operator_doubleArrow(_get_1, _function_1);
@@ -1685,7 +1685,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("edport3", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<EventDataPort>operator_doubleArrow(_head, _function);
@@ -1696,7 +1696,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("eport3", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<EventPort>operator_doubleArrow(_head_1, _function_1);
@@ -1707,7 +1707,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("fg3", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_2, _function_2);
@@ -1718,7 +1718,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("param2", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<Parameter>operator_doubleArrow(_head_3, _function_3);
@@ -1729,7 +1729,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("suba3", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_4, _function_4);
@@ -1740,7 +1740,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("subga3", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_5, _function_5);
@@ -1751,7 +1751,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("da3", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<DataAccess>operator_doubleArrow(_head_6, _function_6);
@@ -1762,7 +1762,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = it.getName();
                   Assert.assertEquals("af3", _name);
                   EReference _feature_Refined = Aadl2Package.eINSTANCE.getFeature_Refined();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(Lists.<String>newArrayList()));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _feature_Refined, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList()));
                 }
               };
               ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_7, _function_7);
@@ -1777,7 +1777,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
             public void apply(final SubprogramType it) {
               String _name = it.getName();
               Assert.assertEquals("sub2", _name);
-              final List<String> refinedFeatureScopeForSub2 = Collections.<String>unmodifiableList(Lists.<String>newArrayList("af3", "da3", "edport3", "eport3", "fg3", "param2", "suba3", "subga3"));
+              final List<String> refinedFeatureScopeForSub2 = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("af3", "da3", "edport3", "eport3", "fg3", "param2", "suba3", "subga3"));
               EList<EventDataPort> _ownedEventDataPorts = it.getOwnedEventDataPorts();
               EventDataPort _head = IterableExtensions.<EventDataPort>head(_ownedEventDataPorts);
               final Procedure1<EventDataPort> _function = new Procedure1<EventDataPort>() {
@@ -2100,7 +2100,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto1", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
                   EList<ComponentPrototypeActual> _actuals = it.getActuals();
                   ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
                   final Procedure1<ComponentPrototypeActual> _function = new Procedure1<ComponentPrototypeActual>() {
@@ -2109,7 +2109,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                       String _name = _subcomponentType.getName();
                       Assert.assertEquals("a3", _name);
                       EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                      Aadl2ScopeProviderTest.this.assertScope(it, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                      Aadl2ScopeProviderTest.this.assertScope(it, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
                       EList<PrototypeBinding> _bindings = it.getBindings();
                       PrototypeBinding _head = IterableExtensions.<PrototypeBinding>head(_bindings);
                       final Procedure1<PrototypeBinding> _function = new Procedure1<PrototypeBinding>() {
@@ -2118,7 +2118,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                           String _name = _formal.getName();
                           Assert.assertEquals("proto2", _name);
                           EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                          Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto2")));
+                          Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto2")));
                         }
                       };
                       ObjectExtensions.<PrototypeBinding>operator_doubleArrow(_head, _function);
@@ -2137,7 +2137,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto3", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
                   FeatureGroupPrototypeActual _actual = it.getActual();
                   final Procedure1<FeatureGroupPrototypeActual> _function = new Procedure1<FeatureGroupPrototypeActual>() {
                     public void apply(final FeatureGroupPrototypeActual it) {
@@ -2145,7 +2145,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                       String _name = ((NamedElement) _featureType).getName();
                       Assert.assertEquals("fgt1", _name);
                       EReference _featureGroupPrototypeActual_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual_FeatureType();
-                      Aadl2ScopeProviderTest.this.assertScope(it, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgt1", "fgt2", "proto3", "proto5", "pack::fgt1", "pack::fgt2")));
+                      Aadl2ScopeProviderTest.this.assertScope(it, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fgt1", "fgt2", "proto3", "proto5", "pack::fgt1", "pack::fgt2")));
                       EList<PrototypeBinding> _bindings = it.getBindings();
                       PrototypeBinding _head = IterableExtensions.<PrototypeBinding>head(_bindings);
                       final Procedure1<PrototypeBinding> _function = new Procedure1<PrototypeBinding>() {
@@ -2154,7 +2154,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                           String _name = _formal.getName();
                           Assert.assertEquals("proto4", _name);
                           EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                          Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
+                          Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
                         }
                       };
                       ObjectExtensions.<PrototypeBinding>operator_doubleArrow(_head, _function);
@@ -2196,7 +2196,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                           String _name = _formal.getName();
                           Assert.assertEquals("proto2", _name);
                           EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                          Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto2")));
+                          Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto2")));
                         }
                       };
                       ObjectExtensions.<PrototypeBinding>operator_doubleArrow(_head, _function);
@@ -2220,7 +2220,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                       String _name = _formal.getName();
                       Assert.assertEquals("proto2", _name);
                       EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                      Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto2")));
+                      Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto2")));
                     }
                   };
                   ObjectExtensions.<PrototypeBinding>operator_doubleArrow(_head, _function);
@@ -2246,11 +2246,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto1", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
                   EList<ComponentPrototypeActual> _actuals = it.getActuals();
                   ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
                   EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
                 }
               };
               ObjectExtensions.<ComponentPrototypeBinding>operator_doubleArrow(
@@ -2263,10 +2263,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto3", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
                   FeatureGroupPrototypeActual _actual = it.getActual();
                   EReference _featureGroupPrototypeActual_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual_FeatureType();
-                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgt1", "fgt2", "proto3", "proto5", "pack::fgt1", "pack::fgt2")));
+                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fgt1", "fgt2", "proto3", "proto5", "pack::fgt1", "pack::fgt2")));
                 }
               };
               ObjectExtensions.<FeatureGroupPrototypeBinding>operator_doubleArrow(
@@ -2279,10 +2279,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto5", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
                   FeatureGroupPrototypeActual _actual = it.getActual();
                   EReference _featureGroupPrototypeActual_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual_FeatureType();
-                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgt1", "fgt2", "proto3", "proto5", "pack::fgt1", "pack::fgt2")));
+                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fgt1", "fgt2", "proto3", "proto5", "pack::fgt1", "pack::fgt2")));
                 }
               };
               ObjectExtensions.<FeatureGroupPrototypeBinding>operator_doubleArrow(
@@ -2295,10 +2295,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto8", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
                   FeaturePrototypeActual _actual = it.getActual();
                   EReference _featurePrototypeReference_Prototype = Aadl2Package.eINSTANCE.getFeaturePrototypeReference_Prototype();
-                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featurePrototypeReference_Prototype, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featurePrototypeReference_Prototype, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto8", "proto9")));
                 }
               };
               ObjectExtensions.<FeaturePrototypeBinding>operator_doubleArrow(
@@ -2311,11 +2311,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto11", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto1", "proto11", "proto3", "proto5", "proto8", "proto9")));
                   EList<ComponentPrototypeActual> _actuals = it.getActuals();
                   ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
                   EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto1", "proto11", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
                 }
               };
               ObjectExtensions.<ComponentPrototypeBinding>operator_doubleArrow(
@@ -2338,7 +2338,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto4", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
                 }
               };
               ObjectExtensions.<PrototypeBinding>operator_doubleArrow(_get, _function);
@@ -2350,10 +2350,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto6", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
                   FeatureGroupPrototypeActual _actual = it.getActual();
                   EReference _featureGroupPrototypeActual_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual_FeatureType();
-                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgt1", "fgt2", "proto6", "proto7", "pack::fgt1", "pack::fgt2")));
+                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featureGroupPrototypeActual_FeatureType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fgt1", "fgt2", "proto6", "proto7", "pack::fgt1", "pack::fgt2")));
                 }
               };
               ObjectExtensions.<FeatureGroupPrototypeBinding>operator_doubleArrow(
@@ -2366,10 +2366,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto10", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
                   FeaturePrototypeActual _actual = it.getActual();
                   EReference _featurePrototypeReference_Prototype = Aadl2Package.eINSTANCE.getFeaturePrototypeReference_Prototype();
-                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featurePrototypeReference_Prototype, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto10", "proto4")));
+                  Aadl2ScopeProviderTest.this.assertScope(_actual, _featurePrototypeReference_Prototype, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto10", "proto4")));
                 }
               };
               ObjectExtensions.<FeaturePrototypeBinding>operator_doubleArrow(
@@ -2382,11 +2382,11 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   String _name = _formal.getName();
                   Assert.assertEquals("proto12", _name);
                   EReference _prototypeBinding_Formal = Aadl2Package.eINSTANCE.getPrototypeBinding_Formal();
-                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(Lists.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
+                  Aadl2ScopeProviderTest.this.assertScope(it, _prototypeBinding_Formal, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("proto10", "proto12", "proto4", "proto6")));
                   EList<ComponentPrototypeActual> _actuals = it.getActuals();
                   ComponentPrototypeActual _head = IterableExtensions.<ComponentPrototypeActual>head(_actuals);
                   EReference _componentPrototypeActual_SubcomponentType = Aadl2Package.eINSTANCE.getComponentPrototypeActual_SubcomponentType();
-                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_head, _componentPrototypeActual_SubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i1", "a1.i2", "a2", "a3", "a3.i1", "proto12", "proto13", "pack::a1", "pack::a1.i1", "pack::a1.i2", "pack::a2", "pack::a3", "pack::a3.i1")));
                 }
               };
               ObjectExtensions.<ComponentPrototypeBinding>operator_doubleArrow(
@@ -4158,7 +4158,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("dport1", _name);
                 EReference _dataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _dataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<DataPort>operator_doubleArrow(_head, _function);
@@ -4169,7 +4169,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("edport1", _name);
                 EReference _eventDataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getEventDataPort_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_1, _function_1);
@@ -4180,7 +4180,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("fg1", _name);
                 EReference _featureGroup_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroup_FeatureType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _featureGroup_FeatureType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgproto1", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt", "pack1::fgt1", "pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6", "renamed_package::fgt4")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _featureGroup_FeatureType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fgproto1", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt", "pack1::fgt1", "pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6", "renamed_package::fgt4")));
               }
             };
             ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_2, _function_2);
@@ -4191,7 +4191,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("suba1", _name);
                 EReference _subprogramAccess_SubprogramFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramAccess_SubprogramFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2", "pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i", "pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramAccess_SubprogramFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2", "pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i", "pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i")));
               }
             };
             ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_3, _function_3);
@@ -4202,7 +4202,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("subga1", _name);
                 EReference _subprogramGroupAccess_SubprogramGroupFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramGroupAccess_SubprogramGroupFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupAccess_SubprogramGroupFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2", "pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4", "pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupAccess_SubprogramGroupFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2", "pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4", "pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i")));
               }
             };
             ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_4, _function_4);
@@ -4213,7 +4213,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("ba1", _name);
                 EReference _busAccess_BusFeatureClassifier = Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _busAccess_BusFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i", "b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i", "pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _busAccess_BusFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i", "b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i", "pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i")));
               }
             };
             ObjectExtensions.<BusAccess>operator_doubleArrow(_head_5, _function_5);
@@ -4224,7 +4224,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("da1", _name);
                 EReference _dataAccess_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataAccess_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _dataAccess_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataAccess_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<DataAccess>operator_doubleArrow(_head_6, _function_6);
@@ -4235,7 +4235,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("af1", _name);
                 EReference _abstractFeature_FeaturePrototype = Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype();
-                Aadl2ScopeProviderTest.this.assertScope(it, _abstractFeature_FeaturePrototype, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fproto1")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _abstractFeature_FeaturePrototype, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fproto1")));
               }
             };
             ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_7, _function_7);
@@ -4257,7 +4257,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("asub", _name);
                 EReference _abstractSubcomponent_AbstractSubcomponentType = Aadl2Package.eINSTANCE.getAbstractSubcomponent_AbstractSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _abstractSubcomponent_AbstractSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack3::a3", "pack3::a3.i", "pack4::a4", "pack4::a4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "renamed_package::a4", "renamed_package::a4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _abstractSubcomponent_AbstractSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack3::a3", "pack3::a3.i", "pack4::a4", "pack4::a4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "renamed_package::a4", "renamed_package::a4.i")));
               }
             };
             ObjectExtensions.<AbstractSubcomponent>operator_doubleArrow(_head, _function);
@@ -4268,7 +4268,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("ssub", _name);
                 EReference _systemSubcomponent_SystemSubcomponentType = Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _systemSubcomponent_SystemSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rs", "s1", "s1.i", "s3", "s3.i", "s5", "sproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::s1", "pack1::s1.i", "pack2::a2", "pack2::a2.i", "pack2::s2", "pack2::s2.i", "pack3::a3", "pack3::a3.i", "pack3::s3", "pack3::s3.i", "pack4::a4", "pack4::a4.i", "pack4::s4", "pack4::s4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::s5", "pack5::s5.i", "pack5::s6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::s4", "renamed_package::s4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _systemSubcomponent_SystemSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rs", "s1", "s1.i", "s3", "s3.i", "s5", "sproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::s1", "pack1::s1.i", "pack2::a2", "pack2::a2.i", "pack2::s2", "pack2::s2.i", "pack3::a3", "pack3::a3.i", "pack3::s3", "pack3::s3.i", "pack4::a4", "pack4::a4.i", "pack4::s4", "pack4::s4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::s5", "pack5::s5.i", "pack5::s6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::s4", "renamed_package::s4.i")));
               }
             };
             ObjectExtensions.<SystemSubcomponent>operator_doubleArrow(_head_1, _function_1);
@@ -4279,7 +4279,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("psub", _name);
                 EReference _processSubcomponent_ProcessSubcomponentType = Aadl2Package.eINSTANCE.getProcessSubcomponent_ProcessSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _processSubcomponent_ProcessSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "p1", "p1.i", "p3", "p3.i", "p5", "pproto1", "ra", "rp", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::p1", "pack1::p1.i", "pack2::a2", "pack2::a2.i", "pack2::p2", "pack2::p2.i", "pack3::a3", "pack3::a3.i", "pack3::p3", "pack3::p3.i", "pack4::a4", "pack4::a4.i", "pack4::p4", "pack4::p4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::p5", "pack5::p5.i", "pack5::p6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::p4", "renamed_package::p4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _processSubcomponent_ProcessSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "p1", "p1.i", "p3", "p3.i", "p5", "pproto1", "ra", "rp", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::p1", "pack1::p1.i", "pack2::a2", "pack2::a2.i", "pack2::p2", "pack2::p2.i", "pack3::a3", "pack3::a3.i", "pack3::p3", "pack3::p3.i", "pack4::a4", "pack4::a4.i", "pack4::p4", "pack4::p4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::p5", "pack5::p5.i", "pack5::p6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::p4", "renamed_package::p4.i")));
               }
             };
             ObjectExtensions.<ProcessSubcomponent>operator_doubleArrow(_head_2, _function_2);
@@ -4290,7 +4290,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("tgsub", _name);
                 EReference _threadGroupSubcomponent_ThreadGroupSubcomponentType = Aadl2Package.eINSTANCE.getThreadGroupSubcomponent_ThreadGroupSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _threadGroupSubcomponent_ThreadGroupSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rtg", "tg1", "tg1.i", "tg3", "tg3.i", "tg5", "tgproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::tg1", "pack1::tg1.i", "pack2::a2", "pack2::a2.i", "pack2::tg2", "pack2::tg2.i", "pack3::a3", "pack3::a3.i", "pack3::tg3", "pack3::tg3.i", "pack4::a4", "pack4::a4.i", "pack4::tg4", "pack4::tg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::tg5", "pack5::tg5.i", "pack5::tg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::tg4", "renamed_package::tg4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _threadGroupSubcomponent_ThreadGroupSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rtg", "tg1", "tg1.i", "tg3", "tg3.i", "tg5", "tgproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::tg1", "pack1::tg1.i", "pack2::a2", "pack2::a2.i", "pack2::tg2", "pack2::tg2.i", "pack3::a3", "pack3::a3.i", "pack3::tg3", "pack3::tg3.i", "pack4::a4", "pack4::a4.i", "pack4::tg4", "pack4::tg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::tg5", "pack5::tg5.i", "pack5::tg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::tg4", "renamed_package::tg4.i")));
               }
             };
             ObjectExtensions.<ThreadGroupSubcomponent>operator_doubleArrow(_head_3, _function_3);
@@ -4301,7 +4301,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("tsub", _name);
                 EReference _threadSubcomponent_ThreadSubcomponentType = Aadl2Package.eINSTANCE.getThreadSubcomponent_ThreadSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _threadSubcomponent_ThreadSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rt", "t1", "t1.i", "t3", "t3.i", "t5", "tproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::t1", "pack1::t1.i", "pack2::a2", "pack2::a2.i", "pack2::t2", "pack2::t2.i", "pack3::a3", "pack3::a3.i", "pack3::t3", "pack3::t3.i", "pack4::a4", "pack4::a4.i", "pack4::t4", "pack4::t4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::t5", "pack5::t5.i", "pack5::t6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::t4", "renamed_package::t4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _threadSubcomponent_ThreadSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rt", "t1", "t1.i", "t3", "t3.i", "t5", "tproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::t1", "pack1::t1.i", "pack2::a2", "pack2::a2.i", "pack2::t2", "pack2::t2.i", "pack3::a3", "pack3::a3.i", "pack3::t3", "pack3::t3.i", "pack4::a4", "pack4::a4.i", "pack4::t4", "pack4::t4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::t5", "pack5::t5.i", "pack5::t6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::t4", "renamed_package::t4.i")));
               }
             };
             ObjectExtensions.<ThreadSubcomponent>operator_doubleArrow(_head_4, _function_4);
@@ -4312,7 +4312,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("subsub", _name);
                 EReference _subprogramSubcomponent_SubprogramSubcomponentType = Aadl2Package.eINSTANCE.getSubprogramSubcomponent_SubprogramSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramSubcomponent_SubprogramSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2", "pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i", "pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramSubcomponent_SubprogramSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2", "pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i", "pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i")));
               }
             };
             ObjectExtensions.<SubprogramSubcomponent>operator_doubleArrow(_head_5, _function_5);
@@ -4323,7 +4323,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("subgsub", _name);
                 EReference _subprogramGroupSubcomponent_SubprogramGroupSubcomponentType = Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2", "pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4", "pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2", "pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4", "pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i")));
               }
             };
             ObjectExtensions.<SubprogramGroupSubcomponent>operator_doubleArrow(_head_6, _function_6);
@@ -4334,7 +4334,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("procsub", _name);
                 EReference _processorSubcomponent_ProcessorSubcomponentType = Aadl2Package.eINSTANCE.getProcessorSubcomponent_ProcessorSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _processorSubcomponent_ProcessorSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "proc1", "proc1.i", "proc3", "proc3.i", "proc5", "procproto1", "ra", "rproc", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::proc1", "pack1::proc1.i", "pack2::a2", "pack2::a2.i", "pack2::proc2", "pack2::proc2.i", "pack3::a3", "pack3::a3.i", "pack3::proc3", "pack3::proc3.i", "pack4::a4", "pack4::a4.i", "pack4::proc4", "pack4::proc4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::proc5", "pack5::proc5.i", "pack5::proc6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::proc4", "renamed_package::proc4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _processorSubcomponent_ProcessorSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "proc1", "proc1.i", "proc3", "proc3.i", "proc5", "procproto1", "ra", "rproc", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::proc1", "pack1::proc1.i", "pack2::a2", "pack2::a2.i", "pack2::proc2", "pack2::proc2.i", "pack3::a3", "pack3::a3.i", "pack3::proc3", "pack3::proc3.i", "pack4::a4", "pack4::a4.i", "pack4::proc4", "pack4::proc4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::proc5", "pack5::proc5.i", "pack5::proc6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::proc4", "renamed_package::proc4.i")));
               }
             };
             ObjectExtensions.<ProcessorSubcomponent>operator_doubleArrow(_head_7, _function_7);
@@ -4345,7 +4345,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("vpsub", _name);
                 EReference _virtualProcessorSubcomponent_VirtualProcessorSubcomponentType = Aadl2Package.eINSTANCE.getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rvp", "vp1", "vp1.i", "vp3", "vp3.i", "vp5", "vpproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::vp1", "pack1::vp1.i", "pack2::a2", "pack2::a2.i", "pack2::vp2", "pack2::vp2.i", "pack3::a3", "pack3::a3.i", "pack3::vp3", "pack3::vp3.i", "pack4::a4", "pack4::a4.i", "pack4::vp4", "pack4::vp4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::vp5", "pack5::vp5.i", "pack5::vp6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::vp4", "renamed_package::vp4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rvp", "vp1", "vp1.i", "vp3", "vp3.i", "vp5", "vpproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::vp1", "pack1::vp1.i", "pack2::a2", "pack2::a2.i", "pack2::vp2", "pack2::vp2.i", "pack3::a3", "pack3::a3.i", "pack3::vp3", "pack3::vp3.i", "pack4::a4", "pack4::a4.i", "pack4::vp4", "pack4::vp4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::vp5", "pack5::vp5.i", "pack5::vp6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::vp4", "renamed_package::vp4.i")));
               }
             };
             ObjectExtensions.<VirtualProcessorSubcomponent>operator_doubleArrow(_head_8, _function_8);
@@ -4356,7 +4356,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("devsub", _name);
                 EReference _deviceSubcomponent_DeviceSubcomponentType = Aadl2Package.eINSTANCE.getDeviceSubcomponent_DeviceSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _deviceSubcomponent_DeviceSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "dev1", "dev1.i", "dev3", "dev3.i", "dev5", "devproto1", "ra", "rdev", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::dev1", "pack1::dev1.i", "pack2::a2", "pack2::a2.i", "pack2::dev2", "pack2::dev2.i", "pack3::a3", "pack3::a3.i", "pack3::dev3", "pack3::dev3.i", "pack4::a4", "pack4::a4.i", "pack4::dev4", "pack4::dev4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::dev5", "pack5::dev5.i", "pack5::dev6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::dev4", "renamed_package::dev4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _deviceSubcomponent_DeviceSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "dev1", "dev1.i", "dev3", "dev3.i", "dev5", "devproto1", "ra", "rdev", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::dev1", "pack1::dev1.i", "pack2::a2", "pack2::a2.i", "pack2::dev2", "pack2::dev2.i", "pack3::a3", "pack3::a3.i", "pack3::dev3", "pack3::dev3.i", "pack4::a4", "pack4::a4.i", "pack4::dev4", "pack4::dev4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::dev5", "pack5::dev5.i", "pack5::dev6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::dev4", "renamed_package::dev4.i")));
               }
             };
             ObjectExtensions.<DeviceSubcomponent>operator_doubleArrow(_head_9, _function_9);
@@ -4367,7 +4367,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("msub", _name);
                 EReference _memorySubcomponent_MemorySubcomponentType = Aadl2Package.eINSTANCE.getMemorySubcomponent_MemorySubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _memorySubcomponent_MemorySubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "m1", "m1.i", "m3", "m3.i", "m5", "mproto1", "ra", "rm", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::m1", "pack1::m1.i", "pack2::a2", "pack2::a2.i", "pack2::m2", "pack2::m2.i", "pack3::a3", "pack3::a3.i", "pack3::m3", "pack3::m3.i", "pack4::a4", "pack4::a4.i", "pack4::m4", "pack4::m4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::m5", "pack5::m5.i", "pack5::m6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::m4", "renamed_package::m4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _memorySubcomponent_MemorySubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "m1", "m1.i", "m3", "m3.i", "m5", "mproto1", "ra", "rm", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::m1", "pack1::m1.i", "pack2::a2", "pack2::a2.i", "pack2::m2", "pack2::m2.i", "pack3::a3", "pack3::a3.i", "pack3::m3", "pack3::m3.i", "pack4::a4", "pack4::a4.i", "pack4::m4", "pack4::m4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::m5", "pack5::m5.i", "pack5::m6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::m4", "renamed_package::m4.i")));
               }
             };
             ObjectExtensions.<MemorySubcomponent>operator_doubleArrow(_head_10, _function_10);
@@ -4378,7 +4378,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("bsub", _name);
                 EReference _busSubcomponent_BusSubcomponentType = Aadl2Package.eINSTANCE.getBusSubcomponent_BusSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _busSubcomponent_BusSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i", "b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i", "pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _busSubcomponent_BusSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i", "b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i", "pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i")));
               }
             };
             ObjectExtensions.<BusSubcomponent>operator_doubleArrow(_head_11, _function_11);
@@ -4389,7 +4389,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("vbsub", _name);
                 EReference _virtualBusSubcomponent_VirtualBusSubcomponentType = Aadl2Package.eINSTANCE.getVirtualBusSubcomponent_VirtualBusSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _virtualBusSubcomponent_VirtualBusSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rvb", "vb1", "vb1.i", "vb3", "vb3.i", "vb5", "vbproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::vb1", "pack1::vb1.i", "pack2::a2", "pack2::a2.i", "pack2::vb2", "pack2::vb2.i", "pack3::a3", "pack3::a3.i", "pack3::vb3", "pack3::vb3.i", "pack4::a4", "pack4::a4.i", "pack4::vb4", "pack4::vb4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::vb5", "pack5::vb5.i", "pack5::vb6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::vb4", "renamed_package::vb4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _virtualBusSubcomponent_VirtualBusSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "ra", "rvb", "vb1", "vb1.i", "vb3", "vb3.i", "vb5", "vbproto1", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::vb1", "pack1::vb1.i", "pack2::a2", "pack2::a2.i", "pack2::vb2", "pack2::vb2.i", "pack3::a3", "pack3::a3.i", "pack3::vb3", "pack3::vb3.i", "pack4::a4", "pack4::a4.i", "pack4::vb4", "pack4::vb4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::vb5", "pack5::vb5.i", "pack5::vb6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::vb4", "renamed_package::vb4.i")));
               }
             };
             ObjectExtensions.<VirtualBusSubcomponent>operator_doubleArrow(_head_12, _function_12);
@@ -4400,7 +4400,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("dsub", _name);
                 EReference _dataSubcomponent_DataSubcomponentType = Aadl2Package.eINSTANCE.getDataSubcomponent_DataSubcomponentType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _dataSubcomponent_DataSubcomponentType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataSubcomponent_DataSubcomponentType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<DataSubcomponent>operator_doubleArrow(_head_13, _function_13);
@@ -4422,7 +4422,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("param1", _name);
                 EReference _parameter_DataFeatureClassifier = Aadl2Package.eINSTANCE.getParameter_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _parameter_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto2", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto2", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _parameter_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto2", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto2", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<Parameter>operator_doubleArrow(_head, _function);
@@ -4444,7 +4444,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("dport2", _name);
                 EReference _dataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _dataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<DataPort>operator_doubleArrow(_head, _function);
@@ -4455,7 +4455,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("edport2", _name);
                 EReference _eventDataPort_DataFeatureClassifier = Aadl2Package.eINSTANCE.getEventDataPort_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _eventDataPort_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<EventDataPort>operator_doubleArrow(_head_1, _function_1);
@@ -4466,7 +4466,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("fg2", _name);
                 EReference _featureGroup_FeatureType = Aadl2Package.eINSTANCE.getFeatureGroup_FeatureType();
-                Aadl2ScopeProviderTest.this.assertScope(it, _featureGroup_FeatureType, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fgproto3", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt", "pack1::fgt1", "pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6", "renamed_package::fgt4")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _featureGroup_FeatureType, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fgproto3", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt", "pack1::fgt1", "pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6", "renamed_package::fgt4")));
               }
             };
             ObjectExtensions.<FeatureGroup>operator_doubleArrow(_head_2, _function_2);
@@ -4477,7 +4477,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("param2", _name);
                 EReference _parameter_DataFeatureClassifier = Aadl2Package.eINSTANCE.getParameter_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _parameter_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _parameter_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<Parameter>operator_doubleArrow(_head_3, _function_3);
@@ -4488,7 +4488,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("suba2", _name);
                 EReference _subprogramAccess_SubprogramFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramAccess_SubprogramFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto3", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2", "pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i", "pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramAccess_SubprogramFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto3", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2", "pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i", "pack4::sub4", "pack4::sub4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::sub5", "pack5::sub5.i", "pack5::sub6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::sub4", "renamed_package::sub4.i")));
               }
             };
             ObjectExtensions.<SubprogramAccess>operator_doubleArrow(_head_4, _function_4);
@@ -4499,7 +4499,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("subga2", _name);
                 EReference _subprogramGroupAccess_SubprogramGroupFeatureClassifier = Aadl2Package.eINSTANCE.getSubprogramGroupAccess_SubprogramGroupFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupAccess_SubprogramGroupFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto3", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2", "pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4", "pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _subprogramGroupAccess_SubprogramGroupFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto3", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2", "pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4", "pack4::subg4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::subg5", "pack5::subg5.i", "pack5::subg6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::subg4", "renamed_package::subg4.i")));
               }
             };
             ObjectExtensions.<SubprogramGroupAccess>operator_doubleArrow(_head_5, _function_5);
@@ -4510,7 +4510,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("ba2", _name);
                 EReference _busAccess_BusFeatureClassifier = Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _busAccess_BusFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "b1", "b1.i", "b3", "b3.i", "b5", "bproto3", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i", "pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _busAccess_BusFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "b1", "b1.i", "b3", "b3.i", "b5", "bproto3", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i", "pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i")));
               }
             };
             ObjectExtensions.<BusAccess>operator_doubleArrow(_head_6, _function_6);
@@ -4521,7 +4521,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("da2", _name);
                 EReference _dataAccess_DataFeatureClassifier = Aadl2Package.eINSTANCE.getDataAccess_DataFeatureClassifier();
-                Aadl2ScopeProviderTest.this.assertScope(it, _dataAccess_DataFeatureClassifier, Collections.<String>unmodifiableList(Lists.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _dataAccess_DataFeatureClassifier, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i", "pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "pack5::d5", "pack5::d5.i", "pack5::d6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::d4", "renamed_package::d4.i")));
               }
             };
             ObjectExtensions.<DataAccess>operator_doubleArrow(_head_7, _function_7);
@@ -4532,7 +4532,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                 String _name = it.getName();
                 Assert.assertEquals("af2", _name);
                 EReference _abstractFeature_FeaturePrototype = Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype();
-                Aadl2ScopeProviderTest.this.assertScope(it, _abstractFeature_FeaturePrototype, Collections.<String>unmodifiableList(Lists.<String>newArrayList("fproto3")));
+                Aadl2ScopeProviderTest.this.assertScope(it, _abstractFeature_FeaturePrototype, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("fproto3")));
               }
             };
             ObjectExtensions.<AbstractFeature>operator_doubleArrow(_head_8, _function_8);
@@ -4628,7 +4628,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                     String _qualifiedName = ((NamedElement) _sizeProperty).qualifiedName();
                     Assert.assertEquals("ps::def", _qualifiedName);
                     EReference _arraySize_SizeProperty = Aadl2Package.eINSTANCE.getArraySize_SizeProperty();
-                    Aadl2ScopeProviderTest.this.assertScope(it, _arraySize_SizeProperty, Collections.<String>unmodifiableList(Lists.<String>newArrayList("Acceptable_Array_Size", "Access_Right", "Access_Time", "Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text", "Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol", "Actual_Connection_Binding", "Actual_Function_Binding", "Actual_Latency", "Actual_Memory_Binding", "Actual_Processor_Binding", "Actual_Subprogram_Call", "Actual_Subprogram_Call_Binding", "Allowed_Connection_Binding", "Allowed_Connection_Binding_Class", "Allowed_Connection_Type", "Allowed_Dispatch_Protocol", "Allowed_Memory_Binding", "Allowed_Memory_Binding_Class", "Allowed_Message_Size", "Allowed_Period", "Allowed_Physical_Access", "Allowed_Physical_Access_Class", "Allowed_Processor_Binding", "Allowed_Processor_Binding_Class", "Allowed_Subprogram_Call", "Allowed_Subprogram_Call_Binding", "Assign_Time", "Base_Address", "Byte_Count", "Classifier_Matching_Rule", "Classifier_Substitution_Rule", "Client_Subprogram_Execution_Time", "Clock_Jitter", "Clock_Period", "Clock_Period_Range", "Code_Size", "Collocated", "Compute_Deadline", "Compute_Entrypoint", "Compute_Entrypoint_Call_Sequence", "Compute_Entrypoint_Source_Text", "Compute_Execution_Time", "Concurrency_Control_Protocol", "Connection_Pattern", "Connection_Set", "Criticality", "Data_Rate", "Data_Size", "Deactivate_Dealing", "Deactivate_Entrypoint", "Deactivate_Entrypoint_Call_Sequence", "Deactivate_Entrypoint_Source_Text", "Deactivate_Execution_Time", "Deactivation_Policy", "Deadline", "Dequeue_Protocol", "Dequeued_Items", "Device_Driver", "Device_Register_Address", "Dispatch_Able", "Dispatch_Jitter", "Dispatch_Offset", "Dispatch_Protocol", "Dispatch_Trigger", "Execution_Time", "Fan_Out_Policy", "Finalize_Deadline", "Finalize_Entrypoint", "Finalize_Entrypoint_Call_Sequence", "Finalize_Entrypoint_Source_Text", "Finalize_Execution_Time", "First_Dispatch_Time", "Frame_Period", "Hardware_Description_Source_Text", "Hardware_Source_Language", "Heap_Size", "Implemented_As", "Initialize_Deadline", "Initialize_Entrypoint", "Initialize_Entrypoint_Call_Sequence", "Initialize_Entrypoint_Source_Text", "Initialize_Execution_Time", "Input_Rate", "Input_Time", "Latency", "Load_Deadline", "Load_Time", "Max_Aadlinteger", "Max_Base_Address", "Max_Byte_Count", "Max_Memory_Size", "Max_Queue_Size", "Max_Target_Integer", "Max_Thread_Limit", "Max_Time", "Max_Urgency", "Max_Volume", "Max_Word_Space", "Memory_Protocol", "Memory_Size", "Mode_Transition_Response", "Not_Collocated", "Output_Rate", "Output_Time", "Overflow_Handling_Protocol", "POSIX_Scheduling_Policy", "Period", "Preemptive_Scheduler", "Priority", "Priority_Map", "Priority_Range", "Process_Swap_Execution_Time", "Processor_Capacity", "Prototype_Substitution_Rule", "Provided_Connection_Quality_Of_Service", "Provided_Virtual_Bus_Class", "Queue_Processing_Protocol", "Queue_Size", "Read_Time", "Recover_Deadline", "Recover_Entrypoint", "Recover_Entrypoint_Call_Sequence", "Recover_Entrypoint_Source_Text", "Recover_Execution_Time", "Reference_Processor", "Required_Connection", "Required_Connection_Quality_Of_Service", "Required_Virtual_Bus_Class", "Resumption_Policy", "Runtime_Protection", "Runtime_Protection_Support", "Scheduler_Quantum", "Scheduling_Protocol", "Slot_Time", "Source_Language", "Source_Name", "Source_Text", "Stack_Size", "Startup_Deadline", "Startup_Execution_Time", "Subprogram_Call_Rate", "Subprogram_Call_Type", "Supported_Classifier_Complement_Matches", "Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language", "Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing", "Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const", "ps::def", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count", "AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer", "AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume", "AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches", "AADL_Project::Supported_Classifier_Equivalence_Matches", "AADL_Project::Supported_Classifier_Subset_Matches", "AADL_Project::Supported_Type_Conversions", "Communication_Properties::Actual_Latency", "Communication_Properties::Connection_Pattern", "Communication_Properties::Connection_Set", "Communication_Properties::Data_Rate", "Communication_Properties::Fan_Out_Policy", "Communication_Properties::Input_Rate", "Communication_Properties::Input_Time", "Communication_Properties::Latency", "Communication_Properties::Output_Rate", "Communication_Properties::Output_Time", "Communication_Properties::Overflow_Handling_Protocol", "Communication_Properties::Queue_Processing_Protocol", "Communication_Properties::Queue_Size", "Communication_Properties::Required_Connection", "Communication_Properties::Subprogram_Call_Rate", "Communication_Properties::Timing", "Communication_Properties::Transmission_Time", "Communication_Properties::Transmission_Type", "Deployment_Properties::Actual_Connection_Binding", "Deployment_Properties::Actual_Function_Binding", "Deployment_Properties::Actual_Memory_Binding", "Deployment_Properties::Actual_Processor_Binding", "Deployment_Properties::Actual_Subprogram_Call", "Deployment_Properties::Actual_Subprogram_Call_Binding", "Deployment_Properties::Allowed_Connection_Binding", "Deployment_Properties::Allowed_Connection_Binding_Class", "Deployment_Properties::Allowed_Connection_Type", "Deployment_Properties::Allowed_Dispatch_Protocol", "Deployment_Properties::Allowed_Memory_Binding", "Deployment_Properties::Allowed_Memory_Binding_Class", "Deployment_Properties::Allowed_Period", "Deployment_Properties::Allowed_Physical_Access", "Deployment_Properties::Allowed_Physical_Access_Class", "Deployment_Properties::Allowed_Processor_Binding", "Deployment_Properties::Allowed_Processor_Binding_Class", "Deployment_Properties::Allowed_Subprogram_Call", "Deployment_Properties::Allowed_Subprogram_Call_Binding", "Deployment_Properties::Collocated", "Deployment_Properties::Memory_Protocol", "Deployment_Properties::Not_Collocated", "Deployment_Properties::Preemptive_Scheduler", "Deployment_Properties::Priority_Map", "Deployment_Properties::Priority_Range", "Deployment_Properties::Provided_Connection_Quality_Of_Service", "Deployment_Properties::Provided_Virtual_Bus_Class", "Deployment_Properties::Required_Connection_Quality_Of_Service", "Deployment_Properties::Required_Virtual_Bus_Class", "Deployment_Properties::Runtime_Protection_Support", "Deployment_Properties::Scheduling_Protocol", "Deployment_Properties::Thread_Limit", "Memory_Properties::Access_Right", "Memory_Properties::Access_Time", "Memory_Properties::Allowed_Message_Size", "Memory_Properties::Assign_Time", "Memory_Properties::Base_Address", "Memory_Properties::Byte_Count", "Memory_Properties::Code_Size", "Memory_Properties::Data_Size", "Memory_Properties::Device_Register_Address", "Memory_Properties::Heap_Size", "Memory_Properties::Memory_Size", "Memory_Properties::Read_Time", "Memory_Properties::Stack_Size", "Memory_Properties::Word_Size", "Memory_Properties::Word_Space", "Memory_Properties::Write_Time", "Modeling_Properties::Acceptable_Array_Size", "Modeling_Properties::Classifier_Matching_Rule", "Modeling_Properties::Classifier_Substitution_Rule", "Modeling_Properties::Implemented_As", "Modeling_Properties::Prototype_Substitution_Rule", "Programming_Properties::Activate_Entrypoint", "Programming_Properties::Activate_Entrypoint_Call_Sequence", "Programming_Properties::Activate_Entrypoint_Source_Text", "Programming_Properties::Compute_Entrypoint", "Programming_Properties::Compute_Entrypoint_Call_Sequence", "Programming_Properties::Compute_Entrypoint_Source_Text", "Programming_Properties::Deactivate_Entrypoint", "Programming_Properties::Deactivate_Entrypoint_Call_Sequence", "Programming_Properties::Deactivate_Entrypoint_Source_Text", "Programming_Properties::Device_Driver", "Programming_Properties::Finalize_Entrypoint", "Programming_Properties::Finalize_Entrypoint_Call_Sequence", "Programming_Properties::Finalize_Entrypoint_Source_Text", "Programming_Properties::Hardware_Description_Source_Text", "Programming_Properties::Hardware_Source_Language", "Programming_Properties::Initialize_Entrypoint", "Programming_Properties::Initialize_Entrypoint_Call_Sequence", "Programming_Properties::Initialize_Entrypoint_Source_Text", "Programming_Properties::Recover_Entrypoint", "Programming_Properties::Recover_Entrypoint_Call_Sequence", "Programming_Properties::Recover_Entrypoint_Source_Text", "Programming_Properties::Source_Language", "Programming_Properties::Source_Name", "Programming_Properties::Source_Text", "Programming_Properties::Supported_Source_Language", "Programming_Properties::Type_Source_Name", "Thread_Properties::Active_Thread_Handling_Protocol", "Thread_Properties::Active_Thread_Queue_Handling_Protocol", "Thread_Properties::Concurrency_Control_Protocol", "Thread_Properties::Criticality", "Thread_Properties::Deactivation_Policy", "Thread_Properties::Dequeue_Protocol", "Thread_Properties::Dequeued_Items", "Thread_Properties::Dispatch_Able", "Thread_Properties::Dispatch_Protocol", "Thread_Properties::Dispatch_Trigger", "Thread_Properties::Mode_Transition_Response", "Thread_Properties::POSIX_Scheduling_Policy", "Thread_Properties::Priority", "Thread_Properties::Resumption_Policy", "Thread_Properties::Runtime_Protection", "Thread_Properties::Subprogram_Call_Type", "Thread_Properties::Synchronized_Component", "Thread_Properties::Time_Slot", "Thread_Properties::Urgency", "Timing_Properties::Activate_Deadline", "Timing_Properties::Activate_Execution_Time", "Timing_Properties::Client_Subprogram_Execution_Time", "Timing_Properties::Clock_Jitter", "Timing_Properties::Clock_Period", "Timing_Properties::Clock_Period_Range", "Timing_Properties::Compute_Deadline", "Timing_Properties::Compute_Execution_Time", "Timing_Properties::Deactivate_Dealing", "Timing_Properties::Deactivate_Execution_Time", "Timing_Properties::Deadline", "Timing_Properties::Dispatch_Jitter", "Timing_Properties::Dispatch_Offset", "Timing_Properties::Execution_Time", "Timing_Properties::Finalize_Deadline", "Timing_Properties::Finalize_Execution_Time", "Timing_Properties::First_Dispatch_Time", "Timing_Properties::Frame_Period", "Timing_Properties::Initialize_Deadline", "Timing_Properties::Initialize_Execution_Time", "Timing_Properties::Load_Deadline", "Timing_Properties::Load_Time", "Timing_Properties::Period", "Timing_Properties::Process_Swap_Execution_Time", "Timing_Properties::Processor_Capacity", "Timing_Properties::Recover_Deadline", "Timing_Properties::Recover_Execution_Time", "Timing_Properties::Reference_Processor", "Timing_Properties::Scheduler_Quantum", "Timing_Properties::Slot_Time", "Timing_Properties::Startup_Deadline", "Timing_Properties::Startup_Execution_Time", "Timing_Properties::Thread_Swap_Execution_Time")));
+                    Aadl2ScopeProviderTest.this.assertScope(it, _arraySize_SizeProperty, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("Acceptable_Array_Size", "Access_Right", "Access_Time", "Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text", "Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol", "Actual_Connection_Binding", "Actual_Function_Binding", "Actual_Latency", "Actual_Memory_Binding", "Actual_Processor_Binding", "Actual_Subprogram_Call", "Actual_Subprogram_Call_Binding", "Allowed_Connection_Binding", "Allowed_Connection_Binding_Class", "Allowed_Connection_Type", "Allowed_Dispatch_Protocol", "Allowed_Memory_Binding", "Allowed_Memory_Binding_Class", "Allowed_Message_Size", "Allowed_Period", "Allowed_Physical_Access", "Allowed_Physical_Access_Class", "Allowed_Processor_Binding", "Allowed_Processor_Binding_Class", "Allowed_Subprogram_Call", "Allowed_Subprogram_Call_Binding", "Assign_Time", "Base_Address", "Byte_Count", "Classifier_Matching_Rule", "Classifier_Substitution_Rule", "Client_Subprogram_Execution_Time", "Clock_Jitter", "Clock_Period", "Clock_Period_Range", "Code_Size", "Collocated", "Compute_Deadline", "Compute_Entrypoint", "Compute_Entrypoint_Call_Sequence", "Compute_Entrypoint_Source_Text", "Compute_Execution_Time", "Concurrency_Control_Protocol", "Connection_Pattern", "Connection_Set", "Criticality", "Data_Rate", "Data_Size", "Deactivate_Dealing", "Deactivate_Entrypoint", "Deactivate_Entrypoint_Call_Sequence", "Deactivate_Entrypoint_Source_Text", "Deactivate_Execution_Time", "Deactivation_Policy", "Deadline", "Dequeue_Protocol", "Dequeued_Items", "Device_Driver", "Device_Register_Address", "Dispatch_Able", "Dispatch_Jitter", "Dispatch_Offset", "Dispatch_Protocol", "Dispatch_Trigger", "Execution_Time", "Fan_Out_Policy", "Finalize_Deadline", "Finalize_Entrypoint", "Finalize_Entrypoint_Call_Sequence", "Finalize_Entrypoint_Source_Text", "Finalize_Execution_Time", "First_Dispatch_Time", "Frame_Period", "Hardware_Description_Source_Text", "Hardware_Source_Language", "Heap_Size", "Implemented_As", "Initialize_Deadline", "Initialize_Entrypoint", "Initialize_Entrypoint_Call_Sequence", "Initialize_Entrypoint_Source_Text", "Initialize_Execution_Time", "Input_Rate", "Input_Time", "Latency", "Load_Deadline", "Load_Time", "Max_Aadlinteger", "Max_Base_Address", "Max_Byte_Count", "Max_Memory_Size", "Max_Queue_Size", "Max_Target_Integer", "Max_Thread_Limit", "Max_Time", "Max_Urgency", "Max_Volume", "Max_Word_Space", "Memory_Protocol", "Memory_Size", "Mode_Transition_Response", "Not_Collocated", "Output_Rate", "Output_Time", "Overflow_Handling_Protocol", "POSIX_Scheduling_Policy", "Period", "Preemptive_Scheduler", "Priority", "Priority_Map", "Priority_Range", "Process_Swap_Execution_Time", "Processor_Capacity", "Prototype_Substitution_Rule", "Provided_Connection_Quality_Of_Service", "Provided_Virtual_Bus_Class", "Queue_Processing_Protocol", "Queue_Size", "Read_Time", "Recover_Deadline", "Recover_Entrypoint", "Recover_Entrypoint_Call_Sequence", "Recover_Entrypoint_Source_Text", "Recover_Execution_Time", "Reference_Processor", "Required_Connection", "Required_Connection_Quality_Of_Service", "Required_Virtual_Bus_Class", "Resumption_Policy", "Runtime_Protection", "Runtime_Protection_Support", "Scheduler_Quantum", "Scheduling_Protocol", "Slot_Time", "Source_Language", "Source_Name", "Source_Text", "Stack_Size", "Startup_Deadline", "Startup_Execution_Time", "Subprogram_Call_Rate", "Subprogram_Call_Type", "Supported_Classifier_Complement_Matches", "Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language", "Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing", "Transmission_Time", "Transmission_Type", "Type_Source_Name", "Urgency", "Word_Size", "Word_Space", "Write_Time", "ps::const", "ps::def", "AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address", "AADL_Project::Max_Byte_Count", "AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size", "AADL_Project::Max_Target_Integer", "AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time", "AADL_Project::Max_Urgency", "AADL_Project::Max_Volume", "AADL_Project::Max_Word_Space", "AADL_Project::Supported_Classifier_Complement_Matches", "AADL_Project::Supported_Classifier_Equivalence_Matches", "AADL_Project::Supported_Classifier_Subset_Matches", "AADL_Project::Supported_Type_Conversions", "Communication_Properties::Actual_Latency", "Communication_Properties::Connection_Pattern", "Communication_Properties::Connection_Set", "Communication_Properties::Data_Rate", "Communication_Properties::Fan_Out_Policy", "Communication_Properties::Input_Rate", "Communication_Properties::Input_Time", "Communication_Properties::Latency", "Communication_Properties::Output_Rate", "Communication_Properties::Output_Time", "Communication_Properties::Overflow_Handling_Protocol", "Communication_Properties::Queue_Processing_Protocol", "Communication_Properties::Queue_Size", "Communication_Properties::Required_Connection", "Communication_Properties::Subprogram_Call_Rate", "Communication_Properties::Timing", "Communication_Properties::Transmission_Time", "Communication_Properties::Transmission_Type", "Deployment_Properties::Actual_Connection_Binding", "Deployment_Properties::Actual_Function_Binding", "Deployment_Properties::Actual_Memory_Binding", "Deployment_Properties::Actual_Processor_Binding", "Deployment_Properties::Actual_Subprogram_Call", "Deployment_Properties::Actual_Subprogram_Call_Binding", "Deployment_Properties::Allowed_Connection_Binding", "Deployment_Properties::Allowed_Connection_Binding_Class", "Deployment_Properties::Allowed_Connection_Type", "Deployment_Properties::Allowed_Dispatch_Protocol", "Deployment_Properties::Allowed_Memory_Binding", "Deployment_Properties::Allowed_Memory_Binding_Class", "Deployment_Properties::Allowed_Period", "Deployment_Properties::Allowed_Physical_Access", "Deployment_Properties::Allowed_Physical_Access_Class", "Deployment_Properties::Allowed_Processor_Binding", "Deployment_Properties::Allowed_Processor_Binding_Class", "Deployment_Properties::Allowed_Subprogram_Call", "Deployment_Properties::Allowed_Subprogram_Call_Binding", "Deployment_Properties::Collocated", "Deployment_Properties::Memory_Protocol", "Deployment_Properties::Not_Collocated", "Deployment_Properties::Preemptive_Scheduler", "Deployment_Properties::Priority_Map", "Deployment_Properties::Priority_Range", "Deployment_Properties::Provided_Connection_Quality_Of_Service", "Deployment_Properties::Provided_Virtual_Bus_Class", "Deployment_Properties::Required_Connection_Quality_Of_Service", "Deployment_Properties::Required_Virtual_Bus_Class", "Deployment_Properties::Runtime_Protection_Support", "Deployment_Properties::Scheduling_Protocol", "Deployment_Properties::Thread_Limit", "Memory_Properties::Access_Right", "Memory_Properties::Access_Time", "Memory_Properties::Allowed_Message_Size", "Memory_Properties::Assign_Time", "Memory_Properties::Base_Address", "Memory_Properties::Byte_Count", "Memory_Properties::Code_Size", "Memory_Properties::Data_Size", "Memory_Properties::Device_Register_Address", "Memory_Properties::Heap_Size", "Memory_Properties::Memory_Size", "Memory_Properties::Read_Time", "Memory_Properties::Stack_Size", "Memory_Properties::Word_Size", "Memory_Properties::Word_Space", "Memory_Properties::Write_Time", "Modeling_Properties::Acceptable_Array_Size", "Modeling_Properties::Classifier_Matching_Rule", "Modeling_Properties::Classifier_Substitution_Rule", "Modeling_Properties::Implemented_As", "Modeling_Properties::Prototype_Substitution_Rule", "Programming_Properties::Activate_Entrypoint", "Programming_Properties::Activate_Entrypoint_Call_Sequence", "Programming_Properties::Activate_Entrypoint_Source_Text", "Programming_Properties::Compute_Entrypoint", "Programming_Properties::Compute_Entrypoint_Call_Sequence", "Programming_Properties::Compute_Entrypoint_Source_Text", "Programming_Properties::Deactivate_Entrypoint", "Programming_Properties::Deactivate_Entrypoint_Call_Sequence", "Programming_Properties::Deactivate_Entrypoint_Source_Text", "Programming_Properties::Device_Driver", "Programming_Properties::Finalize_Entrypoint", "Programming_Properties::Finalize_Entrypoint_Call_Sequence", "Programming_Properties::Finalize_Entrypoint_Source_Text", "Programming_Properties::Hardware_Description_Source_Text", "Programming_Properties::Hardware_Source_Language", "Programming_Properties::Initialize_Entrypoint", "Programming_Properties::Initialize_Entrypoint_Call_Sequence", "Programming_Properties::Initialize_Entrypoint_Source_Text", "Programming_Properties::Recover_Entrypoint", "Programming_Properties::Recover_Entrypoint_Call_Sequence", "Programming_Properties::Recover_Entrypoint_Source_Text", "Programming_Properties::Source_Language", "Programming_Properties::Source_Name", "Programming_Properties::Source_Text", "Programming_Properties::Supported_Source_Language", "Programming_Properties::Type_Source_Name", "Thread_Properties::Active_Thread_Handling_Protocol", "Thread_Properties::Active_Thread_Queue_Handling_Protocol", "Thread_Properties::Concurrency_Control_Protocol", "Thread_Properties::Criticality", "Thread_Properties::Deactivation_Policy", "Thread_Properties::Dequeue_Protocol", "Thread_Properties::Dequeued_Items", "Thread_Properties::Dispatch_Able", "Thread_Properties::Dispatch_Protocol", "Thread_Properties::Dispatch_Trigger", "Thread_Properties::Mode_Transition_Response", "Thread_Properties::POSIX_Scheduling_Policy", "Thread_Properties::Priority", "Thread_Properties::Resumption_Policy", "Thread_Properties::Runtime_Protection", "Thread_Properties::Subprogram_Call_Type", "Thread_Properties::Synchronized_Component", "Thread_Properties::Time_Slot", "Thread_Properties::Urgency", "Timing_Properties::Activate_Deadline", "Timing_Properties::Activate_Execution_Time", "Timing_Properties::Client_Subprogram_Execution_Time", "Timing_Properties::Clock_Jitter", "Timing_Properties::Clock_Period", "Timing_Properties::Clock_Period_Range", "Timing_Properties::Compute_Deadline", "Timing_Properties::Compute_Execution_Time", "Timing_Properties::Deactivate_Dealing", "Timing_Properties::Deactivate_Execution_Time", "Timing_Properties::Deadline", "Timing_Properties::Dispatch_Jitter", "Timing_Properties::Dispatch_Offset", "Timing_Properties::Execution_Time", "Timing_Properties::Finalize_Deadline", "Timing_Properties::Finalize_Execution_Time", "Timing_Properties::First_Dispatch_Time", "Timing_Properties::Frame_Period", "Timing_Properties::Initialize_Deadline", "Timing_Properties::Initialize_Execution_Time", "Timing_Properties::Load_Deadline", "Timing_Properties::Load_Time", "Timing_Properties::Period", "Timing_Properties::Process_Swap_Execution_Time", "Timing_Properties::Processor_Capacity", "Timing_Properties::Recover_Deadline", "Timing_Properties::Recover_Execution_Time", "Timing_Properties::Reference_Processor", "Timing_Properties::Scheduler_Quantum", "Timing_Properties::Slot_Time", "Timing_Properties::Startup_Deadline", "Timing_Properties::Startup_Execution_Time", "Timing_Properties::Thread_Swap_Execution_Time")));
                   }
                 };
                 ObjectExtensions.<ArraySize>operator_doubleArrow(_size, _function);
@@ -4799,10 +4799,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   Assert.assertEquals("conn1", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "fg1")));
                   ConnectedElement _destination = it.getDestination();
                   EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "fg1")));
                 }
               };
               ObjectExtensions.<FeatureGroupConnection>operator_doubleArrow(_head, _function);
@@ -4814,10 +4814,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   Assert.assertEquals("conn2", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "fg1")));
                   ConnectedElement _destination = it.getDestination();
                   EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "fg1")));
                 }
               };
               ObjectExtensions.<FeatureConnection>operator_doubleArrow(_head_1, _function_1);
@@ -4829,10 +4829,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   Assert.assertEquals("conn3", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "call1", "fg1")));
                   ConnectedElement _destination = it.getDestination();
                   EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "call1", "fg1")));
                 }
               };
               ObjectExtensions.<AccessConnection>operator_doubleArrow(_head_2, _function_2);
@@ -4844,10 +4844,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   Assert.assertEquals("conn4", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("call1", "dp1", "edp1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("call1", "dp1", "edp1", "fg1")));
                   ConnectedElement _destination = it.getDestination();
                   EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("call1", "dp1", "edp1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("call1", "dp1", "edp1", "fg1")));
                 }
               };
               ObjectExtensions.<ParameterConnection>operator_doubleArrow(_head_3, _function_3);
@@ -4859,10 +4859,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   Assert.assertEquals("conn5", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "dp1", "edp1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "call1", "dp1", "edp1", "fg1")));
                   ConnectedElement _destination = it.getDestination();
                   EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("asub1", "call1", "dp1", "edp1", "fg1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("asub1", "call1", "dp1", "edp1", "fg1")));
                 }
               };
               ObjectExtensions.<PortConnection>operator_doubleArrow(_head_4, _function_4);
@@ -4883,10 +4883,10 @@ public class Aadl2ScopeProviderTest extends OsateTest {
                   Assert.assertEquals("conn6", _name);
                   ConnectedElement _source = it.getSource();
                   EReference _connectedElement_Context = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(Lists.<String>newArrayList("call2", "param1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_source, _connectedElement_Context, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("call2", "param1")));
                   ConnectedElement _destination = it.getDestination();
                   EReference _connectedElement_Context_1 = Aadl2Package.eINSTANCE.getConnectedElement_Context();
-                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(Lists.<String>newArrayList("call2", "param1")));
+                  Aadl2ScopeProviderTest.this.assertScope(_destination, _connectedElement_Context_1, Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("call2", "param1")));
                 }
               };
               ObjectExtensions.<ParameterConnection>operator_doubleArrow(_head, _function);
@@ -4904,7 +4904,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
   
   private void assertScope(final EObject context, final EReference reference, final Iterable<String> expected) {
     this._validationTestHelper.assertNoErrors(context);
-    List<String> _sort = IterableExtensions.<String>sort(expected, Aadl2ScopeProviderTest.CUSTOM_NAME_COMPARATOR);
+    List<String> _sort = IterableExtensions.<String>sortWith(expected, Aadl2ScopeProviderTest.CUSTOM_NAME_COMPARATOR);
     String _join = IterableExtensions.join(_sort, ", ");
     IScope _scope = this._iScopeProvider.getScope(context, reference);
     Iterable<IEObjectDescription> _allElements = _scope.getAllElements();
@@ -4951,7 +4951,7 @@ public class Aadl2ScopeProviderTest extends OsateTest {
       }
     };
     Iterable<String> _filter = IterableExtensions.<String>filter(_map, _function_1);
-    List<String> _sort_1 = IterableExtensions.<String>sort(_filter, Aadl2ScopeProviderTest.CUSTOM_NAME_COMPARATOR);
+    List<String> _sort_1 = IterableExtensions.<String>sortWith(_filter, Aadl2ScopeProviderTest.CUSTOM_NAME_COMPARATOR);
     String _join_1 = IterableExtensions.join(_sort_1, ", ");
     Assert.assertEquals(_join, _join_1);
   }

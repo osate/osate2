@@ -36,7 +36,6 @@ package org.osate.xtext.aadl2.scoping;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -798,7 +797,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
           }
         }
         if (!_matched) {
-          _switchResult = Collections.<Mode>unmodifiableList(Lists.<Mode>newArrayList());
+          _switchResult = Collections.<Mode>unmodifiableList(CollectionLiterals.<Mode>newArrayList());
         }
         final List<Mode> modes = _switchResult;
         _xblockexpression = Scopes.scopeFor(modes);
