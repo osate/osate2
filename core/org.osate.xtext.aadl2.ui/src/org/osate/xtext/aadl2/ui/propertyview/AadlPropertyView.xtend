@@ -79,6 +79,8 @@ import org.osate.aadl2.RecordType
 import org.osate.aadl2.BasicProperty
 import org.eclipse.xtext.util.Wrapper
 
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
+
 /**
  * View that displays the AADL property value associations within a given AADL
  * model element.
@@ -453,7 +455,18 @@ class AadlPropertyView extends ViewPart {
 					false
 				}
 				Wrapper<PropertyExpression>: {
-					false
+					(lastSegment.get instanceof NumberValue && (lastSegment.get as NumberValue).unit != null) || lastSegment.get instanceof RangeValue ||
+						(lastSegment.get instanceof RecordValue && {
+							val propertyType = (lastSegment.get.getContainerOfType(BasicPropertyAssociation)?.property ?:
+								lastSegment.get.getContainerOfType(PropertyAssociation)?.property ?:
+								lastSegment.get.getContainerOfType(Property)
+							).propertyType.basePropertyType
+							propertyType instanceof RecordType && if (showUndefinedAction.checked) {
+								!(propertyType as RecordType).ownedFields.empty
+							} else {
+								(propertyType as RecordType).ownedFields.exists[fieldInType | (lastSegment.get as RecordValue).ownedFieldValues.exists[property == fieldInType]]
+							}
+						}) || (lastSegment.get instanceof ListValue && !(lastSegment.get as ListValue).ownedListElements.empty)
 				}
 				default: {
 					println("updateHasChildren: " + path)
@@ -572,7 +585,33 @@ class AadlPropertyView extends ViewPart {
 					0
 				}
 				Wrapper<PropertyExpression>: {
-					0
+					if (lastSegment.get instanceof NumberValue && (lastSegment.get as NumberValue).unit != null) {
+						2
+					} else if (lastSegment.get instanceof RangeValue) {
+						if ((lastSegment.get as RangeValue).delta == null) {
+							2
+						} else {
+							3
+						}
+					} else if (lastSegment.get instanceof RecordValue) {
+						val propertyType = (lastSegment.get.getContainerOfType(BasicPropertyAssociation)?.property ?:
+							lastSegment.get.getContainerOfType(PropertyAssociation)?.property ?:
+							lastSegment.get.getContainerOfType(Property)
+						).propertyType.basePropertyType
+						if (propertyType instanceof RecordType) {
+							if (showUndefinedAction.checked) {
+								propertyType.ownedFields.size
+							} else {
+								propertyType.ownedFields.filter[fieldInType | (lastSegment.get as RecordValue).ownedFieldValues.exists[property == fieldInType]].size
+							}
+						} else {
+							0
+						}
+					} else if (lastSegment.get instanceof ListValue) {
+						(lastSegment.get as ListValue).ownedListElements.size
+					} else {
+						0
+					}
 				}
 				default: {
 					println("updateChildCount: " + treePath + " currentCount: " + currentChildCount + " treePathSegmentCount: " + treePath.segmentCount + " lastSegment: " + lastSegment)
@@ -709,6 +748,38 @@ class AadlPropertyView extends ViewPart {
 						lastSegment.value
 					} else {
 						(lastSegment.value as NumberValue).unit
+					}
+				}
+				Wrapper<PropertyExpression>: {
+					if (lastSegment.get instanceof NumberValue) {
+						//NumberValue with units
+						if (index == 0) {
+							lastSegment.get
+						} else { //index is 1
+							(lastSegment.get as NumberValue).unit
+						}
+					} else if (lastSegment.get instanceof RangeValue) {
+						val rangeValue = lastSegment.get as RangeValue
+						if (index == 0) {
+							"minimum" -> rangeValue.minimum
+						} else if (index == 1) {
+							"maximum" -> rangeValue.maximum
+						} else {
+							"delta" -> rangeValue.delta
+						}
+					} else if (lastSegment.get instanceof RecordValue) {
+						val propertyType = (lastSegment.get.getContainerOfType(BasicPropertyAssociation)?.property ?:
+							lastSegment.get.getContainerOfType(PropertyAssociation)?.property ?:
+							lastSegment.get.getContainerOfType(Property)
+						).propertyType.basePropertyType
+						if (showUndefinedAction.checked) {
+							val fieldInType = (propertyType as RecordType).ownedFields.get(index)
+							(lastSegment.get as RecordValue).ownedFieldValues.findFirst[property == fieldInType] ?: fieldInType
+						} else {
+							(propertyType as RecordType).ownedFields.map[fieldInType | (lastSegment.get as RecordValue).ownedFieldValues.findFirst[property == fieldInType]].filterNull.get(index)
+						}
+					} else if (lastSegment.get instanceof ListValue) {
+						new Wrapper((lastSegment.get as ListValue).ownedListElements.get(index))
 					}
 				}
 				default: {
