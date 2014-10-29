@@ -179,29 +179,31 @@ public class CMAUtils {
 		 * In the following, we try to find common error sources between ANDed components.
 		 */
 		Map<ComponentInstance, List<PropagationPathEnd>> errorSourcesDuplicatedFound = new HashMap<ComponentInstance, List<PropagationPathEnd>>();
-		for (ComponentInstance ci : referencedInstances) {
-
+		for (ComponentInstance firstComponent : referencedInstances) {
+			
 			List<ComponentInstance> instancesDuplicates;
 			boolean foundInOther;
 			boolean duplicated;
 			PropagationPathEnd ppe1;
 			PropagationPathEnd ppe2;
+			ComponentInstance secondComponent;
 
-			for (int esInd1 = 0; esInd1 < errorSources.get(ci).size(); esInd1++) {
-				ppe1 = errorSources.get(ci).get(esInd1);
+			secondComponent = null;
+			for (int esInd1 = 0; esInd1 < errorSources.get(firstComponent).size(); esInd1++) {
+				ppe1 = errorSources.get(firstComponent).get(esInd1);
 				List<PropagationPathEnd> errorSourcesduplicates = new ArrayList<PropagationPathEnd>();
 				instancesDuplicates = new ArrayList<ComponentInstance>();
 				duplicated = true;
-				for (ComponentInstance ci2 : referencedInstances) {
-
+				for (int comp2Ind = 0 ; comp2Ind < referencedInstances.size() ; comp2Ind++) {
+					secondComponent = referencedInstances.get(comp2Ind);
 					foundInOther = false;
 
-					if (ci2 == ci) {
+					if (secondComponent == firstComponent) {
 						continue;
 					}
 
-					for (int esInd2 = 0; esInd2 < errorSources.get(ci2).size(); esInd2++) {
-						ppe2 = errorSources.get(ci2).get(esInd2);
+					for (int esInd2 = 0; esInd2 < errorSources.get(secondComponent).size(); esInd2++) {
+						ppe2 = errorSources.get(secondComponent).get(esInd2);
 
 						if (ppe1.getErrorPropagation().getFeatureorPPRefs() == ppe2.getErrorPropagation()
 								.getFeatureorPPRefs()) {
@@ -209,11 +211,11 @@ public class CMAUtils {
 							errorSourcesduplicates.add(ppe1);
 							errorSourcesduplicates.add(ppe2);
 
-							if (!instancesDuplicates.contains(ci)) {
-								instancesDuplicates.add(ci);
+							if (!instancesDuplicates.contains(firstComponent)) {
+								instancesDuplicates.add(firstComponent);
 							}
-							if (!instancesDuplicates.contains(ci2)) {
-								instancesDuplicates.add(ci2);
+							if (!instancesDuplicates.contains(secondComponent)) {
+								instancesDuplicates.add(secondComponent);
 							}
 							continue;
 						}
@@ -226,19 +228,31 @@ public class CMAUtils {
 				if (duplicated) {
 					boolean alreadyReported = false;
 
-					for (ComponentInstance ciTmp : errorSourcesDuplicatedFound.keySet()) {
-						List<PropagationPathEnd> tmp = errorSourcesDuplicatedFound.get(ciTmp);
-						if (tmp.containsAll(errorSourcesduplicates)) {
-							alreadyReported = true;
+					
+					if (errorSourcesDuplicatedFound.containsKey(firstComponent))
+					{
+						List<PropagationPathEnd> errorSourcesAlreadyFound = errorSourcesDuplicatedFound.get(firstComponent);
+						if (errorSourcesAlreadyFound.containsAll (errorSourcesduplicates))
+						{
+							alreadyReported = true; 
+						}
+					}
+					
+					if (errorSourcesDuplicatedFound.containsKey(secondComponent))
+					{
+						List<PropagationPathEnd> errorSourcesAlreadyFound = errorSourcesDuplicatedFound.get(secondComponent);
+						if (errorSourcesAlreadyFound.containsAll (errorSourcesduplicates))
+						{
+							alreadyReported = true; 
 						}
 					}
 
 					/**
 					 * This report entry has not been reported yet, so, we add it in the report.
 					 */
-					if (!alreadyReported) {
+					if (!alreadyReported) { 
 
-						CMAReportEntry entry;
+						CMAReportEntry entry; 
 						String justification;
 						String relatedFeatureName;
 
@@ -247,8 +261,8 @@ public class CMAUtils {
 						entry = new CMAReportEntry();
 						entry.setSource("Technical Specification and its origin");
 
-						justification = "The same error source (on " + relatedFeatureName
-								+ ") can impact the following components ";
+						justification = "The same error source (on " + relatedFeatureName + EMV2Util.getPrintName(ppe1.getErrorPropagation().getTypeSet()) +" on component " + ppe1.getComponentInstance().getQualifiedName()
+								 + " can impact the following components ";
 						for (int i = 0; i < instancesDuplicates.size(); i++) {
 							justification += instancesDuplicates.get(i).getName();
 							if (i < (instancesDuplicates.size() - 1)) {
@@ -260,7 +274,29 @@ public class CMAUtils {
 						entry.setType(EntryType.SPECIFICATION);
 						result.add(entry);
 
-						errorSourcesDuplicatedFound.put(ci, errorSourcesduplicates);
+						List<PropagationPathEnd> duplicatesFound;
+						if (errorSourcesDuplicatedFound.containsKey(firstComponent))
+						{
+							duplicatesFound = errorSourcesDuplicatedFound.get(firstComponent);
+							duplicatesFound.addAll(errorSourcesduplicates);
+						}
+						else
+						{
+							duplicatesFound = errorSourcesduplicates;
+						}
+						errorSourcesDuplicatedFound.put(firstComponent, duplicatesFound);
+						
+						if (errorSourcesDuplicatedFound.containsKey(secondComponent))
+						{
+							duplicatesFound = errorSourcesDuplicatedFound.get(secondComponent);
+							duplicatesFound.addAll(errorSourcesduplicates);
+						}
+						else
+						{
+							duplicatesFound = errorSourcesduplicates;
+						}
+						errorSourcesDuplicatedFound.put(secondComponent, duplicatesFound);
+						
 					}
 				}
 			}
@@ -277,6 +313,7 @@ public class CMAUtils {
 			boolean duplicated;
 			for (ComponentClassifier cl : componentClassifiers.get(ci)) {
 				duplicated = true;
+
 				duplicatesContainer = new ArrayList<ComponentInstance>();
 				for (ComponentInstance ci2 : referencedInstances) {
 
@@ -289,8 +326,15 @@ public class CMAUtils {
 					for (ComponentClassifier cl2 : componentClassifiers.get(ci2)) {
 						if (cl2 == cl) {
 							foundInOther = true;
+							if (!duplicatesContainer.contains(ci2))
+							{
 							duplicatesContainer.add(ci2);
+							}
+							
+							if (!duplicatesContainer.contains(ci))
+							{
 							duplicatesContainer.add(ci);
+							}
 						}
 					}
 					if (foundInOther == false) {

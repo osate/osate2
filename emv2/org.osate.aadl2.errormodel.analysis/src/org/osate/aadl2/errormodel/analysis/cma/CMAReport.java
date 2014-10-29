@@ -21,18 +21,30 @@ public class CMAReport {
 	
 	public void addEntry (CMAReportEntry entry)
 	{
+		for (CMAReportEntry currentEntry : this.entries)
+		{
+			if (currentEntry.equalsTo(entry))
+			{
+				return;
+			}
+		}
 		this.entries.add (entry);
 	}
 	
-	public void addEntries (List<CMAReportEntry> e)
+	public void addEntries (List<CMAReportEntry> newEntries)
 	{
-		this.entries.addAll(e);
+		for (CMAReportEntry newEntry : newEntries)
+		{
+			this.addEntry(newEntry);
+		}
 	}
 	
 	public List<CMAReportEntry> getEntries()
 	{
 		return this.entries;
 	}
+	
+	
 	
 	public List<CMAReportEntry> getEntriesPerType (EntryType et)
 	{
