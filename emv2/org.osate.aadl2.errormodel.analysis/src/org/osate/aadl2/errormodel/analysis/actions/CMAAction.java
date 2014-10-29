@@ -36,12 +36,9 @@ package org.osate.aadl2.errormodel.analysis.actions;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IMessageProvider;
-import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -61,233 +58,212 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.errormodel.analysis.cma.CMAReport;
 import org.osate.aadl2.errormodel.analysis.cma.CMAUtils;
-import org.osate.aadl2.impl.ContainedNamedElementImpl;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-
 class SeverityDialog extends TitleAreaDialog {
 
-	  private Combo 	severityCombo;
-	  private String 	selectedSeverity;
-	  
-	  private final static String [] severityType     = {"catastrophic",
-		                                                 "hazardous",
-		                                                 "severemajor",
-		                                                 "major",
-		                                                 "minor",
-		                                                 "noeffect"};
+	private Combo severityCombo;
+	private String selectedSeverity;
 
-	  public SeverityDialog(Shell parentShell) {
-	    super(parentShell);
-	    setHelpAvailable(false);
-	    selectedSeverity = "none";
-	  }
+	private final static String[] severityType = { "catastrophic", "hazardous", "severemajor", "major", "minor",
+			"noeffect" };
 
-	  public String getSelectedSeverity ()
-	  {
-		  return (this.selectedSeverity);
-	  }
-	  
-	  public void create() {
-	    super.create();
-	    setTitle ("Common Mode Analysis");
-	    setMessage ("Set the selected severity", IMessageProvider.NONE);
+	public SeverityDialog(Shell parentShell) {
+		super(parentShell);
+		setHelpAvailable(false);
+		selectedSeverity = "none";
+	}
 
-	  }
+	public String getSelectedSeverity() {
+		return (this.selectedSeverity);
+	}
 
-	  @Override
-	  protected Control createDialogArea(Composite parent) {
-	    GridLayout layout = new GridLayout();
-	    layout.numColumns = 2;
-	    // layout.horizontalAlignment = GridData.FILL;
-	    parent.setLayout(layout);
+	public void create() {
+		super.create();
+		setTitle("Common Mode Analysis");
+		setMessage("Set the selected severity", IMessageProvider.NONE);
 
-	    // The text fields will grow with the size of the dialog
-	    GridData gridData = new GridData();
-	    gridData.grabExcessHorizontalSpace = true;
-	    gridData.horizontalAlignment = GridData.FILL;
+	}
 
-	    Label label1 = new Label(parent, SWT.NONE);
-	    label1.setText("Severity Level");
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		// layout.horizontalAlignment = GridData.FILL;
+		parent.setLayout(layout);
 
-	    severityCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
-	    severityCombo.setItems (severityType);
-	    
-	    
-	    return parent; 
-	  }
+		// The text fields will grow with the size of the dialog
+		GridData gridData = new GridData();
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.horizontalAlignment = GridData.FILL;
 
-	
-	  protected void createButtonsForButtonBar(Composite parent) {
-	    GridData gridData = new GridData();
-	    gridData.horizontalSpan = 1;
-	    gridData.grabExcessHorizontalSpace = false;
-	    gridData.grabExcessVerticalSpace = false;
-	    gridData.horizontalAlignment = SWT.CENTER;
+		Label label1 = new Label(parent, SWT.NONE);
+		label1.setText("Severity Level");
 
-	    parent.setLayoutData(gridData);
+		severityCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
+		severityCombo.setItems(severityType);
 
-	    createOkButton(parent, OK, "OK", true);
+		return parent;
+	}
 
-	    Button cancelButton = createButton(parent, CANCEL, "Cancel", false);
+	protected void createButtonsForButtonBar(Composite parent) {
+		GridData gridData = new GridData();
+		gridData.horizontalSpan = 1;
+		gridData.grabExcessHorizontalSpace = false;
+		gridData.grabExcessVerticalSpace = false;
+		gridData.horizontalAlignment = SWT.CENTER;
 
-	    cancelButton.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent e) {
-	        setReturnCode(CANCEL);
-	        close();
-	      }
-	    });
-	  }
+		parent.setLayoutData(gridData); = new ArrayList<ComponentInstance>();
 
-	  protected Button createOkButton(Composite parent, int id, 
-	      String label,
-	      boolean defaultButton) {
-	    // increment the number of columns in the button bar
-	    ((GridLayout) parent.getLayout()).numColumns++;
-	    Button button = new Button(parent, SWT.PUSH);
-	    button.setText(label);
-	    button.setFont(JFaceResources.getDialogFont());
-	    button.setData(new Integer(id));
-	    
-	    button.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent event) {
-	    
-	          okPressed();
-	        
-	      }
-	    });
-	    
-	    if (defaultButton) {
-	      Shell shell = parent.getShell();
-	      if (shell != null) {
-	        shell.setDefaultButton(button);
-	      }
-	    }
-	    
-	    setButtonLayoutData(button);
-	    return button;
-	  }
+		createOkButton(parent, OK, "OK", true);
 
+		Button cancelButton = createButton(parent, CANCEL, "Cancel", false);
 
-	  protected boolean isResizable() {
-	    return true;
-	  }
+		cancelButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				setReturnCode(CANCEL);
+				close();
+			}
+		});
+	}
 
+	protected Button createOkButton(Composite parent, int id, String label, boolean defaultButton) {
+		// increment the number of columns in the button bar
+		((GridLayout) parent.getLayout()).numColumns++;
+		Button button = new Button(parent, SWT.PUSH);
+		button.setText(label);
+		button.setFont(JFaceResources.getDialogFont());
+		button.setData(new Integer(id));
 
-	  private void savePreferences() {
-	  
-		  for (int i = 0 ; i < severityType.length ; i++)
-		  {
-			  if (severityType[i].equals(severityCombo.getText()))
-			  {
-				  selectedSeverity = severityCombo.getText().toLowerCase();
-			  }
-		  }
-	  }
+		button.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
 
-	  protected void okPressed() 
-	  {
-	    savePreferences();
-	    super.okPressed();
-	  }
+				okPressed();
 
-	} 
+			}
+		});
 
+		if (defaultButton) {
+			Shell shell = parent.getShell();
+			if (shell != null) {
+				shell.setDefaultButton(button);
+			}
+		}
+
+		setButtonLayoutData(button);
+		return button;
+	}
+
+	protected boolean isResizable() {
+		return true;
+	}
+
+	private void savePreferences() {
+
+		for (int i = 0; i < severityType.length; i++) {
+			if (severityType[i].equals(severityCombo.getText())) {
+				selectedSeverity = severityCombo.getText().toLowerCase();
+			}
+		}
+	}
+
+	protected void okPressed() {
+		savePreferences();
+		super.okPressed();
+	}
+
+}
 
 public final class CMAAction extends AaxlReadOnlyActionAsJob {
-	private static String 				SEVERITY_NAME = null;
-	
-	
+	private static String SEVERITY_NAME = null;
+
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
 	protected String getActionName() {
 		return "CMA";
-	}	
+	}
 
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-	
+
 		SystemInstance si;
 		int targetSeverity;
-		
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
-		}
-		else
-		{
-			Dialog.showInfo("Common Mode Analysis", "Please choose an instance system");	
+
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
+			Dialog.showInfo("Common Mode Analysis", "Please choose an instance system");
 			return;
 		}
-		
+
 		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable(){
+		d.syncExec(new Runnable() {
 
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
-				
+
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
 				SeverityDialog sd = new SeverityDialog(sh);
 				sd.open();
 				SEVERITY_NAME = sd.getSelectedSeverity();
-				
+
 //				OsateDebug.osateDebug("[CMAAction] selected severity " + SEVERITY_NAME);
 
-					
-			}});
-		
-		monitor.beginTask("Common Mode Analysis", IProgressMonitor.UNKNOWN); 
-		
-		AnalysisModel analysisModel = new AnalysisModel (si.getComponentInstance(), false);
-		
+			}
+		});
+
+		monitor.beginTask("Common Mode Analysis", IProgressMonitor.UNKNOWN);
+
+		AnalysisModel analysisModel = new AnalysisModel(si.getComponentInstance(), false);
+
 		targetSeverity = CMAUtils.convertSeverity(SEVERITY_NAME);
 		OsateDebug.osateDebug("[CMAAction] Propagation paths");
-		analysisModel.printPropagationPaths();
-		
+//		analysisModel.printPropagationPaths();
+
+//		analysisModel.getPropagationPaths()
+
 		CMAReport report = new CMAReport();
-		
+
 		/**
 		 * We try to see what is the severity for each state. Then, if a state
 		 * is classified at least as the selected severity, we add all its common
 		 * cause of failures reported by the processState method.
 		 */
-		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si))
-		{
+		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si)) {
 //			OsateDebug.osateDebug("[CMAAction] state " + state.getName());
-			
-			List<ContainedNamedElement> severityValues = EMV2Properties.getSeverityProperty(si, state, state.getTypeSet());
-			for (ContainedNamedElement cne : severityValues)
-			{
-				PropertyExpression severityValue = EMV2Properties.getPropertyValue (cne);
-				String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue (severityValue);
+
+			List<ContainedNamedElement> severityValues = EMV2Properties.getSeverityProperty(si, state,
+					state.getTypeSet());
+			for (ContainedNamedElement cne : severityValues) {
+				PropertyExpression severityValue = EMV2Properties.getPropertyValue(cne);
+				String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(severityValue);
 //				OsateDebug.osateDebug("[CMAAction] severity " + sev);
-				int sevValue = CMAUtils.convertSeverity (sev);
+				int sevValue = CMAUtils.convertSeverity(sev);
 //				OsateDebug.osateDebug("[CMAAction] sev = " + sevValue + " target " + targetSeverity);
-				if (sevValue >= targetSeverity)
-				{
-					report.addEntries (CMAUtils.processState(analysisModel, state, state.getTypeSet()));
+				if (sevValue >= targetSeverity) {
+					report.addEntries(CMAUtils.processState(analysisModel, analysisModel.getRoot()
+							.getComponentInstance(), state, state.getTypeSet()));
 				}
-			}	
+			}
 		}
-		
+
 		WriteToFile csvReport = new WriteToFile("CMA", si);
-		report.write (csvReport);
+		report.write(csvReport);
 		csvReport.saveToFile();
 
 		monitor.done();
 	}
-	
-	
+
 }
