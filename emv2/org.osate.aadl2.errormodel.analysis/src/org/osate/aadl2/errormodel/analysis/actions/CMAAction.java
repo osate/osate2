@@ -122,7 +122,7 @@ class SeverityDialog extends TitleAreaDialog {
 		gridData.grabExcessVerticalSpace = false;
 		gridData.horizontalAlignment = SWT.CENTER;
 
-		parent.setLayoutData(gridData); = new ArrayList<ComponentInstance>();
+		parent.setLayoutData(gridData);
 
 		createOkButton(parent, OK, "OK", true);
 
