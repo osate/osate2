@@ -159,7 +159,6 @@ class AadlPropertyView extends ViewPart {
 	var NamedElement previousSelection = null
 	
 	var CachePropertyLookupJob cachePropertyLookupJob = null
-	val jobLock = new Object
 	
 	val Map<PropertySet, HashMap<Property, PropertyAssociation>> cachedPropertyAssociations = Collections.synchronizedMap(newHashMap)
 	
@@ -574,11 +573,9 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	override dispose() {
-		synchronized (jobLock) {
-			if (cachePropertyLookupJob != null) {
-				cachePropertyLookupJob.cancel
-				cachePropertyLookupJob = null
-			}
+		if (cachePropertyLookupJob != null) {
+			cachePropertyLookupJob.cancel
+			cachePropertyLookupJob = null
 		}
 		site.page.removeSelectionListener(selectionListener)
 		site.page.removePartListener(partListener)
@@ -619,13 +616,11 @@ class AadlPropertyView extends ViewPart {
 		addNewPropertyAssociationToolbarAction = new Action {
 			override run() {
 				if (new WizardDialog(viewSite.workbenchWindow.shell, new PropertyAssociationWizard(xtextDocument, editingDomain?.commandStack, input, serializer, aadl2Parser, linker)).open == Window.OK) {
-					synchronized (jobLock) {
-						if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
-							cachePropertyLookupJob.cancel
-						}
-						cachePropertyLookupJob = createCachePropertyLookupJob(input)
-						cachePropertyLookupJob.schedule
+					if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+						cachePropertyLookupJob.cancel
 					}
+					cachePropertyLookupJob = createCachePropertyLookupJob(input)
+					cachePropertyLookupJob.schedule
 				}
 			}
 		} => [
@@ -682,20 +677,16 @@ class AadlPropertyView extends ViewPart {
 				pageBook.showPage(treeViewerComposite)
 			} else {
 				previousSelection = currentSelection
-				synchronized (jobLock) {
-					if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
-						cachePropertyLookupJob.cancel
-					}
-					cachePropertyLookupJob = createCachePropertyLookupJob(currentSelection)
-					cachePropertyLookupJob.schedule
+				if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+					cachePropertyLookupJob.cancel
 				}
+				cachePropertyLookupJob = createCachePropertyLookupJob(currentSelection)
+				cachePropertyLookupJob.schedule
 			}
 		} else {
-			synchronized (jobLock) {
-				if (cachePropertyLookupJob != null) {
-					cachePropertyLookupJob.cancel
-					cachePropertyLookupJob = null
-				}
+			if (cachePropertyLookupJob != null) {
+				cachePropertyLookupJob.cancel
+				cachePropertyLookupJob = null
 			}
 			pageBook.showPage(noPropertiesLabel)
 			addNewPropertyAssociationToolbarAction.enabled = false
