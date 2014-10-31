@@ -39,7 +39,6 @@
  */
 package org.osate.analysis.architecture;
 
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
@@ -68,205 +67,189 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
  */
 public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress {
 
-
 	private AbstractAaxlAction action;
 
-    public PortConnectionConsistency( final IProgressMonitor pm,
-    		 AbstractAaxlAction action) {
-    	super(pm, PROCESS_PRE_ORDER_ALL);
-    	this.action = action;
-    }
-    
-    public final void initSwitches(){
+	public PortConnectionConsistency(final IProgressMonitor pm, AbstractAaxlAction action) {
+		super(pm, PROCESS_PRE_ORDER_ALL);
+		this.action = action;
+	}
+
+	public final void initSwitches() {
 
 		/* here we are creating the connection checking switches */
-    	instanceSwitch = new InstanceSwitch() {
+		instanceSwitch = new InstanceSwitch() {
 			/**
 			 * check port properties for connection end points
 			 */
-    		public Object caseConnectionInstance(ConnectionInstance conni)  {
-    			ConnectionInstanceEnd srcFI = conni.getSource();
-    			ConnectionInstanceEnd dstFI = conni.getDestination();
-    			if ( srcFI == null || dstFI == null) {
-    				error(conni, "Connection source or destination is null");
-    				return DONE;
-    			}
-    			if (srcFI instanceof FeatureInstance && dstFI instanceof FeatureInstance){
-    				checkPortConsistency((FeatureInstance)srcFI,(FeatureInstance)dstFI, conni);
-    			}
-    			return DONE;
-    		}
+			public Object caseConnectionInstance(ConnectionInstance conni) {
+				monitorUpdate(conni.getName());
+				ConnectionInstanceEnd srcFI = conni.getSource();
+				ConnectionInstanceEnd dstFI = conni.getDestination();
+				if (srcFI == null || dstFI == null) {
+					error(conni, "Connection source or destination is null");
+					return DONE;
+				}
+				if (srcFI instanceof FeatureInstance && dstFI instanceof FeatureInstance) {
+					checkPortConsistency((FeatureInstance) srcFI, (FeatureInstance) dstFI, conni);
+				}
+				return DONE;
+			}
 		};
-    }
-    
-    public void doHeaders(){
-		/* here we are creating the connection checking switches */
-		String header = "connection,source,destination,source Data Size,destination Data Size,source Output Rate, destination Input Rate, source Data Rate, destination Data Rate, source Base Type, destination Base Type, source Measurement Unit, destination Measurement Unit, \n\r";
-    	csvlog(header);
+	}
 
-    }
+	public void doHeaders() {
+	}
 
-    public void checkPortConsistency(FeatureInstance srcFI, FeatureInstance dstFI, ConnectionInstance conni){
-    	
-    	csvlog(conni.getName()+","+srcFI.getContainingComponentInstance().getName()+"."+srcFI.getName()+","+ dstFI.getContainingComponentInstance().getName()+"."+dstFI.getName()+",");
-    	double srcDataSize =GetProperties.getSourceDataSizeInBytes(srcFI);
-    	double dstDataSize =GetProperties.getSourceDataSizeInBytes(dstFI);
-    	if (srcDataSize > 0 || dstDataSize >0){
-    		csvlog(srcDataSize+","+ dstDataSize+",");
-    	} else {
-    		csvlog(",,");
-    	}
-		
-    	RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
-    	RecordValue dstRate =GetProperties.getInPutRate(dstFI);
+	public void checkPortConsistency(FeatureInstance srcFI, FeatureInstance dstFI, ConnectionInstance conni) {
+		double srcDataSize = GetProperties.getSourceDataSizeInBytes(srcFI);
+		double dstDataSize = GetProperties.getSourceDataSizeInBytes(dstFI);
+
+		RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
+		RecordValue dstRate = GetProperties.getInPutRate(dstFI);
 		EnumerationLiteral srcRU = null;
 		EnumerationLiteral dstRU = null;
 		double srcMaxRateValue = 0;
 		double dstMaxRateValue = 0;
-		double srcMinRateValue =0;
+		double srcMinRateValue = 0;
 		double dstMinRateValue = 0;
-    	if(srcRate != null&& dstRate!= null){
-    		srcRU = GetProperties.getRateUnit(srcRate);
-    		dstRU = GetProperties.getRateUnit(dstRate);
-    		srcMaxRateValue = getMaxDataRate(srcRate);
-    		dstMaxRateValue = getMaxDataRate(dstRate);
-    		srcMinRateValue = getMinDataRate(srcRate);
-    		dstMinRateValue = getMinDataRate(dstRate);
-    	} 
-    	if (srcRate!= null || dstRate != null){
-    		csvlog(srcMinRateValue+".."+srcMaxRateValue+" "+(srcRU==null?"":srcRU.getName())+","+ dstMinRateValue+".."+dstMaxRateValue+" "+(dstRU==null?"":dstRU.getName())+",");
-		} else {
-			csvlog(",,");
-    	}
-    	// now try it as SEI::Data_Rate
+		if (srcRate != null && dstRate != null) {
+			srcRU = GetProperties.getRateUnit(srcRate);
+			dstRU = GetProperties.getRateUnit(dstRate);
+			srcMaxRateValue = getMaxDataRate(srcRate);
+			dstMaxRateValue = getMaxDataRate(dstRate);
+			srcMinRateValue = getMinDataRate(srcRate);
+			dstMinRateValue = getMinDataRate(dstRate);
+		}
+		// now try it as SEI::Data_Rate
 		double srcRateValue = getSEIDataRate(srcFI);
 		double dstRateValue = getSEIDataRate(dstFI);
-		if (srcRateValue>0 || dstRateValue >0){
-			csvlog(srcRateValue+","+ dstRateValue+",");
-		} else {
-			csvlog(",,");
-		}
-		
-		
+
 		Classifier srcC = GetProperties.getSingleBaseType(srcFI);
-    	Classifier dstC = GetProperties.getSingleBaseType(dstFI);
-    	if (srcC != null||dstC!=null){
-		csvlog((srcC==null?"":srcC.getName())+","+ (dstC==null?"":dstC.getName())+",");
-    	} else {
-			csvlog(",,");
-    	}
+		Classifier dstC = GetProperties.getSingleBaseType(dstFI);
 
-		String srcS =GetProperties.getMeasurementUnit(srcFI);
-    	String dstS =GetProperties.getMeasurementUnit(dstFI);
-		if (srcS.length()>0 || dstS.length() >0){
-			csvlog(srcS+","+ dstS+",");
-		} else {
-			csvlog(",,");
-		}
-		
+		String srcS = GetProperties.getMeasurementUnit(srcFI);
+		String dstS = GetProperties.getMeasurementUnit(dstFI);
+
 		// error logging
-		
-    	if (srcDataSize > 0 && dstDataSize > 0){
-    		if (srcDataSize != dstDataSize){
-    			error(conni, "Source data size "+srcDataSize+"Bytes and destination data size "+dstDataSize+"Bytes differ");
-    		}
-    	} else {
-    		if (srcDataSize == 0 && dstDataSize >0)
-    			error(conni, "Source data size is missing or zero");
-    		if (dstDataSize == 0 && srcDataSize >0)
-    			error(conni, "Destination data size is missing or zero");
-    	}
-    	
-		if (srcRU!= null&& dstRU!=null&&srcRU != dstRU){
-			error(conni, "Source rate unit "+srcRU.getName()+" and destination rate unit "+dstRU.getName()+" differ");
-		}
 
-		if (srcMaxRateValue > 0 && dstMaxRateValue > 0){
-			if (srcMaxRateValue > dstMaxRateValue){
-				error(conni, "Maximum source data rate "+srcMaxRateValue+" is greater than maximum destination data rate "+dstMaxRateValue);
-			}
-			if (srcMinRateValue < dstMinRateValue){
-				error(conni, "Minimum source data rate "+srcMinRateValue+" is less than minimum destination data rate "+dstMinRateValue);
-			}
-    	} else {
-    		if (srcRate!= null || dstRate != null){
-				error(conni, "Missing input rate or output rate");
-    		}
-		}
-
-    	
-		if (srcRateValue > 0 && dstRateValue > 0){
-			if (srcRateValue != dstRateValue){
-				error(conni, "Source data rate "+srcRateValue+" and destination data rate "+dstRateValue+" differ");
+		if (srcDataSize > 0 && dstDataSize > 0) {
+			if (srcDataSize != dstDataSize) {
+				error(conni, "Source data size " + srcDataSize + " Bytes and destination data size " + dstDataSize
+						+ " Bytes differ");
 			}
 		} else {
-			if (srcRateValue == 0 && dstRateValue >0)
+			if (srcDataSize == 0 && dstDataSize > 0)
+				error(conni, "Source data size is missing or zero");
+			if (dstDataSize == 0 && srcDataSize > 0)
+				error(conni, "Destination data size is missing or zero");
+		}
+
+		if (srcRU != null && dstRU != null && srcRU != dstRU) {
+			error(conni, "Source rate unit " + srcRU.getName() + " and destination rate unit " + dstRU.getName()
+					+ " differ");
+		}
+
+		if (srcMaxRateValue > 0 && dstMaxRateValue > 0) {
+			if (srcMaxRateValue > dstMaxRateValue) {
+				error(conni, "Maximum source data rate " + srcMaxRateValue
+						+ " is greater than maximum destination data rate " + dstMaxRateValue);
+			}
+			if (srcMinRateValue < dstMinRateValue) {
+				error(conni, "Minimum source data rate " + srcMinRateValue
+						+ " is less than minimum destination data rate " + dstMinRateValue);
+			}
+		} else {
+			if (srcRate != null || dstRate != null) {
+				error(conni, "Missing input rate or output rate");
+			}
+		}
+
+		if (srcRateValue > 0 && dstRateValue > 0) {
+			if (srcRateValue != dstRateValue) {
+				error(conni, "Source data rate " + srcRateValue + " and destination data rate " + dstRateValue
+						+ " differ");
+			}
+		} else {
+			if (srcRateValue == 0 && dstRateValue > 0)
 				error(conni, "Source data rate is missing or zero");
-			if (dstRateValue == 0&& srcRateValue >0)
+			if (dstRateValue == 0 && srcRateValue > 0)
 				error(conni, "Destination data rate is missing or zero");
 		}
-    	
-    	if (srcC != null&& dstC != null){
-    		if (srcC != dstC){
-    			error(conni, "Source base type "+srcC.getName()+" and destination base type "+dstC.getName()+" differ");
-    		}
-    	} else {
-    		if (srcC ==null&& dstC!= null)
-    			error(conni, "Source base type is missing");
-    		if (dstC ==null&& srcC!= null)
-    			error(conni, "Destination base type is missing");
-    	}
-		
-    	if ( srcS.length() > 0 && dstS.length() > 0){
-    		if (!srcS.equalsIgnoreCase(dstS)){
-    			error(conni, "Source measurement unit "+srcS+" and destination measurement unit "+dstS+" differ");
-    		}
-    	} else {
-    		if (srcS.length() == 0 && dstS.length()>0)
-    			error(conni, "Source measurement unit is missing");
-    		if (dstS.length() == 0 && srcS.length()>0)
-    			error(conni, "Destination measurement unit is missing");
-    	}
-		
-    	csvlogNewline("");
-    }
-    
-    private double getMaxDataRate(RecordValue rate){
-    	BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
-    	if (vr == null) return 0;
+
+		if (srcC != null && dstC != null) {
+			if (srcC != dstC) {
+				error(conni, "Source base type " + srcC.getName() + " and destination base type " + dstC.getName()
+						+ " differ");
+			}
+		} else {
+			if (srcC == null && dstC != null)
+				error(conni, "Source base type is missing");
+			if (dstC == null && srcC != null)
+				error(conni, "Destination base type is missing");
+		}
+
+		if (srcS.length() > 0 && dstS.length() > 0) {
+			if (!srcS.equalsIgnoreCase(dstS)) {
+				error(conni, "Source measurement unit " + srcS + " and destination measurement unit " + dstS
+						+ " differ");
+			}
+		} else {
+			if (srcS.length() == 0 && dstS.length() > 0)
+				error(conni, "Source measurement unit is missing");
+			if (dstS.length() == 0 && srcS.length() > 0)
+				error(conni, "Destination measurement unit is missing");
+		}
+	}
+
+	private double getMaxDataRate(RecordValue rate) {
+		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+		if (vr == null)
+			return 0;
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
 		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
 		return ((NumberValue) maximum).getScaledValue();
-    }
-    
-    private double getMinDataRate(RecordValue rate){
-    	BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
-    	if (vr == null) return 0;
+	}
+
+	private double getMinDataRate(RecordValue rate) {
+		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+		if (vr == null)
+			return 0;
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
 		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
 		return ((NumberValue) minimum).getScaledValue();
-    }
-    
-    private double getSEIDataRate(NamedElement ne){
-		Property dr = GetProperties.lookupPropertyDefinition(ne,SEI._NAME, SEI.DATA_RATE);
-		if (dr == null) return 0;
-		return PropertyUtils.getRealValue(ne, dr,0.0);
-    }
-
-
-	private void error(NamedElement el,String s){
-		super.error(el, s);
-		action.logInfoNoNewLine(s+",");
 	}
 
-	private void csvlog(String s){
+	private double getSEIDataRate(NamedElement ne) {
+		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
+		if (dr == null)
+			return 0;
+		return PropertyUtils.getRealValue(ne, dr, 0.0);
+	}
+
+	private static NamedElement previousNE = null;
+
+	private void error(NamedElement el, String s) {
+		super.error(el, s);
+		if (previousNE == null || previousNE != el) {
+			if (previousNE != null)
+				action.logInfo("");
+			action.logInfo(el.getName() + "," + s);
+		} else {
+			action.logInfo("," + s);
+		}
+		previousNE = el;
+	}
+
+	private void csvlog(String s) {
 		action.logInfoNoNewLine(s);
 	}
 
-	private void csvlogNewline(String s){
+	private void csvlogNewline(String s) {
 		action.logInfo(s);
 	}
-	
 
+	private void monitorUpdate(String s) {
+		monitor.setTaskName(s);
+	}
 
 }
