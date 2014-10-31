@@ -34,7 +34,7 @@ public class FlowLatencyLogicComponent {
 		 */
 		double period = GetProperties.getPeriodinMS(componentInstance);
 		double deadline = GetProperties.getDeadlineinMilliSec(componentInstance);
-		boolean isAssignedDeadline = GetProperties.isAsignedDeadline(componentInstance);
+		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
 		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
 		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
 		if (Values.doDataSetProcessing()) {
