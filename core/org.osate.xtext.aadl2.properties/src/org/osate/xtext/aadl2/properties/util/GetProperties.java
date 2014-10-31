@@ -908,7 +908,7 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
 	}
 
-	public static boolean isAsignedDeadline(final NamedElement ne) {
+	public static boolean isAssignedDeadline(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.DEADLINE);
 		return PropertyUtils.isAssignedPropertyValue(ne, deadline);
 	}
