@@ -39,7 +39,6 @@
  */
 package org.osate.analysis.architecture;
 
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -52,7 +51,6 @@ import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
-
 /**
  * @author phf
  *
@@ -61,101 +59,88 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
  */
 public class ARINC429ConnectionConsistency extends AadlProcessingSwitchWithProgress {
 	AbstractAaxlAction action;
-    public ARINC429ConnectionConsistency( final IProgressMonitor pm,
-    		AbstractAaxlAction action) {
-    	super(pm, PROCESS_PRE_ORDER_ALL);
-    	this.action = action;
-    }
-    
-    public final void initSwitches(){
+
+	public ARINC429ConnectionConsistency(final IProgressMonitor pm, AbstractAaxlAction action) {
+		super(pm, PROCESS_PRE_ORDER_ALL);
+		this.action = action;
+	}
+
+	public final void initSwitches() {
 		/* here we are creating the connection checking switches */
-    	instanceSwitch = new InstanceSwitch() {
+		instanceSwitch = new InstanceSwitch() {
 			/**
 			 * check port properties for connection end points
 			 */
-    		public Object caseConnectionInstance(ConnectionInstance conni)  {
-    			ConnectionInstanceEnd srcFI = conni.getSource();
-    			ConnectionInstanceEnd dstFI = conni.getDestination();
-    			if ( srcFI == null || dstFI == null) {
-    				error(conni, "Connection source or destination is null");
-    				return DONE;
-    			}
-    			if (srcFI instanceof FeatureInstance && dstFI instanceof FeatureInstance){
-    			checkPortConsistency((FeatureInstance)srcFI,(FeatureInstance)dstFI, conni);
-    			}
-    			return DONE;
-    		}
+			public Object caseConnectionInstance(ConnectionInstance conni) {
+				ConnectionInstanceEnd srcFI = conni.getSource();
+				ConnectionInstanceEnd dstFI = conni.getDestination();
+				if (srcFI == null || dstFI == null) {
+					error(conni, "Connection source or destination is null");
+					return DONE;
+				}
+				if (srcFI instanceof FeatureInstance && dstFI instanceof FeatureInstance) {
+					checkPortConsistency((FeatureInstance) srcFI, (FeatureInstance) dstFI, conni);
+				}
+				return DONE;
+			}
 		};
-    }
-    
-    public void doHeaders(){
-		String header = "connection,source,destination,source Word ID,destination Word ID, source First Bit, destination First Bit, source Number Bits, destination Number Bits, \n\r";
-    	csvlog(header);
-    }
+	}
 
-	
-    public void checkPortConsistency(FeatureInstance srcFI, FeatureInstance dstFI, ConnectionInstance conni){
-    	Property WordID = GetProperties.lookupPropertyDefinition(conni,"ARINC429","WordID");
-    	Property StartBit = GetProperties.lookupPropertyDefinition(conni,"ARINC429","FirstBit");
-    	Property NumberBits = GetProperties.lookupPropertyDefinition(conni,"ARINC429","NumberBits");
-    	
-    		csvlog(conni.getName()+","+srcFI.getContainingComponentInstance().getName()+"."+srcFI.getName()+","+ dstFI.getContainingComponentInstance().getName()+"."+dstFI.getName()+",");
-    		long srcWordID =PropertyUtils.getIntegerValue(srcFI,WordID,0);
-    		long dstWordID =PropertyUtils.getIntegerValue(dstFI,WordID,0);
-    		if (srcWordID > 0 || dstWordID > 0){
-    			csvlog(srcWordID+","+ dstWordID+",");
-    		} else {
-    			csvlog(","+",");
-    		}
-    		long srcStartBit =PropertyUtils.getIntegerValue(srcFI, StartBit,-1);
-    		long dstStartBit =PropertyUtils.getIntegerValue(dstFI, StartBit,-1);
-    		if (srcStartBit > -1 || dstStartBit > -1){
-        		csvlog(srcStartBit+","+ dstStartBit+",");
-        	} else {
-        		csvlog(","+",");
-    		}
-    		long srcC =PropertyUtils.getIntegerValue(srcFI, NumberBits,0);
-    		long dstC =PropertyUtils.getIntegerValue(dstFI, NumberBits,0);
-    		if (srcC >0 || dstC > 0){
-        		csvlog(srcC+","+ dstC+",");
-        	} else {
-        		csvlog(","+",");
-    		}
+	public void doHeaders() {
+	}
 
-    	// error logging
-    	
-    		if (srcWordID > 0 && dstWordID > 0){
-    			if (srcWordID != dstWordID){
-    				error(conni, "Source Word ID "+srcWordID+" and Word ID "+dstWordID+" differ");
-    			}
-    		}
-    		if (srcStartBit > -1 && dstStartBit > -1){
-    			if (srcStartBit != dstStartBit){
-    				error(conni, "Source Start Bit "+srcStartBit+" and destination Start Bit "+dstStartBit+" differ");
-    			}
-    		}
-    		if (srcC >0 && dstC > 0){
-    			if (srcC != dstC){
-    				error(conni, "Source number bits "+srcC+" and destination number bits "+dstC+" differ");
-    			}
-    		}
- 
-    	
-    	csvlogNewline("");
-    }
+	public void checkPortConsistency(FeatureInstance srcFI, FeatureInstance dstFI, ConnectionInstance conni) {
+		Property WordID = GetProperties.lookupPropertyDefinition(conni, "ARINC429", "WordID");
+		Property StartBit = GetProperties.lookupPropertyDefinition(conni, "ARINC429", "FirstBit");
+		Property NumberBits = GetProperties.lookupPropertyDefinition(conni, "ARINC429", "NumberBits");
 
-	private void csvlog(String s){
+		long srcWordID = PropertyUtils.getIntegerValue(srcFI, WordID, 0);
+		long dstWordID = PropertyUtils.getIntegerValue(dstFI, WordID, 0);
+		long srcStartBit = PropertyUtils.getIntegerValue(srcFI, StartBit, -1);
+		long dstStartBit = PropertyUtils.getIntegerValue(dstFI, StartBit, -1);
+		long srcC = PropertyUtils.getIntegerValue(srcFI, NumberBits, 0);
+		long dstC = PropertyUtils.getIntegerValue(dstFI, NumberBits, 0);
+
+		// error logging
+
+		if (srcWordID > 0 && dstWordID > 0) {
+			if (srcWordID != dstWordID) {
+				error(conni, "Source Word ID " + srcWordID + " and Word ID " + dstWordID + " differ");
+			}
+		}
+		if (srcStartBit > -1 && dstStartBit > -1) {
+			if (srcStartBit != dstStartBit) {
+				error(conni, "Source Start Bit " + srcStartBit + " and destination Start Bit " + dstStartBit
+						+ " differ");
+			}
+		}
+		if (srcC > 0 && dstC > 0) {
+			if (srcC != dstC) {
+				error(conni, "Source number bits " + srcC + " and destination number bits " + dstC + " differ");
+			}
+		}
+	}
+
+	private void csvlog(String s) {
 		action.logInfoNoNewLine(s);
 	}
 
-	private void csvlogNewline(String s){
+	private void csvlogNewline(String s) {
 		action.logInfo(s);
 	}
 
+	private static NamedElement previousNE = null;
 
-	private void error(NamedElement el,String s){
+	private void error(NamedElement el, String s) {
 		super.error(el, s);
-		action.logInfoNoNewLine(s+",");
+		if (previousNE == null || previousNE != el) {
+			if (previousNE != null)
+				action.logInfo("");
+			action.logInfo(el.getName() + "," + s);
+		} else {
+			action.logInfo("," + s);
+		}
+		previousNE = el;
 	}
 
 }

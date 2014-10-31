@@ -82,7 +82,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 			 * check port properties for connection end points
 			 */
 			public Object caseConnectionInstance(ConnectionInstance conni) {
-				monitorUpdate(conni.getName());
+//				monitorUpdate(conni.getName());
 				ConnectionInstanceEnd srcFI = conni.getSource();
 				ConnectionInstanceEnd dstFI = conni.getDestination();
 				if (srcFI == null || dstFI == null) {
