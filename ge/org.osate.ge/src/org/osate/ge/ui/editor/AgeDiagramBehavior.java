@@ -119,6 +119,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 							// Queue the update for when the control becomes visible
 							updateWhenVisible = true;
 						}
+						
 					} finally {
 						updateInProgress = false;
 					}
@@ -126,7 +127,8 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					// Check if an update has been queued
 					if(updateQueued) {
 						update();
-					}					
+					}
+				
 				} else {
 					// Queue the update
 					updateQueued = true;
@@ -268,9 +270,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				return retValue;
 			}
 			
-			// Part of this is from the fixed 0.11.x branch of Graphitti. Work around for #67.
-			// See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=437933
-			// TODO: Remove wants the released version of Graphiti includes the fix
 			// Keep the forceNotDirty check
 			@Override
 			public boolean isDirty() {
@@ -278,20 +277,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					return false;
 				}
 				
-				TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
-				if (editingDomain == null) {
-					// Right in the middle of closing the editor, it cannot be dirty
-					// without an editing domain
-					return false;
-				}
-				BasicCommandStack commandStack = (BasicCommandStack) editingDomain.getCommandStack();
-				if (commandStack == null) {
-					// Right in the middle of closing the editor, it cannot be dirty
-					// without a command stack
-					return false;
-				}
-				
-				return savedCommand != commandStack.getUndoCommand();
+				return super.isDirty();
 			}
 		};
 	}
