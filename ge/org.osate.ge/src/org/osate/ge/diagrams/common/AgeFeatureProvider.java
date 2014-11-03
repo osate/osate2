@@ -11,6 +11,7 @@ package org.osate.ge.diagrams.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -22,6 +23,7 @@ import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
+import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
@@ -460,5 +462,17 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 		return bor.getBusinessObjectForPictogramElement(pe) instanceof org.osate.aadl2.Connection;
+	}
+	
+	
+	private boolean disablePrintFeature = Platform.WS_GTK.equals(Platform.getWS());
+	
+	@Override
+	public IPrintFeature getPrintFeature() {
+		// Disable the print feature when using GTK. This is a workaround for github issue #92
+		if(disablePrintFeature) {
+			return null;
+		}
+		return super.getPrintFeature();
 	}
 }
