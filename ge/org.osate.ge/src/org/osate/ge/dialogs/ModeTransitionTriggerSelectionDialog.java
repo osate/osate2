@@ -19,7 +19,7 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
-import org.osate.ge.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
+import org.osate.ge.ui.util.ComponentImplementationHelper;
 
 public abstract class ModeTransitionTriggerSelectionDialog {
 	
@@ -84,12 +84,12 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			final ComponentImplementation ci = (ComponentImplementation)cc;
 			
 			// Get Internal Features
-			for(final InternalFeature f : ComponentImplementationPattern.getAllInternalFeatures(ci)) {
+			for(final InternalFeature f : ComponentImplementationHelper.getAllInternalFeatures(ci)) {
 				ports.add(new ModeTransitionTriggerInfo(f, null));
 			}
 			
 			// Get Port Proxies
-			for(final ProcessorFeature f : ComponentImplementationPattern.getAllProcessorFeatures(ci)) {
+			for(final ProcessorFeature f : ComponentImplementationHelper.getAllProcessorFeatures(ci)) {
 				if(f instanceof PortProxy) {
 					ports.add(new ModeTransitionTriggerInfo((PortProxy)f, null));
 				}				

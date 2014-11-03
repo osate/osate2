@@ -6,12 +6,10 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.componentImplementation.patterns;
+package org.osate.ge.diagrams.common.patterns;
 
 import javax.inject.Inject;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
@@ -23,48 +21,61 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.InternalFeature;
-import org.osate.aadl2.ProcessorFeature;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.patterns.AgePattern;
-import org.osate.ge.diagrams.common.patterns.ModePattern;
-import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
+import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.ShapeCreationService;
+import org.osate.ge.services.StyleService;
 import org.osate.ge.services.VisibilityService;
+import org.osate.ge.ui.util.ComponentImplementationHelper;
 
 /**
- * A pattern that controls the component implementation shape that contains all the other shapes in the type diagram
+ * A pattern that controls the type shape that contains all the other shapes in the type diagram
  * @author philip.alldredge
  */
-public class ComponentImplementationPattern extends AgePattern {
+public class ClassifierPattern extends AgePattern {
 	private final VisibilityService visibilityHelper;
 	private final LayoutService layoutService;
 	private final ShapeCreationService shapeCreationService;
+	private final AadlFeatureService featureService;
 	private final ConnectionCreationService connectionCreationService;
+	private final StyleService styleUtil;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeCreationService shapeCreationService, 
-			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final BusinessObjectResolutionService bor) {
+	public ClassifierPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeCreationService shapeCreationService,
+			final AadlFeatureService featureService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
+			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final BusinessObjectResolutionService bor) {
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = layoutService;
 		this.shapeCreationService = shapeCreationService;
+		this.featureService = featureService;
 		this.connectionCreationService = connectionCreationService;
+		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.bor = bor;
 	}
 	
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
-		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof ComponentImplementation;
+		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Classifier;
 	}
 
+
+	@Override
+	public boolean isPaletteApplicable() {
+		return false;
+	}
+	
 	@Override
 	public boolean canAdd(final IAddContext context) {
 		if(isMainBusinessObjectApplicable(context.getNewObject())) {
@@ -92,7 +103,7 @@ public class ComponentImplementationPattern extends AgePattern {
 
 		// Refresh
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
-		final ComponentImplementation classifier = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(shape);
+		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(shape);
 		this.refresh(shape, classifier, context.getX(), context.getY());
 
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
@@ -101,23 +112,23 @@ public class ComponentImplementationPattern extends AgePattern {
 	
 	@Override
 	public final PictogramElement add(final IAddContext context) {
-		final ComponentImplementation ci = (ComponentImplementation)AadlElementWrapper.unwrap(context.getNewObject());
+		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(context.getNewObject());
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
         // Create the container shape
         final ContainerShape shape = peCreateService.createContainerShape(context.getTargetContainer(), true);
-        link(shape, new AadlElementWrapper(ci));  
-			
-        // Finish creation
-        refresh(shape, ci, context.getX(), context.getY());
+        link(shape, new AadlElementWrapper(classifier));       
+        
+        // Finish creating
+        refresh(shape, classifier, context.getX(), context.getY());
         
         return shape;
 	}
-	
+
 	@Override
 	public final boolean update(final IUpdateContext context) {
 		final PictogramElement pe = context.getPictogramElement();
-		final ComponentImplementation ci = (ComponentImplementation)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
+		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
 		
 		if(pe instanceof ContainerShape) {
 			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
@@ -129,65 +140,66 @@ public class ComponentImplementationPattern extends AgePattern {
 				x = ga.getX();
 				y = ga.getY();
 			}
-			this.refresh((ContainerShape)pe, ci, x, y);
+			this.refresh((ContainerShape)pe, classifier, x, y);
 		}
 		return true;
-	}
+	}	
 	
-	// TODO: Submit patch to OSATE to add to Classifier Implementation
-	public static EList<InternalFeature> getAllInternalFeatures(final ComponentImplementation ci) {
-		EList<InternalFeature> returnList = new BasicEList<InternalFeature>();
-		ComponentImplementation tmpCi = ci;
-		while(tmpCi != null) {
-			returnList.addAll(tmpCi.getOwnedInternalFeatures());
-			tmpCi = tmpCi.getExtended();
-		}
-
-		return returnList;
-	}
-	
-	// TODO: Submit patch to OSATE to add to Classifier Implementation
-	public static EList<ProcessorFeature> getAllProcessorFeatures(final ComponentImplementation ci) {
-		EList<ProcessorFeature> returnList = new BasicEList<ProcessorFeature>();
-		ComponentImplementation tmpCi = ci;
-		while(tmpCi != null) {
-			returnList.addAll(tmpCi.getOwnedProcessorFeatures());
-			tmpCi = tmpCi.getExtended();
-		}
-		
-		return returnList;
-	}
-	
-	private void refresh(final ContainerShape shape, final ComponentImplementation ci, final int x, final int y) {
+	private void refresh(final ContainerShape shape, final Classifier classifier, final int x, final int y) {
 		visibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
 		visibilityHelper.ghostInvalidConnections(null);
 		visibilityHelper.ghostInvalidConnections(ModeTransitionPattern.MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
 		visibilityHelper.ghostInvalidConnections(ModePattern.INITIAL_MODE_CONNECTION_TYPE);
-				
-		// Remove invalid features
-		visibilityHelper.ghostInvalidShapes(shape);		
-			
-		// Create/Update Shapes
-		shapeCreationService.createUpdateFeatureShapes(shape, ci.getAllFeatures(), null);
-		shapeCreationService.createUpdateFeatureShapes(shape, getAllInternalFeatures(ci), null);
-		shapeCreationService.createUpdateFeatureShapes(shape, getAllProcessorFeatures(ci), null);
 		
-		createUpdateSubcomponents(shape, ci);
-
+		// Remove invalid features
+		visibilityHelper.ghostInvalidShapes(shape);
+		
+		shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllOwnedFeatures(classifier), null);
+		
+		// Create component implementation specific shapes
+		if(classifier instanceof ComponentImplementation) {
+			final ComponentImplementation ci = (ComponentImplementation)classifier;
+			shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllInternalFeatures(ci), null);
+			shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllProcessorFeatures(ci), null);
+			createUpdateSubcomponents(shape, ci);
+		}
+		
 		// Create/Update Modes and Mode Transitions
-		shapeCreationService.createUpdateModeShapes(shape, ci.getAllModes());
-		connectionCreationService.createUpdateConnections(shape, ci.getAllModeTransitions());
-		connectionCreationService.createUpdateConnections(shape, ci.getAllConnections());
+		if(classifier instanceof ComponentClassifier) {
+			final ComponentClassifier cc = (ComponentClassifier)classifier;			
+			shapeCreationService.createUpdateModeShapes(shape, cc.getAllModes());
+			connectionCreationService.createUpdateConnections(shape, cc.getAllModeTransitions());	
+		}
+		
+		// Create connections
+		if(classifier instanceof ComponentImplementation) {
+			final ComponentImplementation ci = (ComponentImplementation)classifier;
+			connectionCreationService.createUpdateConnections(shape, ci.getAllConnections());
+		}
+		
+		// Create/Update Flow Specifications
+		if(classifier instanceof ComponentType) {
+			final ComponentType componentType = (ComponentType)classifier;			
+			connectionCreationService.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
+		}
 
-		// Adjust size. Width and height		
+		// Adjust size. Width and height
 		final int newSize[] = layoutService.adjustChildShapePositions(shape);
-
-		// Create a new graphics Algorithm
 		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, ci, newSize[0], newSize[1]);
-		gaService.setLocation(ga, x, y);
+		
+		// Create a new graphics Algorithm
+		final GraphicsAlgorithm ga;
+		// Use a rectangle for feature group types because the feature group shape is not ideal as a container for features.
+		if(classifier instanceof FeatureGroupType) {
+			ga = gaService.createRectangle(shape);
+			ga.setStyle(styleUtil.getSystemStyle(false));
+			gaService.setLocationAndSize(ga, x, y, newSize[0], newSize[1]);
+		} else {
+			ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, newSize[0], newSize[1]);
+			gaService.setLocation(ga, x, y);
+		}
 
 		// Do not fill the root shape so that the grid lines can be seen
 		ga.setFilled(false);
@@ -198,9 +210,5 @@ public class ComponentImplementationPattern extends AgePattern {
 	private void createUpdateSubcomponents(final ContainerShape shape, final ComponentImplementation ci) {
 		shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);
 	}
-	
-	@Override
-	public boolean isPaletteApplicable() {
-		return false;
-	}
+
 }

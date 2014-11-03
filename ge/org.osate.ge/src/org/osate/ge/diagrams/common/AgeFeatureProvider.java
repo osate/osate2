@@ -79,6 +79,7 @@ import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.diagrams.common.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
+import org.osate.ge.diagrams.common.patterns.ClassifierPattern;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.diagrams.common.patterns.FlowSpecificationPattern;
 import org.osate.ge.diagrams.common.patterns.ModePattern;
@@ -90,7 +91,6 @@ import org.osate.ge.diagrams.componentImplementation.features.RefineSubcomponent
 import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
-import org.osate.ge.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
 import org.osate.ge.diagrams.componentImplementation.patterns.ConnectionPattern;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubcomponentPattern;
 import org.osate.ge.diagrams.pkg.features.PackageSetExtendedClassifierFeature;
@@ -104,7 +104,6 @@ import org.osate.ge.diagrams.type.features.RenameFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
-import org.osate.ge.diagrams.type.patterns.TypeClassifierPattern;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -176,15 +175,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Package
 		addConnectionPattern(make(PackageGeneralizationPattern.class));
-		addClassifierPatterns();
 		
-		// Component Implementation
-		addPattern(make(ComponentImplementationPattern.class));
+		addClassifierPatterns();		
 		addSubcomponentPatterns();
 		addAadlConnectionPatterns();
 		
-		// Type Diagram
-		addPattern(make(TypeClassifierPattern.class));
+		// Classifiers
+		addPattern(make(ClassifierPattern.class));
 	}
 	
 	private IEclipseContext createEclipseContext() {
