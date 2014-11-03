@@ -57,11 +57,9 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AccessType;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
@@ -79,13 +77,13 @@ import org.osate.ge.diagrams.common.features.SetDimensionsFeature;
 import org.osate.ge.diagrams.common.features.SetFeatureClassifierFeature;
 import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
+import org.osate.ge.diagrams.common.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.diagrams.common.patterns.FlowSpecificationPattern;
 import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
 import org.osate.ge.diagrams.componentImplementation.features.ChangeSubcomponentTypeFeature;
-import org.osate.ge.diagrams.componentImplementation.features.ComponentImplementationUpdateDiagramFeature;
 import org.osate.ge.diagrams.componentImplementation.features.EditFlowsFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RefineConnectionFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RefineSubcomponentFeature;
@@ -106,7 +104,6 @@ import org.osate.ge.diagrams.type.features.RenameFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
-import org.osate.ge.diagrams.type.features.TypeUpdateDiagramFeature;
 import org.osate.ge.diagrams.type.patterns.TypeClassifierPattern;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
@@ -403,12 +400,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 			if(bor != null) {
 				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-				if(bo instanceof ComponentImplementation) {
-					return make(ComponentImplementationUpdateDiagramFeature.class);					
+				if(bo instanceof Classifier) {
+					return make(UpdateClassifierDiagramFeature.class);
 				} else if(bo instanceof AadlPackage) {
 					return make(PackageUpdateDiagramFeature.class);
-				} else if(bo instanceof FeatureGroupType || bo instanceof ComponentType) {
-					return make(TypeUpdateDiagramFeature.class);
 				}
 			}
 		}

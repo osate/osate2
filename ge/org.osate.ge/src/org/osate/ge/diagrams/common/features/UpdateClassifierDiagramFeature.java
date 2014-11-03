@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.type.features;
+package org.osate.ge.diagrams.common.features;
 
 import javax.inject.Inject;
 
@@ -29,24 +29,20 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
-import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.VisibilityService;
 import org.osate.ge.util.Log;
 
-public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature, DiagramUpdateFeature {
+public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature, DiagramUpdateFeature {
 	private final StyleService styleService;
 	private final VisibilityService visibilityService;
 	private final ShapeService shapeService;
 	
 	@Inject
-	public TypeUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final VisibilityService visibilityService, final ShapeService shapeService) {
+	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final VisibilityService visibilityService, final ShapeService shapeService) {
 		super(fp);
 		this.styleService = styleService;
 		this.visibilityService = visibilityService;
@@ -55,7 +51,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 
 	private Classifier getClassifier(final IUpdateContext context) {
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
-		if(bo instanceof ComponentType || bo instanceof FeatureGroupType) {
+		if(bo instanceof Classifier) {
 			return (Classifier)bo;
 		}
 		
@@ -79,7 +75,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 
 	@Override
 	public boolean update(final IUpdateContext context) {
-		Log.info("called with context: " + context);
+		Log.info("Called with context: " + context);
 		final Classifier classifier = getClassifier(context);
 		if(classifier == null) {
 			final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "Unable to update diagram. Unable to find AADL model element associated with diagram.", null);
@@ -87,9 +83,8 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 			return false;
 		}
 		
-		final Diagram diagram = getDiagram();		
-
 		// Update the diagram's name
+		final Diagram diagram = getDiagram();
 		if(classifier.getQualifiedName() != null) {
 			diagram.setName(classifier.getQualifiedName());
 		}
@@ -123,7 +118,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 			}
 		}
 		
-		// Layout the diagram
+		// Adjust positions of shapes that have not been positioned.
 		final ICustomContext layoutCtx = LayoutDiagramFeature.createContext(false);
 		for(ICustomFeature feature : this.getFeatureProvider().getCustomFeatures(layoutCtx)) {
 			if(feature instanceof LayoutDiagramFeature) {
