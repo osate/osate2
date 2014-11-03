@@ -92,7 +92,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	@Override
 	public boolean isPaletteApplicable() {
-		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
 		return diagramBo instanceof AadlPackage;
 	}
 	

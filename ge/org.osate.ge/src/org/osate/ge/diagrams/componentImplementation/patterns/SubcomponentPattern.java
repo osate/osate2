@@ -160,7 +160,7 @@ public class SubcomponentPattern extends AgePattern {
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return diagramBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)diagramBo, subcomponentType) : false;
+		return isComponentImplementationDiagram() ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)diagramBo, subcomponentType) : false;
 	}
 	
 	

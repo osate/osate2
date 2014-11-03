@@ -174,7 +174,5 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	public void postDelete(final IDeleteContext context) {
 	}
 	
-	public boolean isPaletteApplicable() {
-		return true;
-	}
+	public abstract boolean isPaletteApplicable();
 }
