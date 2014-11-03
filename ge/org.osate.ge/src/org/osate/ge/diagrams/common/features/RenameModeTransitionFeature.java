@@ -13,28 +13,22 @@ import javax.inject.Inject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
-import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.RefactoringService;
-import org.osate.ge.services.ShapeService;
 
 public class RenameModeTransitionFeature extends AbstractDirectEditingFeature {
-	private final ShapeService shapeService;
 	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;
 	private final RefactoringService refactoringService;
 	
 	@Inject
-	public RenameModeTransitionFeature(final IFeatureProvider fp, final ShapeService shapeService, final NamingService namingService, final BusinessObjectResolutionService bor, final RefactoringService refactoringService) {
+	public RenameModeTransitionFeature(final IFeatureProvider fp, final NamingService namingService, final BusinessObjectResolutionService bor, final RefactoringService refactoringService) {
 		super(fp);
-		this.shapeService = shapeService;
 		this.namingService = namingService;
 		this.bor = bor;
 		this.refactoringService = refactoringService;
@@ -48,23 +42,9 @@ public class RenameModeTransitionFeature extends AbstractDirectEditingFeature {
 
 		final Connection connection = ((ConnectionDecorator)context.getPictogramElement()).getConnection();		
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
-		final ComponentClassifier cc = getComponentClassifier(connection);
-
-		return bo instanceof ModeTransition && cc != null && ((ModeTransition)bo).getContainingClassifier() == cc;
-	}
-    
-	/**
-	 * Returns the first component classifier associated with the specified or a containing shape.
-	 * @param shape
-	 * @return
-	 */
-	private ComponentClassifier getComponentClassifier(final Connection connection) {
-		final AnchorContainer startContainer = connection.getStart().getParent();
-		if(!(startContainer instanceof Shape)) {
-			return null;
-		}
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
 		
-		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, ComponentClassifier.class);
+		return bo instanceof ModeTransition && diagramBo != null && ((ModeTransition)bo).getContainingClassifier() == diagramBo;
 	}
 	
 	@Override

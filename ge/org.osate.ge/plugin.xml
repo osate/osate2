@@ -22,8 +22,14 @@
 		</menuContribution>
    </extension>
 	   
-   <extension
-         point="org.eclipse.graphiti.ui.diagramTypes">
+   <extension point="org.eclipse.graphiti.ui.diagramTypes">      
+      <diagramType
+            name="AADL Diagram Type"
+            type="AADL Diagram"
+            id="org.osate.ge.aadlDiagramType">
+      </diagramType>
+      
+   	  <!-- The following diagram types have been superseded and will be removed eventually. They are needed to open older diagrams that use them. Upon saving, diagrams are automatically switched to the newer diagram type. -->
       <diagramType
             name="AADL Package Diagram Type"
             type="AADL Package"
@@ -43,8 +49,17 @@
       </diagramType>
    </extension>
    
-   <extension
-         point="org.eclipse.graphiti.ui.diagramTypeProviders">
+   <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">     
+      <diagramTypeProvider
+            name="AADL Component Implementation Diagram Type Provider"
+            class="org.osate.ge.diagrams.common.AgeDiagramTypeProvider"
+            id="org.osate.ge.aadlDiagramTypeProvider">
+         <diagramType
+               id="org.osate.ge.aadlDiagramType">
+         </diagramType>
+      </diagramTypeProvider>
+      
+ 	  <!-- The following diagram types providers have been superseded and will be removed eventually. They are needed to open older diagrams that use them. Upon saving, diagrams are automatically switched to the newer diagram type provider. -->
       <diagramTypeProvider
             name="AADL Package Diagram Type Provider"
             class="org.osate.ge.diagrams.common.AgeDiagramTypeProvider"

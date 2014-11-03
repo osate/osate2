@@ -56,6 +56,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
+	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
 	private boolean updateInProgress = false;
@@ -281,11 +282,14 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {
 				final Diagram diagram = getDiagramTypeProvider().getDiagram();
 
-				// Delete all the ghosts
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 					@Override
 					protected void doExecute() {
+						// Delete all the ghosts
 						ghostPurger.purgeGhosts(diagram);
+						
+						// Set the diagram type id. This is useful for automatically upgrading diagrams using superseded diagram type IDs
+						diagram.setDiagramTypeId(AADL_DIAGRAM_TYPE_ID);
 					}				
 				});				
 				
