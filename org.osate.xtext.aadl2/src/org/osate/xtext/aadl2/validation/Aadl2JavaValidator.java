@@ -3892,7 +3892,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		if (connectionContext == null) {
-			if (!(connectionEnd instanceof FeatureConnectionEnd)) {
+			if (!(connectionEnd instanceof Feature)) { // XXX chaned from FeatureConnectionEnd to allow any feature
 				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " is not a valid feature connection end.", connectedElement,
 						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
