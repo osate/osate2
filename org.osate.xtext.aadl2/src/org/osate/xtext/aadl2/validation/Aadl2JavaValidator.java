@@ -303,7 +303,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckPortConnectionEnd(connection.getSource());
 		typeCheckPortConnectionEnd(connection.getDestination());
 		checkPortConnectionClassifiers(connection);
-		checkPortConnectionDirection(connection);
+		checkConnectionDirection(connection);
 		checkPortConnectionEnds(connection);
 
 	}
@@ -328,6 +328,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseFeatureConnection(FeatureConnection connection) {
 		typeCheckFeatureConnectionEnd(connection.getSource());
 		typeCheckFeatureConnectionEnd(connection.getDestination());
+		checkConnectionDirection(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -3484,12 +3485,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Check direction of ConnectionEnd in port connections
+	 * Check direction of ConnectionEnd in connections
 	 */
-	private void checkPortConnectionDirection(PortConnection connection) {
+	private void checkConnectionDirection(Connection connection) {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
-		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
+		if (source instanceof ConnectionEnd && destination instanceof ConnectionEnd) {
 			DirectionType srcDirection = DirectionType.IN_OUT;
 			DirectionType dstDirection = DirectionType.IN_OUT;
 			if (source instanceof DirectedFeature) {
@@ -3534,9 +3535,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					|| (dstContext == null && destination instanceof DataSubcomponent && srcContext instanceof Subcomponent)
 			// from a data subcomponent to a port
 			) {
-				if (srcDirection == DirectionType.IN && dstDirection == DirectionType.IN
-						|| srcDirection == DirectionType.OUT && dstDirection == DirectionType.OUT) {
-					error(connection, "Source and destination directions do not match up.");
+				if (!(srcDirection.outgoing() && dstDirection.incoming())) {
+					error(connection, "Source must be outgoing and destination incoming.");
 				}
 			} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)
 					|| (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
@@ -3577,6 +3577,95 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+
+//
+//	/**
+//	 * Check direction of ConnectionEnd in port connections
+//	 */
+//	private void checkFeatureConnectionDirection(Connection connection) {
+//		ConnectionEnd source = connection.getAllSource();
+//		ConnectionEnd destination = connection.getAllDestination();
+//		if (source instanceof FeatureConnectionEnd && destination instanceof FeatureConnectionEnd) {
+//			DirectionType srcDirection = DirectionType.IN_OUT;
+//			DirectionType dstDirection = DirectionType.IN_OUT;
+//			if (source instanceof DirectedFeature) {
+//				srcDirection = ((DirectedFeature) source).getDirection();
+//			}
+//			if (destination instanceof DirectedFeature) {
+//				dstDirection = ((DirectedFeature) destination).getDirection();
+//			}
+//			Context srcContext = connection.getAllSourceContext();
+//			Context dstContext = connection.getAllDestinationContext();
+//			if (srcContext instanceof FeatureGroup) {
+//				if (((FeatureGroup) srcContext).isInverse()) {
+//					srcDirection = srcDirection.getInverseDirection();
+//				}
+//				FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup) srcContext).getFeatureType());
+//				FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
+//				if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
+//					// feature group type has inverse and feature is defined in the inverse FGT
+//					srcDirection = srcDirection.getInverseDirection();
+//				}
+//			}
+//			if (dstContext instanceof FeatureGroup) {
+//				if (((FeatureGroup) dstContext).isInverse()) {
+//					dstDirection = dstDirection.getInverseDirection();
+//				}
+//				FeatureGroupType dstFGT = getFGTforPrototype(((FeatureGroup) dstContext).getFeatureType());
+//				FeatureGroupType contdstFGT = (FeatureGroupType) ((Feature) destination).getContainingClassifier();
+//				if (dstFGT != contdstFGT && !Aadl2Util.isNull(dstFGT) && dstFGT.getInverse() != null) {
+//					dstDirection = dstDirection.getInverseDirection();
+//				}
+//			}
+//			if ((srcContext instanceof Subcomponent && dstContext instanceof Subcomponent)
+//			// between ports of subcomponents
+//					|| (srcContext == null && source instanceof DataSubcomponent && dstContext instanceof Subcomponent)
+//					// from a data subcomponent to a port
+//					|| (dstContext == null && destination instanceof DataSubcomponent && srcContext instanceof Subcomponent)
+//			// from a data subcomponent to a port
+//			) {
+//				if (!(srcDirection.outgoing() && dstDirection.incoming())) {
+//					error(connection, "Source must be outgoing and destination incoming.");
+//				}
+//			} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)
+//					|| (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
+//				// going up or down hierarchy
+//				if (!sameDirection(srcDirection, dstDirection)) {
+//					error(connection, "Source feature '" + source.getName() + "' and destination feature '"
+//							+ destination.getName() + "' must have same direction.");
+//				}
+//				if ((srcContext instanceof Subcomponent) || (srcContext instanceof SubprogramCall)) {
+//					if (!(srcDirection.outgoing())) {
+//						error("Outgoing connection requires outgoing feature '" + srcContext.getName() + "."
+//								+ source.getName() + "'.", connection, Aadl2Package.eINSTANCE.getConnection_Source());
+//					}
+//					if (!(dstDirection.outgoing())) {
+//						error("Outgoing connection requires outgoing feature '" + destination.getName() + "'.",
+//								connection, Aadl2Package.eINSTANCE.getConnection_Destination());
+//					}
+//				}
+//				if ((dstContext instanceof Subcomponent) || (dstContext instanceof SubprogramCall)) {
+//					if (!(dstDirection.incoming())) {
+//						error("Incoming connection requires incoming feature '" + dstContext.getName() + "."
+//								+ destination.getName() + "'.", connection,
+//								Aadl2Package.eINSTANCE.getConnection_Destination());
+//					}
+//					if (!(srcDirection.incoming())) {
+//						error("Incoming connection requires incoming feature '" + source.getName() + "'.", connection,
+//								Aadl2Package.eINSTANCE.getConnection_Source());
+//					}
+//				}
+//			} else {
+//
+//				// we have a connection a component implementation going directly from its incoming feature to an outgoing feature
+//				if (!(srcDirection.incoming() && dstDirection.outgoing())) {
+//					error(connection, "Source feature '" + source.getName()
+//							+ "' must be incoming and destination feature '" + destination.getName()
+//							+ "' must be outgoing.");
+//				}
+//			}
+//		}
+//	}
 
 	/**
 	 * @param proto
