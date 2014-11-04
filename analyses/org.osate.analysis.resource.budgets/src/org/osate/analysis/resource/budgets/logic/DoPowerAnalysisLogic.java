@@ -36,6 +36,7 @@ package org.osate.analysis.resource.budgets.logic;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -81,22 +82,16 @@ public class DoPowerAnalysisLogic {
 				if (capacity == 0) {
 					return;
 				}
-
+				// components that represent a power system with capacity
 				powerComponentHeader(section, "Computing Electrical Power for " + ci.getName());
-//				final Line supplyLine = new Line();
-//				section.addLine(supplyLine);
-//				final Line budgetLine = new Line();
-//				section.addLine(budgetLine);
-//				supplyLine.addContent("");
-//				budgetLine.addContent("");
-//				supplyLine.addContent("Power Supply");
-//				budgetLine.addContent("Power Demand");
 				String supplyLine = "";
 				String budgetLine = "";
-				// supply in form of power budget drawn this power supply from other supply
 				for (FeatureInstance fi : ci.getFeatureInstances()) {
 					double supply = GetProperties.getPowerBudget(fi, 0.0);
 					if (supply > 0) {
+						// supply in form of power budget drawn this power supply from other supply
+						// this could be a requires bus access, or an incoming abstract feature
+						// there must be a connection on this feature
 						if (!fi.getDstConnectionInstances().isEmpty() || !fi.getSrcConnectionInstances().isEmpty()) {
 							supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
 									+ DoPowerAnalysisLogic.this.toString(supply) + " from "
@@ -106,29 +101,35 @@ public class DoPowerAnalysisLogic {
 							// warning unconnected power requirement
 						}
 					}
+					for (ConnectionInstance inconni : fi.getDstConnectionInstances()) {
+						// incoming connections: does the other end provide power?
+						ConnectionInstanceEnd srcfi = inconni.getSource();
+						supply = GetProperties.getPowerSupply(srcfi, 0.0);
+						if (supply > 0) {
+							supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
+									+ DoPowerAnalysisLogic.this.toString(supply) + " from "
+									+ srcfi.getContainingComponentInstance().getName();
+							supplyTotal += supply;
+						}
+					}
+					for (ConnectionInstance outconni : fi.getSrcConnectionInstances()) {
+						// outgoing connection. Does the other end have a power budget?
+						ConnectionInstanceEnd dstfi = outconni.getDestination();
+						double budget = GetProperties.getPowerBudget(dstfi, 0.0);
+						if (budget > 0) {
+							budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
+									+ DoPowerAnalysisLogic.this.toString(budget) + " for "
+									+ dstfi.getContainingComponentInstance().getName();
+							budgetTotal += budget;
+						}
+					}
 				}
 				// power supply and budget based on access connections to this bus
+				// we are checking whether there are connections with the component with power capacity as source or destination
+				// this could be a bus, possibly an abstract component
 				for (ConnectionInstance ac : ci.getSrcConnectionInstances()) {
-					// TODO-LW: could throw ClassCastException
+					// Outgoing from Power system as bus
 					FeatureInstance dstfi = (FeatureInstance) ac.getDestination();
-					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
-					if (budget > 0) {
-						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
-								+ DoPowerAnalysisLogic.this.toString(budget) + " for "
-								+ dstfi.getContainingComponentInstance().getName();
-						budgetTotal += budget;
-					}
-					budget = GetProperties.getPowerSupply(dstfi, 0.0);
-					if (budget > 0) {
-						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
-								+ DoPowerAnalysisLogic.this.toString(budget) + " from "
-								+ dstfi.getContainingComponentInstance().getName();
-						supplyTotal += budget;
-					}
-				}
-				for (ConnectionInstance ac : ci.getDstConnectionInstances()) {
-					// TODO-LW: could throw ClassCastException
-					FeatureInstance dstfi = (FeatureInstance) ac.getSource();
 					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 					if (budget > 0) {
 						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
@@ -139,8 +140,26 @@ public class DoPowerAnalysisLogic {
 					double supply = GetProperties.getPowerSupply(dstfi, 0.0);
 					if (supply > 0) {
 						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
-								+ DoPowerAnalysisLogic.this.toString(budget) + " from "
+								+ DoPowerAnalysisLogic.this.toString(supply) + " from "
 								+ dstfi.getContainingComponentInstance().getName();
+						supplyTotal += supply;
+					}
+				}
+				for (ConnectionInstance ac : ci.getDstConnectionInstances()) {
+					// Incoming to Power system as bus
+					FeatureInstance srcfi = (FeatureInstance) ac.getSource();
+					double budget = GetProperties.getPowerBudget(srcfi, 0.0);
+					if (budget > 0) {
+						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
+								+ DoPowerAnalysisLogic.this.toString(budget) + " for "
+								+ srcfi.getContainingComponentInstance().getName();
+						budgetTotal += budget;
+					}
+					double supply = GetProperties.getPowerSupply(srcfi, 0.0);
+					if (supply > 0) {
+						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
+								+ DoPowerAnalysisLogic.this.toString(supply) + " from "
+								+ srcfi.getContainingComponentInstance().getName();
 						supplyTotal += supply;
 					}
 				}
@@ -149,12 +168,6 @@ public class DoPowerAnalysisLogic {
 			}
 		};
 		DoCapacity.processPreOrderComponentInstance(si);
-//		if (si.getSystemOperationModes().size() == 1 && msg.length() > 0) {
-//			// Also report the results using a message dialog
-//			Dialog.showInfo("Power Budget Statistics", msg.toString());
-//		} else if (hasPower == 0) {
-//			Dialog.showInfo("Power Budget Statistics", "No components with power.");
-//		}
 	}
 
 	private void powerComponentHeader(Section s, String header) {
