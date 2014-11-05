@@ -652,6 +652,26 @@ public class GetProperties {
 	}
 
 	/**
+	 * @author: Dionisio de Niz
+	 * 
+	 * For now we will use MIPS as a representative of cycles per second but we will change it
+	 * to a more meaningful property name
+	 * 
+	 * @param threadInstance
+	 * @return execution time in cyles
+	 */
+	public static double getThreadExecutionInCycles(ComponentInstance threadInstance, double defaultMIPS) {
+		double cycles = 0.0;
+		double exectimeval = getMaximumComputeExecutionTimeinSec(threadInstance);
+		double mipspersec = getReferenceMIPS(threadInstance);
+		if (mipspersec == 0) {
+			mipspersec = defaultMIPS;
+		}
+		cycles = exectimeval * (mipspersec * 1e6);
+		return cycles;
+	}
+
+	/**
 	 * compute MIPS for thread based on instructions per dispatch; or based on specified execution time
 	 * @param threadinstance thread instance
 	 * @return MIPS or 0.0
@@ -753,6 +773,20 @@ public class GetProperties {
 			double scale = getProcessorScalingFactor((ComponentInstance) ne);
 			return time * scale;
 		}
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in nsec - the upper bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMaximumComputeExecutionTimeinNsec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral nsecond = findUnitLiteral(computeExecutionTime, AadlProject.NS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, nsecond, 0.0);
 		return time;
 	}
 
