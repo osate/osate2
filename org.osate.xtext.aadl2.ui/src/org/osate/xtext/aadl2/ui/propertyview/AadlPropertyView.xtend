@@ -1,6 +1,7 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
 import com.google.inject.Inject
+import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
 import java.util.Collections
 import java.util.HashMap
 import java.util.List
@@ -16,14 +17,25 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain
 import org.eclipse.emf.edit.domain.EditingDomain
 import org.eclipse.jface.action.Action
 import org.eclipse.jface.action.IAction
+import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.text.ITextSelection
+import org.eclipse.jface.viewers.ColumnLabelProvider
+import org.eclipse.jface.viewers.ColumnPixelData
+import org.eclipse.jface.viewers.ColumnWeightData
+import org.eclipse.jface.viewers.EditingSupport
+import org.eclipse.jface.viewers.ILazyTreeContentProvider
 import org.eclipse.jface.viewers.IPostSelectionProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
+import org.eclipse.jface.viewers.TreeViewerColumn
+import org.eclipse.jface.viewers.Viewer
 import org.eclipse.jface.window.Window
 import org.eclipse.jface.wizard.WizardDialog
+import org.eclipse.swt.SWT
+import org.eclipse.swt.graphics.GC
+import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
@@ -40,45 +52,33 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator
 import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.BasicProperty
+import org.osate.aadl2.BasicPropertyAssociation
+import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.Element
+import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ListValue
+import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.NumberValue
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
+import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.RangeValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.RecordType
+import org.osate.aadl2.RecordValue
+import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.PropertyAssociationWizard
 
-import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
-import org.eclipse.jface.viewers.ColumnLabelProvider
-import org.eclipse.swt.graphics.Image
-import org.osate.aadl2.ModalPropertyValue
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.IntegerLiteral
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.UnitLiteral
-import org.osate.aadl2.PropertyExpression
-import org.osate.aadl2.BasicPropertyAssociation
-import org.osate.aadl2.BasicProperty
-import org.eclipse.swt.SWT
-import org.osate.aadl2.NumberValue
-
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.eclipse.jface.viewers.ILazyTreeContentProvider
-import org.eclipse.jface.viewers.Viewer
-import org.osate.aadl2.RangeValue
-import org.osate.aadl2.RecordValue
-import org.osate.aadl2.RecordType
-
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
-import org.osate.aadl2.PropertyType
-import org.eclipse.jface.layout.TreeColumnLayout
-import org.eclipse.jface.viewers.TreeViewerColumn
-import org.eclipse.jface.viewers.ColumnWeightData
-import org.eclipse.swt.graphics.GC
-import org.eclipse.jface.viewers.ColumnPixelData
+import static extension org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -533,28 +533,29 @@ class AadlPropertyView extends ViewPart {
 		treeViewerComposite = new Composite(pageBook, SWT.NULL) => [
 			val treeColumnLayout = new TreeColumnLayout
 			layout = treeColumnLayout
-			treeViewer = new TreeViewer(it, SWT.VIRTUAL.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [
-				new TreeViewerColumn(it, SWT.LEFT) => [
+			treeViewer = new TreeViewer(it, SWT.VIRTUAL.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [treeViewer |
+				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 					column.text = "Property"
 					treeColumnLayout.setColumnData(column, new ColumnWeightData(1, true))
 					labelProvider = propertyColumnLabelProvider
 				]
-				new TreeViewerColumn(it, SWT.LEFT) => [
+				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 					column.text = "Value"
 					treeColumnLayout.setColumnData(column, new ColumnWeightData(2, true))
 					labelProvider = valueColumnLabelProvider
+					editingSupport = createValueColumnEditingSupport(treeViewer)
 				]
-				new TreeViewerColumn(it, SWT.LEFT) => [
+				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 					column.text = "Status"
 					val gc = new GC(column.parent)
 					treeColumnLayout.setColumnData(column, new ColumnPixelData(#[STATUS_LOCAL, STATUS_INHERITED, STATUS_DEFAULT, STATUS_UNDEFINED].map[gc.stringExtent(it).x].max + 5, true, true))
 					gc.dispose
 					labelProvider = statusColumnLabelProvider
 				]
-				tree.linesVisible = true
-				tree.headerVisible = true
-				useHashlookup = true
-				contentProvider = propertyViewContentProvider
+				treeViewer.tree.linesVisible = true
+				treeViewer.tree.headerVisible = true
+				treeViewer.useHashlookup = true
+				treeViewer.contentProvider = propertyViewContentProvider
 			]
 		]
 		
@@ -591,6 +592,77 @@ class AadlPropertyView extends ViewPart {
 	
 	override setFocus() {
 		treeViewer.tree.setFocus
+	}
+	
+	def private createValueColumnEditingSupport(TreeViewer treeViewer) {
+		new EditingSupport(treeViewer) {
+			override protected canEdit(Object element) {
+				switch treeElement : (element as Pair<Object, Object>).value {
+					PropertySet: false
+					Property: {
+						val association = cachedPropertyAssociations.get(treeElement.owner).get(treeElement)
+						association != null && input == association.owner && !association.modal
+					}
+					default: {
+						println("canEdit: " + treeElement)
+						throw new UnsupportedOperationException("TODO: auto-generated method stub")
+					}
+				}
+			}
+			
+			override protected getCellEditor(Object element) {
+				switch treeElement : (element as Pair<Object, Object>).value {
+					Property: {
+						val association = cachedPropertyAssociations.get(treeElement.owner).get(treeElement)
+						if (association != null && input == association.owner && !association.modal) {
+							new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)) => [
+								create(treeViewer.tree)
+							]
+						} else {
+							throw new UnsupportedOperationException("TODO: auto-generated method stub")
+						}
+					}
+					default: {
+						println("getCellEditor: " + treeElement)
+						throw new UnsupportedOperationException("TODO: auto-generated method stub")
+					}
+				}
+			}
+			
+			override protected getValue(Object element) {
+				switch treeElement : (element as Pair<Object, Object>).value {
+					Property: {
+						val association = cachedPropertyAssociations.get(treeElement.owner).get(treeElement)
+						if (association != null && input == association.owner && !association.modal) {
+							""
+						} else {
+							throw new UnsupportedOperationException("TODO: auto-generated method stub")
+						}
+					}
+					default: {
+						println("getValue: " + treeElement)
+						throw new UnsupportedOperationException("TODO: auto-generated method stub")
+					}
+				}
+			}
+			
+			override protected setValue(Object element, Object value) {
+				switch treeElement : (element as Pair<Object, Object>).value {
+					Property: {
+						val association = cachedPropertyAssociations.get(treeElement.owner).get(treeElement)
+						if (association != null && input == association.owner && !association.modal) {
+							println("Need to set: " + value)
+						} else {
+							throw new UnsupportedOperationException("TODO: auto-generated method stub")
+						}
+					}
+					default: {
+						println("setValue: " + treeElement)
+						throw new UnsupportedOperationException("TODO: auto-generated method stub")
+					}
+				}
+			}
+		}
 	}
 	
 	def private getInput() {
