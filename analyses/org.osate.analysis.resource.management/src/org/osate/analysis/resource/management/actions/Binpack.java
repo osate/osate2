@@ -127,6 +127,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	private static final int DEFER_EXEC_TIME = 1;
 	private static final int DEFER_BANDWIDTH = 2;
 
+	public static double defaultMIPS = 1000.0;
+
 	private int partitionChoice;
 
 	protected void initPropertyReferences() {
@@ -293,8 +295,19 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		return new ForAllElement().processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 	}
 
+	boolean existsProcessorWithMIPS = false;
+	boolean existsProcessorWithoutMIPS = false;
+	boolean existsThreadWithReferenceProcessor = false;
+	boolean existsThreadWithoutReferenceProcessor = false;
+
 	protected AssignmentResult binPackSystem(final SystemInstance root, Expansor expansor, LowLevelBinPacker packer,
 			final AnalysisErrorReporterManager errManager, final SystemOperationMode som) {
+
+		existsProcessorWithMIPS = false;
+		existsProcessorWithoutMIPS = false;
+		existsThreadWithReferenceProcessor = false;
+		existsThreadWithoutReferenceProcessor = false;
+
 		/*
 		 * Map from AADL ComponentInstances representing threads to
 		 * the bin packing SoftwareNode that models the thread.
@@ -357,19 +370,19 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final ForAllElement addProcessors = new ForAllElement(errManager) {
 			public void process(Element obj) {
 				ComponentInstance ci = (ComponentInstance) obj;
-				if (GetProperties.getMIPSCapacityInMIPS(ci, 0) > 0) {
-					final AADLProcessor proc = AADLProcessor.createInstance(ci);
-					if (proc != null) {
-						siteArchitecture.addSiteGuest(proc, theSite);
-						problem.hardwareGraph.add(proc);
-						// add reverse mapping
-						procToHardware.put(ci, proc);
-					}
-				} else {
-					// report processor without capacity
-					warning(ci, "Processor " + ci.getComponentInstancePath()
-							+ "has no MIPS capacity. Not used in allocation.");
+				// the createInstance method already assigns a default MIPS if none exists
+				double mips = GetProperties.getProcessorMIPS(ci);
+				// checking consistency;
+				existsProcessorWithMIPS |= (mips != 0);
+				existsProcessorWithoutMIPS |= (mips == 0);
 
+				final AADLProcessor proc = AADLProcessor.createInstance(ci);
+				if (proc != null) {
+					System.out.println("Processor cycles Per sec:" + proc.getCyclesPerSecond());
+					siteArchitecture.addSiteGuest(proc, theSite);
+					problem.hardwareGraph.add(proc);
+					// add reverse mapping
+					procToHardware.put(ci, proc);
 				}
 			}
 		};
@@ -456,6 +469,12 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				}
 
 				final AADLThread thread = AADLThread.createInstance(ci);
+				double refmips = GetProperties.getReferenceMIPS(ci);
+
+				// validate consistency
+				existsThreadWithReferenceProcessor |= (refmips != 0);
+				existsThreadWithoutReferenceProcessor |= (refmips == 0);
+
 				problem.softwareGraph.add(thread);
 //				logInfo(thread.getReport());
 				// add reverse mapping
@@ -484,6 +503,39 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			}
 		};
 		addThreads.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
+
+		/*
+		 * MIPS consistency rules:
+		 * 
+		 * Either all threads have reference processor with mips and all processors have mips spec or
+		 * None of the threads and processors have any mips specification and we can use the default mips
+		 */
+
+		// only some processors have mips
+		if (existsProcessorWithMIPS && existsProcessorWithoutMIPS) {
+			errManager.error(root, "Not all processors have MIPSCapacity");
+			return null;
+		}
+		// only some threads with reference processor
+		if (existsThreadWithReferenceProcessor && existsThreadWithoutReferenceProcessor) {
+			errManager.error(root, "Not all threads have execution time reference processor");
+			return null;
+		}
+
+		// threads and processors mips spec not consistent
+		if (existsProcessorWithMIPS && existsThreadWithoutReferenceProcessor) {
+			errManager
+					.error(root,
+							"There are some processors with MIPSCapacity but some threads without execution time reference processors");
+			return null;
+		}
+
+		if (existsProcessorWithoutMIPS && existsThreadWithReferenceProcessor) {
+			errManager
+					.error(root,
+							"There are some threads with execution time reference processors but not all processors have MIPSCapacity");
+			return null;
+		}
 
 		// Add thread connections (Messages)
 		for (final Iterator i = root.getAllConnectionInstances().iterator(); i.hasNext();) {

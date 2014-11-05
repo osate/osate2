@@ -19,40 +19,38 @@ public final class AADLThread extends SoftwareNode {
 	public static final long DEFAULT_PERIOD_NANOSECOND = 1L;
 
 	// cycles: cycles per dispatch
-	private AADLThread(final ComponentInstance thr, final long cycles,
-			final long period, final long deadline) {
+	private AADLThread(final ComponentInstance thr, final long cycles, final long period, final long deadline) {
 		super(cycles, period, deadline, thr.getName());
 		setSemanticObject(thr);
 	}
-	
+
 	public static AADLThread createInstance(final ComponentInstance thread) {
-		final long period = (long)GetProperties.getPeriodinNS(thread);
+		final long period = (long) GetProperties.getPeriodinNS(thread);
 
 		long deadline;
 		long cycles = 0;
-		try
-		{
-			deadline = (long)GetProperties.getDeadlineinNS(thread);
-		}
-		catch (PropertyNotPresentException e)
-		{
+		try {
+			deadline = (long) GetProperties.getDeadlineinNS(thread);
+		} catch (PropertyNotPresentException e) {
 			deadline = 0;
 		}
-		
-		double instructionsperdispatch = GetProperties.getSpecifiedThreadInstructionsinIPD(thread);
-		if (instructionsperdispatch == 0){
-			double mips = GetProperties.getThreadExecutioninMIPS(thread);
-			 if (mips == 0){
-				 mips = GetProperties.getMIPSBudgetInMIPS(thread);
-			 }
-			if (mips > 0){
-				// mips per sec, period in ns. cycles per period => mips / # dispatches * M
-				cycles = (long) (mips * period /1000);
-			}
-		} else {
-			cycles = (long) instructionsperdispatch ;
-		}
-	
+
+//		double instructionsperdispatch = GetProperties.getSpecifiedThreadInstructionsinIPD(thread);
+//		if (instructionsperdispatch == 0){
+//			double mips = GetProperties.getThreadExecutioninMIPS(thread);
+//			 if (mips == 0){
+//				 mips = GetProperties.getMIPSBudgetInMIPS(thread);
+//			 }
+//			if (mips > 0){
+//				// mips per sec, period in ns. cycles per period => mips / # dispatches * M
+//				cycles = (long) (mips * period /1000);
+//			}
+//		} else {
+//			cycles = (long) instructionsperdispatch ;
+//		}
+
+		cycles = (long) GetProperties.getThreadExecutionInCycles(thread, Binpack.defaultMIPS);
+
 		return new AADLThread(thread, cycles, period, deadline);
 	}
 
@@ -60,9 +58,10 @@ public final class AADLThread extends SoftwareNode {
 	public ComponentInstance getThread() {
 		return (ComponentInstance) getSemanticObject();
 	}
-	
-	public String getReport(){
-		return "Thread "+this.name+" instructions "+this.cycles+" instr per sec "+this.cyclesPerSecond+" Period "+this.period+" Deadline "+this.deadline;
+
+	public String getReport() {
+		return "Thread " + this.name + " instructions " + this.cycles + " instr per sec " + this.cyclesPerSecond
+				+ " Period " + this.period + " Deadline " + this.deadline;
 	}
-	
+
 }

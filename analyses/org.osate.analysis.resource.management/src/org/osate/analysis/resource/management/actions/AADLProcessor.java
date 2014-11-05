@@ -4,14 +4,15 @@ package org.osate.analysis.resource.management.actions;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.analysis.binpacking.rma.RMASchedulerNew;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import EAnalysis.BinPacking.BandwidthComparator;
+import EAnalysis.BinPacking.DMScheduler;
 import EAnalysis.BinPacking.EDFScheduler;
 import EAnalysis.BinPacking.NetInterface;
 import EAnalysis.BinPacking.Processor;
+import EAnalysis.BinPacking.RMScheduler;
 import EAnalysis.BinPacking.Scheduler;
 
 /**
@@ -47,9 +48,8 @@ public final class AADLProcessor extends Processor {
 	 * @param sched The scheduler to use.
 	 * @param cyclesPerSecond The processor's speed in cycles per second.
 	 */
-	private AADLProcessor(final ComponentInstance proc, final Scheduler sched,
-			final double cyclesPerSecond) {
-		super(proc.getName(), sched, cyclesPerSecond, new NetInterface[]{new NetInterface(new AADLBus())});
+	private AADLProcessor(final ComponentInstance proc, final Scheduler sched, final double cyclesPerSecond) {
+		super(proc.getName(), sched, cyclesPerSecond, new NetInterface[] { new NetInterface(new AADLBus()) });
 		setSemanticObject(proc);
 
 		// Not worrying about site architecture
@@ -65,7 +65,10 @@ public final class AADLProcessor extends Processor {
 	public static AADLProcessor createInstance(final ComponentInstance proc) {
 		final Scheduler scheduler = getScheduler(proc);
 		if (scheduler != null) {
-			final double instructionsPerSecond = GetProperties.getProcessorMIPS(proc)*1e6 ; 
+			double instructionsPerSecond = GetProperties.getProcessorMIPS(proc) * 1e6;
+			if (instructionsPerSecond == 0) {
+				instructionsPerSecond = Binpack.defaultMIPS * 1e6;
+			}
 			return new AADLProcessor(proc, scheduler, instructionsPerSecond);
 		} else {
 			return null;
@@ -74,12 +77,9 @@ public final class AADLProcessor extends Processor {
 
 	private static Scheduler getScheduler(final ComponentInstance proc) {
 		final String sched;
-		try
-		{
+		try {
 			sched = GetProperties.getSchedulingProtocol(proc);
-		}
-		catch (PropertyNotPresentException e)
-		{
+		} catch (PropertyNotPresentException e) {
 			// No scheduler specified, use EDF
 			return new EDFScheduler(new BandwidthComparator());
 		}
@@ -91,15 +91,23 @@ public final class AADLProcessor extends Processor {
 			if (sched.equals(AadlProject.EDF_LITERAL)) {
 				return new EDFScheduler(new BandwidthComparator());
 			} else if (sched.equals(AadlProject.RMS_LITERAL)) {
-				return new RMASchedulerNew();
+				return new RMScheduler(); // new RMASchedulerNew();
+			} else if (sched.equals(AadlProject.DMS_LITERAL)) {
+				return new DMScheduler();
 			} else {
 				return null;
 			}
 		}
 	}
-	
-	public String getReport(){
-		String res = "Processor "+this.name + " instructions per second "+this.cyclesPerSecond+" Scheduler "+(this.scheduler instanceof EDFScheduler?"EDF":"RMS");
+
+	public String getReport() {
+		String res = "Processor "
+				+ this.name
+				+ " instructions per second "
+				+ this.cyclesPerSecond
+				+ " Scheduler "
+				+ (this.scheduler instanceof EDFScheduler ? "EDF" : (this.scheduler instanceof RMScheduler ? "RMS"
+						: "DMS"));
 		return res;
 	}
 }

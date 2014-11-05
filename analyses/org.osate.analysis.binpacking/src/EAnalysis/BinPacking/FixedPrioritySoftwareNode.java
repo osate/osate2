@@ -1,7 +1,6 @@
 package EAnalysis.BinPacking;
 
-public class FixedPrioritySoftwareNode extends SoftwareNode implements
-		FixedPriorityProcessingLoad {
+public class FixedPrioritySoftwareNode extends SoftwareNode implements FixedPriorityProcessingLoad {
 	long priority = 0;
 
 	public void setPriority(long p) {
@@ -22,15 +21,17 @@ public class FixedPrioritySoftwareNode extends SoftwareNode implements
 		return completionTime;
 	}
 
-	public FixedPrioritySoftwareNode(long priority, long cycles, long period,
-			long deadline) {
+	public FixedPrioritySoftwareNode(long priority, long cycles, long period, long deadline) {
 		super(cycles, period, deadline);
 		this.priority = priority;
 	}
 
-	public FixedPrioritySoftwareNode(long priority, long cycles, long period,
-			long deadline, String name) {
+	public FixedPrioritySoftwareNode(long priority, long cycles, long period, long deadline, String name) {
 		super(cycles, period, deadline, name);
 		this.priority = priority;
+	}
+
+	public FixedPrioritySoftwareNode(long cycles, long period, long deadline, String name) {
+		super(cycles, period, deadline, name);
 	}
 }

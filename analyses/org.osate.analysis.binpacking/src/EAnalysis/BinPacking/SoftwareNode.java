@@ -4,8 +4,7 @@ import java.math.BigInteger;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-public class SoftwareNode implements ProcessingLoad, Cloneable,
-		BandwidthCompressor {
+public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, BandwidthCompressor {
 	static long nextUniqueID = 0;
 
 	long uniqueID = 0;
@@ -90,7 +89,7 @@ public class SoftwareNode implements ProcessingLoad, Cloneable,
 	 * return the required bandwidth in cycles/second
 	 */
 	public double getBandwidth() {
-		return cycles / (period / 1000000000.0);
+		return (double) cycles / ((double) period / 1000000000.0);
 	}
 
 	/**
@@ -150,7 +149,7 @@ public class SoftwareNode implements ProcessingLoad, Cloneable,
 	public SoftwareNode(long cycles, long period, long deadline) {
 		this();
 		this.cycles = cycles;
-		if (period == 0){
+		if (period == 0) {
 			period = 1;
 		}
 		this.period = period;
@@ -170,15 +169,23 @@ public class SoftwareNode implements ProcessingLoad, Cloneable,
 		this.name = name;
 	}
 
-	public SoftwareNode(long cycles, long period, long deadline,
-			Comparator messageComparator) {
+	public SoftwareNode(long cycles, long period, long deadline, Comparator messageComparator) {
 		this(cycles, period, deadline);
 		messages = new TreeMap(messageComparator);
 	}
 
-	public SoftwareNode(long cycles, long period, long deadline,
-			Comparator messageComparator, String name) {
+	public SoftwareNode(long cycles, long period, long deadline, Comparator messageComparator, String name) {
 		this(cycles, period, deadline, messageComparator);
 		this.name = name;
+	}
+
+	long priority = 0;
+
+	public void setPriority(long priority) {
+		this.priority = priority;
+	}
+
+	public long getPriority() {
+		return priority;
 	}
 }

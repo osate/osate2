@@ -55,7 +55,7 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 	/**
 	 * Speed: either cycles per second or bits per second.
 	 */
-	public double cyclesPerSecond;
+	public double cyclesPerSecond = 0.0;
 
 	/**
 	 * cycles per second.
@@ -105,8 +105,8 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 		/* check to see if it fits */
 
 		boolean b = scheduler.addIfFeasible(sNode);
-		// 	if (b && sNode instanceof SoftwareNode )
-		// 	    BinPackerTester.progress += ( sNode instanceof CompositeSoftNode) ?
+		// if (b && sNode instanceof SoftwareNode )
+		// BinPackerTester.progress += ( sNode instanceof CompositeSoftNode) ?
 		// ((CompositeSoftNode)sNode).getBasicComponents().size() : 1;
 		return b;
 	}
@@ -121,10 +121,8 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 
 	public boolean canReplace(HardwareNode other) {
 		/* compatibles */
-		if (other.getClass().isAssignableFrom(getClass())
-				|| getClass().isAssignableFrom(other.getClass())) {
-			Scheduler sched = (Scheduler) ((BaseScheduler) other.scheduler)
-					.clone();
+		if (other.getClass().isAssignableFrom(getClass()) || getClass().isAssignableFrom(other.getClass())) {
+			Scheduler sched = (Scheduler) ((BaseScheduler) other.scheduler).clone();
 			sched.setHardwareNode(this);
 			if (sched.isSchedulable(other.getTaskSet())) {
 				return true;
@@ -133,5 +131,9 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 		return false;
 	}
 
-}
+	public double getCyclesPerSecond() {
+		// TODO Auto-generated method stub
+		return cyclesPerSecond;
+	}
 
+}
