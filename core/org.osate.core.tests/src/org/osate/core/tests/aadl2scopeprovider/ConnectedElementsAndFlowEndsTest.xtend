@@ -155,7 +155,7 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 			    fgproto1: feature group fgt2;
 			    subpgproto1: subprogram group subpg1;
 			  features
-			    param1: in parameter;
+			    param1: in out parameter;
 			    af4: feature;
 			    fg4: feature group fgt2;
 			    fg5: feature group fgproto1;

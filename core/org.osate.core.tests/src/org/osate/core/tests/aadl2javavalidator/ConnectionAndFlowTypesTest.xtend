@@ -951,9 +951,9 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 						--Subcomponent.DataAccess
 						portconn62: port asub1.da3 -> asub1.dp3;
 						--Subcomponent.Port
-						portconn63: port asub1.ep5 -> asub1.ep6;
+						portconn63: port asub1.ep6 -> asub1.ep5;
 						--Subcomponent.DataPort
-						portconn64: port asub1.dp3 -> asub1.dp4;
+						portconn64: port asub1.dp4 -> asub1.dp3;
 						--Subcomponent.EventDataPort
 						portconn65: port asub1.edp6 -> asub1.dp4;
 						
@@ -1014,17 +1014,17 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 					
 					subprogram subpcontainer
 					features
-						param1: in parameter a1.i;
+						param1: in out parameter a1.i;
 						param2: in parameter d1;
 						param5: out parameter;
 						af2: feature;
 						fg2: feature group;
 						subpa1: requires subprogram access subpcontainer;
 						da2: requires data access d1;
-						ep3: in event port;
+						ep3: in out event port;
 						ep4: out event port;
 						edp4: in event data port d1;
-						edp5: out event data port;
+						edp5: in out event data port;
 					flows
 						--Parameter
 						fsource18: flow source param5;
@@ -1264,12 +1264,12 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 						subpa2: requires subprogram access subpcontainer;
 						af3: feature;
 						fg3: feature group;
-						ep5: in event port;
-						ep6: out event port;
-						dp3: in data port d1;
-						dp4: out data port d1;
+						ep5: in out event port;
+						ep6: in out event port;
+						dp3: in out data port d1;
+						dp4: in out data port d1;
 						dp5: in out data port d1;
-						edp6: in event data port d1;
+						edp6: in out event data port d1;
 					end a1;
 					
 					abstract implementation a1.i
@@ -1363,14 +1363,11 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 						"A data subcomponent cannot refer to an abstract implementation that contains a subprogram group subcomponent.",
 						"A data subcomponent cannot refer to an abstract type that contains a provides data access.",
 						"A data subcomponent cannot refer to an abstract type that contains a requires data access.",
-						"A data subcomponent cannot refer to an abstract type that contains an in out data port.",
-						"A data subcomponent cannot refer to an abstract type that contains an in event port.",
 						"A data subcomponent cannot refer to an abstract type that contains a provides bus access.",
-						"A data subcomponent cannot refer to an abstract type that contains an in event data port.",
-						"A data subcomponent cannot refer to an abstract type that contains an in data port.",
-						"A data subcomponent cannot refer to an abstract type that contains an out data port.",
-						"A data subcomponent cannot refer to an abstract type that contains an out event port.",
-						"A data subcomponent cannot refer to an abstract type that contains a requires bus access."
+						"A data subcomponent cannot refer to an abstract type that contains a requires bus access.",
+						"A data subcomponent cannot refer to an abstract type that contains an in out data port.",
+						"A data subcomponent cannot refer to an abstract type that contains an in out event port.",
+						"A data subcomponent cannot refer to an abstract type that contains an in out event data port."
 					)
 				]
 				ownedAccessConnections.get(5) => [
