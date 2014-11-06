@@ -5513,8 +5513,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	public String hasDuplicatesPropertySet(PropertySet propSet) {
 		// project dependency based global scope
-		List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(propSet);
-		if (!findings.isEmpty()) {
+		if (!propSet.getName().equals("AADL_Project")) {
+			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(propSet);
+			if (!findings.isEmpty()) {
 //				if (propSet.getName().equals("AADL_Project"))
 //				{
 //					IAadlWorkspace workspace;
@@ -5530,7 +5531,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //					}
 //
 //				}
-			return getNames(findings);
+				return getNames(findings);
+			}
 		}
 		return null;
 	}
