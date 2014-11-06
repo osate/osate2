@@ -19,6 +19,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
@@ -799,7 +800,7 @@ public class EMFIndexRetrieval {
 			if (eod.getQualifiedName().toString("::").equalsIgnoreCase(name)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, resourceSet);
-				if (!Aadl2Util.isNull(res)) {
+				if (!Aadl2Util.isNull(res) && res instanceof NamedElement) {
 					return res;
 				}
 			}
