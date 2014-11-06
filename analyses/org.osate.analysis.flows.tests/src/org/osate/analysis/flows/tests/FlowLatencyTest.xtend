@@ -37,7 +37,7 @@ class FlowLatencyTest extends OsateTest {
 		assertTrue('', cls.exists[name == 'stub.i'])
 
 		// instantiate
-		val sysImpl = cls.filter[name == 'stub.i'].head as SystemImplementation
+		val sysImpl = cls.findFirst[name == 'stub.i'] as SystemImplementation
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 		assertEquals("stub_i_Instance", instance.name)
 
