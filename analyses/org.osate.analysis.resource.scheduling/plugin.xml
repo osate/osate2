@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+     <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.osate.analysis.resource.scheduling.actionSet"
+            label="%actionSet.label"
+            visible="false">
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+ 
+        <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>           
+
+         <menu
+               id="menu.rsrc"
+               label="Scheduling"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+         </menu>
+         
+         
+         <action
+               id="org.osate.analysis.resource.scheduling.actions.ScheduleResource.action"
+               label="Schedule a bound system"
+               tooltip="%Schedule.toolTip"
+               icon="%Schedule.icon"
+               disabledIcon="%Schedule.disabledIcon"
+               class="org.osate.analysis.resource.scheduling.actions.ScheduleResource"
+               menubarPath="menu.analyses/menu.rsrc/stuff.grp"
+               enablesFor="1">
+         </action>            
+      </actionSet>      
+      </extension>
+      
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="org.osate.analysis.resource.scheduling.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+      
+      
+      
+      <extension
+         id="ResourceScheduleObjectMarker"
+         name="Resource Scheduling Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+         <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+         <persistent value="true"/>
+      </extension>
+</plugin>
