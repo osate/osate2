@@ -256,7 +256,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		layoutAll(shape);
 		updateAnchors(shape);
 		
-		layoutService.checkContainerSize((ContainerShape)context.getPictogramElement());
+		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
+			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		}
 	}
 
 	@Override

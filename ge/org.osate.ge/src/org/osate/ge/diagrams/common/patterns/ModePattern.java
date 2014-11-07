@@ -175,7 +175,9 @@ public class ModePattern extends AgeLeafShapePattern {
 			updateModeTransition(anchor.getOutgoingConnections());
 		}
 		
-		resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement());
+		if(resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement())) {
+			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		}
 	}
 	
 	// Updates the control points for mode transition connections. Also update the mode transition triggers. 

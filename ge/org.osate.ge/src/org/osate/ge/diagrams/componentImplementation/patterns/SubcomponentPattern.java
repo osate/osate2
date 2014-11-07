@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -55,6 +56,7 @@ import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
+import org.osate.ge.diagrams.common.patterns.ClassifierPattern;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -151,7 +153,7 @@ public class SubcomponentPattern extends AgePattern {
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
-	
+
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object mainBusinessObject) {
 		return subcomponentType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
@@ -190,7 +192,9 @@ public class SubcomponentPattern extends AgePattern {
 		final Subcomponent sc = (Subcomponent)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		this.refresh(shape, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
 		
-		layoutService.checkContainerSize(shape);
+		if(layoutService.checkContainerSize(shape)) {
+			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		}
 		
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
@@ -198,7 +202,9 @@ public class SubcomponentPattern extends AgePattern {
 
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
-		layoutService.checkContainerSize((ContainerShape)context.getPictogramElement());
+		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
+			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		}
 	}
 	
 	@Override
@@ -254,6 +260,7 @@ public class SubcomponentPattern extends AgePattern {
 		// Remove invalid shapes
 		visibilityHelper.ghostInvalidShapes(shape);
 
+// TODO: Marker
 		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
 		childShapesToGhost.addAll(visibilityHelper.getNonGhostChildren(shape));
 

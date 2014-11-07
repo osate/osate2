@@ -15,20 +15,24 @@ import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.LayoutService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.VisibilityService;
 
 public class DefaultLayoutService implements LayoutService {
+	private final PropertyService propertyService;
 	private final VisibilityService visibilityService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	
-	public DefaultLayoutService(final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public DefaultLayoutService(final PropertyService propertyService, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+		this.propertyService = propertyService;
 		this.visibilityService = visibilityHelper;
 		this.bor = bor;
 		this.fp = fp;
@@ -38,26 +42,14 @@ public class DefaultLayoutService implements LayoutService {
 	 * @see org.osate.ge.diagrams.common.util.ResizeService#checkContainerSize(org.eclipse.graphiti.mm.pictograms.ContainerShape)
 	 */
 	@Override
-	public void checkContainerSize(final ContainerShape shape) {
-		// Check if the shape is entirely in the container
-		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		final int endX = ga.getX() + ga.getWidth();
-		final int endY = ga.getY() + ga.getHeight();
-		final ContainerShape container = shape.getContainer();
-		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
-		if(ga.getX() < 0 || ga.getY() < 0 || containerGa.getWidth() < endX || containerGa.getHeight() < endY) {
-			// Call the update feature on the container to adjust the size
-			final UpdateContext context = new UpdateContext(container);
-			final IUpdateFeature feature = fp.getUpdateFeature(context);
-			if(feature != null) {
-				if(feature.canUpdate(context)) {
-					feature.update(context);
-					
-					// Refresh the diagram visualization
-					fp.getDiagramTypeProvider().getDiagramBehavior().refresh();
-				}
-			}
+	public boolean checkContainerSize(final ContainerShape shape) {
+		final ContainerShape container = shape.getContainer();		
+		if(checkSize(container)) {
+			checkContainerSize(container);			
+			return true;
 		}		
+		
+		return false;
 	}
 	
 	/* (non-Javadoc)
@@ -65,7 +57,11 @@ public class DefaultLayoutService implements LayoutService {
 	 */
 	@Override
 	public boolean checkSize(final ContainerShape container) {
-		boolean updateShape = false;
+		if(container instanceof Diagram) {
+			return false;
+		}
+		
+		boolean layoutShape = false;
 		
 		// Check if the shape is entirely in the container
 		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
@@ -74,20 +70,17 @@ public class DefaultLayoutService implements LayoutService {
 			final int endX = childGa.getX() + childGa.getWidth();
 			final int endY = childGa.getY() + childGa.getHeight();
 			if(childGa.getX() < 0 || childGa.getY() < 0 || containerGa.getWidth() < endX || containerGa.getHeight() < endY) {
-				updateShape = true;
+				layoutShape = true;
 				break;
 			}	
 		}
 		
-		if(updateShape) {
-			// Call the update feature on the shape to adjust the size
-			final UpdateContext context = new UpdateContext(container);
-			final IUpdateFeature feature = fp.getUpdateFeature(context);
-			if(feature != null) {
-				if(feature.canUpdate(context)) {
-					feature.update(context);
-					return true;
-				}
+		if(layoutShape) {
+			final LayoutContext context = new LayoutContext(container);
+			final ILayoutFeature feature = fp.getLayoutFeature(context);
+			if(feature != null && feature.canLayout(context)) {
+				feature.layout(context);
+				return true;
 			}
 		}
 		
@@ -125,40 +118,49 @@ public class DefaultLayoutService implements LayoutService {
 		// Determine how much to shift the X and Y of the children by based on the position of children shapes that are not tied to features. Shift values must always be greater than or equal to 0
 		int shiftX = 0;
 		int shiftY = 0;
-		for(final Shape childShape : shape.getChildren()) {
-			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+		//for(final Shape childShape : shape.getChildren()) {
+		for(final Shape childShape :  visibilityService.getNonGhostChildren(shape)) {
 			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
-			if(childBo != null) {
-				// Currently features are only allowed to be on the left and right edges so don't take them into account when deciding to shift left or right
-				// TODO: When features are allowed to be snapped to the top and bottom, need to take into account feature position
-				if(!isFeature(childBo)) {
-					shiftX = Math.max(shiftX, featureWidth - childGa.getX());		
+			final boolean childIsFeature = isFeature(childBo);
+			
+			if(!propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
+				final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+				if(childBo != null) {
+					// Currently features are only allowed to be on the left and right edges so don't take them into account when deciding to shift left or right
+					// TODO: When features are allowed to be snapped to the top and bottom, need to take into account feature position
+					if(!childIsFeature) {
+						shiftX = Math.max(shiftX, featureWidth - childGa.getX());		
+					}
+					
+					shiftY = Math.max(shiftY, 30-childGa.getY());				
 				}
-				
-				shiftY = Math.max(shiftY, 30-childGa.getY());				
 			}
 		}
 		
 		// Calculate max width and height
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-		int maxWidth = Math.max(300, shapeGa == null ? 0 : (shapeGa.getWidth() + shiftX));
-		int maxHeight = Math.max(325, shapeGa == null ? 0 : (shapeGa.getHeight() + shiftY));
-		
-		for(final Shape childShape : shape.getChildren()) {
-			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-			
-			// TODO: Will need to consider with instead of height of features if features are snapped to top or bottom
-			// Determine the needed width and height of the classifier shape
-			// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
+		int maxWidth = Math.max(150, shapeGa == null ? 0 : (shapeGa.getWidth() + shiftX));
+		int maxHeight = Math.max(50, shapeGa == null ? 0 : (shapeGa.getHeight() + shiftY));
+
+		//for(final Shape childShape : shape.getChildren()) {
+		for(final Shape childShape :  visibilityService.getNonGhostChildren(shape)) {
 			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
-			if(childBo != null && !isFeature(childBo)) {				
-				maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() + shiftX + featureWidth);
-			}			
-			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + 25);
-			
-			// Update the position of the child
-			childGa.setX(childGa.getX()+shiftX);
-			childGa.setY(childGa.getY()+shiftY);
+			final boolean childIsFeature = isFeature(childBo);
+			if(propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
+				final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+				
+				// TODO: Will need to consider with instead of height of features if features are snapped to top or bottom
+				// Determine the needed width and height of the classifier shape
+				// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
+				if(!childIsFeature) {	
+					maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() + shiftX + featureWidth);
+				}			
+				maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + 25);
+				
+				// Update the position of the child
+				childGa.setX(childGa.getX()+shiftX);
+				childGa.setY(childGa.getY()+shiftY);
+			}
 		}
 
 		return new int[] { maxWidth, maxHeight };

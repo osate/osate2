@@ -48,13 +48,13 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 
 	@Override
-	public void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes) {
-		createUpdateShapesForElements(shape, modes, 80, false, 25, 25, true, 5);
+	public void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes, final Collection<Shape> touchedShapes) {
+		createUpdateShapesForElements(shape, modes, 80, false, 25, 25, true, 5, touchedShapes);
 	}
 	
 	@Override
-	public void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
-		createUpdateShapesForElements(shape, elements, startX, incX, xPadding, startY, incY, yPadding, false, null);
+	public void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding, final Collection<Shape> touchedShapes) {
+		createUpdateShapesForElements(shape, elements, startX, incX, xPadding, startY, incY, yPadding, false, touchedShapes);
 	}
 	
 	/**
@@ -84,6 +84,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 				addContext.setX(childX);
 				addContext.setY(childY);
 				final IAddFeature feature = fp.getAddFeature(addContext);
+				
 				if(feature != null && feature.canAdd(addContext)) {
 					pictogramElement = feature.add(addContext);
 					if(incX) {
@@ -178,7 +179,9 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			propertyService.setIsLayedOut(newShape, true);
 			
 			// Update the size of the container
-			layoutService.checkContainerSize((ContainerShape)newShape);
+			if(layoutService.checkContainerSize((ContainerShape)newShape)) {
+				fp.getDiagramTypeProvider().getDiagramBehavior().refresh();
+			}
 		}
 
 		return newShape;

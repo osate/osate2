@@ -31,11 +31,11 @@ public interface ShapeCreationService {
 	void createUpdateFeatureShapes(ContainerShape shape,
 			List<? extends NamedElement> features, Collection<Shape> touchedShapes);
 	
-	void createUpdateModeShapes(ContainerShape shape, List<Mode> modes);
+	void createUpdateModeShapes(ContainerShape shape, List<Mode> modes, final Collection<Shape> touchedShapes);
 
 	void createUpdateShapesForElements(ContainerShape shape,
 			List<? extends NamedElement> elements, int startX, boolean incX,
-			int xPadding, int startY, boolean incY, int yPadding);
+			int xPadding, int startY, boolean incY, int yPadding, final Collection<Shape> touchedShapes);
 	
 	/**
 	 * Create a shape for the specified element in the specified container if one does not exist. Otherwise, it sets the shapes position.

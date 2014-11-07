@@ -185,6 +185,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		// Use the resize helper to resize the shape
 		if(!(shape instanceof Diagram)) {
 			if(resizeHelper.checkSize(shape)) {
+				resizeHelper.checkContainerSize(shape);
 				updateVisualization = true;
 			}
 		}

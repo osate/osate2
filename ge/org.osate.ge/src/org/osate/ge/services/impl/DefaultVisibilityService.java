@@ -125,7 +125,7 @@ public class DefaultVisibilityService implements VisibilityService {
 				final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 
 				// If the business object is not valid, ghost the connection
-				if(!(bo instanceof EObject)) {
+				if(bo == null) {
 					ghost = true;
 				} else {				
 					// If there is not a pattern to update the connection, ghost it

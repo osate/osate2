@@ -177,7 +177,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addConnectionPattern(make(PackageGeneralizationPattern.class));
 		
 		addClassifierPatterns();		
-		addSubcomponentPatterns();
+		//addSubcomponentPatterns();
 		addAadlConnectionPatterns();
 		
 		// Classifiers
@@ -201,7 +201,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this, styleProviderService);
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
-		final DefaultLayoutService layoutService = new DefaultLayoutService(visibilityHelper, bor, this);
+		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, visibilityHelper, bor, this);
 		final DefaultShapeService shapeHelper = new DefaultShapeService(propertyUtil, visibilityHelper, bor);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
