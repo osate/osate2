@@ -54,6 +54,7 @@
             </enablement>
          </action>
          
+         <!--
          <action
                id="org.osate.analysis.resource.management.actions.Schedule.action"
                label="%Schedule.label"
@@ -74,6 +75,7 @@
                </or>
             </enablement>
          </action>
+         -->
          
          <action
                id="org.osate.analysis.resource.management.actions.Binpack.action"
