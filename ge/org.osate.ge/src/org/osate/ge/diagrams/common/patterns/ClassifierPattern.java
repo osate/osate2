@@ -8,22 +8,31 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.patterns;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -33,6 +42,8 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -40,31 +51,39 @@ import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
+import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
+import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.LayoutService;
+import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
+import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.ui.util.ComponentImplementationHelper;
+import org.osate.ge.util.StringUtil;
 
 /**
  * A pattern for top level classifier shapes as well as subcomponents.
  * @author philip.alldredge
  */
 public class ClassifierPattern extends AgePattern {
-	
+	private static LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final String labelShapeName = "label";
 	private static final String subcomponentTypeLabelShapeName = "subcomponent_type_label";
 	private final VisibilityService visibilityHelper;
@@ -80,13 +99,46 @@ public class ClassifierPattern extends AgePattern {
 	private final AadlArrayService arrayService;
 	private final HighlightingService highlightingService;
 	private final AnchorService anchorService;
+	private final AadlModificationService aadlModService;
+	private final NamingService namingService;
+	private final DiagramModificationService diagramModService;
+	private final UserInputService userInputService;
+	private final RefactoringService refactoringService;
 	private final BusinessObjectResolutionService bor;
+	private final EClass subcomponentType; // The subcomponent the pattern is responsible for handling. null if the pattern is for handling a classifier.
+	
+	/**
+	 * Populate the map that contains the subcomponent type to create method name mapping
+	 */
+	static {
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		subcomponentTypeToCreateMethodNameMap.put(p.getAbstractSubcomponent(), "createOwnedAbstractSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getBusSubcomponent(), "createOwnedBusSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getDataSubcomponent(), "createOwnedDataSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getDeviceSubcomponent(), "createOwnedDeviceSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getMemorySubcomponent(), "createOwnedMemorySubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getProcessSubcomponent(), "createOwnedProcessSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getProcessorSubcomponent(), "createOwnedProcessorSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getSubprogramSubcomponent(), "createOwnedSubprogramSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getSubprogramGroupSubcomponent(), "createOwnedSubprogramGroupSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getSystemSubcomponent(), "createOwnedSystemSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getThreadSubcomponent(), "createOwnedThreadSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getThreadGroupSubcomponent(), "createOwnedThreadGroupSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getVirtualBusSubcomponent(), "createOwnedVirtualBusSubcomponent");
+		subcomponentTypeToCreateMethodNameMap.put(p.getVirtualProcessorSubcomponent(), "createOwnedVirtualProcessorSubcomponent");
+	}
+	
+	public static Collection<EClass> getSubcomponentTypes() {
+		return subcomponentTypeToCreateMethodNameMap.keySet();
+	}
 	
 	@Inject
 	public ClassifierPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeService shapeService, final ShapeCreationService shapeCreationService,
 			final AadlFeatureService featureService, final SubcomponentService subcomponentService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final PropertyService propertyService, final AadlArrayService arrayService,
-			final HighlightingService highlightingService, final AnchorService anchorService, final BusinessObjectResolutionService bor) {
+			final HighlightingService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
+			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, final BusinessObjectResolutionService bor, 
+			final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = layoutService;
 		this.shapeService = shapeService;
@@ -100,7 +152,13 @@ public class ClassifierPattern extends AgePattern {
 		this.arrayService = arrayService;
 		this.highlightingService = highlightingService;
 		this.anchorService = anchorService;
+		this.aadlModService = aadlModService;
+		this.namingService = namingService;
+		this.diagramModService = diagramModService;
+		this.userInputService = userInputService;
+		this.refactoringService = refactoringService;
 		this.bor = bor;
+		this.subcomponentType = subcomponentType;
 	}
 	
 	@Override
@@ -108,10 +166,14 @@ public class ClassifierPattern extends AgePattern {
 		final Object bo = AadlElementWrapper.unwrap(mainBusinessObject);
 		return bo instanceof Classifier || bo instanceof Subcomponent;
 	}
-
-	@Override
-	public boolean isPaletteApplicable() {
-		return false;
+	
+	/**
+	 * Returns the first component implementation associated with the specified or a containing shape.
+	 * @param shape
+	 * @return
+	 */
+	private ComponentImplementation getComponentImplementation(final Shape shape) {
+		return shapeService.getClosestBusinessObjectOfType(shape, ComponentImplementation.class);
 	}
 	
 	@Override
@@ -449,5 +511,181 @@ public class ClassifierPattern extends AgePattern {
 		
 		return retVal;
 	}
+	
+	// Create
+	@Override
+	public boolean isPaletteApplicable() {
+		if(subcomponentType == null || !isComponentImplementationDiagram()) {
+			return false;
+		}
+		
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return ClassifierPattern.canContainSubcomponentType((ComponentImplementation)diagramBo, subcomponentType);
+	}
+	
+	@Override
+	public String getCreateName() {
+		return StringUtil.camelCaseToUser(subcomponentType.getName());
+	}
+		
+	@Override
+	public boolean canCreate(final ICreateContext context) {
+		if(subcomponentType == null) {
+			return false;
+		}
+		
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+		return !(context.getTargetContainer() instanceof Diagram) && (containerBo instanceof ComponentImplementation ? ClassifierPattern.canContainSubcomponentType((ComponentImplementation)containerBo, subcomponentType) : false);
+	}
+	
+	@Override
+	public Object[] create(final ICreateContext context) {
+		final Subcomponent newSubcomponent = aadlModService.modify(getComponentImplementation(context.getTargetContainer()), new AbstractModifier<ComponentImplementation, Subcomponent>() {
+			private DiagramModificationService.Modification diagramMod;
+			
+			@Override
+			public Subcomponent modify(final Resource resource, final ComponentImplementation ci) {
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			diagramMod.markRelatedDiagramsAsDirty(ci);
 
+				final String name = namingService.buildUniqueIdentifier(ci, "new_subcomponent");
+				final Subcomponent sc = createSubcomponent(ci, subcomponentType);
+				sc.setName(name);
+				
+				// Reset the no subcomponents flag
+				ci.setNoSubcomponents(false);
+			
+				return sc;
+			}
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final ComponentImplementation ci, final Subcomponent newSubcomponent) {
+				diagramMod.commit();
+				shapeCreationService.createShape(context.getTargetContainer(), newSubcomponent, context.getX(), context.getY());
+			}
+		});
+		
+		return newSubcomponent == null ? EMPTY : new Object[] {newSubcomponent};
+	}
+
+	/**
+	 * Returns whether the specified component implementation supports subcomponents of the specified type
+	 * @param subcomponentOwner
+	 * @param subcomponentClass
+	 * @return
+	 */
+	public static boolean canContainSubcomponentType(final ComponentImplementation subcomponentOwner, final EClass subcomponentClass) {
+		return getSubcomponentCreateMethod(subcomponentOwner, subcomponentClass) != null;
+	}
+	
+	private static Method getSubcomponentCreateMethod(final ComponentImplementation subcomponentOwner, final EClass subcomponentType) {
+		// Determine the method name of the type of subcomponent
+		final String methodName = subcomponentTypeToCreateMethodNameMap.get(subcomponentType);
+		if(methodName == null) {
+			return null;
+		}
+		
+		// Get the method
+		try {
+			final Method method = subcomponentOwner.getClass().getMethod(methodName);
+			return method;
+		} catch(final Exception ex) {
+			return null;
+		}
+	}
+	
+	public static Subcomponent createSubcomponent(final ComponentImplementation subcomponentOwner, final EClass subcomponentClass) {
+		try {
+			return (Subcomponent)getSubcomponentCreateMethod(subcomponentOwner, subcomponentClass).invoke(subcomponentOwner);
+		} catch (final Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	// Delete
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		final PictogramElement pe = context.getPictogramElement();
+		if(pe instanceof Shape) {		
+			final Shape shape = (Shape)pe;
+			final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+			if(bo instanceof Subcomponent) {	
+				final Subcomponent sc = (Subcomponent)bo;
+				final Object containerBo = bor.getBusinessObjectForPictogramElement(shape.getContainer());
+				return sc.getContainingClassifier() == containerBo;
+			}
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+		
+		final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		aadlModService.modify(sc, new AbstractModifier<Subcomponent, Object>() {
+			private DiagramModificationService.Modification diagramMod;
+			
+			@Override
+			public Object modify(final Resource resource, final Subcomponent sc) {
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			diagramMod.markRelatedDiagramsAsDirty(getComponentImplementation((Shape)context.getPictogramElement()));
+	 			
+				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
+				// cause errors.
+				EcoreUtil.remove(sc);
+				
+				return null;
+			}		
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final Subcomponent sc, final Object modificationResult) {
+				diagramMod.commit();
+			}
+		});
+				
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+	
+	// Renaming
+	@Override
+	public int getEditingType() {
+        return TYPE_TEXT;
+    }
+	
+    @Override
+    public String checkValueValid(final String value, final IDirectEditingContext context) {
+    	return namingService.checkNameValidity((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), value);
+    }
+ 
+    @Override
+    public boolean canDirectEdit(final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+        final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+        
+        // To be able to be renamed the subcomponent must be contained by the component implementation represented by the diagram and it must not be refined
+        if (bo instanceof Subcomponent && pe instanceof Shape && ga instanceof Text) {
+        	final Subcomponent sc = (Subcomponent)bo;
+        	return sc.getContainingClassifier() == getComponentImplementation((Shape)pe) && sc.getRefined() == null;
+        }
+        return false;
+    }
+    
+    public String getInitialValue(final IDirectEditingContext context) {
+    	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	return getSubcomponentName(sc);
+    }
+    
+    public void setValue(final String value, final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+    	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(pe);  	
+    	refactoringService.renameElement(sc, value);
+    }
 }

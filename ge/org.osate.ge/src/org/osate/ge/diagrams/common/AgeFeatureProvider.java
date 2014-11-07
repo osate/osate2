@@ -92,7 +92,6 @@ import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFe
 import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
 import org.osate.ge.diagrams.componentImplementation.patterns.ConnectionPattern;
-import org.osate.ge.diagrams.componentImplementation.patterns.SubcomponentPattern;
 import org.osate.ge.diagrams.pkg.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.diagrams.pkg.features.PackageUpdateDiagramFeature;
 import org.osate.ge.diagrams.pkg.patterns.PackageClassifierPattern;
@@ -176,12 +175,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Package
 		addConnectionPattern(make(PackageGeneralizationPattern.class));
 		
-		addClassifierPatterns();		
-		//addSubcomponentPatterns();
+		addPackageClassifierPatterns();		
 		addAadlConnectionPatterns();
 		
 		// Classifiers
-		addPattern(make(ClassifierPattern.class));
+		addPattern(createClassifierPattern(null));
+		addSubcomponentPatterns();
 	}
 	
 	private IEclipseContext createEclipseContext() {
@@ -351,7 +350,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(RefineSubcomponentFeature.class));
 		features.add(make(RefineConnectionFeature.class));
 		
-		for(final EClass subcomponentType : SubcomponentPattern.getSubcomponentTypes()) {
+		for(final EClass subcomponentType : ClassifierPattern.getSubcomponentTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
 			childCtx.set("Subcomponent Type", subcomponentType);
 			features.add(ContextInjectionFactory.make(ChangeSubcomponentTypeFeature.class, childCtx));	
@@ -578,10 +577,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return ContextInjectionFactory.make(ConnectionPattern.class, childCtx);
 	}
 	
-	private IPattern createSubcomponentPattern(final EClass scType) {
+	private IPattern createClassifierPattern(final EClass scType) {
 		final IEclipseContext childCtx = getContext().createChild();
 		childCtx.set("Subcomponent Type", scType);
-		return ContextInjectionFactory.make(SubcomponentPattern.class, childCtx);
+		return ContextInjectionFactory.make(ClassifierPattern.class, childCtx);
 	}
 		
 	/**
@@ -589,8 +588,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	protected final void addSubcomponentPatterns() {
 		// Create the subcomponent patterns
-		for(final EClass scType : SubcomponentPattern.getSubcomponentTypes()) {
-			this.addPattern(createSubcomponentPattern(scType));	
+		for(final EClass scType : ClassifierPattern.getSubcomponentTypes()) {
+			this.addPattern(createClassifierPattern(scType));	
 		}
 	}
 	
@@ -601,7 +600,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	// Package
-	private void addClassifierPatterns() {
+	private void addPackageClassifierPatterns() {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		addPattern(createPackageClassifierPattern(p.getAbstractType()));
 		addPattern(createPackageClassifierPattern(p.getAbstractImplementation()));
