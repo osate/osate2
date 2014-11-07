@@ -463,16 +463,4 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 		return bor.getBusinessObjectForPictogramElement(pe) instanceof org.osate.aadl2.Connection;
 	}
-	
-	
-	private boolean disablePrintFeature = Platform.WS_GTK.equals(Platform.getWS());
-	
-	@Override
-	public IPrintFeature getPrintFeature() {
-		// Disable the print feature when using GTK. This is a workaround for github issue #92
-		if(disablePrintFeature) {
-			return null;
-		}
-		return super.getPrintFeature();
-	}
 }
