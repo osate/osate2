@@ -32,6 +32,12 @@ public class CMAUtils {
 	public static final int SEVERITY_NOEFFECT = 5;
 	public static final int SEVERITY_UNKNOWN = 100;
 
+	private static String currentSeverity;
+
+	public static void setCurrentSeverity(String sev) {
+		currentSeverity = sev;
+	}
+
 	/**
 	 * The processState method is used to report all potential CMA report entry.
 	 * These entries are then added to the complete CMA report.
@@ -180,7 +186,7 @@ public class CMAUtils {
 		 */
 		Map<ComponentInstance, List<PropagationPathEnd>> errorSourcesDuplicatedFound = new HashMap<ComponentInstance, List<PropagationPathEnd>>();
 		for (ComponentInstance firstComponent : referencedInstances) {
-			
+
 			List<ComponentInstance> instancesDuplicates;
 			boolean foundInOther;
 			boolean duplicated;
@@ -194,7 +200,7 @@ public class CMAUtils {
 				List<PropagationPathEnd> errorSourcesduplicates = new ArrayList<PropagationPathEnd>();
 				instancesDuplicates = new ArrayList<ComponentInstance>();
 				duplicated = true;
-				for (int comp2Ind = 0 ; comp2Ind < referencedInstances.size() ; comp2Ind++) {
+				for (int comp2Ind = 0; comp2Ind < referencedInstances.size(); comp2Ind++) {
 					secondComponent = referencedInstances.get(comp2Ind);
 					foundInOther = false;
 
@@ -228,75 +234,71 @@ public class CMAUtils {
 				if (duplicated) {
 					boolean alreadyReported = false;
 
-					
-					if (errorSourcesDuplicatedFound.containsKey(firstComponent))
-					{
-						List<PropagationPathEnd> errorSourcesAlreadyFound = errorSourcesDuplicatedFound.get(firstComponent);
-						if (errorSourcesAlreadyFound.containsAll (errorSourcesduplicates))
-						{
-							alreadyReported = true; 
+					if (errorSourcesDuplicatedFound.containsKey(firstComponent)) {
+						List<PropagationPathEnd> errorSourcesAlreadyFound = errorSourcesDuplicatedFound
+								.get(firstComponent);
+						if (errorSourcesAlreadyFound.containsAll(errorSourcesduplicates)) {
+							alreadyReported = true;
 						}
 					}
-					
-					if (errorSourcesDuplicatedFound.containsKey(secondComponent))
-					{
-						List<PropagationPathEnd> errorSourcesAlreadyFound = errorSourcesDuplicatedFound.get(secondComponent);
-						if (errorSourcesAlreadyFound.containsAll (errorSourcesduplicates))
-						{
-							alreadyReported = true; 
+
+					if (errorSourcesDuplicatedFound.containsKey(secondComponent)) {
+						List<PropagationPathEnd> errorSourcesAlreadyFound = errorSourcesDuplicatedFound
+								.get(secondComponent);
+						if (errorSourcesAlreadyFound.containsAll(errorSourcesduplicates)) {
+							alreadyReported = true;
 						}
 					}
 
 					/**
 					 * This report entry has not been reported yet, so, we add it in the report.
 					 */
-					if (!alreadyReported) { 
+					if (!alreadyReported) {
 
-						CMAReportEntry entry; 
+						CMAReportEntry entry;
 						String justification;
 						String relatedFeatureName;
 
 						relatedFeatureName = EMV2Util.getPrintName(ppe1.getErrorPropagation());
 
 						entry = new CMAReportEntry();
-						entry.setSource("Technical Specification and its origin");
+						entry.setSource("Error source " + relatedFeatureName
+								+ EMV2Util.getPrintName(ppe1.getErrorPropagation().getTypeSet()));
 
-						justification = "The same error source (on " + relatedFeatureName + EMV2Util.getPrintName(ppe1.getErrorPropagation().getTypeSet()) +" on component " + ppe1.getComponentInstance().getQualifiedName()
-								 + " can impact the following components ";
+						justification = "The same error source (on " + relatedFeatureName
+								+ EMV2Util.getPrintName(ppe1.getErrorPropagation().getTypeSet()) + " on component "
+								+ ppe1.getComponentInstance().getQualifiedName()
+								+ " can impact the following components ";
 						for (int i = 0; i < instancesDuplicates.size(); i++) {
 							justification += instancesDuplicates.get(i).getName();
 							if (i < (instancesDuplicates.size() - 1)) {
 								justification += " and ";
 							}
+							entry.addRelatedComponent(instancesDuplicates.get(i));
 						}
 						entry.setJustification(justification);
 						entry.setMode("Safety Specification");
-						entry.setType(EntryType.SPECIFICATION);
+						entry.setType(EntryType.FAULT);
+						entry.setSeverity(currentSeverity);
 						result.add(entry);
 
 						List<PropagationPathEnd> duplicatesFound;
-						if (errorSourcesDuplicatedFound.containsKey(firstComponent))
-						{
+						if (errorSourcesDuplicatedFound.containsKey(firstComponent)) {
 							duplicatesFound = errorSourcesDuplicatedFound.get(firstComponent);
 							duplicatesFound.addAll(errorSourcesduplicates);
-						}
-						else
-						{
+						} else {
 							duplicatesFound = errorSourcesduplicates;
 						}
 						errorSourcesDuplicatedFound.put(firstComponent, duplicatesFound);
-						
-						if (errorSourcesDuplicatedFound.containsKey(secondComponent))
-						{
+
+						if (errorSourcesDuplicatedFound.containsKey(secondComponent)) {
 							duplicatesFound = errorSourcesDuplicatedFound.get(secondComponent);
 							duplicatesFound.addAll(errorSourcesduplicates);
-						}
-						else
-						{
+						} else {
 							duplicatesFound = errorSourcesduplicates;
 						}
 						errorSourcesDuplicatedFound.put(secondComponent, duplicatesFound);
-						
+
 					}
 				}
 			}
@@ -326,14 +328,12 @@ public class CMAUtils {
 					for (ComponentClassifier cl2 : componentClassifiers.get(ci2)) {
 						if (cl2 == cl) {
 							foundInOther = true;
-							if (!duplicatesContainer.contains(ci2))
-							{
-							duplicatesContainer.add(ci2);
+							if (!duplicatesContainer.contains(ci2)) {
+								duplicatesContainer.add(ci2);
 							}
-							
-							if (!duplicatesContainer.contains(ci))
-							{
-							duplicatesContainer.add(ci);
+
+							if (!duplicatesContainer.contains(ci)) {
+								duplicatesContainer.add(ci);
 							}
 						}
 					}
@@ -355,7 +355,7 @@ public class CMAUtils {
 						String justification;
 
 						entry = new CMAReportEntry();
-						entry.setSource("Technical Specification and its origin");
+						entry.setSource("System instance " + duplicatesContainer.get(0).getSystemInstance().getName());
 						justification = "Classifier (component type) " + cl.getName()
 								+ " is used within the following components: ";
 						for (int i = 0; i < duplicatesContainer.size(); i++) {
@@ -363,11 +363,16 @@ public class CMAUtils {
 							if (i < (duplicatesContainer.size() - 1)) {
 								justification += " and ";
 							}
+							entry.addRelatedComponent(duplicatesContainer.get(i));
+
 						}
 						entry.setJustification(justification);
 						entry.setMode("Defective specification");
 						entry.setType(EntryType.SPECIFICATION);
+
+						entry.setSeverity(currentSeverity);
 						result.add(entry);
+
 						classifierDuplicatedFound.put(cl, duplicatesContainer);
 					}
 				}
