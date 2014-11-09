@@ -138,7 +138,7 @@ public class CMAReportEntry {
 	public boolean equalsTo(Object o) {
 		if (o instanceof CMAReportEntry) {
 			CMAReportEntry other = (CMAReportEntry) o;
-			return (this.justification.equalsIgnoreCase(other.getJustification())
+			return (this.relatedComponents.containsAll(other.getRelatedComponents())
 					&& this.mode.equalsIgnoreCase(other.getMode()) && this.source.equalsIgnoreCase(other.getSource()));
 		}
 

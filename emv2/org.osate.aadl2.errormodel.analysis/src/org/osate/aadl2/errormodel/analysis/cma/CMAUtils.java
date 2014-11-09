@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class CMAUtils {
 
@@ -263,7 +264,8 @@ public class CMAUtils {
 
 						entry = new CMAReportEntry();
 						entry.setSource("Error source " + relatedFeatureName
-								+ EMV2Util.getPrintName(ppe1.getErrorPropagation().getTypeSet()));
+								+ EMV2Util.getPrintName(ppe1.getErrorPropagation().getTypeSet()) + " affecting "
+								+ componentInstance.getName());
 
 						justification = "The same error source (on " + relatedFeatureName
 								+ EMV2Util.getPrintName(ppe1.getErrorPropagation().getTypeSet()) + " on component "
@@ -299,6 +301,76 @@ public class CMAUtils {
 						}
 						errorSourcesDuplicatedFound.put(secondComponent, duplicatesFound);
 
+					}
+				}
+			}
+		}
+
+		/**
+		 * In the following, we try to find common processor bindings between ANDed components.
+		 */
+
+		for (ComponentInstance firstComponent : referencedInstances) {
+
+			for (ComponentInstance secondComponent : referencedInstances) {
+				if (firstComponent == secondComponent) {
+					continue;
+				}
+
+				for (ComponentInstance firstProcessor : GetProperties.getActualProcessorBinding(firstComponent)) {
+					for (ComponentInstance secondProcessor : GetProperties.getActualProcessorBinding(secondComponent)) {
+						if (firstProcessor == secondProcessor) {
+							CMAReportEntry entry;
+							String justification;
+
+							entry = new CMAReportEntry();
+							entry.setSource("Processor " + firstProcessor.getName());
+							justification = "Processor associated with redundant components: "
+									+ firstComponent.getName() + " and " + secondComponent.getName();
+							entry.addRelatedComponent(firstComponent);
+							entry.addRelatedComponent(secondComponent);
+							entry.setJustification(justification);
+							entry.setMode("Defective specification common bindings");
+							entry.setType(EntryType.ARCHITECTURE_DESIGN);
+
+							entry.setSeverity(currentSeverity);
+							result.add(entry);
+
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * In the following, we try to find common memory bindings between ANDed components.
+		 */
+		for (ComponentInstance firstComponent : referencedInstances) {
+
+			for (ComponentInstance secondComponent : referencedInstances) {
+				if (firstComponent == secondComponent) {
+					continue;
+				}
+
+				for (ComponentInstance firstMemory : GetProperties.getActualProcessorBinding(firstComponent)) {
+					for (ComponentInstance secondMemory : GetProperties.getActualProcessorBinding(secondComponent)) {
+						if (firstMemory == secondMemory) {
+							CMAReportEntry entry;
+							String justification;
+
+							entry = new CMAReportEntry();
+							entry.setSource("Memory " + firstMemory.getName());
+							justification = "Memory associated with redundant components: " + firstComponent.getName()
+									+ " and " + secondComponent.getName();
+							entry.addRelatedComponent(firstComponent);
+							entry.addRelatedComponent(secondComponent);
+							entry.setJustification(justification);
+							entry.setMode("Defective specification common bindings");
+							entry.setType(EntryType.ARCHITECTURE_DESIGN);
+
+							entry.setSeverity(currentSeverity);
+							result.add(entry);
+						}
 					}
 				}
 			}
