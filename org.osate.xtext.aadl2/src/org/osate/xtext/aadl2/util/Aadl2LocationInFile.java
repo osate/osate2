@@ -12,7 +12,6 @@ import org.eclipse.xtext.resource.DefaultLocationInFileProvider;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.TextRegion;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.parsesupport.AObject;
 import org.osate.aadl2.parsesupport.LocationReference;
@@ -55,21 +54,6 @@ public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
 			nodes = Collections.<INode> singletonList(node);
 		}
 		return createRegion(nodes);
-	}
-
-	public static LocationReference getLocationReference(Element obj) {
-		if (obj.getLocationReference() == null) {
-			ICompositeNode node = NodeModelUtils.findActualNodeFor(obj);
-
-			LocationReference locref = new LocationReference();
-			locref.setLine(node.getTotalStartLine());
-			locref.setFilename(obj.eResource().getURI().toString());
-			locref.setOffset(node.getTotalOffset());
-			locref.setLength(node.getTotalLength());
-			return locref;
-		}
-		return obj.getLocationReference();
-
 	}
 
 	public ITextRegion getSecondaryTextRegion(EObject obj, boolean typeName) {
