@@ -33,6 +33,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.osate.xtext.aadl2.ui.propertyview.CellEditorPartialValue;
 
 import com.google.inject.Injector;
 
@@ -167,7 +168,14 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 
 	@Override
 	protected void doSetValue(Object value) {
-		super.doSetValue(value);
+		if (value instanceof CellEditorPartialValue) {
+			CellEditorPartialValue partialValue = (CellEditorPartialValue) value;
+			xtextAdapter.getXtextDocument().set(partialValue.getWholeText());
+			xtextAdapter.sourceviewer.setDocument(xtextAdapter.getXtextDocument(),
+					xtextAdapter.sourceviewer.getAnnotationModel(), partialValue.getOffset(), partialValue.getLength());
+		} else {
+			super.doSetValue(value);
+		}
 		// Reset the undo manager to prevend deletion of complete text if the
 		// user hits ctrl+z after cell editor opens
 		xtextAdapter.sourceviewer.getUndoManager().reset();

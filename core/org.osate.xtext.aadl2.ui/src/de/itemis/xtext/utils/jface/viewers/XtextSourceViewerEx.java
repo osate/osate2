@@ -63,7 +63,7 @@ class XtextSourceViewerEx extends XtextSourceViewer {
 				// mimic original TextViewer behavior
 				IDocument master = projection.getMasterDocument();
 				int line = master.getLineOfOffset(modelRangeOffset);
-				offset += master.getLineOffset(line);
+				offset = master.getLineOffset(line);
 				length = (modelRangeOffset - offset) + modelRangeLength;
 			}
 
