@@ -19,11 +19,9 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -66,7 +64,6 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	private final HighlightingService highlightingHelper;
-	private final ConnectionService connectionHelper;
 	private final ShapeService shapeService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
@@ -80,11 +77,10 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 			final HighlightingService highlightingHelper, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final AadlFeatureService featureService, 
 			final NamingService namingService, final BusinessObjectResolutionService bor) {
-		super(visibilityHelper);
+		super(visibilityHelper, connectionHelper, bor);
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 		this.highlightingHelper = highlightingHelper;
-		this.connectionHelper = connectionHelper;
 		this.shapeService = shapeService;
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
@@ -199,14 +195,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	final FlowSpecification getFlowSpecification(final Connection connection) {
 		return (FlowSpecification)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 	}
-	
-	@Override
-	protected Anchor[] getAnchors(final Connection connection) {
-		final FlowSpecification fs = getFlowSpecification(connection);
-		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
-		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, fs);		
-	}
-	
+		
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());

@@ -127,7 +127,7 @@ public class DefaultVisibilityService implements VisibilityService {
 				// If the business object is not valid, ghost the connection
 				if(bo == null) {
 					ghost = true;
-				} else {				
+				} else {
 					// If there is not a pattern to update the connection, ghost it
 					final UpdateContext updateContext = new UpdateContext(connection);
 					final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);

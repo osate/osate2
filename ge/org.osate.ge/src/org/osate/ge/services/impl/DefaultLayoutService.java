@@ -116,21 +116,22 @@ public class DefaultLayoutService implements LayoutService {
 		// Determine how much to shift the X and Y of the children by based on the position of children shapes that are not tied to features. Shift values must always be greater than or equal to 0
 		int shiftX = 0;
 		int shiftY = 0;
-		//for(final Shape childShape : shape.getChildren()) {
 		for(final Shape childShape :  visibilityService.getNonGhostChildren(shape)) {
-			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
-			final boolean childIsFeature = isFeature(childBo);
-			
-			if(!propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
-				final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-				if(childBo != null) {
-					// Currently features are only allowed to be on the left and right edges so don't take them into account when deciding to shift left or right
-					// TODO: When features are allowed to be snapped to the top and bottom, need to take into account feature position
-					if(!childIsFeature) {
-						shiftX = Math.max(shiftX, featureWidth - childGa.getX());		
+			if(childShape.isVisible()) {
+				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
+				final boolean childIsFeature = isFeature(childBo);
+				
+				if(!propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
+					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+					if(childBo != null) {
+						// Currently features are only allowed to be on the left and right edges so don't take them into account when deciding to shift left or right
+						// TODO: When features are allowed to be snapped to the top and bottom, need to take into account feature position
+						if(!childIsFeature) {
+							shiftX = Math.max(shiftX, featureWidth - childGa.getX());		
+						}
+						
+						shiftY = Math.max(shiftY, 30-childGa.getY());				
 					}
-					
-					shiftY = Math.max(shiftY, 30-childGa.getY());				
 				}
 			}
 		}
@@ -140,24 +141,24 @@ public class DefaultLayoutService implements LayoutService {
 		int maxWidth = Math.max(150, shapeGa == null ? 0 : (shapeGa.getWidth() + shiftX));
 		int maxHeight = Math.max(50, shapeGa == null ? 0 : (shapeGa.getHeight() + shiftY));
 
-		//for(final Shape childShape : shape.getChildren()) {
 		for(final Shape childShape :  visibilityService.getNonGhostChildren(shape)) {
-			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
-			final boolean childIsFeature = isFeature(childBo);
-			if(propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
-				final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-				
-				// TODO: Will need to consider with instead of height of features if features are snapped to top or bottom
-				// Determine the needed width and height of the classifier shape
-				// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
-				if(!childIsFeature) {	
-					maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() + shiftX + featureWidth);
-				}			
-				maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + 25);
-				
-				// Update the position of the child
-				childGa.setX(childGa.getX()+shiftX);
-				childGa.setY(childGa.getY()+shiftY);
+			if(childShape.isVisible()) {
+				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
+				final boolean childIsFeature = isFeature(childBo);
+				if(propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
+					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+					
+					// TODO: Will need to consider with instead of height of features if features are snapped to top or bottom
+					// Determine the needed width and height of the classifier shape and shift children
+					// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
+					if(!childIsFeature) {	
+						maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() + shiftX + featureWidth);
+						childGa.setX(childGa.getX()+shiftX);
+					}			
+					
+					maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + 25);					
+					childGa.setY(childGa.getY()+shiftY);
+				}
 			}
 		}
 

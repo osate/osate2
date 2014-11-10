@@ -70,7 +70,6 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	private final StyleService styleService;
 	private final AnchorService anchorService;
 	private final NamingService namingService;
-	private final ConnectionService connectionService;
 	private final ShapeService shapeService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
@@ -83,11 +82,10 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	public ModeTransitionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
 			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService) {
-		super(visibilityHelper);
+		super(visibilityHelper, connectionHelper, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
 		this.namingService = namingService;
-		this.connectionService = connectionHelper;
 		this.shapeService = shapeHelper;
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
@@ -381,13 +379,6 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		return mt == null ? "null_transition" : referenceService.getReference(mt);
 	}
 
-	@Override
-	protected Anchor[] getAnchors(final Connection connection) {
-		final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(connection);
-		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
-		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, mt);		
-	}
-	
 	@Override
 	protected void onAfterRefresh(final Connection connection) {
 		final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(connection);

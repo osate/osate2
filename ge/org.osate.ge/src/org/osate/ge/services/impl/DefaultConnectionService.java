@@ -13,6 +13,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.diagrams.common.connections.AadlConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.FlowSpecificationInfoProvider;
@@ -66,11 +67,27 @@ public class DefaultConnectionService implements ConnectionService {
 	public Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo) {
 		final ConnectionInfoProvider p = getInfoProvider(bo);
 		if(p != null) {
-			return p.getAnchors(ownerShape, bo);
+			final Anchor[] anchors = p.getAnchors(ownerShape, bo);
+			if(anchors != null && isVisible(anchors[0]) && isVisible(anchors[1])) {
+				return anchors;
+			}
 		}
 
 		return null;
 	}	
+	
+	private boolean isVisible(final Anchor anchor) {
+		boolean result = true;
+		if(result && anchor.getParent() instanceof Shape) {
+			Shape shape = (Shape)anchor.getParent();
+			do {
+				result = shape.isVisible();
+				shape = shape.getContainer();
+			} while(shape != null && result);
+		}
+		
+		return result;
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.ConnectionService#getOwnerShape(org.eclipse.graphiti.mm.pictograms.Connection)

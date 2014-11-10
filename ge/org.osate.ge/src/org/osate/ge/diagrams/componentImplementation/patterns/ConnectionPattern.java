@@ -26,11 +26,9 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -91,7 +89,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	private final AadlFeatureService featureService;
 	private final StyleService styleUtil;
 	private final HighlightingService highlightingHelper;
-	private final ConnectionService connectionHelper;
 	private final BusinessObjectResolutionService bor;
 	private final AadlModificationService aadlModService;
 	private final NamingService namingService;
@@ -123,11 +120,10 @@ public class ConnectionPattern extends AgeConnectionPattern {
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
 			final @Named("Connection Type") EClass connectionType) {
-		super(visibilityHelper);
+		super(visibilityHelper, connectionHelper, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.highlightingHelper = highlightingHelper;
-		this.connectionHelper = connectionHelper;
 		this.bor = bor;
 		this.aadlModService = aadlModService;
 		this.namingService = namingService;
@@ -342,14 +338,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		gaService.createPlainPolyline(gaContainer, new int[] {
 			x, -10, 
 			x, 10}).setStyle(style);
-	}
-	
-	@Override
-	protected Anchor[] getAnchors(final Connection connection) {
-		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
-		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
-		
-		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, aadlConnection);	
 	}
 
 	private ConnectedElement getConnectedElementForShape(PictogramElement pe) {

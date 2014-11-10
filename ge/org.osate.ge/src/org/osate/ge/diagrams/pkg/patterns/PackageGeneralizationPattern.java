@@ -26,7 +26,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -62,7 +61,6 @@ import org.osate.ge.services.VisibilityService;
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection {
 	private final StyleService styleUtil;
 	private final AadlModificationService modificationService;
-	private final ConnectionService connectionService;
 	private final ConnectionCreationService connectionCreationService;
 	private final UserInputService userInputService;
 	private final DiagramModificationService diagramModService;
@@ -73,10 +71,9 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 			final AadlModificationService modificationService, final ConnectionService connectionService,
 			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, 
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor) {
-		super(visibilityHelper);
+		super(visibilityHelper, connectionService, bor);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
-		this.connectionService = connectionService;
 		this.connectionCreationService = connectionCreationService;
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
@@ -129,13 +126,6 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	protected Generalization getGeneralization(final Connection connection) {
 		return (Generalization) AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-	}
-
-	@Override
-	protected Anchor[] getAnchors(final Connection connection) {
-		final Generalization generalization = getGeneralization(connection);
-		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
-		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, generalization);
 	}
 
 	protected void createGraphicsAlgorithmOnUpdate(final Connection connection) {

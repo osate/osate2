@@ -464,8 +464,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 			} else if(propertyConstantTxt.equals(type)) {
 				final StructuredSelection propConstSelection = (StructuredSelection)propertyConstantCmb.getSelection();
 				final PropertyConstant propConst = (PropertyConstant)propConstSelection.getFirstElement();
-				System.err.println("SELECTION");
-				System.err.println(propConst);
 				if(propConst != null) {
 					dimension.setSize(null);
 					dimension.createSize().setSizeProperty(propConst);

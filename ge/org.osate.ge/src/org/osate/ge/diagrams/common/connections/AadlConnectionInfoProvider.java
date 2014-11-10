@@ -50,16 +50,28 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 
 	@Override
 	public ContainerShape getOwnerShape(final Connection connection) {
-		if(connection.getStart() != null && connection.getStart().getParent() instanceof ContainerShape) {
-			ContainerShape temp = (ContainerShape)connection.getStart().getParent();
-			while(temp != null) {
-				final Object tempBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(temp);
-				if(tempBo instanceof ComponentImplementation) {
-					return temp;
-				}
-				temp = temp.getContainer();
-			}
+		if(connection.getStart() != null && connection.getStart().getParent() instanceof ContainerShape && 
+			connection.getEnd() != null && connection.getEnd().getParent() instanceof ContainerShape) {
 			
+			final ContainerShape startParent = (ContainerShape)connection.getStart().getParent();
+			final ContainerShape endParent = (ContainerShape)connection.getEnd().getParent();
+			
+			// Get the lowest common ancestor
+			ContainerShape temp1 = startParent;
+			while(temp1 != null) {
+				ContainerShape temp2 = endParent;
+				while(temp2 != null) {
+					if(temp1 == temp2) {
+						final Object temp1Bo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(temp1);
+						if(temp1Bo != null) {
+							return temp1;
+						}						
+					}
+					temp2 = temp2.getContainer();
+				}
+				
+				temp1 = temp1.getContainer();
+			}
 		}
 
 		return null;

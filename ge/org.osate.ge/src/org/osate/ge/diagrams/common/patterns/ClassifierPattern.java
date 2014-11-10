@@ -275,14 +275,6 @@ public class ClassifierPattern extends AgePattern {
 	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y, final int minWidth, final int minHeight) {
 		visibilityHelper.setIsGhost(shape, false);
 		
-		// Remove invalid connections from the diagram
-		visibilityHelper.ghostInvalidConnections(null);
-		
-		if(bo instanceof Classifier) {
-			visibilityHelper.ghostInvalidConnections(ModeTransitionPattern.MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
-			visibilityHelper.ghostInvalidConnections(ModePattern.INITIAL_MODE_CONNECTION_TYPE);
-		}
-		
 		// Remove invalid features
 		visibilityHelper.ghostInvalidShapes(shape);
 		
@@ -295,19 +287,44 @@ public class ClassifierPattern extends AgePattern {
 			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllOwnedFeatures(classifier), touchedShapes);
 		}
 		
-		// Create component implementation specific shapes
-		if(classifier instanceof ComponentImplementation) {
-			final ComponentImplementation ci = (ComponentImplementation)classifier;
-			shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllInternalFeatures(ci), touchedShapes);
-			shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllProcessorFeatures(ci), touchedShapes);
-			shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20, touchedShapes);
+		// Hide the contents of the shape based on the shape's depth level and the nesting depth setting
+		final int depthLevel = getDepthLevel(shape);
+		final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
+		if(showContents) {
+			// Create component implementation specific shapes
+			if(classifier instanceof ComponentImplementation) {
+				final ComponentImplementation ci = (ComponentImplementation)classifier;
+				shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllInternalFeatures(ci), touchedShapes);
+				shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllProcessorFeatures(ci), touchedShapes);
+				shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20, touchedShapes);
+			}
+			
+			// Create/Update Modes and Mode Transitions
+			if(classifier instanceof ComponentClassifier) {
+				final ComponentClassifier cc = (ComponentClassifier)classifier;			
+				shapeCreationService.createUpdateModeShapes(shape, cc.getAllModes(), touchedShapes);
+			}
+		}
+
+		// Ghost child shapes that were not updated. This is done before updating connections because the connections by refer to invisible or ghosted shapes
+		childShapesToGhost.removeAll(touchedShapes);
+		for(final Shape child : childShapesToGhost) {
+			visibilityHelper.setIsGhost(child, true);
 		}
 		
-		// Create/Update Modes and Mode Transitions
-		if(classifier instanceof ComponentClassifier) {
-			final ComponentClassifier cc = (ComponentClassifier)classifier;			
-			shapeCreationService.createUpdateModeShapes(shape, cc.getAllModes(), touchedShapes);
-			connectionCreationService.createUpdateConnections(shape, cc.getAllModeTransitions());	
+		// Remove invalid connections from the diagram
+		visibilityHelper.ghostInvalidConnections(null);
+		if(bo instanceof Classifier) {
+			visibilityHelper.ghostInvalidConnections(ModeTransitionPattern.MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
+			visibilityHelper.ghostInvalidConnections(ModePattern.INITIAL_MODE_CONNECTION_TYPE);
+		}
+		
+		// Create mode transitions
+		if(showContents) {
+			if(classifier instanceof ComponentClassifier) {
+				final ComponentClassifier cc = (ComponentClassifier)classifier;			
+				connectionCreationService.createUpdateConnections(shape, cc.getAllModeTransitions());	
+			}
 		}
 		
 		// Create connections
@@ -327,13 +344,7 @@ public class ClassifierPattern extends AgePattern {
 		}
 		if(componentType != null) {
 			connectionCreationService.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
-		}
-		
-		// Ghost child shapes that were not updated
-		childShapesToGhost.removeAll(touchedShapes);
-		for(final Shape child : childShapesToGhost) {
-			visibilityHelper.setIsGhost(child, true);
-		}			
+		}	
 
 		// Update label and graphics algorithms
 		if(bo instanceof Subcomponent) {	
@@ -468,6 +479,19 @@ public class ClassifierPattern extends AgePattern {
 		return true;
 	}
 
+	// Determines the shapes depth level
+	private int getDepthLevel(Shape shape) {
+		int depthLevel = -1; // Start at -1 because of the container shape that contains all other shapes.
+		while(shape != null && !(shape instanceof Diagram)) {
+			if(bor.getBusinessObjectForPictogramElement(shape) != null) {
+				depthLevel++;
+			}
+			shape = shape.getContainer();
+		}
+
+		return depthLevel;
+	}	
+	
 	// Labels
 	private String getSubcomponentName(final Subcomponent sc) {
 		return sc.getName() == null ? "" : sc.getName();
@@ -485,7 +509,6 @@ public class ClassifierPattern extends AgePattern {
 			retVal += scType.getQualifiedName();
 		}
 
-		// TODO: Show types of all subcomponents if collapsed?
 		// Add text for each of the implementation references (for arrays)
 		final List<ComponentImplementationReference> implRefs = subcomponentService.getArrayComponentImplementationReferences(sc);
 		if(implRefs.size() != 0) {
