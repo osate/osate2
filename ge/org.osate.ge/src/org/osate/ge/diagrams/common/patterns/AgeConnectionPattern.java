@@ -42,7 +42,6 @@ import org.osate.ge.services.VisibilityService;
  *
  */
 public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete {
-	public abstract boolean isMainBusinessObjectApplicable(final Object mainBusinessObject);
 	private final VisibilityService visibilityHelper;
 	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
@@ -93,6 +92,8 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
 		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, bo);	
 	}
+	
+	protected abstract boolean isMainBusinessObjectApplicable(final Object mainBusinessObject);
 	
 	protected abstract void createGraphicsAlgorithm(final Connection connection);
 	protected abstract void createDecorators(final Connection connection);
