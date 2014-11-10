@@ -44,6 +44,7 @@ import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.linking.ILinker
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.ISerializer
@@ -634,7 +635,11 @@ class AadlPropertyView extends ViewPart {
 					Property: {
 						val association = cachedPropertyAssociations.get(treeElement.owner).get(treeElement)
 						if (association != null && input == association.owner && !association.modal) {
-							""
+							val node = NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
+							new CellEditorPartialValue(xtextDocument.get(0, node.offset),
+								serializer.serialize(association.ownedValues.head.ownedValue).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim,
+								xtextDocument.get(node.endOffset, xtextDocument.length - node.endOffset)
+							)
 						} else {
 							throw new UnsupportedOperationException("TODO: auto-generated method stub")
 						}
