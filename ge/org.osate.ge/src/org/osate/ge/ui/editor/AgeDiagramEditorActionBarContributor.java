@@ -8,11 +8,17 @@
  *******************************************************************************/
 package org.osate.ge.ui.editor;
 
+
+import org.eclipse.gef.ui.actions.GEFActionConstants;
+//import org.eclipse.graphiti.platform.IPlatformImageConstants;
+//import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
+//import org.eclipse.ui.actions.RetargetAction;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
+
 
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
@@ -25,11 +31,25 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 	}
 	
 	@Override
+	protected void buildActions() {
+		super.buildActions();		
+		addRetargetAction(new MatchSizeRetargetAction(MatchSizeAction.MATCH_SIZE));
+		addRetargetAction(new DistributeHorizontallyRetargetAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
+		addRetargetAction(new DistributeVerticallyRetargetAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
+	}
+	
+	@Override
 	public void contributeToToolBar(final IToolBarManager tbm) {
 		super.contributeToToolBar(tbm);
+		tbm.insertAfter(GEFActionConstants.MATCH_HEIGHT, getAction(MatchSizeAction.MATCH_SIZE));
+		tbm.insertAfter(GEFActionConstants.ALIGN_BOTTOM, new Separator());
+		tbm.insertBefore(GEFActionConstants.MATCH_WIDTH, getAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
+		tbm.insertAfter(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY, getAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
+		tbm.insertAfter(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY, new Separator());
 		tbm.add(selectedModeItem);
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
+		tbm.add(new Separator());
 	}
 	
 	@Override
@@ -38,4 +58,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
 	}
+	
+
 }

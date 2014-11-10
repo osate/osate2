@@ -40,12 +40,15 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -333,6 +336,11 @@ public class ModePattern extends AgeLeafShapePattern {
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		return !(context.getTargetContainer() instanceof Diagram) && bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
+	}
+	@Override
+	public String getCreateImageId(){
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		return AgeImageProvider.getImage(p.getMode());
 	}
 	
 	@Override

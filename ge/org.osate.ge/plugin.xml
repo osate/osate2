@@ -4,9 +4,9 @@
    <extension-point id="org.osate.ge.styles" name="AGE Styles" schema="schema/org.osate.ge.styles.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.openpackagediagram" name="Open Package Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenPackageDiagramHandler"></command>
-	   <command id="org.osate.ge.commands.openclassifierdiagram" name="Open Classifier Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenClassifierDiagramHandler"></command>
+	   <command id="org.osate.ge.commands.openclassifierdiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenClassifierDiagramHandler"></command>
    </extension>
-	   
+      
    <extension point="org.eclipse.ui.menus">
    	<!--
    		<menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">		
@@ -55,6 +55,9 @@
          <diagramType
                id="org.osate.ge.aadlPackageDiagramType">
          </diagramType>
+         <imageProvider
+            id="org.osate.ge.diagrams.common.AgeImageProvider">
+      	 </imageProvider>
       </diagramTypeProvider>
       
       <diagramTypeProvider
@@ -64,6 +67,9 @@
          <diagramType
                id="org.osate.ge.aadlTypeDiagramType">
          </diagramType>
+         <imageProvider
+            id="org.osate.ge.diagrams.common.AgeImageProvider">
+   	     </imageProvider>
       </diagramTypeProvider>
       
       <diagramTypeProvider
@@ -73,6 +79,9 @@
          <diagramType
                id="org.osate.ge.aadlComponentImplementationDiagramType">
          </diagramType>
+         <imageProvider
+            id="org.osate.ge.diagrams.common.AgeImageProvider">
+      	 </imageProvider>
       </diagramTypeProvider>
    </extension>
    
@@ -84,8 +93,7 @@
       	   class="org.osate.ge.ui.editor.AgeDiagramEditor"
 		   extensions="aadl_diagram"
            contributorClass="org.osate.ge.ui.editor.AgeDiagramEditorActionBarContributor"
-           matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy"
-           >
+           matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy">
 		</editor>
 	</extension>
 
@@ -254,5 +262,32 @@
            type="org.eclipse.core.resources.IResource">
      </propertyTester>
   </extension>
- 
+  
+ <extension
+      point="org.eclipse.graphiti.ui.imageProviders">
+   <imageProvider
+         class="org.osate.ge.diagrams.common.AgeImageProvider"
+         id="org.osate.ge.diagrams.common.AgeImageProvider">
+   </imageProvider>
+</extension>
+
+ <extension
+       point="org.eclipse.ui.bindings">
+    <key
+    	  commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+          contextId="org.eclipse.ui.contexts.dialogAndWindow"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+M2+V">
+        <parameter
+        	id="org.eclipse.graphiti.ui.featureHint"
+        	value="graphicalToTextualFeature">
+        </parameter>
+    </key>
+    <key
+          commandId="org.osate.ge.commands.openclassifierdiagram"
+          contextId="org.eclipse.ui.textEditorScope"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M1+M2+V">
+    </key>
+ </extension>
 </plugin>

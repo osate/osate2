@@ -56,6 +56,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgeLeafShapePattern;
 import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.services.AadlModificationService;
@@ -85,7 +86,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
-
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
 			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
@@ -225,6 +225,13 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	public boolean canCreate(ICreateContext context) {
 		return true;
 	}
+	
+	
+	@Override
+	public String getCreateImageId() {
+		return AgeImageProvider.getImage(classifierType);
+	}
+	
 	
 	@Override
 	public String getCreateName() {

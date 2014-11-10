@@ -53,6 +53,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
@@ -389,6 +390,11 @@ public class SubcomponentPattern extends AgePattern {
 	public boolean canCreate(final ICreateContext context) {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
 		return !(context.getTargetContainer() instanceof Diagram) && (containerBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)containerBo, subcomponentType) : false);
+	}
+	
+	@Override
+	public String getCreateImageId(){
+		return AgeImageProvider.getImage(subcomponentType);
 	}
 	
 	@Override

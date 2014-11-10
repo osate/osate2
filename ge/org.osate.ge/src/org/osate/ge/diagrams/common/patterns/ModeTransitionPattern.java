@@ -41,11 +41,14 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.services.AadlModificationService;
@@ -406,6 +409,11 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		return anchorService.getAnchorByName(portShape, shapeService.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 	}
 	
+	@Override
+	public String getCreateImageId(){
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		return AgeImageProvider.getImage(p.getModeTransition());
+	}
 	@Override
 	public String getCreateName() {
 		return "Mode Transition";

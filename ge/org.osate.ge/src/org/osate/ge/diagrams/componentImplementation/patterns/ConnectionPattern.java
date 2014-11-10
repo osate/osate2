@@ -65,6 +65,7 @@ import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -441,7 +442,11 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
-
+	@Override
+	public String getCreateImageId() { 
+		return AgeImageProvider.getImage(connectionType);
+	}
+	
 	@Override
 	public String getCreateName() {
 		return StringUtil.camelCaseToUser(connectionType.getName());

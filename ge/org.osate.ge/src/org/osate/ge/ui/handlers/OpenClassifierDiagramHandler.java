@@ -14,6 +14,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.ge.Activator;
@@ -35,7 +36,10 @@ public class OpenClassifierDiagramHandler extends AbstractHandler {
 			// Determine the classifier
 			final Classifier classifier = getSelectedClassifier();
 			if(classifier == null) {
-				MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Select a classifier.");
+				//Open top level even when element is not selected
+				final AadlPackage pkg = getSelectedPackage();
+				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
+				diagramService.openOrCreateDiagramForRootBusinessObject(pkg);
 			} else {
 				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 				diagramService.openOrCreateDiagramForRootBusinessObject(classifier);
@@ -58,6 +62,18 @@ public class OpenClassifierDiagramHandler extends AbstractHandler {
 			}
 			
 			obj = obj.eContainer();
+		}
+
+		return null;
+	}
+	private static AadlPackage getSelectedPackage() {
+
+		final EObject obj = SelectionHelper.getSelectedObject();
+		if(obj instanceof Element) {
+			Element root = ((Element)obj).getElementRoot();
+			if(root instanceof AadlPackage) {
+				return (AadlPackage)root;
+			}
 		}
 
 		return null;
