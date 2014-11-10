@@ -43,6 +43,10 @@ import org.eclipse.emf.ecore.EClass;
  * A representation of the model object '<em><b>Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Components.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -71,6 +75,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Subcomponent Type</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_SubcomponentType()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -92,6 +99,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Classifier()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -108,6 +118,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Prototype Binding</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_OwnedPrototypeBinding()
 	 * @model containment="true" ordered="false"
@@ -140,6 +153,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Prototype</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Prototype()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -156,6 +172,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Mode Binding</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_OwnedModeBinding()
 	 * @model containment="true" ordered="false"
@@ -181,6 +200,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>All Modes</em>' attribute.
 	 * @see #setAllModes(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_AllModes()
@@ -208,6 +230,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Implementation Reference</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_ImplementationReference()
 	 * @model containment="true"
@@ -239,6 +264,9 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Components.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined</em>' reference.
 	 * @see #setRefined(Subcomponent)
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Refined()
@@ -265,7 +293,7 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 
 	/**
 	 * returns the component implementation object of a given subcomponent
-	 * 
+	 *
 	 * @return Component implementation
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup

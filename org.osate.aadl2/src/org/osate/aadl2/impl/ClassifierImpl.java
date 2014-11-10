@@ -210,6 +210,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -351,6 +352,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public EList<NamedElement> getInheritedMembers() {
 		// DONE: implemented get inherited members
 		// list to track for cycles
@@ -395,6 +397,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Prototype> getOwnedPrototypes() {
 		if (ownedPrototypes == null) {
 			ownedPrototypes = new EObjectContainmentEList<Prototype>(Prototype.class, this,
@@ -408,6 +411,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype createOwnedPrototype(EClass eClass) {
 		Prototype newOwnedPrototype = (Prototype) create(eClass);
 		getOwnedPrototypes().add(newOwnedPrototype);
@@ -419,6 +423,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
 			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
@@ -432,6 +437,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrototypeBinding createOwnedPrototypeBinding(EClass eClass) {
 		PrototypeBinding newOwnedPrototypeBinding = (PrototypeBinding) create(eClass);
 		getOwnedPrototypeBindings().add(newOwnedPrototypeBinding);
@@ -443,6 +449,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Generalization> getGeneralizations() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -466,6 +473,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> getGenerals() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -488,6 +496,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AnnexSubclause> getOwnedAnnexSubclauses() {
 		if (ownedAnnexSubclauses == null) {
 			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(AnnexSubclause.class, this,
@@ -501,6 +510,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexSubclause createOwnedAnnexSubclause(EClass eClass) {
 		AnnexSubclause newOwnedAnnexSubclause = (AnnexSubclause) create(eClass);
 		getOwnedAnnexSubclauses().add(newOwnedAnnexSubclause);
@@ -512,6 +522,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnnexSubclause createOwnedAnnexSubclause() {
 		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
 	}
@@ -521,6 +532,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoProperties() {
 		return noProperties;
 	}
@@ -530,12 +542,14 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoProperties(boolean newNoProperties) {
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROPERTIES,
 					oldNoProperties, noProperties));
+		}
 	}
 
 	/**
@@ -543,6 +557,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoPrototypes() {
 		return noPrototypes;
 	}
@@ -552,12 +567,14 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoPrototypes(boolean newNoPrototypes) {
 		boolean oldNoPrototypes = noPrototypes;
 		noPrototypes = newNoPrototypes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROTOTYPES,
 					oldNoPrototypes, noPrototypes));
+		}
 	}
 
 	/**
@@ -565,6 +582,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNoAnnexes() {
 		return noAnnexes;
 	}
@@ -574,12 +592,14 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNoAnnexes(boolean newNoAnnexes) {
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
 					noAnnexes));
+		}
 	}
 
 	/**
@@ -587,6 +607,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean conformsTo(Type other) {
 		return TypeOperations.conformsTo(this, other);
 	}
@@ -596,6 +617,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return ClassifierOperations.no_cycles_in_generalization(this, diagnostics, context);
 	}
@@ -605,6 +627,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return ClassifierOperations.specialize_type(this, diagnostics, context);
 	}
@@ -614,6 +637,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> allFeatures() {
 		return ClassifierOperations.allFeatures(this);
 	}
@@ -623,6 +647,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> inheritedMember() {
 		return ClassifierOperations.inheritedMember(this);
 	}
@@ -632,6 +657,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> parents() {
 		return ClassifierOperations.parents(this);
 	}
@@ -641,6 +667,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> allParents() {
 		return ClassifierOperations.allParents(this);
 	}
@@ -650,6 +677,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> inheritableMembers(Classifier c) {
 		return ClassifierOperations.inheritableMembers(this, c);
 	}
@@ -659,6 +687,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean hasVisibilityOf(NamedElement n) {
 		return ClassifierOperations.hasVisibilityOf(this, n);
 	}
@@ -668,6 +697,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> inherit(EList<NamedElement> inhs) {
 		return ClassifierOperations.inherit(this, inhs);
 	}
@@ -677,6 +707,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean maySpecializeType(Classifier c) {
 		return ClassifierOperations.maySpecializeType(this, c);
 	}
@@ -840,8 +871,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (noPrototypes: ");
@@ -914,6 +946,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
+	@Override
 	public EList<Classifier> getSelfPlusAllExtended() {
 		final EList<Classifier> result = new BasicEList<Classifier>();
 		Classifier current = this;
@@ -927,30 +960,35 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	@Override
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public boolean acceptsProperty(Property property) {
-		if (super.acceptsProperty(property))
+		if (super.acceptsProperty(property)) {
 			return true;
-		else
+		} else {
 			return checkAppliesToClassifier(property);
+		}
 	}
 
 	/**
 	 * Check whether the applies to classifiers in a property definition
 	 * describe this classifier.
-	 * 
+	 *
 	 * @param property
 	 * 			  The property definition
 	 * @return Whether this classifier is a descendant of one of
 	 * 		   the classifiers named in the property definition.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public boolean checkAppliesToClassifier(Property property) {
-		for (Classifier appliesToClassifier : property.getAppliesToClassifiers())
-			if (isDescendentOf(appliesToClassifier))
+		for (Classifier appliesToClassifier : property.getAppliesToClassifiers()) {
+			if (isDescendentOf(appliesToClassifier)) {
 				return true;
+			}
+		}
 		return false;
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public EList<PropertyAssociation> getAllPropertyAssociations() {
 		final EList<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
 		final EList<Classifier> classifiers = getSelfPlusAllExtended();
@@ -963,9 +1001,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(org.osate.aadl2.Prototype)
 	 */
+	@Override
 	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {
 		PrototypeBinding result = null;
 
@@ -994,8 +1033,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		Classifier cl = this;
 		while (!Aadl2Util.isNull(cl)) {
 			NamedElement res = Aadl2Util.findOwnedNamedElement(cl, name);
-			if (res != null)
+			if (res != null) {
 				return res;
+			}
 			cl = cl.getExtended();
 		}
 		return null;

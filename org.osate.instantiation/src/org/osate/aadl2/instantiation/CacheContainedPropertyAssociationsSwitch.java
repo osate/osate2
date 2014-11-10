@@ -98,7 +98,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			@Override
 			public String caseSystemInstance(final SystemInstance si) {
 				monitor.subTask("Caching system instance contained property associations");
-				processContainedPropertyAssociations(si, si, si.getSystemImplementation().getAllPropertyAssociations());
+				processContainedPropertyAssociations(si, si, si.getComponentImplementation()
+						.getAllPropertyAssociations());
 				return DONE;
 			}
 
@@ -228,9 +229,10 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 								Element elem = content.next();
 
 								if (elem instanceof ReferenceValue) {
-									// TODO: LW what if ref to connection?
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(fi);
-									EcoreUtil.replace(elem, irv);
+									if (irv != null) {
+										EcoreUtil.replace(elem, irv);
+									}
 								}
 							}
 
@@ -290,9 +292,12 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 							Element elem = content.next();
 
 							if (elem instanceof ReferenceValue) {
+								// TODO: LW what if ref to connection?
 								try {
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
-									EcoreUtil.replace(elem, irv);
+									if (irv != null) {
+										EcoreUtil.replace(elem, irv);
+									}
 								} catch (InvalidModelException e) {
 									error(io, e.getMessage());
 								}

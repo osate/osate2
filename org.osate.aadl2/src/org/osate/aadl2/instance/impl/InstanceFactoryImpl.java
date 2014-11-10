@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -167,6 +167,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInstance createFeatureInstance() {
 		FeatureInstanceImpl featureInstance = new FeatureInstanceImpl();
 		return featureInstance;
@@ -177,6 +178,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionInstance createConnectionInstance() {
 		ConnectionInstanceImpl connectionInstance = new ConnectionInstanceImpl();
 		return connectionInstance;
@@ -187,6 +189,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemOperationMode createSystemOperationMode() {
 		SystemOperationModeImpl systemOperationMode = new SystemOperationModeImpl();
 		return systemOperationMode;
@@ -197,6 +200,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModeInstance createModeInstance() {
 		ModeInstanceImpl modeInstance = new ModeInstanceImpl();
 		return modeInstance;
@@ -207,6 +211,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModeTransitionInstance createModeTransitionInstance() {
 		ModeTransitionInstanceImpl modeTransitionInstance = new ModeTransitionInstanceImpl();
 		return modeTransitionInstance;
@@ -217,6 +222,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionReference createConnectionReference() {
 		ConnectionReferenceImpl connectionReference = new ConnectionReferenceImpl();
 		return connectionReference;
@@ -227,6 +233,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentInstance createComponentInstance() {
 		ComponentInstanceImpl componentInstance = new ComponentInstanceImpl();
 		return componentInstance;
@@ -237,6 +244,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FlowSpecificationInstance createFlowSpecificationInstance() {
 		FlowSpecificationInstanceImpl flowSpecificationInstance = new FlowSpecificationInstanceImpl();
 		return flowSpecificationInstance;
@@ -247,6 +255,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EndToEndFlowInstance createEndToEndFlowInstance() {
 		EndToEndFlowInstanceImpl endToEndFlowInstance = new EndToEndFlowInstanceImpl();
 		return endToEndFlowInstance;
@@ -257,6 +266,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemInstance createSystemInstance() {
 		SystemInstanceImpl systemInstance = new SystemInstanceImpl();
 		return systemInstance;
@@ -267,6 +277,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstanceReferenceValue createInstanceReferenceValue() {
 		InstanceReferenceValueImpl instanceReferenceValue = new InstanceReferenceValueImpl();
 		return instanceReferenceValue;
@@ -279,9 +290,10 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 */
 	public ConnectionKind createConnectionKindFromString(EDataType eDataType, String initialValue) {
 		ConnectionKind result = ConnectionKind.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
 		return result;
 	}
 
@@ -301,9 +313,10 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 */
 	public FeatureCategory createFeatureCategoryFromString(EDataType eDataType, String initialValue) {
 		FeatureCategory result = FeatureCategory.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
 		return result;
 	}
 
@@ -321,6 +334,7 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstancePackage getInstancePackage() {
 		return (InstancePackage) getEPackage();
 	}

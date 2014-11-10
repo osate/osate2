@@ -67,7 +67,7 @@ property set Timing_Properties is
 	        applies to (processor, system);
 	
 	Period: inherit Time
-		applies to (thread, thread group, process, system, device, virtual processor);
+		applies to (thread, thread group, process, system, device, virtual processor, virtual bus, bus);
 	
 	Recover_Deadline: Time
 		applies to (thread);

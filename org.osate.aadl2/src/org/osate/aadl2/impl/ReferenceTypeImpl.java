@@ -95,6 +95,7 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MetaclassReference> getNamedElementReferences() {
 		if (namedElementReferences == null) {
 			namedElementReferences = new EObjectContainmentEList<MetaclassReference>(MetaclassReference.class, this,
@@ -108,6 +109,7 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MetaclassReference createNamedElementReference() {
 		MetaclassReference newNamedElementReference = (MetaclassReference) create(Aadl2Package.eINSTANCE
 				.getMetaclassReference());

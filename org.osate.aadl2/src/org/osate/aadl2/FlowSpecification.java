@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Flow Specification</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Flows.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -64,6 +68,9 @@ public interface FlowSpecification extends FlowFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Kind</em>' attribute.
 	 * @see org.osate.aadl2.FlowKind
 	 * @see #setKind(FlowKind)
@@ -92,6 +99,9 @@ public interface FlowSpecification extends FlowFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Out End</em>' containment reference.
 	 * @see #setOutEnd(FlowEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_OutEnd()
@@ -130,6 +140,9 @@ public interface FlowSpecification extends FlowFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>In End</em>' containment reference.
 	 * @see #setInEnd(FlowEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_InEnd()
@@ -174,6 +187,9 @@ public interface FlowSpecification extends FlowFeature, ModalPath, FlowElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined</em>' reference.
 	 * @see #setRefined(FlowSpecification)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_Refined()

@@ -51,14 +51,13 @@ public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
 
 	public List<IEObjectDescription> getDuplicates(final NamedElement target) {
 		if (target.getName() == null || target.getName().isEmpty()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		Resource context = target.eResource();
 		if (context == null || context.getResourceSet() == null) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		List<IContainer> containers = Lists.newArrayList(getVisibleContainers(context));
-//		Collections.reverse(containers);
 		QualifiedName qn = qualifiedNameConverter.toQualifiedName(target.getName());
 		boolean foundOne = false;
 		List<IEObjectDescription> ielist = new Stack<IEObjectDescription>();

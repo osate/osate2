@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>System Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::System.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -79,6 +83,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -111,6 +118,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -143,6 +153,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Device Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedDeviceSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -175,6 +188,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedMemorySubcomponent()
 	 * @model containment="true" ordered="false"
@@ -207,6 +223,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Process Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedProcessSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -239,6 +258,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedProcessorSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -271,6 +293,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedSubprogramSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -303,6 +328,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedSubprogramGroupSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -335,6 +363,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned System Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedSystemSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -367,6 +398,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -399,6 +433,9 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::System.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSystemImplementation_OwnedVirtualProcessorSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -420,6 +457,7 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
+	@Override
 	SystemType getType();
 
 } // SystemImplementation

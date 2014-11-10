@@ -120,15 +120,17 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VirtualProcessorSubcomponentType getVirtualProcessorSubcomponentType() {
 		if (virtualProcessorSubcomponentType != null && ((EObject) virtualProcessorSubcomponentType).eIsProxy()) {
 			InternalEObject oldVirtualProcessorSubcomponentType = (InternalEObject) virtualProcessorSubcomponentType;
 			virtualProcessorSubcomponentType = (VirtualProcessorSubcomponentType) eResolveProxy(oldVirtualProcessorSubcomponentType);
 			if (virtualProcessorSubcomponentType != oldVirtualProcessorSubcomponentType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE,
 							oldVirtualProcessorSubcomponentType, virtualProcessorSubcomponentType));
+				}
 			}
 		}
 		return virtualProcessorSubcomponentType;
@@ -148,13 +150,15 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType newVirtualProcessorSubcomponentType) {
 		VirtualProcessorSubcomponentType oldVirtualProcessorSubcomponentType = virtualProcessorSubcomponentType;
 		virtualProcessorSubcomponentType = newVirtualProcessorSubcomponentType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE,
 					oldVirtualProcessorSubcomponentType, virtualProcessorSubcomponentType));
+		}
 	}
 
 	/**
@@ -166,8 +170,9 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getVirtualProcessorSubcomponentType();
+			}
 			return basicGetVirtualProcessorSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -230,6 +235,7 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.VIRTUAL_PROCESSOR;
 	}

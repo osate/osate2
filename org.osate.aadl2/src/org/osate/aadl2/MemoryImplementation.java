@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Memory Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Memory.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -70,6 +74,9 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Memory.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -102,6 +109,9 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Memory.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation_OwnedMemorySubcomponent()
 	 * @model containment="true" ordered="false"
@@ -123,6 +133,7 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
+	@Override
 	MemoryType getType();
 
 } // MemoryImplementation

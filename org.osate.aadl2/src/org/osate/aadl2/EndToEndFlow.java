@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>End To End Flow</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Flows.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -69,6 +73,9 @@ public interface EndToEndFlow extends FlowFeature, ModalPath, EndToEndFlowElemen
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined</em>' reference.
 	 * @see #setRefined(EndToEndFlow)
 	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_Refined()
@@ -96,9 +103,12 @@ public interface EndToEndFlow extends FlowFeature, ModalPath, EndToEndFlowElemen
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned End To End Flow Segment</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_OwnedEndToEndFlowSegment()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<EndToEndFlowSegment> getOwnedEndToEndFlowSegments();

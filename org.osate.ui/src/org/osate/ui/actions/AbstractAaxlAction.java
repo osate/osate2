@@ -136,7 +136,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * The manager of error reporters. Set by the run action to the resource of
 	 * the selected item
 	 */
-	private AnalysisErrorReporterManager errManager;
+	protected AnalysisErrorReporterManager errManager;
 
 	protected WriteToFile csvlog = null;
 
@@ -220,7 +220,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		// Root cannot be null (see above)
 		// init the context object. It is used by the lookup methods for initializing property references
 		AbstractAaxlAction.this.context = root instanceof SystemInstance ? ((SystemInstance) root)
-				.getSystemImplementation() : root;
+				.getComponentImplementation() : root;
 
 		// Init the properties
 		notFound.clear();

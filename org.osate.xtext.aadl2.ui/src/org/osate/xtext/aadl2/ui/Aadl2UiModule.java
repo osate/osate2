@@ -36,8 +36,11 @@ package org.osate.xtext.aadl2.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
-import org.osate.xtext.aadl2.ui.editor.findrefs.Aadl2ReferenceFinder;
+import org.eclipse.xtext.ui.shared.Access;
+import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
+import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
 import org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2RenameStrategy;
@@ -70,12 +73,7 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 
 	@Override
 	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
-		return org.osate.xtext.aadl2.ui.editor.autoedit.Aadl2AutoEditStrategyPprovider.class;
-	}
-
-	@SuppressWarnings("restriction")
-	public Class<? extends org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder> bindIReferenceFinder() {
-		return Aadl2ReferenceFinder.class;
+		return org.osate.xtext.aadl2.ui.editor.autoedit.Aadl2AutoEditStrategyProvider.class;
 	}
 
 	public Class<? extends org.eclipse.xtext.ui.editor.occurrences.IOccurrenceComputer> bindIOccurrenceComputer() {
@@ -100,4 +98,12 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		return org.osate.xtext.aadl2.parsing.Aadl2DoubleClickStrategyProvider.class;
 	}
 
+	@Override
+	public com.google.inject.Provider<org.eclipse.xtext.resource.containers.IAllContainersState> provideIAllContainersState() {
+		return Access.<IAllContainersState> provider(Aadl2ProjectsState.class);
+	}
+
+	public Class<? extends Aadl2ProjectsStateHelper> bindWorkspaceProjectsStateHelper() {
+		return Aadl2ProjectsStateHelper.class;
+	}
 }

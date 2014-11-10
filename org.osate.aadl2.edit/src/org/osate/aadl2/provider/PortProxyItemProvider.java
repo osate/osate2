@@ -40,12 +40,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Package;
@@ -57,8 +52,7 @@ import org.osate.aadl2.PortProxy;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PortProxyItemProvider extends ProcessorFeatureItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PortProxyItemProvider extends ProcessorFeatureItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -81,6 +75,9 @@ public class PortProxyItemProvider extends ProcessorFeatureItemProvider implemen
 			super.getPropertyDescriptors(object);
 
 			addDirectionPropertyDescriptor(object);
+			addDataClassifierPropertyDescriptor(object);
+			addInPropertyDescriptor(object);
+			addOutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -100,6 +97,52 @@ public class PortProxyItemProvider extends ProcessorFeatureItemProvider implemen
 						getString("_UI_PropertyDescriptor_description", "_UI_PortProxy_direction_feature",
 								"_UI_PortProxy_type"), Aadl2Package.eINSTANCE.getPortProxy_Direction(), true, false,
 						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Data Classifier feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataClassifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_PortProxy_dataClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortProxy_dataClassifier_feature",
+						"_UI_PortProxy_type"), Aadl2Package.eINSTANCE.getPortProxy_DataClassifier(), true, false, true,
+				null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_PortProxy_in_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortProxy_in_feature", "_UI_PortProxy_type"),
+				Aadl2Package.eINSTANCE.getPortProxy_In(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Out feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_PortProxy_out_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortProxy_out_feature", "_UI_PortProxy_type"),
+				Aadl2Package.eINSTANCE.getPortProxy_Out(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -139,6 +182,8 @@ public class PortProxyItemProvider extends ProcessorFeatureItemProvider implemen
 
 		switch (notification.getFeatureID(PortProxy.class)) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
+		case Aadl2Package.PORT_PROXY__IN:
+		case Aadl2Package.PORT_PROXY__OUT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

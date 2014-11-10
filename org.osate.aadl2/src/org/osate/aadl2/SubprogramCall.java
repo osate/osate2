@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Subprogram Call</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Calls.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -61,6 +65,9 @@ public interface SubprogramCall extends BehavioralFeature, Context {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Calls.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Called Subprogram</em>' reference.
 	 * @see #setCalledSubprogram(CalledSubprogram)
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramCall_CalledSubprogram()
@@ -87,6 +94,9 @@ public interface SubprogramCall extends BehavioralFeature, Context {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Calls.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see #setContext(CallContext)
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramCall_Context()

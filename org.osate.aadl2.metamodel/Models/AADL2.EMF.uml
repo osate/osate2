@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/4" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/4 pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA">
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/4" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/4 pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w">
   <uml:Model xmi:id="_0" name="AADL2">
     <packageMerge xmi:id="_packageMerge.0">
       <mergedPackage xmi:type="uml:Model" href="AADL2.uml#_0"/>
@@ -204,6 +204,39 @@
       <generalization xmi:id="SubprogramType-_generalization.0" general="CallContext"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="CallContext" name="CallContext"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CnWs4D0REeSdvMOHIJggqw" name="ContainedNamedElement">
+      <ownedAttribute xmi:id="_Ms9D4D0REeSdvMOHIJggqw" name="containmentPathElement" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Fyg_8D9DEeSMi-ARKmUa4A" name="BasicProperty">
+      <ownedAttribute xmi:id="_LYlQkD9DEeSMi-ARKmUa4A" name="propertyType" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_UPg50EscEeSXJZycUfbgZg" name="PropertyConstant">
+      <ownedAttribute xmi:id="_UPg50UscEeSXJZycUfbgZg" name="propertyType" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_OzhJIEv2EeSNAfeIIJ0qNQ" name="ListType">
+      <ownedAttribute xmi:id="_OzhwMEv2EeSNAfeIIJ0qNQ" name="elementType" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PG-08D9DEeSMi-ARKmUa4A" name="NumberType">
+      <ownedAttribute xmi:id="_VuxBQD9DEeSMi-ARKmUa4A" name="unitsType" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_09YWEEM4EeSo7dNc7Eb1Kg" name="DirectedFeature" isAbstract="true">
+      <ownedAttribute xmi:id="_-27OEEM4EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_E6UT4EM5EeSo7dNc7Eb1Kg" name="FeaturePrototype">
+      <ownedAttribute xmi:id="_E6U68EM5EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_H_cRwEM5EeSo7dNc7Eb1Kg" name="FeaturePrototypeReference">
+      <ownedAttribute xmi:id="_H_cRwUM5EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Ir3S4EM5EeSo7dNc7Eb1Kg" name="PortSpecification">
+      <ownedAttribute xmi:id="_Ir3S4UM5EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_JMc3cEM5EeSo7dNc7Eb1Kg" name="InternalFeature" isAbstract="true">
+      <ownedAttribute xmi:id="_JMc3cUM5EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_J2aacEM5EeSo7dNc7Eb1Kg" name="PortProxy">
+      <ownedAttribute xmi:id="_J2bBgEM5EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
+    </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA"/>
@@ -334,4 +367,26 @@
   <Ecore:EAttribute xmi:id="_210X4E4jEeOhgd3TaVpFAQ" base_Property="ComponentClassifier-derivedModes"/>
   <Ecore:EReference xmi:id="_G4sGQInHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="_0uHzQInGEeOHif2o_nrmYQ"/>
   <Ecore:EReference xmi:id="_ICpX8InHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="_2t9kEInGEeOHif2o_nrmYQ"/>
+  <Standard:Metaclass xmi:id="_JGiW0D0REeSdvMOHIJggqw" base_Class="_CnWs4D0REeSdvMOHIJggqw"/>
+  <Ecore:EReference xmi:id="_oY8CwD0REeSdvMOHIJggqw" isTransient="true" base_Property="_Ms9D4D0REeSdvMOHIJggqw"/>
+  <Ecore:EReference xmi:id="_d4lBAD9DEeSMi-ARKmUa4A" isTransient="true" isVolatile="true" base_Property="_LYlQkD9DEeSMi-ARKmUa4A"/>
+  <Ecore:EReference xmi:id="_fVLh4D9DEeSMi-ARKmUa4A" isTransient="true" isVolatile="true" base_Property="_VuxBQD9DEeSMi-ARKmUa4A"/>
+  <Standard:Metaclass xmi:id="_kF1NcD9DEeSMi-ARKmUa4A" base_Class="_Fyg_8D9DEeSMi-ARKmUa4A"/>
+  <Standard:Metaclass xmi:id="_lYknsD9DEeSMi-ARKmUa4A" base_Class="_PG-08D9DEeSMi-ARKmUa4A"/>
+  <Standard:Metaclass xmi:id="_cRenkEM5EeSo7dNc7Eb1Kg" base_Class="_09YWEEM4EeSo7dNc7Eb1Kg"/>
+  <Standard:Metaclass xmi:id="_dhFOQEM5EeSo7dNc7Eb1Kg" base_Class="_E6UT4EM5EeSo7dNc7Eb1Kg"/>
+  <Standard:Metaclass xmi:id="_e8aj0EM5EeSo7dNc7Eb1Kg" base_Class="_H_cRwEM5EeSo7dNc7Eb1Kg"/>
+  <Standard:Metaclass xmi:id="_gIptcEM5EeSo7dNc7Eb1Kg" base_Class="_Ir3S4EM5EeSo7dNc7Eb1Kg"/>
+  <Standard:Metaclass xmi:id="_hdfZcEM5EeSo7dNc7Eb1Kg" base_Class="_JMc3cEM5EeSo7dNc7Eb1Kg"/>
+  <Standard:Metaclass xmi:id="_jRwMYEM5EeSo7dNc7Eb1Kg" base_Class="_J2aacEM5EeSo7dNc7Eb1Kg"/>
+  <Ecore:EAttribute xmi:id="_mmMYoEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_-27OEEM4EeSo7dNc7Eb1Kg"/>
+  <Ecore:EAttribute xmi:id="_nzhucEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_E6U68EM5EeSo7dNc7Eb1Kg"/>
+  <Ecore:EAttribute xmi:id="_o29hYEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_H_cRwUM5EeSo7dNc7Eb1Kg"/>
+  <Ecore:EAttribute xmi:id="_qFCeEEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_Ir3S4UM5EeSo7dNc7Eb1Kg"/>
+  <Ecore:EAttribute xmi:id="_rDlJ8EM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_JMc3cUM5EeSo7dNc7Eb1Kg"/>
+  <Ecore:EAttribute xmi:id="_s0S5oEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="_J2bBgEM5EeSo7dNc7Eb1Kg"/>
+  <Ecore:EReference xmi:id="_be2OUEscEeSXJZycUfbgZg" isTransient="true" isVolatile="true" base_Property="_UPg50UscEeSXJZycUfbgZg"/>
+  <Standard:Metaclass xmi:id="_ctXP4EscEeSXJZycUfbgZg" base_Class="_UPg50EscEeSXJZycUfbgZg"/>
+  <Standard:Metaclass xmi:id="_X_NcoEv2EeSNAfeIIJ0qNQ" base_Class="_OzhJIEv2EeSNAfeIIJ0qNQ"/>
+  <Ecore:EReference xmi:id="_feR2QEv2EeSNAfeIIJ0qNQ" isTransient="true" isVolatile="true" base_Property="_OzhwMEv2EeSNAfeIIJ0qNQ"/>
 </xmi:XMI>

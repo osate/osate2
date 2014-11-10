@@ -8,15 +8,14 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
+import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.SystemSubcomponent;
@@ -27,7 +26,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionKind;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -60,15 +58,8 @@ public class InstanceModelUtil {
 			return false;
 		}
 		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl) {
-				Connection c = cr.getConnection();
-				if (c instanceof PortConnection) {
-					PortConnection pc = (PortConnection) c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == GetProperties.getDelayedUnitLiteral(pc);
-				}
-			}
+			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+			return el == GetProperties.getDelayedUnitLiteral(conn);
 		}
 		return false;
 	}
@@ -83,15 +74,8 @@ public class InstanceModelUtil {
 			return false;
 		}
 		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl) {
-				Connection c = cr.getConnection();
-				if (c instanceof PortConnection) {
-					PortConnection pc = (PortConnection) c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == null || el == GetProperties.getSampledUnitLiteral(pc);
-				}
-			}
+			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+			return el == GetProperties.getSampledUnitLiteral(conn);
 		}
 		return false;
 	}
@@ -106,15 +90,8 @@ public class InstanceModelUtil {
 			return false;
 		}
 		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl) {
-				Connection c = cr.getConnection();
-				if (c instanceof PortConnection) {
-					PortConnection pc = (PortConnection) c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == GetProperties.getImmediateUnitLiteral(pc);
-				}
-			}
+			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+			return el == GetProperties.getImmediateUnitLiteral(conn);
 		}
 		return false;
 	}
@@ -232,6 +209,16 @@ public class InstanceModelUtil {
 	}
 
 	/**
+	 * true of NamedElement is a ComponentInstance of category system or a SystemSubcomponent
+	 * @param system
+	 * @return
+	 */
+	public static boolean isAbstract(final NamedElement system) {
+		return ((system instanceof ComponentInstance) && (((ComponentInstance) system).getCategory() == ComponentCategory.ABSTRACT))
+				|| system instanceof AbstractSubcomponent;
+	}
+
+	/**
 	 * true of NamedElement is a ComponentInstance of category process or a ProcessSubcomponent
 	 * @param process
 	 * @return
@@ -247,7 +234,76 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicComponent(final NamedElement subcomponent) {
-		return isPeriodicThread(subcomponent) || isPeriodicDevice(subcomponent);
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is aperiodic
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isAperiodicComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.APERIODIC_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is sporadic
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isSporadicComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is timed
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isTimedComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.TIMED_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is hybrid
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isHybridComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.HYBRID_LITERAL);
+	}
+
+	/**
+	 * true if component (thread or device) is background
+	 * @param subcomponent
+	 * @return
+	 */
+	public static boolean isBackgroundComponent(final NamedElement subcomponent) {
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
+		if (dp == null) {
+			return false;
+		}
+		return dp.getName().equalsIgnoreCase(AadlProject.BACKGROUND_LITERAL);
 	}
 
 	/**
@@ -297,7 +353,7 @@ public class InstanceModelUtil {
 		 * if the virtual processor is contained as a subcomponent.
 		 */
 		if ((componentInstance.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-				&& (componentInstance.getContainingComponentInstance() == processor)) {
+				&& (getEnclosingProcessor(componentInstance) == processor)) {
 			return true;
 		}
 
@@ -342,20 +398,36 @@ public class InstanceModelUtil {
 	 */
 	public static List<ComponentInstance> getProcessorBinding(final ComponentInstance io) {
 		List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(io);
-		/**
-		 * If we have a virtual processor, we consider that it is bound to
-		 * its containing processor. Semantically, we thus consider
-		 * that all contained virtual processor are bound to the enclosing
-		 * physical processor or VP. Then, we add it in the list.
-		 */
-		if (bindinglist.isEmpty() && io.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-			ComponentInstance parent = io.getContainingComponentInstance();
-			if (parent.getCategory() == ComponentCategory.PROCESSOR
-					|| parent.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-				bindinglist.add(parent);
-			}
-		}
 		return bindinglist;
+	}
+
+	/**
+	 * return the hardware component of the connection instance end.
+	 * If it is a hardware component or device return it. 
+	 * If it is a software component, return the processor it is bound to.
+	 * If it is a component instance (BUS), return the bus
+	 * If it is a DATA, SUBPROGRAM, or SUBPROGRAM GROUP component instance, then return the memory it is bound to. 
+	 * @param cie
+	 * @return hw component instance
+	 */
+	public static ComponentInstance getHardwareComponent(ConnectionInstanceEnd cie) {
+		ComponentInstance swci = null;
+		if (cie instanceof FeatureInstance) {
+			FeatureInstance fi = (FeatureInstance) cie;
+			swci = fi.getContainingComponentInstance();
+			if (isDevice(swci) || isProcessor(swci) || isBus(swci) || isMemory(swci)) {
+				return swci;
+			}
+		} else if (cie instanceof ComponentInstance) {
+			swci = (ComponentInstance) cie;
+			if (isBus(swci)) {
+				return swci;
+			}
+//			// has to be a data component or subprogram component
+//			List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(swci);
+//			return ciList.isEmpty() ? null : ciList.get(0);
+		}
+		return getBoundPhysicalProcessor(swci);
 	}
 
 	/**
@@ -366,16 +438,34 @@ public class InstanceModelUtil {
 	 * @return processor instance
 	 */
 	public static ComponentInstance getBoundPhysicalProcessor(ComponentInstance componentInstance) {
-		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		List<ComponentInstance> cil = getProcessorBinding(componentInstance);
+		if (cil.isEmpty())
+			return null;
+		for (ComponentInstance ci : cil) {
+			if (isProcessor(ci) || isSystem(ci) || isAbstract(ci)) {
+				return ci;
+			}
+		}
+		for (ComponentInstance boundCompInstance : cil) {
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				ComponentInstance res = getBoundPhysicalProcessor(boundCompInstance);
-				if (res != null) {
-					return res;
+				if (res == null) {
+					// check whether VP is a subcomponent of a processor
+					res = getEnclosingProcessor(boundCompInstance);
 				}
-			} else { // isProcessor
-				return boundCompInstance;
+				return res;
+			}
+		}
+		return null;
+	}
+
+	public static ComponentInstance getEnclosingProcessor(ComponentInstance vpi) {
+		ComponentInstance ci = vpi;
+		while (ci != null) {
+			ci = ci.getContainingComponentInstance();
+			if (ci.getCategory().equals(ComponentCategory.PROCESSOR)) {
+				return ci;
 			}
 		}
 		return null;
@@ -400,10 +490,52 @@ public class InstanceModelUtil {
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				addBoundProcessors(boundCompInstance, result);
-			} else if (isProcessor(boundCompInstance)) {
+			} else if (isProcessor(boundCompInstance) || isSystem(boundCompInstance) || isAbstract(boundCompInstance)) {
 				result.add(boundCompInstance);
 			}
 			// we should not have another else
+		}
+		if (isVirtualProcessor(componentInstance)) {
+			// check whether VP is a subcomponent of a processor
+			ComponentInstance res = getEnclosingProcessor(componentInstance);
+			if (res != null) {
+				result.add(res);
+			}
+
+		}
+	}
+
+	/**
+	 * virtual processor instances directly bound to by component
+	 * @param componentInstance
+	 * @return virtual processor instance
+	 */
+	public static Collection<ComponentInstance> getBoundVirtualProcessors(ComponentInstance componentInstance) {
+		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
+		addBoundVirtualProcessors(componentInstance, actualProcs, false);
+		return actualProcs;
+	}
+
+	/**
+	 * virtual processor instances directly or indirectly bound to by component
+	 * @param componentInstance
+	 * @return virtual processor instance
+	 */
+	public static Collection<ComponentInstance> getAllBoundVirtualProcessors(ComponentInstance componentInstance) {
+		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
+		addBoundVirtualProcessors(componentInstance, actualProcs, true);
+		return actualProcs;
+	}
+
+	protected static void addBoundVirtualProcessors(ComponentInstance componentInstance,
+			UniqueEList<ComponentInstance> result, boolean doAll) {
+		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
+		for (ComponentInstance boundCompInstance : bindinglist) {
+			if (isVirtualProcessor(boundCompInstance)) {
+				result.add(boundCompInstance);
+				if (doAll)
+					addBoundVirtualProcessors(boundCompInstance, result, doAll);
+			}
 		}
 	}
 
@@ -657,32 +789,41 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * return the hardware component of the connection instance end.
-	 * If its enclosing component is a hardware component or device return it. 
-	 * If its enclosing component  is a software component, return the processor it is bound to.
-	 * If its enclosing component is a software component, then look for the processor it is bound to.
-	 * If it is a component instance (BUS), return the bus
-	 * If it is a DATA, SUBPROGRAM, or SUBPROGRAM GROUP component instance, then return the memory it is bound to. 
-	 * @param cie
-	 * @return hw component instance
+	 * Get the component that is connected at the source side of the connection.
+	 * @param connectionInstance - the connection to process
+	 * @return - the component that is the source
 	 */
-	public static ComponentInstance getHardwareComponent(ConnectionInstanceEnd cie) {
-		if (cie instanceof FeatureInstance) {
-			FeatureInstance fi = (FeatureInstance) cie;
-			ComponentInstance swci = fi.getContainingComponentInstance();
-			if (isDevice(swci) || isBus(swci) || isProcessor(swci) || isMemory(swci)) {
-				return swci;
-			}
-			return getBoundPhysicalProcessor(swci);
-		} else if (cie instanceof ComponentInstance) {
-			ComponentInstance ci = (ComponentInstance) cie;
-			if (isBus(ci)) {
-				return ci;
-			}
-			List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(ci);
-			return ciList.isEmpty() ? null : ciList.get(0);
+	public static ComponentInstance getRelatedComponentSource(ConnectionInstance connectionInstance) {
+		ConnectionInstanceEnd sourceEnd;
+		ComponentInstance source;
+
+		source = null;
+		sourceEnd = connectionInstance.getSource();
+
+		if (!(sourceEnd instanceof ComponentInstance)) {
+			source = sourceEnd.getContainingComponentInstance();
+		} else {
+			source = (ComponentInstance) sourceEnd;
 		}
-		return null;
+		return source;
+	}
+
+	/**
+	 * Get the component that is connected at the destination side of the connection.
+	 * @param connectionInstance - the connection to be processed
+	 * @return - the component that is the connection destination (and not its feature)
+	 */
+	public static ComponentInstance getRelatedComponentDestination(ConnectionInstance connectionInstance) {
+		ConnectionInstanceEnd destinationEnd;
+		ComponentInstance destination = null;
+		destinationEnd = connectionInstance.getDestination();
+
+		if (!(destinationEnd instanceof ComponentInstance)) {
+			destination = destinationEnd.getContainingComponentInstance();
+		} else {
+			destination = (ComponentInstance) destinationEnd;
+		}
+		return destination;
 	}
 
 	/**
@@ -701,19 +842,22 @@ public class InstanceModelUtil {
 		}
 
 		return connectedToBus(srcHW, curBus) && connectedToBus(dstHW, curBus);
-//			List<ComponentInstance> hwlist = connectedByBus(srcHW, dstHW);
-//			return hwlist.contains(curBus);
 	}
 
 	/**
-	 * figure out a hardware path from the endpoints without using connection binding information
+	 * Get the bus for a connection. If the bus is not found, we try
+	 * to get the bus by inspecting the component bound (processor)
+	 * to each part of the connection (thread/process/device).
 	 * 
-	 * @param conni
-	 * @return
+	 * If the connection is directly bound to a bus through the property
+	 * mechanism, we automatically return it.
+	 * 
+	 * @param connectionInstance - the connection instance
+	 * @return the bus bound to the connection.
 	 */
-	public static List<ComponentInstance> connectedByHardware(ConnectionInstance conni) {
-		ComponentInstance srcHW = getHardwareComponent(conni.getSource());
-		ComponentInstance dstHW = getHardwareComponent(conni.getDestination());
+	public static EList<ComponentInstance> deriveBoundBuses(ConnectionInstance connectionInstance) {
+		ComponentInstance srcHW = getHardwareComponent(connectionInstance.getSource());
+		ComponentInstance dstHW = getHardwareComponent(connectionInstance.getDestination());
 		return connectedByBus(srcHW, dstHW);
 	}
 
@@ -725,7 +869,7 @@ public class InstanceModelUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	public static List<ComponentInstance> connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
+	public static EList<ComponentInstance> connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
 		EList<ComponentInstance> visitedBuses = new UniqueEList<ComponentInstance>();
 		return doConnectedByBus(srcHW, dstHW, visitedBuses);
 	}
@@ -738,7 +882,7 @@ public class InstanceModelUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
+	protected static EList<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
 			EList<ComponentInstance> visitedBuses) {
 		if (srcHW == null || dstHW == null) {
 			return visitedBuses;
@@ -760,7 +904,7 @@ public class InstanceModelUtil {
 						} else {
 							// first check if there is a bus this bus is connected to
 							visitedBuses.add(curBus);
-							List<ComponentInstance> res = doConnectedByBus(curBus, dstHW, visitedBuses);
+							EList<ComponentInstance> res = doConnectedByBus(curBus, dstHW, visitedBuses);
 							if (res != null) {
 								res.add(0, curBus);
 								return res;

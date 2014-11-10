@@ -55,39 +55,26 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessConnectionEnd;
+import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
-import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureConnectionEnd;
 import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupConnectionEnd;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
@@ -107,12 +94,6 @@ import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.ParameterConnectionEnd;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortConnectionEnd;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
@@ -129,15 +110,9 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
@@ -147,7 +122,6 @@ import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
-import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
 import com.google.inject.Inject;
@@ -183,8 +157,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (context.eResource() instanceof Aadl2ResourceImpl) {
 				Element root = context.getElementRoot();
 				if (root instanceof SystemInstance) {
-					SystemImplementation si = ((SystemInstance) root).getSystemImplementation();
-					LazyLinkingResource r = (LazyLinkingResource) si.eResource();
+					ComponentImplementation ci = ((SystemInstance) root).getComponentImplementation();
+					LazyLinkingResource r = (LazyLinkingResource) ci.eResource();
 					eInstance = (PropertiesLinkingService) r.getLinkingService();
 				}
 			} else {
@@ -319,35 +293,21 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getFeature().isSuperTypeOf(requiredType)) {
-			// Feature referenced in feature refinement
-			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
+				// Feature referenced in feature refinement
+				Classifier ns = AadlUtil.getContainingClassifier(context);
 				// we need to resolve a refinement
 				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
+					EObject res = ns.getExtended().findNamedElement(name);
+					if (res != null && res instanceof Feature) {
+						searchResult = res;
+					}
 				} else {
 					return Collections.emptyList();
 				}
 			} else if (context instanceof FlowEnd) {
-				// if the flow end context is set to a feature group use its type as name space
-				Context flowendcxt = ((FlowEnd) context).getContext();
-				if (flowendcxt instanceof FeatureGroup) {
-					FeatureGroupType fgt = ((FeatureGroup) flowendcxt).getAllFeatureGroupType();
-					if (fgt == null) {
-						return Collections.emptyList();
-					}
-					if (fgt.getInverse() != null && fgt.getAllFeatures().isEmpty()) {
-						ns = fgt.getInverse();
-					} else {
-						ns = fgt;
-					}
-				}
-			}
-			if (ns != null) {
-				EObject res = ns.findNamedElement(name);
-				if (res != null && res instanceof Feature) {
-					searchResult = res;
-				}
+				FlowEnd flowEnd = (FlowEnd) context;
+				searchResult = findElementInContext(flowEnd, flowEnd.getContext(), name, Feature.class);
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
@@ -452,9 +412,20 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (reference == Aadl2Package.eINSTANCE.getModeBinding_ParentMode()) {
 					res = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 				} else if (reference == Aadl2Package.eINSTANCE.getModeBinding_DerivedMode()) {
-					Classifier sub = AadlUtil.getContainingSubcomponentClassifier(context);
-					if (sub != null) {
-						res = sub.findNamedElement(name);
+					Subcomponent subcomponent = AadlUtil.getContainingSubcomponent(context);
+					while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+						subcomponent = subcomponent.getRefined();
+					}
+					ComponentClassifier subcomponentClassifier = null;
+					if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+						subcomponentClassifier = ((ComponentClassifier) subcomponent.getSubcomponentType());
+					} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+						subcomponentClassifier = findClassifierForComponentPrototype(
+								AadlUtil.getContainingClassifier(context),
+								((ComponentPrototype) subcomponent.getSubcomponentType()));
+					}
+					if (subcomponentClassifier != null) {
+						res = subcomponentClassifier.findNamedElement(name);
 					}
 				}
 			} else {
@@ -495,107 +466,85 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			// containment path element
 			if (context instanceof ContainmentPathElement) {
 				EObject res = null;
-				ContainedNamedElement path = (ContainedNamedElement) context.eContainer();
-				EList<ContainmentPathElement> list = path.getContainmentPathElements();
-				int idx = list.indexOf(context);
-				if (idx > 0) {
+				if (((ContainmentPathElement) context).getOwner() instanceof ContainmentPathElement) {
 					// find next element in namespace of previous element
-					ContainmentPathElement el = list.get(idx - 1);
+					ContainmentPathElement el = (ContainmentPathElement) ((ContainmentPathElement) context).getOwner();
 					NamedElement ne = el.getNamedElement();
 					if (ne instanceof Subcomponent) {
-						Classifier ns = ((Subcomponent) ne).getClassifier();
-						if (!Aadl2Util.isNull(ns)) {
+						Subcomponent subcomponent = (Subcomponent) ne;
+						while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+							subcomponent = subcomponent.getRefined();
+						}
+						ComponentClassifier ns = null;
+						if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+							ns = (ComponentClassifier) subcomponent.getSubcomponentType();
+						} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+							ns = ResolvePrototypeUtil.resolveComponentPrototype(
+									(ComponentPrototype) subcomponent.getSubcomponentType(), el);
+						}
+						if (ns != null) {
 							res = ns.findNamedElement(name);
-						}
-						// need to look for subprogram calls inside call sequences
-						if (res == null) {
-							if (ne instanceof ThreadSubcomponent || ne instanceof SubprogramSubcomponent) {
-								if (ns instanceof ThreadImplementation) {
-									res = AadlUtil.findNamedElementInList(
-											((ThreadImplementation) ns).subprogramCalls(), name);
-								} else if (ns instanceof SubprogramImplementation) {
-									res = AadlUtil.findNamedElementInList(
-											((SubprogramImplementation) ns).subprogramCalls(), name);
-								}
-							}
-						}
-						if (res == null) {
-							// look in prototype actuals
-							ComponentPrototype proto = ((Subcomponent) ne).getPrototype();
-							ns = ResolvePrototypeUtil.resolveComponentPrototype(proto, el);
-							if (ns != null) {
-								res = ns.findNamedElement(name);
+							if (res == null
+									&& (ne instanceof ThreadSubcomponent || ne instanceof SubprogramSubcomponent || ne instanceof AbstractSubcomponent)
+									&& ns instanceof BehavioredImplementation) {
+								res = AadlUtil.findNamedElementInList(
+										((BehavioredImplementation) ns).subprogramCalls(), name);
 							}
 						}
 					} else if (ne instanceof FeatureGroup) {
-						Classifier ns = ((FeatureGroup) ne).getAllFeatureGroupType();
+						FeatureGroup featureGroup = (FeatureGroup) ne;
+						while (featureGroup.getFeatureType() == null
+								&& featureGroup.getRefined() instanceof FeatureGroup) {
+							featureGroup = (FeatureGroup) featureGroup.getRefined();
+						}
+						FeatureGroupType ns = null;
+						if (featureGroup.getFeatureType() instanceof FeatureGroupType) {
+							ns = (FeatureGroupType) featureGroup.getFeatureType();
+						} else if (featureGroup.getFeatureType() instanceof FeatureGroupPrototype) {
+							ns = ResolvePrototypeUtil.resolveFeatureGroupPrototype(
+									(FeatureGroupPrototype) featureGroup.getFeatureType(), el);
+						}
 						if (ns != null) {
-							res = ns.findNamedElement(name);
-						}
-						if (res == null) {
-							// look in prototype actuals
-							FeatureGroupPrototype proto = ((FeatureGroup) ne).getFeatureGroupPrototype();
-							ns = ResolvePrototypeUtil.resolveFeatureGroupPrototype(proto, el);
-							if (ns != null) {
-								res = ns.findNamedElement(name);
-							}
-						}
-					} else if (ne instanceof Feature) {
-						Classifier ns = ((Feature) ne).getClassifier();
-						if (ns != null) {
-							res = ns.findNamedElement(name);
-						}
-					} else if (ne instanceof SubprogramCall) {
-						// looking inside a subprogram that is being called
-						CalledSubprogram called = ((SubprogramCall) ne).getCalledSubprogram();
-						if (called instanceof SubprogramImplementation) {
-							res = ((SubprogramImplementation) called).findNamedElement(name);
-						} else if (called instanceof SubprogramSubcomponent) {
-							Classifier ns = ((SubprogramSubcomponent) called).getAllClassifier();
 							res = ns.findNamedElement(name);
 						}
 					}
 				} else {
 					// the first containment path element
 					Classifier ns = null;
-					// need to make sure we look in the correct name space
-					if (AadlUtil.getContainingSubcomponent(context) != null) {
-						ns = AadlUtil.getContainingSubcomponentClassifier(context);
-					} else {
-						ns = AadlUtil.getContainingClassifier(context);
+					PropertyAssociation containingPropertyAssociation = AadlUtil
+							.getContainingPropertyAssociation(context);
+					if (containingPropertyAssociation != null) {
+						// need to make sure we look in the correct name space
+						if (containingPropertyAssociation.getOwner() instanceof Classifier) {
+							ns = (Classifier) containingPropertyAssociation.getOwner();
+						} else if (containingPropertyAssociation.getOwner() instanceof Subcomponent) {
+							Subcomponent subcomponent = (Subcomponent) containingPropertyAssociation.getOwner();
+							while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+								subcomponent = subcomponent.getRefined();
+							}
+							if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+								ns = (ComponentClassifier) subcomponent.getSubcomponentType();
+							} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+								ns = ResolvePrototypeUtil.resolveComponentPrototype(
+										(ComponentPrototype) subcomponent.getSubcomponentType(),
+										AadlUtil.getContainingClassifier(context));
+							}
+						} else if (containingPropertyAssociation.getOwner() instanceof FeatureGroup) {
+							FeatureGroup fg = (FeatureGroup) containingPropertyAssociation.getOwner();
+							while (fg.getFeatureType() == null && fg.getRefined() instanceof FeatureGroup) {
+								fg = (FeatureGroup) fg.getRefined();
+							}
+							if (fg.getFeatureType() instanceof FeatureGroupType) {
+								ns = (FeatureGroupType) fg.getFeatureType();
+							} else if (fg.getFeatureType() instanceof FeatureGroupPrototype) {
+								ns = ResolvePrototypeUtil.resolveFeatureGroupPrototype(
+										(FeatureGroupPrototype) fg.getFeatureType(),
+										AadlUtil.getContainingClassifier(context));
+							}
+						}
 					}
 					if (ns != null) {
 						res = ns.findNamedElement(name);
-					}
-				}
-				if (res == null) {
-					FeatureGroup fg = AadlUtil.getContainingFeatureGroup(context);
-					if (fg != null) {
-						FeatureGroupType fgt = fg.getAllFeatureGroupType();
-						if (fgt != null) {
-							res = fgt.findNamedElement(name);
-						}
-					}
-				}
-				if (res == null) {
-					Feature feature = AadlUtil.getContainingFeature(context);
-					if (feature != null) {
-						Classifier fcl = feature.getAllClassifier();
-						if (fcl != null) {
-							res = fcl.findNamedElement(name);
-						}
-					}
-				}
-				if (res == null) {
-					SubprogramCall subcall = AadlUtil.getContainingSubprogramCall(context);
-					if (subcall != null) {
-						CalledSubprogram called = subcall.getCalledSubprogram();
-						if (called instanceof SubprogramImplementation) {
-							res = ((SubprogramImplementation) called).findNamedElement(name);
-						} else if (called instanceof SubprogramSubcomponent) {
-							Classifier ns = ((SubprogramSubcomponent) called).getAllClassifier();
-							res = ns.findNamedElement(name);
-						}
 					}
 				}
 				if (res != null && res instanceof NamedElement) {
@@ -763,16 +712,16 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param name name to be resolved
 	 * @return Classifier or null
 	 */
-	public EObject findClassifier(EObject context, EReference reference, String name) {
+	public Classifier findClassifier(EObject context, EReference reference, String name) {
 		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
 		EObject e = getIndexedObject(context, reference, name);
-		if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+		if (e != null && e instanceof Classifier && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
 			// the result satisfied the expected class
 			Namespace ns = AadlUtil.getContainingTopLevelNamespace(e);
 			if (ns instanceof PrivatePackageSection && scope != ns) {
 				return null;
 			}
-			return e;
+			return (Classifier) e;
 		}
 		// need to do a local lookup as it was not found in the index.
 		String packname = null;
@@ -799,9 +748,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		if (e == null && scope instanceof PackageSection) {
 			// the reference is from inside a package section. Lookup by identifier with or without qualification
 			e = findNamedElementInAadlPackage(packname, cname, scope);
-			if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+			if (e != null && e instanceof Classifier && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
 				// the result satisfied the expected class
-				return e;
+				return (Classifier) e;
 			}
 		}
 		return null;
@@ -931,535 +880,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
-	public PortConnectionEnd findPortConnectionEnd(PortConnection conn, Context cxt, String portName) {
-		if (cxt == null) {
-			EObject searchResult = ((ComponentImplementation) AadlUtil.getContainingClassifier(conn))
-					.findNamedElement(portName);
-			if (searchResult instanceof PortConnectionEnd) {
-				return (PortConnectionEnd) searchResult;
-			}
-		} else if (cxt instanceof Subcomponent) {
-			Subcomponent subcomponent = (Subcomponent) cxt;
-			while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
-				subcomponent = subcomponent.getRefined();
-			}
-			SubcomponentType sct = subcomponent.getSubcomponentType();
-			if (sct instanceof Classifier) {
-				EObject searchResult = ((Classifier) sct).findNamedElement(portName);
-				if (searchResult instanceof Port
-						|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent) || // data subcomponent . data subcomponent
-						(searchResult instanceof DataAccess)) {
-					return ((PortConnectionEnd) searchResult);
-				}
-			} else if (sct instanceof ComponentPrototype) {
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						AadlUtil.getContainingClassifier(conn), ((ComponentPrototype) sct));
-				if (classifier != null) {
-					NamedElement searchResult = classifier.findNamedElement(portName);
-					if (searchResult instanceof Port
-							|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent) || // data subcomponent . data subcomponent
-							(searchResult instanceof DataAccess)) {
-						return ((PortConnectionEnd) searchResult);
-					}
-				}
-			}
-		} else if (cxt instanceof DataPort || cxt instanceof EventDataPort)
-		// DataPort or EventDataPort . data element
-		{
-			Feature context = (Port) cxt;
-			while (context.getClassifier() == null && context.getPrototype() == null && context.getRefined() != null) {
-				context = context.getRefined();
-			}
-			if (context.getClassifier() != null) {
-				NamedElement searchResult = context.getClassifier().findNamedElement(portName);
-				if (searchResult instanceof DataSubcomponent) {
-					return ((DataSubcomponent) searchResult);
-				}
-			} else if (context.getPrototype() instanceof ComponentPrototype) {
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						AadlUtil.getContainingClassifier(conn), context.getPrototype());
-				if (classifier != null) {
-					NamedElement searchResult = classifier.findNamedElement(portName);
-					if (searchResult instanceof DataSubcomponent) {
-						return ((DataSubcomponent) searchResult);
-					}
-				}
-			}
-		} else if (cxt instanceof FeatureGroup) {
-			FeatureGroup featureGroup = (FeatureGroup) cxt;
-			while (featureGroup.getFeatureGroupType() == null && featureGroup.getFeatureGroupPrototype() == null
-					&& featureGroup.getRefined() instanceof FeatureGroup) {
-				featureGroup = (FeatureGroup) featureGroup.getRefined();
-			}
-			if (featureGroup.getFeatureGroupType() != null) {
-				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(portName);
-				if (searchResult instanceof PortConnectionEnd) {
-					return ((PortConnectionEnd) searchResult);
-				}
-			} else if (featureGroup.getFeatureGroupPrototype() != null) {
-				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						AadlUtil.getContainingClassifier(conn), featureGroup.getFeatureGroupPrototype());
-				if (featureGroupType != null) {
-					NamedElement searchResult = featureGroupType.findNamedElement(portName);
-					if (searchResult instanceof PortConnectionEnd) {
-						return ((PortConnectionEnd) searchResult);
-					}
-				}
-			}
-		} else if (cxt instanceof SubprogramCall) {
-			SubprogramCall subprogramCall = (SubprogramCall) cxt;
-			if (subprogramCall.getCalledSubprogram() != null) {
-				CalledSubprogram calledSubprogram = subprogramCall.getCalledSubprogram();
-				NamedElement searchResult = null;
-				if (calledSubprogram instanceof SubprogramClassifier) {
-					searchResult = ((SubprogramClassifier) calledSubprogram).findNamedElement(portName);
-				} else if (calledSubprogram instanceof SubprogramAccess) {
-					SubprogramClassifier spc = (SubprogramClassifier) ((SubprogramAccess) calledSubprogram)
-							.getAllClassifier();
-					if (spc != null) {
-						searchResult = spc.findNamedElement(portName);
-						// TODO-phf: handle prototype reference in subprogram access feature
-					}
-				} else if (calledSubprogram instanceof SubprogramPrototype) {
-					SubprogramPrototype spp = (SubprogramPrototype) calledSubprogram;
-					if (spp.getConstrainingClassifier() != null) {
-						ComponentClassifier spcc = spp.getConstrainingClassifier();
-						if (spcc != null) {
-							searchResult = spcc.findNamedElement(portName);
-						}
-					}
-				}
-				if (searchResult instanceof PortConnectionEnd) {
-					return ((PortConnectionEnd) searchResult);
-				}
-			}
-		}
-		return null;
-	}
-
-	public ConnectionEnd findAccessConnectionEnd(AccessConnection conn, Context cxt, String name) {
-
-		if (cxt == null) {
-			NamedElement searchResult = AadlUtil.getContainingClassifier(conn).findNamedElement(name);
-			if (searchResult instanceof AccessConnectionEnd) {
-				return (AccessConnectionEnd) searchResult;
-			}
-		} else if (cxt instanceof Subcomponent) {
-			Subcomponent subcomponent = (Subcomponent) cxt;
-			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null
-					&& subcomponent.getRefined() != null) {
-				subcomponent = subcomponent.getRefined();
-			}
-
-			if (subcomponent.getClassifier() != null) {
-				NamedElement searchResult;
-
-				searchResult = null;
-				for (Feature f : subcomponent.getAllFeatures()) {
-					if (f.getName().equalsIgnoreCase(name)) {
-						searchResult = f;
-					}
-				}
-				/*
-				 * FIX JD: old code that triggered a bug, see #121
-				 * Instead of searching the name using findNamedElement that
-				 * searches in the whole package, we search in the component features.
-				 *
-				 * Related to bug report #121
-				 *
-				 * NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
-				 */
-				if ((searchResult != null) && (searchResult instanceof Access)) {
-					Access a = (Access) searchResult;
-					return (Access) searchResult;
-				}
-			} else if (subcomponent.getPrototype() != null) {
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						AadlUtil.getContainingClassifier(conn), subcomponent.getPrototype());
-				if (classifier != null) {
-					NamedElement searchResult = classifier.findNamedElement(name);
-					if (searchResult instanceof Access) {
-						return (Access) searchResult;
-					}
-				}
-			}
-		} else if (cxt instanceof FeatureGroup) {
-			FeatureGroup featureGroup = (FeatureGroup) cxt;
-			while (featureGroup.getFeatureGroupType() == null && featureGroup.getFeatureGroupPrototype() == null
-					&& featureGroup.getRefined() instanceof FeatureGroup) {
-				featureGroup = (FeatureGroup) featureGroup.getRefined();
-			}
-			if (featureGroup.getFeatureGroupType() != null) {
-				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(name);
-				if (searchResult instanceof Access) {
-					return (Access) searchResult;
-				}
-			} else if (featureGroup.getFeatureGroupPrototype() != null) {
-				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						AadlUtil.getContainingClassifier(conn), featureGroup.getFeatureGroupPrototype());
-				if (featureGroupType != null) {
-					NamedElement searchResult = featureGroupType.findNamedElement(name);
-					if (searchResult instanceof Access) {
-						return (Access) searchResult;
-					}
-				}
-			}
-		} else if (cxt instanceof SubprogramCall) {
-			SubprogramCall subprogramCall = (SubprogramCall) cxt;
-			if (subprogramCall.getCalledSubprogram() != null) {
-				CalledSubprogram calledSubprogram = subprogramCall.getCalledSubprogram();
-				NamedElement searchResult = null;
-				if (calledSubprogram instanceof SubprogramClassifier) {
-					searchResult = ((SubprogramClassifier) calledSubprogram).findNamedElement(name);
-				} else if (calledSubprogram instanceof SubprogramAccess) {
-					SubprogramClassifier spc = (SubprogramClassifier) ((SubprogramAccess) calledSubprogram)
-							.getAllClassifier();
-					if (spc != null) {
-						searchResult = spc.findNamedElement(name);
-						// TODO-phf: handle prototype reference in subprogram access feature
-					}
-				} else if (calledSubprogram instanceof SubprogramPrototype) {
-					SubprogramPrototype spp = (SubprogramPrototype) calledSubprogram;
-					if (spp.getConstrainingClassifier() != null) {
-						ComponentClassifier spcc = spp.getConstrainingClassifier();
-						if (spcc != null) {
-							searchResult = spcc.findNamedElement(name);
-						}
-					}
-				}
-				if (searchResult instanceof PortConnectionEnd) {
-					return ((PortConnectionEnd) searchResult);
-				}
-			}
-		}
-		return null;
-	}
-
-	public ConnectionEnd findParameterConnectionEnd(ParameterConnection conn, Context cxt, String name) {
-		if (cxt == null) {
-			NamedElement searchResult = AadlUtil.getContainingClassifier(conn).findNamedElement(name);
-			if (searchResult instanceof ParameterConnectionEnd) {
-				return (ParameterConnectionEnd) searchResult;
-			}
-		} else if (cxt instanceof FeatureGroup) {
-			FeatureGroup featureGroup = (FeatureGroup) cxt;
-			while (featureGroup.getFeatureGroupType() == null && featureGroup.getFeatureGroupPrototype() == null
-					&& featureGroup.getRefined() instanceof FeatureGroup) {
-				featureGroup = (FeatureGroup) featureGroup.getRefined();
-			}
-			if (featureGroup.getFeatureGroupType() != null) {
-				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(name);
-				if (searchResult instanceof ParameterConnectionEnd) {
-					return (ParameterConnectionEnd) searchResult;
-				}
-			} else if (featureGroup.getFeatureGroupPrototype() != null) {
-				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						AadlUtil.getContainingClassifier(conn), featureGroup.getFeatureGroupPrototype());
-				if (featureGroupType != null) {
-					NamedElement searchResult = featureGroupType.findNamedElement(name);
-					if (searchResult instanceof ParameterConnectionEnd) {
-						return (ParameterConnectionEnd) searchResult;
-					}
-				}
-			}
-		} else if (cxt instanceof SubprogramCall) {
-			SubprogramCall subprogramCall = (SubprogramCall) cxt;
-			if (subprogramCall.getCalledSubprogram() instanceof SubprogramClassifier) {
-				NamedElement searchResult = ((SubprogramClassifier) subprogramCall.getCalledSubprogram())
-						.findNamedElement(name);
-				if (searchResult instanceof Parameter) {
-					return (Parameter) searchResult;
-				}
-			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramSubcomponent) {
-				Subcomponent subcomponent = (SubprogramSubcomponent) subprogramCall.getCalledSubprogram();
-				while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null
-						&& subcomponent.getRefined() != null) {
-					subcomponent = subcomponent.getRefined();
-				}
-				if (subcomponent.getClassifier() != null) {
-					NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
-					if (searchResult instanceof Parameter) {
-						return (Parameter) searchResult;
-					}
-				} else if (subcomponent.getPrototype() != null) {
-					ComponentClassifier classifier = findClassifierForComponentPrototype(
-							AadlUtil.getContainingClassifier(conn), subcomponent.getPrototype());
-					if (classifier != null) {
-						NamedElement searchResult = classifier.findNamedElement(name);
-						if (searchResult instanceof Parameter) {
-							return (Parameter) searchResult;
-						}
-					}
-				}
-			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramAccess) {
-				Feature access = (SubprogramAccess) subprogramCall.getCalledSubprogram();
-				while (access.getClassifier() == null && access.getPrototype() == null && access.getRefined() != null) {
-					access = access.getRefined();
-				}
-				if (access.getClassifier() != null) {
-					NamedElement searchResult = access.getClassifier().findNamedElement(name);
-					if (searchResult instanceof Parameter) {
-						return (Parameter) searchResult;
-					}
-				} else if (access.getPrototype() instanceof ComponentPrototype) {
-					CallContext callContext = subprogramCall.getContext();
-					if (callContext instanceof AbstractType || callContext instanceof DataType
-							|| callContext instanceof SubprogramGroupType) {
-						ComponentClassifier classifier = findClassifierForComponentPrototype(
-								(ComponentType) callContext, access.getPrototype());
-						if (classifier != null) {
-							NamedElement searchResult = classifier.findNamedElement(name);
-							if (searchResult instanceof Parameter) {
-								return (Parameter) searchResult;
-							}
-						}
-					} else if (callContext instanceof FeatureGroup) {
-						FeatureGroup callContextFeatureGroup = (FeatureGroup) callContext;
-						FeatureGroupType prototypeContext;
-						while (callContextFeatureGroup.getFeatureGroupType() == null
-								&& callContextFeatureGroup.getFeatureGroupPrototype() == null
-								&& callContextFeatureGroup.getRefined() instanceof FeatureGroup) {
-							callContextFeatureGroup = (FeatureGroup) callContextFeatureGroup.getRefined();
-						}
-						if (callContextFeatureGroup.getFeatureGroupType() != null) {
-							prototypeContext = callContextFeatureGroup.getFeatureGroupType();
-						} else if (callContextFeatureGroup.getFeatureGroupPrototype() instanceof FeatureGroupPrototype) {
-							prototypeContext = findFeatureGroupTypeForFeatureGroupPrototype(
-									AadlUtil.getContainingClassifier(conn),
-									(FeatureGroupPrototype) callContextFeatureGroup.getPrototype());
-						} else {
-							prototypeContext = null;
-						}
-						if (prototypeContext != null) {
-							ComponentClassifier classifier = findClassifierForComponentPrototype(prototypeContext,
-									access.getPrototype());
-							if (classifier != null) {
-								NamedElement searchResult = classifier.findNamedElement(name);
-								if (searchResult instanceof Parameter) {
-									return (Parameter) searchResult;
-								}
-							}
-						}
-					} else if (callContext instanceof SubprogramGroupAccess) {
-						Feature callContextAccess = (SubprogramGroupAccess) callContext;
-						Classifier prototypeContext;
-						while (callContextAccess.getClassifier() == null && callContextAccess.getPrototype() == null
-								&& callContextAccess.getRefined() != null) {
-							callContextAccess = callContextAccess.getRefined();
-						}
-						if (callContextAccess.getClassifier() != null) {
-							prototypeContext = callContextAccess.getClassifier();
-						} else if (callContextAccess.getPrototype() instanceof ComponentPrototype) {
-							prototypeContext = findClassifierForComponentPrototype(
-									AadlUtil.getContainingClassifier(conn), callContextAccess.getPrototype());
-						} else {
-							prototypeContext = null;
-						}
-						if (prototypeContext != null) {
-							ComponentClassifier classifier = findClassifierForComponentPrototype(prototypeContext,
-									access.getPrototype());
-							if (classifier != null) {
-								NamedElement searchResult = classifier.findNamedElement(name);
-								if (searchResult instanceof Parameter) {
-									return (Parameter) searchResult;
-								}
-							}
-						}
-					} else if (callContext instanceof SubprogramGroupSubcomponent) {
-						Subcomponent callContextSubcomponent = (SubprogramGroupSubcomponent) callContext;
-						while (callContextSubcomponent.getClassifier() == null
-								&& callContextSubcomponent.getPrototype() == null
-								&& callContextSubcomponent.getRefined() != null) {
-							callContextSubcomponent = callContextSubcomponent.getRefined();
-						}
-						if (callContextSubcomponent.getClassifier() != null) {
-							ComponentClassifier classifier;
-							if (callContextSubcomponent.getOwnedPrototypeBindings().isEmpty()) {
-								classifier = findClassifierForComponentPrototype(
-										callContextSubcomponent.getClassifier(), access.getPrototype());
-							} else {
-								classifier = findClassifierForComponentPrototype(
-										callContextSubcomponent.getClassifier(), callContextSubcomponent,
-										access.getPrototype());
-							}
-							if (classifier != null) {
-								NamedElement searchResult = classifier.findNamedElement(name);
-								if (searchResult instanceof Parameter) {
-									return (Parameter) searchResult;
-								}
-							}
-						} else if (callContextSubcomponent.getPrototype() != null) {
-							Classifier prototypeContext = findClassifierForComponentPrototype(
-									AadlUtil.getContainingClassifier(conn), callContextSubcomponent.getPrototype());
-							if (prototypeContext != null) {
-								ComponentClassifier classifier = findClassifierForComponentPrototype(prototypeContext,
-										access.getPrototype());
-								if (classifier != null) {
-									NamedElement searchResult = classifier.findNamedElement(name);
-									if (searchResult instanceof Parameter) {
-										return (Parameter) searchResult;
-									}
-								}
-							}
-						}
-					} else // callContext is null.
-					{
-						ComponentClassifier classifier = findClassifierForComponentPrototype(
-								AadlUtil.getContainingClassifier(conn), access.getPrototype());
-						if (classifier != null) {
-							NamedElement searchResult = classifier.findNamedElement(name);
-							if (searchResult instanceof Parameter) {
-								return (Parameter) searchResult;
-							}
-						}
-					}
-				}
-			} else // subprogramCall.getCalledSubprogram() is null. The
-					// subprogram call refers to a prototype.
-			{
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						AadlUtil.getContainingClassifier(conn),
-						(ComponentPrototype) subprogramCall.getCalledSubprogram());
-				if (classifier != null) {
-					NamedElement searchResult = classifier.findNamedElement(name);
-					if (searchResult instanceof Parameter) {
-						return (Parameter) searchResult;
-					}
-				}
-			}
-		} else // connection.getSourceContext() is a Parameter, DataPort, or
-				// EventDataPort
-		{
-			Feature sourceContext = (Feature) cxt;
-			while (sourceContext.getClassifier() == null && sourceContext.getPrototype() == null
-					&& sourceContext.getRefined() != null) {
-				sourceContext = sourceContext.getRefined();
-			}
-			if (sourceContext.getClassifier() != null) {
-				NamedElement searchResult = sourceContext.getClassifier().findNamedElement(name);
-				if (searchResult instanceof DataSubcomponent) {
-					return (DataSubcomponent) searchResult;
-				}
-			} else if (sourceContext.getPrototype() instanceof ComponentPrototype) {
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						AadlUtil.getContainingClassifier(conn), sourceContext.getPrototype());
-				if (classifier != null) {
-					NamedElement searchResult = classifier.findNamedElement(name);
-					if (searchResult instanceof DataSubcomponent) {
-						return (DataSubcomponent) searchResult;
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	public ConnectionEnd findFeatureGroupConnectionEnd(FeatureGroupConnection connection, Context cxt, String name) {
-		if (cxt == null) {
-			NamedElement searchResult = AadlUtil.getContainingClassifier(connection).findNamedElement(name);
-			if (searchResult instanceof FeatureGroupConnectionEnd) {
-				return (FeatureGroupConnectionEnd) searchResult;
-			}
-		} else if (cxt instanceof Subcomponent) {
-			Subcomponent subcomponent = (Subcomponent) cxt;
-			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null
-					&& subcomponent.getRefined() != null) {
-				subcomponent = subcomponent.getRefined();
-			}
-			if (subcomponent.getClassifier() != null) {
-				NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
-				if (searchResult instanceof FeatureGroupConnectionEnd) {
-					return (FeatureGroupConnectionEnd) searchResult;
-				}
-			} else if (subcomponent.getPrototype() != null) {
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						AadlUtil.getContainingClassifier(connection), subcomponent.getPrototype());
-				if (classifier != null) {
-					NamedElement searchResult = classifier.findNamedElement(name);
-					if (searchResult instanceof FeatureGroupConnectionEnd) {
-						return (FeatureGroupConnectionEnd) searchResult;
-					}
-				}
-			}
-		} else // connection.getSourceContext() is a FeatureGroup
-		{
-			FeatureGroup featureGroup = (FeatureGroup) cxt;
-			while (featureGroup.getFeatureGroupType() == null && featureGroup.getFeatureGroupPrototype() == null
-					&& featureGroup.getRefined() instanceof FeatureGroup) {
-				featureGroup = (FeatureGroup) featureGroup.getRefined();
-			}
-			if (featureGroup.getFeatureGroupType() != null) {
-				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(name);
-				if (searchResult instanceof FeatureGroupConnectionEnd) {
-					return (FeatureGroupConnectionEnd) searchResult;
-				}
-			} else if (featureGroup.getFeatureGroupPrototype() != null) {
-				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						AadlUtil.getContainingClassifier(connection), featureGroup.getFeatureGroupPrototype());
-				if (featureGroupType != null) {
-					NamedElement searchResult = featureGroupType.findNamedElement(name);
-					if (searchResult instanceof FeatureGroupConnectionEnd) {
-						return ((FeatureGroupConnectionEnd) searchResult);
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	public ConnectionEnd findFeatureConnectionEnd(FeatureConnection connection, Context cxt, String name) {
-		if (cxt == null) {
-			NamedElement searchResult = AadlUtil.getContainingClassifier(connection).findNamedElement(name);
-			if (searchResult instanceof FeatureConnectionEnd) {
-				return ((FeatureConnectionEnd) searchResult);
-			}
-		} else if (cxt instanceof Subcomponent) {
-			Subcomponent subcomponent = (Subcomponent) cxt;
-			while (subcomponent.getClassifier() == null && subcomponent.getPrototype() == null
-					&& subcomponent.getRefined() != null) {
-				subcomponent = subcomponent.getRefined();
-			}
-			if (subcomponent.getClassifier() != null) {
-				NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
-				if (searchResult instanceof FeatureConnectionEnd) {
-					return ((FeatureConnectionEnd) searchResult);
-				}
-			} else if (subcomponent.getPrototype() != null) {
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						AadlUtil.getContainingClassifier(connection), subcomponent.getPrototype());
-				if (classifier != null) {
-					NamedElement searchResult = classifier.findNamedElement(name);
-					if (searchResult instanceof FeatureConnectionEnd) {
-						return ((FeatureConnectionEnd) searchResult);
-					}
-				}
-			}
-		} else // connection.getSourceContext() is a FeatureGroup
-		{
-			FeatureGroup featureGroup = (FeatureGroup) cxt;
-			while (featureGroup.getFeatureGroupType() == null && featureGroup.getFeatureGroupPrototype() == null
-					&& featureGroup.getRefined() instanceof FeatureGroup) {
-				featureGroup = (FeatureGroup) featureGroup.getRefined();
-			}
-			if (featureGroup.getFeatureGroupType() != null) {
-				NamedElement searchResult = featureGroup.getFeatureGroupType().findNamedElement(name);
-				if (searchResult instanceof FeatureConnectionEnd) {
-					return ((FeatureConnectionEnd) searchResult);
-				}
-			} else if (featureGroup.getFeatureGroupPrototype() != null) {
-				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						AadlUtil.getContainingClassifier(connection), featureGroup.getFeatureGroupPrototype());
-				if (featureGroupType != null) {
-					NamedElement searchResult = featureGroupType.findNamedElement(name);
-					if (searchResult instanceof FeatureConnectionEnd) {
-						return ((FeatureConnectionEnd) searchResult);
-					}
-				}
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * Dependencies: PrototypeFormalReference, ClassifierReference,
 	 * PrototypeOrClassifierReference, ComponentPrototypeClassifierReference,
@@ -1470,16 +890,16 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	/*
 	 * TODO: Check for circular dependencies with prototypes. Example:
-	 *
+	 * 
 	 * abstract a prototypes p1: subprogram group; p2: subprogram group; end a;
-	 *
+	 * 
 	 * abstract implementation a.i ( p1 => p2, p2 => p1) subcomponents sub:
 	 * subprogram group p1; calls sequence1: { call1: subprogram
 	 * sub.access_feature_1; end a.i;
-	 *
+	 * 
 	 * This will cause a stack overflow!
 	 */
-	public ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier,
+	public static ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier,
 			ComponentPrototype prototype) {
 		// TODO: Need to check that the prototype binding is a component
 		// prototype binding. In PrototypeFormalReference,
@@ -1524,7 +944,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	/*
 	 * TODO: Check for circular dependencies with prototypes.
 	 */
-	public ComponentClassifier findClassifierForComponentPrototype(Classifier classifierPrototypeContext,
+	public static ComponentClassifier findClassifierForComponentPrototype(Classifier classifierPrototypeContext,
 			Subcomponent subcomponentPrototypeContext, ComponentPrototype prototype) {
 		// TODO: Need to check that the prototype binding is a component
 		// prototype binding. In PrototypeFormalReference,
@@ -1536,8 +956,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			SubcomponentType st = binding.getActuals().get(0).getSubcomponentType();
 			if (st instanceof ComponentClassifier) {
 				return (ComponentClassifier) st;
-			} else // It is a ComponentPrototypeReference
-			{
+			} else if (st instanceof ComponentPrototype) {
 				ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(
 						classifierPrototypeContext, subcomponentPrototypeContext, ((ComponentPrototype) st));
 				if (classifierForReferencedPrototype != null) {
@@ -1568,7 +987,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * FeatureGroupTypeExtendReference.
 	 */
 	// TODO: Check for circular dependencies with prototypes.
-	public FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(Classifier containingClassifier,
+	public static FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(Classifier containingClassifier,
 			FeatureGroupPrototype prototype) {
 		// TODO: Need to check that the prototype binding is a feature group
 		// prototype binding. In PrototypeFormalReference,
@@ -1636,7 +1055,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	/**
 	 * Search for a {@link NamedElement} with the name {@code elementName} in
-	 * the containing package, which is also the specified by {@code packageName}. 
+	 * the containing package, which is also the specified by {@code packageName}.
 	 * If the element cannot be found in the specified package, then {@code null} will be returned.
 	 *
 	 *
@@ -1705,7 +1124,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * ComponentImplementationExtensionReference, RealizationReference,
 	 * FeatureGroupTypeExtendReference.
 	 */
-	public PrototypeBinding findPrototypeBinding(Classifier classifier, Prototype prototype) {
+	public static PrototypeBinding findPrototypeBinding(Classifier classifier, Prototype prototype) {
 		for (PrototypeBinding binding : classifier.getOwnedPrototypeBindings()) {
 			if (binding.getFormal().equals(prototype)) {
 				return binding;
@@ -1726,7 +1145,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * ComponentImplementationExtensionReference, RealizationReference,
 	 * FeatureGroupTypeExtendReference.
 	 */
-	public PrototypeBinding findPrototypeBinding(Classifier classifierPrototypeContext,
+	public static PrototypeBinding findPrototypeBinding(Classifier classifierPrototypeContext,
 			Subcomponent subcomponentPrototypeContext, Prototype prototype) {
 		for (PrototypeBinding binding : subcomponentPrototypeContext.getOwnedPrototypeBindings()) {
 			if (binding.getFormal().equals(prototype)) {
@@ -1798,12 +1217,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		// look for unit literal pointed to by baseUnit
 		if (context instanceof UnitLiteral) {
 			UnitsType unitsType = (UnitsType) ((UnitLiteral) context).getOwner();
-			UnitLiteral baseUnit = (UnitLiteral) unitsType.findNamedElement(name);
-			if (baseUnit != null) {
-				if (unitsType.getOwnedLiterals().indexOf(baseUnit) < unitsType.getOwnedLiterals().indexOf((context))) {
-					return baseUnit;
-				}
-			}
+			return (UnitLiteral) unitsType.findNamedElement(name);
 		} else if (context instanceof NumberValue) {
 			UnitsType unitsType = null;
 			NumberValue numberValue = (NumberValue) context;
@@ -1863,7 +1277,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (propertyType instanceof NumberType) {
 					unitsType = ((NumberType) propertyType).getUnitsType();
 				} else if (propertyType instanceof RangeType) {
-					unitsType = ((RangeType) propertyType).getNumberType().getUnitsType();
+					RangeType rangeType = (RangeType) propertyType;
+					// The number type could be null if the model is incomplete.
+					if (rangeType.getNumberType() != null) {
+						unitsType = rangeType.getNumberType().getUnitsType();
+					}
 				}
 			}
 			if (unitsType != null) {
@@ -1946,4 +1364,174 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
+	protected static <T> T findElementInContext(Element referencingObject, Context context, String name,
+			Class<T> validSearchResultType) {
+		NamedElement searchResult = null;
+		if (context == null) {
+			searchResult = AadlUtil.getContainingClassifier(referencingObject).findNamedElement(name);
+		} else if (context instanceof FeatureGroup) {
+			FeatureGroup featureGroup = (FeatureGroup) context;
+			while (featureGroup.getFeatureGroupType() == null && featureGroup.getFeatureGroupPrototype() == null
+					&& featureGroup.getRefined() instanceof FeatureGroup) {
+				featureGroup = (FeatureGroup) featureGroup.getRefined();
+			}
+			FeatureGroupType featureGroupType = null;
+			if (featureGroup.getFeatureGroupType() != null) {
+				featureGroupType = featureGroup.getFeatureGroupType();
+			} else if (featureGroup.getFeatureGroupPrototype() != null) {
+				featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
+						AadlUtil.getContainingClassifier(referencingObject), featureGroup.getFeatureGroupPrototype());
+			}
+			if (featureGroupType != null) {
+				searchResult = featureGroupType.findNamedElement(name);
+			}
+		} else if (context instanceof Feature) {
+			Feature feature = (Feature) context;
+			while (feature.getClassifier() == null && feature.getPrototype() == null && feature.getRefined() != null) {
+				feature = feature.getRefined();
+			}
+			Classifier featureClassifier = null;
+			if (feature.getClassifier() != null) {
+				featureClassifier = feature.getClassifier();
+			} else if (feature.getPrototype() != null) {
+				featureClassifier = findClassifierForComponentPrototype(
+						AadlUtil.getContainingClassifier(referencingObject), feature.getPrototype());
+			}
+			if (featureClassifier != null) {
+				searchResult = featureClassifier.findNamedElement(name);
+			}
+		} else if (context instanceof Subcomponent) {
+			Subcomponent subcomponent = (Subcomponent) context;
+			while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+				subcomponent = subcomponent.getRefined();
+			}
+			ComponentClassifier subcomponentClassifier = null;
+			if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+				subcomponentClassifier = (ComponentClassifier) subcomponent.getSubcomponentType();
+			} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+				subcomponentClassifier = findClassifierForComponentPrototype(
+						AadlUtil.getContainingClassifier(referencingObject),
+						(ComponentPrototype) subcomponent.getSubcomponentType());
+			}
+			if (subcomponentClassifier != null) {
+				searchResult = subcomponentClassifier.findNamedElement(name);
+			}
+		} else if (context instanceof SubprogramCall) {
+			SubprogramCall subprogramCall = (SubprogramCall) context;
+			if (subprogramCall.getCalledSubprogram() instanceof ComponentClassifier) {
+				searchResult = ((ComponentClassifier) subprogramCall.getCalledSubprogram()).findNamedElement(name);
+			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramSubcomponent) {
+				Subcomponent subcomponent = (SubprogramSubcomponent) subprogramCall.getCalledSubprogram();
+				while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
+					subcomponent = subcomponent.getRefined();
+				}
+				ComponentClassifier subcomponentClassifier = null;
+				if (subcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+					subcomponentClassifier = (ComponentClassifier) subcomponent.getSubcomponentType();
+				} else if (subcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+					subcomponentClassifier = findClassifierForComponentPrototype(
+							AadlUtil.getContainingClassifier(referencingObject),
+							(ComponentPrototype) subcomponent.getSubcomponentType());
+				}
+				if (subcomponentClassifier != null) {
+					searchResult = subcomponentClassifier.findNamedElement(name);
+				}
+			} else if (subprogramCall.getCalledSubprogram() instanceof SubprogramAccess) {
+				Feature access = (SubprogramAccess) subprogramCall.getCalledSubprogram();
+				while (access.getClassifier() == null && access.getPrototype() == null && access.getRefined() != null) {
+					access = access.getRefined();
+				}
+				Classifier accessClassifier = null;
+				if (access.getClassifier() != null) {
+					accessClassifier = access.getClassifier();
+				} else if (access.getPrototype() != null) {
+					CallContext callContext = subprogramCall.getContext();
+					if (callContext instanceof ComponentType) {
+						accessClassifier = findClassifierForComponentPrototype((ComponentType) callContext,
+								access.getPrototype());
+					} else if (callContext instanceof FeatureGroup) {
+						FeatureGroup callContextFeatureGroup = (FeatureGroup) callContext;
+						FeatureGroupType prototypeContext = null;
+						while (callContextFeatureGroup.getFeatureGroupType() == null
+								&& callContextFeatureGroup.getFeatureGroupPrototype() == null
+								&& callContextFeatureGroup.getRefined() instanceof FeatureGroup) {
+							callContextFeatureGroup = (FeatureGroup) callContextFeatureGroup.getRefined();
+						}
+						if (callContextFeatureGroup.getFeatureGroupType() != null) {
+							prototypeContext = callContextFeatureGroup.getFeatureGroupType();
+						} else if (callContextFeatureGroup.getFeatureGroupPrototype() != null) {
+							prototypeContext = findFeatureGroupTypeForFeatureGroupPrototype(
+									AadlUtil.getContainingClassifier(referencingObject),
+									callContextFeatureGroup.getFeatureGroupPrototype());
+						}
+						if (prototypeContext != null) {
+							accessClassifier = findClassifierForComponentPrototype(prototypeContext,
+									access.getPrototype());
+						}
+					} else if (callContext instanceof SubprogramGroupAccess) {
+						Feature callContextAccess = (SubprogramGroupAccess) callContext;
+						Classifier prototypeContext = null;
+						while (callContextAccess.getClassifier() == null && callContextAccess.getPrototype() == null
+								&& callContextAccess.getRefined() != null) {
+							callContextAccess = callContextAccess.getRefined();
+						}
+						if (callContextAccess.getClassifier() != null) {
+							prototypeContext = callContextAccess.getClassifier();
+						} else if (callContextAccess.getPrototype() != null) {
+							prototypeContext = findClassifierForComponentPrototype(
+									AadlUtil.getContainingClassifier(referencingObject),
+									callContextAccess.getPrototype());
+						}
+						if (prototypeContext != null) {
+							accessClassifier = findClassifierForComponentPrototype(prototypeContext,
+									access.getPrototype());
+						}
+					} else if (callContext instanceof SubprogramGroupSubcomponent) {
+						Subcomponent callContextSubcomponent = (SubprogramGroupSubcomponent) callContext;
+						while (callContextSubcomponent.getSubcomponentType() == null
+								&& callContextSubcomponent.getRefined() != null) {
+							callContextSubcomponent = callContextSubcomponent.getRefined();
+						}
+						if (callContextSubcomponent.getSubcomponentType() instanceof ComponentClassifier) {
+							if (callContextSubcomponent.getOwnedPrototypeBindings().isEmpty()) {
+								accessClassifier = findClassifierForComponentPrototype(
+										callContextSubcomponent.getClassifier(), access.getPrototype());
+							} else {
+								accessClassifier = findClassifierForComponentPrototype(
+										callContextSubcomponent.getClassifier(), callContextSubcomponent,
+										access.getPrototype());
+							}
+						} else if (callContextSubcomponent.getSubcomponentType() instanceof ComponentPrototype) {
+							ComponentClassifier prototypeContext = findClassifierForComponentPrototype(
+									AadlUtil.getContainingClassifier(referencingObject),
+									callContextSubcomponent.getPrototype());
+							if (prototypeContext != null) {
+								accessClassifier = findClassifierForComponentPrototype(prototypeContext,
+										access.getPrototype());
+							}
+						}
+					} else // callContext is null.
+					{
+						accessClassifier = findClassifierForComponentPrototype(
+								AadlUtil.getContainingClassifier(referencingObject), access.getPrototype());
+					}
+				}
+				if (accessClassifier != null) {
+					searchResult = accessClassifier.findNamedElement(name);
+				}
+			} else if (subprogramCall.getCalledSubprogram() instanceof ComponentPrototype) {
+				ComponentClassifier classifier = findClassifierForComponentPrototype(
+						AadlUtil.getContainingClassifier(referencingObject),
+						(ComponentPrototype) subprogramCall.getCalledSubprogram());
+				if (classifier != null) {
+					searchResult = classifier.findNamedElement(name);
+				}
+			}
+		}
+		if (validSearchResultType.isInstance(searchResult)) {
+			return validSearchResultType.cast(searchResult);
+		} else {
+			return null;
+		}
+	}
 }

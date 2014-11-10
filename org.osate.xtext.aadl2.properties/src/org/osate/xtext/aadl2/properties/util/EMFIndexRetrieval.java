@@ -19,6 +19,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
@@ -118,7 +119,7 @@ public class EMFIndexRetrieval {
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
 				.getAadlPackage());
 		for (IEObjectDescription eod : packagedlist) {
-			if (eod.getName().toString().equalsIgnoreCase(pname)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, resourceSet);
 				if (!Aadl2Util.isNull(res)) {
@@ -148,7 +149,7 @@ public class EMFIndexRetrieval {
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
 				.getAadlPackage());
 		for (IEObjectDescription eod : packagedlist) {
-			if (eod.getName().toString().equalsIgnoreCase(pname)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, resourceSet);
 				if (!Aadl2Util.isNull(res)) {
@@ -202,7 +203,7 @@ public class EMFIndexRetrieval {
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
 				.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
-			if (eod.getName().toString().equalsIgnoreCase(pname)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
 				if (!Aadl2Util.isNull(res)) {
@@ -232,7 +233,7 @@ public class EMFIndexRetrieval {
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
 				.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
-			if (eod.getName().toString().equalsIgnoreCase(pname)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, resourceSet);
 				if (!Aadl2Util.isNull(res)) {
@@ -272,7 +273,7 @@ public class EMFIndexRetrieval {
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getProperty());
 		for (IEObjectDescription eod : packagedlist) {
 			if (pdname.lastIndexOf("::") == -1) {
-				String name = eod.getName().toString();
+				String name = eod.getName().toString("::");
 				for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
 					if (name.equalsIgnoreCase(predeclaredPSName + "::" + pdname)) {
 						EObject res = eod.getEObjectOrProxy();
@@ -283,7 +284,7 @@ public class EMFIndexRetrieval {
 					}
 				}
 			} else {
-				if (eod.getName().toString().equalsIgnoreCase(pdname)) {
+				if (eod.getName().toString("::").equalsIgnoreCase(pdname)) {
 					EObject res = eod.getEObjectOrProxy();
 					res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
 					if (!Aadl2Util.isNull(res)) {
@@ -325,7 +326,7 @@ public class EMFIndexRetrieval {
 				.getPropertyType());
 		for (IEObjectDescription eod : packagedlist) {
 			if (ptname.lastIndexOf("::") == -1) {
-				String name = eod.getName().toString();
+				String name = eod.getName().toString("::");
 				for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
 					if (name.equalsIgnoreCase(predeclaredPSName + "::" + ptname)) {
 						EObject res = eod.getEObjectOrProxy();
@@ -336,7 +337,7 @@ public class EMFIndexRetrieval {
 					}
 				}
 			} else {
-				if (eod.getName().toString().equalsIgnoreCase(ptname)) {
+				if (eod.getName().toString("::").equalsIgnoreCase(ptname)) {
 					EObject res = eod.getEObjectOrProxy();
 					res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
 					if (!Aadl2Util.isNull(res)) {
@@ -378,7 +379,7 @@ public class EMFIndexRetrieval {
 				.getPropertyConstant());
 		for (IEObjectDescription eod : packagedlist) {
 			if (pcname.lastIndexOf("::") == -1) {
-				String name = eod.getName().toString();
+				String name = eod.getName().toString("::");
 				for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
 					if (name.equalsIgnoreCase(predeclaredPSName + "::" + pcname)) {
 						EObject res = eod.getEObjectOrProxy();
@@ -389,7 +390,7 @@ public class EMFIndexRetrieval {
 					}
 				}
 			} else {
-				if (eod.getName().toString().equalsIgnoreCase(pcname)) {
+				if (eod.getName().toString("::").equalsIgnoreCase(pcname)) {
 					EObject res = eod.getEObjectOrProxy();
 					res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
 					if (!Aadl2Util.isNull(res)) {
@@ -597,7 +598,7 @@ public class EMFIndexRetrieval {
 	 */
 	public static EObject getEObject(EObject context, Iterable<IEObjectDescription> edl, String name) {
 		for (IEObjectDescription eod : edl) {
-			if (eod.getName().toString().equalsIgnoreCase(name)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(name)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, context.eResource().getResourceSet());
 				if (!Aadl2Util.isNull(res)) {
@@ -616,7 +617,7 @@ public class EMFIndexRetrieval {
 	 */
 	public static EObject getEObject(Iterable<IEObjectDescription> edl, String name) {
 		for (IEObjectDescription eod : edl) {
-			if (eod.getName().toString().equalsIgnoreCase(name)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(name)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
 				if (!Aadl2Util.isNull(res)) {
@@ -638,7 +639,7 @@ public class EMFIndexRetrieval {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
 		Iterable<IEObjectDescription> edlist = rds.getExportedObjectsByType(eObjectType);
 		for (IEObjectDescription eod : edlist) {
-			if (eod.getName().toString().equalsIgnoreCase(name)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(name)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, context.eResource().getResourceSet());
 				if (!Aadl2Util.isNull(res)) {
@@ -656,6 +657,27 @@ public class EMFIndexRetrieval {
 	 * @return EObject
 	 */
 	public static EObject getEObjectOfType(EClass eObjectType, String name) {
+		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		Iterable<IEObjectDescription> edlist = rds.getExportedObjectsByType(eObjectType);
+		for (IEObjectDescription eod : edlist) {
+			if (eod.getName().toString("::").equalsIgnoreCase(name)) {
+				EObject res = eod.getEObjectOrProxy();
+				res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+				if (!Aadl2Util.isNull(res)) {
+					return res;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * find EObject by name in EObjectDescription list
+	 * @param edl EObjectDescription list
+	 * @param name String qualified name of EObject to be found
+	 * @return EObject
+	 */
+	public static EObject getDottedEObjectOfType(EClass eObjectType, String name) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 		Iterable<IEObjectDescription> edlist = rds.getExportedObjectsByType(eObjectType);
 		for (IEObjectDescription eod : edlist) {
@@ -699,7 +721,7 @@ public class EMFIndexRetrieval {
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
 				.getClassifier());
 		for (IEObjectDescription eod : packagedlist) {
-			if (eod.getName().toString().equalsIgnoreCase(cname)) {
+			if (eod.getName().toString("::").equalsIgnoreCase(cname)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, rs);
 				if (!Aadl2Util.isNull(res)) {
@@ -758,18 +780,27 @@ public class EMFIndexRetrieval {
 
 	/**
 	 * Gets an object by qualified name by looking it up in the EMF Index
+	 * @param name the qualified name of the object to find
+	 * @return the object or null if it can not be found.
+	 */
+	public static EObject getObjectByQualifiedName(EObject context, final String name) {
+		return getObjectByQualifiedName(name, context.eResource().getResourceSet());
+	}
+
+	/**
+	 * Gets an object by qualified name by looking it up in the EMF Index
 	 * @param name the qualified name of the object
 	 * @param resourceSet the resource set that contains the model
 	 * @return the object or null
 	 */
-	public static EObject getObjectByQualifiedName(final String name, final XtextResourceSet resourceSet) {
+	public static EObject getObjectByQualifiedName(final String name, final ResourceSet resourceSet) {
 		final IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
 		final Iterable<IEObjectDescription> objects = rds.getExportedObjects();
 		for (final IEObjectDescription eod : objects) {
-			if (eod.getQualifiedName().toString().equalsIgnoreCase(name)) {
+			if (eod.getQualifiedName().toString("::").equalsIgnoreCase(name)) {
 				EObject res = eod.getEObjectOrProxy();
 				res = EcoreUtil.resolve(res, resourceSet);
-				if (!Aadl2Util.isNull(res)) {
+				if (!Aadl2Util.isNull(res) && res instanceof NamedElement) {
 					return res;
 				}
 			}

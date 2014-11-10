@@ -95,6 +95,7 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MetaclassReference> getClassifierReferences() {
 		if (classifierReferences == null) {
 			classifierReferences = new EObjectContainmentEList<MetaclassReference>(MetaclassReference.class, this,
@@ -108,6 +109,7 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MetaclassReference createClassifierReference() {
 		MetaclassReference newClassifierReference = (MetaclassReference) create(Aadl2Package.eINSTANCE
 				.getMetaclassReference());

@@ -15,8 +15,10 @@
 
    <launcherArgs>
       <programArgs>--launcher.XXPermSize 64M
---launcher.XXMaxPermSize 256M</programArgs>
-      <vmArgs>-XX:PermSize=64m -XX:MaxPermSize=256m -Xms40m -Xmx768m</vmArgs>
+--launcher.XXMaxPermSize 256M
+      </programArgs>
+      <vmArgs>-XX:PermSize=64m -XX:MaxPermSize=256m -Xms40m -Xmx768m
+      </vmArgs>
    </launcherArgs>
 
    <windowImages i16="icons/16aadl.jpg" i32="icons/32aadl.jpg"/>
@@ -45,13 +47,38 @@
       <feature id="org.osate.plugins.feature" version="2.0.0.qualifier"/>
       <feature id="org.osate.plugins.source.feature" version="2.0.0.qualifier"/>
       <feature id="org.osate.xtext.aadl2.errormodel.feature" version="2.0.0.qualifier"/>
-      <feature id="org.eclipse.emf"/>
-      <feature id="org.eclipse.platform"/>
-      <feature id="org.eclipse.rcp"/>
-      <feature id="org.eclipse.equinox.p2.user.ui"/>
       <feature id="org.osate.ge.feature" version="2.0.0.qualifier"/>
       <feature id="org.osate.ba.feature" version="1.0.0.qualifier"/>
       <feature id="org.osate.utils.feature" version="1.0.0.qualifier"/>
+      <feature id="org.eclipse.e4.rcp" version="1.3.100.v20140909-1633"/>
+      <feature id="org.eclipse.egf.core.ui" version="1.2.0.v20140605-1557"/>
+      <feature id="org.eclipse.egf.sdk" version="1.2.0.v20140605-1557"/>
+      <feature id="org.eclipse.egit" version="3.4.1.201406201815-r"/>
+      <feature id="org.eclipse.emf" version="2.10.1.v20140901-1055"/>
+      <feature id="org.eclipse.emf.transaction" version="1.8.0.201405281451"/>
+      <feature id="org.eclipse.emf.transaction.sdk" version="1.8.0.201405281451"/>
+      <feature id="org.eclipse.equinox.executable" version="3.6.100.v20140819-1617"/>
+      <feature id="org.eclipse.equinox.p2.core.feature" version="1.3.0.v20140523-0116"/>
+      <feature id="org.eclipse.equinox.p2.extras.feature" version="1.2.0.v20140911-0143"/>
+      <feature id="org.eclipse.equinox.p2.rcp.feature" version="1.2.0.v20140523-0116"/>
+      <feature id="org.eclipse.equinox.p2.user.ui" version="2.2.0.v20140911-0143"/>
+      <feature id="org.eclipse.gmf.runtime.sdk" version="1.8.1.201408201453"/>
+      <feature id="org.eclipse.graphiti.feature" version="0.11.1.v20140903-1228"/>
+      <feature id="org.eclipse.graphiti.feature.tools" version="0.11.1.v20140903-1228"/>
+      <feature id="org.eclipse.graphiti.sdk.feature" version="0.11.1.v20140903-1228"/>
+      <feature id="org.eclipse.help" version="2.0.102.v20140925-0400"/>
+      <feature id="org.eclipse.m2e.logback.feature" version="1.5.0.20140606-0033"/>
+      <feature id="org.eclipse.m2m.atl" version="3.5.0.v201405260755"/>
+      <feature id="org.eclipse.m2m.atl.sdk" version="3.5.0.v201405260755"/>
+      <feature id="org.eclipse.ocl.all" version="5.0.2.v20140725-2242"/>
+      <feature id="org.eclipse.ocl.all.sdk" version="5.0.2.v20140819-1612"/>
+      <feature id="org.eclipse.ocl" version="3.4.2.v20140725-2242"/>
+      <feature id="org.eclipse.platform" version="4.4.0.v20140925-0400"/>
+      <feature id="org.eclipse.rcp" version="4.4.0.v20140925-0400"/>
+      <feature id="org.eclipse.sdk" version="4.4.0.v20140925-0400"/>
+      <feature id="org.eclipse.uml2" version="5.0.0.v20140910-1354"/>
+      <feature id="org.eclipse.zest" version="1.5.101.201408150207"/>
+      <feature id="org.eclipse.xtext.redist" version="2.7.2.v201409160908"/>
    </features>
 
    <configurations>

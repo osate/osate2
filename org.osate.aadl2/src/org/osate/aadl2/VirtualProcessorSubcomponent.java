@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Virtual Processor Subcomponent</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::VirtualProcessor.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -67,6 +71,9 @@ public interface VirtualProcessorSubcomponent extends Subcomponent, VirtualProce
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::VirtualProcessor.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Virtual Processor Subcomponent Type</em>' reference.
 	 * @see #setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType()

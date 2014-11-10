@@ -35,6 +35,8 @@
 package org.osate.xtext.aadl2.properties;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.scoping.IScopeProvider;
+import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider;
 import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
 /**
@@ -55,4 +57,8 @@ public class PropertiesRuntimeModule extends org.osate.xtext.aadl2.properties.Ab
 		return org.osate.xtext.aadl2.properties.naming.PropertiesQualifiedNameProvider.class;
 	}
 
+	@Override
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return PropertiesScopeProvider.class;
+	}
 }

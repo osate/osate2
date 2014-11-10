@@ -46,6 +46,9 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>Access Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Features.</p>
+ * <!-- end-model-doc -->
  * @see org.osate.aadl2.Aadl2Package#getAccessType()
  * @model
  * @generated
@@ -203,6 +206,7 @@ public enum AccessType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -212,6 +216,7 @@ public enum AccessType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -221,6 +226,7 @@ public enum AccessType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -237,10 +243,11 @@ public enum AccessType implements Enumerator {
 	}
 
 	public AccessType getInverseType() {
-		if (equals(PROVIDES))
+		if (equals(PROVIDES)) {
 			return REQUIRES;
-		else
+		} else {
 			return PROVIDES;
+		}
 	}
 
 } // AccessType

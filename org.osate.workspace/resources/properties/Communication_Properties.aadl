@@ -4,7 +4,7 @@
 
 property set Communication_Properties is
 	Fan_Out_Policy: enumeration (Broadcast, RoundRobin, Selective, OnDemand)
-		applies to (port);
+		applies to (feature);
 	
 	Connection_Pattern: list of list of Supported_Connection_Patterns
 		applies to (connection);
@@ -32,13 +32,13 @@ property set Communication_Properties is
 		applies to (port connection);
 	
 	Transmission_Type: enumeration (push, pull)
-		applies to (data port, port connection, bus, virtual bus);
+		applies to (feature, connection, bus, virtual bus);
 	
 	Input_Rate: Rate_Spec => [Value_Range => 1.0 .. 1.0; Rate_Unit => PerDispatch; Rate_Distribution => Fixed;]
-		applies to (port);
+		applies to (feature);
 	
 	Input_Time: list of IO_Time_Spec => ([Time => Dispatch; Offset => 0 ns .. 0 ns;])
-		applies to (port);
+		applies to (feature);
 	
 	IO_Time_Spec: type record (
 		Offset: Time_Range;
@@ -48,10 +48,10 @@ property set Communication_Properties is
 	IO_Reference_Time: type enumeration (Dispatch, Start, Completion, Deadline, NoIO);
 	
 	Output_Rate: Rate_Spec => [Value_Range => 1.0 .. 1.0; Rate_Unit => PerDispatch; Rate_Distribution => Fixed;]
-		applies to (port);
+		applies to (feature);
 	
 	Output_Time: list of IO_Time_Spec => ([Time => Completion; Offset => 0 ns .. 0 ns;])
-		applies to (port);
+		applies to (feature);
 	
 	Rate_Spec: type record (
 		Value_Range: range of aadlreal;
@@ -65,13 +65,13 @@ property set Communication_Properties is
 	Transmission_Time: record (
 			Fixed: Time_Range;
 			PerByte: Time_Range;)
-		applies to (bus);
+		applies to (bus,system,device,processor,memory,virtual bus, virtual processor);
 	
 	Actual_Latency: Time_Range
-		applies to (flow, connection, bus, processor, device, port, memory);
+		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
 	
 	Latency: Time_Range
-		applies to (flow, connection, bus, processor, device, port, memory);
+		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
 		
 	Data_Rate : aadlinteger units Data_Rate_Units applies to (feature);
 

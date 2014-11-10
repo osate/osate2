@@ -120,15 +120,17 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessSubcomponentType getProcessSubcomponentType() {
 		if (processSubcomponentType != null && ((EObject) processSubcomponentType).eIsProxy()) {
 			InternalEObject oldProcessSubcomponentType = (InternalEObject) processSubcomponentType;
 			processSubcomponentType = (ProcessSubcomponentType) eResolveProxy(oldProcessSubcomponentType);
 			if (processSubcomponentType != oldProcessSubcomponentType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE, oldProcessSubcomponentType,
 							processSubcomponentType));
+				}
 			}
 		}
 		return processSubcomponentType;
@@ -148,13 +150,15 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProcessSubcomponentType(ProcessSubcomponentType newProcessSubcomponentType) {
 		ProcessSubcomponentType oldProcessSubcomponentType = processSubcomponentType;
 		processSubcomponentType = newProcessSubcomponentType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE, oldProcessSubcomponentType,
 					processSubcomponentType));
+		}
 	}
 
 	/**
@@ -166,8 +170,9 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getProcessSubcomponentType();
+			}
 			return basicGetProcessSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -229,6 +234,7 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.PROCESS;
 	}

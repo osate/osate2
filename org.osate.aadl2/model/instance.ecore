@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instance" nsURI="http://aadl.info/AADL/2.0/instance" nsPrefix="instance">
+  <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <details key="originalName" value="aadl2Instance"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureInstance" eSuperTypes="#//ConnectionInstanceEnd #//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="srcFlowSpec" ordered="false"
         upperBound="-1" eType="#//FlowSpecificationInstance" eOpposite="#//FlowSpecificationInstance/source"/>
@@ -157,8 +160,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="SystemInstance" eSuperTypes="#//ComponentInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="systemOperationMode" upperBound="-1"
         eType="#//SystemOperationMode" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="systemImplementation" ordered="false"
-        lowerBound="1" eType="ecore:EClass aadl2.ecore#//SystemImplementation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentImplementation"
+        ordered="false" lowerBound="1" eType="ecore:EClass aadl2.ecore#//ComponentImplementation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InstanceReferenceValue" eSuperTypes="aadl2.ecore#//PropertyValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedInstanceObject"

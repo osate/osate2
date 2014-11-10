@@ -241,6 +241,7 @@ public class ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param element The receiving '<em><b>Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -287,6 +288,7 @@ public class ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.
+	 * <p>From package AADLInfrastructure.</p>
 	 * @param element The receiving '<em><b>Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

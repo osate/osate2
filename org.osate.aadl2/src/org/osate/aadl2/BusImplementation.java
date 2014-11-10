@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Bus Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Bus.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -69,6 +73,9 @@ public interface BusImplementation extends ComponentImplementation, BusClassifie
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Bus.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getBusImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -90,6 +97,7 @@ public interface BusImplementation extends ComponentImplementation, BusClassifie
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
+	@Override
 	BusType getType();
 
 } // BusImplementation

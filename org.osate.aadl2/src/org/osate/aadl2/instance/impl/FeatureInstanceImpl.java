@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -216,14 +216,16 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature getFeature() {
 		if (feature != null && ((EObject) feature).eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject) feature;
 			feature = (Feature) eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							InstancePackage.FEATURE_INSTANCE__FEATURE, oldFeature, feature));
+				}
 			}
 		}
 		return feature;
@@ -243,12 +245,14 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeature(Feature newFeature) {
 		Feature oldFeature = feature;
 		feature = newFeature;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__FEATURE,
 					oldFeature, feature));
+		}
 	}
 
 	/**
@@ -256,6 +260,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getIndex() {
 		return index;
 	}
@@ -265,12 +270,14 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIndex(long newIndex) {
 		long oldIndex = index;
 		index = newIndex;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__INDEX, oldIndex,
 					index));
+		}
 	}
 
 	/**
@@ -295,6 +302,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FlowSpecificationInstance> getSrcFlowSpecs() {
 		if (srcFlowSpecs == null) {
 			srcFlowSpecs = new EObjectWithInverseResolvingEList<FlowSpecificationInstance>(
@@ -309,6 +317,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FlowSpecificationInstance> getDstFlowSpecs() {
 		if (dstFlowSpecs == null) {
 			dstFlowSpecs = new EObjectWithInverseResolvingEList<FlowSpecificationInstance>(
@@ -323,6 +332,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FeatureInstance> getFeatureInstances() {
 		if (featureInstances == null) {
 			featureInstances = new EObjectContainmentEList<FeatureInstance>(FeatureInstance.class, this,
@@ -336,6 +346,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInstance createFeatureInstance() {
 		FeatureInstance newFeatureInstance = (FeatureInstance) create(InstancePackage.Literals.FEATURE_INSTANCE);
 		getFeatureInstances().add(newFeatureInstance);
@@ -347,6 +358,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureCategory getCategory() {
 		return category;
 	}
@@ -356,12 +368,14 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(FeatureCategory newCategory) {
 		FeatureCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__CATEGORY,
 					oldCategory, category));
+		}
 	}
 
 	/**
@@ -369,6 +383,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DirectionType getDirection() {
 		return direction;
 	}
@@ -378,12 +393,14 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirection(DirectionType newDirection) {
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__DIRECTION,
 					oldDirection, direction));
+		}
 	}
 
 	/**
@@ -423,8 +440,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		case InstancePackage.FEATURE_INSTANCE__DIRECTION:
 			return getDirection();
 		case InstancePackage.FEATURE_INSTANCE__FEATURE:
-			if (resolve)
+			if (resolve) {
 				return getFeature();
+			}
 			return basicGetFeature();
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
 			return getIndex();
@@ -535,8 +553,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (category: "); //$NON-NLS-1$
@@ -556,16 +575,19 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @return feature instance with the specified feature, or null
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public FeatureInstance findInverseFeatureGroup(FeatureGroupType targetpgt) {
-		if (!(getFeature() instanceof FeatureGroup))
+		if (!(getFeature() instanceof FeatureGroup)) {
 			return null;
+		}
 		EList<FeatureInstance> subcil = getFeatureInstances();
 		for (Iterator<FeatureInstance> it = subcil.iterator(); it.hasNext();) {
 			FeatureInstance fi = it.next();
 			if (fi.getFeature() instanceof FeatureGroup) {
 				FeatureGroupType srcpgt = ((FeatureGroup) fi.getFeature()).getFeatureGroupType();
-				if (srcpgt != null && srcpgt.isInverseOf(targetpgt))
+				if (srcpgt != null && srcpgt.isInverseOf(targetpgt)) {
 					return fi;
+				}
 				fi.findInverseFeatureGroup(targetpgt);
 			}
 		}
@@ -577,27 +599,29 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @param f Feature
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	@Override
 	public void setCategory(Feature f) {
-		if (f instanceof AbstractFeature)
+		if (f instanceof AbstractFeature) {
 			setCategory(FeatureCategory.ABSTRACT_FEATURE);
-		else if (f instanceof BusAccess)
+		} else if (f instanceof BusAccess) {
 			setCategory(FeatureCategory.BUS_ACCESS);
-		else if (f instanceof DataAccess)
+		} else if (f instanceof DataAccess) {
 			setCategory(FeatureCategory.DATA_ACCESS);
-		else if (f instanceof DataPort)
+		} else if (f instanceof DataPort) {
 			setCategory(FeatureCategory.DATA_PORT);
-		else if (f instanceof EventDataPort)
+		} else if (f instanceof EventDataPort) {
 			setCategory(FeatureCategory.EVENT_DATA_PORT);
-		else if (f instanceof EventPort)
+		} else if (f instanceof EventPort) {
 			setCategory(FeatureCategory.EVENT_PORT);
-		else if (f instanceof FeatureGroup)
+		} else if (f instanceof FeatureGroup) {
 			setCategory(FeatureCategory.FEATURE_GROUP);
-		else if (f instanceof Parameter)
+		} else if (f instanceof Parameter) {
 			setCategory(FeatureCategory.PARAMETER);
-		else if (f instanceof SubprogramAccess)
+		} else if (f instanceof SubprogramAccess) {
 			setCategory(FeatureCategory.SUBPROGRAM_ACCESS);
-		else if (f instanceof SubprogramGroupAccess)
+		} else if (f instanceof SubprogramGroupAccess) {
 			setCategory(FeatureCategory.SUBPROGRAM_GROUP_ACCESS);
+		}
 	}
 
 	/**
@@ -606,12 +630,14 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @return feature instance with the specified feature, or null
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	@Override
 	public FeatureInstance findFeatureInstance(Feature feature) {
 		EList<FeatureInstance> subcil = getFeatureInstances();
 		for (Iterator<FeatureInstance> it = subcil.iterator(); it.hasNext();) {
 			FeatureInstance fi = it.next();
-			if (fi.getFeature() == feature)
+			if (fi.getFeature() == feature) {
 				return fi;
+			}
 		}
 		return null;
 	}
@@ -619,6 +645,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	/**
 	 * Get all feature instances that fit a given path in a feature group.
 	 */
+	@Override
 	public Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath) {
 		if (referencePath.isEmpty()) {
 			return Collections.singleton((FeatureInstance) this);
@@ -644,23 +671,26 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public final List<SystemOperationMode> getExistsInModes() {
 		// Features always exist
 		return null;
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
+	@Override
 	public List<Feature> getInstantiatedObjects() {
 		return Collections.singletonList(getFeature());
 	}
 
+	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return getContainingComponentInstance().isActive(som);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -674,7 +704,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

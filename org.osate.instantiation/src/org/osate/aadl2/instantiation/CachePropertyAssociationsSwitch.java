@@ -113,7 +113,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			public String caseComponentInstance(final ComponentInstance ci) {
 				final int size;
 				if (ci instanceof SystemInstance) {
-					size = ((SystemInstance) ci).getSystemImplementation().getOwnedPropertyAssociations().size();
+					size = ((SystemInstance) ci).getComponentImplementation().getOwnedPropertyAssociations().size();
 					monitor.subTask("Caching " + size + " property associations");
 				} else if (ci.getContainingComponentInstance() instanceof SystemInstance) {
 					monitor.subTask("Caching property associations in " + ci.getName());
@@ -236,7 +236,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 							/*
 							 * FIXME JD
-							 *
+							 * 
 							 * Try to look if the property references a component or not.
 							 * This was done to fix the issue related to the Bound Bus analysis plugin
 							 */
@@ -251,10 +251,10 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 											if (e instanceof ReferenceValue) {
 												PropertyExpression irv = ((ReferenceValue) e).instantiate(conni
 														.getContainingComponentInstance());
-												// EcoreUtil.replace(e, irv);
-												lv.getOwnedListElements().remove(e);
-												lv.getOwnedListElements().add(irv);
-												// ref.removePropertyAssociations(prop);
+												if (irv != null) {
+													lv.getOwnedListElements().remove(e);
+													lv.getOwnedListElements().add(irv);
+												}
 											}
 										}
 									}
@@ -262,8 +262,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								if (elem instanceof ReferenceValue) {
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(conni
 											.getContainingComponentInstance());
-									EcoreUtil.replace(elem, irv);
-
+									if (irv != null) {
+										EcoreUtil.replace(elem, irv);
+									}
 								}
 							}
 
@@ -299,9 +300,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
 										// this comparison return inequality even if the two property values are the same. They are
 										// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to the
-// same literal
+										// same literal
 										// The second issue is that evaluate may return the default value for the property, which may be different from the
-// assigned value.
+										// assigned value.
 
 										/*
 										 * JD
@@ -385,8 +386,10 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 				((ListValue) newVal.getOwnedValue()).getOwnedListElements().addAll(0, elems);
 			}
-			if (!proxy.isModal()) {
 
+			boolean valueIsUsed = false;
+			if (!proxy.isModal()) {
+				valueIsUsed = true;
 				pa.getOwnedValues().add(newVal);
 			} else {
 				List<Mode> modes = proxy.getModes();
@@ -433,7 +436,25 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					}
 				}
 				if (!newVal.getInModes().isEmpty()) {
+					valueIsUsed = true;
 					pa.getOwnedValues().add(newVal);
+				}
+			}
+			if (valueIsUsed) {
+				// replace reference values in the context of the contained PA's owner
+				for (Iterator<Element> content = EcoreUtil.getAllProperContents(newVal, false); content.hasNext();) {
+					Element elem = content.next();
+
+					if (elem instanceof ReferenceValue) {
+						try {
+							PropertyExpression irv = ((ReferenceValue) elem).instantiate(io);
+							if (irv != null) {
+								EcoreUtil.replace(elem, irv);
+							}
+						} catch (InvalidModelException e) {
+							error(io, e.getMessage());
+						}
+					}
 				}
 			}
 		}

@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Process Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Process.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -73,6 +77,9 @@ public interface ProcessImplementation extends ComponentImplementation, ProcessC
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Process.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -105,6 +112,9 @@ public interface ProcessImplementation extends ComponentImplementation, ProcessC
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Process.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessImplementation_OwnedSubprogramSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -137,6 +147,9 @@ public interface ProcessImplementation extends ComponentImplementation, ProcessC
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Process.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessImplementation_OwnedSubprogramGroupSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -169,6 +182,9 @@ public interface ProcessImplementation extends ComponentImplementation, ProcessC
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Process.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Thread Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessImplementation_OwnedThreadSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -201,6 +217,9 @@ public interface ProcessImplementation extends ComponentImplementation, ProcessC
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Process.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Thread Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessImplementation_OwnedThreadGroupSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -222,6 +241,7 @@ public interface ProcessImplementation extends ComponentImplementation, ProcessC
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
+	@Override
 	ProcessType getType();
 
 } // ProcessImplementation

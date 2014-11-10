@@ -15,7 +15,7 @@ property set Thread_Properties is
 		applies to (thread, thread group);
 	
 	Priority: inherit aadlinteger
-		applies to (thread, thread group, process, system, device, data);
+		applies to (thread, thread group, process, system, device, data, data access);
 	
 	Criticality: aadlinteger
 		applies to (thread, thread group);
@@ -24,7 +24,7 @@ property set Thread_Properties is
 		applies to (thread, thread group, process, virtual processor, system);
 	
 	Concurrency_Control_Protocol: Supported_Concurrency_Control_Protocols
-		applies to (data);
+		applies to (data, data access);
 	
 	Urgency: aadlinteger 0 .. Max_Urgency
 		applies to (port, subprogram);

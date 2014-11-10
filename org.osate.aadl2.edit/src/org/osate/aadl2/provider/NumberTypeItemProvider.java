@@ -38,21 +38,12 @@ package org.osate.aadl2.provider;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.uml2.common.edit.command.SubsetSupersetSetCommand;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberType;
@@ -63,8 +54,7 @@ import org.osate.aadl2.NumberType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NumberTypeItemProvider extends NonListTypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class NumberTypeItemProvider extends NonListTypeItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -86,9 +76,26 @@ public class NumberTypeItemProvider extends NonListTypeItemProvider implements I
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addReferencedUnitsTypePropertyDescriptor(object);
 			addUnitsTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Referenced Units Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addReferencedUnitsTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_NumberType_referencedUnitsType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_NumberType_referencedUnitsType_feature",
+						"_UI_NumberType_type"), Aadl2Package.eINSTANCE.getNumberType_ReferencedUnitsType(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -187,25 +194,6 @@ public class NumberTypeItemProvider extends NonListTypeItemProvider implements I
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNumberType_Range(),
 				Aadl2Factory.eINSTANCE.createNumericRange()));
-	}
-
-	/**
-	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#createSetCommand(org.eclipse.emf.edit.domain.EditingDomain, org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected Command createSetCommand(EditingDomain domain, EObject owner, EStructuralFeature feature, Object value) {
-		if (feature == Aadl2Package.eINSTANCE.getNumberType_OwnedUnitsType()) {
-			return new SubsetSupersetSetCommand(domain, owner, feature,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getNumberType_UnitsType() }, null, value);
-		}
-		if (feature == Aadl2Package.eINSTANCE.getNumberType_UnitsType()) {
-			return new SubsetSupersetSetCommand(domain, owner, feature, null,
-					new EStructuralFeature[] { Aadl2Package.eINSTANCE.getNumberType_OwnedUnitsType() }, value);
-		}
-		return super.createSetCommand(domain, owner, feature, value);
 	}
 
 }

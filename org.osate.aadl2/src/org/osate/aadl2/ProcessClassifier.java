@@ -40,11 +40,15 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Process Classifier</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Process.</p>
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.osate.aadl2.Aadl2Package#getProcessClassifier()
  * @model abstract="true"
  * @generated
  */
-public interface ProcessClassifier extends ComponentClassifier, ProcessSubcomponentType {
+public interface ProcessClassifier extends ComponentClassifier, org.osate.aadl2.Process, ProcessSubcomponentType {
 
 } // ProcessClassifier

@@ -83,6 +83,7 @@ public final class AadlProject {
 
 	public static final String SUPPORTED_SCHEDULING_PROTOCOLS = "Supported_Scheduling_Protocols";
 	public static final String RMS_LITERAL = "RMS";
+	public static final String DMS_LITERAL = "DMS";
 	public static final String EDF_LITERAL = "EDF";
 	public static final String SPORADICSERVER_LITERAL = "Sporadicserver";
 	public static final String SLACKSERVER_LITERAL = "SlackServer";

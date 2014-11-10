@@ -52,7 +52,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
-import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
@@ -202,7 +202,7 @@ public class OsateResourceUtil {
 		 * "platform:/resource/xxx/yyy/zzz" and return the Eclipse IPath to the
 		 * file for that Resource. This seems to involve removing the
 		 * "/resource/" part.
-		 *
+		 * 
 		 * --aarong
 		 */
 
@@ -467,13 +467,13 @@ public class OsateResourceUtil {
 
 	/*
 	 * returns the instance model URI for a given system implementation
-	 *
+	 * 
 	 * @param si
-	 *
+	 * 
 	 * @return URI for instance model file
 	 */
-	public static URI getInstanceModelURI(SystemImplementation si) {
-		Resource res = si.eResource();
+	public static URI getInstanceModelURI(ComponentImplementation ci) {
+		Resource res = ci.eResource();
 		URI modeluri = res.getURI();
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
@@ -482,7 +482,7 @@ public class OsateResourceUtil {
 			path = path.trimSegments(1);
 		}
 		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(
-				filename + "_" + si.getTypeName() + "_" + si.getImplementationName()
+				filename + "_" + ci.getTypeName() + "_" + ci.getImplementationName()
 						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
@@ -490,9 +490,9 @@ public class OsateResourceUtil {
 
 	/*
 	 * returns the instance model URI for a given system implementation
-	 *
+	 * 
 	 * @param si
-	 *
+	 * 
 	 * @return URI for instance model file
 	 */
 	public static URI getReportsURI(InstanceObject obj, String reporttype, String extension) {

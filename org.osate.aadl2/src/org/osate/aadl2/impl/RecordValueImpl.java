@@ -96,6 +96,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<BasicPropertyAssociation> getOwnedFieldValues() {
 		if (ownedFieldValues == null) {
 			ownedFieldValues = new EObjectContainmentEList<BasicPropertyAssociation>(BasicPropertyAssociation.class,
@@ -109,6 +110,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BasicPropertyAssociation createOwnedFieldValue() {
 		BasicPropertyAssociation newOwnedFieldValue = (BasicPropertyAssociation) create(Aadl2Package.eINSTANCE
 				.getBasicPropertyAssociation());
@@ -204,19 +206,24 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 			return super.equals(obj);
 		}
 
-		if (this == obj)
+		if (this == obj) {
 			return true;
+		}
 
-		if (obj == null)
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		RecordValueImpl other = (RecordValueImpl) obj;
 		if (ownedFieldValues == null) {
-			if (other.ownedFieldValues != null)
+			if (other.ownedFieldValues != null) {
 				return false;
-		} else if (!ownedFieldValues.equals(other.ownedFieldValues))
+			}
+		} else if (!ownedFieldValues.equals(other.ownedFieldValues)) {
 			return false;
+		}
 		return true;
 	}
 

@@ -52,10 +52,6 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.osate.aadl2.*;
-import org.osate.aadl2.Process;
-import org.osate.aadl2.System;
-import org.osate.aadl2.Thread;
-import org.osate.aadl2.ThreadGroup;
 
 /**
  * <!-- begin-user-doc -->
@@ -331,8 +327,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateAccess((Access) value, diagnostics, context);
 		case Aadl2Package.ACCESS_CONNECTION_END:
 			return validateAccessConnectionEnd((AccessConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.BUS:
-			return validateBus((Bus) value, diagnostics, context);
 		case Aadl2Package.BUS_SUBCOMPONENT_TYPE:
 			return validateBusSubcomponentType((BusSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.DATA_ACCESS:
@@ -341,14 +335,14 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateParameterConnectionEnd((ParameterConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.PORT_CONNECTION_END:
 			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.DATA:
-			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE:
 			return validateDataSubcomponentType((DataSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.DATA_PORT:
 			return validateDataPort((DataPort) value, diagnostics, context);
 		case Aadl2Package.PORT:
 			return validatePort((Port) value, diagnostics, context);
+		case Aadl2Package.DATA:
+			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.EVENT_DATA_PORT:
 			return validateEventDataPort((EventDataPort) value, diagnostics, context);
 		case Aadl2Package.EVENT_PORT:
@@ -357,14 +351,10 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateParameter((Parameter) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_ACCESS:
 			return validateSubprogramAccess((SubprogramAccess) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM:
-			return validateSubprogram((Subprogram) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT_TYPE:
 			return validateSubprogramSubcomponentType((SubprogramSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
 			return validateSubprogramGroupAccess((SubprogramGroupAccess) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_GROUP:
-			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
 			return validateSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) value, diagnostics,
 					context);
@@ -418,10 +408,16 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateEventSource((EventSource) value, diagnostics, context);
 		case Aadl2Package.EVENT_DATA_SOURCE:
 			return validateEventDataSource((EventDataSource) value, diagnostics, context);
+		case Aadl2Package.DATA_CLASSIFIER:
+			return validateDataClassifier((DataClassifier) value, diagnostics, context);
 		case Aadl2Package.PORT_PROXY:
 			return validatePortProxy((PortProxy) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_PROXY:
 			return validateSubprogramProxy((SubprogramProxy) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CLASSIFIER:
+			return validateSubprogramClassifier((SubprogramClassifier) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM:
+			return validateSubprogram((Subprogram) value, diagnostics, context);
 		case Aadl2Package.ANNEX_LIBRARY:
 			return validateAnnexLibrary((AnnexLibrary) value, diagnostics, context);
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
@@ -475,68 +471,72 @@ public class Aadl2Validator extends EObjectValidator {
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE:
 			return validateVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType) value, diagnostics,
 					context);
-		case Aadl2Package.VIRTUAL_PROCESSOR:
-			return validateVirtualProcessor((VirtualProcessor) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT_TYPE:
 			return validateVirtualBusSubcomponentType((VirtualBusSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.VIRTUAL_BUS:
-			return validateVirtualBus((VirtualBus) value, diagnostics, context);
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE:
 			return validateThreadGroupSubcomponentType((ThreadGroupSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.THREAD_GROUP:
-			return validateThreadGroup((ThreadGroup) value, diagnostics, context);
 		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE:
 			return validateThreadSubcomponentType((ThreadSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.THREAD:
-			return validateThread((Thread) value, diagnostics, context);
 		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE:
 			return validateSystemSubcomponentType((SystemSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.SYSTEM:
-			return validateSystem((System) value, diagnostics, context);
 		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE:
 			return validateProcessSubcomponentType((ProcessSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.PROCESS:
-			return validateProcess((Process) value, diagnostics, context);
 		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE:
 			return validateMemorySubcomponentType((MemorySubcomponentType) value, diagnostics, context);
-		case Aadl2Package.MEMORY:
-			return validateMemory((Memory) value, diagnostics, context);
 		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE:
 			return validateDeviceSubcomponentType((DeviceSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.DEVICE:
-			return validateDevice((Device) value, diagnostics, context);
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE:
 			return validateProcessorSubcomponentType((ProcessorSubcomponentType) value, diagnostics, context);
-		case Aadl2Package.PROCESSOR:
-			return validateProcessor((Processor) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
 			return validateAbstractImplementation((AbstractImplementation) value, diagnostics, context);
 		case Aadl2Package.BUS_SUBCOMPONENT:
 			return validateBusSubcomponent((BusSubcomponent) value, diagnostics, context);
+		case Aadl2Package.BUS:
+			return validateBus((Bus) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT:
 			return validateDataSubcomponent((DataSubcomponent) value, diagnostics, context);
 		case Aadl2Package.DEVICE_SUBCOMPONENT:
 			return validateDeviceSubcomponent((DeviceSubcomponent) value, diagnostics, context);
+		case Aadl2Package.DEVICE:
+			return validateDevice((Device) value, diagnostics, context);
 		case Aadl2Package.MEMORY_SUBCOMPONENT:
 			return validateMemorySubcomponent((MemorySubcomponent) value, diagnostics, context);
+		case Aadl2Package.MEMORY:
+			return validateMemory((Memory) value, diagnostics, context);
 		case Aadl2Package.PROCESS_SUBCOMPONENT:
 			return validateProcessSubcomponent((ProcessSubcomponent) value, diagnostics, context);
+		case Aadl2Package.PROCESS:
+			return validateProcess((org.osate.aadl2.Process) value, diagnostics, context);
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT:
 			return validateProcessorSubcomponent((ProcessorSubcomponent) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR:
+			return validateProcessor((Processor) value, diagnostics, context);
 		case Aadl2Package.SYSTEM_SUBCOMPONENT:
 			return validateSystemSubcomponent((SystemSubcomponent) value, diagnostics, context);
+		case Aadl2Package.SYSTEM:
+			return validateSystem((org.osate.aadl2.System) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT:
 			return validateSubprogramSubcomponent((SubprogramSubcomponent) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return validateSubprogramGroupSubcomponent((SubprogramGroupSubcomponent) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP:
+			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.THREAD_SUBCOMPONENT:
 			return validateThreadSubcomponent((ThreadSubcomponent) value, diagnostics, context);
+		case Aadl2Package.THREAD:
+			return validateThread((org.osate.aadl2.Thread) value, diagnostics, context);
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT:
 			return validateThreadGroupSubcomponent((ThreadGroupSubcomponent) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP:
+			return validateThreadGroup((org.osate.aadl2.ThreadGroup) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT:
 			return validateVirtualBusSubcomponent((VirtualBusSubcomponent) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS:
+			return validateVirtualBus((VirtualBus) value, diagnostics, context);
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			return validateVirtualProcessorSubcomponent((VirtualProcessorSubcomponent) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR:
+			return validateVirtualProcessor((VirtualProcessor) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_PROTOTYPE:
 			return validateAbstractPrototype((AbstractPrototype) value, diagnostics, context);
 		case Aadl2Package.BUS_CLASSIFIER:
@@ -547,8 +547,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateBusImplementation((BusImplementation) value, diagnostics, context);
 		case Aadl2Package.BUS_PROTOTYPE:
 			return validateBusPrototype((BusPrototype) value, diagnostics, context);
-		case Aadl2Package.DATA_CLASSIFIER:
-			return validateDataClassifier((DataClassifier) value, diagnostics, context);
 		case Aadl2Package.DATA_TYPE:
 			return validateDataType((DataType) value, diagnostics, context);
 		case Aadl2Package.DATA_IMPLEMENTATION:
@@ -571,8 +569,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateMemoryImplementation((MemoryImplementation) value, diagnostics, context);
 		case Aadl2Package.MEMORY_PROTOTYPE:
 			return validateMemoryPrototype((MemoryPrototype) value, diagnostics, context);
-		case Aadl2Package.SUBPROGRAM_CLASSIFIER:
-			return validateSubprogramClassifier((SubprogramClassifier) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_TYPE:
 			return validateSubprogramType((SubprogramType) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
@@ -757,27 +753,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateElement(Element element, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) element, diagnostics, context))
+		if (!validate_NoCircularContainment(element, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) element, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(element, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(element, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(element, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(element, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(element, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(element, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(element, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(element, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(element, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(element, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -808,27 +814,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateComment(Comment comment, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) comment, diagnostics, context))
+		if (!validate_NoCircularContainment(comment, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) comment, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(comment, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(comment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(comment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(comment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(comment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(comment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(comment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(comment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(comment, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(comment, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -839,31 +855,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateNamedElement(NamedElement namedElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) namedElement, diagnostics, context))
+		if (!validate_NoCircularContainment(namedElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) namedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(namedElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(namedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(namedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(namedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(namedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(namedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(namedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(namedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(namedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(namedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(namedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(namedElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -895,33 +923,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNamespace(Namespace namespace, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) namespace, diagnostics, context))
+		if (!validate_NoCircularContainment(namespace, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) namespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(namespace, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(namespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(namespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(namespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(namespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(namespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(namespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(namespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(namespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(namespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(namespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(namespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(namespace, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -943,27 +984,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyAssociation(PropertyAssociation propertyAssociation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertyAssociation, diagnostics, context))
+		if (!validate_NoCircularContainment(propertyAssociation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(propertyAssociation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(propertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(propertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(propertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(propertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(propertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(propertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(propertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(propertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(propertyAssociation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -974,28 +1025,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBasicPropertyAssociation(BasicPropertyAssociation basicPropertyAssociation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) basicPropertyAssociation, diagnostics, context))
+		if (!validate_NoCircularContainment(basicPropertyAssociation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) basicPropertyAssociation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(basicPropertyAssociation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(basicPropertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(basicPropertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(basicPropertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(basicPropertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(basicPropertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(basicPropertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(basicPropertyAssociation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(basicPropertyAssociation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(basicPropertyAssociation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1005,31 +1065,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateType(Type type, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) type, diagnostics, context))
+		if (!validate_NoCircularContainment(type, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) type, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(type, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(type, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(type, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(type, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(type, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(type, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(type, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(type, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(type, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(type, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(type, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(type, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1040,31 +1112,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateTypedElement(TypedElement typedElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) typedElement, diagnostics, context))
+		if (!validate_NoCircularContainment(typedElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) typedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(typedElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(typedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(typedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(typedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(typedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(typedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(typedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(typedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(typedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(typedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(typedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(typedElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1075,31 +1159,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateClassifierFeature(ClassifierFeature classifierFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) classifierFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(classifierFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(classifierFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(classifierFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(classifierFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(classifierFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(classifierFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(classifierFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(classifierFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(classifierFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(classifierFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(classifierFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1110,31 +1206,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRefinableElement(RefinableElement refinableElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) refinableElement, diagnostics, context))
+		if (!validate_NoCircularContainment(refinableElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(refinableElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(refinableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(refinableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(refinableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(refinableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(refinableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(refinableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(refinableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(refinableElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(refinableElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1145,7 +1253,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureClassifier(FeatureClassifier featureClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureClassifier, diagnostics, context);
 	}
 
 	/**
@@ -1155,31 +1263,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBehavioralFeature(BehavioralFeature behavioralFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) behavioralFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(behavioralFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(behavioralFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(behavioralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(behavioralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(behavioralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(behavioralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(behavioralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(behavioralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(behavioralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(behavioralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(behavioralFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1190,27 +1310,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateArrayDimension(ArrayDimension arrayDimension, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) arrayDimension, diagnostics, context))
+		if (!validate_NoCircularContainment(arrayDimension, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(arrayDimension, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(arrayDimension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(arrayDimension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(arrayDimension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(arrayDimension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(arrayDimension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(arrayDimension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(arrayDimension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(arrayDimension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(arrayDimension, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1220,37 +1350,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateClassifier(Classifier classifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) classifier, diagnostics, context))
+		if (!validate_NoCircularContainment(classifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) classifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(classifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(classifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(classifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(classifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(classifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(classifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(classifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(classifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(classifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(classifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(classifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(classifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(classifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(classifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(classifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1283,27 +1428,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateGeneralization(Generalization generalization, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) generalization, diagnostics, context))
+		if (!validate_NoCircularContainment(generalization, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) generalization, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(generalization, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(generalization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(generalization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(generalization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(generalization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(generalization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(generalization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(generalization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(generalization, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(generalization, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1314,27 +1469,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDirectedRelationship(DirectedRelationship directedRelationship, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) directedRelationship, diagnostics, context))
+		if (!validate_NoCircularContainment(directedRelationship, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(directedRelationship, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(directedRelationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(directedRelationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(directedRelationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(directedRelationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(directedRelationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(directedRelationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(directedRelationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(directedRelationship, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(directedRelationship, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1345,27 +1510,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRelationship(Relationship relationship, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) relationship, diagnostics, context))
+		if (!validate_NoCircularContainment(relationship, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) relationship, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(relationship, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(relationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(relationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(relationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(relationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(relationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(relationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(relationship, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(relationship, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(relationship, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1375,33 +1550,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePrototype(Prototype prototype, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) prototype, diagnostics, context))
+		if (!validate_NoCircularContainment(prototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) prototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(prototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(prototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(prototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(prototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(prototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(prototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(prototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(prototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(prototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(prototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(prototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(prototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(prototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1423,37 +1611,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentClassifier(ComponentClassifier componentClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(componentClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(componentClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(componentClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1464,31 +1667,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubcomponentType(SubcomponentType subcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(subcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1498,31 +1713,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateMode(Mode mode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) mode, diagnostics, context))
+		if (!validate_NoCircularContainment(mode, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) mode, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(mode, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(mode, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(mode, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(mode, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(mode, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(mode, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(mode, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(mode, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(mode, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(mode, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(mode, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(mode, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1532,31 +1759,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModeFeature(ModeFeature modeFeature, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modeFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(modeFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modeFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modeFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modeFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modeFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modeFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modeFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modeFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modeFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(modeFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(modeFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1567,31 +1806,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModeTransition(ModeTransition modeTransition, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modeTransition, diagnostics, context))
+		if (!validate_NoCircularContainment(modeTransition, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modeTransition, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modeTransition, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modeTransition, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modeTransition, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modeTransition, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modeTransition, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modeTransition, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modeTransition, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(modeTransition, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(modeTransition, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1602,28 +1853,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModeTransitionTrigger(ModeTransitionTrigger modeTransitionTrigger,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modeTransitionTrigger, diagnostics, context))
+		if (!validate_NoCircularContainment(modeTransitionTrigger, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modeTransitionTrigger, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modeTransitionTrigger, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modeTransitionTrigger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modeTransitionTrigger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modeTransitionTrigger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modeTransitionTrigger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modeTransitionTrigger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modeTransitionTrigger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modeTransitionTrigger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modeTransitionTrigger, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modeTransitionTrigger, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1633,31 +1893,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateTriggerPort(TriggerPort triggerPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) triggerPort, diagnostics, context))
+		if (!validate_NoCircularContainment(triggerPort, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(triggerPort, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(triggerPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(triggerPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(triggerPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(triggerPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(triggerPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(triggerPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(triggerPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(triggerPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(triggerPort, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1667,31 +1939,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateContext(Context context, DiagnosticChain diagnostics, Map<Object, Object> theContext) {
-		if (!validate_NoCircularContainment((EObject) context, diagnostics, theContext))
+		if (!validate_NoCircularContainment(context, diagnostics, theContext)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) context, diagnostics, theContext);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(context, diagnostics, theContext);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(context, diagnostics, theContext);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(context, diagnostics, theContext);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(context, diagnostics, theContext);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(context, diagnostics, theContext);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(context, diagnostics, theContext);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(context, diagnostics, theContext);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(context, diagnostics, theContext);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(context, diagnostics, theContext);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(context, diagnostics, theContext);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(context, diagnostics, theContext);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(context, diagnostics, theContext);
+		}
 		return result;
 	}
 
@@ -1701,31 +1985,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePort(Port port, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) port, diagnostics, context))
+		if (!validate_NoCircularContainment(port, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) port, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(port, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(port, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(port, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(port, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(port, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(port, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(port, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(port, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(port, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(port, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(port, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(port, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1736,31 +2032,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDirectedFeature(DirectedFeature directedFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) directedFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(directedFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(directedFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(directedFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(directedFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(directedFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(directedFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(directedFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(directedFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(directedFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(directedFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(directedFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1771,27 +2079,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePrototypeBinding(PrototypeBinding prototypeBinding, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) prototypeBinding, diagnostics, context))
+		if (!validate_NoCircularContainment(prototypeBinding, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(prototypeBinding, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(prototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(prototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(prototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(prototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(prototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(prototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(prototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(prototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(prototypeBinding, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1802,27 +2120,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateArrayableElement(ArrayableElement arrayableElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) arrayableElement, diagnostics, context))
+		if (!validate_NoCircularContainment(arrayableElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(arrayableElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(arrayableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(arrayableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(arrayableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(arrayableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(arrayableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(arrayableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(arrayableElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(arrayableElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(arrayableElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1832,27 +2160,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateArraySize(ArraySize arraySize, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) arraySize, diagnostics, context))
+		if (!validate_NoCircularContainment(arraySize, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) arraySize, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(arraySize, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(arraySize, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(arraySize, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(arraySize, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(arraySize, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(arraySize, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(arraySize, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(arraySize, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(arraySize, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(arraySize, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1863,31 +2201,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAnnexSubclause(AnnexSubclause annexSubclause, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) annexSubclause, diagnostics, context))
+		if (!validate_NoCircularContainment(annexSubclause, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(annexSubclause, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(annexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(annexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(annexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(annexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(annexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(annexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(annexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(annexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(annexSubclause, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1898,31 +2248,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateStructuralFeature(StructuralFeature structuralFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) structuralFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(structuralFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(structuralFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(structuralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(structuralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(structuralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(structuralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(structuralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(structuralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(structuralFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(structuralFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(structuralFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1933,31 +2295,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModalElement(ModalElement modalElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modalElement, diagnostics, context))
+		if (!validate_NoCircularContainment(modalElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modalElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modalElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modalElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modalElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modalElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modalElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modalElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modalElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modalElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modalElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modalElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(modalElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(modalElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1967,27 +2341,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModeBinding(ModeBinding modeBinding, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modeBinding, diagnostics, context))
+		if (!validate_NoCircularContainment(modeBinding, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modeBinding, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modeBinding, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -1998,32 +2382,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractSubcomponentType(AbstractSubcomponentType abstractSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstractSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(abstractSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstractSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstractSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstractSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstractSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstractSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstractSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstractSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstractSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstractSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstractSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstractSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2035,30 +2430,38 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateComponentImplementationReference(
 			ComponentImplementationReference componentImplementationReference, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentImplementationReference, diagnostics, context))
+		if (!validate_NoCircularContainment(componentImplementationReference, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentImplementationReference, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentImplementationReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentImplementationReference, diagnostics,
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentImplementationReference, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentImplementationReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentImplementationReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentImplementationReference, diagnostics,
 					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentImplementationReference,
-					diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentImplementationReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentImplementationReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentImplementationReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentImplementationReference, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentImplementationReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentImplementationReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentImplementationReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentImplementationReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentImplementationReference, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentImplementationReference, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2069,31 +2472,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureConnectionEnd(FeatureConnectionEnd featureConnectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureConnectionEnd, diagnostics, context))
+		if (!validate_NoCircularContainment(featureConnectionEnd, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureConnectionEnd, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureConnectionEnd, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2104,31 +2519,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubcomponent(Subcomponent subcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(subcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2139,27 +2566,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateTypeExtension(TypeExtension typeExtension, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) typeExtension, diagnostics, context))
+		if (!validate_NoCircularContainment(typeExtension, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(typeExtension, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(typeExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(typeExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(typeExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(typeExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(typeExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(typeExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(typeExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(typeExtension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(typeExtension, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2170,37 +2607,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentType(ComponentType componentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentType, diagnostics, context))
+		if (!validate_NoCircularContainment(componentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(componentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(componentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(componentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(componentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(componentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2210,31 +2662,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFeature(Feature feature, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) feature, diagnostics, context))
+		if (!validate_NoCircularContainment(feature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) feature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(feature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(feature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(feature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(feature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(feature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(feature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(feature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(feature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(feature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(feature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(feature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(feature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2245,31 +2709,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFlowSpecification(FlowSpecification flowSpecification, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) flowSpecification, diagnostics, context))
+		if (!validate_NoCircularContainment(flowSpecification, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(flowSpecification, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(flowSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(flowSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(flowSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(flowSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(flowSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(flowSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(flowSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(flowSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(flowSpecification, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2279,31 +2755,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlowFeature(FlowFeature flowFeature, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) flowFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(flowFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(flowFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(flowFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(flowFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(flowFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(flowFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(flowFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(flowFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(flowFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(flowFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(flowFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2313,31 +2801,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlow(Flow flow, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) flow, diagnostics, context))
+		if (!validate_NoCircularContainment(flow, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) flow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(flow, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(flow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(flow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(flow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(flow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(flow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(flow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(flow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(flow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(flow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(flow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(flow, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2348,31 +2848,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEndToEndFlowElement(EndToEndFlowElement endToEndFlowElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) endToEndFlowElement, diagnostics, context))
+		if (!validate_NoCircularContainment(endToEndFlowElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(endToEndFlowElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(endToEndFlowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(endToEndFlowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(endToEndFlowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(endToEndFlowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(endToEndFlowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(endToEndFlowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(endToEndFlowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(endToEndFlowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(endToEndFlowElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2382,27 +2894,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlowEnd(FlowEnd flowEnd, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) flowEnd, diagnostics, context))
+		if (!validate_NoCircularContainment(flowEnd, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(flowEnd, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(flowEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(flowEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(flowEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(flowEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(flowEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(flowEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(flowEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(flowEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(flowEnd, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2413,31 +2935,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroup(FeatureGroup featureGroup, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroup, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroup, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroup, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureGroup, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2448,32 +2982,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupConnectionEnd(FeatureGroupConnectionEnd featureGroupConnectionEnd,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupConnectionEnd, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroupConnectionEnd, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupConnectionEnd, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroupConnectionEnd, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroupConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroupConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroupConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroupConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroupConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroupConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroupConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureGroupConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureGroupConnectionEnd, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2483,7 +3028,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFeatureType(FeatureType featureType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureType, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureType, diagnostics, context);
 	}
 
 	/**
@@ -2492,7 +3037,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateCallContext(CallContext callContext, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) callContext, diagnostics, context);
+		return validate_EveryDefaultConstraint(callContext, diagnostics, context);
 	}
 
 	/**
@@ -2502,31 +3047,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateConnectionEnd(ConnectionEnd connectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) connectionEnd, diagnostics, context))
+		if (!validate_NoCircularContainment(connectionEnd, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(connectionEnd, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(connectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(connectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(connectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(connectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(connectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(connectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(connectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(connectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(connectionEnd, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2537,37 +3094,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupType(FeatureGroupType featureGroupType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupType, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroupType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroupType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(featureGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(featureGroupType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2578,27 +3150,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateGroupExtension(GroupExtension groupExtension, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) groupExtension, diagnostics, context))
+		if (!validate_NoCircularContainment(groupExtension, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(groupExtension, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(groupExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(groupExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(groupExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(groupExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(groupExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(groupExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(groupExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(groupExtension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(groupExtension, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2609,38 +3191,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentImplementation(ComponentImplementation componentImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(componentImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(componentImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(componentImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2651,31 +3247,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFlowImplementation(FlowImplementation flowImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) flowImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(flowImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(flowImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(flowImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(flowImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(flowImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(flowImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(flowImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(flowImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(flowImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(flowImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(flowImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2685,31 +3293,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateConnection(Connection connection, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) connection, diagnostics, context))
+		if (!validate_NoCircularContainment(connection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) connection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(connection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(connection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(connection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(connection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(connection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(connection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(connection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(connection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(connection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(connection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(connection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(connection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2720,27 +3340,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateConnectedElement(ConnectedElement connectedElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) connectedElement, diagnostics, context))
+		if (!validate_NoCircularContainment(connectedElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(connectedElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(connectedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(connectedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(connectedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(connectedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(connectedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(connectedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(connectedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(connectedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(connectedElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2750,31 +3380,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlowElement(FlowElement flowElement, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) flowElement, diagnostics, context))
+		if (!validate_NoCircularContainment(flowElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) flowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(flowElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(flowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(flowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(flowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(flowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(flowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(flowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(flowElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(flowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(flowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(flowElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(flowElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2784,27 +3426,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRealization(Realization realization, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) realization, diagnostics, context))
+		if (!validate_NoCircularContainment(realization, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) realization, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(realization, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(realization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(realization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(realization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(realization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(realization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(realization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(realization, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(realization, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(realization, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2815,31 +3467,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractSubcomponent(AbstractSubcomponent abstractSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstractSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(abstractSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstractSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstractSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstractSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstractSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstractSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstractSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstractSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstractSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstractSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstractSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2850,33 +3514,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentPrototype(ComponentPrototype componentPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(componentPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(componentPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(componentPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2887,28 +3564,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentPrototypeBinding(ComponentPrototypeBinding componentPrototypeBinding,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentPrototypeBinding, diagnostics, context))
+		if (!validate_NoCircularContainment(componentPrototypeBinding, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentPrototypeBinding, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentPrototypeBinding, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentPrototypeBinding, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2919,28 +3605,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentPrototypeActual(ComponentPrototypeActual componentPrototypeActual,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentPrototypeActual, diagnostics, context))
+		if (!validate_NoCircularContainment(componentPrototypeActual, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentPrototypeActual, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentPrototypeActual, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentPrototypeActual, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2951,34 +3646,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupPrototype(FeatureGroupPrototype featureGroupPrototype,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroupPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupPrototype, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroupPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(featureGroupPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -2989,29 +3696,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding featureGroupPrototypeBinding,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupPrototypeBinding, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroupPrototypeBinding, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupPrototypeBinding, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupPrototypeBinding, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroupPrototypeBinding, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroupPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroupPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroupPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroupPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroupPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroupPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroupPrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroupPrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroupPrototypeBinding, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3022,28 +3737,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupPrototypeActual(FeatureGroupPrototypeActual featureGroupPrototypeActual,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupPrototypeActual, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroupPrototypeActual, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupPrototypeActual, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroupPrototypeActual, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroupPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroupPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroupPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroupPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroupPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroupPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroupPrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroupPrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroupPrototypeActual, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3054,33 +3778,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototype(FeaturePrototype featurePrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featurePrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(featurePrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featurePrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featurePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featurePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featurePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featurePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featurePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featurePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featurePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featurePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(featurePrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3091,28 +3828,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototypeBinding(FeaturePrototypeBinding featurePrototypeBinding,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featurePrototypeBinding, diagnostics, context))
+		if (!validate_NoCircularContainment(featurePrototypeBinding, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featurePrototypeBinding, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featurePrototypeBinding, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featurePrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featurePrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featurePrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featurePrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featurePrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featurePrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featurePrototypeBinding, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featurePrototypeBinding, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featurePrototypeBinding, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3123,28 +3869,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototypeActual(FeaturePrototypeActual featurePrototypeActual,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featurePrototypeActual, diagnostics, context))
+		if (!validate_NoCircularContainment(featurePrototypeActual, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featurePrototypeActual, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featurePrototypeActual, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featurePrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featurePrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featurePrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featurePrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featurePrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featurePrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featurePrototypeActual, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featurePrototypeActual, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featurePrototypeActual, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3155,27 +3910,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAccessSpecification(AccessSpecification accessSpecification, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) accessSpecification, diagnostics, context))
+		if (!validate_NoCircularContainment(accessSpecification, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(accessSpecification, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(accessSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(accessSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(accessSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(accessSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(accessSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(accessSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(accessSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(accessSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(accessSpecification, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3186,27 +3951,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePortSpecification(PortSpecification portSpecification, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) portSpecification, diagnostics, context))
+		if (!validate_NoCircularContainment(portSpecification, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(portSpecification, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(portSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(portSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(portSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(portSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(portSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(portSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(portSpecification, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(portSpecification, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(portSpecification, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3217,28 +3992,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototypeReference(FeaturePrototypeReference featurePrototypeReference,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featurePrototypeReference, diagnostics, context))
+		if (!validate_NoCircularContainment(featurePrototypeReference, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featurePrototypeReference, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featurePrototypeReference, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featurePrototypeReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featurePrototypeReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featurePrototypeReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featurePrototypeReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featurePrototypeReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featurePrototypeReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featurePrototypeReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featurePrototypeReference, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featurePrototypeReference, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3248,31 +4032,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAbstract(Abstract abstract_, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstract_, diagnostics, context))
+		if (!validate_NoCircularContainment(abstract_, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstract_, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstract_, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstract_, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstract_, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstract_, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstract_, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstract_, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstract_, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstract_, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstract_, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstract_, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstract_, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstract_, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3283,37 +4079,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractClassifier(AbstractClassifier abstractClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstractClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(abstractClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstractClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstractClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstractClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstractClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstractClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstractClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstractClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstractClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(abstractClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(abstractClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3324,31 +4135,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEndToEndFlow(EndToEndFlow endToEndFlow, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) endToEndFlow, diagnostics, context))
+		if (!validate_NoCircularContainment(endToEndFlow, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(endToEndFlow, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(endToEndFlow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(endToEndFlow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(endToEndFlow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(endToEndFlow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(endToEndFlow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(endToEndFlow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(endToEndFlow, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(endToEndFlow, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(endToEndFlow, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3359,27 +4182,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEndToEndFlowSegment(EndToEndFlowSegment endToEndFlowSegment, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) endToEndFlowSegment, diagnostics, context))
+		if (!validate_NoCircularContainment(endToEndFlowSegment, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(endToEndFlowSegment, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(endToEndFlowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(endToEndFlowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(endToEndFlowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(endToEndFlowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(endToEndFlowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(endToEndFlowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(endToEndFlowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(endToEndFlowSegment, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(endToEndFlowSegment, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3390,31 +4223,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureConnection(FeatureConnection featureConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureConnection, diagnostics, context))
+		if (!validate_NoCircularContainment(featureConnection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureConnection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureConnection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3425,33 +4270,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePublicPackageSection(PublicPackageSection publicPackageSection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) publicPackageSection, diagnostics, context))
+		if (!validate_NoCircularContainment(publicPackageSection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(publicPackageSection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(publicPackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(publicPackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(publicPackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(publicPackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(publicPackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(publicPackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(publicPackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(publicPackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(publicPackageSection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3462,33 +4320,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePackageSection(PackageSection packageSection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) packageSection, diagnostics, context))
+		if (!validate_NoCircularContainment(packageSection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) packageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(packageSection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(packageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(packageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(packageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(packageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(packageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(packageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(packageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(packageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(packageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(packageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(packageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(packageSection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3499,31 +4370,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePackageRename(PackageRename packageRename, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) packageRename, diagnostics, context))
+		if (!validate_NoCircularContainment(packageRename, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) packageRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(packageRename, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(packageRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(packageRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(packageRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(packageRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(packageRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(packageRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(packageRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(packageRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(packageRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(packageRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(packageRename, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3533,31 +4416,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAadlPackage(AadlPackage aadlPackage, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) aadlPackage, diagnostics, context))
+		if (!validate_NoCircularContainment(aadlPackage, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(aadlPackage, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(aadlPackage, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(aadlPackage, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(aadlPackage, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(aadlPackage, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(aadlPackage, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(aadlPackage, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(aadlPackage, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(aadlPackage, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(aadlPackage, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3567,31 +4462,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModelUnit(ModelUnit modelUnit, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modelUnit, diagnostics, context))
+		if (!validate_NoCircularContainment(modelUnit, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modelUnit, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modelUnit, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modelUnit, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modelUnit, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modelUnit, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modelUnit, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modelUnit, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modelUnit, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(modelUnit, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(modelUnit, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3602,34 +4509,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePrivatePackageSection(PrivatePackageSection privatePackageSection,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) privatePackageSection, diagnostics, context))
+		if (!validate_NoCircularContainment(privatePackageSection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) privatePackageSection, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(privatePackageSection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(privatePackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(privatePackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(privatePackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(privatePackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(privatePackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(privatePackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(privatePackageSection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(privatePackageSection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(privatePackageSection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3640,31 +4559,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentTypeRename(ComponentTypeRename componentTypeRename, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) componentTypeRename, diagnostics, context))
+		if (!validate_NoCircularContainment(componentTypeRename, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(componentTypeRename, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(componentTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(componentTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(componentTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(componentTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(componentTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(componentTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(componentTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(componentTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(componentTypeRename, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3675,32 +4606,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupTypeRename(FeatureGroupTypeRename featureGroupTypeRename,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupTypeRename, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroupTypeRename, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupTypeRename, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroupTypeRename, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroupTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroupTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroupTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroupTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroupTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroupTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroupTypeRename, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureGroupTypeRename, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureGroupTypeRename, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3711,31 +4653,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAnnexLibrary(AnnexLibrary annexLibrary, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) annexLibrary, diagnostics, context))
+		if (!validate_NoCircularContainment(annexLibrary, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(annexLibrary, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(annexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(annexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(annexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(annexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(annexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(annexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(annexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(annexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(annexLibrary, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3746,33 +4700,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateGlobalNamespace(GlobalNamespace globalNamespace, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) globalNamespace, diagnostics, context))
+		if (!validate_NoCircularContainment(globalNamespace, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(globalNamespace, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(globalNamespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(globalNamespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(globalNamespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(globalNamespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(globalNamespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(globalNamespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(globalNamespace, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(globalNamespace, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(globalNamespace, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3782,31 +4749,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNonListType(NonListType nonListType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) nonListType, diagnostics, context))
+		if (!validate_NoCircularContainment(nonListType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) nonListType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(nonListType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(nonListType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(nonListType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(nonListType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(nonListType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(nonListType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(nonListType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(nonListType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(nonListType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(nonListType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(nonListType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(nonListType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3816,33 +4795,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePropertySet(PropertySet propertySet, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertySet, diagnostics, context))
+		if (!validate_NoCircularContainment(propertySet, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertySet, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(propertySet, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(propertySet, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(propertySet, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(propertySet, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(propertySet, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(propertySet, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(propertySet, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(propertySet, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(propertySet, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(propertySet, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(propertySet, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(propertySet, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(propertySet, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3853,31 +4845,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyType(PropertyType propertyType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertyType, diagnostics, context))
+		if (!validate_NoCircularContainment(propertyType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertyType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(propertyType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(propertyType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(propertyType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(propertyType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(propertyType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(propertyType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(propertyType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(propertyType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(propertyType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(propertyType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(propertyType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(propertyType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3887,31 +4891,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateProperty(Property property, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) property, diagnostics, context))
+		if (!validate_NoCircularContainment(property, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) property, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(property, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(property, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(property, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(property, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(property, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(property, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(property, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(property, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(property, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(property, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(property, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(property, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3922,28 +4938,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateContainedNamedElement(ContainedNamedElement containedNamedElement,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) containedNamedElement, diagnostics, context))
+		if (!validate_NoCircularContainment(containedNamedElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) containedNamedElement, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(containedNamedElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(containedNamedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(containedNamedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(containedNamedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(containedNamedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(containedNamedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(containedNamedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(containedNamedElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(containedNamedElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(containedNamedElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3953,27 +4978,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateArrayRange(ArrayRange arrayRange, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) arrayRange, diagnostics, context))
+		if (!validate_NoCircularContainment(arrayRange, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(arrayRange, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(arrayRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(arrayRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(arrayRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(arrayRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(arrayRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(arrayRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(arrayRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(arrayRange, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(arrayRange, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -3984,31 +5019,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModalPropertyValue(ModalPropertyValue modalPropertyValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modalPropertyValue, diagnostics, context))
+		if (!validate_NoCircularContainment(modalPropertyValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modalPropertyValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modalPropertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modalPropertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modalPropertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modalPropertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modalPropertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modalPropertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modalPropertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(modalPropertyValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(modalPropertyValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4019,28 +5066,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateContainmentPathElement(ContainmentPathElement containmentPathElement,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) containmentPathElement, diagnostics, context))
+		if (!validate_NoCircularContainment(containmentPathElement, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) containmentPathElement, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(containmentPathElement, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(containmentPathElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(containmentPathElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(containmentPathElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(containmentPathElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(containmentPathElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(containmentPathElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(containmentPathElement, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(containmentPathElement, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(containmentPathElement, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4051,27 +5107,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyExpression(PropertyExpression propertyExpression, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertyExpression, diagnostics, context))
+		if (!validate_NoCircularContainment(propertyExpression, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(propertyExpression, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(propertyExpression, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(propertyExpression, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(propertyExpression, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(propertyExpression, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(propertyExpression, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(propertyExpression, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(propertyExpression, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(propertyExpression, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(propertyExpression, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4082,31 +5148,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBasicProperty(BasicProperty basicProperty, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) basicProperty, diagnostics, context))
+		if (!validate_NoCircularContainment(basicProperty, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(basicProperty, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(basicProperty, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(basicProperty, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(basicProperty, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(basicProperty, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(basicProperty, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(basicProperty, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(basicProperty, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(basicProperty, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(basicProperty, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4117,31 +5195,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyConstant(PropertyConstant propertyConstant, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertyConstant, diagnostics, context))
+		if (!validate_NoCircularContainment(propertyConstant, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(propertyConstant, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(propertyConstant, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(propertyConstant, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(propertyConstant, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(propertyConstant, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(propertyConstant, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(propertyConstant, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(propertyConstant, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(propertyConstant, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(propertyConstant, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4152,31 +5242,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDefaultAnnexLibrary(DefaultAnnexLibrary defaultAnnexLibrary, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) defaultAnnexLibrary, diagnostics, context))
+		if (!validate_NoCircularContainment(defaultAnnexLibrary, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(defaultAnnexLibrary, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(defaultAnnexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(defaultAnnexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(defaultAnnexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(defaultAnnexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(defaultAnnexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(defaultAnnexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(defaultAnnexLibrary, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(defaultAnnexLibrary, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(defaultAnnexLibrary, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4187,32 +5289,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDefaultAnnexSubclause(DefaultAnnexSubclause defaultAnnexSubclause,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) defaultAnnexSubclause, diagnostics, context))
+		if (!validate_NoCircularContainment(defaultAnnexSubclause, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) defaultAnnexSubclause, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(defaultAnnexSubclause, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(defaultAnnexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(defaultAnnexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(defaultAnnexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(defaultAnnexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(defaultAnnexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(defaultAnnexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(defaultAnnexSubclause, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(defaultAnnexSubclause, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(defaultAnnexSubclause, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4223,31 +5336,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractFeature(AbstractFeature abstractFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstractFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(abstractFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstractFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstractFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstractFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstractFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstractFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstractFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstractFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstractFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstractFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstractFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4257,31 +5382,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModalPath(ModalPath modalPath, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) modalPath, diagnostics, context))
+		if (!validate_NoCircularContainment(modalPath, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) modalPath, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(modalPath, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(modalPath, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(modalPath, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(modalPath, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(modalPath, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(modalPath, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(modalPath, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(modalPath, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(modalPath, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(modalPath, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(modalPath, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(modalPath, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4291,27 +5428,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlowSegment(FlowSegment flowSegment, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) flowSegment, diagnostics, context))
+		if (!validate_NoCircularContainment(flowSegment, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(flowSegment, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(flowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(flowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(flowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(flowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(flowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(flowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(flowSegment, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(flowSegment, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(flowSegment, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4322,31 +5469,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAccessConnection(AccessConnection accessConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) accessConnection, diagnostics, context))
+		if (!validate_NoCircularContainment(accessConnection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(accessConnection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(accessConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(accessConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(accessConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(accessConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(accessConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(accessConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(accessConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(accessConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(accessConnection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4357,31 +5516,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateParameterConnection(ParameterConnection parameterConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) parameterConnection, diagnostics, context))
+		if (!validate_NoCircularContainment(parameterConnection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(parameterConnection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(parameterConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(parameterConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(parameterConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(parameterConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(parameterConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(parameterConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(parameterConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(parameterConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(parameterConnection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4392,32 +5563,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateParameterConnectionEnd(ParameterConnectionEnd parameterConnectionEnd,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) parameterConnectionEnd, diagnostics, context))
+		if (!validate_NoCircularContainment(parameterConnectionEnd, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) parameterConnectionEnd, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(parameterConnectionEnd, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(parameterConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(parameterConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(parameterConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(parameterConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(parameterConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(parameterConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(parameterConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(parameterConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(parameterConnectionEnd, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4428,31 +5610,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePortConnection(PortConnection portConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) portConnection, diagnostics, context))
+		if (!validate_NoCircularContainment(portConnection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) portConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(portConnection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(portConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(portConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(portConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(portConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(portConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(portConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(portConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(portConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(portConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(portConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(portConnection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4463,31 +5657,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePortConnectionEnd(PortConnectionEnd portConnectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) portConnectionEnd, diagnostics, context))
+		if (!validate_NoCircularContainment(portConnectionEnd, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(portConnectionEnd, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(portConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(portConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(portConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(portConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(portConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(portConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(portConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(portConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(portConnectionEnd, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4498,31 +5704,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAccessConnectionEnd(AccessConnectionEnd accessConnectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) accessConnectionEnd, diagnostics, context))
+		if (!validate_NoCircularContainment(accessConnectionEnd, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(accessConnectionEnd, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(accessConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(accessConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(accessConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(accessConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(accessConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(accessConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(accessConnectionEnd, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(accessConnectionEnd, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(accessConnectionEnd, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4533,32 +5751,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupConnection(FeatureGroupConnection featureGroupConnection,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) featureGroupConnection, diagnostics, context))
+		if (!validate_NoCircularContainment(featureGroupConnection, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) featureGroupConnection, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(featureGroupConnection, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(featureGroupConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(featureGroupConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(featureGroupConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(featureGroupConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(featureGroupConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(featureGroupConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(featureGroupConnection, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(featureGroupConnection, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(featureGroupConnection, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4569,31 +5798,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorFeature(ProcessorFeature processorFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(processorFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processorFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processorFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processorFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processorFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processorFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processorFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processorFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processorFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processorFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processorFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4604,31 +5845,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateInternalFeature(InternalFeature internalFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) internalFeature, diagnostics, context))
+		if (!validate_NoCircularContainment(internalFeature, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(internalFeature, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(internalFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(internalFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(internalFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(internalFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(internalFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(internalFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(internalFeature, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(internalFeature, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(internalFeature, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4638,31 +5891,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateEventSource(EventSource eventSource, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) eventSource, diagnostics, context))
+		if (!validate_NoCircularContainment(eventSource, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) eventSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(eventSource, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(eventSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(eventSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(eventSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(eventSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(eventSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(eventSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(eventSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(eventSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(eventSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(eventSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(eventSource, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4673,31 +5938,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEventDataSource(EventDataSource eventDataSource, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) eventDataSource, diagnostics, context))
+		if (!validate_NoCircularContainment(eventDataSource, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(eventDataSource, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(eventDataSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(eventDataSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(eventDataSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(eventDataSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(eventDataSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(eventDataSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(eventDataSource, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(eventDataSource, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(eventDataSource, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4707,31 +5984,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePortProxy(PortProxy portProxy, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) portProxy, diagnostics, context))
+		if (!validate_NoCircularContainment(portProxy, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) portProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(portProxy, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(portProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(portProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(portProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(portProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(portProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(portProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(portProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(portProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(portProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(portProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(portProxy, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4742,31 +6031,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramProxy(SubprogramProxy subprogramProxy, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramProxy, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramProxy, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramProxy, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramProxy, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramProxy, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramProxy, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4776,31 +6077,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDataAccess(DataAccess dataAccess, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataAccess, diagnostics, context))
+		if (!validate_NoCircularContainment(dataAccess, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataAccess, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataAccess, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4811,37 +6124,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataClassifier(DataClassifier dataClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(dataClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(dataClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(dataClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4852,31 +6180,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataSubcomponentType(DataSubcomponentType dataSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(dataSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4886,31 +6226,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateData(Data data, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) data, diagnostics, context))
+		if (!validate_NoCircularContainment(data, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) data, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(data, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(data, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(data, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(data, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(data, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(data, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(data, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(data, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(data, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(data, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(data, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(data, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4920,31 +6272,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBusAccess(BusAccess busAccess, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) busAccess, diagnostics, context))
+		if (!validate_NoCircularContainment(busAccess, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) busAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(busAccess, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(busAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(busAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(busAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(busAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(busAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(busAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(busAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(busAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(busAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(busAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(busAccess, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4954,31 +6318,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAccess(Access access, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) access, diagnostics, context))
+		if (!validate_NoCircularContainment(access, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) access, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(access, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(access, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(access, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(access, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(access, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(access, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(access, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(access, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(access, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(access, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(access, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(access, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -4989,37 +6365,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusClassifier(BusClassifier busClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) busClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(busClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(busClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(busClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(busClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(busClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(busClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(busClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(busClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(busClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(busClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(busClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5030,31 +6421,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusSubcomponentType(BusSubcomponentType busSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) busSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(busSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(busSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(busSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(busSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(busSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(busSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(busSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(busSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(busSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(busSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(busSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5064,31 +6467,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBus(Bus bus, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) bus, diagnostics, context))
+		if (!validate_NoCircularContainment(bus, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) bus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(bus, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(bus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(bus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(bus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(bus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(bus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(bus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(bus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(bus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(bus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(bus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(bus, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5099,31 +6514,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramAccess(SubprogramAccess subprogramAccess, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramAccess, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramAccess, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramAccess, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramAccess, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5134,7 +6561,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateCalledSubprogram(CalledSubprogram calledSubprogram, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) calledSubprogram, diagnostics, context);
+		return validate_EveryDefaultConstraint(calledSubprogram, diagnostics, context);
 	}
 
 	/**
@@ -5144,37 +6571,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramClassifier(SubprogramClassifier subprogramClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(subprogramClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(subprogramClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5185,32 +6627,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramSubcomponentType(SubprogramSubcomponentType subprogramSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5220,31 +6673,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateSubprogram(Subprogram subprogram, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogram, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogram, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogram, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogram, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogram, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogram, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogram, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogram, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogram, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogram, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogram, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogram, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogram, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogram, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogram, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5254,31 +6719,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDataPort(DataPort dataPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataPort, diagnostics, context))
+		if (!validate_NoCircularContainment(dataPort, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataPort, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataPort, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5288,31 +6765,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateEventPort(EventPort eventPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) eventPort, diagnostics, context))
+		if (!validate_NoCircularContainment(eventPort, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) eventPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(eventPort, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(eventPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(eventPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(eventPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(eventPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(eventPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(eventPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(eventPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(eventPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(eventPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(eventPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(eventPort, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5323,31 +6812,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEventDataPort(EventDataPort eventDataPort, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) eventDataPort, diagnostics, context))
+		if (!validate_NoCircularContainment(eventDataPort, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(eventDataPort, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(eventDataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(eventDataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(eventDataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(eventDataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(eventDataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(eventDataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(eventDataPort, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(eventDataPort, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(eventDataPort, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5357,31 +6858,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateParameter(Parameter parameter, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) parameter, diagnostics, context))
+		if (!validate_NoCircularContainment(parameter, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) parameter, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(parameter, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(parameter, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(parameter, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(parameter, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(parameter, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(parameter, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(parameter, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(parameter, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(parameter, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(parameter, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(parameter, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(parameter, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5392,32 +6905,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupAccess(SubprogramGroupAccess subprogramGroupAccess,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroupAccess, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroupAccess, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroupAccess, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroupAccess, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroupAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroupAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroupAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroupAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroupAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroupAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroupAccess, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroupAccess, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroupAccess, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5428,38 +6952,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupClassifier(SubprogramGroupClassifier subprogramGroupClassifier,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroupClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroupClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroupClassifier, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroupClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(subprogramGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(subprogramGroupClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5471,34 +7009,44 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateSubprogramGroupSubcomponentType(
 			SubprogramGroupSubcomponentType subprogramGroupSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroupSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroupSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroupSubcomponentType, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroupSubcomponentType, diagnostics,
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroupSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroupSubcomponentType, diagnostics,
 					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroupSubcomponentType,
-					diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroupSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5509,31 +7057,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroup(SubprogramGroup subprogramGroup, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroup, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroup, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroup, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroup, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5544,28 +7104,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateImplementationExtension(ImplementationExtension implementationExtension,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) implementationExtension, diagnostics, context))
+		if (!validate_NoCircularContainment(implementationExtension, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) implementationExtension, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(implementationExtension, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(implementationExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(implementationExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(implementationExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(implementationExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(implementationExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(implementationExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(implementationExtension, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(implementationExtension, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(implementationExtension, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5575,31 +7144,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDevice(Device device, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) device, diagnostics, context))
+		if (!validate_NoCircularContainment(device, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) device, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(device, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(device, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(device, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(device, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(device, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(device, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(device, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(device, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(device, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(device, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(device, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(device, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5610,32 +7191,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceSubcomponentType(DeviceSubcomponentType deviceSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) deviceSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(deviceSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) deviceSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(deviceSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(deviceSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(deviceSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(deviceSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(deviceSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(deviceSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(deviceSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(deviceSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(deviceSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(deviceSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5646,37 +7238,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceClassifier(DeviceClassifier deviceClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) deviceClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(deviceClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(deviceClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(deviceClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(deviceClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(deviceClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(deviceClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(deviceClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(deviceClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(deviceClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(deviceClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(deviceClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5687,31 +7294,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceSubcomponent(DeviceSubcomponent deviceSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) deviceSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(deviceSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(deviceSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(deviceSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(deviceSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(deviceSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(deviceSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(deviceSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(deviceSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(deviceSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(deviceSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(deviceSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5721,37 +7340,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDeviceType(DeviceType deviceType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) deviceType, diagnostics, context))
+		if (!validate_NoCircularContainment(deviceType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) deviceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(deviceType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(deviceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(deviceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(deviceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(deviceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(deviceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(deviceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(deviceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(deviceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(deviceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(deviceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(deviceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(deviceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(deviceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(deviceType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5762,37 +7396,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceImplementation(DeviceImplementation deviceImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) deviceImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(deviceImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(deviceImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(deviceImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(deviceImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(deviceImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(deviceImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(deviceImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(deviceImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(deviceImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(deviceImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(deviceImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5803,33 +7452,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDevicePrototype(DevicePrototype devicePrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) devicePrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(devicePrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(devicePrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(devicePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(devicePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(devicePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(devicePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(devicePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(devicePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(devicePrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(devicePrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(devicePrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5840,31 +7502,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusSubcomponent(BusSubcomponent busSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) busSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(busSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(busSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(busSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(busSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(busSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(busSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(busSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(busSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(busSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(busSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(busSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5875,37 +7549,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractType(AbstractType abstractType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstractType, diagnostics, context))
+		if (!validate_NoCircularContainment(abstractType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstractType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstractType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstractType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstractType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstractType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstractType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstractType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstractType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstractType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstractType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstractType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstractType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstractType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(abstractType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(abstractType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(abstractType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5916,38 +7605,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractImplementation(AbstractImplementation abstractImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstractImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(abstractImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstractImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstractImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstractImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstractImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstractImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstractImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstractImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstractImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstractImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(abstractImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(abstractImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -5958,38 +7661,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBehavioredImplementation(BehavioredImplementation behavioredImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) behavioredImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(behavioredImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) behavioredImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(behavioredImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(behavioredImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(behavioredImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(behavioredImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(behavioredImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(behavioredImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(behavioredImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(behavioredImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(behavioredImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(behavioredImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6000,31 +7717,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataSubcomponent(DataSubcomponent dataSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(dataSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6035,31 +7764,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemorySubcomponent(MemorySubcomponent memorySubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) memorySubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(memorySubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(memorySubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(memorySubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(memorySubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(memorySubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(memorySubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(memorySubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(memorySubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(memorySubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(memorySubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(memorySubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6069,31 +7810,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateMemory(Memory memory, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) memory, diagnostics, context))
+		if (!validate_NoCircularContainment(memory, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) memory, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(memory, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(memory, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(memory, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(memory, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(memory, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(memory, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(memory, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(memory, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(memory, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(memory, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(memory, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(memory, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6104,32 +7857,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemorySubcomponentType(MemorySubcomponentType memorySubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) memorySubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(memorySubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) memorySubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(memorySubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(memorySubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(memorySubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(memorySubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(memorySubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(memorySubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(memorySubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(memorySubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(memorySubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(memorySubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6140,37 +7904,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemoryClassifier(MemoryClassifier memoryClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) memoryClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(memoryClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(memoryClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(memoryClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(memoryClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(memoryClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(memoryClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(memoryClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(memoryClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(memoryClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(memoryClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(memoryClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6181,31 +7960,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessSubcomponent(ProcessSubcomponent processSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(processSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6216,32 +8007,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessSubcomponentType(ProcessSubcomponentType processSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(processSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6250,32 +8052,45 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateProcess(Process process, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) process, diagnostics, context))
+	public boolean validateProcess(org.osate.aadl2.Process process, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(process, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) process, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(process, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(process, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(process, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(process, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(process, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(process, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(process, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(process, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(process, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(process, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(process, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(process, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6286,37 +8101,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessClassifier(ProcessClassifier processClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(processClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(processClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(processClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6327,32 +8157,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorSubcomponent(ProcessorSubcomponent processorSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(processorSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorSubcomponent, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processorSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processorSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6362,31 +8203,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateProcessor(Processor processor, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processor, diagnostics, context))
+		if (!validate_NoCircularContainment(processor, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processor, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processor, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6397,32 +8250,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorSubcomponentType(ProcessorSubcomponentType processorSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(processorSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processorSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processorSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6433,37 +8297,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorClassifier(ProcessorClassifier processorClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(processorClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processorClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(processorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(processorClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6474,31 +8353,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemSubcomponent(SystemSubcomponent systemSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) systemSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(systemSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(systemSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(systemSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(systemSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(systemSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(systemSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(systemSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(systemSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(systemSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(systemSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(systemSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6509,32 +8400,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemSubcomponentType(SystemSubcomponentType systemSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) systemSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(systemSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) systemSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(systemSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(systemSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(systemSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(systemSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(systemSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(systemSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(systemSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(systemSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(systemSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(systemSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6543,32 +8445,45 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateSystem(System system, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) system, diagnostics, context))
+	public boolean validateSystem(org.osate.aadl2.System system, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(system, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) system, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(system, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(system, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(system, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(system, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(system, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(system, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(system, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(system, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(system, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(system, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(system, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(system, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6579,37 +8494,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemClassifier(SystemClassifier systemClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) systemClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(systemClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(systemClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(systemClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(systemClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(systemClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(systemClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(systemClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(systemClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(systemClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(systemClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(systemClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6620,32 +8550,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramSubcomponent(SubprogramSubcomponent subprogramSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramSubcomponent, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6656,32 +8597,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupSubcomponent(SubprogramGroupSubcomponent subprogramGroupSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroupSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroupSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroupSubcomponent, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroupSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroupSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6692,31 +8644,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadSubcomponent(ThreadSubcomponent threadSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(threadSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6727,32 +8691,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadSubcomponentType(ThreadSubcomponentType threadSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(threadSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6761,32 +8736,45 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateThread(Thread thread, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) thread, diagnostics, context))
+	public boolean validateThread(org.osate.aadl2.Thread thread, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(thread, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) thread, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(thread, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(thread, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(thread, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(thread, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(thread, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(thread, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(thread, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(thread, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(thread, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(thread, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(thread, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(thread, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6797,37 +8785,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadClassifier(ThreadClassifier threadClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(threadClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(threadClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(threadClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6838,32 +8841,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupSubcomponent(ThreadGroupSubcomponent threadGroupSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadGroupSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(threadGroupSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadGroupSubcomponent, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadGroupSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadGroupSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadGroupSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadGroupSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6874,32 +8888,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupSubcomponentType(ThreadGroupSubcomponentType threadGroupSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadGroupSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(threadGroupSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadGroupSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadGroupSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadGroupSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadGroupSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadGroupSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6908,32 +8933,45 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateThreadGroup(ThreadGroup threadGroup, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadGroup, diagnostics, context))
+	public boolean validateThreadGroup(org.osate.aadl2.ThreadGroup threadGroup, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(threadGroup, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadGroup, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadGroup, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadGroup, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadGroup, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6944,38 +8982,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupClassifier(ThreadGroupClassifier threadGroupClassifier,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadGroupClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(threadGroupClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadGroupClassifier, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadGroupClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadGroupClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(threadGroupClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(threadGroupClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -6986,32 +9038,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusSubcomponent(VirtualBusSubcomponent virtualBusSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualBusSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualBusSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualBusSubcomponent, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualBusSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualBusSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualBusSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualBusSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualBusSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualBusSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualBusSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualBusSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualBusSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualBusSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7021,31 +9084,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateVirtualBus(VirtualBus virtualBus, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualBus, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualBus, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualBus, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualBus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualBus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualBus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualBus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualBus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualBus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualBus, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualBus, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualBus, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7056,37 +9131,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusClassifier(VirtualBusClassifier virtualBusClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualBusClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualBusClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualBusClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualBusClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualBusClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualBusClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualBusClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualBusClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualBusClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualBusClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(virtualBusClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(virtualBusClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7097,33 +9187,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorSubcomponent(VirtualProcessorSubcomponent virtualProcessorSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualProcessorSubcomponent, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualProcessorSubcomponent, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualProcessorSubcomponent, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualProcessorSubcomponent, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualProcessorSubcomponent, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualProcessorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualProcessorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualProcessorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualProcessorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualProcessorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualProcessorSubcomponent, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualProcessorSubcomponent, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessorSubcomponent, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7134,31 +9234,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessor(VirtualProcessor virtualProcessor, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualProcessor, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualProcessor, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualProcessor, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualProcessor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualProcessor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualProcessor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualProcessor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualProcessor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualProcessor, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualProcessor, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessor, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7169,32 +9281,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusSubcomponentType(VirtualBusSubcomponentType virtualBusSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualBusSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualBusSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualBusSubcomponentType, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualBusSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualBusSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualBusSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualBusSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualBusSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualBusSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualBusSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualBusSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualBusSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualBusSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7206,34 +9329,44 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateVirtualProcessorSubcomponentType(
 			VirtualProcessorSubcomponentType virtualProcessorSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualProcessorSubcomponentType, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualProcessorSubcomponentType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualProcessorSubcomponentType, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualProcessorSubcomponentType, diagnostics,
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualProcessorSubcomponentType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualProcessorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualProcessorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorSubcomponentType, diagnostics,
 					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualProcessorSubcomponentType,
-					diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualProcessorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualProcessorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualProcessorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualProcessorSubcomponentType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualProcessorSubcomponentType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessorSubcomponentType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7244,33 +9377,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractPrototype(AbstractPrototype abstractPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) abstractPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(abstractPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(abstractPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(abstractPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(abstractPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(abstractPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(abstractPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(abstractPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(abstractPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(abstractPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(abstractPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(abstractPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7281,38 +9427,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorClassifier(VirtualProcessorClassifier virtualProcessorClassifier,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualProcessorClassifier, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualProcessorClassifier, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualProcessorClassifier, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualProcessorClassifier, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualProcessorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualProcessorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualProcessorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualProcessorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualProcessorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualProcessorClassifier, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(virtualProcessorClassifier, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(virtualProcessorClassifier, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7323,32 +9483,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramCallSequence(SubprogramCallSequence subprogramCallSequence,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramCallSequence, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramCallSequence, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramCallSequence, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramCallSequence, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramCallSequence, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramCallSequence, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramCallSequence, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramCallSequence, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramCallSequence, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramCallSequence, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramCallSequence, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramCallSequence, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramCallSequence, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7359,31 +9530,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramCall(SubprogramCall subprogramCall, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramCall, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramCall, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramCall, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramCall, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramCall, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramCall, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramCall, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramCall, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramCall, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramCall, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramCall, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramCall, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7393,37 +9576,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBusType(BusType busType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) busType, diagnostics, context))
+		if (!validate_NoCircularContainment(busType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) busType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(busType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(busType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(busType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(busType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(busType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(busType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(busType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(busType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(busType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(busType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(busType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(busType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(busType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(busType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(busType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7434,37 +9632,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusImplementation(BusImplementation busImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) busImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(busImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(busImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(busImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(busImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(busImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(busImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(busImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(busImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(busImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(busImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(busImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7475,33 +9688,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusPrototype(BusPrototype busPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) busPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(busPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(busPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(busPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(busPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(busPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(busPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(busPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(busPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(busPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(busPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(busPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7511,37 +9737,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDataType(DataType dataType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataType, diagnostics, context))
+		if (!validate_NoCircularContainment(dataType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(dataType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(dataType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(dataType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7552,37 +9793,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataImplementation(DataImplementation dataImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(dataImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(dataImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(dataImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7593,33 +9849,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataPrototype(DataPrototype dataPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) dataPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(dataPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(dataPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(dataPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(dataPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(dataPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(dataPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(dataPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(dataPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(dataPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(dataPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(dataPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7629,37 +9898,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateMemoryType(MemoryType memoryType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) memoryType, diagnostics, context))
+		if (!validate_NoCircularContainment(memoryType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) memoryType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(memoryType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(memoryType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(memoryType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(memoryType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(memoryType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(memoryType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(memoryType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(memoryType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(memoryType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(memoryType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(memoryType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(memoryType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(memoryType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(memoryType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(memoryType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7670,37 +9954,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemoryImplementation(MemoryImplementation memoryImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) memoryImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(memoryImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(memoryImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(memoryImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(memoryImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(memoryImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(memoryImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(memoryImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(memoryImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(memoryImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(memoryImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(memoryImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7711,33 +10010,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemoryPrototype(MemoryPrototype memoryPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) memoryPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(memoryPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(memoryPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(memoryPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(memoryPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(memoryPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(memoryPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(memoryPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(memoryPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(memoryPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(memoryPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(memoryPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7747,37 +10059,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateSystemType(SystemType systemType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) systemType, diagnostics, context))
+		if (!validate_NoCircularContainment(systemType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) systemType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(systemType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(systemType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(systemType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(systemType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(systemType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(systemType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(systemType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(systemType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(systemType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(systemType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(systemType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(systemType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(systemType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(systemType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(systemType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7788,37 +10115,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemImplementation(SystemImplementation systemImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) systemImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(systemImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(systemImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(systemImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(systemImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(systemImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(systemImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(systemImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(systemImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(systemImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(systemImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(systemImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7829,33 +10171,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemPrototype(SystemPrototype systemPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) systemPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(systemPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(systemPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(systemPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(systemPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(systemPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(systemPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(systemPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(systemPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(systemPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(systemPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(systemPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7865,37 +10220,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateThreadType(ThreadType threadType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadType, diagnostics, context))
+		if (!validate_NoCircularContainment(threadType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(threadType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(threadType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(threadType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7906,37 +10276,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadImplementation(ThreadImplementation threadImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(threadImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(threadImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(threadImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7947,33 +10332,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadPrototype(ThreadPrototype threadPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(threadPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(threadPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -7984,37 +10382,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupType(ThreadGroupType threadGroupType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadGroupType, diagnostics, context))
+		if (!validate_NoCircularContainment(threadGroupType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadGroupType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(threadGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(threadGroupType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8025,38 +10438,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupImplementation(ThreadGroupImplementation threadGroupImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadGroupImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(threadGroupImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadGroupImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadGroupImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(threadGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(threadGroupImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8067,33 +10494,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupPrototype(ThreadGroupPrototype threadGroupPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) threadGroupPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(threadGroupPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(threadGroupPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(threadGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(threadGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(threadGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(threadGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(threadGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(threadGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(threadGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(threadGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(threadGroupPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8104,37 +10544,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusType(VirtualBusType virtualBusType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualBusType, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualBusType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualBusType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualBusType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualBusType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualBusType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualBusType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualBusType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualBusType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualBusType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(virtualBusType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(virtualBusType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8145,38 +10600,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusImplementation(VirtualBusImplementation virtualBusImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualBusImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualBusImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualBusImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualBusImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualBusImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualBusImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualBusImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualBusImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualBusImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualBusImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualBusImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(virtualBusImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(virtualBusImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8187,33 +10656,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusPrototype(VirtualBusPrototype virtualBusPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualBusPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualBusPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualBusPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualBusPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualBusPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualBusPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualBusPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualBusPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualBusPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualBusPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualBusPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(virtualBusPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8224,37 +10706,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorType(VirtualProcessorType virtualProcessorType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualProcessorType, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualProcessorType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualProcessorType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualProcessorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualProcessorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualProcessorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualProcessorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualProcessorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualProcessorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(virtualProcessorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(virtualProcessorType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8266,40 +10763,53 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateVirtualProcessorImplementation(
 			VirtualProcessorImplementation virtualProcessorImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualProcessorImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualProcessorImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualProcessorImplementation, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualProcessorImplementation,
-					diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualProcessorImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualProcessorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualProcessorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualProcessorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualProcessorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualProcessorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualProcessorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(virtualProcessorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(virtualProcessorImplementation, diagnostics,
 					context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(virtualProcessorImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8310,34 +10820,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorPrototype(VirtualProcessorPrototype virtualProcessorPrototype,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) virtualProcessorPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(virtualProcessorPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) virtualProcessorPrototype, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(virtualProcessorPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(virtualProcessorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(virtualProcessorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(virtualProcessorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(virtualProcessorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(virtualProcessorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(virtualProcessorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(virtualProcessorPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8348,37 +10870,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupType(SubprogramGroupType subprogramGroupType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroupType, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroupType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroupType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroupType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(subprogramGroupType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(subprogramGroupType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8389,40 +10926,53 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupImplementation(SubprogramGroupImplementation subprogramGroupImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroupImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroupImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroupImplementation, diagnostics,
-				context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroupImplementation,
-					diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroupImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroupImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(subprogramGroupImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(subprogramGroupImplementation, diagnostics,
 					context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(subprogramGroupImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8433,34 +10983,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupPrototype(SubprogramGroupPrototype subprogramGroupPrototype,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramGroupPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramGroupPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramGroupPrototype, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramGroupPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramGroupPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramGroupPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(subprogramGroupPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8471,37 +11033,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorType(ProcessorType processorType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorType, diagnostics, context))
+		if (!validate_NoCircularContainment(processorType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processorType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processorType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(processorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(processorType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(processorType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8512,38 +11089,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorImplementation(ProcessorImplementation processorImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(processorImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processorImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processorImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(processorImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(processorImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8554,33 +11145,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorPrototype(ProcessorPrototype processorPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processorPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(processorPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processorPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processorPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processorPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(processorPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8590,37 +11194,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateProcessType(ProcessType processType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processType, diagnostics, context))
+		if (!validate_NoCircularContainment(processType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(processType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(processType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(processType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8631,38 +11250,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessImplementation(ProcessImplementation processImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(processImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(processImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(processImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8673,33 +11306,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessPrototype(ProcessPrototype processPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) processPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(processPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(processPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(processPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(processPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(processPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(processPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(processPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(processPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(processPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(processPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(processPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8710,37 +11356,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramType(SubprogramType subprogramType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramType, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(subprogramType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(subprogramType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8751,38 +11412,52 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramImplementation(SubprogramImplementation subprogramImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramImplementation, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramImplementation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramImplementation, diagnostics,
-					context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramImplementation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramImplementation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_no_cycles_in_generalization(subprogramImplementation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateClassifier_specialize_type(subprogramImplementation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8793,33 +11468,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramPrototype(SubprogramPrototype subprogramPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) subprogramPrototype, diagnostics, context))
+		if (!validate_NoCircularContainment(subprogramPrototype, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(subprogramPrototype, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(subprogramPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(subprogramPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(subprogramPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(subprogramPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(subprogramPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(subprogramPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(subprogramPrototype, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(subprogramPrototype, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validatePrototype_categoryConstraint(subprogramPrototype, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8830,7 +11518,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractNamedValue(AbstractNamedValue abstractNamedValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractNamedValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractNamedValue, diagnostics, context);
 	}
 
 	/**
@@ -8840,7 +11528,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateArraySizeProperty(ArraySizeProperty arraySizeProperty, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) arraySizeProperty, diagnostics, context);
+		return validate_EveryDefaultConstraint(arraySizeProperty, diagnostics, context);
 	}
 
 	/**
@@ -8850,27 +11538,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyValue(PropertyValue propertyValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertyValue, diagnostics, context))
+		if (!validate_NoCircularContainment(propertyValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(propertyValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(propertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(propertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(propertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(propertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(propertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(propertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(propertyValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(propertyValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(propertyValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8880,31 +11578,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNumberType(NumberType numberType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) numberType, diagnostics, context))
+		if (!validate_NoCircularContainment(numberType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) numberType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(numberType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(numberType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(numberType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(numberType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(numberType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(numberType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(numberType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(numberType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(numberType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(numberType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(numberType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(numberType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8914,33 +11624,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateUnitsType(UnitsType unitsType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) unitsType, diagnostics, context))
+		if (!validate_NoCircularContainment(unitsType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) unitsType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(unitsType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(unitsType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(unitsType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(unitsType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(unitsType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(unitsType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(unitsType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(unitsType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(unitsType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(unitsType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(unitsType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(unitsType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(unitsType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8950,31 +11673,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAadlInteger(AadlInteger aadlInteger, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) aadlInteger, diagnostics, context))
+		if (!validate_NoCircularContainment(aadlInteger, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(aadlInteger, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(aadlInteger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(aadlInteger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(aadlInteger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(aadlInteger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(aadlInteger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(aadlInteger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(aadlInteger, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(aadlInteger, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(aadlInteger, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -8984,31 +11719,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAadlReal(AadlReal aadlReal, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) aadlReal, diagnostics, context))
+		if (!validate_NoCircularContainment(aadlReal, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(aadlReal, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(aadlReal, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(aadlReal, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(aadlReal, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(aadlReal, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(aadlReal, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(aadlReal, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(aadlReal, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(aadlReal, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(aadlReal, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9018,31 +11765,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAadlBoolean(AadlBoolean aadlBoolean, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) aadlBoolean, diagnostics, context))
+		if (!validate_NoCircularContainment(aadlBoolean, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(aadlBoolean, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(aadlBoolean, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(aadlBoolean, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(aadlBoolean, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(aadlBoolean, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(aadlBoolean, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(aadlBoolean, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(aadlBoolean, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(aadlBoolean, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(aadlBoolean, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9052,31 +11811,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAadlString(AadlString aadlString, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) aadlString, diagnostics, context))
+		if (!validate_NoCircularContainment(aadlString, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) aadlString, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(aadlString, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(aadlString, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(aadlString, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(aadlString, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(aadlString, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(aadlString, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(aadlString, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(aadlString, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(aadlString, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(aadlString, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(aadlString, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(aadlString, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9087,33 +11858,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEnumerationType(EnumerationType enumerationType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) enumerationType, diagnostics, context))
+		if (!validate_NoCircularContainment(enumerationType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(enumerationType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(enumerationType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(enumerationType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(enumerationType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(enumerationType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(enumerationType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(enumerationType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(enumerationType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(enumerationType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(enumerationType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9124,27 +11908,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateNumericRange(NumericRange numericRange, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) numericRange, diagnostics, context))
+		if (!validate_NoCircularContainment(numericRange, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) numericRange, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(numericRange, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(numericRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(numericRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(numericRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(numericRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(numericRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(numericRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(numericRange, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(numericRange, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(numericRange, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9155,31 +11949,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEnumerationLiteral(EnumerationLiteral enumerationLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) enumerationLiteral, diagnostics, context))
+		if (!validate_NoCircularContainment(enumerationLiteral, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(enumerationLiteral, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(enumerationLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(enumerationLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(enumerationLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(enumerationLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(enumerationLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(enumerationLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(enumerationLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(enumerationLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(enumerationLiteral, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9189,31 +11995,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateUnitLiteral(UnitLiteral unitLiteral, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) unitLiteral, diagnostics, context))
+		if (!validate_NoCircularContainment(unitLiteral, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(unitLiteral, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(unitLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(unitLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(unitLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(unitLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(unitLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(unitLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(unitLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(unitLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(unitLiteral, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9224,27 +12042,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateStringLiteral(StringLiteral stringLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) stringLiteral, diagnostics, context))
+		if (!validate_NoCircularContainment(stringLiteral, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(stringLiteral, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(stringLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(stringLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(stringLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(stringLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(stringLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(stringLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(stringLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(stringLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(stringLiteral, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9254,27 +12082,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNumberValue(NumberValue numberValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) numberValue, diagnostics, context))
+		if (!validate_NoCircularContainment(numberValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) numberValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(numberValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(numberValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(numberValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(numberValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(numberValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(numberValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(numberValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(numberValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(numberValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(numberValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9285,27 +12123,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateClassifierValue(ClassifierValue classifierValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) classifierValue, diagnostics, context))
+		if (!validate_NoCircularContainment(classifierValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(classifierValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(classifierValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(classifierValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(classifierValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(classifierValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(classifierValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(classifierValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(classifierValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(classifierValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(classifierValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9316,27 +12164,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateReferenceValue(ReferenceValue referenceValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) referenceValue, diagnostics, context))
+		if (!validate_NoCircularContainment(referenceValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(referenceValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(referenceValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(referenceValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(referenceValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(referenceValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(referenceValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(referenceValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(referenceValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(referenceValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(referenceValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9347,27 +12205,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBooleanLiteral(BooleanLiteral booleanLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) booleanLiteral, diagnostics, context))
+		if (!validate_NoCircularContainment(booleanLiteral, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(booleanLiteral, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(booleanLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(booleanLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(booleanLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(booleanLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(booleanLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(booleanLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(booleanLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(booleanLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(booleanLiteral, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9377,27 +12245,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRangeValue(RangeValue rangeValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) rangeValue, diagnostics, context))
+		if (!validate_NoCircularContainment(rangeValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(rangeValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(rangeValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(rangeValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(rangeValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(rangeValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(rangeValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(rangeValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(rangeValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(rangeValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(rangeValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9408,27 +12286,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateIntegerLiteral(IntegerLiteral integerLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) integerLiteral, diagnostics, context))
+		if (!validate_NoCircularContainment(integerLiteral, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(integerLiteral, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(integerLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(integerLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(integerLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(integerLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(integerLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(integerLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(integerLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(integerLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(integerLiteral, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9438,27 +12326,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRealLiteral(RealLiteral realLiteral, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) realLiteral, diagnostics, context))
+		if (!validate_NoCircularContainment(realLiteral, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(realLiteral, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(realLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(realLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(realLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(realLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(realLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(realLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(realLiteral, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(realLiteral, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(realLiteral, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9468,27 +12366,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateOperation(Operation operation, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) operation, diagnostics, context))
+		if (!validate_NoCircularContainment(operation, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) operation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(operation, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(operation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(operation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(operation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(operation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(operation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(operation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(operation, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(operation, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(operation, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9498,27 +12406,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRecordValue(RecordValue recordValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) recordValue, diagnostics, context))
+		if (!validate_NoCircularContainment(recordValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) recordValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(recordValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(recordValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(recordValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(recordValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(recordValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(recordValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(recordValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(recordValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(recordValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(recordValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9529,27 +12447,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComputedValue(ComputedValue computedValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) computedValue, diagnostics, context))
+		if (!validate_NoCircularContainment(computedValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) computedValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(computedValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(computedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(computedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(computedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(computedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(computedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(computedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(computedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(computedValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(computedValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9559,27 +12487,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateListValue(ListValue listValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) listValue, diagnostics, context))
+		if (!validate_NoCircularContainment(listValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) listValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(listValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(listValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(listValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(listValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(listValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(listValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(listValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(listValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(listValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(listValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9589,27 +12527,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNamedValue(NamedValue namedValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) namedValue, diagnostics, context))
+		if (!validate_NoCircularContainment(namedValue, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) namedValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(namedValue, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(namedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(namedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(namedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(namedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(namedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(namedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(namedValue, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(namedValue, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(namedValue, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9620,31 +12568,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateClassifierType(ClassifierType classifierType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) classifierType, diagnostics, context))
+		if (!validate_NoCircularContainment(classifierType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) classifierType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(classifierType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(classifierType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(classifierType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(classifierType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(classifierType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(classifierType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(classifierType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(classifierType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(classifierType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(classifierType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(classifierType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(classifierType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9655,27 +12615,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMetaclassReference(MetaclassReference metaclassReference, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) metaclassReference, diagnostics, context))
+		if (!validate_NoCircularContainment(metaclassReference, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(metaclassReference, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(metaclassReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(metaclassReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(metaclassReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(metaclassReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(metaclassReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(metaclassReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(metaclassReference, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(metaclassReference, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(metaclassReference, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9686,27 +12656,37 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyOwner(PropertyOwner propertyOwner, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) propertyOwner, diagnostics, context))
+		if (!validate_NoCircularContainment(propertyOwner, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(propertyOwner, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(propertyOwner, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(propertyOwner, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(propertyOwner, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(propertyOwner, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(propertyOwner, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(propertyOwner, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(propertyOwner, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(propertyOwner, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(propertyOwner, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9717,31 +12697,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateReferenceType(ReferenceType referenceType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) referenceType, diagnostics, context))
+		if (!validate_NoCircularContainment(referenceType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) referenceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(referenceType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(referenceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(referenceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(referenceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(referenceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(referenceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(referenceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(referenceType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(referenceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(referenceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(referenceType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(referenceType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9751,31 +12743,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateListType(ListType listType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) listType, diagnostics, context))
+		if (!validate_NoCircularContainment(listType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) listType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(listType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(listType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(listType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(listType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(listType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(listType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(listType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(listType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(listType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(listType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(listType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(listType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9785,31 +12789,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRangeType(RangeType rangeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) rangeType, diagnostics, context))
+		if (!validate_NoCircularContainment(rangeType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) rangeType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(rangeType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(rangeType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(rangeType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(rangeType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(rangeType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(rangeType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(rangeType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(rangeType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(rangeType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(rangeType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(rangeType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(rangeType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9819,33 +12835,46 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRecordType(RecordType recordType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) recordType, diagnostics, context))
+		if (!validate_NoCircularContainment(recordType, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) recordType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(recordType, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(recordType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(recordType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(recordType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(recordType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(recordType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(recordType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(recordType, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(recordType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(recordType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(recordType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(recordType, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamespace_members_distinguishable(recordType, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -9855,31 +12884,43 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRecordField(RecordField recordField, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment((EObject) recordField, diagnostics, context))
+		if (!validate_NoCircularContainment(recordField, diagnostics, context)) {
 			return false;
-		boolean result = validate_EveryMultiplicityConforms((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryDataValueConforms((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryReferenceIsContained((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryBidirectionalReferenceIsPaired((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryProxyResolves((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_UniqueID((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryKeyUnique((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
-			result &= validate_EveryMapEntryUnique((EObject) recordField, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		boolean result = validate_EveryMultiplicityConforms(recordField, diagnostics, context);
+		if (result || diagnostics != null) {
+			result &= validate_EveryDataValueConforms(recordField, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryReferenceIsContained(recordField, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(recordField, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryProxyResolves(recordField, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_UniqueID(recordField, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryKeyUnique(recordField, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
+			result &= validate_EveryMapEntryUnique(recordField, diagnostics, context);
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_not_own_self(recordField, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateElement_has_owner(recordField, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_no_qualified_name(recordField, diagnostics, context);
-		if (result || diagnostics != null)
+		}
+		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(recordField, diagnostics, context);
+		}
 		return result;
 	}
 
@@ -10015,14 +13056,9 @@ public class Aadl2Validator extends EObjectValidator {
 				&& eClassesIterator.hasNext();) {
 			EAnnotation eAnnotation = eClassesIterator.next().getEAnnotation("duplicates");
 			if (eAnnotation != null) {
-				for (EObject eContents : eAnnotation.eContents()) {
-					if (eContents instanceof EAnnotation) {
-						EAnnotation nestedEAnnotation = (EAnnotation) eContents;
-						if (featureName.equals(nestedEAnnotation.getSource())) {
-							redefinitionDetail = nestedEAnnotation.getDetails().get(key);
-							break;
-						}
-					}
+				EAnnotation nestedEAnnotation = eAnnotation.getEAnnotation(featureName);
+				if (nestedEAnnotation != null) {
+					redefinitionDetail = nestedEAnnotation.getDetails().get(key);
 				}
 			}
 		}

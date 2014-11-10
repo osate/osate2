@@ -3,6 +3,7 @@
 --Appendix A: Predeclared Property Sets
 
 property set Memory_Properties is
+	
 	Size: type aadlinteger 0 Bytes .. Max_Memory_Size units Size_Units;
 	
 	Size_Range: type range of Size;
@@ -17,7 +18,7 @@ property set Memory_Properties is
 		Last: IO_Time_Spec;)
 		=> [First => [Time => Start; Offset => 0 ns .. 0 ns;];
 			Last => [Time => Completion; Offset => 0 ns .. 0 ns;];]
-		applies to (data access);
+		applies to (data access, data);
 	
 	Allowed_Message_Size: Size_Range
 		applies to (bus);

@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -141,6 +141,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public EList<FlowElementInstance> getFlowElements() {
 		if (flowElements == null) {
 			flowElements = new EObjectResolvingEList<FlowElementInstance>(FlowElementInstance.class, this,
@@ -166,14 +167,16 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EndToEndFlow getEndToEndFlow() {
 		if (endToEndFlow != null && ((EObject) endToEndFlow).eIsProxy()) {
 			InternalEObject oldEndToEndFlow = (InternalEObject) endToEndFlow;
 			endToEndFlow = (EndToEndFlow) eResolveProxy(oldEndToEndFlow);
 			if (endToEndFlow != oldEndToEndFlow) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW, oldEndToEndFlow, endToEndFlow));
+				}
 			}
 		}
 		return endToEndFlow;
@@ -193,12 +196,14 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEndToEndFlow(EndToEndFlow newEndToEndFlow) {
 		EndToEndFlow oldEndToEndFlow = endToEndFlow;
 		endToEndFlow = newEndToEndFlow;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW, oldEndToEndFlow, endToEndFlow));
+		}
 	}
 
 	/**
@@ -206,6 +211,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
 			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
@@ -219,6 +225,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
 			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
@@ -242,8 +249,9 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			return getInSystemOperationModes();
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW:
-			if (resolve)
+			if (resolve) {
 				return getEndToEndFlow();
+			}
 			return basicGetEndToEndFlow();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -321,12 +329,15 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public EList<EList<ModeInstance>> getModesList() {
-		if (modesList == null)
+		if (modesList == null) {
 			modesList = new BasicEList<EList<ModeInstance>>();
+		}
 		return modesList;
 	}
 
+	@Override
 	public List<SystemOperationMode> getExistsInModes() {
 		// be overly cautious
 		List<ModeInstance> inModes = getInModes();
@@ -351,10 +362,12 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		}
 	}
 
+	@Override
 	public List<EndToEndFlow> getInstantiatedObjects() {
 		return Collections.singletonList(getEndToEndFlow());
 	}
 
+	@Override
 	public boolean isActive(SystemOperationMode som) {
 		if (getInSystemOperationModes().contains(som)) {
 			return getContainingComponentInstance().isActive(som);

@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
@@ -79,10 +78,12 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		return Aadl2Package.eINSTANCE.getReferenceValue();
 	}
 
-	public PropertyExpression instantiate(ComponentInstance root) throws InvalidModelException {
+	@Override
+	public PropertyExpression instantiate(InstanceObject root) throws InvalidModelException {
 		List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
-			throw new InvalidModelException(this, "Reference does not refer to an instance object");
+			// reference to a non-instantiated element, e.g., subprogram or call sequence
+			return null;
 		} else if (iol.size() > 1) {
 			throw new InvalidModelException(this, "Reference refers to more than one instance object");
 		} else {
@@ -93,6 +94,7 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		}
 	}
 
+	@Override
 	public PropertyExpression instantiate(FeatureInstance root) throws InvalidModelException {
 		final List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
@@ -108,6 +110,7 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 	}
 
 	// TODO: LW features can have reference properties too
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx) {
 		return new EvaluatedProperty(this);
 	}

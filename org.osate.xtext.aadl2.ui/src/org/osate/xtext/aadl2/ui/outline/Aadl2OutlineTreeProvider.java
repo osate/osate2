@@ -36,17 +36,37 @@ package org.osate.xtext.aadl2.ui.outline;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
+import org.eclipse.xtext.ui.label.StylerFactory;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+
+import com.google.inject.Inject;
 
 /**
  * customization of the default outline structure
@@ -54,27 +74,139 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
  */
 public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
+	@Inject
+	private StylerFactory stylerFactory;
+
 	protected void _createChildren(DocumentRootNode parentNode, ModelUnit aadlModel) {
 		if (aadlModel instanceof AadlPackage) {
 			for (Element element : aadlModel.getChildren()) {
+//				OsateDebug.osateDebug("Aadl2OutlineTreeProvider", "element" + element);
 				createNode(parentNode, element);
 			}
 		} else {
+
+//			OsateDebug.osateDebug("Aadl2OutlineTreeProvider", "aadlModel" + aadlModel);
 			createNode(parentNode, aadlModel);
 		}
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
+
 		for (EObject childElement : modelElement.getChildren()) {
+//			OsateDebug.osateDebug("Aadl2OutlineTreeProvider", "child " + childElement);
+//			OsateDebug.osateDebug("Aadl2OutlineTreeProvider", "child " + childElement);
+
+			if (childElement instanceof Realization) {
+				continue;
+			}
+
+			if (childElement instanceof ImplementationExtension) {
+				continue;
+			}
+
+			if (childElement instanceof ContainmentPathElement) {
+				continue;
+			}
+
 			createNode(parentNode, childElement);
+		}
+	}
+
+	protected Object _text(Object modelElement) {
+		String initialText;
+
+		initialText = labelProvider.getText(modelElement);
+
+//		OsateDebug.osateDebug("Aadl2OutlineTreeProvider", "text" + modelElement);
+
+		if (labelProvider instanceof IStyledLabelProvider) {
+			StyledString styledString;
+
+			styledString = ((IStyledLabelProvider) labelProvider).getStyledText(modelElement);
+			return styledString;
+		} else {
+
+			return initialText;
 		}
 	}
 
 	protected void _createChildren(DocumentRootNode parentNode, SystemInstance aadlModel) {
 		createNode(parentNode, aadlModel);
+
+	}
+
+	protected boolean _isLeaf(ContainmentPathElement cpe) {
+		return true;
+	}
+
+	protected boolean _isLeaf(ContainedNamedElement cpe) {
+		return true;
 	}
 
 	protected boolean _isLeaf(SystemInstance feature) {
+		return false;
+	}
+
+	protected boolean _isLeaf(FlowSpecification flowspec) {
+		return true;
+	}
+
+	protected boolean _isLeaf(AnnexSubclause as) {
+		return true;
+	}
+
+	protected boolean _isLeaf(FlowImplementation flowimpl) {
+		return true;
+	}
+
+	protected boolean _isLeaf(EndToEndFlowImpl flowimpl) {
+		return true;
+	}
+
+	protected boolean _isLeaf(RangeValue rv) {
+		return false;
+	}
+
+	protected boolean _isLeaf(ModalPropertyValue ml) {
+		if (ml.getInModes().isEmpty()) {
+			if (ml.getOwnedValue() instanceof RangeValue) {
+				return false;
+			}
+
+			if (ml.getOwnedValue() instanceof ListValue) {
+				return false;
+			}
+
+			if (ml.getOwnedValue() instanceof RecordValue) {
+				return false;
+			}
+
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean _isLeaf(BasicPropertyAssociation bpa) {
+
+		if (bpa.eContainer() instanceof RecordValue) {
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean _isLeaf(ReferenceValue bpa) {
+
+		if (bpa.eContainer() instanceof RecordValue) {
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean _isLeaf(IntegerLiteral bpa) {
+
+		if (bpa.eContainer() instanceof RecordValue) {
+			return false;
+		}
 		return false;
 	}
 

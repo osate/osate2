@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -372,11 +372,11 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 
 	/**
 	 * find the subcomponent instance of this component instance
-	 * 
+	 *
 	 * <p>This method is sensitive to the current system operation mode of the
 	 * containing system instance.  The component instance corresponding to the
 	 * subcomponent is only returned if it exists in the current som.
-	 * 
+	 *
 	 * @param sc subcomponent
 	 * @return component instance with the specified subcomponent, or null
 	 */
@@ -417,11 +417,11 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * that utilize the given connection.  Returns a list
 	 * because a connection can be in multiple semantic connections if there are
 	 * multiple connections coming in or going out of a port.
-	 * 
+	 *
 	 * <p>This method is sensitive to the {@link SystemInstance#getCurrentSystemOperationMode()
 	 * current system operation mode}.  It only return those connection
 	 * instances that exist in the current SOM.
-	 * 
+	 *
 	 * @param conn Connection whose instance is to be found
 	 * @return Connection instance list with the specified Connection
 	 */
@@ -431,11 +431,11 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	/**
 	 * Find the end to end flow instance of this component that corresponds
 	 * to the given end to end flow.
-	 * 
+	 *
 	 * <p>This method is sensitive to the {@link SystemInstance#getCurrentSystemOperationMode()
 	 * current system operation mode}.  It only returns the end to end flow
 	 * instance if it exists in the current mode.
-	 * 
+	 *
 	 * @param ete endtoendflow whose instance is to be found
 	 * @return endtoendflow instance with the specified endtoendflow, or null
 	 */

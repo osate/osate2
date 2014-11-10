@@ -47,6 +47,8 @@ import org.eclipse.emf.common.util.EList;
  *
  * <!-- begin-model-doc -->
  * A namespace is an element in a model that contains a set of named elements that can be identified by name.
+ * <p>From package AADLInfrastructure.</p>
+ * <p>From package AADLProperties::PropertySets.</p>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -70,6 +72,7 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Member</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getNamespace_Member()
@@ -94,6 +97,7 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A collection of NamedElements owned by the Namespace.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Member</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getNamespace_OwnedMember()
@@ -121,6 +125,7 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.String" ordered="false" elementRequired="true" elementOrdered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='if member->includes(element) then\r\n  Set{}->including(element.name)\r\nelse\r\n  Set{}\r\nendif'"
@@ -133,6 +138,7 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.
+	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))'"

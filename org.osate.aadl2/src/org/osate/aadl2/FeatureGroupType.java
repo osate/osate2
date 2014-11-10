@@ -42,6 +42,11 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Feature Group Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Features.</p>
+ * <p>From package AADLDetails::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -84,6 +89,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedFeature()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"
@@ -105,12 +113,16 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Extended</em>' reference.
 	 * @see #setExtended(FeatureGroupType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_Extended()
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
+	@Override
 	FeatureGroupType getExtended();
 
 	/**
@@ -131,6 +143,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inverse</em>' reference.
 	 * @see #setInverse(FeatureGroupType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_Inverse()
@@ -163,6 +178,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Extension</em>' containment reference.
 	 * @see #setOwnedExtension(GroupExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedExtension()
@@ -206,6 +224,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedBusAccess()
 	 * @model containment="true" ordered="false"
@@ -238,6 +259,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedDataAccess()
 	 * @model containment="true" ordered="false"
@@ -270,6 +294,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
@@ -302,6 +329,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
@@ -334,6 +364,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
@@ -366,6 +399,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Feature Group</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedFeatureGroup()
 	 * @model containment="true" ordered="false"
@@ -398,6 +434,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Parameter</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedParameter()
 	 * @model containment="true" ordered="false"
@@ -430,6 +469,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedSubprogramAccess()
 	 * @model containment="true" ordered="false"
@@ -462,6 +504,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedSubprogramGroupAccess()
 	 * @model containment="true" ordered="false"
@@ -494,6 +539,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Abstract Feature</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedAbstractFeature()
 	 * @model containment="true" ordered="false"

@@ -43,12 +43,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Factory;
@@ -61,8 +56,7 @@ import org.osate.aadl2.ContainmentPathElement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ContainmentPathElementItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ContainmentPathElementItemProvider extends ElementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -136,6 +130,7 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider impl
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainmentPathElement_ArrayRange());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getContainmentPathElement_Path());
 		}
 		return childrenFeatures;
 	}
@@ -193,6 +188,7 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider impl
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -212,6 +208,9 @@ public class ContainmentPathElementItemProvider extends ElementItemProvider impl
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getContainmentPathElement_ArrayRange(),
 				Aadl2Factory.eINSTANCE.createArrayRange()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getContainmentPathElement_Path(),
+				Aadl2Factory.eINSTANCE.createContainmentPathElement()));
 	}
 
 }

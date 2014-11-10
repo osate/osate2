@@ -6,10 +6,10 @@ import org.osate.aadl2.Property;
 /**
  * Property service lookup to be used by getPropertyValues in NamedElement. An implementation of this service is provided by
  * the org.osate.xtext.aadl2.properties.ui plugin tha tmakes used of the GetProperties class performing a lookup through the
- * workspace property sets. 
- * 
+ * workspace property sets.
+ *
  * Note: A different implementation would need to be provided for running OSATE outside the Eclipse IDE.
- * 
+ *
  * @author dblouin
  */
 public interface IPropertyService {

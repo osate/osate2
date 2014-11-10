@@ -82,21 +82,15 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 			EObject obj = context.getContext();
 			if (obj instanceof ContainmentPathElement) {
 				Subcomponent sub = AadlUtil.getContainingSubcomponent(obj);
-				ContainedNamedElement cne = (ContainedNamedElement) ((ContainmentPathElement) obj).getOwner();
 				INode node = NodeModelUtils.findActualNodeFor(obj);
 				String name = NodeModelUtils.getTokenText(node);
-				if (sub != null && !cne.getContainmentPathElements().isEmpty()
-						&& cne.getContainmentPathElements().get(0) == obj) {
+				if (sub != null && !(obj.eContainer() instanceof ContainmentPathElement)) {
 					String msg = "Could not find path element " + name + " in subcomponent " + sub.getName();
 					return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 				}
 			}
 			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."
 					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
-			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
-		}
-		if (Aadl2Package.eINSTANCE.getConnectionEnd() == referenceType) {
-			String msg = "Couldn't resolve feature '" + context.getLinkText() + "'. It may not match connection type.";
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
 		if (Aadl2Package.eINSTANCE.getMode() == referenceType) {

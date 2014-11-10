@@ -46,6 +46,9 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>Direction Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * <p>From package AADLConstructs::Features.</p>
+ * <!-- end-model-doc -->
  * @see org.osate.aadl2.Aadl2Package#getDirectionType()
  * @model
  * @generated
@@ -230,6 +233,7 @@ public enum DirectionType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -239,6 +243,7 @@ public enum DirectionType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -248,6 +253,7 @@ public enum DirectionType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -281,7 +287,7 @@ public enum DirectionType implements Enumerator {
 		return this == IN || this == IN_OUT;
 	}
 
-	/** 
+	/**
 	 * Sets the port direction to be the opposite of the one specified
 	 * The original direction may be retrieved from a refinement ancestor
 	 * the value is set locally
@@ -289,12 +295,13 @@ public enum DirectionType implements Enumerator {
 	 */
 	public DirectionType getInverseDirection() {
 		DirectionType pd = this;
-		if (pd == DirectionType.IN)
+		if (pd == DirectionType.IN) {
 			return DirectionType.OUT;
-		else if (pd == DirectionType.OUT)
+		} else if (pd == DirectionType.OUT) {
 			return DirectionType.IN;
-		else
+		} else {
 			return pd;
+		}
 	}
 
 } // DirectionType

@@ -40,6 +40,11 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Feature Group</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Connections.</p>
+ * <p>From package AADLConstructs::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -63,6 +68,9 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inverse</em>' attribute.
 	 * @see #setInverse(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_Inverse()
@@ -89,6 +97,9 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature Type</em>' reference.
 	 * @see #setFeatureType(FeatureType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureType()
@@ -121,6 +132,9 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature Group Type</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureGroupType()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
@@ -132,6 +146,7 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * Get the classifier of given feature or its refinement ancestor, if it has one, otherwise null.
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
+	@Override
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	Classifier getAllClassifier();
 
@@ -139,12 +154,13 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * Get the classifier of given feature, if it has one, otherwise null.
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
+	@Override
 	Classifier getClassifier();
 
 	/*
 	 * Get the feature group type of given feature group or its refinement ancestor, if it has
 	 * one, otherwise null.
-	 * 
+	 *
 	 * @return The FeatureGroupType, or <code>null</code> if none.
 	 */
 	FeatureGroupType getAllFeatureGroupType();
@@ -163,6 +179,9 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature Group Prototype</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureGroupPrototype()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"

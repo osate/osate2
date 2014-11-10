@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2011 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,21 +16,21 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- * 
+ *
  */
 package org.osate.aadl2;
 
@@ -39,10 +39,17 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Port Proxy</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Special Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.PortProxy#getDirection <em>Direction</em>}</li>
+ *   <li>{@link org.osate.aadl2.PortProxy#getDataClassifier <em>Data Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.PortProxy#isIn <em>In</em>}</li>
+ *   <li>{@link org.osate.aadl2.PortProxy#isOut <em>Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,23 +68,89 @@ public interface PortProxy extends ProcessorFeature, FeatureConnectionEnd, PortC
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see org.osate.aadl2.DirectionType
-	 * @see #setDirection(DirectionType)
 	 * @see org.osate.aadl2.Aadl2Package#getPortProxy_Direction()
-	 * @model required="true" ordered="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	DirectionType getDirection();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.PortProxy#getDirection <em>Direction</em>}' attribute.
+	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Direction</em>' attribute.
-	 * @see org.osate.aadl2.DirectionType
-	 * @see #getDirection()
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Data Classifier</em>' reference.
+	 * @see #setDataClassifier(DataClassifier)
+	 * @see org.osate.aadl2.Aadl2Package#getPortProxy_DataClassifier()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	void setDirection(DirectionType value);
+	DataClassifier getDataClassifier();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortProxy#getDataClassifier <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Classifier</em>' reference.
+	 * @see #getDataClassifier()
+	 * @generated
+	 */
+	void setDataClassifier(DataClassifier value);
+
+	/**
+	 * Returns the value of the '<em><b>In</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>In</em>' attribute.
+	 * @see #setIn(boolean)
+	 * @see org.osate.aadl2.Aadl2Package#getPortProxy_In()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isIn();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortProxy#isIn <em>In</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>In</em>' attribute.
+	 * @see #isIn()
+	 * @generated
+	 */
+	void setIn(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Special Features.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Out</em>' attribute.
+	 * @see #setOut(boolean)
+	 * @see org.osate.aadl2.Aadl2Package#getPortProxy_Out()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isOut();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortProxy#isOut <em>Out</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Out</em>' attribute.
+	 * @see #isOut()
+	 * @generated
+	 */
+	void setOut(boolean value);
 } // PortProxy

@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Device Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::Device.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -71,6 +75,9 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Device.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -103,6 +110,9 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Device.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -135,6 +145,9 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::Device.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
@@ -156,6 +169,7 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
+	@Override
 	DeviceType getType();
 
 } // DeviceImplementation

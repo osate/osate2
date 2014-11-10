@@ -160,6 +160,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
 			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
@@ -173,6 +174,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataPort createOwnedDataPort() {
 		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
 		getOwnedDataPorts().add(newOwnedDataPort);
@@ -184,6 +186,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
 			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
@@ -197,6 +200,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventDataPort createOwnedEventDataPort() {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
@@ -208,6 +212,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
 			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
@@ -221,6 +226,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventPort createOwnedEventPort() {
 		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
@@ -341,6 +347,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 				|| eIsSet(Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.VIRTUAL_BUS;
 	}

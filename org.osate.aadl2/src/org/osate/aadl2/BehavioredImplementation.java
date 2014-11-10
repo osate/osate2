@@ -42,6 +42,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Behaviored Implementation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Calls.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -70,6 +74,9 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Calls.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Subprogram Call</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getBehavioredImplementation_SubprogramCall()
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
@@ -93,6 +100,9 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Calls.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Subprogram Call Sequence</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getBehavioredImplementation_OwnedSubprogramCallSequence()
 	 * @model containment="true" ordered="false"
@@ -115,6 +125,7 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Get all calls owned by owned call sequences.
+	 * <p>From package AADLDetails::Calls.</p>
 	 * <!-- end-model-doc -->
 	 * @model ordered="false"
 	 * @generated

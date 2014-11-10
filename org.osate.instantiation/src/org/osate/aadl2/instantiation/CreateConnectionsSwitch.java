@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -183,7 +184,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch#initSwitches
 	 * ()
@@ -238,7 +239,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (parentci instanceof SystemInstance) {
 			monitor.subTask("Creating connections in  " + ci.getName());
-			// do externally incoming connections starting with system instance
 		}
 
 		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
@@ -304,29 +304,36 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	/**
 	 * Create all connection instances that with an incoming port of the SystemInstance.
 	 *
-	 * @param ci The component that is the ultimate source;
+	 * @param si The component that is the ultimate source;
 	 */
-	private void instantiateExternalConnections(final SystemInstance ci) {
-		List<Connection> sysConns = InstanceUtil.getComponentImplementation(ci, 0, classifierCache).getAllConnections();
+	private void instantiateExternalConnections(final SystemInstance si) {
+		List<Connection> sysConns = InstanceUtil.getComponentImplementation(si, 0, classifierCache).getAllConnections();
 
-		for (FeatureInstance featurei : ci.getFeatureInstances()) {
-			if (featurei.getDirection().incoming()) {
-				if (featurei.getIndex() == 1) {
-					List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
-					for (Connection conn : inConns) {
-						boolean opposite = isOpposite(featurei.getFeature(), conn);
+		for (FeatureInstance featurei : si.getFeatureInstances()) {
+			processIncomingFeature(featurei, si, sysConns);
+			for (FeatureInstance contained : featurei.getFeatureInstances()) {
+				processIncomingFeature(contained, si, sysConns);
+			}
+		}
+	}
 
-						appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, ci, opposite);
-						if (monitor.isCanceled()) {
-							return;
-						}
+	private void processIncomingFeature(FeatureInstance featurei, SystemInstance si, List<Connection> sysConns) {
+		if (featurei.getDirection().incoming()) {
+			if (featurei.getIndex() <= 1) {
+				List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
+				for (Connection conn : inConns) {
+					boolean opposite = isOpposite(featurei.getFeature(), conn);
+
+					appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, si, opposite);
+					if (monitor.isCanceled()) {
+						return;
 					}
 				}
 			}
 		}
 	}
 
-	/**
+	/**appendSegment
 	 * Append a segment to a connection instance.
 	 *
 	 * @param newSegment the declarative connection to be added to the
@@ -685,8 +692,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								+ dstFi.getContainingComponentInstance().getComponentClassifier().getName()
 								+ ") feature group " + dstFi.getName() + " has no type");
 					}
-					if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty()
-							&& !downfgt.getAllFeatures().isEmpty()) {
+					if (upfgt != null && downfgt != null && upfgt.isInverseOf(downfgt)
+							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
 				} else {
@@ -754,7 +761,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 		for (ConnectionInstance test : container.getConnectionInstances()) {
 			// check for duplicates and do not create
-			if (connInfo.src == test.getSource() && dstI == test.getDestination()) {
+			test: if (connInfo.src == test.getSource() && dstI == test.getDestination()
+					&& connInfo.connections.size() == test.getConnectionReferences().size()) {
+				Iterator<Connection> i = connInfo.connections.iterator();
+				for (ConnectionReference ref : test.getConnectionReferences()) {
+					if (ref.getConnection() != i.next()) {
+						break test;
+					}
+				}
 				return null;
 			}
 			// the next lines determine whether a connection is bi-directional and set a flag rather than creating a second connection instance
@@ -826,7 +840,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/**
-	 * Handle the case where one of the ends (or both) is a port group. Create
+	 * Handle the case where one of the ends (or both) is a feature group. Create
 	 * multiple connection instances.
 	 *
 	 * @param parentci
@@ -892,6 +906,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/**
+	 * Expand feature groups as much as possible
+	 * 
 	 * @param parentci
 	 * @param connInfo
 	 * @param srcEnd
@@ -901,33 +917,52 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd) {
 		ConnectionInstanceEnd oldSrc = connInfo.src;
 
+		/*
+		 * One of three possible situations
+		 * - both ends are feature groups without or with an empty type
+		 * - one end is empty and the other is not
+		 * - both ends are not empty, in this case they have the same internal structure
+		 * TODO-lw: what about feature group subset/equivalence?
+		 */
+
 		if (srcEnd instanceof FeatureInstance && dstEnd instanceof FeatureInstance) {
-			Iterator<FeatureInstance> srcIter = ((FeatureInstance) srcEnd).getFeatureInstances().iterator();
+			FeatureInstance srcFi = (FeatureInstance) srcEnd;
+			FeatureInstance dstFi = (FeatureInstance) dstEnd;
 
-			if (srcIter.hasNext()) {
-				Iterator<FeatureInstance> dstIter = ((FeatureInstance) dstEnd).getFeatureInstances().iterator();
-
-				while (srcIter.hasNext() && dstIter.hasNext()) {
-					ConnectionInstanceEnd src = srcIter.next();
-					ConnectionInstanceEnd dst = dstIter.next();
-
-					if (src instanceof FeatureInstance && !((FeatureInstance) src).getFeatureInstances().isEmpty()) {
-						expandFeatureGroupConnection(parentci, connInfo, src, dst);
-					} else {
-						if (((FeatureInstance) src).getDirection() != DirectionType.IN) {
-							connInfo.src = src;
-							addConnectionInstance(parentci.getSystemInstance(), connInfo, dst);
-						} else if (((FeatureInstance) dst).getDirection() != DirectionType.OUT) {
-							connInfo.src = dst;
-							addConnectionInstance(parentci.getSystemInstance(), connInfo, src);
-						}
-					}
+			if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
+				// both ends are empty
+				if (srcFi.getDirection() != DirectionType.IN) {
+					connInfo.src = srcFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+				}
+				if (dstFi.getDirection() != DirectionType.OUT) {
+					connInfo.src = dstFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, srcFi);
+				}
+			} else if (isLeafFeature(srcFi)) {
+				for (FeatureInstance dst : dstFi.getFeatureInstances()) {
+					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
+				}
+			} else if (isLeafFeature(dstFi)) {
+				for (FeatureInstance src : srcFi.getFeatureInstances()) {
+					expandFeatureGroupConnection(parentci, connInfo, src, dstFi);
 				}
 			} else {
-				addConnectionInstance(parentci.getSystemInstance(), connInfo, dstEnd);
+				Iterator<FeatureInstance> srcIter = srcFi.getFeatureInstances().iterator();
+				Iterator<FeatureInstance> dstIter = dstFi.getFeatureInstances().iterator();
+
+				while (srcIter.hasNext() && dstIter.hasNext()) {
+					expandFeatureGroupConnection(parentci, connInfo, srcIter.next(), dstIter.next());
+				}
+				Assert.isTrue(!srcIter.hasNext() && !dstIter.hasNext(),
+						"Connected feature groups do not have the same number of features");
 			}
 		}
 		connInfo.src = oldSrc;
+	}
+
+	private boolean isLeafFeature(FeatureInstance fi) {
+		return fi.getFeatureInstances().isEmpty();
 	}
 
 	/**
@@ -1061,8 +1096,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 		EList<ModeTransitionInstance> mtl = parent.getModeTransitionInstances();
 		Feature f = (Feature) conn.getAllDestination();
-		for (Iterator<ModeTransitionInstance> it = mtl.iterator(); it.hasNext();) {
-			ModeTransitionInstance mti = it.next();
+		for (ModeTransitionInstance mti : mtl) {
 			ModeTransition mt = mti.getModeTransition();
 			Context co = null;
 			for (ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
@@ -1157,17 +1191,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/*
-	 *
+	 * 
 	 * @param conni Connection Instance
-	 *
+	 * 
 	 * @param mis the set of mode instances of modal connection declarations in
 	 * the connection instance that make up a mode configuration; the complete
 	 * set must be contained in the SOMs to be added to the connection instance
-	 *
+	 * 
 	 * @param cmodes the set of modes in the inmodes declaration of the
 	 * conenction declaration with index idx in the list of connection
 	 * declarations that make up the connection instance
-	 *
+	 * 
 	 * @param idx the index of the connection declaration in the connection
 	 * instance whose mode set is being processed
 	 */

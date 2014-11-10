@@ -34,6 +34,8 @@
  */
 package org.osate.xtext.aadl2.ui.labeling;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
@@ -42,10 +44,15 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataPort;
@@ -53,10 +60,14 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MemoryImplementation;
@@ -66,6 +77,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
@@ -74,10 +86,15 @@ import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramGroupType;
@@ -95,6 +112,7 @@ import org.osate.aadl2.VirtualBusType;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 
 import com.google.inject.Inject;
@@ -109,6 +127,49 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	@Inject
 	public Aadl2LabelProvider(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
+	}
+
+	String text(PropertyExpression pe) {
+
+		if (pe instanceof BooleanLiteral) {
+			return "boolean " + ((BooleanLiteral) pe).getValue() + "";
+		}
+
+		if (pe instanceof RealLiteral) {
+			return "real " + ((RealLiteral) pe).getValue() + "";
+		}
+
+		if (pe instanceof IntegerLiteral) {
+			return text((IntegerLiteral) pe);
+		}
+
+		if (pe instanceof StringLiteral) {
+			return text((StringLiteral) pe);
+		}
+
+		if (pe instanceof NamedValue) {
+			return text((NamedValue) pe);
+		}
+
+		if (pe instanceof ReferenceValue) {
+			ReferenceValue rv = ((ReferenceValue) pe);
+			List<ContainmentPathElement> cpe = rv.getContainmentPathElements();
+			return "reference " + cpe.get(0).getNamedElement().getName();
+		}
+
+		if (pe instanceof RangeValue) {
+			return text(((RangeValue) pe));
+		}
+
+		if (pe instanceof ListValue) {
+			return text(((ListValue) pe));
+		}
+
+		if (pe instanceof RecordValue) {
+			return text(((RecordValue) pe));
+		}
+//		OsateDebug.osateDebug("unknown pe=" + pe);
+		return null;
 	}
 
 	// Labels and icons can be computed like this:
@@ -259,21 +320,62 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 
 	String text(PropertyAssociation ele) {
 		if (ele.getProperty() != null) {
-			return "Property " + ele.getProperty().getName() + " =>";
+			return "Property " + ele.getProperty().getName();
 		}
-		return "Property =>";
+		return "Property";
+	}
+
+	String text(AnnexSubclause as) {
+
+		String ret;
+
+		ret = "Annex";
+
+		if (as.getName() != null) {
+			ret += " " + as.getName();
+		}
+		return ret;
+	}
+
+	String text(BasicPropertyAssociation ele) {
+		String val;
+		String ret;
+
+		val = null;
+		ret = "Basic Property Association";
+		if (ele.eContainer() instanceof RecordValue) {
+//			OsateDebug.osateDebug("val=" + ele.getValue());
+			ret = "Field " + ele.getProperty().getName();
+
+			val = text(ele.getValue());
+			if (val != null) {
+				ret += ": " + val;
+			}
+		}
+		return ret;
 	}
 
 	String text(ModalPropertyValue ele) {
 		EList<Mode> ml = ele.getInModes();
+		String label = "";
 		if (ml.isEmpty()) {
-			return "Property value ";
+			label = "Non-Modal Value";
+
+//			OsateDebug.osateDebug("non modal value" + ele.getOwnedValue());
+			if ((ele.getOwnedValue() != null) && (!(ele.getOwnedValue() instanceof RangeValue))
+					&& (!(ele.getOwnedValue() instanceof RecordValue)) && (!(ele.getOwnedValue() instanceof ListValue))) {
+				label += " " + text(ele.getOwnedValue());
+			}
+
+		} else {
+			String modes = "";
+			for (Mode m : ml) {
+				modes = modes + " " + m.getName();
+			}
+
+			label = "Modal property value (" + modes + ")";
 		}
-		String modes = "";
-		for (Mode m : ml) {
-			modes = modes + " " + m.getName();
-		}
-		return "Modal property value (" + modes + ")";
+		return label;
 	}
 
 	// these next ones we need only if we go deeper than classifiers
@@ -305,6 +407,51 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		return "Feature " + ele.getName();
 	}
 
+	String text(FlowImplementation flowimpl) {
+		String ret;
+
+		ret = "Flow Implementation";
+		if (flowimpl.getName() != null) {
+			ret += " " + flowimpl.getName();
+		}
+		return ret;
+	}
+
+	String text(EndToEndFlow etei) {
+		String ret;
+
+		ret = "End to End Flow";
+		if (etei.getName() != null) {
+			ret += " " + etei.getName();
+		}
+		return ret;
+	}
+
+	String text(EndToEndFlowInstance etei) {
+		String ret;
+
+		ret = "End to End Flow";
+		if (etei.getName() != null) {
+			ret += " " + etei.getName();
+		}
+		return ret;
+	}
+
+	String text(FlowSpecification flowspec) {
+		String ret;
+
+		ret = "Flow Specification";
+		if (flowspec.getName() != null) {
+			ret += " " + flowspec.getName();
+		}
+		return ret;
+	}
+
+//	String text(FlowEnd flowEnd) {
+//
+//		return "flowend";
+//	}
+
 	String text(BusAccess ele) {
 		return ele.getKind().getName() + " Bus Access " + ele.getName();
 	}
@@ -326,54 +473,161 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(NamedValue ele) {
-		return "NamedValue: " + ele.getNamedValue();
+		String ret;
+		ret = "unknown value";
+
+		if (ele.getNamedValue() instanceof EnumerationLiteral) {
+			EnumerationLiteral el;
+			el = (EnumerationLiteral) ele.getNamedValue();
+			ret = el.getName();
+		}
+		return ret;
 	}
 
 	String text(IntegerLiteral ele) {
-		return "int " + ele.getValue();
+		String val;
+
+		val = "" + ele.getValue();
+		if (ele.getUnit() != null) {
+			val += ele.getUnit().getName();
+		}
+		return val;
 	}
 
 	String text(RealLiteral ele) {
-		return "real " + ele.getValue();
+		String val;
+
+		val = "" + ele.getValue();
+		if (ele.getUnit() != null) {
+			val += ele.getUnit().getName();
+		}
+		return val;
+	}
+
+	String text(BooleanLiteral ele) {
+		return "" + ele.getValue();
+	}
+
+	String text(ContainedNamedElement ele) {
+		String ret;
+
+		if (ele.eContainer() instanceof PropertyAssociation) {
+			ret = "Applies to: ";
+		} else {
+			ret = "Contained Named Element: ";
+		}
+
+		for (ContainmentPathElement cpe : ele.getContainmentPathElements()) {
+			ret += cpe.getNamedElement().getName();
+		}
+
+		return ret;
+	}
+
+	String text(StringLiteral sl) {
+		return "" + sl.getValue();
 	}
 
 	String text(ListValue ele) {
-		return "()";
+		return "List Value";
+	}
+
+	String text(RecordValue ele) {
+		return "Record";
+	}
+
+	String text(RangeValue ele) {
+		RangeValue rv;
+
+		rv = ele;
+
+//		OsateDebug.osateDebug("bla" + rv.getMaximumValue().getUnit().getName());
+
+		return "range (" + text(rv.getMinimumValue()) + " .. " + text(rv.getMaximumValue()) + ")";
+	}
+
+	String text(NumberValue ele) {
+		if (ele instanceof AadlInteger) {
+			return text((AadlInteger) ele);
+		}
+		if (ele instanceof AadlReal) {
+			return text((AadlReal) ele);
+		}
+		if (ele instanceof IntegerLiteral) {
+			return text((IntegerLiteral) ele);
+		}
+		if (ele instanceof NamedValue) {
+			return text((NamedValue) ele);
+		}
+		if (ele instanceof StringLiteral) {
+			return text((StringLiteral) ele);
+		}
+		if (ele instanceof RealLiteral) {
+			return text((RealLiteral) ele);
+		}
+		return "unknown number" + ele;
 	}
 
 	String text(AadlInteger ele) {
-		return "aadlinteger";
+		return "Property Type" + ele.getName();
 	}
 
 	String text(AadlReal ele) {
-		return "aadlreal";
+		return "Property Type" + ele.getName();
 	}
 
 	String image(NamedElement ele) {
-		return ele.eClass().getName() + ".gif";
+		String imgName;
+		imgName = ele.eClass().getName() + ".gif";
+//		OsateDebug.osateDebug("Aadl2LabelProvider", "image name=" + imgName + ";container=" + ele.eContainer());
+		return imgName;
+	}
+
+	String image(PropertyAssociation ele) {
+		String imgName;
+		imgName = "PropertyAssociation.gif";
+//		OsateDebug.osateDebug("Aadl2LabelProvider", "image name=" + imgName + ";container=" + ele.eContainer());
+		return imgName;
+	}
+
+	String image(ListValue ele) {
+		String imgName;
+		imgName = "ListValue.gif";
+		return imgName;
 	}
 
 	String image(PropertyType ele) {
+//		OsateDebug.osateDebug("Aadl2LabelProvider", "PropertyType");
+//		OsateDebug.osateDebug("Aadl2LabelProvider", "proptype");
+
 		return "PropertyType.gif";
 	}
 
 	String image(ComponentInstance ele) {
-		ComponentCategory cat = ele.getCategory();
+		String imgName;
+		ComponentCategory cat;
+		imgName = null;
+		cat = ele.getCategory();
 		if (cat != null) {
 			String name = cat.getLiteral();
 			int idx = name.indexOf(" ");
 			if (idx < 0) {
-				return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + ".gif";
+				imgName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + ".gif";
 			} else {
-				return name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
+				imgName = name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
 						+ name.substring(idx + 1, idx + 2).toUpperCase() + name.substring(idx + 2).toLowerCase()
 						+ ".gif";
 			}
 		}
 		if (ele instanceof SystemInstance) {
-			return "System.gif";
+			imgName = "System.gif";
 		}
-		return ele.eClass().getName() + ".gif";
+		if (imgName == null) {
+			imgName = ele.eClass().getName() + ".gif";
+		}
+//		OsateDebug.osateDebug("Aadl2LabelProvider", "image name2=" + imgName);
+
+		return imgName;
 	}
 
 }

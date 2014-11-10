@@ -41,6 +41,10 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Unit Literal</b></em>'. <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLProperties::Types.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -62,7 +66,7 @@ public interface UnitLiteral extends EnumerationLiteral {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Base Unit</em>' reference.
 	 * @see #setBaseUnit(UnitLiteral)
 	 * @see org.osate.aadl2.Aadl2Package#getUnitLiteral_BaseUnit()
@@ -88,6 +92,9 @@ public interface UnitLiteral extends EnumerationLiteral {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Factor</em>' containment reference.
 	 * @see #setFactor(NumberValue)
 	 * @see org.osate.aadl2.Aadl2Package#getUnitLiteral_Factor()
@@ -123,14 +130,14 @@ public interface UnitLiteral extends EnumerationLiteral {
 	 * <code>my_units: units (a, b => a * 10, c => b * 10)</code>
 	 * <p>
 	 * The factor for <code>c</code> is 10, but the absolute factor is 100.
-	 * 
+	 *
 	 * @return conversion factor
 	 */
 	public double getAbsoluteFactor();
 
 	/**
 	 * get conversion factor in terms of specified unit
-	 * 
+	 *
 	 * @param target UnitLiteral
 	 * @return conversion factor
 	 */

@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Data Access</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -51,7 +55,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface DataAccess extends Access, Data, FlowElement, ParameterConnectionEnd, PortConnectionEnd {
+public interface DataAccess extends Access, FlowElement, ParameterConnectionEnd, PortConnectionEnd {
 	/**
 	 * Returns the value of the '<em><b>Data Feature Classifier</b></em>' reference.
 	 * <p>
@@ -66,6 +70,9 @@ public interface DataAccess extends Access, Data, FlowElement, ParameterConnecti
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Data Feature Classifier</em>' reference.
 	 * @see #setDataFeatureClassifier(DataSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getDataAccess_DataFeatureClassifier()

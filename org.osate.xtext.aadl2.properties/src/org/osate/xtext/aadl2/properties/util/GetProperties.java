@@ -55,7 +55,6 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -64,6 +63,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.impl.BooleanLiteralImpl;
 import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -197,6 +197,20 @@ public class GetProperties {
 	public static Property getActualProcessorBindingProperty(final ComponentInstance io) {
 		return lookupPropertyDefinition(io, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 	}
+
+//	/**
+//	 * this method only picks up the first element, which may not be a bus
+//	 * @param connection Connection Instance
+//	 * @return
+//	 */
+//	public static ComponentInstance getBoundBus(final ConnectionInstance connection) {
+//		List<ComponentInstance> ret = getActualConnectionBinding(connection);
+//		ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
+//		if (ci != null) {
+//			return ci;
+//		}
+//		return null;
+//	}
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
@@ -457,6 +471,100 @@ public class GetProperties {
 		}
 	}
 
+	public static double getMaximumTransmissionTimePerByte(final NamedElement bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMaximumTransmissionTimeFixed(final NamedElement bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMinimumTransmissionTimePerByte(final NamedElement bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMinimumTransmissionTimeFixed(final NamedElement bus) {
+		RecordValue rv;
+		RangeValue bpa;
+		NumberValue nv;
+		rv = GetProperties.getTransmissionTime(bus);
+		if (rv == null) {
+			return 0;
+		}
+		bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "Fixed");
+		if (bpa != null) {
+			nv = bpa.getMinimumValue();
+			return nv.getScaledValue(GetProperties.getMSUnitLiteral(bus));
+		}
+		return 0;
+	}
+
+	public static double getMaximumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMaximumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
+	public static double getMinimumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
+		double dataSize;
+		double speed;
+		double dataTransferTime;
+		double acquisitionTime;
+
+		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		speed = getMinimumTransmissionTimePerByte(bus);
+		dataTransferTime = speed * dataSize;
+
+		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
 	public static double fromMStoSec(NamedElement ne, double value) {
 		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
@@ -544,6 +652,26 @@ public class GetProperties {
 	}
 
 	/**
+	 * @author: Dionisio de Niz
+	 * 
+	 * For now we will use MIPS as a representative of cycles per second but we will change it
+	 * to a more meaningful property name
+	 * 
+	 * @param threadInstance
+	 * @return execution time in cyles
+	 */
+	public static double getThreadExecutionInCycles(ComponentInstance threadInstance, double defaultMIPS) {
+		double cycles = 0.0;
+		double exectimeval = getMaximumComputeExecutionTimeinSec(threadInstance);
+		double mipspersec = getReferenceMIPS(threadInstance);
+		if (mipspersec == 0) {
+			mipspersec = defaultMIPS;
+		}
+		cycles = exectimeval * (mipspersec * 1e6);
+		return cycles;
+	}
+
+	/**
 	 * compute MIPS for thread based on instructions per dispatch; or based on specified execution time
 	 * @param threadinstance thread instance
 	 * @return MIPS or 0.0
@@ -555,7 +683,7 @@ public class GetProperties {
 		double mips = getThreadExecutionIPDinMIPS(threadinstance);
 		if (mips == 0) {
 			double period = getPeriodInSeconds(threadinstance, 0.0);
-			double exectimeval = getSpecifiedComputeExecutionTimeinSec(threadinstance);
+			double exectimeval = getMaximumComputeExecutionTimeinSec(threadinstance);
 			if (exectimeval > 0 && period > 0) {
 				double mipspersec = getReferenceMIPS(threadinstance);
 				double time = exectimeval / period;
@@ -591,20 +719,38 @@ public class GetProperties {
 			// adjust from sec to milli sec
 			return (mipd / actualProcMips) * 1000;
 		}
-		return getScaledComputeExecutionTimeinMS(threadinstance);
+		return getScaledMaxComputeExecutionTimeinMilliSec(threadinstance);
 	}
 
 	/**
-	 * get execution time scaled in terms of the processor the thread is bound to
+	 * get max execution time scaled in terms of the processor the thread is bound to
 	 * If it is not bound then return the specified execution time
 	 * @param ne thread component instance
 	 * @return scaled time or 0.0
 	 */
-	public static double getScaledComputeExecutionTimeinMS(final NamedElement ne) {
+	public static double getScaledMaxComputeExecutionTimeinMilliSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
+		if (ne instanceof ComponentInstance) {
+			double scale = getProcessorScalingFactor((ComponentInstance) ne);
+			return time * scale;
+		}
+		return time;
+	}
+
+	/**
+	 * get min execution time scaled in terms of the processor the thread is bound to
+	 * If it is not bound then return the specified execution time
+	 * @param ne thread component instance
+	 * @return scaled time or 0.0
+	 */
+	public static double getScaledMinComputeExecutionTimeinMilliSec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, milliSecond, 0.0);
 		if (ne instanceof ComponentInstance) {
 			double scale = getProcessorScalingFactor((ComponentInstance) ne);
 			return time * scale;
@@ -631,15 +777,72 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time as specified - not adjusted for different processor speeds
+	 * get execution time as specified in nsec - the upper bound
+	 * not adjusted for different processor speeds
 	 * @param ne thread component instance
 	 * @return specified time or 0.0
 	 */
-	public static double getSpecifiedComputeExecutionTimeinSec(final NamedElement ne) {
+	public static double getMaximumComputeExecutionTimeinNsec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral nsecond = findUnitLiteral(computeExecutionTime, AadlProject.NS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, nsecond, 0.0);
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in sec - the upper bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMaximumComputeExecutionTimeinSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in sec - the lower bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMinimumComputeExecutionTimeinSec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
+		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, second, 0.0);
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in ms - the upper bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMaximumComputeExecutionTimeinMs(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral millisecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, millisecond, 0.0);
+		return time;
+	}
+
+	/**
+	 * get execution time as specified in ms - the lower bound
+	 * not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getMinimumComputeExecutionTimeinMs(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, second, 0.0);
 		return time;
 	}
 
@@ -737,6 +940,11 @@ public class GetProperties {
 		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.DEADLINE);
 		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
+	}
+
+	public static boolean isAssignedDeadline(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.DEADLINE);
+		return PropertyUtils.isAssignedPropertyValue(ne, deadline);
 	}
 
 	public static double getComputeDeadlineinMilliSec(final NamedElement ne) {
@@ -874,10 +1082,16 @@ public class GetProperties {
 		}
 	}
 
-	public static double getLatencyinMilliSec(final NamedElement ne) {
+	public static double getMaximumLatencyinMilliSec(final NamedElement ne) {
 		Property Latency = lookupPropertyDefinition(ne, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
 		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(ne, Latency, milliSecond, 0.0);
+	}
+
+	public static double getMinimumLatencyinMilliSec(final NamedElement ne) {
+		Property Latency = lookupPropertyDefinition(ne, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
+		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledRangeMinimum(ne, Latency, milliSecond, 0.0);
 	}
 
 	public static double getLatencyinMicroSec(final NamedElement ne) {
@@ -987,27 +1201,27 @@ public class GetProperties {
 		}
 	}
 
-	public static EnumerationLiteral getConnectionTiming(final PortConnection pc) {
+	public static EnumerationLiteral getConnectionTiming(final NamedElement pc) {
 		try {
 			Property timing = lookupPropertyDefinition(pc, CommunicationProperties._NAME,
 					CommunicationProperties.TIMING);
 			return PropertyUtils.getEnumLiteral(pc, timing);
 		} catch (PropertyLookupException e) {
-			return null;
+			return getSampledUnitLiteral(pc);
 		}
 	}
 
-	public static EnumerationLiteral getDelayedUnitLiteral(PortConnection pc) {
+	public static EnumerationLiteral getDelayedUnitLiteral(NamedElement pc) {
 		Property timing = lookupPropertyDefinition(pc, CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.DELAYED);
 	}
 
-	public static EnumerationLiteral getImmediateUnitLiteral(PortConnection pc) {
+	public static EnumerationLiteral getImmediateUnitLiteral(NamedElement pc) {
 		Property timing = lookupPropertyDefinition(pc, CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
 
-	public static EnumerationLiteral getSampledUnitLiteral(PortConnection pc) {
+	public static EnumerationLiteral getSampledUnitLiteral(NamedElement pc) {
 		Property timing = lookupPropertyDefinition(pc, CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.SAMPLED);
 	}
@@ -1127,6 +1341,108 @@ public class GetProperties {
 		} catch (PropertyLookupException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * Get the module schedule for a processor
+	 * @param ne - the processor component
+	 * @return - a list with all the module schedule. An empty list if not defined.
+	 */
+	public static List<ARINC653ScheduleWindow> getModuleSchedule(final ComponentInstance io) {
+		Property moduleScheduleProperty;
+		List<ARINC653ScheduleWindow> windows;
+		List<? extends PropertyExpression> propertyValues;
+		RecordValue window;
+		IntegerLiteral windowTime;
+		BooleanLiteralImpl windowStartProcessing;
+		InstanceReferenceValue windowPartition;
+		ARINC653ScheduleWindow scheduleWindow;
+		boolean startProcessing;
+		ComponentInstance part;
+		double time;
+		Property period;
+		UnitLiteral milliseconds;
+
+		period = lookupPropertyDefinition(io, TimingProperties._NAME, TimingProperties.PERIOD);
+		milliseconds = findUnitLiteral(period, AadlProject.MS_LITERAL);
+
+		time = 0;
+		part = null;
+		startProcessing = true;
+
+		moduleScheduleProperty = lookupPropertyDefinition(io, ARINC653Properties._NAME,
+				ARINC653Properties.MODULE_SCHEDULE);
+		windows = new ArrayList<ARINC653ScheduleWindow>();
+
+		try {
+			propertyValues = io.getPropertyValueList(moduleScheduleProperty);
+
+			for (PropertyExpression propertyExpression : propertyValues) {
+
+				if (propertyExpression != null) {
+
+					window = (RecordValue) propertyExpression;
+					windowTime = (IntegerLiteral) PropertyUtils.getRecordFieldValue(window, "duration");
+					windowStartProcessing = (BooleanLiteralImpl) PropertyUtils.getRecordFieldValue(window,
+							"periodic_processing_start");
+					windowPartition = (InstanceReferenceValue) PropertyUtils.getRecordFieldValue(window, "partition");
+
+					part = (ComponentInstance) ((InstanceReferenceValue) windowPartition).getReferencedInstanceObject();
+					time = ((NumberValue) windowTime).getScaledValue(milliseconds);
+					scheduleWindow = new ARINC653ScheduleWindow(part, time, startProcessing);
+					windows.add(scheduleWindow);
+				}
+			}
+		} catch (PropertyLookupException e) {
+			return windows;
+		}
+		return windows;
+	}
+
+	/**
+	 * Return the value of the property ARINC653::Module_Major_Frame
+	 * @param module - the component that represents the ARINC653 module
+	 * @return - the major frame - 0 otherwise
+	 */
+	public static double getARINC653ModuleMajorFrame(final ComponentInstance module) {
+		Property majorFrame;
+		UnitLiteral milliSecond;
+		double res;
+
+		if (module == null) {
+			return 0;
+		}
+
+		majorFrame = lookupPropertyDefinition(module, ARINC653Properties._NAME, ARINC653Properties.MODULE_MAJOR_FRAME);
+		milliSecond = findUnitLiteral(majorFrame, AadlProject.MS_LITERAL);
+
+		res = PropertyUtils.getScaledNumberValue(module, majorFrame, milliSecond, 0.0);
+
+		return res;
+	}
+
+	/**
+	 * Get the virtual bus required for a connection, virtual bus, port, etc.
+	 * @param io - the component which has the property
+	 * @return - the list of virtual bus classifier
+	 */
+	public static List<ComponentClassifier> getRequiredVirtualBusClass(final NamedElement io) {
+		Property requiredVirtualBusClass;
+		ArrayList<ComponentClassifier> components;
+
+		requiredVirtualBusClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.REQUIRED_VIRTUAL_BUS_CLASS);
+		components = new ArrayList<ComponentClassifier>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(requiredVirtualBusClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add((ComponentClassifier) ((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
 	}
 
 }

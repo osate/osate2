@@ -37,6 +37,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
@@ -66,7 +67,7 @@ public class PropertyAcc {
 	/**
 	 * Accumulate the associations for the given property as found
 	 * in the immediate properties attribute of the given property holder.
-	 * 
+	 *
 	 * @param ph
 	 *            The property holder whose properties attribute is of interest
 	 * @return If we're done.
@@ -87,9 +88,9 @@ public class PropertyAcc {
 	 * Accumulate the associations for the given property as found in the
 	 * contained property associations of the target's containing component.
 	 * Considers the contained property associations whose applies to list is of
-	 * length 1, and that element is the target property holder. 
-	 * 
-	 * @param target 
+	 * length 1, and that element is the target property holder.
+	 *
+	 * @param target
 	 *            The named element whose property values are being looked up
 	 * @param container
 	 *            The containing classifier of <code>target</code>, whose
@@ -101,10 +102,12 @@ public class PropertyAcc {
 
 			if (pa.getProperty().equals(property)) {
 				for (ContainedNamedElement cne : pa.getAppliesTos()) {
-					if (cne.getContainmentPathElements().size() == 1
-							&& cne.getContainmentPathElements().get(0).getNamedElement() == target) {
-						assocs.add(pa);
-						return !property.isList();
+					if (cne.getContainmentPathElements().size() == 1) {
+						ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
+						if (cpe.getArrayRanges().isEmpty() && cpe.getNamedElement() == target) {
+							assocs.add(pa);
+							return !property.isList();
+						}
 					}
 				}
 			}

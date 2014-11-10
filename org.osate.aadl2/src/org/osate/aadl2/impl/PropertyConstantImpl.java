@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -58,9 +57,10 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getPropertyType <em>Property Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getReferencedPropertyType <em>Referenced Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getOwnedPropertyType <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getConstantValue <em>Constant Value</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getPropertyType <em>Property Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,14 +68,14 @@ import org.osate.aadl2.properties.InvalidModelException;
  */
 public class PropertyConstantImpl extends TypedElementImpl implements PropertyConstant {
 	/**
-	 * The cached value of the '{@link #getPropertyType() <em>Property Type</em>}' reference.
+	 * The cached value of the '{@link #getReferencedPropertyType() <em>Referenced Property Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropertyType()
+	 * @see #getReferencedPropertyType()
 	 * @generated
 	 * @ordered
 	 */
-	protected PropertyType propertyType;
+	protected PropertyType referencedPropertyType;
 
 	/**
 	 * The cached value of the '{@link #getOwnedPropertyType() <em>Owned Property Type</em>}' containment reference.
@@ -121,30 +121,20 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType getPropertyTypeGen() {
-		if (propertyType != null && ((EObject) propertyType).eIsProxy()) {
-			InternalEObject oldPropertyType = (InternalEObject) propertyType;
-			propertyType = (PropertyType) eResolveProxy(oldPropertyType);
-			if (propertyType != oldPropertyType) {
-				if (eNotificationRequired())
+	@Override
+	public PropertyType getReferencedPropertyType() {
+		if (referencedPropertyType != null && ((EObject) referencedPropertyType).eIsProxy()) {
+			InternalEObject oldReferencedPropertyType = (InternalEObject) referencedPropertyType;
+			referencedPropertyType = (PropertyType) eResolveProxy(oldReferencedPropertyType);
+			if (referencedPropertyType != oldReferencedPropertyType) {
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE, oldPropertyType, propertyType));
+							Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE, oldReferencedPropertyType,
+							referencedPropertyType));
+				}
 			}
 		}
-		return propertyType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public PropertyType getPropertyType() {
-		if (propertyType == null) {
-			propertyType = ownedPropertyType;
-		}
-		PropertyType pt = getPropertyTypeGen();
-		return (pt == null || pt.eIsProxy()) ? null : pt;
+		return referencedPropertyType;
 	}
 
 	/**
@@ -152,8 +142,47 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType basicGetPropertyTypeGen() {
-		return propertyType;
+	public PropertyType basicGetReferencedPropertyType() {
+		return referencedPropertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setReferencedPropertyType(PropertyType newReferencedPropertyType) {
+		PropertyType oldReferencedPropertyType = referencedPropertyType;
+		referencedPropertyType = newReferencedPropertyType;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE, oldReferencedPropertyType,
+					referencedPropertyType));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropertyType getPropertyTypeGen() {
+		PropertyType propertyType = basicGetPropertyType();
+		return propertyType != null && ((EObject) propertyType).eIsProxy() ? (PropertyType) eResolveProxy((InternalEObject) propertyType)
+				: propertyType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropertyType getPropertyType() {
+		PropertyType propertyType = basicGetPropertyType();
+		return propertyType != null && ((EObject) propertyType).eIsProxy() ? (PropertyType) eResolveProxy((InternalEObject) propertyType)
+				: propertyType;
 	}
 
 	/**
@@ -162,44 +191,21 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * @generated NOT
 	 */
 	public PropertyType basicGetPropertyType() {
-		if (propertyType == null) {
-			propertyType = ownedPropertyType;
+		// DONE: implement this method to return the 'Property Type' reference
+		if (eIsSet(Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE)) {
+			return getOwnedPropertyType();
+		} else {
+			return basicGetReferencedPropertyType();
 		}
-		return basicGetPropertyTypeGen();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void setPropertyType(PropertyType newPropertyType) {
-		PropertyType oldPropertyType = propertyType;
-		propertyType = newPropertyType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE,
-					oldPropertyType, propertyType));
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
-	 */
-	public boolean isSetPropertyTypeGen() {
-		return propertyType != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
 	 */
 	public boolean isSetPropertyType() {
-		if (propertyType == null) {
-			propertyType = ownedPropertyType;
-		}
-		return isSetPropertyTypeGen();
+		return basicGetPropertyType() != null;
 	}
 
 	/**
@@ -207,6 +213,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType getOwnedPropertyType() {
 		return ownedPropertyType;
 	}
@@ -222,17 +229,10 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE, oldOwnedPropertyType, newOwnedPropertyType);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
-		}
-		Resource.Internal eInternalResource = eInternalResource();
-		if (eInternalResource == null || !eInternalResource.isLoading()) {
-			if (newOwnedPropertyType != null) {
-				if (newOwnedPropertyType != propertyType) {
-					setPropertyType(newOwnedPropertyType);
-				}
 			}
 		}
 		return msgs;
@@ -243,21 +243,26 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedPropertyType(PropertyType newOwnedPropertyType) {
 		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;
-			if (ownedPropertyType != null)
+			if (ownedPropertyType != null) {
 				msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE, null, msgs);
-			if (newOwnedPropertyType != null)
+			}
+			if (newOwnedPropertyType != null) {
 				msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE, null, msgs);
+			}
 			msgs = basicSetOwnedPropertyType(newOwnedPropertyType, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE,
 					newOwnedPropertyType, newOwnedPropertyType));
+		}
 	}
 
 	/**
@@ -265,6 +270,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType createOwnedPropertyType(EClass eClass) {
 		PropertyType newOwnedPropertyType = (PropertyType) create(eClass);
 		setOwnedPropertyType(newOwnedPropertyType);
@@ -294,14 +300,11 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setType(Type newType) {
-		if (newType != null && !(newType instanceof PropertyType)) {
-			throw new IllegalArgumentException("newType must be an instance of PropertyType");
-		}
-		setPropertyType((PropertyType) newType);
+		// ignore
 	}
 
 	/**
@@ -318,6 +321,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression getConstantValue() {
 		return constantValue;
 	}
@@ -333,10 +337,11 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, oldConstantValue, newConstantValue);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -346,21 +351,26 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConstantValue(PropertyExpression newConstantValue) {
 		if (newConstantValue != constantValue) {
 			NotificationChain msgs = null;
-			if (constantValue != null)
+			if (constantValue != null) {
 				msgs = ((InternalEObject) constantValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
-			if (newConstantValue != null)
+			}
+			if (newConstantValue != null) {
 				msgs = ((InternalEObject) newConstantValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
 						- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
+			}
 			msgs = basicSetConstantValue(newConstantValue, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE,
 					newConstantValue, newConstantValue));
+		}
 	}
 
 	/**
@@ -368,6 +378,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression createConstantValue(EClass eClass) {
 		PropertyExpression newConstantValue = (PropertyExpression) create(eClass);
 		setConstantValue(newConstantValue);
@@ -398,14 +409,20 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
-			if (resolve)
-				return getPropertyType();
-			return basicGetPropertyType();
+		case Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE:
+			if (resolve) {
+				return getReferencedPropertyType();
+			}
+			return basicGetReferencedPropertyType();
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE:
 			return getOwnedPropertyType();
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:
 			return getConstantValue();
+		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
+			if (resolve) {
+				return getPropertyType();
+			}
+			return basicGetPropertyType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -418,8 +435,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
-			setPropertyType((PropertyType) newValue);
+		case Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE:
+			setReferencedPropertyType((PropertyType) newValue);
 			return;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE:
 			setOwnedPropertyType((PropertyType) newValue);
@@ -439,8 +456,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
-			setPropertyType((PropertyType) null);
+		case Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE:
+			setReferencedPropertyType((PropertyType) null);
 			return;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE:
 			setOwnedPropertyType((PropertyType) null);
@@ -460,18 +477,21 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
-			return isSetPropertyType();
 		case Aadl2Package.PROPERTY_CONSTANT__TYPE:
 			return isSetType();
+		case Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE:
+			return referencedPropertyType != null;
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE:
 			return ownedPropertyType != null;
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:
 			return constantValue != null;
+		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
+			return isSetPropertyType();
 		}
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		EvaluatedProperty value = getConstantValue().evaluate(ctx);
 

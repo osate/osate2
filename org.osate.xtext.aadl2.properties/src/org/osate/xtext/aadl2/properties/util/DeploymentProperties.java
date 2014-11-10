@@ -52,6 +52,8 @@ public final class DeploymentProperties {
 	public static final String ACTUAL_SUBPROGRAM_CALL_BINDING = "Actual_Subprogram_Call_Binding";
 	public static final String ACTUAL_SUBPROGRAM_CALL = "Actual_Subprogram_Call";
 
+	public static final String REQUIRED_VIRTUAL_BUS_CLASS = "Required_Virtual_Bus_Class";
+
 	public static final String ACTUAL_FUNCTION_BINDING = "Actual_Function_Binding";
 
 	public static final String NOT_COLLOCATED = "Not_Collocated";

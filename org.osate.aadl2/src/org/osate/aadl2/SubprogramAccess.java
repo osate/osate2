@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Subprogram Access</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -51,7 +55,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SubprogramAccess extends Access, Subprogram {
+public interface SubprogramAccess extends Access, CalledSubprogram {
 	/**
 	 * Returns the value of the '<em><b>Subprogram Feature Classifier</b></em>' reference.
 	 * <p>
@@ -66,6 +70,9 @@ public interface SubprogramAccess extends Access, Subprogram {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Subprogram Feature Classifier</em>' reference.
 	 * @see #setSubprogramFeatureClassifier(SubprogramSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramAccess_SubprogramFeatureClassifier()

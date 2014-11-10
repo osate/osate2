@@ -40,11 +40,16 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Thread Group Classifier</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Components::ThreadGroup.</p>
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.osate.aadl2.Aadl2Package#getThreadGroupClassifier()
  * @model abstract="true"
  * @generated
  */
-public interface ThreadGroupClassifier extends ComponentClassifier, ThreadGroupSubcomponentType {
+public interface ThreadGroupClassifier extends ComponentClassifier, org.osate.aadl2.ThreadGroup,
+		ThreadGroupSubcomponentType {
 
 } // ThreadGroupClassifier

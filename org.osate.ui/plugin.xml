@@ -286,6 +286,55 @@
       		class="org.osate.ui.navigator.AadlNavigator"/>
    </extension>
    
+	<extension
+         point="org.eclipse.ui.navigator.viewer">
+		<viewerContentBinding 
+            viewerId="org.osate.ui.navigator.AadlNavigator">
+			<includes>
+				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
+				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
+				<contentExtension pattern="org.osate.ui.navigator.content"/>
+				<contentExtension pattern="org.eclipse.ui.navigator.resources.linkHelper"/>
+			</includes>
+		</viewerContentBinding>
+  		<viewerActionBinding
+        	viewerId="org.osate.ui.navigator.AadlNavigator">
+     		<includes>
+     			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />	
+     		</includes>
+	  </viewerActionBinding>
+   </extension>
+   
+	<extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent 
+            id="org.osate.ui.navigator.content" 
+            name="AADL Navigator Content"
+            contentProvider="org.osate.ui.navigator.AadlNavigatorContentProvider"
+            labelProvider="org.osate.ui.navigator.AadlNavigatorLabelProvider" 
+            activeByDefault="true"
+            priority="normal" >
+		<triggerPoints>
+		</triggerPoints>
+		<actionProvider
+			class="org.osate.ui.navigator.AadlNavigatorActionGroup">
+		</actionProvider>
+		  <enablement>
+		  </enablement>
+		  
+        <commonSorter
+              class="org.osate.ui.navigator.AadlNavigatorSorter"
+              id="org.osate.ui.navigator.sorter">
+           <parentExpression>
+              <or>
+                 <instanceof
+                       value="org.eclipse.core.resources.IResource">
+                 </instanceof></or>
+           </parentExpression>
+        </commonSorter>
+      </navigatorContent>
+   </extension>
+   
    <extension 
         point="org.eclipse.ui.perspectives"> 
         <perspective 
@@ -372,4 +421,49 @@
            project="true">
      </wizard>
      </extension>
+
+    <extension point="org.eclipse.core.expressions.definitions">
+       <definition id="org.osate.is_aadl_project_propertyset">
+          <adapt type="org.eclipse.core.resources.IResource">
+             <test property="org.eclipse.core.resources.name"
+                  value="AADL_Project.aadl">
+             </test>
+          </adapt>
+       </definition>
+    </extension>
+    <extension
+          point="org.eclipse.ui.menus">
+       <menuContribution
+             allPopups="false"
+             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+          <command
+                commandId="org.osate.ui.setAadlProjectProperties"
+                label="Set as AADL_Project property set"
+                style="push">
+             <visibleWhen>
+                <with variable="selection">
+                   <iterate
+                         ifEmtpy="false">
+                      <reference definitionId="org.osate.is_aadl_project_propertyset"/>
+                   </iterate>
+                </with>
+             </visibleWhen>
+          </command>
+       </menuContribution>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <command
+             id="org.osate.ui.setAadlProjectProperties"
+             name="Set as AADL_Project property set">
+       </command>
+    </extension>
+    <extension
+          point="org.eclipse.ui.handlers">
+       <handler
+             class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
+             commandId="org.osate.ui.setAadlProjectProperties">
+       </handler>
+    </extension>
+
 </plugin>

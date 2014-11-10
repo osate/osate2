@@ -3,6 +3,7 @@ package org.osate.aadl2.util;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -12,9 +13,8 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.instance.util.InstanceUtil;
 
 public class Aadl2Util {
 	private static boolean _useTunedEqualsMethods = true;
@@ -71,7 +71,7 @@ public class Aadl2Util {
 	/**
 	 * Check to see if the Property definitions are the same
 	 * The methods compensates for the possible problem that the objects are different.
-	 * 
+	 *
 	 * @param p1 Property
 	 * @param p2 Property
 	 * @return true if they have the same name
@@ -84,8 +84,9 @@ public class Aadl2Util {
 	}
 
 	public static String getName(NamedElement ne) {
-		if (ne.hasName())
+		if (ne.hasName()) {
 			return ne.getName();
+		}
 		return getRefinedName(ne, ne);
 	}
 
@@ -100,10 +101,12 @@ public class Aadl2Util {
 		if (ne instanceof RefinableElement) {
 			RefinableElement re = (RefinableElement) ne;
 			RefinableElement ref = re.getRefinedElement();
-			if (ref == root)
+			if (ref == root) {
 				return null; // terminate on cycle
-			if (ref != null)
+			}
+			if (ref != null) {
 				return getRefinedName(ref, root);
+			}
 			// no additional reference pointer, return name
 			return ne.getName();
 		}
@@ -111,31 +114,26 @@ public class Aadl2Util {
 	}
 
 	/**
-	 * Find owned named elements. In the case of a thread implementation or subprogram implementation
-	 * also look up subprogram calls.
+	 * Find owned named elements. In the case of a thread implementation, subprogram implementation,
+	 * or abstract implementation also look up subprogram calls.
 	 * @param owner Classifier in which the lookup is performed
 	 * @param name name of Element to be found
 	 * @return NamedElement or null
 	 */
 	public static NamedElement findOwnedNamedElement(Classifier owner, String name) {
 		for (Element e : owner.getOwnedElements()) {
-			if (!(e instanceof NamedElement))
+			if (!(e instanceof NamedElement)) {
 				continue;
+			}
 			NamedElement ne = (NamedElement) e;
 			String neName = Aadl2Util.getName(ne);
-			if (neName != null && neName.equalsIgnoreCase(name))
+			if (neName != null && neName.equalsIgnoreCase(name)) {
 				return ne;
-		}
-		if (owner instanceof ThreadImplementation) {
-			ThreadImplementation ti = (ThreadImplementation) owner;
-			for (SubprogramCall sc : ti.getSubprogramCalls()) {
-				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name)) {
-					return sc;
-				}
 			}
-		} else if (owner instanceof SubprogramImplementation) {
-			SubprogramImplementation si = (SubprogramImplementation) owner;
-			for (SubprogramCall sc : si.getSubprogramCalls()) {
+		}
+		if (owner instanceof BehavioredImplementation) {
+			BehavioredImplementation bi = (BehavioredImplementation) owner;
+			for (SubprogramCall sc : bi.getSubprogramCalls()) {
 				if (sc.getName() != null && sc.getName().equalsIgnoreCase(name)) {
 					return sc;
 				}
@@ -182,11 +180,13 @@ public class Aadl2Util {
 	}
 
 	public static String getPrintableSOMName(SystemOperationMode som) {
-		String somName = som.getName();
-		if (somName != null && (somName.equalsIgnoreCase("No Modes") || somName.equalsIgnoreCase("NoModes"))) {
+		if (som == null || InstanceUtil.isNoMode(som))
 			return "";
-		}
-		return "In SystemMode " + somName + ": ";
+		return "In SystemMode " + som.getName() + ": ";
+	}
+
+	public static boolean isPrintableSOMName(SystemOperationMode som) {
+		return (som != null && !InstanceUtil.isNoMode(som));
 	}
 
 	public static String getPrintablePathName(ContainedNamedElement path) {
@@ -201,7 +201,7 @@ public class Aadl2Util {
 	/**
 	 * extract the item name from a qualified name, the identifier after the last ::
 	 * @param qualname String Qualified name
-	 * @return String item name 
+	 * @return String item name
 	 */
 	public static String getItemNameWithoutQualification(String qualname) {
 		final int idx = qualname.lastIndexOf("::");

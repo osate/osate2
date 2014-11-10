@@ -40,6 +40,10 @@ package org.osate.aadl2;
  * A representation of the model object '<em><b>Bus Access</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * <p>From package AADLDetails::Features.</p>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -51,7 +55,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface BusAccess extends Access, Bus {
+public interface BusAccess extends Access {
 	/**
 	 * Returns the value of the '<em><b>Bus Feature Classifier</b></em>' reference.
 	 * <p>
@@ -66,6 +70,9 @@ public interface BusAccess extends Access, Bus {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Features.</p>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bus Feature Classifier</em>' reference.
 	 * @see #setBusFeatureClassifier(BusSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getBusAccess_BusFeatureClassifier()

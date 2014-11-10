@@ -1,12 +1,12 @@
 /**
  * <copyright>
  * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- * 
+ *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- * 
+ *
  * NO WARRANTY
- * 
+ *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -16,14 +16,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- * 
+ *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- * 
+ *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -55,6 +55,7 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @see org.osate.aadl2.instance.InstanceFactory
  * @model kind="package"
+ *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='aadl2Instance'"
  * @generated
  */
 public interface InstancePackage extends EPackage {
@@ -1761,13 +1762,13 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE = COMPONENT_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>System Implementation</b></em>' reference.
+	 * The feature id for the '<em><b>Component Implementation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION = COMPONENT_INSTANCE_FEATURE_COUNT + 1;
+	int SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION = COMPONENT_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>System Instance</em>' class.
@@ -2579,15 +2580,15 @@ public interface InstancePackage extends EPackage {
 	EReference getSystemInstance_SystemOperationMode();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.SystemInstance#getSystemImplementation <em>System Implementation</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.SystemInstance#getComponentImplementation <em>Component Implementation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>System Implementation</em>'.
-	 * @see org.osate.aadl2.instance.SystemInstance#getSystemImplementation()
+	 * @return the meta object for the reference '<em>Component Implementation</em>'.
+	 * @see org.osate.aadl2.instance.SystemInstance#getComponentImplementation()
 	 * @see #getSystemInstance()
 	 * @generated
 	 */
-	EReference getSystemInstance_SystemImplementation();
+	EReference getSystemInstance_ComponentImplementation();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.InstanceReferenceValue <em>Reference Value</em>}'.
@@ -3232,12 +3233,12 @@ public interface InstancePackage extends EPackage {
 		EReference SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE = eINSTANCE.getSystemInstance_SystemOperationMode();
 
 		/**
-		 * The meta object literal for the '<em><b>System Implementation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Component Implementation</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION = eINSTANCE.getSystemInstance_SystemImplementation();
+		EReference SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION = eINSTANCE.getSystemInstance_ComponentImplementation();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.InstanceReferenceValueImpl <em>Reference Value</em>}' class.

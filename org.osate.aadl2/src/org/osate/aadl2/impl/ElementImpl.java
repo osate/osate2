@@ -109,6 +109,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getOwnedElements() {
 		CacheAdapter cache = getCacheAdapter();
 		if (cache != null) {
@@ -142,6 +143,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Comment> getOwnedComments() {
 		if (ownedComments == null) {
 			ownedComments = new EObjectContainmentEList<Comment>(Comment.class, this,
@@ -155,6 +157,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Comment createOwnedComment() {
 		Comment newOwnedComment = (Comment) create(Aadl2Package.eINSTANCE.getComment());
 		getOwnedComments().add(newOwnedComment);
@@ -166,6 +169,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return ElementOperations.not_own_self(this, diagnostics, context);
 	}
@@ -175,6 +179,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean has_owner(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return ElementOperations.has_owner(this, diagnostics, context);
 	}
@@ -184,6 +189,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Element getOwner() {
 		return ElementOperations.getOwner(this);
 	}
@@ -193,6 +199,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> allOwnedElements() {
 		return ElementOperations.allOwnedElements(this);
 	}
@@ -202,6 +209,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean mustBeOwned() {
 		return ElementOperations.mustBeOwned(this);
 	}
@@ -320,6 +328,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * find the enclosing root object ( package, propertyset, or system instance
 	 * @return the root object
 	 */
+	@Override
 	public NamedElement getElementRoot() {
 		Element obj = this;
 		while (obj.eContainer() != null) {
@@ -336,6 +345,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * the subset that is active in a given mode
 	 * @return EList Element
 	 */
+	@Override
 	public EList<Element> getChildren() {
 		// TODO if we use this we need to change InstanceObject to not use
 		// ownedElement return getOwnedElements();
@@ -350,21 +360,24 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.Element#getContainingClassifier()
 	 */
+	@Override
 	public Classifier getContainingClassifier() {
 		Element obj = this;
-		while (obj != null && !(obj instanceof Classifier))
+		while (obj != null && !(obj instanceof Classifier)) {
 			obj = obj.getOwner();
+		}
 		return (Classifier) obj;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.Element#getContainingComponentImpl()
 	 */
+	@Override
 	public ComponentImplementation getContainingComponentImpl() {
 		Element obj = this;
 		while (obj != null && !(obj instanceof ComponentImplementation)) {

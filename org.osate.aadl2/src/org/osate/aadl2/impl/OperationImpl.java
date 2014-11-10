@@ -125,6 +125,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OperationKind getOp() {
 		return op;
 	}
@@ -134,11 +135,13 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOp(OperationKind newOp) {
 		OperationKind oldOp = op;
 		op = newOp == null ? OP_EDEFAULT : newOp;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.OPERATION__OP, oldOp, op));
+		}
 	}
 
 	/**
@@ -146,6 +149,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyExpression> getOwnedPropertyExpressions() {
 		if (ownedPropertyExpressions == null) {
 			ownedPropertyExpressions = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this,
@@ -159,6 +163,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyExpression createOwnedPropertyExpression(EClass eClass) {
 		PropertyExpression newOwnedPropertyExpression = (PropertyExpression) create(eClass);
 		getOwnedPropertyExpressions().add(newOwnedPropertyExpression);
@@ -256,8 +261,9 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (op: ");
@@ -266,6 +272,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		return result.toString();
 	}
 
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		if (ownedPropertyExpressions.size() < 1) {
 			throw new InvalidModelException(this, "Property expression has no operands");

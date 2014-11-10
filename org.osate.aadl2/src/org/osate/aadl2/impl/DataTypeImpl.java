@@ -159,6 +159,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
 			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
@@ -172,6 +173,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramAccess());
@@ -184,6 +186,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
 			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
@@ -197,6 +200,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataAccess createOwnedDataAccess() {
 		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
@@ -208,6 +212,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
 			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
@@ -221,6 +226,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupAccess());
@@ -342,6 +348,7 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 				|| eIsSet(Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
+	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DATA;
 	}

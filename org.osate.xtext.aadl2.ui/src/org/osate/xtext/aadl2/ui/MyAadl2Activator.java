@@ -45,6 +45,8 @@ import com.google.inject.Injector;
 
 public class MyAadl2Activator extends Aadl2Activator {
 
+	public static final String PLUGIN_ID = "org.osate.xtext.aadl2.ui";
+
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
