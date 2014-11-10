@@ -80,7 +80,7 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public final int getNestingDepth(Diagram diagram) {
 		final String nestingDepth = Graphiti.getPeService().getPropertyValue(diagram, NESTING_DEPTH_KEY);
-		return (nestingDepth == null) ? 0 : Integer.getInteger(nestingDepth);
+		return (nestingDepth == null) ? 0 : Integer.parseInt(nestingDepth);
 	}
 	
 	@Override

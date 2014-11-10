@@ -48,6 +48,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
@@ -59,6 +60,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
+	private final PropertyService propertyService;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
 	private boolean forceNotDirty = false;
@@ -73,18 +75,18 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}			
 	};
 	
-	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService, final PropertyService propertyService) {
 		super(diagramContainer);
 		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
+		this.propertyService = propertyService;
 	}	
 	
 	@Override
 	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		
-		final IWorkbenchPart parentPart = this.getParentPart();
+		final AgeDiagramEditor parentPart = (AgeDiagramEditor)this.getParentPart();
 		if(parentPart != null) {
 			final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
 			@SuppressWarnings("unchecked")
@@ -99,6 +101,9 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			action = new DistributeVerticallyAction(parentPart);
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
+			
+	 		registerAction(new IncreaseNestingDepthAction(parentPart, propertyService));
+	 		registerAction(new DecreaseNestingDepthAction(parentPart, propertyService));
 		}
 	}
 	

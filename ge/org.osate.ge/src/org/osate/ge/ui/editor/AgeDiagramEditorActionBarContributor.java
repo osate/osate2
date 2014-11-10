@@ -8,15 +8,18 @@
  *******************************************************************************/
 package org.osate.ge.ui.editor;
 
-
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.SubContributionItem;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
-
 
 @SuppressWarnings({ "restriction" })
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
@@ -35,6 +38,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		addRetargetAction(new MatchSizeRetargetAction(MatchSizeAction.MATCH_SIZE));
 		addRetargetAction(new DistributeHorizontallyRetargetAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
 		addRetargetAction(new DistributeVerticallyRetargetAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
+		addRetargetAction(new DecreaseNestingDepthRetargetAction());
+		addRetargetAction(new IncreaseNestingDepthRetargetAction());
 	}
 	
 	@Override
@@ -49,7 +54,37 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
 		tbm.add(new Separator());
+
+		// Add nesting depth control actions
+		final String nestingControlInsertionPoint = GEFActionConstants.MATCH_HEIGHT;
+		tbm.insertAfter(nestingControlInsertionPoint, getAction(IncreaseNestingDepthAction.ID));
+		tbm.insertAfter(nestingControlInsertionPoint, getAction(DecreaseNestingDepthAction.ID));
+		tbm.insertAfter(nestingControlInsertionPoint, new Separator());
+		
 		tbm.remove(ToggleContextButtonPadAction.ACTION_ID);
+	}
+	
+	@Override
+	public void contributeToMenu(final IMenuManager menubar) {
+		super.contributeToMenu(menubar);		
+		
+		// Add actions for increase and decrease the nesting depth to the view menu.
+		// TODO: As of 2014-11-10, Graphiti does not define a constant for the ID of the view menu so we must look it up. If/when such an ID is added,
+		// lookup the menu by ID.
+		for(final IContributionItem item : menubar.getItems()) {
+			if(item instanceof SubContributionItem) {
+				final IContributionItem innerItem = ((SubContributionItem) item).getInnerItem();
+				if(innerItem instanceof MenuManager) {
+					final MenuManager menuManager = (MenuManager)innerItem;
+					if(menuManager.getMenuText().equalsIgnoreCase("View")) {
+						menuManager.add(new Separator());
+						menuManager.add(getAction(IncreaseNestingDepthAction.ID));
+						menuManager.add(getAction(DecreaseNestingDepthAction.ID));
+						menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, menuManager);
+					}
+				}
+			}
+		}
 	}
 	
 	@Override
