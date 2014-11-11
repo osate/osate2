@@ -214,8 +214,10 @@ public class ClassifierPattern extends AgePattern {
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();			
 		super.resizeShape(context);
 		layoutService.checkContainerSize(shape);
+		layoutService.layoutChildren(shape);
+		
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
-			
+		
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());		
 	}
