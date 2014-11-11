@@ -3,8 +3,7 @@
 <plugin>
    <extension-point id="org.osate.ge.styles" name="AGE Styles" schema="schema/org.osate.ge.styles.exsd"/>
 	<extension point="org.eclipse.ui.commands">
-	   <command id="org.osate.ge.commands.openpackagediagram" name="Open Package Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenPackageDiagramHandler"></command>
-	   <command id="org.osate.ge.commands.openclassifierdiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenClassifierDiagramHandler"></command>
+	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenDiagramHandler"></command>
    </extension>
       
    <extension point="org.eclipse.ui.menus">
@@ -16,12 +15,10 @@
 		</menuContribution>
 		-->
 		<menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
-			<command commandId="org.osate.ge.commands.openpackagediagram" style="push"/>
-			<command commandId="org.osate.ge.commands.openclassifierdiagram" style="push"/>
+			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 		</menuContribution>
 		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
-			<command commandId="org.osate.ge.commands.openpackagediagram" style="push"/>
-			<command commandId="org.osate.ge.commands.openclassifierdiagram" style="push"/>
+			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 		</menuContribution>
    </extension>
 	   
@@ -284,7 +281,7 @@
         </parameter>
     </key>
     <key
-          commandId="org.osate.ge.commands.openclassifierdiagram"
+          commandId="org.osate.ge.commands.opendiagram"
           contextId="org.eclipse.ui.textEditorScope"
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="M1+M2+V">

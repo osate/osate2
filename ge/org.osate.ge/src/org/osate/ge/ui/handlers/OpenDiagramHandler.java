@@ -27,7 +27,7 @@ import org.osate.ge.util.Log;
  * @author philip.alldredge
  *
  */
-public class OpenClassifierDiagramHandler extends AbstractHandler {
+public class OpenDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		try {
