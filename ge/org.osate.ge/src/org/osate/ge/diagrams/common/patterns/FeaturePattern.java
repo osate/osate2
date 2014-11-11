@@ -77,6 +77,7 @@ import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -646,6 +647,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		return retVal;
 	}
 		
+	
 	@Override
 	public IReason updateNeeded(final IUpdateContext context) {
 		return Reason.createFalseReason();
@@ -723,6 +725,11 @@ public class FeaturePattern extends AgeLeafShapePattern {
 						containerBo instanceof ComponentType || 
 						containerBo instanceof ComponentImplementation) && 
 				canOwnFeatureType((Classifier)containerBo, featureType);
+	}
+	
+	@Override
+	public String getCreateImageId() { 
+		return AgeImageProvider.getImage(featureType);
 	}
 	
 	@Override

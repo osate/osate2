@@ -15,13 +15,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -39,14 +40,17 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.services.BusinessObjectResolutionService;
 
+
 public class GraphicalToTextualFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
-	
+	public final static String HINT = "graphicalToTextualFeature";
 	@Inject
 	public GraphicalToTextualFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor) {	
 		super(fp);
 		this.bor = bor;
 	}
+	
+	
 	@Override
     public String getName() {
         return "Go to AADL Source";
@@ -132,4 +136,7 @@ public class GraphicalToTextualFeature extends AbstractCustomFeature {
 			throw new RuntimeException(e);
 		}	
 	}
+	
+
+
 }

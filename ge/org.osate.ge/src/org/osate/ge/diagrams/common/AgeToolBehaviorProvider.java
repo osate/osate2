@@ -29,10 +29,12 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.services.PropertyService;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
+
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
-	
 	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService) {
 		super(diagramTypeProvider);
 		this.propertyService = propertyService;
@@ -41,7 +43,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	@Override
 	public String getContributorId() {
 		return "org.osate.ge.editor.AgeDiagramEditor";
-	}	
+	}
 	
 	// Override the business object equality check. This is needed in the case of Generalization because the owner is one of the defining
 	// characteristics and is not checked by the default check which uses EcoreUtil.equals().
@@ -57,13 +59,13 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		return ((AgeFeatureProvider)this.getDiagramTypeProvider().getFeatureProvider()).getContext();
 	}
 	
+	
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
 	    final ICustomFeature customFeature = ContextInjectionFactory.make(DrillDownFeature.class, getContext());
 	    if(customFeature.canExecute(context)) {
 	        return customFeature;
 	    }
-	 
 	    return super.getDoubleClickFeature(context);
 	 }
 	
@@ -79,11 +81,22 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null || propertyService.isInnerShape(shape))) {
 				shape = shape.getContainer();
 			}
-			
 			return shape;
 		}
-		
 		return null;
+	}
+	
+	//Execute when keyboard command is pressed.  Registered in plugin.xml
+	@Override
+	public ICustomFeature getCommandFeature(final CustomContext context, String hint){
+		//Use hint to verify command should be executed
+		if(GraphicalToTextualFeature.HINT.equals(hint)){
+			final ICustomFeature customFeature = ContextInjectionFactory.make(GraphicalToTextualFeature.class, getContext());
+				if(customFeature.canExecute(context)){	
+					return customFeature;
+				}
+		}
+		return super.getCommandFeature(context, hint);
 	}
 	
 	@Override
@@ -129,4 +142,5 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	    
 	    return super.getToolTip(ga);
 	}
+	
 }

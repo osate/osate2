@@ -30,6 +30,8 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
@@ -45,6 +47,7 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
@@ -140,6 +143,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		setGraphicsAlgorithmStyle(connection.getGraphicsAlgorithm(), generalization);
 	}
 
+	@Override
+	public String getCreateImageId(){
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		return AgeImageProvider.getImage(p.getGeneralization());
+	}
 	@Override
 	public String getCreateName() {
 		return "Extension";

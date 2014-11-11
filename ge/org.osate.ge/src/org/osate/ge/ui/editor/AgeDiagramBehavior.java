@@ -10,6 +10,7 @@ package org.osate.ge.ui.editor;
 
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -33,9 +35,11 @@ import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
@@ -48,6 +52,7 @@ import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
 import org.eclipse.core.runtime.IProgressMonitor;
+
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
@@ -57,7 +62,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	private boolean updateWhenVisible = false;
 	private boolean forceNotDirty = false;
 	private boolean updatingFeatureWhileForcingNotDirty = false;
-	
 	private PaintListener paintListener = new PaintListener() {
 		@Override
 		public void paintControl(PaintEvent e) {
@@ -68,11 +72,34 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}			
 	};
 	
+	
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService) {
 		super(diagramContainer);
 		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
 	}	
+	
+	@Override
+	public void configureGraphicalViewer() {
+		super.configureGraphicalViewer();
+		
+		final IWorkbenchPart parentPart = this.getParentPart();
+		if(parentPart != null) {
+			final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
+			@SuppressWarnings("unchecked")
+			final List<String> selectionActions = getDiagramContainer().getSelectionActions();
+			IAction action;
+			action = new MatchSizeAction(parentPart);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+			action = new DistributeHorizontallyAction(parentPart);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+			action = new DistributeVerticallyAction(parentPart);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+		}
+	}
 	
 	@Override
 	protected void addGefListeners() {
@@ -150,6 +177,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		return new AgeUpdateBehavior(this);
 	}
 	
+	
 	@Override
 	protected DefaultRefreshBehavior createRefreshBehavior() {		
 		return new DefaultRefreshBehavior(this) {
@@ -203,7 +231,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	public Object executeFeature(final IFeature feature, final IContext context) {
 		// If we are forcing the diagram to not be seen as dirty, decide whether to start using the typical dirty check
 		if(forceNotDirty) {
-			// Prevent the initial diagrma update from making the diagram dirty if the number of objects doesn't change.			
+			// Prevent the initial diagram update from making the diagram dirty if the number of objects doesn't change.			
 			if(feature instanceof DiagramUpdateFeature) {
 				final int startCount = getVisibleObjectsInDiagram();
 				updatingFeatureWhileForcingNotDirty = true;
@@ -220,9 +248,9 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				}
 			}
 		}
-		
 		return super.executeFeature(feature, context);
 	}
+	
 	
 	@Override
 	protected void editingDomainInitialized() {
