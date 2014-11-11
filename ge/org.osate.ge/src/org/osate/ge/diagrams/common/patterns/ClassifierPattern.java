@@ -322,14 +322,13 @@ public class ClassifierPattern extends AgePattern {
 		visibilityHelper.ghostInvalidConnections(null);
 		if(bo instanceof Classifier) {
 			visibilityHelper.ghostInvalidConnections(ModeTransitionPattern.MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
-			//visibilityHelper.ghostInvalidConnections(ModePattern.INITIAL_MODE_CONNECTION_TYPE);
 		}
 		
 		// Create mode transitions
 		if(showContents) {
 			if(classifier instanceof ComponentClassifier) {
-				final ComponentClassifier cc = (ComponentClassifier)classifier;			
-				connectionCreationService.createUpdateConnections(shape, cc.getAllModeTransitions());	
+				final ComponentClassifier cc = (ComponentClassifier)classifier;
+				connectionCreationService.createUpdateConnections(shape, cc.getAllModeTransitions());
 			}
 		}
 		

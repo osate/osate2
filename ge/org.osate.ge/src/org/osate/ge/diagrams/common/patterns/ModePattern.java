@@ -46,6 +46,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
@@ -118,7 +119,8 @@ public class ModePattern extends AgeLeafShapePattern {
 	@Override
 	public boolean canAdd(final IAddContext context) {
 		if(isMainBusinessObjectApplicable(context.getNewObject())) {
-			if(AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getTargetContainer())) instanceof ComponentClassifier) {
+			final Object targetContainerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+			if(targetContainerBo instanceof ComponentClassifier || targetContainerBo instanceof Subcomponent) {
 				return true;
 			}
 		}
@@ -284,7 +286,8 @@ public class ModePattern extends AgeLeafShapePattern {
 	}
 	
 	private ComponentClassifier getComponentClassifier(final Shape modeShape) {
-		return shapeHelper.getClosestBusinessObjectOfType(modeShape, ComponentClassifier.class);
+		final Object container = shapeHelper.getClosestBusinessObjectOfType(modeShape, ComponentClassifier.class, Subcomponent.class);
+		return container instanceof ComponentClassifier ? (ComponentClassifier)container : null;
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -313,6 +316,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	public boolean canCreate(final ICreateContext context) {
 		return !(context.getTargetContainer() instanceof Diagram) && bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
 	}
+	
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();

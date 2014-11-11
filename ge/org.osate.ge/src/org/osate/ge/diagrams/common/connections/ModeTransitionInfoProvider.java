@@ -16,6 +16,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.services.AnchorService;
@@ -44,7 +45,7 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 			ContainerShape temp = (ContainerShape)connection.getStart().getParent();
 			while(temp != null) {
 				final Object tempBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(temp);
-				if(tempBo instanceof ComponentClassifier) {
+				if(tempBo instanceof ComponentClassifier || tempBo instanceof Subcomponent) {
 					return temp;
 				}
 				temp = temp.getContainer();
@@ -65,12 +66,11 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 		}				
 		
 		final Anchor a1 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(srcShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);
-		final Anchor a2 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(dstShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);		
-		
+		final Anchor a2 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(dstShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);	
 		if(a1 == null || a2 == null) {
 			return null;
 		}
-		
+
 		return new Anchor[] {a1, a2};
 	}
 }
