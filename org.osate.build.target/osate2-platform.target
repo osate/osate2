@@ -40,5 +40,15 @@
 <unit id="org.eclipse.m2m.atl.emftvm.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/mmt/atl/updates/releases/3.4"/>
 </location>
+<!-- certware and dependencies -->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="net.certware.feature.sacm.feature.group" version="1.0.0.201408141746"/>
+<repository location="http://updatesite.certware.net"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.epsilon.evl.emf.validation.feature.feature.group" version="1.2.0.201408251031"/>
+<repository location="http://download.eclipse.org/epsilon/updates"/>
+</location>
+<!-- end certware -->
 </locations>
 </target>
