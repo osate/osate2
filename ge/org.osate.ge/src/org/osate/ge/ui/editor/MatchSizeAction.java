@@ -7,7 +7,6 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.ge.Activator;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -27,16 +26,6 @@ public class MatchSizeAction extends SelectionAction {
 		setHoverImageDescriptor(matchSizeImageDescriptor);
 		setDisabledImageDescriptor(matchSizeDisabledImageDescriptor);
 		setId(MATCH_SIZE);	
-	}
-
-	public final void setActiveEditor(final IEditorPart newEditor) {
-		if(editor != newEditor) {
-			if(newEditor instanceof AgeDiagramEditor) {
-				editor = (AgeDiagramEditor)newEditor;
-			} else {
-				editor = null;
-			}
-		}
 	}
 
 	//Matches the height and width of every shape selected with the final shape selected.   

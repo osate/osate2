@@ -9,7 +9,6 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.ge.Activator;
 
@@ -28,15 +27,6 @@ public class DistributeVerticallyAction extends SelectionAction {
 		setId(DISTRIBUTE_VERTICALLY);
 	}
 
-	public final void setActiveEditor(final IEditorPart newEditor) {
-		if(editor != newEditor) {
-			if(newEditor instanceof AgeDiagramEditor) {
-				editor = (AgeDiagramEditor)newEditor;
-			} else {
-				editor = null;
-			}
-		}
-	}
 	//Distributes shapes along the Y axis so each shape has an equal distance between them.
 	@Override
 	public void run() {
