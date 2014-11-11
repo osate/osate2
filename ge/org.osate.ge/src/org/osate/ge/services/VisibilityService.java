@@ -10,6 +10,7 @@ package org.osate.ge.services;
 
 import java.util.List;
 
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -36,4 +37,10 @@ public interface VisibilityService {
 	 * @param connectionTypeFilter is the type of connections to turn into ghost. If null, turns only connections that do not have a connection type property set into ghosts
 	 */
 	void ghostInvalidConnections(final String connectionTypeFilter);
+	
+	/**
+	 * Turns connections that are invalid and of a specified type into ghosts. Such as ones that do not have a valid business object associated with them.
+	 * @param connectionTypeFilter is the type of connections to turn into ghost. If null, turns only connections that do not have a connection type property set into ghosts
+	 */
+	void ghostInvalidConnections(final Iterable<Connection> connections, String connectionTypeFilter);
 }

@@ -19,11 +19,17 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
  */
 public interface ConnectionInfoProvider {	
 	/**
-	 * Returns whether or not the connection info provider applies to connections with the specified business object
+	 * Returns whether or not the connection info provider applies to connections with the specified business object.
 	 * @param bo
 	 * @return
 	 */
 	boolean isBusinessObjectApplicable(final Object bo);
+	
+	/**
+	 * Returns whether or not the connection info provider applies to a connection.
+	 * @return
+	 */
+	boolean isApplicable(final Connection connection);
 	
 	/**
 	 * Returns the "owner" shape. That is, the shape that is responsible for updating the connection. Should be the same class that created the connection.

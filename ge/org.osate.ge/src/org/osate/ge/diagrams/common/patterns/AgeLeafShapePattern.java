@@ -63,7 +63,7 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 	}
 	
 	@Override
-	public final boolean update(final IUpdateContext context) {
+	public boolean update(final IUpdateContext context) {
 		final PictogramElement pe = context.getPictogramElement();
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
 		
@@ -86,6 +86,10 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 		return true;
 	}
 
+	protected VisibilityService getVisibilityService() {
+		return visibilityHelper;
+	}
+	
 	/**
 	 * Called to set properties after the shape has been created/updated
 	 * @param container

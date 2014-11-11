@@ -38,4 +38,9 @@ public abstract class AbstractConnectionInfoProvider implements ConnectionInfoPr
 	protected final List<Connection> getConnections() {
 		return this.diagram.getConnections();
 	}
+	
+	@Override
+	public boolean isApplicable(final Connection connection) {
+		return isBusinessObjectApplicable(getBusinessObject(connection));
+	}
 }

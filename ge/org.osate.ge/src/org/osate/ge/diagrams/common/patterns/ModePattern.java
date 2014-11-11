@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.patterns;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,6 +51,7 @@ import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.LayoutService;
@@ -71,6 +71,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
 	private final AnchorService anchorService;
+	private final ConnectionService connectionService;
 	private final LayoutService resizeHelper;
 	private final ShapeService shapeHelper;
 	private final PropertyService propertyService;
@@ -86,13 +87,14 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final RefactoringService refactoringService;
 	
 	@Inject
-	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final ShapeService shapeHelper, 
+	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final ConnectionService connectionService, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
 			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService, 
 			final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorService = anchorUtil;
+		this.connectionService = connectionService;
 		this.resizeHelper = resizeHelper;
 		this.shapeHelper = shapeHelper;
 		this.propertyService = propertyUtil;
@@ -199,15 +201,10 @@ public class ModePattern extends AgeLeafShapePattern {
 		final Mode mode = (Mode)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-        
+		
         // Remove connections related to the initial shape
-		{
-	        final Shape initialModeShape = shapeHelper.getChildShapeByName(shape, initialModeShapeName);
-	        if(initialModeShape != null) {
-	        	removeConnectionsByAnchorParent(initialModeShape);
-	        }
-		}
-        
+		getVisibilityService().ghostInvalidConnections(connectionService.getConnectionsByOwner(shape), ModePattern.INITIAL_MODE_CONNECTION_TYPE);
+		
 		// Remove child shapes
 		// Clear all shapes except for the inner mode shape
 		final Iterator<Shape> it = shape.getChildren().iterator();
@@ -305,29 +302,6 @@ public class ModePattern extends AgeLeafShapePattern {
 		anchorService.removeAnchorsWithoutConnections(shape);
 		
 		super.updateAnchors(shape);
-	}
-	
-	private void removeConnectionsByAnchorParent(final PictogramElement anchorParent) {
-		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
-		
-		for(final Connection connection : this.getDiagram().getConnections()) {
-			boolean remove = false;
-			
-			if((connection.getStart() != null && connection.getStart().getParent() == anchorParent) ||
-					(connection.getEnd() != null && connection.getEnd().getParent() == anchorParent)) {
-				remove = true;
-				break;
-			}
-
-			if(remove) {
-				connectionsToRemove.add(connection);
-			}
-		}
-		
-		// Remove the connections
-		for(final Connection connection : connectionsToRemove) {
-			EcoreUtil.delete(connection, true);
-		}		
 	}
 
 	@Override

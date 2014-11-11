@@ -61,6 +61,7 @@ import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
+import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.HighlightingService;
@@ -104,6 +105,7 @@ public class ClassifierPattern extends AgePattern {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final RefactoringService refactoringService;
+	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType; // The subcomponent the pattern is responsible for handling. null if the pattern is for handling a classifier.
 	
@@ -137,8 +139,8 @@ public class ClassifierPattern extends AgePattern {
 			final AadlFeatureService featureService, final SubcomponentService subcomponentService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final PropertyService propertyService, final AadlArrayService arrayService,
 			final HighlightingService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
-			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, final BusinessObjectResolutionService bor, 
-			final @Named("Subcomponent Type") EClass subcomponentType) {
+			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, 
+			final ConnectionService connectionService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = layoutService;
 		this.shapeService = shapeService;
@@ -157,6 +159,7 @@ public class ClassifierPattern extends AgePattern {
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
 		this.refactoringService = refactoringService;
+		this.connectionService = connectionService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -214,7 +217,6 @@ public class ClassifierPattern extends AgePattern {
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();			
 		super.resizeShape(context);
 		layoutService.checkContainerSize(shape);
-		layoutService.layoutChildren(shape);
 		
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 		
@@ -280,6 +282,7 @@ public class ClassifierPattern extends AgePattern {
 		// Remove invalid features
 		visibilityHelper.ghostInvalidShapes(shape);
 		
+		// TODO: Ghost all connections by owner here?
 		final Classifier classifier = getClassifier(shape);
 		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
 		childShapesToGhost.addAll(visibilityHelper.getNonGhostChildren(shape));
@@ -318,7 +321,7 @@ public class ClassifierPattern extends AgePattern {
 		visibilityHelper.ghostInvalidConnections(null);
 		if(bo instanceof Classifier) {
 			visibilityHelper.ghostInvalidConnections(ModeTransitionPattern.MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
-			visibilityHelper.ghostInvalidConnections(ModePattern.INITIAL_MODE_CONNECTION_TYPE);
+			//visibilityHelper.ghostInvalidConnections(ModePattern.INITIAL_MODE_CONNECTION_TYPE);
 		}
 		
 		// Create mode transitions
@@ -476,6 +479,8 @@ public class ClassifierPattern extends AgePattern {
 				gaService.setLocation(ga, x, y);
 			}
 		}
+		
+		layoutService.layoutChildren(shape);
 		
 		ga.setFilled(false);
 		return true;

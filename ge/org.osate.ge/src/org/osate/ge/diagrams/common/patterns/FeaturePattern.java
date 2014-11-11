@@ -214,7 +214,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				return super.canMoveShape(ctx);
 			}
 		}
-		
+
 		return false;
 	}
 

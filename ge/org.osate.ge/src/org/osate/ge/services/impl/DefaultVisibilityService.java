@@ -118,7 +118,12 @@ public class DefaultVisibilityService implements VisibilityService {
 	
 	@Override
 	public void ghostInvalidConnections(final String connectionTypeFilter) {
-		for(final Connection connection : getDiagram().getConnections()) {
+		ghostInvalidConnections(getDiagram().getConnections(), connectionTypeFilter);
+	}
+	
+	@Override
+	public void ghostInvalidConnections(final Iterable<Connection> connections, final String connectionTypeFilter) {
+		for(final Connection connection : connections) {
 			final String tmpConnectionType = propertyUtil.getConnectionType(connection);
 			if((connectionTypeFilter == null && tmpConnectionType == null) || (connectionTypeFilter != null && connectionTypeFilter.equals(tmpConnectionType))) {
 				boolean ghost = false;

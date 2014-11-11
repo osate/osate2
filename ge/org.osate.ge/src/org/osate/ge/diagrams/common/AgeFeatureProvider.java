@@ -71,6 +71,7 @@ import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
+import org.osate.ge.diagrams.common.features.UpdateFromDiagramFeature;
 import org.osate.ge.diagrams.common.features.RenameModeTransitionFeature;
 import org.osate.ge.diagrams.common.features.SetDerivedModesFeature;
 import org.osate.ge.diagrams.common.features.SetDimensionsFeature;
@@ -189,8 +190,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 		final DefaultAadlArrayService arrayService = new DefaultAadlArrayService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
-		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil, bor, this);
+		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
 		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);
+		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil, bor, this);
+		final DefaultShapeService shapeHelper = new DefaultShapeService(propertyUtil, visibilityHelper, bor);
+		final DefaultConnectionService connectionService = new DefaultConnectionService(anchorUtil, shapeHelper, propertyUtil, bor, this);
 		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
 		final StyleProviderService styleProviderService = (StyleProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 		final DefaultNamingService namingService = new DefaultNamingService();
@@ -199,14 +203,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this, styleProviderService);
-		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, visibilityHelper, bor, this);
-		final DefaultShapeService shapeHelper = new DefaultShapeService(propertyUtil, visibilityHelper, bor);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
 		final DefaultSubcomponentService subcomponentService = new DefaultSubcomponentService(prototypeService);
-		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, this);
-		final DefaultConnectionService connectionService = new DefaultConnectionService(anchorUtil, shapeHelper, bor, this);
+		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, this);		
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, this);
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
 		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, styleUtil, bor, this);		
@@ -327,14 +328,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(GraphicalToTextualFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(InstantiateComponentImplementationFeature.class));
-		
+		features.add(make(UpdateFromDiagramFeature.class));
 		features.add(make(ConfigureInModesFeature.class));
 		features.add(createSetInitialModeFeature(true));
 		features.add(createSetInitialModeFeature(false));
 		features.add(createSetDerivedModesFeature(true));
 		features.add(createSetDerivedModesFeature(false));
-		features.add(make(SetModeTransitionTriggersFeature.class));
-		
+		features.add(make(SetModeTransitionTriggersFeature.class));		
 		features.add(make(SetFeatureClassifierFeature.class));
 		features.add(make(SetDimensionsFeature.class));
 		
