@@ -55,6 +55,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -558,6 +559,11 @@ public class ClassifierPattern extends AgePattern {
 		return StringUtil.camelCaseToUser(subcomponentType.getName());
 	}
 		
+	@Override
+	public String getCreateImageId(){
+		return AgeImageProvider.getImage(subcomponentType);
+	}
+	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		if(subcomponentType == null) {

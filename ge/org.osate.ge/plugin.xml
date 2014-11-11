@@ -57,6 +57,9 @@
          <diagramType
                id="org.osate.ge.aadlDiagramType">
          </diagramType>
+		 <imageProvider
+            id="org.osate.ge.diagrams.common.AgeImageProvider">
+      	 </imageProvider>
       </diagramTypeProvider>
       
  	  <!-- The following diagram types providers have been superseded and will be removed eventually. They are needed to open older diagrams that use them. Upon saving, diagrams are automatically switched to the newer diagram type provider. -->

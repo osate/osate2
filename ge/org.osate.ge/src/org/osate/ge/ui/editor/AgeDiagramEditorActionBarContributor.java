@@ -56,7 +56,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.add(new Separator());
 
 		// Add nesting depth control actions
-		final String nestingControlInsertionPoint = GEFActionConstants.MATCH_HEIGHT;
+		final String nestingControlInsertionPoint = MatchSizeAction.MATCH_SIZE;
 		tbm.insertAfter(nestingControlInsertionPoint, getAction(IncreaseNestingDepthAction.ID));
 		tbm.insertAfter(nestingControlInsertionPoint, getAction(DecreaseNestingDepthAction.ID));
 		tbm.insertAfter(nestingControlInsertionPoint, new Separator());
