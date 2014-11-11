@@ -5,13 +5,14 @@ package org.osate.ge.ui.editor;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.ge.Activator;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.ILayoutFeature;
-import org.eclipse.graphiti.features.context.impl.LayoutContext;
+import org.eclipse.graphiti.features.IResizeShapeFeature;
+import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 
 
 
@@ -47,17 +48,19 @@ public class MatchSizeAction extends SelectionAction {
 				protected void doExecute() {
 					final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
 					final PictogramElement[] pe = editor.getSelectedPictogramElements();
+					final int arrayLength = pe.length-1;
 					for (int i = pe.length-1; i>=0; i--){
-						pe[i].getGraphicsAlgorithm().setHeight(pe[pe.length-1].getGraphicsAlgorithm().getHeight());
-						pe[i].getGraphicsAlgorithm().setWidth(pe[pe.length-1].getGraphicsAlgorithm().getWidth());
+						final Shape s = (Shape)pe[i];
+						final ResizeShapeContext resizeContext = new ResizeShapeContext(s);
+						resizeContext.setLocation(s.getGraphicsAlgorithm().getX(), s.getGraphicsAlgorithm().getY());
+						resizeContext.setHeight(pe[arrayLength].getGraphicsAlgorithm().getHeight());
+						resizeContext.setWidth(pe[arrayLength].getGraphicsAlgorithm().getWidth());
 						
-						// Layout the pictogram element
-						final LayoutContext ctx = new LayoutContext(pe[i]);
-						final ILayoutFeature feature = fp.getLayoutFeature(ctx);
-						if(feature != null && feature.canLayout(ctx)) {
-							feature.layout(ctx);
+						final IResizeShapeFeature resizeFeature = fp.getResizeShapeFeature(resizeContext);
+						if(resizeFeature != null && resizeFeature.canResizeShape(resizeContext)) {
+							resizeFeature.resizeShape(resizeContext);
 						}
-					}	   
+					}   
 				}				
 			});
 			
@@ -67,10 +70,16 @@ public class MatchSizeAction extends SelectionAction {
 	//Updates action being available based on how many pictograms are selected
 	@Override
 	protected boolean calculateEnabled() {
-		if(editor.getSelectedPictogramElements().length >= 2)
+		final PictogramElement[] pe = editor.getSelectedPictogramElements();
+		if(editor.getSelectedPictogramElements().length >= 2) {
+			for(int i = 0; i < editor.getSelectedPictogramElements().length;i++){
+				if(!(pe[i]  instanceof Shape)){
+					return false;
+				}
+			}
 			return true;
-			else
-				return false;
-	}
-	
+		} else {
+			return false;
+		}
+	}	
 }

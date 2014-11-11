@@ -10,12 +10,9 @@ package org.osate.ge.ui.editor;
 
 
 import org.eclipse.gef.ui.actions.GEFActionConstants;
-//import org.eclipse.graphiti.platform.IPlatformImageConstants;
-//import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
-//import org.eclipse.ui.actions.RetargetAction;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 

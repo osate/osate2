@@ -1,8 +1,12 @@
 package org.osate.ge.ui.editor;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
@@ -42,9 +46,8 @@ public class DistributeHorizontallyAction extends SelectionAction {
 					protected void doExecute() {
 						PictogramElement[] pe = editor.getSelectedPictogramElements();
 						final int arrayLength = pe.length-1;
-						for(int i=0; i < pe.length-1; i++){
-								pe = sort(pe,i);
-							}
+						//Sort by X, so it does not matter which order the user selects the pictogram elements
+						Arrays.sort(pe, DistributeHorizontallyAction.XValueComparator);
 						//Take into consideration width of shapes to distribute evenly
 						int widthOfShapes = 0;
 						for(int i = arrayLength-1;i>0;i--){
@@ -62,30 +65,29 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		}
 	}
 	
-	//Sort by X, so it does not matter which order the user selects the pictogram elements
-	private static PictogramElement[] sort(PictogramElement[] pe, int i){
-		if(pe[i].getGraphicsAlgorithm().getX() > pe[i+1].getGraphicsAlgorithm().getX()){
-		final PictogramElement[] temp = new PictogramElement[pe.length-1];
-		temp[i] = pe[i];
-		pe[i] = pe[i+1];
-		pe[i+1] = temp[i];
-			if(i==0)
-				return pe;
-			else
-				return sort(pe, i-1);
+	//Sort
+	private static final Comparator<PictogramElement> XValueComparator 
+		= new Comparator<PictogramElement>() {
+		@Override
+		public int compare(PictogramElement xValueArg1, PictogramElement xValueArg2) {
+			return Integer.compare(xValueArg1.getGraphicsAlgorithm().getX(), xValueArg2.getGraphicsAlgorithm().getX());
 		}
-		else
-			return pe;
-	}
+	};
 	
 	//Updates action being available based on how many pictograms are selected
 	@Override
 	protected boolean calculateEnabled() {
-		if(editor.getSelectedPictogramElements().length >= 3)
-		return true;
-		
-		else
+		final PictogramElement[] pe = editor.getSelectedPictogramElements();
+		if(editor.getSelectedPictogramElements().length >= 3) {
+			//Make sure selected pictogram is a shape. (Not a connection)
+			for(int i = 0; i < editor.getSelectedPictogramElements().length;i++){
+				if(!(pe[i]  instanceof Shape)){
+					return false;
+				}
+			}
+			return true;
+		} else {
 			return false;
+		}
 	}
-
 }
