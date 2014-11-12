@@ -25,25 +25,25 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.DiagramService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.SubcomponentService;
-import org.osate.ge.services.VisibilityService;
 
 public class UpdateFromDiagramFeature extends AbstractCustomFeature {
 	private final DiagramService diagramService;
 	private final SubcomponentService subcomponentService;
 	private final PropertyService propertyService;
-	private final VisibilityService visibilityService;
+	private final ShapeService shapeService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public UpdateFromDiagramFeature(final DiagramService diagramService, final SubcomponentService subcomponentService, 
-			final PropertyService propertyService, final VisibilityService visibilityService, final BusinessObjectResolutionService bor, 
+			final PropertyService propertyService, final ShapeService shapeService, final BusinessObjectResolutionService bor, 
 			final IFeatureProvider fp) {
 		super(fp);
 		this.diagramService = diagramService;
 		this.subcomponentService = subcomponentService;
 		this.propertyService = propertyService;
-		this.visibilityService = visibilityService;
+		this.shapeService = shapeService;
 		this.bor = bor;
 	}
 
@@ -110,10 +110,10 @@ public class UpdateFromDiagramFeature extends AbstractCustomFeature {
 	// TODO: Rename "foreign"
 	// Labels, etc
 	private void adjustInnerShapes(final ContainerShape shape, final ContainerShape foreignShape) {
-		for(final Shape innerShape : visibilityService.getNonGhostChildren(shape)) {
+		for(final Shape innerShape : shapeService.getNonGhostChildren(shape)) {
 			final Object bo = bor.getBusinessObjectForPictogramElement(innerShape);
 			if(bo != null && propertyService.getName(innerShape) == null) {
-				for(final Shape foreignInnerShape : visibilityService.getNonGhostChildren(foreignShape)) {
+				for(final Shape foreignInnerShape : shapeService.getNonGhostChildren(foreignShape)) {
 					final Object foreignBo = bor.getBusinessObjectForPictogramElement(foreignInnerShape);
 					if(bo == foreignBo) {
 						// Move the shape

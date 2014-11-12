@@ -76,7 +76,7 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
@@ -116,11 +116,11 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	}
 	
 	@Inject
-	public ConnectionPattern(final AadlFeatureService featureService, final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, 
+	public ConnectionPattern(final AadlFeatureService featureService, final GhostingService ghostingService, final StyleService styleUtil,final HighlightingService highlightingHelper, 
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
 			final @Named("Connection Type") EClass connectionType) {
-		super(visibilityHelper, connectionHelper, bor);
+		super(ghostingService, connectionHelper, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.highlightingHelper = highlightingHelper;

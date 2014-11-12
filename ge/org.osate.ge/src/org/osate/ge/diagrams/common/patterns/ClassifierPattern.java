@@ -75,7 +75,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.ui.util.ComponentImplementationHelper;
 import org.osate.ge.util.StringUtil;
@@ -88,7 +88,7 @@ public class ClassifierPattern extends AgePattern {
 	private static LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final String labelShapeName = "label";
 	private static final String subcomponentTypeLabelShapeName = "subcomponent_type_label";
-	private final VisibilityService visibilityHelper;
+	private final GhostingService ghostingService;
 	private final LayoutService layoutService;
 	private final ShapeService shapeService;
 	private final ShapeCreationService shapeCreationService;
@@ -106,7 +106,6 @@ public class ClassifierPattern extends AgePattern {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final RefactoringService refactoringService;
-	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType; // The subcomponent the pattern is responsible for handling. null if the pattern is for handling a classifier.
 	
@@ -136,13 +135,13 @@ public class ClassifierPattern extends AgePattern {
 	}
 	
 	@Inject
-	public ClassifierPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeService shapeService, final ShapeCreationService shapeCreationService,
+	public ClassifierPattern(final GhostingService ghostingService, final LayoutService layoutService, final ShapeService shapeService, final ShapeCreationService shapeCreationService,
 			final AadlFeatureService featureService, final SubcomponentService subcomponentService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final PropertyService propertyService, final AadlArrayService arrayService,
 			final HighlightingService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, 
 			final ConnectionService connectionService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
-		this.visibilityHelper = visibilityHelper;
+		this.ghostingService = ghostingService;
 		this.layoutService = layoutService;
 		this.shapeService = shapeService;
 		this.shapeCreationService = shapeCreationService;
@@ -160,7 +159,6 @@ public class ClassifierPattern extends AgePattern {
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
 		this.refactoringService = refactoringService;
-		this.connectionService = connectionService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -278,15 +276,17 @@ public class ClassifierPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y, final int minWidth, final int minHeight) {
-		visibilityHelper.setIsGhost(shape, false);
+		ghostingService.setIsGhost(shape, false);
 		
-		// Remove invalid features
-		visibilityHelper.ghostInvalidShapes(shape);
+		// Remove invalid child shapes
+		ghostingService.ghostInvalidChildShapes(shape);
 		
-		// TODO: Ghost all connections by owner here?
+		// Ghost all invalid connections owned by the shape
+		ghostingService.ghostInvalidConnections(shape);
+
 		final Classifier classifier = getClassifier(shape);
 		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
-		childShapesToGhost.addAll(visibilityHelper.getNonGhostChildren(shape));
+		childShapesToGhost.addAll(shapeService.getNonGhostChildren(shape));
 
 		final List<Shape> touchedShapes = new ArrayList<Shape>();
 		if(classifier != null) {
@@ -315,13 +315,7 @@ public class ClassifierPattern extends AgePattern {
 		// Ghost child shapes that were not updated. This is done before updating connections because the connections by refer to invisible or ghosted shapes
 		childShapesToGhost.removeAll(touchedShapes);
 		for(final Shape child : childShapesToGhost) {
-			visibilityHelper.setIsGhost(child, true);
-		}
-		
-		// Remove invalid connections from the diagram
-		visibilityHelper.ghostInvalidConnections(null);
-		if(bo instanceof Classifier) {
-			visibilityHelper.ghostInvalidConnections(ModeTransitionPattern.MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
+			ghostingService.setIsGhost(child, true);
 		}
 		
 		// Create mode transitions

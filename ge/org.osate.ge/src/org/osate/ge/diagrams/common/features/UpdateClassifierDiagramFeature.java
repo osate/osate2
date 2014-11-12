@@ -33,19 +33,19 @@ import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.util.Log;
 
 public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature, DiagramUpdateFeature {
 	private final StyleService styleService;
-	private final VisibilityService visibilityService;
+	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
 	
 	@Inject
-	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final VisibilityService visibilityService, final ShapeService shapeService) {
+	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final GhostingService ghostingService, final ShapeService shapeService) {
 		super(fp);
 		this.styleService = styleService;
-		this.visibilityService = visibilityService;
+		this.ghostingService = ghostingService;
 		this.shapeService = shapeService;
 	}
 
@@ -92,7 +92,7 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 		styleService.refreshStyles();
 				
 		// Remove shapes that are invalid
-		visibilityService.ghostInvalidShapes(diagram);
+		ghostingService.ghostInvalidChildShapes(diagram);
 
 		// Add/Update the shape for the classifier
 		final PictogramElement pe = shapeService.getDescendantShapeByElementQualifiedName(diagram, classifier);

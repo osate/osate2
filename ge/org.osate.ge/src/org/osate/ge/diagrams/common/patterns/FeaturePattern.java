@@ -95,7 +95,7 @@ import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.StringUtil;
 
@@ -118,7 +118,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private static final int labelPadding = 5;
 	private static final int annotationPadding = 5;
 	private final AnchorService anchorUtil;
-	private final VisibilityService visibilityHelper;
+	private final GhostingService ghostingService;
 	private final PropertyService propertyUtil;
 	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	private final ShapeService shapeService;
@@ -169,7 +169,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	@Inject
-	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
+	public FeaturePattern(final AnchorService anchorUtil, final GhostingService ghostingService, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
 			final ShapeService shapeService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
@@ -177,9 +177,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
 			final HighlightingService highlightingService, final RefactoringService refactoringService, final AadlArrayService arrayService,
 			final @Named("Feature Type") EClass featureType) {
-		super(anchorUtil, visibilityHelper);
+		super(anchorUtil, ghostingService);
 		this.anchorUtil = anchorUtil;
-		this.visibilityHelper = visibilityHelper;
+		this.ghostingService = ghostingService;
 		this.propertyUtil = propertyUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 		this.shapeService = shapeService;
@@ -349,7 +349,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	
 	private void layoutAll(final ContainerShape shape) {
 		// Layout the children first
-		for(final Shape child : visibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
+		for(final Shape child : shapeService.getNonGhostChildren(getFeatureShape(shape))) {
 			layoutAll((ContainerShape)child);
 		}
 		
@@ -371,7 +371,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	 * @param callDepth
 	 */
 	private void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
-		visibilityHelper.setIsGhost(shape, false);
+		ghostingService.setIsGhost(shape, false);
 		
 		final NamedElement feature = (NamedElement)bo;
 		final IGaService gaService = Graphiti.getGaService();
@@ -398,7 +398,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
         	propertyUtil.setName(featureShape, featureShapeName);
         } else {
         	gaService.createInvisibleRectangle(featureShape);
-        	visibilityHelper.ghostInvalidShapes(featureShape);
+        	ghostingService.ghostInvalidChildShapes(featureShape);
         }
         
         // Set the feature shape as an inner shape
@@ -438,7 +438,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        // Create a set of child shapes for deletion. We will remove shapes from this list as they are updated. If a shape isn't updated, it should be turned into a ghost even though
 		        // it has a valid business object associated with it.
 		        final Set<Shape> featureShapeChildrenToGhost = new HashSet<Shape>();
-		        featureShapeChildrenToGhost.addAll(visibilityHelper.getNonGhostChildren(featureShape));
+		        featureShapeChildrenToGhost.addAll(shapeService.getNonGhostChildren(featureShape));
 		        
 		        // Create shapes for each of the children if the feature group is not part of a subcomponent
 		        final Subcomponent sc = shapeService.getClosestBusinessObjectOfType(shape, Subcomponent.class);
@@ -485,7 +485,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				
 				// Remove children of the feature shape that were not updated
 				for(final Shape featureShapeChild : featureShapeChildrenToGhost) {
-					visibilityHelper.setIsGhost(featureShapeChild, true);
+					ghostingService.setIsGhost(featureShapeChild, true);
 				}
 			}
 			
@@ -600,7 +600,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		anchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerX + offset, flowSpecConnectorY);
 		
 		// Update the anchors of the children
-		for(final Shape child : visibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
+		for(final Shape child : shapeService.getNonGhostChildren(getFeatureShape(shape))) {
 			updateAnchors((ContainerShape)child);
 		}
 	}

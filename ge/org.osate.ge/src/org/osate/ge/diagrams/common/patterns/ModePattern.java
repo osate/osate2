@@ -64,7 +64,7 @@ import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class ModePattern extends AgeLeafShapePattern {
@@ -72,7 +72,6 @@ public class ModePattern extends AgeLeafShapePattern {
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
 	private final AnchorService anchorService;
-	private final ConnectionService connectionService;
 	private final LayoutService resizeHelper;
 	private final ShapeService shapeHelper;
 	private final PropertyService propertyService;
@@ -88,14 +87,13 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final RefactoringService refactoringService;
 	
 	@Inject
-	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final ConnectionService connectionService, final LayoutService resizeHelper, final ShapeService shapeHelper, 
+	public ModePattern(final AnchorService anchorUtil, final GhostingService ghostingService, final ConnectionService connectionService, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
 			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService, 
 			final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor) {
-		super(anchorUtil, visibilityHelper);
+		super(anchorUtil, ghostingService);
 		this.anchorService = anchorUtil;
-		this.connectionService = connectionService;
 		this.resizeHelper = resizeHelper;
 		this.shapeHelper = shapeHelper;
 		this.propertyService = propertyUtil;
@@ -205,7 +203,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
         // Remove connections related to the initial shape
-		getVisibilityService().ghostInvalidConnections(connectionService.getConnectionsByOwner(shape), ModePattern.INITIAL_MODE_CONNECTION_TYPE);
+		getVisibilityService().ghostInvalidConnections(shape);
 		
 		// Remove child shapes
 		// Clear all shapes except for the inner mode shape

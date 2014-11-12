@@ -8,23 +8,35 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.VisibilityService;
 
 public class DefaultShapeService implements ShapeService {
 	private final PropertyService propertyUtil;
-	private final VisibilityService visibilityHelper;
 	private final BusinessObjectResolutionService bor;
 	
-	public DefaultShapeService(final PropertyService propertyUtil, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor) {
+	public DefaultShapeService(final PropertyService propertyUtil, final BusinessObjectResolutionService bor) {
 		this.propertyUtil = propertyUtil;
-		this.visibilityHelper = visibilityHelper;
 		this.bor = bor;
+	}
+	
+	@Override
+	public List<Shape> getNonGhostChildren(final ContainerShape shape) {
+		final List<Shape> children = new ArrayList<Shape>();
+		for(final Shape child : shape.getChildren()) {
+			if(!propertyUtil.isGhost(child)) {
+				children.add(child);
+			}
+		}
+		
+		return children;
 	}
 	
 	/* (non-Javadoc)
@@ -97,7 +109,7 @@ public class DefaultShapeService implements ShapeService {
 	 */
 	@Override
 	public Shape getChildShapeByName(final ContainerShape shape, final String name) {
-		for(final Shape child : visibilityHelper.getNonGhostChildren(shape)) {
+		for(final Shape child : getNonGhostChildren(shape)) {
 			if(name.equals(propertyUtil.getName(child))) {
 				return child;
 			}

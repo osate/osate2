@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
+import java.util.List;
+
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.NamedElement;
@@ -18,7 +20,8 @@ import org.osate.aadl2.NamedElement;
  *
  */
 public interface ShapeService {
-
+	List<Shape> getNonGhostChildren(ContainerShape shape);
+	
 	/**
 	 * Gets a child shape tied to a particular element. Delegates to comparison by element name because there are scenarios where names can be duplicated. For example
 	 * an invalid model during copy and paste operations.

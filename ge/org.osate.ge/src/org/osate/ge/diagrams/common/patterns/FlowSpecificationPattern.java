@@ -57,7 +57,7 @@ import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class FlowSpecificationPattern extends AgeConnectionPattern {
@@ -73,11 +73,11 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public FlowSpecificationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil, 
+	public FlowSpecificationPattern(final GhostingService ghostingService, final StyleService styleUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil, 
 			final HighlightingService highlightingHelper, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final AadlFeatureService featureService, 
 			final NamingService namingService, final BusinessObjectResolutionService bor) {
-		super(visibilityHelper, connectionHelper, bor);
+		super(ghostingService, connectionHelper, bor);
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 		this.highlightingHelper = highlightingHelper;

@@ -62,7 +62,7 @@ import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
@@ -79,10 +79,10 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	private final PropertyService propertyService;
 	
 	@Inject
-	public ModeTransitionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
+	public ModeTransitionPattern(final GhostingService ghostingService, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
 			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService) {
-		super(visibilityHelper, connectionHelper, bor);
+		super(ghostingService, connectionHelper, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
 		this.namingService = namingService;

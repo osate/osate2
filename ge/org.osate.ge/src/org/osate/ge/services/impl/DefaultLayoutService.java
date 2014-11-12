@@ -21,17 +21,17 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.ShapeService;
 
 public class DefaultLayoutService implements LayoutService {
 	private final PropertyService propertyService;
-	private final VisibilityService visibilityService;
+	private final ShapeService shapeService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	
-	public DefaultLayoutService(final PropertyService propertyService, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public DefaultLayoutService(final PropertyService propertyService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.propertyService = propertyService;
-		this.visibilityService = visibilityHelper;
+		this.shapeService = shapeService;
 		this.bor = bor;
 		this.fp = fp;
 	}	
@@ -91,7 +91,7 @@ public class DefaultLayoutService implements LayoutService {
 	@Override
 	public void layoutChildren(final ContainerShape shape) {
 		// Layout the children first
-		for(final Shape child : visibilityService.getNonGhostChildren(shape)) {
+		for(final Shape child : shapeService.getNonGhostChildren(shape)) {
 			final LayoutContext ctx = new LayoutContext(child);
 			final ILayoutFeature feature = fp.getLayoutFeature(ctx);
 			if(feature != null && feature.canLayout(ctx)) {
@@ -116,7 +116,7 @@ public class DefaultLayoutService implements LayoutService {
 		// Determine how much to shift the X and Y of the children by based on the position of children shapes that are not tied to features. Shift values must always be greater than or equal to 0
 		int shiftX = 0;
 		int shiftY = 0;
-		for(final Shape childShape :  visibilityService.getNonGhostChildren(shape)) {
+		for(final Shape childShape :  shapeService.getNonGhostChildren(shape)) {
 			if(childShape.isVisible()) {
 				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
 				final boolean childIsFeature = isFeature(childBo);
@@ -141,7 +141,7 @@ public class DefaultLayoutService implements LayoutService {
 		int maxWidth = Math.max(150, shapeGa == null ? 0 : (shapeGa.getWidth() + shiftX));
 		int maxHeight = Math.max(50, shapeGa == null ? 0 : (shapeGa.getHeight() + shiftY));
 
-		for(final Shape childShape :  visibilityService.getNonGhostChildren(shape)) {
+		for(final Shape childShape :  shapeService.getNonGhostChildren(shape)) {
 			if(childShape.isVisible()) {
 				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
 				final boolean childIsFeature = isFeature(childBo);

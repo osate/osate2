@@ -69,7 +69,7 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
@@ -87,11 +87,11 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
 	@Inject
-	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
+	public PackageClassifierPattern(final AnchorService anchorUtil, final GhostingService ghostingService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
 			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
 			final NamingService namingService, final RefactoringService refactoringService, final DiagramModificationService diagramModService,
 			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
-		super(anchorUtil, visibilityHelper);
+		super(anchorUtil, ghostingService);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
 		this.modificationService = modificationService;

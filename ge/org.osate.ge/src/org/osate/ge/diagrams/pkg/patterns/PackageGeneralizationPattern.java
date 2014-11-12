@@ -56,7 +56,7 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection {
 	private final StyleService styleUtil;
@@ -67,11 +67,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	private final BusinessObjectResolutionService bor;
 
 	@Inject
-	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil,
+	public PackageGeneralizationPattern(final GhostingService ghostingService, final StyleService styleUtil,
 			final AadlModificationService modificationService, final ConnectionService connectionService,
 			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, 
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor) {
-		super(visibilityHelper, connectionService, bor);
+		super(ghostingService, connectionService, bor);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
 		this.connectionCreationService = connectionCreationService;

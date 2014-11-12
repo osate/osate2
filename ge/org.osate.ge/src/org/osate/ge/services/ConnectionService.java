@@ -11,7 +11,6 @@ package org.osate.ge.services;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
  * Contains methods for working with Graphiti connections
@@ -25,6 +24,4 @@ public interface ConnectionService {
 	Anchor[] getAnchors(ContainerShape ownerShape, Object bo);
 
 	ContainerShape getOwnerShape(Connection connection);
-	
-	Iterable<Connection> getConnectionsByOwner(Shape owner);
 }

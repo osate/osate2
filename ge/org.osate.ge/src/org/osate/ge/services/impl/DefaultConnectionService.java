@@ -8,9 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -21,8 +18,9 @@ import org.osate.ge.diagrams.common.connections.AadlConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.FlowSpecificationInfoProvider;
 import org.osate.ge.diagrams.common.connections.GeneralizationInfoProvider;
-import org.osate.ge.diagrams.common.connections.InitialModeInfoProvider;
+import org.osate.ge.diagrams.common.connections.InitialModeConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ModeTransitionInfoProvider;
+import org.osate.ge.diagrams.common.connections.ModeTransitionTriggerInfoProvider;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
@@ -46,7 +44,8 @@ public class DefaultConnectionService implements ConnectionService {
 				new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper),
 				new GeneralizationInfoProvider(bor, diagram, shapeHelper),
 				new ModeTransitionInfoProvider(bor, diagram, anchorUtil, shapeHelper),
-				new InitialModeInfoProvider(bor, diagram, propertyService)
+				new InitialModeConnectionInfoProvider(bor, diagram, propertyService),
+				new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService)
 		};
 	}
 	
@@ -106,20 +105,6 @@ public class DefaultConnectionService implements ConnectionService {
 		}
 		
 		return null;
-	}
-	
-	@Override
-	public Iterable<Connection> getConnectionsByOwner(final Shape owner) {
-		final List<Connection> results = new ArrayList<Connection>();
-		
-		// Populate the list with connections that are owned by the specified shape
-		for(final Connection c : getDiagram().getConnections()) {
-			if(getOwnerShape(c) == owner) {
-				results.add(c);
-			}
-		}
-
-		return results;		
 	}
 	
 	private ConnectionInfoProvider getInfoProviderByBusinessObject(final Object bo) {

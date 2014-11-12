@@ -41,18 +41,18 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.ShapeService;
 
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private static String RELAYOUT_SHAPES_PROPERTY_KEY = "relayout";
-	private final VisibilityService visibilityHelper;
+	private final ShapeService shapeService;
 	private final LayoutService resizeHelper;
 	private final PropertyService propertyUtil;
 	
 	@Inject
-	public LayoutDiagramFeature(final IFeatureProvider fp, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final PropertyService propertyUtil) {
+	public LayoutDiagramFeature(final IFeatureProvider fp, final ShapeService shapeService, final LayoutService resizeHelper, final PropertyService propertyUtil) {
 		super(fp);
-		this.visibilityHelper = visibilityHelper;
+		this.shapeService = shapeService;
 		this.resizeHelper = resizeHelper;
 		this.propertyUtil = propertyUtil;
 	}
@@ -124,7 +124,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	}
 	
 	private boolean layout(final ContainerShape shape, final LayoutAlgorithm alg, final boolean relayoutShapes) throws InvalidLayoutConfiguration {
-		final List<Shape> children = visibilityHelper.getNonGhostChildren(shape);
+		final List<Shape> children = shapeService.getNonGhostChildren(shape);
 		boolean updateVisualization = false;
 
 		// Layout the inside of the child shapes

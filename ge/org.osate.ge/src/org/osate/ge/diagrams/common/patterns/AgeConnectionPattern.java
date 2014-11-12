@@ -34,7 +34,7 @@ import org.osate.aadl2.Element;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 
 /**
  * Base class for all connection Patterns for AGE. Contains logic shared between all connection patterns.
@@ -42,13 +42,13 @@ import org.osate.ge.services.VisibilityService;
  *
  */
 public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete {
-	private final VisibilityService visibilityHelper;
+	private final GhostingService ghostingService;
 	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public AgeConnectionPattern(final VisibilityService visibilityHelper, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
-		this.visibilityHelper = visibilityHelper;
+	public AgeConnectionPattern(final GhostingService ghostingService, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
+		this.ghostingService = ghostingService;
 		this.connectionService = connectionService;
 		this.bor = bor;
 	}
@@ -154,12 +154,12 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		if(anchors == null) {
 			connection.setStart(null);
 			connection.setEnd(null);
-			visibilityHelper.setIsGhost(connection, true);
+			ghostingService.setIsGhost(connection, true);
 		}
 		else {
 			connection.setStart(anchors[0]);
 			connection.setEnd(anchors[1]);
-			visibilityHelper.setIsGhost(connection, false);
+			ghostingService.setIsGhost(connection, false);
 		
 			createGraphicsAlgorithmOnUpdate(connection);
 			createDecorators(connection);

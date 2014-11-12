@@ -8,9 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
@@ -25,16 +23,19 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 
-public class DefaultVisibilityService implements VisibilityService {
-	private final PropertyService propertyUtil;
+public class DefaultGhostingService implements GhostingService {
+	private final PropertyService propertyService;
+	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	
-	public DefaultVisibilityService(final PropertyService propertyUtil, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
-		this.propertyUtil = propertyUtil;
+	public DefaultGhostingService(final PropertyService propertyUtil, final ConnectionService connectionService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+		this.propertyService = propertyUtil;
+		this.connectionService = connectionService;
 		this.bor = bor;
 		this.fp = fp;
 	}
@@ -44,7 +45,7 @@ public class DefaultVisibilityService implements VisibilityService {
 	 */
 	@Override
 	public void setIsGhost(final PictogramElement pe, final boolean isGhost) {
-		propertyUtil.setIsGhost(pe, isGhost);
+		propertyService.setIsGhost(pe, isGhost);
 		updateVisibility(pe);	
 	}
 	
@@ -53,7 +54,7 @@ public class DefaultVisibilityService implements VisibilityService {
 	 * @param pe
 	 */
 	private void updateVisibility(final PictogramElement pe) {
-		final boolean visible = !propertyUtil.isGhost(pe);
+		final boolean visible = !propertyService.isGhost(pe);
 		pe.setVisible(visible);
 		if(pe instanceof Connection) {
 			final Connection c = (Connection)pe;
@@ -63,23 +64,8 @@ public class DefaultVisibilityService implements VisibilityService {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.VisibilityService#getNonGhostChildren(org.eclipse.graphiti.mm.pictograms.ContainerShape)
-	 */
 	@Override
-	public List<Shape> getNonGhostChildren(final ContainerShape shape) {
-		final List<Shape> children = new ArrayList<Shape>();
-		for(final Shape child : shape.getChildren()) {
-			if(!propertyUtil.isGhost(child)) {
-				children.add(child);
-			}
-		}
-		
-		return children;
-	}
-	
-	@Override
-	public void ghostInvalidShapes(final ContainerShape shape) {
+	public void ghostInvalidChildShapes(final ContainerShape shape) {
 		final Set<Object> updatedBos = new HashSet<Object>(); // Set used to track if an object already associated with a business object has not-been ghosted(considered valid)
 		
 		for(final Shape childShape : shape.getChildren()) {
@@ -117,34 +103,34 @@ public class DefaultVisibilityService implements VisibilityService {
 	}
 	
 	@Override
-	public void ghostInvalidConnections(final String connectionTypeFilter) {
-		ghostInvalidConnections(getDiagram().getConnections(), connectionTypeFilter);
+	public void ghostInvalidConnections(final ContainerShape shape) {
+		// Populate the list with connections that are owned by the specified shape
+		for(final Connection c : getDiagram().getConnections()) {
+			final ContainerShape owner = connectionService.getOwnerShape(c);
+			if(owner == shape || owner == null) {
+				ghostIfInvalid(c);
+			}
+		}				
 	}
 	
-	@Override
-	public void ghostInvalidConnections(final Iterable<Connection> connections, final String connectionTypeFilter) {
-		for(final Connection connection : connections) {
-			final String tmpConnectionType = propertyUtil.getConnectionType(connection);
-			if((connectionTypeFilter == null && tmpConnectionType == null) || (connectionTypeFilter != null && connectionTypeFilter.equals(tmpConnectionType))) {
-				boolean ghost = false;
-				final Object bo = bor.getBusinessObjectForPictogramElement(connection);
+	private void ghostIfInvalid(final Connection connection) {
+		boolean ghost = false;
+		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 
-				// If the business object is not valid, ghost the connection
-				if(bo == null) {
-					ghost = true;
-				} else {
-					// If there is not a pattern to update the connection, ghost it
-					final UpdateContext updateContext = new UpdateContext(connection);
-					final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-					if(updateFeature == null || !updateFeature.canUpdate(updateContext)) {
-						ghost = true;
-					}
-				}
-				
-				if(ghost) {
-					setIsGhost(connection, true);
-				}
+		// If the business object is not valid, ghost the connection
+		if(bo == null) {
+			ghost = true;
+		} else {
+			// If there is not a pattern to update the connection, ghost it
+			final UpdateContext updateContext = new UpdateContext(connection);
+			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+			if(updateFeature == null || !updateFeature.canUpdate(updateContext)) {
+				ghost = true;
 			}
+		}
+		
+		if(ghost) {
+			setIsGhost(connection, true);
 		}
 	}
 	

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
+ * Copyright (C) 2014 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,11 +20,15 @@ import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
 
-public class InitialModeInfoProvider extends AbstractConnectionInfoProvider {
+/**
+ * Connection Info Provider for initial mode indicator connections. The connections are transient. They are recreated whenever the mode is updated. 
+ * They are owned by the mode shape of the mode which is the initial mode.
+ */
+public class InitialModeConnectionInfoProvider extends AbstractConnectionInfoProvider {
 	private final PropertyService propertyService;
 	
 	@Inject
-	public InitialModeInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final PropertyService propertyService) {
+	public InitialModeConnectionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final PropertyService propertyService) {
 		super(bor, diagram);
 		this.propertyService = propertyService;
 	}
