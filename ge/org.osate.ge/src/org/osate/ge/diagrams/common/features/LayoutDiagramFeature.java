@@ -70,15 +70,12 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	@Override
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
-		//Checks if inner Graphics algorithm is null if yes the right clicked area was the empty space.
-		if(customCtx.getInnerGraphicsAlgorithm() != null) {
-			return false;
-		}
-		return true;
+		// Only make the feature available if the user is right clicking on the outer diagram.
+		return customCtx.getPictogramElements().length == 1 && customCtx.getPictogramElements()[0] instanceof Diagram;
 	}
 	
 	@Override
-	public boolean canExecute(ICustomContext context) {
+	public boolean canExecute(final ICustomContext context) {
 		return true;
 	}
 
