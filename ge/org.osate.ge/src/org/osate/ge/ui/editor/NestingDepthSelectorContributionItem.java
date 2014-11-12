@@ -44,22 +44,19 @@ public class NestingDepthSelectorContributionItem extends ComboContributionItem 
 	}
 	
 	public final void setActiveEditor(final IEditorPart newEditor) {
-		if(editor != newEditor) {
-			unregisterPropertyChangeListener();
-			
-			// Set the new editor
-			if(newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor)newEditor;
-			} else {
-				this.editor = null;
-			}
-			
-			// Register the listener with the new editor
-			registerPropertyChangeListener();
+		unregisterPropertyChangeListener();
+		
+		// Set the new editor
+		if(newEditor instanceof AgeDiagramEditor) {
+			this.editor = (AgeDiagramEditor)newEditor;
+		} else {
+			this.editor = null;
 		}
 		
-		// Refresh the value even if the editor hasn't changed
 		refresh();
+		
+		// Register the listener with the new editor
+		registerPropertyChangeListener();
 	}
 	
 	@Override
@@ -69,8 +66,10 @@ public class NestingDepthSelectorContributionItem extends ComboContributionItem 
 	}	
 	
 	private void registerPropertyChangeListener() {
-		final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
-		diagram.eAdapters().add(nestingPropertyChangeListener);
+		if(editor != null) {
+			final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
+			diagram.eAdapters().add(nestingPropertyChangeListener);
+		}
 	}
 
 	private void unregisterPropertyChangeListener() {
