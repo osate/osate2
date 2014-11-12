@@ -2,7 +2,6 @@ package org.osate.xtext.aadl2.ui.propertyview;
 
 import com.google.inject.Inject
 import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
-import java.io.StringReader
 import java.util.Collections
 import java.util.HashMap
 import java.util.List
@@ -47,12 +46,13 @@ import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.linking.ILinker
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
-import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer
+import org.eclipse.xtext.resource.XtextResource
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.ISerializer
 import org.eclipse.xtext.ui.editor.XtextEditor
 import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
+import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.BasicProperty
@@ -658,12 +658,15 @@ class AadlPropertyView extends ViewPart {
 					Property: {
 						val association = cachedPropertyAssociations.get(treeElement.owner).get(treeElement)
 						if (association != null && input == association.owner && !association.modal) {
-							val propertyExpression = aadl2Parser.parse(aadl2Parser.grammarAccess.propertyExpressionRule, new StringReader(value as String)).rootASTElement as PropertyExpression
-							xtextDocument.modify[
-								association.ownedValues.head.ownedValue = propertyExpression
-								linker.linkModel(propertyExpression, new ListBasedDiagnosticConsumer)
-								null
-							]
+							val associationUri = EcoreUtil.getURI(association)
+							val node = NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
+							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+								override process(XtextResource state) throws Exception {
+									state.update(node.offset, node.length, value as String)
+								}
+							})
+							cachedPropertyAssociations.get(treeElement.owner).put(treeElement, input.eResource.resourceSet.getEObject(associationUri, false) as PropertyAssociation)
+							treeViewer.refresh(element)
 						} else {
 							throw new UnsupportedOperationException("TODO: auto-generated method stub")
 						}
