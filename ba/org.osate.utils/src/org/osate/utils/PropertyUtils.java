@@ -1056,7 +1056,7 @@ public class PropertyUtils {
   /**
    * Returns the property association which match
    * the given propertyName if it is defined within the given named element
-   * but not within its ancestors ! May return null.
+   * BUT NOT WITHIN ITS ANCESTORS ! May return null.
    * 
    * May return null.
    * 
