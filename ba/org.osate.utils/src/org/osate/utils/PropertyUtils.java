@@ -238,7 +238,61 @@ public class PropertyUtils {
 
 		return null ;
 	}
+	
+	public static List<RecordValue> getListRecordValue(NamedElement ne,
+	                                                   String propertyName)
+	{
+	  List<RecordValue> result = null ;
+	  
+	  ListValue lv = getListValue(ne, propertyName) ;
+	  
+	  if(lv != null)
+	  {
+	    EList<PropertyExpression> pes = lv.getOwnedListElements() ;
+	    
+	    if(pes.size() != 0 && pes.get(0) instanceof RecordValue)
+	    {
+	      result = new ArrayList<RecordValue>(pes.size()) ;
+	      
+	      for (PropertyExpression pe : pes)
+	      {
+	        result.add((RecordValue) pe) ;
+	      }
+	    }
+	  }
+	  
+	  return result ;
+	}
+	
+	public static ListValue getListValue(NamedElement ne,
+	                                     String propertyName)
+	{
+	   PropertyAssociation pa = findProperty(propertyName, ne);
 
+	   if (pa != null)
+	   {
+	     Property p = pa.getProperty();
+
+	     if (p.getName().equalsIgnoreCase(propertyName))
+	     {
+	       List<ModalPropertyValue> values = pa.getOwnedValues();
+
+	       if (values.size() == 1)
+	       {
+	         ModalPropertyValue v = values.get(0);
+	         PropertyExpression expr = v.getOwnedValue();
+
+	         if (expr instanceof ListValue)
+	         {
+	           return (ListValue) expr;
+	         }
+	       }
+	     }
+	   }
+	   
+	   return null ;
+	}
+	                                             
 	/**
 	 * Extract float value from a specified property. May return null.
 	 * 

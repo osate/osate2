@@ -206,7 +206,7 @@ public class AadlBaUnparser
   {
     String toAdd = null ;
     
-    String refPackageName = "" ; // ref.getElementRoot().getName() ;
+    String refPackageName = ref.getElementRoot().getName() ;
     
     String elPackageName = el.getElementRoot().getName() ;
     
