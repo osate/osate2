@@ -1,9 +1,13 @@
 package org.osate.ge.ui.editor;
 
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osate.ge.Activator;
@@ -14,7 +18,18 @@ public class DecreaseNestingDepthAction extends SelectionAction {
 	public static final ImageDescriptor IMAGE_DESCRIPTOR = Activator.getImageDescriptor("icons/arrow_decr_nesting.png");
 	
 	private final AgeDiagramEditor editor;
-	private final PropertyService propertyService;
+	private final PropertyService propertyService;	
+	private final Adapter nestingPropertyChangeListener = new AdapterImpl() {
+		@Override
+		public void notifyChanged(final Notification notification) {
+			if(notification.getNewValue() instanceof Property) {
+				final Property property = (Property)notification.getNewValue();
+				if(propertyService.getNestingDepthKey().equals(property.getKey())) {
+					update();
+				}
+			}
+		}	
+	};
 	
 	public DecreaseNestingDepthAction(final AgeDiagramEditor editor, final PropertyService propertyService) {
 		super(editor);
@@ -23,8 +38,15 @@ public class DecreaseNestingDepthAction extends SelectionAction {
 		setId(ID);
 		setText("Decrease Nesting Depth");
 		setHoverImageDescriptor(IMAGE_DESCRIPTOR);
+		registerPropertyChangeListener();
 	}
 
+	@Override
+	public void dispose() {
+		unregisterPropertyChangeListener();
+		super.dispose();
+	}
+	
 	@Override
 	public void run() {
 		final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
@@ -51,5 +73,17 @@ public class DecreaseNestingDepthAction extends SelectionAction {
 	protected boolean calculateEnabled() {
 		final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
 		return propertyService.getNestingDepth(diagram) > 0;
+	}
+	
+	private void registerPropertyChangeListener() {
+		final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
+		diagram.eAdapters().add(nestingPropertyChangeListener);
+	}
+
+	private void unregisterPropertyChangeListener() {
+		if(editor != null) {
+			final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
+			diagram.eAdapters().remove(nestingPropertyChangeListener);
+		}
 	}
 }

@@ -88,6 +88,11 @@ public class DefaultPropertyService implements PropertyService {
 		Graphiti.getPeService().setPropertyValue(diagram, NESTING_DEPTH_KEY, Integer.toString(depth));
 	}
 	
+	@Override
+	public final String getNestingDepthKey() {
+		return NESTING_DEPTH_KEY;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.PropertyService#getSelectedMode(org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */

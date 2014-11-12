@@ -43,12 +43,6 @@ public class IncreaseNestingDepthAction extends SelectionAction {
 				}
 			}				
 		});
-				
-		// Refresh the decrease nesting depth action
-		final DecreaseNestingDepthAction decreaseNestingAction = (DecreaseNestingDepthAction)editor.getActionRegistry().getAction(DecreaseNestingDepthAction.ID);
-		if(decreaseNestingAction != null) {
-			decreaseNestingAction.update();
-		}
 	}
 
 	@Override

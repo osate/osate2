@@ -25,11 +25,13 @@ import org.osate.ge.services.impl.DefaultPropertyService;
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
 	final FlowContributionItem selectedFlowItem;
+	final NestingDepthSelectorContributionItem nestingDepthSelectorItem;
 	
 	public AgeDiagramEditorActionBarContributor() {
 		final PropertyService propService = new DefaultPropertyService();
 		selectedModeItem = new ModeContributionItem("org.osate.ge.ui.editor.items.selected_mode", propService);
 		selectedFlowItem = new FlowContributionItem("org.osate.ge.ui.editor.items.selected_flow", propService);
+		nestingDepthSelectorItem = new NestingDepthSelectorContributionItem("org.osate.ge.ui.editor.items.nesting_depth", propService);
 	}
 	
 	@Override
@@ -57,6 +59,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 
 		// Add nesting depth control actions
 		final String nestingControlInsertionPoint = MatchSizeAction.MATCH_SIZE;
+		tbm.insertAfter(nestingControlInsertionPoint, nestingDepthSelectorItem);
 		tbm.insertAfter(nestingControlInsertionPoint, getAction(IncreaseNestingDepthAction.ID));
 		tbm.insertAfter(nestingControlInsertionPoint, getAction(DecreaseNestingDepthAction.ID));
 		tbm.insertAfter(nestingControlInsertionPoint, new Separator());
@@ -92,6 +95,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		super.setActiveEditor(editor);
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
+		nestingDepthSelectorItem.setActiveEditor(editor);
 	}
 
 }
