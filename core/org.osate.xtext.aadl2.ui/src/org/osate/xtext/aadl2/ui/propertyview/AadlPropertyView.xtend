@@ -59,21 +59,17 @@ import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.Element
-import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ListValue
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.NamedElement
-import org.osate.aadl2.NumberValue
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeValue
-import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.RecordValue
-import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
@@ -226,9 +222,6 @@ class AadlPropertyView extends ViewPart {
 					}
 					'''in modes («modes.map[name].join(", ")»)'''
 				}
-				IntegerLiteral: "aadlinteger"
-				RealLiteral: "aadlreal"
-				UnitLiteral: "unit"
 				Pair<Object, PropertyExpression>: {
 					switch key : treeElement.key {
 						String: key
@@ -281,11 +274,6 @@ class AadlPropertyView extends ViewPart {
 					}
 				}
 				ModalPropertyValue: resolvedElement.ownedValue.getValueAsString(serializer)
-				NumberValue: {
-					val serializedNumberValue = resolvedElement.getValueAsString(serializer)
-					serializedNumberValue.substring(0, serializedNumberValue.toUpperCase.lastIndexOf(resolvedElement.unit.name.toUpperCase)).trim
-				}
-				UnitLiteral: resolvedElement.name
 				Pair<Object, PropertyExpression>: resolvedElement.value.resolveIfProxy.getValueAsString(serializer)
 				BasicPropertyAssociation: resolvedElement.value.getValueAsString(serializer)
 			}
@@ -368,12 +356,7 @@ class AadlPropertyView extends ViewPart {
 					}
 					Pair<Object, PropertyExpression>: {
 						switch treeElement.key {
-							String: {
-								switch value : treeElement.value {
-									NumberValue case value.unit != null: 2
-									default: 0
-								}
-							}
+							String: 0
 							Integer: {
 								getChildCount(treeElement.value, (treeElement.value.getContainerOfType(BasicPropertyAssociation)?.property ?:
 									treeElement.value.getContainerOfType(PropertyAssociation)?.property ?:
@@ -393,7 +376,6 @@ class AadlPropertyView extends ViewPart {
 		
 		def private getChildCount(PropertyExpression expression, PropertyType propertyType, PropertyExpression defaultValue) {
 			switch expression {
-				NumberValue case expression.unit != null: 2
 				RangeValue case expression.delta == null: 2
 				RangeValue case expression.delta != null: 3
 				RecordValue: {
@@ -449,21 +431,11 @@ class AadlPropertyView extends ViewPart {
 						val property = treeElement.getContainerOfType(PropertyAssociation).property
 						getElement(treeElement.ownedValue, index, property.propertyType, property.defaultValue)
 					}
-					Pair<Object, PropertyExpression>: {
-						switch treeElement.key {
-							String: {
-								switch index {
-									case 0: treeElement.value
-									case 1: (treeElement.value as NumberValue).unit
-								}
-							}
-							Integer: {
-								getElement(treeElement.value, index, (treeElement.value.getContainerOfType(BasicPropertyAssociation)?.property ?:
-									treeElement.value.getContainerOfType(PropertyAssociation)?.property ?:
-									treeElement.value.getContainerOfType(Property)
-								).propertyType.basePropertyType, null)
-							}
-						}
+					Pair<Integer, PropertyExpression>: {
+						getElement(treeElement.value, index, (treeElement.value.getContainerOfType(BasicPropertyAssociation)?.property ?:
+							treeElement.value.getContainerOfType(PropertyAssociation)?.property ?:
+							treeElement.value.getContainerOfType(Property)
+						).propertyType.basePropertyType, null)
 					}
 					BasicPropertyAssociation: getElement(treeElement.value, index, treeElement.property.propertyType, null)
 				}
@@ -474,12 +446,6 @@ class AadlPropertyView extends ViewPart {
 		
 		def private getElement(PropertyExpression expression, int index, PropertyType propertyType, PropertyExpression defaultValue) {
 			switch expression {
-				NumberValue: {
-					switch index {
-						case 0: expression
-						case 1: expression.unit
-					}
-				}
 				RangeValue: {
 					switch index {
 						case 0: "minimum" -> expression.minimum
