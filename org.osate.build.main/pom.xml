@@ -35,9 +35,6 @@
 	<profiles>
 		<profile>
 			<id>full</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<modules>
 				<module>../org.osate.aadl2</module>
 				<module>../org.osate.aadl2.edit</module>
@@ -107,6 +104,20 @@
 				<module>../../osate-ge/org.osate.ge.doc</module>
 				<module>../../osate-ge/org.osate.ge.feature</module>
 				
+				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree</module>
+				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
+				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
+				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
+				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.source.feature</module>
+
+				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
+				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
+				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ngrep</module>
+				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.schedule.analysis</module>
+				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
+				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
+				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
+
 				<module>../org.osate.core.tests</module>
 				<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
 			</modules>
@@ -240,20 +251,6 @@
 				<module>../../osate-ge/org.osate.ge</module>
 				<module>../../osate-ge/org.osate.ge.doc</module>
 				<module>../../osate-ge/org.osate.ge.feature</module>
-
-				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree</module>
-				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
-				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
-				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
-				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.source.feature</module>
-
-				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
-				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
-				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ngrep</module>
-				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.schedule.analysis</module>
-				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
-				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
-				<module>../../smaccm-improvements/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
 			</modules>
 			<build>
 				<plugins>
