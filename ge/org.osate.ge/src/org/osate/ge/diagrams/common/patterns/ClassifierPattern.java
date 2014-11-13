@@ -34,6 +34,7 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -94,6 +95,7 @@ public class ClassifierPattern extends AgePattern {
 	private final ShapeCreationService shapeCreationService;
 	private final AadlFeatureService featureService;
 	private final SubcomponentService subcomponentService;
+	private final ConnectionService connectionService;
 	private final ConnectionCreationService connectionCreationService;
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
@@ -159,6 +161,7 @@ public class ClassifierPattern extends AgePattern {
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
 		this.refactoringService = refactoringService;
+		this.connectionService = connectionService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -278,12 +281,21 @@ public class ClassifierPattern extends AgePattern {
 	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y, final int minWidth, final int minHeight) {
 		ghostingService.setIsGhost(shape, false);
 		
+		// Determine whether the subcomponent/classifier should be shown based on the the depth level setting
+		final int depthLevel = getDepthLevel(shape);
+		final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
+		
 		// Remove invalid child shapes
 		ghostingService.ghostInvalidChildShapes(shape);
 		
 		// Ghost all invalid connections owned by the shape
 		ghostingService.ghostInvalidConnections(shape);
 
+		// Ghost descendant connections if contents should not be shown. Flow specs will be unghosted when they are updated.
+		if(!showContents) {
+			ghostDescendantConnections(shape);
+		}
+		
 		final Classifier classifier = getClassifier(shape);
 		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
 		childShapesToGhost.addAll(shapeService.getNonGhostChildren(shape));
@@ -293,9 +305,6 @@ public class ClassifierPattern extends AgePattern {
 			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllOwnedFeatures(classifier), touchedShapes);
 		}
 		
-		// Hide the contents of the shape based on the shape's depth level and the nesting depth setting
-		final int depthLevel = getDepthLevel(shape);
-		final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
 		if(showContents) {
 			// Create component implementation specific shapes
 			if(classifier instanceof ComponentImplementation) {
@@ -318,20 +327,20 @@ public class ClassifierPattern extends AgePattern {
 			ghostingService.setIsGhost(child, true);
 		}
 		
-		// Create mode transitions
 		if(showContents) {
+			// Create mode transitions
 			if(classifier instanceof ComponentClassifier) {
 				final ComponentClassifier cc = (ComponentClassifier)classifier;
 				connectionCreationService.createUpdateConnections(shape, cc.getAllModeTransitions());
 			}
+
+			// Create connections
+			if(classifier instanceof ComponentImplementation) {
+				final ComponentImplementation ci = (ComponentImplementation)classifier;
+				connectionCreationService.createUpdateConnections(shape, ci.getAllConnections());
+			}
 		}
 		
-		// Create connections
-		if(classifier instanceof ComponentImplementation) {
-			final ComponentImplementation ci = (ComponentImplementation)classifier;
-			connectionCreationService.createUpdateConnections(shape, ci.getAllConnections());
-		}
-
 		// Create/Update Flow Specifications
 		final ComponentType componentType;
 		if(classifier instanceof ComponentType) {
@@ -373,6 +382,28 @@ public class ClassifierPattern extends AgePattern {
 		// Create/update the chopbox anchor
 		anchorService.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}	
+
+	// Ghost all connections that are owned by the shape or descendants
+	private void ghostDescendantConnections(final Shape shape) {
+		for(final Connection c : getDiagram().getConnections()) {
+			final Shape ownerShape = connectionService.getOwnerShape(c);
+			if(isDescendantOrSame(shape, ownerShape)) {
+				ghostingService.setIsGhost(c,  true);
+			}
+		}
+	}
+	
+	private boolean isDescendantOrSame(final Shape container, Shape shapeToCheck) {
+		while(shapeToCheck != null) {
+			if(shapeToCheck == container) {
+				return true;
+			}
+			
+			shapeToCheck = shapeToCheck.getContainer();
+		}
+
+		return false;
+	}
 	
 	private GraphicsAlgorithm getBackgroundFromLabelShape(final Shape labelShape) {
 		final GraphicsAlgorithm bg = labelShape.getGraphicsAlgorithm();

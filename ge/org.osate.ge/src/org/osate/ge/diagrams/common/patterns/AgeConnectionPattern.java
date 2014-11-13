@@ -150,7 +150,6 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		final Connection connection = (Connection)context.getPictogramElement();
 		final Anchor[] anchors = getAnchors(connection);
 
-		// Update anchors
 		if(anchors == null) {
 			connection.setStart(null);
 			connection.setEnd(null);
