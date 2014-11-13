@@ -330,7 +330,7 @@ public class CMAUtils {
 							entry.addRelatedComponent(firstComponent);
 							entry.addRelatedComponent(secondComponent);
 							entry.setJustification(justification);
-							entry.setMode("Defective specification common bindings");
+							entry.setMode("Common bindings");
 							entry.setType(EntryType.ARCHITECTURE_DESIGN);
 
 							entry.setSeverity(currentSeverity);
@@ -365,7 +365,7 @@ public class CMAUtils {
 							entry.addRelatedComponent(firstComponent);
 							entry.addRelatedComponent(secondComponent);
 							entry.setJustification(justification);
-							entry.setMode("Defective specification common bindings");
+							entry.setMode("Common bindings");
 							entry.setType(EntryType.ARCHITECTURE_DESIGN);
 
 							entry.setSeverity(currentSeverity);
