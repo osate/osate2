@@ -69,7 +69,7 @@ public class AadlBaUtils {
     {
       
       EList<PropertyExpression> l = 
-            PropertyUtils.getPropertyExpression(c,
+            PropertyUtils.findPropertyExpression(c,
               DataModelProperties.DATA_REPRESENTATION) ;
       if(l.size() > 0)
       {
@@ -1174,7 +1174,7 @@ public class AadlBaUtils {
       }
       
       EList<PropertyExpression> pel = 
-                                 PropertyUtils.getPropertyExpression(type.klass,
+                                 PropertyUtils.findPropertyExpression(type.klass,
                                                 DataModelProperties.DIMENSION) ;
       int declareDimBT = 0 ;
       long[] declareDimSizeBT ;
@@ -1855,7 +1855,7 @@ public class AadlBaUtils {
     Element el ;
 
     EList<PropertyExpression> lpe = 
-                                PropertyUtils.getPropertyExpression(component,
+                                PropertyUtils.findPropertyExpression(component,
                                                 DataModelProperties.BASE_TYPE) ;
     if(lpe != null && (! lpe.isEmpty()))
     {

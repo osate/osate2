@@ -268,7 +268,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                if(operand2.klass != null)
                {
                   EList<org.osate.aadl2.PropertyExpression> l = 
-                     PropertyUtils.getPropertyExpression(operand2.klass,
+                     PropertyUtils.findPropertyExpression(operand2.klass,
                     		                DataModelProperties.INTEGER_RANGE) ;
                   if(l.size() > 0)
                   {

@@ -962,7 +962,7 @@ public class AadlBaNameResolver
     if(rep == DataRepresentation.STRUCT || rep == DataRepresentation.UNION)
     {
       EList<PropertyExpression> lpv = 
-                                  PropertyUtils.getPropertyExpression(component,
+                                  PropertyUtils.findPropertyExpression(component,
                                             DataModelProperties.ELEMENT_NAMES) ;
       ListValue lv = null ;
       StringLiteral sl = null ;
@@ -994,7 +994,7 @@ public class AadlBaNameResolver
       if (result)
       {
         EList<PropertyExpression> lpv2 = 
-                                  PropertyUtils.getPropertyExpression(component,
+                                  PropertyUtils.findPropertyExpression(component,
                                                 DataModelProperties.BASE_TYPE) ;
         
         ClassifierValue cv ;
@@ -1008,7 +1008,7 @@ public class AadlBaNameResolver
     else if (rep == DataRepresentation.ARRAY)
     {
       EList<PropertyExpression> lpv =
-         PropertyUtils.getPropertyExpression(component,
+         PropertyUtils.findPropertyExpression(component,
                                           DataModelProperties.BASE_TYPE) ;
       
       if(lpv.isEmpty() == false)
@@ -1606,7 +1606,7 @@ public class AadlBaNameResolver
         ClassifierFeature cf = (ClassifierFeature) el ;
         
         // Fetch the own property association of the classifier feature. 
-        pa = PropertyUtils.getPropertyAssociation(cf, propertyNameId.getId());
+        pa = PropertyUtils.findPropertyAssociation(propertyNameId.getId(), cf);
         
         if(pa == null)
         {
@@ -1635,13 +1635,8 @@ public class AadlBaNameResolver
       // search within its type.
       if(pa == null && type != null)
       {
-        EList<PropertyAssociation> pal = PropertyUtils.
-                                           getPropertyAssociations(type,
-                                                        propertyNameId.getId());
-        if(false == pal.isEmpty())
-        {
-          pa = pal.get(pal.size() - 1 ) ;
-        }
+        pa = PropertyUtils.findPropertyAssociation(propertyNameId.getId(),
+                                                   type);
       }
       
       if(pa != null)
@@ -1676,13 +1671,10 @@ public class AadlBaNameResolver
       Classifier klass = (Classifier) ref.getQualifiedName().getOsateRef() ;
       Identifier propertyNameId =  ref.getPropertyNames().get(0).getPropertyName();
       
-      EList<PropertyAssociation> pal =  PropertyUtils.
-                                     getPropertyAssociations(klass,
-                                                       propertyNameId.getId()) ;
-      if(false == pal.isEmpty())
+      PropertyAssociation pa = PropertyUtils.findPropertyAssociation(
+                                              propertyNameId.getId(), klass) ;
+      if(pa != null)
       {
-        PropertyAssociation pa = pal.get(pal.size()-1) ;
-        
         ref.getPropertyNames().get(0).setOsateRef(pa);
         propertyNameId.setOsateRef(pa);
         

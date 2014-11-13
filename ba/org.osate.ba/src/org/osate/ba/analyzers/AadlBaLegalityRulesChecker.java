@@ -512,7 +512,7 @@ public class AadlBaLegalityRulesChecker
         // list will be empty.
 
         EList<org.osate.aadl2.PropertyExpression> vl ;
-        vl = PropertyUtils.getPropertyExpression(_baParentContainer,
+        vl = PropertyUtils.findPropertyExpression(_baParentContainer,
                                                  ThreadProperties.DISPATCH_PROTOCOL) ;
         if(vl.size() > 0)
         {
@@ -611,7 +611,7 @@ public class AadlBaLegalityRulesChecker
         _alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.put(bs, bt);
 
         EList<org.osate.aadl2.PropertyExpression> vl ;
-        vl = PropertyUtils.getPropertyExpression(_baParentContainer,
+        vl = PropertyUtils.findPropertyExpression(_baParentContainer,
                                                  ThreadProperties.DISPATCH_PROTOCOL) ;
         if(vl.size() > 0)
         {
