@@ -103,7 +103,7 @@
 				<module>../../osate-ge/org.osate.ge</module>
 				<module>../../osate-ge/org.osate.ge.doc</module>
 				<module>../../osate-ge/org.osate.ge.feature</module>
-				
+
 				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree</module>
 				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
 				<module>../../smaccm-improvements/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
@@ -334,6 +334,14 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<compilerArgument>-err:-forbidden</compilerArgument>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
