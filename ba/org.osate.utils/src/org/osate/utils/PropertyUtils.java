@@ -85,12 +85,13 @@ public class PropertyUtils {
    * <br>
    * 3. If the named element is a component instance, find the property
    *    association within the component instance's component implementation.
+   * <br>
    * 4. If the named element is a component implementation, first look within
    *    it and its ancestors then its component type (and the component type
    *    's ancestors).
-   *    
+   * <br>   
    * 5. If the named element is a component type, find the property association
-   *    within it and its ancestors.    * 
+   *    within it and its ancestors. 
    * 
    * @param propertyName a given property name
    * @param owner a given named element

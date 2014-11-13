@@ -21,9 +21,11 @@
 
 package org.osate.utils;
 
+import java.io.BufferedWriter ;
 import java.io.File ;
 import java.io.FileFilter ;
 import java.io.FileNotFoundException ;
+import java.io.FileWriter ;
 import java.io.IOException ;
 import java.util.Collections ;
 import java.util.LinkedHashSet ;
@@ -149,6 +151,16 @@ public class FileUtils
     {
       FileUtils.copyFiles(f, destFolder, excludedNodeNames) ;
     }
+  }
+  
+  public static void copyIntoFile(File inFile, String string2write) 
+                                                              throws IOException
+  {
+    BufferedWriter out;
+    out = new BufferedWriter(new FileWriter(inFile));
+    out.write(string2write);
+    out.newLine();
+    out.close();
   }
   
   /**
