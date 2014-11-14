@@ -10,6 +10,7 @@ package org.osate.ge.ui.editor;
 
 
 import org.eclipse.gef.ui.actions.GEFActionConstants;
+import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
@@ -17,6 +18,7 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 
 
+@SuppressWarnings({ "restriction" })
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
 	final FlowContributionItem selectedFlowItem;
@@ -47,6 +49,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
 		tbm.add(new Separator());
+		tbm.remove(ToggleContextButtonPadAction.ACTION_ID);
 	}
 	
 	@Override
@@ -55,6 +58,5 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
 	}
-	
 
 }
