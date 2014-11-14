@@ -11,7 +11,6 @@ package org.osate.ge.diagrams.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -23,7 +22,6 @@ import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
-import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
@@ -62,6 +60,7 @@ import org.osate.ge.diagrams.common.features.ComponentToPackageFeature;
 import org.osate.ge.diagrams.common.features.ConfigureInModesFeature;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
+import org.osate.ge.diagrams.common.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.diagrams.common.features.RenameModeTransitionFeature;
 import org.osate.ge.diagrams.common.features.SetDerivedModesFeature;
@@ -278,6 +277,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(ComponentToPackageFeature.class));
 		features.add(make(GraphicalToTextualFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
+		features.add(make(InstantiateComponentImplementationFeature.class));
 		
 		features.add(make(ConfigureInModesFeature.class));
 		features.add(createSetInitialModeFeature(true));
