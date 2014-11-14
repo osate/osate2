@@ -363,7 +363,7 @@
 		</section>
 		<section>
 			<title>Updating a Diagram</title>
-			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>
+			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>
 			<imageobject>
     			<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
   			</imageobject>
