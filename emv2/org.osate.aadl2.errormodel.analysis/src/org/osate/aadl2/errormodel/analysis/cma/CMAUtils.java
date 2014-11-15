@@ -439,7 +439,7 @@ public class CMAUtils {
 
 						}
 						entry.setJustification(justification);
-						entry.setMode("Defective specification");
+						entry.setMode("Duplicate specification");
 						entry.setType(EntryType.SPECIFICATION);
 
 						entry.setSeverity(currentSeverity);
