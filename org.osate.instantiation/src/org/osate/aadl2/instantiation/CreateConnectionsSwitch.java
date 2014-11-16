@@ -935,7 +935,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					connInfo.src = srcFi;
 					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 				}
-				if (dstFi.getDirection() != DirectionType.OUT) {
+				if (connInfo.isBidirectional() && dstFi.getDirection() != DirectionType.OUT) {
 					connInfo.src = dstFi;
 					addConnectionInstance(parentci.getSystemInstance(), connInfo, srcFi);
 				}

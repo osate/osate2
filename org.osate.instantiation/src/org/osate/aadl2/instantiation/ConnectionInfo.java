@@ -268,4 +268,8 @@ class ConnectionInfo {
 		return end instanceof FeatureInstance && ((FeatureInstance) end).getCategory() == FeatureCategory.PARAMETER;
 	}
 
+	public boolean isBidirectional() {
+		return bidirectional;
+	}
+
 }
