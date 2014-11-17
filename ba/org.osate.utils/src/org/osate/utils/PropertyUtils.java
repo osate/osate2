@@ -1102,7 +1102,7 @@ public class PropertyUtils {
     }
     else
     {
-      return null ;
+      return new BasicEList<PropertyExpression>(0) ;
     }
   }
   
