@@ -84,7 +84,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	@Override
 	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		
+
 		final AgeDiagramEditor parentPart = (AgeDiagramEditor)this.getParentPart();
 		if(parentPart != null) {
 			final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
@@ -176,12 +176,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			Display.getDefault().asyncExec(updateDiagramRunnable);	
 		}
 	}
-	
+
 	@Override
 	protected DefaultUpdateBehavior createUpdateBehavior() {
 		return new AgeUpdateBehavior(this);
-	}
-	
+	}	
 	
 	@Override
 	protected DefaultRefreshBehavior createRefreshBehavior() {		

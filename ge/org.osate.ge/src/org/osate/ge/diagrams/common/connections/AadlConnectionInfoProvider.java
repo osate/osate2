@@ -47,6 +47,11 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 	public boolean isBusinessObjectApplicable(final Object bo) {
 		return bo instanceof org.osate.aadl2.Connection;
 	}
+	
+	@Override
+	public boolean allowMidpointAnchor() {
+		return true;
+	}		
 
 	@Override
 	public ContainerShape getOwnerShape(final Connection connection) {

@@ -43,7 +43,7 @@ import org.osate.ge.services.GhostingService;
  */
 public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete {
 	private final GhostingService ghostingService;
-	private final ConnectionService connectionService;
+	protected final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject

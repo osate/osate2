@@ -159,6 +159,7 @@ import org.osgi.framework.FrameworkUtil;
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final IEclipseContext context;
 	private final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService();
+	private DefaultConnectionService connectionService;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -193,7 +194,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
 		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);
 		final DefaultShapeService shapeHelper = new DefaultShapeService(propertyUtil, bor);
-		final DefaultConnectionService connectionService = new DefaultConnectionService(anchorUtil, shapeHelper, propertyUtil, bor, this);
+		connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, this);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, bor, this);
 		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
 		final StyleProviderService styleProviderService = (StyleProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
@@ -524,6 +525,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		public boolean canMoveBendpoint(IMoveBendpointContext context) {
 			return allowBendpointManipulation(context.getConnection());
 		}
+		
+		@Override
+		public boolean moveBendpoint(final IMoveBendpointContext ctx) {
+			boolean result = super.moveBendpoint(ctx);			
+			connectionService.createUpdateMidpointAnchor(ctx.getConnection());						
+			return result;
+		}
 	};
 	
 	@Override 
@@ -536,6 +544,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		public boolean canAddBendpoint(IAddBendpointContext context) {
 			return allowBendpointManipulation(context.getConnection());
 		}
+		
+		@Override
+		public void addBendpoint(final IAddBendpointContext ctx) {
+			super.addBendpoint(ctx);			
+			connectionService.createUpdateMidpointAnchor(ctx.getConnection());						
+		}
 	};
 	
 	@Override 
@@ -547,6 +561,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		@Override
 		public boolean canRemoveBendpoint(IRemoveBendpointContext context) {
 			return allowBendpointManipulation(context.getConnection());
+		}
+		
+		@Override
+		public void removeBendpoint(final IRemoveBendpointContext ctx) {
+			super.removeBendpoint(ctx);			
+			connectionService.createUpdateMidpointAnchor(ctx.getConnection());						
 		}
 	};
 	

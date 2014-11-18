@@ -26,6 +26,8 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_MANUALLY_POSITIONED_KEY = "is_manually_positioned"; // Whether the shape should be ignored by the automatic layout algorithm
 	private static final String IS_GHOST_KEY = "is_ghost"; // Whether the pictogram element is a ghost. A ghost is an element that has been hidden because the corresponding business object is no longer valid.
 	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
+	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
+	private static final String IS_TRANSIENT_KEY = "is_transient";
 	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.PropertyService#getName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
@@ -187,5 +189,25 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public void setIsInnerShape(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_INNER_SHAPE_KEY, value ? "true" : "false");
+	}
+	
+	@Override
+	public boolean isUnselectable(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_UNSELECTABLE_KEY));
+	}
+	
+	@Override
+	public void setIsUnselectable(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_UNSELECTABLE_KEY, value ? "true" : "false");
+	}
+	
+	@Override
+	public boolean isTransient(final Connection c) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(c, IS_TRANSIENT_KEY));
+	}
+	
+	@Override
+	public void setIsTransient(final Connection c, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(c, IS_TRANSIENT_KEY, value ? "true" : "false");
 	}
 }

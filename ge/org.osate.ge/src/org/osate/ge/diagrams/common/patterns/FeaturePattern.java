@@ -83,6 +83,7 @@ import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
@@ -135,6 +136,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final HighlightingService highlightingService;
 	private final RefactoringService refactoringService;
 	private final AadlArrayService arrayService;
+	private final ConnectionService connectionService;
 	private final EClass featureType;
 	
 	/**
@@ -176,7 +178,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
 			final HighlightingService highlightingService, final RefactoringService refactoringService, final AadlArrayService arrayService,
-			final @Named("Feature Type") EClass featureType) {
+			final ConnectionService connectionService, final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, ghostingService);
 		this.anchorUtil = anchorUtil;
 		this.ghostingService = ghostingService;
@@ -196,6 +198,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.highlightingService = highlightingService;
 		this.refactoringService = refactoringService;
 		this.arrayService = arrayService;
+		this.connectionService = connectionService;
 		this.featureType = featureType;
 	}
 
@@ -259,6 +262,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
 			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 		}
+		
+		// Update connection anchors
+		connectionService.updateConnectionAnchors(shape);
 	}
 
 	@Override

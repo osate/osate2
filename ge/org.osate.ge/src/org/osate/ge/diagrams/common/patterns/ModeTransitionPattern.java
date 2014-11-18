@@ -361,6 +361,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 				if(eventSourceAnchor != null) {
 					final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 					final Connection triggerConnection = peCreateService.createFreeFormConnection(getDiagram());
+					propertyService.setIsTransient(triggerConnection, true);
 					propertyService.setConnectionType(triggerConnection, MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
 					triggerConnection.setStart(eventSourceAnchor);
 					triggerConnection.setEnd(anchor);

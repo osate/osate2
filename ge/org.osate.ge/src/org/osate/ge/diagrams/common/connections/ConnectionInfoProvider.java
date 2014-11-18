@@ -32,6 +32,12 @@ public interface ConnectionInfoProvider {
 	boolean isApplicable(final Connection connection);
 	
 	/**
+	 * Returns true if the connection should have a midpoint anchor.
+	 * @return
+	 */
+	boolean allowMidpointAnchor();
+	
+	/**
 	 * Returns the "owner" shape. That is, the shape that is responsible for updating the connection. Should be the same class that created the connection.
 	 * @param connection a fully created connection. It must have a business object associated with it and anchors should be set
 	 * @return

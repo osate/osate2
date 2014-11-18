@@ -8,7 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
@@ -26,7 +28,6 @@ import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.GhostingService;
-
 public class DefaultGhostingService implements GhostingService {
 	private final PropertyService propertyService;
 	private final ConnectionService connectionService;
@@ -39,10 +40,7 @@ public class DefaultGhostingService implements GhostingService {
 		this.bor = bor;
 		this.fp = fp;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.VisibilityService#setIsGhost(org.eclipse.graphiti.mm.pictograms.PictogramElement, boolean)
-	 */
+
 	@Override
 	public void setIsGhost(final PictogramElement pe, final boolean isGhost) {
 		propertyService.setIsGhost(pe, isGhost);
@@ -105,14 +103,26 @@ public class DefaultGhostingService implements GhostingService {
 	@Override
 	public void ghostInvalidConnections(final ContainerShape shape) {
 		// Populate the list with connections that are owned by the specified shape
+		final List<Connection> connectionsToDelete = new ArrayList<Connection>();
 		for(final Connection c : getDiagram().getConnections()) {
 			final ContainerShape owner = connectionService.getOwnerShape(c);
+
 			if(owner == shape || owner == null) {
-				ghostIfInvalid(c);
+				// Remove transient connections instead of ghosting because they are never resurrected and will otherwise result in a large number of ghosted connections.
+				if(propertyService.isTransient(c)) {
+					connectionsToDelete.add(c);;
+				} else {
+					 ghostIfInvalid(c);
+				}
 			}
-		}				
+		}		
+		
+		// Delete all connections that were marked for deletion
+		for(final Connection c : connectionsToDelete) {
+			EcoreUtil.delete(c, true);
+		}
 	}
-	
+
 	private void ghostIfInvalid(final Connection connection) {
 		boolean ghost = false;
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);

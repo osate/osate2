@@ -68,5 +68,11 @@ public interface PropertyService {
 	// Inner objects may have parents with the same business object as themselves. It is best to get the business object from the parent.
 	boolean isInnerShape(PictogramElement pe);
 	void setIsInnerShape(PictogramElement pe, boolean value);
-
+	
+	boolean isUnselectable(PictogramElement pe);
+	void setIsUnselectable(PictogramElement pe, boolean value);
+	
+	// Sets whether a connection is transient. A transient connection is a connection that is recreated whenever its owner is updated.
+	boolean isTransient(Connection c);
+	void setIsTransient(Connection c, boolean value);
 }

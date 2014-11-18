@@ -15,6 +15,7 @@ import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
@@ -83,10 +84,14 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	 */
 	@Override
 	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
-		if(originalPe instanceof Shape) {
+		if(originalPe instanceof ConnectionDecorator) {
+			if(propertyService.isUnselectable(originalPe)) {
+				return getDiagramTypeProvider().getDiagram();
+			}
+		} else if(originalPe instanceof Shape) {					
 			// Return the first shape that has a business object
 			Shape shape = (Shape)originalPe;
-			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null || propertyService.isInnerShape(shape))) {
+			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null || propertyService.isInnerShape(shape) || propertyService.isUnselectable(originalPe))) {
 				shape = shape.getContainer();
 			}
 			return shape;

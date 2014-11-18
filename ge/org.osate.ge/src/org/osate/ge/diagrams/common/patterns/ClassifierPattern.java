@@ -11,9 +11,13 @@ package org.osate.ge.diagrams.common.patterns;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -31,10 +35,16 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -50,9 +60,17 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -80,12 +98,15 @@ import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.ui.util.ComponentImplementationHelper;
 import org.osate.ge.util.StringUtil;
+import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * A pattern for top level classifier shapes as well as subcomponents.
  * @author philip.alldredge
  */
 public class ClassifierPattern extends AgePattern {
+	public static String BINDING_CONNECTION_TYPE = "generic_binding";
 	private static LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final String labelShapeName = "label";
 	private static final String subcomponentTypeLabelShapeName = "subcomponent_type_label";
@@ -202,9 +223,32 @@ public class ClassifierPattern extends AgePattern {
 	
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
+		super.postMoveShape(context);
+		
 		if(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Subcomponent) {
 			if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
 				getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+			}
+		}
+		
+		// Update Connection Anchors
+		final ContainerShape shape = (ContainerShape)context.getShape();
+		updateConnectionAnchors(shape);
+	}
+	
+	private void updateConnectionAnchors(final Shape shape) {
+		connectionService.updateConnectionAnchors(shape);
+		
+		// Check child shapes
+		if(shape instanceof ContainerShape) {
+			final ContainerShape containerShape = (ContainerShape)shape;
+			for(Shape childShape : containerShape.getChildren()) {
+				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
+
+				// Don't recurse into other subcomponents
+				if(!(childBo instanceof Subcomponent)) {
+					updateConnectionAnchors(childShape);
+				}
 			}
 		}
 	}
@@ -280,6 +324,7 @@ public class ClassifierPattern extends AgePattern {
 	
 	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y, final int minWidth, final int minHeight) {
 		ghostingService.setIsGhost(shape, false);
+		anchorService.removeAnchorsWithoutConnections(shape);
 		
 		// Determine whether the subcomponent/classifier should be shown based on the the depth level setting
 		final int depthLevel = getDepthLevel(shape);
@@ -381,7 +426,245 @@ public class ClassifierPattern extends AgePattern {
 
 		// Create/update the chopbox anchor
 		anchorService.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
+		
+		// If the shape is not a subcomponent, then refresh binding indicators
+		if(bo instanceof ComponentImplementation && showContents) {			
+			refreshBindingIndicators(shape, (ComponentImplementation)bo);
+		}
 	}	
+	
+	// Starting Binding Handling
+	// The Binding Tracker class is used to track information regarding a particular binding(such as actual_connection_binding). The data is built each time a classifier is refreshed.
+	private static class BindingTracker {		
+		private final Set<PictogramElement> finalizedPictogramElements = new HashSet<PictogramElement>(); // Stores all the shapes that have their binding stored.
+		public final Map<PictogramElement, List<PictogramElement>> bindings = new HashMap<PictogramElement, List<PictogramElement>>();
+		
+		public boolean isPictogramElementFinalized(final PictogramElement pe) {
+			return finalizedPictogramElements.contains(pe);
+		}
+		
+		public void finalizePictogramElement(final PictogramElement boundPictogramElement) {
+			finalizedPictogramElements.add(boundPictogramElement);
+		}
+		
+		public void prependBinding(final PictogramElement boundPictogramElement, final PictogramElement targetPictogramElement) {
+			List<PictogramElement> targetPictogramElements = bindings.get(boundPictogramElement);
+			if(!bindings.containsKey(boundPictogramElement)) {
+				targetPictogramElements = new LinkedList<PictogramElement>();
+				bindings.put(boundPictogramElement, targetPictogramElements);
+			}
+			
+			targetPictogramElements.add(0, targetPictogramElement);
+		}		
+	}
+
+	private void refreshBindingIndicators(final ContainerShape classifierShape, final ComponentImplementation classifier) {
+		// Create binding trackers for each binding type we are interested in
+		final Map<Property, BindingTracker> bindingTrackerMap = new HashMap<Property, BindingTracker>();
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_CONNECTION_BINDING), new BindingTracker());
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_CONNECTION_BINDING), new BindingTracker());
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING), new BindingTracker());
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_PROCESSOR_BINDING), new BindingTracker());		
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_MEMORY_BINDING), new BindingTracker());
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_MEMORY_BINDING), new BindingTracker());
+
+		processBindings(bindingTrackerMap, classifier, classifierShape);
+		
+		// Create Binding Connections
+		final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());
+		for(final Entry<Property, BindingTracker> bindingTrackerMapEntry : bindingTrackerMap.entrySet()) {	
+			for(final Entry<PictogramElement, List<PictogramElement>> bindingEntry : bindingTrackerMapEntry.getValue().bindings.entrySet()) {
+				final PictogramElement boundPictogramElement = bindingEntry.getKey();
+				int targetShapeNumber = 0; // Number displayed on the binding connection
+				for(final PictogramElement targetPictogramElement : bindingEntry.getValue()) {
+					if(targetPictogramElement != null) {
+						final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+						final Connection bindingConnection = peCreateService.createFreeFormConnection(getDiagram());
+						propertyService.setConnectionType(bindingConnection, BINDING_CONNECTION_TYPE);
+						propertyService.setIsTransient(bindingConnection, true);
+						
+						final Anchor boundShapeAnchor = getBindingAnchor(boundPictogramElement);
+						final Anchor targetShapeAnchor = getBindingAnchor(targetPictogramElement);
+						if(boundShapeAnchor != null && targetShapeAnchor != null) {
+							bindingConnection.setStart(boundShapeAnchor);
+							bindingConnection.setEnd(targetShapeAnchor);
+							createBindingGraphicsAlgorithm(bindingConnection);		
+							
+							// Create label text decorator
+							final String labelTxtValue = bindingTrackerMapEntry.getKey().getName() + " [" + targetShapeNumber + "]";
+							final IGaService gaService = Graphiti.getGaService();
+							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(bindingConnection, true, 0.5, true);
+							propertyService.setIsUnselectable(textDecorator, true);
+							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
+							text.setStyle(styleUtil.getLabelStyle());
+							int labelTxtWidth = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxtValue, decoratorFont).getWidth();
+							gaService.setLocation(text, -labelTxtWidth/2, 10);
+						    text.setValue(labelTxtValue);
+						    
+							// Create the arrow
+					        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(bindingConnection, false, 1.0, true);    
+					        createBindingArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle());
+						}
+					}
+					
+					// Increment shape number regardless of whether a connection was created to ensure the number matches the index in the target shape list
+					targetShapeNumber++;
+				}
+			}
+		}	
+		
+	}
+	
+	/**
+	 * Populates the binding trackers with binding information for the specified classifier
+	 * @param bindingTrackerMap
+	 * @param classifier
+	 * @param classifierShape
+	 */
+	private void processBindings(final Map<Property, BindingTracker> bindingTrackerMap, final Classifier classifier, final ContainerShape classifierShape) {
+		for(final Classifier tmpClassifier : classifier.getSelfPlusAllExtended()) {
+			if(tmpClassifier instanceof ComponentImplementation) {
+				final ComponentImplementation ci = (ComponentImplementation)tmpClassifier;
+				for(final Subcomponent sc : ci.getOwnedSubcomponents()) {
+					if(sc.getOwnedPropertyAssociations().size() > 0) {
+						// Get subcomponent shape
+						final Shape subcomponentShape = shapeService.getChildShapeByElementName(classifierShape, sc);
+						if(subcomponentShape instanceof ContainerShape) {
+							// Process the subcomponent's bindings
+							processBindings(bindingTrackerMap, sc.getOwnedPropertyAssociations(), (ContainerShape)subcomponentShape);
+						}
+					}
+				}
+			}
+
+			processBindings(bindingTrackerMap, tmpClassifier.getOwnedPropertyAssociations(), classifierShape); 
+		}
+
+		// Process Subcomponent Bindings
+		if(classifier instanceof ComponentImplementation) {
+			final ComponentImplementation ci = (ComponentImplementation)classifier;
+			for(final Subcomponent sc : ci.getAllSubcomponents()) {
+				final Shape subcomponentShape = shapeService.getChildShapeByElementName(classifierShape, sc);
+				final Classifier subcomponentClassifier = subcomponentService.getComponentClassifier(subcomponentShape, sc);
+				if(subcomponentClassifier != null && subcomponentShape instanceof ContainerShape) {
+					processBindings(bindingTrackerMap, subcomponentClassifier, (ContainerShape)subcomponentShape);
+				}
+			}	
+		}
+	}
+	
+	private void processBindings(final Map<Property, BindingTracker> bindingTrackerMap, final List<PropertyAssociation> propertyAssociations, final ContainerShape ctxShape) {
+		final Set<Property> relevantProperties = bindingTrackerMap.keySet();
+		for(final PropertyAssociation pa : propertyAssociations) {
+			// Check if the property is of interest
+			if(relevantProperties.contains(pa.getProperty())) {
+				// Get the binding tracker
+				final BindingTracker bindingTracker = bindingTrackerMap.get(pa.getProperty());
+				
+				// Get the shape(s) it applies to
+				if(pa.getAppliesTos().size() == 0) {
+					processBinding(bindingTracker, ctxShape, pa, ctxShape);
+				} else {
+					for(final ContainedNamedElement appliesTo : pa.getAppliesTos()) {
+						final PictogramElement appliesToPictogramElement = getReferencedPictogramElement(ctxShape, appliesTo);
+						processBinding(bindingTracker, appliesToPictogramElement, pa, ctxShape);
+					}
+				}
+			}
+		}
+	}
+	
+	private void processBinding(final BindingTracker bindingTracker, final PictogramElement boundPictogramElement, final PropertyAssociation pa, final ContainerShape propAssocCtxShape) {
+		if(boundPictogramElement != null && !bindingTracker.isPictogramElementFinalized(boundPictogramElement)) {			
+			// in the typical case(property association only applies to one object?)
+			// Find referenced shapes			
+			for(final ModalPropertyValue pv : pa.getOwnedValues()) {				
+				if(pv.getOwnedValue() instanceof ListValue) {
+					final ListValue lv = (ListValue)pv.getOwnedValue();
+					final List<PropertyExpression> listPropExpressions = lv.getOwnedListElements();
+					
+					// Iterate backwards so we can prepend bindings properly.
+					for(int i = listPropExpressions.size() - 1; i >= 0; i--) {
+						final PropertyExpression listPropExpression = listPropExpressions.get(i);
+						if(listPropExpression instanceof ReferenceValue) {
+							final ReferenceValue referenceValue = (ReferenceValue)listPropExpression;
+							final PictogramElement referencedPictogramElement = getReferencedPictogramElement(propAssocCtxShape, referenceValue);
+							bindingTracker.prependBinding(boundPictogramElement, referencedPictogramElement);
+						}
+					}
+				}
+			}
+			
+			// Finalize the shape
+			if(pa.isAppend()) {
+				bindingTracker.finalizePictogramElement(boundPictogramElement);
+			}
+		}
+	}	
+
+	/**
+	 * Returns the pictogram referenced by a ContainedNamedElement. Looks for connections or shapes owned by the root shape with a matching BO.
+	 * @param rootShape
+	 * @param containedNamedElement
+	 * @return
+	 */
+	private PictogramElement getReferencedPictogramElement(final ContainerShape rootShape, final ContainedNamedElement containedNamedElement) {
+		ContainerShape shape = rootShape;
+		for(final ContainmentPathElement pe : containedNamedElement.getContainmentPathElements()) {
+			if(pe.getNamedElement() instanceof org.osate.aadl2.Connection) {
+				if(pe.getNamedElement().getName() != null) {
+					for(Connection c : getDiagram().getConnections()) {
+						if(shape == connectionService.getOwnerShape(c)) {
+							final Object connectionBo = bor.getBusinessObjectForPictogramElement(c);
+							if(connectionBo instanceof org.osate.aadl2.Connection && pe.getNamedElement().getName().equalsIgnoreCase(((org.osate.aadl2.Connection)connectionBo).getName())) {
+								return c;
+							}
+						}
+					}
+					
+					return null;
+				}
+			} else {
+				final Shape childShape = shapeService.getChildShapeByElementName(shape, pe.getNamedElement());
+				if(childShape instanceof ContainerShape) {
+					shape = (ContainerShape)childShape;
+				} else {
+					return null; 
+				}				
+			}
+		}
+		
+		return shape;
+	}
+	
+	private Anchor getBindingAnchor(final PictogramElement pe) {
+		if(pe instanceof Shape) {
+			return Graphiti.getPeService().getChopboxAnchor((Shape)pe);
+		} else if(pe instanceof Connection) {
+			return connectionService.getMidpointAnchor((Connection)pe);
+		} else {
+			return null;
+		}
+	}
+	
+	private void createBindingGraphicsAlgorithm(final Connection connection) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Polyline polyline = gaService.createPlainPolyline(connection);
+		final Style style = styleUtil.getModeTransitionTrigger();
+		polyline.setStyle(style);
+	}
+	
+	private GraphicsAlgorithm createBindingArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
+	    final IGaService gaService = Graphiti.getGaService();
+	    final GraphicsAlgorithm ga = gaService.createPlainPolygon(gaContainer, new int[] {
+	    		-6, 4, 
+	    		2, 0, 
+	    		-6, -4});
+	    ga.setStyle(style);
+	    return ga;
+	}	
+	
+	// End Binding Handling
 
 	// Ghost all connections that are owned by the shape or descendants
 	private void ghostDescendantConnections(final Shape shape) {

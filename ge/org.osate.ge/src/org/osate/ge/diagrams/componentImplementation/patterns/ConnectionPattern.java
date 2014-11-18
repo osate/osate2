@@ -150,6 +150,16 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	}
 	
 	@Override
+	protected void onAfterRefresh(final Connection connection) {
+		updateAnchors(connection);
+		super.onAfterRefresh(connection);
+	}
+	
+	private void updateAnchors(final Connection connection) {
+		connectionService.createUpdateMidpointAnchor(connection);
+	}
+	
+	@Override
 	protected void createDecorators(final Connection connection) {
 		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -160,7 +170,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		}
 		
 		// Determine fonts and values for text decorators
-		final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());// styleUtil.getLabelStyle().getFont();
+		final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());
 		final String labelTxtValue = aadlConnection.getName();
 		final String connectionPatternTxtValue = getConnectionPatterns(aadlConnection);
 		int labelTxtWidth = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxtValue, decoratorFont).getWidth();
@@ -373,7 +383,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		return ce;
 	}
 	
-	// TODO: Comment
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());

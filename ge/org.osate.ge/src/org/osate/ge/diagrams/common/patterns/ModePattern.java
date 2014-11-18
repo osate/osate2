@@ -266,6 +266,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			final Connection initialModeConnection = peCreateService.createCurvedConnection(new double[] {0.0, -10.0}, getDiagram());
 			initialModeConnection.setStart(initialModeAnchor);
 			initialModeConnection.setEnd(anchorService.getAnchorByName(innerModeShape, chopboxAnchorName));
+			propertyService.setIsTransient(initialModeConnection, true);
 			propertyService.setConnectionType(initialModeConnection, INITIAL_MODE_CONNECTION_TYPE);
 			
 			// Create the line
