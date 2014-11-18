@@ -2688,8 +2688,6 @@
         <generalization xmi:id="Features-DataPort-_generalization.2">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
-        <generalization xmi:id="_jIjTIG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
-        <generalization xmi:id="_o22SsG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
         <ownedAttribute xmi:id="Features-DataPort-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_dataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-DataPort-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-DataPort-dataClassifier-_lowerValue"/>
@@ -2709,8 +2707,6 @@
         <generalization xmi:id="Features-EventDataPort-_generalization.2">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
-        <generalization xmi:id="_lC7VIG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
-        <generalization xmi:id="_oS_XsG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
         <ownedAttribute xmi:id="Features-EventDataPort-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_eventDataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-EventDataPort-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-EventDataPort-dataClassifier-_lowerValue"/>

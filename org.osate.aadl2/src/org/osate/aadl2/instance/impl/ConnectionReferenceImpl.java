@@ -415,7 +415,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
 	 */
 	@Override
@@ -425,7 +425,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.impl.NamedElementImpl#setName(java.lang.String)
 	 */
 	@Override
@@ -435,7 +435,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty(org.osate.aadl2.Property)
 	 */
 	@Override
@@ -464,7 +464,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getInstantiatedObjects()
 	 */
 	@Override

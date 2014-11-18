@@ -150,7 +150,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 
 				/*
 				 * (non-Javadoc)
-				 * 
+				 *
 				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
 				 */
 				@Override

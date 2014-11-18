@@ -72,7 +72,6 @@ import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -365,7 +364,7 @@ public class InstantiateModel {
 
 		root.setComponentImplementation(ci);
 		root.setName(instanceName);
-		root.setCategory(ComponentCategory.SYSTEM);
+		root.setCategory(ci.getCategory());
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
