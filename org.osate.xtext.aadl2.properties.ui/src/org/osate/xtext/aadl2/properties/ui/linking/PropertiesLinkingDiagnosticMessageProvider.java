@@ -89,8 +89,7 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 					return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 				}
 			}
-			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."
-					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
+			String msg = "Couldn't resolve reference to '" + context.getLinkText() + "'.";
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
 		if (Aadl2Package.eINSTANCE.getMode() == referenceType) {
@@ -109,5 +108,4 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 		}
 		return super.getUnresolvedProxyMessage(context);
 	}
-
 }
