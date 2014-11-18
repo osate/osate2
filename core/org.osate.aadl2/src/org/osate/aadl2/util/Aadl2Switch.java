@@ -1464,9 +1464,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseContext(dataPort);
 			}
 			if (result == null) {
-				result = caseData(dataPort);
-			}
-			if (result == null) {
 				result = caseParameterConnectionEnd(dataPort);
 			}
 			if (result == null) {
@@ -1554,20 +1551,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.DATA: {
-			Data data = (Data) theEObject;
-			T result = caseData(data);
-			if (result == null) {
-				result = caseNamedElement(data);
-			}
-			if (result == null) {
-				result = caseElement(data);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
 		case Aadl2Package.EVENT_DATA_PORT: {
 			EventDataPort eventDataPort = (EventDataPort) theEObject;
 			T result = caseEventDataPort(eventDataPort);
@@ -1576,9 +1559,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseContext(eventDataPort);
-			}
-			if (result == null) {
-				result = caseData(eventDataPort);
 			}
 			if (result == null) {
 				result = caseParameterConnectionEnd(eventDataPort);
@@ -2606,6 +2586,20 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseElement(dataClassifier);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.DATA: {
+			Data data = (Data) theEObject;
+			T result = caseData(data);
+			if (result == null) {
+				result = caseNamedElement(data);
+			}
+			if (result == null) {
+				result = caseElement(data);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);

@@ -690,7 +690,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -704,7 +704,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

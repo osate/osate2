@@ -882,7 +882,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty (org.osate.aadl2.Property)
 	 */
 	@Override

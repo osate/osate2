@@ -1798,7 +1798,7 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//Data #//ParameterConnectionEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1830,12 +1830,7 @@
     <eLiterals name="event" value="1"/>
     <eLiterals name="eventData" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//Data #//ParameterConnectionEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
@@ -2284,6 +2279,11 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataClassifier" abstract="true" eSuperTypes="#//ComponentClassifier #//Data #//DataSubcomponentType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
     </eAnnotations>

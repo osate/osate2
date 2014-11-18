@@ -9360,8 +9360,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		portEClass = createEClass(PORT);
 		createEAttribute(portEClass, PORT__CATEGORY);
 
-		dataEClass = createEClass(DATA);
-
 		eventDataPortEClass = createEClass(EVENT_DATA_PORT);
 		createEReference(eventDataPortEClass, EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER);
 
@@ -9470,6 +9468,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEReference(eventDataSourceEClass, EVENT_DATA_SOURCE__DATA_CLASSIFIER);
 
 		dataClassifierEClass = createEClass(DATA_CLASSIFIER);
+
+		dataEClass = createEClass(DATA);
 
 		portProxyEClass = createEClass(PORT_PROXY);
 		createEAttribute(portProxyEClass, PORT_PROXY__DIRECTION);
@@ -10157,15 +10157,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		dataSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
 		dataPortEClass.getESuperTypes().add(getPort());
 		dataPortEClass.getESuperTypes().add(getContext());
-		dataPortEClass.getESuperTypes().add(getData());
 		dataPortEClass.getESuperTypes().add(getParameterConnectionEnd());
 		portEClass.getESuperTypes().add(getDirectedFeature());
 		portEClass.getESuperTypes().add(getPortConnectionEnd());
 		portEClass.getESuperTypes().add(getTriggerPort());
-		dataEClass.getESuperTypes().add(getNamedElement());
 		eventDataPortEClass.getESuperTypes().add(getPort());
 		eventDataPortEClass.getESuperTypes().add(getContext());
-		eventDataPortEClass.getESuperTypes().add(getData());
 		eventDataPortEClass.getESuperTypes().add(getParameterConnectionEnd());
 		eventPortEClass.getESuperTypes().add(getPort());
 		parameterEClass.getESuperTypes().add(getDirectedFeature());
@@ -10223,6 +10220,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		dataClassifierEClass.getESuperTypes().add(getComponentClassifier());
 		dataClassifierEClass.getESuperTypes().add(getData());
 		dataClassifierEClass.getESuperTypes().add(getDataSubcomponentType());
+		dataEClass.getESuperTypes().add(getNamedElement());
 		portProxyEClass.getESuperTypes().add(getProcessorFeature());
 		portProxyEClass.getESuperTypes().add(getFeatureConnectionEnd());
 		portProxyEClass.getESuperTypes().add(getPortConnectionEnd());
@@ -11295,8 +11293,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEAttribute(getPort_Category(), getPortCategory(), "category", null, 1, 1, Port.class, IS_TRANSIENT,
 				IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
-		initEClass(dataEClass, Data.class, "Data", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(eventDataPortEClass, EventDataPort.class, "EventDataPort", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEventDataPort_DataFeatureClassifier(), getDataSubcomponentType(), null,
@@ -11517,6 +11513,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(dataClassifierEClass, DataClassifier.class, "DataClassifier", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(dataEClass, Data.class, "Data", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(portProxyEClass, PortProxy.class, "PortProxy", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

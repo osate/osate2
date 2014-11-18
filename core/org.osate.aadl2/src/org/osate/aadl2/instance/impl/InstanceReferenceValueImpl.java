@@ -216,7 +216,7 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

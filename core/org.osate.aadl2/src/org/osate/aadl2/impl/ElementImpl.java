@@ -360,7 +360,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.Element#getContainingClassifier()
 	 */
 	@Override
@@ -374,7 +374,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.Element#getContainingComponentImpl()
 	 */
 	@Override

@@ -554,7 +554,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
           ecoreFeature="ecore:EAttribute aadl2.ecore#//Port/category"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Data"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventDataPort">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EventDataPort/dataFeatureClassifier"/>
@@ -685,6 +684,7 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EventDataSource/dataClassifier"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//DataClassifier"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Data"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PortProxy">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PortProxy/direction"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

@@ -477,11 +477,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseData(Data object) {
-			return createDataAdapter();
-		}
-
-		@Override
 		public Adapter caseEventDataPort(EventDataPort object) {
 			return createEventDataPortAdapter();
 		}
@@ -644,6 +639,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseDataClassifier(DataClassifier object) {
 			return createDataClassifierAdapter();
+		}
+
+		@Override
+		public Adapter caseData(Data object) {
+			return createDataAdapter();
 		}
 
 		@Override

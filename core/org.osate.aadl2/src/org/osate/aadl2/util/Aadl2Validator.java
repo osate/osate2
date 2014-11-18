@@ -341,8 +341,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateDataPort((DataPort) value, diagnostics, context);
 		case Aadl2Package.PORT:
 			return validatePort((Port) value, diagnostics, context);
-		case Aadl2Package.DATA:
-			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.EVENT_DATA_PORT:
 			return validateEventDataPort((EventDataPort) value, diagnostics, context);
 		case Aadl2Package.EVENT_PORT:
@@ -410,6 +408,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateEventDataSource((EventDataSource) value, diagnostics, context);
 		case Aadl2Package.DATA_CLASSIFIER:
 			return validateDataClassifier((DataClassifier) value, diagnostics, context);
+		case Aadl2Package.DATA:
+			return validateData((Data) value, diagnostics, context);
 		case Aadl2Package.PORT_PROXY:
 			return validatePortProxy((PortProxy) value, diagnostics, context);
 		case Aadl2Package.SUBPROGRAM_PROXY:
