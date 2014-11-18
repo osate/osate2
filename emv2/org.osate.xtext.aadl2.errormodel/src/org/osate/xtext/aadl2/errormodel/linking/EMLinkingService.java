@@ -180,8 +180,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 						// look up subcomponent in classifier of previous subcomponent, or feature group
 						// we do not want to return features as they should get resolved to an error propagation
 						NamedElement finding = ((Classifier) cxtElement).findNamedElement(name);
-						if (finding instanceof Subcomponent || finding instanceof FeatureGroup)
+						if (finding != null) {
 							searchResult = finding;
+						}
 					}
 					if (searchResult != null)
 						return Collections.singletonList(searchResult);
