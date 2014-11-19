@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
@@ -282,6 +283,29 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	@Override
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
 		return new DefaultPersistencyBehavior(this) {
+			@Override
+			public Diagram loadDiagram(final URI uri) {
+				final Diagram diagram = super.loadDiagram(uri);
+				
+				if(diagram != null) {
+					// Check if the diagram type is a legacy type. If so, convert it to the newer diagram type ID
+					final String diagramTypeId = diagram.getDiagramTypeId();
+					if("AADL Package".equals(diagramTypeId) ||
+							"AADL Type".equals(diagramTypeId) ||
+							"AADL Component Implementation".equals(diagramTypeId)) {						
+						final TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
+						editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+							@Override
+							protected void doExecute() {
+								diagram.setDiagramTypeId(AADL_DIAGRAM_TYPE_ID);
+							}				
+						});	
+					}
+				}
+				
+				return diagram;
+			}
+			
 			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {
 				final Diagram diagram = getDiagramTypeProvider().getDiagram();
 
@@ -290,9 +314,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					protected void doExecute() {
 						// Delete all the ghosts
 						ghostPurger.purgeGhosts(diagram);
-						
-						// Set the diagram type id. This is useful for automatically upgrading diagrams using superseded diagram type IDs
-						diagram.setDiagramTypeId(AADL_DIAGRAM_TYPE_ID);
 					}				
 				});				
 				
