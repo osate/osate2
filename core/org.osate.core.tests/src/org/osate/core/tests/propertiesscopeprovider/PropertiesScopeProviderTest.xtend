@@ -1664,7 +1664,7 @@ class PropertiesScopeProviderTest extends OsateTest {
 							"pp1", "sequence1", "sequence2"
 						])
 						path => [
-							assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
+							assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to 'x'.")
 							//Tests scope_ContainmentPathElement_namedElement
 							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3",
 								"call1", "call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4",
@@ -1674,7 +1674,7 @@ class PropertiesScopeProviderTest extends OsateTest {
 						]
 					]
 					appliesTos.head.path => [
-						assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
+						assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to 'x'.")
 						//Tests scope_ContainmentPathElement_namedElement
 						assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af1", "aproto1", "as1", "asub1", "asub2", "asub3", "call1",
 							"call2", "call2", "dp1", "ep1", "es1", "etef1", "fconn1", "fg1", "fg2", "fgproto1", "fpath1", "m1", "m2", "m3", "m4", "mt1", "mt2",
@@ -1704,7 +1704,7 @@ class PropertiesScopeProviderTest extends OsateTest {
 								"fgproto3", "fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 							])
 							path => [
-								assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
+								assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to 'x'.")
 								//Tests scope_ContainmentPathElement_namedElement
 								assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2",
 									"asub4", "asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6",
@@ -1722,7 +1722,7 @@ class PropertiesScopeProviderTest extends OsateTest {
 							"fgproto4", "fpath2", "m5", "m6", "mt3", "pp2", "sequence3"
 						])
 						path => [
-							assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to property constant 'x'. Property set name may be missing.")
+							assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to 'x'.")
 							//Tests scope_ContainmentPathElement_namedElement
 							assertScope(Aadl2Package::eINSTANCE.containmentPathElement_NamedElement, false, #["af3", "aproto2", "aproto3", "aproto4", "as2", "asub4",
 								"asub5", "asub6", "asub7", "call3", "call3", "ep2", "es2", "etef2", "fconn2", "fg3", "fg4", "fg5", "fg6", "fgproto2",
