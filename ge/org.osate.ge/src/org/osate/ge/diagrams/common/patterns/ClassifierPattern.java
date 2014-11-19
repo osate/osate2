@@ -88,6 +88,7 @@ import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.PropertyService.BindingType;
 import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
@@ -438,6 +439,11 @@ public class ClassifierPattern extends AgePattern {
 	private static class BindingTracker {		
 		private final Set<PictogramElement> finalizedPictogramElements = new HashSet<PictogramElement>(); // Stores all the shapes that have their binding stored.
 		public final Map<PictogramElement, List<PictogramElement>> bindings = new HashMap<PictogramElement, List<PictogramElement>>();
+		public final PropertyService.BindingType bindingType;
+		
+		public BindingTracker(final PropertyService.BindingType bindingType) {
+			this.bindingType = bindingType;
+		}
 		
 		public boolean isPictogramElementFinalized(final PictogramElement pe) {
 			return finalizedPictogramElements.contains(pe);
@@ -461,27 +467,32 @@ public class ClassifierPattern extends AgePattern {
 	private void refreshBindingIndicators(final ContainerShape classifierShape, final ComponentImplementation classifier) {
 		// Create binding trackers for each binding type we are interested in
 		final Map<Property, BindingTracker> bindingTrackerMap = new HashMap<Property, BindingTracker>();
-		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_CONNECTION_BINDING), new BindingTracker());
-		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_CONNECTION_BINDING), new BindingTracker());
-		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING), new BindingTracker());
-		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_PROCESSOR_BINDING), new BindingTracker());		
-		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_MEMORY_BINDING), new BindingTracker());
-		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_MEMORY_BINDING), new BindingTracker());
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_CONNECTION_BINDING), new BindingTracker(BindingType.ACTUAL_CONNECTION));
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_CONNECTION_BINDING), new BindingTracker(BindingType.ALLOWED_CONNECTION));
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_MEMORY_BINDING), new BindingTracker(BindingType.ACTUAL_MEMORY));
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_MEMORY_BINDING), new BindingTracker(BindingType.ALLOWED_MEMORY));
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING), new BindingTracker(BindingType.ACTUAL_PROCESSOR));
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_PROCESSOR_BINDING), new BindingTracker(BindingType.ALLOWED_PROCESSOR));		
 
 		processBindings(bindingTrackerMap, classifier, classifierShape);
 		
 		// Create Binding Connections
 		final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());
-		for(final Entry<Property, BindingTracker> bindingTrackerMapEntry : bindingTrackerMap.entrySet()) {	
-			for(final Entry<PictogramElement, List<PictogramElement>> bindingEntry : bindingTrackerMapEntry.getValue().bindings.entrySet()) {
+		final Diagram diagram = getDiagram();
+		for(final Entry<Property, BindingTracker> bindingTrackerMapEntry : bindingTrackerMap.entrySet()) {
+			final BindingTracker bindingTracker = bindingTrackerMapEntry.getValue();
+			final boolean showBindingType = propertyService.getShowConnectionBindingType(diagram, bindingTracker.bindingType);
+			for(final Entry<PictogramElement, List<PictogramElement>> bindingEntry : bindingTracker.bindings.entrySet()) {
 				final PictogramElement boundPictogramElement = bindingEntry.getKey();
 				int targetShapeNumber = 0; // Number displayed on the binding connection
 				for(final PictogramElement targetPictogramElement : bindingEntry.getValue()) {
 					if(targetPictogramElement != null) {
 						final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 						final Connection bindingConnection = peCreateService.createFreeFormConnection(getDiagram());
+						bindingConnection.setVisible(showBindingType);
 						propertyService.setConnectionType(bindingConnection, BINDING_CONNECTION_TYPE);
 						propertyService.setIsTransient(bindingConnection, true);
+						propertyService.setBindingType(bindingConnection, bindingTracker.bindingType);
 						
 						final Anchor boundShapeAnchor = getBindingAnchor(boundPictogramElement);
 						final Anchor targetShapeAnchor = getBindingAnchor(targetPictogramElement);
@@ -500,6 +511,7 @@ public class ClassifierPattern extends AgePattern {
 							int labelTxtWidth = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxtValue, decoratorFont).getWidth();
 							gaService.setLocation(text, -labelTxtWidth/2, 10);
 						    text.setValue(labelTxtValue);
+						    textDecorator.setVisible(showBindingType);
 						    
 							// Create the arrow
 					        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(bindingConnection, false, 1.0, true);    

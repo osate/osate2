@@ -241,4 +241,34 @@
           sequence="M1+M2+V">
     </key>
  </extension>
+ 
+  <extension
+    point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor contributorId="org.osate.ge.editor.AgeDiagramEditor"> 
+        <propertyCategory category="org.osate.ge"> 
+        </propertyCategory> 
+    </propertyContributor> 
+</extension>
+       
+ <extension
+      point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
+		<propertyTab category="org.osate.ge" id="org.osate.ge.bindings" label="Bindings">
+    </propertyTab>
+   </propertyTabs>
+</extension>
+     
+ <extension
+      point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections
+          contributorId="org.osate.ge.editor.AgeDiagramEditor">
+        <propertySection
+              class="org.osate.ge.properties.BindingsSection"
+              filter="org.osate.ge.properties.BindingsFilter"
+              id="graphiti.main.tab.emfclass"
+              tab="org.osate.ge.bindings">
+        </propertySection>
+    </propertySections>
+ </extension>
+ 
 </plugin>

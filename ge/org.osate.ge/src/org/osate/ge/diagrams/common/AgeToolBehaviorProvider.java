@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common;
 
+import javax.inject.Inject;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -31,6 +33,7 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
@@ -38,9 +41,13 @@ import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
-	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService) {
+	private final IEclipseContext context;
+	
+	@Inject
+	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, final IEclipseContext context) {
 		super(diagramTypeProvider);
 		this.propertyService = propertyService;
+		this.context = context;
 	}
 
 	@Override
@@ -51,7 +58,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	//Remove context buttons from pictogram elements
 	@Override
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
-	return null;
+		return null;
 	}
 	
 	// Override the business object equality check. This is needed in the case of Generalization because the owner is one of the defining
@@ -65,9 +72,19 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 	
 	private IEclipseContext getContext() {
-		return ((AgeFeatureProvider)this.getDiagramTypeProvider().getFeatureProvider()).getContext();
-	}
+		return context;
+	}	
 	
+	@Override
+	public Object getAdapter(Class<?> type) {
+		if(type == BusinessObjectResolutionService.class) {
+			return context.get(BusinessObjectResolutionService.class);
+		} else if(type == PropertyService.class) {
+			return context.get(PropertyService.class);
+		}
+		
+		return super.getAdapter(type);
+	}	
 	
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {

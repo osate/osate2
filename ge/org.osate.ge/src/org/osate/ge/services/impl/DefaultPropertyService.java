@@ -28,7 +28,9 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
 	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
 	private static final String IS_TRANSIENT_KEY = "is_transient";
-	
+	private static final String BINDING_TYPE_KEY = "binding_type";
+	private static final String SHOW_BINDING_TYPE_KEY_BASE = "show_binding_type";
+
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.PropertyService#getName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
@@ -210,4 +212,30 @@ public class DefaultPropertyService implements PropertyService {
 	public void setIsTransient(final Connection c, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(c, IS_TRANSIENT_KEY, value ? "true" : "false");
 	}
+	
+	// Bindings
+	@Override
+	public BindingType getBindingType(final Connection c) {
+		return BindingType.getByKey(Graphiti.getPeService().getPropertyValue(c, BINDING_TYPE_KEY));
+	}
+	
+	@Override
+	public void setBindingType(final Connection c, final BindingType value) {
+		Graphiti.getPeService().setPropertyValue(c, BINDING_TYPE_KEY, value.key);
+	}
+	
+	@Override
+	public boolean getShowConnectionBindingType(final Diagram diagram, final BindingType type) {
+		return !"false".equals(Graphiti.getPeService().getPropertyValue(diagram, buildShowBindingTypeKey(type)));
+	}
+	
+	@Override
+	public void setShowConnectionBindingType(final Diagram diagram, final BindingType type, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(diagram, buildShowBindingTypeKey(type), value ? "true" : "false");
+	}
+	
+	private String buildShowBindingTypeKey(final BindingType type) {
+		return SHOW_BINDING_TYPE_KEY_BASE + type.key;
+	}
+
 }

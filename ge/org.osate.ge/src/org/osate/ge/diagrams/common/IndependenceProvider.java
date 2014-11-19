@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -25,6 +27,7 @@ public class IndependenceProvider implements IIndependenceSolver {
 	private final IFeatureProvider featureProvider;
 	private boolean gettingDiagramObj = false; // Flag to indicate which code path to use. Needed because the independence provider needs to get the object for the diagram which would otherwise result in endless recursion
 	
+	@Inject
 	public IndependenceProvider(final SerializableReferenceService serializableReferenceService, final IFeatureProvider featureProvider) {
 		this.serializableReferenceService = serializableReferenceService;
 		this.featureProvider = featureProvider;
