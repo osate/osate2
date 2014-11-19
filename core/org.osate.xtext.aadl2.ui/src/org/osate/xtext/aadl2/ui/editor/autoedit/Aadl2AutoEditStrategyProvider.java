@@ -43,13 +43,17 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 	@Inject
 	protected AutoIndentEditStrategy.Factory autoIndent;
 
+	@Inject
+	protected AutoUnindentEditStrategy.Factory autoUnindent;
+
 	@Override
 	protected void configure(IEditStrategyAcceptor acceptor) {
 		configureIndentationEditStrategy(acceptor);
+//		configureEndUnindent(acceptor);
 		configureStringLiteral(acceptor);
 		configureParenthesis(acceptor);
 		configureSquareBrackets(acceptor);
-		configureAnnexBracesBlock(acceptor);
+//		configureAnnexBracesBlock(acceptor);
 		configureCurlyBracesBlock(acceptor);
 		configureMultilineComments(acceptor);
 		configureCompoundBracesBlocks(acceptor);
@@ -59,7 +63,7 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 	@Override
 	protected void configureCompoundBracesBlocks(IEditStrategyAcceptor acceptor) {
 		acceptor.accept(
-				compoundMultiLineTerminals.newInstanceFor("{**", "**};").and("{ ", "}").and("[", "]").and("(", ")"),
+				compoundMultiLineTerminals.newInstanceFor("{**", "**}").and("{ ", "}").and("[", "]").and("(", ")"),
 				IDocument.DEFAULT_CONTENT_TYPE);
 	}
 
@@ -68,9 +72,9 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 		acceptor.accept(singleLineTerminals.newInstance("{ ", "}"), IDocument.DEFAULT_CONTENT_TYPE);
 	}
 
-	protected void configureAnnexBracesBlock(IEditStrategyAcceptor acceptor) {
-		acceptor.accept(singleLineTerminals.newInstance("{**", "**};"), IDocument.DEFAULT_CONTENT_TYPE);
-	}
+//	protected void configureAnnexBracesBlock(IEditStrategyAcceptor acceptor) {
+//		acceptor.accept(singleLineTerminals.newInstance("{**", "**};"), IDocument.DEFAULT_CONTENT_TYPE);
+//	}
 
 	protected void configureKeywordIndent(IEditStrategyAcceptor acceptor) {
 		String[] keywords = { "public", "private", "abstract", "bus", "data", "device", "feature" /* , "features" */,
@@ -80,5 +84,9 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 			acceptor.accept(autoIndent.newInstance(keyword), IDocument.DEFAULT_CONTENT_TYPE);
 		}
 	}
+
+//	protected void configureEndUnindent(IEditStrategyAcceptor acceptor) {
+//		acceptor.accept(autoUnindent.newInstance("end"), IDocument.DEFAULT_CONTENT_TYPE);
+//	}
 
 }
