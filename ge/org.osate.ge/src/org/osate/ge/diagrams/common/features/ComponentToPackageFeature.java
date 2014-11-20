@@ -33,7 +33,7 @@ public class ComponentToPackageFeature extends AbstractCustomFeature {
 
 	@Override
     public String getName() {
-        return "Go to Package diagram";
+        return "Go to Package Diagram";
     }
  
     @Override
