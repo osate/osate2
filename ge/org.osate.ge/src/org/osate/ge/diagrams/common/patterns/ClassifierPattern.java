@@ -545,7 +545,7 @@ public class ClassifierPattern extends AgePattern {
 					if(sc.getOwnedPropertyAssociations().size() > 0) {
 						// Get subcomponent shape
 						final Shape subcomponentShape = shapeService.getChildShapeByElementName(classifierShape, sc);
-						if(subcomponentShape instanceof ContainerShape) {
+						if(subcomponentShape instanceof ContainerShape && subcomponentShape.isVisible()) {
 							// Process the subcomponent's bindings
 							processBindings(bindingTrackerMap, sc.getOwnedPropertyAssociations(), (ContainerShape)subcomponentShape);
 						}
@@ -561,9 +561,11 @@ public class ClassifierPattern extends AgePattern {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
 			for(final Subcomponent sc : ci.getAllSubcomponents()) {
 				final Shape subcomponentShape = shapeService.getChildShapeByElementName(classifierShape, sc);
-				final Classifier subcomponentClassifier = subcomponentService.getComponentClassifier(subcomponentShape, sc);
-				if(subcomponentClassifier != null && subcomponentShape instanceof ContainerShape) {
-					processBindings(bindingTrackerMap, subcomponentClassifier, (ContainerShape)subcomponentShape);
+				if(subcomponentShape.isVisible()) {
+					final Classifier subcomponentClassifier = subcomponentService.getComponentClassifier(subcomponentShape, sc);
+					if(subcomponentClassifier != null && subcomponentShape instanceof ContainerShape) {
+						processBindings(bindingTrackerMap, subcomponentClassifier, (ContainerShape)subcomponentShape);
+					}
 				}
 			}	
 		}
@@ -632,7 +634,9 @@ public class ClassifierPattern extends AgePattern {
 					for(Connection c : getDiagram().getConnections()) {
 						if(shape == connectionService.getOwnerShape(c)) {
 							final Object connectionBo = bor.getBusinessObjectForPictogramElement(c);
-							if(connectionBo instanceof org.osate.aadl2.Connection && pe.getNamedElement().getName().equalsIgnoreCase(((org.osate.aadl2.Connection)connectionBo).getName())) {
+							if(connectionBo instanceof org.osate.aadl2.Connection && 
+									pe.getNamedElement().getName().equalsIgnoreCase(((org.osate.aadl2.Connection)connectionBo).getName()) && 
+									c.isVisible()) {
 								return c;
 							}
 						}
@@ -642,7 +646,7 @@ public class ClassifierPattern extends AgePattern {
 				}
 			} else {
 				final Shape childShape = shapeService.getChildShapeByElementName(shape, pe.getNamedElement());
-				if(childShape instanceof ContainerShape) {
+				if(childShape instanceof ContainerShape && childShape.isVisible()) {
 					shape = (ContainerShape)childShape;
 				} else {
 					return null; 

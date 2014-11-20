@@ -25,6 +25,7 @@ public interface ShapeService {
 	/**
 	 * Gets a child shape tied to a particular element. Delegates to comparison by element name because there are scenarios where names can be duplicated. For example
 	 * an invalid model during copy and paste operations.
+	 * Note: This method will return ghosted children.
 	 * @param shape
 	 * @param el
 	 * @return
@@ -32,6 +33,12 @@ public interface ShapeService {
 	Shape getChildShapeByElementQualifiedName(ContainerShape shape,
 			NamedElement el);
 
+	/**
+	 * Note: This method will return ghosted children.
+	 * @param shape
+	 * @param el
+	 * @return
+	 */
 	Shape getChildShapeByElementName(ContainerShape shape,
 			NamedElement el);
 
