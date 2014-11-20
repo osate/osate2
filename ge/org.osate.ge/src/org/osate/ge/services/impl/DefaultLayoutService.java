@@ -12,8 +12,11 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
@@ -159,6 +162,17 @@ public class DefaultLayoutService implements LayoutService {
 					maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + 25);					
 					childGa.setY(childGa.getY()+shiftY);
 				}
+			}
+		}
+		
+		// Adjust fix point anchors
+		for(final Anchor anchor : shape.getAnchors()) {
+			if(anchor instanceof FixPointAnchor) {
+				final FixPointAnchor fixPointAnchor = (FixPointAnchor)anchor;
+				final Point l = fixPointAnchor.getLocation();
+				l.setX(l.getX() + shiftX);
+				l.setY(l.getY() + shiftY);
+				fixPointAnchor.setLocation(l);
 			}
 		}
 

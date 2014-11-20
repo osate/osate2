@@ -21,7 +21,7 @@ public interface GhostingService {
 	void setIsGhost(PictogramElement pe, boolean isGhost);
 	
 	/**
-	 * Ghosts invalid child shapes. An invalid shape is defined as a shape that is not associated with a business object or can not be updated
+	 * Ghosts invalid child shapes. An invalid shape is defined as a shape that is not associated with a business object or can not be updated. Deletes transient shapes.
 	 * @param diagram
 	 */
 	void ghostInvalidChildShapes(ContainerShape shape);

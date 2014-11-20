@@ -21,6 +21,7 @@ import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.CachingService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
@@ -46,6 +47,7 @@ import org.osate.ge.services.impl.DefaultAadlFeatureService;
 import org.osate.ge.services.impl.DefaultAadlModificationService;
 import org.osate.ge.services.impl.DefaultAnchorService;
 import org.osate.ge.services.impl.DefaultBusinessObjectResolutionService;
+import org.osate.ge.services.impl.DefaultCachingService;
 import org.osate.ge.services.impl.DefaultConnectionCreationService;
 import org.osate.ge.services.impl.DefaultConnectionService;
 import org.osate.ge.services.impl.DefaultDiagramModificationService;
@@ -80,6 +82,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	
 	private IEclipseContext createEclipseContext(final IFeatureProvider fp) {
 		// Create objects for the context
+		final CachingService cachingService = new DefaultCachingService();
 		final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService();
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
@@ -111,9 +114,10 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
-		// Populate the context. 
+		// Populate the context.
 		context.set(IDiagramTypeProvider.class, this);
 		context.set(IFeatureProvider.class, fp);
+		context.set(CachingService.class, cachingService);
 		context.set(SerializableReferenceService.class, serializableReferenceService);
 		context.set(BusinessObjectResolutionService.class, bor);
 		context.set(AadlArrayService.class, arrayService);

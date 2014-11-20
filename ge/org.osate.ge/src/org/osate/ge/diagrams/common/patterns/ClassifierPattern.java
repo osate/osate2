@@ -316,6 +316,8 @@ public class ClassifierPattern extends AgePattern {
 			classifier = (Classifier)bo;
 		} else if(bo instanceof Subcomponent) {
 			classifier = (Classifier)subcomponentService.getComponentClassifier(shape,  (Subcomponent)bo);
+		} else if(bo == null) {
+			throw new RuntimeException("Unexpected case. Business object is null.");
 		} else {
 			throw new RuntimeException("Unexpected case. Business object is of unexpected type: " + bo.getClass());
 		}	
@@ -367,7 +369,7 @@ public class ClassifierPattern extends AgePattern {
 			}
 		}
 
-		// Ghost child shapes that were not updated. This is done before updating connections because the connections by refer to invisible or ghosted shapes
+		// Ghost child shapes that were not updated. This is done before updating connections because the connections may refer to invisible or ghosted shapes
 		childShapesToGhost.removeAll(touchedShapes);
 		for(final Shape child : childShapesToGhost) {
 			ghostingService.setIsGhost(child, true);
@@ -409,6 +411,7 @@ public class ClassifierPattern extends AgePattern {
 	        final Shape labelShape = peCreateService.createShape(shape, false);
 	        propertyService.setName(labelShape, labelShapeName);
 	        propertyService.setIsManuallyPositioned(labelShape, true);
+	        propertyService.setIsTransient(labelShape, true);
 	        link(labelShape, new AadlElementWrapper(sc));
 	        final String name = getLabelText(sc);
 	        final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
@@ -418,6 +421,7 @@ public class ClassifierPattern extends AgePattern {
 	        final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
 	        propertyService.setName(subcomponentTypeIndicatorShape, subcomponentTypeLabelShapeName);
 	        propertyService.setIsManuallyPositioned(subcomponentTypeIndicatorShape, true);
+	        propertyService.setIsTransient(subcomponentTypeIndicatorShape, true);
 	        final String subcomponentTypeName = getTypeText(sc);
 	        final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
 	        graphicsAlgorithmCreator.createMultiLineLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);

@@ -25,8 +25,8 @@ public class AgeDiagramEditor extends DiagramEditor {
 	}
 	
 	protected DiagramBehavior createDiagramBehavior() {
-		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 		final PropertyService propertyService = new DefaultPropertyService();
+		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 		return new AgeDiagramBehavior(this, new DefaultGhostPurger(propertyService), diagramService, propertyService);
 	}
 }

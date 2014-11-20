@@ -47,6 +47,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
+import org.osate.ge.services.CachingService;
 import org.osate.ge.services.DiagramService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.ui.util.GhostPurger;
@@ -117,13 +118,19 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		@Override
 		public void modelChanged(final XtextResource resource) {
 			if(resource.getContents().size() > 0) {
+				// Invalidate the cache
+				final CachingService cachingService = (CachingService)getAdapter(CachingService.class);
+				if(cachingService != null) {
+					cachingService.invalidate();
+				}
+				
+				// Update the diagram
 				final EObject contents = resource.getContents().get(0);
 				final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
 				if(contents instanceof NamedElement && bo instanceof NamedElement) {
 					final NamedElement namedElement = (NamedElement)bo;
 					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
 					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
-				
 					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
 						update();
 					}

@@ -102,9 +102,11 @@ import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.CachingService;
 import org.osate.ge.services.ConnectionService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
+	private final boolean enableIndependenceProviderCaching = true;
 	private IEclipseContext context;
 	private ConnectionService connectionService;
 	
@@ -116,7 +118,14 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		this.context = context;
 		this.connectionService = context.get(ConnectionService.class);
 		
-		setIndependenceSolver(make(IndependenceProvider.class));
+		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
+		if(enableIndependenceProviderCaching) {
+			final CachingIndependenceProvider cachingIndependenceProvider = new CachingIndependenceProvider(nonCachingIndependenceProvider);
+			context.get(CachingService.class).registerCache(cachingIndependenceProvider);
+			setIndependenceSolver(cachingIndependenceProvider);
+		} else {
+			setIndependenceSolver(nonCachingIndependenceProvider);
+		}
 		
 		// Add patterns
 		addAadlFeaturePatterns();

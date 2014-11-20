@@ -75,9 +75,10 @@ public interface PropertyService {
 	boolean isUnselectable(PictogramElement pe);
 	void setIsUnselectable(PictogramElement pe, boolean value);
 	
-	// Sets whether a connection is transient. A transient connection is a connection that is recreated whenever its owner is updated.
-	boolean isTransient(Connection c);
-	void setIsTransient(Connection c, boolean value);
+	// Sets whether a pictogram element is transient. A transient pictogram element is a pictogram element that is recreated whenever its owner is updated. Transient shapes
+	// should not be referenced.
+	boolean isTransient(PictogramElement pe);
+	void setIsTransient(PictogramElement pe, boolean value);
 	
 	// Bindings
 	BindingType getBindingType(Connection c);

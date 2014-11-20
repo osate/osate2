@@ -204,13 +204,13 @@ public class DefaultPropertyService implements PropertyService {
 	}
 	
 	@Override
-	public boolean isTransient(final Connection c) {
-		return "true".equals(Graphiti.getPeService().getPropertyValue(c, IS_TRANSIENT_KEY));
+	public boolean isTransient(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_TRANSIENT_KEY));
 	}
 	
 	@Override
-	public void setIsTransient(final Connection c, final boolean value) {
-		Graphiti.getPeService().setPropertyValue(c, IS_TRANSIENT_KEY, value ? "true" : "false");
+	public void setIsTransient(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_TRANSIENT_KEY, value ? "true" : "false");
 	}
 	
 	// Bindings

@@ -65,38 +65,48 @@ public class DefaultGhostingService implements GhostingService {
 	@Override
 	public void ghostInvalidChildShapes(final ContainerShape shape) {
 		final Set<Object> updatedBos = new HashSet<Object>(); // Set used to track if an object already associated with a business object has not-been ghosted(considered valid)
+		final List<Shape> shapesToDelete = new ArrayList<Shape>(); // Shapes that should be deleted rather than ghosted
 		
 		for(final Shape childShape : shape.getChildren()) {
-			// Check if the shape has a business object and can be updated
-			final Object bo = bor.getBusinessObjectForPictogramElement(childShape);
-			final UpdateContext updateContext = new UpdateContext(childShape);
-			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-			
-			// Determine whether to ghost the shape
-			boolean ghost = false;
-			if(updatedBos.contains(bo)) {
-				ghost = true;
+			if(propertyService.isTransient(childShape)) {
+				shapesToDelete.add(childShape);
 			} else {
-				if(bo == null || updateFeature == null || !updateFeature.canUpdate(updateContext)) {
+				// Check if the shape has a business object and can be updated
+				final Object bo = bor.getBusinessObjectForPictogramElement(childShape);
+				final UpdateContext updateContext = new UpdateContext(childShape);
+				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+				
+				// Determine whether to ghost the shape
+				boolean ghost = false;
+				if(updatedBos.contains(bo)) {
 					ghost = true;
 				} else {
-					EObject emfBusinessObject = (EObject)bo;
-					if(emfBusinessObject.eIsProxy()) {
-						emfBusinessObject = EcoreUtil.resolve(emfBusinessObject, emfBusinessObject.eResource().getResourceSet());
-					}
-		
-					if(emfBusinessObject.eIsProxy()) {
+					if(bo == null || updateFeature == null || !updateFeature.canUpdate(updateContext)) {
 						ghost = true;
+					} else {
+						EObject emfBusinessObject = (EObject)bo;
+						if(emfBusinessObject.eIsProxy()) {
+							emfBusinessObject = EcoreUtil.resolve(emfBusinessObject, emfBusinessObject.eResource().getResourceSet());
+						}
+			
+						if(emfBusinessObject.eIsProxy()) {
+							ghost = true;
+						}
 					}
 				}
+				
+				// Ghost the shape
+				if(ghost) {
+					setIsGhost(childShape, true);
+				} else {
+					updatedBos.add(bo);
+				}
 			}
-			
-			// Ghost the shape
-			if(ghost) {
-				setIsGhost(childShape, true);
-			} else {
-				updatedBos.add(bo);
-			}
+		}
+		
+		// Delete all shapes that were marked for deletion
+		for(final Shape s : shapesToDelete) {
+			EcoreUtil.delete(s, true);
 		}
 	}
 	
@@ -110,12 +120,12 @@ public class DefaultGhostingService implements GhostingService {
 			if(owner == shape || owner == null) {
 				// Remove transient connections instead of ghosting because they are never resurrected and will otherwise result in a large number of ghosted connections.
 				if(propertyService.isTransient(c)) {
-					connectionsToDelete.add(c);;
+					connectionsToDelete.add(c);
 				} else {
 					 ghostIfInvalid(c);
 				}
 			}
-		}		
+		}
 		
 		// Delete all connections that were marked for deletion
 		for(final Connection c : connectionsToDelete) {

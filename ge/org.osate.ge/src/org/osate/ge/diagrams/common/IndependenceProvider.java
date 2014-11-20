@@ -53,7 +53,7 @@ public class IndependenceProvider implements IIndependenceSolver {
 	private AadlPackage getPackage() {
 		final Diagram diagram = featureProvider.getDiagramTypeProvider().getDiagram();
 		gettingDiagramObj = true;
-		final NamedElement diagramElement = (NamedElement)featureProvider.getBusinessObjectForPictogramElement(diagram);
+		final NamedElement diagramElement = (NamedElement)AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
 		gettingDiagramObj = false;
 		
 		if(diagramElement == null) {
@@ -80,7 +80,7 @@ public class IndependenceProvider implements IIndependenceSolver {
 
 		// Check if we are trying to get the element corresponding to the diagram
 		if(gettingDiagramObj) {
-			return getDiagramElement(key);
+			return new AadlElementWrapper(getDiagramElement(key));
 		} else {
 			final AadlPackage pkg = getPackage();
 			if(pkg == null) {

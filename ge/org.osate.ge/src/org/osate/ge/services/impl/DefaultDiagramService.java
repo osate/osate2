@@ -226,8 +226,7 @@ public class DefaultDiagramService implements DiagramService {
 	@Override
 	public List<Diagram> findDiagrams() {
 		final List<Diagram> diagrams = new ArrayList<Diagram>();
-		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();
-		
+		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();		
 
 		for(final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences()) {
 			final IEditorPart editor = editorRef.getEditor(false); // If restore is true then the editor is automatically updated

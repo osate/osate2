@@ -30,12 +30,10 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.Generalization;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.DiagramModificationService;
@@ -112,6 +110,19 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 			return results;
     	}
     	
+    	private Set<AadlPackage> getPackages(final List<Classifier> classifiers) {
+    		final Set<AadlPackage> results = new HashSet<AadlPackage>();
+    		
+    		for(final Classifier c : classifiers) {
+    			if(c.getElementRoot() instanceof AadlPackage) {
+    				results.add((AadlPackage)c.getElementRoot());
+    			}
+    		}
+    		
+    		return results;
+    	}
+    	
+    	/*
     	private List<AadlElementWrapper> getRelevantElements(final List<Classifier> classifiers) {
     		final List<AadlElementWrapper> results = new ArrayList<AadlElementWrapper>();
     		for(final Classifier c : classifiers) {
@@ -127,7 +138,8 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     		}
     		return results;
     	}
-
+    	 */
+    	
     	@Override
     	public void markRelatedDiagramsAsDirty(final Classifier c) {
     		if(c != null) {
@@ -135,24 +147,29 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     			// Make a relevant element list that contains all the AADL elements that reference classifiers in the relevant classifier list
      			// For each diagram, 
     			// Mark as dirty if the diagram's BO is in the classifier list
-    			// Mark as dirty if the diagram contains a shape whose BO is in the relevant element list    			
+    			// Mark as dirty if the diagram contains a shape whose BO is in the relevant element list
     			final List<Classifier> relevantClassifiers = getSelfAndSpecificClassifiers(c);
-    			final List<AadlElementWrapper> relevantElements = getRelevantElements(relevantClassifiers);
+    			final Set<AadlPackage> relevantPackages = getPackages(relevantClassifiers);
+    			//final List<AadlElementWrapper> relevantElements = getRelevantElements(relevantClassifiers);
     			
     			for(final Diagram tmpDiagram : getDiagrams()) {
 	    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
 	    			
 	    			boolean markDiagram = false;
 	    			
-	    			if(relevantClassifiers.contains(tmpDiagramBo)) {
+	    			if(relevantClassifiers.contains(tmpDiagramBo) || relevantPackages.contains(tmpDiagramBo)) {
 	    				markDiagram = true;
-	    			} else {		    			
+	    			} else {
+	    				// Only check if the diagram is linked to one of the relevant classifiers.
+	    				// Creating a feature provider for every diagram is expensive.
+	    				/*
 		    			final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(tmpDiagram);
 		    			for(final AadlElementWrapper relAadlElementWrapper : relevantElements) {
 		    				if(featureProvider.getPictogramElementForBusinessObject(relAadlElementWrapper) != null) {
 		    					markDiagram = true;
 		    				}
 		    			}
+		    			*/
 	    			}
 	    			
 	    			if(markDiagram) {
@@ -205,14 +222,16 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					public void onDiagram(final Diagram diagram) {						
 						// Update any dirty linkages stored for the diagram
 						final IFeatureProvider fp = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-						final Map<NamedElement, PictogramElement[]> dirtyLinkagesMap = diagramToDirtyLinkages.get(diagram);
-						if(dirtyLinkagesMap != null) {
-			    			for(final Entry<NamedElement, PictogramElement[]> dirtyLinkagesEntry : dirtyLinkagesMap.entrySet()) {
-			    				final AadlElementWrapper elWrapper = new AadlElementWrapper(dirtyLinkagesEntry.getKey());
-			    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
-			    					fp.link(pe, elWrapper);
-			    				}
-			    			}
+						if(fp != null) {
+							final Map<NamedElement, PictogramElement[]> dirtyLinkagesMap = diagramToDirtyLinkages.get(diagram);
+							if(dirtyLinkagesMap != null) {
+				    			for(final Entry<NamedElement, PictogramElement[]> dirtyLinkagesEntry : dirtyLinkagesMap.entrySet()) {
+				    				final AadlElementWrapper elWrapper = new AadlElementWrapper(dirtyLinkagesEntry.getKey());
+				    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
+				    					fp.link(pe, elWrapper);
+				    				}
+				    			}
+							}
 						}
 					}    					
 				});				
@@ -241,7 +260,9 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					
 					// Update the entire diagram
 					final IFeatureProvider fp = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-					fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { diagram });
+					if(fp != null) {
+						fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { diagram });
+					}
 				}			
 			});						
 			

@@ -33,7 +33,6 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
-import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
@@ -75,12 +74,14 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		return context;
 	}	
 	
+	/**
+	 * This is how we provide objects in the context to the editor.
+	 */
 	@Override
 	public Object getAdapter(Class<?> type) {
-		if(type == BusinessObjectResolutionService.class) {
-			return context.get(BusinessObjectResolutionService.class);
-		} else if(type == PropertyService.class) {
-			return context.get(PropertyService.class);
+		final Object result = context.get(type);
+		if(result != null) {
+			return result;
 		}
 		
 		return super.getAdapter(type);
