@@ -96,11 +96,16 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 			c.setNoSpace().before(pair.getSecond());
 			c.setLinewrap(0, 0, 1).before(pair.getSecond());
 		}
+		for (Keyword annex : g.findKeywords("annex")) {
+			c.setIndentationDecrement().before(annex);
+			c.setIndentationIncrement().after(annex);
+		}
 		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("{**", "**}")) {
 			c.setIndentationIncrement().after(pair.getFirst());
 			c.setLinewrap().after(pair.getFirst());
 			c.setIndentationDecrement().before(pair.getSecond());
 			c.setLinewrap().before(pair.getSecond());
+			c.setIndentationIncrement().after(pair.getSecond());
 		}
 		for (Pair<Keyword, Keyword> pair : g.findKeywordPairs("{", "}")) {
 			c.setIndentationIncrement().after(pair.getFirst());
@@ -143,15 +148,12 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		for (Keyword arrow : g.findKeywords("->")) {
 			c.setLinewrap(0, 0, 1).after(arrow);
 		}
-
-		for (String sectionName : new String[] { "prototypes", "subcomponents", "connections", "flows", "calls",
-				"properties" }) {
-			for (Keyword keyword : g.findKeywords(sectionName)) {
-				c.setLinewrap(1, 1, 2).before(keyword);
-				c.setLinewrap().after(keyword);
-				c.setIndentationDecrement().before(keyword);
-				c.setIndentationIncrement().after(keyword);
-			}
+		for (Keyword section : g.findKeywords("prototypes", "subcomponents", "connections", "flows", "calls",
+				"properties")) {
+			c.setLinewrap(1, 1, 2).before(section);
+			c.setLinewrap().after(section);
+			c.setIndentationDecrement().before(section);
+			c.setIndentationIncrement().after(section);
 		}
 		for (Keyword applies : g.findKeywords("applies")) {
 			c.setLinewrap(0, 0, 1).before(applies);
