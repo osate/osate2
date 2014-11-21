@@ -6,13 +6,9 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.xtext.linking.ILinker;
-import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.XtextDocument;
-import org.eclipse.xtext.ui.editor.model.edit.DefaultTextEditComposer;
-import org.eclipse.xtext.ui.editor.model.edit.ReconcilingUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
@@ -23,9 +19,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.commands.CreatePropertyAssociationCommand;
 
 /**
@@ -116,16 +110,7 @@ public class PropertyAssociationWizard extends Wizard {
 	public boolean performFinish() {
 		AbstractPropertyValueWizardPage activePropertyValueWizardPage = getActivePropertyValueWizardPage();
 		if (xtextDocument != null) {
-			if (xtextDocument instanceof XtextDocument) {
-				TextEditComposerWithoutValidationOnSave composer = new TextEditComposerWithoutValidationOnSave();
-				OsateCorePlugin.getDefault().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)
-						.injectMembers(composer);
-				ReconcilingUnitOfWork<Object> reconcilingUnitOfWork = new ReconcilingUnitOfWork<Object>(
-						new AddPropertyUnitOfWork(activePropertyValueWizardPage), xtextDocument, composer);
-				((XtextDocument) xtextDocument).internalModify(reconcilingUnitOfWork);
-			} else {
-				xtextDocument.modify(new AddPropertyUnitOfWork(activePropertyValueWizardPage));
-			}
+			xtextDocument.modify(new AddPropertyUnitOfWork(activePropertyValueWizardPage));
 		} else {
 			// If the command stack is null, a new temporary editing domain will be created to edit the resource
 			TransactionalEditingDomain createdEditingDomain = null;
@@ -237,10 +222,4 @@ public class PropertyAssociationWizard extends Wizard {
 		return propertyValueWizardPage;
 	}
 
-	private static class TextEditComposerWithoutValidationOnSave extends DefaultTextEditComposer {
-		@Override
-		protected SaveOptions getSaveOptions() {
-			return SaveOptions.newBuilder().noValidation().getOptions();
-		}
-	}
 }
