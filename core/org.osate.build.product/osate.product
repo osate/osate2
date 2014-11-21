@@ -35,10 +35,8 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
-
 
    <plugins>
    </plugins>
@@ -96,5 +94,12 @@
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="preferenceCustomization" value="plugin_customization.ini" />
    </configurations>
+
+   <repositories>
+      <repository location="http://aadl.info/aadl/osate/testing/update-site/" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/luna/" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.4" enabled="true" />
+      <repository location="http://subclipse.tigris.org/update_1.8.x" enabled="true" />
+   </repositories>
 
 </product>
