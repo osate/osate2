@@ -93,7 +93,13 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 	@Override
 	public List<String> initVisibleHandles(String handle) {
 		List<String> result = super.initVisibleHandles(handle);
-		result.add(AADL_PROJECT_HANDLE);
+
+		// empty result list is immutable so we can't add to it
+		if (result.isEmpty()) {
+			result = Collections.singletonList(AADL_PROJECT_HANDLE);
+		} else {
+			result.add(AADL_PROJECT_HANDLE);
+		}
 		return result;
 	}
 
