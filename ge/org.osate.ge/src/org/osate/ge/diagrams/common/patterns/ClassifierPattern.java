@@ -561,7 +561,7 @@ public class ClassifierPattern extends AgePattern {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
 			for(final Subcomponent sc : ci.getAllSubcomponents()) {
 				final Shape subcomponentShape = shapeService.getChildShapeByElementName(classifierShape, sc);
-				if(subcomponentShape.isVisible()) {
+				if(subcomponentShape != null && subcomponentShape.isVisible()) {
 					final Classifier subcomponentClassifier = subcomponentService.getComponentClassifier(subcomponentShape, sc);
 					if(subcomponentClassifier != null && subcomponentShape instanceof ContainerShape) {
 						processBindings(bindingTrackerMap, subcomponentClassifier, (ContainerShape)subcomponentShape);
