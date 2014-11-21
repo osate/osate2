@@ -83,6 +83,7 @@
       <feature id="org.eclipse.uml2" version="5.0.0.v20140910-1354"/>
       <feature id="org.eclipse.zest" version="1.5.101.201408150207"/>
       <feature id="org.eclipse.xtext.redist" version="2.7.2.v201409160908"/>
+      <feature id="net.certware.feature.sacm" version="1.0.0.201408141746"/>
    </features>
 
    <configurations>
