@@ -260,46 +260,46 @@ public class SetBindingAction extends SelectionAction {
 		
 		@SuppressWarnings("unchecked")
 		private void validate() {
+			boolean validationSuccessful = false;
+			
 			if(((List<Property>)bindingPropertyCombo.getInput()).size() == 0) {
-				selectionStatusLabel.setText("No applicable bindings.");
+				selectionStatusLabel.setText("No applicable binding properties.");
 			} else {
 				selectionStatusLabel.setText("Elements selected: " + targetPictogramElements.length);
-			}
-			
-			final Property selectedProperty = getSelectedProperty();
-			boolean validationSuccessful = false;
-			if(selectedProperty == null) {
-				selectionStatusLabel.setText("Select a binding property.");
-			} else {
-				final ListType listType = (ListType)selectedProperty.getPropertyType();
-				final ReferenceType refType = (ReferenceType)listType.getElementType();
-				
-				// Check target pictogram elements...
-				validationSuccessful = true;
-				for(final PictogramElement targetPe : targetPictogramElements) {
-					boolean boIsValid = false;
-					final Element bo = (Element)bor.getBusinessObjectForPictogramElement(targetPe);
-					if(bo != null) {
-						// The root element can not be a target element
-						if(!(bo instanceof Classifier)) {
-							for(final MetaclassReference mcr : refType.getNamedElementReferences()) {
-								if(mcr.getMetaclass().isSuperTypeOf(bo.eClass())) {
-									boIsValid = true;
-									break;
+
+				final Property selectedProperty = getSelectedProperty();
+				if(selectedProperty == null) {
+					selectionStatusLabel.setText("Select a binding property.");
+				} else {
+					final ListType listType = (ListType)selectedProperty.getPropertyType();
+					final ReferenceType refType = (ReferenceType)listType.getElementType();
+					
+					// Check target pictogram elements...
+					validationSuccessful = true;
+					for(final PictogramElement targetPe : targetPictogramElements) {
+						boolean boIsValid = false;
+						final Element bo = (Element)bor.getBusinessObjectForPictogramElement(targetPe);
+						if(bo != null) {
+							// The root element can not be a target element
+							if(!(bo instanceof Classifier)) {
+								for(final MetaclassReference mcr : refType.getNamedElementReferences()) {
+									if(mcr.getMetaclass().isSuperTypeOf(bo.eClass())) {
+										boIsValid = true;
+										break;
+									}
 								}
 							}
 						}
-					}
-					
-					// Show an error message if the BO is not valid
-					if(!boIsValid) {
-						validationSuccessful = false;
-						selectionStatusLabel.setText("One or more of the selected target elements are not valid.");
-						break;
-					}
-				}
-				
-			}						
+						
+						// Show an error message if the BO is not valid
+						if(!boIsValid) {
+							validationSuccessful = false;
+							selectionStatusLabel.setText("One or more of the selected target elements are not valid.");
+							break;
+						}
+					}					
+				}					
+			}
 			
 			final Button okButton = getButton(IDialogConstants.OK_ID);
 			okButton.setEnabled(validationSuccessful);
