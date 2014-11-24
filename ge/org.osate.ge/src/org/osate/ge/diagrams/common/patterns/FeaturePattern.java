@@ -238,7 +238,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		final Shape shape = context.getShape();
 		final int containerWidth = shape.getContainer().getGraphicsAlgorithm().getWidth();
-		final boolean isLeft = context.getX() < containerWidth/2;
+		final boolean isLeft = calculateIsLeft(shape.getContainer(), context.getX() , shape.getGraphicsAlgorithm().getWidth());
 		final MoveShapeContext mutableContext = (MoveShapeContext)context;
 		mutableContext.setX(isLeft ? 0 : containerWidth-shape.getGraphicsAlgorithm().getWidth());
 	}
@@ -250,7 +250,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 
 		// Update whether or not the shape is on the left or not
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		final boolean isLeft = calculateIsLeft(shape.getContainer(), ga.getX() + (ga.getWidth() / 2));
+		final boolean isLeft = calculateIsLeft(shape.getContainer(), ga.getX(), ga.getWidth());
 		propertyUtil.setIsLeft(shape, isLeft);
 		
 		layoutAll(shape);
@@ -382,6 +382,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			if(featureShape != childIt.next()) {
 				childIt.remove();
 			}
+
 		}
 
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes
@@ -670,7 +671,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		return propertyUtil.getIsLeft(shape);
 	}
 	
-	private boolean calculateIsLeft(final ContainerShape container, final int centerX) {
+	private boolean calculateIsLeft(final ContainerShape container, final int positionX, final int width) {
 		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
 		
 		// Handle the case that isLeft is caused before the container is initialized
@@ -678,6 +679,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			return true;
 		}
 		
+		final int centerX = positionX + width/2;
 		final boolean result = centerX < containerGa.getWidth()/2;
 		return result;
 	}	
@@ -783,7 +785,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 					
 					// Set the is left property
 					final GraphicsAlgorithm newShapeGa = newShape.getGraphicsAlgorithm();
-					final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX() + (newShapeGa.getWidth() / 2));
+					final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX(), newShapeGa.getWidth());
 					propertyUtil.setIsLeft(newShape, isLeft);
 				}
 			});
