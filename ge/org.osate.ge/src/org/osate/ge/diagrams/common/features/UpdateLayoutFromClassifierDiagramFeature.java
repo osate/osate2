@@ -110,6 +110,7 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
 		final Shape srcRootShape = srcDiagram == null ? null : findRootShape(srcDiagram, classifier);
 		if(srcRootShape == null) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Error", "Unable to find classifier diagram or root shape.");
+			return;
 		}		
 
 		final Map<Shape, List<Connection>> dstShapeToConnectionMap = buildShapeToConnectionMap(getDiagram());
