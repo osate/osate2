@@ -198,7 +198,7 @@ public class SetBindingAction extends SelectionAction {
 			super.create();
 			
 			setTitle("Select Elements");
-			setMessage("Select a binding type and the diagram elements to which to bind " + elementToBind.getName() + ".");	
+			setMessage("Select a binding property and the elements from the diagram to bind " + elementToBind.getName() + ".");	
 			validate();
 		}
 				
@@ -308,7 +308,7 @@ public class SetBindingAction extends SelectionAction {
 		@Override
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
-			newShell.setText("Set Binding");
+			newShell.setText("Bind");
 			newShell.setSize(400, 225);
 		}
 		
