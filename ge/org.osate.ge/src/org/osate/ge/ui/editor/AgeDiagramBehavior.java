@@ -20,7 +20,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -35,8 +37,10 @@ import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
+import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Display;
@@ -47,7 +51,11 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
+import org.osate.ge.services.AadlModificationService;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.CachingService;
+import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.ui.util.GhostPurger;
@@ -103,8 +111,14 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
 			
-	 		registerAction(new IncreaseNestingDepthAction(parentPart, propertyService));
+			registerAction(new IncreaseNestingDepthAction(parentPart, propertyService));
 	 		registerAction(new DecreaseNestingDepthAction(parentPart, propertyService));
+
+			final AadlModificationService aadlModService = (AadlModificationService)getAdapter(AadlModificationService.class);		
+			final DiagramModificationService diagramModService = (DiagramModificationService)getAdapter(DiagramModificationService.class);
+			final ConnectionService connectionService = (ConnectionService)getAdapter(ConnectionService.class);
+			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)getAdapter(BusinessObjectResolutionService.class);		
+	 		registerAction(new SetBindingAction(parentPart, aadlModService, diagramModService, connectionService, bor));
 		}
 	}
 	
@@ -217,6 +231,20 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	
 	public DefaultPersistencyBehavior getPersistencyBehavior() {
 		return super.getPersistencyBehavior();
+	}
+	
+	@Override
+	protected ContextMenuProvider createContextMenuProvider() {
+		return new DiagramEditorContextMenuProvider(getDiagramContainer().getGraphicalViewer(),
+				getDiagramContainer().getActionRegistry(),
+				getConfigurationProvider()) {
+			
+			@Override
+			protected void addDefaultMenuGroupRest(final IMenuManager manager) {
+				super.addDefaultMenuGroupRest(manager);
+				addActionToMenu(manager, SetBindingAction.ID, GEFActionConstants.GROUP_REST);
+			}
+		};
 	}
 	
 	/**

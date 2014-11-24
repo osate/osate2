@@ -9,8 +9,6 @@
 package org.osate.ge.diagrams.common.patterns;
 
 import java.util.Iterator;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
@@ -20,6 +18,7 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
@@ -44,7 +43,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -59,7 +57,6 @@ import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.RefactoringService;
-import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
@@ -72,6 +69,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
 	private final AnchorService anchorService;
+	private final ConnectionService connectionService;
 	private final LayoutService resizeHelper;
 	private final ShapeService shapeHelper;
 	private final PropertyService propertyService;
@@ -82,7 +80,6 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final AadlModificationService modificationService;
 	private final UserInputService userInputService;
 	private final NamingService namingService;
-	private final SerializableReferenceService referenceService;
 	private final BusinessObjectResolutionService bor;
 	private final RefactoringService refactoringService;
 	
@@ -90,10 +87,11 @@ public class ModePattern extends AgeLeafShapePattern {
 	public ModePattern(final AnchorService anchorUtil, final GhostingService ghostingService, final ConnectionService connectionService, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
-			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService, 
-			final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor) {
+			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService,
+			final BusinessObjectResolutionService bor) {
 		super(anchorUtil, ghostingService);
 		this.anchorService = anchorUtil;
+		this.connectionService = connectionService;
 		this.resizeHelper = resizeHelper;
 		this.shapeHelper = shapeHelper;
 		this.propertyService = propertyUtil;
@@ -105,7 +103,6 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.userInputService = userInputService;
 		this.namingService = namingService;
 		this.refactoringService = refactoringService;
-		this.referenceService = referenceService;
 		this.bor = bor;
 	}
 
@@ -171,29 +168,35 @@ public class ModePattern extends AgeLeafShapePattern {
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext untransformedContext) {
 		final IMoveShapeContext newContext = transformMoveShapeContext(untransformedContext);
-		final Anchor anchor = anchorService.getAnchorByName(getInnerModeShape((ContainerShape)newContext.getPictogramElement()), chopboxAnchorName);
-		if(anchor != null) {
-			updateModeTransition(anchor.getIncomingConnections());
-			updateModeTransition(anchor.getOutgoingConnections());
+
+		boolean refresh = false;
+		if(resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement())) {
+			refresh = true;			
 		}
 		
-		if(resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement())) {
+		layout((ContainerShape)newContext.getPictogramElement());
+		
+		if(refresh) {
 			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 		}
 	}
 	
-	// Updates the control points for mode transition connections. Also update the mode transition triggers. 
-	// It does not update all aspects of the connection because doing so will cause problems due to issues
-	// caused by creating graphics algorithms during postMoveShape()
-	public void updateModeTransition(final List<Connection> connections) {
-		for(Connection connection : connections) {
-			final Object connectionBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection));
-			if(connectionBo instanceof ModeTransition) {
-				final ModeTransition mt = (ModeTransition)connectionBo;
-				ModeTransitionPattern.updateControlPoints(connection);
-				ModeTransitionPattern.updateAnchors(referenceService, connection, mt, anchorService);
-			}
-		}
+	public boolean canLayout(ILayoutContext context) {
+		return isMainBusinessObjectApplicable(getBusinessObjectForPictogramElement(context.getPictogramElement())) && context.getPictogramElement() instanceof ContainerShape;
+	}
+	
+	@Override
+	public boolean layout(ILayoutContext context) {
+		layout((ContainerShape)context.getPictogramElement());
+		return super.layout(context);
+	}
+
+	/**
+	 * Adjusts the mode transitions
+	 * @param shape
+	 */
+	private void layout(final ContainerShape shape) {
+		connectionService.updateConnectionAnchors(getInnerModeShape(shape));
 	}
 	
 	@Override

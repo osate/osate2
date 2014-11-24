@@ -21,6 +21,7 @@ import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -47,6 +48,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog;
@@ -61,12 +63,13 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
+import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
-	public static String MODE_TRANSITION_TRIGGER_CONNECTION_TYPE = "mode_transition_trigger";	
+	public static String MODE_TRANSITION_TRIGGER_CONNECTION_TYPE = "mode_transition_trigger";
 	private final StyleService styleService;
 	private final AnchorService anchorService;
 	private final NamingService namingService;
@@ -77,11 +80,13 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	private final SerializableReferenceService referenceService;
 	private final BusinessObjectResolutionService bor;
 	private final PropertyService propertyService;
+	private final SubcomponentService subcomponentService;
 	
 	@Inject
 	public ModeTransitionPattern(final GhostingService ghostingService, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
-			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService) {
+			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService,
+			final SubcomponentService subcomponentService) {
 		super(ghostingService, connectionHelper, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
@@ -93,6 +98,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		this.referenceService = referenceService;
 		this.bor = bor;
 		this.propertyService = propertyService;
+		this.subcomponentService = subcomponentService;
 	}
 
 	@Override
@@ -104,6 +110,30 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
 		return diagramBo instanceof ComponentClassifier;
+	}
+	
+	@Override
+	public boolean canUpdate(final IUpdateContext context) {
+		if(super.canUpdate(context)) {
+			// Check that the mode transition is actually contained in the component classifier
+			final ContainerShape ownerShape = connectionService.getOwnerShape((Connection)context.getPictogramElement());
+			final Object ownerBo = bor.getBusinessObjectForPictogramElement(ownerShape);
+			final ComponentClassifier cc;
+			if(ownerBo instanceof Subcomponent) {
+				cc = subcomponentService.getComponentClassifier(ownerShape, (Subcomponent)ownerBo);
+			} else if(ownerBo instanceof ComponentClassifier) {
+				cc = (ComponentClassifier)ownerBo;
+			} else {
+				cc = null;
+			}
+			if(cc == null) {
+				return false;
+			}
+			
+			return cc.getAllModeTransitions().contains(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
+		}
+		
+		return false;
 	}
 
 	/**
@@ -341,7 +371,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	}
 	
 	// CLEAN-UP: Should be private and not static. Develop another way for ModePattern to trigger updating of the anchors without causing issues
-	static void updateAnchors(final SerializableReferenceService referenceService, final Connection connection, final ModeTransition mt, final AnchorService anchorUtil) {
+	public static void updateAnchors(final SerializableReferenceService referenceService, final Connection connection, final ModeTransition mt, final AnchorService anchorUtil) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
 		final ContainerShape modeShape = getStartModeShape(connection);
 		final ILocation modeLocation = layoutService.getLocationRelativeToDiagram(modeShape);
@@ -393,7 +423,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	 * @param fp
 	 * @return
 	 */
-	public Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
+	private Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
 		
 		// Get the shapes for the trigger port. 
 		final ContainerShape portShapeOwner = trigger.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, trigger.getContext());

@@ -10,7 +10,9 @@ package org.osate.ge.ui.editor;
 
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
+import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
@@ -18,6 +20,9 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.SubContributionItem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 
@@ -42,6 +47,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		addRetargetAction(new DistributeVerticallyRetargetAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
 		addRetargetAction(new DecreaseNestingDepthRetargetAction());
 		addRetargetAction(new IncreaseNestingDepthRetargetAction());
+		addRetargetAction(new SetBindingRetargetAction());
 	}
 	
 	@Override
@@ -51,7 +57,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.insertAfter(GEFActionConstants.ALIGN_BOTTOM, new Separator());
 		tbm.insertBefore(GEFActionConstants.MATCH_WIDTH, getAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
 		tbm.insertAfter(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY, getAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
-		tbm.insertAfter(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY, new Separator());
 		tbm.add(selectedModeItem);
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
@@ -63,6 +68,11 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.insertAfter(nestingControlInsertionPoint, getAction(IncreaseNestingDepthAction.ID));
 		tbm.insertAfter(nestingControlInsertionPoint, getAction(DecreaseNestingDepthAction.ID));
 		tbm.insertAfter(nestingControlInsertionPoint, new Separator());
+		
+		final String bindingInsertionPoint = MatchSizeAction.MATCH_SIZE;
+		tbm.insertAfter(bindingInsertionPoint, new Separator());
+		tbm.insertAfter(bindingInsertionPoint, getAction(SetBindingAction.ID));
+		tbm.insertAfter(bindingInsertionPoint, new Separator());
 		
 		tbm.remove(ToggleContextButtonPadAction.ACTION_ID);
 	}
@@ -96,6 +106,31 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
 		nestingDepthSelectorItem.setActiveEditor(editor);
+		
+		// Update the visibility of contribution items
+		final AgeDiagramEditor ageEditor = (AgeDiagramEditor)editor;
+		if(ageEditor.getDiagramTypeProvider() != null) {
+			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)ageEditor.getAdapter(BusinessObjectResolutionService.class);
+			final Object diagramBo = bor.getBusinessObjectForPictogramElement(ageEditor.getDiagramTypeProvider().getDiagram());
+		
+			final boolean isComponentClassifierDiagram = diagramBo instanceof ComponentClassifier;
+			final boolean isComponentImplementationDiagram = diagramBo instanceof ComponentImplementation;
+			updateItemVisibility(getActionBars().getToolBarManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+			updateItemVisibility(getActionBars().getMenuManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+		}
 	}
-
+	
+	private void updateItemVisibility(final IContributionManager mgr, final boolean isComponentClassifierDiagram, final boolean isComponentImplementationDiagram) {
+		for(final IContributionItem item : mgr.getItems()) {
+			boolean show = true;
+			final Object markedObject = item instanceof ActionContributionItem ? ((ActionContributionItem) item).getAction() : item;
+			if(markedObject instanceof ComponentClassifierItem) {
+				show = isComponentClassifierDiagram;
+			} else if(markedObject instanceof ComponentImplementationItem) {
+				show = isComponentImplementationDiagram; 
+			}
+			item.setVisible(show);
+			mgr.update(true);
+		}
+	}
 }

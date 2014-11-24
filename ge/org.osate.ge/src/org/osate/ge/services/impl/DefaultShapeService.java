@@ -58,12 +58,15 @@ public class DefaultShapeService implements ShapeService {
 	 */
 	@Override
 	public Shape getChildShapeByElementName(final ContainerShape shape, final NamedElement el) {
-		for(final Shape c : shape.getChildren()) {
-			Object bo = bor.getBusinessObjectForPictogramElement(c);
-			if(bo instanceof NamedElement && areNamesEqual((NamedElement)bo, el)) {
-				return c;
+		if(shape.isVisible()) {
+			for(final Shape c : shape.getChildren()) {
+				Object bo = bor.getBusinessObjectForPictogramElement(c);
+				if(bo instanceof NamedElement && areNamesEqual((NamedElement)bo, el) && c.isVisible()) {
+					return c;
+				}
 			}
 		}
+		
 		return null;
 	}
 		
@@ -89,14 +92,19 @@ public class DefaultShapeService implements ShapeService {
 	 */	
 	@Override
 	public Shape getDescendantShapeByElementName(final ContainerShape shape, final NamedElement el) {
-		for(final Shape c : shape.getChildren()) {
-			final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
-			if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
-				return c;
-			} else if(childBo == null && c instanceof ContainerShape) {
-				final Shape recResult = getDescendantShapeByElementName((ContainerShape)c, el);
-				if(recResult != null) {
-					return recResult;
+		// Only look inside visible shapes
+		if(shape.isVisible()) {
+			for(final Shape c : shape.getChildren()) {
+				if(c.isVisible()) {
+					final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
+					if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
+						return c;
+					} else if(childBo == null && c instanceof ContainerShape) {
+						final Shape recResult = getDescendantShapeByElementName((ContainerShape)c, el);
+						if(recResult != null) {
+							return recResult;
+						}
+					}
 				}
 			}
 		}

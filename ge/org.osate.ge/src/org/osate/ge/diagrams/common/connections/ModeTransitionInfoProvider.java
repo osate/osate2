@@ -41,16 +41,17 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 
 	@Override
 	public ContainerShape getOwnerShape(final Connection connection) {
+		// Find the subcomponent or component classifier that owns the mode transition connection. Look a fixed distance instead of walking up the hierarchy because 
+		// the business object may have been deleted and needs to be identified as being ownerless.
 		if(connection.getStart() != null && connection.getStart().getParent() instanceof ContainerShape) {
-			ContainerShape temp = (ContainerShape)connection.getStart().getParent();
-			while(temp != null) {
-				final Object tempBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(temp);
-				if(tempBo instanceof ComponentClassifier || tempBo instanceof Subcomponent) {
-					return temp;
+			final ContainerShape startAnchorParent = (ContainerShape)connection.getStart().getParent();
+			if(startAnchorParent != null && startAnchorParent.getContainer() != null && startAnchorParent.getContainer().getContainer() != null) {
+				final ContainerShape potentialOwnerShape = startAnchorParent.getContainer().getContainer();
+				final Object potentialOwnerBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(potentialOwnerShape);
+				if(potentialOwnerBo instanceof ComponentClassifier || potentialOwnerBo instanceof Subcomponent) {
+					return potentialOwnerShape;
 				}
-				temp = temp.getContainer();
 			}
-			
 		}
 
 		return null;
@@ -64,7 +65,7 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 		if(srcShape == null || dstShape == null) {
 			return null;
 		}				
-		
+
 		final Anchor a1 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(srcShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);
 		final Anchor a2 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(dstShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);	
 		if(a1 == null || a2 == null) {

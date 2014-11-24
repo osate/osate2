@@ -15,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Mode;
 import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -58,13 +59,18 @@ public class InitialModeConnectionInfoProvider extends AbstractConnectionInfoPro
 			final AnchorContainer parent = anchor.getParent();
 			if(parent instanceof ContainerShape) {
 				final ContainerShape parentContainer = ((ContainerShape) parent).getContainer();
-				if(getBusinessObjectResolver().getBusinessObjectForPictogramElement(parentContainer) instanceof Mode) {
+				if(getBusinessObjectResolver().getBusinessObjectForPictogramElement(parentContainer) instanceof Mode && isVisible(parentContainer)) {
 					return (ContainerShape)parentContainer;
 				}
 			}
 		}
 		
 		return null;
+	}
+	
+	// Checks the visibility of a shape and its ancestors
+	final boolean isVisible(final Shape shape) {
+		return shape == null || (shape.isVisible() && isVisible(shape.getContainer()));
 	}
 	
 	@Override

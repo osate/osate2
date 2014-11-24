@@ -17,6 +17,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
+import org.osate.aadl2.ModeTransition;
 import org.osate.ge.diagrams.common.connections.AadlConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.BindingConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ConnectionInfoProvider;
@@ -25,6 +26,7 @@ import org.osate.ge.diagrams.common.connections.GeneralizationInfoProvider;
 import org.osate.ge.diagrams.common.connections.InitialModeConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ModeTransitionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ModeTransitionTriggerInfoProvider;
+import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
@@ -172,6 +174,13 @@ public class DefaultConnectionService implements ConnectionService {
 					anchorService.createOrUpdateFixPointAnchor(ownerShape, midpointAnchorName, connectionMidpoint.getX() - ownerLocation.getX(), connectionMidpoint.getY() - ownerLocation.getY());
 				}
 			}
+		}
+		
+		// TODO: Need to expand the abstraction for midpoint anchors and connection anchors to incorporate curved connections.
+		final Object connectionBo = bor.getBusinessObjectForPictogramElement(connection);
+		if(connectionBo instanceof ModeTransition) {
+			ModeTransitionPattern.updateControlPoints(connection);
+			ModeTransitionPattern.updateAnchors(referenceService, connection, (ModeTransition)connectionBo, anchorService);
 		}
 	}
 

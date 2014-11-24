@@ -545,7 +545,7 @@ public class ClassifierPattern extends AgePattern {
 					if(sc.getOwnedPropertyAssociations().size() > 0) {
 						// Get subcomponent shape
 						final Shape subcomponentShape = shapeService.getChildShapeByElementName(classifierShape, sc);
-						if(subcomponentShape instanceof ContainerShape && subcomponentShape.isVisible()) {
+						if(subcomponentShape instanceof ContainerShape) {
 							// Process the subcomponent's bindings
 							processBindings(bindingTrackerMap, sc.getOwnedPropertyAssociations(), (ContainerShape)subcomponentShape);
 						}
@@ -561,7 +561,7 @@ public class ClassifierPattern extends AgePattern {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
 			for(final Subcomponent sc : ci.getAllSubcomponents()) {
 				final Shape subcomponentShape = shapeService.getChildShapeByElementName(classifierShape, sc);
-				if(subcomponentShape != null && subcomponentShape.isVisible()) {
+				if(subcomponentShape != null) {
 					final Classifier subcomponentClassifier = subcomponentService.getComponentClassifier(subcomponentShape, sc);
 					if(subcomponentClassifier != null && subcomponentShape instanceof ContainerShape) {
 						processBindings(bindingTrackerMap, subcomponentClassifier, (ContainerShape)subcomponentShape);
@@ -614,7 +614,7 @@ public class ClassifierPattern extends AgePattern {
 			}
 			
 			// Finalize the shape
-			if(pa.isAppend()) {
+			if(!pa.isAppend()) {
 				bindingTracker.finalizePictogramElement(boundPictogramElement);
 			}
 		}
@@ -646,7 +646,7 @@ public class ClassifierPattern extends AgePattern {
 				}
 			} else {
 				final Shape childShape = shapeService.getChildShapeByElementName(shape, pe.getNamedElement());
-				if(childShape instanceof ContainerShape && childShape.isVisible()) {
+				if(childShape instanceof ContainerShape) {
 					shape = (ContainerShape)childShape;
 				} else {
 					return null; 

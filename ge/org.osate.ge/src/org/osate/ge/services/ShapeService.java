@@ -34,7 +34,7 @@ public interface ShapeService {
 			NamedElement el);
 
 	/**
-	 * Note: This method will return ghosted children.
+	 * Note: This method will not return invisible shapes. The method will returns null if the specified shape is not visible.
 	 * @param shape
 	 * @param el
 	 * @return
@@ -52,6 +52,7 @@ public interface ShapeService {
 	
 	/**
 	 * Gets a descendant shape that is linked to a an AADL element with the same same as the specified element. Does not look at children if the child shape is associated with another object.
+	 * Only looks for visible shapes.
 	 * @param shape
 	 * @param el
 	 * @return

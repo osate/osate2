@@ -16,9 +16,11 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -229,8 +231,19 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		final Shape shape = (Shape)entity.getRealObject();
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		if(!entity.hasPreferredLocation()) {
-			ga.setX((int)entity.getXInLayout());
-			ga.setY((int)entity.getYInLayout());
+			final MoveShapeContext context = new MoveShapeContext(shape);
+			context.setLocation((int)entity.getXInLayout(), (int)entity.getYInLayout());
+			context.setSourceContainer(shape.getContainer());
+			context.setTargetContainer(shape.getContainer());
+			
+			final IMoveShapeFeature feature = getFeatureProvider().getMoveShapeFeature(context);
+			if(feature != null && feature.canMoveShape(context)) {
+				feature.moveShape(context);
+			} else { // Force the position
+				ga.setX((int)entity.getXInLayout());
+				ga.setY((int)entity.getYInLayout());
+			}
+			
 			propertyUtil.setIsLayedOut(shape, true);
 		}
 	}
